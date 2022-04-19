@@ -18,12 +18,15 @@ import model.ProductId
 import utils.Logger
 
 interface IPaymentService {
+    suspend fun setup()
     suspend fun refreshProducts(): List<Product>
     suspend fun restorePurchase()
     suspend fun buyProduct(id: ProductId)
 }
 
 class PaymentServiceMock: IPaymentService {
+
+    override suspend fun setup() {}
 
     override suspend fun refreshProducts(): List<Product> {
         delay(2000)
@@ -32,6 +35,7 @@ class PaymentServiceMock: IPaymentService {
                 id = "cloud_12month",
                 title = "", description = "",
                 price = "$24.99",
+                pricePerMonth = "$2.09",
                 periodMonths = 12,
                 type = "cloud",
                 trial = true
@@ -40,6 +44,7 @@ class PaymentServiceMock: IPaymentService {
                 id = "plus_1month",
                 title = "", description = "",
                 price = "$5.99",
+                pricePerMonth = "$5.99",
                 periodMonths = 1,
                 type = "plus",
                 trial = false
@@ -48,6 +53,7 @@ class PaymentServiceMock: IPaymentService {
                 id = "plus_12month",
                 title = "", description = "",
                 price = "$39.99",
+                pricePerMonth = "$3.33",
                 periodMonths = 12,
                 type = "plus",
                 trial = false

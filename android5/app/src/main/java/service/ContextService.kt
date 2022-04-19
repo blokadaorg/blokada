@@ -45,6 +45,10 @@ object ContextService {
         return activityContext.get() ?: context ?: throw Exception("No context set in ContextService")
     }
 
+    fun requireActivity(): Activity {
+        return activityContext.get() ?: throw Exception("No activity context set in ContextService")
+    }
+
     fun requireAppContext(): Context {
         return context ?: throw Exception("No context set in ContextService")
     }

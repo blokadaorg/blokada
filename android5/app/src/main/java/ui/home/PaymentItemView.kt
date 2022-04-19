@@ -102,7 +102,7 @@ class PaymentItemView : FrameLayout {
     }
 
     private fun makeInfoText(p: Product): String {
-        val price = "9.99" // TODO
+        val price = p.pricePerMonth // TODO
         return if (p.type == "cloud") {
             "(%s)".format (
                 context.getString(R.string.payment_subscription_per_month, price)

@@ -138,6 +138,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         ConnectivityService.setup()
 
         GlobalScope.launch {
+            Services.payment.setup()
             BlocklistService.setup()
             packsVM.setup()
             FilteringService.reload()

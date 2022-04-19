@@ -201,6 +201,10 @@ dependencies {
     // External integration (Tasker)
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
+    // Google in app billing
+    implementation 'com.android.billingclient:billing:4.1.0'
+    implementation 'com.android.billingclient:billing-ktx:4.1.0'
+
     // test deps
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

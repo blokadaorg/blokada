@@ -14,30 +14,20 @@ package ui.home
 
 import android.os.Bundle
 import android.view.*
-import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import model.*
+import model.BlokadaException
+import model.mapErrorToUserFriendly
+import model.shouldShowKbLink
 import org.blokada.R
-import repository.PermsRepo
-import repository.Repos
 import service.AlertDialogService
 import service.EnvironmentService
 import service.UpdateService
-import ui.AccountViewModel
-import ui.AdsCounterViewModel
 import ui.TunnelViewModel
-import ui.app
 import ui.settings.SettingsFragmentDirections
-import ui.utils.getColorFromAttr
 import utils.Links
-import utils.Logger
-import utils.withBoldSections
 
 class HomeFragment : Fragment() {
 
@@ -48,7 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeLibre: HomeLibreView
     private lateinit var homeCloud: HomeCloudView
 
-    private var libreMode = false
+    private var libreMode = EnvironmentService.getFlavor() != "six"
 
     override fun onCreateView(
             inflater: LayoutInflater,

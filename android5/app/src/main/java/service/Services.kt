@@ -14,8 +14,9 @@ package service
 
 object Services {
 
+    val context = ContextService
     val apiForCurrentUser = BlockaApiForCurrentUserService
     val sheet = SheetService()
-    val payment: IPaymentService = PaymentServiceMock()
+    val payment: IPaymentService = BillingService()
 
 }
