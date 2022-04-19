@@ -98,6 +98,11 @@ android {
             // droid lands on F-Droid.
             applicationId "org.blokada.fem.fdroid"
         }
+
+        six {
+            // Blokada v6 that lands on Google Play (cloud/plus only).
+            applicationId "org.blokada.sex"
+        }
     }
 
     compileOptions {
@@ -130,6 +135,9 @@ android {
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
+
+        six.res.srcDirs += 'src/notgoogle/res'
+        six.java.srcDirs += 'src/notgoogle/kotlin'
 
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
