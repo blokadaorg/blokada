@@ -26,7 +26,7 @@ android {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 28
         targetSdkVersion 31
-        versionCode 600000000
+        versionCode 600000003
         versionName "6.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -127,18 +127,22 @@ android {
         google.res.srcDirs += 'src/google/res'
         google.java.srcDirs += 'src/google/kotlin'
         google.java.srcDirs += 'src/libre/kotlin'
+        google.manifest.srcFile 'src/libre/AndroidManifest.xml'
 
         full.res.srcDirs += 'src/notgoogle/res'
         full.java.srcDirs += 'src/notgoogle/kotlin'
         full.java.srcDirs += 'src/libre/kotlin'
+        full.manifest.srcFile 'src/libre/AndroidManifest.xml'
 
         droid.res.srcDirs += 'src/notgoogle/res'
         droid.java.srcDirs += 'src/notgoogle/kotlin'
         droid.java.srcDirs += 'src/libre/kotlin'
+        droid.manifest.srcFile 'src/libre/AndroidManifest.xml'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
         escaped.java.srcDirs += 'src/libre/kotlin'
+        escaped.manifest.srcFile 'src/libre/AndroidManifest.xml'
 
         six.res.srcDirs += 'src/notgoogle/res'
         six.java.srcDirs += 'src/notgoogle/kotlin'
