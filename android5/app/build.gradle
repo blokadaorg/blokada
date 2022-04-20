@@ -126,18 +126,23 @@ android {
 
         google.res.srcDirs += 'src/google/res'
         google.java.srcDirs += 'src/google/kotlin'
+        google.java.srcDirs += 'src/libre/kotlin'
 
         full.res.srcDirs += 'src/notgoogle/res'
         full.java.srcDirs += 'src/notgoogle/kotlin'
+        full.java.srcDirs += 'src/libre/kotlin'
 
         droid.res.srcDirs += 'src/notgoogle/res'
         droid.java.srcDirs += 'src/notgoogle/kotlin'
+        droid.java.srcDirs += 'src/libre/kotlin'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
+        escaped.java.srcDirs += 'src/libre/kotlin'
 
         six.res.srcDirs += 'src/notgoogle/res'
         six.java.srcDirs += 'src/notgoogle/kotlin'
+        six.java.srcDirs += 'src/notlibre/kotlin'
 
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
