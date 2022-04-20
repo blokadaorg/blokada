@@ -25,11 +25,6 @@
             app:title="@string/account_action_my_account" />
 
         <Preference
-            android:icon="@drawable/ic_baseline_inbox_24"
-            app:key="main_inbox"
-            app:title="@string/account_action_inbox" />
-
-        <Preference
             android:fragment="ui.settings.leases.LeasesFragment"
             android:icon="@drawable/ic_baseline_devices_24"
             app:key="main_leases"

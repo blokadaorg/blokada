@@ -180,11 +180,6 @@ class HomeFragment : Fragment() {
                     ))
                 true
             }
-            R.id.home_switchlibre -> {
-                libreMode = !libreMode
-                updateHomeView()
-                true
-            }
             else -> false
         }
     }

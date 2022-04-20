@@ -48,6 +48,10 @@ object EnvironmentService {
         return BuildConfig.FLAVOR == "google" && !escaped
     }
 
+    fun isLibre(): Boolean {
+        return BuildConfig.FLAVOR != "six"
+    }
+
     fun isFdroid(): Boolean {
         return BuildConfig.FLAVOR == "droid"
     }

@@ -18,6 +18,7 @@
         android:id="@+id/home_donate"
         android:icon="@drawable/ic_heart_outline"
         android:title="@string/universal_action_donate"
-        app:showAsAction="always" />
+        android:visible="false"
+        app:showAsAction="never" />
 
 </menu>

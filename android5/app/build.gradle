@@ -144,9 +144,9 @@ android {
         escaped.java.srcDirs += 'src/libre/kotlin'
         escaped.manifest.srcFile 'src/libre/AndroidManifest.xml'
 
-        six.res.srcDirs += 'src/notgoogle/res'
         six.java.srcDirs += 'src/notgoogle/kotlin'
         six.java.srcDirs += 'src/notlibre/kotlin'
+        six.res.srcDirs += 'src/six/res'
 
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
