@@ -15,27 +15,27 @@ package ui.home
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.*
-import androidx.core.content.ContextCompat
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.*
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.delay
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import model.AppState
 import model.BlokadaException
-import model.NoPermissions
-import model.TunnelStatus
 import org.blokada.R
 import repository.Repos
-import service.*
-import ui.*
+import service.ContextService
+import service.EnvironmentService
+import service.Services
+import service.Sheet
+import ui.AccountViewModel
+import ui.MainApplication
+import ui.TunnelViewModel
 import ui.utils.getColorFromAttr
-import utils.Links
-import utils.toBlokadaPlusText
 import utils.withBoldSections
 import java.util.*
 
@@ -58,10 +58,10 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
     private val appRepo by lazy { Repos.app }
     private val permsRepo by lazy { Repos.perms }
+    private val statsRepo by lazy { Repos.stats }
 
     private lateinit var vm: TunnelViewModel
     private lateinit var accountVM: AccountViewModel
-    private lateinit var adsCounterVm: AdsCounterViewModel
 
     private lateinit var powerButton: PowerView
 
@@ -90,7 +90,6 @@ class HomeCloudView : FrameLayout, IHomeContentView {
         val app = ctx.requireApp() as MainApplication
         vm = ViewModelProvider(app).get(TunnelViewModel::class.java)
         accountVM = ViewModelProvider(app).get(AccountViewModel::class.java)
-        adsCounterVm = ViewModelProvider(app).get(AdsCounterViewModel::class.java)
 
         val plusButton: PlusButton = root.findViewById(R.id.home_plusbutton)
         powerButton = root.findViewById(R.id.home_powerview)
@@ -181,9 +180,10 @@ class HomeCloudView : FrameLayout, IHomeContentView {
             combine(
                 appRepo.appStateHot,
                 appRepo.workingHot,
-            ) { appState, working -> appState to working
+                statsRepo.blockedHot
+            ) { appState, working, blocked -> Triple(appState, working, blocked)
             }.collect {
-                val (appState, inProgress) = it
+                val (appState, inProgress, blocked) = it
 
                 powerButton.cover = !inProgress && appState != AppState.Activated
                 powerButton.loading = inProgress
@@ -207,7 +207,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 //                    }
 //                }
 
-                updateLongStatus(appState, inProgress, adsCounterVm.counter.value?.let {
+                updateLongStatus(appState, inProgress, blocked.let {
                     if (it == 0L) null else it
                 })
 
