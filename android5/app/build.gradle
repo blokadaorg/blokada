@@ -205,6 +205,9 @@ dependencies {
     implementation 'com.android.billingclient:billing:4.1.0'
     implementation 'com.android.billingclient:billing-ktx:4.1.0'
 
+    // Hopefully normal date api?
+    implementation 'net.danlew:android.joda:2.10.14'
+
     // test deps
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

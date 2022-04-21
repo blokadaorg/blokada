@@ -13,9 +13,10 @@
 package engine
 
 import service.PrintsDebugInfo
+import utils.FlavorSpecific
 import utils.Logger
 
-internal object FilteringService: PrintsDebugInfo {
+internal object FilteringService: PrintsDebugInfo, FlavorSpecific {
 
     fun reload() {
         Logger.v("Filtering", "Using no filtering")

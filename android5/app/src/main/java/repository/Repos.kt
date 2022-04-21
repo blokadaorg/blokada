@@ -22,6 +22,7 @@ object Repos {
     val app by lazy { AppRepo() }
     val account by lazy { AccountRepo() }
     val payment by lazy { PaymentRepo() }
+    val activity by lazy { ActivityRepo() }
 
     private var started = false
 
@@ -33,8 +34,9 @@ object Repos {
         cloud.start()
         perms.start()
         app.start()
-        payment.start()
 //        account.start()
+        payment.start()
+        activity.start()
     }
 
 }

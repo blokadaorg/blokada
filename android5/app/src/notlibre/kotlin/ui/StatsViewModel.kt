@@ -13,16 +13,14 @@
 package ui
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.*
-import engine.EngineService
-import service.PersistenceService
-import service.StatsService
-import ui.utils.cause
+import repository.Repos
+import utils.FlavorSpecific
 import utils.Logger
-import java.lang.Exception
 
-class StatsViewModel : ViewModel() {
+class StatsViewModel : ViewModel(), FlavorSpecific {
 
     enum class Sorting {
         RECENT, TOP
@@ -32,10 +30,7 @@ class StatsViewModel : ViewModel() {
         ALL, BLOCKED, ALLOWED
     }
 
-    private val log = Logger("Stats")
-    private val persistence = PersistenceService
-    private val engine = EngineService
-    private val statistics = StatsService
+    private val activityRepo by lazy { Repos.activity }
 
     private var sorting = Sorting.RECENT
     private var filter = Filter.ALL
@@ -55,26 +50,40 @@ class StatsViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _allowed.value = persistence.load(Allowed::class)
-            _denied.value = persistence.load(Denied::class)
-            statistics.setup()
+            activityRepo.entriesHot
+            .collect {
+                Logger.v("xxx", "stats came")
+                _stats.value = Stats(
+                    allowed = 0,
+                    denied = 0,
+                    entries = it
+                )
+                updateLiveData()
+            }
+        }
+
+        viewModelScope.launch {
+            activityRepo.allowedListHot
+            .collect {
+                _allowed.value = Allowed(it)
+            }
+        }
+
+        viewModelScope.launch {
+            activityRepo.deniedListHot
+            .collect {
+                _denied.value = Denied(it)
+            }
         }
     }
 
     fun refresh() {
         viewModelScope.launch {
-            try {
-                _stats.value = statistics.getStats()
-                _allowed.value = _allowed.value
-                _denied.value = _denied.value
-            } catch (ex: Exception) {
-                log.e("Could not load stats".cause(ex))
-            }
+            activityRepo.refresh()
         }
     }
 
     fun clear() {
-        statistics.clear()
         refresh()
     }
 
@@ -101,70 +110,26 @@ class StatsViewModel : ViewModel() {
     }
 
     fun allow(name: String) {
-        _allowed.value?.let { current ->
-            viewModelScope.launch {
-                try {
-                    val new = current.allow(name)
-                    persistence.save(new)
-                    _allowed.value = new
-                    updateLiveData()
-                    engine.reloadBlockLists()
-                } catch (ex: Exception) {
-                    log.e("Could not allow host $name".cause(ex))
-                    persistence.save(current)
-                }
-            }
+        viewModelScope.launch {
+            activityRepo.allow(name)
         }
     }
 
     fun unallow(name: String) {
-        _allowed.value?.let { current ->
-            viewModelScope.launch {
-                try {
-                    val new = current.unallow(name)
-                    persistence.save(new)
-                    _allowed.value = new
-                    updateLiveData()
-                    engine.reloadBlockLists()
-                } catch (ex: Exception) {
-                    log.e("Could not unallow host $name".cause(ex))
-                    persistence.save(current)
-                }
-            }
+        viewModelScope.launch {
+            activityRepo.unallow(name)
         }
     }
 
     fun deny(name: String) {
-        _denied.value?.let { current ->
-            viewModelScope.launch {
-                try {
-                    val new = current.deny(name)
-                    persistence.save(new)
-                    _denied.value = new
-                    updateLiveData()
-                    engine.reloadBlockLists()
-                } catch (ex: Exception) {
-                    log.e("Could not deny host $name".cause(ex))
-                    persistence.save(current)
-                }
-            }
+        viewModelScope.launch {
+            activityRepo.deny(name)
         }
     }
 
     fun undeny(name: String) {
-        _denied.value?.let { current ->
-            viewModelScope.launch {
-                try {
-                    val new = current.undeny(name)
-                    persistence.save(new)
-                    _denied.value = new
-                    updateLiveData()
-                    engine.reloadBlockLists()
-                } catch (ex: Exception) {
-                    log.e("Could not undeny host $name".cause(ex))
-                    persistence.save(current)
-                }
-            }
+        viewModelScope.launch {
+            activityRepo.undeny(name)
         }
     }
 

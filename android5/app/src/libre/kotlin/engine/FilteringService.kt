@@ -16,9 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import service.*
+import utils.FlavorSpecific
 import utils.Logger
 
-internal object FilteringService: PrintsDebugInfo {
+internal object FilteringService: PrintsDebugInfo, FlavorSpecific {
 
     private val log = Logger("Filtering")
     private val blocklist = BlocklistService

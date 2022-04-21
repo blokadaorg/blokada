@@ -18,6 +18,11 @@ import org.blokada.BuildConfig
 
 object EnvironmentService {
 
+    // TODO: not a nice hack
+    var deviceTag: String? = null
+        @Synchronized set
+        @Synchronized get
+
     fun getDeviceAlias(): String {
         val brand = Build.MANUFACTURER
         val model = Build.MODEL

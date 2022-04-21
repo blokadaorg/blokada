@@ -12,20 +12,14 @@
 
 package service
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import model.CloudActivityRetention
-import model.CloudBlocklists
-import model.DevicePayload
-import model.DeviceRequest
-import repository.AccountRepo
+import model.*
 import repository.Repos
-import ui.AccountViewModel
-import ui.MainApplication
+import utils.Logger
 
 object BlockaApiForCurrentUserService {
+
+    private val env = EnvironmentService
 
     private val api by lazy { BlockaApiService }
 
@@ -68,77 +62,65 @@ object BlockaApiForCurrentUserService {
         api.putDevice(request)
     }
 
-//    func getActivityForCurrentUserAndDevice() -> AnyPublisher<[Activity], Error> {
-//        return accountRepo.accountIdHot.first()
-//            .flatMap { it in self.client.getActivity(id: it) }
-//            //.tryMap { it in it.filter { $0.device_name == self.envRepo.deviceName }}
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func getCustomListForCurrentUser() -> AnyPublisher<[CustomListEntry], Error> {
-//        return accountRepo.accountIdHot.first()
-//            .flatMap { it in self.client.getCustomList(id: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func postCustomListForCurrentUser(_ entry: CustomListEntry) -> AnyPublisher<Ignored, Error> {
-//        return accountRepo.accountIdHot.first()
-//            .map { it in CustomListRequest(
-//                account_id: it,
-//                domain_name: entry.domain_name,
-//                action: entry.action
-//                )}
-//            .flatMap { it in self.client.postCustomList(request: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func deleteCustomListForCurrentUser(_ domainName: String) -> AnyPublisher<Ignored, Error> {
-//        return accountRepo.accountIdHot.first()
-//            .map { it in CustomListRequest(
-//                account_id: it,
-//                domain_name: domainName,
-//                action: "fallthrough"
-//                )}
-//            .flatMap { it in self.client.deleteCustomList(request: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func getStatsForCurrentUser() -> AnyPublisher<CounterStats, Error> {
-//        return accountRepo.accountIdHot.first()
-//            .flatMap { it in self.client.getStats(id: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func getBlocklistsForCurrentUser() -> AnyPublisher<[Blocklist], Error> {
-//        return accountRepo.accountIdHot.first()
-//            .flatMap { it in self.client.getBlocklists(id: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func getLeasesForCurrentUser() -> AnyPublisher<[Lease], Error> {
-//        return accountRepo.accountIdHot.first()
-//            .flatMap { it in self.client.getLeases(id: it) }
-//            .eraseToAnyPublisher()
-//    }
-//
-//    func deleteLeasesForCurrentUserAndDevice() -> AnyPublisher<Ignored, Error> {
-//        return getLeasesForCurrentUser()
-//            .tryMap { leases -> LeaseRequest in
-//                    if let it = leases.first(where: { $0.alias == self.envRepo.aliasForLease }) {
-//                return LeaseRequest(
-//                    account_id: it.account_id,
-//                public_key: it.public_key,
-//                gateway_id: it.gateway_id,
-//                alias: it.alias
-//                )
-//            } else {
-//                throw "Found no lease for current alias"
-//            }
-//            }
-//            .flatMap { request -> AnyPublisher<Ignored, Error> in
-//                    Logger.w("BlockaApi", "Deleting one active lease for current alias")
-//                return self.client.deleteLease(request: request)
-//            }
-//            .eraseToAnyPublisher()
-//    }
+    suspend fun getActivityForCurrentUserAndDevice(): List<Activity> {
+        val id = accountIdHot.first()
+        val activity = api.getActivity(id)
+        // return activity.filter { it.device_name == env.getDeviceAlias() }
+        return activity
+    }
+
+    suspend fun getCustomListForCurrentUser(): List<CustomListEntry> {
+        val id = accountIdHot.first()
+        return api.getCustomList(id)
+    }
+
+    suspend fun postCustomListForCurrentUser(entry: CustomListEntry) {
+        val id = accountIdHot.first()
+        val request = CustomListRequest(
+            account_id = id,
+            domain_name = entry.domain_name,
+            action = entry.action
+        )
+        api.postCustomList(request)
+    }
+
+    suspend fun deleteCustomListForCurrentUser(domainName: String) {
+        val id = accountIdHot.first()
+        val request = CustomListRequest(
+            account_id = id,
+            domain_name = domainName,
+            action = "fallthrough"
+        )
+        api.deleteCustomList(request)
+    }
+
+    suspend fun getStatsForCurrentUser(): CounterStats {
+        val id = accountIdHot.first()
+        return api.getStats(id)
+    }
+
+    suspend fun getBlocklistsForCurrentUser(): List<Blocklist> {
+        val id = accountIdHot.first()
+        return api.getBlocklists(id)
+    }
+
+    suspend fun getLeasesForCurrentUser(): List<Lease> {
+        val id = accountIdHot.first()
+        return api.getLeases(id)
+    }
+
+    suspend fun deleteLeasesForCurrentUserAndDevice() {
+        val leases = getLeasesForCurrentUser()
+        leases.firstOrNull { it.alias == env.getDeviceAlias() }?.let {
+            val request = LeaseRequest(
+                account_id = it.account_id,
+                public_key = it.public_key,
+                gateway_id = it.gateway_id,
+                alias = it.alias!!
+            )
+            Logger.w("BlockaApi", "Deleting one active lease for current alias")
+            api.deleteLease(request)
+        }
+    }
+
 }

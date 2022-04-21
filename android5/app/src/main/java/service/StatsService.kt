@@ -12,9 +12,8 @@
 
 package service
 
-import android.util.Log
-import kotlinx.coroutines.coroutineScope
 import engine.Host
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import model.*
 import utils.Logger
@@ -69,7 +68,8 @@ object StatsService: PrintsDebugInfo {
                         name = it.key.host(),
                         type = it.key.type(),
                         time = Date(it.value.lastEncounter),
-                        requests = it.value.occurrences
+                        requests = it.value.occurrences,
+                        device = EnvironmentService.getDeviceAlias()
                     )
                 }
             )

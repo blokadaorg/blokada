@@ -19,7 +19,6 @@ import model.CloudActivityRetention
 import model.CloudBlocklists
 import model.DevicePayload
 import model.Granted
-import service.BlockaApiForCurrentUserService
 import service.ConnectivityService
 import service.EnvironmentService
 import service.Services
@@ -72,6 +71,7 @@ open class CloudRepo {
         GlobalScope.launch { onTabChange_refreshDeviceInfo() }
         GlobalScope.launch { onAccountIdChanged_refreshDeviceInfo() }
         GlobalScope.launch { onPrivateDnsProfileChanged_update() }
+        GlobalScope.launch { onDeviceTag_setToEnv() }
 
         onPrivateDnsSettingChanged_update()
     }
@@ -148,6 +148,12 @@ open class CloudRepo {
         writePrivateDnsSetting.value = connectivity.privateDns
     }
 
+    private suspend fun onDeviceTag_setToEnv() {
+        deviceTagHot
+        .collect {
+            EnvironmentService.deviceTag = it
+        }
+    }
 }
 
 class DebugCloudRepo: CloudRepo() {

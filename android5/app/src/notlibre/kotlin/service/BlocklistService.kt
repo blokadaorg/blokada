@@ -13,9 +13,10 @@
 package service
 
 import model.Uri
+import utils.FlavorSpecific
 import utils.Logger
 
-object BlocklistService {
+object BlocklistService: FlavorSpecific {
 
     const val MERGED_BLOCKLIST = "merged_blocklist"
     const val USER_ALLOWED = "allowed"

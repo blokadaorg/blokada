@@ -20,9 +20,10 @@ import model.BlokadaException
 import model.Uri
 import model.ex
 import ui.utils.cause
+import utils.FlavorSpecific
 import utils.Logger
 
-object BlocklistService {
+object BlocklistService: FlavorSpecific {
 
     private const val DEFAULT_BLOCKLIST = "default_blocklist"
     private const val DEFAULT_BLOCKLIST_ZIP = "default_blocklist.zip"

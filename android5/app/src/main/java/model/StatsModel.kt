@@ -12,8 +12,6 @@
 
 package model
 
-import androidx.lifecycle.GeneratedAdapter
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import engine.Host
 import java.util.*
@@ -32,7 +30,8 @@ data class HistoryEntry(
     val name: String,
     val type: HistoryEntryType,
     val time: Date,
-    val requests: Int
+    val requests: Int,
+    val device: String
 )
 
 enum class HistoryEntryType {

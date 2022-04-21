@@ -12,6 +12,8 @@
 
 package model
 
-object BuildSpecificDefaults {
+import utils.FlavorSpecific
+
+object FlavorSpecificDefaults: FlavorSpecific {
     const val dns = "cloudflare"
 }

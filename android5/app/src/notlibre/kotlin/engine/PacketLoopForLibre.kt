@@ -13,6 +13,7 @@
 package engine
 
 import model.BlokadaException
+import utils.FlavorSpecific
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.net.DatagramSocket
@@ -24,7 +25,7 @@ internal class PacketLoopForLibre (
     private val createSocket: () -> DatagramSocket,
     private val stoppedUnexpectedly: () -> Unit,
     filter: Boolean = true
-): Thread("PacketLoopForLibre") {
+): Thread("PacketLoopForLibre"), FlavorSpecific {
 
     override fun run() {
         throw BlokadaException("PacketLoopForLibre not supported in this build")

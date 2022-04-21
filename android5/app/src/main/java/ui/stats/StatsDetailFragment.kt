@@ -26,8 +26,8 @@ import androidx.navigation.fragment.navArgs
 import model.HistoryEntryType
 import org.blokada.R
 import ui.StatsViewModel
-import ui.app
 import ui.advanced.packs.OptionView
+import ui.app
 import ui.utils.AndroidUtils
 
 
@@ -85,11 +85,14 @@ class StatsDetailFragment : Fragment() {
                     }
                 }
 
+                primaryAction.alpha = 1.0f
+
                 when {
                     viewModel.isDenied(this.name) -> {
                         primaryAction.name = getString(R.string.activity_action_added_to_blacklist)
                         primaryAction.active = true
                         primaryAction.setOnClickListener {
+                            primaryAction.alpha = 0.5f
                             viewModel.undeny(this.name)
                         }
                     }
@@ -97,6 +100,7 @@ class StatsDetailFragment : Fragment() {
                         primaryAction.name = getString(R.string.activity_action_added_to_whitelist)
                         primaryAction.active = true
                         primaryAction.setOnClickListener {
+                            primaryAction.alpha = 0.5f
                             viewModel.unallow(this.name)
                         }
                     }
@@ -104,6 +108,7 @@ class StatsDetailFragment : Fragment() {
                         primaryAction.name = getString(R.string.activity_action_add_to_blacklist)
                         primaryAction.active = false
                         primaryAction.setOnClickListener {
+                            primaryAction.alpha = 0.5f
                             viewModel.deny(this.name)
                         }
                     }
@@ -111,6 +116,7 @@ class StatsDetailFragment : Fragment() {
                         primaryAction.name = getString(R.string.activity_action_add_to_whitelist)
                         primaryAction.active = false
                         primaryAction.setOnClickListener {
+                            primaryAction.alpha = 0.5f
                             viewModel.allow(this.name)
                         }
                     }

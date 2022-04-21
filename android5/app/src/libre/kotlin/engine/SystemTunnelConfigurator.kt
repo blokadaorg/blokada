@@ -15,16 +15,17 @@ package engine
 import android.net.VpnService
 import android.os.Build
 import android.system.OsConstants
-import model.*
+import model.BlockaDnsInFilteringMode
+import model.Dns
+import model.Lease
+import model.isDnsOverHttps
 import repository.AppRepository
-import repository.DnsDataSource
 import ui.utils.cause
+import utils.FlavorSpecific
 import utils.Logger
 import java.net.Inet4Address
-import java.net.Inet6Address
-import java.net.InetAddress
 
-object SystemTunnelConfigurator {
+object SystemTunnelConfigurator: FlavorSpecific {
 
     private val log = Logger("STConfigurator")
     private val apps = AppRepository

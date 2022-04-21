@@ -181,10 +181,12 @@ data class BlocklistWrapper(
     val lists: List<Blocklist>
 )
 
+@JsonClass(generateAdapter = true)
 data class ExceptionWrapper(
     val customlist: List<CustomListEntry>
 )
 
+@JsonClass(generateAdapter = true)
 data class CustomListEntry(
     val domain_name: String,
     val action: String
@@ -208,16 +210,19 @@ data class CustomListEntry(
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class CustomListRequest(
     val account_id: AccountId,
     val domain_name: String,
     val action: String
 )
 
+@JsonClass(generateAdapter = true)
 data class CustomListWrapper(
     val customlist: List<CustomListEntry>
 )
 
+@JsonClass(generateAdapter = true)
 data class CounterStats(
     val total_allowed: String,
     val total_blocked: String

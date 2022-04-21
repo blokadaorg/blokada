@@ -12,9 +12,6 @@
 
 package engine
 
-import model.BlokadaException
-import ui.utils.cause
-import utils.Logger
 import android.system.ErrnoException
 import android.system.Os
 import android.system.OsConstants
@@ -23,10 +20,18 @@ import engine.MetricsService.PACKET_BUFFER_SIZE
 import org.pcap4j.packet.*
 import org.pcap4j.packet.factory.PacketFactoryPropertiesLoader
 import org.pcap4j.util.PropertiesLoader
-import java.io.*
-import java.net.*
+import ui.utils.cause
+import utils.FlavorSpecific
+import utils.Logger
+import java.io.FileDescriptor
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.net.DatagramPacket
+import java.net.DatagramSocket
+import java.net.Inet4Address
+import java.net.Inet6Address
 import java.nio.ByteBuffer
-import kotlin.experimental.xor
 
 
 internal class PacketLoopForLibre (
@@ -35,7 +40,7 @@ internal class PacketLoopForLibre (
     private val createSocket: () -> DatagramSocket,
     private val stoppedUnexpectedly: () -> Unit,
     filter: Boolean = true
-): Thread("PacketLoopForLibre") {
+): Thread("PacketLoopForLibre"), FlavorSpecific {
 
     private val log = Logger("PLLibre")
     private val metrics = MetricsService

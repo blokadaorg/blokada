@@ -13,23 +13,23 @@
 package ui.stats
 
 import android.content.Context
-import android.text.format.DateUtils
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import model.HistoryEntry
 import model.HistoryEntryType
+import net.danlew.android.joda.DateUtils
 import org.blokada.R
+import org.joda.time.DateTime
 import ui.StatsViewModel
 import java.lang.Integer.min
-import java.util.*
 
 class StatsAdapter(
     private val viewModel: StatsViewModel,
@@ -112,7 +112,9 @@ class StatsAdapter(
 
             iconCounter.text = min(99, item.requests).toString()
             name.text = item.name
-            time.text = DateUtils.getRelativeTimeSpanString(item.time.time, Date().time, 0)
+            time.text = DateUtils.getRelativeTimeSpanString(time.context,
+                DateTime(item.time.time), 0
+            )
         }
 
         private fun getBlockedAllowedString(context: Context, counter: Int, blocked: Boolean): String {

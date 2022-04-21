@@ -13,14 +13,12 @@
 package ui.advanced.userdenied
 
 import android.os.Bundle
-import android.view.*
-import android.widget.ImageView
-import android.widget.SearchView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -29,8 +27,7 @@ import kotlinx.coroutines.launch
 import org.blokada.R
 import ui.StatsViewModel
 import ui.app
-import ui.stats.StatsFilterFragment
-import ui.utils.getColorFromAttr
+import utils.Logger
 
 class UserDeniedFragment : Fragment() {
 
@@ -130,27 +127,29 @@ class UserDeniedFragment : Fragment() {
 
         val empty: View = root.findViewById(R.id.activity_empty)
 
-        vm.denied.observe(viewLifecycleOwner, {
+        vm.denied.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             if (!allowed) {
+                Logger.v("xxxx", "Denieds: $it")
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things
                     recycler.scrollToTop()
                 }
             }
-        })
+        }
 
-        vm.allowed.observe(viewLifecycleOwner, {
+        vm.allowed.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             if (allowed) {
+                Logger.v("xxxx", "Allowed:l $it")
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things
                     recycler.scrollToTop()
                 }
             }
-        })
+        }
 
         return root
     }

@@ -19,10 +19,11 @@ import model.Dns
 import model.Lease
 import repository.AppRepository
 import ui.utils.cause
+import utils.FlavorSpecific
 import utils.Logger
 import java.net.Inet4Address
 
-object SystemTunnelConfigurator {
+object SystemTunnelConfigurator: FlavorSpecific {
 
     private val log = Logger("STConfigurator")
     private val apps = AppRepository
