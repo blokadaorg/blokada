@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">المفتاح العام</string>
     <string name="account_support_action_how_help">كيف يمكن أن نساعدك؟</string>
     <string name="account_support_action_kb">فتح قاعدة الإضطلاع</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">مفَعَّل!</string>
     <string name="payment_activated_description">سيتحول بلوكادا الآن إلى وضع Plus ، و سيتّصل عبر أحد مواقعنا الآمنة. إذا لم تكن متأكّداً من الإختيار، فيُنصح بالموقع الأقرب إليك.</string>
     <string name="payment_action_choose_location">إختيار موقع</string>

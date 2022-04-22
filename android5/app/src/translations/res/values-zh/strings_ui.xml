@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">公開金鑰</string>
     <string name="account_support_action_how_help">我們可以怎麼協助您？</string>
     <string name="account_support_action_kb">開啟知識庫</string>
+    <string name="account_upgrade_cloud_description">此功能是 Blokada Plus 的一部份。要升級，請聯絡我們的客戶支援。</string>
     <string name="payment_header_activated">已啟用！</string>
     <string name="payment_activated_description">Blokada 將會切換到 Plus 模式，並透過我們的其中一個安全位置進行連線。如果不確定要怎麼選擇的話，就選最近的一個。</string>
     <string name="payment_action_choose_location">選擇位置</string>

@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Public Key</string>
     <string name="account_support_action_how_help">Bagaimana kami dapat membantu Anda?</string>
     <string name="account_support_action_kb">Buka Knowledge Base</string>
+    <string name="account_upgrade_cloud_description">Fitur ini adalah bagian dari Blokada Plus. Untuk menggunakannya silakan hubungi Customer Support kami.</string>
     <string name="payment_header_activated">Diaktifkan!</string>
     <string name="payment_activated_description">Blokada sekarang akan masuk ke dalam mode Plus, dan menghubungkan perangkat Anda ke salah satu lokasi yang terlindungi. Jika Anda tidak yakin lokasi mana yang harus dipilih, kami sarankan Anda memilih lokasi terdekat.</string>
     <string name="payment_action_choose_location">Pilih lokasi</string>

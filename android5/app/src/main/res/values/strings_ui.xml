@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Public Key</string>
     <string name="account_support_action_how_help">How can we help you?</string>
     <string name="account_support_action_kb">Open Knowledge Base</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">Activated!</string>
     <string name="payment_activated_description">Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.</string>
     <string name="payment_action_choose_location">Choose a location</string>

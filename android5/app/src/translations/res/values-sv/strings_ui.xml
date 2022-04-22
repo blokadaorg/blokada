@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Publik nyckel</string>
     <string name="account_support_action_how_help">Hur kan vi hjälpa dig?</string>
     <string name="account_support_action_kb">Öppen kunskapsbas</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">Aktiverad!</string>
     <string name="payment_activated_description">Blokada kommer nu att växla till Plus-läge och ansluta via en av våra säkra platser. Om du är osäker på vilken du ska välja rekommenderas den som är närmast dig.</string>
     <string name="payment_action_choose_location">Välj en plats</string>

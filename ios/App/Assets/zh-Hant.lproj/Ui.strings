@@ -299,6 +299,8 @@
 "account support action how help" = "我們可以怎麼協助您？";
 "account support action kb" = "開啟知識庫";
 
+"account upgrade cloud description" = "此功能是 Blokada Plus 的一部份。要升級，請聯絡我們的客戶支援。";
+
 "payment header activated" = "已啟用！";
 "payment activated description" = "Blokada 將會切換到 Plus 模式，並透過我們的其中一個安全位置進行連線。如果不確定要怎麼選擇的話，就選最近的一個。";
 "payment action choose location" = "選擇位置";

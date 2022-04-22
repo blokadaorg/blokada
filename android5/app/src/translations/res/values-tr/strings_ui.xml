@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Genel Anahtar</string>
     <string name="account_support_action_how_help">Size nasıl yardımcı olabiliriz?</string>
     <string name="account_support_action_kb">Açık Bilgi Bankası</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">Etkinleştirildi!</string>
     <string name="payment_activated_description">Blokada şimdi Plus moduna geçecek ve güvenli konumlarımızdan biri üzerinden bağlanacak. Hangisini seçeceğinizden emin değilseniz, size en yakın olanı kullanmanız önerilir.</string>
     <string name="payment_action_choose_location">Bir konum seçin</string>

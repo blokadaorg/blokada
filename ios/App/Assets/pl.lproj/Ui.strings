@@ -299,6 +299,8 @@
 "account support action how help" = "Jak możemy Ci pomóc?";
 "account support action kb" = "Otwórz Bazę Wiedzy";
 
+"account upgrade cloud description" = "Ta funkcja jest częścią Blokady Plus. Aby ulepszyć, skontaktuj się z naszym działem obsługi klienta.";
+
 "payment header activated" = "Aktywowane!";
 "payment activated description" = "Blokada przełączy się teraz w tryb Plus, i połączy się przez jedną z naszych bezpiecznych lokalizacji. Jeśli nie jesteś pewien, którą z nich wybrać, zalecamy wybranie najbliższej względem Ciebie.";
 "payment action choose location" = "Wybierz lokalizację";

@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Klucz publiczny</string>
     <string name="account_support_action_how_help">Jak możemy Ci pomóc?</string>
     <string name="account_support_action_kb">Otwórz Bazę Wiedzy</string>
+    <string name="account_upgrade_cloud_description">Ta funkcja jest częścią Blokady Plus. Aby ulepszyć, skontaktuj się z naszym działem obsługi klienta.</string>
     <string name="payment_header_activated">Aktywowane!</string>
     <string name="payment_activated_description">Blokada przełączy się teraz w tryb Plus, i połączy się przez jedną z naszych bezpiecznych lokalizacji. Jeśli nie jesteś pewien, którą z nich wybrać, zalecamy wybranie najbliższej względem Ciebie.</string>
     <string name="payment_action_choose_location">Wybierz lokalizację</string>

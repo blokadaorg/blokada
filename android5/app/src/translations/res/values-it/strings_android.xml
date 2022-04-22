@@ -54,7 +54,7 @@
     <string name="account_encrypt_label_level_high">Alto: Cripta Tutto</string>
     <string name="account_encrypt_header_explanation">Un DNS permette al tuo dispositivo di localizzare i siti web. BLOKADA supporta solo server crittografati.</string>
     <string name="account_encrypt_label_dns">DNS</string>
-    <string name="account_encrypt_action_what_is_dns">Cos’è un DNS?</string>
+    <string name="account_encrypt_action_what_is_dns">Cos\'è un DNS?</string>
     <string name="account_encrypt_section_header">Crittografia</string>
     <string name="account_encrypt_section_blocka_dns">Blokada DNS</string>
     <string name="account_encrypt_label_use_blocka_dns">Usa Blokada DNS in modalità Plus</string>

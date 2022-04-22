@@ -30,7 +30,7 @@
 "error payment canceled" = "El pago se ha cancelado. No se ha cobrado nada.";
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.";
 
 "universal action continue" = "Continuar";
 "universal action cancel" = "Cancelar";
@@ -299,6 +299,8 @@
 "account support action how help" = "¿Cómo podemos ayudarte?";
 "account support action kb" = "Nuestra base de conocimientos";
 
+"account upgrade cloud description" = "Esta función es parte de Blokada Plus. Para actualizar, póngase en contacto con nuestro servicio de atención al cliente.";
+
 "payment header activated" = "¡Activado!";
 "payment activated description" = "Ahora Blokada cambiará al modo Plus y se conectará a través de una de nuestros servidores seguros. Si no sabes cuál elegir, te recomendamos que elijas el más cercano a ti.";
 "payment action choose location" = "Elige una ubicación";
@@ -403,7 +405,7 @@
 "setup label which device" = "¿Qué tipo de dispositivo desea configurar?";
 "setup label choose" = "Elija cualquiera de las siguientes opciones de configuración:";
 "setup comment wireguard" = "Nota: La configuración VPN usará la Nube de Blokada por defecto. Elija una configuración DNS diferente si desea excluirse. El logotipo \"WireGuard\" y \"WireGuard\" son marcas registradas de Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+"setup comment native apps" = "Nota: La aplicación nativa para Android aún no soporta Blokada Cloud. Estamos trabajando en la actualización.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Paso %@: %@";
 "setup option label recommended" = "Recomendado: %@";

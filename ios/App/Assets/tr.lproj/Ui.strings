@@ -299,6 +299,8 @@
 "account support action how help" = "Size nasıl yardımcı olabiliriz?";
 "account support action kb" = "Açık Bilgi Bankası";
 
+"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+
 "payment header activated" = "Etkinleştirildi!";
 "payment activated description" = "Blokada şimdi Plus moduna geçecek ve güvenli konumlarımızdan biri üzerinden bağlanacak. Hangisini seçeceğinizden emin değilseniz, size en yakın olanı kullanmanız önerilir.";
 "payment action choose location" = "Bir konum seçin";

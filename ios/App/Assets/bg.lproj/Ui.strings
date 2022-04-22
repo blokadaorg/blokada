@@ -30,7 +30,7 @@
 "error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
 "error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
 "error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконката за помощ в горната част.";
 
 "universal action continue" = "Продължи";
 "universal action cancel" = "Отказ";
@@ -298,6 +298,8 @@
 
 "account support action how help" = "Как можем да ви помогнем?";
 "account support action kb" = "Отворена База Знания";
+
+"account upgrade cloud description" = "Тази функция е част от Blokada Plus. За да надстроите, моля свържете се с нашата поддръжка за клиенти.";
 
 "payment header activated" = "Активирано!";
 "payment activated description" = "Сега Blokada ще премине в режим Plus и ще се свърже чрез едно от нашите сигурни места. Ако не сте сигурни кое да изберете, препоръчва се най-близкото до вас.";

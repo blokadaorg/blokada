@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Julkinen avain</string>
     <string name="account_support_action_how_help">Kuinka voimme auttaa sinua?</string>
     <string name="account_support_action_kb">Avaa Tietokeskus</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">Aktivoitu!</string>
     <string name="payment_activated_description">Blokada siirtyy nyt Plus-tilaan ja muodostaa yhteyden turvallisen sijaintimme kautta. Jos et ole varma mitä valita niin suosittelemme ottamaan sen, joka on lähimpänä sinua.</string>
     <string name="payment_action_choose_location">Valitse sijainti</string>

@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">El pago se ha cancelado. No se ha cobrado nada.</string>
     <string name="error_pack_install">No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.</string>
     <string name="error_location_failed_fetching">No se ha encontrado tu ubicación.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_unknown">Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.</string>
     <string name="universal_action_continue">Continuar</string>
     <string name="universal_action_cancel">Cancelar</string>
     <string name="universal_action_close">Cerrar</string>
@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Llave pública</string>
     <string name="account_support_action_how_help">¿Cómo podemos ayudarte?</string>
     <string name="account_support_action_kb">Nuestra base de conocimientos</string>
+    <string name="account_upgrade_cloud_description">Esta función es parte de Blokada Plus. Para actualizar, póngase en contacto con nuestro servicio de atención al cliente.</string>
     <string name="payment_header_activated">¡Activado!</string>
     <string name="payment_activated_description">Ahora Blokada cambiará al modo Plus y se conectará a través de una de nuestros servidores seguros. Si no sabes cuál elegir, te recomendamos que elijas el más cercano a ti.</string>
     <string name="payment_action_choose_location">Elige una ubicación</string>
@@ -326,7 +327,7 @@
     <string name="setup_label_which_device">¿Qué tipo de dispositivo desea configurar?</string>
     <string name="setup_label_choose">Elija cualquiera de las siguientes opciones de configuración:</string>
     <string name="setup_comment_wireguard">Nota: La configuración VPN usará la Nube de Blokada por defecto. Elija una configuración DNS diferente si desea excluirse. El logotipo \"WireGuard\" y \"WireGuard\" son marcas registradas de Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_native_apps">Nota: La aplicación nativa para Android aún no soporta Blokada Cloud. Estamos trabajando en la actualización.</string>
     <string name="setup_step">Paso %s: %s</string>
     <string name="setup_option_label_recommended">Recomendado: %s</string>
     <string name="setup_option_label_alternative">Alternativa: %s</string>

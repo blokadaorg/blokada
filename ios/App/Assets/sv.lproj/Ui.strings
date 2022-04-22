@@ -299,6 +299,8 @@
 "account support action how help" = "Hur kan vi hjälpa dig?";
 "account support action kb" = "Öppen kunskapsbas";
 
+"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+
 "payment header activated" = "Aktiverad!";
 "payment activated description" = "Blokada kommer nu att växla till Plus-läge och ansluta via en av våra säkra platser. Om du är osäker på vilken du ska välja rekommenderas den som är närmast dig.";
 "payment action choose location" = "Välj en plats";

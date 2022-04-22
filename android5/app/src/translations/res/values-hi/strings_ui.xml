@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">सार्वजनिक चाबी</string>
     <string name="account_support_action_how_help">हम आपकी क्या मदद कर सकते हैं?</string>
     <string name="account_support_action_kb">ज्ञान कोष</string>
+    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
     <string name="payment_header_activated">सक्रिय!</string>
     <string name="payment_activated_description">ब्लोकडा अब प्लस मोड में बदल जाएगा, और हमारे सुरक्षित स्थानों में से एक के माध्यम से कनेक्ट होगा। यदि आप अनिश्चित हैं कि किसे चुनना है, तो आपके लिए सबसे निकटतम एक की सिफारिश की जाती है।</string>
     <string name="payment_action_choose_location">स्थान चुनें</string>

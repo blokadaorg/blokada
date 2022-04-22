@@ -27,7 +27,7 @@
 "error payment failed" = "Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
 "error payment failed alternative" = "Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l'icona di aiuto in alto.";
 "error payment not available" = "I pagamenti non sono disponibili per questo dispositivo. O Apple Pay non è attivato, o non gestiamo ancora gli acquisti nel tuo paese.";
-"error payment canceled" = "Il pagamento è stato annullato. Non ti è stato addebitato nulla.";
+"error payment canceled" = "Il pagamento è stato annullato. Nessun addebito è stato effettuato.";
 "error pack install" = "Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.";
 "error location failed fetching" = "Impossibile ottenere la posizione.";
 "error unknown" = "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
@@ -298,6 +298,8 @@
 
 "account support action how help" = "Come possiamo aiutarti?";
 "account support action kb" = "Apri Base di Conoscenza";
+
+"account upgrade cloud description" = "Questa funzione fa parte di Blokada Plus. Per effettuare l'aggiornamento, contatta il nostro Servizio clienti.";
 
 "payment header activated" = "Attivata!";
 "payment activated description" = "Adesso Blokada passerà in modalità Plus e si connetterà attraverso una delle nostre località sicure. Se non sei sicuro di quale scegliere, si raccomanda quella più vicina.";

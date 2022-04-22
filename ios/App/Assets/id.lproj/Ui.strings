@@ -299,6 +299,8 @@
 "account support action how help" = "Bagaimana kami dapat membantu Anda?";
 "account support action kb" = "Buka Knowledge Base";
 
+"account upgrade cloud description" = "Fitur ini adalah bagian dari Blokada Plus. Untuk menggunakannya silakan hubungi Customer Support kami.";
+
 "payment header activated" = "Diaktifkan!";
 "payment activated description" = "Blokada sekarang akan masuk ke dalam mode Plus, dan menghubungkan perangkat Anda ke salah satu lokasi yang terlindungi. Jika Anda tidak yakin lokasi mana yang harus dipilih, kami sarankan Anda memilih lokasi terdekat.";
 "payment action choose location" = "Pilih lokasi";

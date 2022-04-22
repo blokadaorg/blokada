@@ -17,7 +17,7 @@
     <string name="error_payment_failed">Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
     <string name="error_payment_failed_alternative">Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l\'icona di aiuto in alto.</string>
     <string name="error_payment_not_available">I pagamenti non sono disponibili per questo dispositivo. O Apple Pay non è attivato, o non gestiamo ancora gli acquisti nel tuo paese.</string>
-    <string name="error_payment_canceled">Il pagamento è stato annullato. Non ti è stato addebitato nulla.</string>
+    <string name="error_payment_canceled">Il pagamento è stato annullato. Nessun addebito è stato effettuato.</string>
     <string name="error_pack_install">Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.</string>
     <string name="error_location_failed_fetching">Impossibile ottenere la posizione.</string>
     <string name="error_unknown">Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Chiave pubblica</string>
     <string name="account_support_action_how_help">Come possiamo aiutarti?</string>
     <string name="account_support_action_kb">Apri Base di Conoscenza</string>
+    <string name="account_upgrade_cloud_description">Questa funzione fa parte di Blokada Plus. Per effettuare l\'aggiornamento, contatta il nostro Servizio clienti.</string>
     <string name="payment_header_activated">Attivata!</string>
     <string name="payment_activated_description">Adesso Blokada passerà in modalità Plus e si connetterà attraverso una delle nostre località sicure. Se non sei sicuro di quale scegliere, si raccomanda quella più vicina.</string>
     <string name="payment_action_choose_location">Scegli una località</string>

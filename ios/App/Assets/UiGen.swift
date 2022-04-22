@@ -130,6 +130,8 @@ internal enum L10n {
   internal static let accountSupportActionKb = L10n.tr("Ui", "account support action kb")
   /// Unlock to show your account ID
   internal static let accountUnlockToShow = L10n.tr("Ui", "account unlock to show")
+  /// This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.
+  internal static let accountUpgradeCloudDescription = L10n.tr("Ui", "account upgrade cloud description")
   /// The following is necessary for Blokada to work as expected:
   internal static let activatedDesc = L10n.tr("Ui", "activated desc")
   /// Your device is all set up and good to go:

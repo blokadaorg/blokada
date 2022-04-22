@@ -30,7 +30,7 @@
 "error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
 "error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
 "error location failed fetching" = "Nelze načíst umístění.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
 
 "universal action continue" = "Pokračovat";
 "universal action cancel" = "Zrušit";
@@ -298,6 +298,8 @@
 
 "account support action how help" = "Jak Vám můžeme pomoci?";
 "account support action kb" = "Otevřít znalostní databázi";
+
+"account upgrade cloud description" = "Tato funkce je součástí služby Blokada Plus. Chcete-li na ní upgradovat, kontaktujte prosím naši zákaznickou podporu.";
 
 "payment header activated" = "Aktivováno!";
 "payment activated description" = "Blokada se nyní přepne do režimu Plus a připojí se přes jedno z našich zabezpečených míst. Pokud si nejste jisti, které z nich si vybrat, doporučujeme vám to nejbližší.";

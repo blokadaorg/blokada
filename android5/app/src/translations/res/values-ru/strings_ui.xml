@@ -236,6 +236,7 @@
     <string name="account_lease_label_public_key">Публичный ключ</string>
     <string name="account_support_action_how_help">Чем мы можем вам помочь?</string>
     <string name="account_support_action_kb">Открытая база знаний</string>
+    <string name="account_upgrade_cloud_description">Эта функция является частью Blokada Plus. Для обновления обратитесь в нашу службу поддержки.</string>
     <string name="payment_header_activated">Активировано!</string>
     <string name="payment_activated_description">Теперь Blokada перешла в режим Plus и подключена через одно из наших безопасных местоположений. Если вы не определились с выбором, рекомендуется выбрать наиболее близкое к вам.</string>
     <string name="payment_action_choose_location">Выбрать местоположение</string>

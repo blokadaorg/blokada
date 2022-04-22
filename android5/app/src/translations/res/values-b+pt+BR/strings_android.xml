@@ -4,7 +4,7 @@
     <string name="account_active_forever">Para sempre</string>
     <string name="account_active_forever_full">Ativo para sempre</string>
     <string name="main_ask_for_permissions_header">Só mais um passo</string>
-    <string name="main_ask_for_permissions_description">O Blokada está usando uma configuração de VPN para bloquear anúncios. Você será solicitado a permiti-lo na próxima etapa.</string>
+    <string name="main_ask_for_permissions_description">O Blokada está usando uma configuração de VPN para bloquear anúncios. Você será solicitado a autorizá-lo na próxima etapa.</string>
     <string name="home_level_low">Proteção: Baixa</string>
     <string name="home_level_medium">Proteção: Média</string>
     <string name="home_level_high">Proteção: Alta</string>
@@ -29,7 +29,7 @@
     <string name="networks_label_any_wifi">Qualquer rede Wi-Fi</string>
     <string name="networks_label_any_mobile">Qualquer rede móvel</string>
     <string name="networks_permission_request">Para ter mais controle, toque aqui e deixe o app reconhecer todas as redes.</string>
-    <string name="networks_permission_request_granted">Você poderá ver uma notificação quando o Blokada ler o nome da sua rede em segundo plano.</string>
+    <string name="networks_permission_request_granted">Você poderá ver uma notificação quando o Blokada identificar o nome da sua rede em segundo plano.</string>
     <string name="networks_section_choose_dns">Escolher DNS</string>
     <string name="networks_summary_encrypt_dns">O Blokada criptografará o DNS, se possível. Isso melhora sua segurança e impede que agentes maliciosos espionem quais sites e aplicativos você usa.</string>
     <string name="networks_summary_use_dns">O Blokada usará %s como o DNS do seu dispositivo. Ao escolher o que permite criptografia (tem o ícone de bloqueio), e está próximo de você, ajudará a proteger seus dados e a tornar a sua conexão rápida.</string>
@@ -37,14 +37,14 @@
     <string name="networks_summary_network_dns_and_plus_mode">O Blokada desativará temporariamente o Modo Plus sempre que o DNS da rede for usado. Isso ocorre porque não é possível acessar o DNS da rede na VPN. O Modo Plus será automaticamente restaurado quando seu dispositivo mudar para outra rede.</string>
     <string name="networks_summary_blocka_plus_mode">O Blokada usará o Blokada DNS no modo Plus, para garantir um alto nível de criptografia e velocidade. Você pode alterar essa configuração na parte inferior da tela de Escolha de DNS.</string>
     <string name="networks_summary_force_libre_mode">O Blokada sempre usará o modo Livre nessa rede e ignorará sua localização do Blokada Plus. Isso é útil para redes nas quais você não quer proteção adicional.</string>
-    <string name="networks_permission_dialog">O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não em uso. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só lerá o nome da rede.</string>
+    <string name="networks_permission_dialog">O Blokada pode reconhecer redes às quais você se conecta, e permite que você defina configurações separadas para elas. No entanto, este aplicativo irá coletar dados de localização na forma de nome de rede para habilitar esse recurso, mesmo quando o aplicativo está fechado ou não está sendo usado. Às vezes, você pode ver uma notificação do sistema sobre o acesso à localização - o Blokada só identificará o nome da rede.</string>
     <string name="account_status_text_libre">Sua conta BLOKADA Libre está ativa para sempre.</string>
     <string name="account_encrypt_level_low">Baixa</string>
     <string name="account_encrypt_level_medium">Média</string>
     <string name="account_encrypt_level_high">Alta</string>
     <string name="account_encrypt_label_dns_only">Criptografando DNS</string>
     <string name="account_encrypt_desc_dns_only">O Sistema de Nomes de Domínio é como seu dispositivo sabe onde encontrar os sites que você deseja visitar. Infelizmente, a maior parte da Internet ainda usa DNS não criptografado, o que coloca seu histórico de navegação em risco de ser espionado. Quando ativado, o Blokada está forçando seu dispositivo a se conectar apenas a servidores DNS criptografados (também chamados de DNS sobre HTTPS).</string>
-    <string name="account_encrypt_label_everything">Conectando através da VPN</string>
+    <string name="account_encrypt_label_everything">Conectando através de VPN</string>
     <string name="account_encrypt_desc_everything">Seu dispositivo está se conectando por meio de nossos servidores VPN seguros, e todas as comunicações vindas de, ou para, seu dispositivo estão sendo criptografadas usando algoritmos fortes. Isso protege suas informações pessoais, como dados bancários ou fotos pessoais, de serem roubadas em locais inseguros, como o WiFi de uma cafeteria.</string>
     <string name="account_encrypt_action_turn_on">Ativar o BLOKADA</string>
     <string name="account_encrypt_header_level">Nível de Criptografia</string>
@@ -66,7 +66,7 @@
     <string name="apps_filter_action_show_all">Todos os aplicativos</string>
     <string name="apps_filter_action_show_bypassed">Ignorados apenas</string>
     <string name="apps_filter_action_show_not_bypassed">Não ignorados apenas</string>
-    <string name="apps_filter_action_toggle_system">Alternar todos os aplicativos de sistema</string>
+    <string name="apps_filter_action_toggle_system">Selecionar todos os aplicativos de sistema</string>
     <string name="app_settings_language_label">Idioma</string>
     <string name="app_settings_theme_label">Tema do aplicativo</string>
     <string name="app_settings_theme_light">Claro</string>
