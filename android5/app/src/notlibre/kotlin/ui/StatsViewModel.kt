@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import model.*
 import repository.Repos
 import utils.FlavorSpecific
-import utils.Logger
 
 class StatsViewModel : ViewModel(), FlavorSpecific {
 
@@ -52,7 +51,6 @@ class StatsViewModel : ViewModel(), FlavorSpecific {
         viewModelScope.launch {
             activityRepo.entriesHot
             .collect {
-                Logger.v("xxx", "stats came")
                 _stats.value = Stats(
                     allowed = 0,
                     denied = 0,

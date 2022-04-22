@@ -24,6 +24,7 @@ object Repos {
     val payment by lazy { PaymentRepo() }
     val activity by lazy { ActivityRepo() }
     val stats by lazy { StatsRepo() }
+    val packs by lazy { PackRepo() }
 
     private var started = false
 
@@ -39,6 +40,7 @@ object Repos {
         payment.start()
         activity.start()
         stats.start()
+        packs.start()
     }
 
 }

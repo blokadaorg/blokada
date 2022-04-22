@@ -172,7 +172,7 @@ interface BlockaRestApi {
     @GET("/v1/stats")
     fun getStats(@Query("account_id") id: AccountId): Call<CounterStats>
 
-    @GET("/v1/lists")
+    @GET("/v1/list")
     fun getBlocklists(@Query("account_id") id: AccountId): Call<BlocklistWrapper>
 
     @GET("/v2/gateway")

@@ -17,7 +17,7 @@ import java.util.*
 
 val blockaDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
 val blockaDateFormatShort = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-val blockaDateFormatNoNanos = "yyyy-MM-dd'T'HH:mm:ssZ"
+val blockaDateFormatNoNanos = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
 val userDateFormatSimple = "d MMMM yyyy"
 val userDateFormatFull = "yyyyMMd jms"
@@ -33,11 +33,16 @@ private val blockaFormat2 = SimpleDateFormat(blockaDateFormatShort).apply {
     timeZone = TimeZone.getTimeZone("GMT")
 }
 
+private val blockaFormat3 = SimpleDateFormat(blockaDateFormatNoNanos).apply {
+    timeZone = TimeZone.getTimeZone("GMT")
+}
+
 fun Date.toSimpleString(): String {
     return simpleFormat.format(this)
 }
 
 fun String.toBlockaDate(): Date {
     return blockaFormat.runCatching { parse(this@toBlockaDate) }.getOrNull() ?:
-    blockaFormat2.runCatching { parse(this@toBlockaDate) }.getOrThrow()
+    blockaFormat2.runCatching { parse(this@toBlockaDate) }.getOrNull() ?:
+    blockaFormat3.runCatching { parse(this@toBlockaDate) }.getOrThrow()
 }

@@ -10,24 +10,27 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package ui.advanced.packs
+package ui
 
-import androidx.lifecycle.*
-import kotlinx.coroutines.launch
-import model.*
-import service.AlertDialogService
-import service.BlocklistService
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import engine.EngineService
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import model.*
+import org.blokada.R
+import service.AlertDialogService
+import service.BlocklistService
 import service.PersistenceService
 import ui.utils.cause
-import utils.Logger
-import java.lang.Exception
-import org.blokada.R
 import ui.utils.now
+import utils.FlavorSpecific
+import utils.Logger
 import kotlin.random.Random
 
-class PacksViewModel : ViewModel() {
+class PacksViewModel : ViewModel(), FlavorSpecific {
 
     enum class Filter {
         HIGHLIGHTS, ACTIVE, ALL

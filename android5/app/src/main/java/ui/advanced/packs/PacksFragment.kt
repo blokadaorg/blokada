@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import model.Pack
 import org.blokada.R
+import ui.PacksViewModel
 import ui.app
 
 class PacksFragment : Fragment() {
