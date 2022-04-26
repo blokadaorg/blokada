@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/half"
         android:layout_weight="1"
+        android:textColor="?android:attr/colorAccent"
         android:text="Stockholm" />
 
     <ImageView

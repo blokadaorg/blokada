@@ -14,8 +14,8 @@ package ui.stats
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.SearchView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,9 +29,9 @@ import kotlinx.coroutines.launch
 import model.HistoryEntry
 import org.blokada.R
 import service.AlertDialogService
+import service.EnvironmentService
 import ui.StatsViewModel
 import ui.app
-import ui.settings.SettingsFragmentDirections
 import ui.utils.getColorFromAttr
 
 class StatsFragment : Fragment() {
@@ -40,6 +40,7 @@ class StatsFragment : Fragment() {
 
     private lateinit var searchGroup: ViewGroup
     private lateinit var search: SearchView
+    private lateinit var menu: Menu
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -81,7 +82,11 @@ class StatsFragment : Fragment() {
 
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                vm.refresh()
+                recycler.scrollToTop()
+            }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -133,6 +138,7 @@ class StatsFragment : Fragment() {
                 } else {
                     vm.search(null)
                 }
+                syncMenuIcons()
                 return true
             }
 
@@ -144,6 +150,7 @@ class StatsFragment : Fragment() {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             adapter.swapData(it)
             updateTabsAndFilter()
+            syncMenuIcons()
         })
 
         lifecycleScope.launch {
@@ -155,6 +162,13 @@ class StatsFragment : Fragment() {
         return root
     }
 
+    private fun getDeviceList(): List<String> {
+        return (
+            listOf(EnvironmentService.getDeviceAlias())
+            + (vm.stats.value?.entries?.map { it.device } ?: emptyList())
+        ).distinct()
+    }
+
     private fun RecyclerView.scrollToTop() {
         lifecycleScope.launch {
             delay(1000) // Just Android things
@@ -163,6 +177,8 @@ class StatsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        this.menu = menu
+        syncMenuIcons()
         inflater.inflate(R.menu.stats_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -186,6 +202,12 @@ class StatsFragment : Fragment() {
                 fragment.show(parentFragmentManager, null)
                 true
             }
+            R.id.stats_device -> {
+                val fragment = StatsDeviceFragment.newInstance()
+                fragment.deviceList = getDeviceList()
+                fragment.show(parentFragmentManager, null)
+                true
+            }
             R.id.stats_clear -> {
                 AlertDialogService.showAlert(getString(R.string.universal_status_confirm),
                     title = getString(R.string.universal_action_clear),
@@ -197,4 +219,30 @@ class StatsFragment : Fragment() {
             else -> false
         }
     }
+
+    private fun syncMenuIcons() {
+        if (!this::menu.isInitialized) return
+
+        menu.findItem(R.id.stats_search)?.icon?.let {
+            DrawableCompat.setTint(it, requireContext().getColorFromAttr(
+                if (vm.getSearch() != null) android.R.attr.colorPrimary
+                else android.R.attr.textColor
+            ))
+        }
+
+        menu.findItem(R.id.stats_device)?.icon?.let {
+            DrawableCompat.setTint(it, requireContext().getColorFromAttr(
+                if (vm.getDevice() != null) android.R.attr.colorPrimary
+                else android.R.attr.textColor
+            ))
+        }
+
+        menu.findItem(R.id.stats_filter)?.icon?.let {
+            DrawableCompat.setTint(it, requireContext().getColorFromAttr(
+                if (vm.getFilter() != StatsViewModel.Filter.ALL) android.R.attr.colorPrimary
+                else android.R.attr.textColor
+            ))
+        }
+    }
+
 }

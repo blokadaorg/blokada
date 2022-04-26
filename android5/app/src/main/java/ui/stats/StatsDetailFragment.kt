@@ -57,6 +57,7 @@ class StatsDetailFragment : Fragment() {
         val fullName: TextView = root.findViewById(R.id.activity_fullname)
         val time: TextView = root.findViewById(R.id.activity_fulltime)
         val counter: TextView = root.findViewById(R.id.activity_occurrences)
+        val device: TextView = root.findViewById(R.id.activity_device)
         val primaryAction: OptionView = root.findViewById(R.id.activity_primaryaction)
         val copyAction: OptionView = root.findViewById(R.id.activity_copyaction)
 
@@ -126,6 +127,7 @@ class StatsDetailFragment : Fragment() {
                 name.text = this.name
                 fullName.text = this.name
                 time.text = this.time.toString()
+                device.text = this.device
 
                 copyAction.setOnClickListener {
                     AndroidUtils.copyToClipboard(this.name)

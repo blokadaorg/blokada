@@ -29,7 +29,14 @@
         <entry key="app/src/main/res/layout/fragment_payment_features.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_payment_features_cloud.xml" value="0.22871376811594202" />
         <entry key="app/src/main/res/layout/fragment_payment_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_stats_detail.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/fragment_stats_device.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_stats_filter.xml" value="0.23052536231884058" />
+        <entry key="app/src/main/res/layout/item_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_button.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/item_option.xml" value="0.23867753623188406" />
         <entry key="app/src/main/res/layout/item_payment.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/stats_menu.xml" value="0.1" />
         <entry key="app/src/notgoogle/res/menu/home_menu.xml" value="0.1" />
         <entry key="app/src/notgoogle/res/xml/settings_main.xml" value="0.28532608695652173" />
         <entry key="app/src/six/res/menu/home_menu.xml" value="0.1" />

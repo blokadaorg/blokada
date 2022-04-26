@@ -60,6 +60,7 @@ class StatsAdapter(
         private val time: TextView = itemView.findViewById(R.id.activity_date)
         private val modified: View = itemView.findViewById(R.id.activity_modified)
         private val redline: View = itemView.findViewById(R.id.activity_redline) // For color blind
+        private val count: TextView = itemView.findViewById(R.id.activity_count) // blocked x times
 
         init {
             itemView.setOnClickListener(this)
@@ -77,7 +78,7 @@ class StatsAdapter(
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.GONE
-                    redline.visibility = View.GONE
+                    redline.visibility = View.INVISIBLE
                 }
                 HistoryEntryType.blocked_denied -> {
                     icon.setImageResource(R.drawable.ic_shield_off_outline)
@@ -89,7 +90,7 @@ class StatsAdapter(
                     icon.setImageResource(R.drawable.ic_shield_outline)
                     icon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.green))
                     iconCounter.visibility = View.VISIBLE
-                    redline.visibility = View.GONE
+                    redline.visibility = View.INVISIBLE
                 }
                 else -> {
                     icon.setImageResource(R.drawable.ic_shield_outline)
@@ -114,6 +115,16 @@ class StatsAdapter(
             name.text = item.name
             time.text = DateUtils.getRelativeTimeSpanString(time.context,
                 DateTime(item.time.time), 0
+            )
+            count.text = "%s %s".format(
+                context.getString(when (item.type) {
+                    HistoryEntryType.blocked -> R.string.activity_state_blocked
+                    HistoryEntryType.blocked_denied -> R.string.activity_state_blocked
+                    else -> R.string.activity_state_allowed
+                }),
+
+                if (item.requests == 1) context.getString(R.string.activity_happened_one_time)
+                else context.getString(R.string.activity_happened_many_times, item.requests.toString())
             )
         }
 

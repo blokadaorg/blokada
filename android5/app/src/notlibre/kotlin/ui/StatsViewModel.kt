@@ -13,10 +13,12 @@
 package ui
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.*
 import repository.Repos
+import service.EnvironmentService
 import utils.FlavorSpecific
 
 class StatsViewModel : ViewModel(), FlavorSpecific {
@@ -34,6 +36,7 @@ class StatsViewModel : ViewModel(), FlavorSpecific {
     private var sorting = Sorting.RECENT
     private var filter = Filter.ALL
     private var searchTerm: String? = null
+    private var device: String? = EnvironmentService.getDeviceAlias()
 
     private val _stats = MutableLiveData<Stats>()
     val stats: LiveData<Stats> = _stats.distinctUntilChanged()
@@ -91,20 +94,27 @@ class StatsViewModel : ViewModel(), FlavorSpecific {
 
     fun getFilter() = filter
     fun getSorting() = sorting
+    fun getSearch() = searchTerm
+    fun getDevice() = device
 
     fun filter(filter: Filter) {
         this.filter = filter
-        updateLiveData()
+        GlobalScope.launch { activityRepo.refresh() }
     }
 
     fun sort(sort: Sorting) {
         this.sorting = sort
-        updateLiveData()
+        GlobalScope.launch { activityRepo.refresh() }
     }
 
     fun search(search: String?) {
         this.searchTerm = search
         updateLiveData()
+    }
+
+    fun device(device: String?) {
+        this.device = device
+        GlobalScope.launch { activityRepo.refresh() }
     }
 
     fun allow(name: String) {
@@ -165,6 +175,11 @@ class StatsViewModel : ViewModel(), FlavorSpecific {
                 entries = entries.filter { it.type != HistoryEntryType.blocked && it.type != HistoryEntryType.blocked_denied }
             }
             else -> {}
+        }
+
+        // Apply device filtering
+        device?.run {
+            entries = entries.filter { it.device == this }
         }
 
         // Apply sorting

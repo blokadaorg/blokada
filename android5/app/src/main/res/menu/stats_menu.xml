@@ -21,6 +21,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/stats_device"
+        android:icon="@drawable/ic_baseline_devices_24"
+        android:title="@string/universal_label_device"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/stats_filter"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:title="@string/universal_action_filter"

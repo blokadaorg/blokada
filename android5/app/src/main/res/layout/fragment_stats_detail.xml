@@ -169,5 +169,25 @@
                 android:text="6" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/universal_label_device" />
+
+            <TextView
+                android:id="@+id/activity_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

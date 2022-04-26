@@ -87,6 +87,14 @@
                     android:text="@string/activity_state_modified"
                     />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/activity_count"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@string/activity_state_blocked" />
         </LinearLayout>
     </LinearLayout>
 
