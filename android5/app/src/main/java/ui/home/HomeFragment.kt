@@ -15,17 +15,23 @@ package ui.home
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import model.BlokadaException
 import model.mapErrorToUserFriendly
 import model.shouldShowKbLink
 import org.blokada.R
+import repository.Repos
 import service.AlertDialogService
 import service.EnvironmentService
 import service.UpdateService
 import ui.TunnelViewModel
+import ui.app
 import ui.settings.SettingsFragmentDirections
 import utils.Links
 
@@ -40,6 +46,8 @@ class HomeFragment : Fragment() {
 
     private var libreMode = EnvironmentService.getFlavor() != "six"
 
+    private val processingRepo by lazy { Repos.processing }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -48,6 +56,10 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(
             R.layout.fragment_home_container, container, false
         ) as ViewGroup
+
+        activity?.let {
+            vm = ViewModelProvider(it.app()).get(TunnelViewModel::class.java)
+        }
 
         homeLibre = HomeLibreView(requireContext())
         homeLibre.parentFragmentManager = parentFragmentManager
@@ -96,6 +108,14 @@ class HomeFragment : Fragment() {
                     )
                 }
             )
+        }
+
+        lifecycleScope.launch {
+            processingRepo.errorsHot
+            .filter { it.major }
+            .collect {
+                showFailureDialog(it.error)
+            }
         }
 
         updateHomeView()

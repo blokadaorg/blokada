@@ -14,24 +14,18 @@ package service
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.job.JobInfo
 import android.app.job.JobParameters
-import android.app.job.JobScheduler
 import android.app.job.JobService
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
-import ui.utils.cause
 import utils.Logger
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.system.exitProcess
 
 object LogService {
 
@@ -138,7 +132,7 @@ object LogService {
         log.v("*** *************** ***")
         log.v(EnvironmentService.getUserAgent())
         log.v("Local time: ${formatter.format(Calendar.getInstance().time)}")
-        handleUncaughtExceptions()
+        UncaughtExceptionService.setup()
     }
 
     fun markLog() {
@@ -147,27 +141,6 @@ object LogService {
         log.v("Local time: ${formatter.format(Calendar.getInstance().time)}")
     }
 
-    private fun handleUncaughtExceptions() {
-        Thread.setDefaultUncaughtExceptionHandler { _, ex ->
-            Logger.e("Fatal", "Uncaught exception, restarting app".cause(ex))
-            startThroughJobScheduler()
-            exitProcess(-1)
-        }
-    }
-
-    private fun startThroughJobScheduler() {
-        try {
-            val ctx = context.requireContext()
-            val scheduler = ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            val serviceComponent = ComponentName(ctx, RestartJob::class.java)
-            val builder = JobInfo.Builder(0, serviceComponent)
-            builder.setOverrideDeadline(3 * 1000L)
-            scheduler.schedule(builder.build())
-            Logger.v("Restart", "Scheduled restart in 3s (will not work on all devices)")
-        } catch (ex: Exception) {
-            Logger.e("Restart", "Could not restart app after fatal".cause(ex))
-        }
-    }
 }
 
 class RestartJob : JobService() {
