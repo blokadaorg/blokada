@@ -76,7 +76,7 @@
 
     <style name="Widget.ActionBar.Blokada"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="elevation">0dp</item>
     </style>
 

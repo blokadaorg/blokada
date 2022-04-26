@@ -14,11 +14,16 @@ package ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -30,13 +35,13 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.Tab
 import org.blokada.R
 import repository.Repos
-import repository.StageRepo
 import service.*
 import ui.home.ActivatedFragment
 import ui.home.FirstTimeFragment
@@ -69,6 +74,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         super.onCreate(savedInstanceState)
         Logger.v("MainActivity", "onCreate: $this")
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         ContextService.setActivityContext(this)
         TranslationService.setup()
         Services.sheet.onShowFragment = { fragment ->
@@ -82,8 +88,10 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val fragmentContainer: ViewGroup = findViewById(R.id.container_fragment)
 
         setSupportActionBar(toolbar)
+        setInsets(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -99,17 +107,22 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // Hide the bottom navigation bar, unless we are top level
+        // Set the fragment inset as needed (home fragment has no inset)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val showNavBar = when (destination.id) {
-                R.id.navigation_home -> true
-                R.id.navigation_activity -> true
-                R.id.advancedFragment -> true
-                R.id.navigation_settings -> true
-                else -> isScreenBigEnough()
+            val shouldInset = when (destination.id) {
+                R.id.navigation_home -> false
+                else -> true
             }
-            navView.visibility = if (showNavBar) View.VISIBLE else View.GONE
+            setFragmentInset(fragmentContainer, shouldInset)
+
+            // An ugly hack to hide jumping fragments when switching tabs
+            fragmentContainer.visibility = View.INVISIBLE
+            lifecycleScope.launch(Dispatchers.Main) {
+                delay(100)
+                fragmentContainer.visibility = View.VISIBLE
+            }
         }
+
 
         // Needed for dynamic translation of the bottom bar
         val selectionListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -242,6 +255,44 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
     }
 
+    private fun setInsets(toolbar: Toolbar) {
+        val root = findViewById<ViewGroup>(R.id.container)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            topInset = insets.top
+
+            // Apply the insets as a margin to the view. Here the system is setting
+            // only the bottom, left, and right dimensions, but apply whichever insets are
+            // appropriate to your layout. You can also update the view padding
+            // if that's more appropriate.
+            view.layoutParams =  (view.layoutParams as FrameLayout.LayoutParams).apply {
+                leftMargin = insets.left
+                bottomMargin = insets.bottom
+                rightMargin = insets.right
+            }
+
+            // Also move down the toolbar
+            toolbar.layoutParams = (toolbar.layoutParams as FrameLayout.LayoutParams).apply {
+                topMargin = insets.top
+            }
+
+            // Return CONSUMED if you don't want want the window insets to keep being
+            // passed down to descendant views.
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    private var topInset = 0
+    private val actionBarHeight: Int
+        get() = theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
+        .let { attrs -> attrs.getDimension(0, 0F).toInt().also { attrs.recycle() } }
+
+    private fun setFragmentInset(fragment: ViewGroup, shouldInset: Boolean) {
+        fragment.layoutParams = (fragment.layoutParams as LinearLayout.LayoutParams).apply {
+            topMargin = if (shouldInset) topInset + actionBarHeight else 0
+        }
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
@@ -364,12 +415,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             else -> return false
         }
         return true
-    }
-
-    private fun isScreenBigEnough(): Boolean {
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels / displayMetrics.density > 650
     }
 
     companion object {

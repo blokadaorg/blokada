@@ -46,7 +46,7 @@
         <item name="colorSecondary">@color/dark_accent</item>
         <item name="colorSecondaryVariant">@color/orange_2</item>
         <item name="colorOnSecondary">@color/dark_background</item>
-        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/dark_background</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="android:colorBackgroundFloating">@color/dark_backgroundSecondary</item>
