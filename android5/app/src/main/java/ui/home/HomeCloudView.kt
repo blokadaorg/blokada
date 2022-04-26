@@ -82,7 +82,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
         // Inflate
         LayoutInflater.from(context).inflate(R.layout.fragment_home, this, true)
-        setBackgroundResource(R.drawable.bg_home_cloud)
+        setBackgroundResource(R.drawable.bg_home_off)
     }
 
     fun setup() {
@@ -210,6 +210,12 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 updateLongStatus(appState, inProgress, blocked.let {
                     if (it == 0L) null else it
                 })
+
+                // Update gradient bg
+                when {
+                    appState == AppState.Activated && !inProgress -> setBackgroundResource(R.drawable.bg_home_cloud)
+                    else -> setBackgroundResource(R.drawable.bg_home_off)
+                }
 
                 // Only after first init, to not animate on fragment creation
                 powerButton.animate = true
