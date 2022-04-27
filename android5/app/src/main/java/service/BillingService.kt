@@ -69,7 +69,8 @@ class BillingService: IPaymentService {
                 // Not sure if this is ever called as a result of startConnection or only later
                 override fun onBillingServiceDisconnected() {
                     connected = false
-                    cont.resumeWithException(BlokadaException("onBillingServiceDisconnected"))
+                    if (!cont.isCompleted)
+                        cont.resumeWithException(BlokadaException("onBillingServiceDisconnected"))
                 }
 
             })

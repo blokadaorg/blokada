@@ -13,6 +13,7 @@
 package repository
 
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import model.*
@@ -227,8 +228,15 @@ class AppRepo {
         )
 
         currentlyOngoingHot
-        .map { it -> it.map { i -> i.component }.toSet() }
+        .map { it.map { i -> i.component }.toSet() }
         .map { it.intersect(tasksThatMarkWorkingState).isNotEmpty() }
+        .map {
+            if (!it) {
+                // Always delay the non-working state to smooth out any transitions
+                delay(2000)
+            }
+            it
+        }
         .collect {
             writeWorking.emit(it)
         }
