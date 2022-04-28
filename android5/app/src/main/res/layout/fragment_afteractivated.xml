@@ -160,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingEnd="@dimen/half"
                                 android:src="@drawable/ic_baseline_close_24"
-                                app:tint="@color/gray_600" />
+                                app:tint="?android:attr/textColorSecondary" />
                             <TextView
                                 android:id="@+id/activated_vpn_text"
                                 android:layout_width="match_parent"

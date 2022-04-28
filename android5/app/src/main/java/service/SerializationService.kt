@@ -15,10 +15,8 @@ package service
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import model.*
-import repository.BlockaRepoRepository
 import repository.TranslationPack
 import ui.ActivationViewModel
-import utils.Logger
 import java.util.*
 import kotlin.reflect.KClass
 

@@ -12,10 +12,8 @@
 
 package repository
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import model.AccountType
 import model.Granted
 import org.blokada.R
@@ -49,11 +47,16 @@ class PermsRepo {
 
     private var previousAccountType: AccountType? = null
 
+    private var ongoingVpnPerm: CancellableContinuation<Granted>? = null
+        @Synchronized set
+        @Synchronized get
+
     fun start() {
         GlobalScope.launch { onForeground_recheckPerms() }
         GlobalScope.launch { onDnsString_latest() }
         GlobalScope.launch { onAccountTypeUpgraded_showActivatedSheet() }
         GlobalScope.launch { onDnsProfileActivated_update() }
+        GlobalScope.launch { onVpnPermsGranted_Proceed() }
     }
 
     private suspend fun onForeground_recheckPerms() {
@@ -81,6 +84,18 @@ class PermsRepo {
         }
     }
 
+    private suspend fun onVpnPermsGranted_Proceed() {
+        // Also used in AskVpnProfileFragment, but that fragment is
+        // not used in Cloud mode, so it won't collide
+        vpnPerms.onPermissionGranted = { granted ->
+            GlobalScope.launch { writeNotificationPerms.emit(granted) }
+            if (ongoingVpnPerm?.isCompleted == false) {
+                ongoingVpnPerm?.resume(granted, {})
+                ongoingVpnPerm = null
+            }
+        }
+    }
+
     suspend fun maybeDisplayDnsProfilePermsDialog() {
         val granted = dnsProfilePermsHot.first()
         if (!granted) {
@@ -95,44 +110,30 @@ class PermsRepo {
         val granted = notificationPermsHot.first()
         if (!granted) {
             displayNotificationPermsInstructions()
-                .collect {
+            .collect {
 
-                }
+            }
         }
     }
 
-//    func maybeAskVpnProfilePerms() -> AnyPublisher<Granted, Error> {
-//        return accountTypeHot.first()
-//            .flatMap { it -> AnyPublisher<Granted, Error> in
-//                    if it == .Plus {
-//                        return self.vpnProfilePerms.first()
-//                            .tryMap { granted -> Ignored in
-//                                    if !granted {
-//                                        throw "ask for vpn profile"
-//                                    } else {
-//                                        return true
-//                                    }
-//                            }
-//                            .eraseToAnyPublisher()
-//                    } else {
-//                        return Just(true)
-//                            .setFailureType(to: Error.self)
-//                        .eraseToAnyPublisher()
-//                    }
-//            }
-//            .tryCatch { _ in self.netxRepo.createVpnProfile() }
-//            .eraseToAnyPublisher()
-//    }
+    suspend fun maybeAskVpnProfilePerms() {
+        val type = accountTypeHot.first()
+        val granted = vpnProfilePermsHot.first()
+        if (type == AccountType.Plus && !granted) {
+            suspendCancellableCoroutine<Granted> { cont ->
+                ongoingVpnPerm = cont
+                vpnPerms.askPermission()
+            }
+        }
+    }
 
     suspend fun askForAllMissingPermissions() {
         delay(300)
-        Logger.w("xxxx", "Before first dialog")
         maybeDisplayDnsProfilePermsDialog()
         delay(300)
-        Logger.w("xxxx", "Before second dialog")
         maybeDisplayNotificationPermsDialog()
-        Logger.w("xxxx", "After second dialog")
-//        maybeDisplayNotificationPermsDialog()
+        delay(300)
+        maybeAskVpnProfilePerms()
 
 //        return flowOf(true)
 //        .debounce(300)

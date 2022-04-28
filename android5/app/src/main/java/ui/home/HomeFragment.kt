@@ -77,7 +77,6 @@ class HomeFragment : Fragment() {
         homeCloud.parentFragmentManager = parentFragmentManager
         homeCloud.viewLifecycleOwner = viewLifecycleOwner
         homeCloud.lifecycleScope = lifecycleScope
-        homeCloud.showVpnPermsSheet = ::showVpnPermsSheet
         homeCloud.showLocationSheet = ::showLocationSheet
         homeCloud.showPlusSheet = ::showPlusSheet
         homeCloud.showFailureDialog = ::showFailureDialog

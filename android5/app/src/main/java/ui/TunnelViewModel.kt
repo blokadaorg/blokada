@@ -80,7 +80,7 @@ class TunnelViewModel: ViewModel() {
         }
     }
 
-    fun turnOn() {
+    fun turnOn(vpnEnabled: Boolean? = null) {
         viewModelScope.launch {
             if (!vpnPerm.hasPermission()) {
                 log.v("Requested to start tunnel, no VPN permissions")
@@ -91,7 +91,10 @@ class TunnelViewModel: ViewModel() {
                 val s = engine.getTunnelStatus()
                 if (!s.inProgress && !s.active) {
                     try {
-                        val cfg = _config.value?.copy(tunnelEnabled = true) ?: throw BlokadaException("Config not set")
+                        val cfg = _config.value?.copy(
+                            tunnelEnabled = true,
+                            vpnEnabled = vpnEnabled ?: _config.value?.vpnEnabled ?: false
+                        ) ?: throw BlokadaException("Config not set")
                         engine.updateConfig(user = cfg)
                         if (cfg.vpnEnabled) lease.checkLease(cfg)
                         cfg.copy(tunnelEnabled = true).emit()
@@ -107,13 +110,16 @@ class TunnelViewModel: ViewModel() {
         }
     }
 
-    fun turnOff() {
+    fun turnOff(vpnEnabled: Boolean? = null) {
         viewModelScope.launch {
             log.v("Requested to stop tunnel")
             val s = engine.getTunnelStatus()
             if (!s.inProgress && s.active) {
                 try {
-                    val cfg = _config.value?.copy(tunnelEnabled = false) ?: throw BlokadaException("Config not set")
+                    val cfg = _config.value?.copy(
+                        tunnelEnabled = false,
+                        vpnEnabled = vpnEnabled ?: _config.value?.vpnEnabled ?: false
+                    ) ?: throw BlokadaException("Config not set")
                     engine.updateConfig(user = cfg)
                     cfg.emit()
                     log.v("Tunnel stopped successfully")
@@ -188,7 +194,7 @@ class TunnelViewModel: ViewModel() {
                 try {
                     var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
                     val lease = lease.createLease(cfg, gateway)
-                    cfg = cfg.copy(vpnEnabled = true, lease = lease, gateway = gateway)
+                    cfg = cfg.copy(tunnelEnabled = true, vpnEnabled = true, lease = lease, gateway = gateway)
                     engine.updateConfig(user = cfg)
                     cfg.emit()
                     log.v("Gateway changed successfully")
@@ -261,7 +267,7 @@ class TunnelViewModel: ViewModel() {
     }
 
     private fun handleException(ex: Exception) {
-        log.e("Engine failed to execute action")
+        log.e("Engine failed to execute action: $ex")
     }
 
     private fun handleTunnelStoppedUnexpectedly(ex: BlokadaException) {

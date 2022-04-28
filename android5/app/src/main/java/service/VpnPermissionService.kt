@@ -21,7 +21,7 @@ object VpnPermissionService {
     private val log = Logger("VpnPerm")
     private val context = ContextService
 
-    var onPermissionGranted = {}
+    var onPermissionGranted = { granted: Boolean -> }
 
     fun hasPermission(): Boolean {
         return VpnService.prepare(context.requireContext()) == null
@@ -37,12 +37,15 @@ object VpnPermissionService {
 
         VpnService.prepare(activity)?.let { intent ->
             activity.startActivityForResult(intent, 0)
-        } ?: onPermissionGranted()
+        } ?: onPermissionGranted(true)
     }
 
     fun resultReturned(resultCode: Int) {
-        if (resultCode == -1) onPermissionGranted()
-        else log.w("VPN permission not granted, returned code $resultCode")
+        if (resultCode == -1) onPermissionGranted(true)
+        else {
+            log.w("VPN permission not granted, returned code $resultCode")
+            onPermissionGranted(false)
+        }
     }
 
 }

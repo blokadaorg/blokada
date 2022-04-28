@@ -12,8 +12,6 @@
 
 package ui.home
 
-import android.location.Location
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,10 +19,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.delay
+import androidx.lifecycle.ViewModelProvider
 import model.Gateway
 import org.blokada.R
 import ui.BottomSheetFragment

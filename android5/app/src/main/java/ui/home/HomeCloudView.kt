@@ -23,9 +23,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AppState
 import model.BlokadaException
+import model.NoPermissions
 import org.blokada.R
 import repository.Repos
 import service.ContextService
@@ -57,6 +59,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
     private val sheet = Services.sheet
 
     private val appRepo by lazy { Repos.app }
+    private val plusRepo by lazy { Repos.plus }
     private val permsRepo by lazy { Repos.perms }
     private val statsRepo by lazy { Repos.stats }
 
@@ -69,7 +72,6 @@ class HomeCloudView : FrameLayout, IHomeContentView {
     lateinit var viewLifecycleOwner: LifecycleOwner
     lateinit var lifecycleScope: LifecycleCoroutineScope
 
-    lateinit var showVpnPermsSheet: () -> Unit
     lateinit var showLocationSheet: () -> Unit
     lateinit var showPlusSheet: () -> Unit
     lateinit var showFailureDialog: (ex: BlokadaException) -> Unit
@@ -180,15 +182,20 @@ class HomeCloudView : FrameLayout, IHomeContentView {
             combine(
                 appRepo.appStateHot,
                 appRepo.workingHot,
-                statsRepo.blockedHot
-            ) { appState, working, blocked -> Triple(appState, working, blocked)
+                statsRepo.blockedHot,
+                plusRepo.plusEnabled
+            ) { a, b, c, d -> listOf(a, b, c, d)
             }.collect {
-                val (appState, inProgress, blocked) = it
+                val (appState, inProgress, blocked, plusEnabled) = it
+                appState as AppState
+                inProgress as Boolean
+                blocked as Long
+                plusEnabled as Boolean
 
                 powerButton.cover = !inProgress && appState != AppState.Activated
                 powerButton.loading = inProgress
-                powerButton.blueMode = appState == AppState.Activated
-                //powerButton.orangeMode = !s.inProgress && s.gatewayId != null
+                powerButton.blueMode = !inProgress && appState == AppState.Activated
+                powerButton.orangeMode = !inProgress && plusEnabled
                 powerButton.isEnabled = !inProgress
 
                 val status: TextView = root.findViewById(R.id.home_status)
@@ -200,12 +207,12 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
                 plusButton.visible = inProgress || appState == AppState.Activated
                 plusButton.isEnabled = !inProgress
-//                if (!inProgress) {
-//                    // Trying to fix a weird out of sync switch state
-//                    lifecycleScope.launch {
-//                        plusButton.plusActive = s.isPlusMode()
-//                    }
-//                }
+                if (!inProgress) {
+                    // Trying to fix a weird out of sync switch state
+                    lifecycleScope.launch {
+                        plusButton.plusActive = plusEnabled
+                    }
+                }
 
                 updateLongStatus(appState, inProgress, blocked.let {
                     if (it == 0L) null else it
@@ -213,8 +220,10 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
                 // Update gradient bg
                 when {
-                    appState == AppState.Activated && !inProgress -> setBackgroundResource(R.drawable.bg_home_cloud)
-                    else -> setBackgroundResource(R.drawable.bg_home_off)
+                    inProgress -> setBackgroundResource(R.drawable.bg_home_off)
+                    appState != AppState.Activated -> setBackgroundResource(R.drawable.bg_home_off)
+                    plusEnabled -> setBackgroundResource(R.drawable.bg_home_plus)
+                    else -> setBackgroundResource(R.drawable.bg_home_cloud)
                 }
 
                 // Only after first init, to not animate on fragment creation
@@ -225,13 +234,13 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
         }
 
-//        vm.tunnelStatus.observe(viewLifecycleOwner, Observer { s ->
-//            when {
-//                s.error == null -> Unit
-//                s.error is NoPermissions -> showVpnPermsSheet()
-//                else -> showFailureDialog(s.error)
-//            }
-//        })
+        vm.tunnelStatus.observe(viewLifecycleOwner) { s ->
+            when {
+                s.error == null -> Unit
+                s.error is NoPermissions -> sheet.showSheet(Sheet.Activated)
+                else -> showFailureDialog(s.error)
+            }
+        }
 
 //        adsCounterVm.counter.observe(viewLifecycleOwner, Observer { counter ->
 //            vm.tunnelStatus.value?.let { s ->
@@ -239,32 +248,51 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 //            }
 //        })
 
-//        vm.config.observe(viewLifecycleOwner, Observer { config ->
-//            plusButton.location = config.gateway?.niceName()
-//            plusButton.plusEnabled = config.vpnEnabled
-//        })
+        vm.config.observe(viewLifecycleOwner) { config ->
+            plusButton.location = config.gateway?.niceName()
+            //plusButton.plusEnabled = config.vpnEnabled
+        }
 
-//        plusButton.onNoLocation = showLocationSheet
-//
-//        plusButton.onActivated = { activated ->
-//            if (activated) vm.switchGatewayOn()
-//            else vm.switchGatewayOff()
-//        }
+        plusButton.onNoLocation = showLocationSheet
 
-//        accountVM.account.observe(viewLifecycleOwner, Observer { account ->
-//            plusButton.upgrade = !account.isActive()
-//            plusButton.animate = plusButtonReady
-//            plusButtonReady = true // Hacky
-//
-//            plusButton.onClick = {
-//                if (account.isActive()) showLocationSheet()
-//                else showPlusSheet()
-//            }
-//
-//            if (!account.isActive()) {
-//                setHasOptionsMenu(true)
-//            }
-//        })
+        plusButton.onActivated = { activated ->
+            lifecycleScope.launch {
+                val granted = permsRepo.vpnProfilePermsHot.first()
+                when {
+                    !granted -> {
+                        sheet.showSheet(Sheet.Activated)
+                        plusButton.isActivated = !activated
+                    }
+                    activated -> {
+                        vm.turnOn(vpnEnabled = true)
+                    }
+                    else -> {
+                        vm.turnOff(vpnEnabled = false)
+                    }
+                }
+            }
+        }
+
+        accountVM.account.observe(viewLifecycleOwner) { account ->
+            plusButton.upgrade = !account.isActive()
+            plusButton.animate = plusButtonReady
+            plusButtonReady = true // Hacky
+
+            plusButton.onClick = {
+                lifecycleScope.launch {
+                    val granted = permsRepo.vpnProfilePermsHot.first()
+                    when {
+                        !account.isActive() -> showPlusSheet()
+                        !granted -> sheet.showSheet(Sheet.Activated)
+                        else -> showLocationSheet()
+                    }
+                }
+            }
+
+            if (!account.isActive()) {
+                setHasOptionsMenu(true)
+            }
+        }
     }
 
     override fun onResume() {

@@ -21,12 +21,12 @@ object BlockaApiForCurrentUserService {
 
     private val env = EnvironmentService
 
-    private val api by lazy { BlockaApiService }
+    val client by lazy { BlockaApiService }
 
     private val accountIdHot by lazy { Repos.account.accountIdHot }
 
     suspend fun getDeviceForCurrentUser(): DevicePayload {
-        return api.getDevice(accountIdHot.first())
+        return client.getDevice(accountIdHot.first())
     }
 
     suspend fun putActivityRetentionForCurrentUser(retention: CloudActivityRetention) {
@@ -37,7 +37,7 @@ object BlockaApiForCurrentUserService {
             retention = retention,
             paused = null
         )
-        api.putDevice(request)
+        client.putDevice(request)
     }
 
     suspend fun putPausedForCurrentUser(paused: Boolean) {
@@ -48,7 +48,7 @@ object BlockaApiForCurrentUserService {
             retention = null,
             paused = paused
         )
-        api.putDevice(request)
+        client.putDevice(request)
     }
 
     suspend fun putBlocklistsForCurrentUser(lists: CloudBlocklists) {
@@ -59,19 +59,19 @@ object BlockaApiForCurrentUserService {
             retention = null,
             paused = null
         )
-        api.putDevice(request)
+        client.putDevice(request)
     }
 
     suspend fun getActivityForCurrentUserAndDevice(): List<Activity> {
         val id = accountIdHot.first()
-        val activity = api.getActivity(id)
+        val activity = client.getActivity(id)
         // return activity.filter { it.device_name == env.getDeviceAlias() }
         return activity
     }
 
     suspend fun getCustomListForCurrentUser(): List<CustomListEntry> {
         val id = accountIdHot.first()
-        return api.getCustomList(id)
+        return client.getCustomList(id)
     }
 
     suspend fun postCustomListForCurrentUser(entry: CustomListEntry) {
@@ -81,7 +81,7 @@ object BlockaApiForCurrentUserService {
             domain_name = entry.domain_name,
             action = entry.action
         )
-        api.postCustomList(request)
+        client.postCustomList(request)
     }
 
     suspend fun deleteCustomListForCurrentUser(domainName: String) {
@@ -91,22 +91,22 @@ object BlockaApiForCurrentUserService {
             domain_name = domainName,
             action = "fallthrough"
         )
-        api.deleteCustomList(request)
+        client.deleteCustomList(request)
     }
 
     suspend fun getStatsForCurrentUser(): CounterStats {
         val id = accountIdHot.first()
-        return api.getStats(id)
+        return client.getStats(id)
     }
 
     suspend fun getBlocklistsForCurrentUser(): List<Blocklist> {
         val id = accountIdHot.first()
-        return api.getBlocklists(id)
+        return client.getBlocklists(id)
     }
 
     suspend fun getLeasesForCurrentUser(): List<Lease> {
         val id = accountIdHot.first()
-        return api.getLeases(id)
+        return client.getLeases(id)
     }
 
     suspend fun deleteLeasesForCurrentUserAndDevice() {
@@ -119,7 +119,7 @@ object BlockaApiForCurrentUserService {
                 alias = it.alias!!
             )
             Logger.w("BlockaApi", "Deleting one active lease for current alias")
-            api.deleteLease(request)
+            client.deleteLease(request)
         }
     }
 

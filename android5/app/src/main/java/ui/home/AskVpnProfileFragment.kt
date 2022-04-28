@@ -12,25 +12,17 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.blokada.R
 import service.VpnPermissionService
-import service.tr
-import ui.AccountViewModel
 import ui.BottomSheetFragment
 import ui.TunnelViewModel
 import ui.app
-import ui.settings.SettingsFragmentDirections
 import utils.Links
 
 class AskVpnProfileFragment : BottomSheetFragment() {
@@ -72,9 +64,11 @@ class AskVpnProfileFragment : BottomSheetFragment() {
             vpnPerm.askPermission()
         }
 
-        vpnPerm.onPermissionGranted = {
-            vm.turnOn()
-            dismiss()
+        vpnPerm.onPermissionGranted = { granted ->
+            if (granted) {
+                vm.turnOn()
+                dismiss()
+            }
         }
 
         return root

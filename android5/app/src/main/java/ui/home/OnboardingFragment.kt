@@ -15,7 +15,6 @@ package ui.home
 import android.content.DialogInterface
 import android.graphics.PorterDuff
 import android.graphics.Typeface
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,12 +22,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.toAccountType
 import org.blokada.R
 import repository.Repos
@@ -39,6 +40,7 @@ import ui.ActivationViewModel
 import ui.BottomSheetFragment
 import ui.app
 import ui.utils.getColor
+import ui.utils.getColorFromAttr
 
 class OnboardingFragment : BottomSheetFragment() {
 
@@ -47,7 +49,6 @@ class OnboardingFragment : BottomSheetFragment() {
     private lateinit var vm: ActivationViewModel
     private lateinit var accountVM: AccountViewModel
 
-    private val appRepo by lazy { Repos.app }
     private val permsRepo by lazy { Repos.perms }
 
     companion object {
@@ -137,24 +138,56 @@ class OnboardingFragment : BottomSheetFragment() {
         dnsGroup.setOnClickListener { finishOnboarding() }
         lifecycleScope.launch {
             permsRepo.dnsProfilePermsHot
-                .collect { granted ->
-                    if (granted) {
-                        dnsIcon.setImageResource(R.drawable.ic_baseline_check_24)
-                        dnsIcon.setColorFilter(getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
-                        dnsLabel.text = getString(R.string.activated_label_dns_yes)
-                        dnsLabel.setTypeface(dnsLabel.typeface, Typeface.BOLD)
-                    } else {
-                        dnsIcon.setImageResource(R.drawable.ic_baseline_close_24)
-                        dnsIcon.setColorFilter(getColor(R.color.red), PorterDuff.Mode.MULTIPLY)
-                        dnsLabel.text = getString(R.string.activated_label_dns_no)
-                        dnsLabel.setTypeface(dnsLabel.typeface, Typeface.NORMAL)
-                    }
+            .collect { granted ->
+                if (granted) {
+                    dnsIcon.setImageResource(R.drawable.ic_baseline_check_24)
+                    dnsIcon.setColorFilter(getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+                    dnsLabel.text = getString(R.string.activated_label_dns_yes)
+                    dnsLabel.setTypeface(dnsLabel.typeface, Typeface.BOLD)
+                } else {
+                    dnsIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                    dnsIcon.setColorFilter(getColor(R.color.red), PorterDuff.Mode.MULTIPLY)
+                    dnsLabel.text = getString(R.string.activated_label_dns_no)
+                    dnsLabel.setTypeface(dnsLabel.typeface, Typeface.NORMAL)
                 }
+            }
         }
 
         val vpnIcon: ImageView = root.findViewById(R.id.activated_vpn_icon)
         val vpnLabel: TextView = root.findViewById(R.id.activated_vpn_text)
         val vpnGroup: ViewGroup = root.findViewById(R.id.activated_vpn_group)
+        vpnGroup.setOnClickListener { finishOnboarding() }
+        lifecycleScope.launch {
+            permsRepo.vpnProfilePermsHot
+            .collect { granted ->
+                when {
+                    accountVM.account.value?.type.toAccountType() != AccountType.Plus -> {
+                        vpnGroup.alpha = 0.5f
+                        vpnIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                        vpnIcon.setColorFilter(
+                            requireContext().getColorFromAttr(android.R.attr.textColorSecondary),
+                            PorterDuff.Mode.MULTIPLY
+                        )
+                        vpnLabel.text = getString(R.string.activated_label_vpn_cloud)
+                        vpnLabel.setTypeface(vpnLabel.typeface, Typeface.NORMAL)
+                    }
+                    granted -> {
+                        vpnGroup.alpha = 1.0f
+                        vpnIcon.setImageResource(R.drawable.ic_baseline_check_24)
+                        vpnIcon.setColorFilter(getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+                        vpnLabel.text = getString(R.string.activated_label_vpn_yes)
+                        vpnLabel.setTypeface(vpnLabel.typeface, Typeface.BOLD)
+                    }
+                    else -> {
+                        vpnGroup.alpha = 1.0f
+                        vpnIcon.setImageResource(R.drawable.ic_baseline_close_24)
+                        vpnIcon.setColorFilter(getColor(R.color.red), PorterDuff.Mode.MULTIPLY)
+                        vpnLabel.text = getString(R.string.activated_label_vpn_no)
+                        vpnLabel.setTypeface(vpnLabel.typeface, Typeface.NORMAL)
+                    }
+                }
+            }
+        }
 
         return root
     }
