@@ -56,7 +56,7 @@ object DnsDataSource {
             label = "AdGuard: family"
         ),
         Dns(
-            id = "ahadns.au"
+            id = "ahadns.au",
             ips = listOf("103.73.64.132", "2406:ef80:100:11::11"),
             port = 443,
             name = "doh.au.ahadns.net",
@@ -64,28 +64,31 @@ object DnsDataSource {
             label = "AhaDNS (Australia)"
         ),
         Dns(
-            id = "ahadns.chi"
+            id = "ahadns.chi",
             ips = listOf("193.29.62.196", "2605:4840:3:c4::c4"),
             port = 443,
             name = "doh.chi.ahadns.net",
             path = "dns-query",
-            label = "AhaDNS (Chicago)"
+            label = "AhaDNS (Chicago)",
+            region = "usa"
         ),
         Dns(
-            id = "ahadns.nl"
+            id = "ahadns.nl",
             ips = listOf("5.2.75.75", "2a04:52c0:101:75::75"),
             port = 443,
             name = "doh.nl.ahadns.net",
             path = "dns-query",
-            label = "AhaDNS (Netherlands)"
+            label = "AhaDNS (Netherlands)",
+            region = "europe"
         ),
         Dns(
-            id = "ahadns.no"
+            id = "ahadns.no",
             ips = listOf("185.175.56.133", "2a0d:5600:30:28::28"),
             port = 443,
             name = "doh.no.ahadns.net",
             path = "dns-query",
-            label = "AhaDNS (Norway)"
+            label = "AhaDNS (Norway)",
+            region = "europe"
         ),
         Dns.plaintextDns(
             id = "alternate",
@@ -123,7 +126,8 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "dnswatch",
             ips = listOf("84.200.69.80", "84.200.70.40"),
-            label = "DNS.Watch"
+            label = "DNS.Watch",
+            region = "europe"
         ),
 //        Dns.plaintextDns(
 //            id = "freenom",
@@ -133,7 +137,8 @@ object DnsDataSource {
         Dns.plaintextDns(
             id = "fdn",
             ips = listOf("80.67.169.12", "80.67.169.40"),
-            label = "French Data Network"
+            label = "French Data Network",
+            region = "europe"
         ),
         // TODO #927: require DoH according to RFC 8484 support
         //Dns(
