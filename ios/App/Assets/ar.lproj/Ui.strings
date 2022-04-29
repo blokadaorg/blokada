@@ -30,7 +30,7 @@
 "error payment canceled" = "تم إلغاء الدّفع. لم يتمّ تحصيل رسوم منك.";
 "error pack install" = "تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.";
 "error location failed fetching" = "تعذَّر جلب المواقع.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
 
 "universal action continue" = "واصِلْ";
 "universal action cancel" = "إلغاء";
@@ -299,7 +299,7 @@
 "account support action how help" = "كيف يمكن أن نساعدك؟";
 "account support action kb" = "فتح قاعدة الإضطلاع";
 
-"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+"account upgrade cloud description" = "هذه الميزة جزء من Blokada Plus. للترقية ، الرجاء الاتصال بدعم العملاء.";
 
 "payment header activated" = "مفَعَّل!";
 "payment activated description" = "سيتحول بلوكادا الآن إلى وضع Plus ، و سيتّصل عبر أحد مواقعنا الآمنة. إذا لم تكن متأكّداً من الإختيار، فيُنصح بالموقع الأقرب إليك.";
@@ -405,7 +405,7 @@
 "setup label which device" = "ما نوع الجهاز الذي ترغب في إعداده؟";
 "setup label choose" = "اختر أيّاً من خيارات الإعداد التالية:";
 "setup comment wireguard" = "ملاحظة: إعدادات VPN سوف تستخدم Blokada Cloud بشكل افتراضي. اختر إعدادات DNS مختلفة إذا كنت ترغب في الإلغاء. الشعار 'WireGuard' و 'WireGuard' علامة تجارية مسجلة لـ Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+"setup comment native apps" = "ملاحظة: التطبيق الأصلي للأندرويد لا يدعم Blokada Cloud بعد. نحن نعمل على التحديث.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "الخطوة %@: %@";
 "setup option label recommended" = "موصى به: %@";

@@ -20,7 +20,7 @@
     <string name="error_payment_canceled">تم إلغاء الدّفع. لم يتمّ تحصيل رسوم منك.</string>
     <string name="error_pack_install">تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.</string>
     <string name="error_location_failed_fetching">تعذَّر جلب المواقع.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="error_unknown">حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
     <string name="universal_action_continue">واصِلْ</string>
     <string name="universal_action_cancel">إلغاء</string>
     <string name="universal_action_close">إغلاق</string>
@@ -236,7 +236,7 @@
     <string name="account_lease_label_public_key">المفتاح العام</string>
     <string name="account_support_action_how_help">كيف يمكن أن نساعدك؟</string>
     <string name="account_support_action_kb">فتح قاعدة الإضطلاع</string>
-    <string name="account_upgrade_cloud_description">This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.</string>
+    <string name="account_upgrade_cloud_description">هذه الميزة جزء من Blokada Plus. للترقية ، الرجاء الاتصال بدعم العملاء.</string>
     <string name="payment_header_activated">مفَعَّل!</string>
     <string name="payment_activated_description">سيتحول بلوكادا الآن إلى وضع Plus ، و سيتّصل عبر أحد مواقعنا الآمنة. إذا لم تكن متأكّداً من الإختيار، فيُنصح بالموقع الأقرب إليك.</string>
     <string name="payment_action_choose_location">إختيار موقع</string>
@@ -327,7 +327,7 @@
     <string name="setup_label_which_device">ما نوع الجهاز الذي ترغب في إعداده؟</string>
     <string name="setup_label_choose">اختر أيّاً من خيارات الإعداد التالية:</string>
     <string name="setup_comment_wireguard">ملاحظة: إعدادات VPN سوف تستخدم Blokada Cloud بشكل افتراضي. اختر إعدادات DNS مختلفة إذا كنت ترغب في الإلغاء. الشعار \'WireGuard\' و \'WireGuard\' علامة تجارية مسجلة لـ Jason A. Donenfeld.</string>
-    <string name="setup_comment_native_apps">Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.</string>
+    <string name="setup_comment_native_apps">ملاحظة: التطبيق الأصلي للأندرويد لا يدعم Blokada Cloud بعد. نحن نعمل على التحديث.</string>
     <string name="setup_step">الخطوة %s: %s</string>
     <string name="setup_option_label_recommended">موصى به: %s</string>
     <string name="setup_option_label_alternative">بديل: %s</string>
