@@ -61,7 +61,8 @@ object DnsDataSource {
             port = 443,
             name = "doh.au.ahadns.net",
             path = "dns-query",
-            label = "AhaDNS (Australia)"
+            label = "AhaDNS (Australia)",
+            region = "other"
         ),
         Dns(
             id = "ahadns.chi",
@@ -70,7 +71,7 @@ object DnsDataSource {
             name = "doh.chi.ahadns.net",
             path = "dns-query",
             label = "AhaDNS (Chicago)",
-            region = "usa"
+            region = "northamerica"
         ),
         Dns(
             id = "ahadns.nl",

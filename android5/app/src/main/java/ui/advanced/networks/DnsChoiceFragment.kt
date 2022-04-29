@@ -16,22 +16,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import model.Dns
 import model.DnsId
-import model.Gateway
 import model.isDnsOverHttps
 import org.blokada.R
 import repository.DnsDataSource
 import ui.BottomSheetFragment
 import ui.advanced.packs.OptionView
-import ui.utils.getColorFromAttr
-import utils.Logger
 
 class DnsChoiceFragment : BottomSheetFragment() {
 
@@ -90,7 +85,7 @@ class DnsChoiceFragment : BottomSheetFragment() {
                 when {
                     it.region.startsWith("europe") -> 2 to it
                     it.region.startsWith("us") || it.region.startsWith("northamerica") -> 3 to it
-                    it.region.startsWith("asia") -> 4 to it
+                    it.region.startsWith("asia") || it.region.startsWith("other") -> 4 to it
                     else -> 1 to it
                 }
             }
