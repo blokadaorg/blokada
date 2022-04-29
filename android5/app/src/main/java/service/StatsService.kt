@@ -91,7 +91,7 @@ object StatsService: PrintsDebugInfo {
 
             launch {
                 // XXX: not the best place, but we want realtime notification updates
-                MonitorService.setStats(getStats())
+                MonitorService.setHistory(getStats().entries)
             }
         }
     }

@@ -12,14 +12,14 @@
 
 package utils
 
-import android.accounts.AccountsException
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import model.TunnelStatus
 import engine.Host
+import model.AppState
 import model.BlokadaException
+import model.TunnelStatus
 import org.blokada.R
 import service.Localised
 import ui.Command
@@ -47,7 +47,8 @@ sealed class NotificationPrototype(
 class MonitorNotification(
     tunnelStatus: TunnelStatus,
     counter: Long,
-    lastDenied: List<Host>
+    lastDenied: List<Host>,
+    appState: AppState
 ): NotificationPrototype(1, NotificationChannels.ACTIVITY,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
@@ -58,6 +59,7 @@ class MonitorNotification(
         b.setVibrate(LongArray(0))
         b.setOngoing(true)
 
+        Logger.w("xxxx", "Got a new notif, in prog: ${tunnelStatus.inProgress}")
         when {
             tunnelStatus.inProgress -> {
                 b.setContentTitle(ctx.getString(R.string.universal_status_processing))
@@ -104,6 +106,41 @@ class MonitorNotification(
                     }
                 })
             }
+            appState == AppState.Activated -> {
+                val protection = ctx.getString(R.string.home_level_medium)
+
+                val title = "%s - %s".format(
+                    "Blokada Cloud",
+                    protection
+                )
+
+                b.setContentTitle(title)
+
+                val style = NotificationCompat.InboxStyle()
+                lastDenied.forEach {
+                    style.addLine(it)
+                }
+                b.setStyle(style)
+
+                b.addAction(run {
+                    getIntentForCommand(Command.OFF).let {
+                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                    }.let {
+                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+                            ctx.getString(R.string.home_power_action_turn_off), it)
+                    }
+                })
+
+                b.addAction(run {
+                    getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
+                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                    }.let {
+                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+                            ctx.getString(R.string.universal_action_hide), it)
+                    }
+                })
+            }
+            // TODO: paused
             else -> {
                 b.setContentTitle(
                     ctx.getString(R.string.home_status_deactivated).toLowerCase().capitalize()

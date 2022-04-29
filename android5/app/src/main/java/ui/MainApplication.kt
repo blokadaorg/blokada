@@ -20,12 +20,13 @@ import androidx.lifecycle.ViewModelStoreOwner
 import blocka.LegacyAccountImport
 import com.akexorcist.localizationactivity.ui.LocalizationApplication
 import engine.EngineService
+import engine.FilteringService
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import model.BlockaConfig
 import model.BlockaRepoConfig
 import model.BlockaRepoPayload
-import engine.FilteringService
-import model.BlockaConfig
 import repository.Repos
 import service.*
 import ui.utils.cause
@@ -54,6 +55,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var adsCounterVM: AdsCounterViewModel
     private lateinit var networksVM: NetworksViewModel
     private lateinit var packsVM: PacksViewModel
+
+    private val appRepo by lazy { Repos.app }
 
     override fun onCreate() {
         super.onCreate()
@@ -103,10 +106,16 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
                 UpdateService.showUpdateNotificationIfNecessary()
         }
 
-        statsVM.stats.observeForever { stats ->
+        statsVM.history.observeForever {
             // Not sure how it can be null, but there was a crash report
-            stats?.let { stats ->
-                MonitorService.setStats(stats)
+            it?.let { history ->
+                MonitorService.setHistory(history)
+            }
+        }
+
+        statsVM.stats.observeForever {
+            // Not sure how it can be null, but there was a crash report
+            it?.let { stats ->
                 adsCounterVM.setRuntimeCounter(stats.denied.toLong())
             }
         }
@@ -118,6 +127,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         tunnelVM.tunnelStatus.observeForever {
             MonitorService.setTunnelStatus(it)
         }
+
 
 
         networksVM.activeConfig.observeForever {
@@ -138,6 +148,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             BlocklistService.setup()
             packsVM.setup()
             FilteringService.reload()
+
+            appRepo.appStateHot.collect { MonitorService.setAppState(it) }
         }
     }
 
