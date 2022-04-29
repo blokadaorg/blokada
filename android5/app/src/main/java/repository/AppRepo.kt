@@ -122,7 +122,7 @@ class AppRepo {
 
     val appStateHot = writeAppState.filterNotNull()
     val workingHot = writeWorking.filterNotNull()
-    val pausedUntilHot = writePausedUntil.filterNotNull()
+    val pausedUntilHot = writePausedUntil
     val accountTypeHot = writeAccountType.filterNotNull()
 
     private val currentlyOngoingHot by lazy { Repos.processing.currentlyOngoingHot }

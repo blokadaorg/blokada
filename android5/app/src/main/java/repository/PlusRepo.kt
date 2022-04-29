@@ -13,11 +13,12 @@
 package repository
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import model.AppState
 import model.BlockaConfig
 import service.*
 import ui.MainApplication
@@ -57,6 +58,8 @@ class PlusRepo {
     fun start() {
         onBlockaConfig_ExposeState()
         onTunnelStatus_UpdateProcessing()
+        GlobalScope.launch { onAppPausedIndefinitely_StopPlusIfNecessary() }
+        GlobalScope.launch { onAppUnpaused_StartPlusIfNecessary() }
     }
 
     // User engaged actions of turning Plus on and off are managed by
@@ -89,36 +92,6 @@ class PlusRepo {
 //        }
 //    }
 //
-//    private func onCurrentLease_UpdateGatewaySelection() {
-//        leaseRepo.currentHot
-//            .sink(onValue: { it in
-//                    // This will also set nil as gateway, in case of no current lease
-//                    self.gatewayRepo.setGatewaySelection(it.lease?.gateway_id)
-//            })
-//        .store(in: &cancellables)
-//    }
-//
-//    private func onCurrentLeaseAndGateway_UpdateNetx() {
-//        // Emit only if lease and gateway are actually set
-//        Publishers.CombineLatest4(
-//            gatewayRepo.selectedHot.compactMap { it in it.gateway },
-//            leaseRepo.currentHot.compactMap { it in it.lease },
-//            accountHot.map { it in it.keypair.privateKey }.removeDuplicates(),
-//            deviceTagHot
-//        )
-//            .sink(onValue: { it in
-//                    let (gateway, lease, privateKey, deviceTag) = it
-//                let config = NetxConfig(
-//                        lease: lease, gateway: gateway,
-//                deviceTag: deviceTag,
-//                userAgent: self.env.userAgent(),
-//                privateKey: privateKey
-//                )
-//                self.netxRepo.setConfig(config)
-//            })
-//        .store(in: &cancellables)
-//    }
-//
 //    private func onCurrentLeaseGone_StopPlus() {
 //        leaseRepo.currentHot
 //            .filter { it in it.lease == nil }
@@ -139,28 +112,41 @@ class PlusRepo {
 //            })
 //        .store(in: &cancellables)
 //    }
-//
-//    // Untimed pause (appState Paused, but no pausedUntilHot value)
-//    private func onAppPausedIndefinitely_StopPlusIfNecessary() {
-//        appRepo.appStateHot
-//            .filter { it in it == .Paused }
-//            .delay(for: 0.5, scheduler: bgQueue)
-//            .flatMap { _ in self.appRepo.pausedUntilHot.first() }
-//            .filter { it in it == nil }
-//            .flatMap { _ in
-//                    // Get NETX state once it settles
-//                    self.netxRepo.netxStateHot.filter { !$0.inProgress }.first()
+
+    // Untimed pause (appState Paused, but no pausedUntilHot value)
+    private suspend fun onAppPausedIndefinitely_StopPlusIfNecessary() {
+        appRepo.appStateHot
+        .filter { it == AppState.Paused }
+        .collect {
+            delay(500)
+//            val paused = appRepo.pausedUntilHot.first()
+//            if (paused == null) {
+                // Do only if NETX is active
+                val s = tunnelVM.tunnelStatus.asFlow().first { !it.inProgress }
+                if (s.active /* || s.pauseSeconds > 0 */) {
+                    // Just switch off Plus
+                    tunnelVM.turnOff()
+                }
 //            }
-//            // Do only if NETX is active
-//            .filter { it in it.active || it.pauseSeconds > 0 }
-//            // Just switch off Plus
-//            .sink(onValue: { it in
-//                    Logger.v("PlusRepo", "Stopping VPN as app is paused undefinitely")
-//                self.netxRepo.stopVpn()
-//            })
-//        .store(in: &cancellables)
-//    }
-//
+        }
+    }
+
+    // Simple restore Plus when app activated again and Plus was active before
+    private suspend fun onAppUnpaused_StartPlusIfNecessary() {
+        appRepo.appStateHot
+        .filter { it == AppState.Activated }
+        .collect {
+            delay(500)
+            // Do only if NETX is inactive but was on
+            val s = tunnelVM.tunnelStatus.asFlow().first { !it.inProgress }
+            val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
+            if (!s.active && vpnEnabled) {
+                // Just switch on Plus
+                tunnelVM.turnOn()
+            }
+        }
+    }
+
 //    // Timed pause
 //    private func onAppPausedWithTimer_PausePlusIfNecessary() {
 //        appRepo.pausedUntilHot
@@ -199,8 +185,8 @@ class PlusRepo {
 //            })
 //        .store(in: &cancellables)
 //    }
-//
-//    private func onAppActive_StartPlusIfNecessary() {
+
+//    private suspend fun onAppActive_StartPlusIfNecessary() {
 //        Publishers.CombineLatest(
 //            appRepo.appStateHot,
 //            leaseRepo.currentHot.removeDuplicates { a, b in a.lease != b.lease }
@@ -227,36 +213,4 @@ class PlusRepo {
 //        .store(in: &cancellables)
 //    }
 //
-//    private func onPlusEnabled_Persist() {
-//        plusEnabledHot
-//            .tryMap { it in self.savePlusEnabledToPers(it) }
-//            .sink()
-//            .store(in: &cancellables)
-//    }
-//
-//    private func onNetxActuallyStarted_MarkPlusEnabled() {
-//        netxRepo.netxStateHot.filter { !$0.inProgress }
-//            .filter { $0.active }
-//            .sink(onValue: { it in self.writePlusEnabled.send(true) })
-//        .store(in: &cancellables)
-//    }
-//
-//    private func loadPlusEnabledFromPersOnStart() {
-//        persistence.getBool(forKey: "vpnEnabled")
-//        .sink(
-//            onValue: { it in
-//                self.writePlusEnabled.send(it)
-//        },
-//        onFailure: { err in
-//                Logger.e("PlusRepo", "Could not read vpnEnabled, ignoring: \(err)")
-//            self.writePlusEnabled.send(false)
-//        }
-//        )
-//        .store(in: &cancellables)
-//    }
-//
-//    private func savePlusEnabledToPers(_ enabled: Bool) -> AnyPublisher<Ignored, Error> {
-//        return persistence.setBool(enabled, forKey: "vpnEnabled")
-//    }
-
 }
