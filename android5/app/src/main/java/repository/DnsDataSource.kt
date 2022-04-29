@@ -175,9 +175,12 @@ object DnsDataSource {
             ips = listOf("9.9.9.9", "149.112.112.112", "2620:fe::fe", "2620:fe::9"),
             label = "Quad9"
         ),
-        Dns.plaintextDns(
+        Dns(
             id = "quad101",
             ips = listOf("101.101.101.101", "101.102.103.104", "2001:de4::101", "2001:de4::102"),
+            name = "101.101.101.101",
+            port = 443,
+            path = "dns-query",
             label = "Quad 101"
         ),
         Dns.plaintextDns(
