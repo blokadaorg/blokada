@@ -12,6 +12,9 @@
 
 package ui.settings
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,20 +24,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import model.Account
-import model.AccountId
-import model.BlokadaException
+import model.AccountType
+import model.toAccountType
 import org.blokada.R
 import service.ContextService
-import service.tr
+import service.EnvironmentService
 import ui.AccountViewModel
 import ui.app
-import ui.utils.AndroidUtils
 import utils.Links
-import utils.toBlokadaPlusText
 import utils.toBlokadaText
 import utils.toSimpleString
 
@@ -76,7 +75,7 @@ class SettingsMainFragment : PreferenceFragmentCompat() {
 }
 
 object SettingsNavigation {
-    fun handle(nav: NavController, key: String, accountId: AccountId?) {
+    fun handle(activity: Activity, nav: NavController, key: String, account: Account?) {
         val path = when (key) {
             "main_account" -> SettingsFragmentDirections.actionNavigationSettingsToNavigationSettingsAccount()
             "main_logout" -> SettingsFragmentDirections.actionNavigationSettingsToSettingsLogoutFragment()
@@ -85,15 +84,26 @@ object SettingsNavigation {
             "main_kb" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.kb, getString(R.string.universal_action_help))
             "main_donate" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.donate, getString(R.string.universal_action_donate))
             "main_community" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.community, getString(R.string.universal_action_community))
-            "main_support" -> accountId?.let { SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
+            "main_support" -> account?.id?.let { SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
             "main_about" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.credits, getString(R.string.account_action_about))
-            "account_subscription_manage" -> accountId?.let { SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.manageSubscriptions(it), getString(R.string.account_action_manage_subscription)) }
+            "account_subscription_manage" -> {
+                if (EnvironmentService.isLibre())
+                    account?.id?.let { SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.manageSubscriptions(it), getString(R.string.account_action_manage_subscription)) }
+                else null
+            }
             "account_help_why" -> SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.whyUpgrade, getString(R.string.account_action_why_upgrade))
             "logout_howtorestore" -> SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.howToRestore, getString(R.string.account_action_how_to_restore))
-            "logout_support" -> accountId?.let { SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
+            "logout_support" -> account?.id?.let { SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
             else -> null
         }
-        path?.let { nav.navigate(it) }
+
+        when {
+            path != null -> nav.navigate(path)
+            !EnvironmentService.isLibre() && account?.type.toAccountType() != AccountType.Libre -> {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/account/subscriptions"))
+                activity.startActivity(intent)
+            }
+        }
     }
 
     private fun getString(id: Int) = ContextService.requireContext().getString(id)

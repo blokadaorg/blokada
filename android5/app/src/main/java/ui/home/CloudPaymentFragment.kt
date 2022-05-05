@@ -12,36 +12,32 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import model.Product
 import org.blokada.R
 import repository.Repos
+import service.AlreadyPurchasedException
+import service.DialogService
+import service.UserCancelledException
 import ui.AccountViewModel
 import ui.BottomSheetFragment
 import ui.app
-import ui.utils.getColorFromAttr
-import utils.Links
 import utils.Logger
-import utils.withBoldSections
 
 class CloudPaymentFragment : BottomSheetFragment() {
 
     private lateinit var vm: AccountViewModel
 
     private val paymentRepo by lazy { Repos.payment }
+    private val dialog by lazy { DialogService}
 
     private lateinit var processing: View
 
@@ -58,19 +54,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
         }
 
         val root = inflater.inflate(R.layout.fragment_payment_cloud, container, false)
-
-        vm.account.observe(viewLifecycleOwner) { account ->
-            val restore: View = root.findViewById(R.id.payment_restore)
-            restore.setOnClickListener {
-                dismiss()
-                val nav = findNavController()
-                nav.navigate(
-                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                        Links.howToRestore, getString(R.string.payment_action_restore)
-                    )
-                )
-            }
-        }
 
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {
@@ -93,6 +76,11 @@ class CloudPaymentFragment : BottomSheetFragment() {
             val fragment = LocationFragment.newInstance()
             fragment.clickable = false
             fragment.show(parentFragmentManager, null)
+        }
+
+        val restore: View = root.findViewById(R.id.payment_restore)
+        restore.setOnClickListener {
+            restorePayment()
         }
 
         processing = root.findViewById(R.id.payment_processing_group)
@@ -126,10 +114,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     v.onClick = { purchase(it) }
                 }
 
-                // Hide the processing overlay with anim
-                processing.animate().alpha(0.0f).withEndAction {
-                    processing.visibility = View.GONE
-                }
+                hideOverlay()
             }
         }
 
@@ -137,7 +122,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
         lifecycleScope.launch {
             paymentRepo.successfulPurchasesHot
             .collect {
-                if (it != null) dismiss()
+                dismiss()
             }
         }
 
@@ -155,7 +140,46 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         // Initiate purchase (will emit on successfulPurchasesHot)
         lifecycleScope.launch {
-            paymentRepo.buyProduct(p.id)
+            try {
+                paymentRepo.buyProduct(p.id)
+            } catch (ex: UserCancelledException) {
+                hideOverlay()
+            } catch (ex: AlreadyPurchasedException) {
+                // User already made the purchase, try to restore instead
+                try {
+                    paymentRepo.restorePurchase()
+                } catch (ex: Exception) {
+                    hideOverlay()
+                    dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
+                    .collect {}
+                }
+            } catch (ex: Exception) {
+                hideOverlay()
+                dialog.showAlert(getString(R.string.error_payment_failed_alternative))
+                .collect {}
+            }
+        }
+    }
+
+    private fun restorePayment() {
+        // Show the processing overlay
+        processing.visibility = View.VISIBLE
+        processing.animate().alpha(1.0f)
+
+        lifecycleScope.launch {
+            try {
+                paymentRepo.restorePurchase()
+            } catch (ex: Exception) {
+                hideOverlay()
+                dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
+                .collect {}
+            }
+        }
+    }
+
+    private fun hideOverlay() {
+        processing.animate().alpha(0.0f).withEndAction {
+            processing.visibility = View.GONE
         }
     }
 

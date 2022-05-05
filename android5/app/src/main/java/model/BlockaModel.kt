@@ -228,6 +228,18 @@ data class CounterStats(
     val total_blocked: String
 )
 
+@JsonClass(generateAdapter = true)
+data class GoogleCheckoutRequest(
+    val account_id: AccountId,
+    val purchase_token: String,
+    val subscription_id: String
+)
+
+data class PaymentPayload(
+    val purchase_token: String,
+    val subscription_id: String,
+    val user_initiated: Boolean
+)
 
 fun Gateway.Companion.mocked(name: String) = Gateway(
     public_key = "mocked-$name",

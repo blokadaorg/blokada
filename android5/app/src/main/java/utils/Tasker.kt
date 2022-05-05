@@ -41,7 +41,7 @@ open class Tasker<T, Y>(
     internal val writeRequests = MutableSharedFlow<T?>()
     private val requests = writeRequests.filterNotNull()
 
-    private val writeResponses = MutableStateFlow<TaskResult<T, Y>?>(null)
+    private val writeResponses = MutableSharedFlow<TaskResult<T, Y>?>()
     internal val responses = writeResponses.filterNotNull()
 
     // This will block coroutine for lifetime of this task handler.

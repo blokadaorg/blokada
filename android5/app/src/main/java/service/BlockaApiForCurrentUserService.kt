@@ -123,4 +123,14 @@ object BlockaApiForCurrentUserService {
         }
     }
 
+    suspend fun postGplayCheckoutForCurrentUser(payload: PaymentPayload): Account {
+        val id = accountIdHot.first()
+        val request = GoogleCheckoutRequest(
+            account_id = id,
+            purchase_token = payload.purchase_token,
+            subscription_id = payload.subscription_id
+        )
+        return client.postGplayCheckout(request)
+    }
+
 }

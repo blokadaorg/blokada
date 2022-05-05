@@ -28,8 +28,8 @@ object DialogService {
     private var displayedDialog: AlertDialog? = null
 
     suspend fun showAlert(
-        message: String, header: String?,
-        okText: String?, okAction: () -> Any? = {}
+        message: String, header: String? = null,
+        okText: String? = null, okAction: () -> Any? = {}
     ): Flow<Boolean> {
         return callbackFlow {
             if (displayedDialog != null) {

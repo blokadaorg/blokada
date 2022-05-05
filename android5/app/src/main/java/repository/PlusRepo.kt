@@ -18,11 +18,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.AppState
 import model.BlockaConfig
+import model.toAccountType
 import service.*
 import ui.MainApplication
 import ui.TunnelViewModel
+import utils.Logger
 
 
 class PlusRepo {
@@ -60,6 +63,7 @@ class PlusRepo {
         onTunnelStatus_UpdateProcessing()
         GlobalScope.launch { onAppPausedIndefinitely_StopPlusIfNecessary() }
         GlobalScope.launch { onAppUnpaused_StartPlusIfNecessary() }
+        GlobalScope.launch { onAccountInactive_StopPlusIfNecessary() }
     }
 
     // User engaged actions of turning Plus on and off are managed by
@@ -143,6 +147,18 @@ class PlusRepo {
             if (!s.active && vpnEnabled) {
                 // Just switch on Plus
                 tunnelVM.turnOn()
+            }
+        }
+    }
+
+    private suspend fun onAccountInactive_StopPlusIfNecessary() {
+        accountHot
+        .filter { it.type.toAccountType() != AccountType.Plus }
+        .collect {
+            val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
+            if (vpnEnabled) {
+                Logger.w("Plus", "Turning off VPN because was active and account is not Plus anymore")
+                tunnelVM.turnOff(vpnEnabled = false)
             }
         }
     }

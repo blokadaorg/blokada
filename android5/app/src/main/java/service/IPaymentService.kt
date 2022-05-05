@@ -13,15 +13,20 @@
 package service
 
 import kotlinx.coroutines.delay
+import model.BlokadaException
+import model.PaymentPayload
 import model.Product
 import model.ProductId
 import utils.Logger
 
+class UserCancelledException: BlokadaException("User cancelled")
+class AlreadyPurchasedException: BlokadaException("Subscription already purchased")
+
 interface IPaymentService {
     suspend fun setup()
     suspend fun refreshProducts(): List<Product>
-    suspend fun restorePurchase()
-    suspend fun buyProduct(id: ProductId)
+    suspend fun restorePurchase(): List<PaymentPayload>
+    suspend fun buyProduct(id: ProductId): PaymentPayload
 }
 
 class PaymentServiceMock: IPaymentService {
@@ -61,13 +66,18 @@ class PaymentServiceMock: IPaymentService {
         )
     }
 
-    override suspend fun restorePurchase() {
+    override suspend fun restorePurchase(): List<PaymentPayload> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun buyProduct(id: ProductId) {
+    override suspend fun buyProduct(id: ProductId): PaymentPayload {
         Logger.v("xxxx", "Mock buying product: $id")
         delay(8000)
+        return PaymentPayload(
+            purchase_token = "mocked",
+            subscription_id = id,
+            user_initiated = true
+        )
     }
 
 }

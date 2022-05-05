@@ -14,9 +14,17 @@ package model
 
 import org.blokada.R
 import service.ContextService
-import service.tr
+import ui.utils.cause
 
-open class BlokadaException(msg: String, cause: Throwable? = null): Exception(msg, cause)
+open class BlokadaException(
+    private val msg: String, private val reason: Throwable? = null
+): Exception(msg, reason) {
+    override fun toString(): String {
+        return if (reason != null) {
+            msg.cause(reason)
+        } else super.toString()
+    }
+}
 
 class TooManyDevices(cause: Throwable? = null): BlokadaException("Too many devices", cause)
 class SystemTunnelRevoked: BlokadaException("Revoked")

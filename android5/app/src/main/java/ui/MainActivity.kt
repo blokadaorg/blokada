@@ -378,7 +378,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        SettingsNavigation.handle(navController, pref.key, accountVM.account.value?.id)
+        SettingsNavigation.handle(this, navController, pref.key, accountVM.account.value)
         return true
     }
 

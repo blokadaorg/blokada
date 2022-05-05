@@ -13,7 +13,7 @@
 package repository
 
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -21,22 +21,22 @@ import kotlinx.coroutines.launch
 import model.*
 import service.Services
 import utils.Ignored
+import utils.Logger
 import utils.SimpleTasker
 import utils.Tasker
-import java.util.*
 
 class PaymentRepo {
 
     private val writeProducts = MutableStateFlow<List<Product>?>(null)
-    private val writeSuccessfulPurchases = MutableStateFlow<Pair<Account, UserInitiated>?>(null)
+    private val writeSuccessfulPurchases = MutableSharedFlow<Pair<Account, UserInitiated>>()
 
     val productsHot = writeProducts.filterNotNull().distinctUntilChanged()
     val successfulPurchasesHot = writeSuccessfulPurchases
 
     private val refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
     private val restorePurchaseT = SimpleTasker<Ignored>("restorePurchase")
-    private val buyProductT = Tasker<ProductId, Ignored>("buyProduct")
-    private val consumePurchaseT = Tasker<UserInitiated, Ignored>("consumePurchase", debounce = 0L)
+    private val buyProductT = Tasker<ProductId, Ignored>("buyProduct", debounce = 0L)
+    private val consumePurchaseT = Tasker<PaymentPayload, Ignored>("consumePurchase", debounce = 0L)
 
     private val processingRepo by lazy { Repos.processing }
     private val stageRepo by lazy { Repos.stage }
@@ -81,15 +81,29 @@ class PaymentRepo {
 
     private suspend fun onBuyProduct() {
         buyProductT.setTask {
-            payment.buyProduct(it)
-            consumePurchaseT.send(true)
+            val payload = payment.buyProduct(it)
+            consumePurchaseT.send(payload)
             true
         }
     }
 
     private suspend fun onRestorePurchase() {
         restorePurchaseT.setTask {
-            throw BlokadaException("restore purchase ot implemented yet")
+            val payloads = payment.restorePurchase()
+            var restored = false
+            for (payload in payloads) {
+                try {
+                    Logger.v("Payment", "Trying to restore: ${payload.purchase_token}")
+                    consumePurchaseT.send(payload)
+                    restored = true
+                    break
+                } catch (ex: Exception) {
+                    Logger.w("Payment", "Backend did not restore purchase, moving on")
+                    Logger.v("Payment", "$payload")
+                }
+            }
+
+            if (!restored) throw BlokadaException("Could not restore purchase")
             true
         }
     }
@@ -97,21 +111,8 @@ class PaymentRepo {
     private suspend fun onConsumePurchase() {
         consumePurchaseT.setTask {
             // todo: info about ongoing purchase
-            // todo: verify with backend here
-            delay(1000)
-            val account = Account(
-                id = "mockedmocked",
-                active_until = Date(Date().time + 6000),
-                active = true,
-                type = "cloud"
-            )
+            val account = api.postGplayCheckoutForCurrentUser(it)
             writeSuccessfulPurchases.emit(account to true)
-
-            // MutableStateFlow remembers latest value.
-            // Emit null to not confuse future subscribers.
-            // Delay to avoid state conflation.
-            delay(1000)
-            writeSuccessfulPurchases.emit(null)
             true
         }
     }

@@ -13,11 +13,14 @@
 package service
 
 import com.android.billingclient.api.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import model.BlokadaException
+import model.PaymentPayload
 import model.Product
 import model.ProductId
-import utils.Ignored
 import utils.Logger
 import kotlin.coroutines.resumeWithException
 
@@ -34,7 +37,7 @@ class BillingService: IPaymentService {
         @Synchronized set
         @Synchronized get
 
-    private var ongoingPurchase: CancellableContinuation<Ignored>? = null
+    private var ongoingPurchase: Pair<ProductId, CancellableContinuation<PaymentPayload>>? = null
         @Synchronized set
         @Synchronized get
 
@@ -105,49 +108,43 @@ class BillingService: IPaymentService {
     }
 
     private val purchaseListener = PurchasesUpdatedListener { billingResult, purchases ->
-        Logger.w("Billing", "purchase reply: $billingResult")
-
         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (purchase in purchases) {
-                Logger.w("Billing", "Purchase ok: $purchase")
-                handlePurchase(purchase)
+            ongoingPurchase?.let { c ->
+                val (productId, cont) = c
+                val purchase = purchases
+                    .sortedByDescending { it.purchaseTime }
+                    .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+                    .firstOrNull { it.skus.firstOrNull() == productId }
+
+                if (purchase == null) {
+                    cont.resumeWithException(BlokadaException("Found no relevant purchase"))
+                } else {
+                    cont.resume(PaymentPayload(
+                        purchase_token = purchase.purchaseToken,
+                        subscription_id = productId,
+                        user_initiated = true
+                    ), {})
+                }
+            } ?: run {
+                Logger.w("Billing", "There was no ongoing purchase")
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
-            Logger.w("Billing", "User cancelled purchase")
-            handlePurchase()
+            Logger.v("Billing", "User cancelled purchase")
+            ongoingPurchase?.second?.resumeWithException(UserCancelledException())
         } else {
             // Handle any other error codes.
             Logger.w("Billing", "Purchase error: $billingResult")
-            handlePurchase()
+            val exception = if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                AlreadyPurchasedException()
+            } else BlokadaException("Purchase error: $billingResult")
+
+            ongoingPurchase?.second?.resumeWithException(exception)
         }
+        ongoingPurchase = null
     }
 
-    private fun handlePurchase(purchase: Purchase? = null) {
-        // TODO: Handle PENDING purchase
-        ongoingPurchase?.let { cont ->
-            purchase?.let { purchase ->
-                if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-                    if (!purchase.isAcknowledged) {
-                        val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                            .setPurchaseToken(purchase.purchaseToken)
-                        GlobalScope.launch {
-                            val ackPurchaseResult = withContext(Dispatchers.IO) {
-                                client.acknowledgePurchase(acknowledgePurchaseParams.build())
-                            }
-                            Logger.v("Billing", "ack result: $ackPurchaseResult")
-                        }
-                    }
-                }
-            }
-            cont.resume(true, {})
-            ongoingPurchase = null
-        } ?: run {
-            Logger.w("Billing", "There was no ongoing purchase")
-        }
-    }
-
-    override suspend fun buyProduct(id: ProductId) {
+    override suspend fun buyProduct(id: ProductId): PaymentPayload {
         val skuDetails = latestSkuList.firstOrNull { it.sku == id } ?:
             throw BlokadaException("Unknown product ID")
 
@@ -161,14 +158,46 @@ class BillingService: IPaymentService {
             throw BlokadaException("buyProduct: error $responseCode")
         }
 
-        suspendCancellableCoroutine<Ignored> { cont ->
-            ongoingPurchase = cont
+        return suspendCancellableCoroutine { cont ->
+            ongoingPurchase = id to cont
         }
     }
 
-    override suspend fun restorePurchase() {
+    private var ongoingRestore: CancellableContinuation<List<PaymentPayload>>? = null
+        @Synchronized set
+        @Synchronized get
+
+    override suspend fun restorePurchase(): List<PaymentPayload> {
         getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
-            TODO("Not yet implemented")
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                val successfulPurchases = purchases
+                    .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+                    .sortedByDescending { it.purchaseTime }
+
+                if (successfulPurchases.isNotEmpty()) {
+                    Logger.v("Billing", "Restoring ${successfulPurchases.size} purchases")
+                    ongoingRestore?.resume(successfulPurchases.map {
+                        PaymentPayload(
+                            purchase_token = it.purchaseToken,
+                            subscription_id = it.skus.first(),
+                            user_initiated = false
+                        )
+                    }, {})
+                } else {
+                    ongoingRestore?.resumeWithException(
+                        BlokadaException("Restoring purchase found no successful purchases: $billingResult")
+                    )
+                }
+            } else {
+                ongoingRestore?.resumeWithException(
+                    BlokadaException("Restoring purchase error: $billingResult")
+                )
+            }
+            ongoingRestore = null
+        }
+
+        return suspendCancellableCoroutine { cont ->
+            ongoingRestore = cont
         }
     }
 

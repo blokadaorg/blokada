@@ -119,6 +119,12 @@ object BlockaApiService {
         }
     }
 
+    suspend fun postGplayCheckout(request: GoogleCheckoutRequest): Account {
+        return async {
+            api.postGplayCheckout(request).execute().resultOrThrow().account
+        }
+    }
+
     private fun <T> Response<T>.resultOrThrow(): T {
         if (!isSuccessful) when (code()) {
             403 -> throw TooManyDevices()
@@ -186,5 +192,8 @@ interface BlockaRestApi {
 
     @HTTP(method = "DELETE", path = "v1/lease", hasBody = true)
     fun deleteLease(@Body request: LeaseRequest): Call<Void>
+
+    @POST("/v1/gplay/checkout")
+    fun postGplayCheckout(@Body request: GoogleCheckoutRequest): Call<AccountWrapper>
 
 }
