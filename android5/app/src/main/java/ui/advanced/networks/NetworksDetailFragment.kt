@@ -12,7 +12,6 @@
 
 package ui.advanced.networks
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +29,8 @@ import repository.DnsDataSource
 import service.AlertDialogService
 import ui.AccountViewModel
 import ui.NetworksViewModel
-import ui.app
 import ui.advanced.packs.OptionView
+import ui.app
 import ui.utils.getColorFromAttr
 
 
@@ -72,7 +71,7 @@ class NetworksDetailFragment : Fragment() {
         val actionChangeDns: OptionView = root.findViewById(R.id.network_action_changedns)
         val actionForceLibre: OptionView = root.findViewById(R.id.network_action_forcelibre)
 
-        viewModel.configs.observe(viewLifecycleOwner, {
+        viewModel.configs.observe(viewLifecycleOwner) {
             viewModel.getConfigForId(args.networkId).let { cfg ->
                 val ctx = requireContext()
 
@@ -161,12 +160,15 @@ class NetworksDetailFragment : Fragment() {
                     else -> ctx.getString(R.string.networks_summary_network_dns_and_plus_mode)
                 }
                 summaryUseDns.text = when {
-                    cfg.useNetworkDns -> ctx.getString(R.string.networks_summary_network_dns, dns.label)
+                    cfg.useNetworkDns -> ctx.getString(
+                        R.string.networks_summary_network_dns,
+                        dns.label
+                    )
                     else -> ctx.getString(R.string.networks_summary_use_dns, dns.label)
                 }
                 summaryForceLibre.visibility = if (cfg.forceLibreMode) View.VISIBLE else View.GONE
             }
-        })
+        }
 
         return root
     }

@@ -42,6 +42,7 @@ data class Account(
     val type: String?
 ) {
     fun isActive() = active ?: false
+    fun getType() = type.toAccountType()
 
     override fun toString(): String {
         return "Account(activeUntil=$active_until, type=$type)"

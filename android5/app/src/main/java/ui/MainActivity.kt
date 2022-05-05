@@ -244,13 +244,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private suspend fun onPaymentSuccessful_UpdateAccount() {
         paymentRepo.successfulPurchasesHot
         .collect {
-            if (it != null) {
-                Logger.v("Payment", "Received account after payment")
-                accountVM.restoreAccount(it.first.id)
-                if (it.first.isActive()) {
-                    delay(1000)
-                    sheet.showSheet(Sheet.Activated)
-                }
+            Logger.v("Payment", "Received account after payment")
+            accountVM.restoreAccount(it.first.id)
+            if (it.first.isActive()) {
+                delay(1000)
+                sheet.showSheet(Sheet.Activated)
             }
         }
     }

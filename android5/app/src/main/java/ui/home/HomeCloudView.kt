@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.AppState
 import model.BlokadaException
 import model.NoPermissions
@@ -274,7 +275,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
         }
 
         accountVM.account.observe(viewLifecycleOwner) { account ->
-            plusButton.upgrade = !account.isActive()
+            plusButton.upgrade = account.getType() != AccountType.Plus
             plusButton.animate = plusButtonReady
             plusButtonReady = true // Hacky
 
@@ -282,16 +283,16 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 lifecycleScope.launch {
                     val granted = permsRepo.vpnProfilePermsHot.first()
                     when {
-                        !account.isActive() -> showPlusSheet()
+                        account.getType() != AccountType.Plus -> showPlusSheet()
                         !granted -> sheet.showSheet(Sheet.Activated)
                         else -> showLocationSheet()
                     }
                 }
             }
 
-            if (!account.isActive()) {
-                setHasOptionsMenu(true)
-            }
+//            if (!account.isActive()) {
+//                setHasOptionsMenu(true)
+//            }
         }
     }
 

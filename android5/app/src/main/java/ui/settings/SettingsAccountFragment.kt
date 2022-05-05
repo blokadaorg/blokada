@@ -13,11 +13,9 @@
 package ui.settings
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import org.blokada.R
 import service.AlertDialogService
@@ -48,7 +46,7 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
         val accountType: Preference = findPreference("account_subscription_type")!!
         val activeUntil: Preference = findPreference("account_subscription_active")!!
 
-        accountVM.account.observe(viewLifecycleOwner, Observer { account ->
+        accountVM.account.observe(viewLifecycleOwner) { account ->
             accountId.setOnPreferenceClickListener {
                 alert.showAlert(message = account.id,
                     title = getString(R.string.account_label_id),
@@ -58,11 +56,11 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
                 true
             }
 
-            accountType.summary = if (account.isActive()) "Plus" else "Libre"
+            accountType.summary = account.getType().toString()
             activeUntil.summary = if (account.isActive())
                 account.active_until.toString()
-                else getString(R.string.account_active_forever)
-        })
+            else getString(R.string.account_status_text_inactive)
+        }
 
         lifecycleScope.launchWhenCreated {
             accountVM.refreshAccount()

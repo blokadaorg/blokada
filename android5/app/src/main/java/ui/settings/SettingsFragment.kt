@@ -55,17 +55,16 @@ class SettingsFragment : Fragment() {
         vm.account.observe(viewLifecycleOwner, Observer { account ->
             val active = root.findViewById<TextView>(R.id.settings_active)
             active.text = if (account.isActive()) {
-                getString(R.string.account_status_text, getAccountType(account), account.active_until.toSimpleString())
+                getString(R.string.account_status_text, account.getType().toString(), account.active_until.toSimpleString())
                     .toBlokadaText()
             } else {
-                getString(R.string.account_status_text_libre).toBlokadaText()
+                getString(R.string.account_status_text_inactive).toBlokadaText()
             }
         })
 
         return root
     }
 
-    private fun getAccountType(account: Account) = if (account.isActive()) "Plus" else "Libre"
 }
 
 class SettingsMainFragment : PreferenceFragmentCompat() {
