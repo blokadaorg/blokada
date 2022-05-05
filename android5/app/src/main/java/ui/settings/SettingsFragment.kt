@@ -98,8 +98,10 @@ object SettingsNavigation {
 
         when {
             path != null -> nav.navigate(path)
-            !EnvironmentService.isLibre() && account?.type.toAccountType() != AccountType.Libre -> {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/account/subscriptions"))
+            key == "account_subscription_manage" && !EnvironmentService.isLibre()
+                    && account?.type.toAccountType() != AccountType.Libre -> {
+                val intent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/account/subscriptions"))
                 activity.startActivity(intent)
             }
         }

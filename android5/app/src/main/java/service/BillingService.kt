@@ -23,6 +23,7 @@ import model.Product
 import model.ProductId
 import utils.Logger
 import kotlin.coroutines.resumeWithException
+import kotlin.math.roundToInt
 
 class BillingService: IPaymentService {
 
@@ -99,7 +100,7 @@ class BillingService: IPaymentService {
                 title = it.title,
                 description = it.description,
                 price = it.price,
-                pricePerMonth = it.price, // TODO
+                pricePerMonth = getPricePerMonthString(it),
                 periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1,
                 type = if(it.sku.startsWith("cloud")) "cloud" else "plus",
                 trial = it.freeTrialPeriod.isNotBlank()
@@ -130,11 +131,11 @@ class BillingService: IPaymentService {
             }
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
-            Logger.v("Billing", "User cancelled purchase")
+            Logger.v("Billing", "buyProduct: User cancelled purchase")
             ongoingPurchase?.second?.resumeWithException(UserCancelledException())
         } else {
             // Handle any other error codes.
-            Logger.w("Billing", "Purchase error: $billingResult")
+            Logger.w("Billing", "buyProduct: Purchase error: $billingResult")
             val exception = if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                 AlreadyPurchasedException()
             } else BlokadaException("Purchase error: $billingResult")
@@ -175,7 +176,7 @@ class BillingService: IPaymentService {
                     .sortedByDescending { it.purchaseTime }
 
                 if (successfulPurchases.isNotEmpty()) {
-                    Logger.v("Billing", "Restoring ${successfulPurchases.size} purchases")
+                    Logger.v("Billing", "restore: Restoring ${successfulPurchases.size} purchases")
                     ongoingRestore?.resume(successfulPurchases.map {
                         PaymentPayload(
                             purchase_token = it.purchaseToken,
@@ -185,7 +186,7 @@ class BillingService: IPaymentService {
                     }, {})
                 } else {
                     ongoingRestore?.resumeWithException(
-                        BlokadaException("Restoring purchase found no successful purchases: $billingResult")
+                        BlokadaException("Restoring purchase found no successful purchases")
                     )
                 }
             } else {
@@ -199,6 +200,77 @@ class BillingService: IPaymentService {
         return suspendCancellableCoroutine { cont ->
             ongoingRestore = cont
         }
+    }
+
+    override suspend fun changeProduct(id: ProductId): PaymentPayload {
+        val skuDetails = latestSkuList.firstOrNull { it.sku == id } ?:
+        throw BlokadaException("Unknown product ID")
+
+        // Get existing subscription token
+        getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                // Get latest successful assuming it's the current one
+                val existingPurchase = purchases
+                    .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+                    .sortedByDescending { it.purchaseTime }
+                    .firstOrNull()
+
+                if (existingPurchase != null) {
+                    Logger.v("Billing", "changeProduct: found subscription to use")
+                    Logger.v("Billing", "$existingPurchase")
+
+                    ongoingRestore?.resume(listOf(
+                        PaymentPayload(
+                            purchase_token = existingPurchase.purchaseToken,
+                            subscription_id = existingPurchase.skus.first(),
+                            user_initiated = false
+                        )
+                    ), {})
+                } else {
+                    ongoingRestore?.resumeWithException(
+                        BlokadaException("changeProduct: no existing purchase")
+                    )
+                }
+            } else {
+                ongoingRestore?.resumeWithException(
+                    BlokadaException("changeProduct: error: $billingResult")
+                )
+            }
+            ongoingRestore = null
+        }
+
+        // Wait until above async callback completes
+        val existingPurchase = suspendCancellableCoroutine<List<PaymentPayload>> { cont ->
+            ongoingRestore = cont
+        }
+
+        val flowParams = BillingFlowParams.newBuilder()
+            .setSubscriptionUpdateParams(
+                BillingFlowParams.SubscriptionUpdateParams.newBuilder()
+                .setOldSkuPurchaseToken(existingPurchase.first().purchase_token)
+                .build()
+            )
+            .setSkuDetails(skuDetails)
+            .build()
+        val activity = context.requireActivity()
+        val responseCode = getConnectedClient().launchBillingFlow(activity, flowParams).responseCode
+
+        if (responseCode != BillingClient.BillingResponseCode.OK) {
+            throw BlokadaException("changeProduct: error $responseCode")
+        }
+
+        return suspendCancellableCoroutine { cont ->
+            ongoingPurchase = id to cont
+        }
+    }
+
+    // TODO: dirty way
+    private fun getPricePerMonthString(it: SkuDetails): String {
+        val periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1
+        if (periodMonths == 1) return it.price
+        val price = it.priceAmountMicros
+        val perMonth = price / periodMonths
+        return "~%d".format((perMonth / 1000000f).roundToInt())
     }
 
 }

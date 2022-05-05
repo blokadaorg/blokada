@@ -206,7 +206,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                     else -> context.getString(R.string.home_status_deactivated).toUpperCase()
                 }
 
-                plusButton.visible = inProgress || appState == AppState.Activated
+                plusButton.visible = !inProgress && appState == AppState.Activated
                 plusButton.isEnabled = !inProgress
                 if (!inProgress) {
                     // Trying to fix a weird out of sync switch state
@@ -283,7 +283,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 lifecycleScope.launch {
                     val granted = permsRepo.vpnProfilePermsHot.first()
                     when {
-                        account.getType() != AccountType.Plus -> showPlusSheet()
+                        account.getType() != AccountType.Plus -> sheet.showSheet(Sheet.Payment)
                         !granted -> sheet.showSheet(Sheet.Activated)
                         else -> showLocationSheet()
                     }

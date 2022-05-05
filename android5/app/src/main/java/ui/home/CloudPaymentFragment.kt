@@ -16,28 +16,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.Product
 import org.blokada.R
 import repository.Repos
 import service.AlreadyPurchasedException
 import service.DialogService
 import service.UserCancelledException
-import ui.AccountViewModel
 import ui.BottomSheetFragment
-import ui.app
-import utils.Logger
 
 class CloudPaymentFragment : BottomSheetFragment() {
 
-    private lateinit var vm: AccountViewModel
-
     private val paymentRepo by lazy { Repos.payment }
-    private val dialog by lazy { DialogService}
+    private val accountRepo by lazy { Repos.account }
+
+    private val dialog by lazy { DialogService }
 
     private lateinit var processing: View
 
@@ -49,10 +46,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_payment_cloud, container, false)
 
         val terms: View = root.findViewById(R.id.payment_terms)
@@ -86,8 +79,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
         processing = root.findViewById(R.id.payment_processing_group)
         processing.visibility = View.VISIBLE
 
-        val processingText: TextView = root.findViewById(R.id.payment_processing_text)
-
         val cloudGroup: ViewGroup = root.findViewById(R.id.payment_container_cloud)
         val plusGroup: ViewGroup = root.findViewById(R.id.payment_container_plus)
 
@@ -95,23 +86,64 @@ class CloudPaymentFragment : BottomSheetFragment() {
         lifecycleScope.launch {
             paymentRepo.productsHot
             .collect { products ->
-                Logger.v("xxxx", "Received update for products")
                 cloudGroup.removeAllViews()
-                val cloudProducts = products.filter { it.type == "cloud" }
-                cloudProducts.forEach {
-                    val v = PaymentItemView(requireContext())
-                    cloudGroup.addView(v)
-                    v.product = it
-                    v.onClick = { purchase(it) }
-                }
-
                 plusGroup.removeAllViews()
+
+                val cloudProducts = products.filter { it.type == "cloud" }
                 val plusProducts = products.filter { it.type == "plus" }
-                plusProducts.forEach {
-                    val v = PaymentItemView(requireContext())
-                    plusGroup.addView(v)
-                    v.product = it
-                    v.onClick = { purchase(it) }
+
+                val accountType = accountRepo.accountTypeHot.first()
+                when (accountType) {
+                    // Standard case, user is purchasing Cloud or Plus
+                    AccountType.Libre -> {
+                        cloudProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            cloudGroup.addView(v)
+                            v.product = p
+                            v.onClick = { purchase(p) }
+                        }
+
+                        plusProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            plusGroup.addView(v)
+                            v.product = p
+                            v.onClick = { purchase(p) }
+                        }
+                    }
+                    // User is upgrading to Plus
+                    AccountType.Cloud -> {
+                        // TODO: distinguish current sub?
+                        cloudProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            cloudGroup.addView(v)
+                            v.product = p.copy(trial = false, owned = true)
+                            v.onClick = { purchase(p, change = true) }
+                        }
+
+                        plusProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            plusGroup.addView(v)
+                            v.product = p.copy(trial = false)
+                            v.onClick = { purchase(p, change = true) }
+                        }
+                    }
+                    // User is downgrading to Cloud or changing sub period
+                    AccountType.Plus -> {
+                        // TODO: distinguish current sub?
+                        cloudProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            cloudGroup.addView(v)
+                            v.product = p.copy(trial = false)
+                            v.onClick = { purchase(p, change = true) }
+                        }
+
+                        plusProducts.forEach { p ->
+                            val v = PaymentItemView(requireContext())
+                            plusGroup.addView(v)
+                            v.product = p.copy(trial = false)
+                            v.onClick = { purchase(p, change = true) }
+                        }
+                    }
                 }
 
                 hideOverlay()
@@ -133,15 +165,14 @@ class CloudPaymentFragment : BottomSheetFragment() {
         return root
     }
 
-    private fun purchase(p: Product) {
-        // Show the processing overlay
-        processing.visibility = View.VISIBLE
-        processing.animate().alpha(1.0f)
+    private fun purchase(p: Product, change: Boolean = false) {
+        showOverlay()
 
         // Initiate purchase (will emit on successfulPurchasesHot)
         lifecycleScope.launch {
             try {
-                paymentRepo.buyProduct(p.id)
+                if (!change) paymentRepo.buyProduct(p.id)
+                else paymentRepo.changeProduct(p.id)
             } catch (ex: UserCancelledException) {
                 hideOverlay()
             } catch (ex: AlreadyPurchasedException) {
@@ -175,6 +206,12 @@ class CloudPaymentFragment : BottomSheetFragment() {
                 .collect {}
             }
         }
+    }
+
+    private fun showOverlay() {
+        // Show the processing overlay
+        processing.visibility = View.VISIBLE
+        processing.animate().alpha(1.0f)
     }
 
     private fun hideOverlay() {

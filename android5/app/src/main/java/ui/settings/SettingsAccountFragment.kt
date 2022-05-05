@@ -19,6 +19,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.blokada.R
 import service.AlertDialogService
+import service.EnvironmentService
+import service.Services
+import service.Sheet
 import ui.AccountViewModel
 import ui.SettingsViewModel
 import ui.app
@@ -57,6 +60,12 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
             }
 
             accountType.summary = account.getType().toString()
+            accountType.setOnPreferenceClickListener {
+                if (!EnvironmentService.isLibre())
+                    Services.sheet.showSheet(Sheet.Payment)
+                true
+            }
+
             activeUntil.summary = if (account.isActive())
                 account.active_until.toString()
             else getString(R.string.account_status_text_inactive)

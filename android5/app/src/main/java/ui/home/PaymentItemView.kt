@@ -16,8 +16,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.TextView
 import model.Product
 import org.blokada.R
 
@@ -50,12 +50,15 @@ class PaymentItemView : FrameLayout {
     private fun refresh(product: Product) {
         val group = findViewById<View>(R.id.payment_item_group)
         group.setOnClickListener {
-            onClick(product)
+            if (!product.owned) {
+                onClick(product)
+            }
         }
         group.setBackgroundResource(
             if (product.type == "cloud") R.drawable.bg_payment_item_cloud
             else R.drawable.bg_payment_item_plus
         )
+        group.alpha = if (product.owned) 0.2f else 1.0f
 
         val header = findViewById<TextView>(R.id.payment_item_header)
         header.text = when {

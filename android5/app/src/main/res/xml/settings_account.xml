@@ -31,7 +31,6 @@
         app:title="@string/account_section_header_subscription">
 
         <Preference
-            app:enabled="false"
             app:key="account_subscription_type"
             app:summary="Libre"
             app:title="@string/account_label_type" />

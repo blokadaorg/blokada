@@ -36,6 +36,7 @@ class PaymentRepo {
     private val refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
     private val restorePurchaseT = SimpleTasker<Ignored>("restorePurchase")
     private val buyProductT = Tasker<ProductId, Ignored>("buyProduct", debounce = 0L)
+    private val changeProductT = Tasker<ProductId, Ignored>("changeProduct", debounce = 0L)
     private val consumePurchaseT = Tasker<PaymentPayload, Ignored>("consumePurchase", debounce = 0L)
 
     private val processingRepo by lazy { Repos.processing }
@@ -48,6 +49,7 @@ class PaymentRepo {
     fun start() {
         GlobalScope.launch { onRefreshProducts() }
         GlobalScope.launch { onBuyProduct() }
+        GlobalScope.launch { onChangeProduct() }
         GlobalScope.launch { onRestorePurchase() }
         GlobalScope.launch { onConsumePurchase() }
         GlobalScope.launch { onStageChange_ObservePayments() }
@@ -67,6 +69,10 @@ class PaymentRepo {
         buyProductT.send(productId)
     }
 
+    suspend fun changeProduct(productId: String) {
+        changeProductT.send(productId)
+    }
+
     suspend fun cancelTransaction() {
         //self.storeKit.finishPurchase()
     }
@@ -82,6 +88,14 @@ class PaymentRepo {
     private suspend fun onBuyProduct() {
         buyProductT.setTask {
             val payload = payment.buyProduct(it)
+            consumePurchaseT.send(payload)
+            true
+        }
+    }
+
+    private suspend fun onChangeProduct() {
+        changeProductT.setTask {
+            val payload = payment.changeProduct(it)
             consumePurchaseT.send(payload)
             true
         }

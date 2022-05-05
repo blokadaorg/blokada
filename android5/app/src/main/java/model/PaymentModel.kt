@@ -23,5 +23,6 @@ data class Product(
         val pricePerMonth: String,
         val periodMonths: Int,
         val type: String,
-        val trial: Boolean
+        val trial: Boolean,
+        val owned: Boolean = false
 )

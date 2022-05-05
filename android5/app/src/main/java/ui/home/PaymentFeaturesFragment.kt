@@ -12,25 +12,15 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.lifecycle.ViewModelProvider
 import org.blokada.R
 import ui.AccountViewModel
 import ui.BottomSheetFragment
 import ui.app
-import ui.settings.SettingsFragmentDirections
-import utils.Links
 
 class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
 
@@ -58,19 +48,22 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
         val back: View = root.findViewById(R.id.back)
         back.setOnClickListener {
             dismiss()
-            val fragment = PaymentFragment.newInstance()
-            fragment.show(parentFragmentManager, null)
+            showPaymentFragmentAgain()
         }
 
         val paymentContinue: View = root.findViewById(R.id.payment_continue)
         paymentContinue.setOnClickListener {
             dismiss()
-            val fragment = if (cloud) CloudPaymentFragment.newInstance()
-                else PaymentFragment.newInstance()
-            fragment.show(parentFragmentManager, null)
+            showPaymentFragmentAgain()
         }
 
         return root
+    }
+
+    private fun showPaymentFragmentAgain() {
+        val fragment = if (cloud) CloudPaymentFragment.newInstance()
+        else PaymentFragment.newInstance()
+        fragment.show(parentFragmentManager, null)
     }
 
 }
