@@ -228,7 +228,10 @@ class TunnelViewModel: ViewModel() {
             log.v("Clearing lease")
             try {
                 var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
-                cfg = cfg.copy(vpnEnabled = false, lease = null, gateway = null)
+                cfg = cfg.copy(
+                    tunnelEnabled = if (EnvironmentService.isLibre()) cfg.tunnelEnabled else false,
+                    vpnEnabled = false, lease = null, gateway = null
+                )
                 engine.updateConfig(user = cfg)
                 cfg.emit()
                 log.v("Disconnected from VPN")
