@@ -13,6 +13,8 @@
 package service
 
 import com.android.billingclient.api.*
+import com.android.billingclient.api.BillingFlowParams.ProrationMode.DEFERRED
+import com.android.billingclient.api.BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_PRORATED_PRICE
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -243,11 +245,21 @@ class BillingService: IPaymentService {
         val existingPurchase = suspendCancellableCoroutine<List<PaymentPayload>> { cont ->
             ongoingRestore = cont
         }
+        val existingId = existingPurchase.first().subscription_id
+
+        val prorate = when {
+            // Upgrade cases
+            existingId == "cloud_12month" -> IMMEDIATE_AND_CHARGE_PRORATED_PRICE
+            existingId == "plus_1month" && id == "plus_12month" -> IMMEDIATE_AND_CHARGE_PRORATED_PRICE
+            // Downgrade case
+            else -> DEFERRED
+        }
 
         val flowParams = BillingFlowParams.newBuilder()
             .setSubscriptionUpdateParams(
                 BillingFlowParams.SubscriptionUpdateParams.newBuilder()
                 .setOldSkuPurchaseToken(existingPurchase.first().purchase_token)
+                .setReplaceSkusProrationMode(prorate)
                 .build()
             )
             .setSkuDetails(skuDetails)
