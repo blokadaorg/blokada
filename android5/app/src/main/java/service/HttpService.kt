@@ -17,6 +17,7 @@ import model.Uri
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
 
 object HttpService {
 
@@ -39,6 +40,9 @@ object HttpService {
         if (!env.isPublicBuild()) addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
+
+        .connectTimeout(5, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
     }.build()
 
     fun getClient() = httpClient
