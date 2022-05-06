@@ -79,6 +79,7 @@ object SettingsNavigation {
             "main_account" -> SettingsFragmentDirections.actionNavigationSettingsToNavigationSettingsAccount()
             "main_logout" -> SettingsFragmentDirections.actionNavigationSettingsToSettingsLogoutFragment()
             "main_leases" -> SettingsFragmentDirections.actionNavigationSettingsToLeasesFragment()
+            "main_retention" -> SettingsFragmentDirections.actionNavigationSettingsToRetentionFragment()
             "main_app" -> SettingsFragmentDirections.actionNavigationSettingsToSettingsAppFragment()
             "main_kb" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.kb, getString(R.string.universal_action_help))
             "main_donate" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.donate, getString(R.string.universal_action_donate))

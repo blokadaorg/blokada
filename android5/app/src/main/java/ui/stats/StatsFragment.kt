@@ -25,14 +25,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.HistoryEntry
 import org.blokada.R
+import repository.Repos
 import service.AlertDialogService
 import service.EnvironmentService
 import ui.StatsViewModel
 import ui.app
 import ui.utils.getColorFromAttr
+import utils.Links
 
 class StatsFragment : Fragment() {
 
@@ -41,6 +44,8 @@ class StatsFragment : Fragment() {
     private lateinit var searchGroup: ViewGroup
     private lateinit var search: SearchView
     private lateinit var menu: Menu
+
+    private val cloudRepo by lazy { Repos.cloud }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -157,6 +162,27 @@ class StatsFragment : Fragment() {
             // Let the user see as the stats refresh
             delay(1000)
             vm.refresh()
+        }
+
+        val retention: StatsRetentionView = root.findViewById(R.id.activity_retention)
+        retention.lifecycleScope = lifecycleScope
+        retention.openPolicy = {
+            val nav = findNavController()
+            nav.navigate(
+                StatsFragmentDirections.actionNavigationActivityToWebFragment(
+                    Links.privacy, getString(R.string.payment_action_terms_and_privacy)
+                )
+            )
+        }
+        retention.setup()
+
+        if (!EnvironmentService.isLibre()) {
+            lifecycleScope.launch {
+                cloudRepo.activityRetentionHot
+                    .collect {
+                        retention.visibility = if (it == "24h") View.GONE else View.VISIBLE
+                    }
+            }
         }
 
         return root

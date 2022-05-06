@@ -31,6 +31,12 @@
             app:title="@string/account_action_devices" />
 
         <Preference
+            android:fragment="ui.stats.RetentionFragment"
+            android:icon="@drawable/ic_baseline_bar_chart_24"
+            app:key="main_retention"
+            app:title="@string/activity_section_header" />
+
+        <Preference
             android:fragment="ui.settings.SettingsAppFragment"
             android:icon="@drawable/ic_baseline_settings_24"
             app:key="main_app"

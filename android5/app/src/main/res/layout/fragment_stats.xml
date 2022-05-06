@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Blokada.
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public
@@ -74,9 +73,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:attr/colorBackground"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/normal"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,15 +85,25 @@
         <ImageView
             android:layout_width="@dimen/icon_humonguous"
             android:layout_height="@dimen/icon_humonguous"
-            app:tint="?android:attr/shadowColor"
-            android:src="@drawable/ic_baseline_bar_chart_24" />
+            android:src="@drawable/ic_baseline_bar_chart_24"
+            app:tint="?android:attr/shadowColor" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/doubled"
             android:gravity="center"
+            android:padding="@dimen/doubled"
             android:text="@string/activity_empty_text" />
     </LinearLayout>
+
+    <ui.stats.StatsRetentionView
+        android:id="@+id/activity_retention"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

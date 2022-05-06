@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Blokada.
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public
@@ -39,6 +38,14 @@
         <action
             android:id="@+id/action_navigation_activity_to_activityDetailFragment"
             app:destination="@id/activityDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_activity" />
+        <action
+            android:id="@+id/action_navigation_activity_to_webFragment"
+            app:destination="@id/webFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_open_enter"
@@ -99,6 +106,14 @@
         <action
             android:id="@+id/action_navigation_settings_to_settingsAppFragment"
             app:destination="@id/settingsAppFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/navigation_settings" />
+        <action
+            android:id="@+id/action_navigation_settings_to_retentionFragment"
+            app:destination="@id/retentionFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_open_enter"
@@ -251,4 +266,17 @@
     <fragment
         android:id="@+id/userDeniedFragment"
         android:name="ui.advanced.userdenied.UserDeniedFragment" />
+    <fragment
+        android:id="@+id/retentionFragment"
+        android:name="ui.stats.RetentionFragment"
+        tools:layout="@layout/fragment_retention">
+        <action
+            android:id="@+id/action_retentionFragment_to_webFragment"
+            app:destination="@id/webFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+            app:popUpTo="@id/retentionFragment" />
+    </fragment>
 </navigation>
