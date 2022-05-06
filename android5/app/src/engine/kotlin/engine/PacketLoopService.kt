@@ -49,6 +49,9 @@ object PacketLoopService {
                         log.w("Connectivity back, recreating packet loop")
                         loop = createLoop(config)
                         startSupportingServices(config)
+                    } else {
+                        log.w("Connectivity back, loop was running, restarting it")
+                        stopUnexpectedly()
                     }
                 }
             }
