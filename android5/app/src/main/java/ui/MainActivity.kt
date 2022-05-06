@@ -205,8 +205,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 ActivationViewModel.ActivationState.JUST_EXPIRED -> {
                     if (!expiredDialogShown) {
                         expiredDialogShown = true
-                        AlertDialogService.showAlert(getString(R.string.error_vpn_expired),
-                            title = getString(R.string.alert_vpn_expired_header),
+                        AlertDialogService.showAlert(getString(R.string.notification_acc_body),
+                            title = getString(R.string.notification_acc_header),
                             onDismiss = {
                                 lifecycleScope.launch {
                                     activationVM.setInformedUserAboutExpiration()

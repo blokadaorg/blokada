@@ -258,9 +258,9 @@ class UpdateNotification(versionName: String): NotificationPrototype(3, Notifica
 class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
-        b.setContentTitle(ctx.getString(R.string.notification_vpn_expired_header))
-        b.setContentText(ctx.getString(R.string.notification_vpn_expired_subtitle))
-        b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_vpn_expired_body)))
+        b.setContentTitle(ctx.getString(R.string.notification_acc_header))
+        b.setContentText(ctx.getString(R.string.notification_acc_subtitle))
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_acc_body)))
         //b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setPriority(NotificationCompat.PRIORITY_MAX)
