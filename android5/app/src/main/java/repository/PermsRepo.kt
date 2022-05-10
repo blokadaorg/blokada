@@ -178,7 +178,7 @@ class PermsRepo {
     suspend fun displayDnsProfilePermsInstructions(): Flow<Ignored> {
         val ctx = context.requireContext()
         return dialog.showAlert(
-            message = ctx.getString(R.string.dnsprofile_desc),
+            message = ctx.getString(R.string.dnsprofile_desc_android),
             header = ctx.getString(R.string.dnsprofile_header),
             okText = ctx.getString(R.string.dnsprofile_action_open_settings),
             okAction = {
