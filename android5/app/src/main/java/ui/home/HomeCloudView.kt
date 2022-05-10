@@ -100,15 +100,15 @@ class HomeCloudView : FrameLayout, IHomeContentView {
         var plusButtonReady = false
 
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
-        val updateLongStatus = { appState: AppState, inProgress: Boolean, counter: Long? ->
+        val updateLongStatus = { appState: AppState, inProgress: Boolean, plusEnabled: Boolean, counter: Long? ->
             longStatus.text = when {
                 inProgress -> context.getString(R.string.home_status_detail_progress)
-//                appState == AppState.Activated && s.gatewayId != null && counter == null -> {
-//                    (
-//                            context.getString(R.string.home_status_detail_active) + "\n" +
-//                            context.getString(R.string.home_status_detail_plus)
-//                    ).withBoldSections(context.getColorFromAttr(R.attr.colorRingPlus1))
-//                }
+                appState == AppState.Activated && plusEnabled && counter == null -> {
+                    (
+                            context.getString(R.string.home_status_detail_active) + "\n" +
+                            context.getString(R.string.home_status_detail_plus)
+                    ).withBoldSections(context.getColorFromAttr(R.attr.colorRingPlus1))
+                }
                 appState == AppState.Activated && EnvironmentService.isSlim() -> {
                     context.getString(R.string.home_status_detail_active_slim)
                     .withBoldSections(context.getColorFromAttr(R.attr.colorRingLibre1))
@@ -117,12 +117,12 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                     context.getString(R.string.home_status_detail_active)
                     .withBoldSections(context.getColorFromAttr(R.attr.colorRingLibre1))
                 }
-//                s.active && s.gatewayId != null -> {
-//                    (
-//                        context.getString(R.string.home_status_detail_active_with_counter, counter.toString()) + "\n" +
-//                        context.getString(R.string.home_status_detail_plus)
-//                    ).withBoldSections(context.getColorFromAttr(R.attr.colorRingPlus1))
-//                }
+                appState == AppState.Activated && plusEnabled -> {
+                    (
+                        context.getString(R.string.home_status_detail_active_with_counter, counter.toString()) + "\n" +
+                        context.getString(R.string.home_status_detail_plus)
+                    ).withBoldSections(context.getColorFromAttr(R.attr.colorRingPlus1))
+                }
                 appState == AppState.Activated -> {
                     context.getString(R.string.home_status_detail_active_with_counter, counter.toString())
                     .withBoldSections(context.getColorFromAttr(R.attr.colorRingLibre1))
@@ -130,20 +130,19 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 else -> context.getString(R.string.home_action_tap_to_activate)
             }
 
-//            longStatus.setOnClickListener {
-//                when {
-//                    s.inProgress -> Unit
-//                    s.error != null -> Unit
-//                    s.active -> {
-//                        val fragment = ProtectionLevelFragment.newInstance()
-//                        fragment.show(parentFragmentManager, null)
-//                    }
-//                    !accountVM.isActive() -> {
-//                        showPlusSheet()
-//                    }
-//                    else -> vm.turnOn()
-//                }
-//            }
+            longStatus.setOnClickListener {
+                when {
+                    inProgress -> Unit
+                    appState == AppState.Activated -> {
+                        val fragment = ProtectionLevelFragment.newInstance()
+                        fragment.show(parentFragmentManager, null)
+                    }
+                    !accountVM.isActive() -> {
+                        showPlusSheet()
+                    }
+                    else -> vm.turnOn()
+                }
+            }
         }
 
         lifecycleScope.launch {
@@ -215,7 +214,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                     }
                 }
 
-                updateLongStatus(appState, inProgress, blocked.let {
+                updateLongStatus(appState, inProgress, plusEnabled, blocked.let {
                     if (it == 0L) null else it
                 })
 

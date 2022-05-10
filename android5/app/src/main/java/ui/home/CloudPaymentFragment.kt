@@ -68,6 +68,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
             dismiss()
             val fragment = LocationFragment.newInstance()
             fragment.clickable = false
+            fragment.cloud = true
             fragment.show(parentFragmentManager, null)
         }
 

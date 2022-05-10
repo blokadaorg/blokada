@@ -20,13 +20,6 @@
     android:padding="@dimen/half"
     tools:context="ui.home.HelpFragment">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="@dimen/icon"
-        android:layout_height="@dimen/icon"
-        android:padding="@dimen/half"
-        android:src="@drawable/ic_baseline_arrow_back_24" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -187,4 +180,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/icon"
+        android:layout_height="@dimen/icon"
+        android:padding="@dimen/half"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
+
 </FrameLayout>

@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/drawable/flag_sg.xml" value="0.141" />
         <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_activated.xml" value="0.1656534954407295" />
         <entry key="app/src/main/res/layout/fragment_afteractivated.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dnschoice.xml" value="0.10739614994934144" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />

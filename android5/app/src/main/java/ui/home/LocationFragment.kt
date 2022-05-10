@@ -34,7 +34,8 @@ class LocationFragment : BottomSheetFragment() {
         fun newInstance() = LocationFragment()
     }
 
-    var clickable: Boolean = true
+    var clickable = true
+    var cloud = false
 
     private lateinit var vm: LocationViewModel
     private lateinit var tunnelVM: TunnelViewModel
@@ -52,8 +53,11 @@ class LocationFragment : BottomSheetFragment() {
 
         val goBack = {
             dismiss()
+
+            // This means we are just showing a preview for the Payment screen
             if (!clickable) {
-                val fragment = PaymentFragment.newInstance()
+                val fragment = if (cloud) CloudPaymentFragment.newInstance()
+                else PaymentFragment.newInstance()
                 fragment.show(parentFragmentManager, null)
             }
         }
