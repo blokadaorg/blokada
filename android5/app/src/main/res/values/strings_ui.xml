@@ -348,6 +348,7 @@
     <string name="dnsprofile_header">Enable Blokada in Settings</string>
     <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">Almost there!</string>
     <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
     <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>
