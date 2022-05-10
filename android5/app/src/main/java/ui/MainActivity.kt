@@ -200,12 +200,17 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     nav.navigateUp()
                 }
                 ActivationViewModel.ActivationState.JUST_ACTIVATED -> {
+                    expiredDialogShown = false
                     val fragment = ActivatedFragment.newInstance()
                     fragment.show(supportFragmentManager, null)
+                }
+                ActivationViewModel.ActivationState.EXPIRING -> {
+                    accountVM.refreshAccount()
                 }
                 ActivationViewModel.ActivationState.JUST_EXPIRED -> {
                     if (!expiredDialogShown) {
                         expiredDialogShown = true
+                        NotificationService.show(ExpiredNotification())
                         AlertDialogService.showAlert(getString(R.string.notification_acc_body),
                             title = getString(R.string.notification_acc_header),
                             onDismiss = {
@@ -213,7 +218,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                                     activationVM.setInformedUserAboutExpiration()
                                     NotificationService.cancel(ExpiredNotification())
                                     tunnelVM.clearLease()
-                                    accountVM.refreshAccount()
+                                    //accountVM.refreshAccount()
                                 }
                             })
                     }

@@ -20,11 +20,9 @@ import android.content.Intent
 import model.ActiveUntil
 import ui.beforeNow
 import ui.utils.cause
-import utils.ExpiredNotification
 import utils.Logger
 import utils.NotificationPrototype
 import utils.notificationFromId
-import java.util.Date
 
 
 object ExpirationService {
@@ -67,7 +65,7 @@ class ExpirationReceiver : BroadcastReceiver() {
         Logger.v("Expiration", "Alarm received")
         val id = intent.getIntExtra("notificationId", 0)
         val n = notificationFromId(id)
-        NotificationService.show(n)
+//        NotificationService.show(n)
         ExpirationService.onExpired(n)
     }
 }

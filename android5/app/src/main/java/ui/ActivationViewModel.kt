@@ -24,7 +24,7 @@ import java.util.*
 class ActivationViewModel: ViewModel() {
 
     enum class ActivationState {
-        INACTIVE, PURCHASING, JUST_PURCHASED, JUST_ACTIVATED, ACTIVE, JUST_EXPIRED
+        INACTIVE, PURCHASING, JUST_PURCHASED, JUST_ACTIVATED, ACTIVE, EXPIRING, JUST_EXPIRED
     }
 
     private val log = Logger("Activation")
@@ -39,7 +39,7 @@ class ActivationViewModel: ViewModel() {
             _state.value = persistence.load(ActivationState::class)
         }
         expiration.onExpired = {
-            setExpiration(Date(0))
+            receivedExpiredTimer()
         }
     }
 
@@ -71,6 +71,17 @@ class ActivationViewModel: ViewModel() {
                 }
 
                 if (active) expiration.setExpirationAlarm(ExpiredNotification(), activeUntil)
+            }
+        }
+    }
+
+    private fun receivedExpiredTimer() {
+        viewModelScope.launch {
+            _state.value?.let { state ->
+                if (state != ActivationState.INACTIVE) {
+                    log.w("Account just expired in client, will check with backend")
+                    updateLiveData(ActivationState.EXPIRING)
+                }
             }
         }
     }

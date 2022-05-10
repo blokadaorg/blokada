@@ -62,7 +62,7 @@ class AccountViewModel: ViewModel() {
                 val accountId = _account.value?.id ?: persistence.load(Account::class).id
                 val account = blocka.getAccount(accountId)
                 updateLiveData(account)
-                log.v("Account refreshed, plus: ${account.isActive()}")
+                log.v("Account refreshed, active: ${account.isActive()}, type: ${account.type}")
                 lastAccountRefresh = now()
                 requestOngoing = false
             } catch (ex: NoPersistedAccount) {
