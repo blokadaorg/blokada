@@ -71,8 +71,6 @@ class AccountViewModel: ViewModel() {
             } catch (ex: BlokadaException) {
                 requestOngoing = false
                 when {
-                    connectivity.isDeviceInOfflineMode() ->
-                        log.w("Could not refresh account but device is offline, ignoring")
                     accountExpiring -> {
                         log.w("Could not refresh expiring account, assuming expired".cause(ex))
                         account.value?.copy(
@@ -83,6 +81,8 @@ class AccountViewModel: ViewModel() {
                             updateLiveData(this)
                         }
                     }
+                    connectivity.isDeviceInOfflineMode() ->
+                        log.w("Could not refresh account but device is offline, ignoring")
                     else -> {
                         // TODO: better handling?
                         log.w("Could not refresh account, ignoring".cause(ex))

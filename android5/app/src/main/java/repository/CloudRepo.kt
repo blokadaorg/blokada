@@ -71,6 +71,7 @@ open class CloudRepo {
         GlobalScope.launch { onTabChange_refreshDeviceInfo() }
         GlobalScope.launch { onAccountIdChanged_refreshDeviceInfo() }
         GlobalScope.launch { onPrivateDnsProfileChanged_update() }
+        GlobalScope.launch { onConnectedBack_refresh() }
         GlobalScope.launch { onDeviceTag_setToEnv() }
 
         onPrivateDnsSettingChanged_update()
@@ -146,6 +147,12 @@ open class CloudRepo {
         }
         // First check has to happen manually
         writePrivateDnsSetting.value = connectivity.privateDns
+    }
+
+    private fun onConnectedBack_refresh() {
+        connectivity.onConnectedBack = {
+            GlobalScope.launch { refreshDeviceInfoT.send() }
+        }
     }
 
     private suspend fun onDeviceTag_setToEnv() {

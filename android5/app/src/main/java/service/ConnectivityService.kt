@@ -18,10 +18,9 @@ import android.net.*
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.SubscriptionManager
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import model.*
+import model.NetworkDescriptor
 import ui.utils.cause
 import utils.Logger
 import java.net.InetAddress
@@ -45,6 +44,7 @@ object ConnectivityService {
         context.requireAppContext().getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
     }
 
+    var onConnectedBack = {}
     var onConnectivityChanged = { isConnected: Boolean -> }
     var onNetworkAvailable = { network: NetworkDescriptor -> }
     var onActiveNetworkChanged = { network: NetworkDescriptor -> }
@@ -220,6 +220,7 @@ object ConnectivityService {
                 log.v("Network is now default: $defaultRouteNetwork = $descriptor")
 
                 onConnectivityChanged(true)
+                onConnectedBack()
                 onNetworkAvailable(descriptor) // Announce again just in case we haven't yet (shouldn't happen)
                 onActiveNetworkChanged(descriptor)
             }

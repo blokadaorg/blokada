@@ -97,6 +97,13 @@ class HomeCloudView : FrameLayout, IHomeContentView {
         val plusButton: PlusButton = root.findViewById(R.id.home_plusbutton)
         powerButton = root.findViewById(R.id.home_powerview)
 
+        // This listener is only for when the app did not initiate because of lack of connectivity
+        // at start (eg airplane mode). The app will recover as soon as there is connectivity,
+        // and this listener is going to be overwritten below.
+        powerButton.setOnClickListener {
+            showFailureDialog(BlokadaException("Device is probably offline"))
+        }
+
         var plusButtonReady = false
 
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
