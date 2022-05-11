@@ -22,7 +22,6 @@ import ui.beforeNow
 import ui.utils.cause
 import utils.Logger
 import utils.NotificationPrototype
-import utils.notificationFromId
 
 
 object ExpirationService {
@@ -33,25 +32,27 @@ object ExpirationService {
         context.requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
-    var onExpired: (NotificationPrototype) -> Any = {}
+    var onExpired: () -> Any = {}
 
     fun setExpirationAlarm(n: NotificationPrototype, activeUntil: ActiveUntil) {
         log.v("Setting expiration alarm for: $n at: $activeUntil")
 
+        val time = activeUntil.time
+        log.v("Timestamp: ${time}, now: ${System.currentTimeMillis()}")
+
         if (activeUntil.beforeNow()) {
             log.w("Tried to set alarm for a date in the past, triggering immediately")
-            onExpired(n)
+            onExpired()
             return
         }
 
         try {
             context.requireContext().let { ctx ->
                 val operation = Intent(ctx, ExpirationReceiver::class.java).let { intent ->
-                    intent.putExtra("notificationId", n.id)
                     PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
-                alarmManager.set(AlarmManager.RTC, activeUntil.time, operation)
-                log.v("Expiration alarm set")
+                alarmManager.set(AlarmManager.RTC, time, operation)
+                log.v("Expiration alarm in AlarmManager set")
             }
         } catch (ex: Exception) {
             log.e("Could not set expiration alarm".cause(ex))
@@ -62,10 +63,7 @@ object ExpirationService {
 
 class ExpirationReceiver : BroadcastReceiver() {
     override fun onReceive(ctx: Context, intent: Intent) {
-        Logger.v("Expiration", "Alarm received")
-        val id = intent.getIntExtra("notificationId", 0)
-        val n = notificationFromId(id)
-//        NotificationService.show(n)
-        ExpirationService.onExpired(n)
+        Logger.v("Expiration", "Alarm expire received, now: ${System.currentTimeMillis()}")
+        ExpirationService.onExpired()
     }
 }

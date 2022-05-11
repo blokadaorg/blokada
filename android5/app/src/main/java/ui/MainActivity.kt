@@ -54,6 +54,7 @@ import ui.web.WebService
 import utils.ExpiredNotification
 import utils.Links
 import utils.Logger
+import java.util.*
 
 
 class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -226,9 +227,10 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             }
         })
 
-        accountVM.accountExpiration.observe(this, Observer { activeUntil ->
-            activationVM.setExpiration(activeUntil)
-        })
+        accountVM.accountExpiration.observe(this) { activeUntil ->
+            val justBeforeExpired = Date(activeUntil.time - 30 * 1000)
+            activationVM.setExpiration(justBeforeExpired)
+        }
 
         tunnelVM.tunnelStatus.observe(this, Observer { status ->
             if (status.active) {

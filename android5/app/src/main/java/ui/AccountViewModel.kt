@@ -54,7 +54,7 @@ class AccountViewModel: ViewModel() {
         }
     }
 
-    fun refreshAccount() {
+    fun refreshAccount(accountExpiring: Boolean = false) {
         viewModelScope.launch {
             try {
                 log.v("Refreshing account")
@@ -73,8 +73,19 @@ class AccountViewModel: ViewModel() {
                 when {
                     connectivity.isDeviceInOfflineMode() ->
                         log.w("Could not refresh account but device is offline, ignoring")
+                    accountExpiring -> {
+                        log.w("Could not refresh expiring account, assuming expired".cause(ex))
+                        account.value?.copy(
+                            active_until = Date(0),
+                            active = false,
+                            type = null
+                        )?.run {
+                            updateLiveData(this)
+                        }
+                    }
                     else -> {
-                        log.e("Could not refresh account, TODO".cause(ex))
+                        // TODO: better handling?
+                        log.w("Could not refresh account, ignoring".cause(ex))
                     }
                 }
 
