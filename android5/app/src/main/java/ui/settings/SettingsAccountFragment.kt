@@ -14,7 +14,6 @@ package ui.settings
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import org.blokada.R
@@ -69,10 +68,6 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
             activeUntil.summary = if (account.isActive())
                 account.active_until.toString()
             else getString(R.string.account_status_text_inactive)
-        }
-
-        lifecycleScope.launchWhenCreated {
-            accountVM.refreshAccount()
         }
     }
 

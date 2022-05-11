@@ -14,12 +14,10 @@ package repository
 
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import model.Account
+import model.Tab
 import model.toAccountType
 import service.ContextService
 import ui.AccountViewModel
@@ -41,8 +39,11 @@ class AccountRepo {
     val accountIdHot = accountHot.map { it.id }.distinctUntilChanged()
     val accountTypeHot = accountHot.map { it.type.toAccountType() }.distinctUntilChanged()
 
+    val activeTabHot by lazy { Repos.nav.activeTabHot }
+
     fun start() {
         GlobalScope.launch { hackyAccount() }
+        GlobalScope.launch { onSettingsTab_refreshAccount() }
     }
 
     suspend fun hackyAccount() {
@@ -50,4 +51,13 @@ class AccountRepo {
             writeAccount.value = it
         }
     }
+
+    suspend fun onSettingsTab_refreshAccount() {
+        activeTabHot.filter { it == Tab.Settings }
+        .debounce(1000)
+        .collect {
+            accountVm.refreshAccount()
+        }
+    }
+
 }
