@@ -195,7 +195,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 powerButton.cover = !inProgress && appState != AppState.Activated
                 powerButton.loading = inProgress
                 powerButton.blueMode = !inProgress && appState == AppState.Activated
-                powerButton.orangeMode = !inProgress && plusEnabled
+                powerButton.orangeMode = !inProgress && plusEnabled && appState == AppState.Activated
                 powerButton.isEnabled = !inProgress
 
                 val status: TextView = root.findViewById(R.id.home_status)

@@ -90,10 +90,13 @@ class OnboardingFragment : BottomSheetFragment() {
         lifecycleScope.launch {
             combine(
                 permsRepo.dnsProfilePermsHot,
-                permsRepo.notificationPermsHot
-            ) { dns, notif -> dns to notif }
+                permsRepo.notificationPermsHot,
+                permsRepo.vpnProfilePermsHot
+            ) { dns, notif, vpn -> Triple(dns, notif, vpn) }
             .collect {
-                if (it.first && it.second) {
+                val (dns, notif, vpn) = it
+                val isCloud = accountVM.account.value?.type.toAccountType() == AccountType.Cloud
+                if (dns && notif && (isCloud || vpn)) {
                     subheader.text = getString(R.string.activated_desc_all_ok)
                     finishOnboarding = { dismiss() }
                 } else {
