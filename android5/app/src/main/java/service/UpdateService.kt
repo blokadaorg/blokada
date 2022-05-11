@@ -126,11 +126,14 @@ object UpdateService {
         onOpenMore: () -> Unit
     ) {
         val ctx = context.requireContext()
+        val showDonate = EnvironmentService.isLibre() && !EnvironmentService.isSlim()
         alert.showAlert(
-            message = ctx.getString(R.string.update_desc_updated),
+            message = ctx.getString(
+                if (showDonate) R.string.update_desc_updated else R.string.update_desc_updated_nodon
+            ),
             title = ctx.getString(R.string.update_label_updated),
             positiveAction =
-                if (EnvironmentService.isSlim()) ctx.getString(R.string.universal_action_close) to {}
+                if (!showDonate) ctx.getString(R.string.universal_action_close) to {}
                 else ctx.getString(R.string.universal_action_donate) to onOpenDonate,
             additionalAction = ctx.getString(R.string.universal_action_learn_more) to onOpenMore
         )
