@@ -22,19 +22,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import engine.MetricsService
 import org.blokada.R
 import repository.DnsDataSource
 import service.ConnectivityService
+import service.EnvironmentService
 import ui.BottomSheetFragment
 import ui.TunnelViewModel
 import ui.advanced.statusToLevel
 import ui.app
-import utils.Logger
-import utils.toBlokadaPlusText
 import java.lang.Integer.max
 
 class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
@@ -75,7 +72,7 @@ class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
         val detailDoh = root.findViewById<TextView>(R.id.home_detail_dns_doh)
         val detailVpn = root.findViewById<TextView>(R.id.home_detail_vpn)
 
-        tunnelVM.tunnelStatus.observe(viewLifecycleOwner, { status ->
+        tunnelVM.tunnelStatus.observe(viewLifecycleOwner) { status ->
             val level = statusToLevel(status)
             val ctx = requireContext()
             encryptLevel.text = ctx.levelToShortText(level)
@@ -90,6 +87,8 @@ class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
             detailDns.text = status.dns?.label ?: ctx.getString(R.string.universal_label_none)
             if (DnsDataSource.network.id == status.dns?.id) {
                 detailDns.text = "Network DNS (${ConnectivityService.getActiveNetworkDns()})"
+            } else if (!EnvironmentService.isLibre()) {
+                detailDns.text = "Blokada Cloud"
             }
 
             when (level) {
@@ -137,7 +136,7 @@ class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
 //                    }
                 }
             }
-        })
+        }
 
         detailPing = root.findViewById(R.id.home_detail_ping)
         pingRefresh.sendEmptyMessage(0)
