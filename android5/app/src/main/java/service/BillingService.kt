@@ -25,7 +25,6 @@ import model.Product
 import model.ProductId
 import utils.Logger
 import kotlin.coroutines.resumeWithException
-import kotlin.math.roundToInt
 
 class BillingService: IPaymentService {
 
@@ -101,7 +100,7 @@ class BillingService: IPaymentService {
                 id = it.sku,
                 title = it.title,
                 description = it.description,
-                price = it.price,
+                price = getPriceString(it),
                 pricePerMonth = getPricePerMonthString(it),
                 periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1,
                 type = if(it.sku.startsWith("cloud")) "cloud" else "plus",
@@ -276,13 +275,17 @@ class BillingService: IPaymentService {
         }
     }
 
-    // TODO: dirty way
     private fun getPricePerMonthString(it: SkuDetails): String {
         val periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1
         if (periodMonths == 1) return it.price
         val price = it.priceAmountMicros
         val perMonth = price / periodMonths
-        return "~%d".format((perMonth / 1000000f).roundToInt())
+        return priceFormat.format(perMonth / 1_000_000f, it.priceCurrencyCode)
     }
 
+    private fun getPriceString(it: SkuDetails): String {
+        return priceFormat.format(it.priceAmountMicros / 1_000_000f, it.priceCurrencyCode)
+    }
+
+    private val priceFormat = "%.2f %s"
 }
