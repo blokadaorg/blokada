@@ -164,11 +164,14 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                         !dnsProfilePerms -> {
                             sheet.showSheet(Sheet.Activated)
                         }
-                        //} else if !self.vm.vpnPermsGranted && self.vm.accountType == .Plus {
                         appState == AppState.Paused -> {
+                            powerButton.loading = true
+                            powerButton.cover = false
                             lifecycleScope.launch { appRepo.unpauseApp() }
                         }
                         else -> {
+                            powerButton.loading = true
+                            //powerButton.cover = false
                             // TODO: actual date
                             lifecycleScope.launch { appRepo.pauseApp(Date()) }
                         }
