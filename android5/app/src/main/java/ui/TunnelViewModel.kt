@@ -14,8 +14,10 @@ package ui
 
 import androidx.lifecycle.*
 import engine.EngineService
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.*
+import repository.Repos
 import service.*
 import ui.utils.cause
 import utils.Logger
@@ -271,6 +273,8 @@ class TunnelViewModel: ViewModel() {
 
     private fun handleException(ex: Exception) {
         log.e("Engine failed to execute action: $ex")
+        val ex = ex as? BlokadaException ?: BlokadaException("Tunnel failure", ex)
+        GlobalScope.launch { Repos.processing.notify("TunnelVM", ex, major = true) }
     }
 
     private fun handleTunnelStoppedUnexpectedly(ex: BlokadaException) {

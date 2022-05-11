@@ -42,7 +42,7 @@ class AccountRepo {
     val activeTabHot by lazy { Repos.nav.activeTabHot }
 
     fun start() {
-        GlobalScope.launch { hackyAccount() }
+        //GlobalScope.launch { hackyAccount() }
         GlobalScope.launch { onSettingsTab_refreshAccount() }
     }
 

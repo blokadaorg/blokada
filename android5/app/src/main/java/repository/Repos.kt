@@ -38,7 +38,7 @@ object Repos {
         cloud.start()
         perms.start()
         app.start()
-//        account.start()
+        account.start()
         payment.start()
         activity.start()
         stats.start()
