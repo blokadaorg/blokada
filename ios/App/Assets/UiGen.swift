@@ -760,6 +760,8 @@ internal enum L10n {
   internal static let universalStatusRestartRequired = L10n.tr("Ui", "universal status restart required")
   /// You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.
   internal static let updateDescUpdated = L10n.tr("Ui", "update desc updated")
+  /// You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.
+  internal static let updateDescUpdatedNodon = L10n.tr("Ui", "update desc updated nodon")
   /// The update is now downloading, and you should see the installation prompt shortly.
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
   /// Updated!

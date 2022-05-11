@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.</string>
     <string name="update_label_updated">Updated!</string>
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">The update is now downloading, and you should see the installation prompt shortly.</string>
     <string name="main_share_message">Blokada for iOS helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Rate us!</string>
