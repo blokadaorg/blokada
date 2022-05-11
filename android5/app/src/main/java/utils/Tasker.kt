@@ -21,9 +21,10 @@ import repository.Repos
 val DEFAULT_USER_INTERACTION_DEBOUNCE = 300L
 
 internal data class TaskResult<T, Y> (
-   val argument: T,
-   val result: Y?,
-   val error: BlokadaException?
+    val ordinal: Long,
+    val argument: T,
+    val result: Y?,
+    val error: BlokadaException?
 )
 
 /**
@@ -32,7 +33,7 @@ internal data class TaskResult<T, Y> (
  */
 open class Tasker<T, Y>(
     internal val owner: String,
-    private val debounce: Long = DEFAULT_USER_INTERACTION_DEBOUNCE,
+    internal val debounce: Long = DEFAULT_USER_INTERACTION_DEBOUNCE,
     private val errorIsMajor: Boolean = false
 ) {
 
@@ -44,6 +45,10 @@ open class Tasker<T, Y>(
     private val writeResponses = MutableSharedFlow<TaskResult<T, Y>?>()
     internal val responses = writeResponses.filterNotNull()
 
+    internal var ordinal = 0L
+        @Synchronized get
+        @Synchronized set
+
     // This will block coroutine for lifetime of this task handler.
     suspend fun setTask(task: suspend (T) -> Y) {
         var publisher = requests
@@ -52,16 +57,17 @@ open class Tasker<T, Y>(
         }
         publisher.collect {
             try {
-                Logger.v("Tasker", "$owner: $it")
+                ordinal += 1
+                Logger.v("Tasker", "$owner: $it, ordinal: $ordinal")
                 val result = task(it)
-                writeResponses.emit(TaskResult(it, result, null))
+                writeResponses.emit(TaskResult(ordinal, it, result, null))
                 processingRepo.notify(owner, ongoing = false)
             } catch (ex: BlokadaException) {
-                writeResponses.emit(TaskResult(it, null, ex))
+                writeResponses.emit(TaskResult(ordinal, it, null, ex))
                 processingRepo.notify(owner, ex, major = errorIsMajor)
             } catch (err: Throwable) {
                 val ex = BlokadaException("task error: $owner", err)
-                writeResponses.emit(TaskResult(it, null, ex))
+                writeResponses.emit(TaskResult(ordinal, it, null, ex))
                 processingRepo.notify(owner, ex, major = errorIsMajor)
             }
         }
@@ -69,10 +75,13 @@ open class Tasker<T, Y>(
 
     suspend fun send(argument: T): Y {
         processingRepo.notify(owner, ongoing = true)
+
+        val lastTask = ordinal
+
         val resp = GlobalScope.async {
-            // Just return first result if debounce is set, as it's used for cases when we
+            // Just return first future result if debounce is set, as it's used for cases when we
             // only care about the latest invocation in a short time.
-            responses.first { debounce != 0L || argument == it.argument }
+            responses.first { ordinal > lastTask && (debounce != 0L || argument == it.argument) }
         }
         writeRequests.emit(argument)
         val r = resp.await()
@@ -95,8 +104,11 @@ class SimpleTasker<Y>(
 
     suspend fun send(): Y {
         processingRepo.notify(owner, ongoing = true)
+
+        val lastTask = ordinal
+
         val resp = GlobalScope.async {
-            responses.first()
+            responses.first { ordinal > lastTask }
         }
         writeRequests.emit(true)
         val r = resp.await()
