@@ -112,7 +112,7 @@ internal enum L10n {
   internal static func accountStatusText(_ p1: Any, _ p2: Any) -> String {
     return L10n.tr("Ui", "account status text", String(describing: p1), String(describing: p2))
   }
-  /// Your BLOKADA account is inactive.
+  /// Your BLOKADA subscription is inactive.
   internal static let accountStatusTextInactive = L10n.tr("Ui", "account status text inactive")
   /// Days remaining: %@
   internal static func accountSubscriptionDaysRemaining(_ p1: Any) -> String {

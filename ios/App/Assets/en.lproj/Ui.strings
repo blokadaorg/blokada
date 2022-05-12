@@ -239,7 +239,7 @@
 
 "account section header settings" = "Settings";
 "account status text" = "Your BLOKADA %@ account is active until %@.";
-"account status text inactive" = "Your BLOKADA account is inactive.";
+"account status text inactive" = "Your BLOKADA subscription is inactive.";
 
 "account section header primary" = "Primary";
 "account section header other" = "Other";

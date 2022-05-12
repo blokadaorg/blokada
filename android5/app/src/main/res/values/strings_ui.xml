@@ -184,7 +184,7 @@
     <string name="userdenied_action_block">Block</string>
     <string name="account_section_header_settings">Settings</string>
     <string name="account_status_text">Your BLOKADA %s account is active until %s.</string>
-    <string name="account_status_text_inactive">Your BLOKADA account is inactive.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Primary</string>
     <string name="account_section_header_other">Other</string>
     <string name="account_action_my_account">My account</string>
