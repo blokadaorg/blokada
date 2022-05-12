@@ -22,8 +22,8 @@ import utils.Logger
 
 open class ProcessingRepo {
 
-    private val writeOngoing = MutableStateFlow<ComponentOngoing?>(null)
-    private val writeError = MutableStateFlow<ComponentError?>(null)
+    private val writeOngoing = MutableSharedFlow<ComponentOngoing?>()
+    private val writeError = MutableSharedFlow<ComponentError?>()
 
     val ongoingHot = writeOngoing.filterNotNull().distinctUntilChanged()
     val errorsHot = writeError.filterNotNull().distinctUntilChanged()

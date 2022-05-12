@@ -15,6 +15,7 @@ package utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withTimeout
 import model.BlokadaException
 import repository.Repos
 
@@ -79,9 +80,15 @@ open class Tasker<T, Y>(
         val lastTask = ordinal
 
         val resp = GlobalScope.async {
-            // Just return first future result if debounce is set, as it's used for cases when we
-            // only care about the latest invocation in a short time.
-            responses.first { ordinal > lastTask && (debounce != 0L || argument == it.argument) }
+            try {
+                withTimeout(10000) {
+                    // Just return first future result if debounce is set, as it's used for cases when we
+                    // only care about the latest invocation in a short time.
+                    responses.first { ordinal > lastTask && (debounce != 0L || argument == it.argument) }
+                }
+            } catch (ex: Exception) {
+                TaskResult(lastTask + 1, argument, null, BlokadaException("Task too slow: $owner", ex))
+            }
         }
         writeRequests.emit(argument)
         val r = resp.await()
@@ -91,6 +98,7 @@ open class Tasker<T, Y>(
             throw error
         }
 
+        Logger.v("Tasker", "$owner: returning: $r")
         return r.result as Y
     }
 
@@ -108,7 +116,13 @@ class SimpleTasker<Y>(
         val lastTask = ordinal
 
         val resp = GlobalScope.async {
-            responses.first { ordinal > lastTask }
+            try {
+                withTimeout(10000) {
+                    responses.first { ordinal > lastTask }
+                }
+            } catch (ex: Exception) {
+                TaskResult(lastTask + 1, true, null, BlokadaException("Task too slow: $owner", ex))
+            }
         }
         writeRequests.emit(true)
         val r = resp.await()
