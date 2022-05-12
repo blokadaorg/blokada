@@ -16,6 +16,7 @@ import androidx.lifecycle.*
 import engine.EngineService
 import kotlinx.coroutines.launch
 import model.*
+import service.EnvironmentService
 import service.PersistenceService
 import service.StatsService
 import ui.utils.cause
@@ -84,6 +85,11 @@ class StatsViewModel : ViewModel(), FlavorSpecific {
 
     fun getFilter() = filter
     fun getSorting() = sorting
+    fun getSearch() = searchTerm
+
+    // Mocked getters to be compatible with NotLibre flavor
+    fun getDevice() = EnvironmentService.getDeviceAlias()
+    fun device(device: String?) = {}
 
     fun filter(filter: Filter) {
         this.filter = filter

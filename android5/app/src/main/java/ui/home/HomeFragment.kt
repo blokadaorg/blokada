@@ -41,8 +41,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var vm: TunnelViewModel
 
-    private lateinit var homeLibre: HomeLibreView
-    private lateinit var homeCloud: HomeCloudView
+    private lateinit var homeView: IHomeContentView
 
     private var libreMode = EnvironmentService.getFlavor() != "six"
 
@@ -61,28 +60,32 @@ class HomeFragment : Fragment() {
             vm = ViewModelProvider(it.app()).get(TunnelViewModel::class.java)
         }
 
-        homeLibre = HomeLibreView(requireContext())
-        homeLibre.parentFragmentManager = parentFragmentManager
-        homeLibre.viewLifecycleOwner = viewLifecycleOwner
-        homeLibre.lifecycleScope = lifecycleScope
-        homeLibre.showVpnPermsSheet = ::showVpnPermsSheet
-        homeLibre.showLocationSheet = ::showLocationSheet
-        homeLibre.showPlusSheet = ::showPlusSheet
-        homeLibre.showFailureDialog = ::showFailureDialog
-        homeLibre.setHasOptionsMenu = { setHasOptionsMenu(it) }
-        homeLibre.setup()
-        root.addView(homeLibre)
-
-        homeCloud = HomeCloudView(requireContext())
-        homeCloud.parentFragmentManager = parentFragmentManager
-        homeCloud.viewLifecycleOwner = viewLifecycleOwner
-        homeCloud.lifecycleScope = lifecycleScope
-        homeCloud.showLocationSheet = ::showLocationSheet
-        homeCloud.showPlusSheet = ::showPlusSheet
-        homeCloud.showFailureDialog = ::showFailureDialog
-        homeCloud.setHasOptionsMenu = { setHasOptionsMenu(it) }
-        homeCloud.setup()
-        root.addView(homeCloud)
+        if (EnvironmentService.isLibre()) {
+            val homeLibre = HomeLibreView(requireContext())
+            homeLibre.parentFragmentManager = parentFragmentManager
+            homeLibre.viewLifecycleOwner = viewLifecycleOwner
+            homeLibre.lifecycleScope = lifecycleScope
+            homeLibre.showVpnPermsSheet = ::showVpnPermsSheet
+            homeLibre.showLocationSheet = ::showLocationSheet
+            homeLibre.showPlusSheet = ::showPlusSheet
+            homeLibre.showFailureDialog = ::showFailureDialog
+            homeLibre.setHasOptionsMenu = { setHasOptionsMenu(it) }
+            homeLibre.setup()
+            root.addView(homeLibre)
+            homeView = homeLibre
+        } else {
+            val homeCloud = HomeCloudView(requireContext())
+            homeCloud.parentFragmentManager = parentFragmentManager
+            homeCloud.viewLifecycleOwner = viewLifecycleOwner
+            homeCloud.lifecycleScope = lifecycleScope
+            homeCloud.showLocationSheet = ::showLocationSheet
+            homeCloud.showPlusSheet = ::showPlusSheet
+            homeCloud.showFailureDialog = ::showFailureDialog
+            homeCloud.setHasOptionsMenu = { setHasOptionsMenu(it) }
+            homeCloud.setup()
+            root.addView(homeCloud)
+            homeView = homeCloud
+        }
 
         lifecycleScope.launchWhenCreated {
             delay(1000)
@@ -117,24 +120,16 @@ class HomeFragment : Fragment() {
             }
         }
 
-        updateHomeView()
         return root
-    }
-
-    private fun updateHomeView() {
-        homeCloud.visibility = if (libreMode) View.GONE else View.VISIBLE
-        homeLibre.visibility = if (libreMode) View.VISIBLE else View.GONE
     }
 
     override fun onResume() {
         super.onResume()
-        homeLibre.onResume()
-        homeCloud.onResume()
+        homeView.onResume()
     }
 
     override fun onPause() {
-        homeLibre.onPause()
-        homeCloud.onPause()
+        homeView.onPause()
         super.onPause()
     }
 
