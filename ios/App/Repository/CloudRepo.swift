@@ -74,6 +74,7 @@ class CloudRepo: Startable {
         onForegroundCheckDnsProfileActivation()
         onTabChangeRefreshDeviceInfo()
         onDeviceTagChangeUpdateDnsProfile()
+        onDeviceTagChangeUpdateEnv()
         onAccountIdChangeRefreshDeviceInfo()
     }
 
@@ -157,6 +158,14 @@ class CloudRepo: Startable {
         .sink(
             onFailure: { err in self.processingRepo.notify("setPrivateDnsProfile", err, major: true) }
         )
+        .store(in: &cancellables)
+    }
+
+    private func onDeviceTagChangeUpdateEnv() {
+        deviceTagHot
+        .sink(onValue: { it in
+            Services.env.deviceTag = it
+        })
         .store(in: &cancellables)
     }
 

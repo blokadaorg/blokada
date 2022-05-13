@@ -27,6 +27,9 @@ class PackRepo: Startable {
         }.eraseToAnyPublisher()
     }
 
+    // Used internally to access the map synchronously
+    private var mappedBlocklistInternal: [MappedBlocklist] = []
+
     // Packs is app's representation. One pack may have multiple configs.
     var packsHot: AnyPublisher<[Pack], Never> {
         writePacks.compactMap { $0 }.eraseToAnyPublisher()
@@ -54,6 +57,7 @@ class PackRepo: Startable {
         onUnistallPack()
         onLoadBlocklists_convertBlocklistsToPacks()
         onBlocklistsIdsChanged_sync()
+        onMappedBlocklistsChanged_setField()
     }
 
     func installPack(_ pack: Pack) -> AnyPublisher<Ignored, Error> {
@@ -68,6 +72,11 @@ class PackRepo: Startable {
     func changeConfig(pack: Pack, config: PackConfig) -> AnyPublisher<Ignored, Error> {
         let pack = pack.changeStatus(installed: false, config: config)
         return installPack(pack)
+    }
+
+    func getPackNameForBlocklist(list: String) -> String? {
+        let packId = mappedBlocklistInternal.first(where: { $0.id == list })?.packId
+        return dataSource.packs.first(where: { $0.id == packId })?.meta.title
     }
 
     private func onLoadBlocklists() {
@@ -258,6 +267,13 @@ class PackRepo: Startable {
     private func onBlocklistsIdsChanged_sync() {
         cloudRepo.blocklistsHot
         .sink(onValue: { it in self.loadBlocklistsT.send() })
+        .store(in: &cancellables)
+    }
+
+    private func onMappedBlocklistsChanged_setField() {
+        mappedBlocklistsHot
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.mappedBlocklistInternal = it })
         .store(in: &cancellables)
     }
 

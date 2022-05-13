@@ -80,7 +80,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .blocked,
                 time: Date(),
                 requests: 1,
-                device: "iphone"
+                device: "iphone",
+                list: "OISD"
             )))
             .previewLayout(.sizeThatFits)
 
@@ -89,7 +90,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 1,
-                device: "iphone"
+                device: "iphone",
+                list: nil
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)
@@ -101,7 +103,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .passed,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 999999999,
-                device: "iphone"
+                device: "iphone",
+                list: "OISD"
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraSmall)
@@ -113,7 +116,8 @@ struct ActivityItemView_Previews: PreviewProvider {
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5000000),
                 requests: 999999,
-                device: "iphone"
+                device: "iphone",
+                list: "OISD"
             )))
             .previewLayout(.sizeThatFits)
             .environment(\.sizeCategory, .extraExtraExtraLarge)

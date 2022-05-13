@@ -24,6 +24,7 @@ struct HistoryEntry: Codable {
     let time: Date
     let requests: UInt64
     let device: String
+    let list: String?
 }
 
 enum HistoryEntryType: Int, Codable {

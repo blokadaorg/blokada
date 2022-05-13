@@ -35,7 +35,7 @@ struct ActivityDetailView: View {
                             .truncationMode(.middle)
                             .font(.system(size: 22))
                         (
-                            Text(self.vm.entry.type == .blocked ? L10n.activityRequestBlocked : self.vm.entry.type == .whitelisted ? L10n.activityRequestAllowedWhitelisted : L10n.activityRequestAllowed)
+                            Text(getActionStringForEntry(it: self.vm.entry))
                         )
                         .font(.footnote)
                         .foregroundColor(Color.secondary)
@@ -154,6 +154,24 @@ struct ActivityDetailView: View {
     }
 }
 
+private func getActionStringForEntry(it: HistoryEntry) -> String {
+    if it.type == .whitelisted {
+        return L10n.activityRequestAllowedWhitelisted
+    } else if it.type == .blocked && it.list == Services.env.deviceTag {
+        return L10n.activityRequestBlockedBlacklisted
+    } else if it.type == .blocked && it.list != nil {
+        return L10n.activityRequestBlockedList(it.list!)
+    } else if it.type == .blocked {
+        return L10n.activityRequestBlocked
+    } else if it.type == .whitelisted && it.list == Services.env.deviceTag {
+        return L10n.activityRequestAllowedWhitelisted
+    } else if it.type == .passed && it.list != nil {
+        return L10n.activityRequestAllowedList(it.list!)
+    } else {
+        return L10n.activityRequestAllowed
+    }
+}
+
 struct ActivityDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -162,7 +180,17 @@ struct ActivityDetailView_Previews: PreviewProvider {
                 type: .whitelisted,
                 time: Date(timeIntervalSinceNow: -50000),
                 requests: 458,
-                device: "iphone"
+                device: "iphone",
+                list: "OISD"
+            )))
+
+            ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
+                name: "example.com",
+                type: .passed,
+                time: Date(timeIntervalSinceNow: -50000),
+                requests: 458,
+                device: "iphone",
+                list: "OISD"
             )))
 
             ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
@@ -170,7 +198,17 @@ struct ActivityDetailView_Previews: PreviewProvider {
                 type: .blocked,
                 time: Date(timeIntervalSinceNow: -5),
                 requests: 1,
-                device: "iphone"
+                device: "iphone",
+                list: nil
+            )))
+
+            ActivityDetailView(vm: ActivityItemViewModel(entry: HistoryEntry(
+                name: "super.long.boring.name.of.example.com",
+                type: .blocked,
+                time: Date(timeIntervalSinceNow: -5),
+                requests: 1,
+                device: "iphone",
+                list: "Goodbye"
             )))
         }
     }

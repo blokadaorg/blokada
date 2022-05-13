@@ -19,7 +19,8 @@ func convertActivity(activity: [Activity]) -> [HistoryEntry] {
             type: convertType(type: act.action),
             time: convertDate(timestamp: act.timestamp),
             requests: 1,
-            device: act.device_name
+            device: act.device_name,
+            list: getPack(it: act)
         )
     }
     let groups = Dictionary(grouping: act, by: { [$0.type: $0.name] })
@@ -31,7 +32,8 @@ func convertActivity(activity: [Activity]) -> [HistoryEntry] {
             type: item.type,
             time: item.time,
             requests: UInt64(value.count),
-            device: item.device
+            device: item.device,
+            list: item.list
         )
     }
 }
@@ -55,4 +57,11 @@ private func convertDate(timestamp: String) -> Date {
         return date
     }
     return date
+}
+
+private func getPack(it: Activity) -> String? {
+    if (it.list == Services.env.deviceTag) {
+        return it.list
+    }
+    return Repos.packRepo.getPackNameForBlocklist(list: it.list)
 }

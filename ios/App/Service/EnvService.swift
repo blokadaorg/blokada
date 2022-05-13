@@ -39,6 +39,8 @@ class EnvService {
 
     let deviceName = UIDevice.current.name
 
+    var deviceTag = ""
+
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "6.0.0-debug"
 
     let osVersion = UIDevice.current.systemVersion
