@@ -15,6 +15,7 @@ package ui.stats
 import model.Activity
 import model.HistoryEntry
 import model.HistoryEntryType
+import repository.Repos
 import service.EnvironmentService
 import utils.toBlockaDate
 import java.util.*
@@ -26,7 +27,8 @@ fun convertActivity(activity: List<Activity>): List<HistoryEntry> {
             type = convertType(it),
             time = convertDate(it.timestamp),
             requests = 1,
-            device = it.device_name
+            device = it.device_name,
+            pack = getPack(it)
         )
     }
 
@@ -39,7 +41,8 @@ fun convertActivity(activity: List<Activity>): List<HistoryEntry> {
             type = item.type,
             time = item.time,
             requests = it.value.count(),
-            device = item.device
+            device = item.device,
+            pack = item.pack
         )
     }
 }
@@ -55,4 +58,10 @@ private fun convertType(a: Activity): HistoryEntryType {
 
 private fun convertDate(timestamp: String): Date {
     return timestamp.toBlockaDate()
+}
+
+private fun getPack(it: Activity): String? {
+    // TODO: quite hacky
+    if (it.list == EnvironmentService.deviceTag) return it.list
+    return Repos.packs.getPackNameForBlocklist(it.list)
 }

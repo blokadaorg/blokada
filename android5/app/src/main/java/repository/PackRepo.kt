@@ -42,6 +42,11 @@ class PackRepo {
         convertBlocklists(b.filter { !it.is_allowlist })
     }
 
+    // Used internally to access the map synchronously
+    private var mappedBlocklistsInternal = emptyList<MappedBlocklist>()
+        @Synchronized set
+        @Synchronized get
+
     // Packs is app's representation. One pack may have multiple configs.
     val packsHot = writePacks.filterNotNull()
 
@@ -57,6 +62,7 @@ class PackRepo {
         GlobalScope.launch { onUninstallPack() }
         GlobalScope.launch { onLoadBlocklists_convertBlocklistsToPacks() }
         GlobalScope.launch { onBlocklistsIdsChanged_sync() }
+        GlobalScope.launch { onMappedBlocklistsChanged_setField() }
     }
 
     suspend fun installPack(pack: Pack) {
@@ -71,6 +77,11 @@ class PackRepo {
     suspend fun changeConfig(pack: Pack, config: PackConfig) {
         val pack = pack.changeStatus(installed = false, config = config)
         installPack(pack)
+    }
+
+    fun getPackNameForBlocklist(id: String?): String? {
+        val packId = mappedBlocklistsInternal.firstOrNull { it.id == id }?.packId
+        return dataSource.getPacks().firstOrNull { it.id == packId }?.meta?.title
     }
 
     private suspend fun onLoadBlocklists() {
@@ -239,6 +250,10 @@ class PackRepo {
         .collect {
             loadBlocklistsT.send()
         }
+    }
+
+    private suspend fun onMappedBlocklistsChanged_setField() {
+        mappedBlocklistsHot.collect { mappedBlocklistsInternal = it }
     }
 
 }

@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import model.HistoryEntryType
 import org.blokada.R
+import service.EnvironmentService
 import ui.StatsViewModel
 import ui.advanced.packs.OptionView
 import ui.app
@@ -67,22 +68,38 @@ class StatsDetailFragment : Fragment() {
                     HistoryEntryType.passed_allowed -> {
                         icon.setImageResource(R.drawable.ic_shield_off_outline)
                         icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-                        comment.text = getString(R.string.activity_request_allowed_whitelisted)
+                        comment.text = when (this.pack) {
+                            null -> getString(R.string.activity_request_allowed_no_list)
+                            EnvironmentService.deviceTag -> getString(R.string.activity_request_allowed_whitelisted)
+                            else -> getString(R.string.activity_request_allowed_list, this.pack)
+                        }
                     }
                     HistoryEntryType.blocked_denied -> {
                         icon.setImageResource(R.drawable.ic_shield_off_outline)
                         icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
-                        comment.text = getString(R.string.activity_request_blocked_blacklisted)
+                        comment.text = when (this.pack) {
+                            null -> getString(R.string.activity_request_blocked)
+                            EnvironmentService.deviceTag -> getString(R.string.activity_request_blocked_blacklisted)
+                            else -> getString(R.string.activity_request_blocked_list, this.pack)
+                        }
                     }
                     HistoryEntryType.passed -> {
                         icon.setImageResource(R.drawable.ic_shield_outline)
                         icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-                        comment.text = getString(R.string.activity_request_allowed)
+                        comment.text = when (this.pack) {
+                            null -> getString(R.string.activity_request_allowed_no_list)
+                            EnvironmentService.deviceTag -> getString(R.string.activity_request_allowed_whitelisted)
+                            else -> getString(R.string.activity_request_allowed_list, this.pack)
+                        }
                     }
                     else -> {
                         icon.setImageResource(R.drawable.ic_shield_outline)
                         icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.red))
-                        comment.text = getString(R.string.activity_request_blocked)
+                        comment.text = when (this.pack) {
+                            null -> getString(R.string.activity_request_blocked)
+                            EnvironmentService.deviceTag -> getString(R.string.activity_request_blocked_blacklisted)
+                            else -> getString(R.string.activity_request_blocked_list, this.pack)
+                        }
                     }
                 }
 

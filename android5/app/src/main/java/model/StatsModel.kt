@@ -31,7 +31,8 @@ data class HistoryEntry(
     val type: HistoryEntryType,
     val time: Date,
     val requests: Int,
-    val device: String
+    val device: String,
+    val pack: String?
 )
 
 enum class HistoryEntryType {

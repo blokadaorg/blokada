@@ -69,7 +69,8 @@ object StatsService: PrintsDebugInfo {
                         type = it.key.type(),
                         time = Date(it.value.lastEncounter),
                         requests = it.value.occurrences,
-                        device = EnvironmentService.getDeviceAlias()
+                        device = EnvironmentService.getDeviceAlias(),
+                        pack = null
                     )
                 }
             )
