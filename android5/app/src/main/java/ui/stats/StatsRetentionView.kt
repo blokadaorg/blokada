@@ -15,6 +15,7 @@ package ui.stats
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -53,27 +54,44 @@ class StatsRetentionView : FrameLayout {
 
         val retentionText = root.findViewById<TextView>(R.id.retention_text)
         val retentionContinue = root.findViewById<Button>(R.id.retention_continue)
+        val retentionCurrent = root.findViewById<View>(R.id.retention_current)
+        val retentionProgress = root.findViewById<View>(R.id.retention_progress)
 
         val retentionPolicy = root.findViewById<TextView>(R.id.retention_policy)
         retentionPolicy.setOnClickListener {
             openPolicy()
         }
 
+        val switchWorking = { working: Boolean ->
+            if (working) {
+                retentionContinue.isEnabled = false
+                retentionCurrent.visibility = View.GONE
+                retentionProgress.visibility = View.VISIBLE
+            } else {
+                retentionContinue.isEnabled = true
+                retentionCurrent.visibility = View.VISIBLE
+                retentionProgress.visibility = View.GONE
+            }
+        }
+
         lifecycleScope.launch {
             cloudRepo.activityRetentionHot
             .collect {
+                switchWorking(false)
                 val enabled = it == "24h"
 
                 if (enabled) {
                     retentionText.text = context.getString(R.string.activity_retention_option_twofourh)
                     retentionContinue.text = context.getString(R.string.home_power_action_turn_off)
                     retentionContinue.setOnClickListener {
+                        switchWorking(true)
                         lifecycleScope.launch { cloudRepo.setActivityRetention("") }
                     }
                 } else {
                     retentionText.text = context.getString(R.string.activity_retention_option_none)
                     retentionContinue.text = context.getString(R.string.home_power_action_turn_on)
                     retentionContinue.setOnClickListener {
+                        switchWorking(true)
                         lifecycleScope.launch { cloudRepo.setActivityRetention("24h") }
                     }
                 }

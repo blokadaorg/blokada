@@ -64,6 +64,7 @@
                 android:text="@string/activity_retention_header" />
 
             <LinearLayout
+                android:id="@+id/retention_current"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normal"
@@ -84,6 +85,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/activity_retention_option_none" />
             </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/retention_progress"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/normal"
+                />
 
             <Button
                 android:id="@+id/retention_continue"
