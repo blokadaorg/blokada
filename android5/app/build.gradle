@@ -216,6 +216,9 @@ dependencies {
     // Hopefully normal date api?
     implementation 'net.danlew:android.joda:2.10.14'
 
+    // Biometric api to protect account id
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
+
     // test deps
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -14,8 +14,11 @@ package ui.settings
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import kotlinx.coroutines.launch
+import model.Account
 import org.blokada.R
 import service.AlertDialogService
 import service.EnvironmentService
@@ -31,6 +34,8 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
     private val alert = AlertDialogService
     private lateinit var vm: SettingsViewModel
     private lateinit var accountVM: AccountViewModel
+
+    private val biometric by lazy { Services.biometric }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_account, rootKey)
@@ -50,11 +55,7 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
 
         accountVM.account.observe(viewLifecycleOwner) { account ->
             accountId.setOnPreferenceClickListener {
-                alert.showAlert(message = account.id,
-                    title = getString(R.string.account_label_id),
-                    additionalAction = getString(R.string.universal_action_copy) to {
-                        AndroidUtils.copyToClipboard(account.id)
-                    })
+                handleShowAccountId(account)
                 true
             }
 
@@ -71,4 +72,18 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
         }
     }
 
+    // Will use biometric auth if available or skip it otherwise and just show id
+    private fun handleShowAccountId(account: Account) {
+        lifecycleScope.launch {
+            val fragment = this@SettingsAccountFragment
+            if (biometric.isBiometricReady(fragment.requireContext()))
+                biometric.auth(fragment) // Will throw on bad auth
+
+            alert.showAlert(message = account.id,
+                title = getString(R.string.account_label_id),
+                additionalAction = getString(R.string.universal_action_copy) to {
+                    AndroidUtils.copyToClipboard(account.id)
+                })
+        }
+    }
 }

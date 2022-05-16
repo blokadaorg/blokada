@@ -14,9 +14,10 @@ package service
 
 object Services {
 
-    val context = ContextService
-    val apiForCurrentUser = BlockaApiForCurrentUserService
-    val sheet = SheetService()
-    val payment: IPaymentService = BillingService()
+    val context by lazy { ContextService }
+    val apiForCurrentUser by lazy { BlockaApiForCurrentUserService }
+    val sheet by lazy { SheetService() }
+    val payment: IPaymentService by lazy { BillingService() }
+    val biometric by lazy { BiometricService() }
 
 }
