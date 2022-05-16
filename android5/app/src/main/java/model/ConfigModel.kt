@@ -44,7 +44,7 @@ data class LocalConfig(
     val useDnsOverHttps: Boolean = false, // Deprecated
     val useBlockaDnsInPlusMode: Boolean = true, // Deprecated
     val escaped: Boolean = false,
-    val useForegroundService: Boolean = true,
+    val useForegroundService: Boolean = EnvironmentService.isLibre(), // To keep alive in Libre mode with fg notification
     val pingToCheckNetwork: Boolean = false
 )
 
