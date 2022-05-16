@@ -44,7 +44,7 @@
     "account encrypt label dns only": "DNS-Verschlüsselung",
     "account encrypt desc dns only": "Über das Domain Name System weiß dein Gerät, wo die Websites zu finden sind, die du besuchen möchtest. Leider verwendet der Großteil des Internets immer noch unverschlüsseltes DNS, wodurch die Gefahr besteht, dass dein Browserverlauf ausspioniert wird. Wenn dies aktiviert ist, zwingt Blokada dein Gerät dazu, sich nur mit verschlüsselten DNS-Servern (auch DNS über HTTPS genannt) zu verbinden.",
     "account encrypt label everything": "Verbindung über VPN herstellen",
-    "account encrypt desc everything": "Dein Gerät verbindet sich über unsere sicheren VPN-Server, und die gesamte Kommunikation von oder zu deinem Gerät wird mit starken Algorithmen verschlüsselt. Dies schützt deine persönlichen Informationen, wie Bankdaten oder persönliche Fotos, davor, an unsicheren Orten, wie z. B. im WLAN eines Cafés, gestohlen zu werden.",
+    "account encrypt desc everything": "Dein Gerät verbindet sich über unsere sicheren VPN-Server und die gesamte Kommunikation von oder zu deinem Gerät wird mit starken Algorithmen verschlüsselt. Dies schützt deine persönlichen Informationen, wie Bankdaten oder persönliche Fotos, davor, an unsicheren Orten, wie z. B. im WLAN eines Cafés, gestohlen zu werden.",
     "account encrypt action turn on": "Schalte BLOKADA ein",
     "account encrypt header level": "Verschlüsselungsstufe",
     "account encrypt label level": "Stufe",

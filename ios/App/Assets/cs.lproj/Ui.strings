@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ je nyní k dispozici ke stažení. Doporučujeme aplikaci aktualizovat a stahovat pouze z našich oficiálních zdrojů.";
 "update label updated" = "Aktualizováno!";
 "update desc updated" = "Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.";
+"update desc updated nodon" = "Nyní používáte nejnovější verzi Blokady! Pamatujte, předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.";
 "update downloading description" = "Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.";
 
 "main share message" = "Blokada pro iOS mi pomohla zablokovat %@ reklam a slídičů!";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
-"account status text inactive" = "Váš účet BLOKADA je neaktivní.";
+"account status text inactive" = "Vaše předplatné BLOKADA je neaktivní.";
 
 "account section header primary" = "Primární";
 "account section header other" = "Ostatní";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "Povolte Blokadu v Nastavení";
 "dnsprofile desc" = "V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.";
 "dnsprofile action open settings" = "Otevřít Nastavení";
+"dnsprofile desc android" = "V aplikaci v Nastavení, klepněte na možnost Privátní DNS a poté dlouhým klepnutím na pole poskytovatele vložte název hostitele služby Blokada Cloud.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Téměř hotovo!";

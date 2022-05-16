@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s on nyt ladattavissa. Suosittelemme pitämään sovelluksen ajan tasalla ja lataamaan sen vain virallisista lähteistämme.</string>
     <string name="update_label_updated">Päivitetty!</string>
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">Päivitystä ladataan nyt ja näet asennuskehotteen pian.</string>
     <string name="main_share_message">Blokada iOS:ille auttoi minua estämään %s mainosta ja seurantaohjelmaa!</string>
     <string name="main_rate_us_header">Arvostele meidät!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Estä</string>
     <string name="account_section_header_settings">Asetukset</string>
     <string name="account_status_text">BLOKADA %s tilisi on aktiivinen, kunnes %s.</string>
-    <string name="account_status_text_inactive">Your BLOKADA account is inactive.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Ensisijainen</string>
     <string name="account_section_header_other">Muu</string>
     <string name="account_action_my_account">Tilini</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Enable Blokada in Settings</string>
     <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">Almost there!</string>
     <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
     <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>

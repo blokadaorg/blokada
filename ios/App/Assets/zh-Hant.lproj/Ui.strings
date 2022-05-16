@@ -121,6 +121,7 @@
 "alert update body" = "現在可以下載 Blokada %@。我們建議將本 APP 保持在最新版本，並只從我們的官方來源下載。";
 "update label updated" = "已更新！";
 "update desc updated" = "您正在使用最新版本的 Blokada！請記住，捐款或訂閱 Blokada Plus 讓我們可以繼續改進應用程式。";
+"update desc updated nodon" = "您正在使用最新版本的 Blokada！對了，訂閱 Blokada Plus 讓我們可以繼續改進應用程式。";
 "update downloading description" = "正在下載更新，您稍後就會看到安裝提示框。";
 
 "main share message" = "Blokada for iOS 幫我阻擋了 %@ 個廣告和追蹤器！";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "設定";
 "account status text" = "您的 BLOKADA %@ 帳號有效日期至 %@ 為止。";
-"account status text inactive" = "您的 BLOKADA 帳戶尚未啟用。";
+"account status text inactive" = "您的 BLOKADA 訂閱已停用。";
 
 "account section header primary" = "主要";
 "account section header other" = "其他";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "在設定中啟用 Blokada";
 "dnsprofile desc" = "在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。";
 "dnsprofile action open settings" = "開啟設定";
+"dnsprofile desc android" = "在設定 app 中，點選「私人 DNS」，然後在「提供者」欄位長按，來貼上您 Blokada Cloud 的主機名稱。";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "快完成了！";

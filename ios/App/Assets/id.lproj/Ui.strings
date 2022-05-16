@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.";
 "update label updated" = "Diperbarui!";
 "update desc updated" = "Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, donasi atau berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.";
+"update desc updated nodon" = "Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.";
 "update downloading description" = "Pembaruan sedang diunduh, dan Anda akan melihat instruksi untuk menginstal beberapa saat kemudian.";
 
 "main share message" = "Blokada iOS membantu saya memblokir %@ iklan dan pelacak!";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
-"account status text inactive" = "Akun BLOKADA Anda tidak aktif.";
+"account status text inactive" = "Langganan BLOKADA Anda tidak aktif.";
 
 "account section header primary" = "Utama";
 "account section header other" = "Lainnya";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "Aktifkan Blokada di Pengaturan";
 "dnsprofile desc" = "Di Pengaturan, cari Umum → Manajemen VPN, DNS, & Perangkat → DNS, kemudian pilih Blokada.";
 "dnsprofile action open settings" = "Buka Pengaturan";
+"dnsprofile desc android" = "Di Pengaturan, ketuk Private DNS, kemudian tekan lama di kolom provider untuk menyalin hostname Blokada Cloud Anda.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Sebentar lagi!";

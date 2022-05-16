@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s ahora está disponible para descargar. Recomendamos descargar la aplicación solo desde nuestras fuentes oficiales y mantenerla actualizada.</string>
     <string name="update_label_updated">¡Actualizado!</string>
     <string name="update_desc_updated">¡Ahora estás usando la versión más reciente de Blokada! Recuerda, al donar o suscribirte a Blokada Plus nos permites continuar mejorando la aplicación.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">La actualización se está descargando, deberías ver el aviso de instalación en breve.</string>
     <string name="main_share_message">¡Blokada para iOS me ha ayudado a bloquear %s anuncios y rastreadores!</string>
     <string name="main_rate_us_header">¡Califícanos!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Bloquear</string>
     <string name="account_section_header_settings">Configuración</string>
     <string name="account_status_text">Tu cuenta de BLOKADA %s está activa hasta %s.</string>
-    <string name="account_status_text_inactive">Tu cuenta de BLOKADA está inactiva.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Otros</string>
     <string name="account_action_my_account">Mi cuenta</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Activar Blokada en Ajustes</string>
     <string name="dnsprofile_desc">En la aplicación de configuración, vaya a General → VPN, DNS &amp; Device Management → DNS y seleccione Blokada.</string>
     <string name="dnsprofile_action_open_settings">Abrir Ajustes</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">¡Ya casi estamos!</string>
     <string name="activated_desc">Lo siguiente es necesario para que Blokada funcione como se espera:</string>
     <string name="activated_desc_all_ok">Su dispositivo está todo configurado y listo para funcionar:</string>

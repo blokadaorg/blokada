@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.</string>
     <string name="update_label_updated">Diperbarui!</string>
     <string name="update_desc_updated">Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, donasi atau berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.</string>
+    <string name="update_desc_updated_nodon">Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.</string>
     <string name="update_downloading_description">Pembaruan sedang diunduh, dan Anda akan melihat instruksi untuk menginstal beberapa saat kemudian.</string>
     <string name="main_share_message">Blokada iOS membantu saya memblokir %s iklan dan pelacak!</string>
     <string name="main_rate_us_header">Beri kami rating!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Blokir</string>
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
-    <string name="account_status_text_inactive">Akun BLOKADA Anda tidak aktif.</string>
+    <string name="account_status_text_inactive">Langganan BLOKADA Anda tidak aktif.</string>
     <string name="account_section_header_primary">Utama</string>
     <string name="account_section_header_other">Lainnya</string>
     <string name="account_action_my_account">Akun saya</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Aktifkan Blokada di Pengaturan</string>
     <string name="dnsprofile_desc">Di Pengaturan, cari Umum → Manajemen VPN, DNS, &amp; Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="dnsprofile_action_open_settings">Buka Pengaturan</string>
+    <string name="dnsprofile_desc_android">Di Pengaturan, ketuk Private DNS, kemudian tekan lama di kolom provider untuk menyalin hostname Blokada Cloud Anda.</string>
     <string name="activated_header">Sebentar lagi!</string>
     <string name="activated_desc">Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:</string>
     <string name="activated_desc_all_ok">Perangkat Anda sudah di-set up dan siap untuk digunakan:</string>

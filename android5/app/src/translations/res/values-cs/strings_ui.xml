@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s je nyní k dispozici ke stažení. Doporučujeme aplikaci aktualizovat a stahovat pouze z našich oficiálních zdrojů.</string>
     <string name="update_label_updated">Aktualizováno!</string>
     <string name="update_desc_updated">Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
+    <string name="update_desc_updated_nodon">Nyní používáte nejnovější verzi Blokady! Pamatujte, předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
     <string name="update_downloading_description">Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.</string>
     <string name="main_share_message">Blokada pro iOS mi pomohla zablokovat %s reklam a slídičů!</string>
     <string name="main_rate_us_header">Ohodnoťte nás!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Blokovat</string>
     <string name="account_section_header_settings">Nastavení</string>
     <string name="account_status_text">Váš účet BLOKADA %s je aktivní do %s.</string>
-    <string name="account_status_text_inactive">Váš účet BLOKADA je neaktivní.</string>
+    <string name="account_status_text_inactive">Vaše předplatné BLOKADA je neaktivní.</string>
     <string name="account_section_header_primary">Primární</string>
     <string name="account_section_header_other">Ostatní</string>
     <string name="account_action_my_account">Můj účet</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Povolte Blokadu v Nastavení</string>
     <string name="dnsprofile_desc">V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otevřít Nastavení</string>
+    <string name="dnsprofile_desc_android">V aplikaci v Nastavení, klepněte na možnost Privátní DNS a poté dlouhým klepnutím na pole poskytovatele vložte název hostitele služby Blokada Cloud.</string>
     <string name="activated_header">Téměř hotovo!</string>
     <string name="activated_desc">Aby Blokada fungovala podle očekávání, je nutné provést následující kroky:</string>
     <string name="activated_desc_all_ok">Zařízení je nastaveno a připraveno k použití:</string>

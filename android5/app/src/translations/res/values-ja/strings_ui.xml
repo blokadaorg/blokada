@@ -3,7 +3,7 @@
     <string name="error_device_offline">インターネットに接続されていません</string>
     <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。</string>
     <string name="error_account_inactive_after_restore">有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
-    <string name="error_account_invalid">アカウントを確認してください</string>
+    <string name="error_account_invalid">アカウント ID を確認してください</string>
     <string name="error_creating_account">新しいアカウントを作成できませんでした。後でもう一度お試しください。</string>
     <string name="error_fetching_data">操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
     <string name="error_tunnel">VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。</string>
@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。</string>
     <string name="update_label_updated">更新されました！</string>
     <string name="update_desc_updated">Blokada の最新バージョンを使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。</string>
+    <string name="update_desc_updated_nodon">Blokada の最新バージョンを使用しています！ Blokada Plus の登録はアプリ開発への支援となります。</string>
     <string name="update_downloading_description">更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。</string>
     <string name="main_share_message">Blokada for iOS は、%s の広告とトラッカーをブロックしました！</string>
     <string name="main_rate_us_header">アプリを評価してください！</string>
@@ -138,9 +139,9 @@
     <string name="activity_request_allowed">このリクエストは許可されています</string>
     <string name="activity_request_allowed_whitelisted">例外リストでこのリクエストは許可されています</string>
     <string name="activity_request_blocked_blacklisted">例外リストでこのリクエストはブロックされています</string>
-    <string name="activity_request_allowed_list">*%s* 許可リストでこのリクエストは許可されています</string>
+    <string name="activity_request_allowed_list">許可リスト *%s* でこのリクエストは許可されています</string>
     <string name="activity_request_allowed_no_list">設定されたブロックリストのいずれにも存在しないため、このリクエストは許可されています</string>
-    <string name="activity_request_blocked_list">*%s* ブロックリストでこのリクエストはブロックされています</string>
+    <string name="activity_request_blocked_list">ブロックリスト *%s* でこのリクエストはブロックされています</string>
     <string name="activity_request_blocked_no_list">設定された許可リストのいずれにも存在しないため、このリクエストはブロックされています</string>
     <string name="activity_actions_header">アクション</string>
     <string name="activity_information_header">Info</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">ブロック</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">BLOKADA %s - アカウントの有効期限は %s です。</string>
-    <string name="account_status_text_inactive">BLOKADA アカウントは無効です</string>
+    <string name="account_status_text_inactive">BLOKADA サブスクリプションが無効です</string>
     <string name="account_section_header_primary">メイン</string>
     <string name="account_section_header_other">その他</string>
     <string name="account_action_my_account">アカウント情報</string>
@@ -235,7 +236,7 @@
     <string name="account_lease_action_dns">DNS を選択</string>
     <string name="account_lease_label_public_key">公開鍵</string>
     <string name="account_support_action_how_help">お困りですか？</string>
-    <string name="account_support_action_kb">サポートFAQ</string>
+    <string name="account_support_action_kb">サポート FAQ を開く</string>
     <string name="account_upgrade_cloud_description">この機能は Blokada Plus の一部です。アップグレードするにはカスタマーサポートにお問い合わせください。</string>
     <string name="payment_header_activated">アクティベートされました！</string>
     <string name="payment_activated_description">Blokada が Plus モードに切り替わり、安全な接続先の 1 つを介して接続します。どれを選択すればよいかわからない場合は、最も近いものをお勧めします。</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">設定で Blokada を有効にする</string>
     <string name="dnsprofile_desc">設定を開き、[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
     <string name="dnsprofile_action_open_settings">設定を開く</string>
+    <string name="dnsprofile_desc_android">設定アプリでプライベート DNS のプロバイダの欄に Blokada Cloud のホスト名を貼り付けてください。</string>
     <string name="activated_header">もう少しで完了です</string>
     <string name="activated_desc">Blokada が正常に動作するには、以下が必要です:</string>
     <string name="activated_desc_all_ok">すべての設定を完了しました:</string>

@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.</string>
     <string name="update_label_updated">Uppdaterad!</string>
     <string name="update_desc_updated">Du använder nu den senaste versionen av Blokada! Kom ihåg, att donera eller prenumerera på Blokada Plus låter oss fortsätta förbättra appen.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">Uppdateringen laddas nu ner, du bör se installationsprompten inom kort.</string>
     <string name="main_share_message">Blokada för iOS hjälpte mig att blockera %s annonser och trackers!</string>
     <string name="main_rate_us_header">Betygsätt oss!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Blockera</string>
     <string name="account_section_header_settings">Inställningar</string>
     <string name="account_status_text">Ditt BLOKADA %skonto är aktivt fram till %s.</string>
-    <string name="account_status_text_inactive">Ditt BLOKADA-konto är inaktivt.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Primär</string>
     <string name="account_section_header_other">Annat</string>
     <string name="account_action_my_account">Mitt konto</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Aktivera Blokada i Inställningar</string>
     <string name="dnsprofile_desc">I appen Inställningar, navigera till Allmänt → VPN &amp; enhetshantering → DNS och välj Blokada.</string>
     <string name="dnsprofile_action_open_settings">Öppna Inställningar</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">Nästan där!</string>
     <string name="activated_desc">Följande är nödvändigt för att Blokada ska fungera som förväntat:</string>
     <string name="activated_desc_all_ok">Din enhet är konfigurerad och redo att användas:</string>

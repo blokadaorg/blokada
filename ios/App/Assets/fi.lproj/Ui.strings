@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ on nyt ladattavissa. Suosittelemme pitämään sovelluksen ajan tasalla ja lataamaan sen vain virallisista lähteistämme.";
 "update label updated" = "Päivitetty!";
 "update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
+"update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
 "update downloading description" = "Päivitystä ladataan nyt ja näet asennuskehotteen pian.";
 
 "main share message" = "Blokada iOS:ille auttoi minua estämään %@ mainosta ja seurantaohjelmaa!";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "Asetukset";
 "account status text" = "BLOKADA %@ tilisi on aktiivinen, kunnes %@.";
-"account status text inactive" = "Your BLOKADA account is inactive.";
+"account status text inactive" = "Your BLOKADA subscription is inactive.";
 
 "account section header primary" = "Ensisijainen";
 "account section header other" = "Muu";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "Enable Blokada in Settings";
 "dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
 "dnsprofile action open settings" = "Open Settings";
+"dnsprofile desc android" = "In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Almost there!";

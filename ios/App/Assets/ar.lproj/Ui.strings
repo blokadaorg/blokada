@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ متاح الآن للتنزيل. نوصي بتحديث التطبيق باستمرار و تنزيله فقط من مصادرنا الرسميّة.";
 "update label updated" = "تَمّ التحديث !";
 "update desc updated" = "أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ التَبَرُّع أو الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.";
+"update desc updated nodon" = "أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.";
 "update downloading description" = "يَتمّ تحميل التحديث، و يجب أن يظهر طلب التثبيت قريباً.";
 
 "main share message" = "بلوكادا لنظام التشغيل iOS ساعدني على حَظْر %@ الإعلانات و المتعقِّبين !";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "تفعيل بلوكادا في الإعدادات";
 "dnsprofile desc" = "في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS & إعدادات الجهاز ←DNS و حدّد Blokada.";
 "dnsprofile action open settings" = "فتح الإعدادات";
+"dnsprofile desc android" = "في تطبيق الإعدادات، انقر على DNS الخاص، ثم اضغط لفترة طويلة على حقل المزوّد للصق اسم مضيف Blokada Cloud الخاص بك.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "انتهينا تقريباً !";

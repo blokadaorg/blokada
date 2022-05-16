@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s jest teraz dostępna do pobrania. Zalecamy szybką aktualizację aplikacji i pobieranie jej tylko z naszych oficjalnych źródeł.</string>
     <string name="update_label_updated">Zaktualizowano!</string>
     <string name="update_desc_updated">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że przekazanie darowizny lub zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
+    <string name="update_desc_updated_nodon">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
     <string name="update_downloading_description">Aktualizacja jest teraz pobierana i wkrótce powinien pojawić się monit instalacji.</string>
     <string name="main_share_message">Blokada iOS pomogła mi zablokować %s reklam i trackerów!</string>
     <string name="main_rate_us_header">Oceń nas!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Zablokuj</string>
     <string name="account_section_header_settings">Ustawienia</string>
     <string name="account_status_text">Twoje konto BLOKADA %s jest aktywne do %s.</string>
-    <string name="account_status_text_inactive">Twoje konto BLOKADA jest nieaktywne.</string>
+    <string name="account_status_text_inactive">Twoja subskrypcja BLOKADY jest nieaktywna.</string>
     <string name="account_section_header_primary">Podstawowe</string>
     <string name="account_section_header_other">Inne</string>
     <string name="account_action_my_account">Moje konto</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Aktywuj Blokadę w Ustawieniach</string>
     <string name="dnsprofile_desc">W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otwórz Ustawienia</string>
+    <string name="dnsprofile_desc_android">W ustawieniach aplikacji stuknij Prywatny DNS, a następnie długim stuknięciem pola dostawcy wklej swoją nazwę hosta Blokady Cloud.</string>
     <string name="activated_header">Prawie gotowe!</string>
     <string name="activated_desc">Aby Blokada działała zgodnie z oczekiwaniami, konieczne jest:</string>
     <string name="activated_desc_all_ok">Twoje urządzenie jest skonfigurowane i gotowe:</string>

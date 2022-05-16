@@ -89,6 +89,7 @@
     <string name="alert_update_body">A Blokada %s letölthető. Ajánlott az app rendszeres frissítése, és csak a hivatalos forrásból való beszerzése.</string>
     <string name="update_label_updated">Frissítve!</string>
     <string name="update_desc_updated">Most már a legújabb Blokada verziót használja! Ne feledje, hogy a támogatások és előfizetések lehetővé teszik az app további fejlesztését.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">A frissítés letöltése megkezdődött, hamarosan megjelenik a telepítési felület.</string>
     <string name="main_share_message">Az iOS-es Blokada segített nekem eddig %s reklámot és trackert blokkolni!</string>
     <string name="main_rate_us_header">Értékelj minket!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Blokkolás</string>
     <string name="account_section_header_settings">Beállítások</string>
     <string name="account_status_text">A BLOKADA %s fiókod aktív eddig: %s.</string>
-    <string name="account_status_text_inactive">A BLOKADA fiókja inaktív.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Elsődleges</string>
     <string name="account_section_header_other">Other</string>
     <string name="account_action_my_account">Fiókom</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Blokada engedélyezése a Beállításokban</string>
     <string name="dnsprofile_desc">A Beállítások alkalmazásban navigálj az Általános → VPN, DNS és eszközkezelés → DNS menüpontra, és válaszd a Blokada lehetőséget.</string>
     <string name="dnsprofile_action_open_settings">Beállítások megnyitása</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">Majdnem kész!</string>
     <string name="activated_desc">A következőkre van szükség ahhoz, hogy a Blokada az elvárásoknak megfelelően működjön:</string>
     <string name="activated_desc_all_ok">Az eszközöd be van állítva, és készen áll a használatra:</string>

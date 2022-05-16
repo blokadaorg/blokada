@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ теперь доступна для скачивания. Мы рекомендуем поддерживать актуальную версию приложения, и скачивать его только из наших официальных источников.";
 "update label updated" = "Обновлено!";
 "update desc updated" = "Теперь вы используете новейшую версию Blokada! Помните, что пожертвование или подписка на Blokada Plus позволяет нам продолжать улучшать приложение.";
+"update desc updated nodon" = "Теперь вы используете новейшую версию Blokada! Помните, что подписка на Blokada Plus позволяет нам продолжать улучшать приложение.";
 "update downloading description" = "Обновление уже начало загружаться. Скоро появится запрос на установку.";
 
 "main share message" = "Blokada для iOS помогла мне заблокировать %@ рекламы и трекеров!";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "Настройки";
 "account status text" = "Ваш аккаунт BLOKADA %@ активен до %@.";
-"account status text inactive" = "Ваш аккаунт BLOKADA неактивен.";
+"account status text inactive" = "Ваша подписка BLOKADA неактивна.";
 
 "account section header primary" = "Главное";
 "account section header other" = "Другое";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "Включите Blokada в Настройках";
 "dnsprofile desc" = "В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.";
 "dnsprofile action open settings" = "Открыть Настройки";
+"dnsprofile desc android" = "В настройках телефона найдите Персональный DNS, затем вставьте ваше имя хоста Blokada Cloud.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти готово!";

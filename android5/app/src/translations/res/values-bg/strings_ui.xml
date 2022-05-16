@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтегленo само от нашите официални източници.</string>
     <string name="update_label_updated">Обновено!</string>
     <string name="update_desc_updated">Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.</string>
+    <string name="update_desc_updated_nodon">Сега използвате най-новата версия на Blokada! Не забравяйте, че абонамента за Blokada Plus ни позволява да продължим и подобряваме приложението.</string>
     <string name="update_downloading_description">Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.</string>
     <string name="main_share_message">Blokada за iOS ми помогна да блокирам %s реклами и тракери!</string>
     <string name="main_rate_us_header">Оценете ни!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Блокирай</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Вашият BLOKADA %s профил е активен до %s.</string>
-    <string name="account_status_text_inactive">Вашият BLOKADA профил не е активен.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Основен</string>
     <string name="account_section_header_other">Друг</string>
     <string name="account_action_my_account">Моят профил</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Активиране на Blokada в настройките</string>
     <string name="dnsprofile_desc">В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.</string>
     <string name="dnsprofile_action_open_settings">Отваряне на настройките</string>
+    <string name="dnsprofile_desc_android">В Настройки на приложението докоснете Private DNS и след това с продължително докосване в полето на доставчика поставете името на хоста Blokada Cloud.</string>
     <string name="activated_header">Почти сме готови!</string>
     <string name="activated_desc">Необходимо е следното за да работи Blokada според очакванията:</string>
     <string name="activated_desc_all_ok">Вашето устройство е готово и настроено:</string>

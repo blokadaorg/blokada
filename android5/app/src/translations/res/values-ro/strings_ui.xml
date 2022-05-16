@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.</string>
     <string name="update_label_updated">Actualizat!</string>
     <string name="update_desc_updated">Acum folosești cea mai nouă versiune Blokada! Amintește-ți, donarea sau abonarea către Blokada Plus ne permite să continuăm să îmbunătățim aplicația.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.</string>
     <string name="main_share_message">Blokada pentru iOS m-a ajutat să blochez %s reclame și trackere!</string>
     <string name="main_rate_us_header">Acordați-ne o notă!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Blochează</string>
     <string name="account_section_header_settings">Setări</string>
     <string name="account_status_text">Contul dvs. BLOKADA %s este activ până la %s.</string>
-    <string name="account_status_text_inactive">Your BLOKADA account is inactive.</string>
+    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
     <string name="account_section_header_primary">Principal</string>
     <string name="account_section_header_other">Altele</string>
     <string name="account_action_my_account">Contul meu</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Enable Blokada in Settings</string>
     <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="dnsprofile_action_open_settings">Open Settings</string>
+    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
     <string name="activated_header">Almost there!</string>
     <string name="activated_desc">The following is necessary for Blokada to work as expected:</string>
     <string name="activated_desc_all_ok">Your device is all set up and good to go:</string>

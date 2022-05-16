@@ -89,6 +89,7 @@
     <string name="alert_update_body">Blokada %s теперь доступна для скачивания. Мы рекомендуем поддерживать актуальную версию приложения, и скачивать его только из наших официальных источников.</string>
     <string name="update_label_updated">Обновлено!</string>
     <string name="update_desc_updated">Теперь вы используете новейшую версию Blokada! Помните, что пожертвование или подписка на Blokada Plus позволяет нам продолжать улучшать приложение.</string>
+    <string name="update_desc_updated_nodon">Теперь вы используете новейшую версию Blokada! Помните, что подписка на Blokada Plus позволяет нам продолжать улучшать приложение.</string>
     <string name="update_downloading_description">Обновление уже начало загружаться. Скоро появится запрос на установку.</string>
     <string name="main_share_message">Blokada для iOS помогла мне заблокировать %s рекламы и трекеров!</string>
     <string name="main_rate_us_header">Оцените нас!</string>
@@ -183,7 +184,7 @@
     <string name="userdenied_action_block">Заблокировать</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Ваш аккаунт BLOKADA %s активен до %s.</string>
-    <string name="account_status_text_inactive">Ваш аккаунт BLOKADA неактивен.</string>
+    <string name="account_status_text_inactive">Ваша подписка BLOKADA неактивна.</string>
     <string name="account_section_header_primary">Главное</string>
     <string name="account_section_header_other">Другое</string>
     <string name="account_action_my_account">Мой аккаунт</string>
@@ -348,6 +349,7 @@
     <string name="dnsprofile_header">Включите Blokada в Настройках</string>
     <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="dnsprofile_action_open_settings">Открыть Настройки</string>
+    <string name="dnsprofile_desc_android">В настройках телефона найдите Персональный DNS, затем вставьте ваше имя хоста Blokada Cloud.</string>
     <string name="activated_header">Почти готово!</string>
     <string name="activated_desc">Чтобы Blokada работала должным образом, необходимо:</string>
     <string name="activated_desc_all_ok">Ваше устройство настроено и готово к работе:</string>

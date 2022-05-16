@@ -121,6 +121,7 @@
 "alert update body" = "Blokada %@ вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтегленo само от нашите официални източници.";
 "update label updated" = "Обновено!";
 "update desc updated" = "Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.";
+"update desc updated nodon" = "Сега използвате най-новата версия на Blokada! Не забравяйте, че абонамента за Blokada Plus ни позволява да продължим и подобряваме приложението.";
 "update downloading description" = "Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.";
 
 "main share message" = "Blokada за iOS ми помогна да блокирам %@ реклами и тракери!";
@@ -238,7 +239,7 @@
 
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
-"account status text inactive" = "Вашият BLOKADA профил не е активен.";
+"account status text inactive" = "Your BLOKADA subscription is inactive.";
 
 "account section header primary" = "Основен";
 "account section header other" = "Друг";
@@ -433,6 +434,7 @@
 "dnsprofile header" = "Активиране на Blokada в настройките";
 "dnsprofile desc" = "В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.";
 "dnsprofile action open settings" = "Отваряне на настройките";
+"dnsprofile desc android" = "В Настройки на приложението докоснете Private DNS и след това с продължително докосване в полето на доставчика поставете името на хоста Blokada Cloud.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";
