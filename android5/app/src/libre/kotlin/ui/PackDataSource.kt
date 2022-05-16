@@ -10,7 +10,7 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package repository
+package ui
 
 import model.*
 import utils.FlavorSpecific
@@ -65,17 +65,16 @@ object PackDataSource: FlavorSpecific {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/stevenblack/social/hosts.txt", "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social/hosts"), applyFor = "Social"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/stevenblack/gambling/hosts.txt", "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling/hosts"), applyFor = "Gambling")),
 
-        Pack.mocked(id = "goodbyeads", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy", "youtube"),
+        Pack.mocked(id = "goodbyeads", tags = listOf(Pack.recommended, Pack.official, "adblocking", "tracking", "privacy"),
             title = "Goodbye Ads",
             slugline = "Alternative blocklist with advanced features",
             description = "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps.",
             creditName = "Jerryn70",
             creditUrl = "https://github.com/jerryn70/GoodbyeAds",
-            configs = listOf("Standard", "YouTube", "Samsung", "Xiaomi", "Spotify")
+            configs = listOf("Standard", "Samsung", "Xiaomi", "Spotify")
         )
             .changeStatus(config = "Standard")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/goodbyeads/standard/hosts.txt", "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Hosts/GoodbyeAds.txt"), applyFor = "Standard"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/goodbyeads/youtube/hosts.txt", "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-YouTube-AdBlock.txt"), applyFor = "YouTube"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/goodbyeads/samsung/hosts.txt", "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-Samsung-AdBlock.txt"), applyFor = "Samsung"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/goodbyeads/xiaomi/hosts.txt", "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-Xiaomi-Extension.txt"), applyFor = "Xiaomi"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/goodbyeads/spotify/hosts.txt", "https://raw.githubusercontent.com/jerryn70/GoodbyeAds/master/Extension/GoodbyeAds-Spotify-AdBlock.txt"), applyFor = "Spotify")),
@@ -151,21 +150,20 @@ object PackDataSource: FlavorSpecific {
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/amp/hosts.txt", "https://www.github.developerdan.com/hosts/lists/amp-hosts-extended.txt"), applyFor = "AMP"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/developerdan/junk/hosts.txt", "https://www.github.developerdan.com/hosts/lists/hate-and-junk-extended.txt"), applyFor = "Hate & Junk")),
 
-        Pack.mocked(id = "blocklist", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "social", "youtube", "security"),
+        Pack.mocked(id = "blocklist", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "social", "security"),
             title = "The Block List Project",
             slugline = "A collection of blocklists for various use cases.",
             description = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.",
             creditName = "blocklistproject",
             creditUrl = "https://go.blokada.org/blocklistproject",
-            configs = listOf("Ads", "Facebook", "Malware", "Phishing", "Tracking", "YouTube")
+            configs = listOf("Ads", "Facebook", "Malware", "Phishing", "Tracking")
         )
             .changeStatus(config = "Ads")
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/ads/hosts.txt", "https://blocklistproject.github.io/Lists/ads.txt"), applyFor = "Ads"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/facebook/hosts.txt", "https://blocklistproject.github.io/Lists/facebook.txt"), applyFor = "Facebook"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/malware/hosts.txt", "https://blocklistproject.github.io/Lists/malware.txt"), applyFor = "Malware"))
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/phishing/hosts.txt", "https://blocklistproject.github.io/Lists/phishing.txt"), applyFor = "Phishing"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/tracking/hosts.txt", "https://blocklistproject.github.io/Lists/tracking.txt"), applyFor = "Tracking"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/youtube/hosts.txt", "https://blocklistproject.github.io/Lists/youtube.txt"), applyFor = "YouTube")),
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/blocklist/tracking/hosts.txt", "https://blocklistproject.github.io/Lists/tracking.txt"), applyFor = "Tracking")),
 
         Pack.mocked(id = "spam404", tags = listOf(Pack.recommended, Pack.official, "privacy", "phishing", "security"),
             title = "Spam404",
