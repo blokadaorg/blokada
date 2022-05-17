@@ -14,10 +14,9 @@ package service
 
 import androidx.fragment.app.DialogFragment
 import model.BlokadaException
-import ui.home.ActivatedFragment
+import ui.home.AdsCounterFragment
 import ui.home.CloudPaymentFragment
 import ui.home.OnboardingFragment
-import ui.home.PaymentFragment
 
 enum class Sheet {
     Help, // Help Screen (contact us)
@@ -29,7 +28,6 @@ enum class Sheet {
     Debug, // Debug shortcuts and actions, not accessible in production builds
     RateApp, // Asking user to put a review
     AdsCounter, // A big total ads blocked display with option no share
-    ShareAdsCounter // Opens OS'es sharing with a short message with blocked counter
 }
 
 class SheetService {
@@ -38,6 +36,7 @@ class SheetService {
         val fragment = when (sheet) {
             Sheet.Payment -> CloudPaymentFragment.newInstance()
             Sheet.Activated -> OnboardingFragment.newInstance()
+            Sheet.AdsCounter -> AdsCounterFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }
         onShowFragment(fragment)

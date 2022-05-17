@@ -24,8 +24,11 @@
         <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_activated.xml" value="0.1656534954407295" />
+        <entry key="app/src/main/res/layout/fragment_ads_counter.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_adscounter.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_afteractivated.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dnschoice.xml" value="0.10739614994934144" />
+        <entry key="app/src/main/res/layout/fragment_encryption_level.xml" value="0.12613981762917933" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_container.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.2740628166160081" />

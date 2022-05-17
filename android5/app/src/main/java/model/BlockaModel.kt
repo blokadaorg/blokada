@@ -227,7 +227,11 @@ data class CustomListWrapper(
 data class CounterStats(
     val total_allowed: String,
     val total_blocked: String
-)
+) {
+    fun getCounter(): Long {
+        return total_blocked.toLong()
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class GoogleCheckoutRequest(

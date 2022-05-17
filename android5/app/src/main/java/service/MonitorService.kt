@@ -201,6 +201,7 @@ class ForegroundService: Service() {
     override fun onBind(intent: Intent?): IBinder? {
         if (FOREGROUND_BINDER_ACTION == intent?.action) {
             ContextService.setApp(this.application)
+            Logger.w("xxxx", "ForegroundService: onBind")
             binder = ForegroundBinder { counter, lastDenied, tunnelStatus, dnsLabel, appState ->
                 this.counter = counter ?: this.counter
                 this.lastDenied = lastDenied ?: this.lastDenied
@@ -216,6 +217,7 @@ class ForegroundService: Service() {
     private fun updateNotification() {
         val prototype = MonitorNotification(tunnelStatus, counter, lastDenied, appState)
         val n = notification.build(prototype)
+        Logger.w("xxxx", "ForegroundService: updateNotification")
         startForeground(prototype.id, n)
     }
 

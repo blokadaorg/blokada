@@ -141,8 +141,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                 when {
                     inProgress -> Unit
                     appState == AppState.Activated -> {
-                        val fragment = ProtectionLevelFragment.newInstance()
-                        fragment.show(parentFragmentManager, null)
+                        sheet.showSheet(Sheet.AdsCounter)
                     }
                     !accountVM.isActive() -> {
                         showPlusSheet()
