@@ -13,8 +13,12 @@
 package ui
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.ActiveUntil
+import repository.Repos
 import service.ExpirationService
 import service.PersistenceService
 import utils.ExpiredNotification
@@ -34,6 +38,8 @@ class ActivationViewModel: ViewModel() {
     private val _state = MutableLiveData<ActivationState>()
     val state: LiveData<ActivationState> = _state.distinctUntilChanged()
 
+    private val enteredForegroundHot by lazy { Repos.stage.enteredForegroundHot }
+
     init {
         viewModelScope.launch {
             _state.value = persistence.load(ActivationState::class)
@@ -41,6 +47,7 @@ class ActivationViewModel: ViewModel() {
         expiration.onExpired = {
             receivedExpiredTimer()
         }
+        GlobalScope.async { onForeground_emitState() }
     }
 
     fun setExpiration(activeUntil: ActiveUntil) {
@@ -137,6 +144,12 @@ class ActivationViewModel: ViewModel() {
             persistence.save(state)
         }
     }
+
+    private suspend fun onForeground_emitState() {
+        enteredForegroundHot
+        .collect { _state.value = _state.value }
+    }
+
 }
 
 fun Date.beforeNow(): Boolean {

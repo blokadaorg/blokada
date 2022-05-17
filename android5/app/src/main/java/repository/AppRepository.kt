@@ -42,7 +42,7 @@ object AppRepository {
     private val alwaysBypassed by lazy {
         listOf<AppId>(
             // This app package name
-            //context.requireContext().packageName
+            context.requireContext().packageName
         )
     }
 

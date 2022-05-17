@@ -194,6 +194,7 @@ class ForegroundService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         ContextService.setApp(this.application)
+        Logger.w("xxxx", "ForegroundService: onStartCommand")
         updateNotification()
         return START_STICKY
     }
@@ -217,7 +218,6 @@ class ForegroundService: Service() {
     private fun updateNotification() {
         val prototype = MonitorNotification(tunnelStatus, counter, lastDenied, appState)
         val n = notification.build(prototype)
-        Logger.w("xxxx", "ForegroundService: updateNotification")
         startForeground(prototype.id, n)
     }
 

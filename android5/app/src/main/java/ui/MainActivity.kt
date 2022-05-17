@@ -205,9 +205,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     val fragment = ActivatedFragment.newInstance()
                     fragment.show(supportFragmentManager, null)
                 }
-                ActivationViewModel.ActivationState.EXPIRING -> {
-                    accountVM.refreshAccount()
-                }
                 ActivationViewModel.ActivationState.JUST_EXPIRED -> {
                     if (!expiredDialogShown) {
                         expiredDialogShown = true
@@ -227,7 +224,20 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             }
         })
 
-        accountVM.accountExpiration.observe(this) { activeUntil ->
+        // A separate global-lifecycle observer to make sure expiration alarm is handled also in bg
+        activationVM.state.observeForever { state ->
+            when (state) {
+                ActivationViewModel.ActivationState.EXPIRING -> {
+                    accountVM.refreshAccount()
+                }
+                ActivationViewModel.ActivationState.JUST_EXPIRED -> {
+                    Logger.v("xxx", "Showing expired notification in bg")
+                    NotificationService.show(ExpiredNotification())
+                }
+            }
+        }
+
+        accountVM.accountExpiration.observeForever { activeUntil ->
             val justBeforeExpired = Date(activeUntil.time - 30 * 1000)
             activationVM.setExpiration(justBeforeExpired)
         }
