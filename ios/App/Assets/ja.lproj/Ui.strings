@@ -124,7 +124,7 @@
 "update desc updated nodon" = "Blokada の最新バージョンを使用しています！ Blokada Plus の登録はアプリ開発への支援となります。";
 "update downloading description" = "更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。";
 
-"main share message" = "Blokada for iOS は、%@ の広告とトラッカーをブロックしました！";
+"main share message" = "Blokada は、%@ の広告とトラッカーをブロックしました！";
 
 "main rate us header" = "アプリを評価してください！";
 "main rate us description" = "Blokada はいかがですか？";

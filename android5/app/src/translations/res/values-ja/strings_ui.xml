@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Blokada の最新バージョンを使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。</string>
     <string name="update_desc_updated_nodon">Blokada の最新バージョンを使用しています！ Blokada Plus の登録はアプリ開発への支援となります。</string>
     <string name="update_downloading_description">更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。</string>
-    <string name="main_share_message">Blokada for iOS は、%s の広告とトラッカーをブロックしました！</string>
+    <string name="main_share_message">Blokada は、%s の広告とトラッカーをブロックしました！</string>
     <string name="main_rate_us_header">アプリを評価してください！</string>
     <string name="main_rate_us_description">Blokada はいかがですか？</string>
     <string name="main_rate_us_on_app_store">App Store でBlokada を評価していただけませんか？</string>

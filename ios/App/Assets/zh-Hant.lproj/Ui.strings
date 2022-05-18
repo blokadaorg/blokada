@@ -124,7 +124,7 @@
 "update desc updated nodon" = "您正在使用最新版本的 Blokada！對了，訂閱 Blokada Plus 讓我們可以繼續改進應用程式。";
 "update downloading description" = "正在下載更新，您稍後就會看到安裝提示框。";
 
-"main share message" = "Blokada for iOS 幫我阻擋了 %@ 個廣告和追蹤器！";
+"main share message" = "Blokada 幫我阻擋了 %@ 則廣告和追蹤器！";
 
 "main rate us header" = "幫我們評分！";
 "main rate us description" = "迄今您喜歡 Blokada 多少？";

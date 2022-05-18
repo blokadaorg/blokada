@@ -124,7 +124,7 @@
 "update desc updated nodon" = "Теперь вы используете новейшую версию Blokada! Помните, что подписка на Blokada Plus позволяет нам продолжать улучшать приложение.";
 "update downloading description" = "Обновление уже начало загружаться. Скоро появится запрос на установку.";
 
-"main share message" = "Blokada для iOS помогла мне заблокировать %@ рекламы и трекеров!";
+"main share message" = "Blokada помогла мне заблокировать %@ рекламы и трекеров!";
 
 "main rate us header" = "Оцените нас!";
 "main rate us description" = "Вам понравилась Blokada?";

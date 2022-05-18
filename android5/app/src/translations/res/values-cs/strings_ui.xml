@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
     <string name="update_desc_updated_nodon">Nyní používáte nejnovější verzi Blokady! Pamatujte, předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
     <string name="update_downloading_description">Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.</string>
-    <string name="main_share_message">Blokada pro iOS mi pomohla zablokovat %s reklam a slídičů!</string>
+    <string name="main_share_message">Blokada mi pomohla zablokovat %s reklam a slídičů!</string>
     <string name="main_rate_us_header">Ohodnoťte nás!</string>
     <string name="main_rate_us_description">Jak se vám zatím Blokada líbí?</string>
     <string name="main_rate_us_on_app_store">Pomůžete nám ohodnotit Blokadu v App Store?</string>

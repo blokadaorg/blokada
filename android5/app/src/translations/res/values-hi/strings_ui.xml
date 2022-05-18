@@ -91,7 +91,7 @@
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">The update is now downloading, and you should see the installation prompt shortly.</string>
-    <string name="main_share_message">IOS के लिए ब्लोकडा ने मुझे %s विज्ञापनों और ट्रैकर्स को ब्लॉक करने में मदद की!</string>
+    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">हमें रेट करें!</string>
     <string name="main_rate_us_description">आपको ब्लोकडा अब तक कैसा लगा?</string>
     <string name="main_rate_us_on_app_store">क्या आप App Store पर Blokada रेटिंग द्वारा हमारी मदद करेंगे?</string>

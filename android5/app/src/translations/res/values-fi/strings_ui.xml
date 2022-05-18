@@ -91,7 +91,7 @@
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">Päivitystä ladataan nyt ja näet asennuskehotteen pian.</string>
-    <string name="main_share_message">Blokada iOS:ille auttoi minua estämään %s mainosta ja seurantaohjelmaa!</string>
+    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Arvostele meidät!</string>
     <string name="main_rate_us_description">Mitä pidät Blokadasta toistaiseksi?</string>
     <string name="main_rate_us_on_app_store">Auttaisitko meitä arvioimalla Blokadan App Storesta?</string>

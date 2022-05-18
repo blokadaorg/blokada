@@ -124,7 +124,7 @@
 "update desc updated nodon" = "Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.";
 "update downloading description" = "Aktualizacja jest teraz pobierana i wkrótce powinien pojawić się monit instalacji.";
 
-"main share message" = "Blokada iOS pomogła mi zablokować %@ reklam i trackerów!";
+"main share message" = "Blokada pomogła mi zablokować %@ reklam i trackerów!";
 
 "main rate us header" = "Oceń nas!";
 "main rate us description" = "Jak Ci się podoba Blokada?";

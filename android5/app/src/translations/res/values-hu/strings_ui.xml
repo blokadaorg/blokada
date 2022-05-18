@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Most már a legújabb Blokada verziót használja! Ne feledje, hogy a támogatások és előfizetések lehetővé teszik az app további fejlesztését.</string>
     <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">A frissítés letöltése megkezdődött, hamarosan megjelenik a telepítési felület.</string>
-    <string name="main_share_message">Az iOS-es Blokada segített nekem eddig %s reklámot és trackert blokkolni!</string>
+    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Értékelj minket!</string>
     <string name="main_rate_us_description">Eddig hogy tetszik a Blokada?</string>
     <string name="main_rate_us_on_app_store">Az App Store értékeléssel lenne kedved segíteni nekünk?</string>

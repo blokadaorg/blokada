@@ -91,7 +91,7 @@
     <string name="update_desc_updated">您正在使用最新版本的 Blokada！請記住，捐款或訂閱 Blokada Plus 讓我們可以繼續改進應用程式。</string>
     <string name="update_desc_updated_nodon">您正在使用最新版本的 Blokada！對了，訂閱 Blokada Plus 讓我們可以繼續改進應用程式。</string>
     <string name="update_downloading_description">正在下載更新，您稍後就會看到安裝提示框。</string>
-    <string name="main_share_message">Blokada for iOS 幫我阻擋了 %s 個廣告和追蹤器！</string>
+    <string name="main_share_message">Blokada 幫我阻擋了 %s 則廣告和追蹤器！</string>
     <string name="main_rate_us_header">幫我們評分！</string>
     <string name="main_rate_us_description">迄今您喜歡 Blokada 多少？</string>
     <string name="main_rate_us_on_app_store">您願意在 App Store 幫我們評分嗎？</string>

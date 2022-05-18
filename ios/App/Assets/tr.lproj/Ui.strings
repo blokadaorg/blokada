@@ -124,7 +124,7 @@
 "update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
 "update downloading description" = "Güncelleme şu anda indiriliyor ve kısa bir süre sonra kurulum istemini görmelisiniz.";
 
-"main share message" = "iOS için Blokada, %@ reklamlarını ve izleyicilerini engellememe yardımcı oldu!";
+"main share message" = "Blokada helped me block %@ ads and trackers!";
 
 "main rate us header" = "Bizi değerlendirin!";
 "main rate us description" = "Şu ana kadar Blokada'yı nasıl buldunuz?";

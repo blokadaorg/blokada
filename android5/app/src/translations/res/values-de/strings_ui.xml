@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Du verwendest jetzt die neueste Version von Blokada! Denk daran, dass Spenden oder das Abonnieren von Blokada Plus es uns erlauben, die App weiter zu verbessern.</string>
     <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">Die Aktualisierung wird jetzt heruntergeladen, und du solltest in Kürze den Installationsdialog sehen.</string>
-    <string name="main_share_message">Blokada für iOS hat mir geholfen, %s Tracker und Werbeanzeigen zu blockieren!</string>
+    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Bewerte uns!</string>
     <string name="main_rate_us_description">Wie gefällt dir Blokada bisher?</string>
     <string name="main_rate_us_on_app_store">Hillfst du uns, indem du Blokada im App Store bewertest?</string>

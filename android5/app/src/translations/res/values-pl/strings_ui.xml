@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że przekazanie darowizny lub zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
     <string name="update_desc_updated_nodon">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
     <string name="update_downloading_description">Aktualizacja jest teraz pobierana i wkrótce powinien pojawić się monit instalacji.</string>
-    <string name="main_share_message">Blokada iOS pomogła mi zablokować %s reklam i trackerów!</string>
+    <string name="main_share_message">Blokada pomogła mi zablokować %s reklam i trackerów!</string>
     <string name="main_rate_us_header">Oceń nas!</string>
     <string name="main_rate_us_description">Jak Ci się podoba Blokada?</string>
     <string name="main_rate_us_on_app_store">Czy mógłbyś nam pomóc, oceniając Blokadę w App Store?</string>

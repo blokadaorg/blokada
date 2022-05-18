@@ -378,7 +378,7 @@ internal enum L10n {
   internal static let mainRateUsHeader = L10n.tr("Ui", "main rate us header")
   /// Would you help us by rating Blokada on App Store?
   internal static let mainRateUsOnAppStore = L10n.tr("Ui", "main rate us on app store")
-  /// Blokada for iOS helped me block %@ ads and trackers!
+  /// Blokada helped me block %@ ads and trackers!
   internal static func mainShareMessage(_ p1: Any) -> String {
     return L10n.tr("Ui", "main share message", String(describing: p1))
   }

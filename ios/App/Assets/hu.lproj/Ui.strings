@@ -124,7 +124,7 @@
 "update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
 "update downloading description" = "A frissítés letöltése megkezdődött, hamarosan megjelenik a telepítési felület.";
 
-"main share message" = "Az iOS-es Blokada segített nekem eddig %@ reklámot és trackert blokkolni!";
+"main share message" = "Blokada helped me block %@ ads and trackers!";
 
 "main rate us header" = "Értékelj minket!";
 "main rate us description" = "Eddig hogy tetszik a Blokada?";

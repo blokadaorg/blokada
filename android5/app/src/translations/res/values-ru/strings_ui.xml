@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Теперь вы используете новейшую версию Blokada! Помните, что пожертвование или подписка на Blokada Plus позволяет нам продолжать улучшать приложение.</string>
     <string name="update_desc_updated_nodon">Теперь вы используете новейшую версию Blokada! Помните, что подписка на Blokada Plus позволяет нам продолжать улучшать приложение.</string>
     <string name="update_downloading_description">Обновление уже начало загружаться. Скоро появится запрос на установку.</string>
-    <string name="main_share_message">Blokada для iOS помогла мне заблокировать %s рекламы и трекеров!</string>
+    <string name="main_share_message">Blokada помогла мне заблокировать %s рекламы и трекеров!</string>
     <string name="main_rate_us_header">Оцените нас!</string>
     <string name="main_rate_us_description">Вам понравилась Blokada?</string>
     <string name="main_rate_us_on_app_store">Не могли бы вы помочь нам с рейтингом Blokada в App Store?</string>

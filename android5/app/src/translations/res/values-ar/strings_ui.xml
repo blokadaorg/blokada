@@ -91,7 +91,7 @@
     <string name="update_desc_updated">أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ التَبَرُّع أو الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.</string>
     <string name="update_desc_updated_nodon">أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.</string>
     <string name="update_downloading_description">يَتمّ تحميل التحديث، و يجب أن يظهر طلب التثبيت قريباً.</string>
-    <string name="main_share_message">بلوكادا لنظام التشغيل iOS ساعدني على حَظْر %s الإعلانات و المتعقِّبين !</string>
+    <string name="main_share_message">ساعدني بلوكادا على حَظْر %s الإعلانات و المتعقِّبين !</string>
     <string name="main_rate_us_header">قيِّمنا !</string>
     <string name="main_rate_us_description">كم يعجبك بلوكادا حتى الآن؟</string>
     <string name="main_rate_us_on_app_store">هل ستساعدنا من خلال تقييم بلوكادا على متجر التطبيقات؟</string>
