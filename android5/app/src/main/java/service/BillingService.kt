@@ -106,7 +106,7 @@ class BillingService: IPaymentService {
                 type = if(it.sku.startsWith("cloud")) "cloud" else "plus",
                 trial = it.freeTrialPeriod.isNotBlank()
             )
-        } ?: emptyList()
+        }?.sortedBy { it.periodMonths } ?: emptyList()
     }
 
     private val purchaseListener = PurchasesUpdatedListener { billingResult, purchases ->
