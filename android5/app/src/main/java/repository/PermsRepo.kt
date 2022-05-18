@@ -178,16 +178,27 @@ class PermsRepo {
     suspend fun displayDnsProfilePermsInstructions(): Flow<Ignored> {
         val ctx = context.requireContext()
         return dialog.showAlert(
-            message = ctx.getString(R.string.dnsprofile_desc_android),
+            message = "Copy your Blokada Cloud hostname to paste it in Settings.",
             header = ctx.getString(R.string.dnsprofile_header),
-            okText = ctx.getString(R.string.dnsprofile_action_open_settings),
+            okText = ctx.getString(R.string.universal_action_copy),
             okAction = {
                 writeDnsString.value?.run {
                     AndroidUtils.copyToClipboard(this)
-                    systemNav.openNetworkSettings()
                 }
             }
-        )
+        ).flatMapLatest {
+            dialog.showAlert(
+                message = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).",
+                header = ctx.getString(R.string.dnsprofile_header),
+                okText = ctx.getString(R.string.dnsprofile_action_open_settings),
+                okAction = {
+                    writeDnsString.value?.run {
+                        AndroidUtils.copyToClipboard(this)
+                        systemNav.openNetworkSettings()
+                    }
+                }
+            )
+        }
     }
 
     // We want user to notice when they upgrade.
