@@ -13,14 +13,15 @@
 package ui.home
 
 import android.content.DialogInterface
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import org.blokada.R
 import ui.ActivationViewModel
 import ui.BottomSheetFragment
+import ui.app
 
 class ActivatedFragment : BottomSheetFragment() {
 
@@ -35,7 +36,7 @@ class ActivatedFragment : BottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.let {
-            vm = ViewModelProvider(it).get(ActivationViewModel::class.java)
+            vm = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
         }
 
         val root = inflater.inflate(R.layout.fragment_activated, container, false)

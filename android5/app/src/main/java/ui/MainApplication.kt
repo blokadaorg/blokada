@@ -55,6 +55,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var adsCounterVM: AdsCounterViewModel
     private lateinit var networksVM: NetworksViewModel
     private lateinit var packsVM: PacksViewModel
+    private lateinit var activationVM: ActivationViewModel
 
     private val appRepo by lazy { Repos.app }
 
@@ -83,6 +84,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         statsVM = ViewModelProvider(this).get(StatsViewModel::class.java)
         adsCounterVM = ViewModelProvider(this).get(AdsCounterViewModel::class.java)
         packsVM = ViewModelProvider(this).get(PacksViewModel::class.java)
+        activationVM = ViewModelProvider(this).get(ActivationViewModel::class.java)
 
         accountVM.account.observeForever { account ->
             tunnelVM.checkConfigAfterAccountChanged(account)

@@ -60,7 +60,7 @@ class OnboardingFragment : BottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.let {
-            vm = ViewModelProvider(it).get(ActivationViewModel::class.java)
+            vm = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
             accountVM = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 

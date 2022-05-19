@@ -28,6 +28,8 @@ import service.AlreadyPurchasedException
 import service.DialogService
 import service.UserCancelledException
 import ui.BottomSheetFragment
+import ui.utils.cause
+import utils.Logger
 
 class CloudPaymentFragment : BottomSheetFragment() {
 
@@ -186,6 +188,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     .collect {}
                 }
             } catch (ex: Exception) {
+                Logger.e("CloudPayment", "Payment failed with error".cause(ex))
                 hideOverlay()
                 dialog.showAlert(getString(R.string.error_payment_failed_alternative))
                 .collect {}

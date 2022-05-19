@@ -96,7 +96,6 @@ class BillingService: IPaymentService {
 
         latestSkuList = skuDetailsResult.skuDetailsList ?: emptyList()
         return skuDetailsResult.skuDetailsList?.map {
-            Logger.v("xxxx", "freetrial product ${it.sku}: ${it.freeTrialPeriod}")
             Product(
                 id = it.sku,
                 title = it.title,

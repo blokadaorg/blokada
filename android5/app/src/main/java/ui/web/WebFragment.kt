@@ -28,11 +28,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.AlertDialogService
-import ui.AccountViewModel
-import ui.ActivationViewModel
-import ui.BottomSheetFragment
-import ui.app
-import ui.SettingsViewModel
+import ui.*
 import ui.utils.openInBrowser
 import utils.Links
 
@@ -62,7 +58,7 @@ class WebFragment : BottomSheetFragment() {
         activity?.let {
             vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
             settingsVM = ViewModelProvider(it.app()).get(SettingsViewModel::class.java)
-            activationVM = ViewModelProvider(it).get(ActivationViewModel::class.java)
+            activationVM = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
         }
 
         currentUrl = args.url

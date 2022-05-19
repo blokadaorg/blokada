@@ -53,7 +53,6 @@ import ui.web.WebService
 import utils.ExpiredNotification
 import utils.Links
 import utils.Logger
-import java.util.*
 
 
 class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -189,7 +188,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
         statsVM = ViewModelProvider(app()).get(StatsViewModel::class.java)
         blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
-        activationVM = ViewModelProvider(this).get(ActivationViewModel::class.java)
+        activationVM = ViewModelProvider(app()).get(ActivationViewModel::class.java)
 
         var expiredDialogShown = false
         activationVM.state.observe(this, Observer { state ->
@@ -237,8 +236,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
 
         accountVM.accountExpiration.observeForever { activeUntil ->
-            val justBeforeExpired = Date(activeUntil.time - 30 * 1000)
-            activationVM.setExpiration(justBeforeExpired)
+            //val justBeforeExpired = Date(activeUntil.time - 30 * 1000)
+            activationVM.setExpiration(activeUntil)
         }
 
         tunnelVM.tunnelStatus.observe(this, Observer { status ->
