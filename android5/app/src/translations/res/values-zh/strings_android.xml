@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">保持連線狀態</string>
     <string name="intro_header">Blokada 運作中！</string>
     <string name="intro_text">藍色圈圈表示 Blokada 正在運作。\n\n注意，某些廣告（像是 YouTube）無法阻擋。但您會在其他 APP 發現多有不同。\n\n我們建議您在系統設定中啟用「永久連線的 VPN」／「需要時連線」。</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

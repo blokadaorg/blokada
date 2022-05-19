@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">Pidä päällä</string>
     <string name="intro_header">Blokada on aktiivinen!</string>
     <string name="intro_text">Sininen rengas tarkoittaa, että Blokada toimii.\n\nMuista, että joitain mainoksia kuten YouTubessa, ei voida estää. Huomaat kuitenkin eron monissa muissa sovelluksissa.\n\nSuosittelemme, että aktivoit järjestelmäasetuksista VPN Aina Päällä / Yhdistä Pyytäessä -kohdan.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

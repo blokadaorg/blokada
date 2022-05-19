@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">Manter ativo</string>
     <string name="intro_header">O Blokada está Ativo!</string>
     <string name="intro_text">Um anel azul significa que o Blokada está funcionando.\n\nLembre-se, alguns anúncios, como o YouTube, não podem ser bloqueados. No entanto, você notará uma diferença em muitos outros aplicativos.\n\nRecomendamos que você ative VPN Sempre ativa / Conectar sob Demanda nas suas configurações do sistema.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Включите Blokada в Настройках</string>
     <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="dnsprofile_action_open_settings">Открыть Настройки</string>
-    <string name="dnsprofile_desc_android">В настройках телефона найдите Персональный DNS, затем вставьте ваше имя хоста Blokada Cloud.</string>
+    <string name="dnsprofile_desc_android">Найдите в настройках Персональный DNS и вставьте ваше имя хоста (долгим нажатием).</string>
+    <string name="dnsprofile_desc_android_copy">Скопируйте ваше имя хоста Blokada Cloud, чтобы вставить его в настройках.</string>
     <string name="activated_header">Почти готово!</string>
     <string name="activated_desc">Чтобы Blokada работала должным образом, необходимо:</string>
     <string name="activated_desc_all_ok">Ваше устройство настроено и готово к работе:</string>

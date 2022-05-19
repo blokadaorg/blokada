@@ -434,7 +434,8 @@
 "dnsprofile header" = "Aktifkan Blokada di Pengaturan";
 "dnsprofile desc" = "Di Pengaturan, cari Umum → Manajemen VPN, DNS, & Perangkat → DNS, kemudian pilih Blokada.";
 "dnsprofile action open settings" = "Buka Pengaturan";
-"dnsprofile desc android" = "Di Pengaturan, ketuk Private DNS, kemudian tekan lama di kolom provider untuk menyalin hostname Blokada Cloud Anda.";
+"dnsprofile desc android" = "Di bagian Settings, cari opsi Private DNS, kemudian salin hostname Anda dengan cara menekan lama.";
+"dnsprofile desc android copy" = "Salin hostname Blokada Cloud Anda untuk kemudian dimasukkan di Settings.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Sebentar lagi!";

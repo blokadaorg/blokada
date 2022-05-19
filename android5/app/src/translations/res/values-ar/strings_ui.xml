@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">تفعيل بلوكادا في الإعدادات</string>
     <string name="dnsprofile_desc">في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS &amp; إعدادات الجهاز ←DNS و حدّد Blokada.</string>
     <string name="dnsprofile_action_open_settings">فتح الإعدادات</string>
-    <string name="dnsprofile_desc_android">في تطبيق الإعدادات، انقر على DNS الخاص، ثم اضغط لفترة طويلة على حقل المزوّد للصق اسم مضيف Blokada Cloud الخاص بك.</string>
+    <string name="dnsprofile_desc_android">في إعدادات التطبيق ، ابحث عن قسم DNS الخاص ، ثم الصق اسم المضيف الخاص بك (الضغط لفترة طويلة).</string>
+    <string name="dnsprofile_desc_android_copy">انسخ اسم مضيف Blokada Cloud للصقه في الإعدادات.</string>
     <string name="activated_header">انتهينا تقريباً !</string>
     <string name="activated_desc">ما يلي ضروري لكي يعمل بلوكادا كما هو متوقّع:</string>
     <string name="activated_desc_all_ok">تمّ إعداد جهازك بالكامل و هو جاهز للعمل:</string>

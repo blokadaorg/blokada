@@ -434,7 +434,8 @@
 "dnsprofile header" = "Aktywuj Blokadę w Ustawieniach";
 "dnsprofile desc" = "W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.";
 "dnsprofile action open settings" = "Otwórz Ustawienia";
-"dnsprofile desc android" = "W ustawieniach aplikacji stuknij Prywatny DNS, a następnie długim stuknięciem pola dostawcy wklej swoją nazwę hosta Blokady Cloud.";
+"dnsprofile desc android" = "W ustawieniach aplikacji znajdź sekcję Prywatny DNS, a następnie wklej swoją nazwę hosta (długie stuknięcie).";
+"dnsprofile desc android copy" = "Skopiuj swoją nazwę hosta Blokady Cloud, aby wkleić ją w ustawieniach.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Prawie gotowe!";

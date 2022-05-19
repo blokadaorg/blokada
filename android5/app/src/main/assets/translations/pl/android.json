@@ -86,5 +86,6 @@
     "app settings section advanced": "Zaawansowane",
     "app settings section use foreground": "Zawsze w tle",
     "intro header": "Blokada jest aktywna!",
-    "intro text": "Niebieski pierścień oznacza, że Blokada działa.\n\nPamiętaj, że niektóre reklamy, takie jak YouTube, nie mogą być zablokowane. Jednak zauważysz różnicę w wielu innych aplikacjach.\n\nZalecamy aktywację Zawsze w sieci VPN / Połącz na żądanie w ustawieniach systemowych."
+    "intro text": "Niebieski pierścień oznacza, że Blokada działa.\n\nPamiętaj, że niektóre reklamy, takie jak YouTube, nie mogą być zablokowane. Jednak zauważysz różnicę w wielu innych aplikacjach.\n\nZalecamy aktywację Zawsze w sieci VPN / Połącz na żądanie w ustawieniach systemowych.",
+    "intro text not libre": "A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings."
 } }

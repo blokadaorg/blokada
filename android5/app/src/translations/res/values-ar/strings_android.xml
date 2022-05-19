@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">الإبقاء قَيْد التشغيل</string>
     <string name="intro_header">بلوكادا نَشِط!</string>
     <string name="intro_text">الدائرة الزرقاء تعني أن بلوكادا يعمل.\n\nتذكّر، بعض الإعلانات، مثل يوتيوب، لا يمكن حظرها. ومع ذلك، ستلاحظ وجود فرق في العديد من التطبيقات الأُخرى.\n\nننصحك بتفعيل ميِّزة إبقاء VPN مُفَعَّل / الإتصال إثناء الطلب، الموجودان في إعدادات النظام الخاص بك.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

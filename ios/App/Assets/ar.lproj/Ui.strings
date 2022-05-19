@@ -434,7 +434,8 @@
 "dnsprofile header" = "تفعيل بلوكادا في الإعدادات";
 "dnsprofile desc" = "في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS & إعدادات الجهاز ←DNS و حدّد Blokada.";
 "dnsprofile action open settings" = "فتح الإعدادات";
-"dnsprofile desc android" = "في تطبيق الإعدادات، انقر على DNS الخاص، ثم اضغط لفترة طويلة على حقل المزوّد للصق اسم مضيف Blokada Cloud الخاص بك.";
+"dnsprofile desc android" = "في إعدادات التطبيق ، ابحث عن قسم DNS الخاص ، ثم الصق اسم المضيف الخاص بك (الضغط لفترة طويلة).";
+"dnsprofile desc android copy" = "انسخ اسم مضيف Blokada Cloud للصقه في الإعدادات.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "انتهينا تقريباً !";

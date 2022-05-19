@@ -268,8 +268,10 @@ internal enum L10n {
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
   internal static let dnsprofileDesc = L10n.tr("Ui", "dnsprofile desc")
-  /// In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.
+  /// In the Settings app, find the Private DNS section, and then paste your hostname (long tap).
   internal static let dnsprofileDescAndroid = L10n.tr("Ui", "dnsprofile desc android")
+  /// Copy your Blokada Cloud hostname to paste it in Settings.
+  internal static let dnsprofileDescAndroidCopy = L10n.tr("Ui", "dnsprofile desc android copy")
   /// Enable Blokada in Settings
   internal static let dnsprofileHeader = L10n.tr("Ui", "dnsprofile header")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.

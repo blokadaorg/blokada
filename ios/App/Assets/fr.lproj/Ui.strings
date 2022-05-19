@@ -124,7 +124,7 @@
 "update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
 "update downloading description" = "La mise à jour est en cours de téléchargement, la fenêtre d'installation devrait bientôt s'afficher.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada m'a aidé à bloquer %@ pubs et trackers !";
 
 "main rate us header" = "Notez-nous !";
 "main rate us description" = "Appréciez-vous Blokada ?";
@@ -434,7 +434,8 @@
 "dnsprofile header" = "Activer Blokada dans les Paramètres";
 "dnsprofile desc" = "Dans l'application Paramètres : allez dans Général → VPN, DNS & Gestion des périphériques → DNS et enfin sélectionnez Blokada.";
 "dnsprofile action open settings" = "Ouvrir les Paramètres";
-"dnsprofile desc android" = "In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.";
+"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
+"dnsprofile desc android copy" = "Copiez votre nom d'hôte Blokada Cloud pour le coller dans les Paramètres.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "On y est presque !";

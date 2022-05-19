@@ -86,5 +86,6 @@
     "app settings section advanced": "Erweitert",
     "app settings section use foreground": "Aktiv halten",
     "intro header": "Blokada ist aktiv!",
-    "intro text": "Ein blauer Ring bedeutet, dass Blokada aktiv ist.\n\nDenke daran, dass teilweise Werbung, wie z. B. bei YouTube, nicht blockiert werden kann. Allerdings wirst du in vielen anderen Apps einen Unterschied bemerken.\n\nWir empfehlen dir, »Durchgehend aktives VPN / Verbindung zu VPN immer beibehalten« in deinen Systemeinstellungen zu aktivieren."
+    "intro text": "Ein blauer Ring bedeutet, dass Blokada aktiv ist.\n\nDenke daran, dass teilweise Werbung, wie z. B. bei YouTube, nicht blockiert werden kann. Allerdings wirst du in vielen anderen Apps einen Unterschied bemerken.\n\nWir empfehlen dir, »Durchgehend aktives VPN / Verbindung zu VPN immer beibehalten« in deinen Systemeinstellungen zu aktivieren.",
+    "intro text not libre": "A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings."
 } }

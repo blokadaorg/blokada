@@ -434,7 +434,8 @@
 "dnsprofile header" = "Povolte Blokadu v Nastavení";
 "dnsprofile desc" = "V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.";
 "dnsprofile action open settings" = "Otevřít Nastavení";
-"dnsprofile desc android" = "V aplikaci v Nastavení, klepněte na možnost Privátní DNS a poté dlouhým klepnutím na pole poskytovatele vložte název hostitele služby Blokada Cloud.";
+"dnsprofile desc android" = "V aplikaci Nastavení najděte sekci Soukromé DNS a pak vložte název hostitele (dlouhým klepnutím).";
+"dnsprofile desc android copy" = "Zkopírujte svůj název hostitele služby Blokada Cloud a vložte jej do Nastavení.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Téměř hotovo!";

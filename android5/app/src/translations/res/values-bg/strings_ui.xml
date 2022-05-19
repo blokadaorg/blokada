@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Активиране на Blokada в настройките</string>
     <string name="dnsprofile_desc">В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.</string>
     <string name="dnsprofile_action_open_settings">Отваряне на настройките</string>
-    <string name="dnsprofile_desc_android">В Настройки на приложението докоснете Private DNS и след това с продължително докосване в полето на доставчика поставете името на хоста Blokada Cloud.</string>
+    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
+    <string name="dnsprofile_desc_android_copy">Copy your Blokada Cloud hostname to paste it in Settings.</string>
     <string name="activated_header">Почти сме готови!</string>
     <string name="activated_desc">Необходимо е следното за да работи Blokada според очакванията:</string>
     <string name="activated_desc_all_ok">Вашето устройство е готово и настроено:</string>

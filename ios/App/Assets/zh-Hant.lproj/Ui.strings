@@ -434,7 +434,8 @@
 "dnsprofile header" = "在設定中啟用 Blokada";
 "dnsprofile desc" = "在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。";
 "dnsprofile action open settings" = "開啟設定";
-"dnsprofile desc android" = "在設定 app 中，點選「私人 DNS」，然後在「提供者」欄位長按，來貼上您 Blokada Cloud 的主機名稱。";
+"dnsprofile desc android" = "在「設定」app 中，找到「私人 DNS」區塊，然後（長按）貼上您的主機名稱。";
+"dnsprofile desc android copy" = "複製您的 Blokada Cloud 主機名稱，然後在「設定」中貼上。";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "快完成了！";

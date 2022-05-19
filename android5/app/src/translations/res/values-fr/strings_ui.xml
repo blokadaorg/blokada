@@ -91,7 +91,7 @@
     <string name="update_desc_updated">Désormais vous utilisez la dernière version de Blokada ! Rappelez-vous : faites un don ou abonnez-vous à \"Blokada Plus\" pour nous permettre de faire évoluer l\'application.</string>
     <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
     <string name="update_downloading_description">La mise à jour est en cours de téléchargement, la fenêtre d\'installation devrait bientôt s\'afficher.</string>
-    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
+    <string name="main_share_message">Blokada m\'a aidé à bloquer %s pubs et trackers !</string>
     <string name="main_rate_us_header">Notez-nous !</string>
     <string name="main_rate_us_description">Appréciez-vous Blokada ?</string>
     <string name="main_rate_us_on_app_store">Voudriez-vous nous aider en notant Blokada sur l\'App Store ?</string>
@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Activer Blokada dans les Paramètres</string>
     <string name="dnsprofile_desc">Dans l\'application Paramètres : allez dans Général → VPN, DNS &amp; Gestion des périphériques → DNS et enfin sélectionnez Blokada.</string>
     <string name="dnsprofile_action_open_settings">Ouvrir les Paramètres</string>
-    <string name="dnsprofile_desc_android">In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.</string>
+    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
+    <string name="dnsprofile_desc_android_copy">Copiez votre nom d\'hôte Blokada Cloud pour le coller dans les Paramètres.</string>
     <string name="activated_header">On y est presque !</string>
     <string name="activated_desc">Ce qui suit est nécessaire pour que Blokada fonctionne comme prévu :</string>
     <string name="activated_desc_all_ok">Votre appareil est paramétré et prêt à l\'emploi :</string>

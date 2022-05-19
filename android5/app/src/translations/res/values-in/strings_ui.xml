@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Aktifkan Blokada di Pengaturan</string>
     <string name="dnsprofile_desc">Di Pengaturan, cari Umum → Manajemen VPN, DNS, &amp; Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="dnsprofile_action_open_settings">Buka Pengaturan</string>
-    <string name="dnsprofile_desc_android">Di Pengaturan, ketuk Private DNS, kemudian tekan lama di kolom provider untuk menyalin hostname Blokada Cloud Anda.</string>
+    <string name="dnsprofile_desc_android">Di bagian Settings, cari opsi Private DNS, kemudian salin hostname Anda dengan cara menekan lama.</string>
+    <string name="dnsprofile_desc_android_copy">Salin hostname Blokada Cloud Anda untuk kemudian dimasukkan di Settings.</string>
     <string name="activated_header">Sebentar lagi!</string>
     <string name="activated_desc">Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:</string>
     <string name="activated_desc_all_ok">Perangkat Anda sudah di-set up dan siap untuk digunakan:</string>

@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">Tetap hidupkan</string>
     <string name="intro_header">Blokada Aktif!</string>
     <string name="intro_text">Lingkaran biru menandakan Blokada sedang aktif \n\nIngat, beberapa iklan, seperti yang ada di YouTube, tidak bisa diblokir. Namun Anda bisa saja melihat perbedaan di aplikasi yang lain.\n\nKami sarankan Anda untuk mengaktifkan Always On VPN/Connect on Demand di pengaturan perangkat Anda.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

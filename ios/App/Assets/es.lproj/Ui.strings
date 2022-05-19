@@ -434,7 +434,8 @@
 "dnsprofile header" = "Activar Blokada en Ajustes";
 "dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
 "dnsprofile action open settings" = "Abrir Ajustes";
-"dnsprofile desc android" = "In the Settings app, tap on Private DNS, and then long tap on the provider field to paste your Blokada Cloud hostname.";
+"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
+"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "¡Ya casi estamos!";

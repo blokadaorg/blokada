@@ -435,7 +435,8 @@
 "dnsprofile header" = "設定で Blokada を有効にする";
 "dnsprofile desc" = "設定を開き、[一般] > [VPN & ネットワーク] > [DNS] から Blokada を選択してください。";
 "dnsprofile action open settings" = "設定を開く";
-"dnsprofile desc android" = "設定アプリでプライベート DNS のプロバイダの欄に Blokada Cloud のホスト名を貼り付けてください。";
+"dnsprofile desc android" = "設定アプリでプライベート DNS の欄を探して長押しし、ホスト名を貼り付けてください。";
+"dnsprofile desc android copy" = "Blokada Cloud のホスト名をコピーして、設定に貼り付けます。";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "もう少しで完了です";

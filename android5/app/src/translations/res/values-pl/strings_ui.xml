@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Aktywuj Blokadę w Ustawieniach</string>
     <string name="dnsprofile_desc">W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otwórz Ustawienia</string>
-    <string name="dnsprofile_desc_android">W ustawieniach aplikacji stuknij Prywatny DNS, a następnie długim stuknięciem pola dostawcy wklej swoją nazwę hosta Blokady Cloud.</string>
+    <string name="dnsprofile_desc_android">W ustawieniach aplikacji znajdź sekcję Prywatny DNS, a następnie wklej swoją nazwę hosta (długie stuknięcie).</string>
+    <string name="dnsprofile_desc_android_copy">Skopiuj swoją nazwę hosta Blokady Cloud, aby wkleić ją w ustawieniach.</string>
     <string name="activated_header">Prawie gotowe!</string>
     <string name="activated_desc">Aby Blokada działała zgodnie z oczekiwaniami, konieczne jest:</string>
     <string name="activated_desc_all_ok">Twoje urządzenie jest skonfigurowane i gotowe:</string>

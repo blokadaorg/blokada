@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">在設定中啟用 Blokada</string>
     <string name="dnsprofile_desc">在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。</string>
     <string name="dnsprofile_action_open_settings">開啟設定</string>
-    <string name="dnsprofile_desc_android">在設定 app 中，點選「私人 DNS」，然後在「提供者」欄位長按，來貼上您 Blokada Cloud 的主機名稱。</string>
+    <string name="dnsprofile_desc_android">在「設定」app 中，找到「私人 DNS」區塊，然後（長按）貼上您的主機名稱。</string>
+    <string name="dnsprofile_desc_android_copy">複製您的 Blokada Cloud 主機名稱，然後在「設定」中貼上。</string>
     <string name="activated_header">快完成了！</string>
     <string name="activated_desc">要讓 Blokada 按預期運作，請依下述操作：</string>
     <string name="activated_desc_all_ok">您的裝置已設定完成，隨時可以使用：</string>

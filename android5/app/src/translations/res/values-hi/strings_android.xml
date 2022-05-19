@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">जिंदा रखें</string>
     <string name="intro_header">Blokada is Active!</string>
     <string name="intro_text">A blue ring means that Blokada is working.\n\nRemember, some ads, like YouTube, cannot be blocked. However, you will notice a difference in many other apps.\n\nWe recommend you activate Always on VPN / Connect on Demand in your system settings.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

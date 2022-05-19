@@ -434,7 +434,8 @@
 "dnsprofile header" = "Активиране на Blokada в настройките";
 "dnsprofile desc" = "В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.";
 "dnsprofile action open settings" = "Отваряне на настройките";
-"dnsprofile desc android" = "В Настройки на приложението докоснете Private DNS и след това с продължително докосване в полето на доставчика поставете името на хоста Blokada Cloud.";
+"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
+"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";

@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">Abilita Blokada nelle Impostazioni</string>
     <string name="dnsprofile_desc">Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.</string>
     <string name="dnsprofile_action_open_settings">Apri le Impostazioni</string>
-    <string name="dnsprofile_desc_android">Nell\'app Impostazioni, tocca DNS privato e quindi tocca a lungo sul campo provider per incollare il tuo nome host Blokada Cloud.</string>
+    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
+    <string name="dnsprofile_desc_android_copy">Copy your Blokada Cloud hostname to paste it in Settings.</string>
     <string name="activated_header">Ci siamo quasi!</string>
     <string name="activated_desc">Quanto segue è necessario affinché Blokada funzioni come previsto:</string>
     <string name="activated_desc_all_ok">Il tuo dispositivo è configurato e pronto per l\'uso:</string>

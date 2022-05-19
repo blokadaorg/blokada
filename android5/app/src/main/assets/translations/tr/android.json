@@ -86,5 +86,6 @@
     "app settings section advanced": "Gelişmiş",
     "app settings section use foreground": "Sürekli çalış",
     "intro header": "Blokada etkin!",
-    "intro text": "Mavi halka, Blokada'nın çalıştığı anlamına gelir.\n\nUnutmayın, YouTube'daki reklamlar gibi bazı reklamlar engellenemez. Ancak, diğer birçok uygulamada farkı göreceksiniz.\n\nSistem ayarlarınızdan Her zaman VPN/Talep üzerine bağlan seçeneğini etkinleştirmenizi öneririz."
+    "intro text": "Mavi halka, Blokada'nın çalıştığı anlamına gelir.\n\nUnutmayın, YouTube'daki reklamlar gibi bazı reklamlar engellenemez. Ancak, diğer birçok uygulamada farkı göreceksiniz.\n\nSistem ayarlarınızdan Her zaman VPN/Talep üzerine bağlan seçeneğini etkinleştirmenizi öneririz.",
+    "intro text not libre": "A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings."
 } }

@@ -88,4 +88,5 @@
     <string name="app_settings_section_use_foreground">Работать в фоне</string>
     <string name="intro_header">Blokada активна!</string>
     <string name="intro_text">Синее кольцо означает, что Blokada работает.\n\nПомните, что некоторая реклама, например, YouTube, не может быть заблокирована. Тем не менее, вы заметите разницу в большинстве других приложений.\n\nМы рекомендуем вам активировать VPN всегда включен / Подключение по требованию в настройках вашей системы.</string>
+    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
 </resources>

@@ -349,7 +349,8 @@
     <string name="dnsprofile_header">設定で Blokada を有効にする</string>
     <string name="dnsprofile_desc">設定を開き、[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
     <string name="dnsprofile_action_open_settings">設定を開く</string>
-    <string name="dnsprofile_desc_android">設定アプリでプライベート DNS のプロバイダの欄に Blokada Cloud のホスト名を貼り付けてください。</string>
+    <string name="dnsprofile_desc_android">設定アプリでプライベート DNS の欄を探して長押しし、ホスト名を貼り付けてください。</string>
+    <string name="dnsprofile_desc_android_copy">Blokada Cloud のホスト名をコピーして、設定に貼り付けます。</string>
     <string name="activated_header">もう少しで完了です</string>
     <string name="activated_desc">Blokada が正常に動作するには、以下が必要です:</string>
     <string name="activated_desc_all_ok">すべての設定を完了しました:</string>
