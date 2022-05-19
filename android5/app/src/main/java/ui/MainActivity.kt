@@ -47,7 +47,6 @@ import ui.home.ActivatedFragment
 import ui.home.FirstTimeFragment
 import ui.home.HelpFragment
 import ui.home.HomeFragmentDirections
-import ui.settings.SettingsFragmentDirections
 import ui.settings.SettingsNavigation
 import ui.utils.now
 import ui.web.WebService
@@ -416,9 +415,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             R.id.help_settings -> {
                 val nav = findNavController(R.id.nav_host_fragment)
                 nav.navigate(R.id.navigation_settings)
-                nav.navigate(
-                    SettingsFragmentDirections.actionNavigationSettingsToSettingsAppFragment()
-                )
+//                nav.navigate(
+//                    SettingsFragmentDirections.actionNavigationSettingsToSettingsAppFragment()
+//                )
             }
 //            R.id.help_debug -> AlertDialogService.showChoiceAlert(
 //                choices = listOf(

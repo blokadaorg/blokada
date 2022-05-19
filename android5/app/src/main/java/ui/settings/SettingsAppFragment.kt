@@ -16,24 +16,18 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import org.blokada.R
 import repository.LANGUAGE_NICE_NAMES
 import service.EnvironmentService
 import service.UpdateService
-import ui.BlockaRepoViewModel
-import ui.SettingsViewModel
-import ui.app
-import ui.THEME_RETRO_KEY
-import ui.THEME_RETRO_NAME
+import ui.*
 import utils.Links
 
 class SettingsAppFragment : PreferenceFragmentCompat() {
@@ -108,6 +102,7 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
         ).toTypedArray()
 
         val backup: ListPreference = findPreference("app_backup")!!
+        backup.isVisible = EnvironmentService.isLibre()
         backup.entryValues = yesNoChoice
         backup.entries = backup.entryValues
         backup.setOnPreferenceChangeListener { _, newValue ->
