@@ -14,18 +14,23 @@ package service
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import model.*
+import repository.Repos
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+import java.net.UnknownHostException
 
 
 object BlockaApiService {
 
     private val http = HttpService
     private val scope = GlobalScope
+
+    private val processingRepo by lazy { Repos.processing }
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.blocka.net")
@@ -140,7 +145,12 @@ object BlockaApiService {
 
     private fun <T> mapException(block: () -> T): T {
         try {
-            return block()
+            val result = block()
+            GlobalScope.launch { processingRepo.reportConnIssues(false) }
+            return result
+        } catch (ex: UnknownHostException) {
+            GlobalScope.launch { processingRepo.reportConnIssues(true) }
+            throw BlokadaException("Connection problems", ex)
         } catch (ex: BlokadaException) {
             throw ex
         } catch (ex: Exception) {

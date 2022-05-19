@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment
 import model.BlokadaException
 import ui.home.AdsCounterFragment
 import ui.home.CloudPaymentFragment
+import ui.home.ConnIssuesFragment
 import ui.home.OnboardingFragment
 
 enum class Sheet {
@@ -28,6 +29,7 @@ enum class Sheet {
     Debug, // Debug shortcuts and actions, not accessible in production builds
     RateApp, // Asking user to put a review
     AdsCounter, // A big total ads blocked display with option no share
+    ConnIssues // A detail view when tapping the connection issues overlay
 }
 
 class SheetService {
@@ -37,6 +39,7 @@ class SheetService {
             Sheet.Payment -> CloudPaymentFragment.newInstance()
             Sheet.Activated -> OnboardingFragment.newInstance()
             Sheet.AdsCounter -> AdsCounterFragment.newInstance()
+            Sheet.ConnIssues -> ConnIssuesFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }
         onShowFragment(fragment)

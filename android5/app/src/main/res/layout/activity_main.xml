@@ -42,6 +42,29 @@
                 app:navGraph="@navigation/mobile_navigation" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:id="@+id/main_issues_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange_2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/half"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:src="@drawable/ic_baseline_wifi_24"
+                app:tint="?android:attr/textColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/half"
+                android:text="Connectivity issues. Please check your configuration. Tap for details." />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

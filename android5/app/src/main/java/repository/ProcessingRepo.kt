@@ -24,9 +24,11 @@ open class ProcessingRepo {
 
     private val writeOngoing = MutableSharedFlow<ComponentOngoing?>()
     private val writeError = MutableSharedFlow<ComponentError?>()
+    private val writeConnIssues = MutableSharedFlow<Boolean>()
 
     val ongoingHot = writeOngoing.filterNotNull().distinctUntilChanged()
     val errorsHot = writeError.filterNotNull().distinctUntilChanged()
+    val connIssuesHot = writeConnIssues.distinctUntilChanged()
 
     open fun start() {}
 
@@ -47,6 +49,10 @@ open class ProcessingRepo {
 
     suspend fun notify(component: Any, ongoing: Boolean) {
         writeOngoing.emit(ComponentOngoing("$component", ongoing))
+    }
+
+    suspend fun reportConnIssues(experiencing: Boolean) {
+        writeConnIssues.emit(experiencing)
     }
 
 }

@@ -66,6 +66,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     private val navRepo by lazy { Repos.nav }
     private val paymentRepo by lazy { Repos.payment }
+    private val processingRepo by lazy { Repos.processing }
 
     private val sheet = Services.sheet
 
@@ -88,6 +89,25 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val fragmentContainer: ViewGroup = findViewById(R.id.container_fragment)
+
+        val mainIssuesOverlay: ViewGroup = findViewById(R.id.main_issues_overlay)
+        mainIssuesOverlay.translationY = 200f
+        mainIssuesOverlay.setOnClickListener {
+            sheet.showSheet(Sheet.ConnIssues)
+        }
+        lifecycleScope.launch {
+            processingRepo.connIssuesHot
+            .collect { isIssue ->
+                if (isIssue) {
+                    mainIssuesOverlay.visibility = View.VISIBLE
+                    mainIssuesOverlay.animate().translationY(0.0f)
+                } else {
+                    mainIssuesOverlay.animate().translationY(200.0f).withEndAction {
+                        mainIssuesOverlay.visibility = View.GONE
+                    }
+                }
+            }
+        }
 
         setSupportActionBar(toolbar)
         setInsets(toolbar)
