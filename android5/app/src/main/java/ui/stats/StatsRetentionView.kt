@@ -73,6 +73,7 @@ class StatsRetentionView : FrameLayout {
                 retentionProgress.visibility = View.GONE
             }
         }
+        switchWorking(false)
 
         lifecycleScope.launch {
             cloudRepo.activityRetentionHot

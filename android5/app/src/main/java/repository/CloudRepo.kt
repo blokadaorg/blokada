@@ -37,11 +37,11 @@ open class CloudRepo {
     private val accountIdHot by lazy { Repos.account.accountIdHot }
     private val activeTabHot by lazy { Repos.nav.activeTabHot }
 
-    private val writeDeviceInfo = MutableStateFlow<DevicePayload?>(null)
+    private val writeDeviceInfo = MutableSharedFlow<DevicePayload?>()
     private val writeDnsProfileActivated = MutableStateFlow<Granted?>(null)
     private val writePrivateDnsSetting = MutableStateFlow<String?>(null)
 
-    val deviceInfoHot = writeDeviceInfo.filterNotNull().distinctUntilChanged()
+    val deviceInfoHot = writeDeviceInfo.filterNotNull()
 
     val expectedDnsStringHot = deviceInfoHot.map {
         // TODO: better sanitize device name
@@ -54,7 +54,7 @@ open class CloudRepo {
 
     val deviceTagHot = deviceInfoHot.map { it.device_tag }.distinctUntilChanged()
     val blocklistsHot = deviceInfoHot.map { it.lists }.distinctUntilChanged()
-    val activityRetentionHot = deviceInfoHot.map { it.retention }.distinctUntilChanged()
+    val activityRetentionHot = deviceInfoHot.map { it.retention }
     val adblockingPausedHot = deviceInfoHot.map { it.paused }.distinctUntilChanged()
 
     private val refreshDeviceInfoT = SimpleTasker<Ignored>("refreshDeviceInfo", debounce = 500, errorIsMajor = true)
@@ -91,7 +91,7 @@ open class CloudRepo {
 
     private suspend fun onRefreshDeviceInfo() {
         refreshDeviceInfoT.setTask {
-            writeDeviceInfo.value = api.getDeviceForCurrentUser()
+            writeDeviceInfo.emit(api.getDeviceForCurrentUser())
             true
         }
     }
