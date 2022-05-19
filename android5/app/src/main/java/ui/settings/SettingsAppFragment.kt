@@ -101,17 +101,18 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             getString(R.string.universal_action_no)
         ).toTypedArray()
 
-        val backup: ListPreference = findPreference("app_backup")!!
-        backup.isVisible = EnvironmentService.isLibre()
-        backup.entryValues = yesNoChoice
-        backup.entries = backup.entryValues
-        backup.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.universal_action_yes) -> vm.setUseBackup(true)
-                else -> vm.setUseBackup(false)
+        val backup: ListPreference? = findPreference("app_backup")
+        backup?.let { backup ->
+            backup.entryValues = yesNoChoice
+            backup.entries = backup.entryValues
+            backup.setOnPreferenceChangeListener { _, newValue ->
+                when (newValue) {
+                    getString(R.string.universal_action_yes) -> vm.setUseBackup(true)
+                    else -> vm.setUseBackup(false)
+                }
+                showRestartRequired()
+                true
             }
-            showRestartRequired()
-            true
         }
 
         val useForeground: ListPreference = findPreference("app_useforeground")!!
@@ -128,7 +129,7 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
 
         val ping: ListPreference = findPreference("app_ping")!!
         ping.entryValues = yesNoChoice
-        ping.entries = backup.entryValues
+        ping.entries = useForeground.entryValues
         ping.setOnPreferenceChangeListener { _, newValue ->
             when (newValue) {
                 getString(R.string.universal_action_yes) -> vm.setPingToCheckNetwork(true)
@@ -173,8 +174,8 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
 
             val useBackup = if (it.backup) getString(R.string.universal_action_yes)
             else getString(R.string.universal_action_no)
-            backup.setDefaultValue(useBackup)
-            backup.value = useBackup
+            backup?.setDefaultValue(useBackup)
+            backup?.value = useBackup
 
             val useFg = if (it.useForegroundService) getString(R.string.universal_action_yes)
             else getString(R.string.universal_action_no)

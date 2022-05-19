@@ -130,6 +130,7 @@ android {
         google.assets.srcDirs += 'src/libre/assets'
         google.jniLibs.srcDirs += 'src/libre/jniLibs'
         google.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        google.res.srcDirs += 'src/libre/res'
 
         full.res.srcDirs += 'src/notgoogle/res'
         full.java.srcDirs += 'src/notgoogle/kotlin'
@@ -137,6 +138,7 @@ android {
         full.assets.srcDirs += 'src/libre/assets'
         full.jniLibs.srcDirs += 'src/libre/jniLibs'
         full.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        full.res.srcDirs += 'src/libre/res'
 
         droid.res.srcDirs += 'src/notgoogle/res'
         droid.java.srcDirs += 'src/notgoogle/kotlin'
@@ -144,6 +146,7 @@ android {
         droid.assets.srcDirs += 'src/libre/assets'
         droid.jniLibs.srcDirs += 'src/libre/jniLibs'
         droid.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        droid.res.srcDirs += 'src/libre/res'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
@@ -151,10 +154,12 @@ android {
         escaped.assets.srcDirs += 'src/libre/assets'
         escaped.jniLibs.srcDirs += 'src/libre/jniLibs'
         escaped.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        escaped.res.srcDirs += 'src/libre/res'
 
         six.java.srcDirs += 'src/notgoogle/kotlin'
         six.java.srcDirs += 'src/notlibre/kotlin'
         six.res.srcDirs += 'src/six/res'
+        six.res.srcDirs += 'src/notlibre/res'
 
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
