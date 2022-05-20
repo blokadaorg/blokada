@@ -55,7 +55,8 @@ object UpdateService {
 
     fun handleUpdateFlow(
         onOpenDonate: () -> Unit,
-        onOpenMore: () -> Unit
+        onOpenMore: () -> Unit,
+        onOpenChangelog: () -> Unit
     ) {
         val appVersion = EnvironmentService.getVersionCode()
         if (!hasUserSeenAfterUpdateDialog(appVersion)) {
@@ -123,7 +124,8 @@ object UpdateService {
 
     private fun showThankYouAlert(
         onOpenDonate: () -> Unit,
-        onOpenMore: () -> Unit
+        onOpenMore: () -> Unit,
+        onOpenChangelog: () -> Unit
     ) {
         val ctx = context.requireContext()
         val showDonate = EnvironmentService.isLibre() && !EnvironmentService.isSlim()
@@ -133,9 +135,11 @@ object UpdateService {
             ),
             title = ctx.getString(R.string.update_label_updated),
             positiveAction =
-                if (!showDonate) ctx.getString(R.string.universal_action_close) to {}
-                else ctx.getString(R.string.universal_action_donate) to onOpenDonate,
-            additionalAction = ctx.getString(R.string.universal_action_learn_more) to onOpenMore
+                if (showDonate) ctx.getString(R.string.universal_action_donate) to onOpenDonate
+                else ctx.getString(R.string.universal_action_close) to {},
+            additionalAction =
+                if (showDonate) ctx.getString(R.string.universal_action_learn_more) to onOpenMore
+                else ctx.getString(R.string.universal_action_learn_more) to onOpenChangelog
         )
     }
 

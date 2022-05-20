@@ -31,6 +31,7 @@ object Links {
     val terms = "https://go.blokada.org/terms"
     val credits = "https://blokada.org/"
     val community = "https://go.blokada.org/forum"
+    val changelog = "https://go.blokada.org/changelog"
 
     val updated =
         if (EnvironmentService.isSlim()) "https://go.blokada.org/updated_android_slim"

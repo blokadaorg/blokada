@@ -108,6 +108,15 @@ class HomeFragment : Fragment() {
                             Links.updated, getString(R.string.update_label_updated)
                         )
                     )
+                },
+                onOpenChangelog = {
+                    val nav = findNavController()
+                    nav.navigate(R.id.navigation_home)
+                    nav.navigate(
+                        HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                            Links.changelog, getString(R.string.update_label_updated)
+                        )
+                    )
                 }
             )
         }
