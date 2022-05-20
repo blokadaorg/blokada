@@ -108,8 +108,9 @@ open class Tasker<T, Y>(
 class SimpleTasker<Y>(
     owner: String,
     debounce: Long = DEFAULT_USER_INTERACTION_DEBOUNCE,
-    errorIsMajor: Boolean = false
-) : Tasker<Ignored, Y>(owner, debounce, errorIsMajor) {
+    errorIsMajor: Boolean = false,
+    timeoutMs: Long = 10000
+) : Tasker<Ignored, Y>(owner, debounce, errorIsMajor, timeoutMs) {
 
     suspend fun send(): Y {
         processingRepo.notify(owner, ongoing = true)

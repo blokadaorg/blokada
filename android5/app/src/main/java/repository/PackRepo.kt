@@ -51,10 +51,10 @@ class PackRepo {
     // Packs is app's representation. One pack may have multiple configs.
     val packsHot = writePacks.filterNotNull()
 
-    private val loadBlocklistsT = SimpleTasker<Ignored>("loadBlocklists", errorIsMajor = true)
-    private val convertBlocklistsToPacksT = SimpleTasker<Ignored>("convertBlocklistsToPacks", errorIsMajor = true)
-    private val installPackT = Tasker<Pack, Ignored>("installPack", errorIsMajor = true)
-    private val uninstallPackT = Tasker<Pack, Ignored>("uninstallPack", errorIsMajor = true)
+    private val loadBlocklistsT = SimpleTasker<Ignored>("loadBlocklists", errorIsMajor = true, timeoutMs = 30000)
+    private val convertBlocklistsToPacksT = SimpleTasker<Ignored>("convertBlocklistsToPacks", errorIsMajor = true, timeoutMs = 30000)
+    private val installPackT = Tasker<Pack, Ignored>("installPack", errorIsMajor = true, timeoutMs = 30000)
+    private val uninstallPackT = Tasker<Pack, Ignored>("uninstallPack", errorIsMajor = true, timeoutMs = 30000)
 
     fun start() {
         GlobalScope.launch { onLoadBlocklists() }
