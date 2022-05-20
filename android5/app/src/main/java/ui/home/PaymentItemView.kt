@@ -96,11 +96,18 @@ class PaymentItemView : FrameLayout {
 
         // Shows additional per-month price for annual packages
         val info = findViewById<TextView>(R.id.payment_item_info)
-        if (product.periodMonths == 12) {
-            info.visibility = View.VISIBLE
-            info.text = makeInfoText(product)
-        } else {
-            info.visibility = View.GONE
+        when {
+            product.owned -> {
+                info.visibility = View.VISIBLE
+                info.text = "(current plan)"
+            }
+            product.periodMonths == 12 -> {
+                info.visibility = View.VISIBLE
+                info.text = makeInfoText(product)
+            }
+            else -> {
+                info.visibility = View.GONE
+            }
         }
     }
 
