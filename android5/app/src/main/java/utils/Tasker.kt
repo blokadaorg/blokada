@@ -35,7 +35,8 @@ internal data class TaskResult<T, Y> (
 open class Tasker<T, Y>(
     internal val owner: String,
     internal val debounce: Long = DEFAULT_USER_INTERACTION_DEBOUNCE,
-    private val errorIsMajor: Boolean = false
+    private val errorIsMajor: Boolean = false,
+    internal val timeoutMs: Long = 10000
 ) {
 
     internal val processingRepo by lazy { Repos.processing }
@@ -81,7 +82,7 @@ open class Tasker<T, Y>(
 
         val resp = GlobalScope.async {
             try {
-                withTimeout(10000) {
+                withTimeout(timeoutMs) {
                     // Just return first future result if debounce is set, as it's used for cases when we
                     // only care about the latest invocation in a short time.
                     responses.first { ordinal > lastTask && (debounce != 0L || argument == it.argument) }
@@ -117,7 +118,7 @@ class SimpleTasker<Y>(
 
         val resp = GlobalScope.async {
             try {
-                withTimeout(10000) {
+                withTimeout(timeoutMs) {
                     responses.first { ordinal > lastTask }
                 }
             } catch (ex: Exception) {
