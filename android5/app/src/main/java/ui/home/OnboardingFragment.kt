@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -72,6 +73,17 @@ class OnboardingFragment : BottomSheetFragment() {
             }
         }
 
+        // If user bought Plus, we want to show the Locations screen right after all perms are set.
+        val maybeShowLocations = {
+            GlobalScope.launch(Dispatchers.Main) {
+                dismiss()
+                delay(500)
+                if (accountVM.account.value?.type.toAccountType() == AccountType.Plus) {
+                    sheet.showSheet(Sheet.Location)
+                }
+            }
+        }
+
         var finishOnboarding: () -> Any = recheckPerms
 
         val root = inflater.inflate(R.layout.fragment_afteractivated, container, false)
@@ -98,7 +110,7 @@ class OnboardingFragment : BottomSheetFragment() {
                 val isCloud = accountVM.account.value?.type.toAccountType() == AccountType.Cloud
                 if (dns && notif && (isCloud || vpn)) {
                     subheader.text = getString(R.string.activated_desc_all_ok)
-                    finishOnboarding = { dismiss() }
+                    finishOnboarding = maybeShowLocations
                 } else {
                     subheader.text = getString(R.string.activated_desc)
                     finishOnboarding = recheckPerms

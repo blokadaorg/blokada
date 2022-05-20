@@ -65,15 +65,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
             fragment.show(parentFragmentManager, null)
         }
 
-        val seeLocations: View = root.findViewById(R.id.payment_locations)
-        seeLocations.setOnClickListener {
-            dismiss()
-            val fragment = LocationFragment.newInstance()
-            fragment.clickable = false
-            fragment.cloud = true
-            fragment.show(parentFragmentManager, null)
-        }
-
         val restore: View = root.findViewById(R.id.payment_restore)
         restore.setOnClickListener {
             restorePayment()

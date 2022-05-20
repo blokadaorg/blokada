@@ -61,7 +61,7 @@ object UpdateService {
         val appVersion = EnvironmentService.getVersionCode()
         if (!hasUserSeenAfterUpdateDialog(appVersion)) {
             markUserSeenAfterUpdateDialog(appVersion)
-            showThankYouAlert(onOpenDonate, onOpenMore)
+            showThankYouAlert(onOpenDonate, onOpenMore, onOpenChangelog)
         } else {
             // This is in else branch to make sure only one dialog can show at once
             showUpdateAlertIfNecessary()

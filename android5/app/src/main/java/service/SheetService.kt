@@ -14,10 +14,7 @@ package service
 
 import androidx.fragment.app.DialogFragment
 import model.BlokadaException
-import ui.home.AdsCounterFragment
-import ui.home.CloudPaymentFragment
-import ui.home.ConnIssuesFragment
-import ui.home.OnboardingFragment
+import ui.home.*
 
 enum class Sheet {
     Help, // Help Screen (contact us)
@@ -40,6 +37,7 @@ class SheetService {
             Sheet.Activated -> OnboardingFragment.newInstance()
             Sheet.AdsCounter -> AdsCounterFragment.newInstance()
             Sheet.ConnIssues -> ConnIssuesFragment.newInstance()
+            Sheet.Location -> LocationFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }
         onShowFragment(fragment)

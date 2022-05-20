@@ -27,9 +27,7 @@ import model.mapErrorToUserFriendly
 import model.shouldShowKbLink
 import org.blokada.R
 import repository.Repos
-import service.AlertDialogService
-import service.EnvironmentService
-import service.UpdateService
+import service.*
 import ui.TunnelViewModel
 import ui.app
 import ui.settings.SettingsFragmentDirections
@@ -46,6 +44,7 @@ class HomeFragment : Fragment() {
     private var libreMode = EnvironmentService.getFlavor() != "six"
 
     private val processingRepo by lazy { Repos.processing }
+    private val sheet by lazy { Services.sheet }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -148,8 +147,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showLocationSheet() {
-        val fragment = LocationFragment.newInstance()
-        fragment.show(parentFragmentManager, null)
+        sheet.showSheet(Sheet.Location)
     }
 
     private fun showPlusSheet() {
