@@ -23,6 +23,7 @@ object Links {
     val whyVpnPerms = "https://go.blokada.org/vpnperms"
     val howToRestore = "https://go.blokada.org/vpnrestore"
     val tunnelFailure = "https://go.blokada.org/tunnelfailure"
+    val connIssues = "https://go.blokada.org/connissues"
     val startOnBoot = "https://go.blokada.org/startonboot"
 
     val kb = "https://go.blokada.org/kb_android"

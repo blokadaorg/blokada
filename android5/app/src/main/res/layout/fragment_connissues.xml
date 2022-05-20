@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_huge"
                 android:layout_height="@dimen/icon_huge"
-                app:tint="@color/orange_2"
+                app:tint="@color/orange"
                 android:src="@drawable/ic_baseline_wifi_24" />
 
             <TextView

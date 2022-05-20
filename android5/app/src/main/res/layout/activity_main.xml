@@ -46,7 +46,7 @@
             android:id="@+id/main_issues_overlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/orange_2"
+            android:background="@color/orange"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="@dimen/half"
