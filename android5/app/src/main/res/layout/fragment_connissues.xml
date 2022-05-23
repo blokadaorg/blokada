@@ -82,15 +82,6 @@
                         android:layout_height="wrap_content"
                         android:text="- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs" />
 
-                    <TextView
-                        android:id="@+id/connissues_more"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/doubled"
-                        android:gravity="center"
-                        android:text="@string/universal_action_learn_more"
-                        android:textColor="?android:attr/colorPrimary" />
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

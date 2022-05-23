@@ -16,10 +16,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import org.blokada.R
 import ui.BottomSheetFragment
-import utils.Links
 
 class ConnIssuesFragment : BottomSheetFragment() {
 
@@ -38,16 +36,16 @@ class ConnIssuesFragment : BottomSheetFragment() {
             dismiss()
         }
 
-        val more: View = root.findViewById(R.id.connissues_more)
-        more.setOnClickListener {
-            dismiss()
-            val nav = findNavController()
-            nav.navigate(
-                HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                Links.connIssues, "TODO"
-            ))
-        }
-
+//        val more: View = root.findViewById(R.id.connissues_more)
+//        more.setOnClickListener {
+//            dismiss()
+//            val nav = findNavController()
+//            nav.navigate(
+//                HomeFragmentDirections.actionNavigationHomeToWebFragment(
+//                Links.connIssues, "TODO"
+//            ))
+//        }
+//
         val ciContinue: View = root.findViewById(R.id.connissues_continue)
         ciContinue.setOnClickListener {
             dismiss()
