@@ -37,7 +37,7 @@ open class CloudRepo {
     private val accountIdHot by lazy { Repos.account.accountIdHot }
     private val activeTabHot by lazy { Repos.nav.activeTabHot }
 
-    private val writeDeviceInfo = MutableSharedFlow<DevicePayload?>()
+    private val writeDeviceInfo = MutableSharedFlow<DevicePayload?>(replay = 1)
     private val writeDnsProfileActivated = MutableStateFlow<Granted?>(null)
     private val writePrivateDnsSetting = MutableStateFlow<String?>(null)
 
