@@ -35,7 +35,7 @@ class BillingService: IPaymentService {
         @Synchronized set
         @Synchronized get
 
-    private var latestSkuList: List<SkuDetails> = emptyList()
+    private var latestProductList: List<ProductDetails> = emptyList()
         @Synchronized set
         @Synchronized get
 
@@ -83,29 +83,40 @@ class BillingService: IPaymentService {
     }
 
     override suspend fun refreshProducts(): List<Product> {
-        val skuList = ArrayList<String>()
-        skuList.add("cloud_12month")
-        skuList.add("plus_month")
-        skuList.add("plus_12month")
-        val params = SkuDetailsParams.newBuilder()
-        params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
+        val ids = listOf("cloud_12month", "plus_month", "plus_12month")
 
-        val skuDetailsResult = withContext(Dispatchers.IO) {
-            getConnectedClient().querySkuDetails(params.build())
+        val params = QueryProductDetailsParams.newBuilder()
+        params.setProductList(ids.map {
+            QueryProductDetailsParams.Product.newBuilder()
+            .setProductId(it)
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+        })
+
+        // leverage queryProductDetails Kotlin extension function
+        val productDetailsResult = withContext(Dispatchers.IO) {
+            getConnectedClient().queryProductDetails(params.build())
         }
 
-        latestSkuList = skuDetailsResult.skuDetailsList ?: emptyList()
-        return skuDetailsResult.skuDetailsList?.map {
-            Product(
-                id = it.sku,
-                title = it.title,
-                description = it.description,
-                price = getPriceString(it),
-                pricePerMonth = getPricePerMonthString(it),
-                periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1,
-                type = if(it.sku.startsWith("cloud")) "cloud" else "plus",
-                trial = it.freeTrialPeriod.isNotBlank()
-            )
+        latestProductList = productDetailsResult.productDetailsList ?: emptyList()
+        return productDetailsResult.productDetailsList?.mapNotNull {
+            val offer = it.subscriptionOfferDetails?.first()
+            val phase = offer?.pricingPhases?.pricingPhaseList?.first()
+
+            if (offer == null || phase == null) {
+                null
+            } else {
+                Product(
+                    id = it.productId,
+                    title = it.title,
+                    description = it.description,
+                    price = getPriceString(phase),
+                    pricePerMonth = getPricePerMonthString(phase),
+                    periodMonths = getPeriodMonths(phase),
+                    type = if(it.productId.startsWith("cloud")) "cloud" else "plus",
+                    trial = getTrial(offer)
+                )
+            }
         }?.sortedBy { it.periodMonths } ?: emptyList()
     }
 
@@ -147,11 +158,17 @@ class BillingService: IPaymentService {
     }
 
     override suspend fun buyProduct(id: ProductId): PaymentPayload {
-        val skuDetails = latestSkuList.firstOrNull { it.sku == id } ?:
+        val details = latestProductList.firstOrNull { it.productId == id } ?:
             throw BlokadaException("Unknown product ID")
+        val offerToken = details.subscriptionOfferDetails!!.first().offerToken
 
         val flowParams = BillingFlowParams.newBuilder()
-            .setSkuDetails(skuDetails)
+            .setProductDetailsParamsList(listOf(
+                BillingFlowParams.ProductDetailsParams.newBuilder()
+                .setProductDetails(details)
+                .setOfferToken(offerToken)
+                .build()
+            ))
             .build()
         val activity = context.requireActivity()
         val responseCode = getConnectedClient().launchBillingFlow(activity, flowParams).responseCode
@@ -204,8 +221,9 @@ class BillingService: IPaymentService {
     }
 
     override suspend fun changeProduct(id: ProductId): PaymentPayload {
-        val skuDetails = latestSkuList.firstOrNull { it.sku == id } ?:
-        throw BlokadaException("Unknown product ID")
+        val details = latestProductList.firstOrNull { it.productId == id } ?:
+            throw BlokadaException("Unknown product ID")
+        val offerToken = details.subscriptionOfferDetails!!.first().offerToken
 
         // Get existing subscription token
         getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
@@ -257,11 +275,16 @@ class BillingService: IPaymentService {
         val flowParams = BillingFlowParams.newBuilder()
             .setSubscriptionUpdateParams(
                 BillingFlowParams.SubscriptionUpdateParams.newBuilder()
-                .setOldSkuPurchaseToken(existingPurchase.first().purchase_token)
-                .setReplaceSkusProrationMode(prorate)
+                .setOldPurchaseToken(existingPurchase.first().purchase_token)
+                .setReplaceProrationMode(prorate)
                 .build()
             )
-            .setSkuDetails(skuDetails)
+            .setProductDetailsParamsList(listOf(
+                BillingFlowParams.ProductDetailsParams.newBuilder()
+                .setProductDetails(details)
+                .setOfferToken(offerToken)
+                .build()
+            ))
             .build()
         val activity = context.requireActivity()
         val responseCode = getConnectedClient().launchBillingFlow(activity, flowParams).responseCode
@@ -275,15 +298,23 @@ class BillingService: IPaymentService {
         }
     }
 
-    private fun getPricePerMonthString(it: SkuDetails): String {
-        val periodMonths = if (it.subscriptionPeriod == "P1Y") 12 else 1
-        if (periodMonths == 1) return it.price
+    private fun getTrial(it: ProductDetails.SubscriptionOfferDetails): Boolean {
+        Logger.v("xxx", "${it.offerTags}")
+        return it.offerTags.contains("free7")
+    }
+
+    private fun getPeriodMonths(it: ProductDetails.PricingPhase): Int {
+        return if (it.billingPeriod == "P1Y") 12 else 1
+    }
+
+    private fun getPricePerMonthString(it: ProductDetails.PricingPhase): String {
+        val periodMonths = getPeriodMonths(it)
         val price = it.priceAmountMicros
         val perMonth = price / periodMonths
         return priceFormat.format(perMonth / 1_000_000f, it.priceCurrencyCode)
     }
 
-    private fun getPriceString(it: SkuDetails): String {
+    private fun getPriceString(it: ProductDetails.PricingPhase): String {
         return priceFormat.format(it.priceAmountMicros / 1_000_000f, it.priceCurrencyCode)
     }
 
