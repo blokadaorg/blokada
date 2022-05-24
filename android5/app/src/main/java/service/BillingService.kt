@@ -105,7 +105,7 @@ class BillingService: IPaymentService {
         latestProductList = productDetailsResult.productDetailsList ?: emptyList()
         return productDetailsResult.productDetailsList?.mapNotNull {
             val offer = it.subscriptionOfferDetails?.first()
-            val phase = offer?.pricingPhases?.pricingPhaseList?.first()
+            val phase = offer?.pricingPhases?.pricingPhaseList?.firstOrNull { it.priceAmountMicros > 0 }
 
             if (offer == null || phase == null) {
                 null
@@ -303,7 +303,6 @@ class BillingService: IPaymentService {
     }
 
     private fun getTrial(it: ProductDetails.SubscriptionOfferDetails): Boolean {
-        Logger.v("xxx", "${it.offerTags}")
         return it.offerTags.contains("free7")
     }
 
