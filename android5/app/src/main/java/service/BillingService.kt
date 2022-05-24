@@ -19,10 +19,7 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import model.BlokadaException
-import model.PaymentPayload
-import model.Product
-import model.ProductId
+import model.*
 import utils.Logger
 import kotlin.coroutines.resumeWithException
 
@@ -56,18 +53,25 @@ class BillingService: IPaymentService {
             client.startConnection(object : BillingClientStateListener {
 
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
-                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                        connected = true
-                        cont.resume(client) {
-                            Logger.w("Billing", "Cancelled getConnectedClient()")
+                    when (billingResult.responseCode) {
+                        BillingClient.BillingResponseCode.OK -> {
+                            connected = true
+                            cont.resume(client) {
+                                Logger.w("Billing", "Cancelled getConnectedClient()")
+                            }
                         }
-                    } else {
-                        connected = false
-                        cont.resumeWithException(
-                            BlokadaException(
-                                "onBillingSetupFinished returned wrong result: $billingResult"
+                        BillingClient.BillingResponseCode.BILLING_UNAVAILABLE -> {
+                            connected = false
+                            cont.resumeWithException(NoPayments())
+                        }
+                        else -> {
+                            connected = false
+                            cont.resumeWithException(
+                                BlokadaException(
+                                    "onBillingSetupFinished returned wrong result: $billingResult"
+                                )
                             )
-                        )
+                        }
                     }
                 }
 

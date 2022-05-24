@@ -17,10 +17,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AccountType
+import model.NoPayments
 import model.Product
 import org.blokada.R
 import repository.Repos
@@ -153,7 +155,17 @@ class CloudPaymentFragment : BottomSheetFragment() {
         }
 
         lifecycleScope.launch {
-            paymentRepo.refreshProducts()
+            try {
+                paymentRepo.refreshProducts()
+            } catch (ex: NoPayments) {
+                delay(500)
+                dialog.showAlert(getString(R.string.error_payment_not_available),
+                okText = getString(R.string.universal_action_continue),
+                okAction = {
+                    dismiss()
+                })
+                .collect {}
+            }
         }
 
         return root

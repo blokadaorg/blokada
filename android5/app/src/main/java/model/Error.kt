@@ -32,6 +32,7 @@ class NoPersistedAccount: BlokadaException("No persisted account")
 class NoPermissions: BlokadaException("No VPN profile permissions")
 class TunnelFailure(cause: Throwable): BlokadaException("Tunnel failure: ${cause.message}", cause)
 class BlockaDnsInFilteringMode(): BlokadaException("Blocka DNS in filtering mode")
+class NoPayments(): BlokadaException("Payments are unavailable")
 
 fun mapErrorToUserFriendly(ex: Exception?): String {
     val ctx = ContextService.requireAppContext()

@@ -14,8 +14,6 @@ package repository
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import model.*
@@ -27,10 +25,10 @@ import utils.Tasker
 
 class PaymentRepo {
 
-    private val writeProducts = MutableStateFlow<List<Product>?>(null)
+    private val writeProducts = MutableSharedFlow<List<Product>?>(replay = 1)
     private val writeSuccessfulPurchases = MutableSharedFlow<Pair<Account, UserInitiated>>()
 
-    val productsHot = writeProducts.filterNotNull().distinctUntilChanged()
+    val productsHot = writeProducts.filterNotNull()
     val successfulPurchasesHot = writeSuccessfulPurchases
 
     private val refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
@@ -79,8 +77,13 @@ class PaymentRepo {
 
     private suspend fun onRefreshProducts() {
         refreshProductsT.setTask {
-            val products = payment.refreshProducts()
-            writeProducts.emit(products)
+            try {
+                val products = payment.refreshProducts()
+                writeProducts.emit(products)
+            } catch (ex: Exception) {
+                writeProducts.emit(emptyList())
+                throw ex
+            }
             true
         }
     }
