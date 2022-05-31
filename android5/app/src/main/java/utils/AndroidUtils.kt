@@ -12,10 +12,12 @@
 
 package ui.utils
 
+import android.app.PendingIntent
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.util.TypedValue
 import android.widget.Toast
@@ -27,10 +29,7 @@ import model.SystemTunnelRevoked
 import model.Uri
 import org.blokada.R
 import service.ContextService
-import service.tr
 import utils.Logger
-import java.text.SimpleDateFormat
-import java.util.*
 
 object AndroidUtils {
 
@@ -44,6 +43,30 @@ object AndroidUtils {
         Toast.makeText(ctx, ctx.getString(R.string.universal_status_copied_to_clipboard), Toast.LENGTH_SHORT).show()
     }
 
+}
+
+fun Context.getPendingIntentForService(intent: Intent, flags: Int): PendingIntent {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        PendingIntent.getService(this, 0, intent, flags or PendingIntent.FLAG_MUTABLE)
+    } else {
+        PendingIntent.getService(this, 0, intent, flags)
+    }
+}
+
+fun Context.getPendingIntentForActivity(intent: Intent, flags: Int): PendingIntent {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        PendingIntent.getActivity(this, 0, intent, flags or PendingIntent.FLAG_MUTABLE)
+    } else {
+        PendingIntent.getActivity(this, 0, intent, flags)
+    }
+}
+
+fun Context.getPendingIntentForBroadcast(intent: Intent, flags: Int): PendingIntent {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        PendingIntent.getBroadcast(this, 0, intent, flags or PendingIntent.FLAG_MUTABLE)
+    } else {
+        PendingIntent.getBroadcast(this, 0, intent, flags)
+    }
 }
 
 fun String.cause(ex: Throwable): String {

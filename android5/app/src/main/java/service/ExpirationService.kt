@@ -20,6 +20,7 @@ import android.content.Intent
 import model.ActiveUntil
 import ui.beforeNow
 import ui.utils.cause
+import ui.utils.getPendingIntentForBroadcast
 import utils.Logger
 import utils.NotificationPrototype
 
@@ -49,7 +50,7 @@ object ExpirationService {
         try {
             context.requireContext().let { ctx ->
                 val operation = Intent(ctx, ExpirationReceiver::class.java).let { intent ->
-                    PendingIntent.getBroadcast(ctx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    ctx.getPendingIntentForBroadcast(intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
                 alarmManager.set(AlarmManager.RTC, time, operation)
                 log.v("Expiration alarm in AlarmManager set")

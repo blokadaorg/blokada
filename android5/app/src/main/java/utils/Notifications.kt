@@ -25,6 +25,8 @@ import service.Localised
 import ui.Command
 import ui.MainActivity
 import ui.getIntentForCommand
+import ui.utils.getPendingIntentForActivity
+import ui.utils.getPendingIntentForService
 
 private const val IMPORTANCE_NONE = 0
 private const val IMPORTANCE_DEFAULT = 3
@@ -90,7 +92,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.OFF).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.home_power_action_turn_off), it)
@@ -99,7 +101,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.universal_action_hide), it)
@@ -124,7 +126,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.OFF).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.home_power_action_turn_off), it)
@@ -133,7 +135,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.universal_action_hide), it)
@@ -148,7 +150,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.ON).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.home_power_action_turn_on), it)
@@ -157,7 +159,7 @@ class MonitorNotification(
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
-                        PendingIntent.getService(ctx, 0, it, PendingIntent.FLAG_UPDATE_CURRENT)
+                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
                     }.let {
                         NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
                             ctx.getString(R.string.universal_action_hide), it)
@@ -168,7 +170,7 @@ class MonitorNotification(
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
         intentActivity.putExtra("notification", true)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
 
 //        val iw = Intent(ctx, ANotificationsWhitelistService::class.java)
@@ -250,7 +252,7 @@ class UpdateNotification(versionName: String): NotificationPrototype(3, Notifica
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
         intentActivity.putExtra("update", true)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
 )
@@ -267,7 +269,7 @@ class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
         b.setVibrate(LongArray(0))
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
 )
@@ -316,7 +318,7 @@ class AccountExpiredNotification: NotificationPrototype(5, NotificationChannels.
         b.setVibrate(LongArray(0))
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
 )
@@ -336,7 +338,7 @@ class PlusLeaseExpiredNotification: NotificationPrototype(6, NotificationChannel
         b.setVibrate(LongArray(0))
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
 )
@@ -355,7 +357,7 @@ class PauseTimeoutNotification: NotificationPrototype(7, NotificationChannels.BL
         b.setVibrate(LongArray(0))
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
-        val piActivity = PendingIntent.getActivity(ctx, 0, intentActivity, 0)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
 )
