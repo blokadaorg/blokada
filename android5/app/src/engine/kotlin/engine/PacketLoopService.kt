@@ -168,6 +168,7 @@ object PacketLoopService {
             loop = null
             val (_, thread) = it
             thread?.interrupt()
+            MetricsService.stopMetrics()
 //            log.w("Waiting after stopping packet loop as a workaround")
 //            delay(4000)
         }

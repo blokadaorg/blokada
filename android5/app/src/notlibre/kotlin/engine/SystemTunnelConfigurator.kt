@@ -57,6 +57,7 @@ object SystemTunnelConfigurator: FlavorSpecific {
         log.v("Setting MTU: $MTU")
         tun.setMtu(MTU)
         tun.setBlocking(true)
+        tun.setSession("Blokada Plus")
 
         // To not show our VPN as a metered connection
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

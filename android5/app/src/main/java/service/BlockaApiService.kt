@@ -146,10 +146,10 @@ object BlockaApiService {
     private fun <T> mapException(block: () -> T): T {
         try {
             val result = block()
-            GlobalScope.launch { processingRepo.reportConnIssues(false) }
+            GlobalScope.launch { processingRepo.reportConnIssues("api", false) }
             return result
         } catch (ex: UnknownHostException) {
-            GlobalScope.launch { processingRepo.reportConnIssues(true) }
+            GlobalScope.launch { processingRepo.reportConnIssues("api", true) }
             throw BlokadaException("Connection problems", ex)
         } catch (ex: BlokadaException) {
             throw ex

@@ -15,22 +15,35 @@ package repository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import model.BlokadaException
-import model.ComponentError
-import model.ComponentOngoing
+import model.*
 import utils.Logger
 
 open class ProcessingRepo {
 
     private val writeOngoing = MutableSharedFlow<ComponentOngoing?>()
     private val writeError = MutableSharedFlow<ComponentError?>()
-    private val writeConnIssues = MutableSharedFlow<Boolean>()
+    internal val writeConnIssues = MutableSharedFlow<Set<Any>>(replay = 1)
 
     val ongoingHot = writeOngoing.filterNotNull().distinctUntilChanged()
     val errorsHot = writeError.filterNotNull().distinctUntilChanged()
-    val connIssuesHot = writeConnIssues.distinctUntilChanged()
+    val connIssuesHot = writeConnIssues.map { it.isNotEmpty() }.distinctUntilChanged()
 
-    open fun start() {}
+    val recentTimeoutsHot = writeError.scan(emptyList<ComponentTimeout>()) { acc, p ->
+        if (p == null) {
+            acc
+        } else if (p.error !is TimeoutException) {
+            // Remove old timeouts
+            acc.filter { it.timeoutMillis + 30 * 1000 >= System.currentTimeMillis() }
+        } else if (acc.any { it.component == p.component }) {
+            // Replace timeout of recently timed-out task with a newer timestamp
+            acc.filter { it.component != p.component }.plus(
+                ComponentTimeout(p.component, System.currentTimeMillis())
+            )
+        } else {
+            // Add this task to timeouts timestamps
+            acc + ComponentTimeout(p.component, System.currentTimeMillis())
+        }
+    }.distinctUntilChanged()
 
     val currentlyOngoingHot = ongoingHot.scan(emptyList<ComponentOngoing>()) { acc, p ->
         if (p.ongoing && !acc.any { it.component == p.component }) {
@@ -42,6 +55,11 @@ open class ProcessingRepo {
         }
     }.distinctUntilChanged()
 
+    open fun start() {
+        GlobalScope.launch { writeConnIssues.emit(emptySet()) }
+        GlobalScope.launch { onManyRecentTimeouts_ReportConnIssue() }
+    }
+
     suspend fun notify(component: Any, ex: BlokadaException, major: Boolean) {
         writeError.emit(ComponentError("$component", ex, major))
         notify(component, ongoing = false)
@@ -51,15 +69,24 @@ open class ProcessingRepo {
         writeOngoing.emit(ComponentOngoing("$component", ongoing))
     }
 
-    suspend fun reportConnIssues(experiencing: Boolean) {
-        writeConnIssues.emit(experiencing)
+    suspend fun reportConnIssues(component: Any, experiencing: Boolean) {
+        val current = writeConnIssues.first()
+        if (experiencing) writeConnIssues.emit(current + component)
+        else writeConnIssues.emit(current - component)
     }
 
+    private suspend fun onManyRecentTimeouts_ReportConnIssue() {
+        recentTimeoutsHot.collect {
+            reportConnIssues("timeout", it.size > 3)
+        }
+    }
 }
 
 class DebugProcessingRepo: ProcessingRepo() {
 
     override fun start() {
+        super.start()
+
         GlobalScope.launch {
             errorsHot.collect {
                 if (it.major)
@@ -72,6 +99,18 @@ class DebugProcessingRepo: ProcessingRepo() {
         GlobalScope.launch {
             currentlyOngoingHot.collect {
                 Logger.v("Processing", "$it")
+            }
+        }
+
+        GlobalScope.launch {
+            writeConnIssues.distinctUntilChanged().collect {
+                Logger.v("Processing", "ConnIssues: $it")
+            }
+        }
+
+        GlobalScope.launch {
+            recentTimeoutsHot.distinctUntilChanged().collect {
+                Logger.v("Processing", "Timeout: $it")
             }
         }
     }

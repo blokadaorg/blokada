@@ -99,9 +99,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             processingRepo.connIssuesHot
             .collect { isIssue ->
                 if (isIssue) {
+                    Logger.w("Main", "Showing ConnIssues bar")
                     mainIssuesOverlay.visibility = View.VISIBLE
                     mainIssuesOverlay.animate().translationY(0.0f)
                 } else {
+                    Logger.w("Main", "Hiding ConnIssues bar")
                     mainIssuesOverlay.animate().translationY(200.0f).withEndAction {
                         mainIssuesOverlay.visibility = View.GONE
                     }

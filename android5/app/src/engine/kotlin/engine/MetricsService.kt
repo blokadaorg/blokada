@@ -17,10 +17,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.BlokadaException
+import repository.Repos
 import ui.utils.cause
 import ui.utils.now
 import utils.Logger
-import java.lang.Integer.max
 import java.net.InetSocketAddress
 import java.net.Socket
 
@@ -40,6 +40,8 @@ object MetricsService {
 
     private val log = Logger("Metrics")
     private val scope = GlobalScope
+
+    private val processingRepo by lazy { Repos.processing }
 
     private lateinit var onNoConnectivity: () -> Unit
 
@@ -77,6 +79,7 @@ object MetricsService {
             log.v("Loop running clean, resetting errorCounter")
             errorCounter = 0
             cleanLoopCounter = 0
+            GlobalScope.launch { processingRepo.reportConnIssues("loop", experiencing = false) }
         }
     }
 
@@ -85,6 +88,7 @@ object MetricsService {
         if (errorCounter >= MAX_RECENT_ERRORS) {
             log.e("Connectivity lost, too many errors recently".cause(ex))
             onNoConnectivity()
+            GlobalScope.launch { processingRepo.reportConnIssues("loop", experiencing = true) }
         }
     }
 
@@ -133,6 +137,10 @@ object MetricsService {
         hadAtLeastOneSuccessfulQuery = true
         //testConnectivityActive()
         //testConnectivityPassive()
+    }
+
+    fun stopMetrics() {
+        GlobalScope.launch { processingRepo.reportConnIssues("loop", experiencing = false) }
     }
 
     private fun testConnectivityActive() {

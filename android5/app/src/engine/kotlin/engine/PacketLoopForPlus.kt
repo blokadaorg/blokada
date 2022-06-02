@@ -12,10 +12,6 @@
 
 package engine
 
-import model.BlokadaException
-import model.GatewayId
-import model.ex
-import utils.Logger
 import android.os.ParcelFileDescriptor
 import android.system.ErrnoException
 import android.system.Os
@@ -23,7 +19,14 @@ import android.system.OsConstants
 import android.system.StructPollfd
 import com.cloudflare.app.boringtun.BoringTunJNI
 import engine.MetricsService.PACKET_BUFFER_SIZE
-import java.io.*
+import model.BlokadaException
+import model.GatewayId
+import model.ex
+import utils.Logger
+import java.io.FileDescriptor
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress

@@ -33,6 +33,7 @@ class NoPermissions: BlokadaException("No VPN profile permissions")
 class TunnelFailure(cause: Throwable): BlokadaException("Tunnel failure: ${cause.message}", cause)
 class BlockaDnsInFilteringMode(): BlokadaException("Blocka DNS in filtering mode")
 class NoPayments(): BlokadaException("Payments are unavailable")
+class TimeoutException(owner: String, cause: Throwable? = null): BlokadaException("Task timeout: $owner", cause)
 
 fun mapErrorToUserFriendly(ex: Exception?): String {
     val ctx = ContextService.requireAppContext()

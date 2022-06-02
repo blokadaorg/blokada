@@ -17,6 +17,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withTimeout
 import model.BlokadaException
+import model.TimeoutException
 import repository.Repos
 
 val DEFAULT_USER_INTERACTION_DEBOUNCE = 300L
@@ -35,7 +36,7 @@ internal data class TaskResult<T, Y> (
 open class Tasker<T, Y>(
     internal val owner: String,
     internal val debounce: Long = DEFAULT_USER_INTERACTION_DEBOUNCE,
-    private val errorIsMajor: Boolean = false,
+    internal val errorIsMajor: Boolean = false,
     internal val timeoutMs: Long = 10000
 ) {
 
@@ -88,7 +89,9 @@ open class Tasker<T, Y>(
                     responses.first { ordinal > lastTask && (debounce != 0L || argument == it.argument) }
                 }
             } catch (ex: Exception) {
-                TaskResult(lastTask + 1, argument, null, BlokadaException("Task too slow: $owner", ex))
+                val ex = TimeoutException(owner)
+                processingRepo.notify(owner, ex, major = errorIsMajor)
+                TaskResult(lastTask + 1, argument, null, ex)
             }
         }
         writeRequests.emit(argument)
@@ -123,7 +126,9 @@ class SimpleTasker<Y>(
                     responses.first { ordinal > lastTask }
                 }
             } catch (ex: Exception) {
-                TaskResult(lastTask + 1, true, null, BlokadaException("Task too slow: $owner", ex))
+                val ex = TimeoutException(owner)
+                processingRepo.notify(owner, ex, major = errorIsMajor)
+                TaskResult(lastTask + 1, true, null, ex)
             }
         }
         writeRequests.emit(true)

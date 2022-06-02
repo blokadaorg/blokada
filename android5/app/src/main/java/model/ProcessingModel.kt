@@ -26,3 +26,12 @@ data class ComponentOngoing(
         return component
     }
 }
+
+data class ComponentTimeout(
+    val component: String,
+    val timeoutMillis: Long
+) {
+    override fun toString(): String {
+        return "$component: $timeoutMillis"
+    }
+}
