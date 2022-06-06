@@ -138,9 +138,7 @@ private class ForegroundMonitorServiceStrategy: MonitorServiceStrategy {
     }
 
     override fun setTunnelStatus(tunnelStatus: TunnelStatus) {
-        Logger.e("xxxx", "setTunnel Status: ${tunnelStatus.inProgress}")
         scope.launch {
-            Logger.e("xxxx", "setTunnel Status launch: ${tunnelStatus.inProgress}")
             getConnection().binder.onNewStats(null, null, tunnelStatus, null, null)
         }
     }
@@ -194,7 +192,6 @@ class ForegroundService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         ContextService.setApp(this.application)
-        Logger.w("xxxx", "ForegroundService: onStartCommand")
         updateNotification()
         return START_STICKY
     }
@@ -202,7 +199,6 @@ class ForegroundService: Service() {
     override fun onBind(intent: Intent?): IBinder? {
         if (FOREGROUND_BINDER_ACTION == intent?.action) {
             ContextService.setApp(this.application)
-            Logger.w("xxxx", "ForegroundService: onBind")
             binder = ForegroundBinder { counter, lastDenied, tunnelStatus, dnsLabel, appState ->
                 this.counter = counter ?: this.counter
                 this.lastDenied = lastDenied ?: this.lastDenied

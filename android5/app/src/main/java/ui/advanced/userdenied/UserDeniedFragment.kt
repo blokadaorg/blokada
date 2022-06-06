@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 import org.blokada.R
 import ui.StatsViewModel
 import ui.app
-import utils.Logger
 
 class UserDeniedFragment : Fragment() {
 
@@ -130,7 +129,6 @@ class UserDeniedFragment : Fragment() {
         vm.denied.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             if (!allowed) {
-                Logger.v("xxxx", "Denieds: $it")
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things
@@ -142,7 +140,6 @@ class UserDeniedFragment : Fragment() {
         vm.allowed.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) empty.visibility = View.GONE
             if (allowed) {
-                Logger.v("xxxx", "Allowed:l $it")
                 adapter.swapData(it.sorted())
                 lifecycleScope.launch {
                     delay(400) // Just Android things

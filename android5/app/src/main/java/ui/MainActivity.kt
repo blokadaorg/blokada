@@ -251,7 +251,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     accountVM.refreshAccount()
                 }
                 ActivationViewModel.ActivationState.JUST_EXPIRED -> {
-                    Logger.v("xxx", "Showing expired notification in bg")
+                    Logger.v("Main", "Showing expired notification in bg")
                     NotificationService.show(ExpiredNotification())
                 }
             }

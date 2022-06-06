@@ -135,7 +135,6 @@ class PackRepo {
     private suspend fun onLoadBlocklists_convertBlocklistsToPacks() {
         mappedBlocklistsHot
         .collect {
-            Logger.v("xxxx", "Mapped blocklist: $it")
             convertBlocklistsToPacksT.send()
         }
     }

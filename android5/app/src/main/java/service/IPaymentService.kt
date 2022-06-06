@@ -17,7 +17,6 @@ import model.BlokadaException
 import model.PaymentPayload
 import model.Product
 import model.ProductId
-import utils.Logger
 
 class UserCancelledException: BlokadaException("User cancelled")
 class AlreadyPurchasedException: BlokadaException("Subscription already purchased")
@@ -72,7 +71,6 @@ class PaymentServiceMock: IPaymentService {
     }
 
     override suspend fun buyProduct(id: ProductId): PaymentPayload {
-        Logger.v("xxxx", "Mock buying product: $id")
         delay(8000)
         return PaymentPayload(
             purchase_token = "mocked",

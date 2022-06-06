@@ -63,18 +63,18 @@ class PermsRepo {
         enteredForegroundHot
         .combine(cloudRepo.dnsProfileActivatedHot) { _, activated -> activated }
         .collect { activated ->
+            Logger.v("Perms", "DNS profile: $activated, notifications: ${notifications.hasPermissions()}")
             writeDnsProfilePerms.value = activated
             writeVpnProfilePerms.value = vpnPerms.hasPermission()
             writeNotificationPerms.value = notifications.hasPermissions()
-            Logger.w("xxxxx", "Colecting: dns $activated, not: ${notifications.hasPermissions()}")
         }
     }
 
     private suspend fun onDnsProfileActivated_update() {
         cloudRepo.dnsProfileActivatedHot
         .collect { activated ->
+            Logger.v("Perms", "DNS profile: $activated")
             writeDnsProfilePerms.value = activated
-            Logger.w("xxxxx", "Colecting: dns $activated")
         }
     }
 

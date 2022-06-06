@@ -61,7 +61,6 @@ class MonitorNotification(
         b.setVibrate(LongArray(0))
         b.setOngoing(true)
 
-        Logger.w("xxxx", "Got a new notif, in prog: ${tunnelStatus.inProgress}")
         when {
             tunnelStatus.inProgress -> {
                 b.setContentTitle(ctx.getString(R.string.universal_status_processing))
