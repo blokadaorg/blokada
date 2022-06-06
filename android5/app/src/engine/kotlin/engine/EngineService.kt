@@ -22,8 +22,8 @@ import repository.DnsDataSource
 import service.ConnectivityService
 import service.EnvironmentService
 import service.VpnPermissionService
-import utils.Logger
 import ui.utils.cause
+import utils.Logger
 import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.Socket
@@ -309,6 +309,10 @@ private data class EngineConfiguration(
         private fun decideDoh(dns: Dns, plusMode: Boolean, encryptDns: Boolean) = when {
             dns.id == DnsDataSource.network.id -> {
                 // Only plaintext network DNS are supported currently
+                false
+            }
+            !EnvironmentService.isLibre() -> {
+                // NotLibre builds use the system DoT config so they don't need DoH
                 false
             }
             plusMode && dns.plusIps != null -> {

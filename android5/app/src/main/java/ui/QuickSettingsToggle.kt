@@ -14,30 +14,36 @@ package ui
 
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import androidx.lifecycle.ViewModelProvider
-import model.TunnelStatus
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import model.AppState
 import org.blokada.R
+import repository.Repos
 import utils.Logger
 
 class QuickSettingsToggle : TileService() {
 
     private val log = Logger("QSTile")
 
-    private val vm by lazy {
-        val vm = ViewModelProvider(app()).get(TunnelViewModel::class.java)
-        vm.tunnelStatus.observeForever {
-            if (tileActive) {
-                syncStatus(it)
-            }
-        }
-        vm
-    }
+    private val appRepo by lazy { Repos.app }
 
     private var tileActive = false
 
+    init {
+        GlobalScope.launch {
+            appRepo.appStateHot.collect { syncStatus(state = it) }
+        }
+
+        GlobalScope.launch {
+            appRepo.workingHot.collect { syncStatus(working = it) }
+        }
+    }
+
     override fun onStartListening() {
         tileActive = true
-        syncStatus()
+        GlobalScope.launch { syncStatus() }
     }
 
     override fun onStopListening() {
@@ -45,33 +51,34 @@ class QuickSettingsToggle : TileService() {
     }
 
     override fun onTileAdded() {
-        syncStatus()
+        GlobalScope.launch { syncStatus() }
     }
 
     override fun onClick() {
-        syncStatus()?.let { isActive ->
-            if (isActive) {
-                log.v("Turning off from QuickSettings")
-                vm.turnOff()
-            } else {
-                log.v("Turning on from QuickSettings")
-                vm.turnOn()
+        GlobalScope.launch {
+            syncStatus()?.let { isActive ->
+                if (isActive) {
+                    log.v("Turning off from QuickSettings")
+                    executeCommand(Command.OFF)
+                } else {
+                    log.v("Turning on from QuickSettings")
+                    executeCommand(Command.ON)
+                }
             }
         }
     }
 
-    private fun syncStatus(status: TunnelStatus? = vm.tunnelStatus.value): IsActive? {
+    private suspend fun syncStatus(state: AppState? = null, working: Boolean? = null): IsActive? {
+        val state = state ?: appRepo.appStateHot.first()
+        val working = working ?: appRepo.workingHot.first()
+
         return when {
             qsTile == null -> null
-            status == null -> {
-                showOff()
-                false
-            }
-            status.inProgress -> {
+            working -> {
                 showActivating()
                 null
             }
-            status.active -> {
+            state == AppState.Activated -> {
                 showOn()
                 true
             }

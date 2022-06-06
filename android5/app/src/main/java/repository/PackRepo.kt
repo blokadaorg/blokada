@@ -168,7 +168,7 @@ class PackRepo {
                 }
 
                 if (mapped.isEmpty()) {
-                    throw BlokadaException("Could not find relevant blocklist for: $pack")
+                    throw BlokadaException("Could not find relevant blocklist for: ${pack.id}")
                 } else {
                     Logger.v("Pack", "New choice: $mapped")
                 }
@@ -194,7 +194,7 @@ class PackRepo {
                 pack = pack.changeStatus(installed = false, installing = false)
                 newPacks = packs.map { if(it.id == pack.id) pack else it }
                 writePacks.emit(newPacks)
-                Logger.e("Packs", "Failed installing pack: $pack, err: $ex")
+                Logger.e("Packs", "Failed installing pack: ${pack.id}, err: $ex")
             }
 
             true
@@ -221,7 +221,7 @@ class PackRepo {
                 }
 
                 if (mapped.isEmpty()) {
-                    throw BlokadaException("Could not find relevant blocklist for: $pack")
+                    throw BlokadaException("Could not find relevant blocklist for: ${pack.id}")
                 }
 
                 // Merge lists unique
@@ -240,7 +240,7 @@ class PackRepo {
                 pack = pack.changeStatus(installed = true, installing = false)
                 newPacks = packs.map { if(it.id == pack.id) pack else it }
                 writePacks.emit(newPacks)
-                Logger.e("Packs", "Failed installing pack: $pack, err: $ex")
+                Logger.e("Packs", "Failed installing pack: ${pack.id}, err: $ex")
             }
             true
         }
