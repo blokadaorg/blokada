@@ -33,7 +33,7 @@ class PaymentRepo {
 
     private val refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
     private val restorePurchaseT = SimpleTasker<Ignored>("restorePurchase")
-    private val buyProductT = Tasker<ProductId, Ignored>("buyProduct", debounce = 0L, timeoutMs = 30000)
+    private val buyProductT = Tasker<ProductId, Ignored>("buyProduct", debounce = 0L, timeoutMs = 60000)
     private val changeProductT = Tasker<ProductId, Ignored>("changeProduct", debounce = 0L, timeoutMs = 30000)
     private val consumePurchaseT = Tasker<PaymentPayload, Ignored>("consumePurchase", debounce = 0L)
 
