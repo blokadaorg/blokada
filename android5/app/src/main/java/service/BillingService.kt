@@ -103,7 +103,7 @@ class BillingService: IPaymentService {
         }
 
         latestProductList = productDetailsResult.productDetailsList ?: emptyList()
-        return productDetailsResult.productDetailsList?.mapNotNull {
+        val payments = productDetailsResult.productDetailsList?.mapNotNull {
             val offer = it.subscriptionOfferDetails?.first()
             val phase = offer?.pricingPhases?.pricingPhaseList?.firstOrNull { it.priceAmountMicros > 0 }
 
@@ -122,6 +122,8 @@ class BillingService: IPaymentService {
                 )
             }
         }?.sortedBy { it.periodMonths } ?: emptyList()
+        if (payments.isEmpty()) throw NoPayments()
+        return payments
     }
 
     private val purchaseListener = PurchasesUpdatedListener { billingResult, purchases ->

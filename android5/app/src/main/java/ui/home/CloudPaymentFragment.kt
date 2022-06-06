@@ -158,7 +158,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
             try {
                 paymentRepo.refreshProducts()
             } catch (ex: NoPayments) {
-                delay(500)
+                delay(200)
                 dialog.showAlert(getString(R.string.error_payment_not_available),
                 okText = getString(R.string.universal_action_continue),
                 okAction = {
