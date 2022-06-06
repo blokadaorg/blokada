@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.</string>
     <string name="error_payment_failed">Płatności są chwilowo niedostępne. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.</string>
     <string name="error_payment_failed_alternative">Nie można dokończyć płatności. Upewnij się, że dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.</string>
-    <string name="error_payment_not_available">Płatności nie są dostępne dla tego urządzenia. Twój Apple Pay nie został aktywowany, lub nie obsługujemy jeszcze płatności w Twoim kraju.</string>
+    <string name="error_payment_not_available">Płatności są niedostępne na tym urządzeniu. To urządzenie nie jest zaktualizowane lub nie obsługujemy jeszcze zakupów w Twoim kraju.</string>
     <string name="error_payment_canceled">Płatność została anulowana. Twoje konto nie zostało obciążone.</string>
     <string name="error_pack_install">Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.</string>
     <string name="error_location_failed_fetching">Nie można pobrać lokalizacji.</string>
     <string name="error_unknown">Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.</string>
+    <string name="conn_isssues_header">Problemy z połączeniem</string>
+    <string name="conn_isssues_slug">Problemy z połączeniem. Sprawdź konfigurację. Stuknij, aby uzyskać szczegóły.</string>
+    <string name="conn_isssues_details">- Sprawdź połączenie internetowe\n- Użyj tylko jednej aplikacji Blokada\n- Dezaktywuj inne sieci VPN</string>
     <string name="universal_action_continue">Kontynuuj</string>
     <string name="universal_action_cancel">Anuluj</string>
     <string name="universal_action_close">Zamknij</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s jest teraz dostępna do pobrania. Zalecamy szybką aktualizację aplikacji i pobieranie jej tylko z naszych oficjalnych źródeł.</string>
     <string name="update_label_updated">Zaktualizowano!</string>
     <string name="update_desc_updated">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że przekazanie darowizny lub zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
-    <string name="update_desc_updated_nodon">Korzystasz teraz z najnowszej wersji Blokady! Pamiętaj, że zapisanie się do Blokada Plus pozwala nam na dalsze ulepszanie aplikacji.</string>
+    <string name="update_desc_updated_nodon">Używasz najnowszej wersji Blokady!</string>
     <string name="update_downloading_description">Aktualizacja jest teraz pobierana i wkrótce powinien pojawić się monit instalacji.</string>
     <string name="main_share_message">Blokada pomogła mi zablokować %s reklam i trackerów!</string>
     <string name="main_rate_us_header">Oceń nas!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Testuj 7 dni za darmo</string>
     <string name="payment_plan_cta_monthly">Subskrybuj miesięcznie</string>
     <string name="payment_plan_cta_annual">Subskrybuj rocznie</string>
+    <string name="payment_plan_current">(obecny plan)</string>
     <string name="location_region_worldwide">Wszędzie</string>
     <string name="location_region_america">Ameryka</string>
     <string name="location_region_europe">Europa</string>

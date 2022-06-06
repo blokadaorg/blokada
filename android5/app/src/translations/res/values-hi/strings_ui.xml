@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">आपका पिछला भुगतान बहाल कर दिया गया था, लेकिन सदस्यता पहले ही समाप्त हो चुकी है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।</string>
     <string name="error_payment_failed">इस समय भुगतान उपलब्ध नहीं है। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।</string>
     <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
-    <string name="error_payment_not_available">इस उपकरण के लिए भुगतान उपलब्ध नहीं हैं। या तो ऐप्पल पे सक्रिय नहीं है, या हम आपके देश में खरीद को अभी तक संभाल नहीं रहे हैं।</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">भुगतान रद्द कर दिया गया था। आपसे शुल्क नहीं लिया गया।</string>
     <string name="error_pack_install">इस सुविधा को इंस्टॉल (या अनइंस्टॉल) नहीं कर सका। बाद में पुन: प्रयास करें।</string>
     <string name="error_location_failed_fetching">स्थानों को नहीं ला सके।</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">जारी रखें</string>
     <string name="universal_action_cancel">रद्द करें</string>
     <string name="universal_action_close">बंद करें</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.</string>
     <string name="update_label_updated">Updated!</string>
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">The update is now downloading, and you should see the installation prompt shortly.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">हमें रेट करें!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europe</string>

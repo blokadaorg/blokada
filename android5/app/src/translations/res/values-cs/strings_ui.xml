@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.</string>
     <string name="error_payment_failed">Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.</string>
     <string name="error_payment_failed_alternative">Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.</string>
-    <string name="error_payment_not_available">Pro toto zařízení nejsou platby k dispozici. Buď není aktivován Apple Pay, nebo nákupy ve vaší zemi zatím nezpracováváme.</string>
+    <string name="error_payment_not_available">Platby pro toto zařízení nejsou k dispozici. Buď toto zařízení není aktualizováno, nebo nákupy ve vaší zemi zatím nezpracováváme.</string>
     <string name="error_payment_canceled">Platba byla zrušena. Nebyli vám účtovány žádné poplatky.</string>
     <string name="error_pack_install">Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.</string>
     <string name="error_location_failed_fetching">Nelze načíst umístění.</string>
     <string name="error_unknown">Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.</string>
+    <string name="conn_isssues_header">Problémy s připojením</string>
+    <string name="conn_isssues_slug">Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.</string>
+    <string name="conn_isssues_details">- Zkontrolujte připojení k internetu\n- Používejte pouze aplikaci Blokada\n- Deaktivujte ostatní VPN</string>
     <string name="universal_action_continue">Pokračovat</string>
     <string name="universal_action_cancel">Zrušit</string>
     <string name="universal_action_close">Zavřít</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s je nyní k dispozici ke stažení. Doporučujeme aplikaci aktualizovat a stahovat pouze z našich oficiálních zdrojů.</string>
     <string name="update_label_updated">Aktualizováno!</string>
     <string name="update_desc_updated">Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
-    <string name="update_desc_updated_nodon">Nyní používáte nejnovější verzi Blokady! Pamatujte, předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.</string>
+    <string name="update_desc_updated_nodon">Nyní používáte nejnovější verzi Blokady!</string>
     <string name="update_downloading_description">Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.</string>
     <string name="main_share_message">Blokada mi pomohla zablokovat %s reklam a slídičů!</string>
     <string name="main_rate_us_header">Ohodnoťte nás!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Zahájit 7denní bezplatnou zkušební dobu</string>
     <string name="payment_plan_cta_monthly">Měsíční předplatné</string>
     <string name="payment_plan_cta_annual">Roční předplatné</string>
+    <string name="payment_plan_current">(aktuální plán)</string>
     <string name="location_region_worldwide">Všude</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Evropa</string>

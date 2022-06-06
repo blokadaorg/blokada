@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.</string>
     <string name="error_payment_failed">Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
     <string name="error_payment_failed_alternative">Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.</string>
-    <string name="error_payment_not_available">Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena Apple Pay belum diaktifkan, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.</string>
+    <string name="error_payment_not_available">Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena perangkat Anda tidak menggunakan software versi terbaru, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.</string>
     <string name="error_payment_canceled">Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.</string>
     <string name="error_pack_install">Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.</string>
     <string name="error_location_failed_fetching">Tidak bisa mendapatkan data lokasi.</string>
     <string name="error_unknown">Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.</string>
+    <string name="conn_isssues_header">Ada masalah konektivitas</string>
+    <string name="conn_isssues_slug">Ada masalah koneksi. Harap periksa kembali pengaturan Anda. Ketuk untuk detail lebih lanjut.</string>
+    <string name="conn_isssues_details">- Periksa koneksi internet Anda\n- Hanya gunakan satu aplikasi Blokada saja\n- Nonaktifkan VPN lain</string>
     <string name="universal_action_continue">Lanjut</string>
     <string name="universal_action_cancel">Batal</string>
     <string name="universal_action_close">Tutup</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.</string>
     <string name="update_label_updated">Diperbarui!</string>
     <string name="update_desc_updated">Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, donasi atau berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.</string>
-    <string name="update_desc_updated_nodon">Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.</string>
+    <string name="update_desc_updated_nodon">Anda sedang menggunakan versi terbaru Blokada!</string>
     <string name="update_downloading_description">Pembaruan sedang diunduh, dan Anda akan melihat instruksi untuk menginstal beberapa saat kemudian.</string>
     <string name="main_share_message">Blokada membantu saya memblokir %s iklan dan pelacak!</string>
     <string name="main_rate_us_header">Beri kami rating!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Mulai Trial Gratis 7 Hari</string>
     <string name="payment_plan_cta_monthly">Langganan Bulanan</string>
     <string name="payment_plan_cta_annual">Langganan Tahunan</string>
+    <string name="payment_plan_current">(paket saat ini)</string>
     <string name="location_region_worldwide">Di mana saja</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Eropa</string>

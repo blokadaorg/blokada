@@ -88,5 +88,5 @@
     <string name="app_settings_section_use_foreground">Винаги в активност</string>
     <string name="intro_header">Blokada е активна!</string>
     <string name="intro_text">Синият пръстен означава, че Blokada работи.\n\nНе забравяйте, че някои реклами, като в YouTube не могат да бъдат блокирани. Но въпреки това ще забележите промяна в много други приложения.\n\nПрепоръчваме ви да активирате Винаги включена VPN / Мрежа и интернет - VPN, или Always on VPN / Connect on Demand в системните настройки.</string>
-    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
+    <string name="intro_text_not_libre">Син или оранжев пръстен означава, че Blokada работи.\n\nПрепоръчваме ви да активирате Винаги включен VPN в системните настройки.</string>
 </resources>

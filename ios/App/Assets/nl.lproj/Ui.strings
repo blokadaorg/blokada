@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
 "error payment failed" = "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
 "error payment failed alternative" = "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
-"error payment not available" = "Betalingen zijn niet beschikbaar voor dit apparaat. Ofwel is Apple Pay niet geactiveerd, ofwel verwerken we nog geen aankopen in uw land.";
+"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
 "error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
 "error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+
+"conn isssues header" = "Connectivity issues";
+"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
+"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
 
 "universal action continue" = "Doorgaan";
 "universal action cancel" = "Annuleren";
@@ -121,7 +125,7 @@
 "alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
 "update label updated" = "Bijgewerkt!";
 "update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
-"update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
+"update desc updated nodon" = "You are now using the newest version of Blokada!";
 "update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
 
 "main share message" = "Blokada helped me block %@ ads and trackers!";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Start 7-Day Free Trial";
 "payment plan cta monthly" = "Subscribe Monthly";
 "payment plan cta annual" = "Subscribe Annually";
+"payment plan current" = "(current plan)";
 
 "location region worldwide" = "Everywhere";
 "location region america" = "America";

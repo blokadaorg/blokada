@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Il pagamento precedente è stato ripristinato, ma l'abbonamento è già scaduto. Se credi che questo sia un errore, contattaci toccando l'icona di aiuto in alto.";
 "error payment failed" = "Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
 "error payment failed alternative" = "Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l'icona di aiuto in alto.";
-"error payment not available" = "I pagamenti non sono disponibili per questo dispositivo. O Apple Pay non è attivato, o non gestiamo ancora gli acquisti nel tuo paese.";
+"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
 "error payment canceled" = "Il pagamento è stato annullato. Nessun addebito è stato effettuato.";
 "error pack install" = "Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.";
 "error location failed fetching" = "Impossibile ottenere la posizione.";
 "error unknown" = "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
+
+"conn isssues header" = "Problemi di connessione";
+"conn isssues slug" = "Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.";
+"conn isssues details" = "- Controlla la tua connessione Internet\n- Usa solo un'app Blokada\n- Disattiva altre VPN";
 
 "universal action continue" = "Continua";
 "universal action cancel" = "Annulla";
@@ -64,7 +68,7 @@
 // A verb "to filter the list"
 "universal action filter" = "Filtra";
 // A verb "to clear the list"
-"universal action clear" = "Elimina";
+"universal action clear" = "Cancella";
 // A verb "to revoke permissions"
 "universal action revoke" = "Revoca";
 
@@ -90,7 +94,7 @@
 
 "alert error header" = "Ooops!";
 "alert vpn expired header" = "BLOKADA+ è scaduto";
-"alert download link body" = "Per motivi di sicurezza, per scaricare un file dobbiamo aprire questo sito nel tuo browser. Tocca nuovamente il link di download.";
+"alert download link body" = "Per motivi di sicurezza, per scaricare un file dobbiamo aprire questo sito nel tuo browser. Fatto ciò, clicca nuovamente il link di download.";
 
 "notification perms header" = "Attiva le notifiche nelle Impostazioni";
 "notification perms desc" = "Questa funzione richiede le notifiche, si prega di consentirle per Blokada.";
@@ -121,10 +125,10 @@
 "alert update body" = "Blokada %@ è ora disponibile per il download. Ti raccomandiamo di mantenere l'app aggiornata e di scaricarla solo dalle nostre fonti ufficiali.";
 "update label updated" = "Aggiornato!";
 "update desc updated" = "Ora stai usando la nuova versione di Blokada! Ricorda, se doni o ti iscrivi a Blokada Plus ci permetterai di continuare a migliorare l'app.";
-"update desc updated nodon" = "Ora stai usando la nuova versione di Blokada! Ricorda, se ti iscrivi a Blokada Plus ci permetterai di continuare a migliorare l'app.";
+"update desc updated nodon" = "Ora stai utilizzando la versione più recente di Blokada!";
 "update downloading description" = "Aggiornamento in corso, a breve dovrebbe comparire la conferma per l'installazione.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada mi ha aiutato a bloccare %@ annunci e tracker!";
 
 "main rate us header" = "Valutaci!";
 "main rate us description" = "Quanto ti piace Blokada finora?";
@@ -239,7 +243,7 @@
 
 "account section header settings" = "Impostazioni";
 "account status text" = "Il tuo account BLOKADA %@ è attivo fino a %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Il tuo abbonamento BLOKADA è inattivo.";
 
 "account section header primary" = "Primario";
 "account section header other" = "Altro";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Inizia la prova gratuita di 7 giorni";
 "payment plan cta monthly" = "Abbonamento mensile";
 "payment plan cta annual" = "Abbonamento annuale";
+"payment plan current" = "(piano attuale)";
 
 "location region worldwide" = "Ovunque";
 "location region america" = "America";
@@ -434,8 +439,8 @@
 "dnsprofile header" = "Abilita Blokada nelle Impostazioni";
 "dnsprofile desc" = "Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.";
 "dnsprofile action open settings" = "Apri le Impostazioni";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "Nell'app Impostazioni, trova la sezione DNS Privato, quindi incolla il tuo hostname (pressione prolungata).";
+"dnsprofile desc android copy" = "Copia il tuo hostname Blokada Cloud per incollarlo nelle Impostazioni.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Ci siamo quasi!";

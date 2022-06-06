@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
     <string name="error_payment_failed">Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
     <string name="error_payment_failed_alternative">Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
-    <string name="error_payment_not_available">Betalningar är inte tillgängliga för den här enheten. Antingen är Apple Pay inte aktiverat, eller så kan vi inte hantera köp i ditt land ännu.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Betalningen har avbrutits. Du har inte debiterats.</string>
     <string name="error_pack_install">Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.</string>
     <string name="error_location_failed_fetching">Kunde inte hämta platser.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Fortsätt</string>
     <string name="universal_action_cancel">Avbryt</string>
     <string name="universal_action_close">Stäng</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.</string>
     <string name="update_label_updated">Uppdaterad!</string>
     <string name="update_desc_updated">Du använder nu den senaste versionen av Blokada! Kom ihåg, att donera eller prenumerera på Blokada Plus låter oss fortsätta förbättra appen.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">Uppdateringen laddas nu ner, du bör se installationsprompten inom kort.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Betygsätt oss!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Få en vecka kostnadsfritt</string>
     <string name="payment_plan_cta_monthly">Månadsvis prenumeration</string>
     <string name="payment_plan_cta_annual">Årlig prenumereration</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Överallt</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Europa</string>

@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.</string>
     <string name="error_payment_failed">A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.</string>
     <string name="error_payment_failed_alternative">Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.</string>
-    <string name="error_payment_not_available">A készülékhez nem érhető el a kifizetés. Vagy az Apple Pay nincs aktiválva, vagy még nem fogadunk el kifizetéseket az adott országból.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">A fizetés visszavonásra került. A terhelés nem történt meg.</string>
     <string name="error_pack_install">Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.</string>
     <string name="error_location_failed_fetching">Nem sikerült lekérdezni a helyet.</string>
     <string name="error_unknown">Egy hiba lépett fel. Bizonyosodjon meg arról, hogy online, és próbálkozzon újra. Ha a hiba továbbra is fennáll, nyomjon rá a segítség ikonra felül.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Folytatás</string>
     <string name="universal_action_cancel">Mégse</string>
     <string name="universal_action_close">Bezárás</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">A Blokada %s letölthető. Ajánlott az app rendszeres frissítése, és csak a hivatalos forrásból való beszerzése.</string>
     <string name="update_label_updated">Frissítve!</string>
     <string name="update_desc_updated">Most már a legújabb Blokada verziót használja! Ne feledje, hogy a támogatások és előfizetések lehetővé teszik az app további fejlesztését.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">A frissítés letöltése megkezdődött, hamarosan megjelenik a telepítési felület.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Értékelj minket!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Próbálja ki a 7 napos próbaidőszakot</string>
     <string name="payment_plan_cta_monthly">Havi fizetés</string>
     <string name="payment_plan_cta_annual">Évi fizetés</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Bárhol</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Európa</string>

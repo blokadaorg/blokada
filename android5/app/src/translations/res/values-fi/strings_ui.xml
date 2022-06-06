@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Aikaisempi maksusi palautettiin, mutta tilauksesi on jo vanhentunut. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.</string>
     <string name="error_payment_failed">Maksut eivät ole tällä hetkellä käytettävissä. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.</string>
     <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
-    <string name="error_payment_not_available">Maksut eivät ole käytettävissä tällä laitteella. Joko Apple Pay ei ole aktivoitu tai emme vielä käsittele ostoksia maassasi.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Maksu on peruutettu. Sinua ei ole laskutettu.</string>
     <string name="error_pack_install">Tätä ominaisuutta ei voitu asentaa (tai poistaa). Yritä uudelleen myöhemmin.</string>
     <string name="error_location_failed_fetching">Sijainteja ei voitu hakea.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Jatka</string>
     <string name="universal_action_cancel">Peruuta</string>
     <string name="universal_action_close">Sulje</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s on nyt ladattavissa. Suosittelemme pitämään sovelluksen ajan tasalla ja lataamaan sen vain virallisista lähteistämme.</string>
     <string name="update_label_updated">Päivitetty!</string>
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">Päivitystä ladataan nyt ja näet asennuskehotteen pian.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Arvostele meidät!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">Amerikka</string>
     <string name="location_region_europe">Eurooppa</string>

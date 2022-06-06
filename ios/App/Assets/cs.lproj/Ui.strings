@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.";
 "error payment failed" = "Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
 "error payment failed alternative" = "Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
-"error payment not available" = "Pro toto zařízení nejsou platby k dispozici. Buď není aktivován Apple Pay, nebo nákupy ve vaší zemi zatím nezpracováváme.";
+"error payment not available" = "Platby pro toto zařízení nejsou k dispozici. Buď toto zařízení není aktualizováno, nebo nákupy ve vaší zemi zatím nezpracováváme.";
 "error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
 "error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
 "error location failed fetching" = "Nelze načíst umístění.";
 "error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+
+"conn isssues header" = "Problémy s připojením";
+"conn isssues slug" = "Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.";
+"conn isssues details" = "- Zkontrolujte připojení k internetu\n- Používejte pouze aplikaci Blokada\n- Deaktivujte ostatní VPN";
 
 "universal action continue" = "Pokračovat";
 "universal action cancel" = "Zrušit";
@@ -121,7 +125,7 @@
 "alert update body" = "Blokada %@ je nyní k dispozici ke stažení. Doporučujeme aplikaci aktualizovat a stahovat pouze z našich oficiálních zdrojů.";
 "update label updated" = "Aktualizováno!";
 "update desc updated" = "Nyní používáte nejnovější verzi Blokady! Pamatujte, že podpora nebo předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.";
-"update desc updated nodon" = "Nyní používáte nejnovější verzi Blokady! Pamatujte, předplatné služby Blokada Plus nám umožňuje pokračovat ve zlepšování aplikace.";
+"update desc updated nodon" = "Nyní používáte nejnovější verzi Blokady!";
 "update downloading description" = "Aktualizace se nyní stahuje a brzy byste měli vidět výzvu k instalaci.";
 
 "main share message" = "Blokada mi pomohla zablokovat %@ reklam a slídičů!";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Zahájit 7denní bezplatnou zkušební dobu";
 "payment plan cta monthly" = "Měsíční předplatné";
 "payment plan cta annual" = "Roční předplatné";
+"payment plan current" = "(aktuální plán)";
 
 "location region worldwide" = "Všude";
 "location region america" = "Amerika";

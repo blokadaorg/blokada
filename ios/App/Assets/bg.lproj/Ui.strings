@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Плащането ви беше възстановено и абонаментът вече е прекратен. Ако смятате, че това е грешка, моля, свържете се с нас, като докоснете иконата за помощ в горната част.";
 "error payment failed" = "В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако този проблем продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
 "error payment failed alternative" = "Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако този проблем продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
-"error payment not available" = "Плащанията не са налични за това устройство. Или Apple Pay не е активиран, или все още не обработваме плащания от вашата страна.";
+"error payment not available" = "Плащанията не са достъпни за това устройство. Или това устройство не се актуализира, или ние все още не приемаме поръчки от вашата страна.";
 "error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
 "error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
 "error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
 "error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконката за помощ в горната част.";
+
+"conn isssues header" = "Проблеми със свързаността";
+"conn isssues slug" = "Проблеми със свързаността. Моля, проверете конфигурацията си. Докоснете за подробности.";
+"conn isssues details" = "- Проверете вашата интернет връзка\n- Използвайте само едно приложение Blokada\n- Деактивирайте другите VPN";
 
 "universal action continue" = "Продължи";
 "universal action cancel" = "Отказ";
@@ -121,10 +125,10 @@
 "alert update body" = "Blokada %@ вече е достъпна за изтегляне. Препоръчваме да поддържате приложението актуално, както и да бъде изтегленo само от нашите официални източници.";
 "update label updated" = "Обновено!";
 "update desc updated" = "Вече използвате най-новата версия на Blokada! Не забравяйте, че дарението или абонамента за Blokada Plus ни позволява да продължим подобряването на приложението.";
-"update desc updated nodon" = "Сега използвате най-новата версия на Blokada! Не забравяйте, че абонамента за Blokada Plus ни позволява да продължим и подобряваме приложението.";
+"update desc updated nodon" = "Сега използвате най-новата версия на Blokada!";
 "update downloading description" = "Актуализацията вече се изтегля и след малко трябва да видите подкана за инсталиране.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada за iOS ми помогна да блокирам %@ реклами и тракери!";
 
 "main rate us header" = "Оценете ни!";
 "main rate us description" = "Харесва ли ви Blokada до сега?";
@@ -239,7 +243,7 @@
 
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Вашият абонамент за BLOKADA не е активен.";
 
 "account section header primary" = "Основен";
 "account section header other" = "Друг";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Започнете 7-дневен безплатен пробен период";
 "payment plan cta monthly" = "Месечен абонамент";
 "payment plan cta annual" = "Годишен абонамент";
+"payment plan current" = "(текущ план)";
 
 "location region worldwide" = "Навсякъде";
 "location region america" = "Америка";
@@ -434,8 +439,8 @@
 "dnsprofile header" = "Активиране на Blokada в настройките";
 "dnsprofile desc" = "В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.";
 "dnsprofile action open settings" = "Отваряне на настройките";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "В приложението Настройки намерете секцията Private DNS и след това поставете името на хоста си (дълго докосване).";
+"dnsprofile desc android copy" = "Копирайте вашето име на хост в Blokada Cloud и го поставете в Настройки.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";

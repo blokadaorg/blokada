@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
     <string name="error_payment_failed">現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
     <string name="error_payment_failed_alternative">お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
-    <string name="error_payment_not_available">このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。</string>
+    <string name="error_payment_not_available">このデバイスではお支払いはご利用いただけません。デバイスがアップデートされていないか、お住まいの国からのお支払いに対応していません。</string>
     <string name="error_payment_canceled">お支払いがキャンセルされました。入金されていません。</string>
     <string name="error_pack_install">この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。</string>
     <string name="error_location_failed_fetching">接続先を取得できませんでした。</string>
     <string name="error_unknown">問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="conn_isssues_header">接続エラー</string>
+    <string name="conn_isssues_slug">接続に問題があります。設定を確認してください。タップして詳細を表示します。</string>
+    <string name="conn_isssues_details">- インターネット接続を確認してください\n- 複数の Blokada アプリをしないでください\n- 他の VPN を無効にしてください</string>
     <string name="universal_action_continue">続行</string>
     <string name="universal_action_cancel">キャンセル</string>
     <string name="universal_action_close">閉じる</string>
@@ -88,8 +91,8 @@
     <string name="notification_update_header">アップデートが利用可能です</string>
     <string name="alert_update_body">Blokada %s がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。</string>
     <string name="update_label_updated">更新されました！</string>
-    <string name="update_desc_updated">Blokada の最新バージョンを使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。</string>
-    <string name="update_desc_updated_nodon">Blokada の最新バージョンを使用しています！ Blokada Plus の登録はアプリ開発への支援となります。</string>
+    <string name="update_desc_updated">最新版の Blokada を使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。</string>
+    <string name="update_desc_updated_nodon">最新版の Blokada を使用しています！</string>
     <string name="update_downloading_description">更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。</string>
     <string name="main_share_message">Blokada は、%s の広告とトラッカーをブロックしました！</string>
     <string name="main_rate_us_header">アプリを評価してください！</string>
@@ -102,7 +105,7 @@
     <string name="main_tab_settings">設定</string>
     <string name="home_ads_counter_footnote">インストール後にブロックされた広告とトラッカー</string>
     <string name="home_power_off_menu_header">停止オプションを選択してください</string>
-    <string name="home_power_action_turn_on">起動</string>
+    <string name="home_power_action_turn_on">有効にする</string>
     <string name="home_power_action_turn_off">停止</string>
     <string name="home_power_action_pause">5 分間停止</string>
     <string name="home_status_paused">停止しています</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">7 日間の無料トライアルを始める</string>
     <string name="payment_plan_cta_monthly">月額プラン</string>
     <string name="payment_plan_cta_annual">年額プラン</string>
+    <string name="payment_plan_current">（現在のプラン）</string>
     <string name="location_region_worldwide">ワールドワイド</string>
     <string name="location_region_america">アメリカ</string>
     <string name="location_region_europe">ヨーロッパ</string>

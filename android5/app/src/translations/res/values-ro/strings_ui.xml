@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.</string>
     <string name="error_payment_failed">Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
     <string name="error_payment_failed_alternative">Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
-    <string name="error_payment_not_available">Plățile nu sunt disponibile pentru acest dispozitiv. Fie Apple Pay nu este activat, fie nu ne ocupăm încă de achizițiile din țara dvs.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Plata a fost anulată. Nu ați fost taxat.</string>
     <string name="error_pack_install">Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.</string>
     <string name="error_location_failed_fetching">Nu s-au putut prelua locațiile.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Continuă</string>
     <string name="universal_action_cancel">Anulare</string>
     <string name="universal_action_close">Închide</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.</string>
     <string name="update_label_updated">Actualizat!</string>
     <string name="update_desc_updated">Acum folosești cea mai nouă versiune Blokada! Amintește-ți, donarea sau abonarea către Blokada Plus ne permite să continuăm să îmbunătățim aplicația.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Acordați-ne o notă!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europa</string>

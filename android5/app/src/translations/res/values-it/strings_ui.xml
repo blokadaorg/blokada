@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Il pagamento precedente è stato ripristinato, ma l\'abbonamento è già scaduto. Se credi che questo sia un errore, contattaci toccando l\'icona di aiuto in alto.</string>
     <string name="error_payment_failed">Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
     <string name="error_payment_failed_alternative">Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l\'icona di aiuto in alto.</string>
-    <string name="error_payment_not_available">I pagamenti non sono disponibili per questo dispositivo. O Apple Pay non è attivato, o non gestiamo ancora gli acquisti nel tuo paese.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Il pagamento è stato annullato. Nessun addebito è stato effettuato.</string>
     <string name="error_pack_install">Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.</string>
     <string name="error_location_failed_fetching">Impossibile ottenere la posizione.</string>
     <string name="error_unknown">Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
+    <string name="conn_isssues_header">Problemi di connessione</string>
+    <string name="conn_isssues_slug">Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.</string>
+    <string name="conn_isssues_details">- Controlla la tua connessione Internet\n- Usa solo un\'app Blokada\n- Disattiva altre VPN</string>
     <string name="universal_action_continue">Continua</string>
     <string name="universal_action_cancel">Annulla</string>
     <string name="universal_action_close">Chiudi</string>
@@ -50,7 +53,7 @@
     <string name="universal_action_selected">Selezionato</string>
     <string name="universal_action_search">Cerca</string>
     <string name="universal_action_filter">Filtra</string>
-    <string name="universal_action_clear">Elimina</string>
+    <string name="universal_action_clear">Cancella</string>
     <string name="universal_action_revoke">Revoca</string>
     <string name="universal_label_help">Aiuto</string>
     <string name="universal_label_welcome">Benvenuto!</string>
@@ -67,7 +70,7 @@
     <string name="universal_status_confirm">Vuoi davvero procedere?</string>
     <string name="alert_error_header">Ooops!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ è scaduto</string>
-    <string name="alert_download_link_body">Per motivi di sicurezza, per scaricare un file dobbiamo aprire questo sito nel tuo browser. Tocca nuovamente il link di download.</string>
+    <string name="alert_download_link_body">Per motivi di sicurezza, per scaricare un file dobbiamo aprire questo sito nel tuo browser. Fatto ciò, clicca nuovamente il link di download.</string>
     <string name="notification_perms_header">Attiva le notifiche nelle Impostazioni</string>
     <string name="notification_perms_desc">Questa funzione richiede le notifiche, si prega di consentirle per Blokada.</string>
     <string name="notification_perms_denied">Le notifiche sono state negate. Per consentirle, usa le impostazioni di sistema.</string>
@@ -89,9 +92,9 @@
     <string name="alert_update_body">Blokada %s è ora disponibile per il download. Ti raccomandiamo di mantenere l\'app aggiornata e di scaricarla solo dalle nostre fonti ufficiali.</string>
     <string name="update_label_updated">Aggiornato!</string>
     <string name="update_desc_updated">Ora stai usando la nuova versione di Blokada! Ricorda, se doni o ti iscrivi a Blokada Plus ci permetterai di continuare a migliorare l\'app.</string>
-    <string name="update_desc_updated_nodon">Ora stai usando la nuova versione di Blokada! Ricorda, se ti iscrivi a Blokada Plus ci permetterai di continuare a migliorare l\'app.</string>
+    <string name="update_desc_updated_nodon">Ora stai utilizzando la versione più recente di Blokada!</string>
     <string name="update_downloading_description">Aggiornamento in corso, a breve dovrebbe comparire la conferma per l\'installazione.</string>
-    <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
+    <string name="main_share_message">Blokada mi ha aiutato a bloccare %s annunci e tracker!</string>
     <string name="main_rate_us_header">Valutaci!</string>
     <string name="main_rate_us_description">Quanto ti piace Blokada finora?</string>
     <string name="main_rate_us_on_app_store">Ci aiuteresti valutando Blokada su App Store?</string>
@@ -184,7 +187,7 @@
     <string name="userdenied_action_block">Blocca</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
-    <string name="account_status_text_inactive">Your BLOKADA subscription is inactive.</string>
+    <string name="account_status_text_inactive">Il tuo abbonamento BLOKADA è inattivo.</string>
     <string name="account_section_header_primary">Primario</string>
     <string name="account_section_header_other">Altro</string>
     <string name="account_action_my_account">Il mio account</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Inizia la prova gratuita di 7 giorni</string>
     <string name="payment_plan_cta_monthly">Abbonamento mensile</string>
     <string name="payment_plan_cta_annual">Abbonamento annuale</string>
+    <string name="payment_plan_current">(piano attuale)</string>
     <string name="location_region_worldwide">Ovunque</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europa</string>
@@ -349,8 +353,8 @@
     <string name="dnsprofile_header">Abilita Blokada nelle Impostazioni</string>
     <string name="dnsprofile_desc">Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.</string>
     <string name="dnsprofile_action_open_settings">Apri le Impostazioni</string>
-    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
-    <string name="dnsprofile_desc_android_copy">Copy your Blokada Cloud hostname to paste it in Settings.</string>
+    <string name="dnsprofile_desc_android">Nell\'app Impostazioni, trova la sezione DNS Privato, quindi incolla il tuo hostname (pressione prolungata).</string>
+    <string name="dnsprofile_desc_android_copy">Copia il tuo hostname Blokada Cloud per incollarlo nelle Impostazioni.</string>
     <string name="activated_header">Ci siamo quasi!</string>
     <string name="activated_desc">Quanto segue è necessario affinché Blokada funzioni come previsto:</string>
     <string name="activated_desc_all_ok">Il tuo dispositivo è configurato e pronto per l\'uso:</string>

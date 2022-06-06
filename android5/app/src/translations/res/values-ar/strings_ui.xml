@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">تم استعادة الدفعة السابقة الخاصة بك، ولكن انتهت صلاحية الاشتراك بالفعل. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
     <string name="error_payment_failed">عمليات الدفع غير مُتاحة حاليّاً. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
     <string name="error_payment_failed_alternative">تَعذّر إكمال الدفع الخاصّ بك. الرّجاء التأكُّد من صحّة بياناتك، وحاول مرّة أُخرى. إذا استمرت المشكلة، يُرجى الإتصال بنا بالنقر على أيقونة المساعَدة في الأعلى.</string>
-    <string name="error_payment_not_available">عمليات الدفع غير مُتاحة لهذا الجهاز. أو أن دفع Apple غير مُفعَّل، أو أننا لا نتعامل مع المشتريات في بلدك حتى الآن.</string>
+    <string name="error_payment_not_available">عمليات الدفع غير مُتاحة لهذا الجهاز. إما أن الجهاز لم يتم تحديثه ، أو أننا لا نتعامل مع المشتريات في بلدك حتى الآن.</string>
     <string name="error_payment_canceled">تم إلغاء الدّفع. لم يتمّ تحصيل رسوم منك.</string>
     <string name="error_pack_install">تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.</string>
     <string name="error_location_failed_fetching">تعذَّر جلب المواقع.</string>
     <string name="error_unknown">حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
+    <string name="conn_isssues_header">مشاكل في الاتصال</string>
+    <string name="conn_isssues_slug">مشاكل الاتصال. الرجاء التحقق من الإعدادات الخاصة بك. انقر للحصول على التفاصيل.</string>
+    <string name="conn_isssues_details">- تحقق من اتصالك بالإنترنت\n- استخدم تطبيق بلوكادا واحد فقط\n- إلغاء تنشيط شبكات VPN أخرى</string>
     <string name="universal_action_continue">واصِلْ</string>
     <string name="universal_action_cancel">إلغاء</string>
     <string name="universal_action_close">إغلاق</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s متاح الآن للتنزيل. نوصي بتحديث التطبيق باستمرار و تنزيله فقط من مصادرنا الرسميّة.</string>
     <string name="update_label_updated">تَمّ التحديث !</string>
     <string name="update_desc_updated">أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ التَبَرُّع أو الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.</string>
-    <string name="update_desc_updated_nodon">أنت الآن تستخدم أحدث إصدار من بلوكادا ! تَذكّر أنّ الإشتراك في Blokada Plus يَسمح لنا بمواصلة تحسين التطبيق.</string>
+    <string name="update_desc_updated_nodon">أنت الآن تستخدم أحدث إصدار من بلوكادا !</string>
     <string name="update_downloading_description">يَتمّ تحميل التحديث، و يجب أن يظهر طلب التثبيت قريباً.</string>
     <string name="main_share_message">ساعدني بلوكادا على حَظْر %s الإعلانات و المتعقِّبين !</string>
     <string name="main_rate_us_header">قيِّمنا !</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">ابدأ التجربة المجّانيّة لمدة 7 أيام</string>
     <string name="payment_plan_cta_monthly">اشترك شهريّاً</string>
     <string name="payment_plan_cta_annual">اشترك سنويّاً</string>
+    <string name="payment_plan_current">(الخطّة الحاليّة)</string>
     <string name="location_region_worldwide">في كل مكان</string>
     <string name="location_region_america">أمريكا</string>
     <string name="location_region_europe">أوروبا</string>

@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Deine bisherige Zahlung wurde wiederhergestellt, aber dein Abo ist bereits ausgelaufen. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben tippst.</string>
     <string name="error_payment_failed">Zahlungen sind derzeit nicht möglich. Stelle sicher, dass du online bist und probiere es später erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben drückst.</string>
     <string name="error_payment_failed_alternative">Deine Zahlung konnte nicht abgeschlossen werden. Bitte stelle sicher, dass deine Daten korrekt sind, und versuche es erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.</string>
-    <string name="error_payment_not_available">Zahlungen sind mit deinem Gerät derzeit nicht möglich. Entweder ist Apple Pay nicht aktiviert oder wir akzeptieren noch keine Zahlungen aus deinem Land.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Der Zahlungsvorgang wurde abgebrochen. Es erfolgte keine Belastung über die gewählte Zahlungsmethode.</string>
     <string name="error_pack_install">Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.</string>
     <string name="error_location_failed_fetching">Standorte konnten nicht abgerufen werden.</string>
     <string name="error_unknown">Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Fortsetzen</string>
     <string name="universal_action_cancel">Abbrechen</string>
     <string name="universal_action_close">Schließen</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s steht zum Herunterladen bereit. Wir empfehlen, die App auf dem neuesten Stand zu halten und sie nur aus unseren offiziellen Quellen herunterzuladen.</string>
     <string name="update_label_updated">Aktualisiert!</string>
     <string name="update_desc_updated">Du verwendest jetzt die neueste Version von Blokada! Denk daran, dass Spenden oder das Abonnieren von Blokada Plus es uns erlauben, die App weiter zu verbessern.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">Die Aktualisierung wird jetzt heruntergeladen, und du solltest in Kürze den Installationsdialog sehen.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Bewerte uns!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Kostenlose 7-tägige Testversion starten</string>
     <string name="payment_plan_cta_monthly">Monatlich abonnieren</string>
     <string name="payment_plan_cta_annual">Jährlich abonnieren</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Überall</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Europa</string>

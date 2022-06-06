@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
     <string name="error_payment_failed">Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
     <string name="error_payment_failed_alternative">Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
-    <string name="error_payment_not_available">Bu cihaz için ödemeler mevcut değil. Apple Pay etkinleştirilmedi veya ülkenizdeki satın alımları henüz işlemiyoruz.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">Ödeme iptal edildi. Sizden ücret alınmadı.</string>
     <string name="error_pack_install">Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.</string>
     <string name="error_location_failed_fetching">Yerler getiremedi.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Devam et</string>
     <string name="universal_action_cancel">Vazgeç</string>
     <string name="universal_action_close">Kapat</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s artık indirilebilir durumda. Uygulamayı güncel tutmanızı ve yalnızca resmi kaynaklarımızdan indirmenizi öneririz.</string>
     <string name="update_label_updated">Güncellendi!</string>
     <string name="update_desc_updated">Şimdi Blokada\'nın en yeni sürümünü kullanıyorsunuz! Unutmayın, Blokada Plus\'a bağış yapmak veya abone olmak, uygulamayı geliştirmeye devam etmemizi sağlar.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">Güncelleme şu anda indiriliyor ve kısa bir süre sonra kurulum istemini görmelisiniz.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Bizi değerlendirin!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Her yerde</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Avrupa</string>

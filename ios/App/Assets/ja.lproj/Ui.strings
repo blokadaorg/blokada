@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment not available" = "このデバイスではお支払いはご利用いただけません。Apple Pay が有効になっていないか、お住まいの国からのお支払いに対応していません。";
+"error payment not available" = "このデバイスではお支払いはご利用いただけません。デバイスがアップデートされていないか、お住まいの国からのお支払いに対応していません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
 "error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+
+"conn isssues header" = "接続エラー";
+"conn isssues slug" = "接続に問題があります。設定を確認してください。タップして詳細を表示します。";
+"conn isssues details" = "- インターネット接続を確認してください\n- 複数の Blokada アプリをしないでください\n- 他の VPN を無効にしてください";
 
 "universal action continue" = "続行";
 "universal action cancel" = "キャンセル";
@@ -120,8 +124,8 @@
 "notification update header" = "アップデートが利用可能です";
 "alert update body" = "Blokada %@ がダウンロード可能になりました。公式ソースから最新版へアップデートすることをお勧めします。";
 "update label updated" = "更新されました！";
-"update desc updated" = "Blokada の最新バージョンを使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。";
-"update desc updated nodon" = "Blokada の最新バージョンを使用しています！ Blokada Plus の登録はアプリ開発への支援となります。";
+"update desc updated" = "最新版の Blokada を使用しています！ 寄付や Blokada Plus の登録はアプリ開発への支援となります。";
+"update desc updated nodon" = "最新版の Blokada を使用しています！";
 "update downloading description" = "更新プログラムがダウンロードされます。すぐにインストール許可画面が表示されます。";
 
 "main share message" = "Blokada は、%@ の広告とトラッカーをブロックしました！";
@@ -142,7 +146,7 @@
 
 "home ads counter footnote" = "インストール後にブロックされた広告とトラッカー";
 "home power off menu header" = "停止オプションを選択してください";
-"home power action turn on" = "起動";
+"home power action turn on" = "有効にする";
 "home power action turn off" = "停止";
 "home power action pause" = "5 分間停止";
 
@@ -386,6 +390,7 @@
 "payment plan cta trial" = "7 日間の無料トライアルを始める";
 "payment plan cta monthly" = "月額プラン";
 "payment plan cta annual" = "年額プラン";
+"payment plan current" = "（現在のプラン）";
 
 "location region worldwide" = "ワールドワイド";
 "location region america" = "アメリカ";

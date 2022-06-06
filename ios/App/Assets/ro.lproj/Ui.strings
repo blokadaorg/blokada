@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
 "error payment failed" = "Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
 "error payment failed alternative" = "Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
-"error payment not available" = "Plățile nu sunt disponibile pentru acest dispozitiv. Fie Apple Pay nu este activat, fie nu ne ocupăm încă de achizițiile din țara dvs.";
+"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
 "error payment canceled" = "Plata a fost anulată. Nu ați fost taxat.";
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
 "error location failed fetching" = "Nu s-au putut prelua locațiile.";
 "error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+
+"conn isssues header" = "Connectivity issues";
+"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
+"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
 
 "universal action continue" = "Continuă";
 "universal action cancel" = "Anulare";
@@ -121,7 +125,7 @@
 "alert update body" = "Blokada %@ este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.";
 "update label updated" = "Actualizat!";
 "update desc updated" = "Acum folosești cea mai nouă versiune Blokada! Amintește-ți, donarea sau abonarea către Blokada Plus ne permite să continuăm să îmbunătățim aplicația.";
-"update desc updated nodon" = "You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.";
+"update desc updated nodon" = "You are now using the newest version of Blokada!";
 "update downloading description" = "Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.";
 
 "main share message" = "Blokada helped me block %@ ads and trackers!";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Start 7-Day Free Trial";
 "payment plan cta monthly" = "Subscribe Monthly";
 "payment plan cta annual" = "Subscribe Annually";
+"payment plan current" = "(current plan)";
 
 "location region worldwide" = "Everywhere";
 "location region america" = "America";

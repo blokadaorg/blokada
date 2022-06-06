@@ -88,5 +88,5 @@
     <string name="app_settings_section_use_foreground">スリープモードにしない</string>
     <string name="intro_header">Blokada が有効です！</string>
     <string name="intro_text">青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。</string>
-    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
+    <string name="intro_text_not_libre">Blokada が起動していると青またはオレンジのリングが表示されます。\n\nシステム設定で常時接続 VPN を有効にすることをお勧めします。</string>
 </resources>

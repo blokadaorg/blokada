@@ -26,11 +26,15 @@
 "error payment inactive after restore" = "Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
 "error payment failed" = "Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
 "error payment failed alternative" = "Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.";
-"error payment not available" = "Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena Apple Pay belum diaktifkan, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.";
+"error payment not available" = "Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena perangkat Anda tidak menggunakan software versi terbaru, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.";
 "error payment canceled" = "Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.";
 "error pack install" = "Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.";
 "error location failed fetching" = "Tidak bisa mendapatkan data lokasi.";
 "error unknown" = "Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.";
+
+"conn isssues header" = "Ada masalah konektivitas";
+"conn isssues slug" = "Ada masalah koneksi. Harap periksa kembali pengaturan Anda. Ketuk untuk detail lebih lanjut.";
+"conn isssues details" = "- Periksa koneksi internet Anda\n- Hanya gunakan satu aplikasi Blokada saja\n- Nonaktifkan VPN lain";
 
 "universal action continue" = "Lanjut";
 "universal action cancel" = "Batal";
@@ -121,7 +125,7 @@
 "alert update body" = "Blokada %@ telah tersedia untuk diunduh. Kami menyarankan agar Anda terus memperbarui Blokada, dan hanya mengunduhnya dari sumber-sumber resmi.";
 "update label updated" = "Diperbarui!";
 "update desc updated" = "Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, donasi atau berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.";
-"update desc updated nodon" = "Saat ini Anda sedang menggunakan versi terbaru dari Blokada! Ingat, berlangganan Blokada Plus memungkinkan kami untuk bisa terus mengembangkan aplikasi ini.";
+"update desc updated nodon" = "Anda sedang menggunakan versi terbaru Blokada!";
 "update downloading description" = "Pembaruan sedang diunduh, dan Anda akan melihat instruksi untuk menginstal beberapa saat kemudian.";
 
 "main share message" = "Blokada membantu saya memblokir %@ iklan dan pelacak!";
@@ -385,6 +389,7 @@
 "payment plan cta trial" = "Mulai Trial Gratis 7 Hari";
 "payment plan cta monthly" = "Langganan Bulanan";
 "payment plan cta annual" = "Langganan Tahunan";
+"payment plan current" = "(paket saat ini)";
 
 "location region worldwide" = "Di mana saja";
 "location region america" = "Amerika";

@@ -264,6 +264,14 @@ internal enum L10n {
   internal static let alertVpnExpiredHeader = L10n.tr("Ui", "alert vpn expired header")
   /// This device
   internal static let appSettingsSectionHeader = L10n.tr("Ui", "app settings section header")
+  /// - Check your Internet connection
+  /// - Use only one Blokada app
+  /// - Deactivate other VPNs
+  internal static let connIsssuesDetails = L10n.tr("Ui", "conn isssues details")
+  /// Connectivity issues
+  internal static let connIsssuesHeader = L10n.tr("Ui", "conn isssues header")
+  /// Connectivity issues. Please check your configuration. Tap for details.
+  internal static let connIsssuesSlug = L10n.tr("Ui", "conn isssues slug")
   /// Open Settings
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
@@ -298,7 +306,7 @@ internal enum L10n {
   internal static let errorPaymentFailedAlternative = L10n.tr("Ui", "error payment failed alternative")
   /// Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.
   internal static let errorPaymentInactiveAfterRestore = L10n.tr("Ui", "error payment inactive after restore")
-  /// Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.
+  /// Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.
   internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorTunnel = L10n.tr("Ui", "error tunnel")
@@ -578,6 +586,8 @@ internal enum L10n {
   internal static let paymentPlanCtaMonthly = L10n.tr("Ui", "payment plan cta monthly")
   /// Start 7-Day Free Trial
   internal static let paymentPlanCtaTrial = L10n.tr("Ui", "payment plan cta trial")
+  /// (current plan)
+  internal static let paymentPlanCurrent = L10n.tr("Ui", "payment plan current")
   /// Blocks ads and trackers
   internal static let paymentPlanSluglineCloud = L10n.tr("Ui", "payment plan slugline cloud")
   /// (includes Blokada Cloud)
@@ -762,7 +772,7 @@ internal enum L10n {
   internal static let universalStatusRestartRequired = L10n.tr("Ui", "universal status restart required")
   /// You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.
   internal static let updateDescUpdated = L10n.tr("Ui", "update desc updated")
-  /// You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.
+  /// You are now using the newest version of Blokada!
   internal static let updateDescUpdatedNodon = L10n.tr("Ui", "update desc updated nodon")
   /// The update is now downloading, and you should see the installation prompt shortly.
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")

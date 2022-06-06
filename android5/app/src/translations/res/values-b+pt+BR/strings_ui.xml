@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
     <string name="error_payment_failed">Fazer pagamentos não está disponível neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
     <string name="error_payment_failed_alternative">Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
-    <string name="error_payment_not_available">A opção de fazer pagamentos não está disponível para este dispositivo. Ou o Apple Pay não está ativado, ou ainda não aceitamos compras em seu país.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">O pagamento foi cancelado. Você não foi cobrado.</string>
     <string name="error_pack_install">Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.</string>
     <string name="error_location_failed_fetching">Não foi possível buscar as localizações.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Continuar</string>
     <string name="universal_action_cancel">Cancelar</string>
     <string name="universal_action_close">Fechar</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s já está disponível para baixar. Recomendamos manter o aplicativo atualizado, e baixá-lo apenas de nossas fontes oficiais.</string>
     <string name="update_label_updated">Atualizado!</string>
     <string name="update_desc_updated">Agora você está usando a versão mais recente do Blokada! Lembre-se, doar ou assinar o Blokada Plus nos permite continuar melhorando o aplicativo.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">A atualização está sendo baixada, e você verá a solicitação de instalação em breve.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Faça uma avaliação!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Iniciar o Teste de 7 Dias Grátis</string>
     <string name="payment_plan_cta_monthly">Assinar Mensalmente</string>
     <string name="payment_plan_cta_annual">Assinar Anualmente</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Todos os lugares</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>

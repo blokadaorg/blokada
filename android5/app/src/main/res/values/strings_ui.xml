@@ -16,11 +16,14 @@
     <string name="error_payment_inactive_after_restore">Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.</string>
     <string name="error_payment_failed">Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.</string>
-    <string name="error_payment_not_available">Payments are unavailable for this device. Either Apple Pay is not activated, or we do not handle purchases in your country yet.</string>
+    <string name="error_payment_not_available">Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.</string>
     <string name="error_payment_canceled">The payment has been canceled. You have not been charged.</string>
     <string name="error_pack_install">Could not install (or uninstall) this feature. Please try again later.</string>
     <string name="error_location_failed_fetching">Could not fetch locations.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
+    <string name="conn_isssues_header">Connectivity issues</string>
+    <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
+    <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
     <string name="universal_action_continue">Continue</string>
     <string name="universal_action_cancel">Cancel</string>
     <string name="universal_action_close">Close</string>
@@ -89,7 +92,7 @@
     <string name="alert_update_body">Blokada %s is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.</string>
     <string name="update_label_updated">Updated!</string>
     <string name="update_desc_updated">You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.</string>
-    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada! Remember, subscribing to Blokada Plus allows us to continue improving the app.</string>
+    <string name="update_desc_updated_nodon">You are now using the newest version of Blokada!</string>
     <string name="update_downloading_description">The update is now downloading, and you should see the installation prompt shortly.</string>
     <string name="main_share_message">Blokada helped me block %s ads and trackers!</string>
     <string name="main_rate_us_header">Rate us!</string>
@@ -312,6 +315,7 @@
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
+    <string name="payment_plan_current">(current plan)</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europe</string>
