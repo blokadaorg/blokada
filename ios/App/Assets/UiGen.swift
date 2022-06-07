@@ -296,6 +296,8 @@ internal enum L10n {
   internal static let errorFetchingData = L10n.tr("Ui", "error fetching data")
   /// Could not fetch locations.
   internal static let errorLocationFailedFetching = L10n.tr("Ui", "error location failed fetching")
+  /// There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?
+  internal static let errorMultipleApps = L10n.tr("Ui", "error multiple apps")
   /// Could not install (or uninstall) this feature. Please try again later.
   internal static let errorPackInstall = L10n.tr("Ui", "error pack install")
   /// The payment has been canceled. You have not been charged.
