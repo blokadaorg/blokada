@@ -23,7 +23,9 @@ import engine.EngineService
 import engine.FilteringService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import model.AppState
 import model.BlockaConfig
 import model.BlockaRepoConfig
 import model.BlockaRepoPayload
@@ -58,6 +60,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var activationVM: ActivationViewModel
 
     private val appRepo by lazy { Repos.app }
+
+    private val appUninstall = AppUninstallService()
 
     override fun onCreate() {
         super.onCreate()
@@ -130,8 +134,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             MonitorService.setTunnelStatus(it)
         }
 
-
-
         networksVM.activeConfig.observeForever {
             GlobalScope.launch {
                 try { EngineService.updateConfig(network = it) } catch (ex: Exception) {}
@@ -150,8 +152,22 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             BlocklistService.setup()
             packsVM.setup()
             FilteringService.reload()
+        }
 
-            appRepo.appStateHot.collect { MonitorService.setAppState(it) }
+        GlobalScope.launch { onAppStateChanged_updateMonitorService() }
+        GlobalScope.launch { onAppStateActive_maybeUninstallOtherApps() }
+    }
+
+    private suspend fun onAppStateChanged_updateMonitorService() {
+        appRepo.appStateHot.collect {
+            MonitorService.setAppState(it)
+        }
+    }
+
+    private suspend fun onAppStateActive_maybeUninstallOtherApps() {
+        appRepo.appStateHot.filter { it == AppState.Activated }
+        .collect {
+            appUninstall.maybePromptToUninstall()
         }
     }
 

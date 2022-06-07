@@ -350,6 +350,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                                 ))
                         } ?: Logger.e("MainActivity", "No account while received action $ACC_MANAGE")
                     }
+                    else -> {
+                        Logger.w("MainActivity", "Received unknown intent: $action")
+                    }
                 }
             }
         }
