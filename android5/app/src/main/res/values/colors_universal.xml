@@ -31,8 +31,10 @@
     <color name="blue_2">#5856D5</color>
 
     <color name="blue_home">#054079</color>
+    <color name="blue_home_light">#6198CD</color>
     <color name="blue_bg">#66007AFF</color>
     <color name="orange_bg">#66FF9400</color>
     <color name="orange_home">#8B5003</color>
+    <color name="orange_home_light">#F0B262</color>
 
 </resources>

@@ -80,7 +80,7 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         // Load attributes
-        val a = context.obtainStyledAttributes(attrs, R.styleable.PlusButton, defStyle, 0)
+        val a = context.obtainStyledAttributes(attrs, R.styleable.CloudView, defStyle, 0)
         a.recycle()
 
         // Inflate

@@ -6,6 +6,7 @@
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_home_cloud.xml" value="0.2325" />
+        <entry key="app/src/main/res/drawable/bg_home_cloud_light.xml" value="0.162" />
         <entry key="app/src/main/res/drawable/bg_home_off.xml" value="0.1245" />
         <entry key="app/src/main/res/drawable/bg_home_plus.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_payment_group_cloud.xml" value="0.194" />

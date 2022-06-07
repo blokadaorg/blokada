@@ -14,7 +14,7 @@
     android:shape="rectangle">
     <gradient
         android:angle="90"
-        android:endColor="@color/blue_home"
+        android:endColor="?attr/colorBgCloud"
         android:centerColor="?android:attr/colorBackground"
         android:centerY="0.6"
         android:startColor="?android:attr/colorBackground" />

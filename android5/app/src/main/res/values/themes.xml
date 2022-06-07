@@ -37,6 +37,8 @@
         <item name="colorRingLibre2">@color/blue_2</item>
         <item name="colorRingPlus1">@color/orange</item>
         <item name="colorRingPlus2">@color/orange_2</item>
+        <item name="colorBgCloud">@color/blue_home_light</item>
+        <item name="colorBgPlus">@color/orange_home_light</item>
     </style>
 
     <style name="Theme.Blokada.Dark" parent="Theme.MaterialComponents.NoActionBar">
@@ -65,6 +67,8 @@
         <item name="colorRingLibre2">@color/blue_2</item>
         <item name="colorRingPlus1">@color/orange</item>
         <item name="colorRingPlus2">@color/orange_2</item>
+        <item name="colorBgCloud">@color/blue_home</item>
+        <item name="colorBgPlus">@color/orange_home</item>
     </style>
 
     <style name="Theme.Blokada.Retro" parent="Theme.MaterialComponents.NoActionBar">
@@ -93,6 +97,8 @@
         <item name="colorRingLibre2">@color/retro_blue2</item>
         <item name="colorRingPlus1">@color/retro_green1</item>
         <item name="colorRingPlus2">@color/retro_green2</item>
+        <item name="colorBgCloud">@color/retro_blue2</item>
+        <item name="colorBgPlus">@color/retro_green1</item>
     </style>
 
     <style name="Theme.Blokada.Default" parent="Theme.Blokada.Light" />
