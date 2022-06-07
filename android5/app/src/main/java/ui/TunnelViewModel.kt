@@ -246,11 +246,15 @@ class TunnelViewModel: ViewModel() {
     private var turnedOnAfterStartedBySystem = false
     fun turnOnWhenStartedBySystem() {
         viewModelScope.launch {
-            _tunnelStatus.value?.let { status ->
-                if (!status.inProgress && !turnedOnAfterStartedBySystem) {
-                    turnedOnAfterStartedBySystem = true
-                    log.w("System requested to start tunnel, setting up")
-                    turnOn()
+            _config.value?.let { config ->
+                if (config.vpnEnabled) {
+                    _tunnelStatus.value?.let { status ->
+                        if (!status.inProgress && !turnedOnAfterStartedBySystem) {
+                            turnedOnAfterStartedBySystem = true
+                            log.w("System requested to start tunnel, setting up")
+                            turnOn()
+                        }
+                    }
                 }
             }
         }
