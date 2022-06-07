@@ -142,7 +142,7 @@ class PackRepo {
     private suspend fun onInstallPack() {
         installPackT.setTask { pack ->
             // Select default config for this pack if none selected
-            var pack = pack.changeStatus(installing = true)
+            var pack = pack.changeStatus(installing = true, installed = true)
             if (pack.status.config.isEmpty()) {
                 Logger.v("Pack", "installPack: selecting first config by default: ${pack.configs.first()}")
                 pack = pack.changeStatus(config = pack.configs.first())
@@ -204,7 +204,7 @@ class PackRepo {
         uninstallPackT.setTask { pack ->
             // Announce this pack is uninstalling
             var packs = packsHot.first()
-            var pack = pack.changeStatus(installing = true)
+            var pack = pack.changeStatus(installing = true, installed = false)
             var newPacks = packs.map { if (it.id == pack.id) pack else it }
             writePacks.emit(newPacks)
 

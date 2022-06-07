@@ -24,11 +24,11 @@ open class ProcessingRepo {
     private val writeError = MutableSharedFlow<ComponentError?>()
     internal val writeConnIssues = MutableSharedFlow<Set<Any>>(replay = 1)
 
-    val ongoingHot = writeOngoing.filterNotNull().distinctUntilChanged()
+    private val ongoingHot = writeOngoing.filterNotNull().distinctUntilChanged()
     val errorsHot = writeError.filterNotNull().distinctUntilChanged()
     val connIssuesHot = writeConnIssues.map { it.isNotEmpty() }.distinctUntilChanged()
 
-    val recentTimeoutsHot = writeError.scan(emptyList<ComponentTimeout>()) { acc, p ->
+    internal val recentTimeoutsHot = writeError.scan(emptyList<ComponentTimeout>()) { acc, p ->
         if (p == null) {
             acc
         } else if (p.error !is TimeoutException) {

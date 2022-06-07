@@ -231,15 +231,15 @@ class AppRepo {
         currentlyOngoingHot
         .map { it.map { i -> i.component }.toSet() }
         .map { it.intersect(tasksThatMarkWorkingState).isNotEmpty() }
-        .map {
-            if (!it) {
-                // Always delay the non-working state to smooth out any transitions
-                delay(2000)
-            }
-            it
-        }
         .collect {
-            writeWorking.emit(it)
+            // Async to not cause a choke on the upstream flow
+            GlobalScope.launch {
+                if (!it) {
+                    // Always delay the non-working state to smooth out any transitions
+                    delay(2000)
+                }
+                writeWorking.emit(it)
+            }
         }
     }
 
