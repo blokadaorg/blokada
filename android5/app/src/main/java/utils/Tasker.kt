@@ -102,7 +102,6 @@ open class Tasker<T, Y>(
             throw error
         }
 
-        Logger.v("Tasker", "$owner: returning: $r")
         return r.result as Y
     }
 

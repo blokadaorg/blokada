@@ -26,7 +26,7 @@ object PackDataSource: FlavorSpecific {
             description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://oisd.nl/",
-            configs = listOf("Basic (Wildcards)", "Extra (Wildcards)", "Light")
+            configs = listOf("Basic (wildcards)", "Extra (wildcards)", "Light")
         ),
 
         Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "regional"),
@@ -107,7 +107,7 @@ object PackDataSource: FlavorSpecific {
             description = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.",
             creditName = "Daniel White",
             creditUrl = "https://go.blokada.org/developerdan",
-            configs = listOf("Ads & Tracking", "Facebook", "AMP", "Hate & Junk")
+            configs = listOf("Ads and tracking", "Facebook", "Amp", "Hate and junk")
         ),
 
         Pack.mocked(id = "blocklist", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "social", "security"),
@@ -170,7 +170,7 @@ object PackDataSource: FlavorSpecific {
             description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
             creditName = "badmojr",
             creditUrl = "https://go.blokada.org/1hosts",
-            configs = listOf("Lite (Wildcards)", "Pro (Wildcards)", "Xtra (Wildcards)")
+            configs = listOf("Lite (wildcards)", "Pro (wildcards)", "Xtra (wildcards)")
         ),
 
         Pack.mocked(id = "d3host", tags = listOf(Pack.official, "adblocking", "tracking"),

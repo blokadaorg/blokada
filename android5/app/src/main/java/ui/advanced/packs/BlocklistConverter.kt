@@ -39,4 +39,4 @@ private fun getPackIdAndConfig(id: String, pathName: String): MappedBlocklist? {
     }
 }
 
-private val namePattern = Regex("mirror\\/v5\\/(\\w+)\\/([a-zA-Z0-9_ ]+)\\/hosts\\.txt")
+private val namePattern = Regex("mirror\\/v5\\/(\\w+)\\/([a-zA-Z0-9_ \\(\\)]+)\\/hosts\\.txt")
