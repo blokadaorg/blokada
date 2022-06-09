@@ -19,7 +19,6 @@ import repository.getFirstSupportedLocale
 import repository.getTranslationRepository
 import ui.utils.cause
 import utils.Logger
-import java.lang.NullPointerException
 import java.util.*
 
 object TranslationService {
@@ -51,19 +50,19 @@ object TranslationService {
             this.locale = Locale.forLanguageTag(locale!!)
         } catch (ex: NullPointerException) {
             // Just use default
-            this.locale = LocaleListCompat.getAdjustedDefault().getFirstSupportedLocale()
+            this.locale = findDefaultLocale()
         } catch (ex: Exception) {
             log.w("Could not use configured locale: $locale".cause(ex))
-            this.locale = LocaleListCompat.getAdjustedDefault().getFirstSupportedLocale()
+            this.locale = findDefaultLocale()
         }
         log.v("Setting locale to: ${this.locale}")
         reload()
     }
 
-    fun setLocale(locale: Locale) {
-        log.v("Setting locale to: $locale")
-        this.locale = LocaleListCompat.getAdjustedDefault().getFirstSupportedLocale()
-        reload()
+    private fun findDefaultLocale(): Locale {
+        val supported = LocaleListCompat.getAdjustedDefault()
+        log.v("Supported locales are: ${supported.toLanguageTags()} (size: ${supported.size()})")
+        return supported.getFirstSupportedLocale()
     }
 
     fun getLocale(): Locale {

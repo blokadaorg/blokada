@@ -260,9 +260,9 @@ class TunnelViewModel: ViewModel() {
         }
     }
 
-    fun setInformedUserAboutError() {
+    fun setInformedUserAboutError(ex: Exception) {
         viewModelScope.launch {
-            log.v("User has been informed about the error")
+            log.v("User has been informed about the error: $ex")
             engine.getTunnelStatus().emit()
         }
     }

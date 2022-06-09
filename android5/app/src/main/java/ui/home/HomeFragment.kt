@@ -169,7 +169,7 @@ class HomeFragment : Fragment() {
         alert.showAlert(
             message = mapErrorToUserFriendly(ex),
             onDismiss = {
-                vm.setInformedUserAboutError()
+                vm.setInformedUserAboutError(ex)
             },
             additionalAction = additional
         )

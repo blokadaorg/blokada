@@ -76,6 +76,7 @@ object LogService {
     private fun preShareLog() {
         Logger.w("Log", "Printing debug information for log sharing")
         Logger.v("Log", EnvironmentService.getUserAgent())
+        Logger.v("Log", "Local time: ${formatter.format(Calendar.getInstance().time)}")
         onShareLogCallbacks.forEach {
             Logger.v("Log", "Printing for callback ${it.key}")
             it.value.printDebugInfo()

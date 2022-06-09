@@ -65,10 +65,11 @@ fun LocaleListCompat.getFirstSupportedLocale(): Locale {
     var index = 0
     while(index < size()) {
         val locale = this[index]
+        index++
+        if (locale == null) continue
         if (locale.toLanguageTag() in SUPPORTED_LANGUAGES) return locale
         if ("%s_%s".format(locale.language, locale.country) in SUPPORTED_LANGUAGES) return locale
         if (locale.language in SUPPORTED_LANGUAGES) return locale
-        index++
     }
     return Locale.ENGLISH
 }
