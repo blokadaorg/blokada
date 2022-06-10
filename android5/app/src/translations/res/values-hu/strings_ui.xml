@@ -21,6 +21,7 @@
     <string name="error_pack_install">Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.</string>
     <string name="error_location_failed_fetching">Nem sikerült lekérdezni a helyet.</string>
     <string name="error_unknown">Egy hiba lépett fel. Bizonyosodjon meg arról, hogy online, és próbálkozzon újra. Ha a hiba továbbra is fennáll, nyomjon rá a segítség ikonra felül.</string>
+    <string name="error_multiple_apps">There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?</string>
     <string name="conn_isssues_header">Connectivity issues</string>
     <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
     <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>

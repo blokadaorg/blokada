@@ -31,6 +31,7 @@
 "error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
 "error location failed fetching" = "Nelze načíst umístění.";
 "error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+"error multiple apps" = "Na vašem zařízení je více než jedna aplikace Blokada. To může způsobit problémy s připojením. Chcete to nyní opravit?";
 
 "conn isssues header" = "Problémy s připojením";
 "conn isssues slug" = "Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.";

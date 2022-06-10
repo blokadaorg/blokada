@@ -31,6 +31,7 @@
 "error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
 "error location failed fetching" = "無法取得地點。";
 "error unknown" = "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error multiple apps" = "您的裝置上有超過一款 Blokada app。這可能導致連線問題。是否想要立即修正？";
 
 "conn isssues header" = "連線問題";
 "conn isssues slug" = "連線問題。請檢查設定。點一下檢視詳細資訊。";

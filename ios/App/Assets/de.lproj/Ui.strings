@@ -31,6 +31,7 @@
 "error pack install" = "Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.";
 "error location failed fetching" = "Standorte konnten nicht abgerufen werden.";
 "error unknown" = "Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.";
+"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
 
 "conn isssues header" = "Connectivity issues";
 "conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";

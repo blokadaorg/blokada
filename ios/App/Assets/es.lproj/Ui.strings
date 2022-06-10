@@ -31,6 +31,7 @@
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
 "error unknown" = "Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.";
+"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
 
 "conn isssues header" = "Connectivity issues";
 "conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";

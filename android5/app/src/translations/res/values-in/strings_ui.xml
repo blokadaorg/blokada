@@ -21,6 +21,7 @@
     <string name="error_pack_install">Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.</string>
     <string name="error_location_failed_fetching">Tidak bisa mendapatkan data lokasi.</string>
     <string name="error_unknown">Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.</string>
+    <string name="error_multiple_apps">Ada lebih dari satu aplikasi Blokada di perangkat Anda. Hal ini bisa menyebabkan masalah koneksi. Apakah Anda ingin mengaturnya sekarang?</string>
     <string name="conn_isssues_header">Ada masalah konektivitas</string>
     <string name="conn_isssues_slug">Ada masalah koneksi. Harap periksa kembali pengaturan Anda. Ketuk untuk detail lebih lanjut.</string>
     <string name="conn_isssues_details">- Periksa koneksi internet Anda\n- Hanya gunakan satu aplikasi Blokada saja\n- Nonaktifkan VPN lain</string>

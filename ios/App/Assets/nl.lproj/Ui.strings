@@ -31,6 +31,7 @@
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
 "error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error multiple apps" = "Er is meer dan één Blokada-app op uw apparaat. Dit kan verbindingsproblemen veroorzaken. Wilt u het nu oplossen?";
 
 "conn isssues header" = "Connectivity issues";
 "conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";

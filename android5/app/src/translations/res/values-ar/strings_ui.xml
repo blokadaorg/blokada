@@ -21,6 +21,7 @@
     <string name="error_pack_install">تعذر تثبيت (أو إلغاء) هذه الميّزة. الرجاء المحاولة مرة أُخرى لاحقاً.</string>
     <string name="error_location_failed_fetching">تعذَّر جلب المواقع.</string>
     <string name="error_unknown">حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
+    <string name="error_multiple_apps">يوجد أكثر من تطبيق لبلوكادا على جهازك. قد يتسبب ذلك في مشاكل في الاتصال. هل ترغب في إصلاحه الآن؟</string>
     <string name="conn_isssues_header">مشاكل في الاتصال</string>
     <string name="conn_isssues_slug">مشاكل الاتصال. الرجاء التحقق من الإعدادات الخاصة بك. انقر للحصول على التفاصيل.</string>
     <string name="conn_isssues_details">- تحقق من اتصالك بالإنترنت\n- استخدم تطبيق بلوكادا واحد فقط\n- إلغاء تنشيط شبكات VPN أخرى</string>

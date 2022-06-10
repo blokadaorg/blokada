@@ -26,11 +26,12 @@
 "error payment inactive after restore" = "Il pagamento precedente è stato ripristinato, ma l'abbonamento è già scaduto. Se credi che questo sia un errore, contattaci toccando l'icona di aiuto in alto.";
 "error payment failed" = "Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
 "error payment failed alternative" = "Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l'icona di aiuto in alto.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "I pagamenti non sono disponibili per questo dispositivo. Questo dispositivo non è aggiornato o non gestiamo ancora gli acquisti nel tuo paese.";
 "error payment canceled" = "Il pagamento è stato annullato. Nessun addebito è stato effettuato.";
 "error pack install" = "Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.";
 "error location failed fetching" = "Impossibile ottenere la posizione.";
 "error unknown" = "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
+"error multiple apps" = "C'è più di un'app Blokada sul tuo dispositivo. Ciò potrebbe causare problemi di connettività. Vuoi risolverlo ora?";
 
 "conn isssues header" = "Problemi di connessione";
 "conn isssues slug" = "Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.";

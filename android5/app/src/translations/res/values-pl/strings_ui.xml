@@ -21,6 +21,7 @@
     <string name="error_pack_install">Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.</string>
     <string name="error_location_failed_fetching">Nie można pobrać lokalizacji.</string>
     <string name="error_unknown">Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.</string>
+    <string name="error_multiple_apps">Na urządzeniu znajduje się więcej niż jedna aplikacja Blokada. Może to spowodować problemy z połączeniem. Czy chcesz to teraz naprawić?</string>
     <string name="conn_isssues_header">Problemy z połączeniem</string>
     <string name="conn_isssues_slug">Problemy z połączeniem. Sprawdź konfigurację. Stuknij, aby uzyskać szczegóły.</string>
     <string name="conn_isssues_details">- Sprawdź połączenie internetowe\n- Użyj tylko jednej aplikacji Blokada\n- Dezaktywuj inne sieci VPN</string>

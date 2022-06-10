@@ -21,6 +21,7 @@
     <string name="error_pack_install">Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.</string>
     <string name="error_location_failed_fetching">Nelze načíst umístění.</string>
     <string name="error_unknown">Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.</string>
+    <string name="error_multiple_apps">Na vašem zařízení je více než jedna aplikace Blokada. To může způsobit problémy s připojením. Chcete to nyní opravit?</string>
     <string name="conn_isssues_header">Problémy s připojením</string>
     <string name="conn_isssues_slug">Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.</string>
     <string name="conn_isssues_details">- Zkontrolujte připojení k internetu\n- Používejte pouze aplikaci Blokada\n- Deaktivujte ostatní VPN</string>

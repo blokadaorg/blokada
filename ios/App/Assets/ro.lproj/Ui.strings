@@ -31,6 +31,7 @@
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
 "error location failed fetching" = "Nu s-au putut prelua locațiile.";
 "error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
 
 "conn isssues header" = "Connectivity issues";
 "conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";

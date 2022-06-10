@@ -21,6 +21,7 @@
     <string name="error_pack_install">Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.</string>
     <string name="error_location_failed_fetching">Standorte konnten nicht abgerufen werden.</string>
     <string name="error_unknown">Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.</string>
+    <string name="error_multiple_apps">There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?</string>
     <string name="conn_isssues_header">Connectivity issues</string>
     <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
     <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>

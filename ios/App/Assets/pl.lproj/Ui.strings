@@ -31,6 +31,7 @@
 "error pack install" = "Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.";
 "error location failed fetching" = "Nie można pobrać lokalizacji.";
 "error unknown" = "Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.";
+"error multiple apps" = "Na urządzeniu znajduje się więcej niż jedna aplikacja Blokada. Może to spowodować problemy z połączeniem. Czy chcesz to teraz naprawić?";
 
 "conn isssues header" = "Problemy z połączeniem";
 "conn isssues slug" = "Problemy z połączeniem. Sprawdź konfigurację. Stuknij, aby uzyskać szczegóły.";
