@@ -15,6 +15,7 @@ package repository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.*
 import service.Services
@@ -98,8 +99,17 @@ class PaymentRepo {
 
     private suspend fun onChangeProduct() {
         changeProductT.setTask {
-            val payload = payment.changeProduct(it)
-            consumePurchaseT.send(payload)
+            try {
+                val payload = payment.changeProduct(it)
+                consumePurchaseT.send(payload)
+            } catch (ex: NoRelevantPurchase) {
+                // We catch this as in the upgrade flow the purchase doesn't come instant, because of
+                // the prorate mode. It'll arrive to backend once the current subscription ends and
+                // the subscription changes.
+                Logger.w("Payment", "No relevant purchase in upgrade flow, ignoring")
+                val account = accountRepo.accountHot.first()
+                writeSuccessfulPurchases.emit(account to true)
+            }
             true
         }
     }

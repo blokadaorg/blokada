@@ -34,6 +34,7 @@ class TunnelFailure(cause: Throwable): BlokadaException("Tunnel failure: ${cause
 class BlockaDnsInFilteringMode(): BlokadaException("Blocka DNS in filtering mode")
 class NoPayments(): BlokadaException("Payments are unavailable")
 class TimeoutException(owner: String, cause: Throwable? = null): BlokadaException("Task timeout: $owner", cause)
+class NoRelevantPurchase: BlokadaException("Found no relevant purchase")
 
 fun mapErrorToUserFriendly(ex: Exception?): String {
     val ctx = ContextService.requireAppContext()
@@ -47,6 +48,12 @@ fun mapErrorToUserFriendly(ex: Exception?): String {
     }
     string += "\n\n(debug info: ${ex?.message?.atMost(100) ?: "none"})"
     return string
+}
+
+suspend fun <T> runIgnoringException(block: suspend (() -> T), otherwise: T): T {
+    return try {
+        block()
+    } catch (ex: Throwable) { otherwise }
 }
 
 fun shouldShowKbLink(ex: Exception?): Boolean {

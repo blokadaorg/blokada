@@ -133,10 +133,10 @@ class BillingService: IPaymentService {
                 val purchase = purchases
                     .sortedByDescending { it.purchaseTime }
                     .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
-                    .firstOrNull { it.skus.firstOrNull() == productId }
+                    .firstOrNull { it.products.any { it == productId } }
 
                 if (purchase == null) {
-                    cont.resumeWithException(BlokadaException("Found no relevant purchase"))
+                    cont.resumeWithException(NoRelevantPurchase())
                 } else {
                     cont.resume(PaymentPayload(
                         purchase_token = purchase.purchaseToken,
@@ -164,6 +164,9 @@ class BillingService: IPaymentService {
     }
 
     override suspend fun buyProduct(id: ProductId): PaymentPayload {
+        if (runIgnoringException({ restorePurchase() }, otherwise = emptyList()).isNotEmpty())
+            throw AlreadyPurchasedException()
+
         val details = latestProductList.firstOrNull { it.productId == id } ?:
             throw BlokadaException("Unknown product ID")
         val offerToken = details.subscriptionOfferDetails!!.first().offerToken
@@ -204,7 +207,7 @@ class BillingService: IPaymentService {
                     ongoingRestore?.resume(successfulPurchases.map {
                         PaymentPayload(
                             purchase_token = it.purchaseToken,
-                            subscription_id = it.skus.first(),
+                            subscription_id = it.products.first(),
                             user_initiated = false
                         )
                     }, {})
@@ -247,7 +250,7 @@ class BillingService: IPaymentService {
                     ongoingRestore?.resume(listOf(
                         PaymentPayload(
                             purchase_token = existingPurchase.purchaseToken,
-                            subscription_id = existingPurchase.skus.first(),
+                            subscription_id = existingPurchase.products.first(),
                             user_initiated = false
                         )
                     ), {})
@@ -268,7 +271,9 @@ class BillingService: IPaymentService {
         val existingPurchase = suspendCancellableCoroutine<List<PaymentPayload>> { cont ->
             ongoingRestore = cont
         }
+
         val existingId = existingPurchase.first().subscription_id
+        val existingToken = existingPurchase.first().purchase_token
 
         val prorate = when {
             // Upgrade cases
@@ -281,7 +286,7 @@ class BillingService: IPaymentService {
         val flowParams = BillingFlowParams.newBuilder()
             .setSubscriptionUpdateParams(
                 BillingFlowParams.SubscriptionUpdateParams.newBuilder()
-                .setOldPurchaseToken(existingPurchase.first().purchase_token)
+                .setOldPurchaseToken(existingToken)
                 .setReplaceProrationMode(prorate)
                 .build()
             )
@@ -301,6 +306,13 @@ class BillingService: IPaymentService {
 
         return suspendCancellableCoroutine { cont ->
             ongoingPurchase = id to cont
+        }
+    }
+
+    private fun Purchase.isActive(): Boolean {
+        return when {
+            purchaseState != Purchase.PurchaseState.PURCHASED -> false
+            else -> false
         }
     }
 
