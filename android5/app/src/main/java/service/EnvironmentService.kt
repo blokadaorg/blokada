@@ -15,6 +15,7 @@ package service
 import android.os.Build
 import model.DeviceId
 import org.blokada.BuildConfig
+import java.text.Normalizer
 
 object EnvironmentService {
 
@@ -26,8 +27,13 @@ object EnvironmentService {
     fun getDeviceAlias(): String {
         val brand = Build.MANUFACTURER
         val model = Build.MODEL
-        return "$brand $model"
+        val name = "$brand $model"
+
+        // Replace non-ascii chars and remove any special chars
+        return Normalizer.normalize(name, Normalizer.Form.NFD).replace(nonAscii, "")
     }
+
+    private val nonAscii = Regex("[^A-z0-9 ]")
 
     fun getUserAgent(): String {
         val version = BuildConfig.VERSION_NAME

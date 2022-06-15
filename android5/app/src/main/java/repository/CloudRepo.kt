@@ -43,9 +43,13 @@ open class CloudRepo {
 
     val deviceInfoHot = writeDeviceInfo.filterNotNull()
 
+    // Produces a hostname where the subdomain is unique to user and has a few properties:
+    // - is max 63 chars length (56 for device name and the rest for the tag)
+    // - is only ascii (unicode is normalized to ascii in EnvironmentService)
+    // - spaces are replaces with two dashes
+    // - device name won't end with a dash
     val expectedDnsStringHot = deviceInfoHot.map {
-        // TODO: better sanitize device name
-        val deviceName = env.getDeviceAlias().replace(" ", "--")
+        val deviceName = env.getDeviceAlias().replace(" ", "--").take(56).trimEnd('-')
         val tag = it.device_tag
         "$deviceName-$tag.cloud.blokada.org"
     }
