@@ -16,8 +16,14 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.Switch
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.blokada.R
 import ui.utils.getColorFromAttr
 import utils.toBlokadaPlusText
@@ -124,13 +130,29 @@ class PlusButton : FrameLayout {
         }
 
         plusButtonBg.setOnClickListener {
-            if (!isEnabled) Unit
-            else onClick()
+            when {
+                !isEnabled -> Unit
+                antiDoubleClick -> Unit
+                else -> {
+                    antiDoubleClick = true
+
+                    onClick()
+
+                    GlobalScope.launch {
+                        delay(500)
+                        antiDoubleClick = false
+                    }
+                }
+            }
         }
 
         translationY = 280f
         refresh()
     }
+
+    private var antiDoubleClick = false
+        @Synchronized set
+        @Synchronized get
 
     private fun refresh() {
         when {
