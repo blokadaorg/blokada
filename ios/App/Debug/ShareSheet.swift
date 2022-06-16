@@ -29,6 +29,9 @@ struct ShareSheet: UIViewControllerRepresentable {
         controller.excludedActivityTypes = excludedActivityTypes
         controller.completionWithItemsHandler = callback
         Logger.v("Debug", "Sharing log")
+        Logger.v("Debug", Services.env.userAgent())
+        Logger.v("Debug", Services.env.deviceName)
+        Logger.v("Debug", "Local time: \("Time now: \(Date().description(with: .current))" )")
         return controller
     }
 

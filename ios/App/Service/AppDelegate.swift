@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** BLOKADA IOS STARTED ***")
         log.w("*** ******************* ***")
         log.v(Services.env.userAgent())
-        log.v("Time now: \(Date())")
+        log.v("Time now: \(Date().description(with: .current))")
 
         if Services.env.isRunningTests {
             resetReposForDebug()
