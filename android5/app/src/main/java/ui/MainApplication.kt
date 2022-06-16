@@ -141,10 +141,25 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
                 // Without the foreground service, we will get killed while switching the VPN.
                 // The simplest solution is to force the flag (which will apply from the next
                 // app start). Not the nicest though.
-                if (networksVM.hasCustomConfigs() && !settingsVM.getUseForegroundService())
+                if (networksVM.hasCustomConfigs() && !settingsVM.getUseForegroundService()) {
+                    Logger.w("Main",
+                        "Setting useForegroundService because there are custom network configs"
+                    )
                     settingsVM.setUseForegroundService(true)
+                }
             }
         }
+
+        tunnelVM.config.observeForever {
+            // Similarly to above, force use foreground service to avoid sleep/wake problems for VPN.
+            // This is a guess that the wake problems in Plus happen in v6 because of the foreground
+            // service is now disabled by default.
+            if (it.vpnEnabled && !settingsVM.getUseForegroundService()) {
+                Logger.w("Main", "Setting useForegroundService because VPN is enabled")
+                settingsVM.setUseForegroundService(true)
+            }
+        }
+
         ConnectivityService.setup()
 
         GlobalScope.launch {
