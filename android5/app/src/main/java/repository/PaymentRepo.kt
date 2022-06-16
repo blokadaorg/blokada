@@ -14,6 +14,7 @@ package repository
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -28,11 +29,14 @@ class PaymentRepo {
 
     private val writeProducts = MutableSharedFlow<List<Product>?>(replay = 1)
     private val writeSuccessfulPurchases = MutableSharedFlow<Pair<Account, UserInitiated>>()
+    private val writeActiveSub = MutableSharedFlow<ProductId?>(replay = 1)
 
     val productsHot = writeProducts.filterNotNull()
     val successfulPurchasesHot = writeSuccessfulPurchases
+    val activeSubHot = writeActiveSub.distinctUntilChanged()
 
     private val refreshProductsT = SimpleTasker<Ignored>("refreshProducts")
+    private val refreshPurchasesT = SimpleTasker<Ignored>("refreshPurchases")
     private val restorePurchaseT = SimpleTasker<Ignored>("restorePurchase")
     private val buyProductT = Tasker<ProductId, Ignored>("buyProduct", debounce = 0L, timeoutMs = 60000)
     private val changeProductT = Tasker<ProductId, Ignored>("changeProduct", debounce = 0L, timeoutMs = 30000)
@@ -47,17 +51,19 @@ class PaymentRepo {
 
     fun start() {
         GlobalScope.launch { onRefreshProducts() }
+        GlobalScope.launch { onRefreshPurchases() }
         GlobalScope.launch { onBuyProduct() }
         GlobalScope.launch { onChangeProduct() }
         GlobalScope.launch { onRestorePurchase() }
         GlobalScope.launch { onConsumePurchase() }
         GlobalScope.launch { onStageChange_ObservePayments() }
-        GlobalScope.launch { refreshProducts() } // Refresh products on init automatically
+        GlobalScope.launch { refresh() } // Refresh products on init automatically
     }
 
     // Will ask google to refresh the products list used in the payments screen.
-    suspend fun refreshProducts() {
+    suspend fun refresh() {
         refreshProductsT.send()
+        refreshPurchasesT.send()
     }
 
     suspend fun restorePurchase() {
@@ -83,6 +89,19 @@ class PaymentRepo {
                 writeProducts.emit(products)
             } catch (ex: Exception) {
                 writeProducts.emit(emptyList())
+                throw ex
+            }
+            true
+        }
+    }
+
+    private suspend fun onRefreshPurchases() {
+        refreshPurchasesT.setTask {
+            try {
+                val purchase = payment.getActivePurchase()
+                writeActiveSub.emit(purchase)
+            } catch (ex: Exception) {
+                writeActiveSub.emit(null)
                 throw ex
             }
             true

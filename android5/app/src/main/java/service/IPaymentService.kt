@@ -27,6 +27,7 @@ interface IPaymentService {
     suspend fun restorePurchase(): List<PaymentPayload>
     suspend fun buyProduct(id: ProductId): PaymentPayload
     suspend fun changeProduct(id: ProductId): PaymentPayload
+    suspend fun getActivePurchase(): ProductId?
 }
 
 class PaymentServiceMock: IPaymentService {
@@ -80,6 +81,10 @@ class PaymentServiceMock: IPaymentService {
     }
 
     override suspend fun changeProduct(id: ProductId): PaymentPayload {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getActivePurchase(): ProductId? {
         TODO("Not yet implemented")
     }
 

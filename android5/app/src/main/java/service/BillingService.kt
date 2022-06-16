@@ -163,6 +163,27 @@ class BillingService: IPaymentService {
         ongoingPurchase = null
     }
 
+    override suspend fun getActivePurchase(): ProductId? {
+        var result: CancellableContinuation<ProductId?>? = null
+        getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                val successfulPurchases = purchases
+                    .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+                    .sortedByDescending { it.purchaseTime }
+
+                result?.resume(successfulPurchases.first().products.first(), {})
+            } else {
+                result?.resumeWithException(
+                    BlokadaException("Failed refreshing purchases, response code not OK")
+                )
+            }
+        }
+
+        return suspendCancellableCoroutine { cont ->
+            result = cont
+        }
+    }
+
     override suspend fun buyProduct(id: ProductId): PaymentPayload {
         if (runIgnoringException({ restorePurchase() }, otherwise = emptyList()).isNotEmpty())
             throw AlreadyPurchasedException()

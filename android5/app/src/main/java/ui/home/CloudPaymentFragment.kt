@@ -108,7 +108,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     }
                     // User is upgrading to Plus
                     AccountType.Cloud -> {
-                        // TODO: distinguish current sub?
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
@@ -125,18 +124,18 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     }
                     // User is downgrading to Cloud or changing sub period
                     AccountType.Plus -> {
-                        // TODO: distinguish current sub?
+                        val activeSub = paymentRepo.activeSubHot.first()
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
-                            v.product = p.copy(trial = false)
+                            v.product = p.copy(trial = false, owned = false)
                             v.onClick = { purchase(p, change = true) }
                         }
 
                         plusProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             plusGroup.addView(v)
-                            v.product = p.copy(trial = false)
+                            v.product = p.copy(trial = false, owned = p.id == activeSub)
                             v.onClick = { purchase(p, change = true) }
                         }
                     }
@@ -156,7 +155,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         lifecycleScope.launch {
             try {
-                paymentRepo.refreshProducts()
+                paymentRepo.refresh()
             } catch (ex: NoPayments) {
                 delay(200)
                 dialog.showAlert(getString(R.string.error_payment_not_available),
