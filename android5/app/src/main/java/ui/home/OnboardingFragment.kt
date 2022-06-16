@@ -21,7 +21,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -29,14 +28,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AccountType
-import model.toAccountType
 import org.blokada.R
 import repository.Repos
 import service.Services
 import service.Sheet
-import ui.AccountViewModel
 import ui.ActivationViewModel
 import ui.BottomSheetFragment
 import ui.app
@@ -48,9 +46,9 @@ class OnboardingFragment : BottomSheetFragment() {
     private val sheet = Services.sheet
 
     private lateinit var vm: ActivationViewModel
-    private lateinit var accountVM: AccountViewModel
 
     private val permsRepo by lazy { Repos.perms }
+    private val accountRepo by lazy { Repos.account }
 
     companion object {
         fun newInstance() = OnboardingFragment()
@@ -62,7 +60,6 @@ class OnboardingFragment : BottomSheetFragment() {
     ): View? {
         activity?.let {
             vm = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
-            accountVM = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
         val recheckPerms = {
@@ -78,7 +75,8 @@ class OnboardingFragment : BottomSheetFragment() {
             GlobalScope.launch(Dispatchers.Main) {
                 dismiss()
                 delay(500)
-                if (accountVM.account.value?.type.toAccountType() == AccountType.Plus) {
+                if (accountRepo.accountTypeHot.first() == AccountType.Plus
+                        && accountRepo.previousAccountHot.first()?.getType() != AccountType.Plus) {
                     sheet.showSheet(Sheet.Location)
                 }
             }
@@ -107,7 +105,7 @@ class OnboardingFragment : BottomSheetFragment() {
             ) { dns, notif, vpn -> Triple(dns, notif, vpn) }
             .collect {
                 val (dns, notif, vpn) = it
-                val isCloud = accountVM.account.value?.type.toAccountType() == AccountType.Cloud
+                val isCloud = accountRepo.accountTypeHot.first() == AccountType.Cloud
                 if (dns && notif && (isCloud || vpn)) {
                     subheader.text = getString(R.string.activated_desc_all_ok)
                     finishOnboarding = maybeShowLocations
@@ -119,12 +117,11 @@ class OnboardingFragment : BottomSheetFragment() {
         }
 
         val accountLabel: TextView = root.findViewById(R.id.activated_acc_text)
-        accountVM.account.observe(viewLifecycleOwner, Observer { account ->
-            accountLabel.text = getString(
-                R.string.activated_label_account,
-                account.type.toAccountType().name
-            )
-        })
+        lifecycleScope.launch(Dispatchers.Main) {
+            accountRepo.accountHot.collect {
+                accountLabel.text = getString(R.string.activated_label_account, it.getType().name)
+            }
+        }
 
         val notifIcon: ImageView = root.findViewById(R.id.activated_notif_icon)
         val notifLabel: TextView = root.findViewById(R.id.activated_notif_text)
@@ -176,7 +173,7 @@ class OnboardingFragment : BottomSheetFragment() {
             permsRepo.vpnProfilePermsHot
             .collect { granted ->
                 when {
-                    accountVM.account.value?.type.toAccountType() != AccountType.Plus -> {
+                    accountRepo.accountTypeHot.first() != AccountType.Plus -> {
                         vpnGroup.alpha = 0.5f
                         vpnIcon.setImageResource(R.drawable.ic_baseline_close_24)
                         vpnIcon.setColorFilter(

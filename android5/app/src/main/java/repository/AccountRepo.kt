@@ -34,8 +34,10 @@ class AccountRepo {
     }
 
     private val writeAccount = MutableStateFlow<Account?>(null)
+    private val writePreviousAccount = MutableStateFlow<Account?>(null)
 
     val accountHot = writeAccount.filterNotNull()
+    val previousAccountHot = writePreviousAccount
     val accountIdHot = accountHot.map { it.id }.distinctUntilChanged()
     val accountTypeHot = accountHot.map { it.type.toAccountType() }.distinctUntilChanged()
 
@@ -48,6 +50,8 @@ class AccountRepo {
 
     suspend fun hackyAccount() {
         accountVm.account.observeForever {
+            val previous = writeAccount.value
+            writePreviousAccount.value = previous
             writeAccount.value = it
         }
     }
