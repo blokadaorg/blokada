@@ -108,6 +108,9 @@ class CommandActivity : AppCompatActivity() {
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
             }
+            else -> {
+                throw BlokadaException("Unknown command: $command")
+            }
         }
     }
 

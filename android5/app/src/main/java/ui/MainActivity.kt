@@ -241,6 +241,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                             })
                     }
                 }
+                else -> {}
             }
         })
 
@@ -254,6 +255,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     Logger.v("Main", "Showing expired notification in bg")
                     NotificationService.show(ExpiredNotification())
                 }
+                else -> {}
             }
         }
 
