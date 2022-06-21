@@ -161,6 +161,7 @@ object PacketLoopService {
             val (config, thread) = it
             if (thread != null) {
                 thread.interrupt()
+                MetricsService.stopMetrics()
                 if (connectivity.isDeviceInOfflineMode()) {
                     log.w("Device is offline, not bringing packet loop back for now")
                     loop = config to null
