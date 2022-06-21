@@ -20,7 +20,7 @@ apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 31
-    ndkVersion "24.0.7856742"
+    ndkVersion "24.0.8215888"
 
     defaultConfig {
         applicationId "org.blokada" // Not a real name, see flavors below
