@@ -26,6 +26,7 @@ object PacketLoopService {
     private val log = Logger("PacketLoop")
     private val connectivity = ConnectivityService
     private val doze = DozeService
+    private val screenOn = ScreenOnService
 
     var onCreateSocket = {
         log.e("Created unprotected socket for the packet loop")
@@ -41,19 +42,29 @@ object PacketLoopService {
         @Synchronized set
 
     init {
+        // When connectivity is back restart the loop for faster recovery.
         connectivity.onConnectivityChanged = { isConected ->
-            if (isConected) {
-                loop?.let {
-                    val (config, thread) = it
-                    if (thread == null) {
-                        log.w("Connectivity back, recreating packet loop")
-                        loop = createLoop(config)
-                        startSupportingServices(config)
-                    } else {
-                        log.w("Connectivity back, loop was running, restarting it")
-                        stopUnexpectedly()
-                    }
-                }
+            if (isConected) maybeRestartLoop()
+        }
+
+        // Listen to device wake events and restart the loop if running.
+        // This is an attempt to improve the conn issues on some devices after device wake
+        // caused by the loop not doing the handshake until it times out.
+        screenOn.onScreenOn = {
+            maybeRestartLoop()
+        }
+    }
+
+    private fun maybeRestartLoop() {
+        loop?.let {
+            val (config, thread) = it
+            if (thread == null) {
+                log.w("Connectivity back, recreating packet loop")
+                loop = createLoop(config)
+                startSupportingServices(config)
+            } else {
+                log.w("Connectivity back, loop was running, restarting it")
+                stopUnexpectedly()
             }
         }
     }
