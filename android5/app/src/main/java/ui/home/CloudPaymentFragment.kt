@@ -16,12 +16,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AccountType
+import model.NoPayments
 import model.Product
 import org.blokada.R
 import repository.Repos
@@ -40,6 +42,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
     private val dialog by lazy { DialogService }
 
     private lateinit var processing: View
+    private lateinit var error: View
 
     companion object {
         fun newInstance() = CloudPaymentFragment()
@@ -76,6 +79,12 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         val cloudGroup: ViewGroup = root.findViewById(R.id.payment_container_cloud)
         val plusGroup: ViewGroup = root.findViewById(R.id.payment_container_plus)
+
+        error = root.findViewById(R.id.payment_error_group)
+        val retryButton: Button = root.findViewById(R.id.payment_retry)
+        retryButton.setOnClickListener {
+            refreshProducts()
+        }
 
         // Keep products up to date
         lifecycleScope.launch {
@@ -140,7 +149,8 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     }
                 }
 
-                hideOverlay()
+                hideProcessing()
+                if (products.isEmpty()) showError() else hideError()
             }
         }
 
@@ -152,29 +162,35 @@ class CloudPaymentFragment : BottomSheetFragment() {
             }
         }
 
-        lifecycleScope.launch {
-            try {
-                showOverlay()
-                paymentRepo.refresh()
-            } catch (ex: Exception) { }
-
-            hideOverlay()
-            delay(500)
-            if (paymentRepo.productsHot.first().isEmpty()) {
-                dialog.showAlert(getString(R.string.error_payment_not_available),
-                okText = getString(R.string.universal_action_continue),
-                okAction = {
-                    dismiss()
-                })
-                .collect {}
-            }
-        }
+        refreshProducts()
 
         return root
     }
 
+    private fun refreshProducts() {
+        lifecycleScope.launch {
+            try {
+                showProcessing()
+                hideError()
+                paymentRepo.refresh()
+            } catch (ex: NoPayments) {
+                hideProcessing()
+                delay(500)
+                if (paymentRepo.productsHot.first().isEmpty()) {
+                    dialog.showAlert(getString(R.string.error_payment_not_available),
+                        okText = getString(R.string.universal_action_continue),
+                        okAction = {
+                            dismiss()
+                        })
+                        .collect {}
+                }
+            }
+            hideProcessing()
+        }
+    }
+
     private fun purchase(p: Product, change: Boolean = false) {
-        showOverlay()
+        showProcessing()
 
         // Initiate purchase (will emit on successfulPurchasesHot)
         lifecycleScope.launch {
@@ -182,19 +198,19 @@ class CloudPaymentFragment : BottomSheetFragment() {
                 if (!change) paymentRepo.buyProduct(p.id)
                 else paymentRepo.changeProduct(p.id)
             } catch (ex: UserCancelledException) {
-                hideOverlay()
+                hideProcessing()
             } catch (ex: AlreadyPurchasedException) {
                 // User already made the purchase, try to restore instead
                 try {
                     paymentRepo.restorePurchase()
                 } catch (ex: Exception) {
-                    hideOverlay()
+                    hideProcessing()
                     dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
                     .collect {}
                 }
             } catch (ex: Exception) {
                 Logger.e("CloudPayment", "Payment failed with error".cause(ex))
-                hideOverlay()
+                hideProcessing()
                 dialog.showAlert(getString(R.string.error_payment_failed_alternative))
                 .collect {}
             }
@@ -210,22 +226,34 @@ class CloudPaymentFragment : BottomSheetFragment() {
             try {
                 paymentRepo.restorePurchase()
             } catch (ex: Exception) {
-                hideOverlay()
+                hideProcessing()
                 dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
                 .collect {}
             }
         }
     }
 
-    private fun showOverlay() {
+    private fun showProcessing() {
         // Show the processing overlay
         processing.visibility = View.VISIBLE
         processing.animate().alpha(1.0f)
     }
 
-    private fun hideOverlay() {
+    private fun hideProcessing() {
         processing.animate().alpha(0.0f).withEndAction {
             processing.visibility = View.GONE
+        }
+    }
+
+    private fun showError() {
+        // Show the error overlay
+        error.visibility = View.VISIBLE
+        error.alpha = 1.0f
+    }
+
+    private fun hideError() {
+        error.animate().setDuration(1000).alpha(0.0f).withEndAction {
+            error.visibility = View.GONE
         }
     }
 

@@ -15,10 +15,7 @@ package service
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingFlowParams.ProrationMode.DEFERRED
 import com.android.billingclient.api.BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_PRORATED_PRICE
-import kotlinx.coroutines.CancellableContinuation
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import model.*
 import utils.Logger
 import kotlin.coroutines.resumeWithException
@@ -123,6 +120,7 @@ class BillingService: IPaymentService {
             }
         }?.sortedBy { it.periodMonths } ?: emptyList()
         if (payments.isEmpty()) throw NoPayments()
+        delay(30000)
         return payments
     }
 
