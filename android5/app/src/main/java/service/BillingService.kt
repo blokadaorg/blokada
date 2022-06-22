@@ -171,7 +171,7 @@ class BillingService: IPaymentService {
                     .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
                     .sortedByDescending { it.purchaseTime }
 
-                result?.resume(successfulPurchases.first().products.first(), {})
+                result?.resume(successfulPurchases.firstOrNull()?.products?.firstOrNull(), {})
             } else {
                 result?.resumeWithException(
                     BlokadaException("Failed refreshing purchases, response code not OK")
