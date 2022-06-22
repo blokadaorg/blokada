@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AccountType
-import model.NoPayments
 import model.Product
 import org.blokada.R
 import repository.Repos
@@ -155,9 +154,13 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         lifecycleScope.launch {
             try {
+                showOverlay()
                 paymentRepo.refresh()
-            } catch (ex: NoPayments) {
-                delay(200)
+            } catch (ex: Exception) { }
+
+            hideOverlay()
+            delay(500)
+            if (paymentRepo.productsHot.first().isEmpty()) {
                 dialog.showAlert(getString(R.string.error_payment_not_available),
                 okText = getString(R.string.universal_action_continue),
                 okAction = {

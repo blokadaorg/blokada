@@ -57,13 +57,13 @@ class PackRepo {
     private val uninstallPackT = Tasker<Pack, Ignored>("uninstallPack", errorIsMajor = true, timeoutMs = 30000)
 
     fun start() {
-        GlobalScope.launch { onLoadBlocklists() }
-        GlobalScope.launch { onConvertBlocklistsToPacks() }
-        GlobalScope.launch { onInstallPack() }
-        GlobalScope.launch { onUninstallPack() }
-        GlobalScope.launch { onLoadBlocklists_convertBlocklistsToPacks() }
-        GlobalScope.launch { onBlocklistsIdsChanged_sync() }
-        GlobalScope.launch { onMappedBlocklistsChanged_setField() }
+        onLoadBlocklists()
+        onConvertBlocklistsToPacks()
+        onInstallPack()
+        onUninstallPack()
+        onLoadBlocklists_convertBlocklistsToPacks()
+        onBlocklistsIdsChanged_sync()
+        onMappedBlocklistsChanged_setField()
     }
 
     suspend fun installPack(pack: Pack) {
@@ -85,7 +85,7 @@ class PackRepo {
         return dataSource.getPacks().firstOrNull { it.id == packId }?.meta?.title
     }
 
-    private suspend fun onLoadBlocklists() {
+    private fun onLoadBlocklists() {
         loadBlocklistsT.setTask {
             val packs = api.getBlocklistsForCurrentUser()
             writeBlocklists.emit(packs)
@@ -96,7 +96,7 @@ class PackRepo {
     // Converts blocklists returned by backend to internal Packs.
     // The app knows a set of Packs (defined in PackDataSource).
     // Here it checks what known packs are active in backend, and ignores the rest.
-    private suspend fun onConvertBlocklistsToPacks() {
+    private fun onConvertBlocklistsToPacks() {
         convertBlocklistsToPacksT.setTask {
             // Get the intermediate representation, and the backend IDs of active ones.
             val activeBlocklistIds = cloudRepo.blocklistsHot.first()
@@ -132,14 +132,16 @@ class PackRepo {
         }
     }
 
-    private suspend fun onLoadBlocklists_convertBlocklistsToPacks() {
-        mappedBlocklistsHot
-        .collect {
-            convertBlocklistsToPacksT.send()
+    private fun onLoadBlocklists_convertBlocklistsToPacks() {
+        GlobalScope.launch {
+            mappedBlocklistsHot
+            .collect {
+                convertBlocklistsToPacksT.send()
+            }
         }
     }
 
-    private suspend fun onInstallPack() {
+    private fun onInstallPack() {
         installPackT.setTask { pack ->
             // Select default config for this pack if none selected
             var pack = pack.changeStatus(installing = true, installed = true)
@@ -200,7 +202,7 @@ class PackRepo {
         }
     }
 
-    private suspend fun onUninstallPack() {
+    private fun onUninstallPack() {
         uninstallPackT.setTask { pack ->
             // Announce this pack is uninstalling
             var packs = packsHot.first()
@@ -245,15 +247,19 @@ class PackRepo {
         }
     }
 
-    private suspend fun onBlocklistsIdsChanged_sync() {
-        cloudRepo.blocklistsHot
-        .collect {
-            loadBlocklistsT.send()
+    private fun onBlocklistsIdsChanged_sync() {
+        GlobalScope.launch {
+            cloudRepo.blocklistsHot
+            .collect {
+                loadBlocklistsT.send()
+            }
         }
     }
 
-    private suspend fun onMappedBlocklistsChanged_setField() {
-        mappedBlocklistsHot.collect { mappedBlocklistsInternal = it }
+    private fun onMappedBlocklistsChanged_setField() {
+        GlobalScope.launch {
+            mappedBlocklistsHot.collect { mappedBlocklistsInternal = it }
+        }
     }
 
 }

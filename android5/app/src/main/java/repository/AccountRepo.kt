@@ -45,7 +45,7 @@ class AccountRepo {
 
     fun start() {
         //GlobalScope.launch { hackyAccount() }
-        GlobalScope.launch { onSettingsTab_refreshAccount() }
+        onSettingsTab_refreshAccount()
     }
 
     suspend fun hackyAccount() {
@@ -56,11 +56,13 @@ class AccountRepo {
         }
     }
 
-    suspend fun onSettingsTab_refreshAccount() {
-        activeTabHot.filter { it == Tab.Settings }
-        .debounce(1000)
-        .collect {
-            accountVm.refreshAccount()
+    fun onSettingsTab_refreshAccount() {
+        GlobalScope.launch {
+            activeTabHot.filter { it == Tab.Settings }
+            .debounce(1000)
+            .collect {
+                accountVm.refreshAccount()
+            }
         }
     }
 

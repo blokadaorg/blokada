@@ -42,47 +42,52 @@ class PaymentRepo {
     private val changeProductT = Tasker<ProductId, Ignored>("changeProduct", debounce = 0L, timeoutMs = 30000)
     private val consumePurchaseT = Tasker<PaymentPayload, Ignored>("consumePurchase", debounce = 0L)
 
-    private val processingRepo by lazy { Repos.processing }
-    private val stageRepo by lazy { Repos.stage }
     private val accountRepo by lazy { Repos.account }
 
     private val api = Services.apiForCurrentUser
     private val payment = Services.payment
 
     fun start() {
-        GlobalScope.launch { onRefreshProducts() }
-        GlobalScope.launch { onRefreshPurchases() }
-        GlobalScope.launch { onBuyProduct() }
-        GlobalScope.launch { onChangeProduct() }
-        GlobalScope.launch { onRestorePurchase() }
-        GlobalScope.launch { onConsumePurchase() }
-        GlobalScope.launch { onStageChange_ObservePayments() }
-        GlobalScope.launch { refresh() } // Refresh products on init automatically
+        onRefreshProducts()
+        onRefreshPurchases()
+        onBuyProduct()
+        onChangeProduct()
+        onRestorePurchase()
+        onConsumePurchase()
+        onStageChange_ObservePayments()
+        //refreshQuietly() // Refresh products on init automatically
     }
 
     // Will ask google to refresh the products list used in the payments screen.
     suspend fun refresh() {
-        refreshProductsT.send()
-        refreshPurchasesT.send()
+        refreshProductsT.get()
+        refreshPurchasesT.get()
+    }
+
+    private fun refreshQuietly() {
+        GlobalScope.launch {
+            refreshProductsT.send()
+            refreshPurchasesT.send()
+        }
     }
 
     suspend fun restorePurchase() {
-        restorePurchaseT.send()
+        restorePurchaseT.get()
     }
 
     suspend fun buyProduct(productId: String) {
-        buyProductT.send(productId)
+        buyProductT.get(productId)
     }
 
     suspend fun changeProduct(productId: String) {
-        changeProductT.send(productId)
+        changeProductT.get(productId)
     }
 
     suspend fun cancelTransaction() {
         //self.storeKit.finishPurchase()
     }
 
-    private suspend fun onRefreshProducts() {
+    private fun onRefreshProducts() {
         refreshProductsT.setTask {
             try {
                 val products = payment.refreshProducts()
@@ -93,9 +98,14 @@ class PaymentRepo {
             }
             true
         }
+
+        refreshProductsT.setOnError {
+            writeProducts.emit(emptyList())
+            throw NoPayments()
+        }
     }
 
-    private suspend fun onRefreshPurchases() {
+    private fun onRefreshPurchases() {
         refreshPurchasesT.setTask {
             try {
                 val purchase = payment.getActivePurchase()
@@ -106,21 +116,24 @@ class PaymentRepo {
             }
             true
         }
-    }
 
-    private suspend fun onBuyProduct() {
-        buyProductT.setTask {
-            val payload = payment.buyProduct(it)
-            consumePurchaseT.send(payload)
-            true
+        refreshPurchasesT.setOnError {
+            writeActiveSub.emit(null)
         }
     }
 
-    private suspend fun onChangeProduct() {
+    private fun onBuyProduct() {
+        buyProductT.setTask {
+            val payload = payment.buyProduct(it)
+            consumePurchaseT.get(payload)
+        }
+    }
+
+    private fun onChangeProduct() {
         changeProductT.setTask {
             try {
                 val payload = payment.changeProduct(it)
-                consumePurchaseT.send(payload)
+                consumePurchaseT.get(payload)
             } catch (ex: NoRelevantPurchase) {
                 // We catch this as in the upgrade flow the purchase doesn't come instant, because of
                 // the prorate mode. It'll arrive to backend once the current subscription ends and
@@ -133,14 +146,14 @@ class PaymentRepo {
         }
     }
 
-    private suspend fun onRestorePurchase() {
+    private fun onRestorePurchase() {
         restorePurchaseT.setTask {
             val payloads = payment.restorePurchase()
             var restored = false
             for (payload in payloads) {
                 try {
                     Logger.v("Payment", "Trying to restore: ${payload.purchase_token}")
-                    consumePurchaseT.send(payload)
+                    consumePurchaseT.get(payload)
                     restored = true
                     break
                 } catch (ex: Exception) {
@@ -154,7 +167,7 @@ class PaymentRepo {
         }
     }
 
-    private suspend fun onConsumePurchase() {
+    private fun onConsumePurchase() {
         consumePurchaseT.setTask {
             // todo: info about ongoing purchase
             val account = api.postGplayCheckoutForCurrentUser(it)
@@ -163,7 +176,7 @@ class PaymentRepo {
         }
     }
 
-    private suspend fun onStageChange_ObservePayments() {
+    private fun onStageChange_ObservePayments() {
 
     }
 

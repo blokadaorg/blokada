@@ -52,39 +52,45 @@ class PermsRepo {
         @Synchronized get
 
     fun start() {
-        GlobalScope.launch { onForeground_recheckPerms() }
-        GlobalScope.launch { onDnsString_latest() }
-        GlobalScope.launch { onAccountTypeUpgraded_showActivatedSheet() }
-        GlobalScope.launch { onDnsProfileActivated_update() }
-        GlobalScope.launch { onVpnPermsGranted_Proceed() }
+        onForeground_recheckPerms()
+        onDnsString_latest()
+        onAccountTypeUpgraded_showActivatedSheet()
+        onDnsProfileActivated_update()
+        onVpnPermsGranted_Proceed()
     }
 
-    private suspend fun onForeground_recheckPerms() {
-        enteredForegroundHot
-        .combine(cloudRepo.dnsProfileActivatedHot) { _, activated -> activated }
-        .collect { activated ->
-            Logger.v("Perms", "DNS profile: $activated, notifications: ${notifications.hasPermissions()}")
-            writeDnsProfilePerms.value = activated
-            writeVpnProfilePerms.value = vpnPerms.hasPermission()
-            writeNotificationPerms.value = notifications.hasPermissions()
+    private fun onForeground_recheckPerms() {
+        GlobalScope.launch {
+            enteredForegroundHot
+            .combine(cloudRepo.dnsProfileActivatedHot) { _, activated -> activated }
+            .collect { activated ->
+                Logger.v("Perms", "DNS profile: $activated, notifications: ${notifications.hasPermissions()}")
+                writeDnsProfilePerms.value = activated
+                writeVpnProfilePerms.value = vpnPerms.hasPermission()
+                writeNotificationPerms.value = notifications.hasPermissions()
+            }
         }
     }
 
-    private suspend fun onDnsProfileActivated_update() {
-        cloudRepo.dnsProfileActivatedHot
-        .collect { activated ->
-            Logger.v("Perms", "DNS profile: $activated")
-            writeDnsProfilePerms.value = activated
+    private fun onDnsProfileActivated_update() {
+        GlobalScope.launch {
+            cloudRepo.dnsProfileActivatedHot
+            .collect { activated ->
+                Logger.v("Perms", "DNS profile: $activated")
+                writeDnsProfilePerms.value = activated
+            }
         }
     }
 
-    private suspend fun onDnsString_latest() {
-        cloudRepo.expectedDnsStringHot.collect {
-            writeDnsString.value = it
+    private fun onDnsString_latest() {
+        GlobalScope.launch {
+            cloudRepo.expectedDnsStringHot.collect {
+                writeDnsString.value = it
+            }
         }
     }
 
-    private suspend fun onVpnPermsGranted_Proceed() {
+    private fun onVpnPermsGranted_Proceed() {
         // Also used in AskVpnProfileFragment, but that fragment is
         // not used in Cloud mode, so it won't collide
         vpnPerms.onPermissionGranted = { granted ->
@@ -208,23 +214,25 @@ class PermsRepo {
     // If user is returning, it may be that he already has granted all perms.
     // But we display the Activated sheet anyway, as a way to show that upgrade went ok.
     // This will also trigger if StoreKit sends us transaction (on start) that upgrades.
-    private suspend fun onAccountTypeUpgraded_showActivatedSheet() {
-        accountTypeHot
-        .filter { now ->
-            if (previousAccountType == null) {
-                previousAccountType = now
-                false
-            } else {
-                val prev = previousAccountType
-                previousAccountType = now
+    private fun onAccountTypeUpgraded_showActivatedSheet() {
+        GlobalScope.launch {
+            accountTypeHot
+            .filter { now ->
+                if (previousAccountType == null) {
+                    previousAccountType = now
+                    false
+                } else {
+                    val prev = previousAccountType
+                    previousAccountType = now
 
-                if (prev == AccountType.Libre && now != AccountType.Libre) {
-                    true
-                } else prev == AccountType.Cloud && now == AccountType.Plus
+                    if (prev == AccountType.Libre && now != AccountType.Libre) {
+                        true
+                    } else prev == AccountType.Cloud && now == AccountType.Plus
+                }
             }
-        }
-        .collect {
+            .collect {
 //            .sink(onValue: { _ in self.sheetRepo.showSheet(.Activated)} )
+            }
         }
     }
 }

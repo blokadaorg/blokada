@@ -136,15 +136,12 @@ class AppRepo {
     private val unpauseAppT = SimpleTasker<Ignored>("unpauseApp")
 
     fun start() {
-        GlobalScope.launch { onPauseApp() }
-        GlobalScope.launch { onUnpauseApp() }
-        GlobalScope.launch { onAnythingThatAffectsAppState_UpdateIt() }
-        GlobalScope.launch { onAccountChange_UpdateAccountType() }
-        GlobalScope.launch { onCurrentlyOngoing_ChangeWorkingState() }
-
-//        onPause_WaitForExpirationToUnpause()
-//        loadPauseTimerState()
-        GlobalScope.launch { emitWorkingStateOnStart() }
+        onPauseApp()
+        onUnpauseApp()
+        onAnythingThatAffectsAppState_UpdateIt()
+        onAccountChange_UpdateAccountType()
+        onCurrentlyOngoing_ChangeWorkingState()
+        emitWorkingStateOnStart()
     }
 
     suspend fun pauseApp(until: Date) {
@@ -156,7 +153,7 @@ class AppRepo {
     }
 
     // App can be paused with a timer (Date), or indefinitely (nil)
-    private suspend fun onPauseApp() {
+    private fun onPauseApp() {
         pauseAppT.setTask { until ->
             val state = appStateHot.first()
             when (state) {
@@ -176,7 +173,7 @@ class AppRepo {
         }
     }
 
-    private suspend fun onUnpauseApp() {
+    private fun onUnpauseApp() {
         unpauseAppT.setTask {
             val state = appStateHot.first()
             when (state) {
@@ -193,32 +190,36 @@ class AppRepo {
         }
     }
 
-    private suspend fun onAnythingThatAffectsAppState_UpdateIt() {
-        combine(
-            accountTypeHot,
-            cloudRepo.dnsProfileActivatedHot,
-            cloudRepo.adblockingPausedHot
-        ) { accountType, dnsProfileActivated, adblockingPaused ->
-            when {
-                !accountType.isActive() -> AppState.Deactivated
-                adblockingPaused -> AppState.Paused
-                dnsProfileActivated -> AppState.Activated
-                else -> AppState.Deactivated
+    private fun onAnythingThatAffectsAppState_UpdateIt() {
+        GlobalScope.launch {
+            combine(
+                accountTypeHot,
+                cloudRepo.dnsProfileActivatedHot,
+                cloudRepo.adblockingPausedHot
+            ) { accountType, dnsProfileActivated, adblockingPaused ->
+                when {
+                    !accountType.isActive() -> AppState.Deactivated
+                    adblockingPaused -> AppState.Paused
+                    dnsProfileActivated -> AppState.Activated
+                    else -> AppState.Deactivated
+                }
+            }
+            .collect {
+                writeAppState.emit(it)
             }
         }
-        .collect {
-            writeAppState.emit(it)
+    }
+
+    private fun onAccountChange_UpdateAccountType() {
+        GlobalScope.launch {
+            accountHot.map { it.type.toAccountType() }
+            .collect {
+                writeAccountType.emit(it)
+            }
         }
     }
 
-    private suspend fun onAccountChange_UpdateAccountType() {
-        accountHot.map { it.type.toAccountType() }
-        .collect {
-            writeAccountType.emit(it)
-        }
-    }
-
-    private suspend fun onCurrentlyOngoing_ChangeWorkingState() {
+    private fun onCurrentlyOngoing_ChangeWorkingState() {
         // TODO: Same list is in ios
         val tasksThatMarkWorkingState = setOf(
             "accountInit", "refreshAccount", "restoreAccount",
@@ -228,24 +229,28 @@ class AppRepo {
             "plusWorking"
         )
 
-        currentlyOngoingHot
-        .map { it.map { i -> i.component }.toSet() }
-        .map { it.intersect(tasksThatMarkWorkingState).isNotEmpty() }
-        .collect {
-            // Async to not cause a choke on the upstream flow
-            GlobalScope.launch {
-                if (!it) {
-                    // Always delay the non-working state to smooth out any transitions
-                    delay(2000)
+        GlobalScope.launch {
+            currentlyOngoingHot
+            .map { it.map { i -> i.component }.toSet() }
+            .map { it.intersect(tasksThatMarkWorkingState).isNotEmpty() }
+            .collect {
+                // Async to not cause a choke on the upstream flow
+                GlobalScope.launch {
+                    if (!it) {
+                        // Always delay the non-working state to smooth out any transitions
+                        delay(2000)
+                    }
+                    writeWorking.emit(it)
                 }
-                writeWorking.emit(it)
             }
         }
     }
 
-    private suspend fun emitWorkingStateOnStart() {
-        writeAppState.emit(AppState.Deactivated)
-        writeWorking.emit(true)
+    private fun emitWorkingStateOnStart() {
+        GlobalScope.launch {
+            writeAppState.emit(AppState.Deactivated)
+            writeWorking.emit(true)
+        }
     }
 
 }

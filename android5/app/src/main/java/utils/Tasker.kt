@@ -15,6 +15,7 @@ package utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 import model.BlokadaException
 import model.TimeoutException
@@ -48,35 +49,43 @@ open class Tasker<T, Y>(
     private val writeResponses = MutableSharedFlow<TaskResult<T, Y>?>()
     internal val responses = writeResponses.filterNotNull()
 
+    internal var onError: suspend (BlokadaException) -> Any = {}
+
     internal var ordinal = 0L
         @Synchronized get
         @Synchronized set
 
     // This will block coroutine for lifetime of this task handler.
-    suspend fun setTask(task: suspend (T) -> Y) {
-        var publisher = requests
-        if (debounce > 0) {
-            publisher = requests.debounce(debounce)
-        }
-        publisher.collect {
-            try {
-                ordinal += 1
-                Logger.v("Tasker", "$owner: $it, ordinal: $ordinal")
-                val result = task(it)
-                writeResponses.emit(TaskResult(ordinal, it, result, null))
-                processingRepo.notify(owner, ongoing = false)
-            } catch (ex: BlokadaException) {
-                writeResponses.emit(TaskResult(ordinal, it, null, ex))
-                processingRepo.notify(owner, ex, major = errorIsMajor)
-            } catch (err: Throwable) {
-                val ex = BlokadaException("task error: $owner", err)
-                writeResponses.emit(TaskResult(ordinal, it, null, ex))
-                processingRepo.notify(owner, ex, major = errorIsMajor)
+    fun setTask(task: suspend (T) -> Y) {
+        GlobalScope.launch {
+            var publisher = requests
+            if (debounce > 0) {
+                publisher = requests.debounce(debounce)
+            }
+            publisher.collect {
+                try {
+                    ordinal += 1
+                    Logger.v("Tasker", "$owner: $it, ordinal: $ordinal")
+                    val result = task(it)
+                    writeResponses.emit(TaskResult(ordinal, it, result, null))
+                    processingRepo.notify(owner, ongoing = false)
+                } catch (ex: BlokadaException) {
+                    writeResponses.emit(TaskResult(ordinal, it, null, ex))
+                    processingRepo.notify(owner, ex, major = errorIsMajor)
+                } catch (err: Throwable) {
+                    val ex = BlokadaException("task error: $owner", err)
+                    writeResponses.emit(TaskResult(ordinal, it, null, ex))
+                    processingRepo.notify(owner, ex, major = errorIsMajor)
+                }
             }
         }
     }
 
-    suspend fun send(argument: T): Y {
+    fun setOnError(onError: suspend (BlokadaException) -> Any) {
+        this.onError = onError
+    }
+
+    suspend fun get(argument: T): Y {
         processingRepo.notify(owner, ongoing = true)
 
         val lastTask = ordinal
@@ -99,10 +108,17 @@ open class Tasker<T, Y>(
 
         val error = r.error
         if (error != null) {
+            onError(error)
             throw error
         }
 
         return r.result as Y
+    }
+
+    suspend fun send(argument: T) {
+        try {
+            get(argument)
+        } catch (ex: BlokadaException) { }
     }
 
 }
@@ -114,7 +130,7 @@ class SimpleTasker<Y>(
     timeoutMs: Long = 10000
 ) : Tasker<Ignored, Y>(owner, debounce, errorIsMajor, timeoutMs) {
 
-    suspend fun send(): Y {
+    suspend fun get(): Y {
         processingRepo.notify(owner, ongoing = true)
 
         val lastTask = ordinal
@@ -135,10 +151,17 @@ class SimpleTasker<Y>(
 
         val error = r.error
         if (error != null) {
+            onError(error)
             throw error
         }
 
         return r.result as Y
+    }
+
+    suspend fun send() {
+        try {
+            get()
+        } catch (ex: BlokadaException) { }
     }
 
 }

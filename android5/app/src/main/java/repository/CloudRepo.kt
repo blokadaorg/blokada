@@ -67,16 +67,16 @@ open class CloudRepo {
     private val setPausedT = Tasker<Boolean, Ignored>("setPaused", errorIsMajor = true)
 
     open fun start() {
-        GlobalScope.launch { onRefreshDeviceInfo() }
-        GlobalScope.launch { onSetActivityRetention() }
-        GlobalScope.launch { onSetBlocklists() }
-        GlobalScope.launch { onSetPaused() }
+        onRefreshDeviceInfo()
+        onSetActivityRetention()
+        onSetBlocklists()
+        onSetPaused()
 
-        GlobalScope.launch { onTabChange_refreshDeviceInfo() }
-        GlobalScope.launch { onAccountIdChanged_refreshDeviceInfo() }
-        GlobalScope.launch { onPrivateDnsProfileChanged_update() }
-        GlobalScope.launch { onConnectedBack_refresh() }
-        GlobalScope.launch { onDeviceTag_setToEnv() }
+        onTabChange_refreshDeviceInfo()
+        onAccountIdChanged_refreshDeviceInfo()
+        onPrivateDnsProfileChanged_update()
+        onConnectedBack_refresh()
+        onDeviceTag_setToEnv()
 
         onPrivateDnsSettingChanged_update()
     }
@@ -93,56 +93,62 @@ open class CloudRepo {
         setBlocklistsT.send(lists)
     }
 
-    private suspend fun onRefreshDeviceInfo() {
+    private fun onRefreshDeviceInfo() {
         refreshDeviceInfoT.setTask {
             writeDeviceInfo.emit(api.getDeviceForCurrentUser())
             true
         }
     }
 
-    private suspend fun onSetActivityRetention() {
+    private fun onSetActivityRetention() {
         setActivityRetentionT.setTask {
             api.putActivityRetentionForCurrentUser(it)
-            refreshDeviceInfoT.send()
+            refreshDeviceInfoT.get()
         }
     }
 
-    private suspend fun onSetPaused() {
+    private fun onSetPaused() {
         setPausedT.setTask {
             api.putPausedForCurrentUser(it)
-            refreshDeviceInfoT.send()
+            refreshDeviceInfoT.get()
         }
     }
 
-    private suspend fun onSetBlocklists() {
+    private fun onSetBlocklists() {
         setBlocklistsT.setTask {
             api.putBlocklistsForCurrentUser(it)
-            refreshDeviceInfoT.send()
+            refreshDeviceInfoT.get()
         }
     }
 
     // Will recheck device info on each tab change.
     // This struct contains something important for each tab.
     // Entering foreground will also re-publish active tab even if user doesn't change it.
-    private suspend fun onTabChange_refreshDeviceInfo() {
-        activeTabHot
-        .collect {
-            refreshDeviceInfoT.send()
+    private fun onTabChange_refreshDeviceInfo() {
+        GlobalScope.launch {
+            activeTabHot
+            .collect {
+                refreshDeviceInfoT.send()
+            }
         }
     }
 
     // Whenever account ID is changed, device tag will change, among other things.
-    private suspend fun onAccountIdChanged_refreshDeviceInfo() {
-        accountIdHot
-        .collect {
-            refreshDeviceInfoT.send()
+    private fun onAccountIdChanged_refreshDeviceInfo() {
+        GlobalScope.launch {
+            accountIdHot
+            .collect {
+                refreshDeviceInfoT.send()
+            }
         }
     }
 
-    private suspend fun onPrivateDnsProfileChanged_update() {
-        expectedDnsStringHot
-        .combine(writePrivateDnsSetting) { setting, expected -> setting == expected }
-        .collect { writeDnsProfileActivated.value = it }
+    private fun onPrivateDnsProfileChanged_update() {
+        GlobalScope.launch {
+            expectedDnsStringHot
+            .combine(writePrivateDnsSetting) { setting, expected -> setting == expected }
+            .collect { writeDnsProfileActivated.value = it }
+        }
     }
 
     private fun onPrivateDnsSettingChanged_update() {
@@ -159,10 +165,12 @@ open class CloudRepo {
         }
     }
 
-    private suspend fun onDeviceTag_setToEnv() {
-        deviceTagHot
-        .collect {
-            EnvironmentService.deviceTag = it
+    private fun onDeviceTag_setToEnv() {
+        GlobalScope.launch {
+            deviceTagHot
+            .collect {
+                EnvironmentService.deviceTag = it
+            }
         }
     }
 }
@@ -172,21 +180,25 @@ class DebugCloudRepo: CloudRepo() {
     override fun start() {
         super.start()
 
-        GlobalScope.launch { printDnsProfAct() }
-        GlobalScope.launch { printDeviceInfo() }
+        printDnsProfAct()
+        printDeviceInfo()
     }
 
-    private suspend fun printDnsProfAct() {
-        dnsProfileActivatedHot
-        .collect {
-            Logger.v("Cloud", "dnsProfileActivated: $it")
+    private fun printDnsProfAct() {
+        GlobalScope.launch {
+            dnsProfileActivatedHot
+            .collect {
+                Logger.v("Cloud", "dnsProfileActivated: $it")
+            }
         }
     }
 
-    private suspend fun printDeviceInfo() {
-        deviceInfoHot
-        .collect {
-            Logger.v("Cloud", "deviceInfo: $it")
+    private fun printDeviceInfo() {
+        GlobalScope.launch {
+            deviceInfoHot
+            .collect {
+                Logger.v("Cloud", "deviceInfo: $it")
+            }
         }
     }
 

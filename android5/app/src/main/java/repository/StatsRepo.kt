@@ -40,13 +40,13 @@ class StatsRepo {
     private val refreshStatsT = SimpleTasker<Ignored>("refreshStats")
 
     fun start() {
-        GlobalScope.launch { onRefreshStats() }
-        GlobalScope.launch { onAccountIdChange_refreshStats() }
-        GlobalScope.launch { onForeground_refreshStats() }
-        GlobalScope.launch { onActivityChanged_refreshStats() }
+        onRefreshStats()
+        onAccountIdChange_refreshStats()
+        onForeground_refreshStats()
+        onActivityChanged_refreshStats()
     }
 
-    private suspend fun onRefreshStats() {
+    private fun onRefreshStats() {
         refreshStatsT.setTask {
             val stats = api.getStatsForCurrentUser()
             writeStats.emit(stats)
@@ -55,24 +55,30 @@ class StatsRepo {
     }
 
     // Refresh on account ID changed, will also trigger when starting the app
-    private suspend fun onAccountIdChange_refreshStats() {
-        accountIdHot
-        .collect {
-            refreshStatsT.send()
+    private fun onAccountIdChange_refreshStats() {
+        GlobalScope.launch {
+            accountIdHot
+            .collect {
+                refreshStatsT.send()
+            }
         }
     }
 
-    private suspend fun onForeground_refreshStats() {
-        enteredForegroundHot
-        .collect {
-            refreshStatsT.send()
+    private fun onForeground_refreshStats() {
+        GlobalScope.launch {
+            enteredForegroundHot
+            .collect {
+                refreshStatsT.send()
+            }
         }
     }
 
-    private suspend fun onActivityChanged_refreshStats() {
-        activityEntriesHot
-        .collect {
-            refreshStatsT.send()
+    private fun onActivityChanged_refreshStats() {
+        GlobalScope.launch {
+            activityEntriesHot
+            .collect {
+                refreshStatsT.send()
+            }
         }
     }
 

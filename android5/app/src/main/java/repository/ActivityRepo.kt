@@ -54,10 +54,10 @@ class ActivityRepo {
     private val updateCustomListT = Tasker<CustomListEntry, Ignored>("updateCustomList")
 
     fun start() {
-        GlobalScope.launch { onFetchEntries() }
-        GlobalScope.launch { onFetchCustomList() }
-        GlobalScope.launch { onUpdateCustomList() }
-        GlobalScope.launch { onActivityTab_RefreshActivity() }
+        onFetchEntries()
+        onFetchCustomList()
+        onUpdateCustomList()
+        onActivityTab_RefreshActivity()
     }
 
     suspend fun allow(entry: String) {
@@ -88,7 +88,7 @@ class ActivityRepo {
         fetchCustomListT.send()
     }
 
-    private suspend fun onFetchEntries() {
+    private fun onFetchEntries() {
         fetchEntriesT.setTask {
             val activity = api.getActivityForCurrentUserAndDevice()
             val converted = convertActivity(activity)
@@ -97,7 +97,7 @@ class ActivityRepo {
         }
     }
 
-    private suspend fun onFetchCustomList() {
+    private fun onFetchCustomList() {
         fetchCustomListT.setTask {
             val custom = api.getCustomListForCurrentUser()
             writeCustomList.emit(custom)
@@ -105,7 +105,7 @@ class ActivityRepo {
         }
     }
 
-    private suspend fun onUpdateCustomList() {
+    private fun onUpdateCustomList() {
         updateCustomListT.setTask { entry ->
             // Post the custom list update to backend
             if (entry.action == "fallthrough") {
@@ -125,17 +125,19 @@ class ActivityRepo {
             writeCustomList.emit(updated)
 
             // But also issue a get request to get in sync
-            fetchCustomListT.send()
-            fetchEntriesT.send()
+            fetchCustomListT.get()
+            fetchEntriesT.get()
 
             true
         }
     }
 
-    private suspend fun onActivityTab_RefreshActivity() {
-        activeTabHot.filter { it == Tab.Activity }
-        .collect {
-            refresh()
+    private fun onActivityTab_RefreshActivity() {
+        GlobalScope.launch {
+            activeTabHot.filter { it == Tab.Activity }
+            .collect {
+                refresh()
+            }
         }
     }
 

@@ -57,7 +57,7 @@ open class ProcessingRepo {
 
     open fun start() {
         GlobalScope.launch { writeConnIssues.emit(emptySet()) }
-        GlobalScope.launch { onManyRecentTimeouts_ReportConnIssue() }
+        onManyRecentTimeouts_ReportConnIssue()
     }
 
     suspend fun notify(component: Any, ex: BlokadaException, major: Boolean) {
@@ -75,9 +75,11 @@ open class ProcessingRepo {
         else writeConnIssues.emit(current - component)
     }
 
-    private suspend fun onManyRecentTimeouts_ReportConnIssue() {
-        recentTimeoutsHot.collect {
-            reportConnIssues("timeout", it.size > 3)
+    private fun onManyRecentTimeouts_ReportConnIssue() {
+        GlobalScope.launch {
+            recentTimeoutsHot.collect {
+                reportConnIssues("timeout", it.size > 3)
+            }
         }
     }
 }

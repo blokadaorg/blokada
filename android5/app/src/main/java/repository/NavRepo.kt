@@ -15,7 +15,6 @@ package repository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import model.DevicePayload
 import model.Tab
 
 class NavRepo {
@@ -27,7 +26,7 @@ class NavRepo {
     val activeTabHot = writeActiveTab.filterNotNull().distinctUntilChanged()
 
     fun start() {
-        GlobalScope.launch { onForeground_RepublishActiveTab() }
+        onForeground_RepublishActiveTab()
     }
 
     suspend fun setActiveTab(tab: Tab) {
@@ -40,11 +39,13 @@ class NavRepo {
 //        writeSectionHot.send(section)
 //    }
 
-    suspend fun onForeground_RepublishActiveTab() {
-        enteredForegroundHot
-        .map { activeTabHot.first() }
-        .collect {
-            writeActiveTab.emit(it)
+    fun onForeground_RepublishActiveTab() {
+        GlobalScope.launch {
+            enteredForegroundHot
+            .map { activeTabHot.first() }
+            .collect {
+                writeActiveTab.emit(it)
+            }
         }
     }
 

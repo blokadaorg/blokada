@@ -61,9 +61,9 @@ class PlusRepo {
     fun start() {
         onBlockaConfig_ExposeState()
         onTunnelStatus_UpdateProcessing()
-        GlobalScope.launch { onAppPausedIndefinitely_StopPlusIfNecessary() }
-        GlobalScope.launch { onAppUnpaused_StartPlusIfNecessary() }
-        GlobalScope.launch { onAccountInactive_StopPlusIfNecessary() }
+        onAppPausedIndefinitely_StopPlusIfNecessary()
+        onAppUnpaused_StartPlusIfNecessary()
+        onAccountInactive_StopPlusIfNecessary()
     }
 
     // User engaged actions of turning Plus on and off are managed by
@@ -118,11 +118,12 @@ class PlusRepo {
 //    }
 
     // Untimed pause (appState Paused, but no pausedUntilHot value)
-    private suspend fun onAppPausedIndefinitely_StopPlusIfNecessary() {
-        appRepo.appStateHot
-        .filter { it == AppState.Paused }
-        .collect {
-            delay(500)
+    private fun onAppPausedIndefinitely_StopPlusIfNecessary() {
+        GlobalScope.launch {
+            appRepo.appStateHot
+            .filter { it == AppState.Paused }
+            .collect {
+                delay(500)
 //            val paused = appRepo.pausedUntilHot.first()
 //            if (paused == null) {
                 // Do only if NETX is active
@@ -132,33 +133,38 @@ class PlusRepo {
                     tunnelVM.turnOff()
                 }
 //            }
-        }
-    }
-
-    // Simple restore Plus when app activated again and Plus was active before
-    private suspend fun onAppUnpaused_StartPlusIfNecessary() {
-        appRepo.appStateHot
-        .filter { it == AppState.Activated }
-        .collect {
-            delay(500)
-            // Do only if NETX is inactive but was on
-            val s = tunnelVM.tunnelStatus.asFlow().first { !it.inProgress }
-            val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
-            if (!s.active && vpnEnabled) {
-                // Just switch on Plus
-                tunnelVM.turnOn()
             }
         }
     }
 
-    private suspend fun onAccountInactive_StopPlusIfNecessary() {
-        accountHot
-        .filter { it.type.toAccountType() != AccountType.Plus }
-        .collect {
-            val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
-            if (vpnEnabled) {
-                Logger.w("Plus", "Turning off VPN because was active and account is not Plus anymore")
-                tunnelVM.turnOff(vpnEnabled = false)
+    // Simple restore Plus when app activated again and Plus was active before
+    private fun onAppUnpaused_StartPlusIfNecessary() {
+        GlobalScope.launch {
+            appRepo.appStateHot
+            .filter { it == AppState.Activated }
+            .collect {
+                delay(500)
+                // Do only if NETX is inactive but was on
+                val s = tunnelVM.tunnelStatus.asFlow().first { !it.inProgress }
+                val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
+                if (!s.active && vpnEnabled) {
+                    // Just switch on Plus
+                    tunnelVM.turnOn()
+                }
+            }
+        }
+    }
+
+    private fun onAccountInactive_StopPlusIfNecessary() {
+        GlobalScope.launch {
+            accountHot
+            .filter { it.type.toAccountType() != AccountType.Plus }
+            .collect {
+                val vpnEnabled = tunnelVM.config.value?.vpnEnabled ?: false
+                if (vpnEnabled) {
+                    Logger.w("Plus", "Turning off VPN because was active and account is not Plus anymore")
+                    tunnelVM.turnOff(vpnEnabled = false)
+                }
             }
         }
     }
