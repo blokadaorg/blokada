@@ -23,10 +23,14 @@ object ScreenOnService {
 
     private val ctx by lazy { ContextService }
 
+    private val frequencyMillis = 60 * 1000
+    private var lastScreenOffMillis = 0L
+
     var onScreenOn = {}
 
     init {
         val intentFilter = IntentFilter(Intent.ACTION_SCREEN_ON)
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
         val mReceiver: BroadcastReceiver = ScreenStateBroadcastReceiver()
         ctx.requireAppContext().registerReceiver(mReceiver, intentFilter)
         Logger.v("ScreenOn", "Registered for Screen ON")
@@ -34,8 +38,17 @@ object ScreenOnService {
 
     class ScreenStateBroadcastReceiver: BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Logger.v("ScreenOn", "Received Screen ON")
-            onScreenOn()
+            when (intent?.action) {
+                Intent.ACTION_SCREEN_OFF -> {
+                    lastScreenOffMillis = System.currentTimeMillis()
+                }
+                Intent.ACTION_SCREEN_ON -> {
+                    if (lastScreenOffMillis + frequencyMillis < System.currentTimeMillis()) {
+                        Logger.v("ScreenOn", "Received Screen ON")
+                        onScreenOn()
+                    }
+                }
+            }
         }
     }
 
