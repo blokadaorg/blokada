@@ -19,6 +19,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import kotlinx.coroutines.launch
 import model.Account
+import model.AccountType
 import org.blokada.R
 import service.AlertDialogService
 import service.EnvironmentService
@@ -59,7 +60,10 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
                 true
             }
 
-            accountType.summary = account.getType().toString()
+            accountType.summary = when (account.getType()) {
+                AccountType.Libre -> getString(R.string.account_plan_none)
+                else -> account.getType().toString()
+            }
             accountType.setOnPreferenceClickListener {
                 if (!EnvironmentService.isLibre())
                     Services.sheet.showSheet(Sheet.Payment)
