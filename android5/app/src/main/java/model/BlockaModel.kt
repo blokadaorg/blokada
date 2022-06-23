@@ -39,10 +39,12 @@ data class Account(
     val id: AccountId,
     val active_until: ActiveUntil = Date(0),
     val active: Boolean?,
-    val type: String?
+    val type: String?,
+    val payment_source: String?
 ) {
     fun isActive() = active ?: false
     fun getType() = type.toAccountType()
+    fun getSource() = payment_source
 
     override fun toString(): String {
         return "Account(activeUntil=$active_until, type=$type)"

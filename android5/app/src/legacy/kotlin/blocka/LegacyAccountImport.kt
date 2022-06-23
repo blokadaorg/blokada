@@ -14,7 +14,6 @@ package blocka
 
 import io.paperdb.Paper
 import model.Account
-import model.AccountId
 import service.ContextService
 import utils.Logger
 
@@ -32,7 +31,7 @@ object LegacyAccountImport {
             val currentAccount: CurrentAccount = Paper.book().read(key)
             Paper.book().delete(key)
             Logger.w("Legacy", "Using legacy imported account ID")
-            Account(id = currentAccount.id, active = false, type = "libre")
+            Account(id = currentAccount.id, active = false, type = "libre", payment_source = null)
         } catch (ex: Exception) {
             null
         }

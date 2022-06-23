@@ -65,8 +65,14 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
                 else -> account.getType().toString()
             }
             accountType.setOnPreferenceClickListener {
-                if (!EnvironmentService.isLibre())
-                    Services.sheet.showSheet(Sheet.Payment)
+                when {
+                    EnvironmentService.isSlim() -> {}
+                    EnvironmentService.isLibre() -> {}
+                    account.getSource() == "google" -> {
+                        Services.sheet.showSheet(Sheet.Payment)
+                    }
+                    else -> {}
+                }
                 true
             }
 

@@ -214,7 +214,15 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                     else -> context.getString(R.string.home_status_deactivated).toUpperCase()
                 }
 
-                plusButton.visible = !inProgress && appState == AppState.Activated
+                val accType = accountVM.account.value?.getType()
+                val accSource = accountVM.account.value?.getSource()
+                plusButton.visible = when {
+                    inProgress -> false
+                    appState != AppState.Activated -> false
+                    accType == AccountType.Cloud && accSource != "google" -> false
+                    else -> true
+                }
+
                 plusButton.isEnabled = !inProgress
                 if (!inProgress) {
                     // Trying to fix a weird out of sync switch state
