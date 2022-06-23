@@ -64,7 +64,7 @@ internal enum L10n {
   internal static let accountLabelEnterToContinue = L10n.tr("Ui", "account label enter to continue")
   /// Account ID
   internal static let accountLabelId = L10n.tr("Ui", "account label id")
-  /// Account type
+  /// Subscription plan
   internal static let accountLabelType = L10n.tr("Ui", "account label type")
   /// Choose a DNS
   internal static let accountLeaseActionDns = L10n.tr("Ui", "account lease action dns")
@@ -94,6 +94,8 @@ internal enum L10n {
   internal static let accountLeaseWireguardDesc = L10n.tr("Ui", "account lease wireguard desc")
   /// Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).
   internal static let accountLogoutDescription = L10n.tr("Ui", "account logout description")
+  /// No active plan
+  internal static let accountPlanNone = L10n.tr("Ui", "account plan none")
   /// Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).
   internal static let accountRestoreDescription = L10n.tr("Ui", "account restore description")
   /// General
