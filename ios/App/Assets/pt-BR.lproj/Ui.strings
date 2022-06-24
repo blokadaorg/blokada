@@ -268,7 +268,8 @@
 "account section header general" = "Geral";
 "account section header subscription" = "Assinatura";
 "account label id" = "ID da conta";
-"account label type" = "Tipo de conta";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Ativo até";
 "account action manage subscription" = "Gerenciar assinatura";
 "account action why upgrade" = "Por que devo fazer o upgrade?";

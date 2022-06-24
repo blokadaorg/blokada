@@ -210,7 +210,8 @@
     <string name="account_section_header_general">सामान्य</string>
     <string name="account_section_header_subscription">सदस्यता</string>
     <string name="account_label_id">खाता आईडी</string>
-    <string name="account_label_type">खाता प्रकार</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">... तक एक्टिव</string>
     <string name="account_action_manage_subscription">सदस्यताओं को प्रबंधित करें</string>
     <string name="account_action_why_upgrade">मुझे अपग्रेड क्यों करना चाहिए?</string>

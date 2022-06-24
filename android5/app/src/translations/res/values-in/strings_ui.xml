@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Umum</string>
     <string name="account_section_header_subscription">Langganan</string>
     <string name="account_label_id">ID Akun</string>
-    <string name="account_label_type">Jenis akun</string>
+    <string name="account_label_type">Paket Berlangganan</string>
+    <string name="account_plan_none">Tidak ada paket berlangganan aktif</string>
     <string name="account_label_active_until">Aktif hingga</string>
     <string name="account_action_manage_subscription">Kelola langganan</string>
     <string name="account_action_why_upgrade">Kenapa saya harus berlangganan?</string>

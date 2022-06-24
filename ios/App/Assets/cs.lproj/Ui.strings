@@ -268,7 +268,8 @@
 "account section header general" = "Obecné";
 "account section header subscription" = "Předplatné";
 "account label id" = "ID účtu";
-"account label type" = "Typ účtu";
+"account label type" = "Plán předplatného";
+"account plan none" = "Žádný aktivní plán";
 "account label active until" = "Aktivní do";
 "account action manage subscription" = "Spravovat předplatné";
 "account action why upgrade" = "Proč bych měl upgradovat?";

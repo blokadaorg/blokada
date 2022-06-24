@@ -268,7 +268,8 @@
 "account section header general" = "Genel";
 "account section header subscription" = "Abonelik";
 "account label id" = "Hesap Kimliği";
-"account label type" = "Hesap türü";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Aktiflik süresi:";
 "account action manage subscription" = "Aboneliği yönet";
 "account action why upgrade" = "Neden yükseltmeliyim?";

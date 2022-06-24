@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Genel</string>
     <string name="account_section_header_subscription">Abonelik</string>
     <string name="account_label_id">Hesap Kimliği</string>
-    <string name="account_label_type">Hesap türü</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Aktiflik süresi:</string>
     <string name="account_action_manage_subscription">Aboneliği yönet</string>
     <string name="account_action_why_upgrade">Neden yükseltmeliyim?</string>

@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Общее</string>
     <string name="account_section_header_subscription">Подписка</string>
     <string name="account_label_id">ID аккаунта</string>
-    <string name="account_label_type">Тип аккаунта</string>
+    <string name="account_label_type">Тарифный план</string>
+    <string name="account_plan_none">Нет активного плана</string>
     <string name="account_label_active_until">Активна до</string>
     <string name="account_action_manage_subscription">Управление подпиской</string>
     <string name="account_action_why_upgrade">Зачем мне платная подписка?</string>

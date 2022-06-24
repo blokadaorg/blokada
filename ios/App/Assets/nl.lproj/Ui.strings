@@ -268,7 +268,8 @@
 "account section header general" = "Algemeen";
 "account section header subscription" = "Abonnement";
 "account label id" = "Account ID";
-"account label type" = "Accounttype";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Actief tot";
 "account action manage subscription" = "Abonnement beheren";
 "account action why upgrade" = "Waarom zou ik upgraden?";

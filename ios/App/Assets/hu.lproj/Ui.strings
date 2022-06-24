@@ -268,7 +268,8 @@
 "account section header general" = "Általános";
 "account section header subscription" = "Előfizetés";
 "account label id" = "Fiókazonosító";
-"account label type" = "Fiók típusa";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Aktív eddig";
 "account action manage subscription" = "Előfizetés kezelése";
 "account action why upgrade" = "Miért kellene bővítenem?";

@@ -210,7 +210,8 @@
     <string name="account_section_header_general">一般</string>
     <string name="account_section_header_subscription">訂閱</string>
     <string name="account_label_id">帳號 ID</string>
-    <string name="account_label_type">帳號類型</string>
+    <string name="account_label_type">訂閱方案</string>
+    <string name="account_plan_none">無啟用方案</string>
     <string name="account_label_active_until">使用到</string>
     <string name="account_action_manage_subscription">管理訂閱</string>
     <string name="account_action_why_upgrade">為什麼要升級？</string>

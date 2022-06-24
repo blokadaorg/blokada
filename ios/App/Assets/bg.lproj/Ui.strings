@@ -268,7 +268,8 @@
 "account section header general" = "Основни";
 "account section header subscription" = "Абонамент";
 "account label id" = "Профил ID";
-"account label type" = "Тип на профила";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Активен до";
 "account action manage subscription" = "Управление на абонамента";
 "account action why upgrade" = "Защо трябва да надстроя?";

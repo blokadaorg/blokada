@@ -31,7 +31,7 @@
 "error pack install" = "Impossible d'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.";
 "error location failed fetching" = "Impossible de récupérer les locations.";
 "error unknown" = "Une erreur est survenue. Assurez-vous d'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l'icône d'aide en haut de l'écran.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error multiple apps" = "Plusieurs applications Blokada sont installées sur votre appareil. Cela peut causer des problèmes de connectivité. Souhaitez-vous corriger ces installations multiples ?";
 
 "conn isssues header" = "Problème de connexion";
 "conn isssues slug" = "Problèmes de connesion. Veuillez vérifier votre configuration. Appuyez pour plus de détails.";
@@ -268,7 +268,8 @@
 "account section header general" = "Général";
 "account section header subscription" = "Inscription";
 "account label id" = "ID du compte";
-"account label type" = "Type de compte";
+"account label type" = "Abonnement";
+"account plan none" = "Aucun abonnement actif";
 "account label active until" = "Actif jusqu'au";
 "account action manage subscription" = "Gérer mon abonnement";
 "account action why upgrade" = "Pourquoi devrais-je me mettre à niveau ?";

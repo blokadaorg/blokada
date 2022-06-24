@@ -268,7 +268,8 @@
 "account section header general" = "一般";
 "account section header subscription" = "訂閱";
 "account label id" = "帳號 ID";
-"account label type" = "帳號類型";
+"account label type" = "訂閱方案";
+"account plan none" = "無啟用方案";
 "account label active until" = "使用到";
 "account action manage subscription" = "管理訂閱";
 "account action why upgrade" = "為什麼要升級？";

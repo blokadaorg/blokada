@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Általános</string>
     <string name="account_section_header_subscription">Előfizetés</string>
     <string name="account_label_id">Fiókazonosító</string>
-    <string name="account_label_type">Fiók típusa</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Aktív eddig</string>
     <string name="account_action_manage_subscription">Előfizetés kezelése</string>
     <string name="account_action_why_upgrade">Miért kellene bővítenem?</string>

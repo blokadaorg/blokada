@@ -268,7 +268,8 @@
 "account section header general" = "Yleiset";
 "account section header subscription" = "Tilaus";
 "account label id" = "Käyttäjätunnus";
-"account label type" = "Tilin tyyppi";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Aktiivinen kunnes";
 "account action manage subscription" = "Hallitse tilausta";
 "account action why upgrade" = "Miksi minun kannattaa päivittää?";

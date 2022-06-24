@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Algemeen</string>
     <string name="account_section_header_subscription">Abonnement</string>
     <string name="account_label_id">Account ID</string>
-    <string name="account_label_type">Accounttype</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Actief tot</string>
     <string name="account_action_manage_subscription">Abonnement beheren</string>
     <string name="account_action_why_upgrade">Waarom zou ik upgraden?</string>

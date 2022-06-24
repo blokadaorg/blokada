@@ -26,16 +26,16 @@
 "error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 "error payment failed" = "Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 "error payment failed alternative" = "Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Betalningar är inte tillgängliga för den här enheten. Antingen är inte enheten uppdaterad eller så hanterar vi inte inköp i ditt land ännu.";
 "error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
 "error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
 "error location failed fetching" = "Kunde inte hämta platser.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error multiple apps" = "Det finns mer än en Blokada-app på din enhet. Detta kan orsaka anslutningsproblem. Vill du åtgärda det nu?";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Anslutningsproblem";
+"conn isssues slug" = "Problem med anslutningen. Vänligen kontrollera din konfiguration. Tryck för mer information.";
+"conn isssues details" = "- Kontrollera din internetanslutning\n- Använd endast en Blokada-app\n- Inaktivera andra VPN";
 
 "universal action continue" = "Fortsätt";
 "universal action cancel" = "Avbryt";
@@ -126,10 +126,10 @@
 "alert update body" = "Blokada %@ är nu tillgänglig för nedladdning. Vi rekommenderar att du håller appen uppdaterad och endast laddar ner den från våra officiella källor.";
 "update label updated" = "Uppdaterad!";
 "update desc updated" = "Du använder nu den senaste versionen av Blokada! Kom ihåg, att donera eller prenumerera på Blokada Plus låter oss fortsätta förbättra appen.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "Du använder nu den nyaste versionen av Blokada!";
 "update downloading description" = "Uppdateringen laddas nu ner, du bör se installationsprompten inom kort.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada hjälpte mig att blockera %@ annonser och trackers!";
 
 "main rate us header" = "Betygsätt oss!";
 "main rate us description" = "Hur gillar du Blokada hittills?";
@@ -244,7 +244,7 @@
 
 "account section header settings" = "Inställningar";
 "account status text" = "Ditt BLOKADA %@konto är aktivt fram till %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Din BLOKADA-prenumeration är inaktiv.";
 
 "account section header primary" = "Primär";
 "account section header other" = "Annat";
@@ -268,7 +268,8 @@
 "account section header general" = "Allmänt";
 "account section header subscription" = "Prenumeration";
 "account label id" = "Konto ID";
-"account label type" = "Kontotyp";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Aktiv tills";
 "account action manage subscription" = "Hantera prenumeration";
 "account action why upgrade" = "Varför ska jag uppgradera?";
@@ -305,7 +306,7 @@
 "account support action how help" = "Hur kan vi hjälpa dig?";
 "account support action kb" = "Öppen kunskapsbas";
 
-"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+"account upgrade cloud description" = "Denna funktion är en del av Blokada Plus. För att uppgradera, kontakta vår kundtjänst.";
 
 "payment header activated" = "Aktiverad!";
 "payment activated description" = "Blokada kommer nu att växla till Plus-läge och ansluta via en av våra säkra platser. Om du är osäker på vilken du ska välja rekommenderas den som är närmast dig.";
@@ -390,7 +391,7 @@
 "payment plan cta trial" = "Få en vecka kostnadsfritt";
 "payment plan cta monthly" = "Månadsvis prenumeration";
 "payment plan cta annual" = "Årlig prenumereration";
-"payment plan current" = "(current plan)";
+"payment plan current" = "(nuvarande plan)";
 
 "location region worldwide" = "Överallt";
 "location region america" = "Amerika";
@@ -440,8 +441,8 @@
 "dnsprofile header" = "Aktivera Blokada i Inställningar";
 "dnsprofile desc" = "I appen Inställningar, navigera till Allmänt → VPN & enhetshantering → DNS och välj Blokada.";
 "dnsprofile action open settings" = "Öppna Inställningar";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "I appen Inställningar, sök efter sektionen Privat DNS, klistra sedan in ditt värdnamn (tryck och håll kvar).";
+"dnsprofile desc android copy" = "Kopiera ditt Blokada Cloud-värdnamn för att klistra in det i Inställningar.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Nästan där!";

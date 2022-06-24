@@ -268,7 +268,8 @@
 "account section header general" = "Preferințe generale";
 "account section header subscription" = "Abonament";
 "account label id" = "ID Cont";
-"account label type" = "Tipul de cont";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Activ până la";
 "account action manage subscription" = "Gestionare abonament";
 "account action why upgrade" = "De ce ar trebui să trec la BLOKADA+?";

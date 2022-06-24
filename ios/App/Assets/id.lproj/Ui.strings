@@ -268,7 +268,8 @@
 "account section header general" = "Umum";
 "account section header subscription" = "Langganan";
 "account label id" = "ID Akun";
-"account label type" = "Jenis akun";
+"account label type" = "Paket Berlangganan";
+"account plan none" = "Tidak ada paket berlangganan aktif";
 "account label active until" = "Aktif hingga";
 "account action manage subscription" = "Kelola langganan";
 "account action why upgrade" = "Kenapa saya harus berlangganan?";

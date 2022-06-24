@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Ogólne</string>
     <string name="account_section_header_subscription">Subskrypcja</string>
     <string name="account_label_id">ID Konta</string>
-    <string name="account_label_type">Rodzaj konta</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Konto ważne do</string>
     <string name="account_action_manage_subscription">Zarządzaj subskrypcją</string>
     <string name="account_action_why_upgrade">Dlaczego warto przejść na wersję Plus?</string>

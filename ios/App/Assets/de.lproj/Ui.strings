@@ -26,16 +26,16 @@
 "error payment inactive after restore" = "Deine bisherige Zahlung wurde wiederhergestellt, aber dein Abo ist bereits ausgelaufen. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben tippst.";
 "error payment failed" = "Zahlungen sind derzeit nicht möglich. Stelle sicher, dass du online bist und probiere es später erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben drückst.";
 "error payment failed alternative" = "Deine Zahlung konnte nicht abgeschlossen werden. Bitte stelle sicher, dass deine Daten korrekt sind, und versuche es erneut. Wenn das Problem weiterhin besteht, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Zahlungen sind für dieses Gerät nicht verfügbar. Entweder ist dieses Gerät nicht auf dem neuesten Stand, oder wir können in Ihrem Land noch keine Käufe abwickeln.";
 "error payment canceled" = "Der Zahlungsvorgang wurde abgebrochen. Es erfolgte keine Belastung über die gewählte Zahlungsmethode.";
 "error pack install" = "Diese Erweiterung konnte nicht installiert (oder deinstalliert) werden. Bitte versuch es später erneut.";
 "error location failed fetching" = "Standorte konnten nicht abgerufen werden.";
 "error unknown" = "Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error multiple apps" = "Es gibt mehr als eine Blokada-App auf Ihrem Gerät. Dies kann zu Verbindungsproblemen führen. Möchten Sie das Problem jetzt beheben?";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Verbindungsprobleme";
+"conn isssues slug" = "Verbindungsprobleme. Bitte überprüfen Sie Ihre Konfiguration. Tippen Sie für Details.";
+"conn isssues details" = "- Überprüfen Sie Ihre Internetverbindung\n- Verwenden Sie nur eine Blokada-App\n- Deaktivieren Sie andere VPNs";
 
 "universal action continue" = "Fortsetzen";
 "universal action cancel" = "Abbrechen";
@@ -126,10 +126,10 @@
 "alert update body" = "Blokada %@ steht zum Herunterladen bereit. Wir empfehlen, die App auf dem neuesten Stand zu halten und sie nur aus unseren offiziellen Quellen herunterzuladen.";
 "update label updated" = "Aktualisiert!";
 "update desc updated" = "Du verwendest jetzt die neueste Version von Blokada! Denk daran, dass Spenden oder das Abonnieren von Blokada Plus es uns erlauben, die App weiter zu verbessern.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "Sie verwenden jetzt die neueste Version von Blokada!";
 "update downloading description" = "Die Aktualisierung wird jetzt heruntergeladen, und du solltest in Kürze den Installationsdialog sehen.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada hat mir geholfen, %@ Werbung und Tracker zu blockieren!";
 
 "main rate us header" = "Bewerte uns!";
 "main rate us description" = "Wie gefällt dir Blokada bisher?";
@@ -244,7 +244,7 @@
 
 "account section header settings" = "Einstellungen";
 "account status text" = "Dein BLOKADA %@ Konto ist aktiv bis zum %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Ihr BLOKADA Abonnement ist inaktiv.";
 
 "account section header primary" = "Primär";
 "account section header other" = "Andere";
@@ -268,7 +268,8 @@
 "account section header general" = "Allgemein";
 "account section header subscription" = "Abonnement";
 "account label id" = "Kontokennung";
-"account label type" = "Kontotyp";
+"account label type" = "Abonnementplan";
+"account plan none" = "Kein aktives Paket";
 "account label active until" = "Aktiv bis";
 "account action manage subscription" = "Abonnement verwalten";
 "account action why upgrade" = "Warum sollte ich upgraden?";
@@ -390,7 +391,7 @@
 "payment plan cta trial" = "Kostenlose 7-tägige Testversion starten";
 "payment plan cta monthly" = "Monatlich abonnieren";
 "payment plan cta annual" = "Jährlich abonnieren";
-"payment plan current" = "(current plan)";
+"payment plan current" = "(aktueller Plan)";
 
 "location region worldwide" = "Überall";
 "location region america" = "Amerika";
@@ -440,8 +441,8 @@
 "dnsprofile header" = "Aktiviere Blokada in den Einstellungen";
 "dnsprofile desc" = "Navigiere in den Einstellungen zu Allgemein → VPN und Geräteverwaltung → DNS und wähle Blokada aus.";
 "dnsprofile action open settings" = "Einstellungen öffnen";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "Suchen Sie in der App Einstellungen den privaten DNS-Abschnitt, und fügen Sie dann Ihren Hostnamen ein (lange Tippen).";
+"dnsprofile desc android copy" = "Kopieren Sie Ihren Hostnamen der Blokada Cloud, um ihn in die Einstellungen einzufügen.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Fast geschafft!";

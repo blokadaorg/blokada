@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Preferințe generale</string>
     <string name="account_section_header_subscription">Abonament</string>
     <string name="account_label_id">ID Cont</string>
-    <string name="account_label_type">Tipul de cont</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Activ până la</string>
     <string name="account_action_manage_subscription">Gestionare abonament</string>
     <string name="account_action_why_upgrade">De ce ar trebui să trec la BLOKADA+?</string>

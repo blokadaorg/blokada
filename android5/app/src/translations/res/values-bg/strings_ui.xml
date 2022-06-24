@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Основни</string>
     <string name="account_section_header_subscription">Абонамент</string>
     <string name="account_label_id">Профил ID</string>
-    <string name="account_label_type">Тип на профила</string>
+    <string name="account_label_type">Subscription plan</string>
+    <string name="account_plan_none">No active plan</string>
     <string name="account_label_active_until">Активен до</string>
     <string name="account_action_manage_subscription">Управление на абонамента</string>
     <string name="account_action_why_upgrade">Защо трябва да надстроя?</string>

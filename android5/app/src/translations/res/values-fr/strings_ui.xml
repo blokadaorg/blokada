@@ -21,7 +21,7 @@
     <string name="error_pack_install">Impossible d\'installer (ou désinstaller) cette fonctionnalité. Veuillez réessayer plus tard.</string>
     <string name="error_location_failed_fetching">Impossible de récupérer les locations.</string>
     <string name="error_unknown">Une erreur est survenue. Assurez-vous d\'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l\'icône d\'aide en haut de l\'écran.</string>
-    <string name="error_multiple_apps">There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?</string>
+    <string name="error_multiple_apps">Plusieurs applications Blokada sont installées sur votre appareil. Cela peut causer des problèmes de connectivité. Souhaitez-vous corriger ces installations multiples ?</string>
     <string name="conn_isssues_header">Problème de connexion</string>
     <string name="conn_isssues_slug">Problèmes de connesion. Veuillez vérifier votre configuration. Appuyez pour plus de détails.</string>
     <string name="conn_isssues_details">- Vérifiez votre connexion Internet\n- Utilisez une seule application Blokada\n- Désactivez d\'autres VPNs</string>
@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Général</string>
     <string name="account_section_header_subscription">Inscription</string>
     <string name="account_label_id">ID du compte</string>
-    <string name="account_label_type">Type de compte</string>
+    <string name="account_label_type">Abonnement</string>
+    <string name="account_plan_none">Aucun abonnement actif</string>
     <string name="account_label_active_until">Actif jusqu\'au</string>
     <string name="account_action_manage_subscription">Gérer mon abonnement</string>
     <string name="account_action_why_upgrade">Pourquoi devrais-je me mettre à niveau ?</string>

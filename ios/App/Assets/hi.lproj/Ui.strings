@@ -268,7 +268,8 @@
 "account section header general" = "सामान्य";
 "account section header subscription" = "सदस्यता";
 "account label id" = "खाता आईडी";
-"account label type" = "खाता प्रकार";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "... तक एक्टिव";
 "account action manage subscription" = "सदस्यताओं को प्रबंधित करें";
 "account action why upgrade" = "मुझे अपग्रेड क्यों करना चाहिए?";

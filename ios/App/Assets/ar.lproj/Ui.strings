@@ -268,7 +268,8 @@
 "account section header general" = "عام";
 "account section header subscription" = "الإشتراك";
 "account label id" = "مُعَرِّف الحساب";
-"account label type" = "نوع الحساب";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "نَشِط حتّى";
 "account action manage subscription" = "إدارة الإشتراك";
 "account action why upgrade" = "لماذا ينبغي عليّ الترقية؟";

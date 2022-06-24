@@ -210,7 +210,8 @@
     <string name="account_section_header_general">Obecné</string>
     <string name="account_section_header_subscription">Předplatné</string>
     <string name="account_label_id">ID účtu</string>
-    <string name="account_label_type">Typ účtu</string>
+    <string name="account_label_type">Plán předplatného</string>
+    <string name="account_plan_none">Žádný aktivní plán</string>
     <string name="account_label_active_until">Aktivní do</string>
     <string name="account_action_manage_subscription">Spravovat předplatné</string>
     <string name="account_action_why_upgrade">Proč bych měl upgradovat?</string>

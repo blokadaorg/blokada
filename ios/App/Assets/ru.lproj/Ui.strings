@@ -268,7 +268,8 @@
 "account section header general" = "Общее";
 "account section header subscription" = "Подписка";
 "account label id" = "ID аккаунта";
-"account label type" = "Тип аккаунта";
+"account label type" = "Тарифный план";
+"account plan none" = "Нет активного плана";
 "account label active until" = "Активна до";
 "account action manage subscription" = "Управление подпиской";
 "account action why upgrade" = "Зачем мне платная подписка?";

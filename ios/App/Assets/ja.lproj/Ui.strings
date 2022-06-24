@@ -31,7 +31,7 @@
 "error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
 "error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error multiple apps" = "デバイスに Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？";
 
 "conn isssues header" = "接続エラー";
 "conn isssues slug" = "接続に問題があります。設定を確認してください。タップして詳細を表示します。";
@@ -268,7 +268,8 @@
 "account section header general" = "全般";
 "account section header subscription" = "サブスクリプション";
 "account label id" = "アカウント ID";
-"account label type" = "アカウントの種類";
+"account label type" = "サブスクリプション プラン";
+"account plan none" = "有効なプランはありません";
 "account label active until" = "有効期限";
 "account action manage subscription" = "サブスクリプションの管理";
 "account action why upgrade" = "アップグレードする理由は？";

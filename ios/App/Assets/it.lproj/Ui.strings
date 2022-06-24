@@ -268,7 +268,8 @@
 "account section header general" = "Generale";
 "account section header subscription" = "Abbonamento";
 "account label id" = "ID account";
-"account label type" = "Tipo di account";
+"account label type" = "Subscription plan";
+"account plan none" = "No active plan";
 "account label active until" = "Attivo fino al";
 "account action manage subscription" = "Gestisci abbonamento";
 "account action why upgrade" = "Perché dovrei aggiornare?";
