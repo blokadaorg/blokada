@@ -12,9 +12,9 @@
 
 package service
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import model.*
 import repository.Repos
 import retrofit2.Call
@@ -22,13 +22,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+import utils.Logger
+import java.io.IOException
 import java.net.UnknownHostException
 
 
 object BlockaApiService {
 
     private val http = HttpService
-    private val scope = GlobalScope
 
     private val processingRepo by lazy { Repos.processing }
 
@@ -41,92 +42,114 @@ object BlockaApiService {
     private val api = retrofit.create(BlockaRestApi::class.java)
 
     suspend fun getAccount(id: AccountId): Account {
-        return async {
-            api.getAccount(id).execute().resultOrThrow().account
+        return runOnBgAndMapException {
+            api.getAccount(id).responseOrThrow().body()!!.account
         }
     }
 
     suspend fun postNewAccount(): Account {
-        return async {
-            api.postNewAccount().execute().resultOrThrow().account
+        return runOnBgAndMapException {
+            api.postNewAccount().responseOrThrow().body()!!.account
         }
     }
 
     suspend fun getDevice(id: AccountId): DevicePayload {
-        return async {
-            api.getDevice(id).execute().resultOrThrow()
+        return runOnBgAndMapException {
+            api.getDevice(id).responseOrThrow().body()!!
         }
     }
 
     suspend fun putDevice(request: DeviceRequest) {
-        return async {
-            api.putDevice(request).execute()
+        return runOnBgAndMapException {
+            api.putDevice(request).responseOrThrow()
         }
     }
 
     suspend fun getActivity(id: AccountId): List<Activity> {
-        return async {
-            api.getActivity(id).execute().resultOrThrow().activity
+        return runOnBgAndMapException {
+            api.getActivity(id).responseOrThrow().body()!!.activity
         }
     }
 
     suspend fun getCustomList(id: AccountId): List<CustomListEntry> {
-        return async {
-            api.getCustomList(id).execute().resultOrThrow().customlist
+        return runOnBgAndMapException {
+            api.getCustomList(id).responseOrThrow().body()!!.customlist
         }
     }
 
     suspend fun postCustomList(request: CustomListRequest) {
-        return async {
-            api.postCustomList(request).execute()
+        return runOnBgAndMapException {
+            api.postCustomList(request).responseOrThrow()
         }
     }
 
     suspend fun deleteCustomList(request: CustomListRequest) {
-        return async {
-            api.deleteCustomList(request).execute()
+        return runOnBgAndMapException {
+            api.deleteCustomList(request).responseOrThrow()
         }
     }
 
     suspend fun getStats(id: AccountId): CounterStats {
-        return async {
-            api.getStats(id).execute().resultOrThrow()
+        return runOnBgAndMapException {
+            api.getStats(id).responseOrThrow().body()!!
         }
     }
 
     suspend fun getBlocklists(id: AccountId): List<Blocklist> {
-        return async {
-            api.getBlocklists(id).execute().resultOrThrow().lists
+        return runOnBgAndMapException {
+            api.getBlocklists(id).responseOrThrow().body()!!.lists
         }
     }
 
     suspend fun getGateways(): List<Gateway> {
-        return async {
-            api.getGateways().execute().resultOrThrow().gateways
+        return runOnBgAndMapException {
+            api.getGateways().responseOrThrow().body()!!.gateways
         }
     }
 
     suspend fun getLeases(id: AccountId): List<Lease> {
-        return async {
-            api.getLeases(id).execute().resultOrThrow().leases
+        return runOnBgAndMapException {
+            api.getLeases(id).responseOrThrow().body()!!.leases
         }
     }
 
     suspend fun postLease(request: LeaseRequest): Lease {
-        return async {
-            api.postLease(request).execute().resultOrThrow().lease
+        return runOnBgAndMapException {
+            api.postLease(request).responseOrThrow().body()!!.lease
         }
     }
 
     suspend fun deleteLease(request: LeaseRequest) {
-        return async {
-            api.deleteLease(request).execute()
+        return runOnBgAndMapException {
+            api.deleteLease(request).responseOrThrow()
         }
     }
 
     suspend fun postGplayCheckout(request: GoogleCheckoutRequest): Account {
-        return async {
-            api.postGplayCheckout(request).execute().resultOrThrow().account
+        return runOnBgAndMapException {
+            api.postGplayCheckout(request).responseOrThrow().body()!!.account
+        }
+    }
+
+    // Will retry failed requests 3 times (with 3s delay in between)
+    private suspend fun <T> Call<T>.responseOrThrow(attempt: Int = 1): Response<T> {
+        try {
+            if (attempt > 1) Logger.w("Api", "Retrying request (attempt: $attempt): ${this.request().url()}")
+            val r = this.clone().execute()
+            return if (r.isSuccessful) r else when {
+                r.code() == 403 -> throw TooManyDevices()
+                r.code() in 500..599 && attempt < 3 -> {
+                    // Retry on API server error
+                    delay(3000)
+                    this.responseOrThrow(attempt = attempt + 1)
+                }
+                else -> throw BlokadaException("Api response: ${r.code()}: ${r.errorBody()}")
+            }
+        } catch (ex: IOException) {
+            // Network connectivity problem, also retry
+            delay(3000)
+            if (attempt < 3) return this.responseOrThrow(attempt = attempt + 1)
+            else throw ex
         }
     }
 
@@ -137,19 +160,15 @@ object BlockaApiService {
         } else return body()!!
     }
 
-    private suspend fun <T> async(block: () -> T): T {
-        return scope.async {
-            mapException(block)
-        }.await()
-    }
-
-    private fun <T> mapException(block: () -> T): T {
+    private suspend fun <T> runOnBgAndMapException(block: suspend () -> T): T {
         try {
-            val result = block()
-            GlobalScope.launch { processingRepo.reportConnIssues("api", false) }
+            val result = withContext(Dispatchers.IO) {
+                block()
+            }
+            processingRepo.reportConnIssues("api", false)
             return result
         } catch (ex: UnknownHostException) {
-            GlobalScope.launch { processingRepo.reportConnIssues("api", true) }
+            processingRepo.reportConnIssues("api", true)
             throw BlokadaException("Connection problems", ex)
         } catch (ex: BlokadaException) {
             throw ex

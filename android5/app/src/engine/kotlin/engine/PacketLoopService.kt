@@ -59,11 +59,11 @@ object PacketLoopService {
         loop?.let {
             val (config, thread) = it
             if (thread == null) {
-                log.w("Connectivity back, recreating packet loop")
+                log.w("Connectivity changed, recreating packet loop")
                 loop = createLoop(config)
                 startSupportingServices(config)
             } else {
-                log.w("Connectivity back, loop was running, restarting it")
+                log.w("Connectivity changed, loop was running, restarting it")
                 stopUnexpectedly()
             }
         }
