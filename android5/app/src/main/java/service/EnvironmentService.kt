@@ -55,8 +55,8 @@ object EnvironmentService {
         return BuildConfig.BUILD_TYPE == "release"
     }
 
-    fun isSlim(): Boolean {
-        return BuildConfig.FLAVOR == "google" && !escaped
+    fun isSlim(ignoreEscape: Boolean = false): Boolean {
+        return BuildConfig.FLAVOR == "google" && (!escaped || ignoreEscape)
     }
 
     fun isLibre(): Boolean {
