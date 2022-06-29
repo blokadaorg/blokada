@@ -129,7 +129,6 @@ android {
         google.java.srcDirs += 'src/libre/kotlin'
         google.assets.srcDirs += 'src/libre/assets'
         google.jniLibs.srcDirs += 'src/libre/jniLibs'
-        google.manifest.srcFile 'src/libre/AndroidManifest.xml'
         google.res.srcDirs += 'src/libre/res'
 
         full.res.srcDirs += 'src/notgoogle/res'
