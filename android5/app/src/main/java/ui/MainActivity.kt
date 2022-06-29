@@ -401,14 +401,14 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
      * Will show the migration prompt to open our new listing. This will only happen in Slim build,
      * which is being phased out, as it's been cut down by Google severely. The dialog will show:
      * - only once per app lifetime (eg need to kill to show again)
-     * - after 3 seconds from foreground event
+     * - after 5 seconds from foreground event
      * - only if Slim was escaped
      */
     private var informed = false
     private fun maybeInformAboutMigration() {
         if (!informed && EnvironmentService.isSlim(ignoreEscape = true)) {
             lifecycleScope.launch {
-                delay(3000)
+                delay(5000)
                 val stage = Repos.stage.stageHot.first()
                 if (stage == AppStage.Foreground && EnvironmentService.escaped) {
                     Logger.w("Main", "Displaying Slim migration prompt")
