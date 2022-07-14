@@ -11,12 +11,15 @@
 //
 
 import UIKit
+import Flutter
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private var token: AppleTokenService?
     private var quick: QuickActionsService?
+
+    lazy var flutterEngine = FlutterEngine(name: "common")
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -38,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** ******************* ***")
         log.v(Services.env.userAgent())
         log.v("Time now: \(Date().description(with: .current))")
+
+        flutterEngine.run()
 
         if Services.env.isRunningTests {
             resetReposForDebug()

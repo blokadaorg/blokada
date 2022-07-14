@@ -48,6 +48,8 @@
 		4E11D2E127206C790042385B /* ActivitysNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */; };
 		4E11D2E627206D810042385B /* NoLogRetentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2E527206D810042385B /* NoLogRetentionView.swift */; };
 		4E11D2E727206D810042385B /* NoLogRetentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2E527206D810042385B /* NoLogRetentionView.swift */; };
+		4E1264422880061A008D26B2 /* FlutterStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterStatsView.swift */; };
+		4E1264432880061A008D26B2 /* FlutterStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterStatsView.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E16FE762465621C00AA9853 /* hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2EED216241B8D6500407601 /* hosts.txt */; };
@@ -493,6 +495,7 @@
 		4E11D2DC271F14C90042385B /* ActivityConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityConverter.swift; sourceTree = "<group>"; };
 		4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysNarrowView.swift; sourceTree = "<group>"; };
 		4E11D2E527206D810042385B /* NoLogRetentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLogRetentionView.swift; sourceTree = "<group>"; };
+		4E1264412880061A008D26B2 /* FlutterStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterStatsView.swift; sourceTree = "<group>"; };
 		4E1681A8247860490040334B /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
@@ -1169,6 +1172,7 @@
 				4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */,
 				4ED41CC62478458100155C88 /* SearchBar.swift */,
 				4E11D2DC271F14C90042385B /* ActivityConverter.swift */,
+				4E1264412880061A008D26B2 /* FlutterStatsView.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1501,6 +1505,7 @@
 				4E2ECD0E245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E0FB7112770960C00735E0D /* PackRepo.swift in Sources */,
 				4EB63F3C24364D5D009CBAC1 /* StreamReader.swift in Sources */,
+				4E1264422880061A008D26B2 /* FlutterStatsView.swift in Sources */,
 				4E2ECCF6245AF870009040F1 /* LoadingButtonView.swift in Sources */,
 				4E2F2A0C2760A936005A59F5 /* CloudModel.swift in Sources */,
 				4E57FCDD24A0D24500960ADF /* InboxModel.swift in Sources */,
@@ -1700,6 +1705,7 @@
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
+				4E1264432880061A008D26B2 /* FlutterStatsView.swift in Sources */,
 				4E2F2A04275F7B64005A59F5 /* BlockaApiServiceMock.swift in Sources */,
 				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4EE25DC6278C4CEE00F2F79B /* HttpRepo.swift in Sources */,

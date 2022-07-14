@@ -29,7 +29,7 @@ struct MainView: View {
                                 RippleView(multiplier: 1.2)
 
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                ActivitysNarrowView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                FlutterStatsView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksNarrowView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsNarrowView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
@@ -39,7 +39,7 @@ struct MainView: View {
                                 RippleView(multiplier: 2.0)
 
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                FlutterStatsView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsWideVerticalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
@@ -59,7 +59,7 @@ struct MainView: View {
 
                             ZStack {
                                 HomeView(tabBar: true).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                FlutterStatsView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsWideVerticalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
@@ -81,7 +81,7 @@ struct MainView: View {
                                     RippleView(multiplier: 1.5)
 
                                     HomeView(tabBar: false).opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                    ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                    FlutterStatsView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                     PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                     SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                                 }
