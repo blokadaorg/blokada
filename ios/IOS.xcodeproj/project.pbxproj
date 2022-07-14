@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -127,6 +127,14 @@
 		4E356A8A2437711A0094EE27 /* LinkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A892437711A0094EE27 /* LinkDataSource.swift */; };
 		4E356A8C24378CA80094EE27 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8B24378CA80094EE27 /* Strings.swift */; };
 		4E356A8E243B230D0094EE27 /* StoreKitWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */; };
+		4E363E682880027F00406368 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; };
+		4E363E692880027F00406368 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; };
+		4E363E6B288002AD00406368 /* App.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E363E6C288002AD00406368 /* Flutter.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E363E6D2880032700406368 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; };
+		4E363E6E2880032700406368 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; };
+		4E363E702880033800406368 /* App.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E363E712880033800406368 /* Flutter.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E36D5ED24589AFF00E339F2 /* BlokadaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */; };
 		4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */; };
 		4E36D5F22459D8BD00E339F2 /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5F12459D8BD00E339F2 /* PowerView.swift */; };
@@ -423,6 +431,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4E363E6A2880029F00406368 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4E363E6B288002AD00406368 /* App.xcframework in CopyFiles */,
+				4E363E6C288002AD00406368 /* Flutter.xcframework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E363E6F2880032C00406368 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4E363E702880033800406368 /* App.xcframework in CopyFiles */,
+				4E363E712880033800406368 /* Flutter.xcframework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ED3445223E1B0580075B796 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +542,8 @@
 		4E356A892437711A0094EE27 /* LinkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDataSource.swift; sourceTree = "<group>"; };
 		4E356A8B24378CA80094EE27 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitWrapper.swift; sourceTree = "<group>"; };
+		4E363E662880027F00406368 /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/Flutter.xcframework"; sourceTree = "<group>"; };
+		4E363E672880027F00406368 /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/App.xcframework"; sourceTree = "<group>"; };
 		4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaView.swift; sourceTree = "<group>"; };
 		4E36D5F12459D8BD00E339F2 /* PowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerView.swift; sourceTree = "<group>"; };
 		4E40DBCB2416496700662E10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -707,6 +739,8 @@
 			files = (
 				4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */,
 				B2F720922418F4E20002B88E /* libengine.a in Frameworks */,
+				4E363E682880027F00406368 /* Flutter.xcframework in Frameworks */,
+				4E363E692880027F00406368 /* App.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +755,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E363E6D2880032700406368 /* App.xcframework in Frameworks */,
+				4E363E6E2880032700406368 /* Flutter.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1095,6 +1131,8 @@
 		4ED3443D23E190910075B796 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E363E672880027F00406368 /* App.xcframework */,
+				4E363E662880027F00406368 /* Flutter.xcframework */,
 				B2240DD92417FA8900F13E97 /* libengine.a */,
 				4ED3445323E1B0A60075B796 /* NetworkExtension.framework */,
 				4ED3443E23E190910075B796 /* libresolv.tbd */,
@@ -1170,6 +1208,7 @@
 				47729DFF22F447C800B9B36B /* Frameworks */,
 				47729E0022F447C800B9B36B /* Resources */,
 				4ED3445223E1B0580075B796 /* Embed App Extensions */,
+				4E363E6A2880029F00406368 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1207,6 +1246,7 @@
 				4E7FE994244DC28900851E9F /* Sources */,
 				4E7FE9CD244DC28900851E9F /* Frameworks */,
 				4E7FE9D0244DC28900851E9F /* Resources */,
+				4E363E6F2880032C00406368 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2021,7 +2061,7 @@
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../common/build/xcode-frameworks",
+					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
@@ -2061,7 +2101,7 @@
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../common/build/xcode-frameworks",
+					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
@@ -2147,7 +2187,7 @@
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../common/build/xcode-frameworks",
+					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
@@ -2185,7 +2225,7 @@
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../common/build/xcode-frameworks",
+					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
