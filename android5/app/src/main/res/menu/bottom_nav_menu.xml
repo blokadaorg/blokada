@@ -19,7 +19,7 @@
         android:title="@string/main_tab_home" />
 
     <item
-        android:id="@+id/navigation_activity"
+        android:id="@+id/navigation_flutterstats"
         android:icon="@drawable/ic_baseline_bar_chart_24"
         android:title="@string/main_tab_activity" />
 

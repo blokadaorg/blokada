@@ -54,6 +54,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_flutterstats"
+        android:name="ui.stats.FlutterStatsFragment">
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_packs"
         android:name="ui.advanced.packs.PacksFragment"
         tools:layout="@layout/fragment_packs">

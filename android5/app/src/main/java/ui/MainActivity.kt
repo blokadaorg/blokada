@@ -75,6 +75,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     private val sheet = Services.sheet
     private val dialog by lazy { DialogService }
+    private val flutter by lazy { FlutterService }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,7 +127,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_activity,
+                R.id.navigation_flutterstats,
                 R.id.advancedFragment,
                 R.id.navigation_settings
             )
@@ -154,7 +155,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // Needed for dynamic translation of the bottom bar
         val selectionListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
             val (nav, title) = when (item.itemId) {
-                R.id.navigation_activity -> R.id.navigation_activity to getString(R.string.main_tab_activity)
+                R.id.navigation_flutterstats -> R.id.navigation_flutterstats to getString(R.string.main_tab_activity)
                 R.id.advancedFragment -> R.id.advancedFragment to getString(R.string.main_tab_advanced)
                 R.id.navigation_settings -> R.id.navigation_settings to getString(R.string.main_tab_settings)
                 else -> R.id.navigation_home to getString(R.string.main_tab_home)
@@ -165,7 +166,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             // Also emit tab change in NavRepo
             lifecycleScope.launch {
                 val tab = when(item.itemId) {
-                    R.id.navigation_activity -> Tab.Activity
+                    R.id.navigation_flutterstats -> Tab.Activity
                     R.id.advancedFragment -> Tab.Advanced
                     R.id.navigation_settings -> Tab.Settings
                     else -> Tab.Home
@@ -182,7 +183,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             Logger.v("Navigation", destination.toString())
 
             val translationId = when (destination.id) {
-                R.id.navigation_activity -> R.string.main_tab_activity
+                R.id.navigation_flutterstats -> R.string.main_tab_activity
                 R.id.activityDetailFragment -> R.string.main_tab_activity
                 R.id.navigation_packs -> getString(R.string.advanced_section_header_packs)
                 R.id.packDetailFragment -> R.string.advanced_section_header_packs
@@ -204,6 +205,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 else it.toString()
             } ?: run { toolbar.title }
         }
+
+        flutter.setup()
 
         intent?.let {
             handleIntent(it)
