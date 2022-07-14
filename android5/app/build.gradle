@@ -217,6 +217,9 @@ dependencies {
     // Biometric api to protect account id
     implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
 
+    // Include our Flutter "common" module that is shared for both android and ios
+    implementation project(':flutter')
+
     // test deps
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

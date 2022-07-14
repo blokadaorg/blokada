@@ -12,3 +12,9 @@
 
 rootProject.name = "Blokada"
 include ':app'
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+  settingsDir.parentFile,
+  'common/.android/include_flutter.groovy'
+)) 
