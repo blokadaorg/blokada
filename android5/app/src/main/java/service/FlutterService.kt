@@ -15,10 +15,21 @@ package service
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
+import io.flutter.plugin.common.MethodChannel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import repository.Repos
+import utils.Logger
 
 object FlutterService {
 
-    val ctx by lazy { ContextService }
+    private val ctx by lazy { ContextService }
+
+    private val accountIdHot = Repos.account.accountIdHot
+
+    private lateinit var sendAccountId: MethodChannel
 
     fun setup() {
         val engine = FlutterEngine(ctx.requireAppContext())
@@ -26,6 +37,22 @@ object FlutterService {
             DartExecutor.DartEntrypoint.createDefault()
         )
         FlutterEngineCache.getInstance().put("common", engine);
+
+        sendAccountId = MethodChannel(engine.dartExecutor.binaryMessenger, "account:id")
+        onAccountIdChanged_SendToFlutter()
+        Logger.v("Flutter", "FlutterEngine initialized")
+    }
+
+    private fun sendAccountId(id: String) {
+        sendAccountId.invokeMethod("account:id", id);
+    }
+
+    private fun onAccountIdChanged_SendToFlutter() {
+        GlobalScope.launch(Dispatchers.Main) {
+            accountIdHot.collect {
+                sendAccountId(it)
+            }
+        }
     }
 
 }
