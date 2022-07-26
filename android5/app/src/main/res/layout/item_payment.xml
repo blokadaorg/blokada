@@ -51,4 +51,16 @@
         android:text="($5.17 per month. Save 20%)"
         android:textColor="?android:attr/textColorTertiaryInverse" />
 
+    <TextView
+        android:id="@+id/payment_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:paddingTop="@dimen/half"
+        android:paddingStart="@dimen/doubled"
+        android:paddingEnd="@dimen/doubled"
+        android:gravity="center"
+        android:text="Pay after 7 days. Subscription auto-renews every year until canceled."
+        android:textColor="?android:attr/textColorPrimary" />
+
 </LinearLayout>

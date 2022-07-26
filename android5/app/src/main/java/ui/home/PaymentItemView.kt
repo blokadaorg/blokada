@@ -109,6 +109,19 @@ class PaymentItemView : FrameLayout {
                 info.visibility = View.GONE
             }
         }
+
+        // Additional info for this payment option, if any
+        val detail = findViewById<TextView>(R.id.payment_item_detail)
+        when {
+            product.trial && !product.owned -> {
+                detail.visibility = View.VISIBLE
+                // TODO: less hardcoded payment info
+                detail.text = "Pay after 7 days. Subscription auto-renews every year until canceled."
+            }
+            else -> {
+                detail.visibility = View.GONE
+            }
+        }
     }
 
     private fun makeInfoText(p: Product): String {
