@@ -157,6 +157,7 @@ android {
 
         six.java.srcDirs += 'src/notgoogle/kotlin'
         six.java.srcDirs += 'src/notlibre/kotlin'
+        six.manifest.srcFile 'src/notlibre/AndroidManifest.xml'
         six.res.srcDirs += 'src/six/res'
         six.res.srcDirs += 'src/notlibre/res'
 

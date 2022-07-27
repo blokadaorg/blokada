@@ -41,10 +41,18 @@ class AppUninstallService {
         val toUninstall = packageNames - thisApp
         val existing = toUninstall.filter { isPackageInstalled(it) }
 
-        if (existing.isNotEmpty()) {
+        if (hasOtherAppsInstalled()) {
             Logger.w("AppUninstall", "Detected other Blokada, prompting to uninstall")
             showUninstallDialog(existing)
         }
+    }
+
+    fun hasOtherAppsInstalled(): Boolean {
+        val thisApp = ctx.requireAppContext().packageName
+        val toUninstall = packageNames - thisApp
+        val existing = toUninstall.filter { isPackageInstalled(it) }
+
+        return existing.isNotEmpty()
     }
 
     private fun showUninstallDialog(apps: List<String>) {

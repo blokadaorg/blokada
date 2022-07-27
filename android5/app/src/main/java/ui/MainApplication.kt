@@ -156,6 +156,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 
         GlobalScope.launch { onAppStateChanged_updateMonitorService() }
         GlobalScope.launch { onAppStateActive_maybeUninstallOtherApps() }
+        checkOtherAppsInstalled()
     }
 
     private suspend fun onAppStateChanged_updateMonitorService() {
@@ -168,6 +169,12 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         appRepo.appStateHot.filter { it == AppState.Activated }
         .collect {
             appUninstall.maybePromptToUninstall()
+        }
+    }
+
+    private fun checkOtherAppsInstalled() {
+        if (appUninstall.hasOtherAppsInstalled()) {
+            Logger.w("Main", "Other Blokada versions detected on device")
         }
     }
 
