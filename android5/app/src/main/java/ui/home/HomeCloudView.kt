@@ -106,6 +106,9 @@ class HomeCloudView : FrameLayout, IHomeContentView {
 
         var plusButtonReady = false
 
+        val status: TextView = root.findViewById(R.id.home_status)
+        status.text = context.getString(R.string.home_status_deactivated).toUpperCase()
+
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
         val updateLongStatus = { appState: AppState, inProgress: Boolean, plusEnabled: Boolean, counter: Long? ->
             longStatus.text = when {

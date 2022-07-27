@@ -15,26 +15,25 @@ package ui.home
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.*
-import androidx.core.content.ContextCompat
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.*
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.delay
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.launch
 import model.BlokadaException
 import model.NoPermissions
 import model.TunnelStatus
 import org.blokada.R
-import service.AlertDialogService
 import service.ContextService
 import service.EnvironmentService
-import service.UpdateService
-import ui.*
+import ui.AccountViewModel
+import ui.AdsCounterViewModel
+import ui.MainApplication
+import ui.TunnelViewModel
 import ui.utils.getColorFromAttr
-import utils.Links
-import utils.toBlokadaPlusText
 import utils.withBoldSections
 
 interface IHomeContentView {
@@ -95,6 +94,9 @@ class HomeLibreView : FrameLayout, IHomeContentView {
         powerButton = root.findViewById(R.id.home_powerview)
 
         var plusButtonReady = false
+
+        val status: TextView = root.findViewById(R.id.home_status)
+        status.text = context.getString(R.string.home_status_deactivated).toUpperCase()
 
         val longStatus: TextView = root.findViewById(R.id.home_longstatus)
         val updateLongStatus = { s: TunnelStatus, counter: Long? ->
