@@ -166,6 +166,7 @@ object BlockaApiService {
                 block()
             }
             processingRepo.reportConnIssues("api", false)
+            processingRepo.reportConnIssues("timeout", false)
             return result
         } catch (ex: UnknownHostException) {
             processingRepo.reportConnIssues("api", true)
