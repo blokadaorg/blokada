@@ -42,6 +42,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AppStage
+import model.PrivateDnsConfigured
 import model.Tab
 import org.blokada.R
 import repository.Repos
@@ -382,6 +383,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         accountVM.maybeRefreshAccount()
         maybeInformAboutMigration()
+        maybeInformAboutBadDnsProfileConfig()
     }
 
     override fun onPause() {
@@ -423,6 +425,31 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     )
                     .collect {  }
                 }
+            }
+        }
+    }
+
+    /**
+     * Will show a dialog prompt that the private DNS system setting is incorrect.
+     * This is important because it will cause lack of connectivity without a clear
+     * information on what is wrong. This only applies to Libre as in Cloud its handled
+     * by the onboarding flow.
+      */
+    private fun maybeInformAboutBadDnsProfileConfig() {
+        lifecycleScope.launch {
+            delay(2000)
+            val dns = Repos.cloud.dnsProfileConfiguredHot.first()
+            if (dns != PrivateDnsConfigured.NONE && EnvironmentService.isLibre()) {
+                Logger.w("Main", "Displaying bad private DNS prompt")
+                dialog.showAlert(
+                    message = "Your Private DNS setting is set. This may cause connectivity issues. Please turn it off in Settings.",
+                    header = getString(R.string.alert_error_header),
+                    okText = getString(R.string.dnsprofile_action_open_settings),
+                    okAction = {
+                        SystemNavService.openNetworkSettings()
+                    }
+                )
+                .collect {  }
             }
         }
     }

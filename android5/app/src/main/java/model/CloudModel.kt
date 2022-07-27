@@ -17,3 +17,6 @@ typealias CloudDeviceTag = String
 typealias CloudBlocklists = List<String>
 typealias CloudActivityRetention = String
 
+enum class PrivateDnsConfigured {
+    CORRECT, INCORRECT, NONE;
+}

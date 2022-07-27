@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import model.CloudActivityRetention
 import model.CloudBlocklists
 import model.DevicePayload
-import model.Granted
+import model.PrivateDnsConfigured
 import service.ConnectivityService
 import service.EnvironmentService
 import service.Services
@@ -38,7 +38,7 @@ open class CloudRepo {
     private val activeTabHot by lazy { Repos.nav.activeTabHot }
 
     private val writeDeviceInfo = MutableSharedFlow<DevicePayload?>(replay = 1)
-    private val writeDnsProfileActivated = MutableStateFlow<Granted?>(null)
+    private val writeDnsProfileActivated = MutableStateFlow<PrivateDnsConfigured?>(null)
     private val writePrivateDnsSetting = MutableStateFlow<String?>(null)
 
     val deviceInfoHot = writeDeviceInfo.filterNotNull()
@@ -54,7 +54,8 @@ open class CloudRepo {
         "$deviceName-$tag.cloud.blokada.org"
     }
 
-    val dnsProfileActivatedHot = writeDnsProfileActivated.filterNotNull().distinctUntilChanged()
+    val dnsProfileConfiguredHot = writeDnsProfileActivated.filterNotNull().distinctUntilChanged()
+    val dnsProfileActivatedHot = dnsProfileConfiguredHot.map { it == PrivateDnsConfigured.CORRECT }
 
     val deviceTagHot = deviceInfoHot.map { it.device_tag }.distinctUntilChanged()
     val blocklistsHot = deviceInfoHot.map { it.lists }.distinctUntilChanged()
@@ -146,8 +147,12 @@ open class CloudRepo {
     private fun onPrivateDnsProfileChanged_update() {
         GlobalScope.launch {
             expectedDnsStringHot
-            .combine(writePrivateDnsSetting) { setting, expected -> setting == expected }
-            .collect { writeDnsProfileActivated.value = it }
+            .combine(writePrivateDnsSetting) { setting, expected -> setting to expected }
+            .collect { writeDnsProfileActivated.value = when {
+                it.first == it.second -> PrivateDnsConfigured.CORRECT
+                it.second == null -> PrivateDnsConfigured.NONE
+                else -> PrivateDnsConfigured.INCORRECT
+            } }
         }
     }
 
