@@ -12,6 +12,7 @@
 
 package utils
 
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,11 +20,7 @@ val blockaDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
 val blockaDateFormatShort = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 val blockaDateFormatNoNanos = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
-val userDateFormatSimple = "d MMMM yyyy"
-val userDateFormatFull = "yyyyMMd jms"
-val userDateFormatChat = "E., MMd, jms"
-
-private val simpleFormat = SimpleDateFormat(userDateFormatSimple).apply {
+private val simpleFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.US).apply {
     timeZone = TimeZone.getTimeZone("GMT")
 }
 private val blockaFormat = SimpleDateFormat(blockaDateFormat).apply {
