@@ -21,7 +21,7 @@
     <string name="error_pack_install">Impossibile installare (o disinstallare) questa funzione. Riprova più tardi.</string>
     <string name="error_location_failed_fetching">Impossibile ottenere la posizione.</string>
     <string name="error_unknown">Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l\'icona di aiuto in alto.</string>
-    <string name="error_multiple_apps">C\'è più di un\'app Blokada sul tuo dispositivo. Ciò potrebbe causare problemi di connettività. Vuoi risolverlo ora?</string>
+    <string name="error_multiple_apps">C\'è più di un\'app Blokada sul tuo dispositivo. Ciò potrebbe causare problemi di connettività. Vuoi risolverli ora?</string>
     <string name="conn_isssues_header">Problemi di connessione</string>
     <string name="conn_isssues_slug">Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.</string>
     <string name="conn_isssues_details">- Controlla la tua connessione Internet\n- Usa solo un\'app Blokada\n- Disattiva altre VPN</string>
@@ -107,7 +107,7 @@
     <string name="home_ads_counter_footnote">pubblicità e tracker bloccati fin dall\'installazione</string>
     <string name="home_power_off_menu_header">Cosa vorresti fare?</string>
     <string name="home_power_action_turn_on">Attiva</string>
-    <string name="home_power_action_turn_off">Disabilita</string>
+    <string name="home_power_action_turn_off">Disattiva</string>
     <string name="home_power_action_pause">Pausa per 5 min</string>
     <string name="home_status_paused">In pausa</string>
     <string name="home_status_active">Attiva</string>
@@ -210,8 +210,8 @@
     <string name="account_section_header_general">Generale</string>
     <string name="account_section_header_subscription">Abbonamento</string>
     <string name="account_label_id">ID account</string>
-    <string name="account_label_type">Subscription plan</string>
-    <string name="account_plan_none">No active plan</string>
+    <string name="account_label_type">Piano di abbonamento</string>
+    <string name="account_plan_none">Nessun piano attivo</string>
     <string name="account_label_active_until">Attivo fino al</string>
     <string name="account_action_manage_subscription">Gestisci abbonamento</string>
     <string name="account_action_why_upgrade">Perché dovrei aggiornare?</string>

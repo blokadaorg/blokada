@@ -26,16 +26,16 @@
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed" = "Fazer pagamentos não está disponível neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed alternative" = "Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Pagamentos não estão disponíveis para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não lidamos com as compras no seu país.";
 "error payment canceled" = "O pagamento foi cancelado. Você não foi cobrado.";
 "error pack install" = "Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.";
 "error location failed fetching" = "Não foi possível buscar as localizações.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error unknown" = "Ocorreu um problema. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error multiple apps" = "Há mais de um aplicativo do Blokada no seu dispositivo. Isso pode causar problemas de conectividade. Você deseja corrigir isso agora?";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Problemas de conexão";
+"conn isssues slug" = "Problemas de conexão. Verifique sua configuração. Toque para mais detalhes.";
+"conn isssues details" = "- Verifique sua conexão com a Internet\n- Use apenas um aplicativo do Blokada\n- Desativar outras VPNs";
 
 "universal action continue" = "Continuar";
 "universal action cancel" = "Cancelar";
@@ -126,10 +126,10 @@
 "alert update body" = "Blokada %@ já está disponível para baixar. Recomendamos manter o aplicativo atualizado, e baixá-lo apenas de nossas fontes oficiais.";
 "update label updated" = "Atualizado!";
 "update desc updated" = "Agora você está usando a versão mais recente do Blokada! Lembre-se, doar ou assinar o Blokada Plus nos permite continuar melhorando o aplicativo.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "Agora você está usando a versão mais recente do Blokada!";
 "update downloading description" = "A atualização está sendo baixada, e você verá a solicitação de instalação em breve.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "O Blokada me ajudou a bloquear %@ anúncios e rastreadores!";
 
 "main rate us header" = "Faça uma avaliação!";
 "main rate us description" = "O que você achou do Blokada até agora?";
@@ -244,7 +244,7 @@
 
 "account section header settings" = "Configurações";
 "account status text" = "Sua conta BLOKADA %@ está ativa até %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Sua assinatura BLOKADA está inativa.";
 
 "account section header primary" = "Principal";
 "account section header other" = "Outros";
@@ -268,8 +268,8 @@
 "account section header general" = "Geral";
 "account section header subscription" = "Assinatura";
 "account label id" = "ID da conta";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Plano de assinatura";
+"account plan none" = "Nenhum plano ativo";
 "account label active until" = "Ativo até";
 "account action manage subscription" = "Gerenciar assinatura";
 "account action why upgrade" = "Por que devo fazer o upgrade?";
@@ -306,7 +306,7 @@
 "account support action how help" = "Como podemos te ajudar?";
 "account support action kb" = "Base de Conhecimento Aberta";
 
-"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+"account upgrade cloud description" = "Este recurso é parte do Blokada Plus. Para atualizar, entre em contato com nosso Atendimento ao Cliente.";
 
 "payment header activated" = "Ativado!";
 "payment activated description" = "O Blokada agora mudará para o modo Plus, e se conectará através de uma de nossas localizações seguras. Se você não tiver certeza de qual escolher, a mais próxima de você é a recomendada.";
@@ -391,7 +391,7 @@
 "payment plan cta trial" = "Iniciar o Teste de 7 Dias Grátis";
 "payment plan cta monthly" = "Assinar Mensalmente";
 "payment plan cta annual" = "Assinar Anualmente";
-"payment plan current" = "(current plan)";
+"payment plan current" = "(plano atual)";
 
 "location region worldwide" = "Todos os lugares";
 "location region america" = "América";
@@ -441,8 +441,8 @@
 "dnsprofile header" = "Ative o Blokada nas Configurações";
 "dnsprofile desc" = "Em Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.";
 "dnsprofile action open settings" = "Abrir Configurações";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "No aplicativo de configurações, encontre a seção de DNS privado e cole o seu hostname (toque longo).";
+"dnsprofile desc android copy" = "Copie seu nome de host do Blokada Cloud para colá-lo nas Configurações.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Quase lá!";

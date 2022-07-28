@@ -268,8 +268,8 @@
 "account section header general" = "Ogólne";
 "account section header subscription" = "Subskrypcja";
 "account label id" = "ID Konta";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Plan subskrypcji";
+"account plan none" = "Brak aktywnego planu";
 "account label active until" = "Konto ważne do";
 "account action manage subscription" = "Zarządzaj subskrypcją";
 "account action why upgrade" = "Dlaczego warto przejść na wersję Plus?";

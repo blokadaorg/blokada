@@ -210,8 +210,8 @@
     <string name="account_section_header_general">عام</string>
     <string name="account_section_header_subscription">الإشتراك</string>
     <string name="account_label_id">مُعَرِّف الحساب</string>
-    <string name="account_label_type">Subscription plan</string>
-    <string name="account_plan_none">No active plan</string>
+    <string name="account_label_type">خطّة الاشتراك</string>
+    <string name="account_plan_none">لا يوجد اشتراك نَشِط</string>
     <string name="account_label_active_until">نَشِط حتّى</string>
     <string name="account_action_manage_subscription">إدارة الإشتراك</string>
     <string name="account_action_why_upgrade">لماذا ينبغي عليّ الترقية؟</string>
