@@ -79,30 +79,30 @@ android {
     flavorDimensions("model")
 
     productFlavors {
-        full {
-            // full lands on blokada.org, and on Huawei App Gallery
+        five {
+            // Blokada 5 lands on blokada.org, and secondary app stores (Samsung, Huawei)
             applicationId "org.blokada.origin.alarm"
-        }
-
-        google {
-            // google build lands on Google Play, missing some features.
-            applicationId "org.blokada.alarm.dnschanger"
-        }
-
-        escaped {
-            // escaped build can be installed on top of google build to get all features.
-            applicationId "org.blokada.alarm.dnschanger"
-        }
-
-        droid {
-            // droid lands on F-Droid.
-            applicationId "org.blokada.fem.fdroid"
+            minSdkVersion 21
         }
 
         six {
-            // Blokada v6 that lands on Google Play (cloud/plus only).
+            // Blokada 6 that lands on Google Play (Cloud/Plus only).
             applicationId "org.blokada.sex"
         }
+
+        googleslim {
+            // googleslim is a legacy "Slim" build that got banned from Google Play.
+            // It'll be phased out eventually once users are migrated away.
+            applicationId "org.blokada.alarm.dnschanger"
+            minSdkVersion 21
+        }
+
+        escaped {
+            // escaped build can be installed on top of googleslim build to get all features.
+            applicationId "org.blokada.alarm.dnschanger"
+            minSdkVersion 21
+        }
+
     }
 
     compileOptions {
@@ -124,28 +124,20 @@ android {
 
         debug.java.srcDirs += 'src/mock/kotlin'
 
-        google.res.srcDirs += 'src/google/res'
-        google.java.srcDirs += 'src/google/kotlin'
-        google.java.srcDirs += 'src/libre/kotlin'
-        google.assets.srcDirs += 'src/libre/assets'
-        google.jniLibs.srcDirs += 'src/libre/jniLibs'
-        google.res.srcDirs += 'src/libre/res'
+        googleslim.res.srcDirs += 'src/google/res'
+        googleslim.java.srcDirs += 'src/google/kotlin'
+        googleslim.java.srcDirs += 'src/libre/kotlin'
+        googleslim.assets.srcDirs += 'src/libre/assets'
+        googleslim.jniLibs.srcDirs += 'src/libre/jniLibs'
+        googleslim.res.srcDirs += 'src/libre/res'
 
-        full.res.srcDirs += 'src/notgoogle/res'
-        full.java.srcDirs += 'src/notgoogle/kotlin'
-        full.java.srcDirs += 'src/libre/kotlin'
-        full.assets.srcDirs += 'src/libre/assets'
-        full.jniLibs.srcDirs += 'src/libre/jniLibs'
-        full.manifest.srcFile 'src/libre/AndroidManifest.xml'
-        full.res.srcDirs += 'src/libre/res'
-
-        droid.res.srcDirs += 'src/notgoogle/res'
-        droid.java.srcDirs += 'src/notgoogle/kotlin'
-        droid.java.srcDirs += 'src/libre/kotlin'
-        droid.assets.srcDirs += 'src/libre/assets'
-        droid.jniLibs.srcDirs += 'src/libre/jniLibs'
-        droid.manifest.srcFile 'src/libre/AndroidManifest.xml'
-        droid.res.srcDirs += 'src/libre/res'
+        five.res.srcDirs += 'src/notgoogle/res'
+        five.java.srcDirs += 'src/notgoogle/kotlin'
+        five.java.srcDirs += 'src/libre/kotlin'
+        five.assets.srcDirs += 'src/libre/assets'
+        five.jniLibs.srcDirs += 'src/libre/jniLibs'
+        five.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        five.res.srcDirs += 'src/libre/res'
 
         escaped.res.srcDirs += 'src/notgoogle/res'
         escaped.java.srcDirs += 'src/notgoogle/kotlin'
