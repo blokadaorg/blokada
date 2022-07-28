@@ -123,6 +123,7 @@ class StatsFragment : Fragment() {
         }
 
         search = root.findViewById(R.id.activity_search)
+        vm.getSearch()?.run { search.setQuery(this, false) }
         search.setOnClickListener {
             search.isIconified = false
             search.requestFocus()
