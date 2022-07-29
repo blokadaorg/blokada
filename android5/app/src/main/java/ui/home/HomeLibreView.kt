@@ -23,6 +23,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.BlokadaException
 import model.NoPermissions
 import model.TunnelStatus
@@ -178,7 +179,7 @@ class HomeLibreView : FrameLayout, IHomeContentView {
                 else -> showFailureDialog(s.error)
             }
 
-            plusButton.visible = s.inProgress || s.active
+            plusButton.visible = s.active && accountVM.account.value?.getType() != AccountType.Cloud
             plusButton.isEnabled = !s.inProgress
             if (!s.inProgress) {
                 // Trying to fix a weird out of sync switch state
@@ -212,12 +213,13 @@ class HomeLibreView : FrameLayout, IHomeContentView {
         }
 
         accountVM.account.observe(viewLifecycleOwner, Observer { account ->
-            plusButton.upgrade = !account.isActive()
+            plusButton.visible = accountVM.account.value?.getType() != AccountType.Cloud
+            plusButton.upgrade = account.getType() != AccountType.Plus
             plusButton.animate = plusButtonReady
             plusButtonReady = true // Hacky
 
             plusButton.onClick = {
-                if (account.isActive()) showLocationSheet()
+                if (account.getType() == AccountType.Plus) showLocationSheet()
                 else showPlusSheet()
             }
 
