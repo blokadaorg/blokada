@@ -94,6 +94,9 @@
                 <data
                     android:host="cmd"
                     android:scheme="blocka" />
+                <data
+                    android:host="cmd.blocka.net"
+                    android:scheme="http" />
             </intent-filter>
 
             <!-- Legacy commands to be removed in the future -->

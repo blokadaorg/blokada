@@ -41,7 +41,7 @@ object LogService {
     private var onShareLogCallbacks = emptyMap<String, PrintsDebugInfo>()
 
     private val handle by lazy {
-        val handle = file.commonDir().file("blokada6.log.txt")
+        val handle = file.commonDir().file("blokada.log.txt")
         Log.println(Log.VERBOSE, "Logger", "Logger will log to file: $handle")
         handle
     }

@@ -116,8 +116,10 @@ class CommandActivity : AppCompatActivity() {
 
     private fun interpretCommand(input: String): Pair<Command, Param?>? {
         return when {
-            input.startsWith("blocka://cmd/") -> {
+            input.startsWith("blocka://cmd/")
+            || input.startsWith("http://cmd.blocka.net/")-> {
                 input.replace("blocka://cmd/", "")
+                input.replace("http://cmd.blocka.net/", "")
                     .trimEnd('/')
                     .split("/")
                     .let {
