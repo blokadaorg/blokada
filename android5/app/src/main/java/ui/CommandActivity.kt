@@ -119,7 +119,7 @@ class CommandActivity : AppCompatActivity() {
             input.startsWith("blocka://cmd/")
             || input.startsWith("http://cmd.blocka.net/")-> {
                 input.replace("blocka://cmd/", "")
-                input.replace("http://cmd.blocka.net/", "")
+                    .replace("http://cmd.blocka.net/", "")
                     .trimEnd('/')
                     .split("/")
                     .let {
@@ -175,5 +175,5 @@ fun getIntentForCommand(cmd: String): Intent {
 fun executeCommand(cmd: Command, param: Param? = null) {
     val ctx = ContextService.requireContext()
     val intent = getIntentForCommand(cmd, param)
-    ctx.startService(intent)
+    ctx.startForegroundService(intent)
 }
