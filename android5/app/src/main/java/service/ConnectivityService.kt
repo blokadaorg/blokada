@@ -164,7 +164,7 @@ object ConnectivityService {
     }
 
     private fun checkPrivateDns(link: LinkProperties) {
-        if (link.isPrivateDnsActive) {
+        if (Build.VERSION.SDK_INT >= 31 && link.isPrivateDnsActive) {
             privateDns = link.privateDnsServerName
             onPrivateDnsChanged(link.privateDnsServerName)
         } else {
