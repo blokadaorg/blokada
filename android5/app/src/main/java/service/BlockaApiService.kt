@@ -181,49 +181,49 @@ object BlockaApiService {
 
 interface BlockaRestApi {
 
-    @GET("/v1/account")
+    @GET("/v2/account")
     fun getAccount(@Query("account_id") id: AccountId): Call<AccountWrapper>
 
-    @POST("/v1/account")
+    @POST("/v2/account")
     fun postNewAccount(): Call<AccountWrapper>
 
-    @GET("/v1/device")
+    @GET("/v2/device")
     fun getDevice(@Query("account_id") id: AccountId): Call<DevicePayload>
 
-    @PUT("/v1/device")
+    @PUT("/v2/device")
     fun putDevice(@Body request: DeviceRequest): Call<Void>
 
-    @GET("/v1/activity")
+    @GET("/v2/activity")
     fun getActivity(@Query("account_id") id: AccountId): Call<ActivityWrapper>
 
-    @GET("/v1/customlist")
+    @GET("/v2/customlist")
     fun getCustomList(@Query("account_id") id: AccountId): Call<CustomListWrapper>
 
-    @POST("/v1/customlist")
+    @POST("/v2/customlist")
     fun postCustomList(@Body request: CustomListRequest): Call<Void>
 
     @HTTP(method = "DELETE", path = "v1/customlist", hasBody = true)
     fun deleteCustomList(@Body request: CustomListRequest): Call<Void>
 
-    @GET("/v1/stats")
+    @GET("/v2/stats")
     fun getStats(@Query("account_id") id: AccountId): Call<CounterStats>
 
-    @GET("/v1/list")
+    @GET("/v2/list")
     fun getBlocklists(@Query("account_id") id: AccountId): Call<BlocklistWrapper>
 
     @GET("/v2/gateway")
     fun getGateways(): Call<Gateways>
 
-    @GET("/v1/lease")
+    @GET("/v2/lease")
     fun getLeases(@Query("account_id") accountId: AccountId): Call<Leases>
 
-    @POST("/v1/lease")
+    @POST("/v2/lease")
     fun postLease(@Body request: LeaseRequest): Call<LeaseWrapper>
 
     @HTTP(method = "DELETE", path = "v1/lease", hasBody = true)
     fun deleteLease(@Body request: LeaseRequest): Call<Void>
 
-    @POST("/v1/gplay/checkout")
+    @POST("/v2/gplay/checkout")
     fun postGplayCheckout(@Body request: GoogleCheckoutRequest): Call<AccountWrapper>
 
 }
