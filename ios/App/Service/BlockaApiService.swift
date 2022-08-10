@@ -42,7 +42,7 @@ class BlockaApiService: BlockaApiServiceIn {
     private lazy var client = Repos.httpRepo
 
     func getAccount(id: AccountId) -> AnyPublisher<Account, Error> {
-        return self.client.get("/v1/account?account_id=\(id)")
+        return self.client.get("/v2/account?account_id=\(id)")
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
 //        .tryMap { it in
@@ -57,72 +57,72 @@ class BlockaApiService: BlockaApiServiceIn {
     }
 
     func postNewAccount() -> AnyPublisher<Account, Error> {
-        return self.client.post("/v1/account", payload: nil)
+        return self.client.post("/v2/account", payload: nil)
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
         .eraseToAnyPublisher()
     }
 
     func getDevice(id: AccountId) -> AnyPublisher<DevicePayload, Error> {
-        return self.client.get("/v1/device?account_id=\(id)")
+        return self.client.get("/v2/device?account_id=\(id)")
         .decode(type: DevicePayload.self, decoder: self.decoder)
         .eraseToAnyPublisher()
     }
 
     func putDevice(request: DeviceRequest) -> AnyPublisher<Ignored, Error> {
-        return self.client.put("/v1/device", payload: request)
+        return self.client.put("/v2/device", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
     func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<Account, Error> {
-        return self.client.post("/v1/apple/checkout", payload: request)
+        return self.client.post("/v2/apple/checkout", payload: request)
         .decode(type: AccountWrapper.self, decoder: self.decoder)
         .tryMap { it in it.account }
         .eraseToAnyPublisher()
     }
 
     func postAppleDeviceToken(request: AppleDeviceTokenRequest) -> AnyPublisher<Ignored, Error> {
-        return self.client.post("/v1/apple/device", payload: request)
+        return self.client.post("/v2/apple/device", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
     func getActivity(id: AccountId) -> AnyPublisher<[Activity], Error> {
-        return self.client.get("/v1/activity?account_id=\(id)")
+        return self.client.get("/v2/activity?account_id=\(id)")
         .decode(type: ActivityWrapper.self, decoder: self.decoder)
         .tryMap { it in it.activity }
         .eraseToAnyPublisher()
     }
 
     func getCustomList(id: AccountId) -> AnyPublisher<[CustomListEntry], Error> {
-        return self.client.get("/v1/customlist?account_id=\(id)")
+        return self.client.get("/v2/customlist?account_id=\(id)")
         .decode(type: ExceptionWrapper.self, decoder: self.decoder)
         .tryMap { it in it.customlist }
         .eraseToAnyPublisher()
     }
 
     func postCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
-        return self.client.post("/v1/customlist", payload: request)
+        return self.client.post("/v2/customlist", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
     func deleteCustomList(request: CustomListRequest) -> AnyPublisher<Ignored, Error> {
-        return self.client.delete("/v1/customlist", payload: request)
+        return self.client.delete("/v2/customlist", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
     func getStats(id: AccountId) -> AnyPublisher<CounterStats, Error> {
-        return self.client.get("/v1/stats?account_id=\(id)")
+        return self.client.get("/v2/stats?account_id=\(id)")
         .decode(type: CounterStats.self, decoder: self.decoder)
         .tryMap { it in it }
         .eraseToAnyPublisher()
     }
 
     func getBlocklists(id: AccountId) -> AnyPublisher<[Blocklist], Error> {
-        return self.client.get("/v1/list?account_id=\(id)")
+        return self.client.get("/v2/list?account_id=\(id)")
         .decode(type: BlocklistWrapper.self, decoder: self.decoder)
         .tryMap { it in it.lists }
         .eraseToAnyPublisher()
@@ -136,7 +136,7 @@ class BlockaApiService: BlockaApiServiceIn {
     }
 
     func getLeases(id: AccountId) -> AnyPublisher<[Lease], Error> {
-        return self.client.get("/v1/lease?account_id=\(id)")
+        return self.client.get("/v2/lease?account_id=\(id)")
         .decode(type: Leases.self, decoder: self.decoder)
         .tryMap { it in it.leases }
 //        .tryMap { it in
@@ -174,7 +174,7 @@ class BlockaApiService: BlockaApiServiceIn {
     }
 
     func postLease(request: LeaseRequest) -> AnyPublisher<Lease, Error> {
-        return self.client.post("/v1/lease", payload: request)
+        return self.client.post("/v2/lease", payload: request)
         .decode(type: LeaseWrapper.self, decoder: self.decoder)
         .tryMap { it in it.lease }
         // Convert to CommonError if known error
@@ -196,7 +196,7 @@ class BlockaApiService: BlockaApiServiceIn {
     }
 
     func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error> {
-        return self.client.delete("/v1/lease", payload: request)
+        return self.client.delete("/v2/lease", payload: request)
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
