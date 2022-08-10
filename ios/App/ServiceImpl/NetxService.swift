@@ -42,7 +42,8 @@ class NetxService: NetxServiceIn {
     func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
         return getManager()
         .tryMap { manager -> NETunnelProviderManager in
-            Logger.v("NetxService", "setConfig: gateway: \(config.gateway.niceName())")
+            let dns = self.getUserDnsIp(config.deviceTag)
+            Logger.v("NetxService", "setConfig: gateway: \(config.gateway.niceName()), tag: \(config.deviceTag), dns: \(dns)")
 
             let protoConfig = NETunnelProviderProtocol()
             protoConfig.providerBundleIdentifier = "net.blocka.app.engine"
@@ -59,7 +60,7 @@ class NetxService: NetxServiceIn {
                 "port": String(config.gateway.port),
                 "vip4": config.lease.vip4,
                 "vip6": config.lease.vip6,
-                "dns": self.getUserDnsIp(config.deviceTag)
+                "dns": dns
             ]
 
             manager.protocolConfiguration = protoConfig
@@ -627,7 +628,13 @@ class NetxService: NetxServiceIn {
     }
 
     private func getUserDnsIp(_ tag: String) -> String {
-        return "2001:678:e34:1d::\(tag.prefix(2)):\(tag.suffix(4))"
+        if tag.count == 6 {
+            // 6 chars old tag
+            return "2001:678:e34:1d::\(tag.prefix(2)):\(tag.suffix(4))"
+        } else {
+            // 11 chars new tag
+            return "2001:678:e34:1d::\(tag.prefix(3)):\(tag.dropFirst(3).prefix(4)):\(tag.suffix(4))"
+        }
     }
 
 }
