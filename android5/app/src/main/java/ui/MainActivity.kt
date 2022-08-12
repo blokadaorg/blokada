@@ -439,7 +439,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         lifecycleScope.launch {
             delay(2000)
             val dns = Repos.cloud.dnsProfileConfiguredHot.first()
-            if (dns != PrivateDnsConfigured.NONE && EnvironmentService.isLibre()) {
+            if (dns != PrivateDnsConfigured.CORRECT && EnvironmentService.isLibre()) {
                 Logger.w("Main", "Displaying bad private DNS prompt")
                 dialog.showAlert(
                     message = "Your Private DNS setting is set. This may cause connectivity issues. Please turn it off in Settings.",
