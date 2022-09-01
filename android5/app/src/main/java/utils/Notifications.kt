@@ -361,6 +361,17 @@ class PauseTimeoutNotification: NotificationPrototype(7, NotificationChannels.BL
     }
 )
 
+// When executing a command from the background (some silly android requirements)
+class ExecutingCommandNotification: NotificationPrototype(8, NotificationChannels.ACTIVITY,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.universal_status_processing))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_LOW)
+        b.setVibrate(LongArray(0))
+    }
+)
+
 fun notificationFromId(id: Int): NotificationPrototype {
     return when (id) {
         4 -> ExpiredNotification()

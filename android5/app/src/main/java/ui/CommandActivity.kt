@@ -27,7 +27,9 @@ import repository.Repos
 import service.ContextService
 import service.EnvironmentService
 import service.LogService
+import service.NotificationService
 import ui.utils.cause
+import utils.ExecutingCommandNotification
 import utils.Logger
 import java.util.*
 
@@ -146,6 +148,10 @@ class CommandService : IntentService("cmd") {
     override fun onHandleIntent(intent: Intent?) {
         intent?.let {
             val ctx = ContextService.requireContext()
+            val notification = NotificationService
+            val n = ExecutingCommandNotification()
+            startForeground(n.id, notification.build(n))
+
             ctx.startActivity(Intent(ACTION_VIEW, it.data).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             })
