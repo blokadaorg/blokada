@@ -13,6 +13,7 @@
 package ui
 
 import android.content.Intent
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -323,6 +324,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             // passed down to descendant views.
             WindowInsetsCompat.CONSUMED
         }
+        setupKeyboardMonitoring(root)
     }
 
     private var topInset = 0
@@ -522,6 +524,41 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     companion object {
         val ACTION = "action"
+    }
+
+    // A snipped to detect if keyboard is open and adjust content (just Android things)
+    private var isKeyboardShowing = false
+    private var contentHeight = 0
+    private fun setupKeyboardMonitoring(contentView: View) {
+        contentView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            contentView.getWindowVisibleDisplayFrame(r)
+            val screenHeight = contentView.rootView.height
+
+            // r.bottom is the position above soft keypad or device button.
+            // if keypad is shown, the r.bottom is smaller than that before.
+            val keypadHeight = screenHeight - r.bottom
+
+            if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                // keyboard is opened
+                if (!isKeyboardShowing) {
+                    isKeyboardShowing = true
+                    val params = contentView.layoutParams as FrameLayout.LayoutParams
+                    contentHeight = params.height
+                    params.height = screenHeight - keypadHeight
+                    contentView.layoutParams = params
+                }
+            }
+            else {
+                // keyboard is closed
+                if (isKeyboardShowing) {
+                    isKeyboardShowing = false
+                    val params = contentView.layoutParams as FrameLayout.LayoutParams
+                    params.height = contentHeight
+                    contentView.layoutParams = params
+                }
+            }
+        }
     }
 
 }
