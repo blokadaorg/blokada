@@ -418,11 +418,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     Logger.w("Main", "Displaying Slim migration prompt")
                     informed = true
                     dialog.showAlert(
-                        message = "This version of Blokada has been severely restricted by Google and is being phased out. We have released a better version on PlayStore that we recommend. Please visit blokada.org for other install options.",
+                        message = "This version of Blokada has been banned by Google. We have released a better version on PlayStore that we recommend. Please visit blokada.org for other install options.",
                         header = getString(R.string.alert_error_header),
                         okText = getString(R.string.universal_action_continue),
                         okAction = {
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.blokada.sex")));
+                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://go.blokada.org/play_cloud_migrate")));
                         }
                     )
                     .collect {  }
