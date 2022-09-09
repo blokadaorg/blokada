@@ -26,16 +26,16 @@
 "error payment inactive after restore" = "Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
 "error payment failed" = "A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.";
 "error payment failed alternative" = "Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "A fizetések nem állnak rendelkezésre ehhez a készülékhez. Vagy ez a készülék nincs frissítve, vagy még nem kezeljük a vásárlásokat az országodban.";
 "error payment canceled" = "A fizetés visszavonásra került. A terhelés nem történt meg.";
 "error pack install" = "Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.";
 "error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
 "error unknown" = "Egy hiba lépett fel. Bizonyosodjon meg arról, hogy online, és próbálkozzon újra. Ha a hiba továbbra is fennáll, nyomjon rá a segítség ikonra felül.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error multiple apps" = "Egynél több Blokada alkalmazás van a készülékeden. Ez kapcsolódási problémákat okozhat. Szeretnéd ezt most orvosolni?";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Kapcsolódási problémák";
+"conn isssues slug" = "Kapcsolódási problémák. Kérjük, ellenőrizd a konfigurációt. Koppints a részletekért.";
+"conn isssues details" = "- Ellenőrizd az internetkapcsolatod\n- Csak egy Blokada alkalmazást használj\n- Kapcsold ki a többi VPN-t";
 
 "universal action continue" = "Folytatás";
 "universal action cancel" = "Mégse";
@@ -126,10 +126,10 @@
 "alert update body" = "A Blokada %@ letölthető. Ajánlott az app rendszeres frissítése, és csak a hivatalos forrásból való beszerzése.";
 "update label updated" = "Frissítve!";
 "update desc updated" = "Most már a legújabb Blokada verziót használja! Ne feledje, hogy a támogatások és előfizetések lehetővé teszik az app további fejlesztését.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "A Blokada legújabb verzióját használod!";
 "update downloading description" = "A frissítés letöltése megkezdődött, hamarosan megjelenik a telepítési felület.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "A Blokada segített blokkolni %@ hirdetést és a trackert!";
 
 "main rate us header" = "Értékelj minket!";
 "main rate us description" = "Eddig hogy tetszik a Blokada?";
@@ -244,7 +244,7 @@
 
 "account section header settings" = "Beállítások";
 "account status text" = "A BLOKADA %@ fiókod aktív eddig: %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "A BLOKADA előfizetésed inaktív.";
 
 "account section header primary" = "Elsődleges";
 "account section header other" = "Other";
@@ -268,8 +268,8 @@
 "account section header general" = "Általános";
 "account section header subscription" = "Előfizetés";
 "account label id" = "Fiókazonosító";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Előfizetési csomag";
+"account plan none" = "Nincs aktív csomag";
 "account label active until" = "Aktív eddig";
 "account action manage subscription" = "Előfizetés kezelése";
 "account action why upgrade" = "Miért kellene bővítenem?";
@@ -391,7 +391,7 @@
 "payment plan cta trial" = "Próbálja ki a 7 napos próbaidőszakot";
 "payment plan cta monthly" = "Havi fizetés";
 "payment plan cta annual" = "Évi fizetés";
-"payment plan current" = "(current plan)";
+"payment plan current" = "(jelenlegi csomag)";
 
 "location region worldwide" = "Bárhol";
 "location region america" = "Amerika";
@@ -441,8 +441,8 @@
 "dnsprofile header" = "Blokada engedélyezése a Beállításokban";
 "dnsprofile desc" = "A Beállítások alkalmazásban navigálj az Általános → VPN, DNS és eszközkezelés → DNS menüpontra, és válaszd a Blokada lehetőséget.";
 "dnsprofile action open settings" = "Beállítások megnyitása";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
+"dnsprofile desc android" = "A Beállítások appban keresd meg a Privát DNS részt, majd illeszd be a hostnevet (hosszú koppintás).";
+"dnsprofile desc android copy" = "Másold ki a Blokada Cloud hostnevét, hogy beilleszthesd a Beállításokba.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Majdnem kész!";

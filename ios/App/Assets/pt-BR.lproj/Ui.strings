@@ -26,7 +26,7 @@
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed" = "Fazer pagamentos não está disponível neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed alternative" = "Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.";
-"error payment not available" = "Pagamentos não estão disponíveis para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não lidamos com as compras no seu país.";
+"error payment not available" = "A opção de fazer pagamentos não está disponível para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não aceitamos compras em seu país.";
 "error payment canceled" = "O pagamento foi cancelado. Você não foi cobrado.";
 "error pack install" = "Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.";
 "error location failed fetching" = "Não foi possível buscar as localizações.";
@@ -441,8 +441,8 @@
 "dnsprofile header" = "Ative o Blokada nas Configurações";
 "dnsprofile desc" = "Em Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.";
 "dnsprofile action open settings" = "Abrir Configurações";
-"dnsprofile desc android" = "No aplicativo de configurações, encontre a seção de DNS privado e cole o seu hostname (toque longo).";
-"dnsprofile desc android copy" = "Copie seu nome de host do Blokada Cloud para colá-lo nas Configurações.";
+"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
+"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Quase lá!";

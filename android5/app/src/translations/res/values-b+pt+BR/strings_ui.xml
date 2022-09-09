@@ -16,7 +16,7 @@
     <string name="error_payment_inactive_after_restore">Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
     <string name="error_payment_failed">Fazer pagamentos não está disponível neste momento. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
     <string name="error_payment_failed_alternative">Não foi possível concluir seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, por favor, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
-    <string name="error_payment_not_available">Pagamentos não estão disponíveis para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não lidamos com as compras no seu país.</string>
+    <string name="error_payment_not_available">A opção de fazer pagamentos não está disponível para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não aceitamos compras em seu país.</string>
     <string name="error_payment_canceled">O pagamento foi cancelado. Você não foi cobrado.</string>
     <string name="error_pack_install">Não foi possível instalar (ou desinstalar) este recurso. Por favor, tente novamente mais tarde.</string>
     <string name="error_location_failed_fetching">Não foi possível buscar as localizações.</string>
@@ -355,8 +355,8 @@
     <string name="dnsprofile_header">Ative o Blokada nas Configurações</string>
     <string name="dnsprofile_desc">Em Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.</string>
     <string name="dnsprofile_action_open_settings">Abrir Configurações</string>
-    <string name="dnsprofile_desc_android">No aplicativo de configurações, encontre a seção de DNS privado e cole o seu hostname (toque longo).</string>
-    <string name="dnsprofile_desc_android_copy">Copie seu nome de host do Blokada Cloud para colá-lo nas Configurações.</string>
+    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
+    <string name="dnsprofile_desc_android_copy">Copy your Blokada Cloud hostname to paste it in Settings.</string>
     <string name="activated_header">Quase lá!</string>
     <string name="activated_desc">O seguinte é necessário para que o Blokada funcione conforme o esperado:</string>
     <string name="activated_desc_all_ok">Seu dispositivo está configurado e pronto para uso:</string>
