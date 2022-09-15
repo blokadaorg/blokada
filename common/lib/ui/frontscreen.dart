@@ -1,18 +1,15 @@
-import 'package:common/column_chart.dart';
-import 'package:common/pie_chart_page.dart';
-import 'package:common/radial_chart.dart';
-import 'package:common/radial_segment.dart';
-import 'package:common/samples/bar_chart_sample4.dart';
-import 'package:common/samples/line_chart_sample2.dart';
-import 'package:common/selector.dart';
-import 'package:common/toplist.dart';
+import 'package:common/ui/column_chart.dart';
+import 'package:common/ui/radial_segment.dart';
+import 'package:common/ui/selector.dart';
+import 'package:common/ui/toplist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-import 'api.dart';
+import '../model/UiModel.dart';
+import '../repo/Repos.dart';
 import 'home.dart';
 import 'samples/pie_chart_sample1.dart';
 import 'samples/pie_chart_sample2.dart';
@@ -28,11 +25,11 @@ class FrontScreen extends StatefulWidget {
 }
 
 class FrontScreenState extends State<FrontScreen> {
-  late Future<Stats> statsFuture;
+  late Future<UiStats> statsFuture;
 
   @override
   void initState() {
-    statsFuture = StatsRepo(BlockaApi(dioClient: DioClient())).getStats("ebwkrlznagkw");
+    statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
   }
 
   @override
@@ -92,7 +89,7 @@ class FrontScreenState extends State<FrontScreen> {
   }
 
   Widget listView() {
-    return FutureBuilder<Stats>(
+    return FutureBuilder<UiStats>(
       future: statsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -112,8 +109,8 @@ class FrontScreenState extends State<FrontScreen> {
               shrinkWrap: true,
               itemBuilder: (context, index) => Container(
                   child: getChart(index,
-                      int.parse(snapshot.data!.total_blocked),
-                      int.parse(snapshot.data!.total_allowed)
+                      snapshot.data!.blocked,
+                      snapshot.data!.allowed
                   )
               )
           );

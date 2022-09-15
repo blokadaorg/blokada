@@ -1,13 +1,9 @@
-import 'package:common/frontscreen.dart';
+import 'package:common/ui/frontscreen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-
-import 'home.dart';
-import 'pie_chart_page.dart';
-import 'platform_info.dart';
 
 void main() => runApp(const MyApp());
 

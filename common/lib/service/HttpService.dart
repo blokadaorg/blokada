@@ -1,23 +1,25 @@
 import 'package:dio/dio.dart';
 
-class Stats {
-  final String total_allowed;
-  final String total_blocked;
+class HttpService {
 
-  const Stats({
-    required this.total_allowed,
-    required this.total_blocked,
-  });
+  late final DioClient _client = DioClient();
 
-  factory Stats.fromJson(Map<String, dynamic> json) {
-    return Stats(
-      total_allowed: json['total_allowed'],
-      total_blocked: json['total_blocked'],
-    );
+  Future<dynamic> get(String url) async {
+    try {
+      final Response response = await _client.get(url);
+      return response.data;
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      throw errorMessage;
+    } catch (e) {
+      rethrow;
+    }
   }
+
 }
 
 class Endpoints {
+
   Endpoints._();
 
   static const String baseUrl = "https://api.blocka.net";
@@ -27,7 +29,7 @@ class Endpoints {
 }
 
 class DioClient {
-// dio instance
+
   final Dio _dio = Dio();
 
   DioClient() {
@@ -58,42 +60,11 @@ class DioClient {
       rethrow;
     }
   }
-}
 
-class BlockaApi {
-  final DioClient dioClient;
-
-  BlockaApi({required this.dioClient});
-
-  Future<Response> getStatsApi(String accountId) async {
-    try {
-      final Response response = await dioClient.get("/v2/stats?account_id=$accountId");
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-}
-
-class StatsRepo {
-  final BlockaApi api;
-
-  StatsRepo(this.api);
-
-  Future<Stats> getStats(String accountId) async {
-    try {
-      final response = await api.getStatsApi(accountId);
-      return Stats.fromJson(response.data);
-    } on DioError catch (e) {
-      print(e);
-      final errorMessage = DioExceptions.fromDioError(e).toString();
-      throw errorMessage;
-    }
-  }
 }
 
 class DioExceptions implements Exception {
+
   late String message;
 
   DioExceptions.fromDioError(DioError dioError) {
@@ -150,4 +121,5 @@ class DioExceptions implements Exception {
 
   @override
   String toString() => message;
+
 }

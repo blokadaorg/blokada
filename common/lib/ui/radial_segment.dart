@@ -1,4 +1,4 @@
-import 'package:common/radial_chart.dart';
+import 'package:common/ui/radial_chart.dart';
 import 'package:flutter/material.dart';
 
 class RadialSegment extends StatefulWidget {
