@@ -108,10 +108,7 @@ class FrontScreenState extends State<FrontScreen> {
               itemCount: 5,
               shrinkWrap: true,
               itemBuilder: (context, index) => Container(
-                  child: getChart(index,
-                      snapshot.data!.blocked,
-                      snapshot.data!.allowed
-                  )
+                  child: getChart(index, snapshot.data!)
               )
           );
         }
@@ -119,14 +116,14 @@ class FrontScreenState extends State<FrontScreen> {
     );
   }
 
-  Widget getChart(int index, int blocked, int allowed) {
+  Widget getChart(int index, UiStats stats) {
     switch (index) {
       // case 1:
       //   return LineChartSample2();
       case 0:
         return Selector();
       case 1:
-        return RadialSegment(blocked: blocked, allowed: allowed);
+        return RadialSegment(blocked: stats.blocked, allowed: stats.allowed);
       // case 1:
       //   return PieChartSample2();
       // case 2:
@@ -134,7 +131,7 @@ class FrontScreenState extends State<FrontScreen> {
       case 2:
         return Column(
           children: [
-            ColumnChart(),
+            ColumnChart(stats: stats),
           ],
         );
       case 3:

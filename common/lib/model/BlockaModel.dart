@@ -1,87 +1,84 @@
 class StatsEndpoint {
-  String? totalAllowed;
-  String? totalBlocked;
-  Stats? stats;
 
-  StatsEndpoint({this.totalAllowed, this.totalBlocked, this.stats});
+  late String totalAllowed;
+  late String totalBlocked;
+  late Stats stats;
+
+  StatsEndpoint({
+    required this.totalAllowed, required this.totalBlocked, required this.stats
+  });
 
   StatsEndpoint.fromJson(Map<String, dynamic> json) {
     totalAllowed = json['total_allowed'];
     totalBlocked = json['total_blocked'];
-    stats = json['stats'] != null ? Stats.fromJson(json['stats']) : null;
+    stats = Stats.fromJson(json['stats']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['total_allowed'] = totalAllowed;
     data['total_blocked'] = totalBlocked;
-    if (stats != null) {
-      data['stats'] = stats!.toJson();
-    }
+    data['stats'] = stats.toJson();
     return data;
   }
+
 }
 
 class Stats {
-  List<Metrics>? metrics;
 
-  Stats({this.metrics});
+  late List<Metrics> metrics;
+
+  Stats({required this.metrics});
 
   Stats.fromJson(Map<String, dynamic> json) {
-    if (json['metrics'] != null) {
-      metrics = <Metrics>[];
-      json['metrics'].forEach((v) {
-        metrics!.add(Metrics.fromJson(v));
-      });
-    }
+    metrics = <Metrics>[];
+    json['metrics'].forEach((v) {
+      metrics.add(Metrics.fromJson(v));
+    });
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (metrics != null) {
-      data['metrics'] = metrics!.map((v) => v.toJson()).toList();
-    }
+    data['metrics'] = metrics.map((v) => v.toJson()).toList();
     return data;
   }
+
 }
 
 class Metrics {
-  Tags? tags;
-  List<Dps>? dps;
 
-  Metrics({this.tags, this.dps});
+  late Tags tags;
+  late List<Dps> dps;
+
+  Metrics({required this.tags, required this.dps});
 
   Metrics.fromJson(Map<String, dynamic> json) {
-    tags = json['tags'] != null ? Tags.fromJson(json['tags']) : null;
-    if (json['dps'] != null) {
-      dps = <Dps>[];
-      json['dps'].forEach((v) {
-        dps!.add(Dps.fromJson(v));
-      });
-    }
+    tags = Tags.fromJson(json['tags']);
+    dps = <Dps>[];
+    json['dps'].forEach((v) {
+      dps.add(Dps.fromJson(v));
+    });
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (tags != null) {
-      data['tags'] = tags!.toJson();
-    }
-    if (dps != null) {
-      data['dps'] = dps!.map((v) => v.toJson()).toList();
-    }
+    data['tags'] = tags.toJson();
+    data['dps'] = dps.map((v) => v.toJson()).toList();
     return data;
   }
+
 }
 
 class Tags {
-  String? action;
+
+  late String action;
   String? deviceName;
 
-  Tags({this.action, this.deviceName});
+  Tags({required this.action, this.deviceName});
 
   Tags.fromJson(Map<String, dynamic> json) {
     action = json['action'];
-    deviceName = json['device_name'];
+    deviceName = json.containsKey('device_name') ? json['device_name'] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -90,16 +87,18 @@ class Tags {
     data['device_name'] = deviceName;
     return data;
   }
+
 }
 
 class Dps {
-  String? timestamp;
-  double? value;
 
-  Dps({this.timestamp, this.value});
+  late int timestamp;
+  late double value;
+
+  Dps({required this.timestamp, required this.value});
 
   Dps.fromJson(Map<String, dynamic> json) {
-    timestamp = json['timestamp'];
+    timestamp = int.parse(json['timestamp']);
     value = double.parse(json['value'].toString());
   }
 
@@ -109,4 +108,5 @@ class Dps {
     data['value'] = value;
     return data;
   }
+
 }
