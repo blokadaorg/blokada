@@ -6,20 +6,15 @@ import 'package:common/model/UiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ColumnChart extends StatefulWidget {
+class ColumnChart extends StatelessWidget {
 
   final UiStats stats;
 
   ColumnChart({
     Key? key, required this.stats
-  }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => ColumnChartState();
-
+  }) : super(key: key) {
+    _compute();
   }
-
-class ColumnChartState extends State<ColumnChart> {
 
   late List<_ChartData> dataRed;
   late List<_ChartData> dataGreen;
@@ -29,36 +24,25 @@ class ColumnChartState extends State<ColumnChart> {
 
   ChartSeriesController? _chartSeriesController;
 
-  @override
-  void initState() {
-    _compute();
-  }
-
-  @override
-  void didupdateWidget(ColumnChart oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _compute();
-  }
-
   void _compute() {
     // data = [
     //   _ChartData('All', 30, const Color(0xff808080)),
     //   _ChartData('Allowed', 21, const Color(0xff33c75a)),
     //   _ChartData('Blocked', 9, const Color(0xffff3b30)),
     // ];
-    dataRed = widget.stats.blockedHistogram.asMap().entries.map((entry) =>
+    dataRed = stats.blockedHistogram.asMap().entries.map((entry) =>
         _ChartData(entry.key - 23, entry.value)
     ).toList();
 
-    dataGreen = widget.stats.allowedHistogram.asMap().entries.map((entry) =>
+    dataGreen = stats.allowedHistogram.asMap().entries.map((entry) =>
         _ChartData(entry.key - 23, entry.value)
     ).toList();
 
     maxHour = 10; // Max Y axis value
     minHour = 1000;
     oldestEntry = -24; // Min X axis value
-    for(var i = 0; i < 24; i++) {
-      final hour = widget.stats.allowedHistogram[i] + widget.stats.blockedHistogram[i];
+    for(var i = 0; i < 24 && i < stats.allowedHistogram.length; i++) {
+      final hour = stats.allowedHistogram[i] + stats.blockedHistogram[i];
       if (hour > maxHour) maxHour = hour.toDouble();
       if (hour < minHour) minHour = max(0, hour * 0.8);
       // Skip consecutive zero bars at the beginning and shrink scale
@@ -97,12 +81,13 @@ class ColumnChartState extends State<ColumnChart> {
     });
 
     return Container(
-        height: 200,
+        height: 300,
+        padding: EdgeInsets.only(left: 8, right: 8),
         child: SfCartesianChart(
             margin: EdgeInsets.all(0),
             plotAreaBorderWidth: 0,
             primaryXAxis: NumericAxis(
-                minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 2).ceilToDouble(),
+                minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
                 labelStyle: TextStyle(color: Color(0xff404040))
             ),
             primaryYAxis: CategoryAxis(
@@ -120,31 +105,31 @@ class ColumnChartState extends State<ColumnChart> {
   List<StackedColumnSeries<_ChartData, int>> _getStackedColumnSeries() {
     return <StackedColumnSeries<_ChartData, int>>[
       StackedColumnSeries<_ChartData, int>(
+        dataSource: dataRed,
+        xValueMapper: (_ChartData sales, _) => sales.x,
+        yValueMapper: (_ChartData sales, _) => sales.y,
+        name: 'Blocked',
+        color: colorsRed[0],
+        animationDuration: 500,
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: colorsRed, stops: stops
+        ),
+      ),
+        StackedColumnSeries<_ChartData, int>(
           dataSource: dataGreen,
           xValueMapper: (_ChartData sales, _) => sales.x,
           yValueMapper: (_ChartData sales, _) => sales.y,
           name: 'Allowed',
           color: colorsGreen[0],
-          animationDuration: 500
-          // gradient: LinearGradient(
-          //     begin: Alignment.topCenter,
-          //     end: Alignment.bottomCenter,
-          //     colors: colorsGreen, stops: stops
-          // ),
-      ),
-      StackedColumnSeries<_ChartData, int>(
-          dataSource: dataRed,
-          xValueMapper: (_ChartData sales, _) => sales.x,
-          yValueMapper: (_ChartData sales, _) => sales.y,
-          name: 'Blocked',
+          animationDuration: 500,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
-          color: colorsRed[0],
-          animationDuration: 500
-          // gradient: LinearGradient(
-          //   begin: Alignment.topCenter,
-          //   end: Alignment.bottomCenter,
-          //   colors: colorsRed, stops: stops
-          // ),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: colorsGreen, stops: stops
+          ),
       ),
     ];
   }

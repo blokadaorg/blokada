@@ -1,22 +1,18 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:common/model/UiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class RadialChart extends StatefulWidget {
-  final int blocked;
-  final int allowed;
+class RadialChart extends StatelessWidget {
 
-  const RadialChart({Key? key,
-    required this.blocked, required this.allowed
-  }) : super(key: key);
+  final UiStats stats;
 
-  @override
-  State<StatefulWidget> createState() => RadialChartState();
-}
+  RadialChart({Key? key, required this.stats}) : super(key: key) {
+    _convert();
+  }
 
-class RadialChartState extends State<RadialChart> {
   late List<_ChartData> data;
   CircularSeriesController? _chartSeriesController;
 
@@ -30,19 +26,16 @@ class RadialChartState extends State<RadialChart> {
     0.7,
   ];
 
-  @override
-  void initState() {
+  void _convert() {
     data = [
-      _ChartData('All', (widget.blocked + widget.allowed) / 1.0, const Color(0xff808080)),
-      _ChartData('Allowed', widget.allowed / 1.0, const Color(0xff33c75a)),
-      _ChartData('Blocked', widget.blocked / 1.0, const Color(0xffff3b30)),
+      _ChartData('All', (stats.hourlyBlocked + stats.hourlyAllowed) / 10.0, const Color(0xff808080)),
+      _ChartData('Allowed', stats.hourlyAllowed / 10.0, const Color(0xff33c75a)),
+      _ChartData('Blocked', stats.hourlyBlocked / 1.0, const Color(0xffff3b30)),
     ];
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
         child: SfCircularChart(
           // onCreateShader: (ChartShaderDetails chartShaderDetails) {
@@ -59,7 +52,7 @@ class RadialChartState extends State<RadialChart> {
             // Renders radial bar chart
             RadialBarSeries<_ChartData, String>(
               dataSource: data,
-              maximumValue: widget.blocked * 5,
+              maximumValue: 1000,
               xValueMapper: (_ChartData data, _) => data.x,
               yValueMapper: (_ChartData data, _) => data.y,
               pointColorMapper: (_ChartData data, _) => data.color,

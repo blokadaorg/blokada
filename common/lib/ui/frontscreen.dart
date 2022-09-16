@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../model/UiModel.dart';
 import '../repo/Repos.dart';
@@ -27,19 +28,29 @@ class FrontScreen extends StatefulWidget {
 }
 
 class FrontScreenState extends State<FrontScreen> {
-  late Timer timer;
-  late Future<UiStats> statsFuture;
   UiStats cachedStats = UiStats.empty();
+  Future<UiStats> statsFuture = Future.value(UiStats.empty());
+  Timer? timer;
 
   @override
   void initState() {
-    statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
-    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => refreshStats());
   }
 
-  void refreshStats() {
+  void _startRefreshingStats() {
+    if (timer == null) {
+      _refreshStats();
+      timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => _refreshStats());
+    }
+  }
+
+  void _stopRefreshingStats() {
+    timer?.cancel();
+    timer = null;
+  }
+
+  void _refreshStats() {
     setState(() {
-      //statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
+      statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
     });
   }
 
@@ -100,55 +111,47 @@ class FrontScreenState extends State<FrontScreen> {
   }
 
   Widget content() {
-    return FutureBuilder(
-      future: statsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Column(
-              children: [
-                Selector(),
-                RadialSegment(blocked: cachedStats.hourlyBlocked, allowed: cachedStats.hourlyAllowed),
-                ColumnChart(stats: cachedStats),
-              ]
-          );
-        } else if (snapshot.hasError || snapshot.data == null) {
-          return Text("Error: ${snapshot.error}");
+    return VisibilityDetector(key: const Key("frontscreen"),
+      onVisibilityChanged: (visibilityInfo) {
+        if (visibilityInfo.visibleFraction > 0.4) {
+          _startRefreshingStats();
         } else {
-          cachedStats = snapshot.data as UiStats;
-
-          return Column(
+          _stopRefreshingStats();
+        }
+      },
+      child: FutureBuilder(
+        future: statsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Column(
               children: [
                 Selector(),
-                RadialSegment(blocked: cachedStats.hourlyBlocked, allowed: cachedStats.hourlyAllowed),
+                RadialSegment(stats: cachedStats),
                 ColumnChart(stats: cachedStats),
               ]
-          );
-        }
-    });
+            );
+          } else if (snapshot.hasError || snapshot.data == null) {
+            return Column(
+              children: [
+                Text("Error: ${snapshot.error}"),
+                Selector(),
+                RadialSegment(stats: cachedStats),
+                ColumnChart(stats: cachedStats),
+          ]
+            );
+          } else {
+            cachedStats = snapshot.data as UiStats;
+
+            return Column(
+              children: [
+                Selector(),
+                RadialSegment(stats: cachedStats),
+                ColumnChart(stats: cachedStats),
+              ]
+            );
+          }
+      })
+    );
   }
 
-  Widget getChart(int index, UiStats stats) {
-    switch (index) {
-      // case 1:
-      //   return LineChartSample2();
-      case 0:
-        return Selector();
-      case 1:
-        return RadialSegment(blocked: stats.totalBlocked, allowed: stats.totalAllowed);
-      // case 1:
-      //   return PieChartSample2();
-      // case 2:
-      //   return PieChartSample1();
-      case 2:
-        return Column(
-          children: [
-            ColumnChart(stats: stats),
-          ],
-        );
-      case 3:
-        return Container(child: Toplist(red: false));
-      default:
-        return Container(child: Toplist(red: true));
-    }
-  }
 }

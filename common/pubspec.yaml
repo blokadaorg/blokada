@@ -34,6 +34,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.2.40
   syncfusion_flutter_datagrid: ^20.2.40
   dio: ^4.0.6
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   flutter_test:

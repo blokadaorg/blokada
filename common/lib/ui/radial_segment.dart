@@ -1,22 +1,12 @@
+import 'package:common/model/UiModel.dart';
 import 'package:common/ui/radial_chart.dart';
 import 'package:flutter/material.dart';
 
-class RadialSegment extends StatefulWidget {
-  final int blocked;
-  final int allowed;
+class RadialSegment extends StatelessWidget {
 
-  const RadialSegment({Key? key,
-    required this.blocked, required this.allowed
-  }) : super(key: key);
+  final UiStats stats;
 
-  @override
-  State<StatefulWidget> createState() => RadialSegmentState();
-}
-
-class RadialSegmentState extends State<RadialSegment> {
-
-  @override
-  void initState() {}
+  const RadialSegment({Key? key, required this.stats}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +15,7 @@ class RadialSegmentState extends State<RadialSegment> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: RadialChart(blocked: widget.blocked, allowed: widget.allowed), flex: 7),
+          Expanded(child: RadialChart(stats: stats), flex: 7),
           Expanded(
             flex: 3,
             child: Column(
@@ -37,7 +27,7 @@ class RadialSegmentState extends State<RadialSegment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Total", style: TextStyle(color: Color(0xff5a5a5a), fontSize: 20)),
-                      Text(_formatCounter(widget.blocked + widget.allowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.hourlyBlocked + stats.hourlyAllowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 ),
@@ -47,7 +37,7 @@ class RadialSegmentState extends State<RadialSegment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 20)),
-                      Text(_formatCounter(widget.allowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.hourlyAllowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 ),
@@ -57,7 +47,7 @@ class RadialSegmentState extends State<RadialSegment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
-                      Text(_formatCounter(widget.blocked), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.hourlyBlocked), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 )
@@ -73,8 +63,8 @@ class RadialSegmentState extends State<RadialSegment> {
 String _formatCounter(int counter) {
   if (counter >= 1000000) {
     return "${(counter / 1000000.0).toStringAsFixed(2)}M";
-  } else if (counter >= 1000) {
-    return "${(counter / 1000.0).toStringAsFixed(1)}K";
+  //} else if (counter >= 1000) {
+  //  return "${(counter / 1000.0).toStringAsFixed(1)}K";
   } else {
     return "$counter";
   }
