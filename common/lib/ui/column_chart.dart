@@ -18,8 +18,9 @@ class ColumnChart extends StatelessWidget {
 
   late List<_ChartData> dataRed;
   late List<_ChartData> dataGreen;
-  late double maxHour;
-  late double minHour;
+  late double minGreen;
+  late double maxGreen;
+  late double maxRed;
   late double oldestEntry;
 
   ChartSeriesController? _chartSeriesController;
@@ -38,16 +39,18 @@ class ColumnChart extends StatelessWidget {
         _ChartData(entry.key - 23, entry.value)
     ).toList();
 
-    maxHour = 10; // Max Y axis value
-    minHour = 1000;
+    maxRed = 10; // Max Y axis value
+    maxGreen = 10; // Max Y axis value
+    minGreen = 1000;
     oldestEntry = -24; // Min X axis value
     for(var i = 0; i < 24 && i < stats.allowedHistogram.length; i++) {
-      final maxVal = max(stats.allowedHistogram[i], stats.blockedHistogram[i]);
-      final minVal = min(stats.allowedHistogram[i], stats.blockedHistogram[i]);
-      if (maxVal > maxHour) maxHour = maxVal * 1.05;
-      if (minVal < minHour) minHour = max(0, minVal * 0.8);
+      final green = stats.allowedHistogram[i];
+      final red = stats.blockedHistogram[i];
+      if (green * 1.05 > maxGreen) maxGreen = green * 1.05;
+      if (red * 1.05 > maxRed) maxRed = red * 1.05;
+      if (green * 0.8 < minGreen) minGreen = max(0, minGreen * 0.8);
       // Skip consecutive zero bars at the beginning and shrink scale
-      if (maxVal == 0 && oldestEntry.abs() == (24 - i) && oldestEntry < -6) oldestEntry += 1;
+      if (maxGreen == 0 && oldestEntry.abs() == (24 - i) && oldestEntry < -6) oldestEntry += 1;
     }
 
   }
@@ -57,16 +60,16 @@ class ColumnChart extends StatelessWidget {
 
   List<Color> colors = <Color>[
     const Color(0xffA0A0A0),
-    const Color(0xff808080)
+    const Color(0xff9f9f9f),
   ];
   List<Color> colorsRed = <Color>[
     const Color(0xffff3b30),
-    const Color(0xffbe2016),
+    const Color(0xffde342a),
   ];
 
   List<Color> colorsGreen = <Color>[
     const Color(0xff33c75a),
-    const Color(0xff138030)
+    const Color(0xff1cab42),
   ];
 
   List<double> stops = <double>[
@@ -81,61 +84,84 @@ class ColumnChart extends StatelessWidget {
       _chartSeriesController?.animate();
     });
 
-    return Container(
-        height: 300,
-        padding: EdgeInsets.only(left: 8, right: 8),
-        child: SfCartesianChart(
-            margin: EdgeInsets.all(0),
-            plotAreaBorderWidth: 0,
-            primaryXAxis: NumericAxis(
-                minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
-                labelStyle: TextStyle(color: Color(0xff404040))
-            ),
-            primaryYAxis: CategoryAxis(
-              minimum: minHour, maximum: maxHour, interval: (maxHour ~/ 3).toDouble(),
-              majorGridLines: MajorGridLines(width: 0),
-              opposedPosition: true,
-              labelStyle: TextStyle(color: Color(0xff404040))
-            ),
-            tooltipBehavior: TooltipBehavior(enable: true),
-            enableSideBySideSeriesPlacement: false,
-            series: _getStackedColumnSeries(),
-        )
+    return Column(
+      children: [
+        Container(
+            height: 150,
+            padding: EdgeInsets.only(left: 8, right: 8),
+            child: SfCartesianChart(
+              margin: EdgeInsets.all(0),
+              plotAreaBorderWidth: 0,
+              primaryXAxis: NumericAxis(
+                  minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+                  labelStyle: TextStyle(color: Color(0xff404040))
+              ),
+              primaryYAxis: CategoryAxis(
+                  minimum: minGreen, maximum: maxGreen, interval: (maxGreen ~/ 3).toDouble(),
+                  majorGridLines: MajorGridLines(width: 0),
+                  opposedPosition: true,
+                  labelStyle: TextStyle(color: Color(0xff404040))
+              ),
+              tooltipBehavior: TooltipBehavior(enable: true),
+              enableSideBySideSeriesPlacement: false,
+              series: [
+                ColumnSeries<_ChartData, int>(
+                  dataSource: dataGreen,
+                  xValueMapper: (_ChartData sales, _) => sales.x,
+                  yValueMapper: (_ChartData sales, _) => sales.y,
+                  name: 'Allowed',
+                  color: colorsGreen[0],
+                  animationDuration: 1000,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: colorsGreen, stops: stops
+                  ),
+                ),
+              ],
+            )
+        ),
+        Container(
+            height: 150,
+            padding: EdgeInsets.only(left: 8, right: 8),
+            child: SfCartesianChart(
+              margin: EdgeInsets.all(0),
+              plotAreaBorderWidth: 0,
+              primaryXAxis: NumericAxis(
+                  minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+                  labelStyle: TextStyle(color: Color(0xff404040))
+              ),
+              primaryYAxis: CategoryAxis(
+                  minimum: 0, maximum: maxRed, interval: (maxRed ~/ 3).toDouble(),
+                  majorGridLines: MajorGridLines(width: 0),
+                  opposedPosition: true,
+                  labelStyle: TextStyle(color: Color(0xff404040))
+              ),
+              tooltipBehavior: TooltipBehavior(enable: true),
+              enableSideBySideSeriesPlacement: false,
+              series: [
+                ColumnSeries<_ChartData, int>(
+                  dataSource: dataRed,
+                  xValueMapper: (_ChartData sales, _) => sales.x,
+                  yValueMapper: (_ChartData sales, _) => sales.y,
+                  name: 'Blocked',
+                  color: colorsRed[0],
+                  animationDuration: 2000,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: colorsRed, stops: stops
+                  ),
+                ),
+              ],
+            )
+        ),
+      ],
     );
   }
 
-  List<ColumnSeries<_ChartData, int>> _getStackedColumnSeries() {
-    return <ColumnSeries<_ChartData, int>>[
-      ColumnSeries<_ChartData, int>(
-        dataSource: dataGreen,
-        xValueMapper: (_ChartData sales, _) => sales.x,
-        yValueMapper: (_ChartData sales, _) => sales.y,
-        name: 'Allowed',
-        color: colorsGreen[0],
-        animationDuration: 1000,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: colorsGreen, stops: stops
-        ),
-      ),
-      ColumnSeries<_ChartData, int>(
-        dataSource: dataRed,
-        xValueMapper: (_ChartData sales, _) => sales.x,
-        yValueMapper: (_ChartData sales, _) => sales.y,
-        name: 'Blocked',
-        color: colorsRed[0],
-        animationDuration: 3000,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: colorsRed, stops: stops
-        ),
-      ),
-    ];
-  }
 }
 
 class _ChartData {

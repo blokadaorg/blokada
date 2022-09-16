@@ -19,11 +19,11 @@ class RadialChart extends StatelessWidget {
 
   List<Color> colorsMixed = <Color>[
     const Color(0xffb6b6b6),
-    const Color(0xff808080),
+    const Color(0xff9f9f9f),
     const Color(0xff33c75a),
-    const Color(0xff138030),
+    const Color(0xff1cab42),
     const Color(0xffff3b30),
-    const Color(0xffbe2016),
+    const Color(0xffde342a),
   ];
 
   List<double> stopsMixed = <double>[
@@ -59,7 +59,7 @@ class RadialChart extends StatelessWidget {
     data = [
       _ChartData(
         'All',
-        (stats.hourlyBlocked + stats.hourlyAllowed) / 20.0,
+        (stats.hourlyBlocked + stats.hourlyAllowed) / 30.0,
         const Color(0xff808080),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -72,7 +72,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Allowed',
-        stats.hourlyAllowed / 20.0,
+        stats.hourlyAllowed / 30.0,
         const Color(0xff33c75a),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -83,7 +83,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Blocked',
-        stats.hourlyBlocked / 1.0,
+        stats.hourlyBlocked / 8.0,
         const Color(0xffff3b30),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -113,14 +113,14 @@ class RadialChart extends StatelessWidget {
               maximumValue: 1000,
               xValueMapper: (_ChartData data, _) => data.x,
               yValueMapper: (_ChartData data, _) => data.y,
-              //pointColorMapper: (_ChartData data, _) => data.color,
+              pointColorMapper: (_ChartData data, _) => data.color,
               //pointShaderMapper: (_ChartData data, _, Color color, Rect rect) => data.shader,
               cornerStyle: CornerStyle.bothCurve,
               useSeriesColor: true,
               trackOpacity: 0.1,
               gap: '3%',
               innerRadius: '30%',
-              animationDuration: 3000,
+              animationDuration: 2000,
             )
           ]
         )
