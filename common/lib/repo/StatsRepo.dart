@@ -19,11 +19,16 @@ class StatsRepo {
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
 
-    List<int> hourlyAllowed = List.filled(24, 0);
-    List<int> hourlyBlocked = List.filled(24, 0);
+    final rng = Random();
+    //List<int> allowedHistogram = List.filled(24, rng.nextInt(500));
+    List<int> allowedHistogram = List.filled(24, 0);
+    List<int> blockedHistogram = List.filled(24, 0);
+    var hourlyAllowed = 0.0;
+    var hourlyBlocked = 0.0;
 
     for (var metric in stats.stats.metrics) {
-      final isAllowed = metric.tags.action == "fallthrough";
+      final action = metric.tags.action;
+      final isAllowed = action == "fallthrough" || action == "allowed";
       metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
       for (var d in metric.dps) {
         final diffHours = ((now - d.timestamp) ~/ 3600);
@@ -32,9 +37,11 @@ class StatsRepo {
         if (hourIndex < 0) continue;
 
         if (isAllowed) {
-          hourlyAllowed[hourIndex] = d.value.round();
+          allowedHistogram[hourIndex] = d.value.round();
+          hourlyAllowed += d.value;
         } else {
-          hourlyBlocked[hourIndex] = d.value.round();
+          blockedHistogram[hourIndex] = d.value.round();
+          hourlyBlocked += d.value;
         }
 
         print(now);
@@ -43,14 +50,16 @@ class StatsRepo {
       }
     }
 
-    print(hourlyAllowed);
-    print(hourlyBlocked);
+    print(allowedHistogram);
+    print(blockedHistogram);
 
     return UiStats(
-      allowed: int.parse(stats.totalAllowed),
-      blocked: int.parse(stats.totalBlocked),
-      hourlyAllowed: hourlyAllowed,
-      hourlyBlocked: hourlyBlocked
+      totalAllowed: int.parse(stats.totalAllowed),
+      totalBlocked: int.parse(stats.totalBlocked),
+      allowedHistogram: allowedHistogram,
+      blockedHistogram: blockedHistogram,
+      hourlyAllowed: hourlyAllowed.round(),
+      hourlyBlocked: hourlyBlocked.round()
     );
   }
 

@@ -59,7 +59,7 @@ class RadialChartState extends State<RadialChart> {
             // Renders radial bar chart
             RadialBarSeries<_ChartData, String>(
               dataSource: data,
-              maximumValue: 50000,
+              maximumValue: widget.blocked * 5,
               xValueMapper: (_ChartData data, _) => data.x,
               yValueMapper: (_ChartData data, _) => data.y,
               pointColorMapper: (_ChartData data, _) => data.color,

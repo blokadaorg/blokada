@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/ui/column_chart.dart';
 import 'package:common/ui/radial_segment.dart';
 import 'package:common/ui/selector.dart';
@@ -25,11 +27,20 @@ class FrontScreen extends StatefulWidget {
 }
 
 class FrontScreenState extends State<FrontScreen> {
+  late Timer timer;
   late Future<UiStats> statsFuture;
+  UiStats cachedStats = UiStats.empty();
 
   @override
   void initState() {
     statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) => refreshStats());
+  }
+
+  void refreshStats() {
+    setState(() {
+      //statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
+    });
   }
 
   @override
@@ -46,7 +57,7 @@ class FrontScreenState extends State<FrontScreen> {
             decoration: new BoxDecoration(color: Color(0xFF111111)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: listView(),
+              child: content(),
             ),
         )
       ],
@@ -88,32 +99,32 @@ class FrontScreenState extends State<FrontScreen> {
     );
   }
 
-  Widget listView() {
-    return FutureBuilder<UiStats>(
+  Widget content() {
+    return FutureBuilder(
       future: statsFuture,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          final error = snapshot.error;
-          return Center(
-            child: Text(
-              "Error: " + error.toString(),
-            ),
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Column(
+              children: [
+                Selector(),
+                RadialSegment(blocked: cachedStats.hourlyBlocked, allowed: cachedStats.hourlyAllowed),
+                ColumnChart(stats: cachedStats),
+              ]
           );
+        } else if (snapshot.hasError || snapshot.data == null) {
+          return Text("Error: ${snapshot.error}");
         } else {
-          return ListView.builder(
-              padding: const EdgeInsets.only(top: 0),
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => Container(
-                  child: getChart(index, snapshot.data!)
-              )
+          cachedStats = snapshot.data as UiStats;
+
+          return Column(
+              children: [
+                Selector(),
+                RadialSegment(blocked: cachedStats.hourlyBlocked, allowed: cachedStats.hourlyAllowed),
+                ColumnChart(stats: cachedStats),
+              ]
           );
         }
-      }
-    );
+    });
   }
 
   Widget getChart(int index, UiStats stats) {
@@ -123,7 +134,7 @@ class FrontScreenState extends State<FrontScreen> {
       case 0:
         return Selector();
       case 1:
-        return RadialSegment(blocked: stats.blocked, allowed: stats.allowed);
+        return RadialSegment(blocked: stats.totalBlocked, allowed: stats.totalAllowed);
       // case 1:
       //   return PieChartSample2();
       // case 2:
