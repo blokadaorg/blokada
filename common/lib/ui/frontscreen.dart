@@ -117,6 +117,7 @@ class FrontScreenState extends State<FrontScreen> {
           _startRefreshingStats();
         } else {
           _stopRefreshingStats();
+          cachedStats = UiStats.empty();
         }
       },
       child: FutureBuilder(
