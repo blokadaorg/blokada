@@ -6,6 +6,8 @@ class UiStats {
   final List<int> allowedHistogram;
   final List<int> blockedHistogram;
 
+  int latestTimestamp = DateTime.now().millisecondsSinceEpoch;
+
   int hourlyAllowed = 0;
   int hourlyBlocked = 0;
 
@@ -20,6 +22,7 @@ class UiStats {
   UiStats({
     required this.totalAllowed, required this.totalBlocked,
     required this.allowedHistogram, required this.blockedHistogram,
+    required this.latestTimestamp,
   }) {
     hourlyAllowed = allowedHistogram.reduce((a, b) => a + b);
     hourlyBlocked = blockedHistogram.reduce((a, b) => a + b);
@@ -38,4 +41,11 @@ class UiStats {
     this.allowedHistogram = const [], this.blockedHistogram = const [],
   });
 
+}
+
+class UiStatsPair {
+  final DateTime timestamp;
+  final int value;
+
+  UiStatsPair({required this.timestamp, required this.value});
 }

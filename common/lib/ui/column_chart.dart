@@ -22,6 +22,7 @@ class ColumnChart extends StatelessWidget {
   late double maxGreen;
   late double maxRed;
   late double oldestEntry;
+  late DateTime latestTimestamp;
 
   ChartSeriesController? _chartSeriesController;
 
@@ -31,24 +32,26 @@ class ColumnChart extends StatelessWidget {
     //   _ChartData('Allowed', 21, const Color(0xff33c75a)),
     //   _ChartData('Blocked', 9, const Color(0xffff3b30)),
     // ];
+    latestTimestamp = DateTime.fromMillisecondsSinceEpoch(stats.latestTimestamp);
     dataRed = stats.blockedHistogram.asMap().entries.map((entry) =>
-        _ChartData(entry.key - 23, entry.value * 1)
+      _ChartData(latestTimestamp.subtract(Duration(hours: 23 - entry.key)), entry.value * 1)
     ).toList();
 
     dataGreen = stats.allowedHistogram.asMap().entries.map((entry) =>
-        _ChartData(entry.key - 23, entry.value)
+      _ChartData(latestTimestamp.subtract(Duration(hours: 23 - entry.key)), entry.value * 1)
     ).toList();
 
     maxRed = 10; // Max Y axis value
     maxGreen = 10; // Max Y axis value
-    minGreen = 1000;
+    //minGreen = 1000;
+    minGreen = 0;
     oldestEntry = -24; // Min X axis value
     for(var i = 0; i < 24 && i < stats.allowedHistogram.length; i++) {
       final green = stats.allowedHistogram[i];
       final red = stats.blockedHistogram[i];
       if (green * 1.05 > maxGreen) maxGreen = green * 1.05;
       if (red * 1.05 > maxRed) maxRed = red * 1.05;
-      if (green * 0.8 < minGreen) minGreen = max(0, minGreen * 0.8);
+      if (green * 0.8 < minGreen) minGreen = max(0, green * 0.8);
       // Skip consecutive zero bars at the beginning and shrink scale
       if (maxGreen == 0 && oldestEntry.abs() == (24 - i) && oldestEntry < -6) oldestEntry += 1;
     }
@@ -92,8 +95,13 @@ class ColumnChart extends StatelessWidget {
             child: SfCartesianChart(
               margin: EdgeInsets.all(0),
               plotAreaBorderWidth: 0,
-              primaryXAxis: NumericAxis(
-                  minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+              // primaryXAxis: NumericAxis(
+              //     minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+              //     labelStyle: TextStyle(color: Color(0xff404040))
+              // ),
+              primaryXAxis: DateTimeAxis(
+                  minimum: latestTimestamp.subtract(Duration(hours: oldestEntry.abs().toInt())), maximum: latestTimestamp.add(Duration(hours: 1)),
+                  interval: (oldestEntry.abs() / 4).ceilToDouble(),
                   labelStyle: TextStyle(color: Color(0xff404040))
               ),
               primaryYAxis: CategoryAxis(
@@ -104,8 +112,9 @@ class ColumnChart extends StatelessWidget {
               ),
               tooltipBehavior: TooltipBehavior(enable: true),
               enableSideBySideSeriesPlacement: false,
+              enableAxisAnimation: true,
               series: [
-                ColumnSeries<_ChartData, int>(
+                ColumnSeries<_ChartData, DateTime>(
                   dataSource: dataGreen,
                   xValueMapper: (_ChartData sales, _) => sales.x,
                   yValueMapper: (_ChartData sales, _) => sales.y,
@@ -128,8 +137,13 @@ class ColumnChart extends StatelessWidget {
             child: SfCartesianChart(
               margin: EdgeInsets.all(0),
               plotAreaBorderWidth: 0,
-              primaryXAxis: NumericAxis(
-                  minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+              // primaryXAxis: NumericAxis(
+              //     minimum: oldestEntry, maximum: 1, interval: (oldestEntry.abs() / 3).ceilToDouble(),
+              //     labelStyle: TextStyle(color: Color(0xff404040))
+              // ),
+              primaryXAxis: DateTimeAxis(
+                  minimum: latestTimestamp.subtract(Duration(hours: oldestEntry.abs().toInt())), maximum: latestTimestamp.add(Duration(hours: 1)),
+                  interval: (oldestEntry.abs() / 4).ceilToDouble(),
                   labelStyle: TextStyle(color: Color(0xff404040))
               ),
               primaryYAxis: CategoryAxis(
@@ -140,8 +154,9 @@ class ColumnChart extends StatelessWidget {
               ),
               tooltipBehavior: TooltipBehavior(enable: true),
               enableSideBySideSeriesPlacement: false,
+              enableAxisAnimation: true,
               series: [
-                ColumnSeries<_ChartData, int>(
+                ColumnSeries<_ChartData, DateTime>(
                   dataSource: dataRed,
                   xValueMapper: (_ChartData sales, _) => sales.x,
                   yValueMapper: (_ChartData sales, _) => sales.y,
@@ -167,6 +182,6 @@ class ColumnChart extends StatelessWidget {
 class _ChartData {
   _ChartData(this.x, this.y);
 
-  final int x;
+  final DateTime x;
   final int y;
 }
