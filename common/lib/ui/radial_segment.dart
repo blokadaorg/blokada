@@ -27,7 +27,7 @@ class RadialSegment extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Total", style: TextStyle(color: Color(0xff5a5a5a), fontSize: 20)),
-                      Text(_formatCounter(stats.hourlyBlocked + stats.hourlyAllowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.rateTotal), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 ),
@@ -37,7 +37,7 @@ class RadialSegment extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 20)),
-                      Text(_formatCounter(stats.hourlyAllowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.rateAllowed), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 ),
@@ -47,7 +47,7 @@ class RadialSegment extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
-                      Text(_formatCounter(stats.hourlyBlocked), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
+                      Text(_formatCounter(stats.rateBlocked), style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900))
                     ],
                   ),
                 )

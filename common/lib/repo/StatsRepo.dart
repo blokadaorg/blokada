@@ -23,8 +23,6 @@ class StatsRepo {
     //List<int> allowedHistogram = List.filled(24, rng.nextInt(500));
     List<int> allowedHistogram = List.filled(24, 0);
     List<int> blockedHistogram = List.filled(24, 0);
-    var hourlyAllowed = 0.0;
-    var hourlyBlocked = 0.0;
 
     for (var metric in stats.stats.metrics) {
       final action = metric.tags.action;
@@ -38,15 +36,9 @@ class StatsRepo {
 
         if (isAllowed) {
           allowedHistogram[hourIndex] = d.value.round();
-          hourlyAllowed += d.value;
         } else {
           blockedHistogram[hourIndex] = d.value.round();
-          hourlyBlocked += d.value;
         }
-
-        print(now);
-        print(d.timestamp);
-        print(hourIndex);
       }
     }
 
@@ -58,8 +50,6 @@ class StatsRepo {
       totalBlocked: int.parse(stats.totalBlocked),
       allowedHistogram: allowedHistogram,
       blockedHistogram: blockedHistogram,
-      hourlyAllowed: hourlyAllowed.round(),
-      hourlyBlocked: hourlyBlocked.round()
     );
   }
 

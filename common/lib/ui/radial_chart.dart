@@ -110,7 +110,7 @@ class RadialChart extends StatelessWidget {
             // Renders radial bar chart
             RadialBarSeries<_ChartData, String>(
               dataSource: data,
-              maximumValue: 1000,
+              maximumValue: stats.avgTotal.toDouble(),
               xValueMapper: (_ChartData data, _) => data.x,
               yValueMapper: (_ChartData data, _) => data.y,
               pointColorMapper: (_ChartData data, _) => data.color,
