@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -59,7 +60,7 @@ class RadialChart extends StatelessWidget {
     data = [
       _ChartData(
         'All',
-        (stats.hourlyBlocked + stats.hourlyAllowed) / 30.0,
+        max((stats.rateTotal) / 1.0, 20),
         const Color(0xff808080),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -72,7 +73,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Allowed',
-        stats.hourlyAllowed / 30.0,
+        max(stats.rateAllowed / 1.0, 20),
         const Color(0xff33c75a),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -83,7 +84,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Blocked',
-        stats.hourlyBlocked / 8.0,
+        max(stats.rateBlocked / 1.0, 20),
         const Color(0xffff3b30),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
