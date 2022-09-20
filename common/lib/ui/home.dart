@@ -1,5 +1,7 @@
+import 'package:common/ui/power_button.dart';
 import 'package:flutter/material.dart';
 
+import '../model/AppModel.dart';
 import 'samples/pie_chart_sample1.dart';
 import 'samples/pie_chart_sample2.dart';
 import 'samples/pie_chart_sample3.dart';
@@ -40,11 +42,8 @@ class Home extends StatelessWidget {
               ),
             ),
             Spacer(),
-            const Expanded(
-              child: Align(
-                alignment: AlignmentDirectional(0, 0),
-                child: Icon(Icons.circle, size: 196, color: Colors.black54),
-              ),
+            Expanded(
+              child: PowerButton(appModel: AppModel(state: AppState.activated, working: true)),
             ),
             Spacer(),
             Text(

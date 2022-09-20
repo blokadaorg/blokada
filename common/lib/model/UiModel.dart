@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class UiStats {
 
   final int totalAllowed;
