@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
             ),
             Spacer(),
             Expanded(
-              child: PowerButton(appModel: AppModel(state: AppState.activated, working: true)),
+              child: PowerButton(),
             ),
             Spacer(),
             Text(
