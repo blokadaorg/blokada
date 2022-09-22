@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/model/UiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
@@ -30,15 +31,21 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlLibre;
   late AnimationController animCtrlPlus;
   late AnimationController animCtrlCover;
-  late AnimationController animCtrlArcLoading;
+  late AnimationController animCtrlArcAlpha;
+  late AnimationController animCtrlArcStart;
+  late AnimationController animCtrlArcCounter;
 
   late Animation<double> animLoading;
   late Animation<double> animLibre;
   late Animation<double> animPlus;
   late Animation<double> animCover;
+  late Animation<double> animArcAlpha;
   late Animation<double> animArcLoading;
+  late Animation<double> animArcCounter;
 
   bool pressed = false;
+
+  var counter = 0.5;
 
   @override
   void initState() {
@@ -47,7 +54,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
     animCtrlLoading = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
     );
     animLoading = Tween<double>(begin: 0, end: 1).animate(animCtrlLoading)
       ..addListener(() {
@@ -55,7 +62,23 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       })
     ..addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
-        animCtrlArcLoading.stop();
+        animCtrlArcStart.stop();
+        double newCounter = math.Random().nextDouble();
+        print(newCounter);
+        animArcCounter = Tween<double>(begin: counter, end: newCounter)
+          .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
+          //.animate(animCtrlArcCounter)
+          ..addListener(() {
+            setState(() {});
+          });
+          // ..addStatusListener((status) {
+          //   if (status == AnimationStatus.completed) {
+          //     animCtrlArcStart.reverse();
+          //   }
+          // });
+      counter = newCounter;
+        animCtrlArcCounter.reset();
+        animCtrlArcCounter.forward();
       }
     });
 
@@ -86,11 +109,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         setState(() {});
       });
 
-    animCtrlArcLoading = AnimationController(
+    animCtrlArcStart = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2000),
     );
-    animArcLoading = Tween<double>(begin: 0, end: 1).animate(animCtrlArcLoading)
+    animArcLoading = Tween<double>(begin: 0, end: 1)
+      //.animate(animCtrlArcStart)
+      .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.slowMiddle))
       ..addListener(() {
         setState(() {});
       });
@@ -101,6 +126,24 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       //     animCtrlArcLoading.forward();
       //   }
       // });
+
+    animCtrlArcCounter = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+    );
+    animArcCounter = Tween<double>(begin: 0.1, end: 0.5).animate(animCtrlArcCounter)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlArcAlpha = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
+      ..addListener(() {
+        setState(() {});
+      });
 
     _updateAnimations();
   }
@@ -126,12 +169,27 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _updateAnimations() {
     print("update anim");
+
+    animArcCounter = Tween<double>(begin: counter, end: 0.5)
+      .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
+      //.animate(animCtrlArcCounter)
+      ..addListener(() {
+        setState(() {});
+      });
+    counter = 0.5;
+    animCtrlArcCounter.reset();
+    animCtrlArcCounter.forward();
+
     if (appModel.working) {
       animCtrlLoading.forward();
-      animCtrlArcLoading.reset();
-      animCtrlArcLoading.repeat();
+      //animCtrlArcStart.reset();
+      animCtrlArcStart.repeat();
+      animCtrlArcAlpha.forward();
     } else {
       animCtrlLoading.reverse();
+      if (appModel.state == AppState.paused) {
+        animCtrlArcAlpha.reverse();
+      }
     }
     if (appModel.state == AppState.activated) {
       animCtrlLibre.forward();
@@ -168,40 +226,53 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
           });
         }
       },
-      child: SizedBox(
-          width: 200,
-          height: 200,
-          child: FutureBuilder<ui.Image>(
-            future: loadIcon,
-            builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return const CircularProgressIndicator();
-                default:
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    //animCtrlLoading.forward();
-                    return AnimatedBuilder(
-                      animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading]),
-                      builder: (BuildContext context, Widget? child) {
-                        return CustomPaint(
-                          painter: PowerButtonPainter(
-                            iconImage: snapshot.data!,
-                            alphaLoading: animLoading.value,
-                            alphaCover: animCover.value,
-                            alphaLibre: animLibre.value,
-                            alphaPlus: animPlus.value,
-                            arcLoading: animArcLoading.value
-                          ),
-                        );
-                      },
-                    );
-                  }
-              }
-            },
-          )
-      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: 200,
+            height: 200,
+            child: FutureBuilder<ui.Image>(
+              future: loadIcon,
+              builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return const CircularProgressIndicator();
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return AnimatedBuilder(
+                        animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha]),
+                        builder: (BuildContext context, Widget? child) {
+                          return CustomPaint(
+                            painter: PowerButtonPainter(
+                              iconImage: snapshot.data!,
+                              alphaLoading: animLoading.value,
+                              alphaCover: animCover.value,
+                              alphaLibre: animLibre.value,
+                              alphaPlus: animPlus.value,
+                              arcAlpha: animArcAlpha.value,
+                              arcStart: animArcLoading.value,
+                              arcEnd: animArcCounter.value
+                            ),
+                          );
+                        },
+                      );
+                    }
+                }
+              },
+            )
+          ),
+          // SizedBox(
+          //   width: 500,
+          //   height: 500,
+          //   child: IgnorePointer(
+          //     ignoring: true,
+          //     child: PowerButtonRadial(stats: UiStats.empty(totalBlocked: 900))
+          //   )
+          // )
+      ]),
     );
   }
 
@@ -226,7 +297,9 @@ class PowerButtonPainter extends CustomPainter {
   final alphaLoading;
   final alphaCover;
   final alphaPlus;
-  final arcLoading;
+  final arcStart;
+  final arcEnd;
+  final arcAlpha;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
@@ -242,7 +315,7 @@ class PowerButtonPainter extends CustomPainter {
     required this.iconImage,
     required this.alphaCover, required this.alphaPlus,
     required this.alphaLibre, required this.alphaLoading,
-    required this.arcLoading
+    required this.arcStart, required this.arcEnd, required this.arcAlpha
   });
 
     @override
@@ -270,7 +343,7 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-        ..color = colorLoading
+        ..color = Colors.white.withOpacity(arcAlpha)
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
@@ -306,9 +379,7 @@ class PowerButtonPainter extends CustomPainter {
         ..shader = RadialGradient(
           center: Alignment.center,
           radius: 0.5,
-          stops: [
-            0.0, 0.88, 0.98
-          ],
+          stops: [0.0, 0.88, 0.98],
           colors: [
             colorShadow,
             colorShadow,
@@ -345,7 +416,7 @@ class PowerButtonPainter extends CustomPainter {
       // loading arc
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 3, size.width + ringWith * 2, size.height + ringWith * 6),
-          arcLoading * math.pi * 2, math.pi / 1, false, loadingArcPaint);
+          arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);
 
       // draw icon
       final iconColor = (alphaPlus == 1.0) ? colorRingPlus1 :
