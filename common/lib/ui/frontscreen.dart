@@ -7,6 +7,7 @@ import 'package:common/ui/toplist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:draggable_home/draggable_home.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -20,7 +21,9 @@ import 'samples/pie_chart_sample3.dart';
 
 class FrontScreen extends StatefulWidget {
 
-  const FrontScreen({Key? key}) : super(key: key);
+  FrontScreen({Key? key}) : super(key: key);
+
+  final stats = Repos.instance.stats;
 
   @override
   State<StatefulWidget> createState() => FrontScreenState();
@@ -28,30 +31,9 @@ class FrontScreen extends StatefulWidget {
 }
 
 class FrontScreenState extends State<FrontScreen> {
-  UiStats cachedStats = UiStats.empty();
-  Future<UiStats> statsFuture = Future.value(UiStats.empty());
-  Timer? timer;
 
   @override
   void initState() {
-  }
-
-  void _startRefreshingStats() {
-    if (timer == null) {
-      _refreshStats();
-      timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => _refreshStats());
-    }
-  }
-
-  void _stopRefreshingStats() {
-    timer?.cancel();
-    timer = null;
-  }
-
-  void _refreshStats() {
-    setState(() {
-      statsFuture = Repos.instance.stats.getStats("ebwkrlznagkw");
-    });
   }
 
   @override
@@ -74,8 +56,8 @@ class FrontScreenState extends State<FrontScreen> {
       ],
       stretchMaxHeight: 0.94,
       stretchTriggerOffset: 0.5,
-      fullyStretchable: true,
-      expandedBody: const Home(),
+      fullyStretchable: false,
+      expandedBody: Home(),
       backgroundColor: Color(0xFF111111),
       appBarColor: Colors.black,
     );
@@ -114,44 +96,23 @@ class FrontScreenState extends State<FrontScreen> {
     return VisibilityDetector(key: const Key("frontscreen"),
       onVisibilityChanged: (visibilityInfo) {
         if (visibilityInfo.visibleFraction > 0.4) {
-          _startRefreshingStats();
+          widget.stats.setFrequentRefresh(true);
         } else {
-          _stopRefreshingStats();
-          cachedStats = UiStats.empty();
+          widget.stats.setFrequentRefresh(false);
+          //cachedStats = UiStats.empty();
         }
       },
-      child: FutureBuilder(
-        future: statsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Column(
-              children: [
-                Selector(),
-                RadialSegment(stats: cachedStats),
-                ColumnChart(stats: cachedStats),
-              ]
-            );
-          } else if (snapshot.hasError || snapshot.data == null) {
-            return Column(
-              children: [
-                Text("Error: ${snapshot.error}"),
-                Selector(),
-                RadialSegment(stats: cachedStats),
-                ColumnChart(stats: cachedStats),
-          ]
-            );
-          } else {
-            cachedStats = snapshot.data as UiStats;
-
-            return Column(
-              children: [
-                Selector(),
-                RadialSegment(stats: cachedStats),
-                ColumnChart(stats: cachedStats),
-              ]
-            );
-          }
-      })
+      child: Observer (
+        builder: (BuildContext context) {
+          return Column(
+            children: [
+              Selector(),
+              RadialSegment(stats: widget.stats.stats),
+              ColumnChart(stats: widget.stats.stats),
+            ]
+          );
+        },
+      )
     );
   }
 

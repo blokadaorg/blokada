@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+import '../repo/Repos.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -69,11 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
     accountIdChannel.setMethodCallHandler((call) async {
       print("init state hello ${call.arguments}");
     });
+
+    Repos.instance.start();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: FrontScreen(),
       bottomNavigationBar: null,
     );

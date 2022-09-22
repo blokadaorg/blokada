@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:common/model/UiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+ import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
 
 import '../model/AppModel.dart';
+import '../repo/Repos.dart';
 
 class PowerButton extends StatefulWidget {
 
@@ -46,11 +47,27 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   bool pressed = false;
 
   var counter = 0.5;
+  var newCounter = 0.5;
 
   @override
   void initState() {
     super.initState();
     loadIcon = _load("assets/images/ic_power.png");
+
+    mobx.autorun((_) {
+      newCounter = math.min(1.0, (Repos.instance.stats.stats.totalBlocked % 1000) / 1000.0);
+
+      if (!animCtrlArcCounter.isAnimating) {
+        animArcCounter = Tween<double>(begin: counter, end: newCounter)
+          .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
+          ..addListener(() {
+            setState(() {});
+          });
+        counter = newCounter;
+        animCtrlArcCounter.reset();
+        animCtrlArcCounter.forward();
+      }
+    });
 
     animCtrlLoading = AnimationController(
       vsync: this,
@@ -63,8 +80,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     ..addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
         animCtrlArcStart.stop();
-        double newCounter = math.Random().nextDouble();
-        print(newCounter);
+        //double newCounter = math.Random().nextDouble();
+        //print(newCounter);
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
           .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
           //.animate(animCtrlArcCounter)
@@ -76,7 +93,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
           //     animCtrlArcStart.reverse();
           //   }
           // });
-      counter = newCounter;
+        counter = newCounter;
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
       }
@@ -414,6 +431,7 @@ class PowerButtonPainter extends CustomPainter {
       canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.7, coverPaint);
 
       // loading arc
+      print(size);
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 3, size.width + ringWith * 2, size.height + ringWith * 6),
           arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);

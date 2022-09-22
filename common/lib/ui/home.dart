@@ -1,14 +1,18 @@
 import 'package:common/ui/power_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../model/AppModel.dart';
+import '../repo/Repos.dart';
 import 'samples/pie_chart_sample1.dart';
 import 'samples/pie_chart_sample2.dart';
 import 'samples/pie_chart_sample3.dart';
 
 class Home extends StatelessWidget {
 
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
+
+  final stats = Repos.instance.stats;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +50,13 @@ class Home extends StatelessWidget {
               child: PowerButton(),
             ),
             Spacer(),
-            Text(
-              '1337 ads and trackers blocked',
-              style: Theme.of(context).textTheme.bodyLarge
+            Observer(
+              builder: (_) {
+                return Text(
+                  "${stats.stats.totalBlocked} ads and trackers blocked",
+                  style: Theme.of(context).textTheme.bodyLarge
+                );
+              }
             ),
             Spacer(),
           ],

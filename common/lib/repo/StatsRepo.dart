@@ -1,13 +1,50 @@
+import 'dart:async';
 import 'dart:math';
+import 'package:mobx/mobx.dart';
 
 import 'package:common/model/BlockaModel.dart';
 import 'package:common/service/BlockaApiService.dart';
 
 import '../model/UiModel.dart';
 
-class StatsRepo {
+part 'StatsRepo.g.dart';
+
+class StatsRepo = _StatsRepo with _$StatsRepo;
+
+abstract class _StatsRepo with Store {
 
   late final BlockaApiService _api = BlockaApiService();
+  Timer? refreshTimer;
+
+  @observable
+  UiStats stats = UiStats.empty();
+
+  start() async {
+    _refreshStats();
+    _startRefreshingStats(30);
+  }
+
+  _startRefreshingStats(int seconds) {
+    refreshTimer = Timer.periodic(Duration(seconds: seconds), (Timer t) => _refreshStats());
+  }
+
+  _refreshStats() async {
+    stats = await getStats("ebwkrlznagkw");
+  }
+
+  _stopRefreshingStats() {
+    refreshTimer?.cancel();
+    refreshTimer = null;
+  }
+
+  setFrequentRefresh(bool frequent) {
+    _stopRefreshingStats();
+    if (frequent) {
+      _startRefreshingStats(5);
+    } else {
+      _startRefreshingStats(30);
+    }
+  }
 
   Future<UiStats> getStats(String accountId) async {
     final stats = await _api.getStats(accountId);

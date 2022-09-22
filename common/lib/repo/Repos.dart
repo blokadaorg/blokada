@@ -8,4 +8,8 @@ class Repos {
 
   late StatsRepo stats = StatsRepo();
 
+  start() {
+    stats.start();
+  }
+
 }
