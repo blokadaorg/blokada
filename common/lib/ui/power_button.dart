@@ -35,6 +35,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlArcAlpha;
   late AnimationController animCtrlArcStart;
   late AnimationController animCtrlArcCounter;
+  late AnimationController animCtrlMiniArcCounter;
 
   late Animation<double> animLoading;
   late Animation<double> animLibre;
@@ -43,11 +44,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animArcAlpha;
   late Animation<double> animArcLoading;
   late Animation<double> animArcCounter;
+  late Animation<double> animMiniArcCounter;
 
   bool pressed = false;
 
   var counter = 0.5;
   var newCounter = 0.5;
+  var total = 0;
 
   @override
   void initState() {
@@ -55,7 +58,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     loadIcon = _load("assets/images/ic_power.png");
 
     mobx.autorun((_) {
-      newCounter = math.min(1.0, (Repos.instance.stats.stats.totalBlocked % 1000) / 1000.0);
+      total = Repos.instance.stats.stats.totalBlocked;
+      newCounter = math.min(1.0, (total % 1000) / 1000.0);
 
       if (!animCtrlArcCounter.isAnimating) {
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
@@ -66,6 +70,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         counter = newCounter;
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
+        animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
       }
     });
 
@@ -79,7 +84,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       })
     ..addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
-        animCtrlArcStart.stop();
+        animCtrlArcStart.animateTo(0.999);
         //double newCounter = math.Random().nextDouble();
         //print(newCounter);
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
@@ -96,6 +101,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         counter = newCounter;
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
+
+      animMiniArcCounter = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: animCtrlMiniArcCounter, curve: Curves.easeOutQuad))
+        ..addListener(() {
+          setState(() {});
+        });
+      animCtrlMiniArcCounter.reset();
+      animCtrlMiniArcCounter.forward();
       }
     });
 
@@ -132,7 +145,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     );
     animArcLoading = Tween<double>(begin: 0, end: 1)
       //.animate(animCtrlArcStart)
-      .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.slowMiddle))
+      .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.ease))
       ..addListener(() {
         setState(() {});
       });
@@ -158,6 +171,16 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       duration: Duration(milliseconds: 500),
     );
     animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlMiniArcCounter = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 5000),
+    );
+    animCtrlMiniArcCounter.reverseDuration = Duration(milliseconds: 500);
+    animMiniArcCounter = Tween<double>(begin: 0.0, end: 0.0).animate(animCtrlMiniArcCounter)
       ..addListener(() {
         setState(() {});
       });
@@ -202,6 +225,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       //animCtrlArcStart.reset();
       animCtrlArcStart.repeat();
       animCtrlArcAlpha.forward();
+      animCtrlMiniArcCounter.reverse();
     } else {
       animCtrlLoading.reverse();
       if (appModel.state == AppState.paused) {
@@ -260,7 +284,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                       return Text('Error: ${snapshot.error}');
                     } else {
                       return AnimatedBuilder(
-                        animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha]),
+                        animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animMiniArcCounter]),
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
                             painter: PowerButtonPainter(
@@ -271,7 +295,12 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                               alphaPlus: animPlus.value,
                               arcAlpha: animArcAlpha.value,
                               arcStart: animArcLoading.value,
-                              arcEnd: animArcCounter.value
+                              arcEnd: animArcCounter.value,
+                              arcCounter: [
+                                animMiniArcCounter.value * (((total % 10000) ~/ 1000) * 0.1),
+                                animMiniArcCounter.value * (((total % 100000) ~/ 10000) * 0.1),
+                                animMiniArcCounter.value * (((total % 1000000) ~/ 100000) * 0.1),
+                              ],
                             ),
                           );
                         },
@@ -317,6 +346,7 @@ class PowerButtonPainter extends CustomPainter {
   final arcStart;
   final arcEnd;
   final arcAlpha;
+  final List<double> arcCounter;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
@@ -332,7 +362,8 @@ class PowerButtonPainter extends CustomPainter {
     required this.iconImage,
     required this.alphaCover, required this.alphaPlus,
     required this.alphaLibre, required this.alphaLoading,
-    required this.arcStart, required this.arcEnd, required this.arcAlpha
+    required this.arcStart, required this.arcEnd, required this.arcAlpha,
+    required this.arcCounter
   });
 
     @override
@@ -430,11 +461,25 @@ class PowerButtonPainter extends CustomPainter {
       //canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 0.5, shadowPaint);
       canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.7, coverPaint);
 
-      // loading arc
-      print(size);
+      // loading arc and counter 0-1000
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 3, size.width + ringWith * 2, size.height + ringWith * 6),
           arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);
+
+      // counter arc 1k-10k
+      canvas.drawArc(
+          Rect.fromLTWH(- ringWith * 2, - ringWith * 4, size.width + ringWith * 4, size.height + ringWith * 8),
+          0 - math.pi / 2, arcCounter[0] * math.pi * 2, false, loadingArcPaint);
+
+      // counter arc 10k-100k
+      canvas.drawArc(
+          Rect.fromLTWH(- ringWith * 3, - ringWith * 5, size.width + ringWith * 6, size.height + ringWith * 10),
+          0 - math.pi / 2, arcCounter[1] * math.pi * 2, false, loadingArcPaint);
+
+      // counter arc 100k-1m
+      canvas.drawArc(
+          Rect.fromLTWH(- ringWith * 4, - ringWith * 6, size.width + ringWith * 8, size.height + ringWith * 12),
+          0 - math.pi / 2, arcCounter[2] * math.pi * 2, false, loadingArcPaint);
 
       // draw icon
       final iconColor = (alphaPlus == 1.0) ? colorRingPlus1 :
