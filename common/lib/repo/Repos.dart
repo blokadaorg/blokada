@@ -1,3 +1,5 @@
+import 'package:common/repo/AppRepo.dart';
+
 import 'StatsRepo.dart';
 
 class Repos {
@@ -6,9 +8,11 @@ class Repos {
   Repos._();
   static final instance = Repos._();
 
+  late AppRepo app = AppRepo();
   late StatsRepo stats = StatsRepo();
 
   start() {
+    app.start();
     stats.start();
   }
 

@@ -7,7 +7,9 @@ import 'dart:ui' as ui;
 import 'dart:math' as math;
 
 import '../model/AppModel.dart';
+import '../repo/AppRepo.dart';
 import '../repo/Repos.dart';
+import '../repo/StatsRepo.dart';
 
 class PowerButton extends StatefulWidget {
 
@@ -25,6 +27,9 @@ class PowerButton extends StatefulWidget {
 class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin {
 
   AppModel appModel = AppModel.empty();
+
+  late AppRepo appRepo = Repos.instance.app;
+  late StatsRepo statsRepo = Repos.instance.stats;
 
   late Future<ui.Image> loadIcon;
 
@@ -58,7 +63,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     loadIcon = _load("assets/images/ic_power.png");
 
     mobx.autorun((_) {
-      total = Repos.instance.stats.stats.totalBlocked;
+      total = statsRepo.stats.totalBlocked;
       newCounter = math.min(1.0, (total % 1000) / 1000.0);
 
       if (!animCtrlArcCounter.isAnimating) {
@@ -72,6 +77,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         animCtrlArcCounter.forward();
         animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
       }
+    });
+
+    mobx.autorun((_) {
+      print("got new app state");
+      appModel = appRepo.appState;
+      pressed = appRepo.appState.state == AppState.activated;
+      _updateAnimations();
     });
 
     animCtrlLoading = AnimationController(
@@ -190,23 +202,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   Timer? timer;
 
-  _upd() {
-    print("timer");
-    setState(() {
-      if (appModel.state == AppState.paused) {
-        appModel = AppModel(state: AppState.activated, working: false, plus: false);
-      } else if (!appModel.plus) {
-        appModel = AppModel(state: AppState.activated, working: false, plus: true);
-        pressed = true;
-      } else {
-        appModel = AppModel(state: AppState.paused, working: false, plus: false);
-      }
-      _updateAnimations();
-    });
-    timer?.cancel();
-    timer = null;
-  }
-
   _updateAnimations() {
     print("update anim");
 
@@ -261,8 +256,11 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         if (!appModel.working) {
           setState(() {
             pressed = !pressed;
-            appModel = AppModel(state: appModel.state, working: true, plus: appModel.plus);
-            timer = Timer.periodic(const Duration(seconds: 3), (Timer t) => _upd());
+            if (pressed) {
+              appRepo.unpauseApp();
+            } else {
+              appRepo.pauseApp();
+            }
             _updateAnimations();
           });
         }

@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
 
   Home({Key? key}) : super(key: key);
 
+  final app = Repos.instance.app;
   final stats = Repos.instance.stats;
 
   @override
@@ -39,10 +40,17 @@ class Home extends StatelessWidget {
             ),
             Align(
               alignment: AlignmentDirectional(0, 0),
-              child: Text(
-                'ACTIVE',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleLarge
+              child: Observer(
+                builder: (_) {
+                  return Text(
+                      app.appState.working ? "..." : (app.appState.state == AppState.activated ? 'ACTIVE' : 'DEACTIVATED'),
+                      textAlign: TextAlign.center,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleLarge
+                  );
+                }
               ),
             ),
             Spacer(),
