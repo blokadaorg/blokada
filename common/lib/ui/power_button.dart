@@ -75,7 +75,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         counter = newCounter;
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
-        animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
+        //animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
       }
     });
 
@@ -171,7 +171,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
     animCtrlArcCounter = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 5000),
     );
     animArcCounter = Tween<double>(begin: 0.1, end: 0.5).animate(animCtrlArcCounter)
       ..addListener(() {
@@ -389,7 +389,7 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-        ..color = Colors.white.withOpacity(arcAlpha)
+        ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
