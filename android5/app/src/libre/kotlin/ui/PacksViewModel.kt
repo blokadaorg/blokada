@@ -62,14 +62,13 @@ class PacksViewModel : ViewModel(), FlavorSpecific {
                 try {
                     log.w("Packs are stale, re-downloading")
                     // Also include urls of any active pack
-//                    _packs.value?.let { packs ->
-//                        val urls = packs.packs.filter { it.status.installed }.flatMap { it.getUrls() }.distinct()
-//                        blocklist.downloadAll(urls, force = true)
-//                        blocklist.mergeAll(urls)
-//                        engine.reloadBlockLists()
-//                        persistence.save(packs.copy(lastRefreshMillis = now()))
-//                    }
-                    log.e("Packs download disabled for debugging! XXX")
+                    _packs.value?.let { packs ->
+                        val urls = packs.packs.filter { it.status.installed }.flatMap { it.getUrls() }.distinct()
+                        blocklist.downloadAll(urls, force = true)
+                        blocklist.mergeAll(urls)
+                        engine.reloadBlockLists()
+                        persistence.save(packs.copy(lastRefreshMillis = now()))
+                    }
                 } catch (ex: Throwable) {
                     log.e("Could not re-download packs".cause(ex))
                 }
