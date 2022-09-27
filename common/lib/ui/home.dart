@@ -1,4 +1,5 @@
 import 'package:common/ui/power_button.dart';
+import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -42,30 +43,21 @@ class Home extends StatelessWidget {
               alignment: AlignmentDirectional(0, 0),
               child: Observer(
                 builder: (_) {
-                  return Text(
-                      app.appState.working ? "..." : (app.appState.state == AppState.activated ? 'ACTIVE' : 'DEACTIVATED'),
-                      textAlign: TextAlign.center,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge
-                  );
+                  if (app.appState.working) {
+                    return Text("...", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF007AFF), fontWeight: FontWeight.bold));
+                  } else if (app.appState.state == AppState.activated) {
+                    return Text("ACTIVE", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF007AFF), fontWeight: FontWeight.bold));
+                  } else {
+                    return Text("DEACTIVATED", style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
+                  }
                 }
               ),
             ),
             Spacer(),
-            Expanded(
-              child: PowerButton(),
-            ),
-            Spacer(),
-            Observer(
-              builder: (_) {
-                return Text(
-                  "${stats.stats.totalBlocked} ads and trackers blocked",
-                  style: Theme.of(context).textTheme.bodyLarge
-                );
-              }
-            ),
+            // Expanded(
+            //   child: PowerButton(),
+            // ),
+            PowerButton(),
             Spacer(),
           ],
         ),

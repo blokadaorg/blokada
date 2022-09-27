@@ -10,6 +10,7 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:tiktoklikescroller/tiktoklikescroller.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../model/UiModel.dart';
@@ -38,29 +39,7 @@ class FrontScreenState extends State<FrontScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableHome(
-      title: const Text("BLOKADA"),
-      actions: [
-      ],
-      headerExpandedHeight: 0.9,
-      headerWidget: Home(),
-      headerBottomBar: headerBottomBarWidget(),
-      body: [
-        Container(
-            decoration: new BoxDecoration(color: Color(0xFF111111)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: content(),
-            ),
-        )
-      ],
-      stretchMaxHeight: 0.94,
-      stretchTriggerOffset: 0.5,
-      fullyStretchable: false,
-      expandedBody: Home(),
-      backgroundColor: Color(0xFF111111),
-      appBarColor: Colors.black,
-    );
+    return content();
   }
 
   Row headerBottomBarWidget() {
@@ -104,12 +83,15 @@ class FrontScreenState extends State<FrontScreen> {
       },
       child: Observer (
         builder: (BuildContext context) {
-          return Column(
-            children: [
-              Selector(),
-              RadialSegment(stats: widget.stats.stats),
-              ColumnChart(stats: widget.stats.stats),
-            ]
+          return Padding(
+            padding: const EdgeInsets.only(top: 64.0),
+            child: Column(
+              children: [
+                Selector(),
+                RadialSegment(stats: widget.stats.stats),
+                ColumnChart(stats: widget.stats.stats),
+              ]
+            ),
           );
         },
       )

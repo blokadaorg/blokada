@@ -1,10 +1,16 @@
+import 'package:common/model/UiModel.dart';
 import 'package:common/ui/frontscreen.dart';
+import 'package:common/ui/radial_segment.dart';
+import 'package:common/ui/selector.dart';
+import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../repo/Repos.dart';
+import 'column_chart.dart';
+import 'home.dart';
 
 
 void main() => runApp(const MyApp());
@@ -36,7 +42,8 @@ class MyApp extends StatelessWidget {
         scheme: FlexScheme.amber,
         darkIsTrueBlack: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: DefaultBottomBarController(
+          child: const MyHomePage(title: 'Flutter Demo Home Page')),
     );
   }
 }
@@ -77,9 +84,75 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var bbc = DefaultBottomBarController.of(context);
     return Scaffold(
-      body: FrontScreen(),
-      bottomNavigationBar: null,
+      body: Home(),
+      // Set [extendBody] to true for bottom app bar overlap body content
+      extendBody: true,
+      // Lets use docked FAB for handling state of sheet
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: GestureDetector(
+        //
+        // Set onVerticalDrag event to drag handlers of controller for swipe effect
+        onVerticalDragUpdate: DefaultBottomBarController.of(context).onDrag,
+        onVerticalDragEnd: DefaultBottomBarController.of(context).onDragEnd,
+        child: FloatingActionButton.extended(
+          label: AnimatedBuilder(
+            animation: DefaultBottomBarController.of(context).state,
+            builder: (context, child) => Row(
+              children: [
+                Text(
+                  DefaultBottomBarController.of(context).isOpen
+                      ? "Pull"
+                      : "Pull",
+                ),
+                const SizedBox(width: 4.0),
+                AnimatedBuilder(
+                  animation: DefaultBottomBarController.of(context).state,
+                  builder: (context, child) => Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.diagonal3Values(
+                      1,
+                      DefaultBottomBarController.of(context).state.value * 2 -
+                          1,
+                      1,
+                    ),
+                    child: child,
+                  ),
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.chevron_right,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          elevation: 2,
+          backgroundColor: Colors.deepOrange,
+          foregroundColor: Colors.white,
+          //
+          //Set onPressed event to swap state of bottom bar
+          onPressed: () => DefaultBottomBarController.of(context).swap(),
+        ),
+      ),
+
+      bottomNavigationBar: BottomExpandableAppBar(
+        // Provide the bar controller in build method or default controller as ancestor in a tree
+        controller: bbc,
+        expandedHeight: 700,
+        horizontalMargin: 16,
+        expandedBackColor: Theme.of(context).backgroundColor,
+        // Your bottom sheet code here
+        expandedBody: Padding(
+          padding: const EdgeInsets.only(top: 32.0),
+          child: FrontScreen(),
+        ),
+        shape: AutomaticNotchedShape(
+            RoundedRectangleBorder(), StadiumBorder(side: BorderSide())),
+      ),
     );
   }
 }

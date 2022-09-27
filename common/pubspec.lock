@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  countup:
+    dependency: "direct main"
+    description:
+      name: countup
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   crypto:
     dependency: transitive
     description:
@@ -183,6 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
+  expandable_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: expandable_bottom_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -534,6 +548,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  tiktoklikescroller:
+    dependency: "direct main"
+    description:
+      name: tiktoklikescroller
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   timing:
     dependency: transitive
     description:

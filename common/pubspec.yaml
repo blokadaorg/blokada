@@ -37,6 +37,9 @@ dependencies:
   visibility_detector: ^0.3.3
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
+  countup: ^0.1.4
+  tiktoklikescroller: ^0.2.3
+  expandable_bottom_bar: ^2.0.2
 
 dev_dependencies:
   flutter_test:

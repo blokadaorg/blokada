@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
  import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
@@ -265,12 +267,11 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
           });
         }
       },
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
         children: [
           SizedBox(
-            width: 200,
-            height: 200,
+            width: 220,
+            height: 220,
             child: FutureBuilder<ui.Image>(
               future: loadIcon,
               builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
@@ -308,14 +309,24 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
               },
             )
           ),
-          // SizedBox(
-          //   width: 500,
-          //   height: 500,
-          //   child: IgnorePointer(
-          //     ignoring: true,
-          //     child: PowerButtonRadial(stats: UiStats.empty(totalBlocked: 900))
-          //   )
-          // )
+          Padding(
+            padding: const EdgeInsets.only(top: 64.0),
+            child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
+              Countup(
+                begin: 0,
+                end: counter == 0.5 ? 0 : total.toDouble(),
+                duration: Duration(seconds: 5),
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Color(0xFF007AFF), fontWeight: FontWeight.w600),
+              ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
+          ),
+          Container(
+            child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
+              Text("ads and trackers blocked", style: Theme.of(context).textTheme.titleMedium) :
+            (appRepo.appState.working) ?
+              Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
+              Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
+          ),
+          //Spacer(),
       ]),
     );
   }
@@ -323,6 +334,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   @override
   void dispose() {
     animCtrlLoading.dispose();
+    animCtrlLoading.dispose();
+    animCtrlLibre.dispose();
+    animCtrlPlus.dispose();
+    animCtrlCover.dispose();
+    animCtrlArcAlpha.dispose();
+    animCtrlLoading.dispose();
+    animCtrlArcCounter.dispose();
+    animCtrlMiniArcCounter.dispose();
     super.dispose();
   }
 
@@ -425,7 +444,7 @@ class PowerButtonPainter extends CustomPainter {
         ..shader = RadialGradient(
           center: Alignment.center,
           radius: 0.5,
-          stops: [0.0, 0.88, 0.98],
+          stops: [0.0, 0.82, 0.88],
           colors: [
             colorShadow,
             colorShadow,
@@ -461,22 +480,22 @@ class PowerButtonPainter extends CustomPainter {
 
       // loading arc and counter 0-1000
       canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 1, - ringWith * 3, size.width + ringWith * 2, size.height + ringWith * 6),
+          Rect.fromLTWH(- ringWith * 1, - ringWith * 1, size.width + ringWith * 2, size.height + ringWith * 2),
           arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);
 
       // counter arc 1k-10k
       canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 2, - ringWith * 4, size.width + ringWith * 4, size.height + ringWith * 8),
+          Rect.fromLTWH(- ringWith * 2, - ringWith * 2, size.width + ringWith * 4, size.height + ringWith * 4),
           0 - math.pi / 2, arcCounter[0] * math.pi * 2, false, loadingArcPaint);
 
       // counter arc 10k-100k
       canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 3, - ringWith * 5, size.width + ringWith * 6, size.height + ringWith * 10),
+          Rect.fromLTWH(- ringWith * 3, - ringWith * 3, size.width + ringWith * 6, size.height + ringWith * 6),
           0 - math.pi / 2, arcCounter[1] * math.pi * 2, false, loadingArcPaint);
 
       // counter arc 100k-1m
       canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 4, - ringWith * 6, size.width + ringWith * 8, size.height + ringWith * 12),
+          Rect.fromLTWH(- ringWith * 4, - ringWith * 4, size.width + ringWith * 8, size.height + ringWith * 8),
           0 - math.pi / 2, arcCounter[2] * math.pi * 2, false, loadingArcPaint);
 
       // draw icon
