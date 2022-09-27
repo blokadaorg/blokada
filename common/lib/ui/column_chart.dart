@@ -102,7 +102,7 @@ class ColumnChart extends StatelessWidget {
               primaryXAxis: DateTimeAxis(
                   minimum: latestTimestamp.subtract(Duration(hours: oldestEntry.abs().toInt())), maximum: latestTimestamp.add(Duration(hours: 1)),
                   interval: (oldestEntry.abs() / 4).ceilToDouble(),
-                  labelStyle: TextStyle(color: Color(0xff404040))
+                  labelStyle: TextStyle(color: Colors.transparent),
               ),
               primaryYAxis: CategoryAxis(
                   minimum: minGreen, maximum: maxGreen, interval: (maxGreen ~/ 3).toDouble(),
@@ -146,11 +146,12 @@ class ColumnChart extends StatelessWidget {
                   interval: (oldestEntry.abs() / 4).ceilToDouble(),
                   labelStyle: TextStyle(color: Color(0xff404040))
               ),
-              primaryYAxis: CategoryAxis(
+              primaryYAxis: NumericAxis(
                   minimum: 0, maximum: maxRed, interval: (maxRed ~/ 3).toDouble(),
                   majorGridLines: MajorGridLines(width: 0),
                   opposedPosition: true,
-                  labelStyle: TextStyle(color: Color(0xff404040))
+                  labelStyle: TextStyle(color: Color(0xff404040)),
+                  labelFormat: '{value}  ',
               ),
               tooltipBehavior: TooltipBehavior(enable: true),
               enableSideBySideSeriesPlacement: false,
