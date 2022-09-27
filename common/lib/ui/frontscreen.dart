@@ -83,11 +83,10 @@ class FrontScreenState extends State<FrontScreen> {
       },
       child: Observer (
         builder: (BuildContext context) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 64.0),
+          return Container(
+            decoration: BoxDecoration(color: Color(0xff1c1c1e)),
             child: Column(
               children: [
-                Selector(),
                 RadialSegment(stats: widget.stats.stats),
                 ColumnChart(stats: widget.stats.stats),
               ]

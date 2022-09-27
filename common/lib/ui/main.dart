@@ -7,9 +7,11 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:snapping_sheet/snapping_sheet.dart';
 
 import '../repo/Repos.dart';
 import 'column_chart.dart';
+import 'frontscreentab.dart';
 import 'home.dart';
 
 
@@ -84,74 +86,80 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var bbc = DefaultBottomBarController.of(context);
     return Scaffold(
-      body: Home(),
-      // Set [extendBody] to true for bottom app bar overlap body content
-      extendBody: true,
-      // Lets use docked FAB for handling state of sheet
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: GestureDetector(
-        //
-        // Set onVerticalDrag event to drag handlers of controller for swipe effect
-        onVerticalDragUpdate: DefaultBottomBarController.of(context).onDrag,
-        onVerticalDragEnd: DefaultBottomBarController.of(context).onDragEnd,
-        child: FloatingActionButton.extended(
-          label: AnimatedBuilder(
-            animation: DefaultBottomBarController.of(context).state,
-            builder: (context, child) => Row(
-              children: [
-                Text(
-                  DefaultBottomBarController.of(context).isOpen
-                      ? "Pull"
-                      : "Pull",
-                ),
-                const SizedBox(width: 4.0),
-                AnimatedBuilder(
-                  animation: DefaultBottomBarController.of(context).state,
-                  builder: (context, child) => Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.diagonal3Values(
-                      1,
-                      DefaultBottomBarController.of(context).state.value * 2 -
-                          1,
-                      1,
-                    ),
-                    child: child,
-                  ),
-                  child: RotatedBox(
-                    quarterTurns: 1,
-                    child: Icon(
-                      Icons.chevron_right,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ],
+      body: Stack(
+        children: [
+          SnappingSheet(
+            child: Home(),
+            grabbingHeight: 48,
+            // TODO: Add your grabbing widget here,
+            grabbing: GrabbingWidget(),
+            sheetBelow: SnappingSheetContent(
+              sizeBehavior: SheetSizeStatic(size: 700),
+              draggable: true,
+              child: FrontScreen(),
+            ),
+            snappingPositions: [
+              SnappingPosition.factor(
+                positionFactor: 0.1,
+                snappingCurve: Curves.easeOutExpo,
+                snappingDuration: Duration(seconds: 1),
+                grabbingContentOffset: GrabbingContentOffset.top,
+              ),
+              SnappingPosition.factor(
+                positionFactor: 0.9,
+                snappingCurve: Curves.easeOutExpo,
+                snappingDuration: Duration(seconds: 1),
+                grabbingContentOffset: GrabbingContentOffset.bottom,
+              )
+            ],
+          ),
+          // SnappingSheet(
+          //   child: null,
+          //   grabbingHeight: 75,
+          //   // TODO: Add your grabbing widget here,
+          //   grabbing: Text("Grabbing"),
+          //   sheetBelow: SnappingSheetContent(
+          //     sizeBehavior: SheetSizeFill(),
+          //     draggable: true,
+          //     child: Column(children: [Text("Hello"), Text("Hello"),Text("Hello"),],),
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class GrabbingWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xff1c1c1e),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(blurRadius: 25, color: Colors.black.withOpacity(0.3)),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            width: 100,
+            height: 7,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
-          elevation: 2,
-          backgroundColor: Colors.deepOrange,
-          foregroundColor: Colors.white,
-          //
-          //Set onPressed event to swap state of bottom bar
-          onPressed: () => DefaultBottomBarController.of(context).swap(),
-        ),
-      ),
-
-      bottomNavigationBar: BottomExpandableAppBar(
-        // Provide the bar controller in build method or default controller as ancestor in a tree
-        controller: bbc,
-        expandedHeight: 700,
-        horizontalMargin: 16,
-        expandedBackColor: Theme.of(context).backgroundColor,
-        // Your bottom sheet code here
-        expandedBody: Padding(
-          padding: const EdgeInsets.only(top: 32.0),
-          child: FrontScreen(),
-        ),
-        shape: AutomaticNotchedShape(
-            RoundedRectangleBorder(), StadiumBorder(side: BorderSide())),
+          Container(
+            color: Colors.grey[800],
+            height: 2,
+            margin: EdgeInsets.all(15).copyWith(top: 0, bottom: 0),
+          )
+        ],
       ),
     );
   }
