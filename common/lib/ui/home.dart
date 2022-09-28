@@ -59,6 +59,7 @@ class Home extends StatelessWidget {
             // ),
             PowerButton(),
             Spacer(),
+            Spacer(),
           ],
         ),
       ),

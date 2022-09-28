@@ -24,8 +24,6 @@ class ColumnChart extends StatelessWidget {
   late double oldestEntry;
   late DateTime latestTimestamp;
 
-  ChartSeriesController? _chartSeriesController;
-
   void _compute() {
     // data = [
     //   _ChartData('All', 30, const Color(0xff808080)),
@@ -83,9 +81,6 @@ class ColumnChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _compute();
-    Timer(Duration(seconds: 5), () {
-      _chartSeriesController?.animate();
-    });
 
     return Column(
       children: [
@@ -103,6 +98,7 @@ class ColumnChart extends StatelessWidget {
                   minimum: latestTimestamp.subtract(Duration(hours: oldestEntry.abs().toInt())), maximum: latestTimestamp.add(Duration(hours: 1)),
                   interval: (oldestEntry.abs() / 4).ceilToDouble(),
                   labelStyle: TextStyle(color: Colors.transparent),
+                  edgeLabelPlacement: EdgeLabelPlacement.shift,
               ),
               primaryYAxis: CategoryAxis(
                   minimum: minGreen, maximum: maxGreen, interval: (maxGreen ~/ 3).toDouble(),
@@ -144,7 +140,8 @@ class ColumnChart extends StatelessWidget {
               primaryXAxis: DateTimeAxis(
                   minimum: latestTimestamp.subtract(Duration(hours: oldestEntry.abs().toInt())), maximum: latestTimestamp.add(Duration(hours: 1)),
                   interval: (oldestEntry.abs() / 4).ceilToDouble(),
-                  labelStyle: TextStyle(color: Color(0xff404040))
+                  labelStyle: TextStyle(color: Color(0xff404040)),
+                  edgeLabelPlacement: EdgeLabelPlacement.shift,
               ),
               primaryYAxis: NumericAxis(
                   minimum: 0, maximum: maxRed, interval: (maxRed ~/ 3).toDouble(),

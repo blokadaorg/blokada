@@ -20,11 +20,11 @@ abstract class _StatsRepo with Store {
   UiStats stats = UiStats.empty();
 
   start() async {
-    _refreshStats();
-    _startRefreshingStats(30);
+    _startRefreshingStats(120, true);
   }
 
-  _startRefreshingStats(int seconds) {
+  _startRefreshingStats(int seconds, bool refreshNow) {
+    if (refreshNow) _refreshStats();
     refreshTimer = Timer.periodic(Duration(seconds: seconds), (Timer t) => _refreshStats());
   }
 
@@ -40,9 +40,9 @@ abstract class _StatsRepo with Store {
   setFrequentRefresh(bool frequent) {
     _stopRefreshingStats();
     if (frequent) {
-      _startRefreshingStats(5);
+      _startRefreshingStats(30, false);
     } else {
-      _startRefreshingStats(30);
+      _startRefreshingStats(120, false);
     }
   }
 
@@ -56,7 +56,7 @@ abstract class _StatsRepo with Store {
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
 
-    final rng = Random();
+    //final rng = Random();
     //List<int> allowedHistogram = List.filled(24, rng.nextInt(500));
     List<int> allowedHistogram = List.filled(24, 0);
     List<int> blockedHistogram = List.filled(24, 0);
@@ -69,7 +69,6 @@ abstract class _StatsRepo with Store {
       for (var d in metric.dps) {
         final diffHours = ((now - d.timestamp) ~/ 3600);
         final hourIndex = 24 - diffHours - 1;
-        print(d.timestamp);
 
         if (hourIndex < 0) continue;
         if (latestTimestamp < d.timestamp * 1000) latestTimestamp = d.timestamp * 1000;

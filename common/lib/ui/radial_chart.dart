@@ -116,12 +116,13 @@ class RadialChart extends StatelessWidget {
               yValueMapper: (_ChartData data, _) => data.y,
               pointColorMapper: (_ChartData data, _) => data.color,
               //pointShaderMapper: (_ChartData data, _, Color color, Rect rect) => data.shader,
-              cornerStyle: CornerStyle.bothCurve,
+              cornerStyle: CornerStyle.bothFlat,
               useSeriesColor: true,
               trackOpacity: 0.1,
               gap: '3%',
               innerRadius: '30%',
-              animationDuration: 2000,
+              radius: '80%',
+              animationDuration: 3700,
             )
           ]
         )

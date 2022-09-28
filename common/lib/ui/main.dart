@@ -73,6 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static const accountIdChannel = MethodChannel('account:id');
 
+  var showBottom = false;
+
+  final statsRepo = Repos.instance.stats;
+
   @override
   void initState() {
     super.initState();
@@ -97,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             sheetBelow: SnappingSheetContent(
               sizeBehavior: SheetSizeStatic(size: 700),
               draggable: true,
-              child: FrontScreen(),
+              child: (showBottom) ? FrontScreen() : Container(decoration: BoxDecoration(color: Color(0xff1c1c1e))),
             ),
             snappingPositions: [
               SnappingPosition.factor(
@@ -107,12 +111,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 grabbingContentOffset: GrabbingContentOffset.top,
               ),
               SnappingPosition.factor(
-                positionFactor: 0.9,
+                positionFactor: 0.95,
                 snappingCurve: Curves.easeOutExpo,
                 snappingDuration: Duration(seconds: 1),
                 grabbingContentOffset: GrabbingContentOffset.bottom,
               )
             ],
+            onSnapCompleted: (sheetPosition, snappingPosition) {
+              setState(() {
+                if (sheetPosition.pixels > 500) {
+                  showBottom = true;
+                  statsRepo.setFrequentRefresh(true);
+                } else {
+                  showBottom = false;
+                  statsRepo.setFrequentRefresh(false);
+                }
+              });
+            },
           ),
           // SnappingSheet(
           //   child: null,
