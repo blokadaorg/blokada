@@ -60,7 +60,7 @@ class RadialChart extends StatelessWidget {
     data = [
       _ChartData(
         'All',
-        max((stats.rateTotal) / 1.0, 20),
+        max((stats.dayTotal) / 1.0, 20),
         const Color(0xff808080),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -73,7 +73,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Allowed',
-        max(stats.rateAllowed / 1.0, 20),
+        max(stats.dayAllowed * (stats.avgDayTotal / stats.avgDayAllowed) / 1.0, 20),
         const Color(0xff33c75a),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -84,7 +84,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Blocked',
-        max(stats.rateBlocked / 1.0, 20),
+        max(stats.dayBlocked * (stats.avgDayTotal / stats.avgDayBlocked), 20),
         const Color(0xffff3b30),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -111,7 +111,7 @@ class RadialChart extends StatelessWidget {
             // Renders radial bar chart
             RadialBarSeries<_ChartData, String>(
               dataSource: data,
-              maximumValue: stats.avgTotal.toDouble(),
+              maximumValue: stats.avgDayTotal.toDouble(),
               xValueMapper: (_ChartData data, _) => data.x,
               yValueMapper: (_ChartData data, _) => data.y,
               pointColorMapper: (_ChartData data, _) => data.color,

@@ -47,11 +47,12 @@ abstract class _StatsRepo with Store {
   }
 
   Future<UiStats> getStats(String accountId) async {
-    final stats = await _api.getStats(accountId);
-    return _convertStats(stats);
+    final oneDay = await _api.getStats(accountId, "24h", "1h");
+    final oneWeek = await _api.getStats(accountId, "1w", "24h");
+    return _convertStats(oneDay, oneWeek);
   }
 
-  UiStats _convertStats(StatsEndpoint stats) {
+  UiStats _convertStats(StatsEndpoint stats, StatsEndpoint oneWeek) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
@@ -84,11 +85,36 @@ abstract class _StatsRepo with Store {
     print(allowedHistogram);
     print(blockedHistogram);
 
+    // Also parse the weekly sample to get the average
+    var avgDayAllowed = 0;
+    var avgDayBlocked = 0;
+    for (var metric in oneWeek.stats.metrics) {
+      final action = metric.tags.action;
+      final isAllowed = action == "fallthrough" || action == "allowed";
+      metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+      // Get previous week if available
+      if (metric.dps.length >= 2) {
+        if (isAllowed) {
+          avgDayAllowed = (metric.dps.sublist(0, metric.dps.length - 1).reduce((a, b) => Dps(timestamp: 0, value: a.value + b.value)).value / (metric.dps.length - 1)).round();
+          avgDayAllowed = avgDayAllowed * 1;
+        } else {
+          avgDayBlocked = (metric.dps.sublist(0, metric.dps.length - 1).reduce((a, b) => Dps(timestamp: 0, value: a.value + b.value)).value / (metric.dps.length - 1)).round();
+          avgDayBlocked = avgDayBlocked * 1;
+        }
+      }
+    }
+
+    if (avgDayAllowed == 0) avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 ~/ 2;
+    if (avgDayBlocked == 0) avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 ~/ 2;
+    print("daily avg: $avgDayBlocked - $avgDayAllowed");
+
     return UiStats(
       totalAllowed: int.parse(stats.totalAllowed),
       totalBlocked: int.parse(stats.totalBlocked),
       allowedHistogram: allowedHistogram,
       blockedHistogram: blockedHistogram,
+      avgDayAllowed: avgDayAllowed, avgDayBlocked: avgDayBlocked, avgDayTotal: avgDayAllowed + avgDayBlocked,
       latestTimestamp: latestTimestamp
     );
   }

@@ -10,8 +10,9 @@ class UiStats {
 
   int latestTimestamp = DateTime.now().millisecondsSinceEpoch;
 
-  int hourlyAllowed = 0;
-  int hourlyBlocked = 0;
+  int dayAllowed = 0;
+  int dayBlocked = 0;
+  int dayTotal = 0;
 
   int rateAllowed = 0;
   int rateBlocked = 0;
@@ -21,21 +22,31 @@ class UiStats {
   int avgBlocked = 0;
   int avgTotal = 0;
 
+  int avgDayAllowed = 0;
+  int avgDayBlocked = 0;
+  int avgDayTotal = 0;
+
   UiStats({
     required this.totalAllowed, required this.totalBlocked,
     required this.allowedHistogram, required this.blockedHistogram,
+    required this.avgDayTotal, required this.avgDayAllowed, required this.avgDayBlocked,
     required this.latestTimestamp,
   }) {
-    hourlyAllowed = allowedHistogram.reduce((a, b) => a + b);
-    hourlyBlocked = blockedHistogram.reduce((a, b) => a + b);
+    dayAllowed = allowedHistogram.reduce((a, b) => a + b);
+    dayBlocked = blockedHistogram.reduce((a, b) => a + b);
+    dayTotal = dayAllowed + dayBlocked;
+
+    // avgDayAllowed = (dayAllowed * 1.1).toInt();
+    // avgDayBlocked = (dayBlocked * 1.1).toInt();
+    // avgDayTotal = (dayTotal * 1.1).toInt();
 
     rateAllowed = allowedHistogram.last;
     rateBlocked = blockedHistogram.last;
     rateTotal = rateAllowed + rateBlocked;
 
-    avgAllowed = (hourlyAllowed / 24.0).round();
-    avgBlocked = (hourlyBlocked / 24.0).round();
-    avgTotal = ((hourlyBlocked + hourlyAllowed) / 24.0).round();
+    avgAllowed = (dayAllowed / 24.0).round();
+    avgBlocked = (dayBlocked / 24.0).round();
+    avgTotal = ((dayBlocked + dayAllowed) / 24.0).round();
   }
 
   UiStats.empty({

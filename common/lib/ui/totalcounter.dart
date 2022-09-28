@@ -27,9 +27,9 @@ class TotalCounterState extends State<TotalCounter> {
   final StatsRepo statsRepo = Repos.instance.stats;
 
   var allowed = 0.0;
-  var blocked = 0.0;
+  var blocked = 0;
   var lastAllowed = 0.0;
-  var lastBlocked = 0.0;
+  var lastBlocked = 0;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class TotalCounterState extends State<TotalCounter> {
         lastAllowed = allowed;
         lastBlocked = blocked;
         allowed = statsRepo.stats.totalAllowed.toDouble();
-        blocked = statsRepo.stats.totalBlocked.toDouble();
+        blocked = statsRepo.stats.totalBlocked;
       });
     });
   }
@@ -47,7 +47,7 @@ class TotalCounterState extends State<TotalCounter> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
+      padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -61,40 +61,24 @@ class TotalCounterState extends State<TotalCounter> {
               padding: const EdgeInsets.only(top: 16.0, left: 32.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
-                        Countup(
-                          begin: lastBlocked,
-                          end: blocked,
-                          duration: Duration(seconds: 3),
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
-                        ),
-                      ]
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
+                      Text(_formatCounter(blocked), style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900))
+                      // Countup(
+                      //   begin: lastBlocked,
+                      //   end: blocked,
+                      //   duration: Duration(seconds: 3),
+                      //   style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
+                      // ),
+                    ]
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 20)),
-                          Countup(
-                            begin: lastAllowed,
-                            end: allowed,
-                            duration: Duration(seconds: 3),
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
-                          ),
-                        ]
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32.0),
                     child: Image(
                       width: 32,
                       height: 32,
@@ -110,4 +94,14 @@ class TotalCounterState extends State<TotalCounter> {
     );
   }
 
+}
+
+String _formatCounter(int counter) {
+  if (counter >= 1000000) {
+    return "${(counter / 1000000.0).toStringAsFixed(2)}M";
+    } else if (counter >= 1000) {
+     return "${(counter / 1000.0).toStringAsFixed(1)}K";
+  } else {
+    return "$counter";
+  }
 }

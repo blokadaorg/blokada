@@ -40,9 +40,9 @@ class RadialSegmentState extends State<RadialSegment> {
         lastAllowed = allowed;
         lastBlocked = blocked;
         lastTotal = total;
-        allowed = statsRepo.stats.rateAllowed.toDouble();
-        blocked = statsRepo.stats.rateBlocked.toDouble();
-        total = statsRepo.stats.rateTotal.toDouble();
+        allowed = statsRepo.stats.dayAllowed.toDouble();
+        blocked = statsRepo.stats.dayBlocked.toDouble();
+        total = statsRepo.stats.dayTotal.toDouble();
       });
     });
   }
