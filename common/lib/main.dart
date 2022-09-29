@@ -104,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom),
             ),
             snappingPositions: [
-              SnappingPosition.factor(
-                positionFactor: 0.1,
+              SnappingPosition.pixels(
+                positionPixels: 8,
                 snappingCurve: Curves.easeOutExpo,
                 snappingDuration: Duration(seconds: 1),
                 grabbingContentOffset: GrabbingContentOffset.top,

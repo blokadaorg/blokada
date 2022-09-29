@@ -10,13 +10,13 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package ui.stats
+package ui.home
 
 import android.content.Context
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragment
 
-class FlutterStatsFragment: FlutterFragment() {
+class FlutterHomeFragment: FlutterFragment() {
     override fun onAttach(context: Context) {
         arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
         super.onAttach(context)
@@ -24,7 +24,7 @@ class FlutterStatsFragment: FlutterFragment() {
 }
 
 private class HackyCachedEngineFragmentBuilder(engineId: String):
-    FlutterFragment.CachedEngineFragmentBuilder(FlutterStatsFragment::class.java, engineId) {
+    FlutterFragment.CachedEngineFragmentBuilder(FlutterHomeFragment::class.java, engineId) {
     fun getBundle(): Bundle {
         return createArgs()
     }

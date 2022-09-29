@@ -21,6 +21,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import repository.Repos
+import ui.home.ShareUtils
+import ui.utils.cause
 import utils.Logger
 
 object FlutterService {
@@ -30,6 +32,7 @@ object FlutterService {
     private val accountIdHot = Repos.account.accountIdHot
 
     private lateinit var sendAccountId: MethodChannel
+    private lateinit var share: MethodChannel
 
     fun setup() {
         val engine = FlutterEngine(ctx.requireAppContext())
@@ -40,6 +43,19 @@ object FlutterService {
 
         sendAccountId = MethodChannel(engine.dartExecutor.binaryMessenger, "account:id")
         onAccountIdChanged_SendToFlutter()
+
+        // Share counter
+        share = MethodChannel(engine.dartExecutor.binaryMessenger, "share")
+        share.setMethodCallHandler { call, result ->
+            try {
+                val counter = call.arguments as Int
+                val counterString = ShareUtils().getCounterString(counter.toLong())
+                ShareUtils().shareMessage(ctx.requireContext(), counterString)
+            } catch (ex: Exception) {
+                Logger.w("FlutterService", "Failed to share counter".cause(ex))
+            }
+        }
+
         Logger.v("Flutter", "FlutterEngine initialized")
     }
 

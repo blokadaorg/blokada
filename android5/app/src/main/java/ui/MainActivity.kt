@@ -81,6 +81,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         super.onCreate(savedInstanceState)
         Logger.v("MainActivity", "onCreate: $this")
 
+        flutter.setup()
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         ContextService.setActivityContext(this)
         TranslationService.setup()
@@ -126,8 +128,8 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home,
-                R.id.navigation_flutterstats,
+                R.id.navigation_flutterhome,
+                R.id.navigation_activity,
                 R.id.advancedFragment,
                 R.id.navigation_settings
             )
@@ -138,7 +140,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // Set the fragment inset as needed (home fragment has no inset)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val shouldInset = when (destination.id) {
-                R.id.navigation_home -> false
+                R.id.navigation_flutterhome -> false
                 else -> true
             }
             setFragmentInset(fragmentContainer, shouldInset)
@@ -155,10 +157,10 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // Needed for dynamic translation of the bottom bar
         val selectionListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
             val (nav, title) = when (item.itemId) {
-                R.id.navigation_flutterstats -> R.id.navigation_flutterstats to getString(R.string.main_tab_activity)
+                R.id.navigation_activity -> R.id.navigation_activity to getString(R.string.main_tab_activity)
                 R.id.advancedFragment -> R.id.advancedFragment to getString(R.string.main_tab_advanced)
                 R.id.navigation_settings -> R.id.navigation_settings to getString(R.string.main_tab_settings)
-                else -> R.id.navigation_home to getString(R.string.main_tab_home)
+                else -> R.id.navigation_flutterhome to getString(R.string.main_tab_home)
             }
             navController.navigate(nav)
             item.title = title
@@ -166,7 +168,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             // Also emit tab change in NavRepo
             lifecycleScope.launch {
                 val tab = when(item.itemId) {
-                    R.id.navigation_flutterstats -> Tab.Activity
+                    R.id.navigation_activity -> Tab.Activity
                     R.id.advancedFragment -> Tab.Advanced
                     R.id.navigation_settings -> Tab.Settings
                     else -> Tab.Home
@@ -183,7 +185,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             Logger.v("Navigation", destination.toString())
 
             val translationId = when (destination.id) {
-                R.id.navigation_flutterstats -> R.string.main_tab_activity
+                R.id.navigation_activity -> R.string.main_tab_activity
                 R.id.activityDetailFragment -> R.string.main_tab_activity
                 R.id.navigation_packs -> getString(R.string.advanced_section_header_packs)
                 R.id.packDetailFragment -> R.string.advanced_section_header_packs
@@ -205,8 +207,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 else it.toString()
             } ?: run { toolbar.title }
         }
-
-        flutter.setup()
 
         intent?.let {
             handleIntent(it)

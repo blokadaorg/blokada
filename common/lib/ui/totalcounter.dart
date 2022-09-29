@@ -55,7 +55,7 @@ class TotalCounterState extends State<TotalCounter> {
 
   Future<void> _shareCounter() async {
     try {
-      await shareChannel.invokeMethod('shareCounter', {"counter": blocked});
+      await shareChannel.invokeMethod('shareCounter', blocked);
     } on PlatformException catch (e) {
       print("Failed to share counter: '${e.message}'.");
     }
@@ -64,7 +64,7 @@ class TotalCounterState extends State<TotalCounter> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 48.0, bottom: 16.0),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 16.0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -75,7 +75,7 @@ class TotalCounterState extends State<TotalCounter> {
               child: Text("All time", style: TextStyle(color: Color(0xff464646), fontSize: 18)),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16.0, left: 32.0),
+              padding: const EdgeInsets.only(top: 8.0, left: 32.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,

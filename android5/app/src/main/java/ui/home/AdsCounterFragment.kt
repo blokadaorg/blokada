@@ -12,6 +12,7 @@
 
 package ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,19 +47,19 @@ class AdsCounterFragment : BottomSheetFragment(skipCollapsed = false) {
 
         lifecycleScope.launch {
             statsRepo.statsHot.collect {
-                val counterString = getCounterString(it.getCounter())
+                val counterString = ShareUtils().getCounterString(it.getCounter())
 
                 val share: View = root.findViewById(R.id.adscounter_share)
                 share.setOnClickListener {
                     dismiss()
-                    shareMessage(counterString)
+                    ShareUtils().shareMessage(context!!, counterString)
                 }
 
                 val counter: TextView = root.findViewById(R.id.adscounter_counter)
                 counter.text = counterString
                 counter.setOnClickListener {
                     dismiss()
-                    shareMessage(counterString)
+                    ShareUtils().shareMessage(context!!, counterString)
                 }
             }
         }
@@ -66,7 +67,12 @@ class AdsCounterFragment : BottomSheetFragment(skipCollapsed = false) {
         return root
     }
 
-    private fun getCounterString(counter: Long): String {
+
+}
+
+class ShareUtils {
+
+    fun getCounterString(counter: Long): String {
         return when {
             counter >= 1_000_000 -> "%.1fM".format(counter / 1_000_000.0)
             counter >= 1_000 -> "%.1fK".format(counter / 1_000.0)
@@ -74,15 +80,15 @@ class AdsCounterFragment : BottomSheetFragment(skipCollapsed = false) {
         }
     }
 
-    private fun shareMessage(counterString: String) {
+    fun shareMessage(ctx: Context, counterString: String) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, getString(R.string.main_share_message, counterString))
+            putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.main_share_message, counterString))
             type = "text/plain"
         }
 
         val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
+        ctx.startActivity(shareIntent)
     }
 
 }

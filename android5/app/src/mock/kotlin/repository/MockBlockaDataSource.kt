@@ -22,7 +22,7 @@ object MockBlockaDataSource {
 
     suspend fun postAccount(): Account {
         delay(3000)
-        return Account(id = "mockedmocked")
+        return Account(id = "mockedmocked", active = false, payment_source = "mocked", type = "libre")
     }
 
     private var refreshCount = 0
@@ -31,7 +31,10 @@ object MockBlockaDataSource {
         if (id.length == 12) {
             return Account(
                 id = id,
-                active_until = if (refreshCount++ % 2 != 0) Date().plus(3) else Date(0)
+                active_until = if (refreshCount++ % 2 != 0) Date().plus(3) else Date(0),
+                active = false,
+                payment_source = "mocked",
+                type = "libre"
             )
         } else throw BlokadaException("Bad account")
     }
