@@ -26,6 +26,8 @@ class TotalCounterState extends State<TotalCounter> {
 
   TotalCounterState({required bool this.autoRefresh});
 
+  static const shareChannel = MethodChannel('share');
+
   final bool autoRefresh;
 
   final StatsRepo statsRepo = Repos.instance.stats;
@@ -47,6 +49,15 @@ class TotalCounterState extends State<TotalCounter> {
           blocked = statsRepo.stats.totalBlocked;
         });
       });
+    }
+
+  }
+
+  Future<void> _shareCounter() async {
+    try {
+      await shareChannel.invokeMethod('shareCounter', {"counter": blocked});
+    } on PlatformException catch (e) {
+      print("Failed to share counter: '${e.message}'.");
     }
   }
 
@@ -83,13 +94,16 @@ class TotalCounterState extends State<TotalCounter> {
                       // ),
                     ]
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 32.0),
-                    child: Image(
-                      width: 32,
-                      height: 32,
-                      image: AssetImage('assets/images/square.and.arrow.up.png')
-                    ),
+                  GestureDetector(
+                    onTap: () { _shareCounter(); },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 32.0),
+                      child: Image(
+                        width: 32,
+                        height: 32,
+                        image: AssetImage('assets/images/square.and.arrow.up.png')
+                      ),
+                    )
                   )
                 ],
               ),
