@@ -9,10 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
-import '../repo/Repos.dart';
-import 'column_chart.dart';
-import 'frontscreentab.dart';
-import 'home.dart';
+import 'repo/Repos.dart';
+import 'ui/column_chart.dart';
+import 'ui/frontscreentab.dart';
+import 'ui/home.dart';
 
 
 void main() => runApp(const MyApp());
