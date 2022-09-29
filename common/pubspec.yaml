@@ -41,6 +41,7 @@ dependencies:
   tiktoklikescroller: ^0.2.3
   expandable_bottom_bar: ^2.0.2
   snapping_sheet: ^3.1.0
+  animate_gradient: ^0.0.2
 
 dev_dependencies:
   flutter_test:

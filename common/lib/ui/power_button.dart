@@ -4,7 +4,7 @@ import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
- import 'package:mobx/mobx.dart' as mobx;
+import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
 
