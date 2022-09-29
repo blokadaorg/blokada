@@ -11,18 +11,22 @@ import '../repo/StatsRepo.dart';
 
 class TotalCounter extends StatefulWidget {
 
-  TotalCounter({
-    Key? key
-  }) : super(key: key);
+  TotalCounter({Key? key, required bool this.autoRefresh}) : super(key: key);
+
+  final bool autoRefresh;
 
   @override
   State<StatefulWidget> createState() {
-    return TotalCounterState();
+    return TotalCounterState(autoRefresh: this.autoRefresh);
   }
 
 }
 
 class TotalCounterState extends State<TotalCounter> {
+
+  TotalCounterState({required bool this.autoRefresh});
+
+  final bool autoRefresh;
 
   final StatsRepo statsRepo = Repos.instance.stats;
 
@@ -34,14 +38,16 @@ class TotalCounterState extends State<TotalCounter> {
   @override
   void initState() {
     super.initState();
-    mobx.autorun((_) {
-      setState(() {
-        lastAllowed = allowed;
-        lastBlocked = blocked;
-        allowed = statsRepo.stats.totalAllowed.toDouble();
-        blocked = statsRepo.stats.totalBlocked;
+    if (autoRefresh) {
+      mobx.autorun((_) {
+        setState(() {
+          lastAllowed = allowed;
+          lastBlocked = blocked;
+          allowed = statsRepo.stats.totalAllowed.toDouble();
+          blocked = statsRepo.stats.totalBlocked;
+        });
       });
-    });
+    }
   }
 
   @override

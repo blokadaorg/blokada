@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             sheetBelow: SnappingSheetContent(
               sizeBehavior: SheetSizeStatic(size: 700),
               draggable: true,
-              child: (showBottom) ? FrontScreen() : Container(decoration: BoxDecoration(color: Color(0xff1c1c1e))),
+              child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom),
             ),
             snappingPositions: [
               SnappingPosition.factor(

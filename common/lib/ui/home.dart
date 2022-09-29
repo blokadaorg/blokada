@@ -53,8 +53,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
         return AnimateGradient(
           primaryColors: primaryColorsActive,
           secondaryColors: secondaryColorsActive,
@@ -94,7 +92,5 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ),
         );
-      }
-    );
   }
 }

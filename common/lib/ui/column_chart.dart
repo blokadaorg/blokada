@@ -100,7 +100,7 @@ class ColumnChart extends StatelessWidget {
                   labelStyle: TextStyle(color: Colors.transparent),
                   edgeLabelPlacement: EdgeLabelPlacement.shift,
               ),
-              primaryYAxis: CategoryAxis(
+              primaryYAxis: NumericAxis(
                   minimum: minGreen, maximum: maxGreen, interval: (maxGreen ~/ 3).toDouble(),
                   majorGridLines: MajorGridLines(width: 0),
                   opposedPosition: true,
@@ -148,7 +148,7 @@ class ColumnChart extends StatelessWidget {
                   majorGridLines: MajorGridLines(width: 0),
                   opposedPosition: true,
                   labelStyle: TextStyle(color: Color(0xff404040)),
-                  labelFormat: '{value}  ',
+                  labelFormat: stats.totalAllowed == 0 ? '{value}' : '{value}  ', // Hack to align labels
               ),
               tooltipBehavior: TooltipBehavior(enable: true),
               enableSideBySideSeriesPlacement: false,

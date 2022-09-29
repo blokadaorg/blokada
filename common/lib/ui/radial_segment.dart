@@ -10,16 +10,22 @@ import '../repo/StatsRepo.dart';
 
 class RadialSegment extends StatefulWidget {
 
-  const RadialSegment({Key? key}) : super(key: key);
+  const RadialSegment({Key? key, required bool this.autoRefresh}) : super(key: key);
+
+  final bool autoRefresh;
 
   @override
   State<StatefulWidget> createState() {
-    return RadialSegmentState();
+    return RadialSegmentState(autoRefresh: this.autoRefresh);
   }
 
 }
 
 class RadialSegmentState extends State<RadialSegment> {
+
+  RadialSegmentState({required bool this.autoRefresh});
+
+  final bool autoRefresh;
 
   final StatsRepo statsRepo = Repos.instance.stats;
 
@@ -34,17 +40,19 @@ class RadialSegmentState extends State<RadialSegment> {
   @override
   void initState() {
     super.initState();
-    mobx.autorun((_) {
-      setState(() {
-        stats = statsRepo.stats;
-        lastAllowed = allowed;
-        lastBlocked = blocked;
-        lastTotal = total;
-        allowed = statsRepo.stats.dayAllowed.toDouble();
-        blocked = statsRepo.stats.dayBlocked.toDouble();
-        total = statsRepo.stats.dayTotal.toDouble();
+    if (autoRefresh) {
+      mobx.autorun((_) {
+        setState(() {
+          stats = statsRepo.stats;
+          lastAllowed = allowed;
+          lastBlocked = blocked;
+          lastTotal = total;
+          allowed = statsRepo.stats.dayAllowed.toDouble();
+          blocked = statsRepo.stats.dayBlocked.toDouble();
+          total = statsRepo.stats.dayTotal.toDouble();
+        });
       });
-    });
+    }
   }
 
   @override

@@ -26,26 +26,33 @@ import 'samples/pie_chart_sample3.dart';
 
 class FrontScreen extends StatefulWidget {
 
-  FrontScreen({Key? key}) : super(key: key);
+  FrontScreen({Key? key, required bool this.autoRefresh}) : super(key: key);
+
+  final bool autoRefresh;
 
   @override
-  State<StatefulWidget> createState() => FrontScreenState();
+  State<StatefulWidget> createState() => FrontScreenState(autoRefresh: this.autoRefresh);
 
 }
 
 class FrontScreenState extends State<FrontScreen> {
 
+  FrontScreenState({required bool this.autoRefresh});
+
   final StatsRepo statsRepo = Repos.instance.stats;
 
+  final bool autoRefresh;
   var stats = UiStats.empty();
 
   @override
   void initState() {
-    mobx.autorun((_) {
-      setState(() {
-        stats = statsRepo.stats;
+    if (autoRefresh) {
+      mobx.autorun((_) {
+        setState(() {
+          stats = statsRepo.stats;
+        });
       });
-    });
+    }
   }
 
   @override
@@ -59,9 +66,9 @@ class FrontScreenState extends State<FrontScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            RadialSegment(),
+            RadialSegment(autoRefresh: autoRefresh),
             ColumnChart(stats: stats),
-            TotalCounter()
+            TotalCounter(autoRefresh: autoRefresh)
           ],
         ),
     );
