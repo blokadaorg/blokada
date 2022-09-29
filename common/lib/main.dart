@@ -71,8 +71,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  static const accountIdChannel = MethodChannel('account:id');
-
   var showBottom = false;
 
   final statsRepo = Repos.instance.stats;
@@ -80,10 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
-    accountIdChannel.setMethodCallHandler((call) async {
-      print("init state hello ${call.arguments}");
-    });
 
     Repos.instance.start();
   }

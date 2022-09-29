@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:common/repo/Repos.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:common/model/BlockaModel.dart';
 import 'package:common/service/BlockaApiService.dart';
 
 import '../model/UiModel.dart';
+import 'AccountRepo.dart';
 
 part 'StatsRepo.g.dart';
 
@@ -14,6 +16,7 @@ class StatsRepo = _StatsRepo with _$StatsRepo;
 abstract class _StatsRepo with Store {
 
   late final BlockaApiService _api = BlockaApiService();
+  late final AccountRepo accountRepo = Repos.instance.account; // TODO: CurrentUserBlockaApiService...
   Timer? refreshTimer;
 
   @observable
@@ -29,7 +32,7 @@ abstract class _StatsRepo with Store {
   }
 
   _refreshStats() async {
-    stats = await getStats("ebwkrlznagkw");
+    stats = await getStats(accountRepo.accountId);
   }
 
   _stopRefreshingStats() {
