@@ -19,11 +19,13 @@ import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import repository.Repos
 import ui.home.ShareUtils
 import ui.utils.cause
 import utils.Logger
+import java.util.*
 
 object FlutterService {
 
@@ -31,8 +33,15 @@ object FlutterService {
 
     private val accountIdHot = Repos.account.accountIdHot
 
+    private val appStateHot = Repos.app.appStateHot
+    private val workingHot = Repos.app.workingHot
+
+    private val appRepo = Repos.app;
+
     private lateinit var sendAccountId: MethodChannel
     private lateinit var share: MethodChannel
+    private lateinit var appState: MethodChannel
+    private lateinit var appChangeState: MethodChannel
 
     fun setup() {
         val engine = FlutterEngine(ctx.requireAppContext())
@@ -41,6 +50,7 @@ object FlutterService {
         )
         FlutterEngineCache.getInstance().put("common", engine);
 
+        // Push account ID changes to Flutter
         sendAccountId = MethodChannel(engine.dartExecutor.binaryMessenger, "account:id")
         onAccountIdChanged_SendToFlutter()
 
@@ -56,6 +66,23 @@ object FlutterService {
             }
         }
 
+        // Push app state changes to Flutter
+        appState = MethodChannel(engine.dartExecutor.binaryMessenger, "app:state")
+        onAppStateChanged_SendToFlutter()
+
+        // Change app state
+        appChangeState = MethodChannel(engine.dartExecutor.binaryMessenger, "app:changeState")
+        appChangeState.setMethodCallHandler { call, result ->
+            try {
+                val unpause = call.arguments as Boolean
+                GlobalScope.launch {
+                    if (unpause) appRepo.unpauseApp() else appRepo.pauseApp(Date(0))
+                }
+            } catch (ex: Exception) {
+                Logger.w("FlutterService", "Failed to change app state".cause(ex))
+            }
+        }
+
         Logger.v("Flutter", "FlutterEngine initialized")
     }
 
@@ -67,6 +94,17 @@ object FlutterService {
         GlobalScope.launch(Dispatchers.Main) {
             accountIdHot.collect {
                 sendAccountId(it)
+            }
+        }
+    }
+
+    private fun onAppStateChanged_SendToFlutter() {
+        GlobalScope.launch(Dispatchers.Main) {
+            combine(appStateHot, workingHot) { state, working -> state to working
+            }.collect {
+                val parsed = "{\"state\":\"${it.first.name.toLowerCase()}\",\"working\":${it.second},\"plus\":false}"
+                Logger.v("FlutterService", "Sending app state: $parsed")
+                appState.invokeMethod("app:state", parsed)
             }
         }
     }
