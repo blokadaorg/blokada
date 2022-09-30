@@ -48,6 +48,7 @@ class ServicesSingleton {
     lazy var env = EnvService()
     lazy var quickActions = QuickActionsService()
 
+    lazy var flutter = FlutterService()
 }
 
 func resetServices() {

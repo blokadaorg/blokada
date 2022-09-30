@@ -50,7 +50,7 @@ struct ContentView: View {
                     case .AdsCounter:
                         AdsCounterShareView()
                     case .ShareAdsCounter:
-                        ShareSheet(activityItems: [L10n.mainShareMessage(self.homeVM.blockedCounter.compact)])
+                        ShareSheet(activityItems: [L10n.mainShareMessage(Services.flutter.shareCounter.compact)])
                     case .Help:
                         SupportView()
                     }

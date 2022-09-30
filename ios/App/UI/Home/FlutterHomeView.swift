@@ -13,13 +13,18 @@
 import SwiftUI
 import Flutter
 
-struct FlutterStatsView: UIViewControllerRepresentable {
+struct FlutterHomeView: UIViewControllerRepresentable {
+
+    private let flutter = Services.flutter;
+
     func makeUIViewController(context: Context) -> FlutterViewController {
-        let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
-        let flutterViewController = FlutterViewController(engine: flutterEngine, nibName: nil, bundle: nil)
-        return flutterViewController
+        let engine = self.flutter.flutterEngine
+        let controller = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
+        self.flutter.setupChannels(controller: controller)
+        return controller
     }
 
     func updateUIViewController(_ uiViewController: FlutterViewController, context: Context) {
     }
+
 }

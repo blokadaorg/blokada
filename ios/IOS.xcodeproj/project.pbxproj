@@ -48,8 +48,8 @@
 		4E11D2E127206C790042385B /* ActivitysNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */; };
 		4E11D2E627206D810042385B /* NoLogRetentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2E527206D810042385B /* NoLogRetentionView.swift */; };
 		4E11D2E727206D810042385B /* NoLogRetentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2E527206D810042385B /* NoLogRetentionView.swift */; };
-		4E1264422880061A008D26B2 /* FlutterStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterStatsView.swift */; };
-		4E1264432880061A008D26B2 /* FlutterStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterStatsView.swift */; };
+		4E1264422880061A008D26B2 /* FlutterHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterHomeView.swift */; };
+		4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterHomeView.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E16FE762465621C00AA9853 /* hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2EED216241B8D6500407601 /* hosts.txt */; };
@@ -350,6 +350,8 @@
 		4EA189CC27B5218700E57470 /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189CA27B5218700E57470 /* OptionView.swift */; };
 		4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EA2783124657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
+		4EA7BCE028E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
+		4EA7BCE128E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
 		4EA9A29527845C42009764F1 /* GatewayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A29427845C42009764F1 /* GatewayRepo.swift */; };
 		4EA9A29627845C42009764F1 /* GatewayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A29427845C42009764F1 /* GatewayRepo.swift */; };
 		4EA9A298278490F1009764F1 /* LeaseRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A297278490F1009764F1 /* LeaseRepo.swift */; };
@@ -495,7 +497,7 @@
 		4E11D2DC271F14C90042385B /* ActivityConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityConverter.swift; sourceTree = "<group>"; };
 		4E11D2DF27206C780042385B /* ActivitysNarrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitysNarrowView.swift; sourceTree = "<group>"; };
 		4E11D2E527206D810042385B /* NoLogRetentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLogRetentionView.swift; sourceTree = "<group>"; };
-		4E1264412880061A008D26B2 /* FlutterStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterStatsView.swift; sourceTree = "<group>"; };
+		4E1264412880061A008D26B2 /* FlutterHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterHomeView.swift; sourceTree = "<group>"; };
 		4E1681A8247860490040334B /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
 		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 		4EA189C427B5060B00E57470 /* SettingsFormNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormNavView.swift; sourceTree = "<group>"; };
 		4EA189CA27B5218700E57470 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		4EA2782F24657E9E00C6372E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterService.swift; sourceTree = "<group>"; };
 		4EA9A29427845C42009764F1 /* GatewayRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayRepo.swift; sourceTree = "<group>"; };
 		4EA9A297278490F1009764F1 /* LeaseRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseRepo.swift; sourceTree = "<group>"; };
 		4EA9A29A2784C040009764F1 /* PlusRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusRepo.swift; sourceTree = "<group>"; };
@@ -890,6 +893,7 @@
 				4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */,
 				4E07F19727906E4300F5A310 /* RateService.swift */,
 				4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */,
+				4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1066,6 +1070,7 @@
 				4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */,
 				4E52F3AC245AA9E6007E36EE /* RateAppView.swift */,
 				4E59E3172472BFF6008C1AAA /* AdsCounterShareView.swift */,
+				4E1264412880061A008D26B2 /* FlutterHomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1172,7 +1177,6 @@
 				4E08B9CC247D72DD00AED8F0 /* ActivityItemViewModel.swift */,
 				4ED41CC62478458100155C88 /* SearchBar.swift */,
 				4E11D2DC271F14C90042385B /* ActivityConverter.swift */,
-				4E1264412880061A008D26B2 /* FlutterStatsView.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1505,7 +1509,7 @@
 				4E2ECD0E245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E0FB7112770960C00735E0D /* PackRepo.swift in Sources */,
 				4EB63F3C24364D5D009CBAC1 /* StreamReader.swift in Sources */,
-				4E1264422880061A008D26B2 /* FlutterStatsView.swift in Sources */,
+				4E1264422880061A008D26B2 /* FlutterHomeView.swift in Sources */,
 				4E2ECCF6245AF870009040F1 /* LoadingButtonView.swift in Sources */,
 				4E2F2A0C2760A936005A59F5 /* CloudModel.swift in Sources */,
 				4E57FCDD24A0D24500960ADF /* InboxModel.swift in Sources */,
@@ -1579,6 +1583,7 @@
 				4E42353A244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
 				4E57FCD424A0AD9300960ADF /* ChatView.swift in Sources */,
 				4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
+				4EA7BCE028E6C4D000F3649A /* FlutterService.swift in Sources */,
 				4E0F6FF2243DB49E002E1DF6 /* PlusButtonView.swift in Sources */,
 				4E2ECCED245AE4DE009040F1 /* PackView.swift in Sources */,
 				4EEF1BE82457105E00734182 /* NotificationService.swift in Sources */,
@@ -1705,7 +1710,7 @@
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
 				4E45F4F4248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
-				4E1264432880061A008D26B2 /* FlutterStatsView.swift in Sources */,
+				4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */,
 				4E2F2A04275F7B64005A59F5 /* BlockaApiServiceMock.swift in Sources */,
 				4EE5842D2726D79C0042D34F /* BlocklistConverter.swift in Sources */,
 				4EE25DC6278C4CEE00F2F79B /* HttpRepo.swift in Sources */,
@@ -1779,6 +1784,7 @@
 				4EEF1BF02457FC4300734182 /* DebugViewModel.swift in Sources */,
 				4E0BF79C27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
 				4E7FE9BA244DC28900851E9F /* LeaseListView.swift in Sources */,
+				4EA7BCE128E6C4D000F3649A /* FlutterService.swift in Sources */,
 				4E2F2A162760BE6F005A59F5 /* NavModel.swift in Sources */,
 				4E42355224502678005A0779 /* LogViewModel.swift in Sources */,
 				4E8AE1F72758F06500BD2E5B /* AccountModel.swift in Sources */,

@@ -64,7 +64,7 @@ class TotalCounterState extends State<TotalCounter> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 16.0),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 64.0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(

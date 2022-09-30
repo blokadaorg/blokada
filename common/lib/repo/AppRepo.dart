@@ -27,9 +27,12 @@ abstract class _AppRepo with Store {
   start() async {
     appStateChannel.setMethodCallHandler((call) async {
       print("Got App state from platform");
-      print(jsonDecode(call.arguments as String));
-      appState = AppModel.fromJson(jsonDecode(call.arguments));
-      print(appState.toString());
+      try {
+        appState = AppModel.fromJson(jsonDecode(call.arguments));
+        print(appState.state.toString());
+      } catch (ex) {
+        print("Failed to parse App state: $ex");
+      }
     });
   }
 

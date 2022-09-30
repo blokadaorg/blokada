@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:common/repo/AppRepo.dart';
 import 'package:common/repo/Repos.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:common/model/BlockaModel.dart';
 import 'package:common/service/BlockaApiService.dart';
+
+import 'package:mobx/mobx.dart' as mobx;
 
 import '../model/UiModel.dart';
 import 'AccountRepo.dart';
@@ -16,7 +19,10 @@ class StatsRepo = _StatsRepo with _$StatsRepo;
 abstract class _StatsRepo with Store {
 
   late final BlockaApiService _api = BlockaApiService();
+
   late final AccountRepo accountRepo = Repos.instance.account; // TODO: CurrentUserBlockaApiService...
+  late final AppRepo appRepo = Repos.instance.app;
+
   Timer? refreshTimer;
 
   @observable
@@ -24,6 +30,23 @@ abstract class _StatsRepo with Store {
 
   start() async {
     _startRefreshingStats(120, true);
+    _onAccountIdChanged_refreshStats();
+    _onAppActivated_refreshStats();
+  }
+
+  _onAccountIdChanged_refreshStats() {
+    mobx.reaction((_) => accountRepo.accountId, (_) {
+      print("Account ID changed, refreshing stats");
+      stats = UiStats.empty();
+      _refreshStats();
+    });
+  }
+
+  _onAppActivated_refreshStats() {
+    mobx.reaction((_) => appRepo.appState, (_) {
+      print("App activated, refreshing stats");
+      _refreshStats();
+    });
   }
 
   _startRefreshingStats(int seconds, bool refreshNow) {
@@ -32,6 +55,11 @@ abstract class _StatsRepo with Store {
   }
 
   _refreshStats() async {
+    if (accountRepo.accountId.isEmpty) {
+      print("Account ID not provided yet, skipping stats refresh");
+      return;
+    }
+
     stats = await getStats(accountRepo.accountId);
   }
 

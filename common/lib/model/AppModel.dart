@@ -20,7 +20,7 @@ enum AppState {
 }
 
 AppState _appStateFromJson(String state) {
-  switch (state) {
+  switch (state.toLowerCase()) {
     case 'deactivated':
       return AppState.deactivated;
     case 'paused':

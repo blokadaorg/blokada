@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             snappingPositions: [
               SnappingPosition.pixels(
-                positionPixels: 8,
+                positionPixels: 100,
                 snappingCurve: Curves.easeOutExpo,
                 snappingDuration: Duration(seconds: 1),
                 grabbingContentOffset: GrabbingContentOffset.top,

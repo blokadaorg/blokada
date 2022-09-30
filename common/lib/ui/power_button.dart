@@ -89,8 +89,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
     mobx.autorun((_) {
       print("got new app state");
-      appModel = appRepo.appState;
-      pressed = appRepo.appState.state == AppState.activated;
+      var s = appRepo.appState;
+      appModel = s;
+      pressed = (s.state == AppState.activated && !s.working) || (s.state != AppState.activated && s.working);
       _updateAnimations();
     });
 
@@ -232,7 +233,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlMiniArcCounter.reverse();
     } else {
       animCtrlLoading.reverse();
-      if (appModel.state == AppState.paused) {
+      if (appModel.state == AppState.paused || appModel.state == AppState.deactivated) {
         animCtrlArcAlpha.reverse();
       }
     }
@@ -264,7 +265,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       onTap: () {
         if (!appModel.working) {
           setState(() {
-            pressed = !pressed;
+            // Todo: just "button pressed" action
+            //pressed = !pressed;
             if (pressed) {
               appRepo.unpauseApp();
             } else {
