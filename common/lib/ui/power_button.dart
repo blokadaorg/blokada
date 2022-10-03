@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/service/Services.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -261,82 +262,103 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (!appModel.working) {
-          setState(() {
-            // Todo: just "button pressed" action
-            //pressed = !pressed;
-            if (pressed) {
-              appRepo.unpauseApp();
-            } else {
-              appRepo.pauseApp();
-            }
-            _updateAnimations();
-          });
-        }
-      },
-      child: Column(
+      return Column(
         children: [
           SizedBox(
             width: 210,
             height: 210,
-            child: FutureBuilder<ui.Image>(
-              future: loadIcon,
-              builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return const CircularProgressIndicator();
-                  default:
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
+            child: GestureDetector(
+              onTap: () {
+                if (!appModel.working) {
+                  setState(() {
+                    // Todo: just "button pressed" action
+                    //pressed = !pressed;
+                    if (pressed) {
+                      appRepo.unpauseApp();
                     } else {
-                      return AnimatedBuilder(
-                        animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animMiniArcCounter]),
-                        builder: (BuildContext context, Widget? child) {
-                          return CustomPaint(
-                            painter: PowerButtonPainter(
-                              iconImage: snapshot.data!,
-                              alphaLoading: animLoading.value,
-                              alphaCover: animCover.value,
-                              alphaLibre: animLibre.value,
-                              alphaPlus: animPlus.value,
-                              arcAlpha: animArcAlpha.value,
-                              arcStart: animArcLoading.value,
-                              arcEnd: animArcCounter.value,
-                              arcCounter: [
-                                animMiniArcCounter.value * math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0)),
-                                animMiniArcCounter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
-                                0
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                      appRepo.pauseApp();
                     }
+                    _updateAnimations();
+                  });
                 }
               },
-            )
+              child: FutureBuilder<ui.Image>(
+                future: loadIcon,
+                builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return const CircularProgressIndicator();
+                    default:
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return AnimatedBuilder(
+                          animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animMiniArcCounter]),
+                          builder: (BuildContext context, Widget? child) {
+                            return CustomPaint(
+                              painter: PowerButtonPainter(
+                                iconImage: snapshot.data!,
+                                alphaLoading: animLoading.value,
+                                alphaCover: animCover.value,
+                                alphaLibre: animLibre.value,
+                                alphaPlus: animPlus.value,
+                                arcAlpha: animArcAlpha.value,
+                                arcStart: animArcLoading.value,
+                                arcEnd: animArcCounter.value,
+                                arcCounter: [
+                                  animMiniArcCounter.value * math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0)),
+                                  animMiniArcCounter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
+                                  0
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                  }
+                },
+              )
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 64.0),
-            child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
-              Countup(
-                begin: lastDayBlocked,
-                end: counter == 0.5 ? 0 : dayBlocked,
-                duration: Duration(seconds: 5),
-                style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: Color(0xFF007AFF)),
-              ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
+          GestureDetector(
+            onTap: () {
+              if (appModel.working) {
+                // Do nothing
+              } else if (appModel.state == AppState.activated) {
+                Services.instance.sheet.openSheet();
+              } else {
+                setState(() {
+                  // Todo: just "button pressed" action
+                  //pressed = !pressed;
+                  if (pressed) {
+                    appRepo.unpauseApp();
+                  } else {
+                    appRepo.pauseApp();
+                  }
+                  _updateAnimations();
+                });
+              }
+            }, child: Column(children: [
+              Padding(
+                  padding: const EdgeInsets.only(top: 64.0),
+                  child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
+                    Countup(
+                      begin: lastDayBlocked,
+                    end: counter == 0.5 ? 0 : dayBlocked,
+                    duration: Duration(seconds: 5),
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: Color(0xFF007AFF)),
+                  ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
+              ),
+              Container(
+                child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
+                  Text("Ads and trackers blocked last 24h", style: Theme.of(context).textTheme.titleMedium) :
+                (appRepo.appState.working) ?
+                  Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
+                  Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
+              ),
+            ]),
           ),
-          Container(
-            child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
-              Text("blocked last 24h", style: Theme.of(context).textTheme.titleMedium) :
-            (appRepo.appState.working) ?
-              Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
-              Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
-          ),
-          //Spacer(),
-      ]),
+        ]
     );
   }
 

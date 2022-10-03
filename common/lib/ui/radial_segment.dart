@@ -90,7 +90,7 @@ class RadialSegmentState extends State<RadialSegment> {
                           Countup(
                             begin: lastBlocked,
                             end: blocked,
-                            duration: Duration(seconds: 3),
+                            duration: Duration(seconds: 1),
                             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                           ),
                         ],
@@ -105,7 +105,7 @@ class RadialSegmentState extends State<RadialSegment> {
                           Countup(
                             begin: lastAllowed,
                             end: allowed,
-                            duration: Duration(seconds: 3),
+                            duration: Duration(seconds: 1),
                             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                           ),
                         ],
@@ -120,7 +120,7 @@ class RadialSegmentState extends State<RadialSegment> {
                           Countup(
                             begin: lastTotal,
                             end: total,
-                            duration: Duration(seconds: 3),
+                            duration: Duration(seconds: 1),
                             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                           ),
                         ],

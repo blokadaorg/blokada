@@ -160,7 +160,7 @@ class ColumnChart extends StatelessWidget {
                   yValueMapper: (_ChartData sales, _) => sales.y,
                   name: 'Blocked',
                   color: colorsRed[0],
-                  animationDuration: 2000,
+                  animationDuration: 1000,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,

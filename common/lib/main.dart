@@ -1,4 +1,5 @@
 import 'package:common/model/UiModel.dart';
+import 'package:common/service/Services.dart';
 import 'package:common/ui/frontscreen.dart';
 import 'package:common/ui/radial_segment.dart';
 import 'package:common/ui/selector.dart';
@@ -75,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final statsRepo = Repos.instance.stats;
 
+  final snappingSheetController = SnappingSheetController();
+
   @override
   void initState() {
     super.initState();
@@ -84,10 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Services.instance.sheet.setSnappingSheetController(snappingSheetController);
     return Scaffold(
       body: Stack(
         children: [
           SnappingSheet(
+            controller: snappingSheetController,
             child: Home(),
             grabbingHeight: 48,
             // TODO: Add your grabbing widget here,
@@ -99,17 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             snappingPositions: [
               SnappingPosition.pixels(
-                positionPixels: 100,
+                positionPixels: 0,
                 snappingCurve: Curves.easeOutExpo,
                 snappingDuration: Duration(seconds: 1),
                 grabbingContentOffset: GrabbingContentOffset.top,
               ),
-              SnappingPosition.factor(
-                positionFactor: 0.95,
-                snappingCurve: Curves.easeOutExpo,
-                snappingDuration: Duration(seconds: 1),
-                grabbingContentOffset: GrabbingContentOffset.bottom,
-              )
+              Services.instance.sheet.openPosition
             ],
             onSnapCompleted: (sheetPosition, snappingPosition) {
               setState(() {

@@ -60,7 +60,7 @@ class RadialChart extends StatelessWidget {
     data = [
       _ChartData(
         'All',
-        max((stats.dayTotal) / 1.0, 20),
+        max((stats.dayTotal.toDouble()), 20),
         const Color(0xff808080),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -73,7 +73,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Allowed',
-        max(stats.dayAllowed * (stats.avgDayTotal / stats.avgDayAllowed) / 1.0, 20),
+        max(stats.dayAllowed * (stats.avgDayTotal / max(stats.avgDayAllowed, 1)), 20),
         const Color(0xff33c75a),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -84,7 +84,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         'Blocked',
-        max(stats.dayBlocked * (stats.avgDayTotal / stats.avgDayBlocked), 20),
+        max(stats.dayBlocked * (stats.avgDayTotal / max(stats.avgDayBlocked, 1)), 20),
         const Color(0xffff3b30),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -122,7 +122,7 @@ class RadialChart extends StatelessWidget {
               gap: '3%',
               innerRadius: '30%',
               radius: '80%',
-              animationDuration: 3700,
+              animationDuration: 1200,
             )
           ]
         )
