@@ -61,6 +61,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   var total = 0;
   var dayBlocked = 0.0;
   var lastDayBlocked = 0.0;
+  var startCounterAnim = false;
 
   @override
   void initState() {
@@ -71,9 +72,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       total = statsRepo.stats.totalBlocked;
       //newCounter = math.min(1.0, (total % 1000) / 1000.0);
       //newCounter = math.min(1.0, statsRepo.stats.dayTotal / math.max(statsRepo.stats.avgDayTotal, 1.0));
-      newCounter = 0.0;
-      lastDayBlocked = dayBlocked;
-      dayBlocked = statsRepo.stats.dayBlocked.toDouble();
+      newCounter = math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0));
+      //newCounter = 0.0;
 
       if (!animCtrlArcCounter.isAnimating) {
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
@@ -82,9 +82,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
             setState(() {});
           });
         counter = newCounter;
+        lastDayBlocked = dayBlocked;
+        dayBlocked = statsRepo.stats.dayBlocked.toDouble();
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
         //animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
+      } else {
+        dayBlocked = statsRepo.stats.dayBlocked.toDouble();
       }
     });
 
@@ -106,6 +110,10 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       })
     ..addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
+        if (appModel.state == AppState.activated) {
+          startCounterAnim = true;
+        }
+
         animCtrlArcStart.animateTo(0.999);
         //double newCounter = math.Random().nextDouble();
         //print(newCounter);
@@ -124,13 +132,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
 
-      animMiniArcCounter = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: animCtrlMiniArcCounter, curve: Curves.easeOutQuad))
-        ..addListener(() {
-          setState(() {});
-        });
-      animCtrlMiniArcCounter.reset();
-      animCtrlMiniArcCounter.forward();
+        animMiniArcCounter = Tween<double>(begin: 0, end: 1)
+          .animate(CurvedAnimation(parent: animCtrlMiniArcCounter, curve: Curves.easeOutQuad))
+          ..addListener(() {
+            setState(() {});
+          });
+        animCtrlMiniArcCounter.reset();
+        animCtrlMiniArcCounter.forward();
       }
     });
 
@@ -215,6 +223,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   _updateAnimations() {
     print("update anim");
 
+    startCounterAnim = false;
     animArcCounter = Tween<double>(begin: counter, end: 0.5)
       .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
       //.animate(animCtrlArcCounter)
@@ -236,6 +245,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlLoading.reverse();
       if (appModel.state == AppState.paused || appModel.state == AppState.deactivated) {
         animCtrlArcAlpha.reverse();
+      } else {
+        animCtrlArcAlpha.forward();
       }
     }
     if (appModel.state == AppState.activated) {
@@ -306,8 +317,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                                 arcStart: animArcLoading.value,
                                 arcEnd: animArcCounter.value,
                                 arcCounter: [
-                                  animMiniArcCounter.value * math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0)),
+                                  //animMiniArcCounter.value * math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0)),
                                   animMiniArcCounter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
+                                  0,
                                   0
                                 ],
                               ),
@@ -341,18 +353,18 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
             }, child: Column(children: [
               Padding(
                   padding: const EdgeInsets.only(top: 64.0),
-                  child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
-                    Countup(
-                      begin: lastDayBlocked,
-                    end: counter == 0.5 ? 0 : dayBlocked,
+                  child: (startCounterAnim) ?
+                  Countup(
+                    begin: lastDayBlocked,
+                    end: dayBlocked,
                     duration: Duration(seconds: 5),
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: Color(0xFF007AFF)),
                   ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
               ),
               Container(
-                child: (appRepo.appState.state == AppState.activated && !appRepo.appState.working) ?
+                child: (startCounterAnim) ?
                   Text("Ads and trackers blocked last 24h", style: Theme.of(context).textTheme.titleMedium) :
-                (appRepo.appState.working) ?
+                (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
                   Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
                   Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
               ),
@@ -441,9 +453,24 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-        ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
+      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
+
+      // Paint loadingArcPaint2 = Paint()
+      //   //..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
+      //   ..style = PaintingStyle.stroke
+      //   ..strokeWidth = ringWith * 0.5
+      //   ..shader = SweepGradient(
+      //     startAngle: 0 + math.pi / 2, endAngle: math.pi * 2 + math.pi / 2,
+      //     colors: [
+      //       Colors.white.withOpacity(0.3),
+      //       Colors.white.withOpacity(0.8),
+      //     ],
+      //   ).createShader(Rect.fromCircle(
+      //     center: Offset(size.width / 2, size.height / 2),
+      //     radius: size.width,
+      //   ));
 
       Paint loadingArcGreenPaint = Paint()
         ..color = colorArcGreen.withOpacity(math.min(arcAlpha, 0.3))
@@ -521,25 +548,25 @@ class PowerButtonPainter extends CustomPainter {
       //canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 0.5, shadowPaint);
       canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.7, coverPaint);
 
-      // loading arc and counter 0-1000
+      // loading arc and blocked counter
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 1, size.width + ringWith * 2, size.height + ringWith * 2),
           arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);
 
-      // counter arc 1k-10k
+      // counter arc total
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 2, - ringWith * 2, size.width + ringWith * 4, size.height + ringWith * 4),
           0 - math.pi / 2, arcCounter[0] * math.pi * 2, false, loadingArcPaint);
 
-      // counter arc 10k-100k
-      canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 3, - ringWith * 3, size.width + ringWith * 6, size.height + ringWith * 6),
-          0 - math.pi / 2, arcCounter[1] * math.pi * 2, false, loadingArcPaint);
-
-      // counter arc 100k-1m
-      canvas.drawArc(
-          Rect.fromLTWH(- ringWith * 4, - ringWith * 4, size.width + ringWith * 8, size.height + ringWith * 8),
-          0 - math.pi / 2, arcCounter[2] * math.pi * 2, false, loadingArcPaint);
+      // counter arc 10k-100k unused
+      // canvas.drawArc(
+      //     Rect.fromLTWH(- ringWith * 3, - ringWith * 3, size.width + ringWith * 6, size.height + ringWith * 6),
+      //     0 - math.pi / 2, arcCounter[1] * math.pi * 2, false, loadingArcPaint);
+      //
+      // // counter arc 100k-1m unused
+      // canvas.drawArc(
+      //     Rect.fromLTWH(- ringWith * 4, - ringWith * 4, size.width + ringWith * 8, size.height + ringWith * 8),
+      //     0 - math.pi / 2, arcCounter[2] * math.pi * 2, false, loadingArcPaint);
 
       // draw icon
       final iconColor = (alphaPlus == 1.0) ? colorRingPlus1 :

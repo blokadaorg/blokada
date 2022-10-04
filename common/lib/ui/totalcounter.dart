@@ -64,7 +64,7 @@ class TotalCounterState extends State<TotalCounter> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 64.0),
+      padding: const EdgeInsets.only(top: 16.0, bottom: 64.0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -119,7 +119,7 @@ class TotalCounterState extends State<TotalCounter> {
 String _formatCounter(int counter) {
   if (counter >= 1000000) {
     return "${(counter / 1000000.0).toStringAsFixed(2)}M";
-    } else if (counter >= 1000) {
+  } else if (counter >= 1000) {
      return "${(counter / 1000.0).toStringAsFixed(1)}K";
   } else {
     return "$counter";

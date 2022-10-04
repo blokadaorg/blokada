@@ -91,37 +91,44 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          SnappingSheet(
-            controller: snappingSheetController,
-            child: Home(),
-            grabbingHeight: 48,
-            // TODO: Add your grabbing widget here,
-            grabbing: GrabbingWidget(),
-            sheetBelow: SnappingSheetContent(
-              sizeBehavior: SheetSizeStatic(size: 700),
-              draggable: true,
-              child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom),
-            ),
-            snappingPositions: [
-              SnappingPosition.pixels(
-                positionPixels: 0,
-                snappingCurve: Curves.easeOutExpo,
-                snappingDuration: Duration(seconds: 1),
-                grabbingContentOffset: GrabbingContentOffset.top,
+          Home(),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              constraints: BoxConstraints(maxWidth: 700),
+              child: SnappingSheet(
+                controller: snappingSheetController,
+                child: Container(),
+                grabbingHeight: 48,
+                // TODO: Add your grabbing widget here,
+                grabbing: GrabbingWidget(),
+                sheetBelow: SnappingSheetContent(
+                  sizeBehavior: SheetSizeFill(),
+                  draggable: true,
+                  child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom),
+                ),
+                snappingPositions: [
+                  SnappingPosition.pixels(
+                    positionPixels: 0,
+                    snappingCurve: Curves.easeOutExpo,
+                    snappingDuration: Duration(seconds: 1),
+                    grabbingContentOffset: GrabbingContentOffset.top,
+                  ),
+                  Services.instance.sheet.openPosition
+                ],
+                onSnapCompleted: (sheetPosition, snappingPosition) {
+                  setState(() {
+                    if (sheetPosition.pixels > 500) {
+                      showBottom = true;
+                      statsRepo.setFrequentRefresh(true);
+                    } else {
+                      showBottom = false;
+                      statsRepo.setFrequentRefresh(false);
+                    }
+                  });
+                },
               ),
-              Services.instance.sheet.openPosition
-            ],
-            onSnapCompleted: (sheetPosition, snappingPosition) {
-              setState(() {
-                if (sheetPosition.pixels > 500) {
-                  showBottom = true;
-                  statsRepo.setFrequentRefresh(true);
-                } else {
-                  showBottom = false;
-                  statsRepo.setFrequentRefresh(false);
-                }
-              });
-            },
+            ),
           ),
           // SnappingSheet(
           //   child: null,

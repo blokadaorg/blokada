@@ -72,8 +72,8 @@ class RadialSegmentState extends State<RadialSegment> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(child: SizedBox(
-                width: 260,
-                height: 260,
+                width: 210,
+                height: 210,
                 child: RadialChart(stats: stats)
               ), flex: 7),
               Expanded(
@@ -86,12 +86,12 @@ class RadialSegmentState extends State<RadialSegment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
+                          Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
                           Countup(
                             begin: lastBlocked,
                             end: blocked,
                             duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                           ),
                         ],
                       ),
@@ -101,12 +101,12 @@ class RadialSegmentState extends State<RadialSegment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 20)),
+                          Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
                           Countup(
                             begin: lastAllowed,
                             end: allowed,
                             duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                           ),
                         ],
                       ),
@@ -116,12 +116,12 @@ class RadialSegmentState extends State<RadialSegment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Total", style: TextStyle(color: Color(0xff838383), fontSize: 20)),
+                          Text("Total", style: TextStyle(color: Color(0xff838383), fontSize: 16)),
                           Countup(
                             begin: lastTotal,
                             end: total,
                             duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                           ),
                         ],
                       ),

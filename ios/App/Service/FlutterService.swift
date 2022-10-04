@@ -70,10 +70,14 @@ class FlutterService {
         let appState = FlutterMethodChannel(name: "app:state",
             binaryMessenger: controller.binaryMessenger)
         Publishers.CombineLatest(appStateHot, workingHot)
-        .sink(onValue: { it in
+        .tryMap { it -> String in
             let (state, working) = it
-            let parsed = "{\"state\":\"\(state)\",\"working\":\(working),\"plus\":false}"
-            appState.invokeMethod("app:state", arguments: parsed)
+            return "{\"state\":\"\(state)\",\"working\":\(working),\"plus\":false}"
+        }
+        .removeDuplicates()
+        .sink(onValue: { it in
+            Logger.v("FlutterService", "Passing new app state: \(it)")
+            appState.invokeMethod("app:state", arguments: it)
         })
         .store(in: &cancellables)
 

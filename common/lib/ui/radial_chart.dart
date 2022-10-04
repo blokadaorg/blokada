@@ -121,7 +121,7 @@ class RadialChart extends StatelessWidget {
               trackOpacity: 0.1,
               gap: '3%',
               innerRadius: '30%',
-              radius: '80%',
+              radius: '95%',
               animationDuration: 1200,
             )
           ]
