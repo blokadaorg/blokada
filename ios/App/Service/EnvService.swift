@@ -48,7 +48,7 @@ class EnvService {
     let aliasForLease = UIDevice.current.name
 
     func userAgent() -> String {
-        return "blokada/\(appVersion) (ios-\(osVersion) ios \(buildType) \(cpu) apple \(deviceModel) touch api compatible)"
+        return "blokada/\(appVersion) (ios-\(osVersion) six \(buildType) \(cpu) apple \(deviceModel) touch api compatible)"
     }
 
     let baseUrl = "https://api.blocka.net"

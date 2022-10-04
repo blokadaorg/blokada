@@ -471,7 +471,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		47729E0222F447C800B9B36B /* Blokada.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blokada.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47729E0222F447C800B9B36B /* Blokada 6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blokada 6.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47729E0522F447C800B9B36B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -611,7 +611,7 @@
 		4E78E359245EBFD90017B234 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		4E78E35C245EC4ED0017B234 /* PackConfigItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackConfigItemView.swift; sourceTree = "<group>"; };
 		4E78E362245ED1D80017B234 /* PackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDetailViewModel.swift; sourceTree = "<group>"; };
-		4E7FE9D8244DC28900851E9F /* Mocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blokada Mocked.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E85E98A243382B3001B2795 /* BlockaApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiModel.swift; sourceTree = "<group>"; };
 		4E8800F325C401CD001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E8800F425C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PackTags.strings; sourceTree = "<group>"; };
@@ -794,10 +794,10 @@
 		47729E0322F447C800B9B36B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				47729E0222F447C800B9B36B /* Blokada.app */,
+				47729E0222F447C800B9B36B /* Blokada 6.app */,
 				4ED3445B23E1B1450075B796 /* NETX.appex */,
 				B2240DC72417F83100F13E97 /* liblibengine.a */,
-				4E7FE9D8244DC28900851E9F /* Mocked.app */,
+				4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */,
 				4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */,
 			);
 			name = Products;
@@ -1226,7 +1226,7 @@
 			);
 			name = App;
 			productName = IOS;
-			productReference = 47729E0222F447C800B9B36B /* Blokada.app */;
+			productReference = 47729E0222F447C800B9B36B /* Blokada 6.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4E1DC4C727564F3100A4CAB1 /* AppTests */ = {
@@ -1262,7 +1262,7 @@
 			);
 			name = Mocked;
 			productName = IOS;
-			productReference = 4E7FE9D8244DC28900851E9F /* Mocked.app */;
+			productReference = 4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4ED3445A23E1B1450075B796 /* NETX */ = {
@@ -2091,7 +2091,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
-				PRODUCT_NAME = Blokada;
+				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2129,7 +2129,7 @@
 				);
 				MARKETING_VERSION = 22.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
-				PRODUCT_NAME = Blokada;
+				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlockaEngine/IOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2216,7 +2216,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Blokada $(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2252,7 +2252,7 @@
 				);
 				MARKETING_VERSION = 6;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Blokada $(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
