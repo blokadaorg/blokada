@@ -352,6 +352,8 @@
 		4EA2783124657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EA7BCE028E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
 		4EA7BCE128E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
+		4EA7BCE328ED7E6F00F3649A /* HelpButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */; };
+		4EA7BCE428ED7E6F00F3649A /* HelpButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */; };
 		4EA9A29527845C42009764F1 /* GatewayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A29427845C42009764F1 /* GatewayRepo.swift */; };
 		4EA9A29627845C42009764F1 /* GatewayRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A29427845C42009764F1 /* GatewayRepo.swift */; };
 		4EA9A298278490F1009764F1 /* LeaseRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A297278490F1009764F1 /* LeaseRepo.swift */; };
@@ -685,6 +687,7 @@
 		4EA189CA27B5218700E57470 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		4EA2782F24657E9E00C6372E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterService.swift; sourceTree = "<group>"; };
+		4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButtonView.swift; sourceTree = "<group>"; };
 		4EA9A29427845C42009764F1 /* GatewayRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayRepo.swift; sourceTree = "<group>"; };
 		4EA9A297278490F1009764F1 /* LeaseRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseRepo.swift; sourceTree = "<group>"; };
 		4EA9A29A2784C040009764F1 /* PlusRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusRepo.swift; sourceTree = "<group>"; };
@@ -1071,6 +1074,7 @@
 				4E52F3AC245AA9E6007E36EE /* RateAppView.swift */,
 				4E59E3172472BFF6008C1AAA /* AdsCounterShareView.swift */,
 				4E1264412880061A008D26B2 /* FlutterHomeView.swift */,
+				4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1591,6 +1595,7 @@
 				4E45F4F3248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				4EE25DC0278828B000F2F79B /* NetxService.swift in Sources */,
 				4EA9A298278490F1009764F1 /* LeaseRepo.swift in Sources */,
+				4EA7BCE328ED7E6F00F3649A /* HelpButtonView.swift in Sources */,
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
 				4E227F40243496C5004F4955 /* Thread.swift in Sources */,
 				4E5CACE7276B92F200F6F237 /* NotificationModel.swift in Sources */,
@@ -1792,6 +1797,7 @@
 				4E2ECCEE245AE4DE009040F1 /* PackView.swift in Sources */,
 				4E2F2A0A2760A902005A59F5 /* CloudRepo.swift in Sources */,
 				4E2F2A1F2760F0A1005A59F5 /* ProcessingModel.swift in Sources */,
+				4EA7BCE428ED7E6F00F3649A /* HelpButtonView.swift in Sources */,
 				4EEF1BE92457105E00734182 /* NotificationService.swift in Sources */,
 				4E42353B244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
 				4E2F2A27276371C6005A59F5 /* AppRepo.swift in Sources */,
