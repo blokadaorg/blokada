@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/service/Services.dart';
 import 'package:countup/countup.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,6 +10,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
 
+import '../main.dart';
 import '../model/AppModel.dart';
 import '../repo/AppRepo.dart';
 import '../repo/Repos.dart';
@@ -251,14 +253,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
     if (appModel.state == AppState.activated) {
       animCtrlLibre.forward();
+      if (appModel.plus) {
+        animCtrlPlus.forward();
+      }
     } else {
       animCtrlLibre.reverse();
-    }
-    if (appModel.plus) {
-      animCtrlPlus.forward();
-    } else {
       animCtrlPlus.reverse();
     }
+
     if (pressed) {
       animCtrlCover.forward();
     } else {
@@ -273,7 +275,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-      return Column(
+    final theme = Theme.of(context).extension<BrandTheme>()!;
+
+    return Column(
         children: [
           SizedBox(
             width: 210,
@@ -322,6 +326,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                                   0,
                                   0
                                 ],
+                                colorShadow: theme.shadow
                               ),
                             );
                           },
@@ -358,7 +363,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     begin: lastDayBlocked,
                     end: dayBlocked,
                     duration: Duration(seconds: 5),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? Color(0xFFFF9400) : Color(0xFF007AFF)),
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? theme.plus : theme.cloud),
                   ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
               ),
               Container(
@@ -407,6 +412,7 @@ class PowerButtonPainter extends CustomPainter {
   final arcEnd;
   final arcAlpha;
   final List<double> arcCounter;
+  final Color colorShadow;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
@@ -414,18 +420,16 @@ class PowerButtonPainter extends CustomPainter {
   late Color colorRingLibre2 = Color(0xFF5856D5).withOpacity(alphaLibre);
   late Color colorRingPlus1 = Color(0xFFFF9400).withOpacity(alphaPlus);
   late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(alphaPlus);
-  late Color colorArcGreen = Color(0xff33c75a).withOpacity(alphaLoading);
-  late Color colorArcRed = Color(0xffff3b30).withOpacity(alphaLoading);
   late Color colorText = Colors.white;
   late Color colorLoading = Colors.white.withOpacity(alphaLoading);
-  late Color colorShadow = Color(0xFF1C1C1E);
 
   PowerButtonPainter({
     required this.iconImage,
     required this.alphaCover, required this.alphaPlus,
     required this.alphaLibre, required this.alphaLoading,
     required this.arcStart, required this.arcEnd, required this.arcAlpha,
-    required this.arcCounter
+    required this.arcCounter,
+    required this.colorShadow
   });
 
     @override
@@ -453,7 +457,7 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
+      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.4))
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
@@ -471,16 +475,6 @@ class PowerButtonPainter extends CustomPainter {
       //     center: Offset(size.width / 2, size.height / 2),
       //     radius: size.width,
       //   ));
-
-      Paint loadingArcGreenPaint = Paint()
-        ..color = colorArcGreen.withOpacity(math.min(arcAlpha, 0.3))
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = ringWith * 0.5;
-
-      Paint loadingArcRedPaint = Paint()
-        ..color = colorArcRed.withOpacity(math.min(arcAlpha, 0.3))
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = ringWith * 0.5;
 
       Paint libreRingPaint = Paint()
         ..shader = LinearGradient(
@@ -505,10 +499,6 @@ class PowerButtonPainter extends CustomPainter {
         ).createShader(rect)
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith;
-
-      Paint shadowPaint = Paint()
-        ..color = colorShadow
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurRadius);
 
       Paint innerShadowPaint = Paint()
         ..shader = RadialGradient(
@@ -572,10 +562,12 @@ class PowerButtonPainter extends CustomPainter {
       final iconColor = (alphaPlus == 1.0) ? colorRingPlus1 :
       ((alphaLibre == 1.0) ? colorRingLibre1 :
       ((alphaCover > 0.0) ? Colors.black :
-      Colors.white));
+      ((colorShadow.isLight) ? Colors.black :
+      Colors.white)));
 
       Paint iconPaint = Paint()
         //..colorFilter = ColorFilter.mode(colorRingPlus1, BlendMode.srcIn);
+        ..isAntiAlias = true
         ..colorFilter = ColorFilter.mode(iconColor, BlendMode.srcIn);
 
       canvas.drawImage(iconImage,

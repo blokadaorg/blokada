@@ -11,8 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import 'repo/Repos.dart';
-import 'ui/column_chart.dart';
-import 'ui/frontscreentab.dart';
 import 'ui/home.dart';
 
 
@@ -25,28 +23,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: const Color(0xffFF9400),
-        backgroundColor: Colors.black,
-        errorColor: const Color(0xffFF3B30),
+      title: 'Blokada',
+      themeMode: ThemeMode.system,
+      theme: FlexThemeData.light(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFF9400), brightness: Brightness.light),
-        textTheme: const TextTheme(
-          //bodySmall: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal),
-          headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          headline2: TextStyle(fontSize: 18.0, fontStyle: FontStyle.normal),
-          headline3: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          headline4: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, color: Color(0xffFF9400)),
-        )
+        primary: const Color(0xffFF9400),
+        error: const Color(0xffFF3B30),
+        background: Colors.white,
+        // textTheme: const TextTheme(
+        //   //bodySmall: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal),
+        //   headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        //   headline2: TextStyle(fontSize: 18.0, fontStyle: FontStyle.normal),
+        //   headline3: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+        //   headline4: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal, color: Color(0xffFF9400)),
+        // ),
+        extensions: <ThemeExtension<dynamic>>{
+          const BrandTheme(
+            bgGradientColorInactive: Color(0xffBDBDBD),
+            bgGradientColorCloud: Color(0xff90c7fc),
+            bgGradientColorPlus: Color(0xfffccf92),
+            bgGradientColorBottom: Colors.white,
+            panelBackground: const Color(0xffF5F7FA),
+            cloud: Color(0xFF007AFF),
+            plus: Color(0xffFF9400),
+            shadow: const Color(0xffF5F7FA)
+          )
+        }
       ),
-      themeMode: ThemeMode.dark,
       darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.amber,
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFF9400), brightness: Brightness.dark),
+        primary: const Color(0xffFF9400),
+        error: const Color(0xffFF3B30),
+        background: Colors.black,
         darkIsTrueBlack: true,
+        extensions: <ThemeExtension<dynamic>>{
+          const BrandTheme(
+            bgGradientColorInactive: Color(0xFF5A5A5A),
+            bgGradientColorCloud: Color(0xFF054079),
+            bgGradientColorPlus: Color(0xFF8B5003),
+            bgGradientColorBottom: Colors.black,
+            panelBackground: const Color(0xff1c1c1e),
+            cloud: Color(0xFF007AFF),
+            plus: Color(0xffFF9400),
+            shadow: Color(0xFF1C1C1E)
+          )
+        }
       ),
       home: DefaultBottomBarController(
-          child: const MyHomePage(title: 'Flutter Demo Home Page')),
+          child: const MyHomePage(title: 'Blokada')),
     );
   }
 }
@@ -150,9 +174,11 @@ class _MyHomePageState extends State<MyHomePage> {
 class GrabbingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<BrandTheme>()!;
+
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xff1c1c1e),
+        color: theme.panelBackground,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         boxShadow: [
           BoxShadow(blurRadius: 25, color: Colors.black.withOpacity(0.3)),
@@ -171,12 +197,75 @@ class GrabbingWidget extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.grey[800],
-            height: 2,
+            color: theme.bgGradientColorInactive,
+            height: 1,
             margin: EdgeInsets.all(15).copyWith(top: 0, bottom: 0),
           )
         ],
       ),
+    );
+  }
+}
+
+class BrandTheme extends ThemeExtension<BrandTheme> {
+  const BrandTheme({
+    required this.bgGradientColorInactive,
+    required this.bgGradientColorCloud,
+    required this.bgGradientColorPlus,
+    required this.bgGradientColorBottom,
+    required this.panelBackground,
+    required this.cloud,
+    required this.plus,
+    required this.shadow
+  });
+
+  final Color bgGradientColorInactive;
+  final Color bgGradientColorCloud;
+  final Color bgGradientColorPlus;
+  final Color bgGradientColorBottom;
+  final Color panelBackground;
+  final Color cloud;
+  final Color plus;
+  final Color shadow;
+
+  // You must override the copyWith method.
+  @override
+  BrandTheme copyWith({
+    Color? bgGradientColorInactive,
+    Color? bgGradientColorCloud,
+    Color? bgGradientColorPlus,
+    Color? bgGradientColorBottom,
+    Color? panelBackground,
+    Color? cloud,
+    Color? plus,
+    Color? shadow,
+  }) =>
+      BrandTheme(
+        bgGradientColorInactive: bgGradientColorInactive ?? this.bgGradientColorInactive,
+        bgGradientColorCloud: bgGradientColorCloud ?? this.bgGradientColorCloud,
+        bgGradientColorPlus: bgGradientColorPlus ?? this.bgGradientColorPlus,
+        bgGradientColorBottom: bgGradientColorBottom ?? this.bgGradientColorBottom,
+        panelBackground: panelBackground ?? this.panelBackground,
+        cloud: cloud ?? this.cloud,
+        plus: plus ?? this.plus,
+        shadow: shadow ?? this.shadow,
+      );
+
+  // You must override the lerp method.
+  @override
+  BrandTheme lerp(ThemeExtension<BrandTheme>? other, double t) {
+    if (other is! BrandTheme) {
+      return this;
+    }
+    return BrandTheme(
+      bgGradientColorInactive: Color.lerp(bgGradientColorInactive, other.bgGradientColorInactive, t)!,
+      bgGradientColorCloud: Color.lerp(bgGradientColorCloud, other.bgGradientColorCloud, t)!,
+      bgGradientColorPlus: Color.lerp(bgGradientColorPlus, other.bgGradientColorPlus, t)!,
+      bgGradientColorBottom: Color.lerp(bgGradientColorBottom, other.bgGradientColorBottom, t)!,
+      panelBackground: Color.lerp(panelBackground, other.panelBackground, t)!,
+      cloud: Color.lerp(cloud, other.cloud, t)!,
+      plus: Color.lerp(plus, other.plus, t)!,
+      shadow: Color.lerp(shadow, other.shadow, t)!,
     );
   }
 }

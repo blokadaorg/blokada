@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'samples/pie_chart_sample1.dart';
-import 'samples/pie_chart_sample2.dart';
-import 'samples/pie_chart_sample3.dart';
+import 'pie_chart_sample1.dart';
+import 'pie_chart_sample2.dart';
+import 'pie_chart_sample3.dart';
 
 class PieChartPage extends StatelessWidget {
 

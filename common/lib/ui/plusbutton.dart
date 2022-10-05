@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:mobx/mobx.dart' as mobx;
 
+import '../main.dart';
 import '../repo/AppRepo.dart';
 import '../repo/PlusRepo.dart';
 import '../repo/Repos.dart';
@@ -138,6 +139,8 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
   }
 
   Widget _buildButtonContent() {
+    final theme = Theme.of(context).extension<BrandTheme>()!;
+
     return Row(
       children: [
         pressed ? (Text("Location: $location")) : (Text("No location")),
@@ -146,7 +149,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
             alignment: Alignment.centerRight,
             child: CupertinoSwitch(
               value: pressed,
-              activeColor: Color(0xFFFF9400),
+              activeColor: theme.plus,
               onChanged: (value) {
                 setState(() {
                   pressed = value;

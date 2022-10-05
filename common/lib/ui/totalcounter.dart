@@ -101,7 +101,8 @@ class TotalCounterState extends State<TotalCounter> {
                       child: Image(
                         width: 32,
                         height: 32,
-                        image: AssetImage('assets/images/square.and.arrow.up.png')
+                        image: AssetImage('assets/images/square.and.arrow.up.png'),
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                     )
                   )
