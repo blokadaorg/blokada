@@ -358,7 +358,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     begin: lastDayBlocked,
                     end: dayBlocked,
                     duration: Duration(seconds: 5),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: Color(0xFF007AFF)),
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? Color(0xFFFF9400) : Color(0xFF007AFF)),
                   ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
               ),
               Container(

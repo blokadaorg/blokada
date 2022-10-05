@@ -16,17 +16,28 @@ abstract class _AccountRepo with Store {
 
   late final BlockaApiService _api = BlockaApiService();
 
-  static const accountIdChannel = MethodChannel('account:id');
+  static const accountIdChannel = MethodChannel('account');
 
   @observable
   String accountId = "";
 
+  @observable
+  String accountType = "Libre";
+
   start() async {
     accountIdChannel.setMethodCallHandler((call) async {
-      print("Got Account ID from platform");
-      accountId = call.arguments as String;
-      if (accountId.isEmpty) {
-        print("Account ID is empty!");
+      if (call.method == "id") {
+        print("Got Account ID from platform");
+        accountId = call.arguments as String;
+        if (accountId.isEmpty) {
+          print("Account ID is empty!");
+        }
+      } else if (call.method == "type") {
+        print("Got Account type from platform");
+        accountType = call.arguments as String;
+        if (accountType.isEmpty) {
+          print("Account type is empty!");
+        }
       }
     });
     accountId = "ebwkrlznagkw";

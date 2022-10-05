@@ -25,10 +25,27 @@ mixin _$AccountRepo on _AccountRepo, Store {
     });
   }
 
+  late final _$accountTypeAtom =
+      Atom(name: '_AccountRepo.accountType', context: context);
+
+  @override
+  String get accountType {
+    _$accountTypeAtom.reportRead();
+    return super.accountType;
+  }
+
+  @override
+  set accountType(String value) {
+    _$accountTypeAtom.reportWrite(value, super.accountType, () {
+      super.accountType = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-accountId: ${accountId}
+accountId: ${accountId},
+accountType: ${accountType}
     ''';
   }
 }

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
-               BuildableName = "Mocked.app"
+               BuildableName = "Blokada Mocked.app"
                BlueprintName = "Mocked"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
-            BuildableName = "Mocked.app"
+            BuildableName = "Blokada Mocked.app"
             BlueprintName = "Mocked"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E7FE98E244DC28900851E9F"
-            BuildableName = "Mocked.app"
+            BuildableName = "Blokada Mocked.app"
             BlueprintName = "Mocked"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>

@@ -20,14 +20,17 @@ class FlutterService {
 
     private lazy var sheetRepo = Repos.sheetRepo
     private lazy var appRepo = Repos.appRepo
+    private lazy var plusRepo = Repos.plusRepo
+    private lazy var linkRepo = Repos.linkRepo
 
-    private lazy var accountIdHot = Repos.accountRepo.accountIdHot
     private lazy var appStateHot = Repos.appRepo.appStateHot
     private lazy var workingHot = Repos.appRepo.workingHot
     private lazy var accountHot = Repos.accountRepo.accountHot
     private lazy var accountTypeHot = Repos.accountRepo.accountTypeHot
     private lazy var dnsPermsGrantedHot = Repos.permsRepo.dnsProfilePerms
     private lazy var vpnPermsGrantedHot = Repos.permsRepo.vpnProfilePerms
+    private lazy var selectedGatewayHot = Repos.gatewayRepo.selectedHot
+    private lazy var plusEnabledHot = Repos.plusRepo.plusEnabledHot
 
     // All fields below are used by defining power button action
     private var working: Bool = false
@@ -47,10 +50,13 @@ class FlutterService {
 
     func setupChannels(controller: FlutterViewController) {
         // Push account ID changes to Flutter
-        let sendAccountId = FlutterMethodChannel(name: "account:id",
+        let sendAccount = FlutterMethodChannel(name: "account",
             binaryMessenger: controller.binaryMessenger)
-        accountIdHot.sink(onValue: { it in
-            sendAccountId.invokeMethod("account:id", arguments: it)
+        accountHot.sink(onValue: { it in
+            sendAccount.invokeMethod("id", arguments: it.account.id)
+            let type = it.account.type?.capitalizingFirstLetter() ?? "Libre"
+            Logger.v("FlutterService", "Account type: \(type)")
+            sendAccount.invokeMethod("type", arguments: type)
         })
         .store(in: &cancellables)
 
@@ -69,10 +75,11 @@ class FlutterService {
         // Push app state changes to Flutter
         let appState = FlutterMethodChannel(name: "app:state",
             binaryMessenger: controller.binaryMessenger)
-        Publishers.CombineLatest(appStateHot, workingHot)
+        Publishers.CombineLatest4(appStateHot, workingHot, plusEnabledHot, selectedGatewayHot)
         .tryMap { it -> String in
-            let (state, working) = it
-            return "{\"state\":\"\(state)\",\"working\":\(working),\"plus\":false}"
+            let (state, working, plus, selectedGateway) = it
+            let location = selectedGateway.gateway?.niceName() ?? ""
+            return "{\"state\":\"\(state)\",\"working\":\(working),\"plus\":\(plus), \"location\":\"\(location)\"}"
         }
         .removeDuplicates()
         .sink(onValue: { it in
@@ -104,6 +111,30 @@ class FlutterService {
                     // Or there is no connectivity and app did not start.
                     // In that case, trigger the flow.
                     self.appRepo.unpauseApp()
+                }
+            }
+        })
+
+        // Plus actions
+        let plus = FlutterMethodChannel(name: "plus", binaryMessenger: controller.binaryMessenger)
+        plus.setMethodCallHandler({
+            (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+            if call.method == "openLocations" {
+                if !self.accountActive {
+                    self.sheetRepo.showSheet(.Payment)
+                } else if self.accountType == .Cloud {
+                    self.linkRepo.openLink(Link.ManageSubscriptions)
+                } else if !self.vpnPermsGranted {
+                    self.sheetRepo.showSheet(.Activated)
+                } else {
+                    self.sheetRepo.showSheet(.Location)
+                }
+            } else if call.method == "switchPlus" {
+                let on = call.arguments as? Bool
+                if let o = on, o {
+                    self.plusRepo.switchPlusOn()
+                } else {
+                    self.plusRepo.switchPlusOff()
                 }
             }
         })

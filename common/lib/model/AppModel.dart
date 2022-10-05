@@ -3,16 +3,18 @@ class AppModel {
   late AppState state;
   late bool working;
   late bool plus;
+  late String location;
 
-  AppModel({required this.state, required this.working, required this.plus});
+  AppModel({required this.state, required this.working, required this.plus, required this.location});
 
   AppModel.fromJson(Map<String, dynamic> json) {
     state = _appStateFromJson(json['state']);
     working = json['working'];
     plus = json['plus'];
+    location = json['location'];
   }
 
-  AppModel.empty({this.state = AppState.paused, this.working = false, this.plus = false});
+  AppModel.empty({this.state = AppState.paused, this.working = false, this.plus = false, this.location = "" });
 }
 
 enum AppState {

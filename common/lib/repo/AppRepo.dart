@@ -56,16 +56,20 @@ abstract class _AppRepo with Store {
       // TODO: if debug
       if (appState.state != AppState.activated) {
         print("unpausing - debug");
-        appState = AppModel(state: AppState.activated, working: true, plus: false);
+        appState = AppModel(state: AppState.activated, working: true, plus: false, location: "");
         Timer(Duration(seconds: 3), () {
           print("unpaused");
-          appState = AppModel(state: AppState.activated, working: false, plus: false);
+          appState = AppModel(state: AppState.activated, working: false, plus: false, location: "");
         });
       } else {
         print("pausing - debug");
-        appState = AppModel(state: AppState.paused, working: true, plus: false);
+        appState = AppModel(state: AppState.paused, working: true, plus: false, location: "");
         Timer(Duration(seconds: 2), () {
-          appState = AppModel(state: AppState.paused, working: false, plus: false);
+          if (!appState.plus) {
+            appState = AppModel(state: AppState.activated, working: false, plus: true, location: "Londonia");
+          } else {
+            appState = AppModel(state: AppState.paused, working: false, plus: false, location: "Londonia");
+          }
         });
       }
     }
