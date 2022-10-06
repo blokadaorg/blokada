@@ -30,8 +30,7 @@ object PackDataSource: FlavorSpecific {
             .changeStatus(config = "Basic (Wildcards)")
             .changeStatus(installed = true) // Default config. Will auto download.
             .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/basic (wildcards)/hosts.txt", "https://abp.oisd.nl/basic/"), applyFor = "Basic (Wildcards)"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/extra (wildcards)/hosts.txt", "https://abp.oisd.nl/extra/"), applyFor = "Extra (Wildcards)"))
-            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/basic (wildcards)/hosts.txt", "https://abp.oisd.nl/basic/"), applyFor = "Light")),
+            .withSource(PackSource.new(urls = listOf("https://blokada.org/mirror/v5/oisd/extra (wildcards)/hosts.txt", "https://abp.oisd.nl/extra/"), applyFor = "Extra (Wildcards)")),
 
     Pack.mocked(id = "energized", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "regional"),
             title = "Energized",
