@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Syncing strings"
+echo "Syncing strings..."
 
 cd translate/scripts
 git checkout master
@@ -12,12 +12,20 @@ echo $commit
 
 ./translate.py -a android5
 ./translate.py -a ios
+./translate.py -a common
 
 cd ../../
 
+echo "Running swiftgen for ios..."
 cd ios/
 swiftgen
 cd ../
+
+"Running gen-l10n for flutter..."
+cd common/
+flutter gen-l10n
+cd ../
+
 
 git commit -am "$commit"
 
