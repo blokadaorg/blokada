@@ -10,11 +10,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'repo/Repos.dart';
 import 'ui/home.dart';
 
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('de', 'DE')],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en', 'US'),
+        child: MyApp()
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -23,6 +38,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: 'Blokada',
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(
