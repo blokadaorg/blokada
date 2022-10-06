@@ -2,6 +2,7 @@ import 'package:animate_gradient/animate_gradient.dart';
 import 'package:common/main.dart';
 import 'package:common/ui/plusbutton.dart';
 import 'package:common/ui/power_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -115,9 +116,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       if (app.appState.working) {
                         return Text("...", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: theme.cloud, fontWeight: FontWeight.bold));
                       } else if (app.appState.state == AppState.activated) {
-                        return Text("ACTIVE", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
+                        return Text("home status active".tr().toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
+                      } else if (app.appState.state == AppState.paused) {
+                        return Text("home status paused".tr().toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
                       } else {
-                        return Text("DEACTIVATED", style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
+                        return Text("home status deactivated".tr().toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
                       }
                     }
                 ),
@@ -130,7 +133,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               AnimatedOpacity(
                 opacity: (app.appState.plus && !app.appState.working && app.appState.state == AppState.activated) ? 1 : 0,
                 duration: Duration(milliseconds: 1000),
-                child: Text("+ protecting your privacy",
+                child: Text("home status detail plus".tr(),
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(color: theme.plus, fontWeight: FontWeight.bold)
                 ),
               ),
