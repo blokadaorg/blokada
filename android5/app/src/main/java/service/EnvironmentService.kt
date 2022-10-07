@@ -33,7 +33,7 @@ object EnvironmentService {
         return Normalizer.normalize(name, Normalizer.Form.NFD).replace(nonAscii, "")
     }
 
-    private val nonAscii = Regex("[^A-z0-9 ]")
+    private val nonAscii = Regex("[^A-Za-z0-9 ]")
 
     fun getUserAgent(): String {
         val version = BuildConfig.VERSION_NAME
