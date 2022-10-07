@@ -152,8 +152,12 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
               activeColor: theme.plus,
               onChanged: (value) {
                 setState(() {
-                  pressed = value;
-                  plusRepo.switchPlus(value);
+                  if (appRepo.appState.location.isEmpty) {
+                    plusRepo.openLocations();
+                  } else {
+                    pressed = value;
+                    plusRepo.switchPlus(value);
+                  }
                 });
               },
             ),
