@@ -1,55 +1,60 @@
+import 'package:common/model/UiModel.dart';
 import 'package:common/service/Services.dart';
 import 'package:common/ui/frontscreen.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:common/ui/radial_segment.dart';
+import 'package:common/ui/selector.dart';
 import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'repo/Repos.dart';
 import 'ui/home.dart';
 
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await EasyLocalization.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
-  runApp(MyApp());
-  // runApp(
-  //   EasyLocalization(
-  //       supportedLocales: [
-  //         Locale('ar'),
-  //         Locale('bg'),
-  //         Locale('cs'),
-  //         Locale('de'),
-  //         Locale('es'),
-  //         Locale('fi'),
-  //         Locale('fr'),
-  //         Locale('hi'),
-  //         Locale('hu'),
-  //         Locale('id'),
-  //         Locale('it'),
-  //         Locale('ja'),
-  //         Locale('nl'),
-  //         Locale('pl'),
-  //         Locale('pt', 'BR'),
-  //         Locale('ro'),
-  //         Locale('ru'),
-  //         Locale('sv'),
-  //         Locale('tr'),
-  //         Locale('zh'),
-  //
-  //         Locale('en')
-  //       ],
-  //       path: 'assets/translations',
-  //       fallbackLocale: Locale('en'),
-  //       useFallbackTranslations: true,
-  //       saveLocale: false,
-  //       child: MyApp()
-  //   ),
-  // );
+  // runApp(MyApp());
+  runApp(
+    EasyLocalization(
+        supportedLocales: [
+          Locale('ar'),
+          Locale('bg'),
+          Locale('cs'),
+          Locale('de'),
+          Locale('es'),
+          Locale('fi'),
+          Locale('fr'),
+          Locale('hi'),
+          Locale('hu'),
+          Locale('id'),
+          Locale('it'),
+          Locale('ja'),
+          Locale('nl'),
+          Locale('pl'),
+          Locale('pt', 'BR'),
+          Locale('ro'),
+          Locale('ru'),
+          Locale('sv'),
+          Locale('tr'),
+          Locale('zh'),
+
+          Locale('en')
+        ],
+        path: 'assets/translations',
+        fallbackLocale: Locale('en'),
+        useFallbackTranslations: true,
+        saveLocale: false,
+        child: MyApp()
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
