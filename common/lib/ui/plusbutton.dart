@@ -111,7 +111,10 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
                         onPressed: () {
                           plusRepo.openLocations();
                         },
-                        child: Expanded(child: Align(child: Text("Upgrade to BLOKADA+")))
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children: [Expanded(child: Align(child: Text("Upgrade to BLOKADA+")))]
+                        ),
                     )
                 ),
               )
