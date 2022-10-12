@@ -24,10 +24,28 @@ mixin _$AppRepo on _AppRepo, Store {
     });
   }
 
+  late final _$powerOnAnimationReadyAtom =
+      Atom(name: '_AppRepo.powerOnAnimationReady', context: context);
+
+  @override
+  bool get powerOnAnimationReady {
+    _$powerOnAnimationReadyAtom.reportRead();
+    return super.powerOnAnimationReady;
+  }
+
+  @override
+  set powerOnAnimationReady(bool value) {
+    _$powerOnAnimationReadyAtom.reportWrite(value, super.powerOnAnimationReady,
+        () {
+      super.powerOnAnimationReady = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-appState: ${appState}
+appState: ${appState},
+powerOnAnimationReady: ${powerOnAnimationReady}
     ''';
   }
 }

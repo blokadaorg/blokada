@@ -151,6 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Services.instance.sheet.setSnappingSheetController(snappingSheetController);
+    ScrollController frontScreenController = ScrollController();
     return Scaffold(
       body: Stack(
         children: [
@@ -160,15 +161,16 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Container(
               constraints: BoxConstraints(maxWidth: 700),
               child: SnappingSheet(
+                lockOverflowDrag: true,
                 controller: snappingSheetController,
                 child: Container(),
                 grabbingHeight: 48,
                 // TODO: Add your grabbing widget here,
-                grabbing: GrabbingWidget(),
                 sheetBelow: SnappingSheetContent(
                   sizeBehavior: SheetSizeFill(),
                   draggable: true,
-                  child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom),
+                  childScrollController: frontScreenController,
+                  child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom, controller: frontScreenController),
                 ),
                 snappingPositions: [
                   SnappingPosition.pixels(

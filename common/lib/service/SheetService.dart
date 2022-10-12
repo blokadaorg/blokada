@@ -5,8 +5,8 @@ class SheetService {
 
   late SnappingSheetController _snappingSheetController;
 
-  SnappingPosition openPosition = SnappingPosition.factor(
-    positionFactor: 0.95,
+  SnappingPosition openPosition = SnappingPosition.pixels(
+    positionPixels: 820,
     snappingCurve: Curves.easeOutExpo,
     snappingDuration: Duration(seconds: 1),
     grabbingContentOffset: GrabbingContentOffset.bottom,

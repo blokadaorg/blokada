@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart' as mobx;
 
 import '../model/AppModel.dart';
 import '../repo/Repos.dart';
+import 'homecounter.dart';
 
 class Home extends StatefulWidget {
 
@@ -127,13 +128,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               //   child: PowerButton(),
               // ),
               PowerButton(),
-              AnimatedOpacity(
-                opacity: (app.appState.plus && !app.appState.working && app.appState.state == AppState.activated) ? 1 : 0,
-                duration: Duration(milliseconds: 1000),
-                child: Text("+ protecting your privacy",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: theme.plus, fontWeight: FontWeight.bold)
-                ),
-              ),
+              HomeCounter(),
               Spacer(),
               PlusButton(),
               Spacer(),

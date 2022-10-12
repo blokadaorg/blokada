@@ -93,25 +93,22 @@ class FlutterService {
             binaryMessenger: controller.binaryMessenger)
         changeAppState.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-            let unpause = call.arguments as? Bool
-            if let u = unpause {
-                if self.working {
-                } else if !self.accountActive {
-                    self.sheetRepo.showSheet(.Payment)
-                } else if !self.dnsPermsGranted {
-                    self.sheetRepo.showSheet(.Activated)
-                } else if !self.vpnPermsGranted && self.accountType == .Plus {
-                    self.sheetRepo.showSheet(.Activated)
-                } else if self.appState == .Activated {
-                    self.appRepo.pauseApp(until: nil)
-                } else if self.appState == .Paused {
-                    self.appRepo.unpauseApp()
-                } else {
-                    // At this point app is just active (and user cannot tap this).
-                    // Or there is no connectivity and app did not start.
-                    // In that case, trigger the flow.
-                    self.appRepo.unpauseApp()
-                }
+            if self.working {
+            } else if !self.accountActive {
+                self.sheetRepo.showSheet(.Payment)
+            } else if !self.dnsPermsGranted {
+                self.sheetRepo.showSheet(.Activated)
+            } else if !self.vpnPermsGranted && self.accountType == .Plus {
+                self.sheetRepo.showSheet(.Activated)
+            } else if self.appState == .Activated {
+                self.appRepo.pauseApp(until: nil)
+            } else if self.appState == .Paused {
+                self.appRepo.unpauseApp()
+            } else {
+                // At this point app is just active (and user cannot tap this).
+                // Or there is no connectivity and app did not start.
+                // In that case, trigger the flow.
+                self.appRepo.unpauseApp()
             }
         })
 

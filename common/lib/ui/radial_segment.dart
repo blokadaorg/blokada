@@ -57,81 +57,84 @@ class RadialSegmentState extends State<RadialSegment> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, left: 24.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text("24h", style: TextStyle(color: Color(0xff464646), fontSize: 18))
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 24.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text("24h", style: TextStyle(color: Color(0xff464646), fontSize: 18))
+            ),
           ),
-        ),
-        Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(child: SizedBox(
-                width: 210,
-                height: 210,
-                child: RadialChart(stats: stats)
-              ), flex: 7),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
-                          Countup(
-                            begin: lastBlocked,
-                            end: blocked,
-                            duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                          ),
-                        ],
+          Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: SizedBox(
+                  width: 210,
+                  height: 210,
+                  child: RadialChart(stats: stats)
+                ), flex: 7),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
+                            Countup(
+                              begin: lastBlocked,
+                              end: blocked,
+                              duration: Duration(seconds: 1),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
-                          Countup(
-                            begin: lastAllowed,
-                            end: allowed,
-                            duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
+                            Countup(
+                              begin: lastAllowed,
+                              end: allowed,
+                              duration: Duration(seconds: 1),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Total", style: TextStyle(color: Color(0xff838383), fontSize: 16)),
-                          Countup(
-                            begin: lastTotal,
-                            end: total,
-                            duration: Duration(seconds: 1),
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Total", style: TextStyle(color: Color(0xff838383), fontSize: 16)),
+                            Countup(
+                              begin: lastTotal,
+                              end: total,
+                              duration: Duration(seconds: 1),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ]
-        ),
-      ],
+                    ],
+                  ),
+                )
+              ]
+          ),
+        ],
+      ),
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:countup/countup.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
@@ -45,7 +44,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlArcAlpha;
   late AnimationController animCtrlArcStart;
   late AnimationController animCtrlArcCounter;
-  late AnimationController animCtrlMiniArcCounter;
+  late AnimationController animCtrlArc2Counter;
 
   late Animation<double> animLoading;
   late Animation<double> animLibre;
@@ -54,29 +53,83 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animArcAlpha;
   late Animation<double> animArcLoading;
   late Animation<double> animArcCounter;
-  late Animation<double> animMiniArcCounter;
+  late Animation<double> animArc2Counter;
 
   bool pressed = false;
 
   var counter = 0.5;
   var newCounter = 0.5;
-  var total = 0;
-  var dayBlocked = 0.0;
-  var lastDayBlocked = 0.0;
-  var startCounterAnim = false;
 
   @override
   void initState() {
     super.initState();
-    loadIcon = _load("assets/images/ic_power.png");
+    loadIcon = _loadIcon("assets/images/ic_power.png");
+
+    animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlPlus = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animPlus = Tween<double>(begin: 0, end: 1).animate(animCtrlPlus)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlCover = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    animCover = Tween<double>(begin: 1, end: 0).animate(animCtrlCover)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlArcStart = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
+    animArcLoading = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.ease))
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
+    animArcCounter = Tween<double>(begin: 0.1, end: 0.5).animate(animCtrlArcCounter)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlArcAlpha = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlArc2Counter = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
+    animCtrlArc2Counter.reverseDuration = Duration(milliseconds: 500);
+    animArc2Counter = Tween<double>(begin: 0, end: 1)
+      .animate(CurvedAnimation(parent: animCtrlArc2Counter, curve: Curves.easeOutQuad))
+      ..addListener(() {
+        setState(() {});
+      });
+
+    animCtrlLoading = AnimationController(vsync: this, duration: Duration(milliseconds: 2000),);
+    animLoading = Tween<double>(begin: 0, end: 1).animate(animCtrlLoading)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.dismissed) {
+          // Once the loading spinning is stopped, signal it to other parts of the UI
+          // This is when the "counter count up" animation should start
+          if (appModel.state == AppState.activated) {
+            appRepo.powerOnIsReady();
+          }
+        }
+      });
 
     mobx.autorun((_) {
-      total = statsRepo.stats.totalBlocked;
-      //newCounter = math.min(1.0, (total % 1000) / 1000.0);
-      //newCounter = math.min(1.0, statsRepo.stats.dayTotal / math.max(statsRepo.stats.avgDayTotal, 1.0));
       newCounter = math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0));
-      //newCounter = 0.0;
 
+      // A hack to quickly update the arc counter to current value if received after its already shown
+      // TODO: better would be to animate this change too
       if (!animCtrlArcCounter.isAnimating) {
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
           .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
@@ -84,166 +137,70 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
             setState(() {});
           });
         counter = newCounter;
-        lastDayBlocked = dayBlocked;
-        dayBlocked = statsRepo.stats.dayBlocked.toDouble();
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
-        //animCtrlMiniArcCounter.reverse().then((value) => animCtrlMiniArcCounter.forward());
-      } else {
-        dayBlocked = statsRepo.stats.dayBlocked.toDouble();
       }
     });
 
     mobx.autorun((_) {
-      print("got new app state");
       var s = appRepo.appState;
       appModel = s;
       pressed = (s.state == AppState.activated && !s.working) || (s.state != AppState.activated && s.working);
-      _updateAnimations();
+      _scheduleUpdateAnimations();
     });
 
-    animCtrlLoading = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-    animLoading = Tween<double>(begin: 0, end: 1).animate(animCtrlLoading)
-      ..addListener(() {
-        setState(() {});
-      })
-    ..addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
-        if (appModel.state == AppState.activated) {
-          startCounterAnim = true;
-        }
-
+    mobx.autorun((_) {
+      if (appRepo.powerOnAnimationReady) {
+        // A hack to move the loading spinner to the position 0 and animate stats counter instead
         animCtrlArcStart.animateTo(0.999);
-        //double newCounter = math.Random().nextDouble();
-        //print(newCounter);
+
         animArcCounter = Tween<double>(begin: counter, end: newCounter)
           .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
-          //.animate(animCtrlArcCounter)
           ..addListener(() {
             setState(() {});
           });
-          // ..addStatusListener((status) {
-          //   if (status == AnimationStatus.completed) {
-          //     animCtrlArcStart.reverse();
-          //   }
-          // });
+
         counter = newCounter;
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
 
-        animMiniArcCounter = Tween<double>(begin: 0, end: 1)
-          .animate(CurvedAnimation(parent: animCtrlMiniArcCounter, curve: Curves.easeOutQuad))
-          ..addListener(() {
-            setState(() {});
-          });
-        animCtrlMiniArcCounter.reset();
-        animCtrlMiniArcCounter.forward();
+        animCtrlArc2Counter.reset();
+        animCtrlArc2Counter.forward();
       }
     });
 
-    animCtrlLibre = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    animCtrlPlus = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    animPlus = Tween<double>(begin: 0, end: 1).animate(animCtrlPlus)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    animCtrlCover = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 200),
-    );
-    animCover = Tween<double>(begin: 1, end: 0).animate(animCtrlCover)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    animCtrlArcStart = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-    animArcLoading = Tween<double>(begin: 0, end: 1)
-      //.animate(animCtrlArcStart)
-      .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.ease))
-      ..addListener(() {
-        setState(() {});
-      });
-      // ..addStatusListener((status) {
-      //   if (status == AnimationStatus.completed) {
-      //     animCtrlArcLoading.reverse();
-      //   } else if (status == AnimationStatus.dismissed) {
-      //     animCtrlArcLoading.forward();
-      //   }
-      // });
-
-    animCtrlArcCounter = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 5000),
-    );
-    animArcCounter = Tween<double>(begin: 0.1, end: 0.5).animate(animCtrlArcCounter)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    animCtrlArcAlpha = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    animCtrlMiniArcCounter = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 5000),
-    );
-    animCtrlMiniArcCounter.reverseDuration = Duration(milliseconds: 500);
-    animMiniArcCounter = Tween<double>(begin: 0.0, end: 0.0).animate(animCtrlMiniArcCounter)
-      ..addListener(() {
-        setState(() {});
-      });
-
-    _updateAnimations();
+    _scheduleUpdateAnimations();
   }
 
-  Timer? timer;
+  Timer? timer = null;
+
+  _scheduleUpdateAnimations() {
+    timer ??= Timer(Duration(milliseconds: 200), () {
+      _updateAnimations();
+      timer = null;
+    });
+  }
 
   _updateAnimations() {
-    print("update anim");
-
-    startCounterAnim = false;
-    animArcCounter = Tween<double>(begin: counter, end: 0.5)
-      .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
-      //.animate(animCtrlArcCounter)
-      ..addListener(() {
-        setState(() {});
-      });
-    counter = 0.5;
-    lastDayBlocked = 0.0;
-    animCtrlArcCounter.reset();
-    animCtrlArcCounter.forward();
-
+    print("_update");
     if (appModel.working) {
+      print("  working");
+      animArcCounter = Tween<double>(begin: counter, end: 0.5)
+        .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
+        ..addListener(() {
+          setState(() {});
+        });
+
+      counter = 0.5;
+      animCtrlArcCounter.reset();
+      animCtrlArcCounter.forward();
+
       animCtrlLoading.forward();
-      //animCtrlArcStart.reset();
       animCtrlArcStart.repeat();
       animCtrlArcAlpha.forward();
-      animCtrlMiniArcCounter.reverse();
+      animCtrlArc2Counter.reverse();
     } else {
+      print("  notworking");
       animCtrlLoading.reverse();
       if (appModel.state == AppState.paused || appModel.state == AppState.deactivated) {
         animCtrlArcAlpha.reverse();
@@ -251,10 +208,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         animCtrlArcAlpha.forward();
       }
     }
+
     if (appModel.state == AppState.activated) {
       animCtrlLibre.forward();
       if (appModel.plus) {
         animCtrlPlus.forward();
+      } else {
+        animCtrlPlus.reverse();
       }
     } else {
       animCtrlLibre.reverse();
@@ -268,11 +228,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
   }
   
-  Future<ui.Image> _load(String path) async {
-    var bytes = await rootBundle.load(path);
-    return decodeImageFromList(bytes.buffer.asUint8List());
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BrandTheme>()!;
@@ -286,13 +241,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
               onTap: () {
                 if (!appModel.working) {
                   setState(() {
-                    // Todo: just "button pressed" action
-                    //pressed = !pressed;
-                    if (pressed) {
-                      appRepo.unpauseApp();
-                    } else {
-                      appRepo.pauseApp();
-                    }
+                    appRepo.pressedPowerButton();
                     _updateAnimations();
                   });
                 }
@@ -308,7 +257,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                         return Text('Error: ${snapshot.error}');
                       } else {
                         return AnimatedBuilder(
-                          animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animMiniArcCounter]),
+                          animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animArc2Counter]),
                           builder: (BuildContext context, Widget? child) {
                             return CustomPaint(
                               painter: PowerButtonPainter(
@@ -321,8 +270,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                                 arcStart: animArcLoading.value,
                                 arcEnd: animArcCounter.value,
                                 arcCounter: [
-                                  //animMiniArcCounter.value * math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0)),
-                                  animMiniArcCounter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
+                                  animArc2Counter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
                                   0,
                                   0
                                 ],
@@ -336,44 +284,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 },
               )
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              if (appModel.working) {
-                // Do nothing
-              } else if (appModel.state == AppState.activated) {
-                Services.instance.sheet.openSheet();
-              } else {
-                setState(() {
-                  // Todo: just "button pressed" action
-                  //pressed = !pressed;
-                  if (pressed) {
-                    appRepo.unpauseApp();
-                  } else {
-                    appRepo.pauseApp();
-                  }
-                  _updateAnimations();
-                });
-              }
-            }, child: Column(children: [
-              Padding(
-                  padding: const EdgeInsets.only(top: 64.0),
-                  child: (startCounterAnim) ?
-                  Countup(
-                    begin: lastDayBlocked,
-                    end: dayBlocked,
-                    duration: Duration(seconds: 5),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? theme.plus : theme.cloud),
-                  ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
-              ),
-              Container(
-                child: (startCounterAnim) ?
-                  Text("Ads and trackers blocked last 24h", style: Theme.of(context).textTheme.titleMedium) :
-                (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
-                  Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
-                  Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
-              ),
-            ]),
           ),
         ]
     );
@@ -389,8 +299,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcAlpha.dispose();
     animCtrlLoading.dispose();
     animCtrlArcCounter.dispose();
-    animCtrlMiniArcCounter.dispose();
+    animCtrlArc2Counter.dispose();
     super.dispose();
+  }
+
+  Future<ui.Image> _loadIcon(String path) async {
+    var bytes = await rootBundle.load(path);
+    return decodeImageFromList(bytes.buffer.asUint8List());
   }
 
 }
@@ -461,21 +376,6 @@ class PowerButtonPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
-      // Paint loadingArcPaint2 = Paint()
-      //   //..color = Colors.white.withOpacity(math.min(arcAlpha, 0.3))
-      //   ..style = PaintingStyle.stroke
-      //   ..strokeWidth = ringWith * 0.5
-      //   ..shader = SweepGradient(
-      //     startAngle: 0 + math.pi / 2, endAngle: math.pi * 2 + math.pi / 2,
-      //     colors: [
-      //       Colors.white.withOpacity(0.3),
-      //       Colors.white.withOpacity(0.8),
-      //     ],
-      //   ).createShader(Rect.fromCircle(
-      //     center: Offset(size.width / 2, size.height / 2),
-      //     radius: size.width,
-      //   ));
-
       Paint libreRingPaint = Paint()
         ..shader = LinearGradient(
           begin: Alignment.centerLeft,
@@ -512,7 +412,6 @@ class PowerButtonPainter extends CustomPainter {
           ],
         ).createShader(rect)
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurRadius);
-
 
       // ring inactive
       canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - ringWith, inactiveRingPaint);
@@ -573,7 +472,6 @@ class PowerButtonPainter extends CustomPainter {
       canvas.drawImage(iconImage,
           Offset(size.width / 2 - iconImage.width / 2, size.height / 2 - iconImage.height / 2),
           iconPaint);
-
     }
 
     @override

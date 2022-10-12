@@ -24,6 +24,9 @@ abstract class _AppRepo with Store {
   @observable
   AppModel appState = AppModel.empty();
 
+  @observable
+  bool powerOnAnimationReady = false;
+
   start() async {
     appStateChannel.setMethodCallHandler((call) async {
       try {
@@ -32,6 +35,11 @@ abstract class _AppRepo with Store {
           appState = state;
           print("Got App state from platform");
           print(appState.state.toString());
+
+          if (/*state.working || */state.state != AppState.activated) {
+            print("Resetting powerOnAnimationReady flag");
+            powerOnAnimationReady = false;
+          }
         }
       } catch (ex) {
         print("Failed to parse App state: $ex");
@@ -39,17 +47,17 @@ abstract class _AppRepo with Store {
     });
   }
 
-  pauseApp() {
-    _changeState(false);
+  powerOnIsReady() {
+    powerOnAnimationReady = true;
   }
 
-  unpauseApp() {
-    _changeState(true);
+  pressedPowerButton() {
+    _changeState();
   }
 
-  Future<void> _changeState(bool unpause) async {
+  Future<void> _changeState() async {
     try {
-      await appChangeStateChannel.invokeMethod('app:changeState', unpause);
+      await appChangeStateChannel.invokeMethod('app:changeState');
     } on Exception catch (e) {
       print("Failed to change app state: '${e}'.");
 

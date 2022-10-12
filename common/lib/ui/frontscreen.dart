@@ -12,22 +12,25 @@ import '../repo/StatsRepo.dart';
 
 class FrontScreen extends StatefulWidget {
 
-  FrontScreen({Key? key, required bool this.autoRefresh}) : super(key: key);
+  FrontScreen({Key? key, required bool this.autoRefresh, required ScrollController this.controller}) : super(key: key);
 
   final bool autoRefresh;
+  final ScrollController controller;
 
   @override
-  State<StatefulWidget> createState() => FrontScreenState(autoRefresh: this.autoRefresh);
+  State<StatefulWidget> createState() => FrontScreenState(autoRefresh: this.autoRefresh, controller: this.controller);
 
 }
 
 class FrontScreenState extends State<FrontScreen> {
 
-  FrontScreenState({required bool this.autoRefresh});
+  FrontScreenState({required bool this.autoRefresh, required ScrollController this.controller});
 
   final StatsRepo statsRepo = Repos.instance.stats;
 
   final bool autoRefresh;
+  final ScrollController controller;
+
   var stats = UiStats.empty();
 
   @override
@@ -50,8 +53,9 @@ class FrontScreenState extends State<FrontScreen> {
     final theme = Theme.of(context).extension<BrandTheme>()!;
 
     return Container(
-      decoration: BoxDecoration(color: theme.panelBackground),
+      decoration: BoxDecoration(color: theme.panelBackground, borderRadius: BorderRadius.circular(10)),
       child: ListView(
+        controller: controller,
         padding: EdgeInsets.zero,
         children: [
           RadialSegment(autoRefresh: autoRefresh),
