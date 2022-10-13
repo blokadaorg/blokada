@@ -126,7 +126,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       });
 
     mobx.autorun((_) {
-      newCounter = math.min(1.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0));
+      // Max is 2.0 so that it can display ring overlap
+      newCounter = math.min(2.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0));
 
       // A hack to quickly update the arc counter to current value if received after its already shown
       // TODO: better would be to animate this change too
@@ -172,7 +173,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     _scheduleUpdateAnimations();
   }
 
-  Timer? timer = null;
+  Timer? timer;
 
   _scheduleUpdateAnimations() {
     timer ??= Timer(Duration(milliseconds: 200), () {
@@ -182,9 +183,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   }
 
   _updateAnimations() {
-    print("_update");
     if (appModel.working) {
-      print("  working");
       animArcCounter = Tween<double>(begin: counter, end: 0.5)
         .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
         ..addListener(() {
@@ -200,7 +199,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlArcAlpha.forward();
       animCtrlArc2Counter.reverse();
     } else {
-      print("  notworking");
       animCtrlLoading.reverse();
       if (appModel.state == AppState.paused || appModel.state == AppState.deactivated) {
         animCtrlArcAlpha.reverse();
@@ -270,7 +268,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                                 arcStart: animArcLoading.value,
                                 arcEnd: animArcCounter.value,
                                 arcCounter: [
-                                  animArc2Counter.value * math.min(1.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
+                                  animArc2Counter.value * math.min(2.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
                                   0,
                                   0
                                 ],
@@ -324,7 +322,7 @@ class PowerButtonPainter extends CustomPainter {
   final alphaCover;
   final alphaPlus;
   final arcStart;
-  final arcEnd;
+  final double arcEnd;
   final arcAlpha;
   final List<double> arcCounter;
   final Color colorShadow;
@@ -440,12 +438,22 @@ class PowerButtonPainter extends CustomPainter {
       // loading arc and blocked counter
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 1, size.width + ringWith * 2, size.height + ringWith * 2),
-          arcStart * math.pi * 2 - math.pi / 2, arcEnd * math.pi * 2, false, loadingArcPaint);
+          arcStart * math.pi * 2 - math.pi / 2, math.min(arcEnd, 1.0) * math.pi * 2, false, loadingArcPaint);
 
       // counter arc total
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 2, - ringWith * 2, size.width + ringWith * 4, size.height + ringWith * 4),
-          0 - math.pi / 2, arcCounter[0] * math.pi * 2, false, loadingArcPaint);
+          0 - math.pi / 2, math.min(arcCounter[0], 1.0) * math.pi * 2, false, loadingArcPaint);
+
+      // blocked counter - the overlap
+      canvas.drawArc(
+          Rect.fromLTWH(- ringWith * 1, - ringWith * 1, size.width + ringWith * 2, size.height + ringWith * 2),
+          0 - math.pi / 2, math.max(0, arcEnd - 1.0) * math.pi * 2, false, loadingArcPaint);
+
+      // counter arc total - the overlap
+      canvas.drawArc(
+          Rect.fromLTWH(- ringWith * 2, - ringWith * 2, size.width + ringWith * 4, size.height + ringWith * 4),
+          0 - math.pi / 2, math.max(0, arcCounter[0] - 1.0) * math.pi * 2, false, loadingArcPaint);
 
       // counter arc 10k-100k unused
       // canvas.drawArc(
