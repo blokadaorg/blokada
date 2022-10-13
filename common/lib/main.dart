@@ -18,43 +18,45 @@ import 'ui/home.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // print("before easy");
+  // await EasyLocalization.ensureInitialized();
+  // print("after easy");
 
-  // runApp(MyApp());
-  runApp(
-    EasyLocalization(
-        supportedLocales: [
-          Locale('ar'),
-          Locale('bg'),
-          Locale('cs'),
-          Locale('de'),
-          Locale('es'),
-          Locale('fi'),
-          Locale('fr'),
-          Locale('hi'),
-          Locale('hu'),
-          Locale('id'),
-          Locale('it'),
-          Locale('ja'),
-          Locale('nl'),
-          Locale('pl'),
-          Locale('pt', 'BR'),
-          Locale('ro'),
-          Locale('ru'),
-          Locale('sv'),
-          Locale('tr'),
-          Locale('zh'),
-
-          Locale('en')
-        ],
-        path: 'assets/translations',
-        fallbackLocale: Locale('en'),
-        useFallbackTranslations: true,
-        saveLocale: false,
-        child: MyApp()
-    ),
-  );
+  runApp(MyApp());
+  // runApp(
+  //   EasyLocalization(
+  //       supportedLocales: [
+  //         Locale('ar'),
+  //         Locale('bg'),
+  //         Locale('cs'),
+  //         Locale('de'),
+  //         Locale('es'),
+  //         Locale('fi'),
+  //         Locale('fr'),
+  //         Locale('hi'),
+  //         Locale('hu'),
+  //         Locale('id'),
+  //         Locale('it'),
+  //         Locale('ja'),
+  //         Locale('nl'),
+  //         Locale('pl'),
+  //         Locale('pt', 'BR'),
+  //         Locale('ro'),
+  //         Locale('ru'),
+  //         Locale('sv'),
+  //         Locale('tr'),
+  //         Locale('zh'),
+  //
+  //         Locale('en')
+  //       ],
+  //       path: 'assets/translations',
+  //       fallbackLocale: Locale('en'),
+  //       useFallbackTranslations: true,
+  //       saveLocale: false,
+  //       child: MyApp()
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
