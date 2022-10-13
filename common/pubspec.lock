@@ -77,7 +77,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.3.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -140,7 +140,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.0"
   countup:
     dependency: "direct main"
     description:
@@ -203,7 +203,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.5"
   expandable_bottom_bar:
     dependency: "direct main"
     description:
@@ -245,7 +245,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.55.0"
+    version: "0.55.2"
   flex_color_scheme:
     dependency: "direct main"
     description:
@@ -283,7 +283,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1+1"
+    version: "1.1.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -356,7 +356,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.6.0"
+    version: "4.7.0"
   lints:
     dependency: transitive
     description:
@@ -370,7 +370,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
@@ -405,7 +405,7 @@ packages:
       name: mobx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   mobx_codegen:
     dependency: "direct dev"
     description:
@@ -419,7 +419,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.3.1"
+    version: "5.3.2"
   package_config:
     dependency: transitive
     description:
@@ -440,14 +440,14 @@ packages:
       name: path_drawing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
       name: path_parsing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   path_provider_linux:
     dependency: transitive
     description:
@@ -587,7 +587,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.2"
+    version: "1.4.0"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -613,7 +613,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.6"
   source_span:
     dependency: transitive
     description:
@@ -641,7 +641,7 @@ packages:
       name: stream_transform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   string_scanner:
     dependency: transitive
     description:
@@ -655,21 +655,21 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.2.40"
+    version: "20.3.49"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.2.40"
+    version: "20.3.49"
   syncfusion_flutter_datagrid:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datagrid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.2.40"
+    version: "20.3.49"
   term_glyph:
     dependency: transitive
     description:
