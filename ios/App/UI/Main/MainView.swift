@@ -26,7 +26,7 @@ struct MainView: View {
                         // Small width portrait, like iPhone or iPad with split screen
                         if geo.size.width < 700 {
                             ZStack {
-                                RippleView(multiplier: 1.2)
+                                //RippleView(multiplier: 1.2)
 
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
@@ -38,7 +38,7 @@ struct MainView: View {
                         // Big width portrait, like iPad fullscreen
                         } else {
                             ZStack {
-                                RippleView(multiplier: 2.0)
+                                //RippleView(multiplier: 2.0)
 
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                 HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
@@ -59,7 +59,7 @@ struct MainView: View {
                     // Small width landscape, like iPad with split screen in landscape
                     if geo.size.width < 800 {
                         ZStack {
-                            RippleView(multiplier: 2.0)
+                            //RippleView(multiplier: 2.0)
 
                             ZStack {
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
@@ -84,7 +84,7 @@ struct MainView: View {
                                     handleTappedTab(it, scroll: scroll)
                                 })
                                 ZStack {
-                                    RippleView(multiplier: 1.5)
+                                    //RippleView(multiplier: 1.5)
 
                                     FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
                                     HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
