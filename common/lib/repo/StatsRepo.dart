@@ -44,8 +44,11 @@ abstract class _StatsRepo with Store {
 
   _onAppActivated_refreshStats() {
     mobx.reaction((_) => appRepo.appState, (_) {
-      print("App activated, refreshing stats");
-      _refreshStats();
+      Timer(Duration(seconds: 3), () {
+        // Delay to let the VPN settle
+        print("App activated, refreshing stats");
+        _refreshStats();
+      });
     });
   }
 
@@ -57,6 +60,9 @@ abstract class _StatsRepo with Store {
   _refreshStats() async {
     if (accountRepo.accountId.isEmpty) {
       print("Account ID not provided yet, skipping stats refresh");
+      return;
+    } else if (accountRepo.accountType == "Libre") {
+      print("Libre account, skip stats refresh");
       return;
     }
 

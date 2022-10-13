@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:common/service/Services.dart';
-import 'package:countup/countup.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +55,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   bool pressed = false;
 
-  var counter = 0.5;
+  var loadingCounter = 0.5;
+  var counter = 0.3;
   var newCounter = 0.5;
 
   @override
@@ -91,7 +90,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       });
 
     animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
-    animArcCounter = Tween<double>(begin: 0.1, end: 0.5).animate(animCtrlArcCounter)
+    animArcCounter = Tween<double>(begin: counter, end: newCounter).animate(animCtrlArcCounter)
       ..addListener(() {
         setState(() {});
       });
@@ -132,7 +131,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       // A hack to quickly update the arc counter to current value if received after its already shown
       // TODO: better would be to animate this change too
       if (!animCtrlArcCounter.isAnimating) {
-        animArcCounter = Tween<double>(begin: counter, end: newCounter)
+        animArcCounter = Tween<double>(begin: animArcCounter.value, end: newCounter)
           .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
           ..addListener(() {
             setState(() {});
@@ -147,6 +146,10 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       var s = appRepo.appState;
       appModel = s;
       pressed = (s.state == AppState.activated && !s.working) || (s.state != AppState.activated && s.working);
+      // A bit of a hack to make sure the flag is flagged
+      if (s.state == AppState.activated && !s.working && !appRepo.powerOnAnimationReady && animLoading.isDismissed) {
+        appRepo.powerOnIsReady();
+      }
       _scheduleUpdateAnimations();
     });
 
@@ -155,7 +158,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         // A hack to move the loading spinner to the position 0 and animate stats counter instead
         animCtrlArcStart.animateTo(0.999);
 
-        animArcCounter = Tween<double>(begin: counter, end: newCounter)
+        animArcCounter = Tween<double>(begin: animArcCounter.value, end: newCounter)
           .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
           ..addListener(() {
             setState(() {});
@@ -165,7 +168,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         animCtrlArcCounter.reset();
         animCtrlArcCounter.forward();
 
-        animCtrlArc2Counter.reset();
+        //animCtrlArc2Counter.reset();
         animCtrlArc2Counter.forward();
       }
     });
@@ -184,13 +187,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _updateAnimations() {
     if (appModel.working) {
-      animArcCounter = Tween<double>(begin: counter, end: 0.5)
+      animArcCounter = Tween<double>(begin: animArcCounter.value, end: loadingCounter)
         .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
         ..addListener(() {
           setState(() {});
         });
 
-      counter = 0.5;
+      counter = loadingCounter;
       animCtrlArcCounter.reset();
       animCtrlArcCounter.forward();
 
