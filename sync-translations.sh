@@ -21,11 +21,6 @@ cd ios/
 swiftgen
 cd ../
 
-"Running gen-l10n for flutter..."
-cd common/
-flutter gen-l10n
-cd ../
-
 
 git commit -am "$commit"
 
