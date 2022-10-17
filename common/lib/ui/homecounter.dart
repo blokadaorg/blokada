@@ -80,7 +80,7 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
           Countup(
             begin: previousBlockedCounter,
             end: blockedCounter,
-            duration: Duration(seconds: 5),
+            duration: Duration(milliseconds: 1500),
             style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? theme.plus : theme.cloud),
           ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
         ),

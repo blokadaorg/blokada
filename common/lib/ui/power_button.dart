@@ -89,7 +89,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         setState(() {});
       });
 
-    animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
+    animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
     animArcCounter = Tween<double>(begin: counter, end: newCounter).animate(animCtrlArcCounter)
       ..addListener(() {
         setState(() {});
@@ -101,7 +101,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         setState(() {});
       });
 
-    animCtrlArc2Counter = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
+    animCtrlArc2Counter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
     animCtrlArc2Counter.reverseDuration = Duration(milliseconds: 500);
     animArc2Counter = Tween<double>(begin: 0, end: 1)
       .animate(CurvedAnimation(parent: animCtrlArc2Counter, curve: Curves.easeOutQuad))
