@@ -76,7 +76,7 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.only(top: 64.0),
-          child: (powerReady) ?
+          child: (powerReady && blockedCounter > 0) ?
           Countup(
             begin: previousBlockedCounter,
             end: blockedCounter,
@@ -85,8 +85,10 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
           ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
         ),
         Container(
-          child: (powerReady) ?
+          child: (powerReady && blockedCounter > 0) ?
             Text("home status detail active day".i18n, style: Theme.of(context).textTheme.titleMedium) :
+          (powerReady) ?
+            Text("home status detail active".i18n.replaceAll("*", ""), style: Theme.of(context).textTheme.titleMedium) :
           (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
             Text("home status detail progress".i18n, style: Theme.of(context).textTheme.titleMedium) :
             Text("home action tap to activate".i18n, style: Theme.of(context).textTheme.titleMedium),
