@@ -31,6 +31,7 @@ struct HelpButtonView: View {
                     .foregroundColor(.primary)
                     .frame(width: 36, height: 36, alignment: .center)
                     .padding(8)
+                    .padding(.top, 16)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         self.showHelpActions = true
