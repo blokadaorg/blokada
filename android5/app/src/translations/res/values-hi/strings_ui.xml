@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">Paused until timer ends</string>
     <string name="home_status_detail_active">अवरोधक *विज्ञापन* और *ट्रैकर्स*</string>
     <string name="home_status_detail_active_with_counter">*%s* विज्ञापनों और ट्रैकर्स को अवरुद्ध किया</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* is active</string>
     <string name="home_status_detail_plus">*+* अपनी *निजता* की रक्षा</string>
     <string name="home_status_detail_progress">कृपया प्रतीक्षा करें...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Queries over time</string>
     <string name="stats_top_allowed_header">Top allowed requests</string>
     <string name="stats_top_blocked_header">Top blocked requests</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Enable Blokada in Settings</string>
     <string name="dnsprofile_desc">In the Settings app, navigate to General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="dnsprofile_action_open_settings">Open Settings</string>

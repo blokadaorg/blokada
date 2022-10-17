@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">На пауза докато приключи таймера</string>
     <string name="home_status_detail_active">Блокиране на *реклами* и *тракери*</string>
     <string name="home_status_detail_active_with_counter">Блокирани *%s* реклами и тракери</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* е активна</string>
     <string name="home_status_detail_plus">*+* защитава вашата *поверителност*</string>
     <string name="home_status_detail_progress">Моля изчакайте...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Заявки през цялото време</string>
     <string name="stats_top_allowed_header">Най-разрешени заявки</string>
     <string name="stats_top_blocked_header">Най-блокирани заявки</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Активиране на Blokada в настройките</string>
     <string name="dnsprofile_desc">В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.</string>
     <string name="dnsprofile_action_open_settings">Отваряне на настройките</string>

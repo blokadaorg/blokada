@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">متوقّف مؤقّتاً حتّى ينتهي المؤقِّت</string>
     <string name="home_status_detail_active">حَظْر *الإعلانات* و *المتعقِّبين*</string>
     <string name="home_status_detail_active_with_counter">تمّ حَظْر *%s* الإعلانات و المتعقِّبين</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* نَشِط</string>
     <string name="home_status_detail_plus">*+* حماية *خصوصيّتك*</string>
     <string name="home_status_detail_progress">الرجاء الإنتظار...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">الاستفسارات عبر الوقت</string>
     <string name="stats_top_allowed_header">أكثر الطلبات المسموح بها</string>
     <string name="stats_top_blocked_header">أكثر الطلبات المَحظورة</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">تفعيل بلوكادا في الإعدادات</string>
     <string name="dnsprofile_desc">في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS &amp; إعدادات الجهاز ←DNS و حدّد Blokada.</string>
     <string name="dnsprofile_action_open_settings">فتح الإعدادات</string>

@@ -158,6 +158,7 @@
 "home status detail paused" = "Pozastaveno dokud časovač neskončí";
 "home status detail active" = "Blokuje *reklamy* a *slídiče*";
 "home status detail active with counter" = "Zablokováno *%@* reklam a slídičů";
+"home status detail active day" = "Ads and trackers blocked last 24h";
 "home status detail active slim" = "Blokada *Slim* je aktivní";
 "home status detail plus" = "*+* chrání vaše *soukromí*";
 "home status detail progress" = "Čekejte prosím...";
@@ -437,6 +438,16 @@
 "stats requests subheader" = "Dotazy v průběhu času";
 "stats top allowed header" = "Nejvíce povolené žádosti";
 "stats top blocked header" = "Nejvíce blokované žádosti";
+// A short one-word label for the counter of allowed requests.
+"stats label allowed" = "Allowed";
+// A short one-word label for the counter of blocked requests.
+"stats label blocked" = "Blocked";
+// A short one-word label for the counter of total requests.
+"stats label total" = "Total";
+// A short header for the stats section of last 24h. Can just say "24h".
+"stats header day" = "24h";
+// A short header for the stats section of the all time stats.
+"stats header all time" = "All time";
 
 "dnsprofile header" = "Povolte Blokadu v Nastavení";
 "dnsprofile desc" = "V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.";

@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">En pausa hasta que el temporizador termine</string>
     <string name="home_status_detail_active">Bloqueando *anuncios* y *rastreadores*</string>
     <string name="home_status_detail_active_with_counter">*%s* anuncios y rastreadores bloqueados</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* está activo</string>
     <string name="home_status_detail_plus">*+* protegiendo tu *privacidad*</string>
     <string name="home_status_detail_progress">Por favor, espere...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Consultas a lo largo del tiempo</string>
     <string name="stats_top_allowed_header">Top de solicitudes permitidas</string>
     <string name="stats_top_blocked_header">Top de solicitudes bloqueadas</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Activar Blokada en Ajustes</string>
     <string name="dnsprofile_desc">En la aplicación de configuración, vaya a General → VPN, DNS &amp; Device Management → DNS y seleccione Blokada.</string>
     <string name="dnsprofile_action_open_settings">Abrir Ajustes</string>

@@ -158,6 +158,7 @@
 "home status detail paused" = "En pausa hasta que el temporizador termine";
 "home status detail active" = "Bloqueando *anuncios* y *rastreadores*";
 "home status detail active with counter" = "*%@* anuncios y rastreadores bloqueados";
+"home status detail active day" = "Ads and trackers blocked last 24h";
 "home status detail active slim" = "Blokada *Slim* está activo";
 "home status detail plus" = "*+* protegiendo tu *privacidad*";
 "home status detail progress" = "Por favor, espere...";
@@ -437,6 +438,16 @@
 "stats requests subheader" = "Consultas a lo largo del tiempo";
 "stats top allowed header" = "Top de solicitudes permitidas";
 "stats top blocked header" = "Top de solicitudes bloqueadas";
+// A short one-word label for the counter of allowed requests.
+"stats label allowed" = "Allowed";
+// A short one-word label for the counter of blocked requests.
+"stats label blocked" = "Blocked";
+// A short one-word label for the counter of total requests.
+"stats label total" = "Total";
+// A short header for the stats section of last 24h. Can just say "24h".
+"stats header day" = "24h";
+// A short header for the stats section of the all time stats.
+"stats header all time" = "All time";
 
 "dnsprofile header" = "Activar Blokada en Ajustes";
 "dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN, DNS & Device Management → DNS y seleccione Blokada.";

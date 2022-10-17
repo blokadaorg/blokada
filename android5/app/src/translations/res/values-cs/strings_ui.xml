@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">Pozastaveno dokud časovač neskončí</string>
     <string name="home_status_detail_active">Blokuje *reklamy* a *slídiče*</string>
     <string name="home_status_detail_active_with_counter">Zablokováno *%s* reklam a slídičů</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* je aktivní</string>
     <string name="home_status_detail_plus">*+* chrání vaše *soukromí*</string>
     <string name="home_status_detail_progress">Čekejte prosím...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Dotazy v průběhu času</string>
     <string name="stats_top_allowed_header">Nejvíce povolené žádosti</string>
     <string name="stats_top_blocked_header">Nejvíce blokované žádosti</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Povolte Blokadu v Nastavení</string>
     <string name="dnsprofile_desc">V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otevřít Nastavení</string>

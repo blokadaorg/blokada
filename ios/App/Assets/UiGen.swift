@@ -356,6 +356,8 @@ internal enum L10n {
   internal static let homeStatusDeactivated = L10n.tr("Ui", "home status deactivated")
   /// Blocking *ads* and *trackers*
   internal static let homeStatusDetailActive = L10n.tr("Ui", "home status detail active")
+  /// Ads and trackers blocked last 24h
+  internal static let homeStatusDetailActiveDay = L10n.tr("Ui", "home status detail active day")
   /// Blokada *Slim* is active
   internal static let homeStatusDetailActiveSlim = L10n.tr("Ui", "home status detail active slim")
   /// Blocked *%@* ads and trackers
@@ -676,6 +678,16 @@ internal enum L10n {
   internal static let setupStepName = L10n.tr("Ui", "setup step name")
   /// Stats
   internal static let statsHeader = L10n.tr("Ui", "stats header")
+  /// All time
+  internal static let statsHeaderAllTime = L10n.tr("Ui", "stats header all time")
+  /// 24h
+  internal static let statsHeaderDay = L10n.tr("Ui", "stats header day")
+  /// Allowed
+  internal static let statsLabelAllowed = L10n.tr("Ui", "stats label allowed")
+  /// Blocked
+  internal static let statsLabelBlocked = L10n.tr("Ui", "stats label blocked")
+  /// Total
+  internal static let statsLabelTotal = L10n.tr("Ui", "stats label total")
   /// Ratio
   internal static let statsRatioHeader = L10n.tr("Ui", "stats ratio header")
   /// Requests

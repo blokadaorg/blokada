@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">Dihentikan sementara sampai timer habis</string>
     <string name="home_status_detail_active">Memblokir *iklan* dan *pelacak*</string>
     <string name="home_status_detail_active_with_counter">Memblokir *%s* iklan dan pelacak</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* telah diaktifkan</string>
     <string name="home_status_detail_plus">*+* melindungi *privasi* Anda</string>
     <string name="home_status_detail_progress">Harap tunggu...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Permintaan dalam periode waktu tertentu</string>
     <string name="stats_top_allowed_header">Permintaan teratas yang diizinkan</string>
     <string name="stats_top_blocked_header">Permintaan teratas yang diblokir</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Aktifkan Blokada di Pengaturan</string>
     <string name="dnsprofile_desc">Di Pengaturan, cari Umum → Manajemen VPN, DNS, &amp; Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="dnsprofile_action_open_settings">Buka Pengaturan</string>

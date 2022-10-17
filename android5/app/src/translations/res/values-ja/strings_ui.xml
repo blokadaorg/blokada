@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">タイマーが終了するまで停止中</string>
     <string name="home_status_detail_active">*広告*と*トラッカー*をブロック</string>
     <string name="home_status_detail_active_with_counter">*%s* の広告とトラッカーをブロック</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim*が有効</string>
     <string name="home_status_detail_plus">*+* *プライバシー*を保護</string>
     <string name="home_status_detail_progress">お待ちください...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">時間の経過とクエリ</string>
     <string name="stats_top_allowed_header">よく許可されるリクエスト</string>
     <string name="stats_top_blocked_header">よくブロックされるリクエスト</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">設定で Blokada を有効にする</string>
     <string name="dnsprofile_desc">設定を開き、[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
     <string name="dnsprofile_action_open_settings">設定を開く</string>

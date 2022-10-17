@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">Пауза до окончания таймера</string>
     <string name="home_status_detail_active">Блокировано *рекламы* и *трекеров*</string>
     <string name="home_status_detail_active_with_counter">Блокировано *%s* рекламы и трекеров</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* активна</string>
     <string name="home_status_detail_plus">*+* защищающий вашу *приватность*</string>
     <string name="home_status_detail_progress">Пожалуйста, подождите...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Запросы по времени</string>
     <string name="stats_top_allowed_header">Топ разрешенных запросов</string>
     <string name="stats_top_blocked_header">Топ заблокированных запросов</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Включите Blokada в Настройках</string>
     <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="dnsprofile_action_open_settings">Открыть Настройки</string>

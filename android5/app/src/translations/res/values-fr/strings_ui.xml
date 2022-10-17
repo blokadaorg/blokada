@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">En pause jusqu\'à la fin de la minuterie</string>
     <string name="home_status_detail_active">Bloque les *pubs* et *trackers*</string>
     <string name="home_status_detail_active_with_counter">A bloqué *%s* pubs et trAckers</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada * Slim* est actif</string>
     <string name="home_status_detail_plus">*+* protège votre *vie privée*</string>
     <string name="home_status_detail_progress">Veuillez patienter...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Requêtes dans le temps</string>
     <string name="stats_top_allowed_header">Top des requêtes autorisées</string>
     <string name="stats_top_blocked_header">Top des requêtes bloquées</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Activer Blokada dans les Paramètres</string>
     <string name="dnsprofile_desc">Dans l\'application Paramètres : allez dans Général → VPN, DNS &amp; Gestion des périphériques → DNS et enfin sélectionnez Blokada.</string>
     <string name="dnsprofile_action_open_settings">Ouvrir les Paramètres</string>

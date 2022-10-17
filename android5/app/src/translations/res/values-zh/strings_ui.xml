@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">暫停至計時結束</string>
     <string name="home_status_detail_active">阻擋 *廣告* 及 *追蹤器*</string>
     <string name="home_status_detail_active_with_counter">已阻擋 *%s* 個廣告及追蹤器</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* 已啟用</string>
     <string name="home_status_detail_plus">*+* 保護您的 *隱私*</string>
     <string name="home_status_detail_progress">請稍候……</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">各個時期的請求數變化</string>
     <string name="stats_top_allowed_header">允許最多次的請求</string>
     <string name="stats_top_blocked_header">阻擋最多次的請求</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">在設定中啟用 Blokada</string>
     <string name="dnsprofile_desc">在「設定」App 中，前往 [一般] → [VPN、DNS 與裝置管理] → DNS 並選取 Blokada。</string>
     <string name="dnsprofile_action_open_settings">開啟設定</string>

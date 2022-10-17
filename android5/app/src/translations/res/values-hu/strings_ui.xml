@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">Szünetel a számláló lejártáig</string>
     <string name="home_status_detail_active">*reklám* és *tracker* blokkolása</string>
     <string name="home_status_detail_active_with_counter">Blokkolva *%s* reklám és követő</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* aktív</string>
     <string name="home_status_detail_plus">*+* védelmezi a *magánéletedet*</string>
     <string name="home_status_detail_progress">Kérem várjon...</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Időbeli lekérdezések</string>
     <string name="stats_top_allowed_header">Legtöbbet engedélyezett kérések</string>
     <string name="stats_top_blocked_header">Legtöbbet blokkolt kérések</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Blokada engedélyezése a Beállításokban</string>
     <string name="dnsprofile_desc">A Beállítások alkalmazásban navigálj az Általános → VPN, DNS és eszközkezelés → DNS menüpontra, és válaszd a Blokada lehetőséget.</string>
     <string name="dnsprofile_action_open_settings">Beállítások megnyitása</string>

@@ -116,6 +116,7 @@
     <string name="home_status_detail_paused">In pausa fino alla fine del timer</string>
     <string name="home_status_detail_active">Sto bloccando *pubblicità* e *tracker*</string>
     <string name="home_status_detail_active_with_counter">*%s* pubblicità e tracker bloccati</string>
+    <string name="home_status_detail_active_day">Ads and trackers blocked last 24h</string>
     <string name="home_status_detail_active_slim">Blokada *Slim* è attiva</string>
     <string name="home_status_detail_plus">*+* proteggendo la tua *privacy*</string>
     <string name="home_status_detail_progress">Attendere prego...</string>
@@ -205,7 +206,7 @@
     <string name="account_label_enter_to_continue">Inserisci l\'ID del tuo account per continuare</string>
     <string name="account_restore_description">Non ti preoccupare, se hai perso o dimenticato l\'ID del tuo account, possiamo recuperarlo. Per favore, contatta il nostro supporto e fornisci le informazioni che ci permetteranno di identificare il tuo acquisto (esempio: ultime 4 cifre della tua carta di credito o e-mail PayPal).</string>
     <string name="account_create_description">Questo è l\'ID del tuo account. Annotalo e mantienilo privato. È l\'unico modo per accedere al tuo abbonamento.</string>
-    <string name="account_create_confirm">L\'ho fatto</string>
+    <string name="account_create_confirm">Fatto</string>
     <string name="account_section_header_my_subscription">Il mio abbonamento</string>
     <string name="account_section_header_general">Generale</string>
     <string name="account_section_header_subscription">Abbonamento</string>
@@ -241,7 +242,7 @@
     <string name="account_lease_action_dns">Scegli DNS</string>
     <string name="account_lease_label_public_key">Chiave pubblica</string>
     <string name="account_support_action_how_help">Come possiamo aiutarti?</string>
-    <string name="account_support_action_kb">Apri Base di Conoscenza</string>
+    <string name="account_support_action_kb">Apri Conoscenze di Base</string>
     <string name="account_upgrade_cloud_description">Questa funzione fa parte di Blokada Plus. Per effettuare l\'aggiornamento, contatta il nostro Servizio clienti.</string>
     <string name="payment_header_activated">Attivata!</string>
     <string name="payment_activated_description">Adesso Blokada passerà in modalità Plus e si connetterà attraverso una delle nostre località sicure. Se non sei sicuro di quale scegliere, si raccomanda quella più vicina.</string>
@@ -278,8 +279,8 @@
     <string name="payment_alert_error_header">Un messaggio dall\'App Store</string>
     <string name="payment_save_text">Stai risparmiando %s</string>
     <string name="payment_conversion_note">Accettiamo Euro e i prezzi visualizzati sono approssimativi. Se la tua banca ti addebita troppo potrai ricevere un rimborso.</string>
-    <string name="payment_subscription_one_month">1 Mese</string>
-    <string name="payment_subscription_many_months">%s Mesi</string>
+    <string name="payment_subscription_one_month">1 mese</string>
+    <string name="payment_subscription_many_months">%s mesi</string>
     <string name="payment_subscription_per_month">%s al mese</string>
     <string name="payment_subscription_per_year">%s all\'anno</string>
     <string name="payment_subscription_per_year_then">poi %s all\'anno</string>
@@ -304,9 +305,9 @@
     <string name="payment_label_pay_with_card">Paga con carta</string>
     <string name="payment_label_pay_with_paypal">Paga con PayPal</string>
     <string name="payment_label_pay_with_crypto">Paga con criptovalute</string>
-    <string name="payment_package_one_month">1 Mese</string>
-    <string name="payment_package_six_months">6 Mesi</string>
-    <string name="payment_package_twelve_months">12 Mesi</string>
+    <string name="payment_package_one_month">1 mese</string>
+    <string name="payment_package_six_months">6 mesi</string>
+    <string name="payment_package_twelve_months">12 mesi</string>
     <string name="payment_label_discount">Risparmia %s (%s / mese)</string>
     <string name="payment_label_country">Paese</string>
     <string name="payment_euro_desc">Abbiamo sede in Europa, quindi accettiamo l\'euro: 10€ sono circa 12$.</string>
@@ -352,6 +353,11 @@
     <string name="stats_requests_subheader">Richieste nel tempo</string>
     <string name="stats_top_allowed_header">Richieste permesse maggiormente</string>
     <string name="stats_top_blocked_header">Richieste bloccate maggiormente</string>
+    <string name="stats_label_allowed">Allowed</string>
+    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_total">Total</string>
+    <string name="stats_header_day">24h</string>
+    <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Abilita Blokada nelle Impostazioni</string>
     <string name="dnsprofile_desc">Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.</string>
     <string name="dnsprofile_action_open_settings">Apri le Impostazioni</string>
