@@ -1,8 +1,7 @@
-import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:common/model/UiModel.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -114,7 +113,7 @@ class ColumnChart extends StatelessWidget {
                   dataSource: dataGreen,
                   xValueMapper: (_ChartData sales, _) => sales.x,
                   yValueMapper: (_ChartData sales, _) => sales.y,
-                  name: 'Allowed',
+                  name: "stats label allowed".i18n,
                   color: colorsGreen[0],
                   animationDuration: 1000,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
@@ -158,7 +157,7 @@ class ColumnChart extends StatelessWidget {
                   dataSource: dataRed,
                   xValueMapper: (_ChartData sales, _) => sales.x,
                   yValueMapper: (_ChartData sales, _) => sales.y,
-                  name: 'Blocked',
+                  name: "stats label blocked".i18n,
                   color: colorsRed[0],
                   animationDuration: 1000,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),

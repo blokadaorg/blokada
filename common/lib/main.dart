@@ -1,4 +1,5 @@
 import 'package:common/model/UiModel.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/service/Services.dart';
 import 'package:common/ui/frontscreen.dart';
 import 'package:common/ui/radial_segment.dart';
@@ -11,52 +12,16 @@ import 'package:flutter/services.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 
 import 'repo/Repos.dart';
 import 'ui/home.dart';
 
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // print("before easy");
-  // await EasyLocalization.ensureInitialized();
-  // print("after easy");
-
+  await WidgetsFlutterBinding.ensureInitialized();
+  await I18nService.loadTranslations();
   runApp(MyApp());
-  // runApp(
-  //   EasyLocalization(
-  //       supportedLocales: [
-  //         Locale('ar'),
-  //         Locale('bg'),
-  //         Locale('cs'),
-  //         Locale('de'),
-  //         Locale('es'),
-  //         Locale('fi'),
-  //         Locale('fr'),
-  //         Locale('hi'),
-  //         Locale('hu'),
-  //         Locale('id'),
-  //         Locale('it'),
-  //         Locale('ja'),
-  //         Locale('nl'),
-  //         Locale('pl'),
-  //         Locale('pt', 'BR'),
-  //         Locale('ro'),
-  //         Locale('ru'),
-  //         Locale('sv'),
-  //         Locale('tr'),
-  //         Locale('zh'),
-  //
-  //         Locale('en')
-  //       ],
-  //       path: 'assets/translations',
-  //       fallbackLocale: Locale('en'),
-  //       useFallbackTranslations: true,
-  //       saveLocale: false,
-  //       child: MyApp()
-  //   ),
-  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -66,9 +31,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // localizationsDelegates: context.localizationDelegates,
-      // supportedLocales: context.supportedLocales,
-      // locale: context.locale,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ar'),
+        Locale('bg'),
+        Locale('cs'),
+        Locale('de'),
+        Locale('es'),
+        Locale('fi'),
+        Locale('fr'),
+        Locale('hi'),
+        Locale('hu'),
+        Locale('id'),
+        Locale('it'),
+        Locale('ja'),
+        Locale('nl'),
+        Locale('pl'),
+        Locale('pt', 'BR'),
+        Locale('ro'),
+        Locale('ru'),
+        Locale('sv'),
+        Locale('tr'),
+        Locale('zh'),
+
+        Locale('en')
+      ],
       title: 'Blokada',
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(
@@ -115,8 +106,8 @@ class MyApp extends StatelessWidget {
           )
         }
       ),
-      home: DefaultBottomBarController(
-          child: const MyHomePage(title: 'Blokada')),
+      home: I18n(child: DefaultBottomBarController(
+          child: const MyHomePage(title: 'Blokada'))),
     );
   }
 }

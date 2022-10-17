@@ -1,5 +1,6 @@
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:common/main.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/ui/plusbutton.dart';
 import 'package:common/ui/power_button.dart';
 import 'package:flutter/material.dart';
@@ -116,9 +117,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       if (app.appState.working) {
                         return Text("...", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: theme.cloud, fontWeight: FontWeight.bold));
                       } else if (app.appState.state == AppState.activated) {
-                        return Text("ACTIVE", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
+                        return Text("home status active".i18n.toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
                       } else {
-                        return Text("DEACTIVATED", style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
+                        return Text("home status deactivated".i18n.toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
                       }
                     }
                 ),

@@ -1,11 +1,9 @@
-import 'package:countup/countup.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'dart:ui' as ui;
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../model/UiModel.dart';
 import '../repo/Repos.dart';
 import '../repo/StatsRepo.dart';
 
@@ -72,7 +70,7 @@ class TotalCounterState extends State<TotalCounter> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              child: Text("All time", style: TextStyle(color: Color(0xff464646), fontSize: 18)),
+              child: Text("stats header all time".i18n, style: TextStyle(color: Color(0xff464646), fontSize: 18)),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 32.0),
@@ -84,7 +82,7 @@ class TotalCounterState extends State<TotalCounter> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
+                      Text("stats label blocked".i18n, style: TextStyle(color: Color(0xffff3b30), fontSize: 20)),
                       Text(_formatCounter(blocked), style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900))
                       // Countup(
                       //   begin: lastBlocked,

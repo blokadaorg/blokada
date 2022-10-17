@@ -1,5 +1,6 @@
 import 'package:common/model/AppModel.dart';
 import 'package:common/repo/AccountRepo.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -113,7 +114,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
                         },
                         child: Flex(
                           direction: Axis.horizontal,
-                          children: [Expanded(child: Align(child: Text("Upgrade to BLOKADA+")))]
+                          children: [Expanded(child: Align(child: Text("universal action upgrade".i18n)))]
                         ),
                     )
                 ),
@@ -146,7 +147,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
 
     return Row(
       children: [
-        pressed ? (Text("Location: $location")) : (Text("No location")),
+        pressed ? (Text("home plus button location".i18n.fill([location]))) : (Text("home plus button select location".i18n)),
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,

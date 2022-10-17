@@ -1,9 +1,9 @@
-import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:common/model/UiModel.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -59,7 +59,7 @@ class RadialChart extends StatelessWidget {
   void _convert() {
     data = [
       _ChartData(
-        'All',
+        "stats label total".i18n,
         max((stats.dayTotal.toDouble()), 20),
         const Color(0xff808080),
         ui.Gradient.sweep(
@@ -72,7 +72,7 @@ class RadialChart extends StatelessWidget {
         ),
       ),
       _ChartData(
-        'Allowed',
+        "stats label allowed".i18n,
         max(stats.dayAllowed * (stats.avgDayTotal / max(stats.avgDayAllowed, 1)), 20),
         const Color(0xff33c75a),
         ui.Gradient.sweep(
@@ -83,7 +83,7 @@ class RadialChart extends StatelessWidget {
         ),
       ),
       _ChartData(
-        'Blocked',
+        "stats label blocked".i18n,
         max(stats.dayBlocked * (stats.avgDayTotal / max(stats.avgDayBlocked, 1)), 20),
         const Color(0xffff3b30),
         ui.Gradient.sweep(

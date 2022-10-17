@@ -1,4 +1,5 @@
 import 'package:common/model/UiModel.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/ui/radial_chart.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class RadialSegmentState extends State<RadialSegment> {
             padding: const EdgeInsets.only(top: 8.0, left: 24.0),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text("24h", style: TextStyle(color: Color(0xff464646), fontSize: 18))
+              child: Text("stats header day".i18n, style: TextStyle(color: Color(0xff464646), fontSize: 18))
             ),
           ),
           Row(
@@ -88,7 +89,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Blocked", style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
+                            Text("stats label blocked".i18n, style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
                             Countup(
                               begin: lastBlocked,
                               end: blocked,
@@ -103,7 +104,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Allowed", style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
+                            Text("stats label allowed".i18n, style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
                             Countup(
                               begin: lastAllowed,
                               end: allowed,
@@ -118,7 +119,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Total", style: TextStyle(color: Color(0xff838383), fontSize: 16)),
+                            Text("stats label total".i18n, style: TextStyle(color: Color(0xff838383), fontSize: 16)),
                             Countup(
                               begin: lastTotal,
                               end: total,

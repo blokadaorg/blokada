@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/repo/StatsRepo.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/service/Services.dart';
 import 'package:common/service/SheetService.dart';
 import 'package:countup/countup.dart';
@@ -85,15 +86,15 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
         ),
         Container(
           child: (powerReady) ?
-            Text("Ads and trackers blocked last 24h", style: Theme.of(context).textTheme.titleMedium) :
+            Text("home status detail active day".i18n, style: Theme.of(context).textTheme.titleMedium) :
           (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
-            Text("Please wait...", style: Theme.of(context).textTheme.titleMedium) :
-            Text("Tap to activate", style: Theme.of(context).textTheme.titleMedium),
+            Text("home status detail progress".i18n, style: Theme.of(context).textTheme.titleMedium) :
+            Text("home action tap to activate".i18n, style: Theme.of(context).textTheme.titleMedium),
         ),
         AnimatedOpacity(
           opacity: (appModel.plus && powerReady) ? 1 : 0,
           duration: Duration(milliseconds: 1000),
-          child: Text("+ protecting your privacy",
+          child: Text("home status detail plus".i18n,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(color: theme.plus, fontWeight: FontWeight.bold)
           ),
         ),
