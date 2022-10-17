@@ -67,7 +67,7 @@ struct ActivityItemView: View {
         }
         .frame(height: 54)
         .padding([.bottom, .top], 10)
-        //.padding([.leading, .trailing], 9)
+        .padding([.trailing], 16)
         .opacity((vm.entry.type == .whitelisted) != vm.whitelisted || (vm.entry.type == .passed) && vm.blacklisted ? 0.5 : 1)
     }
 }

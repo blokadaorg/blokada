@@ -62,11 +62,14 @@ struct ActivityListView: View {
                         }
                     }
             }
-            .background(NavigationLink("",
-               destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry)),
-               tag: entry,
-               selection: self.$tabVM.navActivity
-              ))
+            .background(
+                NavigationLink("",
+                   destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry)),
+                   tag: entry,
+                   selection: self.$tabVM.navActivity
+                )
+                .padding([.trailing], 8)
+            )
         }
     }
 }

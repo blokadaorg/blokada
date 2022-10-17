@@ -64,11 +64,14 @@ struct ActivitysNarrowView: View {
                                             Image(systemName: Image.fCopy)
                                         }
                                 }
-                                .background(NavigationLink("",
-                                   destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry)),
-                                   tag: entry,
-                                   selection: self.$tabVM.navActivity
-                                ))
+                                .background(
+                                    NavigationLink("",
+                                        destination: ActivityDetailView(vm: ActivityItemViewModel(entry: entry)),
+                                        tag: entry,
+                                        selection: self.$tabVM.navActivity
+                                    )
+                                    .padding([.trailing], 8)
+                                )
                             }
                         }
                     } else {
