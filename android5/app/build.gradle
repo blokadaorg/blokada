@@ -26,8 +26,8 @@ android {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 28
         targetSdkVersion 31
-        versionCode 666022401
-        versionName "22.4.1"
+        versionCode 666022403
+        versionName "22.4.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -130,6 +130,7 @@ android {
         googleslim.assets.srcDirs += 'src/libre/assets'
         googleslim.jniLibs.srcDirs += 'src/libre/jniLibs'
         googleslim.res.srcDirs += 'src/libre/res'
+        googleslim.manifest.srcFile 'src/google/AndroidManifest.xml'
 
         five.res.srcDirs += 'src/notgoogle/res'
         five.java.srcDirs += 'src/notgoogle/kotlin'
