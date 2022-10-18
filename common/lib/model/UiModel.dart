@@ -10,21 +10,20 @@ class UiStats {
 
   int latestTimestamp = DateTime.now().millisecondsSinceEpoch;
 
+  // Sum for the current day
   int dayAllowed = 0;
   int dayBlocked = 0;
   int dayTotal = 0;
 
-  int rateAllowed = 0;
-  int rateBlocked = 0;
-  int rateTotal = 0;
-
-  int avgAllowed = 0;
-  int avgBlocked = 0;
-  int avgTotal = 0;
-
+  // Average values per day (taken from at least a week of data)
   int avgDayAllowed = 0;
   int avgDayBlocked = 0;
   int avgDayTotal = 0;
+
+  // Value 0-100 meaning what % of the average daily is the value for the current day
+  double dayAllowedRatio = 0;
+  double dayBlockedRatio = 0;
+  double dayTotalRatio = 0;
 
   UiStats({
     required this.totalAllowed, required this.totalBlocked,
@@ -36,17 +35,9 @@ class UiStats {
     dayBlocked = blockedHistogram.reduce((a, b) => a + b);
     dayTotal = dayAllowed + dayBlocked;
 
-    // avgDayAllowed = (dayAllowed * 1.1).toInt();
-    // avgDayBlocked = (dayBlocked * 1.1).toInt();
-    // avgDayTotal = (dayTotal * 1.1).toInt();
-
-    rateAllowed = allowedHistogram.last;
-    rateBlocked = blockedHistogram.last;
-    rateTotal = rateAllowed + rateBlocked;
-
-    avgAllowed = (dayAllowed / 24.0).round();
-    avgBlocked = (dayBlocked / 24.0).round();
-    avgTotal = ((dayBlocked + dayAllowed) / 24.0).round();
+    dayAllowedRatio = ((dayAllowed / avgDayAllowed) * 100);
+    dayBlockedRatio = ((dayBlocked / avgDayBlocked) * 100);
+    dayTotalRatio = dayAllowedRatio + dayBlockedRatio; // As per Johnny request, to make total ring always bigger than others
   }
 
   UiStats.empty({
