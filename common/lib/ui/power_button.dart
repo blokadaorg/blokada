@@ -125,24 +125,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       });
 
     mobx.autorun((_) {
-      // Max is 2.0 so that it can display ring overlap
-      newCounter = math.min(2.0, statsRepo.stats.dayAllowed / math.max(statsRepo.stats.avgDayAllowed, 1.0));
-
-      // A hack to quickly update the arc counter to current value if received after its already shown
-      // TODO: better would be to animate this change too
-      if (!animCtrlArcCounter.isAnimating) {
-        animArcCounter = Tween<double>(begin: animArcCounter.value, end: newCounter)
-          .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
-          ..addListener(() {
-            setState(() {});
-          });
-        counter = newCounter;
-        animCtrlArcCounter.reset();
-        animCtrlArcCounter.forward();
-      }
-    });
-
-    mobx.autorun((_) {
       var s = appRepo.appState;
       appModel = s;
       pressed = (s.state == AppState.activated && !s.working) || (s.state != AppState.activated && s.working);
@@ -154,20 +136,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     });
 
     mobx.autorun((_) {
-      if (appRepo.powerOnAnimationReady) {
+      if (appRepo.powerOnAnimationReady && !appModel.working && appModel.state == AppState.activated && statsRepo.hasStats) {
+        // Max is 2.0 so that it can display ring overlap
+        newCounter = math.min(2.0, statsRepo.stats.dayAllowedRatio / 100);
+
         // A hack to move the loading spinner to the position 0 and animate stats counter instead
         animCtrlArcStart.animateTo(0.999);
 
-        animArcCounter = Tween<double>(begin: animArcCounter.value, end: newCounter)
-          .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
-          ..addListener(() {
-            setState(() {});
-          });
-
-        counter = newCounter;
-        animCtrlArcCounter.reset();
-        animCtrlArcCounter.forward();
-
+        _animateStatusRingTo(newCounter);
         //animCtrlArc2Counter.reset();
         animCtrlArc2Counter.forward();
       }
@@ -187,15 +163,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _updateAnimations() {
     if (appModel.working) {
-      animArcCounter = Tween<double>(begin: animArcCounter.value, end: loadingCounter)
-        .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.ease))
-        ..addListener(() {
-          setState(() {});
-        });
-
-      counter = loadingCounter;
-      animCtrlArcCounter.reset();
-      animCtrlArcCounter.forward();
+      _animateStatusRingTo(loadingCounter);
 
       animCtrlLoading.forward();
       animCtrlArcStart.repeat();
@@ -228,7 +196,24 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlCover.reverse();
     }
   }
-  
+
+  _animateStatusRingTo(double value) {
+    if (value == counter) {
+      // Assume we are already animating to this value, ignore
+      return;
+    }
+
+    print("Animating status ring from ${animArcCounter.value} to $value, isAnimating: ${animCtrlArcCounter.isAnimating}");
+    animArcCounter = Tween<double>(begin: animArcCounter.value, end: value)
+        .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
+      ..addListener(() {
+        setState(() {});
+      });
+    counter = value;
+    animCtrlArcCounter.reset();
+    animCtrlArcCounter.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BrandTheme>()!;
@@ -271,7 +256,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                                 arcStart: animArcLoading.value,
                                 arcEnd: animArcCounter.value,
                                 arcCounter: [
-                                  animArc2Counter.value * math.min(2.0, (statsRepo.stats.dayBlocked / math.max(statsRepo.stats.avgDayBlocked, 1.0))),
+                                  animArc2Counter.value * math.min(2.0, (statsRepo.stats.dayBlockedRatio / 100)),
                                   0,
                                   0
                                 ],

@@ -24,10 +24,27 @@ mixin _$StatsRepo on _StatsRepo, Store {
     });
   }
 
+  late final _$hasStatsAtom =
+      Atom(name: '_StatsRepo.hasStats', context: context);
+
+  @override
+  bool get hasStats {
+    _$hasStatsAtom.reportRead();
+    return super.hasStats;
+  }
+
+  @override
+  set hasStats(bool value) {
+    _$hasStatsAtom.reportWrite(value, super.hasStats, () {
+      super.hasStats = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-stats: ${stats}
+stats: ${stats},
+hasStats: ${hasStats}
     ''';
   }
 }

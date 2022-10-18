@@ -28,6 +28,9 @@ abstract class _StatsRepo with Store {
   @observable
   UiStats stats = UiStats.empty();
 
+  @observable
+  bool hasStats = false;
+
   start() async {
     _startRefreshingStats(120, true);
     _onAccountIdChanged_refreshStats();
@@ -38,6 +41,7 @@ abstract class _StatsRepo with Store {
     mobx.reaction((_) => accountRepo.accountId, (_) {
       print("Account ID changed, refreshing stats");
       stats = UiStats.empty();
+      hasStats = false;
       _refreshStats();
     });
   }
@@ -67,6 +71,7 @@ abstract class _StatsRepo with Store {
     }
 
     stats = await getStats(accountRepo.accountId);
+    hasStats = true;
   }
 
   _stopRefreshingStats() {
