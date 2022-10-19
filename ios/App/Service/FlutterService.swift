@@ -23,6 +23,7 @@ class FlutterService {
     private lazy var plusRepo = Repos.plusRepo
     private lazy var linkRepo = Repos.linkRepo
 
+    private lazy var stageHot = Repos.stageRepo.stageHot
     private lazy var appStateHot = Repos.appRepo.appStateHot
     private lazy var workingHot = Repos.appRepo.workingHot
     private lazy var accountHot = Repos.accountRepo.accountHot
@@ -135,6 +136,19 @@ class FlutterService {
                 }
             }
         })
+
+        // Push app stage (foreground) to Flutter
+        let appStage = FlutterMethodChannel(name: "stage:foreground",
+            binaryMessenger: controller.binaryMessenger)
+        stageHot
+        .sink(onValue: { it in
+            if it == AppStage.Foreground {
+                appStage.invokeMethod("stage:foreground", arguments: true)
+            } else {
+                appStage.invokeMethod("stage:foreground", arguments: false)
+            }
+        })
+        .store(in: &cancellables)
 
         workingHot.sink(onValue: { it in self.working = it }).store(in: &cancellables)
         appStateHot.sink(onValue: { it in self.appState = it }).store(in: &cancellables)

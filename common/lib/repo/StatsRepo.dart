@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:common/repo/AppRepo.dart';
 import 'package:common/repo/Repos.dart';
+import 'package:common/repo/StageRepo.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:common/model/BlockaModel.dart';
@@ -22,6 +23,7 @@ abstract class _StatsRepo with Store {
 
   late final AccountRepo accountRepo = Repos.instance.account; // TODO: CurrentUserBlockaApiService...
   late final AppRepo appRepo = Repos.instance.app;
+  late final StageRepo stageRepo = Repos.instance.stage;
 
   Timer? refreshTimer;
 
@@ -32,9 +34,19 @@ abstract class _StatsRepo with Store {
   bool hasStats = false;
 
   start() async {
-    _startRefreshingStats(120, true);
+    _onAppStage_manageAutoRefresh();
     _onAccountIdChanged_refreshStats();
     _onAppActivated_refreshStats();
+  }
+
+  _onAppStage_manageAutoRefresh() {
+    mobx.reaction((_) => stageRepo.isForeground, (_) {
+      if (stageRepo.isForeground) {
+        _startRefreshingStats(120, true);
+      } else {
+        _stopRefreshingStats();
+      }
+    });
   }
 
   _onAccountIdChanged_refreshStats() {
@@ -57,6 +69,7 @@ abstract class _StatsRepo with Store {
   }
 
   _startRefreshingStats(int seconds, bool refreshNow) {
+    print("Start refreshing stats, now every $seconds seconds");
     if (refreshNow) _refreshStats();
     refreshTimer = Timer.periodic(Duration(seconds: seconds), (Timer t) => _refreshStats());
   }
@@ -75,6 +88,7 @@ abstract class _StatsRepo with Store {
   }
 
   _stopRefreshingStats() {
+    print("Stopping refreshing stats");
     refreshTimer?.cancel();
     refreshTimer = null;
   }
