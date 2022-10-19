@@ -19,8 +19,13 @@ class SheetRepo: Startable {
         writeCurrentSheet.removeDuplicates().eraseToAnyPublisher()
     }
 
+    var showPauseMenu: AnyPublisher<Bool, Never> {
+        writeShowPauseMenu.removeDuplicates().compactMap { $0 }.eraseToAnyPublisher()
+    }
+
     fileprivate let writeCurrentSheet = CurrentValueSubject<ActiveSheet?, Never>(nil)
     fileprivate let writeSheetQueue = CurrentValueSubject<[ActiveSheet?], Never>([nil])
+    fileprivate let writeShowPauseMenu = CurrentValueSubject<Bool?, Never>(nil)
 
     fileprivate let addSheetT = Tasker<ActiveSheet?, Ignored>("addSheet", debounce: 0)
     fileprivate let removeSheetT = SimpleTasker<Ignored>("removeSheet", debounce: 0)
@@ -61,6 +66,10 @@ class SheetRepo: Startable {
 
     func onDismissed() {
         self.removeSheetT.send()
+    }
+
+    func showPauseMenu(_ show: Bool) {
+        writeShowPauseMenu.send(show)
     }
 
     private func onAddSheet() {

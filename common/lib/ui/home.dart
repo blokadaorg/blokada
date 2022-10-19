@@ -118,6 +118,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                         return Text("...", style: Theme.of(context).textTheme.titleLarge!.copyWith(color: theme.cloud, fontWeight: FontWeight.bold));
                       } else if (app.appState.state == AppState.activated) {
                         return Text("home status active".i18n.toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
+                      } else if (app.appState.state == AppState.paused) {
+                        return Text("home status paused".i18n.toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(color: (app.appState.plus) ? theme.plus : theme.cloud, fontWeight: FontWeight.bold));
                       } else {
                         return Text("home status deactivated".i18n.toUpperCase(), style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold));
                       }

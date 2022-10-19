@@ -20,9 +20,15 @@ class ContentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     @Published var activeSheet: ActiveSheet? = nil
+    @Published var showPauseMenu = false {
+        didSet {
+            self.sheetRepo.showPauseMenu(showPauseMenu)
+        }
+    }
 
     init() {
         onSheetChanged()
+        onShowPauseMenuChanged()
     }
 
     func showSheet(_ sheet: ActiveSheet) {
@@ -54,4 +60,12 @@ class ContentViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
+    private func onShowPauseMenuChanged() {
+        sheetRepo.showPauseMenu
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.showPauseMenu = it
+        })
+        .store(in: &cancellables)
+    }
 }

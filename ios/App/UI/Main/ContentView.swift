@@ -55,6 +55,23 @@ struct ContentView: View {
                         SupportView()
                     }
                 }
+                .actionSheet(isPresented: self.$vm.showPauseMenu) {
+                    ActionSheet(title: Text(L10n.homePowerOffMenuHeader), buttons: [
+                        .default(Text(self.homeVM.isPaused ? L10n.homePowerActionTurnOn : L10n.homePowerActionPause)) {
+                            if self.homeVM.isPaused {
+                                self.homeVM.unpause()
+                            } else if !self.homeVM.notificationPermsGranted {
+                                self.homeVM.displayNotificationPermsInstructions()
+                            } else {
+                                self.homeVM.pause(seconds: PAUSE_TIME_SECONDS)
+                            }
+                        },
+                        .destructive(Text(L10n.homePowerActionTurnOff)) {
+                            self.homeVM.pause(seconds: nil)
+                        },
+                        .cancel()
+                    ])
+                }
 
                 // We need animated and non-animated cover screen when changing orientation
                 Rectangle()

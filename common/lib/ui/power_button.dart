@@ -33,7 +33,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AppRepo appRepo = Repos.instance.app;
   late StatsRepo statsRepo = Repos.instance.stats;
 
-  late Future<ui.Image> loadIcon;
+  late Future<List<ui.Image>> loadIcons;
 
   late AnimationController animCtrlLoading;
   late AnimationController animCtrlLibre;
@@ -62,7 +62,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    loadIcon = _loadIcon("assets/images/ic_power.png");
+    loadIcons = _loadIcons(["assets/images/ic_power.png", "assets/images/ic_pause.png"]);
 
     animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
@@ -232,9 +232,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                   });
                 }
               },
-              child: FutureBuilder<ui.Image>(
-                future: loadIcon,
-                builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+              child: FutureBuilder<List<ui.Image>>(
+                future: loadIcons,
+                builder: (BuildContext context, AsyncSnapshot<List<ui.Image>> snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                       return const CircularProgressIndicator();
@@ -247,7 +247,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                           builder: (BuildContext context, Widget? child) {
                             return CustomPaint(
                               painter: PowerButtonPainter(
-                                iconImage: snapshot.data!,
+                                iconImage: (appModel.state == AppState.paused) ? snapshot.data![1] : snapshot.data![0],
                                 alphaLoading: animLoading.value,
                                 alphaCover: animCover.value,
                                 alphaLibre: animLibre.value,
@@ -289,9 +289,11 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     super.dispose();
   }
 
-  Future<ui.Image> _loadIcon(String path) async {
-    var bytes = await rootBundle.load(path);
-    return decodeImageFromList(bytes.buffer.asUint8List());
+  Future<List<ui.Image>> _loadIcons(List<String> paths) async {
+    return await Future.wait(paths.map((path) async {
+      var bytes = await rootBundle.load(path);
+      return decodeImageFromList(bytes.buffer.asUint8List());
+    }));
   }
 
 }

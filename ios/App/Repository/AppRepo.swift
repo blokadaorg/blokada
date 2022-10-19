@@ -126,20 +126,25 @@ class AppRepo: Startable {
     }
 
     private func onAnythingThatAffectsAppState_UpdateIt() {
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             accountTypeHot,
+            pausedUntilHot,
             cloudRepo.dnsProfileActivatedHot,
             cloudRepo.adblockingPausedHot
         )
         .map { it -> AppState in
-            let (accountType, dnsProfileActivated, adblockingPaused) = it
+            let (accountType, pausedUntil, dnsProfileActivated, adblockingPaused) = it
 
             if !accountType.isActive() {
                 return AppState.Deactivated
             }
 
-            if adblockingPaused {
+            if adblockingPaused && pausedUntil != nil {
                 return AppState.Paused
+            }
+
+            if adblockingPaused {
+                return AppState.Deactivated
             }
 
             if dnsProfileActivated {

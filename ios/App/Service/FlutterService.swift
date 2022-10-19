@@ -101,7 +101,7 @@ class FlutterService {
             } else if !self.vpnPermsGranted && self.accountType == .Plus {
                 self.sheetRepo.showSheet(.Activated)
             } else if self.appState == .Activated {
-                self.appRepo.pauseApp(until: nil)
+                self.sheetRepo.showPauseMenu(true)
             } else if self.appState == .Paused {
                 self.appRepo.unpauseApp()
             } else {
