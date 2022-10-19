@@ -17,7 +17,6 @@ import model.Dns
 import model.Gateway
 import model.PrivateKey
 import service.ConnectivityService
-import service.DozeService
 import utils.Logger
 import java.net.DatagramSocket
 
@@ -25,8 +24,8 @@ object PacketLoopService {
 
     private val log = Logger("PacketLoop")
     private val connectivity = ConnectivityService
-    private val doze = DozeService
     private val screenOn = ScreenOnService
+    private var wasConnected = false;
 
     var onCreateSocket = {
         log.e("Created unprotected socket for the packet loop")
@@ -44,7 +43,8 @@ object PacketLoopService {
     init {
         // When connectivity is back restart the loop for faster recovery.
         connectivity.onConnectivityChanged = { isConected ->
-            if (isConected) maybeRestartLoop()
+            if (isConected && !wasConnected) maybeRestartLoop()
+            wasConnected = isConected
         }
 
         // Listen to device wake events and restart the loop if running.
@@ -164,6 +164,9 @@ object PacketLoopService {
                 MetricsService.stopMetrics()
                 if (connectivity.isDeviceInOfflineMode()) {
                     log.w("Device is offline, not bringing packet loop back for now")
+                    loop = config to null
+                } else if (!screenOn.isScreenOn) {
+                    log.w("Screen is off, not bringing packet loop back for now")
                     loop = config to null
                 } else {
                     log.w("Device is online, bringing packet loop back")

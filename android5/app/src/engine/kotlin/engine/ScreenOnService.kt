@@ -28,6 +28,10 @@ object ScreenOnService {
 
     var onScreenOn = {}
 
+    var isScreenOn = true
+        @Synchronized get
+        @Synchronized set
+
     init {
         val intentFilter = IntentFilter(Intent.ACTION_SCREEN_ON)
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
@@ -41,8 +45,10 @@ object ScreenOnService {
             when (intent?.action) {
                 Intent.ACTION_SCREEN_OFF -> {
                     lastScreenOffMillis = System.currentTimeMillis()
+                    isScreenOn = false
                 }
                 Intent.ACTION_SCREEN_ON -> {
+                    isScreenOn = true
                     if (lastScreenOffMillis + frequencyMillis < System.currentTimeMillis()) {
                         Logger.v("ScreenOn", "Received Screen ON")
                         onScreenOn()
