@@ -360,7 +360,7 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.4))
+      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.45))
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
