@@ -18,65 +18,47 @@ struct HelpButtonView: View {
 
     @ObservedObject var contentVM = ViewModels.content
 
-    @State var showHelpActions = false
-
     var body: some View {
         // Help icon in top right
         VStack {
             HStack {
                 Spacer()
 
-                Image(systemName: Image.fHelp)
-                    .imageScale(.medium)
-                    .foregroundColor(.primary)
-                    .frame(width: 36, height: 36, alignment: .center)
-                    .padding(8)
-                    .padding(.top, 16)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        self.showHelpActions = true
+                Button(action: {
+                    self.contentVM.showSheet(.Help)
+                }) {
+                    Image(systemName: Image.fHelp)
+                        .imageScale(.medium)
+                        .foregroundColor(.primary)
+                        .frame(width: 36, height: 36, alignment: .center)
+                        .padding(8)
+                        .padding(.top, 16)
+                        .contentShape(Rectangle())
+                }
+                .contextMenu {
+                    Button(action: {
+                        self.contentVM.showSheet(.ShowLog)
+                    }) {
+                        Text(L10n.universalActionShowLog)
+                        Image(systemName: "list.dash")
                     }
-                    .actionSheet(isPresented: $showHelpActions) {
-                        ActionSheet(title: Text(L10n.accountSupportActionHowHelp), buttons: [
-                            .default(Text(L10n.accountSupportActionKb)) {
-                                self.contentVM.openLink(Link.KnowledgeBase)
-                            },
-                            .default(Text(L10n.universalActionContactUs)) {
-                                self.contentVM.openLink(Link.Support)
-                            },
-                            .default(Text(L10n.universalActionShowLog)) {
-                                self.contentVM.showSheet(.ShowLog)
-                            },
-                            .default(Text(L10n.universalActionShareLog)) {
-                                self.contentVM.showSheet(.ShareLog)
-                            },
-                            .cancel()
-                        ])
-                    }
-                    .contextMenu {
-                        Button(action: {
-                            self.contentVM.showSheet(.ShowLog)
-                        }) {
-                            Text(L10n.universalActionShowLog)
-                            Image(systemName: "list.dash")
-                        }
 
-                        Button(action: {
-                            self.contentVM.showSheet(.ShareLog)
-                        }) {
-                            Text(L10n.universalActionShareLog)
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                    Button(action: {
+                        self.contentVM.showSheet(.ShareLog)
+                    }) {
+                        Text(L10n.universalActionShareLog)
+                        Image(systemName: "square.and.arrow.up")
+                    }
 
-                        if !Services.env.isProduction {
-                            Button(action: {
-                                self.contentVM.showSheet(.Debug)
-                            }) {
-                                Text("Debug tools")
-                                Image(systemName: "ant.circle")
-                            }
+                    if !Services.env.isProduction {
+                        Button(action: {
+                            self.contentVM.showSheet(.Debug)
+                        }) {
+                            Text("Debug tools")
+                            Image(systemName: "ant.circle")
                         }
                     }
+                }
             }
             Spacer()
         }

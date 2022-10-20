@@ -53,6 +53,32 @@ struct SupportView: View {
                                 .bold()
                         }
                     }
+
+                    Button(action: {
+                        self.contentVM.dismissSheet()
+                        self.contentVM.showSheet(.ShareLog)
+                    }) {
+                        ZStack {
+                            ButtonView(enabled: .constant(true), plus: .constant(true))
+                                .frame(height: 44)
+                            Text(L10n.universalActionShareLog)
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                    }
+
+                    Button(action: {
+                        self.contentVM.dismissSheet()
+                        self.contentVM.showSheet(.ShowLog)
+                    }) {
+                        ZStack {
+                            ButtonView(enabled: .constant(true), plus: .constant(true))
+                                .frame(height: 44)
+                            Text(L10n.universalActionShowLog)
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                    }
                 }
                 .padding(40)
             }
