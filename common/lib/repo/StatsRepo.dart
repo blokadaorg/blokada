@@ -148,21 +148,23 @@ abstract class _StatsRepo with Store {
       final action = metric.tags.action;
       final isAllowed = action == "fallthrough" || action == "allowed";
       metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+      final histogram = metric.dps.map((d) => d.value.round()).toList();
 
       // Get previous week if available
-      if (metric.dps.length >= 2) {
+      if (histogram.length >= 2) {
         if (isAllowed) {
-          avgDayAllowed = (metric.dps.sublist(0, metric.dps.length - 1).reduce((a, b) => Dps(timestamp: 0, value: a.value + b.value)).value / (metric.dps.length - 1)).round();
-          avgDayAllowed = avgDayAllowed * 1;
+          avgDayAllowed = (histogram.sublist(0, histogram.length - 1).reduce((a, b) => a + b) / (histogram.length - 1)).round();
+          avgDayAllowed *= 2;
         } else {
-          avgDayBlocked = (metric.dps.sublist(0, metric.dps.length - 1).reduce((a, b) => Dps(timestamp: 0, value: a.value + b.value)).value / (metric.dps.length - 1)).round();
-          avgDayBlocked = avgDayBlocked * 1;
+          avgDayBlocked = (histogram.sublist(0, histogram.length - 1).reduce((a, b) => a + b) / (histogram.length - 1)).round();
+          avgDayBlocked *= 2;
         }
       }
     }
 
-    if (avgDayAllowed == 0) avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 ~/ 2;
-    if (avgDayBlocked == 0) avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 ~/ 2;
+    // Calculate last week's average based on this week (no data)
+    if (avgDayAllowed == 0) avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 * 2;
+    if (avgDayBlocked == 0) avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
     print("daily avg: $avgDayBlocked - $avgDayAllowed");
 
     return UiStats(

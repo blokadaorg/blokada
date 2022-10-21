@@ -360,7 +360,12 @@ class PowerButtonPainter extends CustomPainter {
         ..strokeWidth = ringWith;
 
       Paint loadingArcPaint = Paint()
-      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.45))
+      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.40))
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = ringWith * 0.5;
+
+      Paint loadingArc2Paint = Paint()
+        ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.30))
         ..style = PaintingStyle.stroke
         ..strokeWidth = ringWith * 0.5;
 
@@ -438,12 +443,12 @@ class PowerButtonPainter extends CustomPainter {
       // blocked counter - the overlap
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 1, - ringWith * 1, size.width + ringWith * 2, size.height + ringWith * 2),
-          0 - math.pi / 2, math.max(0, arcEnd - 1.0) * math.pi * 2, false, loadingArcPaint);
+          0 - math.pi / 2, math.max(0, arcEnd - 1.0) * math.pi * 2, false, loadingArc2Paint);
 
       // counter arc total - the overlap
       canvas.drawArc(
           Rect.fromLTWH(- ringWith * 2, - ringWith * 2, size.width + ringWith * 4, size.height + ringWith * 4),
-          0 - math.pi / 2, math.max(0, arcCounter[0] - 1.0) * math.pi * 2, false, loadingArcPaint);
+          0 - math.pi / 2, math.max(0, arcCounter[0] - 1.0) * math.pi * 2, false, loadingArc2Paint);
 
       // counter arc 10k-100k unused
       // canvas.drawArc(
