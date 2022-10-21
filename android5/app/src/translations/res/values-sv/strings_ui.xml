@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">Visar tillfällen för: %s</string>
     <string name="activity_empty_text">Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.</string>
     <string name="activity_device_filter_show_all">Alla enheter</string>
-    <string name="activity_retention_header">Hur länge kan vi lagra din aktivitet?</string>
+    <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">Spara inte min aktivitet</string>
-    <string name="activity_retention_option_twofourh">24 timmar</string>
-    <string name="activity_retention_policy">Genom att aktivera lagring av loggar godkänner du sekretesspolicyn.</string>
-    <string name="activity_retention_desc">Blokada Cloud loggar inte något som standard. Om du vill se aggregerad statistik och aktivitet från alla dina enheter, välj önskad lagringsperiod nedan.</string>
+    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
+    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">Undantag</string>
     <string name="userdenied_section_slugline">Hantera blockering av vissa webbplatser</string>
     <string name="userdenied_tab_allowed">Tillåten</string>

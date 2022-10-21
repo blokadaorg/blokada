@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">A következő eszköznél: %s</string>
     <string name="activity_empty_text">Próbálja használni eszközét, majd jöjjön vissza ha látja hogy hova csatlakozott.</string>
     <string name="activity_device_filter_show_all">Minden eszköz</string>
-    <string name="activity_retention_header">Milyen sokáig tárolhatjuk tevékenységét?</string>
+    <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">Ne mentse az aktivitásomat</string>
-    <string name="activity_retention_option_twofourh">24 óra</string>
-    <string name="activity_retention_policy">A naplózás visszatartásának bekapcsolásával hozzájárul az adavédelmi politikához.</string>
-    <string name="activity_retention_desc">Blokada Cloud alapból nem naplóz semmit. Ha akarja látni a felhalmozott statisztikát és tevékenységet az eszközeiről, válassza ki az ennek megfelelő visszatartási periódust.</string>
+    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
+    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">Kivételek</string>
     <string name="userdenied_section_slugline">Kezelje az egyes oldalak blokkolását</string>
     <string name="userdenied_tab_allowed">Engedélyezve</string>

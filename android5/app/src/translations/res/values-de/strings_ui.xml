@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">Ergebnisse für: %s</string>
     <string name="activity_empty_text">Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.</string>
     <string name="activity_device_filter_show_all">Alle Geräte</string>
-    <string name="activity_retention_header">Für wie lange können wir deine Aktivitäten speichern?</string>
+    <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">Meine Aktivitäten nicht speichern</string>
-    <string name="activity_retention_option_twofourh">24 Stunden</string>
-    <string name="activity_retention_policy">Indem du die Speicherung des Protokolls aktivierst, akzeptierst du unsere Datenschutzrichtlinie.</string>
-    <string name="activity_retention_desc">Blokada Cloud protokolliert standardmäßig nicht. Wenn du die angehäuften Statistiken und Aktivitäten all deiner Geräte sehen möchtest, wähle unten den gewünschten Protokollierungzeitraum aus.</string>
+    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
+    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">Ausnahmen</string>
     <string name="userdenied_section_slugline">Blockierverhalten bei bestimmten Websites verwalten</string>
     <string name="userdenied_tab_allowed">Erlaubt</string>

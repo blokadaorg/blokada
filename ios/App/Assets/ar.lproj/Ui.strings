@@ -226,11 +226,11 @@
 "activity filter showing for" = "عرض لـ: %@";
 "activity empty text" = "حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.";
 "activity device filter show all" = "جميع الأجهزة";
-"activity retention header" = "كم من الوقت يمكننا تخزين نشاطك؟";
+"activity retention header" = "Should we store your activity?";
 "activity retention option none" = "لا تقم بتخزين نشاطي";
-"activity retention option 24h" = "24 ساعة";
-"activity retention policy" = "من خلال تمكين الاحتفاظ بالسجلات ، فإنّك تقبل سياسة الخصوصيّة.";
-"activity retention desc" = "لا تقوم Blokada Cloud بتسجيل أي شيء افتراضيّاً. إذا كنت ترغب في رؤية الإحصائيّات و النشاط المجمَّع من جميع أجهزتك ، فاختر فترة الاحتفاظ بالسجلّات المطلوبة أدناه.";
+"activity retention option 24h" = "Yes, store my activity";
+"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
 "userdenied section header" = "الاستثناءات";
 "userdenied section slugline" = "إدارة حظر مواقع ويب معيَّنة";

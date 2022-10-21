@@ -226,11 +226,11 @@
 "activity filter showing for" = "Showing for: %@";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
 "activity device filter show all" = "All devices";
-"activity retention header" = "For how long can we store your activity?";
+"activity retention header" = "Should we store your activity?";
 "activity retention option none" = "Do not store my activity";
-"activity retention option 24h" = "24 hours";
-"activity retention policy" = "By enabling log retention you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.";
+"activity retention option 24h" = "Yes, store my activity";
+"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
 "userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Manage blocking of particular websites";

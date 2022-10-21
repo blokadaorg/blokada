@@ -158,7 +158,7 @@
 "home status detail paused" = "タイマーが終了するまで停止中";
 "home status detail active" = "*広告*と*トラッカー*をブロック";
 "home status detail active with counter" = "*%@* の広告とトラッカーをブロック";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "最近 24 時間でブロックした広告とトラッカー";
 "home status detail active slim" = "Blokada *Slim*が有効";
 "home status detail plus" = "*+* *プライバシー*を保護";
 "home status detail progress" = "お待ちください...";
@@ -226,11 +226,11 @@
 "activity filter showing for" = "表示: %@";
 "activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
 "activity device filter show all" = "すべてのデバイス";
-"activity retention header" = "どのくらいの期間、あなたの活動を保存しますか？";
+"activity retention header" = "Should we store your activity?";
 "activity retention option none" = "アクティビティを保存しない";
-"activity retention option 24h" = "24 時間";
-"activity retention policy" = "ログの保持を有効にする場合、プライバシーポリシーに同意するものとします。";
-"activity retention desc" = "Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、ログの保持期間を選択してください。";
+"activity retention option 24h" = "Yes, store my activity";
+"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
 "userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
@@ -440,15 +440,15 @@
 "stats top allowed header" = "よく許可されるリクエスト";
 "stats top blocked header" = "よくブロックされるリクエスト";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "許可";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "ブロック";
 // A short one-word label for the counter of total requests.
-"stats label total" = "Total";
+"stats label total" = "合計";
 // A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24h";
+"stats header day" = "24 時間";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "すべての期間";
 
 "dnsprofile header" = "設定で Blokada を有効にする";
 "dnsprofile desc" = "設定を開き、[一般] > [VPN & ネットワーク] > [DNS] から Blokada を選択してください。";

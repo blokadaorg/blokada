@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">Showing for: %s</string>
     <string name="activity_empty_text">Cihazınızı kullanmayı deneyin ve cihazınızın nereye bağlandığını görmek için daha sonra buraya tekrar gelin.</string>
     <string name="activity_device_filter_show_all">Tüm cihazlar</string>
-    <string name="activity_retention_header">For how long can we store your activity?</string>
+    <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">Do not store my activity</string>
-    <string name="activity_retention_option_twofourh">24 hours</string>
-    <string name="activity_retention_policy">By enabling log retention you accept the privacy policy.</string>
-    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.</string>
+    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
+    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">Exceptions</string>
     <string name="userdenied_section_slugline">Belirli web sitelerinin engellenmesini yönetin</string>
     <string name="userdenied_tab_allowed">İzin verildi</string>

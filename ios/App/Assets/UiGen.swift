@@ -230,15 +230,15 @@ internal enum L10n {
   }
   /// This request has been blocked, as it's not present on any of your configured allowlists.
   internal static let activityRequestBlockedNoList = L10n.tr("Ui", "activity request blocked no list")
-  /// Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, choose the desired log retention period below.
+  /// Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.
   internal static let activityRetentionDesc = L10n.tr("Ui", "activity retention desc")
-  /// For how long can we store your activity?
+  /// Should we store your activity?
   internal static let activityRetentionHeader = L10n.tr("Ui", "activity retention header")
-  /// 24 hours
+  /// Yes, store my activity
   internal static let activityRetentionOption24h = L10n.tr("Ui", "activity retention option 24h")
   /// Do not store my activity
   internal static let activityRetentionOptionNone = L10n.tr("Ui", "activity retention option none")
-  /// By enabling log retention you accept the privacy policy.
+  /// By enabling activity logging you accept the privacy policy.
   internal static let activityRetentionPolicy = L10n.tr("Ui", "activity retention policy")
   /// Activity
   internal static let activitySectionHeader = L10n.tr("Ui", "activity section header")

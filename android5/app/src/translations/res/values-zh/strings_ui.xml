@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">正在顯示：%s</string>
     <string name="activity_empty_text">嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。</string>
     <string name="activity_device_filter_show_all">所有裝置</string>
-    <string name="activity_retention_header">我們可以儲存您的使用活動多久？</string>
+    <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">不要儲存我的使用活動</string>
-    <string name="activity_retention_option_twofourh">24 小時</string>
-    <string name="activity_retention_policy">啟用使用活動保留即代表您接受隱私權政策。</string>
-    <string name="activity_retention_desc">Blokada Cloud 預設不記錄任何資料。如果您希望在所有裝置上看到匯總的統計資料和活動紀錄，請在下方選擇想要的記錄保留時間。</string>
+    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
+    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">例外</string>
     <string name="userdenied_section_slugline">管理對特定網站的封鎖</string>
     <string name="userdenied_tab_allowed">使用者允許</string>

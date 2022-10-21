@@ -226,11 +226,11 @@
 "activity filter showing for" = "正在顯示：%@";
 "activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
 "activity device filter show all" = "所有裝置";
-"activity retention header" = "我們可以儲存您的使用活動多久？";
+"activity retention header" = "Should we store your activity?";
 "activity retention option none" = "不要儲存我的使用活動";
-"activity retention option 24h" = "24 小時";
-"activity retention policy" = "啟用使用活動保留即代表您接受隱私權政策。";
-"activity retention desc" = "Blokada Cloud 預設不記錄任何資料。如果您希望在所有裝置上看到匯總的統計資料和活動紀錄，請在下方選擇想要的記錄保留時間。";
+"activity retention option 24h" = "Yes, store my activity";
+"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
+"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
 "userdenied section header" = "例外";
 "userdenied section slugline" = "管理對特定網站的封鎖";
