@@ -22,7 +22,7 @@ import ui.utils.AndroidUtils
 import utils.Ignored
 import utils.Logger
 
-class PermsRepo {
+open class PermsRepo {
 
     private val writeDnsProfilePerms = MutableStateFlow<Granted?>(null)
     private val writeVpnProfilePerms = MutableStateFlow<Granted?>(null)
@@ -51,7 +51,7 @@ class PermsRepo {
         @Synchronized set
         @Synchronized get
 
-    fun start() {
+    open fun start() {
         onForeground_recheckPerms()
         onDnsString_latest()
         onAccountTypeUpgraded_showActivatedSheet()
@@ -235,4 +235,18 @@ class PermsRepo {
             }
         }
     }
+}
+
+class DebugPermsRepo: PermsRepo() {
+
+    override fun start() {
+        super.start()
+
+        GlobalScope.launch {
+            dnsProfilePermsHot.collect {
+                Logger.e("PermsRepo", "Private DNS perms now: $it")
+            }
+        }
+    }
+
 }

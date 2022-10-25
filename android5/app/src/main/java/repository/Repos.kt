@@ -18,8 +18,8 @@ object Repos {
     val processing by lazy { DebugProcessingRepo() }
     val nav by lazy { NavRepo() }
     val cloud by lazy { CloudRepo() }
-    val perms by lazy { PermsRepo() }
-    val app by lazy { AppRepo() }
+    val perms by lazy { DebugPermsRepo() }
+    val app by lazy { DebugAppRepo() }
     val account by lazy { AccountRepo() }
     val payment by lazy { PaymentRepo() }
     val activity by lazy { ActivityRepo() }

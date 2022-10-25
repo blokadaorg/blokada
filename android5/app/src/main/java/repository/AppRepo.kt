@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import model.*
 import utils.Ignored
+import utils.Logger
 import utils.SimpleTasker
 import utils.Tasker
 import java.util.*
@@ -113,7 +114,7 @@ import java.util.*
 //}
 
 // Contains "main app state" mostly used in Home screen.
-class AppRepo {
+open class AppRepo {
 
     private val writeAppState = MutableStateFlow<AppState?>(null)
     private val writeWorking = MutableStateFlow<Boolean?>(null)
@@ -135,7 +136,7 @@ class AppRepo {
     private val pauseAppT = Tasker<Date?, Ignored>("pauseApp")
     private val unpauseAppT = SimpleTasker<Ignored>("unpauseApp")
 
-    fun start() {
+    open fun start() {
         onPauseApp()
         onUnpauseApp()
         onAnythingThatAffectsAppState_UpdateIt()
@@ -250,6 +251,20 @@ class AppRepo {
         GlobalScope.launch {
             writeAppState.emit(AppState.Deactivated)
             writeWorking.emit(true)
+        }
+    }
+
+}
+
+class DebugAppRepo: AppRepo() {
+
+    override fun start() {
+        super.start()
+
+        GlobalScope.launch {
+            appStateHot.collect {
+                Logger.e("AppState", "State now: $it")
+            }
         }
     }
 

@@ -161,14 +161,17 @@ object ConnectivityService {
             onConnectivityChanged(true)
         }
 
+        log.v("Checking privateDNS for: ${network.networkHandle}")
         checkPrivateDns(link)
     }
 
     private fun checkPrivateDns(link: LinkProperties) {
         if (Build.VERSION.SDK_INT >= 28 && link.isPrivateDnsActive) {
             privateDns = link.privateDnsServerName
+            log.v("privateDNS active for ${link.interfaceName}: $privateDns")
             onPrivateDnsChanged(link.privateDnsServerName)
         } else {
+            log.v("privateDNS not active or unsupported for ${link.interfaceName}")
             privateDns = null
             onPrivateDnsChanged(null)
         }
