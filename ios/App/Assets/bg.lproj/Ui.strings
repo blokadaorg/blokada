@@ -226,11 +226,11 @@
 "activity filter showing for" = "Показва се за: %@";
 "activity empty text" = "Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.";
 "activity device filter show all" = "Всички устройства";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "Трябва ли да съхраняваме вашата дейност?";
 "activity retention option none" = "Не съхранявайте моята дейност";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "Да, съхранявайте моята дейност";
+"activity retention policy" = "С активицията на регистрирането на активността, вие приемате политиката за поверителност.";
+"activity retention desc" = "По подразбиране в Blokada Cloud не се регистрира нищо. Ако искате да видите обобщените статистики и активност от всичките си устройства, активирайте регистрирането на активността по-долу.";
 
 "userdenied section header" = "Изключения";
 "userdenied section slugline" = "Управлявайте блокирането на определени уеб сайтове";

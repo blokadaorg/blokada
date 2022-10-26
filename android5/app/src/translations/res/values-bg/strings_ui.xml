@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">Показва се за: %s</string>
     <string name="activity_empty_text">Използвайте устройството и след това се върнете тук за да видите къде се свързва вашето устройство.</string>
     <string name="activity_device_filter_show_all">Всички устройства</string>
-    <string name="activity_retention_header">Should we store your activity?</string>
+    <string name="activity_retention_header">Трябва ли да съхраняваме вашата дейност?</string>
     <string name="activity_retention_option_none">Не съхранявайте моята дейност</string>
-    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
-    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
-    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
+    <string name="activity_retention_option_twofourh">Да, съхранявайте моята дейност</string>
+    <string name="activity_retention_policy">С активицията на регистрирането на активността, вие приемате политиката за поверителност.</string>
+    <string name="activity_retention_desc">По подразбиране в Blokada Cloud не се регистрира нищо. Ако искате да видите обобщените статистики и активност от всичките си устройства, активирайте регистрирането на активността по-долу.</string>
     <string name="userdenied_section_header">Изключения</string>
     <string name="userdenied_section_slugline">Управлявайте блокирането на определени уеб сайтове</string>
     <string name="userdenied_tab_allowed">Разрешени</string>

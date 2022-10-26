@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">表示: %s</string>
     <string name="activity_empty_text">デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。</string>
     <string name="activity_device_filter_show_all">すべてのデバイス</string>
-    <string name="activity_retention_header">Should we store your activity?</string>
+    <string name="activity_retention_header">アクティビティを保存しますか？</string>
     <string name="activity_retention_option_none">アクティビティを保存しない</string>
-    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
-    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
-    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
+    <string name="activity_retention_option_twofourh">はい、アクティビティを保存します</string>
+    <string name="activity_retention_policy">アクティビティ ログを有効にする場合、プライバシーポリシーに同意するものとします。</string>
+    <string name="activity_retention_desc">Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、アクティビティ ログを有効にしてください。</string>
     <string name="userdenied_section_header">例外</string>
     <string name="userdenied_section_slugline">ブロック・許可したサイトを管理する</string>
     <string name="userdenied_tab_allowed">許可</string>

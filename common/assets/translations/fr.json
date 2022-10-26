@@ -177,7 +177,7 @@
     "activity device filter show all": "Tous les appareils",
     "activity retention header": "Should we store your activity?",
     "activity retention option none": "Ne pas stocker mon activité",
-    "activity retention option 24h": "Yes, store my activity",
+    "activity retention option 24h": "Oui, mémoriser mon activité",
     "activity retention policy": "By enabling activity logging you accept the privacy policy.",
     "activity retention desc": "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.",
     "userdenied section header": "Exceptions",

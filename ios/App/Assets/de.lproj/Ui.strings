@@ -158,7 +158,7 @@
 "home status detail paused" = "Pausiert, bis der Timer abgelaufen ist";
 "home status detail active" = "*Werbung* und *Tracker* blockieren";
 "home status detail active with counter" = "*%@* Werbeanzeigen und Tracker blockiert";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "Werbung und Tracker blockiert zuletzt 24 Stunden";
 "home status detail active slim" = "Blokada *Slim* ist aktiv";
 "home status detail plus" = "*+* beschützt deine *Privatsphäre*";
 "home status detail progress" = "Bitte warten…";
@@ -226,11 +226,11 @@
 "activity filter showing for" = "Ergebnisse für: %@";
 "activity empty text" = "Verwende dein Gerät einfach weiter und komme später hierher zurück, um zu sehen, wohin sich dein Gerät verbindet.";
 "activity device filter show all" = "Alle Geräte";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "Sollen wir deine Aktivitäten speichern?";
 "activity retention option none" = "Meine Aktivitäten nicht speichern";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "Meine Aktivitäten speichern";
+"activity retention policy" = "Indem Sie die Protokollierung von Aktivitäten aktivieren, akzeptieren Sie die Datenschutzrichtlinie.";
+"activity retention desc" = "Blokada Cloud protokolliert standardmäßig nichts. Wenn du die aggregierten Statistiken und Aktivitäten von allen deinen Geräten sehen möchtest, aktiviere die Aktivitätsprotokollierung unten.";
 
 "userdenied section header" = "Ausnahmen";
 "userdenied section slugline" = "Blockierverhalten bei bestimmten Websites verwalten";
@@ -439,15 +439,15 @@
 "stats top allowed header" = "Häufig zugelassene Anfragen";
 "stats top blocked header" = "Häufig blockierte Anfragen";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "Erlaubt";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "Blockiert";
 // A short one-word label for the counter of total requests.
-"stats label total" = "Total";
+"stats label total" = "Gesamt";
 // A short header for the stats section of last 24h. Can just say "24h".
 "stats header day" = "24h";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "Allzeit";
 
 "dnsprofile header" = "Aktiviere Blokada in den Einstellungen";
 "dnsprofile desc" = "Navigiere in den Einstellungen zu Allgemein → VPN und Geräteverwaltung → DNS und wähle Blokada aus.";

@@ -226,11 +226,11 @@
 "activity filter showing for" = "Menampilkan: %@";
 "activity empty text" = "Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.";
 "activity device filter show all" = "Semua perangkat";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "Apakah Anda ingin kami mengembalikan aktifitas Anda?";
 "activity retention option none" = "Jangan simpan aktifitas saya";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "Ya, kembalikan aktifitas saya";
+"activity retention policy" = "Dengan mengaktifkan pencatatan aktifitas berarti Anda menerima kebijakan privasi.";
+"activity retention desc" = "Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.";
 
 "userdenied section header" = "Pengecualian";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";

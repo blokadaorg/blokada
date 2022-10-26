@@ -176,11 +176,11 @@
     <string name="activity_filter_showing_for">Menampilkan: %s</string>
     <string name="activity_empty_text">Coba gunakan perangkat Anda, lalu kembali ke sini untuk melihat perangkat Anda terhubung ke mana.</string>
     <string name="activity_device_filter_show_all">Semua perangkat</string>
-    <string name="activity_retention_header">Should we store your activity?</string>
+    <string name="activity_retention_header">Apakah Anda ingin kami mengembalikan aktifitas Anda?</string>
     <string name="activity_retention_option_none">Jangan simpan aktifitas saya</string>
-    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
-    <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
-    <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
+    <string name="activity_retention_option_twofourh">Ya, kembalikan aktifitas saya</string>
+    <string name="activity_retention_policy">Dengan mengaktifkan pencatatan aktifitas berarti Anda menerima kebijakan privasi.</string>
+    <string name="activity_retention_desc">Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.</string>
     <string name="userdenied_section_header">Pengecualian</string>
     <string name="userdenied_section_slugline">Atur pemblokiran untuk situs-situs tertentu</string>
     <string name="userdenied_tab_allowed">Diizinkan</string>

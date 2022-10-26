@@ -178,7 +178,7 @@
     <string name="activity_device_filter_show_all">Tous les appareils</string>
     <string name="activity_retention_header">Should we store your activity?</string>
     <string name="activity_retention_option_none">Ne pas stocker mon activité</string>
-    <string name="activity_retention_option_twofourh">Yes, store my activity</string>
+    <string name="activity_retention_option_twofourh">Oui, mémoriser mon activité</string>
     <string name="activity_retention_policy">By enabling activity logging you accept the privacy policy.</string>
     <string name="activity_retention_desc">Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.</string>
     <string name="userdenied_section_header">Exceptions</string>
