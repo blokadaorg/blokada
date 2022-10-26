@@ -84,19 +84,23 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
             style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w600, color: (appRepo.appState.plus) ? theme.plus : theme.cloud),
           ) : Text("", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white)),
         ),
-        Container(
-          child: (powerReady && blockedCounter > 0) ?
-            Text("home status detail active day".i18n, style: Theme.of(context).textTheme.titleMedium) :
-          (powerReady) ?
-            Text("home status detail active".i18n.replaceAll("*", ""), style: Theme.of(context).textTheme.titleMedium) :
-          (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
-            Text("home status detail progress".i18n, style: Theme.of(context).textTheme.titleMedium) :
-            Text("home action tap to activate".i18n, style: Theme.of(context).textTheme.titleMedium),
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16),
+          child: Container(
+            alignment: Alignment.center,
+            child: (powerReady && blockedCounter > 0) ?
+              Text("home status detail active day".i18n + "\n", style: Theme.of(context).textTheme.titleMedium, maxLines: 2, textAlign: TextAlign.center) :
+            (powerReady) ?
+              Text("home status detail active".i18n.replaceAll("*", ""), style: Theme.of(context).textTheme.titleMedium) :
+            (appRepo.appState.working || appRepo.appState.state == AppState.activated) ?
+              Text("home status detail progress".i18n, style: Theme.of(context).textTheme.titleMedium) :
+              Text("home action tap to activate".i18n, style: Theme.of(context).textTheme.titleMedium),
+          ),
         ),
         AnimatedOpacity(
           opacity: (appModel.plus && powerReady) ? 1 : 0,
           duration: Duration(milliseconds: 1000),
-          child: Text("home status detail plus".i18n,
+          child: Text("home status detail plus".i18n.replaceAll("*", ""),
               style: Theme.of(context).textTheme.titleMedium!.copyWith(color: theme.plus, fontWeight: FontWeight.bold)
           ),
         ),

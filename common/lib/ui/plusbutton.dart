@@ -147,7 +147,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
 
     return Row(
       children: [
-        pressed ? (Text("home plus button location".i18n.fill([location]))) : (Text("home plus button select location".i18n)),
+        pressed ? (Text("home plus button location".i18n.fill([location]).replaceAll("*", ""))) : (Text("home plus button select location".i18n)),
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,

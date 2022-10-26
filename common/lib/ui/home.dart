@@ -136,6 +136,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               PlusButton(),
               Spacer(),
               Spacer(),
+              Spacer(),
             ],
           ),
         ),
