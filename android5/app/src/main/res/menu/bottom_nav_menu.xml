@@ -14,7 +14,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_flutterhome"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/blokada_logo"
         android:title="@string/main_tab_home" />
 

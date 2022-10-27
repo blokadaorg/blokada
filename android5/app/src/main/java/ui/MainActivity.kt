@@ -128,7 +128,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_flutterhome,
+                R.id.navigation_home,
                 R.id.navigation_activity,
                 R.id.advancedFragment,
                 R.id.navigation_settings
@@ -140,7 +140,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // Set the fragment inset as needed (home fragment has no inset)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val shouldInset = when (destination.id) {
-                R.id.navigation_flutterhome -> false
+                R.id.navigation_home -> false
                 else -> true
             }
             setFragmentInset(fragmentContainer, shouldInset)
@@ -160,7 +160,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 R.id.navigation_activity -> R.id.navigation_activity to getString(R.string.main_tab_activity)
                 R.id.advancedFragment -> R.id.advancedFragment to getString(R.string.main_tab_advanced)
                 R.id.navigation_settings -> R.id.navigation_settings to getString(R.string.main_tab_settings)
-                else -> R.id.navigation_flutterhome to getString(R.string.main_tab_home)
+                else -> R.id.navigation_home to getString(R.string.main_tab_home)
             }
             navController.navigate(nav)
             item.title = title
