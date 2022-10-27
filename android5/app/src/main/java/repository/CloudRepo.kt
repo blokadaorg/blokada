@@ -158,7 +158,7 @@ open class CloudRepo {
 
     private fun onPrivateDnsSettingChanged_update() {
         connectivity.onPrivateDnsChanged = {
-            Logger.v("Cloud", "PrivateDNS changed: $it")
+            Logger.v("Cloud", "PrivateDNS event: $it")
             writePrivateDnsSetting.value = it
         }
         // First check has to happen manually

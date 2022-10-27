@@ -36,7 +36,7 @@ object MetricsService {
     internal const val PACKET_BUFFER_SIZE = 1600
 
     private const val MAX_ONE_WAY_DNS_REQUESTS = 30
-    private const val MAX_RECENT_ERRORS = 50
+    private const val MAX_RECENT_ERRORS = 20
 
     private val log = Logger("Metrics")
     private val scope = GlobalScope

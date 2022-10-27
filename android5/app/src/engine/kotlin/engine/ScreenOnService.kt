@@ -23,7 +23,7 @@ object ScreenOnService {
 
     private val ctx by lazy { ContextService }
 
-    private val frequencyMillis = 60 * 1000
+    private val frequencyMillis = 200 // Maybe unnecessary at all
     private var lastScreenOffMillis = 0L
 
     var onScreenOn = {}
@@ -44,6 +44,7 @@ object ScreenOnService {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.action) {
                 Intent.ACTION_SCREEN_OFF -> {
+                    Logger.v("ScreenOff", "Received Screen OFF")
                     lastScreenOffMillis = System.currentTimeMillis()
                     isScreenOn = false
                 }

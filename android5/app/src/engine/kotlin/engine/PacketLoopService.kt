@@ -51,19 +51,19 @@ object PacketLoopService {
         // This is an attempt to improve the conn issues on some devices after device wake
         // caused by the loop not doing the handshake until it times out.
         screenOn.onScreenOn = {
-            maybeRestartLoop()
+            maybeRestartLoop(force = false)
         }
     }
 
-    private fun maybeRestartLoop() {
+    private fun maybeRestartLoop(force: Boolean = true) {
         loop?.let {
             val (config, thread) = it
             if (thread == null) {
-                log.w("Connectivity changed, recreating packet loop")
+                log.w("maybeRestartLoop: recreating packet loop")
                 loop = createLoop(config)
                 startSupportingServices(config)
-            } else {
-                log.w("Connectivity changed, loop was running, restarting it")
+            } else if (force) {
+                log.w("maybeRestartLoop: loop was running before, restarting it")
                 stopUnexpectedly()
             }
         }
@@ -162,14 +162,14 @@ object PacketLoopService {
             if (thread != null) {
                 thread.interrupt()
                 MetricsService.stopMetrics()
-                if (connectivity.isDeviceInOfflineMode()) {
+                /*if (connectivity.isDeviceInOfflineMode()) {
                     log.w("Device is offline, not bringing packet loop back for now")
                     loop = config to null
-                } else if (!screenOn.isScreenOn) {
+                } else */if (!screenOn.isScreenOn) {
                     log.w("Screen is off, not bringing packet loop back for now")
                     loop = config to null
                 } else {
-                    log.w("Device is online, bringing packet loop back")
+                    log.w("Bringing packet loop back")
                     loop = createLoop(config)
                     startSupportingServices(config)
                 }
