@@ -263,7 +263,7 @@ class DebugAppRepo: AppRepo() {
 
         GlobalScope.launch {
             appStateHot.collect {
-                Logger.e("AppState", "State now: $it")
+                Logger.v("AppState", "State now: $it")
             }
         }
     }

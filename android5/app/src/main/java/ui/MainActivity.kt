@@ -285,7 +285,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         })
 
         lifecycleScope.launch {
-            Repos.account.hackyAccount()
             onPaymentSuccessful_UpdateAccount()
         }
     }

@@ -167,6 +167,7 @@ open class CloudRepo {
 
     private fun onConnectedBack_refresh() {
         connectivity.onConnectedBack = {
+            Logger.v("Cloud", "Connected back, refreshing device info")
             GlobalScope.launch { refreshDeviceInfoT.send() }
         }
     }

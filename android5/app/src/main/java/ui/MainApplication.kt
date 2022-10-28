@@ -157,6 +157,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         GlobalScope.launch { onAppStateChanged_updateMonitorService() }
         GlobalScope.launch { onAppStateActive_maybeUninstallOtherApps() }
         checkOtherAppsInstalled()
+
+        Repos.account.hackyAccount()
     }
 
     private suspend fun onAppStateChanged_updateMonitorService() {
