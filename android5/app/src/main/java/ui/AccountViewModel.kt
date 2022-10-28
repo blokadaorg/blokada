@@ -38,6 +38,13 @@ class AccountViewModel: ViewModel() {
     private var requestOngoing = false
     private var lastAccountRefresh = 0L
 
+    init {
+        try {
+            updateLiveData(persistence.load(Account::class))
+            log.v("Loaded account from persistence")
+        } catch (ex: Exception) {}
+    }
+
     fun restoreAccount(accountId: AccountId) {
         viewModelScope.launch {
             log.w("Restoring account")

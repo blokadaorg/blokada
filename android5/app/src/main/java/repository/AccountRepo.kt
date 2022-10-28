@@ -48,7 +48,7 @@ class AccountRepo {
         onSettingsTab_refreshAccount()
     }
 
-    suspend fun hackyAccount() {
+    fun hackyAccount() {
         accountVm.account.observeForever {
             val previous = writeAccount.value
             writePreviousAccount.value = previous
