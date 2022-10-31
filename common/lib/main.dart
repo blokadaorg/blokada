@@ -106,8 +106,15 @@ class MyApp extends StatelessWidget {
           )
         }
       ),
-      home: I18n(child: DefaultBottomBarController(
-          child: const MyHomePage(title: 'Blokada'))),
+      builder: (context, child) {
+        final mediaQueryData = MediaQuery.of(context);
+        final scale = mediaQueryData.textScaleFactor.clamp(0.8, 1.1);
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
+          child: I18n(child: DefaultBottomBarController(
+              child: const MyHomePage(title: 'Blokada'))),
+        );
+      },
     );
   }
 }
@@ -177,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     snappingDuration: Duration(seconds: 1),
                     grabbingContentOffset: GrabbingContentOffset.top,
                   ),
-                  Services.instance.sheet.openPosition
+                  Services.instance.sheet.getOpenPosition(context)
                 ],
                 onSnapCompleted: (sheetPosition, snappingPosition) {
                   setState(() {

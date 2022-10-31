@@ -28,8 +28,9 @@ struct HelpButtonView: View {
                     self.contentVM.showSheet(.Help)
                 }) {
                     Image(systemName: Image.fHelp)
-                        .imageScale(.medium)
+                        .resizable()
                         .foregroundColor(.primary)
+                        .padding(8)
                         .frame(width: 36, height: 36, alignment: .center)
                         .padding(8)
                         .padding(.top, 16)

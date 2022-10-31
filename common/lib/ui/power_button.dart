@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'dart:ui' as ui;
 import 'dart:math' as math;
+import 'package:relative_scale/relative_scale.dart';
 
 import '../main.dart';
 import '../model/AppModel.dart';
@@ -220,57 +221,76 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
     return Column(
         children: [
-          SizedBox(
-            width: 210,
-            height: 210,
+        RelativeBuilder(
+        builder: (context, height, width, sy, sx) {
+          final buttonSize = math.min(sy(140), 200.0);
+          return SizedBox(
+            width: buttonSize,
+            height: buttonSize,
             child: GestureDetector(
-              onTap: () {
-                if (!appModel.working) {
-                  setState(() {
-                    appRepo.pressedPowerButton();
-                    _updateAnimations();
-                  });
-                }
-              },
-              child: FutureBuilder<List<ui.Image>>(
-                future: loadIcons,
-                builder: (BuildContext context, AsyncSnapshot<List<ui.Image>> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return const CircularProgressIndicator();
-                    default:
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return AnimatedBuilder(
-                          animation: Listenable.merge([animLoading, animLibre, animPlus, animCover, animArcLoading, animArcCounter, animArcAlpha, animArc2Counter]),
-                          builder: (BuildContext context, Widget? child) {
-                            return CustomPaint(
-                              painter: PowerButtonPainter(
-                                iconImage: (appModel.state == AppState.paused) ? snapshot.data![1] : snapshot.data![0],
-                                alphaLoading: animLoading.value,
-                                alphaCover: animCover.value,
-                                alphaLibre: animLibre.value,
-                                alphaPlus: animPlus.value,
-                                arcAlpha: animArcAlpha.value,
-                                arcStart: animArcLoading.value,
-                                arcEnd: animArcCounter.value,
-                                arcCounter: [
-                                  animArc2Counter.value * math.min(2.0, (statsRepo.stats.dayBlockedRatio / 100)),
-                                  0,
-                                  0
-                                ],
-                                colorShadow: theme.shadow
-                              ),
-                            );
-                          },
-                        );
-                      }
+                onTap: () {
+                  if (!appModel.working) {
+                    setState(() {
+                      appRepo.pressedPowerButton();
+                      _updateAnimations();
+                    });
                   }
                 },
-              )
+                child: FutureBuilder<List<ui.Image>>(
+                  future: loadIcons,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ui.Image>> snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const CircularProgressIndicator();
+                      default:
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return AnimatedBuilder(
+                            animation: Listenable.merge([
+                              animLoading,
+                              animLibre,
+                              animPlus,
+                              animCover,
+                              animArcLoading,
+                              animArcCounter,
+                              animArcAlpha,
+                              animArc2Counter
+                            ]),
+                            builder: (BuildContext context, Widget? child) {
+                              return CustomPaint(
+                                painter: PowerButtonPainter(
+                                    iconImage: (appModel.state ==
+                                        AppState.paused)
+                                        ? snapshot.data![1]
+                                        : snapshot.data![0],
+                                    alphaLoading: animLoading.value,
+                                    alphaCover: animCover.value,
+                                    alphaLibre: animLibre.value,
+                                    alphaPlus: animPlus.value,
+                                    arcAlpha: animArcAlpha.value,
+                                    arcStart: animArcLoading.value,
+                                    arcEnd: animArcCounter.value,
+                                    arcCounter: [
+                                      animArc2Counter.value * math.min(2.0,
+                                          (statsRepo.stats.dayBlockedRatio /
+                                              100)),
+                                      0,
+                                      0
+                                    ],
+                                    colorShadow: theme.shadow
+                                ),
+                              );
+                            },
+                          );
+                        }
+                    }
+                  },
+                )
             ),
-          ),
+          );
+        }),
         ]
     );
   }
