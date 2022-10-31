@@ -66,7 +66,7 @@ class RadialSegmentState extends State<RadialSegment> {
             padding: const EdgeInsets.only(top: 8.0, left: 24.0),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text("stats header day".i18n, style: TextStyle(color: Color(0xff464646), fontSize: 18))
+              child: Text("24h", style: TextStyle(color: Color(0xff464646), fontSize: 18))
             ),
           ),
           Row(
@@ -78,9 +78,9 @@ class RadialSegmentState extends State<RadialSegment> {
                   width: 210,
                   height: 210,
                   child: RadialChart(stats: stats)
-                ), flex: 7),
+                ), flex: 8),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,7 +89,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("stats label blocked".i18n, style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
+                            Text("stats label blocked".i18n, maxLines: 1, style: TextStyle(color: Color(0xffff3b30), fontSize: 16)),
                             Countup(
                               begin: lastBlocked,
                               end: blocked,
@@ -104,7 +104,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("stats label allowed".i18n, style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
+                            Text("stats label allowed".i18n, maxLines: 1, style: TextStyle(color: Color(0xff33c75a), fontSize: 16)),
                             Countup(
                               begin: lastAllowed,
                               end: allowed,
@@ -119,7 +119,7 @@ class RadialSegmentState extends State<RadialSegment> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("stats label total".i18n, style: TextStyle(color: Color(0xff838383), fontSize: 16)),
+                            Text("stats label total".i18n, maxLines: 1, style: TextStyle(color: Color(0xff838383), fontSize: 16)),
                             Countup(
                               begin: lastTotal,
                               end: total,

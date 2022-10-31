@@ -45,6 +45,7 @@ dependencies:
   snapping_sheet: ^3.1.0
   animate_gradient: ^0.0.2
   i18n_extension: ^5.0.1
+  relative_scale: ^2.0.0
 
 dev_dependencies:
   flutter_test:
