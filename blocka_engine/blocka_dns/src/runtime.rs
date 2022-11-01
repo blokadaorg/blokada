@@ -394,31 +394,16 @@ mod test {
         Duration::from_secs(1),
       )),
     );
-    let cloudflare_malware = (
-      "cloudflare malware",
+    let google = (
+      "google",
       Some(DnsHttpsServer::new(
-        "cloudflare-dns.com".into(),
-        "dns-query".into(),
-        vec![
-          "1.1.1.2".parse().unwrap(),
-          "2606:4700:4700::1112".parse().unwrap(),
-        ],
+        "dns.google".into(),
+        "resolve".into(),
+        vec!["8.8.8.8".parse().unwrap()],
         Duration::from_secs(1),
       )),
     );
-    let cloudflare_adult = (
-      "cloudflare adult",
-      Some(DnsHttpsServer::new(
-        "cloudflare-dns.com".into(),
-        "dns-query".into(),
-        vec![
-          "1.1.1.3".parse().unwrap(),
-          "2606:4700:4700::1113".parse().unwrap(),
-        ],
-        Duration::from_secs(1),
-      )),
-    );
-    let gesellschaft = (
+    let _gesellschaft = (
       "gesellschaft",
       Some(DnsHttpsServer::new(
         "dns.digitale-gesellschaft.ch".into(),
@@ -432,7 +417,7 @@ mod test {
         Duration::from_secs(1),
       )),
     );
-    let opendns = (
+    let _opendns = (
       "opendns",
       Some(DnsHttpsServer::new(
         "doh.opendns.com".into(),
@@ -441,7 +426,7 @@ mod test {
         Duration::from_secs(5),
       )),
     );
-    let opendns_family = (
+    let _opendns_family = (
       "opendns family",
       Some(DnsHttpsServer::new(
         "doh.opendns.com".into(),
@@ -450,7 +435,7 @@ mod test {
         Duration::from_secs(5),
       )),
     );
-    let opennic_usa = (
+    let _opennic_usa = (
       "opennic usa",
       Some(DnsHttpsServer::new(
         "ns03.dns.tin-fan.com".into(),
@@ -462,7 +447,7 @@ mod test {
         Duration::from_secs(5),
       )),
     );
-    let opennic_eu = (
+    let _opennic_eu = (
       "opennic eu",
       Some(DnsHttpsServer::new(
         "ns01.dns.tin-fan.com".into(),
@@ -476,20 +461,19 @@ mod test {
     );
 
     let mut servers = [
+      google,
       cloudflare,
-      cloudflare_malware,
-      cloudflare_adult,
       // TODO #927: require DoH according to RFC 8484 support
       // gesellschaft,
       // opendns,
       // opendns_family,
-      opennic_eu,
-      opennic_usa,
+      // opennic_eu,
+      // opennic_usa,
     ];
     for server in &mut servers {
       println!("using: {}", server.0);
       let resolver = Dns::with_servers(vec![server.1.take().unwrap()]).unwrap();
-      let res = resolver.resolve_a("google.com").await.unwrap();
+      let res = resolver.resolve_a("nic.at").await.unwrap();
       assert_ne!(0, res.len())
     }
   }
