@@ -5,9 +5,10 @@ set -e
 export PATH=$PATH:~/.cargo/bin:/usr/local/bin
 export ANDROID_NDK_HOME=$ANDROID_NDK
 
+# Last NDK known to build fine: 22.1.7171670
 echo "Using NDK location: $ANDROID_NDK_HOME"
 
-JNI_LIBS=android5/app/src/engine/jniLibs
+JNI_LIBS=android5/app/src/libre/jniLibs
 
 mkdir -p $JNI_LIBS/arm64-v8a
 mkdir -p $JNI_LIBS/armeabi-v7a
