@@ -2075,7 +2075,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2093,7 +2093,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 22.4.6;
+				MARKETING_VERSION = 22.4.7;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -2115,7 +2115,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2133,7 +2133,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 22.4.6;
+				MARKETING_VERSION = 22.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2272,7 +2272,7 @@
 				CODE_SIGN_ENTITLEMENTS = NETX/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NETX/Info.plist;
@@ -2286,7 +2286,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 22.4.6;
+				MARKETING_VERSION = 22.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2304,7 +2304,7 @@
 				CODE_SIGN_ENTITLEMENTS = NETX/IOSNetworkExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NETX/Info.plist;
@@ -2318,7 +2318,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 22.4.6;
+				MARKETING_VERSION = 22.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.engine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
