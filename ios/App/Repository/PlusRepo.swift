@@ -203,7 +203,7 @@ class PlusRepo: Startable {
     // Untimed pause (appState Paused, but no pausedUntilHot value)
     private func onAppPausedIndefinitely_StopPlusIfNecessary() {
         appRepo.appStateHot
-        .filter { it in it == .Paused }
+        .filter { it in it == .Paused || it == .Deactivated }
         .delay(for: 0.5, scheduler: bgQueue)
         .flatMap { _ in self.appRepo.pausedUntilHot.first() }
         .filter { it in it == nil }
