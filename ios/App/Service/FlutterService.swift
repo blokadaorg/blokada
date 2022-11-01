@@ -18,6 +18,8 @@ class FlutterService {
 
     lazy var flutterEngine = FlutterEngine(name: "common")
 
+    private lazy var env = Services.env
+
     private lazy var sheetRepo = Repos.sheetRepo
     private lazy var appRepo = Repos.appRepo
     private lazy var plusRepo = Repos.plusRepo
@@ -50,6 +52,10 @@ class FlutterService {
     }
 
     func setupChannels(controller: FlutterViewController) {
+        // Push the user agent to Flutter
+        let sendUserAgent = FlutterMethodChannel(name: "env:userAgent", binaryMessenger: controller.binaryMessenger)
+        sendUserAgent.invokeMethod("env:userAgent", arguments: env.userAgent())
+
         // Push account ID changes to Flutter
         let sendAccount = FlutterMethodChannel(name: "account",
             binaryMessenger: controller.binaryMessenger)

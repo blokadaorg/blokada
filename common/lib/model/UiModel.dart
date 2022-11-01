@@ -35,8 +35,8 @@ class UiStats {
     dayBlocked = blockedHistogram.reduce((a, b) => a + b);
     dayTotal = dayAllowed + dayBlocked;
 
-    dayAllowedRatio = ((dayAllowed / avgDayAllowed) * 100);
-    dayBlockedRatio = ((dayBlocked / avgDayBlocked) * 100);
+    // dayAllowedRatio = ((dayAllowed / avgDayAllowed) * 100);
+    // dayBlockedRatio = ((dayBlocked / avgDayBlocked) * 100);
     dayTotalRatio = dayAllowedRatio + dayBlockedRatio; // As per Johnny request, to make total ring always bigger than others
   }
 

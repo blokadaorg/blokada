@@ -1,3 +1,4 @@
+import 'package:common/service/Services.dart';
 import 'package:dio/dio.dart';
 
 class HttpService {
@@ -34,6 +35,7 @@ class DioClient {
 
   DioClient() {
     _dio
+      ..options.headers["User-Agent"] = Services.instance.env.userAgent
       ..options.baseUrl = Endpoints.baseUrl
       ..options.connectTimeout = Endpoints.connectionTimeout
       ..options.receiveTimeout = Endpoints.receiveTimeout
