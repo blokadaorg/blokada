@@ -302,12 +302,6 @@ impl From<TunnelMode> for Option<bool> {
 }
 
 #[no_mangle]
-pub extern "C" fn dns_via(h: *mut Handle, mode: TunnelMode) {
-    let h = unsafe { &mut *h };
-    h.runtime.block_on(h.resolver.toggle(mode.into()));
-}
-
-#[no_mangle]
 pub extern "C" fn dns_history(h: *const Handle) -> DNSHistory {
     let h = unsafe { &*h };
     let history = h.cached_list.lock().unwrap();

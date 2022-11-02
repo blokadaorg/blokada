@@ -20,11 +20,10 @@ use doh_dns::{client::DnsClient, error::DnsError, status::RCode, Dns, DnsAnswer,
 use tokio::runtime::Handle;
 use tokio::sync::{RwLock, Semaphore};
 
-use crate::connector::{new_default, new_tunneled, TunneledHyperClient};
+use crate::connector::new_default;
 
 enum ResolverSelection {
   DefaultRoute(Dns),
-  Tunneled(Dns<TunneledHyperClient>),
   None,
 }
 
@@ -61,10 +60,6 @@ impl Resolver {
           "resolver is disabled",
         )));
       }
-      ResolverSelection::Tunneled(resolver) => {
-        debug!("resolver performing tunneled lookup");
-        lookup_to_doh_resolve(resolver, name.to_ascii(), rtype).await
-      }
       ResolverSelection::DefaultRoute(resolver) => {
         debug!("resolver performing default lookup");
         lookup_to_doh_resolve(resolver, name.to_ascii(), rtype).await
@@ -92,43 +87,6 @@ impl Resolver {
           e
         )))),
       },
-    }
-  }
-
-  pub async fn toggle(&self, tunneled: Option<bool>) {
-    info!("toggle waiting for read lock");
-    let needs_update = match &*self.inner.read().await {
-      ResolverSelection::Tunneled(_) => match tunneled {
-        Some(tunneled) => tunneled == false,
-        None => true,
-      },
-      ResolverSelection::DefaultRoute(_) => match tunneled {
-        Some(tunneled) => tunneled == true,
-        None => true,
-      },
-      ResolverSelection::None => tunneled != None,
-    };
-    if !needs_update {
-      info!("toggle noop");
-      return;
-    }
-
-    info!("toggle waiting for write lock");
-    let selected = &mut *self.inner.write().await;
-    *selected = match tunneled {
-      Some(tunneled) => {
-        if tunneled {
-          info!("toggle tunneled DNS");
-          ResolverSelection::Tunneled(Dns::new(new_tunneled(self.name_servers.clone())))
-        } else {
-          info!("toggle default DNS");
-          ResolverSelection::DefaultRoute(new_default(self.name_servers.clone()))
-        }
-      }
-      None => {
-        info!("toggle disabled DNS");
-        ResolverSelection::None
-      }
     }
   }
 }
