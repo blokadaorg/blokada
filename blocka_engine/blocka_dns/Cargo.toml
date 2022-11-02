@@ -56,7 +56,6 @@ trust-dns-proto = { version = "0.20" }
 trust-dns-rustls = { version = "0.20", optional = true }
 trust-dns-server = { version = "0.20" }
 trust-dns-resolver = { version = "0.20" }
-socket2 = { git = "https://github.com/balboah/socket2-rs.git", branch = "feature/set_bound_interface", features = ["all"] }
 async-trait = "0.1"
 doh-dns = "0.2.1"
 lazy_static = "1.4"

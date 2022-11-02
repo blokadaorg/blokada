@@ -9,12 +9,6 @@ typedef enum {
   Passed,
 } DNSHistoryAction;
 
-typedef enum {
-  Disabled,
-  TunneledInterface,
-  DefaultInterface,
-} TunnelMode;
-
 /**
  * Indicates the operation required from the caller
  */
@@ -130,8 +124,6 @@ DNSHistory dns_history(const Handle *h);
 void dns_history_free(DNSHistory history);
 
 bool dns_use_lists(Handle *h, const char *blocklist_filename, const char *whitelist_filename);
-
-void dns_via(Handle *h, TunnelMode mode);
 
 void engine_logger(const char *level);
 
