@@ -46,7 +46,7 @@ log = "0.4"
 rustls = { version = "0.17", optional = true }
 tokio = { version = "0.2", features = ["rt-core", "rt-threaded", "time", "macros", "tcp", "blocking", "sync"] }
 tokio-io-timeout = "0.4"
-hyper = "0.13"
+hyper = "0.14"
 hyper-tls = "0.4"
 tower-service = "0.3"
 futures-util = "0.3"
