@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "قائمة حظر الإعلانات والمُتعقِّبين";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "هذا النظام النَشِط مصمَّم للأنظمة الشبيهة بـ Unix، يحصل على قائمة من النطاقات التي تخدم الإعلانات، يتتّبع البرامج النصيّة و البرمجيّات الضارة من مصادر متعدّدة مشهورة و ينشئ ملف مضيف يمنع نظامك من الإتصال بها. تنبيه، تثبيت التكوين \"Social\" قد يجعل تطبيقاتك الإجتماعيّة، مثل ماسنجر، لا يعمل بشكل طبيعي.";
+"Popular for adblocking" = "مشهور بحظر الإعلانات";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "يَدمج و يوسِّع ملفّات المضيفين من العديد من المصادر المختارة بشكلٍ جيّد. يمكِنك إختيار ملحقات لحظْر الروابط الإباحيّة، وسائل التواصل الإجتماعي و غيرها من الفئات.";
+"Alternative blocklist with advanced features" = "قائمة حظر بديلة مع ميّزات متقدِّمة";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "قائمة حظْر مع ملحقات فريدة للاختيار منها. كُن على عِلْم بأنّها أكثر عدوانيّة، و قد تَمنَع عمل التطبيقات أو المواقع. و تَحظر graph.facebook.com و mqtt-mini.facebook.com. يُمكِنك النظر في إدراجهم في القائمة البيضاء في قسم النشاط، في حالة مواجهة مشاكل مع تطبيقات الفيسبوك.";
+"Adblocking for your mobile device" = "حَظْر الإعلانات لجهازك المحمول";
+"A special blocklist containing mobile ad providers." = "قائمة حظر خاصّة تحتوي على مزوّدي إعلانات الجوال.";
+"Protects against cyber attacks" = "للحماية من الهجمات الإلكترونيّة";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "قائمة حَظْر لتصفية مواقع التصيُّد الإحتيالي. التصيُّد ممارسة سيئة تقوم على إعادة التوجيه إلى مواقع مزيّفة، و التي تبدو بالضبط مثل الأصل، من أجل خداع الزوّار، و سرقة المعلومات الحسّاسة. تثبيت قائمة الحظْر هذه سيساعدك على منع مثل هذه الحالات.";
+"A new and expanding tracker database" = "قاعدة بيانات تعقُّب جديدة و موسّعة";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar هي مجموعة بيانات الأفضل في فئتها حول المُتتبّعات التي يَتمّ إنشاؤها و صيانتها تلقائياً من خلال المسح والتحليل المستمر. راجع معلومات المالك للحصول على التفاصيل.";
+"Curated blocklist to block trackers and advertisements" = "قائمة الحظر المنظَّمة لمنع المتعقّبات و الإعلانات";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "هذه قائمة حظر منتقاة و مُحافظة عليها جيّداً لمنع الإعلانات و التتبّع و أكثر! يتمّ تحديثها بانتظام.";
+"Analyzes privacy concerns in Android applications" = "تحليل مخاوف الخصوصيّة في تطبيقات أندرويد";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "تستند قائمة الحظر هذه على مشروع الخصوصيّة Exodus ، الذي يُحلِّل تطبيقات أندرويد و يبحث عن أجهزة التتبع المُضمَّنة. المتعقِّب هو جزء من برنامج يهدف إلى جمع بيانات عنك أو عن ما تفعله. هذه قائمة صغيرة جدّاً ، لذا يجب عليك أيضاً تفعيل إحدى القوائم الأكثر شيوعاً (مثل Energized).";
+"A good general purpose blocklist" = "قائمة حَظْر جيدة للأغراض العامة";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "حَظْر الإعلانات ، و التصيُّد الإحتيالي ، و البرامج الضّارة ، و برامج التجسّس ، و برامج الفدية ، و الإحتيال ، و القياس عن بُعد ، و التحليلات ، و التعقُّب (عند عدم الحاجة إلى الوظائف المناسبة) يجب ألّا تتدخَّل في التطبيقات و الخدمات العاديّة.";
+"A blocklist for ads and tracking, updated regularly" = "قائمة حظر للإعلانات و التتبُّع ، يتمّ تحديثها بانتظام";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "خيار جيّد كقائمة الحظر الأساسيّة. إنها متوازنة ، متوسّطة الحجم، و يتمّ تحديثها باستمرار.";
+"A collection of blocklists for various use cases." = "مجموعة من قوائم الحظر لمختلف حالات الاستخدام.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.";
+"A blocklist based on spam reports" = "قائمة حظْر تستند إلى تقارير البريد المزعج";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.";
+"A comprehensive lists to block ads and tracking" = "قوائم شاملة لمنع الإعلانات و التعقّب";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock هي قائمة من النطاقات التي تخدم الإعلانات، و التعقّب و البرامج النصيّة و البرمجيات الخبيثة. و تمنع جهازك من الاتصال بها.";
+"A general purpose, medium weight list" = "قائمة متوسّطة الوزن للأغراض العامّة";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "تحظر هذه القائمة المحتوى الخبيث و المخادع الضار ، مثل الإعلان و التتبّع و القياس عن بُعد و الإحتيال و خوادم البرامج الضارّة. لا تحظر هذه القائمة المواد الإباحيّة أو وسائل التواصل الاجتماعي أو ما يُسمّى بمواقع الأخبار المزيّفة. يهدف CPBL إلى توفير قوائم الحظر التي توفّر حماية شاملة ، مع الحفاظ على حجمها و نطاقها المعقول.";
+"A reasonably balanced ad blocking hosts file" = "ملف مضيفات متوازنة بشكل معقول لحظر الإعلانات";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "هذه قائمة حظر معروفة جيّداً للأغراض العامّة و صغيرة الحجم ، يتمّ تحديثها بانتظام.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "حماية البيانات الخاصّة بك من أن يتم بيعها بالمزاد لمن يدفع أعلى سعر. الرجاء اختيار التكوين الخفيف أوّلاً. إذا لم يكن ذلك جيّداً بما يكفي بالنسبة لك ، فجرّب Pro بدلاً من ذلك.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "هذه القائمة الشاملة تعمل على حظر الإعلانات و إعلانات تطبيقات الجوّال بشكل أساسي. من المفترض ألا تتداخل مع التطبيقات و الخدمات العادية.";
+"A blocklist based on malware database" = "قائمة حظر تستند على قاعدة بيانات البرامج الضّارة";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "قائمة حظر بالمواقع الإلكترونيّة الخبيثة التي يتمّ استخدامها لتوزيع البرامج الضارة ، تستند على urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "قائمة حظر من صانع اختبار مانع الإعلانات";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "هذه قائمة الحظر الرسميّة من d3ward ، صانع موقع اختبار Adblocker الشهير. من المفترض أن تحقق درجة 100٪ في الاختبار. ضع في اعتبارك ، هذه قائمة الحدّ الأدنى. قد ترغب في استخدامها مع قائمة حظر أُخرى نشطة. إذا كنت ترغب في إجراء الاختبار ، فما عليك سوى زيارة go.blokada.org/test";

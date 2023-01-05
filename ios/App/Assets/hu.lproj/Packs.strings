@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Hirdetések és nyomkövetők blokkolási listája";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Az Energized System az Unix-szerű rendszerekhez lett tervezve, és listázza azokat a domaineket, amelyek hirdetéseket, nyomkövetőket és rosszindulatú programokat küldenek több megbízható forrásból, és létrehoz egy hoszt fájlt, amely megakadályozza, hogy a rendszer kapcsolódjon hozzájuk. Megjegyzés: a \"Közösségi\" konfiguráció telepítése miatt a közösségi alkalmazások, például a Messenger, hibásan viselkedhetnek.";
+"Popular for adblocking" = "Népszerű hirdetésblokkoló";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Egyesíti és kibővíti a több ismert forrásból származó hosztfájlokat. Opcionálisan további kiterjesztéseket is választhatsz a pornográfia, a közösségi média és más kategóriák blokkolására.";
+"Alternative blocklist with advanced features" = "Alternatív blokkolási lista kibővített funkciókkal";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Blokkolási lista egyedi választható kiterjesztésekkel. Vedd figyelembe, hogy ez agresszívabb, és az alkalmazások vagy a webhelyek nem várt működését eredményezheti. Blokkolja a graph.facebook.com és az mqtt-mini.facebook.com webhelyeket. A Tevékenység szakasz engedélyezőlistájába felveheted ezeket, ha problémákat tapasztalsz a Facebook alkalmazásokban.";
+"Adblocking for your mobile device" = "Hirdetésblokkoló a mobil készülékedhez";
+"A special blocklist containing mobile ad providers." = "Egy speciális blokkolási lista, amely a mobilhirdetési szolgáltatókat tartalmazza.";
+"Protects against cyber attacks" = "Védelem a kibertámadások ellen";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Blokkoló lista az adathalász webhelyek szűrésére. Az adathalászat olyan csalás, mely olyan hamis weboldalakra való átirányításon alapul, amelyek pontosan úgy néznek ki, mint az eredeti, a látogatók megtévesztése és az érzékeny információk ellopása céljából. A blokkoló lista telepítése segít elkerülni az ilyen helyzeteket.";
+"A new and expanding tracker database" = "Egy új és kibővített követő adatbázis";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "A DuckDuckGo Tracker Radar egy a maga kategóriájában legjobb adatkészlet a nyomkövetőkről, amelyet folyamatos feltérképezéssel és elemzéssel automatikusan generál és tart fenn. A részleteket lásd a szerző adataiban.";
+"Curated blocklist to block trackers and advertisements" = "Naprakész blokklista követők és reklámok ellen";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Karbantartott és felügyelt blokkolólista reklámok, követők, és minden más ellen! Rendszeresen frissített.";
+"Analyzes privacy concerns in Android applications" = "Adatvédelemi szempontból analizálja az Android appokat";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Ez a blokkolólista az Exodus Adatvédelemmi projektjén alapul, ami analizálja az Android appokat és beágyazott követőket keres. A követő egy darabka szoftverkód, mely adatokat gyűjt rólad és szokásaidról. Ez egy rövid lista, ezért ajánlott más lista bekapcsolása is (mint pl: Energized).";
+"A good general purpose blocklist" = "Egy kiváló általános használatra kitalált blokkolólista";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Reklámblokkolás, adathalászat, malware, spyware, ransomware, csalás, telemetry, analítika, követés (ahol nem befolyásolja a használatot). Nem szabadna, hogy normál appok vagy szolgáltatásokat befolyásoljon.";
+"A blocklist for ads and tracking, updated regularly" = "Egy blokkolólista reklámok és követők ellen, rendszeresen frissítve";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Ez egy kiváló választás elsődleges blokkolólistának. Megfelelően kiegyensúlyozott, közepes méretű, rendszeresen frissített.";
+"A collection of blocklists for various use cases." = "Blokkolólista kollekció különféle esetekre.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Ezek a listák azért lettek létrehozva, mert a project alkotója nagyobb irányítást akart gyakorolni a blokkolás tekintetében.";
+"A blocklist based on spam reports" = "Egy blokklista ami spam jelentéseken alapul";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 egy szolgáltatás ami segít a cégeknek a tartalom figyelésben, behatolás tesztelésben és márka védelemben. Ez a lista a cégek visszajelzésein alapul.";
+"A comprehensive lists to block ads and tracking" = "Egy átfogó lista reklámok és követők blokkolására";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "A hBlock egy domain lista ami mögött reklám, követési szkriptek és malware bújik meg. Megakadályozza hogy készülékünk ezekhez csatlakozzon.";
+"A general purpose, medium weight list" = "Egy univerzális közepes kategóriájú lista";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Ez a lista rosszindulatú és ártalmasan megtévesztő tartalmat blokkol, mint a reklámok, követések, telemetry, átverés, és malware szerverek. Ez a lista nem blokkol pornót, social médiát, és úgynevezett hamis hír domaineket. A CPBL megpróbál egy mindenre kiterjedő védelmet adni, miközben ésszerű méretű marad.";
+"A reasonably balanced ad blocking hosts file" = "Egy meglehetősen kiegyensúlyozott reklám blokkoló hosztfájl";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Ez egy közismert, kis méretű általános felhasználású blokklista, amely rendszeresen frissül.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Védd meg az adataidat és szemgolyóidat attól, hogy eladják a legmagasabb licitért. Kérjük válaszd először a könnyű konfigurációt. Ha nem elég jó számodra, használd a Pro-t.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Ez az univerzális lista elsődlegesen reklámokat, és app reklámokat blokkol. Nem szabad, hogy befolyásoljon más appot vagy szolgáltatást.";
+"A blocklist based on malware database" = "Ez a blokklista egy malware adatbázison alapul";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Rosszindulatú weboldalak blokklistája, melyek a urlhaus.abuse.ch szerint malware-t terjesztenek.";
+"A blocklist from the maker of the adblocker test" = "Egy blokkolólista az adblocker test készítőjétől";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Ez d3ward hivatalos blokklistája, a népszerű adblock tesztelő oldal készítőjétől. 100%-os pontszámot kell, hogy elérjen a teszten. Tartsuk azonban észben, hogy ez egy minimum lista. Érdemes egy másik blokklistával együtt használni. Ha el akarod indítani a tesztet, menj a go.blokada.org/test címre.";

@@ -1,0 +1,40 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+// One of the tags used for searching blocklists
+
+"recommended" = "doporučeno";
+// One of the tags used for searching blocklists
+"official" = "oficiální";
+// One of the tags used for searching blocklists
+"adblocking" = "blokování reklam";
+// One of the tags used for searching blocklists
+"tracking" = "sledování";
+// One of the tags used for searching blocklists
+"privacy" = "soukromí";
+// One of the tags used for searching blocklists
+"adult" = "dospělý";
+// One of the tags used for searching blocklists
+"porn" = "porno";
+// One of the tags used for searching blocklists
+"social" = "sociální";
+// One of the tags used for searching blocklists
+"regional" = "regionální";
+// One of the tags used for searching blocklists
+"fake news" = "falešné zprávy";
+// One of the tags used for searching blocklists
+"gambling" = "hazardní hry";
+// One of the tags used for searching blocklists
+"youtube" = "youtube";
+// One of the tags used for searching blocklists
+"phishing" = "phishing";
+// One of the tags used for searching blocklists
+"security" = "zabezpečení";

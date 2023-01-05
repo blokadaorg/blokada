@@ -1,0 +1,49 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Ads and trackers blocking list";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." =
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave.";
+"Popular for adblocking" = "Popular for adblocking";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories.";
+"Alternative blocklist with advanced features" = "Alternative blocklist with advanced features";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps.";
+"Adblocking for your mobile device" = "Adblocking for your mobile device";
+"A special blocklist containing mobile ad providers." = "A special blocklist containing mobile ad providers.";
+"Protects against cyber attacks" = "Protects against cyber attacks";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations.";
+"A new and expanding tracker database" = "A new and expanding tracker database";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details.";
+"Curated blocklist to block trackers and advertisements" = "Curated blocklist to block trackers and advertisements";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly.";
+"Analyzes privacy concerns in Android applications" = "Analyzes privacy concerns in Android applications";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized).";
+"A good general purpose blocklist" = "A good general purpose blocklist";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.";
+"A blocklist for ads and tracking, updated regularly" = "A blocklist for ads and tracking, updated regularly";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.";
+"A collection of blocklists for various use cases." = "A collection of blocklists for various use cases.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.";
+"A blocklist based on spam reports" = "A blocklist based on spam reports";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.";
+"A comprehensive lists to block ads and tracking" = "A comprehensive lists to block ads and tracking";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.";
+"A general purpose, medium weight list" = "A general purpose, medium weight list";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.";
+"A reasonably balanced ad blocking hosts file" = "A reasonably balanced ad blocking hosts file";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.";
+"A blocklist based on malware database" = "A blocklist based on a malware database";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "A blocklist from the maker of the adblocker test";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test";

@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "広告とトラッカーのブロックリスト";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "この Energized システムは Unix 系システム向けに設計されています。広告、追跡スクリプト、マルウェアのドメインのリストを複数の信頼できるソースから取得し、それらへの接続を防ぐホストファイルを作成します。Social を有効にすると、メッセンジャーなどのソーシャルアプリが誤動作する可能性があります。";
+"Popular for adblocking" = "人気の広告ブロックリスト";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "厳選された複数のソースからのホストファイルを統合および拡張します。オプションで、ポルノ、ソーシャルメディア、その他のカテゴリをブロックする拡張機能を選択できます。";
+"Alternative blocklist with advanced features" = "高度な機能を備えた Alternative ブロックリスト";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "カスタマイズできる多様な選択肢を持つブロックリスト。より強力であり、アプリやサイトが誤動作したり、表示が崩れる可能性があります。graph.facebook.com と mqtt-mini.facebook.com をブロックします。Facebook アプリで問題が発生した場合は、[アクティビティ] からリクエストを許可することを検討してください。";
+"Adblocking for your mobile device" = "モバイルデバイスの広告ブロック";
+"A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なフィルター";
+"Protects against cyber attacks" = "サイバー攻撃から保護";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのリスト。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。このリストはフィッシングからあなたを保護します。";
+"A new and expanding tracker database" = "新しく拡張されたトラッカーデータベース";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar は、連続的なクロールと分析を通じて自動的に生成および維持される、トラッカーに関するクラス最高のデータセットです。詳細は製作者情報をご覧ください。";
+"Curated blocklist to block trackers and advertisements" = "トラッカーと広告をブロックするための厳選されたブロックリスト";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "これらのブロックリストは、広告、トラッキングなどをブロックするために作成され、維持されています。定期的に更新されます。";
+"Analyzes privacy concerns in Android applications" = "Android アプリのプライバシーに関する懸念を分析して作られたリスト";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "このブロックリストは、Android アプリケーションを分析して、埋め込まれたトラッカーを捜索する Exodus Privacy Project に基づいています。トラッカーとは、あなた自身や、あなたの行動に関する情報を収集するためのソフトウェアです。Energized などの他のリストとの併用をおすすめします。";
+"A good general purpose blocklist" = "汎用性の高いおすすめブロックリスト";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "一般的な動作に影響を与えることなく、必要のない広告、フィッシング、マルウェア、スパイウェア、ランサムウェア、詐欺サイト、トラッキングやユーザー分析をブロックします。";
+"A blocklist for ads and tracking, updated regularly" = "広告とトラッキングのブロックリスト。定期的に更新されます";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "これはメインのブロックリストとしての優れた選択肢です。バランスが良く、中程度のサイズで、頻繁に更新されます。";
+"A collection of blocklists for various use cases." = "様々な用途のためのブロックリスト集";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "これらのリストは、ブロックされるものを的確に制御する目的で作成されました。";
+"A blocklist based on spam reports" = "スパムレポートに基づくブロックリスト";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。";
+"A comprehensive lists to block ads and tracking" = "広告とトラッキングをブロックする包括的なブロックリスト";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いのデバイスがそれらに接続することを防止します。";
+"A general purpose, medium weight list" = "総合的、中程度のサイズのブロックリスト";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "このリストは、広告、トラッキング、テレメトリー、詐欺、マルウェアなど悪意のある有害なコンテンツをブロックします。ポルノ、ソーシャルメディア、フェイスニュースをブロックしません。CPBL は包括的な保護を提供するブロックリストを提供し、サイズと範囲を合理的に維持することを目指しています。";
+"A reasonably balanced ad blocking hosts file" = "合理的でバランスの取れた広告ブロックのホストファイル";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "小さいサイズの有名な汎用ブロックリストで定期的に更新されます。";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "データが競売にかけられ販売されないように保護します。最初に Light を選択してください。十分でない場合は、Pro をお試しください。";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "主にウェブ広告とモバイルアプリ広告をブロックする標準的なリストです。通常のアプリやサービスに干渉しません。";
+"A blocklist based on malware database" = "マルウェアデータベースに基づくブロックリスト";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "urlhaus.abuse.ch に基づいて、マルウェア配布に使用されている悪意のあるウェブサイトをブロックします。";
+"A blocklist from the maker of the adblocker test" = "広告ブロッカーテストサイト製作者のブロックリスト";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "これは、人気の広告ブロッカーテストサイトの製作者である d3ward の公式ブロックリストです。テストで 100% のスコアを達成するために必要な最低限の内容が含まれており、他のブロックリストと一緒に使用することができます。go.blokada.org/test からテストを実行できます。";

@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Reklamları ve izleyicileri engelleme listesi";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Bu Energized Sistemi, Unix benzeri sistemler için tasarlanmıştır. Birden fazla saygın kaynaktan reklam, izleme komut dosyaları ve kötü amaçlı yazılım sunan etki alanlarının bir listesini alır ve sisteminizin bunlara bağlanmasını engelleyen bir hosts dosyası oluşturur. Dikkatli olun, \"Sosyal\" yapılandırmayı yüklemek, Messenger gibi sosyal uygulamalarınızın hatalı davranmasına neden olabilir.";
+"Popular for adblocking" = "Reklam engelleme için popüler";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Çeşitli iyi seçilmiş kaynaklardan hosts dosyalarını Birleştirme ve Genişletme. İsteğe bağlı olarak porno, sosyal medya ve diğer kategorilerini engellemek için eklentiler seçebilirsiniz.";
+"Alternative blocklist with advanced features" = "Gelişmiş özelliklere sahip alternatif engelleme listesi";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Aralarından seçim yapabileceğiniz benzersiz eklentilere sahip bir engelleme listesi. Daha agresif olduğunu ve uygulamaları veya siteleri bozabileceğini unutmayın. Bu, graph.facebook.com ve mqtt-mini.facebook.com'u engeller. Facebook uygulamalarıyla ilgili sorun yaşamanız durumunda bunları etkinlik bölümünden beyaz listeye eklemeyi düşünebilirsiniz.";
+"Adblocking for your mobile device" = "Mobil cihazınız için reklam engelleme";
+"A special blocklist containing mobile ad providers." = "Mobil reklam sağlayıcıları içeren özel bir engelleme listesi.";
+"Protects against cyber attacks" = "Siber saldırılara karşı korur";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Kimlik Avı web sitelerini filtrelemek için bir engelleme listesi. Kimlik Avı, ziyaretçileri kandırmak ve hassas bilgileri çalmak için orijinal web sitelerine tam olarak benzeyen sahte web sitelerine yönlendirmeye dayanan bir yanlış uygulamadır. Bu engelleme listesini yüklemek, bu tür durumları önlemenize yardımcı olacaktır.";
+"A new and expanding tracker database" = "Yeni ve genişleyen bir izleyici veritabanı";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radarı, sürekli tarama ve analiz yoluyla otomatik olarak oluşturulan ve desteklenen izleyicilerle ilgili sınıfının en iyi veri kümesidir. Daha fazla bilgi için yazarın bilgilerine bakın.";
+"Curated blocklist to block trackers and advertisements" = "İzleyicileri ve reklamları engellemek için seçilmiş engelleme listesi";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Bu, reklamları, izlemeyi ve daha fazlasını engellemek için seçilmiş ve bakımlı bir engelleme listesidir! Düzenli olarak güncellenir.";
+"Analyzes privacy concerns in Android applications" = "Android uygulamalarında gizlilik endişelerini analiz eder";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Bu kara liste, Android uygulamalarını analiz eden ve gömülü izleyicileri arayan Exodus Gizlilik projesine dayanmaktadır. Bir izleyici, sizin hakkınızda veya ne yaptığınız hakkında veri toplamak için tasarlanmış bir yazılım parçasıdır. Bu çok küçük bir listedir, bu yüzden daha popüler listelerden birini de etkinleştirmelisiniz (Energized gibi).";
+"A good general purpose blocklist" = "İyi bir genel amaçlı engelleme listesi";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Reklamları, kimlik avını, kötü amaçlı yazılımları, casus yazılımları, fidye yazılımlarını, dolandırıcılığı, telemetriyi, analizleri, izlemeyi (uygun işlevsellik için gerekli olmayan yerlerde) engeller. Normal uygulamalara ve hizmetlere müdahale etmemelidir.";
+"A blocklist for ads and tracking, updated regularly" = "Düzenli olarak güncellenen reklamlar ve izleyiciler için bir engelleme listesi";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Bu ana engelleme listesi olarak iyi bir seçimdir. İyi dengelenmiş, orta boyutlu ve sık sık güncellenir.";
+"A collection of blocklists for various use cases." = "Çeşitli kullanım durumları için engelleme listesi koleksiyonu.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Bu listeler, projenin kurucusunun neyin engellendiği üzerinde biraz daha fazla kontrole sahip bir şey istediği için oluşturuldu.";
+"A blocklist based on spam reports" = "Spam raporlarına dayalı bir engelleme listesi";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404; çevrimiçi şirketlere içerik izleme, penetrasyon testi ve marka koruması konusunda yardımcı olan bir hizmettir. Bu liste şirketlerden alınan raporlara dayanmaktadır.";
+"A comprehensive lists to block ads and tracking" = "Reklamları ve izlemeyi engellemek için kapsamlı bir liste";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock; reklamlar, izleme komut dosyaları ve kötü amaçlı yazılım sunan alan adlarını içeren bir listedir. Cihazınızın bunlara bağlanmasını engeller.";
+"A general purpose, medium weight list" = "Genel amaçlı, orta ağırlıklı liste";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Bu liste, reklam, izleme, telemetri, aldatmaca ve kötü amaçlı yazılım sunucuları gibi kötü niyetli ve zararlı aldatıcı içeriği engeller. Bu liste, porno, sosyal medya veya sözde sahte haber alanlarını engellemez. CPBL, boyut ve kapsamda makul kalırken kapsamlı koruma sağlayan blok listeleri sağlamayı amaçlamaktadır.";
+"A reasonably balanced ad blocking hosts file" = "Oldukça dengeli bir reklam engelleme host dosyası";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Bu, düzenli olarak güncellenen, iyi bilinen, küçük boyutlu genel amaçlı bir bloklama listesidir.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Verilerinizin en yüksek teklif verene satılmasını engelleyin. Lütfen öncelikle Light yapılandırmasını seçin. Sizin için yeterince iyi değilse, bunun yerine Pro'yu deneyin.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Bu evrensel liste, öncelikli olarak reklamları ve mobil uygulama reklamlarını engeller. Normal uygulamalara ve hizmetlere müdahale etmez.";
+"A blocklist based on malware database" = "A blocklist based on a malware database";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Kötü amaçlı yazılım dağıtımı için kullanılan kötü amaçlı web sitelerinin urlhaus.abuse.ch tabanlı bir engelleme listesi.";
+"A blocklist from the maker of the adblocker test" = "Reklam engelleyici testinin yapımcısı tarafından sağlanan bir engelleme listesi";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Popüler reklam engelleyici test web sitesinin yapımcısı d3ward'ın resmi engelleme listesi. Testte %100 başarı elde etmek içindir. Unutmayın, bu bir minimum listedir. Etkinleştirilmiş başka bir engelleme listesiyle birlikte kullanmak isteyebilirsiniz. Testi yapmak istiyorsanız, hemen go.blokada.org/test adresini ziyaret edin";

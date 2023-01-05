@@ -1,0 +1,40 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+// One of the tags used for searching blocklists
+
+"recommended" = "ajánlott";
+// One of the tags used for searching blocklists
+"official" = "hivatalos";
+// One of the tags used for searching blocklists
+"adblocking" = "reklámblokkoló";
+// One of the tags used for searching blocklists
+"tracking" = "követési";
+// One of the tags used for searching blocklists
+"privacy" = "adatvédelem";
+// One of the tags used for searching blocklists
+"adult" = "felnőtt";
+// One of the tags used for searching blocklists
+"porn" = "pornó";
+// One of the tags used for searching blocklists
+"social" = "közösségi";
+// One of the tags used for searching blocklists
+"regional" = "regionális";
+// One of the tags used for searching blocklists
+"fake news" = "álhírek";
+// One of the tags used for searching blocklists
+"gambling" = "szerencsejáték";
+// One of the tags used for searching blocklists
+"youtube" = "youtube";
+// One of the tags used for searching blocklists
+"phishing" = "adathalászat";
+// One of the tags used for searching blocklists
+"security" = "biztonság";

@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Списък за блокиране на реклами и тракери";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Energized System е предназначен за подобни на Unix системи и съдържа реномиран списък от множество източници с домейни, които показват реклами, проследяване на скриптове, зловреден софтуер и създава хост файл, който не позволява на системата ви да се свърже с тях. Внимавайте, инсталирането на конфигурацията „Социални“ може да направи социалните ви приложения \"лоши\", например като Messenger.";
+"Popular for adblocking" = "Блокиране на популярни реклами";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Утвърдени и разширяващи се хост файлове от няколко избрани добри източници. По избор можете да изберете разширенията, с които да блокирате порно, социални медии и други категории.";
+"Alternative blocklist with advanced features" = "Алтернативен блокиращ списък с разширени функции";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Блокиращ списък с уникални разширения, от които да избирате. Имайте в предвид, че е по-агресивен и може да счупи някои приложения или сайтове. Той блокира graph.facebook.com и mqtt-mini.facebook.com. Можете да помислите за включването им в белият списък, в случай че имате проблеми с приложенията на Facebook.";
+"Adblocking for your mobile device" = "Блокиране на реклами за вашето мобилно устройство";
+"A special blocklist containing mobile ad providers." = "Специален блокиращ списък, съдържащ доставчици на мобилни реклами.";
+"Protects against cyber attacks" = "Защита от кибер атаки";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Блокиращ списък за филтриране на фишинг уеб сайтове. Фишингът е злоупотреба, основаваща се на пренасочване към фалшиви уеб сайтове, които изглеждат точно като оригиналните и подмамват посетителите за да откраднат чувствителна информация. Инсталирането на този списък ще ви помогне да предотвратите подобни ситуации.";
+"A new and expanding tracker database" = "Нова и разширяваща се база данни за тракери";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar е най-добрият в класацията набор от данни за тракери, който се генерира и поддържа автоматично чрез непрекъснато обхождане и анализ. За подробности вижте информацията от автора.";
+"Curated blocklist to block trackers and advertisements" = "Експертен блокиращ списък за тракери и реклами";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Това е добре селектиран и поддържан блокиращ списък за реклами, проследяване и други! Актуализира се редовно.";
+"Analyzes privacy concerns in Android applications" = "Анализира загрижеността относно поверителността в приложенията за Android";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Този блокиращ списък се основава на проекта The Exodus Privacy и анализира приложенията за Android за да търси вградени в тях тракери. Тракерът е софтуер, който е предназначен да събира данни за вас или какво правите. Този списък е много малък, така че ще трябва да активирате и някой от по-популярните списъци (като Energized).";
+"A good general purpose blocklist" = "Един добър общ блокиращ списък";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Блокира реклами, фишинг, злонамерен софтуер, шпионски софтуер, рансъмуер, измама, телеметрия, анализ, проследяване (не е необходим за правилната функционалност). Не би трябвало да пречи на нормалните услуги и приложения.";
+"A blocklist for ads and tracking, updated regularly" = "Блокиращ списък за реклами и проследяване, актуализиран редовно";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Това е добър избор за основен блокиращ списък. Той е добре балансиран, среден размер и често актуализиран.";
+"A collection of blocklists for various use cases." = "Колекция от блокиращи списъци за употреба при различни случаи.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Тези списъци бяха създадени, защото основателят на проекта искаше да има малко повече контрол върху това, което се блокира.";
+"A blocklist based on spam reports" = "Блокиращ списък създаден въз основа на отчетите за нежелана поща";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 е услуга, която помага на компании с онлайн мониторинг на съдържание, тестване за проникване и качество на защитата. Този списък се основава на отчетите получени от тези компании.";
+"A comprehensive lists to block ads and tracking" = "Изчерпателни списъци за блокиране на реклами и проследяване";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock е списък с домейни, които обслужват реклами, скриптове за проследяване и злонамерен софтуер. Той пречи на вашето устройство да се свърже с тях.";
+"A general purpose, medium weight list" = "Общ списък със средна важност";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Този списък блокира злонамерено и вредно измамно съдържание, като реклами, проследяване, телеметрия, измами и злонамерен сървър. Този списък не блокира порнографията, социалните медии, или така наречените фалшиви новинарски домейни. CPBL има за цел да предостави блокиращи списъци, които предлагат цялостна защита и същевременно остават разумни по размер и обхват.";
+"A reasonably balanced ad blocking hosts file" = "Рационално балансиран файл, блокиращ хостове за реклами";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Това е добре познат, общ блокиращ списък с малки размери, актуализиран редовно.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Защитете вашите данни и посещения от наддаването им на търг с най-високата цена. Моля, първо изберете Light configuration. Ако не е достатъчно добра за вас, опитайте Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Този универсален списък блокира предимно реклами за мобилни приложения. Не би трябвало да пречи на нормалните приложения и услуги.";
+"A blocklist based on malware database" = "Блокиращ списък, базиран на база данни със злонамерен софтуер";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Блокиращ списък със злонамерени уебсайтове, които се използват за разпространение на зловреден софтуер, базиран е на urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Блокиращ списък от създателя на тестовете за рекламни блокери";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Това е официалният блокиращ списък от d3ward, създателя на популярния уебсайт за тестване на рекламни блокери. Целта е да се постигне 100% резултат в теста. Имайте предвид, че това е минимален списък. Може да искате да го използвате заедно с активиран друг блокиращ списък. Ако искате да направите тест, просто посетете go.blokada.org/test";

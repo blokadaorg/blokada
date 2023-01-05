@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Blocklist reklam a slídičů";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Tento Energized System je navržen pro unixové systémy, získává seznam domén, které slouží k zobrazování reklam, sledovacích skriptů a malwaru z více renomovaných zdrojů a vytváří soubor hostitelů, který brání systému v připojení k nim. Pozor, instalace „Sociální“ konfigurace může způsobit, že se vaše sociální aplikace, jako je například Messenger, budou chovat nestandardně.";
+"Popular for adblocking" = "Populární pro blokování reklam";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Konsolidace a rozšíření souborů hostitelů z několika dobře spravovaných zdrojů. Případně můžete vybrat rozšíření pro blokování porna, sociálních médií a dalších kategorií.";
+"Alternative blocklist with advanced features" = "Alternativní blocklist s pokročilými funkcemi";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Blocklist s jedinečnými rozšířeními, ze kterých si můžete vybrat. Uvědomte si, že je agresivnější a může narušit korektní chod aplikací nebo webů. Blokuje graph.facebook.com a mqtt-mini.facebook.com. V případě, že máte problémy s aplikacemi od Facebooku, můžete je přesunout do seznamu vyloučených v sekci Aktivita.";
+"Adblocking for your mobile device" = "Blokování reklam pro vaše mobilní zařízení";
+"A special blocklist containing mobile ad providers." = "Speciální blocklist obsahující poskytovatele mobilních reklam.";
+"Protects against cyber attacks" = "Chrání před kybernetickými útoky";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Blocklist filtrů phishingových webů. Phishing je nekalost založená na přesměrování internetové komunikace na falešné weby, které vypadají přesně jako ty původní, za účelem podvádění návštěvníků a krádeže citlivých informací. Instalace tohoto blocklistu vám pomůže zabránit takovým situacím.";
+"A new and expanding tracker database" = "Nová a rozšiřující databáze slídičů";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar je nejlepší datová sada obsahující databázi slídičů, která je automaticky generována a udržována průběžným procházením a analýzou. Podrobnosti najdete v informacích autora sady.";
+"Curated blocklist to block trackers and advertisements" = "Upravený blocklist pro blokování slídičů a reklam";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Toto je upravený a dobře udržovaný blocklist pro blokování reklam, sledování a další! Je pravidelně aktualizován.";
+"Analyzes privacy concerns in Android applications" = "Analyzuje obavy o soukromí v Android aplikacích";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Tento blocklist je založen na projektu The Exodus Privacy, který analyzuje aplikace pro Android a hledá vložené slídiče. Slídič je software určený ke shromažďování údajů o vás nebo o tom, co děláte. Toto je velmi specifický seznam, takže byste měli aktivovat také jeden z nejpopulárnějších, obecných, blocklistů (například Energized).";
+"A good general purpose blocklist" = "Dobrý blocklist pro běžné účely";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blokuje reklamy, phishing, malware, spyware, ransomware, podvody, telemetrii, analýzy, sledování (pokud to není nutné pro správnou funkčnost). Neměl by zasahovat do běžných aplikací a služeb.";
+"A blocklist for ads and tracking, updated regularly" = "Blocklist proti reklamám a sledování, pravidelně aktualizován";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Je dobrou volbou jako primární blocklist. Je správně vyvážený, úměrně veliký a často aktualizovaný.";
+"A collection of blocklists for various use cases." = "Kolekce blocklistů pro různé případy použití.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Tyto seznamy byly vytvořeny, protože zakladatel projektu chtěl něco s trochou větší kontroly nad tím, co je blokováno.";
+"A blocklist based on spam reports" = "Blocklist založený na základě zpráv o spamu";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 je služba, která pomáhá online společnostem se sledováním obsahu, penetračním testováním a ochranou značky. Tento seznam je založen na zprávách obdržených od společností.";
+"A comprehensive lists to block ads and tracking" = "Komplexní seznamy pro blokování reklam a slídičů";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock je seznam domén, které zobrazují reklamy, sledovací skripty a malware. Zabraňuje tomu, aby se k nim vaše zařízení připojilo.";
+"A general purpose, medium weight list" = "Středně obsáhlý seznam pro všeobecné použití";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Tento seznam blokuje škodlivý a škodlivě klamavý obsah, jako jsou reklamy, slídiče, telemetrie, podvody a malware. Tento seznam neblokuje porno, sociální média ani takzvané fake news domény. CPBL si klade za cíl poskytovat blocklisty, které nabízejí komplexní ochranu při zachování přiměřené velikosti a rozsahu.";
+"A reasonably balanced ad blocking hosts file" = "Přiměřeně vyvážený soubor hostitelů blokující reklamy";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Toto je dobře známý obecný blocklist malé velikosti, pravidelně aktualizovaný.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Chraňte svá data a oční bulvy před dražbou nejvyšší nabídky. Nejprve si vyberte konfiguraci Light. Pokud vám nestačí, vyzkoušejte raději konfiguraci Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Tento univerzální seznam blokuje především reklamy a reklamní mobilní aplikace. Neměl by zasahovat do běžných aplikací a služeb.";
+"A blocklist based on malware database" = "Blocklist založený na databázi malwaru";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Blocklist škodlivých webových stránek, které se používají pro distribuci malware, založený na urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Blocklist od tvůrce testu blokátorů reklam";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Toto je oficiální blocklist od společnosti d3ward, tvůrce populárního webu pro testování adblockerů. Je určen k dosažení 100% skóre v testu. Mějte na paměti, že se jedná o minimalistický seznam. Možná jej budete chtít použít společně s dalším aktivovaným blocklistem. Pokud chcete test provést, stačí navštívit stránku go.blokada.org";

@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Advertenties en trackers blokkeringslijst";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Dit Energized System is ontworpen voor Unix-achtige systemen, je krijgt een lijst met domeinen die advertenties, trackingscripts en malware uit meerdere onbetrouwbare bronnen weergeven en maakt een hosts bestand aan dat voorkomt dat uw systeem er verbinding mee maakt. Pas op, het installeren van de \"Social\" configuratie kan ervoor zorgen dat uw sociale apps, zoals Messenger, niet goed werken.";
+"Popular for adblocking" = "Populair voor advertentie blokkering";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Host bestanden uit verschillende goed samengestelde bronnen samenvoegen en uitbreiden. U kunt optioneel extensies kiezen om porno, sociale media en andere categorieën te blokkeren.";
+"Alternative blocklist with advanced features" = "Alternatieve blokkeerlijst met geavanceerde functies";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Een blokkeerlijst met unieke extensies om uit te kiezen. Houd er rekening mee dat het agressiever is en apps of sites kan beschadigen. Het blokkeert graph.facebook.com en mqtt-mini.facebook.com. U kunt overwegen om ze op de witte lijst te zetten in het gedeelte Activiteit, voor het geval u problemen ondervindt met Facebook apps.";
+"Adblocking for your mobile device" = "Advertenties blokkeren op uw mobiele apparaat";
+"A special blocklist containing mobile ad providers." = "Een speciale blokkeerlijst met aanbieders van mobiele advertenties.";
+"Protects against cyber attacks" = "Beschermt tegen cyberaanvallen";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Een blokkeerlijst om phishing websites te filteren. Phishing is een wanpraktijk die is gebaseerd op het omleiden naar nepwebsites, die er precies zo uitzien als de originele, om bezoekers te misleiden en gevoelige informatie te stelen. Door deze blokkeerlijst te installeren, kunt u dergelijke situaties voorkomen.";
+"A new and expanding tracker database" = "Een nieuwe en groeiende tracker database";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar is een best-in-class dataset over trackers die automatisch wordt gegenereerd en onderhouden door continu crawlen en analyseren. Zie de auteursinformatie voor details.";
+"Curated blocklist to block trackers and advertisements" = "Samengestelde blokkadelijst om trackers en advertenties te blokkeren";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Dit is een goed bijgehouden blokkadelijst om advertenties, tracking en meer te blokkeren! Wordt regelmatig bijgewerkt.";
+"Analyzes privacy concerns in Android applications" = "Analyseert privacyproblemen in Android-toepassingen";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Deze blokkadelijst is gebaseerd op het Exodus Privacy-project, dat Android-toepassingen analyseert en op zoek gaat naar ingebouwde trackers. Een tracker is een stukje software bedoeld om gegevens over je te verzamelen, of wat je doet. Dit is een zeer kleine lijst, dus je zou ook een van de meer populaire lijsten (zoals Energized) moeten activeren.";
+"A good general purpose blocklist" = "Een goede algemene blokkeerlijst";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blokkeert advertenties, phishing, malware, spyware, ransomware, scam, telemetrie, analytics, tracking (waar niet nodig voor een goede functionaliteit). Zou normale apps en services niet moeten hinderen.";
+"A blocklist for ads and tracking, updated regularly" = "Een blokkeerlijst voor advertenties en tracking, regelmatig bijgewerkt";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Dit is een goede keuze als primaire blokkadelijst. Het is evenwichtig, middelgroot, en wordt regelmatig bijgewerkt.";
+"A collection of blocklists for various use cases." = "Een verzameling blokkadelijsten voor diverse gebruiksgevallen.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Deze lijsten zijn gemaakt omdat de oprichter van het project iets wilde met iets meer controle over wat er geblokkeerd wordt.";
+"A blocklist based on spam reports" = "Een blokkadelijst op basis van spammeldingen";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is een dienst die online bedrijven helpt met contentmonitoring, penetratietests en merkbescherming. Deze lijst is gebaseerd op de rapporten die we van bedrijven ontvangen.";
+"A comprehensive lists to block ads and tracking" = "Een uitgebreide lijst om advertenties en tracking te blokkeren";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock is een lijst met domeinen die advertenties, tracking scripts en malware aanbieden. Het voorkomt dat uw apparaat verbinding maakt met deze domeinen.";
+"A general purpose, medium weight list" = "Een lijst voor algemeen gebruik, gemiddeld gewicht";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Deze lijst blokkeert kwaadaardige en schadelijk misleidende inhoud, zoals reclame, tracking, telemetrie, scam, en malware servers. Deze lijst blokkeert geen porno, sociale media of zogenaamde nepnieuwsdomeinen. CPBL streeft ernaar blokkadelijsten aan te bieden die uitgebreide bescherming bieden, maar toch redelijk zijn in omvang en bereik.";
+"A reasonably balanced ad blocking hosts file" = "Een redelijk gebalanceerde lijst met geblokkeerde hostnamen";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Dit is een bekende, algemene bloklijst van geringe omvang, die regelmatig wordt bijgewerkt.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Bescherm uw gegevens en ogen tegen veiling aan de hoogste bieder. Kies eerst de Light configuratie. Als het niet goed genoeg is voor u, probeer dan Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Deze universele lijst blokkeert voornamelijk advertenties en mobiele app-advertenties. Zou niet storen met normale apps en services.";
+"A blocklist based on malware database" = "Een blokkadelijst op basis van een malware-databank";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Een blokkadelijst van kwaadaardige websites die worden gebruikt voor de verspreiding van malware, gebaseerd op urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Een blokkadelijst van de maker van de adblocker test";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Dit is de officiële blocklist van d3ward, de maker van de populaire adblocker test website. Het is bedoeld om 100% score te behalen in de test. Houd in gedachten dat dit een minimum lijst is. Het kan zijn dat je hem samen met een andere geactiveerde blocklist wilt gebruiken. Als u de test wilt uitvoeren, ga dan naar go.blokada.org/test";

@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "廣告與追蹤器的阻擋清單";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "此 Energized System 是針對類 Unix 系統所設計的，從多個信譽良好的來源取得投放廣告、追蹤程式碼與惡意軟體的域名清單，並建立一份主機檔案讓您的系統不會與它們連線。請注意，安裝「社交」設定可能會讓您的社交應用程式（如 Messenger）運作不正常。";
+"Popular for adblocking" = "擋廣告熱門";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "合併並擴充來自多個精心整理來源的主機檔案。您可以選擇擴充清單以封鎖色情、社群媒體與其他分類。";
+"Alternative blocklist with advanced features" = "有進階功能的替代性阻擋清單";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "有著獨特擴充的阻擋清單。請注意，其更激進，並可能讓應用程式與網站無法正常顯示。其阻擋了 graph.facebook.com 與 mqtt-mini.facebook.com。如果您遇到 Facebook 應用程式的問題，您可以考慮在「活動」頁面中將其加入允許清單。";
+"Adblocking for your mobile device" = "適合行動裝置的擋廣告";
+"A special blocklist containing mobile ad providers." = "包含行動廣告提供者的特殊阻擋清單";
+"Protects against cyber attacks" = "保護免受網路攻擊";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "過濾釣魚網站的阻擋清單。網路釣魚是奠基於重新導向至看似原網站的假網站的不當行為，目的是欺騙訪客並竊取機密資訊。安裝此阻擋清單可協助您避免這種狀況。";
+"A new and expanding tracker database" = "一個新穎而不斷更新的追蹤資料庫";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo 追蹤器雷達是關於追蹤器的資料集中最好的，其由連續爬蟲與分析自動生成與維護。請見作者資訊以取得更多詳細資訊。";
+"Curated blocklist to block trackers and advertisements" = "精選的阻擋廣告、追蹤清單";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "這是一個精心挑選且有良好維護的封鎖清單，用來封鎖廣告、追蹤器與更多東西！定期更新。";
+"Analyzes privacy concerns in Android applications" = "分析 Android 應用程式中的隱私問題";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "此封鎖清單是以 The Exodus Privacy 專案為基礎，此專案分析 Android 應用程式並尋找嵌入的追蹤器。追蹤器是一種用來蒐集關於您或您做的事情資料的軟體。這是一份很小的清單，因此您應該同時啟用另一份較流行的清單（如 Energized）。";
+"A good general purpose blocklist" = "好用且適合一般用途的阻擋清單";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "阻擋廣告、釣魚攻擊、惡意軟體、間諜軟體、勒索軟體、詐騙網站，以及對功能沒有影響的遙測、分析和追蹤功能。應不影響一般的 App 和服務。";
+"A blocklist for ads and tracking, updated regularly" = "廣告與追蹤的封鎖清單，定期更新";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "挺適合當作主要的封鎖清單。均衡、不大不小也經常更新。";
+"A collection of blocklists for various use cases." = "適合各種情況的阻擋清單集錦。";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "之所以會建立這些列表，是因為專案的創始人想要一些可以對被封鎖內容進行更多控制的東西。";
+"A blocklist based on spam reports" = "根據垃圾資訊報告所製作的阻擋清單";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 是一項可以協助線上公司監視內容、滲透測試與品牌保護的服務。此列表是以從公司收到的回報為基礎。";
+"A comprehensive lists to block ads and tracking" = "全面阻擋廣告與追蹤程式的清單";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock 是個寫著廣告、追蹤指令碼及惡意軟體的網域清單，能防止您的裝置連線至這些網域。";
+"A general purpose, medium weight list" = "適合一般用途的中型清單";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "這個清單會阻擋惡意及有害的詐欺內容，比如廣告、追蹤、遙測、詐騙和惡意伺服器。這個清單不會阻擋色情內容、社群媒體及所謂的假新聞網域。CPBL 致力提供兼顧全方位保護及合理大小與範圍的阻擋清單。";
+"A reasonably balanced ad blocking hosts file" = "合理平衡的廣告阻擋主機檔案";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "這是個知名的通用小型阻擋清單，會定期更新。";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "保護您的資料與注意力不被出售給出價最高的人。請先選擇 Light 設定。如果對您來說不夠，再選用 Pro。";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "這個萬用清單主要用來阻擋廣告，尤其是行動裝置 app 的廣告。不應影響正常的 app 及服務。";
+"A blocklist based on malware database" = "建基於惡意軟體資料庫的阻擋清單";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "這個阻擋清單用來阻擋進行惡意軟體分發的惡意網站，基於 urlhaus.abuse.ch 製作。";
+"A blocklist from the maker of the adblocker test" = "adblocker test 作者製作的阻擋清單";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "這是 d3ward，也就是知名濾廣告工具測試站作者的官方阻擋清單。其主要用途是用來在測試中獲得 100 分的成績。注意，這清單內容不多，可能會需要與其他啟用的阻擋清單相互搭配。若要進行測試，請前往 go.blokada.org/test";

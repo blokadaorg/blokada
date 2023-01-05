@@ -1,0 +1,48 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Bloklista do blokowania reklam i trackerów";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "System Energized utrzymuje listę domen obsługujących reklamy, śledzenie skryptów i złośliwego oprogramowania z wielu renomowanych źródeł i tworzy bloklistę, która uniemożliwia systemowi łączenie się z nimi. Uwaga, instalowanie konfiguracji \"social\" może sprawić, że Twoje aplikacje społecznościowe, takie jak Messenger, będą zachowywać się niewłaściwie.";
+"Popular for adblocking" = "Popularne do blokowania reklam";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Konsoliduje i rozszerza bloklisty z kilku dobrze znanych źródeł. Opcjonalnie możesz wybrać dodatkowe rozszerzenia, aby zablokować pornografię, media społecznościowe i inne kategorie.";
+"Alternative blocklist with advanced features" = "Alternatywna bloklista z zaawansowanymi funkcjami";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Bloklista z unikalnymi rozszerzeniami do wyboru. Zauważ, że jest bardziej agresywna niż inne, i może przeszkodzić aplikacjom lub witrynom w poprawnym funkcjonowaniu. Blokuje graph.facebook.com i mqtt-mini.facebook.com. Możesz rozważyć dodanie ich do Zezwolonych w sekcji Aktywność, na wypadek problemów z aplikacjami od Facebooka.";
+"Adblocking for your mobile device" = "Blokowanie reklam dla urządzenia mobilnego";
+"A special blocklist containing mobile ad providers." = "Specjalna bloklista zawierająca mobilnych dostawców reklam.";
+"Protects against cyber attacks" = "Ochrona przed cyber atakami";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Bloklista do filtrowania stron wyłudzających. Fishing jest praktyką polegającą na przekierowaniu na fałszywe strony internetowe, które wyglądają dokładnie tak jak oryginalne, aby zmylić użytkowników i wykraść informacje prywatne. Instalacja tej bloklisty pomoże zapobiec takim sytuacjom.";
+"A new and expanding tracker database" = "Nowa i rozwijająca się baza danych trackera";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "Radar trackerów DuckDuckGo jest najlepszą w swojej klasie bazą danych o trackerach, która jest automatycznie generowana i utrzymywana poprzez ciągłe monitorowanie Internetu i analizę. Więcej informacji na temat tej bazy znajduje się na stronie Autor.";
+"Curated blocklist to block trackers and advertisements" = "Wyselekcjonowana lista do blokowania elementów śledzących i reklam";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "To jest wyselekcjonowana i dobrze utrzymywana lista do blokowania reklam, elementów śledzących i nie tylko! Aktualizowana regularnie.";
+"Analyzes privacy concerns in Android applications" = "Analizuje nadużycia dotyczące prywatności w aplikacjach na Androida";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Ta bloklista jest oparta na projekcie The Exodus Privacy, który analizuje aplikacje na Androida i szuka wbudowanych trackerów. Tracker to oprogramowanie przeznaczone do zbierania danych o Tobie lub o tym, co robisz. Jest to bardzo mała lista, więc powinieneś także aktywować jedną z bardziej popularnych list (np. Energized).";
+"A good general purpose blocklist" = "Dobra blocklista ogólnego przeznaczenia";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blokuje reklamy, phishing, złośliwe oprogramowanie szpiegujące, oprogramowanie ransomware, skanowanie, telemetrię, analizy, śledzenie (jeśli nie jest to konieczne dla właściwej funkcjonalności). Nie powinno zakłócać działania aplikacji i usług.";
+"A blocklist for ads and tracking, updated regularly" = "Bloklista reklam i śledzenia, regularnie aktualizowana";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "To dobry wybór jako podstawowa bloklista. Jest dobrze zrównoważona, średniego rozmiaru, często aktualizowana.";
+"A collection of blocklists for various use cases." = "Zbiór bloklist do różnych zastosowań.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Listy te powstały, ponieważ założyciel projektu chciał czegoś z nieco większą kontrolą nad tym, co jest blokowane.";
+"A blocklist based on spam reports" = "Bloklista oparta na raportach o spamie";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 to usługa, która pomaga firmom internetowym w monitorowaniu treści, testach penetracyjnych i ochronie marki. Ta lista jest oparta na raportach otrzymanych od firm.";
+"A comprehensive lists to block ads and tracking" = "Kompleksowe listy do blokowania reklam i śledzenia";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock to lista z domenami obsługującymi reklamy, skrypty śledzące i złośliwe oprogramowanie. Zapobiega podłączeniu się do nich Twojego urządzenia.";
+"A general purpose, medium weight list" = "Lista ogólnego zastosowania, średniej wielkości";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Ta lista blokuje złośliwe i szkodliwie oszukujące treści, takie jak reklamy, śledzenie, telemetria, oszustwa i serwery złośliwego oprogramowania. Ta lista nie blokuje pornografii, mediów społecznościowych ani tzw. domen z fałszywymi informacjami. CPBL ma na celu dostarczenie bloklist oferujących kompleksową ochronę przy zachowaniu rozsądnej wielkości i zakresu.";
+"A reasonably balanced ad blocking hosts file" = "Rozsądnie zbalansowany filtr blokujący reklamy";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Jest to dobrze znana, ogólnodostępna lista o małej wielkości, regularnie aktualizowana.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Chroń swoje dane i gałki oczne przed wystawieniem na aukcję temu, kto zaoferuje najwyższą cenę. Najpierw wypróbuj konfigurację Light, a jeśli nie będzie wystarczająca, wypróbuj Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Ta uniwersalna lista blokuje przede wszystkim reklamy oraz reklamy aplikacji mobilnych. Nie powinnna kolidować z normalnymi aplikacjami i usługami.";
+"A blocklist based on malware database" = "Bloklista oparta na bazie danych złośliwego oprogramowania";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Bloklista złośliwych stron internetowych, które są wykorzystywane do dystrybucji złośliwego oprogramowania, oparta na urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Bloklista od twórcy testu adblockera";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Oto oficjalna bloklista od d3warda, twórcy popularnej strony testującej adblockera. Ma ona osiągnąć 100% punktacji w teście. Pamiętaj, że jest to lista minimalna. Zalecane jest użyć jej razem z inną aktywowaną bloklistą. Jeśli chcesz wykonać test, po prostu odwiedź go.blokada.org/test";
