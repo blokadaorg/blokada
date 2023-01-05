@@ -1,3 +1,6 @@
 [submodule "wireguard-apple"]
 	path = wireguard-apple
 	url = https://github.com/blokadaorg/wireguard-apple.git
+[submodule "six-common"]
+	path = six-common
+	url = https://github.com/blokadaorg/six-common.git
