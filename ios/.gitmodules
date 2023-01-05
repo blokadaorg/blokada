@@ -1,0 +1,3 @@
+[submodule "wireguard-apple"]
+	path = wireguard-apple
+	url = https://github.com/blokadaorg/wireguard-apple.git
