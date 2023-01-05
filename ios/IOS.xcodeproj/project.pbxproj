@@ -52,7 +52,6 @@
 		4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterHomeView.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
-		4E16FE762465621C00AA9853 /* hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2EED216241B8D6500407601 /* hosts.txt */; };
 		4E16FE772465622800AA9853 /* hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2EED216241B8D6500407601 /* hosts.txt */; };
 		4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
@@ -192,10 +191,6 @@
 		4E356A8A2437711A0094EE27 /* LinkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A892437711A0094EE27 /* LinkDataSource.swift */; };
 		4E356A8C24378CA80094EE27 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8B24378CA80094EE27 /* Strings.swift */; };
 		4E356A8E243B230D0094EE27 /* StoreKitWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */; };
-		4E363E682880027F00406368 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; };
-		4E363E692880027F00406368 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; };
-		4E363E6B288002AD00406368 /* App.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4E363E6C288002AD00406368 /* Flutter.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E363E6D2880032700406368 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; };
 		4E363E6E2880032700406368 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E363E662880027F00406368 /* Flutter.xcframework */; };
 		4E363E702880033800406368 /* App.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E363E672880027F00406368 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -372,6 +367,10 @@
 		4E90BA3D27BBB6810051FD0C /* ActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */; };
 		4E90BA3F27BC09260051FD0C /* QuickActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */; };
 		4E90BA4027BC09260051FD0C /* QuickActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */; };
+		4E92169A2966E71800E1C34D /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; };
+		4E92169B2966E71800E1C34D /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E92169E2966E72600E1C34D /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; };
+		4E92169F2966E72600E1C34D /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E94C2FF2420D3B00008E318 /* PaymentGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */; };
 		4E94C3032428F1C20008E318 /* BlockaLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C3022428F1C20008E318 /* BlockaLogger.swift */; };
@@ -463,7 +462,6 @@
 		4EF564BE276A16E5005E3D70 /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF564BD276A16E5005E3D70 /* StoreKitService.swift */; };
 		4EF564BF276A16E5005E3D70 /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF564BD276A16E5005E3D70 /* StoreKitService.swift */; };
 		4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF4240E9E95001FA02E /* Resources.swift */; };
-		B2F720922418F4E20002B88E /* libengine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2240DD92417FA8900F13E97 /* libengine.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,27 +486,9 @@
 			remoteGlobalIDString = 4EEF402E293A08390036EA57;
 			remoteInfo = WireGuardBridgeiOS;
 		};
-		B2F720902418F4AC0002B88E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B2240DC62417F83100F13E97;
-			remoteInfo = "Blocka Engine";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4E363E6A2880029F00406368 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4E363E6B288002AD00406368 /* App.xcframework in CopyFiles */,
-				4E363E6C288002AD00406368 /* Flutter.xcframework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4E363E6F2880032C00406368 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -518,6 +498,18 @@
 				4E363E702880033800406368 /* App.xcframework in CopyFiles */,
 				4E363E712880033800406368 /* Flutter.xcframework in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E92169C2966E71800E1C34D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4E92169F2966E72600E1C34D /* Flutter.xcframework in Embed Frameworks */,
+				4E92169B2966E71800E1C34D /* App.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4ED3445223E1B0580075B796 /* Embed App Extensions */ = {
@@ -750,6 +742,8 @@
 		4E90BA3827BBB5B40051FD0C /* ActivityFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFilterBarView.swift; sourceTree = "<group>"; };
 		4E90BA3B27BBB6810051FD0C /* ActivityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListView.swift; sourceTree = "<group>"; };
 		4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsService.swift; sourceTree = "<group>"; };
+		4E9216992966E71700E1C34D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Release/App.xcframework"; sourceTree = "<group>"; };
+		4E92169D2966E72600E1C34D /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Release/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C2FE2420D3B00008E318 /* PaymentGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* BlockaLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaLogger.swift; sourceTree = "<group>"; };
@@ -845,28 +839,19 @@
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		B2240DBF2417F66D00F13E97 /* IOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		B2240DC02417F66D00F13E97 /* libengine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libengine.h; sourceTree = "<group>"; };
-		B2240DC72417F83100F13E97 /* liblibengine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibengine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
 		B285FFFC248F8AE5003EAA35 /* PacketLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketLoop.swift; sourceTree = "<group>"; };
 		B2EED216241B8D6500407601 /* hosts.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hosts.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3DACB097F954FE40B0737A34 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		47729DFF22F447C800B9B36B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E92169E2966E72600E1C34D /* Flutter.xcframework in Frameworks */,
 				4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */,
-				B2F720922418F4E20002B88E /* libengine.a in Frameworks */,
-				4E363E682880027F00406368 /* Flutter.xcframework in Frameworks */,
-				4E363E692880027F00406368 /* App.xcframework in Frameworks */,
+				4E92169A2966E71800E1C34D /* App.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,7 +908,6 @@
 			isa = PBXGroup;
 			children = (
 				47729E0222F447C800B9B36B /* Blokada 6.app */,
-				B2240DC72417F83100F13E97 /* liblibengine.a */,
 				4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */,
 				4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */,
 				4E23CF98293DF7D100613D0A /* WireGuardNetworkExtension.appex */,
@@ -1392,6 +1376,8 @@
 		4ED3443D23E190910075B796 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E92169D2966E72600E1C34D /* Flutter.xcframework */,
+				4E9216992966E71700E1C34D /* App.xcframework */,
 				4E23CFA5293DF89100613D0A /* libwg-go.a */,
 				4E363E672880027F00406368 /* App.xcframework */,
 				4E363E662880027F00406368 /* Flutter.xcframework */,
@@ -1482,17 +1468,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "App" */;
 			buildPhases = (
-				B2240DB82417F42F00F13E97 /* Build Blocka Engine */,
 				47729DFE22F447C800B9B36B /* Sources */,
 				47729DFF22F447C800B9B36B /* Frameworks */,
 				47729E0022F447C800B9B36B /* Resources */,
 				4ED3445223E1B0580075B796 /* Embed App Extensions */,
-				4E363E6A2880029F00406368 /* CopyFiles */,
+				4E92169C2966E71800E1C34D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B2F720912418F4AC0002B88E /* PBXTargetDependency */,
 				4E23CFA0293DF7D100613D0A /* PBXTargetDependency */,
 			);
 			name = App;
@@ -1554,22 +1538,6 @@
 			productReference = 4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B2240DC62417F83100F13E97 /* Blocka Engine */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B2240DCB2417F83100F13E97 /* Build configuration list for PBXNativeTarget "Blocka Engine" */;
-			buildPhases = (
-				B2240DCE2417F83A00F13E97 /* Run Script */,
-				3DACB097F954FE40B0737A34 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Blocka Engine";
-			productName = "Blocka Engine";
-			productReference = B2240DC72417F83100F13E97 /* liblibengine.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1593,9 +1561,6 @@
 					};
 					4EEF402E293A08390036EA57 = {
 						CreatedOnToolsVersion = 14.1;
-					};
-					B2240DC62417F83100F13E97 = {
-						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
@@ -1627,7 +1592,6 @@
 			targets = (
 				47729E0122F447C800B9B36B /* App */,
 				4E7FE98E244DC28900851E9F /* Mocked */,
-				B2240DC62417F83100F13E97 /* Blocka Engine */,
 				4E1DC4C727564F3100A4CAB1 /* AppTests */,
 				4EEF402E293A08390036EA57 /* WireGuardBridgeiOS */,
 				4E23CF97293DF7D100613D0A /* WireGuardNetworkExtensioniOS */,
@@ -1641,7 +1605,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E290FBB2498A3E200FC4C61 /* Packs.strings in Resources */,
-				4E16FE762465621C00AA9853 /* hosts.txt in Resources */,
 				4E290FC82498AA5900FC4C61 /* PackTags.strings in Resources */,
 				4E652939248F760700EB871A /* Ui.strings in Resources */,
 				47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */,
@@ -1677,45 +1640,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B2240DB82417F42F00F13E97 /* Build Blocka Engine */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Blocka Engine";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\n";
-		};
-		B2240DCE2417F83A00F13E97 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=$PATH:~/.cargo/bin:/usr/local/bin\nexport LIBRARY_PATH=\"${DEVELOPER_SDK_DIR}/MacOSX.sdk/usr/lib:${LIBRARY_PATH:-}\"\n\ncd $BLOCKA_ENGINE_PATH\ncargo build --target aarch64-apple-ios ${CARGO_LIPO_FLAG} -p engine\ncp target/aarch64-apple-ios/${CARGO_TARGET}/libengine.a engine/libengine.h $PROJECT_DIR/BlockaEngine\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		47729DFE22F447C800B9B36B /* Sources */ = {
@@ -2195,11 +2119,6 @@
 			isa = PBXTargetDependency;
 			target = 4EEF402E293A08390036EA57 /* WireGuardBridgeiOS */;
 			targetProxy = 4E23CFA8293DF9E900613D0A /* PBXContainerItemProxy */;
-		};
-		B2F720912418F4AC0002B88E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B2240DC62417F83100F13E97 /* Blocka Engine */;
-			targetProxy = B2F720902418F4AC0002B88E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2719,42 +2638,6 @@
 			};
 			name = Release;
 		};
-		B2240DCC2417F83100F13E97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BLOCKA_ENGINE_PATH = ../blocka_engine;
-				CARGO_LIPO_FLAG = "";
-				CARGO_TARGET = debug;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HQH5AFGB68;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = libengine;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e";
-			};
-			name = Debug;
-		};
-		B2240DCD2417F83100F13E97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BLOCKA_ENGINE_PATH = ../blocka_engine;
-				CARGO_LIPO_FLAG = "--release";
-				CARGO_TARGET = release;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HQH5AFGB68;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = libengine;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 arm64e";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2808,15 +2691,6 @@
 			buildConfigurations = (
 				4EEF4030293A08390036EA57 /* Debug */,
 				4EEF4031293A08390036EA57 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B2240DCB2417F83100F13E97 /* Build configuration list for PBXNativeTarget "Blocka Engine" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B2240DCC2417F83100F13E97 /* Debug */,
-				B2240DCD2417F83100F13E97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
