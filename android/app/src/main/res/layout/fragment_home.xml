@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.home.HomeFragment">
+
+    <LinearLayout
+        android:id="@+id/home_headergroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/home_powergroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/home_header"
+            android:layout_width="@dimen/header_width"
+            android:layout_height="@dimen/header_height"
+            android:src="@drawable/header"
+            android:tint="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/home_status"
+            style="@style/Text.Plus.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/half"
+            android:text="@string/home_status_deactivated"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_powergroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_headergroup">
+
+        <ui.home.PowerView
+            android:id="@+id/home_powerview"
+            android:layout_width="@dimen/powerview"
+            android:layout_height="@dimen/powerview"
+            app:powerIcon="@android:drawable/ic_lock_power_off" />
+
+        <TextView
+            android:id="@+id/home_longstatus"
+            android:layout_width="@dimen/sheet_maxwidth"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/half"
+            android:layout_marginTop="@dimen/powerview_below"
+            android:layout_marginEnd="@dimen/half"
+            android:layout_marginBottom="@dimen/plusbutton_above"
+            android:lines="2"
+            android:text="@string/home_action_tap_to_activate"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <ui.home.PlusButton
+        android:id="@+id/home_plusbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/normal"
+        android:paddingTop="@dimen/half"
+        android:paddingEnd="@dimen/normal"
+        android:paddingBottom="@dimen/half"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

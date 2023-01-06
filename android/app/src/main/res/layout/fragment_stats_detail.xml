@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/activity_icon"
+                android:layout_width="@dimen/icon_huge"
+                android:layout_height="@dimen/icon_huge"
+                android:src="@drawable/ic_shield_outline"
+                android:tint="@color/red" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/normal">
+
+                <TextView
+                    android:id="@+id/activity_name"
+                    style="@style/Text.H2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="www.apple.com" />
+
+                <TextView
+                    android:id="@+id/activity_comment"
+                    style="@style/Text.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_request_blocked" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/normal"
+            android:background="?android:attr/shadowColor" />
+
+        <TextView
+            style="@style/Text.H3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half"
+            android:text="@string/activity_actions_header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/doubled">
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/activity_primaryaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_shield_off_outline"
+                app:name="@string/activity_action_add_to_blacklist" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/activity_copyaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_baseline_file_copy_24"
+                app:name="@string/activity_action_copy_to_clipboard" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/normal"
+            android:background="?android:attr/shadowColor" />
+
+        <TextView
+            style="@style/Text.H3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half"
+            android:text="@string/activity_information_header"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_domain_name" />
+
+            <TextView
+                android:id="@+id/activity_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="lol.lol.lol.lol.com" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_time_of_occurrence" />
+
+            <TextView
+                android:id="@+id/activity_fulltime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2020-03-03 03:03:03" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_number_of_occurrences" />
+
+            <TextView
+                android:id="@+id/activity_occurrences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/universal_label_device" />
+
+            <TextView
+                android:id="@+id/activity_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

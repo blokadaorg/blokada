@@ -1,0 +1,16 @@
+{ "strings": {
+    "recommended": "ajánlott",
+    "official": "hivatalos",
+    "adblocking": "reklámblokkoló",
+    "tracking": "követési",
+    "privacy": "adatvédelem",
+    "adult": "felnőtt",
+    "porn": "pornó",
+    "social": "közösségi",
+    "regional": "regionális",
+    "fake news": "álhírek",
+    "gambling": "szerencsejáték",
+    "youtube": "youtube",
+    "phishing": "adathalászat",
+    "security": "biztonság"
+} }

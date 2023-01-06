@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackgroundFloating"
+    android:orientation="vertical"
+    android:padding="@dimen/half"
+    tools:context="ui.home.PaymentFeaturesFragment">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/icon"
+        android:layout_height="@dimen/icon"
+        android:padding="@dimen/half"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/normal">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="@dimen/header_height"
+                        android:src="@drawable/header"
+                        android:tint="?android:attr/textColor" />
+
+                    <TextView
+                        style="@style/Text.H2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="CLOUD"
+                        android:textColor="@color/blue"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Cloud features -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_remove_red_eye_24"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_no_ads" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_no_ads" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_lock_check"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_encrypt_dns" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_encrypt_dns" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_speed_24"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_performance" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_performance" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_battery_full_24"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_battery" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_battery" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_devices_24"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_devices_cloud" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_devices_cloud" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_contact_support_24"
+                                app:tint="@color/blue" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_support" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_support" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Plus features -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/normal">
+
+                    <ImageView
+                        android:layout_width="160dp"
+                        android:layout_height="@dimen/header_height"
+                        android:src="@drawable/header"
+                        android:tint="?android:attr/textColor" />
+
+                    <TextView
+                        style="@style/Text.H2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="PLUS"
+                        android:textColor="@color/orange"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/normal"
+                        android:background="@drawable/bg_payment_group_cloud"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                        <GridLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:useDefaultMargins="true">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_remove_red_eye_24"
+                                app:tint="@color/blue" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_lock_check"
+                                app:tint="@color/blue" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_speed_24"
+                                app:tint="@color/blue" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_battery_full_24"
+                                app:tint="@color/blue" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_devices_24"
+                                app:tint="@color/blue" />
+
+                            <ImageView
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_contact_support_24"
+                                app:tint="@color/blue" />
+                        </GridLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text.H3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/half"
+                                android:text="@string/payment_feature_title_cloud_vpn" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/payment_feature_desc_cloud_vpn" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_location_on_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_change_location" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_change_location" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_lock_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_encrypt_data" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_encrypt_data" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_speed_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_faster_connection" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_faster_connection" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_bigger"
+                                android:layout_height="@dimen/icon_bigger"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_devices_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/payment_feature_title_devices" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/payment_feature_desc_devices" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/normal"
+                            android:layout_marginBottom="@dimen/normal"
+                            android:background="?android:attr/shadowColor" />
+
+                        <Button
+                            android:id="@+id/payment_continue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/universal_action_continue" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

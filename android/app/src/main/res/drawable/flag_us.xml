@@ -1,0 +1,72 @@
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+  <path
+      android:pathData="M0,85.331h512v341.337h-512z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M0,127.994h512v42.663h-512z"
+      android:fillColor="#D80027"/>
+  <path
+      android:pathData="M0,213.331h512v42.663h-512z"
+      android:fillColor="#D80027"/>
+  <path
+      android:pathData="M0,298.657h512v42.663h-512z"
+      android:fillColor="#D80027"/>
+  <path
+      android:pathData="M0,383.994h512v42.663h-512z"
+      android:fillColor="#D80027"/>
+  <path
+      android:pathData="M0,85.331h256v183.797h-256z"
+      android:fillColor="#2E52B2"/>
+  <path
+      android:pathData="M99.822,160.624l-4.123,12.684l-13.336,0l10.791,7.835l-4.123,12.683l10.791,-7.835l10.784,7.835l-4.122,-12.683l10.791,-7.835l-13.337,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M103.938,219.08l-4.116,-12.683l-4.123,12.683l-13.336,0l10.791,7.836l-4.123,12.683l10.791,-7.836l10.784,7.836l-4.122,-12.683l10.791,-7.836z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M47.577,219.08l-4.117,-12.683l-4.123,12.683l-13.336,0l10.791,7.836l-4.123,12.683l10.791,-7.836l10.785,7.836l-4.122,-12.683l10.789,-7.836z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M43.46,160.624l-4.123,12.684l-13.336,0l10.791,7.835l-4.123,12.683l10.791,-7.835l10.785,7.835l-4.122,-12.683l10.789,-7.835l-13.335,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M99.822,114.85l-4.123,12.685l-13.336,0l10.791,7.836l-4.123,12.683l10.791,-7.836l10.784,7.836l-4.122,-12.683l10.791,-7.836l-13.337,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M43.46,114.85l-4.123,12.685l-13.336,0l10.791,7.836l-4.123,12.683l10.791,-7.836l10.785,7.836l-4.122,-12.683l10.789,-7.836l-13.335,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M156.183,160.624l-4.122,12.684l-13.336,0l10.79,7.835l-4.121,12.683l10.789,-7.835l10.786,7.835l-4.123,-12.683l10.791,-7.835l-13.336,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M160.301,219.08l-4.118,-12.683l-4.122,12.683l-13.336,0l10.79,7.836l-4.121,12.683l10.789,-7.836l10.786,7.836l-4.123,-12.683l10.791,-7.836z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M216.663,219.08l-4.117,-12.683l-4.123,12.683l-13.335,0l10.789,7.836l-4.122,12.683l10.791,-7.836l10.785,7.836l-4.123,-12.683l10.791,-7.836z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M212.546,160.624l-4.123,12.684l-13.335,0l10.789,7.835l-4.122,12.683l10.791,-7.835l10.785,7.835l-4.123,-12.683l10.791,-7.835l-13.336,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M156.183,114.85l-4.122,12.685l-13.336,0l10.79,7.836l-4.121,12.683l10.789,-7.836l10.786,7.836l-4.123,-12.683l10.791,-7.836l-13.336,0z"
+      android:fillColor="#F0F0F0"/>
+  <path
+      android:pathData="M212.546,114.85l-4.123,12.685l-13.335,0l10.789,7.836l-4.122,12.683l10.791,-7.836l10.785,7.836l-4.123,-12.683l10.791,-7.836l-13.336,0z"
+      android:fillColor="#F0F0F0"/>
+</vector>

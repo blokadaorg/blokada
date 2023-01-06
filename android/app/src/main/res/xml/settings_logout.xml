@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="account_logout"
+        app:title="@string/account_header_logout">
+
+        <Preference
+            app:enabled="false"
+            app:key="logout_description"
+            app:summary="@string/account_logout_description"
+            app:title="" />
+
+        <EditTextPreference
+            app:key="logout_accountid"
+            app:summary="@string/account_id_status_unchanged"
+            app:title="@string/account_label_id" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="logout_help"
+        app:title="@string/universal_label_help">
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="logout_howtorestore"
+            app:title="@string/account_action_how_to_restore" />
+
+        <Preference
+            android:fragment="ui.web.WebFragment"
+            app:icon="@drawable/ic_baseline_help_outline_24"
+            app:key="logout_support"
+            app:title="@string/universal_action_contact_us" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

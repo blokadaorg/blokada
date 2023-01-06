@@ -1,0 +1,27 @@
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1500dp"
+    android:height="1000dp"
+    android:viewportWidth="48"
+    android:viewportHeight="32">
+  <path
+      android:pathData="M0,0h48v32h-48z"
+      android:fillColor="#c7291d"/>
+  <path
+      android:pathData="M14,13h20v6h-20z"
+      android:fillColor="#fff"/>
+  <path
+      android:pathData="M21,6h6v20h-6z"
+      android:fillColor="#fff"/>
+</vector>

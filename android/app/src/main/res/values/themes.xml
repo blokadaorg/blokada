@@ -1,0 +1,114 @@
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Blokada.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/light_accent</item>
+        <item name="colorPrimaryVariant">@color/orange_2</item>
+        <item name="colorOnPrimary">@color/light_background</item>
+        <item name="colorSecondary">@color/light_accent</item>
+        <item name="colorSecondaryVariant">@color/orange_2</item>
+        <item name="colorOnSecondary">@color/light_background</item>
+        <item name="android:statusBarColor">@color/light_background</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="android:colorBackground">@color/light_background</item>
+        <item name="android:colorBackgroundFloating">@color/light_backgroundSecondary</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorControlNormal">@color/light_text</item>
+        <item name="android:textColor">@color/light_text</item>
+        <item name="android:textColorPrimary">@color/light_text</item>
+        <item name="android:textColorSecondary">@color/light_textSecondary</item>
+        <item name="android:textColorTertiary">@color/light_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/dark_inactive</item>
+        <item name="android:shadowColor">@color/light_shadow</item>
+        <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorRingLibre1">@color/blue</item>
+        <item name="colorRingLibre2">@color/blue_2</item>
+        <item name="colorRingPlus1">@color/orange</item>
+        <item name="colorRingPlus2">@color/orange_2</item>
+        <item name="colorBgCloud">@color/blue_home_light</item>
+        <item name="colorBgPlus">@color/orange_home_light</item>
+    </style>
+
+    <style name="Theme.Blokada.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/dark_accent</item>
+        <item name="colorPrimaryVariant">@color/orange_2</item>
+        <item name="colorOnPrimary">@color/dark_background</item>
+        <item name="colorSecondary">@color/dark_accent</item>
+        <item name="colorSecondaryVariant">@color/orange_2</item>
+        <item name="colorOnSecondary">@color/dark_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="android:colorBackgroundFloating">@color/dark_backgroundSecondary</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorControlNormal">@color/dark_text</item>
+        <item name="android:textColor">@color/dark_text</item>
+        <item name="android:textColorPrimary">@color/dark_text</item>
+        <item name="android:textColorSecondary">@color/dark_textSecondary</item>
+        <item name="android:textColorTertiary">@color/dark_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/light_inactive</item>
+        <item name="android:shadowColor">@color/dark_shadow</item>
+        <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorRingLibre1">@color/blue</item>
+        <item name="colorRingLibre2">@color/blue_2</item>
+        <item name="colorRingPlus1">@color/orange</item>
+        <item name="colorRingPlus2">@color/orange_2</item>
+        <item name="colorBgCloud">@color/blue_home</item>
+        <item name="colorBgPlus">@color/orange_home</item>
+    </style>
+
+    <style name="Theme.Blokada.Retro" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/retro_green1</item>
+        <item name="colorPrimaryVariant">@color/retro_green2</item>
+        <item name="colorOnPrimary">@color/dark_background</item>
+        <item name="colorSecondary">@color/retro_green2</item>
+        <item name="colorSecondaryVariant">@color/retro_green2</item>
+        <item name="colorOnSecondary">@color/dark_background</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="android:colorBackgroundFloating">@color/dark_backgroundSecondary</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorControlNormal">@color/dark_text</item>
+        <item name="android:textColor">@color/dark_text</item>
+        <item name="android:textColorPrimary">@color/dark_text</item>
+        <item name="android:textColorSecondary">@color/dark_textSecondary</item>
+        <item name="android:textColorTertiary">@color/dark_inactive</item>
+        <item name="android:textColorTertiaryInverse">@color/light_inactive</item>
+        <item name="android:shadowColor">@color/dark_shadow</item>
+        <item name="actionBarStyle">@style/Widget.ActionBar.Blokada</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorRingLibre1">@color/retro_blue1</item>
+        <item name="colorRingLibre2">@color/retro_blue2</item>
+        <item name="colorRingPlus1">@color/retro_green1</item>
+        <item name="colorRingPlus2">@color/retro_green2</item>
+        <item name="colorBgCloud">@color/retro_blue2</item>
+        <item name="colorBgPlus">@color/retro_green1</item>
+    </style>
+
+    <style name="Theme.Blokada.Default" parent="Theme.Blokada.Light" />
+
+    <style name="Theme.Blokada.Translucent" parent="Theme.Blokada.Default">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

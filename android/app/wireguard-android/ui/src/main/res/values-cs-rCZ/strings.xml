@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="one">%d tunel nelze smazat: %s</item>
+        <item quantity="few">%d tunely nelze smazat: %s</item>
+        <item quantity="many">%d tunelů nelze smazat: %s</item>
+        <item quantity="other">%d tunelů nelze smazat: %s</item>
+    </plurals>
+    <plurals name="delete_success">
+        <item quantity="one">%d tunel byl smazán</item>
+        <item quantity="few">%d tunely byly smazány</item>
+        <item quantity="many">%d tunelů bylo smazáno</item>
+        <item quantity="other">%d tunelů bylo smazáno</item>
+    </plurals>
+    <plurals name="delete_title">
+        <item quantity="one">Vybrán %d tunel</item>
+        <item quantity="few">Vybrány %d tunely</item>
+        <item quantity="many">Vybráno %d tunelů</item>
+        <item quantity="other">Vybráno %d tunelů</item>
+    </plurals>
+    <plurals name="import_partial_success">
+        <item quantity="one">Importován %1$d z %2$d tunelů</item>
+        <item quantity="few">Importovány %1$d z %2$d tunelů</item>
+        <item quantity="many">Importováno %1$d z %2$d tunelů</item>
+        <item quantity="other">Importováno %1$d z %2$d tunelů</item>
+    </plurals>
+    <plurals name="import_total_success">
+        <item quantity="one">Importován %d tunel</item>
+        <item quantity="few">Importovány %d tunely</item>
+        <item quantity="many">Importováno %d tunelů</item>
+        <item quantity="other">Importováno %d tunelů</item>
+    </plurals>
+    <plurals name="set_excluded_applications">
+        <item quantity="one">%d vyloučená aplikace</item>
+        <item quantity="few">%d vyloučené aplikace</item>
+        <item quantity="many">%d vyloučených aplikací</item>
+        <item quantity="other">%d vyloučených aplikací</item>
+    </plurals>
+    <plurals name="set_included_applications">
+        <item quantity="one">%d zahrnutá aplikace</item>
+        <item quantity="few">%d zahrnuté aplikace</item>
+        <item quantity="many">%d zahrnutých aplikací</item>
+        <item quantity="other">%d zahrnutých aplikací</item>
+    </plurals>
+    <plurals name="n_excluded_applications">
+        <item quantity="one">%d vyloučena</item>
+        <item quantity="few">%d vyloučeny</item>
+        <item quantity="many">%d vyloučeno</item>
+        <item quantity="other">%d vyloučeno</item>
+    </plurals>
+    <plurals name="n_included_applications">
+        <item quantity="one">%d zahrnuta</item>
+        <item quantity="few">%d zahrnuty</item>
+        <item quantity="many">%d zahrnuto</item>
+        <item quantity="other">%d zahrnuto</item>
+    </plurals>
+    <string name="all_applications">Všechny aplikace</string>
+    <string name="exclude_from_tunnel">Vyloučit</string>
+    <string name="include_in_tunnel">Zahrnout pouze</string>
+    <plurals name="include_n_applications">
+        <item quantity="one">Zahrnout %d aplikaci</item>
+        <item quantity="few">Zahrnout %d aplikace</item>
+        <item quantity="many">Zahrnout %d aplikací</item>
+        <item quantity="other">Zahrnout %d aplikací</item>
+    </plurals>
+    <plurals name="exclude_n_applications">
+        <item quantity="one">Vyloučit %d aplikaci</item>
+        <item quantity="few">Vyloučit %d aplikace</item>
+        <item quantity="many">Vyloučit %d aplikací</item>
+        <item quantity="other">Vyloučit %d aplikací</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="one">každou sekundu</item>
+        <item quantity="few">každé %d sekundy</item>
+        <item quantity="many">každých %d sekund</item>
+        <item quantity="other">každých %d sekund</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="one">sekunda</item>
+        <item quantity="few">sekundy</item>
+        <item quantity="many">sekund</item>
+        <item quantity="other">sekund</item>
+    </plurals>
+    <string name="use_all_applications">Použít všechny aplikace</string>
+    <string name="add_peer">Přidat peera</string>
+    <string name="addresses">Adresy</string>
+    <string name="applications">Aplikace</string>
+    <string name="allow_remote_control_intents_summary_off">Externí aplikace nemohou přepínat tunely (doporučeno)</string>
+    <string name="allow_remote_control_intents_summary_on">Externí aplikace mohou přepínat tunely (pokročilé)</string>
+    <string name="allow_remote_control_intents_title">Povolit aplikace vzdálené správy</string>
+    <string name="allowed_ips">Povolené IP</string>
+    <string name="bad_config_context">%2$s položky %1$s</string>
+    <string name="bad_config_context_top_level">%s</string>
+    <string name="bad_config_error">%1$s v %2$s</string>
+    <string name="bad_config_explanation_pka">: Musí být kladný a maximálně 65535</string>
+    <string name="bad_config_explanation_positive_number">: Musí být kladný</string>
+    <string name="bad_config_explanation_udp_port">: Musí být platné číslo UDP portu</string>
+    <string name="bad_config_reason_invalid_key">Neplatný klíč</string>
+    <string name="bad_config_reason_invalid_number">Neplatné číslo</string>
+    <string name="bad_config_reason_invalid_value">Neplatná hodnota</string>
+    <string name="bad_config_reason_missing_attribute">Chybějící atribut</string>
+    <string name="bad_config_reason_missing_section">Chybějící sekce</string>
+    <string name="bad_config_reason_syntax_error">Syntaktická chyba</string>
+    <string name="bad_config_reason_unknown_attribute">Neznámý atribut</string>
+    <string name="bad_config_reason_unknown_section">Neznámá sekce</string>
+    <string name="bad_config_reason_value_out_of_range">Hodnota je mimo rozsah</string>
+    <string name="bad_extension_error">Soubor musí být .conf nebo .zip</string>
+    <string name="cancel">Zrušit</string>
+    <string name="config_delete_error">Nelze smazat konfigurační soubor %s</string>
+    <string name="config_exists_error">Konfigurace pro „%s“ již existuje</string>
+    <string name="config_file_exists_error">Konfigurační soubor „%s“ již existuje</string>
+    <string name="config_not_found_error">Konfigurační soubor „%s“ nebyl nalezen</string>
+    <string name="config_rename_error">Konfigurační soubor „%s“ nelze přejmenovat</string>
+    <string name="config_save_error">Nelze uložit konfiguraci pro „%1$s“: %2$s</string>
+    <string name="config_save_success">Konfigurace pro „%s“ byla úspěšně uložena</string>
+    <string name="create_activity_title">Vytvořit WireGuard tunel</string>
+    <string name="delete">Smazat</string>
+    <string name="log_viewer_pref_summary">Logy mohou pomoci s debuggingem</string>
+    <string name="log_viewer_pref_title">Zobrazit log aplikace</string>
+    <string name="log_viewer_title">Log</string>
+    <string name="logcat_error">Nelze spustit logcat: </string>
+    <string name="module_enabler_disabled_summary">Experimentální kernel modul může zlepšit výkon</string>
+    <string name="module_enabler_disabled_title">Povolit backend kernel modulu</string>
+    <string name="module_enabler_enabled_title">Vypnout backend kernel modulu</string>
+    <string name="module_installer_error">Něco se pokazilo. Zkuste to prosím znovu</string>
+    <string name="module_installer_initial">Experimentální kernel modul může zlepšit výkon</string>
+    <string name="module_installer_not_found">Pro toto zařízení nejsou dostupné žádné moduly</string>
+    <string name="module_installer_title">Stáhnout a nainstalovat kernel modul</string>
+    <string name="module_installer_working">Stahování a instalace…</string>
+    <string name="module_version_error">Nelze určit verzi kernel modulu</string>
+    <string name="mtu">MTU</string>
+    <string name="multiple_tunnels_summary_off">Zapnutí jednoho tunelu vypne ostatní tunely</string>
+    <string name="multiple_tunnels_summary_on">Více tunelů může být zapnuto najednou</string>
+    <string name="multiple_tunnels_title">Povolit více simultánních tunelů</string>
+    <string name="name">Název</string>
+</resources>

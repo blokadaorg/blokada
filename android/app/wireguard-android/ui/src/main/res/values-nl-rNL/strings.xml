@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="one">Kan %d tunnel niet verwijderen: %s</item>
+        <item quantity="other">Kan %d tunnels niet verwijderen: %s</item>
+    </plurals>
+</resources>

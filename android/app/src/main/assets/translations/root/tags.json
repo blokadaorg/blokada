@@ -1,0 +1,16 @@
+{ "strings": {
+    "recommended": "recommended",
+    "official": "official",
+    "adblocking": "adblocking",
+    "tracking": "tracking",
+    "privacy": "privacy",
+    "adult": "adult",
+    "porn": "porn",
+    "social": "social",
+    "regional": "regional",
+    "fake news": "fake news",
+    "gambling": "gambling",
+    "youtube": "youtube",
+    "phishing": "phishing",
+    "security": "security"
+} }

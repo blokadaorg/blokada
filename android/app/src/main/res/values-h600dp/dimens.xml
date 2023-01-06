@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources>
+    <dimen name="quad">64dp</dimen>
+    <dimen name="doubled">32dp</dimen>
+    <dimen name="oneandhalf">24dp</dimen>
+    <dimen name="normal">16dp</dimen>
+    <dimen name="half">8dp</dimen>
+
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon">40dp</dimen>
+    <dimen name="icon_bigger">48dp</dimen>
+    <dimen name="icon_verybig">60dp</dimen>
+    <dimen name="icon_huge">80dp</dimen>
+    <dimen name="icon_humonguous">96dp</dimen>
+
+    <dimen name="header_width">200dp</dimen>
+    <dimen name="header_width_payment">160dp</dimen>
+    <dimen name="header_height">32dp</dimen>
+
+    <dimen name="powerview">240dp</dimen>
+    <dimen name="powerview_below">48dp</dimen>
+    <dimen name="plusbutton_above">120dp</dimen>
+</resources>

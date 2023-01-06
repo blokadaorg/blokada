@@ -1,0 +1,83 @@
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Text.Link" parent="">
+        <item name="android:textColor">?android:attr/colorPrimary</item>
+    </style>
+
+    <style name="Text.Header" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.H2" parent="">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.H3" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.H4" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:attr/colorPrimary</item>
+    </style>
+
+    <style name="Text.Small" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Small.Primary" parent="">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.Plus.Primary" parent="">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.2</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?android:attr/textColor</item>
+    </style>
+
+    <style name="Text.Plus" parent="">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.2</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Design.BottomNavigationView.Blokada" parent="">
+        <item name="elevation">0dp</item>
+        <item name="colorPrimary">?android:attr/colorBackground</item>
+        <item name="background">?android:attr/colorBackground</item>
+        <item name="android:colorBackground">?android:attr/colorBackground</item>
+        <item name="android:textColorPrimary">?android:attr/textColor</item>
+        <item name="backgroundTint">?android:attr/colorBackgroundFloating</item>
+    </style>
+
+    <style name="Widget.ActionBar.Blokada"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+</resources>

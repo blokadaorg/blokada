@@ -1,0 +1,16 @@
+{ "strings": {
+    "recommended": "önerilen",
+    "official": "resmi",
+    "adblocking": "reklam engelleme",
+    "tracking": "izleme",
+    "privacy": "gizlilik",
+    "adult": "yetişkin",
+    "porn": "porno",
+    "social": "sosyal",
+    "regional": "bölgesel",
+    "fake news": "sahte haberler",
+    "gambling": "kumar",
+    "youtube": "youtube",
+    "phishing": "oltalama",
+    "security": "güvenlik"
+} }

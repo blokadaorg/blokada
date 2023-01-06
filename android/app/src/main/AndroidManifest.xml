@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.blokada">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <application
+        android:name="ui.MainApplication"
+        android:allowBackup="true"
+        android:backupAgent="service.BackupAgent"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Blokada.Default">
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="@string/backup_key" />
+
+        <activity
+            android:name="ui.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Intercept the success link redirected to after payment flow is finished -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app.blokada.org"
+                    android:pathPrefix="/success"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <!-- QuickSettings preferences - for now just redirect to the app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="ui.CommandActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Blokada.Translucent"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cmd"
+                    android:scheme="blocka" />
+                <data
+                    android:host="cmd.blocka.net"
+                    android:scheme="http" />
+            </intent-filter>
+
+            <!-- Legacy commands to be removed in the future -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="log"
+                    android:scheme="blocka" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="acc"
+                    android:scheme="blocka" />
+            </intent-filter>
+        </activity>
+
+        <!-- External actions support (like Tasker or trigger urls) -->
+        <activity
+            android:name="ui.TaskerActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Blokada.Translucent"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+
+        <activity-alias
+            android:name="ui.PluginActivity"
+            android:exported="true"
+            android:icon="@drawable/blokada_logo"
+            android:label="@string/app_name"
+            android:targetActivity="ui.TaskerActivity">
+            <!-- this Intent filter allows the plug-in to be discovered by the host. -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+            </intent-filter>
+        </activity-alias>
+
+        <receiver
+            android:name="ui.TaskerReceiver"
+            android:exported="true">
+
+            <!-- this Intent filter allows the plug-in to discovered by the host. -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="service.ExpirationReceiver" />
+
+        <receiver android:name="service.DozeReceiver" />
+
+        <service
+            android:name="com.wireguard.android.backend.GoBackend$VpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="engine.SystemTunnel"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="service.RestartJob"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name="service.ForegroundService" />
+
+        <service android:name="ui.CommandService" />
+
+        <service
+            android:name="ui.QuickSettingsToggle"
+            android:icon="@drawable/blokada_logo"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
+
+    </application>
+
+    <queries>
+        <package android:name="org.blokada.origin.alarm"/>
+        <package android:name="org.blokada.alarm.dnschanger"/>
+        <package android:name="org.blokada.fem.fdroid"/>
+        <package android:name="org.blokada.sex"/>
+    </queries>
+
+</manifest>

@@ -1,0 +1,257 @@
+/*
+ * This file is part of Blokada.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright © 2021 Blocka AB. All rights reserved.
+ *
+ * @author Karol Gusak (karol@blocka.net)
+ */
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "kotlin-kapt"
+
+android {
+    compileSdkVersion 31
+    ndkVersion "24.0.8215888"
+
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true
+        viewBinding = true
+    }
+
+    defaultConfig {
+        applicationId "org.blokada" // Not a real name, see flavors below
+        minSdkVersion 28
+        targetSdkVersion 31
+        versionCode 666022421
+        versionName "22.4.21"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+        }
+    }
+
+    buildTypes {
+        debug {
+            // By default it is a 'debuggable' build, signed with a debug key.
+        }
+
+        release {
+
+            def f = rootProject.file('keystore.properties')
+            if (f.exists()) {
+                println "Release build will use Blokada keystore"
+                Properties props = new Properties()
+                InputStream inputStream = new FileInputStream(f)
+                props.load(inputStream)
+                inputStream.close()
+
+                signingConfigs {
+                    release {
+                        storeFile rootProject.file(props['BLOKADA_KEY_PATH'])
+                        storePassword props['BLOKADA_STORE_PASSWORD']
+                        keyAlias 'blokada'
+                        keyPassword props['BLOKADA_KEY_PASSWORD']
+                    }
+                }
+                signingConfig signingConfigs.release
+            }
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        beta {
+            // 'Beta' are builds used for internal and external beta testing.
+            initWith(release)
+            matchingFallbacks = ['release']
+            debuggable = true
+            minifyEnabled false
+        }
+    }
+
+    // It needs to be defined in order for the flavor setup to work.
+    flavorDimensions("model")
+
+    productFlavors {
+        five {
+            // Blokada 5 lands on blokada.org, and secondary app stores (Samsung, Huawei)
+            applicationId "org.blokada.origin.alarm"
+            minSdkVersion 21
+        }
+
+        six {
+            // Blokada 6 that lands on Google Play (Cloud/Plus only).
+            applicationId "org.blokada.sex"
+        }
+
+        googleslim {
+            // googleslim is a legacy "Slim" build that got banned from Google Play.
+            // It'll be phased out eventually once users are migrated away.
+            applicationId "org.blokada.alarm.dnschanger"
+            minSdkVersion 21
+        }
+
+        escaped {
+            // escaped build can be installed on top of googleslim build to get all features.
+            applicationId "org.blokada.alarm.dnschanger"
+            minSdkVersion 21
+        }
+
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/legacy/kotlin'
+
+        main.java.srcDirs += 'src/engine/kotlin'
+        main.jniLibs.srcDirs += 'src/engine/jniLibs'
+
+        main.java.srcDirs += 'wireguard-android/ui/src/main/java'
+        main.res.srcDirs += 'wireguard-android/ui/src/main/res'
+
+        debug.java.srcDirs += 'src/mock/kotlin'
+
+        googleslim.res.srcDirs += 'src/google/res'
+        googleslim.java.srcDirs += 'src/google/kotlin'
+        googleslim.java.srcDirs += 'src/libre/kotlin'
+        googleslim.assets.srcDirs += 'src/libre/assets'
+        googleslim.jniLibs.srcDirs += 'src/libre/jniLibs'
+        googleslim.res.srcDirs += 'src/libre/res'
+        googleslim.manifest.srcFile 'src/google/AndroidManifest.xml'
+
+        five.res.srcDirs += 'src/notgoogle/res'
+        five.java.srcDirs += 'src/notgoogle/kotlin'
+        five.java.srcDirs += 'src/libre/kotlin'
+        five.assets.srcDirs += 'src/libre/assets'
+        five.jniLibs.srcDirs += 'src/libre/jniLibs'
+        five.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        five.res.srcDirs += 'src/libre/res'
+
+        escaped.res.srcDirs += 'src/notgoogle/res'
+        escaped.java.srcDirs += 'src/notgoogle/kotlin'
+        escaped.java.srcDirs += 'src/libre/kotlin'
+        escaped.assets.srcDirs += 'src/libre/assets'
+        escaped.jniLibs.srcDirs += 'src/libre/jniLibs'
+        escaped.manifest.srcFile 'src/libre/AndroidManifest.xml'
+        escaped.res.srcDirs += 'src/libre/res'
+
+        six.java.srcDirs += 'src/notgoogle/kotlin'
+        six.java.srcDirs += 'src/notlibre/kotlin'
+        six.manifest.srcFile 'src/notlibre/AndroidManifest.xml'
+        six.res.srcDirs += 'src/six/res'
+        six.res.srcDirs += 'src/notlibre/res'
+
+        // Do not include translations in debug builds (does not clutter search during development)
+        release.res.srcDirs += 'src/translations/res'
+        beta.res.srcDirs += 'src/translations/res'
+    }
+}
+
+dependencies {
+    // forgot what is it for
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // androidx and kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.7.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //implementation 'androidx.navigation:navigation-fragment:2.4.1'
+    //implementation 'androidx.navigation:navigation-ui:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.webkit:webkit:1.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    // json
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+
+    // http and rest
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+
+    // dynamic translations
+    implementation 'com.akexorcist:localization:1.2.9'
+
+    // engine deps
+    implementation 'org.pcap4j:pcap4j-core:1.7.7'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
+    implementation 'dnsjava:dnsjava:2.1.9'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
+
+    // wireguard deps
+    implementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.annotation:annotation:1.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.activity:activity-ktx:1.5.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.1"
+
+
+    // unzip default blocklist
+    implementation 'net.lingala.zip4j:zip4j:2.6.4'
+
+    // External integration (Tasker)
+    implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
+
+    // Google in app billing
+    implementation 'com.android.billingclient:billing:5.0.0'
+    implementation 'com.android.billingclient:billing-ktx:5.0.0'
+
+    // Hopefully normal date api?
+    implementation 'net.danlew:android.joda:2.10.14'
+
+    // Biometric api to protect account id
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
+
+    // Include our Flutter "common" module that is shared for both android and ios
+    implementation project(':flutter')
+
+    // test deps
+    testImplementation 'junit:junit:'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // legacy (for import of v4 settings)
+    implementation 'io.paperdb:paperdb:2.7.1'
+}
+
+apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
+
+cargo {
+    module  = "../blocka_engine"
+    libname = "blocka_dns"
+    targets = ["arm", "arm64", "x86", "x86_64"]
+    profile = "release"
+}

@@ -1,0 +1,16 @@
+{ "strings": {
+    "recommended": "рекомендуется",
+    "official": "официально",
+    "adblocking": "блокировка рекламы",
+    "tracking": "слежение",
+    "privacy": "приватность",
+    "adult": "взрослый",
+    "porn": "порно",
+    "social": "социальный",
+    "regional": "региональный",
+    "fake news": "фейковые новости",
+    "gambling": "азартные игры",
+    "youtube": "youtube",
+    "phishing": "фишинг",
+    "security": "безопасность"
+} }

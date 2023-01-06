@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#33C75A</color>
+    <color name="red">#FF3B30</color>
+
+    <color name="gray_100">#F5F7FA</color>
+    <color name="gray_200">#E5E5EA</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_600">#808080</color>
+    <color name="gray_800">#5A5A5A</color>
+    <color name="gray_900">#1C1C1E</color>
+    <color name="gray_999">#121212</color>
+
+    <color name="orange">#FF9400</color>
+    <color name="orange_2">#EF6049</color>
+    <color name="blue">#007AFF</color>
+    <color name="blue_2">#5856D5</color>
+
+    <color name="blue_home">#054079</color>
+    <color name="blue_home_light">#6198CD</color>
+    <color name="blue_bg">#66007AFF</color>
+    <color name="orange_bg">#66FF9400</color>
+    <color name="orange_home">#8B5003</color>
+    <color name="orange_home_light">#F0B262</color>
+
+</resources>

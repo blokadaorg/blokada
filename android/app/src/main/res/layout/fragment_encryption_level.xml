@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/colorBackgroundFloating"
+    android:orientation="vertical"
+    android:padding="@dimen/half"
+    tools:context="ui.home.LocationFragment">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/icon"
+        android:layout_height="@dimen/icon"
+        android:padding="@dimen/half"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                <ImageView
+                    android:id="@+id/encryption_icon"
+                    android:layout_width="@dimen/icon_humonguous"
+                    android:layout_height="@dimen/icon_humonguous"
+                    android:src="@drawable/levels" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/oneandhalf">
+
+                    <TextView
+                        android:id="@+id/encryption_level"
+                        style="@style/Text.Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_encrypt_level_low"
+                        android:textColor="?android:attr/textColor" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/doubled"
+                    android:layout_marginBottom="@dimen/normal"
+                    android:background="?android:attr/shadowColor" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
+
+                        <LinearLayout
+                            android:id="@+id/encryption_dns"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:alpha="0.3"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/encryption_dns_icon"
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_close_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/account_encrypt_label_dns_only" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/account_encrypt_desc_dns_only" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/encryption_everything"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/doubled"
+                            android:alpha="0.3"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/encryption_everything_icon"
+                                android:layout_width="@dimen/icon"
+                                android:layout_height="@dimen/icon"
+                                android:layout_marginEnd="@dimen/normal"
+                                android:src="@drawable/ic_baseline_close_24"
+                                android:tint="?android:attr/colorPrimary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/Text.H3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/half"
+                                    android:text="@string/account_encrypt_label_everything" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/account_encrypt_desc_everything" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/normal"
+                            android:layout_marginBottom="@dimen/normal"
+                            android:background="?android:attr/shadowColor" />
+
+                        <TextView
+                            style="@style/Text.H3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/half"
+                            android:text="@string/activity_information_header"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_encrypt_label_dns" />
+
+                            <TextView
+                                android:id="@+id/home_detail_dns"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Blokada DNS" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_encrypt_label_dns_only" />
+
+                            <TextView
+                                android:id="@+id/home_detail_dns_doh"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/universal_action_no" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_lease_label_location" />
+
+                            <TextView
+                                android:id="@+id/home_detail_vpn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/universal_label_none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/Text.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ping" />
+
+                            <TextView
+                                android:id="@+id/home_detail_ping"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="-" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/normal"
+                            android:layout_marginBottom="@dimen/normal"
+                            android:background="?android:attr/shadowColor" />
+
+                        <Button
+                            android:id="@+id/encryption_continue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/universal_action_close" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

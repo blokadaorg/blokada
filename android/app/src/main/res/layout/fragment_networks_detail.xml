@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/network_icon"
+                android:layout_width="@dimen/icon_huge"
+                android:layout_height="@dimen/icon_huge"
+                android:src="@drawable/ic_baseline_wifi_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/normal">
+
+                <TextView
+                    android:id="@+id/network_name"
+                    style="@style/Text.H2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="My Super Long Little Home WiFi 5G Network" />
+
+                <TextView
+                    android:id="@+id/network_desc"
+                    style="@style/Text.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/networks_label_specific_network" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/normal"
+            android:background="?android:attr/shadowColor" />
+
+        <TextView
+            style="@style/Text.H3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half"
+            android:text="@string/pack_configurations_header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/doubled">
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_encryptdns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_lock_check"
+                app:name="@string/networks_action_encrypt_dns" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_changedns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_baseline_no_encryption_24"
+                app:name="@string/networks_action_use_dns" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_networkdns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_baseline_dns_24"
+                app:name="@string/networks_action_use_network_dns" />
+
+            <ui.advanced.packs.OptionView
+                android:id="@+id/network_action_forcelibre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconRef="@drawable/ic_map_marker_off"
+                app:name="@string/networks_action_force_libre_mode" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/network_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/normal"
+                android:background="?android:attr/shadowColor" />
+
+            <TextView
+                style="@style/Text.H3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half"
+                android:layout_marginBottom="@dimen/normal"
+                android:text="@string/activity_information_header"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/network_summary_encrypt_dns"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half"
+                android:text="@string/networks_summary_encrypt_dns" />
+
+            <TextView
+                android:id="@+id/network_summary_use_dns"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half"
+                android:text="@string/networks_summary_use_dns" />
+
+            <TextView
+                android:id="@+id/network_summary_use_dns_plus"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half"
+                android:text="@string/networks_summary_network_dns_and_plus_mode" />
+
+            <TextView
+                android:id="@+id/network_summary_force_libre"
+                style="@style/Text.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/half"
+                android:text="@string/networks_summary_force_libre_mode" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

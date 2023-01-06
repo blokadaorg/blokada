@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="one">Kunde inte ta bort %d tunnel: %s</item>
+        <item quantity="other">Kunde inte ta bort %d tunnlar: %s</item>
+    </plurals>
+    <plurals name="delete_success">
+        <item quantity="one">Tog bort %d tunneln</item>
+        <item quantity="other">Tog bort %d tunnlar</item>
+    </plurals>
+    <plurals name="delete_title">
+        <item quantity="one">%d tunnel vald</item>
+        <item quantity="other">%d tunnlar valda</item>
+    </plurals>
+    <plurals name="import_partial_success">
+        <item quantity="one">Importerade %1$d av %2$d tunnlar</item>
+        <item quantity="other">Importerade %1$d av %2$d tunnlar</item>
+    </plurals>
+    <plurals name="import_total_success">
+        <item quantity="one">Importerade %d tunnel</item>
+        <item quantity="other">Importerade %d tunnlar</item>
+    </plurals>
+    <plurals name="set_excluded_applications">
+        <item quantity="one">%d exkluderad applikation</item>
+        <item quantity="other">%d Exkluderade applikationer</item>
+    </plurals>
+    <plurals name="set_included_applications">
+        <item quantity="one">%d inkluderad applikation</item>
+        <item quantity="other">%d inkluderade applikationer</item>
+    </plurals>
+    <plurals name="n_excluded_applications">
+        <item quantity="one">%d exkluderad</item>
+        <item quantity="other">%d exkluderade</item>
+    </plurals>
+    <plurals name="n_included_applications">
+        <item quantity="one">%d inkluderad</item>
+        <item quantity="other">%d inkluderade</item>
+    </plurals>
+    <string name="all_applications">Alla applikationer</string>
+    <string name="exclude_from_tunnel">Exkludera</string>
+    <string name="include_in_tunnel">Inkludera endast</string>
+    <plurals name="include_n_applications">
+        <item quantity="one">Inkludera %d app</item>
+        <item quantity="other">Inkludera %d appar</item>
+    </plurals>
+    <plurals name="exclude_n_applications">
+        <item quantity="one">Exkludera %d app</item>
+        <item quantity="other">Exkludera %d appar</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="one">varje sekund</item>
+        <item quantity="other">varje %d sekunder</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="one">sekund</item>
+        <item quantity="other">sekunder</item>
+    </plurals>
+    <string name="use_all_applications">Använd alla appar</string>
+    <string name="add_peer">Lägg till klient</string>
+    <string name="addresses">Adresser</string>
+    <string name="applications">Applikationer</string>
+    <string name="allow_remote_control_intents_summary_off">Externa appar kan inte växla tunnlar (rekommenderas)</string>
+    <string name="allow_remote_control_intents_summary_on">Externa appar kan växla tunnlar (avancerat)</string>
+    <string name="allow_remote_control_intents_title">Tillåt fjärrstyrningsappar</string>
+    <string name="allowed_ips">Tillåtna IP-adresser</string>
+    <string name="bad_config_context_top_level">%s</string>
+    <string name="bad_config_error">%1$s i %2$s</string>
+    <string name="bad_config_explanation_pka">: Måste vara positivt och högst 65535</string>
+    <string name="bad_config_explanation_positive_number">: Måste vara positivt</string>
+    <string name="bad_config_explanation_udp_port">: Måste vara ett giltigt UDP-portnummer</string>
+    <string name="bad_config_reason_invalid_key">Ogiltig nyckel</string>
+    <string name="bad_config_reason_invalid_number">Ogiltigt nummer</string>
+    <string name="bad_config_reason_invalid_value">Ogiltigt värde</string>
+    <string name="bad_config_reason_missing_attribute">Attribut saknas</string>
+    <string name="bad_config_reason_missing_section">Avsnitt saknas</string>
+    <string name="bad_config_reason_syntax_error">Syntaxfel</string>
+    <string name="bad_config_reason_unknown_attribute">Okänt attribut</string>
+    <string name="bad_config_reason_unknown_section">Okänt avsnitt</string>
+    <string name="bad_config_reason_value_out_of_range">Värde utanför giltigt intervall</string>
+    <string name="bad_extension_error">Filen måste vara .conf eller .zip</string>
+    <string name="cancel">Avbryt</string>
+    <string name="config_delete_error">Kan inte ta bort konfigurationsfilen %s</string>
+    <string name="config_exists_error">Konfiguration för ”%s” finns redan</string>
+    <string name="config_file_exists_error">Konfigurationsfil ”%s” finns redan</string>
+    <string name="config_not_found_error">Konfigurationsfil ”%s” hittades inte</string>
+    <string name="config_rename_error">Kan inte byta namn på konfigurationsfil ”%s”</string>
+    <string name="config_save_error">Kan inte spara konfigurationen för ”%1$s”: %2$s</string>
+    <string name="config_save_success">Konfigurationen för ”%s ” sparades</string>
+    <string name="create_activity_title">Skapa WireGuard Tunnel</string>
+    <string name="create_from_file">Importera från fil eller arkiv</string>
+    <string name="create_from_qr_code">Skanna från QR-kod</string>
+    <string name="create_output_dir_error">Kan inte skapa utdatakatalog</string>
+    <string name="create_temp_dir_error">Kan inte skapa lokal temporär katalog</string>
+    <string name="create_tunnel">Skapa tunnel</string>
+    <string name="copied_to_clipboard">%s kopierades till urklipp</string>
+    <string name="dark_theme_summary_off">Använder just nu ljust (dag) tema</string>
+    <string name="dark_theme_summary_on">Använder just nu mörkt (natt) tema</string>
+    <string name="dark_theme_title">Använd mörkt tema</string>
+    <string name="delete">Radera</string>
+    <string name="tv_delete">Välj tunnel att ta bort</string>
+    <string name="tv_select_a_storage_drive">Välj en lagringsenhet</string>
+    <string name="tv_no_file_picker">Installera ett filhanteringsverktyg för att bläddra bland filer</string>
+    <string name="tv_add_tunnel_get_started">Lägg till en tunnel för att komma igång</string>
+    <string name="disable_config_export_title">Inaktivera export av konfiguration</string>
+    <string name="disable_config_export_description">Inaktivering av konfigurationsexport gör privata nycklar mindre tillgängliga</string>
+    <string name="dns_servers">DNS-servrar</string>
+    <string name="edit">Redigera</string>
+    <string name="endpoint">Ändpunkt</string>
+    <string name="error_down">Fel vid nedtagning av tunnel: %s</string>
+    <string name="error_fetching_apps">Fel vid hämtning av applista: %s</string>
+    <string name="error_root">Vänligen få rootbehörighet och försök igen</string>
+    <string name="log_saver_activity_label">Spara logg</string>
+    <string name="log_viewer_pref_summary">Loggar kan hjälpa till med felsökning</string>
+    <string name="log_viewer_pref_title">Visa applikationslogg</string>
+    <string name="log_viewer_title">Logg</string>
+    <string name="logcat_error">Kunde inte köra logcat: </string>
+    <string name="module_enabler_disabled_summary">Den experimentella kärnmodulen kan förbättra prestanda</string>
+    <string name="module_enabler_disabled_title">Aktivera backend för kärnmodul</string>
+    <string name="module_enabler_enabled_summary">Den långsammare backend för användarrymden kan förbättra stabiliteten</string>
+    <string name="module_enabler_enabled_title">Inaktivera backend för kärnmodul</string>
+    <string name="module_installer_error">Något gick fel. Vänligen försök igen</string>
+    <string name="module_installer_initial">Den experimentella kärnmodulen kan förbättra prestanda</string>
+    <string name="module_installer_not_found">Inga moduler finns tillgängliga för din enhet</string>
+    <string name="module_installer_title">Ladda ner och installera kärnmodul</string>
+    <string name="module_installer_working">Hämtar och installerar…</string>
+    <string name="module_version_error">Kunde inte bestämma version av kärnmodulen</string>
+    <string name="mtu">MTU</string>
+    <string name="multiple_tunnels_summary_off">Att slå på en tunnel stänger av andra</string>
+    <string name="multiple_tunnels_summary_on">Flera tunnlar kan slås på samtidigt</string>
+    <string name="multiple_tunnels_title">Tillåt flera samtidiga tunnlar</string>
+    <string name="name">Namn</string>
+    <string name="no_config_error">Försöker bygga en tunnel utan konfiguration</string>
+    <string name="no_configs_error">Inga konfigurationer hittades</string>
+    <string name="no_tunnels_error">Inga tunnlar finns</string>
+    <string name="parse_error_generic">sträng</string>
+    <string name="parse_error_inet_address">IP-adress</string>
+    <string name="parse_error_inet_endpoint">endpoint</string>
+    <string name="parse_error_inet_network">IP-nätverk</string>
+    <string name="parse_error_integer">nummer</string>
+    <string name="parse_error_reason">Kan inte tolka %1$s ”%2$s”</string>
+    <string name="peer">Klient</string>
+    <string name="permission_label">kontrollera WireGuard tunnlar</string>
+    <string name="persistent_keepalive">Beständig keepalive</string>
+    <string name="pre_shared_key">Fördelad nyckel</string>
+    <string name="pre_shared_key_enabled">aktiverad</string>
+    <string name="private_key">Privat nyckel</string>
+    <string name="public_key">Publik nyckel</string>
+    <string name="qr_code_hint">Tips: generera med `qrencode -t ansiutf8 &lt; tunnel.conf`.</string>
+    <string name="restore_on_boot_summary_off">Kommer inte ta upp aktiverade tunnlar vid uppstart</string>
+    <string name="restore_on_boot_summary_on">Kommer ta upp aktiverade tunnlar vid uppstart</string>
+    <string name="restore_on_boot_title">Återställ vid uppstart</string>
+    <string name="save">Spara</string>
+    <string name="select_all">Markera alla</string>
+    <string name="settings">Inställningar</string>
+    <string name="shell_exit_status_read_error">Shell kan inte läsa avslutningsstatus</string>
+    <string name="shell_marker_count_error">Shell förväntade sig 4 markörer, tog emot %d</string>
+    <string name="shell_start_error">Shell kunde inte starta: %d</string>
+    <string name="success_application_will_restart">Framgång. Applikationen kommer nu att starta om…</string>
+    <string name="toggle_all">Växla alla</string>
+    <string name="toggle_error">Fel vid växling av WireGuard-tunnel: %s</string>
+</resources>

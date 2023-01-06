@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_home_cloud.xml" value="0.2325" />
+        <entry key="app/src/main/res/drawable/bg_home_cloud_light.xml" value="0.162" />
+        <entry key="app/src/main/res/drawable/bg_home_off.xml" value="0.1245" />
+        <entry key="app/src/main/res/drawable/bg_home_plus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_payment_group_cloud.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/bg_payment_group_plus.xml" value="0.2575" />
+        <entry key="app/src/main/res/drawable/bg_payment_item_cloud.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/bg_payment_item_plus.xml" value="0.2575" />
+        <entry key="app/src/main/res/drawable/flag_ae.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_ca.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_ch.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_de.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_fr.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_gb.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_jp.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_nl.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_sg.xml" value="0.141" />
+        <entry key="app/src/main/res/drawable/flag_us.xml" value="0.141" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_activated.xml" value="0.1656534954407295" />
+        <entry key="app/src/main/res/layout/fragment_ads_counter.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_adscounter.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_afteractivated.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_connissues.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_dnschoice.xml" value="0.10739614994934144" />
+        <entry key="app/src/main/res/layout/fragment_encryption_level.xml" value="0.12613981762917933" />
+        <entry key="app/src/main/res/layout/fragment_firsttime.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home_container.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_networks.xml" value="0.12462006079027356" />
+        <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.2740628166160081" />
+        <entry key="app/src/main/res/layout/fragment_payment.xml" value="0.11930091185410334" />
+        <entry key="app/src/main/res/layout/fragment_payment_cloud.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_payment_features.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_payment_features_cloud.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/fragment_payment_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_retentino.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_stats.xml" value="0.1889564336372847" />
+        <entry key="app/src/main/res/layout/fragment_stats_detail.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/fragment_stats_device.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_stats_filter.xml" value="0.23052536231884058" />
+        <entry key="app/src/main/res/layout/fragment_vpnprofile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_web.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_button.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/item_option.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/item_payment.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/view_retention.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3564102564102564" />
+        <entry key="app/src/main/res/menu/stats_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/settings_account.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/xml/settings_app.xml" value="0.20972644376899696" />
+        <entry key="app/src/notgoogle/res/menu/home_menu.xml" value="0.1" />
+        <entry key="app/src/notgoogle/res/xml/settings_main.xml" value="0.28532608695652173" />
+        <entry key="app/src/notlibre/res/xml/settings_app.xml" value="0.20972644376899696" />
+        <entry key="app/src/six/res/menu/home_menu.xml" value="0.1" />
+        <entry key="app/src/six/res/xml/settings_main.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

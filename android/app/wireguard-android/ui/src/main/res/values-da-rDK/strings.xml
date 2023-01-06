@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="one">Kan ikke slette %d tunnel: %s</item>
+        <item quantity="other">Ikke i stand til at slette %d tunneler: %s</item>
+    </plurals>
+    <plurals name="delete_success">
+        <item quantity="one">Slettede %d tunnel</item>
+        <item quantity="other">%d tunneller blev slettet</item>
+    </plurals>
+</resources>

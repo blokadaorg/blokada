@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="ui.home.PaymentItemView">
+
+    <LinearLayout
+        android:id="@+id/payment_item_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_payment_item_plus"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/payment_item_header"
+            style="@style/Text.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_plan_cta_annual" />
+
+        <TextView
+            android:id="@+id/payment_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_subscription_per_year" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/payment_item_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="($5.17 per month. Save 20%)"
+        android:textColor="?android:attr/textColorTertiaryInverse" />
+
+    <TextView
+        android:id="@+id/payment_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:paddingTop="@dimen/half"
+        android:paddingStart="@dimen/doubled"
+        android:paddingEnd="@dimen/doubled"
+        android:gravity="center"
+        android:text="Pay after 7 days. Subscription auto-renews every year until canceled."
+        android:textColor="?android:attr/textColorPrimary" />
+
+</LinearLayout>

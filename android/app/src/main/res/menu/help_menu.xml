@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/help_help"
+        android:icon="@drawable/ic_baseline_help_outline_24"
+        android:title="@string/universal_action_help" />
+
+    <item
+        android:id="@+id/help_logs"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="Logs" />
+
+    <item
+        android:id="@+id/help_sharelog"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="@string/universal_action_share_log" />
+
+    <item
+        android:id="@+id/help_marklog"
+        android:icon="@drawable/ic_baseline_color_lens_24"
+        android:title="Mark log" />
+
+    <item
+        android:id="@+id/help_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/main_tab_settings" />
+
+<!--    <item-->
+<!--        android:id="@+id/help_debug"-->
+<!--        android:icon="@drawable/ic_baseline_bug_report_24"-->
+<!--        android:title="Debug tools" />-->
+
+</menu>

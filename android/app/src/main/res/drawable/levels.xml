@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:minLevel="2" android:maxLevel="2" android:drawable="@drawable/level_two" />
+    <item android:minLevel="1" android:maxLevel="1" android:drawable="@drawable/level_one" />
+    <item android:maxLevel="2" android:drawable="@drawable/level_zero" />
+</level-list>

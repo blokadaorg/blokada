@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="app_category"
+        app:title="@string/account_section_header_general">
+
+        <ListPreference
+            app:icon="@drawable/ic_baseline_language_24"
+            app:key="app_language"
+            app:title="@string/app_settings_language_label"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:icon="@drawable/ic_baseline_color_lens_24"
+            app:key="app_theme"
+            app:title="@string/app_settings_theme_label"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_refresh_24"
+            app:key="app_startonboot"
+            app:title="@string/app_settings_start_on_boot" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="app_category_advanced"
+        app:title="@string/app_settings_section_advanced">
+
+        <ListPreference
+            app:icon="@drawable/ic_baseline_app_settings_alt_24"
+            app:key="app_useforeground"
+            app:title="@string/app_settings_section_use_foreground"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:icon="@drawable/ic_baseline_wifi_24"
+            app:key="app_ping"
+            app:title="Ping networks"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:icon="@drawable/ic_baseline_open_in_browser_24"
+            app:key="app_browser"
+            app:title="@string/app_settings_browser_label"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="app_category_system"
+        app:title="@string/app_settings_section_system">
+        <Preference
+            app:key="app_info"
+            app:title="@string/app_settings_action_app_info"
+            />
+        <Preference
+            app:key="app_vpn"
+            app:title="@string/app_settings_action_vpn_profile"/>
+        <Preference
+            app:key="app_notifications"
+            app:title="@string/app_settings_action_notifications"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="app_category_debug"
+        app:title="@string/app_settings_section_details">
+
+        <Preference
+            app:enabled="true"
+            app:key="app_details"
+            app:summary="..."
+            app:title="" />
+
+        <Preference
+            app:enabled="true"
+            app:key="app_config"
+            app:summary="..."
+            app:title="" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

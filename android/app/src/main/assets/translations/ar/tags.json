@@ -1,0 +1,16 @@
+{ "strings": {
+    "recommended": "يُنصح به",
+    "official": "رسمي",
+    "adblocking": "حَظْر الإعلانات",
+    "tracking": "تَتبُّع",
+    "privacy": "الخصوصيّة",
+    "adult": "للبالغين",
+    "porn": "الإباحيّة",
+    "social": "التواصل الاجتماعي",
+    "regional": "إقليمي",
+    "fake news": "أخبار مزيَّفة",
+    "gambling": "القمار",
+    "youtube": "يوتيوب",
+    "phishing": "التصيُّد الإحتيالي",
+    "security": "الحماية"
+} }
