@@ -24,6 +24,8 @@ echo $commit
 ./gradlew tunnel:build
 cp tunnel/build/outputs/aar/tunnel-release.aar ../app/wireguard-android/lib/wg-tunnel.aar
 
+cd ../
+
 git commit -am "$commit"
 
 echo "Done."
