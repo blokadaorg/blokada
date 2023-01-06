@@ -1,3 +1,6 @@
 [submodule "translate"]
 	path = translate
 	url = https://github.com/blokadaorg/translate.git
+[submodule "six-common"]
+	path = six-common
+	url = https://github.com/blokadaorg/six-common.git
