@@ -1,4 +1,6 @@
 .DS_Store
+local.properties
+
 .dart_tool/
 
 .packages
