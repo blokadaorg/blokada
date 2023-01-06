@@ -14,8 +14,8 @@ echo $commit
 
 cd ../../
 
-echo "Running gen-l10n for common..."
-flutter gen-l10n
+#echo "Running gen-l10n for common..."
+#flutter gen-l10n
 
 git commit -am "$commit"
 
