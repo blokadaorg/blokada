@@ -15,9 +15,7 @@ echo $commit
 cd ../../
 
 echo "Running swiftgen for ios..."
-cd ios/
 swiftgen
-cd ../
 
 
 git commit -am "$commit"
