@@ -4,3 +4,6 @@
 [submodule "six-common"]
 	path = six-common
 	url = https://github.com/blokadaorg/six-common.git
+[submodule "wireguard-android"]
+	path = wireguard-android
+	url = https://github.com/blokadaorg/wireguard-android
