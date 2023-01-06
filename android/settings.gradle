@@ -10,7 +10,7 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-rootProject.name = "Blokada"
+rootProject.name = "six-android"
 include ':app'
 
 setBinding(new Binding([gradle: this]))
