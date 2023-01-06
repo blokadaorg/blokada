@@ -5,8 +5,8 @@ echo "Syncing strings..."
 cd translate/scripts
 git checkout master
 git pull
-hash=$(git rev-parse --short HEAD)
-commit="translate: sync strings to: $hash"
+hash=$(git describe --abbrev=4 --always --tags --dirty)
+commit="sync: update translate strings to: $hash"
 
 echo $commit
 
