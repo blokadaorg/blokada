@@ -34,7 +34,7 @@ object BlockaApiService {
     private val processingRepo by lazy { Repos.processing }
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://20221208t152901-dot-blokada-vpn.uc.r.appspot.com/")
+        .baseUrl("https://api.blocka.net/")
         .addConverterFactory(MoshiConverterFactory.create(JsonSerializationService.moshi))
         .client(http.getClient())
         .build()
