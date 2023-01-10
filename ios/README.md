@@ -6,7 +6,7 @@ Want to try it out? **[Click here to open Apple App Store](https://go.blokada.or
 
 ## Difference to Blokada 5
 
-There is also Blokada 5 with on-device adblocking (as opposed to cloud adblocking of Blokada 6). It does not require subscription, and is entirely free to run.
+There is also Blokada 5 with on-device adblocking (as opposed to cloud adblocking of Blokada 6). It does not require subscription, and is entirely free to run. Blokada 5 is currently available only on Android.
 
 Both editions are being developed independently. See our main Github page for the source code.
 
