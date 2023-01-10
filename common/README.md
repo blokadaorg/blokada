@@ -4,7 +4,7 @@ The common module used in both iOS and Android apps of Blokada 6.
 
 It contains the new Home screen with the analytics.
 
-Want to try it out? **[Click here to open Google Play Store](https://go.blokada.org/play_cloud)**.
+Want to see it in action? **Get Blokada 6 [on Google Play Store](https://go.blokada.org/play_cloud) or [on Apple App Store](https://go.blokada.org/appstore)**.
 
 ## Getting started
 
