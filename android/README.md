@@ -1,8 +1,14 @@
-# Blokada 5
+# Blokada 6
 
-Blokada 5 is the next generation of the well known open source mobile ad blocker and privacy app.
+Blokada 6 is the newest edition of the well known open source mobile ad blocker and privacy app. It requires a subscription to run.
 
-Want to try it out? **[Click here to download Blokada](https://go.blokada.org/download_section)**.
+Want to try it out? **[Click here to open Google Play Store](https://go.blokada.org/play_cloud)**.
+
+## Difference to Blokada 5
+
+There is also Blokada 5 with on-device adblocking (as opposed to cloud adblocking of Blokada 6). It does not require subscription, and is entirely free to run.
+
+Both editions are being developed independently. See our main Github page for the source code.
 
 ## Getting started
 
@@ -14,13 +20,13 @@ The Blokada community welcomes everyone! before you ask a question, please get y
 
 We invite you to join any of our network and stay up to date with the newest developments.
 
-[Forums](https://go.blokada.org/forum) | [Telegram](https://go.blokada.org/chat) | [Keybase](https://keybase.io/blocka) | [Twitter](https://go.blokada.org/social_twitter) | [Facebook](https://go.blokada.org/social_facebook)
+[Forums](https://go.blokada.org/forum) | [Telegram](https://go.blokada.org/chat) | [Twitter](https://go.blokada.org/social_twitter) | [Facebook](https://go.blokada.org/social_facebook)
 
 ## Issues and feature requests
 
 If you found a bug, or have an idea for new functionality, feel free to report it on the issue tracker - just use search beforehand.
 
-[Issue tracker](https://go.blokada.org/issue)
+[Issue tracker](https://github.com/blokadaorg/six-android/issues)
 
 
 ## Warning about fake websites
