@@ -4,3 +4,6 @@
 [submodule "six-android"]
 	path = six-android
 	url = https://github.com/blokadaorg/six-android.git
+[submodule "six-ios"]
+	path = six-ios
+	url = https://github.com/blokadaorg/six-ios.git
