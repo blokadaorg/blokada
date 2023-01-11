@@ -19,7 +19,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     ndkVersion "24.0.8215888"
 
     buildFeatures {
@@ -48,7 +48,6 @@ android {
         }
 
         release {
-
             def f = rootProject.file('keystore.properties')
             if (f.exists()) {
                 println "Release build will use Blokada keystore"
@@ -85,30 +84,15 @@ android {
     flavorDimensions("model")
 
     productFlavors {
-        five {
-            // Blokada 5 lands on blokada.org, and secondary app stores (Samsung, Huawei)
-            applicationId "org.blokada.origin.alarm"
-            minSdkVersion 21
-        }
-
         six {
             // Blokada 6 that lands on Google Play (Cloud/Plus only).
             applicationId "org.blokada.sex"
         }
 
-        googleslim {
-            // googleslim is a legacy "Slim" build that got banned from Google Play.
-            // It'll be phased out eventually once users are migrated away.
-            applicationId "org.blokada.alarm.dnschanger"
-            minSdkVersion 21
+        family {
+            // Blokada Family that lands on Google Play.
+            applicationId "org.blokada.family"
         }
-
-        escaped {
-            // escaped build can be installed on top of googleslim build to get all features.
-            applicationId "org.blokada.alarm.dnschanger"
-            minSdkVersion 21
-        }
-
     }
 
     compileOptions {
@@ -123,8 +107,6 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/legacy/kotlin'
-
         main.java.srcDirs += 'src/engine/kotlin'
         main.jniLibs.srcDirs += 'src/engine/jniLibs'
 
@@ -132,30 +114,6 @@ android {
         main.res.srcDirs += 'wireguard-android/ui/src/main/res'
 
         debug.java.srcDirs += 'src/mock/kotlin'
-
-        googleslim.res.srcDirs += 'src/google/res'
-        googleslim.java.srcDirs += 'src/google/kotlin'
-        googleslim.java.srcDirs += 'src/libre/kotlin'
-        googleslim.assets.srcDirs += 'src/libre/assets'
-        googleslim.jniLibs.srcDirs += 'src/libre/jniLibs'
-        googleslim.res.srcDirs += 'src/libre/res'
-        googleslim.manifest.srcFile 'src/google/AndroidManifest.xml'
-
-        five.res.srcDirs += 'src/notgoogle/res'
-        five.java.srcDirs += 'src/notgoogle/kotlin'
-        five.java.srcDirs += 'src/libre/kotlin'
-        five.assets.srcDirs += 'src/libre/assets'
-        five.jniLibs.srcDirs += 'src/libre/jniLibs'
-        five.manifest.srcFile 'src/libre/AndroidManifest.xml'
-        five.res.srcDirs += 'src/libre/res'
-
-        escaped.res.srcDirs += 'src/notgoogle/res'
-        escaped.java.srcDirs += 'src/notgoogle/kotlin'
-        escaped.java.srcDirs += 'src/libre/kotlin'
-        escaped.assets.srcDirs += 'src/libre/assets'
-        escaped.jniLibs.srcDirs += 'src/libre/jniLibs'
-        escaped.manifest.srcFile 'src/libre/AndroidManifest.xml'
-        escaped.res.srcDirs += 'src/libre/res'
 
         six.java.srcDirs += 'src/notgoogle/kotlin'
         six.java.srcDirs += 'src/notlibre/kotlin'
@@ -218,10 +176,6 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "androidx.fragment:fragment-ktx:1.5.5"
 
-
-    // unzip default blocklist
-    implementation 'net.lingala.zip4j:zip4j:2.6.4'
-
     // External integration (Tasker)
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
@@ -242,9 +196,6 @@ dependencies {
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-    // legacy (for import of v4 settings)
-    implementation 'io.paperdb:paperdb:2.7.1'
 }
 
 apply plugin: 'org.mozilla.rust-android-gradle.rust-android'

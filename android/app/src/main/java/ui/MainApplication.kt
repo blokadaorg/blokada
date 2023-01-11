@@ -23,7 +23,6 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import blocka.LegacyAccountImport
 import com.akexorcist.localizationactivity.ui.LocalizationApplication
 import com.wireguard.android.backend.Backend
 import com.wireguard.android.backend.GoBackend
@@ -71,7 +70,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         super.onCreate()
         ContextService.setApp(this)
         LogService.setup()
-        LegacyAccountImport.setup()
         DozeService.setup(this)
         wgOnCreate()
         setupEvents()

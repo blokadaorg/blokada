@@ -12,11 +12,8 @@
 
 package service
 
-import blocka.LegacyAccountImport
 import model.*
 import repository.PackMigration
-import tunnel.LegacyAdsCounterImport
-import tunnel.LegacyBlocklistImport
 import ui.ActivationViewModel
 import ui.utils.cause
 import utils.Logger
@@ -54,33 +51,16 @@ object PersistenceService {
         try {
             val (string, deserializer) = when (type) {
                 Denied::class -> {
-                    val legacy = LegacyBlocklistImport.importLegacyBlocklistUserDenied()
-                    if (legacy != null) {
-                        save(Denied(legacy)) // To save in the current format
-                        legacy.joinToString("\n") to newline
-                    } else file.load(key = BlocklistService.USER_DENIED) to newline
+                    file.load(key = BlocklistService.USER_DENIED) to newline
                 }
                 Allowed::class -> {
-                    val legacy = LegacyBlocklistImport.importLegacyBlocklistUserAllowed()
-                    if (legacy != null) {
-                        save(Allowed(legacy)) // To save in the current format
-                        legacy.joinToString("\n") to newline
-                    } else file.load(key = BlocklistService.USER_ALLOWED) to newline
+                    file.load(key = BlocklistService.USER_ALLOWED) to newline
                 }
                 Account::class -> {
-                    val legacy = LegacyAccountImport.importLegacyAccount()
-                    if (legacy != null) {
-                        save(legacy) // To save in the current format
-                        legacy to PassthroughSerializationService
-                    } else prefs.load(getPrefsKey(type)) to json
+                    prefs.load(getPrefsKey(type)) to json
                 }
                 AdsCounter::class -> {
-                    val legacy = LegacyAdsCounterImport.importLegacyCounter()
-                    if (legacy != null) {
-                        save(legacy) // To save in the current format
-                        legacy to PassthroughSerializationService
-                    }
-                    else prefs.load(getPrefsKey(type)) to json
+                    prefs.load(getPrefsKey(type)) to json
                 }
                 else -> prefs.load(getPrefsKey(type)) to json
             }
