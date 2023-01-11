@@ -1,0 +1,3 @@
+[submodule "five-android"]
+	path = five-android
+	url = https://github.com/blokadaorg/five-android.git
