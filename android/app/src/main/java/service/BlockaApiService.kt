@@ -55,16 +55,7 @@ object BlockaApiService {
 
     suspend fun getDevice(id: AccountId): DevicePayload {
         return runOnBgAndMapException {
-            if (EnvironmentService.isLibre()) {
-                // Save requests by not doing this irrelevant request for v5
-                Logger.v("BlockaApiService", "Not fetching device for libre")
-                DevicePayload(
-                    lists = emptyList(),
-                    retention = "",
-                    paused = true,
-                    device_tag = ""
-                )
-            } else api.getDevice(id).responseOrThrow().body()!!
+            api.getDevice(id).responseOrThrow().body()!!
         }
     }
 
@@ -100,14 +91,7 @@ object BlockaApiService {
 
     suspend fun getStats(id: AccountId): CounterStats {
         return runOnBgAndMapException {
-            if (EnvironmentService.isLibre()) {
-                // Save requests by not doing this irrelevant request for v5
-                Logger.v("BlockaApiService", "Not fetching stats for libre")
-                CounterStats(
-                    total_allowed = "0",
-                    total_blocked = "0"
-                )
-            } else api.getStats(id).responseOrThrow().body()!!
+            api.getStats(id).responseOrThrow().body()!!
         }
     }
 

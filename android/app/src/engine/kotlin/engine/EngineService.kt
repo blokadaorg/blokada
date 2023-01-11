@@ -20,7 +20,6 @@ import model.*
 import newengine.BlockaDnsService
 import repository.DnsDataSource
 import service.ConnectivityService
-import service.EnvironmentService
 import service.VpnPermissionService
 import ui.utils.cause
 import utils.Logger
@@ -49,7 +48,6 @@ object EngineService {
 
     fun setup(network: NetworkSpecificConfig, user: BlockaConfig) {
         log.v("Engine initializing")
-        JniService.setup()
 
         packetLoop.onCreateSocket = {
             val socket = DatagramSocket()
@@ -139,48 +137,12 @@ object EngineService {
         config.run {
             when {
                 // Plus mode for v6 (cloud filtering)
-                isPlusMode() && !EnvironmentService.isLibre() -> {
+                isPlusMode()-> {
                     wgTunnel.start(config.privateKey, config.lease(), config.gateway())
                     state.plusMode(config)
                 }
-                // Plus mode for v5 (local filtering)
-                isPlusMode() -> {
-                    dnsMapper.setDns(dns, doh, plusMode = true)
-                    if (doh) dnsService.startDnsProxy(dns)
-                    systemTunnel.onConfigureTunnel = { tun ->
-                        configurator.forPlus(tun, dns, lease = config.lease())
-                    }
-                    systemTunnel.open()
-                    packetLoop.startPlusMode(
-                        useDoh = doh,
-                        dns = dns,
-                        tunnelConfig = systemTunnel.getTunnelConfig(),
-                        privateKey = config.privateKey,
-                        gateway = config.gateway()
-                    )
-                    state.plusMode(config)
-                }
-                // Slim mode
-                EnvironmentService.isSlim() -> {
-                    dnsMapper.setDns(dns, doh)
-                    if (doh) dnsService.startDnsProxy(dns)
-                    systemTunnel.onConfigureTunnel = { tun ->
-                        configurator.forLibre(tun, dns)
-                    }
-                    val tunnelConfig = systemTunnel.open()
-                    packetLoop.startSlimMode(doh, dns, tunnelConfig)
-                    state.libreMode(config)
-                }
-                // Libre mode
                 else -> {
-                    dnsMapper.setDns(dns, doh)
-                    if (doh) dnsService.startDnsProxy(dns)
-                    systemTunnel.onConfigureTunnel = { tun ->
-                        configurator.forLibre(tun, dns)
-                    }
-                    val tunnelConfig = systemTunnel.open()
-                    packetLoop.startLibreMode(doh, dns, tunnelConfig)
-                    state.libreMode(config)
+                    throw BlokadaException("Cannot start v6 in Libre mode")
                 }
             }
         }
@@ -313,27 +275,9 @@ private data class EngineConfiguration(
             else -> true
         }
 
-        private fun decideDoh(dns: Dns, plusMode: Boolean, encryptDns: Boolean) = when {
-            dns.id == DnsDataSource.network.id -> {
-                // Only plaintext network DNS are supported currently
-                false
-            }
-            !EnvironmentService.isLibre() -> {
-                // NotLibre builds use the system DoT config so they don't need DoH
-                false
-            }
-            plusMode && dns.plusIps != null -> {
-                // If plusIps are set, they will point to a clear text DNS, because the plus mode
-                // VPN itself is encrypting everything, so there is no need to encrypt DNS.
-                false
-            }
-            dns.isDnsOverHttps() && !dns.canUseInCleartext -> {
-                // If DNS supports only DoH and no clear text, we are forced to use it
-                true
-            }
-            else -> {
-                dns.isDnsOverHttps() && encryptDns
-            }
+        private fun decideDoh(dns: Dns, plusMode: Boolean, encryptDns: Boolean): Boolean {
+            // v6 does not support DoH
+            return false
         }
     }
 

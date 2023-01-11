@@ -30,7 +30,6 @@ import model.AccountType
 import model.toAccountType
 import org.blokada.R
 import service.ContextService
-import service.EnvironmentService
 import ui.AccountViewModel
 import ui.app
 import utils.Links
@@ -86,11 +85,7 @@ object SettingsNavigation {
             "main_community" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.community, getString(R.string.universal_action_community))
             "main_support" -> account?.id?.let { SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
             "main_about" -> SettingsFragmentDirections.actionNavigationSettingsToWebFragment(Links.credits, getString(R.string.account_action_about))
-            "account_subscription_manage" -> {
-                if (EnvironmentService.isLibre())
-                    account?.id?.let { SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.manageSubscriptions(it), getString(R.string.account_action_manage_subscription)) }
-                else null
-            }
+            "account_subscription_manage" -> null
             "account_help_why" -> SettingsAccountFragmentDirections.actionNavigationSettingsAccountToWebFragment(Links.whyUpgrade, getString(R.string.account_action_why_upgrade))
             "logout_howtorestore" -> SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.howToRestore, getString(R.string.account_action_how_to_restore))
             "logout_support" -> account?.id?.let { SettingsLogoutFragmentDirections.actionSettingsLogoutFragmentToWebFragment(Links.support(it), getString(R.string.universal_action_contact_us)) }
@@ -99,7 +94,7 @@ object SettingsNavigation {
 
         when {
             path != null -> nav.navigate(path)
-            key == "account_subscription_manage" && !EnvironmentService.isLibre()
+            key == "account_subscription_manage"
                     && account?.type.toAccountType() != AccountType.Libre -> {
                 val intent = Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://play.google.com/store/account/subscriptions"))

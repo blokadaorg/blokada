@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import model.BlokadaException
@@ -27,7 +26,10 @@ import model.mapErrorToUserFriendly
 import model.shouldShowKbLink
 import org.blokada.R
 import repository.Repos
-import service.*
+import service.AlertDialogService
+import service.Services
+import service.Sheet
+import service.UpdateService
 import ui.TunnelViewModel
 import ui.app
 import ui.settings.SettingsFragmentDirections
@@ -39,9 +41,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var vm: TunnelViewModel
 
-    private lateinit var homeView: IHomeContentView
-
-    private var libreMode = EnvironmentService.getFlavor() != "six"
+    private lateinit var homeView: HomeCloudView
 
     private val processingRepo by lazy { Repos.processing }
     private val sheet by lazy { Services.sheet }
@@ -59,32 +59,17 @@ class HomeFragment : Fragment() {
             vm = ViewModelProvider(it.app()).get(TunnelViewModel::class.java)
         }
 
-        if (EnvironmentService.isLibre()) {
-            val homeLibre = HomeLibreView(requireContext())
-            homeLibre.parentFragmentManager = parentFragmentManager
-            homeLibre.viewLifecycleOwner = viewLifecycleOwner
-            homeLibre.lifecycleScope = lifecycleScope
-            homeLibre.showVpnPermsSheet = ::showVpnPermsSheet
-            homeLibre.showLocationSheet = ::showLocationSheet
-            homeLibre.showPlusSheet = ::showPlusSheet
-            homeLibre.showFailureDialog = ::showFailureDialog
-            homeLibre.setHasOptionsMenu = { setHasOptionsMenu(it) }
-            homeLibre.setup()
-            root.addView(homeLibre)
-            homeView = homeLibre
-        } else {
-            val homeCloud = HomeCloudView(requireContext())
-            homeCloud.parentFragmentManager = parentFragmentManager
-            homeCloud.viewLifecycleOwner = viewLifecycleOwner
-            homeCloud.lifecycleScope = lifecycleScope
-            homeCloud.showLocationSheet = ::showLocationSheet
-            homeCloud.showPlusSheet = ::showPlusSheet
-            homeCloud.showFailureDialog = ::showFailureDialog
-            homeCloud.setHasOptionsMenu = { setHasOptionsMenu(it) }
-            homeCloud.setup()
-            root.addView(homeCloud)
-            homeView = homeCloud
-        }
+        val homeCloud = HomeCloudView(requireContext())
+        homeCloud.parentFragmentManager = parentFragmentManager
+        homeCloud.viewLifecycleOwner = viewLifecycleOwner
+        homeCloud.lifecycleScope = lifecycleScope
+        homeCloud.showLocationSheet = ::showLocationSheet
+        homeCloud.showPlusSheet = ::showPlusSheet
+        homeCloud.showFailureDialog = ::showFailureDialog
+        homeCloud.setHasOptionsMenu = { setHasOptionsMenu(it) }
+        homeCloud.setup()
+        root.addView(homeCloud)
+        homeView = homeCloud
 
         lifecycleScope.launchWhenCreated {
             delay(1000)

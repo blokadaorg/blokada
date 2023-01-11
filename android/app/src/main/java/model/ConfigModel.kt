@@ -13,7 +13,6 @@
 package model
 
 import com.squareup.moshi.JsonClass
-import service.EnvironmentService
 
 @JsonClass(generateAdapter = true)
 data class BlockaConfig(
@@ -44,7 +43,7 @@ data class LocalConfig(
     val useDnsOverHttps: Boolean = false, // Deprecated
     val useBlockaDnsInPlusMode: Boolean = true, // Deprecated
     val escaped: Boolean = false,
-    val useForegroundService: Boolean = EnvironmentService.isLibre(), // To keep alive in Libre mode with fg notification
+    val useForegroundService: Boolean = false, // No need in v6
     val pingToCheckNetwork: Boolean = false
 )
 

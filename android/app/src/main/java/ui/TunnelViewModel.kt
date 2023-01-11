@@ -231,7 +231,7 @@ class TunnelViewModel: ViewModel() {
             try {
                 var cfg = _config.value ?: throw BlokadaException("BlockaConfig not set")
                 cfg = cfg.copy(
-                    tunnelEnabled = if (EnvironmentService.isLibre()) cfg.tunnelEnabled else false,
+                    tunnelEnabled = false,
                     vpnEnabled = false, lease = null, gateway = null
                 )
                 engine.updateConfig(user = cfg)

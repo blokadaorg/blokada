@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import model.HistoryEntry
 import org.blokada.R
@@ -177,13 +176,11 @@ class StatsFragment : Fragment() {
         }
         retention.setup()
 
-        if (!EnvironmentService.isLibre()) {
-            lifecycleScope.launch {
-                cloudRepo.activityRetentionHot
-                    .collect {
-                        retention.visibility = if (it == "24h") View.GONE else View.VISIBLE
-                    }
-            }
+        lifecycleScope.launch {
+            cloudRepo.activityRetentionHot
+                .collect {
+                    retention.visibility = if (it == "24h") View.GONE else View.VISIBLE
+                }
         }
 
         return root

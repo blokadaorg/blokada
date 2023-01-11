@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -32,7 +31,6 @@ import model.NoPermissions
 import org.blokada.R
 import repository.Repos
 import service.ContextService
-import service.EnvironmentService
 import service.Services
 import service.Sheet
 import ui.AccountViewModel
@@ -42,7 +40,7 @@ import ui.utils.getColorFromAttr
 import utils.withBoldSections
 import java.util.*
 
-class HomeCloudView : FrameLayout, IHomeContentView {
+class HomeCloudView : FrameLayout {
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -118,10 +116,6 @@ class HomeCloudView : FrameLayout, IHomeContentView {
                             context.getString(R.string.home_status_detail_active) + "\n" +
                             context.getString(R.string.home_status_detail_plus)
                     ).withBoldSections(context.getColorFromAttr(R.attr.colorRingPlus1))
-                }
-                appState == AppState.Activated && EnvironmentService.isSlim() -> {
-                    context.getString(R.string.home_status_detail_active_slim)
-                    .withBoldSections(context.getColorFromAttr(R.attr.colorRingLibre1))
                 }
                 appState == AppState.Activated && counter == null -> {
                     context.getString(R.string.home_status_detail_active)
@@ -315,11 +309,11 @@ class HomeCloudView : FrameLayout, IHomeContentView {
         }
     }
 
-    override fun onResume() {
+    fun onResume() {
         powerButton.start()
     }
 
-    override fun onPause() {
+    fun onPause() {
         powerButton.stop()
     }
 

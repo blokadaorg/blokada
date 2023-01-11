@@ -120,7 +120,7 @@ class AccountViewModel: ViewModel() {
                     log.w("Could not create account".cause(ex))
                     alert.showAlert(R.string.error_creating_account)
                 }
-            } else if (!EnvironmentService.isFdroid() && now() > lastAccountRefresh + ACCOUNT_REFRESH_MILLIS) {
+            } else if (now() > lastAccountRefresh + ACCOUNT_REFRESH_MILLIS) {
                 log.v("Account is stale, refreshing")
                 refreshAccount()
             }

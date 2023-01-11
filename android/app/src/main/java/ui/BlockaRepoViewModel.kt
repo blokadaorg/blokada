@@ -14,9 +14,9 @@ package ui
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import model.*
+import model.BlockaRepo
+import model.BlockaRepoConfig
 import repository.BlockaRepoRepository
-import service.AlertDialogService
 import service.EnvironmentService
 import service.PersistenceService
 import ui.utils.cause
@@ -37,7 +37,7 @@ class BlockaRepoViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 val config = persistence.load(BlockaRepoConfig::class)
-                if (!EnvironmentService.isFdroid() && now() > config.lastRefresh + REPO_REFRESH_MILLIS) {
+                if (now() > config.lastRefresh + REPO_REFRESH_MILLIS) {
                     log.w("Repo config is stale, refreshing")
                     refreshRepo()
                 } else {

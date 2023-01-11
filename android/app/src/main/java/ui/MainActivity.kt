@@ -386,8 +386,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
 
         accountVM.maybeRefreshAccount()
-        maybeInformAboutMigration()
-        maybeInformAboutBadDnsProfileConfig()
     }
 
     override fun onPause() {
@@ -401,61 +399,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         Logger.w("MainActivity", "onDestroy: $this")
         super.onDestroy()
         Repos.stage.onDestroy()
-    }
-
-    /**
-     * Will show the migration prompt to open our new listing. This will only happen in Slim build,
-     * which is being phased out, as it's been cut down by Google severely. The dialog will show:
-     * - only once per app lifetime (eg need to kill to show again)
-     * - after 5 seconds from foreground event
-     * - only if Slim was escaped
-     */
-    private var informed = false
-    private fun maybeInformAboutMigration() {
-        if (!informed && EnvironmentService.isSlim(ignoreEscape = true)) {
-            lifecycleScope.launch {
-                delay(5000)
-                val stage = Repos.stage.stageHot.first()
-                if (stage == AppStage.Foreground && EnvironmentService.escaped) {
-                    Logger.w("Main", "Displaying Slim migration prompt")
-                    informed = true
-                    dialog.showAlert(
-                        message = "This version of Blokada has been banned by Google. We have released a better version on PlayStore that we recommend. Please visit blokada.org for other install options.",
-                        header = getString(R.string.alert_error_header),
-                        okText = getString(R.string.universal_action_continue),
-                        okAction = {
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://go.blokada.org/play_cloud_migrate")));
-                        }
-                    )
-                    .collect {  }
-                }
-            }
-        }
-    }
-
-    /**
-     * Will show a dialog prompt that the private DNS system setting is incorrect.
-     * This is important because it will cause lack of connectivity without a clear
-     * information on what is wrong. This only applies to Libre as in Cloud its handled
-     * by the onboarding flow.
-      */
-    private fun maybeInformAboutBadDnsProfileConfig() {
-        lifecycleScope.launch {
-            delay(2000)
-            val dns = Repos.cloud.dnsProfileConfiguredHot.first()
-            if (EnvironmentService.isLibre() && dns == PrivateDnsConfigured.INCORRECT) {
-                Logger.w("Main", "Displaying bad private DNS prompt")
-                dialog.showAlert(
-                    message = "Your Private DNS setting is set. This may cause connectivity issues. Please turn it off in Settings.",
-                    header = getString(R.string.alert_error_header),
-                    okText = getString(R.string.dnsprofile_action_open_settings),
-                    okAction = {
-                        SystemNavService.openNetworkSettings()
-                    }
-                )
-                .collect {  }
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

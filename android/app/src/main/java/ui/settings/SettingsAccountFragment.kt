@@ -22,7 +22,6 @@ import model.Account
 import model.AccountType
 import org.blokada.R
 import service.AlertDialogService
-import service.EnvironmentService
 import service.Services
 import service.Sheet
 import ui.AccountViewModel
@@ -66,8 +65,6 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
             }
             accountType.setOnPreferenceClickListener {
                 when {
-                    EnvironmentService.isSlim() -> {}
-                    EnvironmentService.isLibre() -> {}
                     account.getSource() == "google" -> {
                         Services.sheet.showSheet(Sheet.Payment)
                     }

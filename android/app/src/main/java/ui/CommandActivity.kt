@@ -77,12 +77,10 @@ class CommandActivity : AppCompatActivity() {
     private fun execute(command: Command, param: Param?) {
         when (command) {
             Command.OFF -> {
-                if (env.isLibre()) tunnelVM.turnOff()
-                else GlobalScope.launch { appRepo.pauseApp(Date()) }
+                GlobalScope.launch { appRepo.pauseApp(Date()) }
             }
             Command.ON -> {
-                if (env.isLibre()) tunnelVM.turnOn()
-                else GlobalScope.launch { appRepo.unpauseApp() }
+                GlobalScope.launch { appRepo.unpauseApp() }
             }
             Command.LOG -> LogService.shareLog()
             Command.ACC -> {

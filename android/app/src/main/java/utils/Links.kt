@@ -34,13 +34,9 @@ object Links {
     val community = "https://go.blokada.org/forum"
     val changelog = "https://go.blokada.org/changelog"
 
-    val updated =
-        if (EnvironmentService.isSlim()) "https://go.blokada.org/updated_android_slim"
-        else "https://go.blokada.org/updated_android"
+    val updated = "https://go.blokada.org/updated_android"
 
-    fun manageSubscriptions(accountId: String) =
-        if (EnvironmentService.isSlim()) support(accountId)
-        else "https://app.blokada.org/activate/$accountId"
+    fun manageSubscriptions(accountId: String) = "https://app.blokada.org/activate/$accountId"
 
     fun support(accountId: String) =
         "https://app.blokada.org/support?account-id=$accountId" +

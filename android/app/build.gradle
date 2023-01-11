@@ -115,11 +115,9 @@ android {
 
         debug.java.srcDirs += 'src/mock/kotlin'
 
-        six.java.srcDirs += 'src/notgoogle/kotlin'
-        six.java.srcDirs += 'src/notlibre/kotlin'
-        six.manifest.srcFile 'src/notlibre/AndroidManifest.xml'
+        six.java.srcDirs += 'src/six/kotlin'
+        six.manifest.srcFile 'src/six/AndroidManifest.xml'
         six.res.srcDirs += 'src/six/res'
-        six.res.srcDirs += 'src/notlibre/res'
 
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'

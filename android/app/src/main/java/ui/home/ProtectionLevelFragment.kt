@@ -27,7 +27,6 @@ import engine.MetricsService
 import org.blokada.R
 import repository.DnsDataSource
 import service.ConnectivityService
-import service.EnvironmentService
 import ui.BottomSheetFragment
 import ui.TunnelViewModel
 import ui.advanced.statusToLevel
@@ -87,7 +86,7 @@ class ProtectionLevelFragment : BottomSheetFragment(skipCollapsed = false) {
             detailDns.text = status.dns?.label ?: ctx.getString(R.string.universal_label_none)
             if (DnsDataSource.network.id == status.dns?.id) {
                 detailDns.text = "Network DNS (${ConnectivityService.getActiveNetworkDns()})"
-            } else if (!EnvironmentService.isLibre()) {
+            } else {
                 detailDns.text = "Blokada Cloud"
             }
 
