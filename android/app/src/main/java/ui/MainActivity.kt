@@ -14,7 +14,6 @@ package ui
 
 import android.content.Intent
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -39,11 +38,7 @@ import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import model.AppStage
-import model.PrivateDnsConfigured
 import model.Tab
 import org.blokada.R
 import repository.Repos
@@ -51,12 +46,10 @@ import service.*
 import ui.home.ActivatedFragment
 import ui.home.FirstTimeFragment
 import ui.home.HelpFragment
-import ui.home.HomeFragmentDirections
 import ui.settings.SettingsNavigation
 import ui.utils.now
 import ui.web.WebService
 import utils.ExpiredNotification
-import utils.Links
 import utils.Logger
 
 
@@ -352,13 +345,13 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 when (action) {
                     ACC_MANAGE -> {
                         accountVM.account.value?.let { account ->
-                            Logger.w("MainActivity", "Navigating to account manage screen")
-                            val nav = findNavController(R.id.nav_host_fragment)
-                            nav.navigate(R.id.navigation_home)
-                            nav.navigate(
-                                HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                                    Links.manageSubscriptions(account.id), getString(R.string.universal_action_upgrade)
-                                ))
+                            Logger.e("MainActivity", "Navigating to account manage screen not available")
+//                            val nav = findNavController(R.id.nav_host_fragment)
+//                            nav.navigate(R.id.navigation_home)
+//                            nav.navigate(
+//                                HomeFragmentDirections.actionNavigationHomeToWebFragment(
+//                                    Links.manageSubscriptions(account.id), getString(R.string.universal_action_upgrade)
+//                                ))
                         } ?: Logger.e("MainActivity", "No account while received action $ACC_MANAGE")
                     }
                     else -> {

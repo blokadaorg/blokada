@@ -13,7 +13,7 @@
 package model
 
 import com.squareup.moshi.JsonClass
-import engine.Host
+import service.Host
 import java.util.*
 
 /**

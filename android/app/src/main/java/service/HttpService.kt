@@ -27,9 +27,9 @@ object HttpService {
     private val httpClient = OkHttpClient.Builder().apply {
         addNetworkInterceptor { chain ->
             val request = chain.request()
-            chain.connection()?.socket()?.let {
-                engine.protectSocket(it)
-            }
+//            chain.connection()?.socket()?.let {
+//                engine.protectSocket(it)
+//            }
             chain.proceed(request)
         }
         addInterceptor { chain ->

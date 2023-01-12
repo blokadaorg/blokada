@@ -33,7 +33,6 @@ import com.wireguard.android.util.ToolsInstaller
 import com.wireguard.android.util.UserKnobs
 import com.wireguard.android.util.applicationScope
 import engine.EngineService
-import engine.FilteringService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -153,7 +152,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             Services.payment.setup()
             BlocklistService.setup()
             packsVM.setup()
-            FilteringService.reload()
         }
 
         GlobalScope.launch { onAppStateChanged_updateMonitorService() }

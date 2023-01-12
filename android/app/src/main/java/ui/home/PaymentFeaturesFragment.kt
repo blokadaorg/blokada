@@ -61,8 +61,7 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
     }
 
     private fun showPaymentFragmentAgain() {
-        val fragment = if (cloud) CloudPaymentFragment.newInstance()
-        else PaymentFragment.newInstance()
+        val fragment = CloudPaymentFragment.newInstance()
         fragment.show(parentFragmentManager, null)
     }
 

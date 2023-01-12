@@ -126,11 +126,6 @@ class HomeFragment : Fragment() {
         super.onPause()
     }
 
-    private fun showVpnPermsSheet() {
-        val fragment = AskVpnProfileFragment.newInstance()
-        fragment.show(parentFragmentManager, null)
-    }
-
     private fun showLocationSheet() {
         sheet.showSheet(Sheet.Location)
     }

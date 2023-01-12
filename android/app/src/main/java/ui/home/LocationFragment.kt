@@ -53,13 +53,6 @@ class LocationFragment : BottomSheetFragment() {
 
         val goBack = {
             dismiss()
-
-            // This means we are just showing a preview for the Payment screen
-            if (!clickable) {
-                val fragment = if (cloud) CloudPaymentFragment.newInstance()
-                else PaymentFragment.newInstance()
-                fragment.show(parentFragmentManager, null)
-            }
         }
 
         val back: View = root.findViewById(R.id.back)

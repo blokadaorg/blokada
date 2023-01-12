@@ -77,9 +77,9 @@ class TunnelViewModel: ViewModel() {
     }
 
     fun goToBackground() {
-        viewModelScope.launch {
-            engine.goToBackground()
-        }
+//        viewModelScope.launch {
+//            engine.goToBackground()
+//        }
     }
 
     fun turnOn(vpnEnabled: Boolean? = null) {

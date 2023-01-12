@@ -16,11 +16,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import engine.Host
 import model.AppState
 import model.BlokadaException
 import model.TunnelStatus
 import org.blokada.R
+import service.Host
 import service.Localised
 import ui.Command
 import ui.MainActivity

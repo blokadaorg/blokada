@@ -12,30 +12,20 @@
 
 package engine
 
-import com.cloudflare.app.boringtun.BoringTunJNI
+import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import model.*
-import newengine.BlockaDnsService
 import repository.DnsDataSource
 import service.ConnectivityService
 import service.VpnPermissionService
 import ui.utils.cause
 import utils.Logger
-import java.net.DatagramSocket
 import java.net.InetAddress
-import java.net.Socket
 
 object EngineService {
 
     private val log = Logger("Engine")
-    private val systemTunnel = SystemTunnelService
-    private val packetLoop = PacketLoopService
-    private val filtering = FilteringService
-    private val dnsMapper = DnsMapperService
-    private val dnsService = BlockaDnsService
-    private val configurator = SystemTunnelConfigurator
     private val vpnPerm = VpnPermissionService
     private val wgTunnel = WgTunnel
     private val scope = GlobalScope
@@ -48,31 +38,6 @@ object EngineService {
 
     fun setup(network: NetworkSpecificConfig, user: BlockaConfig) {
         log.v("Engine initializing")
-
-        packetLoop.onCreateSocket = {
-            val socket = DatagramSocket()
-            systemTunnel.protectSocket(socket)
-            socket
-        }
-
-        packetLoop.onStoppedUnexpectedly = {
-            scope.launch {
-                state.error(BlokadaException("PacketLoop stopped"))
-                stopAll()
-            }
-        }
-
-        systemTunnel.onTunnelClosed = { ex: BlokadaException? ->
-            ex?.let {
-                scope.launch {
-                    if (!state.isRestarting()) {
-                        state.error(BlokadaException("PacketLoop stopped"))
-                        stopAll()
-                    }
-                }
-            }
-        }
-
         config = EngineConfiguration.new(network, user)
     }
 
@@ -150,18 +115,10 @@ object EngineService {
 
     private suspend fun stopAll() {
         state.inProgress()
-        dnsService.stopDnsProxy()
-        packetLoop.stop()
-        systemTunnel.close()
         wgTunnel.stop()
         log.w("Waiting after stopping system tunnel, before another start")
         delay(4000)
         state.stopped()
-    }
-
-    suspend fun reloadBlockLists() {
-        filtering.reload()
-        reload(config, force = true)
     }
 
     suspend fun forceReload() {
@@ -176,22 +133,13 @@ object EngineService {
         state.onTunnelStatusChanged = onTunnelStatusChanged
     }
 
-    fun goToBackground() {
-        systemTunnel.unbind()
-    }
-
     fun newKeypair(): Pair<PrivateKey, PublicKey> {
-        val secret = BoringTunJNI.x25519_secret_key()
-        val public = BoringTunJNI.x25519_public_key(secret)
-        val secretString = BoringTunJNI.x25519_key_to_base64(secret)
-        val publicString = BoringTunJNI.x25519_key_to_base64(public)
-        return secretString to publicString
+        // Wireguard generated random keypair
+        val keypair = KeyPair()
+        val secret = keypair.privateKey.toBase64()
+        val public = keypair.publicKey.toBase64()
+        return secret to public
     }
-
-    fun protectSocket(socket: Socket) {
-        systemTunnel.protectSocket(socket)
-    }
-
 
 }
 
@@ -332,13 +280,6 @@ private data class EngineState(
     @Synchronized fun restarting() {
         restarting = true
         tunnel = TunnelStatus.inProgress()
-        onTunnelStatusChanged(tunnel)
-    }
-
-    @Synchronized fun libreMode(config: EngineConfiguration) {
-        restarting = false
-        tunnel = TunnelStatus.filteringOnly(config.dns, config.doh, config.gateway?.public_key)
-        currentConfig = config
         onTunnelStatusChanged(tunnel)
     }
 

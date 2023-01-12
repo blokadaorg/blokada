@@ -16,11 +16,9 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
-import engine.MetricsService
 import org.blokada.R
 import ui.utils.getColorFromAttr
 import java.lang.Long.max
@@ -431,22 +429,10 @@ class PowerView : View {
     private val black = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.black), PorterDuff.Mode.SRC_IN)
 
     fun start() {
-        pingHandler.sendEmptyMessage(0)
     }
 
     fun stop() {
         ping = 0
-        pingHandler.removeMessages(0)
-    }
-
-    private val pingHandler: Handler = Handler {
-        refreshPing()
-        true
-    }
-
-    private fun refreshPing() {
-        ping = MetricsService.lastRtt
-        pingHandler.sendEmptyMessageDelayed(0, 500)
     }
 
 }

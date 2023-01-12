@@ -19,7 +19,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Binder
 import android.os.IBinder
-import engine.Host
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,6 +29,9 @@ import model.TunnelStatus
 import ui.utils.cause
 import utils.Logger
 import utils.MonitorNotification
+
+
+typealias Host = String
 
 object MonitorService {
 
