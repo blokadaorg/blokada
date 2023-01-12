@@ -18,7 +18,6 @@ import android.net.Uri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.blokada.R
 import utils.Logger
@@ -70,10 +69,14 @@ class AppUninstallService {
     }
 
     private fun uninstallApps(apps: List<String>) {
-        apps.forEach {
-            val intent = Intent(Intent.ACTION_DELETE)
-            intent.data = Uri.parse("package:$it")
-            ctx.requireActivity().startActivity(intent)
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(1000)
+            Logger.w("AppUninstall", "Uninstalling apps")
+            apps.forEach {
+                val intent = Intent(Intent.ACTION_UNINSTALL_PACKAGE)
+                intent.data = Uri.parse("package:$it")
+                ctx.requireActivity().startActivity(intent)
+            }
         }
     }
 
