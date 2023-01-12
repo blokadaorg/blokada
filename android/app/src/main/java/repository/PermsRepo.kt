@@ -135,11 +135,11 @@ open class PermsRepo {
 
     suspend fun askForAllMissingPermissions() {
         delay(300)
+        maybeAskVpnProfilePerms()
+        delay(300)
         maybeDisplayDnsProfilePermsDialog()
         delay(300)
         maybeDisplayNotificationPermsDialog()
-        delay(300)
-        maybeAskVpnProfilePerms()
 
 //        return flowOf(true)
 //        .debounce(300)
