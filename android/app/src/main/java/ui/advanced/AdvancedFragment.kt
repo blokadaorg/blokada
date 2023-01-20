@@ -53,18 +53,6 @@ class AdvancedFragment : Fragment() {
                 slugline = getString(R.string.userdenied_section_slugline),
                 iconResId = R.drawable.ic_baseline_admin_panel_settings_24,
                 destination = AdvancedFragmentDirections.actionAdvancedFragmentToUserDeniedFragment()
-            ),
-            Section(
-                name = getString(R.string.apps_section_header),
-                slugline = getString(R.string.advanced_section_slugline_apps),
-                iconResId = R.drawable.ic_baseline_apps_24,
-                destination = AdvancedFragmentDirections.actionAdvancedFragmentToAppsFragment()
-            ),
-            Section(
-                name = getString(R.string.networks_section_header),
-                slugline = getString(R.string.networks_section_label),
-                iconResId = R.drawable.ic_baseline_wifi_lock_24,
-                destination = AdvancedFragmentDirections.actionAdvancedFragmentToSettingsNetworksFragment()
             )
         )
     }
