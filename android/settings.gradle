@@ -12,9 +12,3 @@
 
 rootProject.name = "six-android"
 include ':app'
-
-setBinding(new Binding([gradle: this]))
-evaluate(new File(
-  settingsDir.parentFile,
-  'six-common/.android/include_flutter.groovy'
-)) 

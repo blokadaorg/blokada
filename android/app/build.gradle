@@ -125,6 +125,16 @@ android {
     }
 }
 
+String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+repositories {
+    maven {
+        url 'six-common/repo'
+    }
+    maven {
+        url "$storageUrl/download.flutter.io"
+    }
+}
+
 dependencies {
     // forgot what is it for
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
@@ -188,7 +198,8 @@ dependencies {
     implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
 
     // Include our Flutter "common" module that is shared for both android and ios
-    implementation project(':flutter')
+    debugImplementation 'org.blokada.flutter.common:flutter_debug:1.0'
+    releaseImplementation 'org.blokada.flutter.common:flutter_release:1.0'
 
     // test deps
     testImplementation 'junit:junit:'
