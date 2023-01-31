@@ -41,6 +41,7 @@ Icon?
 
 build/
 #.android/
+.android/.gradle
 .ios/
 .flutter-plugins
 .flutter-plugins-dependencies
