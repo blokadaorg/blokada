@@ -1,6 +1,9 @@
 .DS_Store
 keystore.properties
 
+# Built common lib
+app/six-common
+
 # Built application files
 *.apk
 *.aar
