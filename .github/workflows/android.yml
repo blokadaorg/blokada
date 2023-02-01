@@ -18,12 +18,25 @@ jobs:
         working-directory: ./six-android
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Set Up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
+      - name: Build flutter common module
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+        working-directory: ./six-android/six-common
+      - run: flutter build aar --release
+        working-directory: ./six-android/six-common
+      - run: mkdir -p ../app/six-common/
+        working-directory: ./six-android/six-common
+      - run: cp -r build/host/outputs/repo ../app/six-common/
+        working-directory: ./six-android/six-common
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
