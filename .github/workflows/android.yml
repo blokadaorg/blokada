@@ -40,6 +40,16 @@ jobs:
       - run: cp -r build/host/outputs/repo ../app/six-common/
         working-directory: ./six-android/six-common
 
+      - name: Build wireguard module
+      - run: chmod +x ./gradlew
+        working-directory: ./wireguard-android
+      - run: ./gradlew tunnel:build
+        working-directory: ./wireguard-android
+      - run: mkdir -p ../app/wireguard-android/lib
+        working-directory: ./wireguard-android
+      - run: cp tunnel/build/outputs/aar/tunnel-release.aar ../app/wireguard-android/lib/wg-tunnel.aar
+        working-directory: ./wireguard-android
+
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
