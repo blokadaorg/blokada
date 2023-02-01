@@ -31,7 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fl_chart: ^0.55.0
   flutter_svg: ^1.1.1+1
-  flex_color_scheme: ^5.1.0
+  flex_color_scheme: ^6.1.2
   draggable_home: ^1.0.3
   syncfusion_flutter_charts: ^20.2.40
   syncfusion_flutter_datagrid: ^20.2.40
