@@ -41,7 +41,7 @@ jobs:
         working-directory: ./six-android/six-common
 
       - name: Build wireguard module
-      - run: chmod +x ./gradlew
+        run: chmod +x ./gradlew
         working-directory: ./wireguard-android
       - run: ./gradlew tunnel:build
         working-directory: ./wireguard-android
