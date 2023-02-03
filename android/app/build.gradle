@@ -20,7 +20,6 @@ apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 33
-    ndkVersion "24.0.8215888"
 
     buildFeatures {
         buildConfig = true
@@ -36,10 +35,6 @@ android {
         versionName "23.1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
-        }
     }
 
     buildTypes {
@@ -205,13 +200,4 @@ dependencies {
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-}
-
-apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
-
-cargo {
-    module  = "../blocka_engine"
-    libname = "blocka_dns"
-    targets = ["arm", "arm64", "x86", "x86_64"]
-    profile = "release"
 }
