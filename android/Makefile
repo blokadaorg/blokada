@@ -2,25 +2,23 @@ all: sixcommon wireguard aab
 
 sixcommon:
 	@if test -d "six-common"; then \
-		if test ! -d "libs/six-common" || test "six-common" -nt "libs/six-common/marker"; then \
+		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
 			echo "Building six-common..."; \
 			cd six-common && flutter build aar --no-profile && cd ../ ; \
-			mkdir -p libs/six-common/; \
-			cp -r six-common/build/host/outputs/repo/ libs/six-common; \
-			cd app && rm -rf six-common && mkdir -p six-common && cd six-common && ln -s ../../libs/six-common repo && cd ../.. ; \
-			touch libs/six-common/marker; \
+			mkdir -p app/six-common; \
+			cp -r six-common/build/host/outputs/repo app/six-common; \
+			touch app/six-common/marker; \
 		fi \
 	fi
 
 wireguard:
 	@if test -d "wireguard-android"; then \
-		if test ! -d "libs/wireguard-android" || test "wireguard-android" -nt "libs/wireguard-android/marker"; then \
+		if test ! -d "app/wireguard-android/lib" || test "wireguard-android" -nt "app/wireguard-android/lib/marker"; then \
 			echo "Building wireguard-android..."; \
 			cd wireguard-android && ./gradlew tunnel:build && cd ../ ; \
-			mkdir -p libs/wireguard-android; \
-			cp wireguard-android/tunnel/build/outputs/aar/tunnel-release.aar libs/wireguard-android/wg-tunnel.aar; \
-			cd app/wireguard-android && rm -rf lib && ln -s ../../libs/wireguard-android lib && cd ../.. ; \
-			touch libs/wireguard-android/marker; \
+			mkdir -p app/wireguard-android/lib; \
+			cp wireguard-android/tunnel/build/outputs/aar/tunnel-release.aar app/wireguard-android/lib/wg-tunnel.aar; \
+			touch app/wireguard-android/lib/marker; \
 		fi \
 	fi
 
@@ -35,7 +33,8 @@ aab:
 	fi
 
 clean:
-	@rm -rf libs/*; \
+	@rm -rf app/six-common; \
+	rm -rf app/wireguard-android/lib; \
 	./gradlew clean; \
 	#cd six-common && flutter clean; \
 	cd ..; \

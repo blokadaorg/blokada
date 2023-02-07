@@ -2,7 +2,8 @@
 keystore.properties
 
 # Deps built locally
-/libs
+/app/six-common
+/app/wireguard-android/lib
 
 # Built application files
 *.apk
