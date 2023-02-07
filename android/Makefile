@@ -7,6 +7,8 @@ sixcommon:
 			flutter build aar --no-profile; \
 			mkdir -p ../libs/six-common/; \
 			cp -r build/host/outputs/repo/ ../libs/six-common; \
+			echo "Copied six-common lib"; \
+			ls -la ../libs/six-common/; \
 			touch ../libs/six-common/marker; \
 		fi \
 	fi
@@ -18,6 +20,8 @@ wireguard:
 			./gradlew tunnel:build; \
 			mkdir -p ../libs/wireguard-android; \
 			cp tunnel/build/outputs/aar/tunnel-release.aar ../libs/wireguard-android/wg-tunnel.aar; \
+			echo "Copied wireguard-android lib"; \
+			ls -la ../libs/wireguard-android/; \
 			touch ../libs/wireguard-android/marker; \
 		fi \
 	fi
