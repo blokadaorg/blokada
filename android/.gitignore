@@ -1,8 +1,8 @@
 .DS_Store
 keystore.properties
 
-# Built common lib
-app/six-common
+# Deps built locally
+/libs
 
 # Built application files
 *.apk
