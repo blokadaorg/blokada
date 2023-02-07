@@ -1,9 +1,9 @@
 name: Blokada 6 for Android (CI)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 env:
   main_project_module: app
