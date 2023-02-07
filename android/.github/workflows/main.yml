@@ -23,5 +23,8 @@ jobs:
           java-version: 11
 
       - name: Build app
-        run: make
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - run: make
 
