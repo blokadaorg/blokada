@@ -12,20 +12,14 @@
 # @author Karol Gusak (karol@blocka.net)
 #
 
-echo "Building common..."
+echo "Syncing common..."
 
 cd six-common
 hash=$(git describe --abbrev=4 --always --tags --dirty)
 commit="sync: update six-common to: $hash"
-
 echo $commit
-
-flutter build aar --no-profile
-mkdir -p libs/six-common/
-cp -r build/host/outputs/repo/ libs/six-common
-
 cd ../
 
 git commit -am "$commit"
 
-echo "Done"
+echo "Done (run make now)."

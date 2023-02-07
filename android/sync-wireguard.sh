@@ -12,21 +12,14 @@
 # @author Karol Gusak (karol@blocka.net)
 #
 
-echo "Building wireguard-android..."
+echo "Syncing wireguard-android..."
 
 cd wireguard-android
 hash=$(git describe --abbrev=4 --always --tags --dirty)
 commit="sync: update wireguard-android to: $hash"
-
 echo $commit
-
-#./gradlew tunnel:clean
-./gradlew tunnel:build
-mkdir -p ../libs/wireguard-android/lib
-cp tunnel/build/outputs/aar/tunnel-release.aar ../libs/wireguard-android/lib/wg-tunnel.aar
-
 cd ../
 
 git commit -am "$commit"
 
-echo "Done."
+echo "Done (run make now)."
