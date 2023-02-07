@@ -1,0 +1,30 @@
+name: Blokada 6 common module (CI)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Get JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - run: make
+
+      - name: Run tests
+        run: make test
