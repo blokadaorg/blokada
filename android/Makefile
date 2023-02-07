@@ -36,7 +36,7 @@ clean:
 	@rm -rf app/six-common; \
 	rm -rf app/wireguard-android/lib; \
 	./gradlew clean; \
-	#cd six-common && flutter clean; \
+	cd six-common && flutter clean; \
 	cd ..; \
 	cd wireguard-android && ./gradlew clean; \
 
