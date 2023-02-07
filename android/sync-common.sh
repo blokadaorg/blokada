@@ -21,8 +21,8 @@ commit="sync: update six-common to: $hash"
 echo $commit
 
 flutter build aar --no-profile
-mkdir -p ../app/six-common/
-cp -r build/host/outputs/repo ../app/six-common/
+mkdir -p libs/six-common/
+cp -r build/host/outputs/repo/ libs/six-common
 
 cd ../
 

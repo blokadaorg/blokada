@@ -22,8 +22,8 @@ echo $commit
 
 #./gradlew tunnel:clean
 ./gradlew tunnel:build
-mkdir -p ../app/wireguard-android/lib
-cp tunnel/build/outputs/aar/tunnel-release.aar ../app/wireguard-android/lib/wg-tunnel.aar
+mkdir -p ../libs/wireguard-android/lib
+cp tunnel/build/outputs/aar/tunnel-release.aar ../libs/wireguard-android/lib/wg-tunnel.aar
 
 cd ../
 
