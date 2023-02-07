@@ -13,18 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repo
+        uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Set Up JDK
+      - name: Get JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
-      - name: Build app
+      - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
-      - run: make
+      - run: make sixcommon
 
+      - name: Build app
+        run: make apk
+
+      - name: Run tests
+        run: make test

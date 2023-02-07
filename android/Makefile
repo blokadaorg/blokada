@@ -43,3 +43,5 @@ clean:
 install:
 	./gradlew installSixRelease
 
+test:
+	./gradlew testSixRelease
