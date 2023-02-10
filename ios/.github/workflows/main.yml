@@ -1,4 +1,4 @@
-name: deploy
+name: Blokada 6 for iOS (CI)
 
 on:
   workflow_dispatch:
@@ -30,4 +30,4 @@ jobs:
           exec .github/scripts/import-profile.sh
       - name: Build app
         run: |
-          fastlane run build_app(scheme: "App")
+          fastlane run build_app scheme:"App"
