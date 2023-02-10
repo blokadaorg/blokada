@@ -1,0 +1,32 @@
+name: deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+
+      - name: Set environment variables from project settings
+        run: |
+          exec .github/scripts/set-env-from-xcodeproj.sh
+      - name: Import signing certificate
+        env:
+          SIGNING_CERTIFICATE_P12_DATA: ${{ secrets.SIGNING_CERTIFICATE_P12_DATA }}
+          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
+        run: |
+          exec .github/scripts/import-certificate.sh
+      - name: Import provisioning profile
+        env:
+          PROVISIONING_PROFILE_DATA_APP: ${{ secrets.PROVISIONING_PROFILE_DATA_APP }}
+          PROVISIONING_PROFILE_DATA_NETWORKEXTENSION: ${{ secrets.PROVISIONING_PROFILE_DATA_NETWORKEXTENSION }}
+        run: |
+          exec .github/scripts/import-profile.sh
+      - name: Build app
+        run: |
+          fastlane run build_app
