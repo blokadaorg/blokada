@@ -2,10 +2,11 @@ name: deploy
 
 on:
   push:
+    workflow_dispatch:
     branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: macos-latest
 
     steps:
