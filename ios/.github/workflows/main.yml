@@ -36,8 +36,9 @@ jobs:
         with:
           channel: 'stable'
       - run: |
-	  make sixcommon
+           make sixcommon
 
       - name: Build app
         run: |
-	  make ipa
+          make ipa
+
