@@ -33,7 +33,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-        run: |
+      - run: |
           cd six-common/ && source ./build.for.ios.sh && cd ../ 
 
       - name: Build app
