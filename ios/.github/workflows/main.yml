@@ -36,8 +36,8 @@ jobs:
         with:
           channel: 'stable'
       - run: |
-          cd six-common/ && source ./build.for.ios.sh && cd ../ 
+	  make sixcommon
 
       - name: Build app
         run: |
-          fastlane run build_app scheme:"IOS"
+	  make ipa
