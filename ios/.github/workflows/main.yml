@@ -28,6 +28,14 @@ jobs:
           PROVISIONING_PROFILE_DATA_NETWORKEXTENSION: ${{ secrets.PROVISIONING_PROFILE_DATA_NETWORKEXTENSION }}
         run: |
           exec .github/scripts/import-profile.sh
+
+      - name: Build common
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+        run: |
+          cd six-common/ && source ./build.for.ios.sh && cd ../ 
+
       - name: Build app
         run: |
           fastlane run build_app scheme:"IOS"
