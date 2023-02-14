@@ -16,8 +16,120 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
-  end
+ desc "Load ASC API Key information to use in subsequent lanes"
+ lane :load_asc_api_key do
+   app_store_connect_api_key(
+     key_id: ENV["ASC_KEY_ID"],
+     issuer_id: ENV["ASC_ISSUER_ID"],
+     key_content: ENV["ASC_KEY"],
+     is_key_content_base64: true,
+     in_house: false # detecting this via ASC private key not currently supported
+   )
+ end
 end
+
+desc "Bump build number based on most recent TestFlight build number"
+lane :fetch_and_increment_build_number do
+ #fetch read your app identifier defined in your Appfile
+ app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+ api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
+ 
+ current_version = get_version_number(
+   target: "App"
+ )
+ latest_build_number = latest_testflight_build_number(
+   api_key: api_key,
+   version: current_version,
+   app_identifier: app_identifier
+ )
+ increment_build_number(
+   build_number: (latest_build_number + 1),
+ )
+end
+ 
+desc "Check certs and profiles"
+lane :prepare_signing do |options|
+ app_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+ api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
+ 
+ profile_name = "blokada-app-ios-dist"
+ 
+ cert(
+     api_key: api_key,
+     keychain_path: ENV["KEYCHAIN_PATH"] # the path to the keychain where your certificates are stored
+   )
+ 
+ # main app profile
+ sigh(
+   api_key: api_key,
+   app_identifier: app_id,
+   provisioning_name: profile_name,
+   force: true # always recreate this exact profile to ensure it's valid and not expired
+ )
+end
+ 
+desc "Build the iOS app for release"
+lane :build_release do |options|
+ app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+ 
+ profile_name = "blokada-app-ios-dist" # the name of the profile to use for the build
+ output_name = "blokada6" # specify the name of the .ipa file to generate
+ export_method = "app-store" # specify the export method
+ compile_bitcode = true # specify whether to enable bitcode
+ 
+ # turn off automatic signing during build so correct code signing identity is guaranteed to be used
+ update_code_signing_settings(
+   use_automatic_signing: false,
+   targets: ["App"],
+   code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
+   bundle_identifier: app_identifier,
+   profile_name: profile_name,
+   build_configurations: ["Release"] # only toggle code signing settings for Release configurations
+ )
+ 
+ # build the app
+ gym(
+   scheme: "IOS",
+   output_name: output_name,
+   configuration: "Release",
+   export_options: {
+     method: export_method,
+     provisioningProfiles: {
+       app_identifier => app_profile_name
+     },
+     compileBitcode: compile_bitcode
+   }
+ )
+end
+ 
+desc "Upload to TestFlight / ASC"
+lane :upload_release do
+ api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
+ 
+ deliver(
+     api_key: api_key,
+     skip_screenshots: true,
+     skip_metadata: true,
+     skip_app_version_update: true,
+     force: true, # skips verification of HTML preview file (since this will be run from a CI machine)
+     run_precheck_before_submit: false # not supported through ASC API yet
+ )
+end
+
+desc "Build app"
+lane :build_app do
+     load_asc_api_key
+     prepare_signing
+     fetch_and_increment_build_number
+     build_release
+end
+
+desc "Build and upload to TestFlight"
+lane :build_upload_testflight do
+     load_asc_api_key
+     prepare_signing
+     fetch_and_increment_build_number
+     build_release
+     upload_release
+end
+
