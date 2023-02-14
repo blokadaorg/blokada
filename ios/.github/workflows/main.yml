@@ -9,36 +9,37 @@ jobs:
   build:
     runs-on: macos-latest
 
+
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
-      - name: Set environment variables from project settings
-        run: |
-          exec .github/scripts/set-env-from-xcodeproj.sh
-      - name: Import signing certificate
-        env:
-          SIGNING_CERTIFICATE_P12_DATA: ${{ secrets.SIGNING_CERTIFICATE_P12_DATA }}
-          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
-        run: |
-          exec .github/scripts/import-certificate.sh
-      - name: Import provisioning profile
-        env:
-          PROVISIONING_PROFILE_DATA_APP: ${{ secrets.PROVISIONING_PROFILE_DATA_APP }}
-          PROVISIONING_PROFILE_DATA_NETWORKEXTENSION: ${{ secrets.PROVISIONING_PROFILE_DATA_NETWORKEXTENSION }}
-        run: |
-          exec .github/scripts/import-profile.sh
-
-      - name: Build common
-        uses: subosito/flutter-action@v2
+ 
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
         with:
-          channel: 'stable'
-      - run: |
-           make sixcommon
-
-      - name: Build app
-        run: |
-          make ipa
-
+          ruby-version: 2.7.2
+          bundler-cache: true
+ 
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+    
+      - name: Build & upload iOS binary
+        run: bundle exec fastlane ios build_app
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
+ 
+      - name: Upload app-store ipa and dsyms to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-store ipa & dsyms
+          path: |
+            ${{ github.workspace }}/example-iOS.ipa
+            ${{ github.workspace }}/*.app.dSYM.zip
