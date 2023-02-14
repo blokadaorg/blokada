@@ -29,7 +29,7 @@ jobs:
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
     
       - name: Build & upload iOS binary
-        run: bundle exec fastlane ios build_app
+        run: bundle exec fastlane ios build_blokada
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}

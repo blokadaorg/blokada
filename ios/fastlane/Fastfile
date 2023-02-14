@@ -117,7 +117,7 @@ lane :upload_release do
 end
 
 desc "Build app"
-lane :build_app do
+lane :build_blokada do
      load_asc_api_key
      prepare_signing
      fetch_and_increment_build_number
