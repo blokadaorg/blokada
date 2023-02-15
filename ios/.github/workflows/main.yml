@@ -16,11 +16,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Build common
+      - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: make sixcommon
+
+      - name: Build common lib
+        run: make sixcommon
  
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
@@ -32,7 +34,7 @@ jobs:
         uses: Apple-Actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
-          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          p12-password:
     
       - name: Build & upload iOS binary
         run: bundle exec fastlane build_blokada
