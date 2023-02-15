@@ -16,14 +16,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Get Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Build common lib
-        run: make sixcommon
- 
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
         with:
