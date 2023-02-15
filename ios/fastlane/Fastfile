@@ -55,7 +55,8 @@ lane :prepare_signing do |options|
  cert(
      api_key: api_key,
      keychain_path: ENV["KEYCHAIN_PATH"],
-     keychain_password: "signingtmp"
+     keychain_password: "signingtmp",
+     generate_apple_certs: false
    )
  
  # main app profile
