@@ -54,7 +54,8 @@ lane :prepare_signing do |options|
  
  cert(
      api_key: api_key,
-     keychain_path: ENV["KEYCHAIN_PATH"] # the path to the keychain where your certificates are stored
+     keychain_path: ENV["KEYCHAIN_PATH"],
+     keychain_password: "signingtmp"
    )
  
  # main app profile

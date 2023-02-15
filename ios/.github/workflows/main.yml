@@ -35,6 +35,7 @@ jobs:
         with:
           p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          keychain-password: signingtmp
     
       - name: Build & upload iOS binary
         run: bundle exec fastlane build_blokada
