@@ -77,6 +77,7 @@ lane :build_release do |options|
  
  # turn off automatic signing during build so correct code signing identity is guaranteed to be used
  update_code_signing_settings(
+   path: './IOS.xcodeproj',
    use_automatic_signing: false,
    targets: ["App"],
    code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
