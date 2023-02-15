@@ -94,7 +94,8 @@ lane :build_release do |options|
    export_options: {
      method: export_method,
      provisioningProfiles: {
-       app_identifier => app_profile_name
+       "net.blocka.app" => "blokada-app-ios-dist",
+       "net.blocka.app.network-extension" => "blokada-networkextension-ios-dist"
      },
      compileBitcode: compile_bitcode
    }
