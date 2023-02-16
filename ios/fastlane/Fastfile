@@ -64,7 +64,15 @@ lane :prepare_signing do |options|
    api_key: api_key,
    app_identifier: app_id,
    provisioning_name: profile_name,
-   force: true # always recreate this exact profile to ensure it's valid and not expired
+   force: false # always recreate this exact profile to ensure it's valid and not expired
+ )
+
+ # network extension profile
+ sigh(
+   api_key: api_key,
+   app_identifier: "net.blocka.app.network-extension",
+   provisioning_name: "blokada-networkextension-ios-dist",
+   force: false # always recreate this exact profile to ensure it's valid and not expired
  )
 end
  
