@@ -95,6 +95,17 @@ lane :build_release do |options|
    profile_name: profile_name,
    build_configurations: ["Release"] # only toggle code signing settings for Release configurations
  )
+
+ # same for the network extension
+ update_code_signing_settings(
+   path: './IOS.xcodeproj',
+   use_automatic_signing: false,
+   targets: ["WireGuardNetworkExtensioniOS"],
+   code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
+   bundle_identifier: "net.blocka.app.network-extension",
+   profile_name: "blokada-networkextension-ios-dist",
+   build_configurations: ["Release"] # only toggle code signing settings for Release configurations
+ )
  
  # build the app
  gym(
