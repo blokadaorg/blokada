@@ -1,10 +1,10 @@
 name: Blokada 6 for Android (Publish)
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - android.v6.**
-  workflow_dispatch:
 
 env:
   main_project_module: app
@@ -30,8 +30,16 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Build AAB
-        run: ./gradlew app:bundleSixRelease
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build common lib
+        run: make sixcommon
+
+      - name: Build aab
+        run: make aab
 
       - name: Sign app AAB
         uses: r0adkll/sign-android-release@v1

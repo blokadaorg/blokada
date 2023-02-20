@@ -1,4 +1,4 @@
-name: Blokada 6 for iOS (CI)
+name: Blokada 6 for iOS (Publish)
 
 on:
   workflow_dispatch:
@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./six-ios
 
 
     steps:
