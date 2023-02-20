@@ -33,6 +33,9 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
+
+      - name: Install bundler
+        run: gem install bundler:1.17.2
  
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1
