@@ -27,7 +27,9 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
-      - run: make sixcommon
+
+      - name: Build common lib
+        run: make sixcommon
 
       - name: Build app
         run: make apk
