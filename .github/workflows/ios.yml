@@ -1,0 +1,55 @@
+name: Blokada 6 for iOS (CI)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - ios.v6.**
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build common lib
+        run: make sixcommon
+ 
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+ 
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          keychain-password: signingtmp
+    
+      - name: Build & upload iOS binary
+        run: bundle exec fastlane build_upload_testflight
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
+ 
+      - name: Upload app-store ipa and dsyms to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-store ipa & dsyms
+          path: |
+            ${{ github.workspace }}/example-iOS.ipa
+            ${{ github.workspace }}/*.app.dSYM.zip
