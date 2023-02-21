@@ -19,6 +19,8 @@ if [ "$#" -ne 3 ]; then
   exit 1
 fi
 
+./sync-translations.sh
+
 # Drops leading zeros
 major=${2#0}
 minor=${3#0}
@@ -34,7 +36,5 @@ git add IOS.xcodeproj/project.pbxproj
 git commit -m "$commit"
 git tag $tag
 
-git push
-git push --tags
-
-echo "Done"
+echo "Done. Run this to push:"
+echo "git push --atomic origin main $tag"
