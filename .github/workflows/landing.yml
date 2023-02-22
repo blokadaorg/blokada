@@ -26,5 +26,8 @@ jobs:
       - name: Install VUE CLI 
         run: npm install -g @vue/cli-service --save-dev
 
+      - name: Install all project deps
+        run: yarn install
+
       - name: Build landing
         run: ./sync-landing.sh
