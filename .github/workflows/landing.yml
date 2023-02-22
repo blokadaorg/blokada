@@ -9,6 +9,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./landing
 
     steps:
       - uses: actions/checkout@v3
@@ -30,4 +33,4 @@ jobs:
         run: yarn install
 
       - name: Build landing
-        run: ./sync-landing.sh
+        run: cd ../ && ./sync-landing.sh
