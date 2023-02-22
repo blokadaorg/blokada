@@ -7,3 +7,9 @@
 [submodule "six-ios"]
 	path = six-ios
 	url = https://github.com/blokadaorg/six-ios.git
+[submodule "landing"]
+	path = landing
+	url = git@github.com:blokadaorg/landing.git
+[submodule "landing-github-pages"]
+	path = landing-github-pages
+	url = git@github.com:blokadaorg/landing-github-pages.git
