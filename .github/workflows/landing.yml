@@ -1,0 +1,27 @@
+name: Landing (Publish)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - landing.**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Build landing
+        run: ./sync-landing.sh
