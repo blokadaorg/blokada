@@ -20,6 +20,7 @@ git pull
 cd ..
 
 cd landing
+git submodule update
 
 hash=$(git describe --abbrev=4 --always --tags --dirty)
 echo "Syncing landing to live: $hash..."
