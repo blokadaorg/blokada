@@ -24,6 +24,7 @@ cd landing
 hash=$(git describe --abbrev=4 --always --tags --dirty)
 echo "Syncing landing to live: $hash..."
 
+yarn install
 yarn build
 cp -r dist/* ../landing-github-pages/
 echo "$hash" > ../landing-github-pages/version.txt
