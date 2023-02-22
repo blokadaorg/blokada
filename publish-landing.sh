@@ -14,6 +14,11 @@
 
 set -e
 
+if [ "$#" -ne 1 ]; then
+  echo "Error: You must provide the version tag. ./publish-landing.sh TAG" >&2
+  exit 1
+fi
+
 echo "Publishing landing: $1..."
 
 cd landing
@@ -24,15 +29,17 @@ git submodule update
 
 cd ../
 
+./sync-landing.sh
+
 commit="publish landing: $1"
 tag="landing.$1"
 
 git add landing
+git add landing-github-pages
 git commit -m "$commit"
 git tag $tag
 
 git push
 git push --tags
-
 
 echo "Done"
