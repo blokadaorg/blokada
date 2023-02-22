@@ -23,5 +23,8 @@ jobs:
       - name: Install yarn
         run: npm install -g yarn
 
+      - name: Install VUE CLI 
+        run: npm install -g @vue/cli
+
       - name: Build landing
         run: ./sync-landing.sh
