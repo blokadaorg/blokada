@@ -10,14 +10,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./landing-github-pages
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+
+      - name: Checkout master on landing-github-pages
+        run: cd ./landing-github-pages && git checkout master && cd ../
 
       - name: Update translations
         run: ./sync-translations.sh
@@ -27,6 +27,7 @@ jobs:
         with:
           cwd: './landing-github-pages'
           message: 'sync: translations'
+          pull: 'origin'
           push: true
 
       - name: Update mirrors
