@@ -46,7 +46,7 @@ jobs:
       - name: 'Push submodule to blokada main repo'
         uses: EndBug/add-and-commit@v9
         with:
-          cwd: './landing-github-pages'
+          cwd: './'
           message: 'publish mirrors'
-          gihtub_token: ${{ secrets.MIRROR_TOKEN }}
+          github_token: ${{ secrets.MIRROR_TOKEN }}
           push: true
