@@ -20,7 +20,7 @@ jobs:
         run: cd ./landing-github-pages && git checkout master && cd ../
 
       - name: Update translations
-        run: ./sync-translations.sh
+        run: cd ./landing-github-pages && ./sync-translations.sh && cd ../
 
       - name: 'Push translations commit'
         uses: EndBug/add-and-commit@v9
@@ -31,7 +31,7 @@ jobs:
           push: true
 
       - name: Update mirrors
-        run: cd ./scripts/ && ./mirror.py
+        run: cd .landing-github-pages/scripts/ && ./mirror.py && cd ../
 
       - name: 'Push mirrors commit'
         uses: EndBug/add-and-commit@v9
