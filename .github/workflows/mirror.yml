@@ -22,6 +22,15 @@ jobs:
       - name: Update translations
         run: ./sync-translations.sh
 
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'sync: translations'
+          push: true
+
       - name: Update mirrors
         run: cd ./scripts/ && ./mirror.py
 
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'sync: mirrors'
+          push: true
