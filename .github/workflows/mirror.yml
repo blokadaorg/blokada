@@ -22,15 +22,26 @@ jobs:
       - name: Update translations
         run: ./sync-translations.sh
 
-      - uses: EndBug/add-and-commit@v9
+      - name: 'Push translations commit'
+        uses: EndBug/add-and-commit@v9
         with:
+          cwd: './landing-github-pages'
           message: 'sync: translations'
           push: true
 
       - name: Update mirrors
         run: cd ./scripts/ && ./mirror.py
 
-      - uses: EndBug/add-and-commit@v9
+      - name: 'Push mirrors commit'
+        uses: EndBug/add-and-commit@v9
         with:
+          cwd: './landing-github-pages'
           message: 'sync: mirrors'
+          push: true
+
+      - name: 'Push submodule to blokada main repo'
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: './landing-github-pages'
+          message: 'publish mirrors'
           push: true
