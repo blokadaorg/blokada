@@ -8,7 +8,7 @@ on:
       - ios.v6.**
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,19 +28,19 @@ jobs:
         with:
           cwd: './landing-github-pages'
           message: 'sync: translations'
-          token: ${{ secrets.MIRROR_TOKEN }}
+          github_token: ${{ secrets.MIRROR_TOKEN }}
           pull: 'origin'
           push: true
 
       - name: Update mirrors
-        run: cd .landing-github-pages/scripts/ && ./mirror.py && cd ../
+        run: cd ./landing-github-pages/scripts/ && ./mirror.py && cd ../
 
       - name: 'Push mirrors commit'
         uses: EndBug/add-and-commit@v9
         with:
           cwd: './landing-github-pages'
           message: 'sync: mirrors'
-          token: ${{ secrets.MIRROR_TOKEN }}
+          github_token: ${{ secrets.MIRROR_TOKEN }}
           push: true
 
       - name: 'Push submodule to blokada main repo'
@@ -48,5 +48,5 @@ jobs:
         with:
           cwd: './landing-github-pages'
           message: 'publish mirrors'
-          token: ${{ secrets.MIRROR_TOKEN }}
+          gihtub_token: ${{ secrets.MIRROR_TOKEN }}
           push: true
