@@ -27,10 +27,6 @@ git pull
 git co $1
 make deploy
 
-git tag "$hash"
-git push
-git push --tags
-
 cd ../
 
 commit="publish dashboard: $1"
