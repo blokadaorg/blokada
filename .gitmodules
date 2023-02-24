@@ -13,6 +13,3 @@
 [submodule "landing-github-pages"]
 	path = landing-github-pages
 	url = git@github.com:blokadaorg/landing-github-pages.git
-[submodule "dashboard"]
-	path = dashboard
-	url = git@github.com:blokadaorg/dashboard.git
