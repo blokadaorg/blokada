@@ -37,10 +37,10 @@ jobs:
         id: sign_app_five
         with:
           releaseDirectory: five-android/app/build/outputs/apk/five/release/
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_V5 }}
           alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD_V5 }}
+          keyPassword: ${{ secrets.KEY_PASSWORD_V5 }}
 
       - name: Upload artifact (five)
         uses: actions/upload-artifact@v3
