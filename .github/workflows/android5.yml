@@ -1,0 +1,56 @@
+name: Blokada 5 for Android (Publish)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - android.v5.**
+
+env:
+  main_project_module: app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./five-android
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build apk (five)
+        run: ./gradlew assembleFiveRelease
+
+      - name: Sign apk (five)
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app_five
+        with:
+          releaseDirectory: five-android/app/build/outputs/apk/five/release/
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload artifact (five)
+        uses: actions/upload-artifact@v3
+        with:
+          name: blokada5
+          path: ${{steps.sign_app_five.outputs.signedReleaseFile}}
+
+      #- name: Build apk (escaped)
+      #  run: ./gradlew assembleEscapedRelease
+
+      #- name: Build apk (google)
+      #  run: ./gradlew assembleGoogleslimRelease
+
