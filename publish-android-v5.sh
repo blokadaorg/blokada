@@ -14,6 +14,11 @@
 
 set -e
 
+if [ "$#" -ne 1 ]; then
+  echo "Error: You must provide the version tag. ./publish.sh TAG" >&2
+  exit 1
+fi
+
 echo "Publishing Blokada 5 for Android: $1..."
 
 cd five-android
