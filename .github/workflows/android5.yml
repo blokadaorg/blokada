@@ -56,17 +56,28 @@ jobs:
            name: blokada5-${{ steps.vars.outputs.tag }}
            path: blokada5-${{ steps.vars.outputs.tag }}.apk
 
-      - name: Publish artifact (five)
+      - name: Build apk (escaped)
+        run: ./gradlew assembleEscapedRelease
+
+      - name: Sign apk (escaped)
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app_escaped
+        with:
+          releaseDirectory: five-android/app/build/outputs/apk/escaped/release/
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_V5 }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD_V5 }}
+          keyPassword: ${{ secrets.KEY_PASSWORD_V5 }}
+
+      - name: Rename artifact (escaped)
+        run: mv ../${{steps.sign_app_five.outputs.signedReleaseFile}} ../app-escaped-${{ steps.vars.outputs.tag }}.apk
+
+      - name: Publish all artifacts
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body: 'Changelog: https://go.blokada.org/changelog'
-          files: blokada5-${{ steps.vars.outputs.tag }}.apk
-
-
-      #- name: Build apk (escaped)
-      #  run: ./gradlew assembleEscapedRelease
-
-      #- name: Build apk (google)
-      #  run: ./gradlew assembleGoogleslimRelease
+          files: |
+            blokada5-${{ steps.vars.outputs.tag }}.apk
+            app-escaped-${{ steps.vars.outputs.tag }}.apk
 
