@@ -17,11 +17,14 @@ jobs:
         working-directory: ./five-android
 
     steps:
-      - uses: actions/checkout@v3
-        id: vars
-        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           submodules: recursive
+
+      - name: Set tag name var
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Set Up JDK
         uses: actions/setup-java@v1
