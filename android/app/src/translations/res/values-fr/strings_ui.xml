@@ -121,7 +121,7 @@
     <string name="home_status_detail_plus">*+* protège votre *vie privée*</string>
     <string name="home_status_detail_progress">Veuillez patienter...</string>
     <string name="home_plus_button_deactivated">BLOKADA+ désactivé</string>
-    <string name="home_plus_button_deactivated_cloud">VPN deactivated</string>
+    <string name="home_plus_button_deactivated_cloud">VPN désactivé</string>
     <string name="home_plus_button_select_location">Choisir l\'emplacement</string>
     <string name="home_plus_button_location">Emplacement : *%s*</string>
     <string name="pack_section_header">Fonctionnalités avancées</string>
@@ -236,7 +236,7 @@
     <string name="account_lease_label_generate">Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don\'t have our apps yet. Otherwise, we recommend using our native apps instead.</string>
     <string name="account_lease_action_generate">Générer la configuration</string>
     <string name="account_lease_action_download">Télécharger la configuration</string>
-    <string name="account_lease_generated">Device added! Download the configuration to use it on any device supported by WireGuard.</string>
+    <string name="account_lease_generated">Appareil ajouté ! Téléchargez la configuration pour l\'utiliser sur n\'importe quel appareil pris en charge par WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada uses WireGuard. Configurations can be downloaded when creating new devices.</string>
     <string name="account_lease_label_dns">DNS</string>
     <string name="account_lease_action_dns">Sélectionner un DNS</string>
@@ -258,11 +258,11 @@
     <string name="payment_feature_title_performance">Grande performance</string>
     <string name="payment_feature_desc_performance">Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.</string>
     <string name="payment_feature_title_battery">Zero Battery Impact</string>
-    <string name="payment_feature_desc_battery">Your battery life isn\'t going to be impacted, it might even improve when Blokada Cloud is activated.</string>
+    <string name="payment_feature_desc_battery">L\'autonomie de votre batterie ne va pas être impactée, elle pourrait même s\'améliorer lorsque Blokada Cloud est activé.</string>
     <string name="payment_feature_title_devices_cloud">Plusieurs appareils</string>
     <string name="payment_feature_desc_devices_cloud">Configure and monitor all your devices in one place. Either through our mobile app or our web app.</string>
     <string name="payment_feature_title_cloud_vpn">The Cloud plus VPN</string>
-    <string name="payment_feature_desc_cloud_vpn">In addition to all the benefits of Blokada Cloud, you\'ll get access to our global VPN network</string>
+    <string name="payment_feature_desc_cloud_vpn">En plus de tous les avantages de Blokada Cloud, vous aurez accès à notre réseau VPN mondial</string>
     <string name="payment_feature_title_faster_connection">Connexion plus rapide</string>
     <string name="payment_feature_desc_faster_connection">Des vitesses exceptionnelles allant jusqu\'à 100 Mbps avec des serveurs partout dans le monde.</string>
     <string name="payment_feature_title_devices">Jusqu\'à 5 appareils</string>
@@ -312,7 +312,7 @@
     <string name="payment_label_country">Pays</string>
     <string name="payment_euro_desc">Nous sommes basés en Europe, nous acceptons donc les règlements en euro : 10€ vaut environ 12$.</string>
     <string name="payment_action_compare">Comparer les offres</string>
-    <string name="payment_plan_slugline_cloud">Blocks ads and trackers</string>
+    <string name="payment_plan_slugline_cloud">Bloque les publicités et les trackers</string>
     <string name="payment_plan_slugline_cloud_detail">(Blokada Cloud inclus)</string>
     <string name="payment_plan_slugline_plus">Additional protection with VPN</string>
     <string name="payment_plan_cta_trial">Commencer l\'essai gratuit de 7 jours</string>
@@ -361,7 +361,7 @@
     <string name="dnsprofile_header">Activer Blokada dans les Paramètres</string>
     <string name="dnsprofile_desc">Dans l\'application Paramètres : allez dans Général → VPN, DNS &amp; Gestion des périphériques → DNS et enfin sélectionnez Blokada.</string>
     <string name="dnsprofile_action_open_settings">Ouvrir les Paramètres</string>
-    <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
+    <string name="dnsprofile_desc_android">Dans l\'application Paramètres, trouvez la section DNS privée, puis collez votre nom d\'hôte (appui long).</string>
     <string name="dnsprofile_desc_android_copy">Copiez votre nom d\'hôte Blokada Cloud pour le coller dans les Paramètres.</string>
     <string name="activated_header">On y est presque !</string>
     <string name="activated_desc">Ce qui suit est nécessaire pour que Blokada fonctionne comme prévu :</string>
