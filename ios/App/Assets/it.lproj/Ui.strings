@@ -158,7 +158,7 @@
 "home status detail paused" = "In pausa fino alla fine del timer";
 "home status detail active" = "Sto bloccando *pubblicità* e *tracker*";
 "home status detail active with counter" = "*%@* pubblicità e tracker bloccati";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "Pubblicità e tracker bloccati nelle ultime 24 ore";
 "home status detail active slim" = "Blokada *Slim* è attiva";
 "home status detail plus" = "*+* proteggendo la tua *privacy*";
 "home status detail progress" = "Attendere prego...";
@@ -226,11 +226,11 @@
 "activity filter showing for" = "Mostrando per: %@";
 "activity empty text" = "Usa il tuo dispositivo e torna qui più tardi, per vedere dove si è connesso.";
 "activity device filter show all" = "Tutti i dispositivi";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "Vuoi che conserviamo la tua attività?";
 "activity retention option none" = "Non memorizzare la mia attività";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "Sì, conserva la mia attività";
+"activity retention policy" = "Abilitando i log di attività accetti l'informativa sulla privacy.";
+"activity retention desc" = "Per impostazione predefinita, Blokada Cloud non colleziona alcun dato. Se desideri tenere traccia delle statistiche e delle attività di tutti i tuoi dispositivi, scegli qui sotto l'opzione che preferisci.";
 
 "userdenied section header" = "Eccezioni";
 "userdenied section slugline" = "Gestisci il blocco di particolari siti web";
@@ -439,15 +439,15 @@
 "stats top allowed header" = "Richieste permesse maggiormente";
 "stats top blocked header" = "Richieste bloccate maggiormente";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "Consentiti";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "Bloccati";
 // A short one-word label for the counter of total requests.
-"stats label total" = "Total";
+"stats label total" = "Totali";
 // A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24h";
+"stats header day" = "24 ore";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "Da sempre";
 
 "dnsprofile header" = "Abilita Blokada nelle Impostazioni";
 "dnsprofile desc" = "Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.";

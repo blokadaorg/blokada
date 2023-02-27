@@ -164,7 +164,7 @@
 "home status detail progress" = "Veuillez patienter...";
 
 "home plus button deactivated" = "BLOKADA+ désactivé";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "VPN désactivé";
 "home plus button select location" = "Choisir l'emplacement";
 "home plus button location" = "Emplacement : *%@*";
 
@@ -298,7 +298,7 @@
 "account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
 "account lease action generate" = "Générer la configuration";
 "account lease action download" = "Télécharger la configuration";
-"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
+"account lease generated" = "Appareil ajouté ! Téléchargez la configuration pour l'utiliser sur n'importe quel appareil pris en charge par WireGuard.";
 "account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Sélectionner un DNS";
@@ -324,11 +324,11 @@
 "payment feature title performance" = "Grande performance";
 "payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
 "payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
+"payment feature desc battery" = "L'autonomie de votre batterie ne va pas être impactée, elle pourrait même s'améliorer lorsque Blokada Cloud est activé.";
 "payment feature title devices cloud" = "Plusieurs appareils";
 "payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
 "payment feature title cloud vpn" = "The Cloud plus VPN";
-"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
+"payment feature desc cloud vpn" = "En plus de tous les avantages de Blokada Cloud, vous aurez accès à notre réseau VPN mondial";
 "payment feature title faster connection" = "Connexion plus rapide";
 "payment feature desc faster connection" = "Des vitesses exceptionnelles allant jusqu'à 100 Mbps avec des serveurs partout dans le monde.";
 "payment feature title devices" = "Jusqu'à 5 appareils";
@@ -385,7 +385,7 @@
 "payment euro desc" = "Nous sommes basés en Europe, nous acceptons donc les règlements en euro : 10€ vaut environ 12$.";
 
 "payment action compare" = "Comparer les offres";
-"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment plan slugline cloud" = "Bloque les publicités et les trackers";
 // A short information that Plus plan contains Cloud also.
 "payment plan slugline cloud detail" = "(Blokada Cloud inclus)";
 "payment plan slugline plus" = "Additional protection with VPN";
@@ -452,7 +452,7 @@
 "dnsprofile header" = "Activer Blokada dans les Paramètres";
 "dnsprofile desc" = "Dans l'application Paramètres : allez dans Général → VPN, DNS & Gestion des périphériques → DNS et enfin sélectionnez Blokada.";
 "dnsprofile action open settings" = "Ouvrir les Paramètres";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
+"dnsprofile desc android" = "Dans l'application Paramètres, trouvez la section DNS privée, puis collez votre nom d'hôte (appui long).";
 "dnsprofile desc android copy" = "Copiez votre nom d'hôte Blokada Cloud pour le coller dans les Paramètres.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
