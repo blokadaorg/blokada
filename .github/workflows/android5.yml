@@ -70,7 +70,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD_V5 }}
 
       - name: Rename artifact (escaped)
-        run: mv ../${{steps.sign_app_five.outputs.signedReleaseFile}} ../app-escaped-${{ steps.vars.outputs.tag }}.apk
+        run: mv ../${{steps.sign_app_escaped.outputs.signedReleaseFile}} ../app-escaped-${{ steps.vars.outputs.tag }}.apk
 
       - name: Publish all artifacts
         uses: softprops/action-gh-release@v1
