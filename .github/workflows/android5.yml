@@ -18,6 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
         with:
           submodules: recursive
 
@@ -42,18 +44,21 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD_V5 }}
           keyPassword: ${{ secrets.KEY_PASSWORD_V5 }}
 
-      - name: Upload artifact (five)
-        uses: actions/upload-artifact@v3
-        with:
-          name: blokada5
-          path: ${{steps.sign_app_five.outputs.signedReleaseFile}}
+      - name: Rename artifact (five)
+        run: mv ${{steps.sign_app_five.outputs.signedReleaseFile}} blokada5-${{ steps.vars.outputs.tag }}.apk
+
+      -  name: Upload artifact (five)
+         uses: actions/upload-artifact@v3
+         with:
+           name: blokada5-${{ steps.vars.outputs.tag }}
+           path: blokada5-${{ steps.vars.outputs.tag }}.apk
 
       - name: Publish artifact (five)
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           body: 'Changelog: https://go.blokada.org/changelog'
-          files: ${{steps.sign_app_five.outputs.signedReleaseFile}}
+          files: blokada5-${{ steps.vars.outputs.tag }}.apk
 
 
       #- name: Build apk (escaped)
