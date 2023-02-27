@@ -48,7 +48,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD_V5 }}
 
       - name: Rename artifact (five)
-        run: mv ${{steps.sign_app_five.outputs.signedReleaseFile}} blokada5-${{ steps.vars.outputs.tag }}.apk
+        run: mv ../${{steps.sign_app_five.outputs.signedReleaseFile}} blokada5-${{ steps.vars.outputs.tag }}.apk
 
       -  name: Upload artifact (five)
          uses: actions/upload-artifact@v3
