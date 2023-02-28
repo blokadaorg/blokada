@@ -16,6 +16,7 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.MIRROR_TOKEN }}
+          ref: 'main'
 
       - name: Checkout master on landing-github-pages
         run: cd ./landing-github-pages && git checkout master && cd ../
