@@ -1,5 +1,7 @@
 /.android
 
+*.g.dart
+
 .DS_Store
 local.properties
 
