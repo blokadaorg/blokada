@@ -71,12 +71,12 @@ struct AdsCounterShareView: View {
             }
             .frame(maxWidth: 500)
             .navigationBarItems(leading: Button(action: {
-                self.contentVM.dismissSheet()
+                self.contentVM.stage.dismiss()
             }) {
                 Text(L10n.universalActionDone)
             }.contentShape(Rectangle()),
             trailing: Button(action: {
-                self.contentVM.showSheet(.ShareAdsCounter)
+                //self.contentVM.stage.showModal(.ShareAdsCounter)
             }) {
                 Image(systemName: Image.fShare)
                    .imageScale(.large)

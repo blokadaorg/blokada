@@ -13,21 +13,25 @@
 import Foundation
 import UIKit
 import Combine
+import Factory
 
 class HomeViewModel: ObservableObject {
-
     private let log = BlockaLogger("Home")
 
-    private lazy var appRepo = Repos.appRepo
     private lazy var permsRepo = Repos.permsRepo
-    private lazy var plusRepo = Repos.plusRepo
-
-    private lazy var errorsHot = Repos.processingRepo.errorsHot
-    private lazy var blockedCounterHot = Repos.statsRepo.blockedHot
-    private lazy var selectedGatewayHot = Repos.gatewayRepo.selectedHot
-    private lazy var selectedLeaseHot = Repos.leaseRepo.currentHot
 
     private var cancellables = Set<AnyCancellable>()
+
+    @Injected(\.app) private var app
+    @Injected(\.account) private var account
+    @Injected(\.plus) private var plus
+    @Injected(\.plusLease) private var plusLease
+    @Injected(\.plusGateway) private var plusGateway
+    @Injected(\.perm) private var perm
+    @Injected(\.stage) private var stage
+
+    private lazy var selectedGatewayHot = plusGateway.selected
+    private lazy var selectedLeaseHot = plusLease.currentLease
 
     @Published var showSplash = true
 
@@ -51,6 +55,7 @@ class HomeViewModel: ObservableObject {
             } else {
                 showError = false
                 errorHeader = nil
+                stage.onDismissed()
             }
         }
     }
@@ -93,11 +98,10 @@ class HomeViewModel: ObservableObject {
 
     
     init() {
-        onMajorErrorDisplayDialog()
+        onError()
         onAppStateChanged()
         onWorking()
         onAccountTypeChanged()
-        onStatsChanged()
         onPermsRepoChanged()
         onSelectedGateway()
         onSelectedLease()
@@ -105,16 +109,25 @@ class HomeViewModel: ObservableObject {
         onPauseUpdateTimer()
     }
 
-    private func onMajorErrorDisplayDialog() {
-        errorsHot.filter { it in it.major }
-        .map { it in "Error:  \(it)" }
+//    private func onMajorErrorDisplayDialog() {
+//        errorsHot.filter { it in it.major }
+//        .map { it in "Error:  \(it)" }
+//        .receive(on: RunLoop.main)
+//        .sink(onValue: { it in self.error = it })
+//        .store(in: &cancellables)
+//    }
+
+    private func onError() {
+        stage.error
         .receive(on: RunLoop.main)
-        .sink(onValue: { it in self.error = it })
+        .sink(onValue: { it in
+            self.error = it?.localizedDescription
+        })
         .store(in: &cancellables)
     }
 
     private func onAppStateChanged() {
-        appRepo.appStateHot
+        app.appStateHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.appState = it
@@ -123,7 +136,7 @@ class HomeViewModel: ObservableObject {
     }
 
     private func onWorking() {
-        appRepo.workingHot
+        app.workingHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.working = it
@@ -132,20 +145,11 @@ class HomeViewModel: ObservableObject {
     }
 
     private func onAccountTypeChanged() {
-        appRepo.accountTypeHot
+        account.accountTypeHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.accountType = it
             self.accountActive = it.isActive()
-        })
-        .store(in: &cancellables)
-    }
-
-    private func onStatsChanged() {
-        blockedCounterHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.blockedCounter = it
         })
         .store(in: &cancellables)
     }
@@ -158,7 +162,7 @@ class HomeViewModel: ObservableObject {
         })
         .store(in: &cancellables)
 
-        permsRepo.vpnProfilePerms
+        perm.vpnProfilePerms
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.vpnPermsGranted = it
@@ -190,14 +194,14 @@ class HomeViewModel: ObservableObject {
     }
 
     private func onVpnEnabled() {
-        plusRepo.plusEnabledHot
+        plus.plusEnabled
         .receive(on: RunLoop.main)
         .sink(onValue: { it in self.vpnEnabled = it })
         .store(in: &cancellables)
     }
 
     private func onPauseUpdateTimer() {
-        appRepo.pausedUntilHot
+        app.pausedUntilHot
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             // Display the countdown only for short timers.
@@ -214,15 +218,14 @@ class HomeViewModel: ObservableObject {
     }
 
     func pause(seconds: Int?) {
-        let until = seconds != nil ? getDateInTheFuture(seconds: seconds!) : nil
-        appRepo.pauseApp(until: until)
+        app.pauseApp(until: seconds)
         .receive(on: RunLoop.main)
         .sink(onFailure: { err in self.error = "\(err)" })
         .store(in: &cancellables)
     }
 
     func unpause() {
-        appRepo.unpauseApp()
+        app.unpauseApp()
         .receive(on: RunLoop.main)
         .sink(onFailure: { err in self.error = "\(err)" })
         .store(in: &cancellables)
@@ -275,9 +278,9 @@ class HomeViewModel: ObservableObject {
 
     func switchVpn(activate: Bool) {
         if activate {
-            plusRepo.switchPlusOn()
+            plus.switchPlus(active: true)
         } else {
-            plusRepo.switchPlusOff()
+            plus.switchPlus(active: false)
         }
     }
 
@@ -295,7 +298,7 @@ class HomeViewModel: ObservableObject {
     }
 
     func showErrorMessage() -> String {
-        if self.error?.count ?? 999 > 128 {
+        if self.error?.count ?? 999 > 256 {
             return L10n.errorUnknown
         } else {
             return self.error!

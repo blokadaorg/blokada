@@ -26,6 +26,6 @@ extension BlockaKeypair : Equatable {
 }
 
 struct AccountWithKeypair {
-    let account: Account
+    let account: JsonAccount
     let keypair: BlockaKeypair
 }

@@ -69,7 +69,7 @@ struct SettingsFormNoNavView: View {
                 }
 
                 Button(action: {
-                    self.contentVM.showSheet(.Help)
+                    self.contentVM.stage.showModal(.help)
                 }) {
                     SettingsItemView(
                         title: L10n.universalActionSupport,

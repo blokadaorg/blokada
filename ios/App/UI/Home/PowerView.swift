@@ -26,11 +26,11 @@ struct PowerView: View {
             withAnimation {
                 if self.vm.working {
                 } else if !self.vm.accountActive {
-                    self.contentVM.showSheet(.Payment)
+                    self.contentVM.stage.showModal(.payment)
                 } else if !self.vm.dnsPermsGranted {
-                    self.contentVM.showSheet(.Activated)
+                    self.contentVM.stage.showModal(.onboarding)
                 } else if !self.vm.vpnPermsGranted && self.vm.accountType == .Plus {
-                    self.contentVM.showSheet(.Activated)
+                    self.contentVM.stage.showModal(.onboarding)
                 } else if self.vm.appState == .Activated {
                     self.showPauseSheet = true
                 } else if self.vm.appState == .Paused {

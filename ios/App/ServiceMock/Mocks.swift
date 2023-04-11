@@ -30,7 +30,7 @@ class MocksService {
     }
 
     func account(_ id: AccountId) -> Account {
-        return Account(id: id, active_until: nil, active: false, type: "free")
+        return Account(id: id, activeUntil: nil, active: false, type: "free")
     }
 
 }

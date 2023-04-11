@@ -17,7 +17,7 @@ class Strings {
     static let account_type_cloud = "Cloud"
     static let account_type_plus = "Plus"
 
-    static func activeUntil(_ account: Account?) -> String {
+    static func activeUntil(_ account: JsonAccount?) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: userDateFormatSimple, options: 0, locale: Locale.current)!
 
@@ -28,7 +28,7 @@ class Strings {
         }
     }
 
-    static func accountType(_ account: Account?) -> String {
+    static func accountType(_ account: JsonAccount?) -> String {
         if account?.isActive() ?? false {
             if account?.type == "cloud" {
                 return account_type_cloud

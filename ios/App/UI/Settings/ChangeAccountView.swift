@@ -28,7 +28,7 @@ struct ChangeAccountView: View {
                         Spacer()
                         Button(action: {
                             self.vm.restoreAccount(self.accountId) {
-                                self.contentVM.dismissSheet()
+                                self.contentVM.stage.dismiss()
                             }
                         }) {
                             Text(L10n.universalActionSave)

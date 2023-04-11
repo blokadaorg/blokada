@@ -12,6 +12,7 @@
 
 import Foundation
 import Combine
+import Factory
 
 typealias Granted = Bool
 
@@ -21,27 +22,28 @@ class PermsRepo: Startable {
         writeDnsProfilePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    var vpnProfilePerms: AnyPublisher<Granted, Never> {
-        writeVpnProfilePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
-    }
-
     var notificationPerms: AnyPublisher<Granted, Never> {
         writeNotificationPerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
+    
+    @Injected(\.stage) private var stage
+    @Injected(\.account) private var account
+    @Injected(\.cloud) private var cloud
+    @Injected(\.perm) private var perm
+    @Injected(\.plusVpn) private var plusVpn
 
     private lazy var notification = Services.notification
     private lazy var dialog = Services.dialog
     private lazy var systemNav = Services.systemNav
+    private lazy var netx = Services.netx
 
-    private lazy var sheetRepo = Repos.sheetRepo
-    private lazy var netxRepo = Repos.netxRepo
-    private lazy var dnsProfileActivatedHot = Repos.cloudRepo.dnsProfileActivatedHot
-    private lazy var enteredForegroundHot = Repos.stageRepo.enteredForegroundHot
-    private lazy var successfulPurchasesHot = Repos.paymentRepo.successfulPurchasesHot
-    private lazy var accountTypeHot = Repos.accountRepo.accountTypeHot
+    private lazy var sheetRepo = stage
+
+    private lazy var dnsProfileActivatedHot = perm.dnsProfileActivatedHot
+    private lazy var enteredForegroundHot = stage.enteredForegroundHot
+    private lazy var accountTypeHot = account.accountTypeHot
 
     fileprivate let writeDnsProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
-    fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
     fileprivate let writeNotificationPerms = CurrentValueSubject<Granted?, Never>(nil)
 
     private var previousAccountType: AccountType? = nil
@@ -51,7 +53,6 @@ class PermsRepo: Startable {
     func start() {
         onDnsProfileActivated()
         onForeground_checkNotificationPermsAndClearNotifications()
-        onVpnPerms()
         onPurchaseSuccessful_showActivatedSheet()
         onAccountTypeUpgraded_showActivatedSheet()
     }
@@ -76,7 +77,7 @@ class PermsRepo: Startable {
         return accountTypeHot.first()
         .flatMap { it -> AnyPublisher<Granted, Error> in
             if it == .Plus {
-                return self.vpnProfilePerms.first()
+                return self.perm.vpnProfilePerms.first()
                 .tryMap { granted -> Ignored in
                     if !granted {
                         throw "ask for vpn profile"
@@ -91,7 +92,9 @@ class PermsRepo: Startable {
                 .eraseToAnyPublisher()
             }
         }
-        .tryCatch { _ in self.netxRepo.createVpnProfile() }
+        .tryCatch { _ in
+            self.netx.createVpnProfile()
+        }
         .eraseToAnyPublisher()
     }
 
@@ -110,21 +113,22 @@ class PermsRepo: Startable {
 
     func askForAllMissingPermissions() -> AnyPublisher<Ignored, Error> {
         return sheetRepo.dismiss()
-        .delay(for: 0.3, scheduler: self.bgQueue)
+        .delay(for: 1.0, scheduler: self.bgQueue)
         .flatMap { _ in self.notification.askForPermissions() }
         .tryCatch { err in
             // Notification perm is optional, ask for others
             return Just(true)
         }
-        .flatMap { _ in self.maybeAskVpnProfilePerms() }
-        .delay(for: 0.3, scheduler: self.bgQueue)
         .flatMap { _ in self.maybeDisplayDnsProfilePermsDialog() }
+        .delay(for: 0.3, scheduler: self.bgQueue)
+        .flatMap { _ in self.maybeAskVpnProfilePerms() }
+
         // Show the activation sheet again to confirm user choices, and propagate error
         .tryCatch { err -> AnyPublisher<Ignored, Error> in
             return Just(true)
             .delay(for: 0.3, scheduler: self.bgQueue)
             .tryMap { _ -> Ignored in
-                self.sheetRepo.showSheet(.Activated)
+                self.sheetRepo.showModal(.onboarding)
                 throw err
             }
             .eraseToAnyPublisher()
@@ -146,13 +150,19 @@ class PermsRepo: Startable {
             message: L10n.dnsprofileDesc,
             header: L10n.dnsprofileHeader,
             okText: L10n.dnsprofileActionOpenSettings,
-            okAction: { self.systemNav.openSystemSettings() }
+            okAction: {
+                self.notification.scheduleNotification(id: NOTIF_ONBOARDING, when: Date().addingTimeInterval(3))
+                self.systemNav.openSystemSettings()
+            }
         )
     }
 
     private func onDnsProfileActivated() {
         dnsProfileActivatedHot
-        .sink(onValue: { it in self.writeDnsProfilePerms.send(it) })
+        .sink(onValue: { it in
+            self.writeDnsProfilePerms.send(it)
+            
+        })
         .store(in: &cancellables)
     }
 
@@ -164,17 +174,11 @@ class PermsRepo: Startable {
         // We do have any notifications that need to stay after entering fg.
         .map { allowed in
             if allowed {
-                self.notification.clearAllNotifications()
+                //self.notification.clearAllNotifications()
             }
             return allowed
         }
         .sink(onValue: { it in self.writeNotificationPerms.send(it) })
-        .store(in: &cancellables)
-    }
-
-    private func onVpnPerms() {
-        netxRepo.permsHot
-        .sink(onValue: { it in self.writeVpnProfilePerms.send(it) })
         .store(in: &cancellables)
     }
 
@@ -201,7 +205,7 @@ class PermsRepo: Startable {
 //        }
 //        .sink(onValue: { permsOk in
 //            if !permsOk {
-//                self.sheetRepo.showSheet(.Activated)
+//                self.sheetRepo.stage.showModal(.Activated)
 //            }
 //        })
 //        .store(in: &cancellables)
@@ -233,7 +237,7 @@ class PermsRepo: Startable {
                 return false
             }
         }
-        .sink(onValue: { _ in self.sheetRepo.showSheet(.Activated)} )
+        .sink(onValue: { _ in self.sheetRepo.showModal(.onboarding)} )
         .store(in: &cancellables)
     }
 

@@ -13,88 +13,70 @@
 import SwiftUI
 
 struct NoLogRetentionView: View {
-
-    @ObservedObject var vm = ViewModels.activity
+    @ObservedObject var vm = ViewModels.journal
     @ObservedObject var contentVM = ViewModels.content
 
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
-        Form {
-            Section(header: Text(L10n.activitySectionHeader)) {
-                Text(L10n.activityRetentionDesc)
-                .foregroundColor(.secondary)
-                .padding()
-
-                HStack {
-                    Spacer()
-
-                    VStack {
-                        if self.vm.logRetention == "" {
-                            OptionView(
-                                text: L10n.activityRetentionOptionNone,
-                                image: Image.fHide,
-                                active: false
-                            )
-
-                            Button(action: {
-                                self.vm.logRetentionSelected = "24h"
-                                self.vm.applyLogRetention()
-                            }) {
-                                ZStack {
-                                    ButtonView(enabled: .constant(true), plus: .constant(true))
-                                    .frame(height: 44)
-
-                                    Text(L10n.homePowerActionTurnOn)
-                                    .foregroundColor(.white)
-                                    .bold()
-                                }
-                            }
+        ScrollView {
+            VStack(alignment: .leading) {
+                VStack(spacing: 0) {
+                    HStack {
+                        Text(L10n.activityRetentionDesc)
+                            .foregroundColor(.secondary)
                             .padding()
-                            .frame(maxWidth: 300)
-                        } else {
-                            HStack {
-                                Text(L10n.activityRetentionHeader)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .multilineTextAlignment(.leading)
-                                .padding()
-
-                                Spacer()
-                            }
-
-                            OptionView(
-                                text: L10n.activityRetentionOption24h,
-                                image: Image.fShow,
-                                active: false
-                            )
-
-                            Button(action: {
-                                self.vm.logRetentionSelected = ""
-                                self.vm.applyLogRetention()
-                            }) {
-                                ZStack {
-                                    ButtonView(enabled: .constant(true), plus: .constant(true))
-                                    .frame(height: 44)
-
-                                    Text(L10n.homePowerActionTurnOff)
-                                    .foregroundColor(.white)
-                                    .bold()
-                                }
-                            }
-                            .padding()
-                            .frame(maxWidth: 300)
-                        }
+                        Spacer()
                     }
                 }
-
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                )
+                
+                
+                Text(L10n.activityActionsHeader)
+                    .font(.system(size: 24))
+                    .padding(.top)
+                    .bold()
+                
+                VStack(spacing: 0) {
+                    HStack {
+                        Text(self.vm.logRetention == "" ? L10n.activityRetentionOptionNone : L10n.activityRetentionOption24h)
+                        Spacer()
+                        LoadingButtonView(action: {
+                            if self.vm.logRetention == "" {
+                                self.vm.logRetentionSelected = "24h"
+                                self.vm.applyLogRetention()
+                            } else {
+                                self.vm.logRetentionSelected = ""
+                                self.vm.applyLogRetention()
+                            }
+                        }, isOn: self.vm.logRetention != "", alignTrailing: true, loading: false)
+                    }
+                    .padding(12)
+                }
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                )
+                
                 Button(action: {
                     self.contentVM.openLink(Link.CloudPrivacy)
                 }) {
                     Text(L10n.activityRetentionPolicy)
                         .multilineTextAlignment(.leading)
+                        .font(.footnote)
                         .lineLimit(3)
                 }
                 .padding()
             }
+            .padding()
+            .padding(.bottom, 56)
         }
+        .background(colorScheme == .dark ? Color.cBackground : Color.cSecondaryBackground)
         .navigationBarTitle(L10n.activitySectionHeader)
         .accentColor(Color.cAccent)
     }

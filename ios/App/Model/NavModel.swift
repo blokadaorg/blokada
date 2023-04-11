@@ -12,7 +12,7 @@
 
 import Foundation
 
-enum Tab {
+enum Tab: String {
     case Home
     case Activity
     case Advanced
@@ -21,10 +21,10 @@ enum Tab {
 
 func mapTabIdToTab(_ tabId: String) -> Tab {
     switch (tabId) {
-        case "home": return Tab.Home
+        case "settings": return Tab.Settings
         case "activity": return Tab.Activity
-        case "packs": return Tab.Advanced
-        default: return Tab.Settings
+        case "advanced": return Tab.Advanced
+        default: return Tab.Home
     }
 }
 

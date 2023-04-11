@@ -14,10 +14,25 @@ import SwiftUI
 
 // The root of Settings tab for iPhone mode.
 struct SettingsNarrowView: View {
+    @ObservedObject var tabVM = ViewModels.tab
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: self.$tabVM.tabPayload) {
             SettingsFormNavView()
            .navigationBarTitle(L10n.accountSectionHeaderSettings)
+           .navigationDestination(for: String.self) { section in
+               if section == "manage" {
+                   AccountView()
+               } else if section == "logRetention" {
+                   NoLogRetentionView()
+               } else if section == "leases" {
+                   LeaseListView()
+               } else if section == "changeaccount" {
+                   ChangeAccountView2()
+               } else {
+                   Text("") // TODO: get rid
+               }
+           }
         }
         .accentColor(Color.cAccent)
     }

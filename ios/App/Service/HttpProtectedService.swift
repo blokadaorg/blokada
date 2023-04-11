@@ -12,11 +12,12 @@
 
 import Foundation
 import Combine
+import Factory
 
 // A HTTP client that makes requests through a protected socked that skips the tunnel.
 class HttpProtectedService: HttpServiceIn {
 
-    private lazy var env = Services.env
+    @Injected(\.env) private var env
 
     private lazy var netx = Services.netx
 
@@ -51,7 +52,7 @@ class HttpProtectedService: HttpServiceIn {
     }
 
     private func makeProtectedRequest(_ path: String, method: String, body: String = "") -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: "\(self.env.baseUrl)\(path)") else {
+        guard let url = URL(string: path) else {
             return Fail(error: "HttpProtectedService: invalid url: \(path)")
                 .eraseToAnyPublisher()
         }

@@ -15,6 +15,7 @@ import SwiftUI
 struct SupportView: View {
 
     @ObservedObject var contentVM = ViewModels.content
+    @ObservedObject var tabVM = ViewModels.tab
 
     var body: some View {
         NavigationView {
@@ -29,7 +30,7 @@ struct SupportView: View {
 
                 VStack {
                     Button(action: {
-                        self.contentVM.dismissSheet()
+                        self.contentVM.stage.dismiss()
                         self.contentVM.openLink(Link.KnowledgeBase)
                     }) {
                         ZStack {
@@ -42,7 +43,7 @@ struct SupportView: View {
                     }
 
                     Button(action: {
-                        self.contentVM.dismissSheet()
+                        self.contentVM.stage.dismiss()
                         self.contentVM.openLink(Link.Support)
                     }) {
                         ZStack {
@@ -54,27 +55,43 @@ struct SupportView: View {
                         }
                     }
 
+//                    Button(action: {
+//                        self.contentVM.stage.dismiss()
+//                        self.contentVM.stage.showModal(.custom)
+//                    }) {
+//                        ZStack {
+//                            ButtonView(enabled: .constant(true), plus: .constant(true))
+//                                .frame(height: 44)
+//                            Text(L10n.universalActionShareLog)
+//                                .foregroundColor(.white)
+//                                .bold()
+//                        }
+//                    }
+
                     Button(action: {
-                        self.contentVM.dismissSheet()
-                        self.contentVM.showSheet(.ShareLog)
+//                        self.contentVM.stage.dismiss()
+//                        self.tabVM.setActiveTab(Tab.Home)
+//                        self.contentVM.stage.showModal(.debug)
+                        self.contentVM.stage.dismiss()
+                        self.contentVM.stage.showModal(.debugShareLog)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
                                 .frame(height: 44)
-                            Text(L10n.universalActionShareLog)
+                            Text(L10n.universalActionShowLog)
                                 .foregroundColor(.white)
                                 .bold()
                         }
                     }
 
                     Button(action: {
-                        self.contentVM.dismissSheet()
-                        self.contentVM.showSheet(.ShowLog)
+                        self.contentVM.stage.dismiss()
+                        self.contentVM.stage.setRoute("home/Rate")
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
                                 .frame(height: 44)
-                            Text(L10n.universalActionShowLog)
+                            Text(L10n.mainRateUsHeader)
                                 .foregroundColor(.white)
                                 .bold()
                         }
@@ -86,7 +103,7 @@ struct SupportView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                 }) {
                     Text(L10n.universalActionDone)
                 }

@@ -12,11 +12,19 @@
 
 import Foundation
 import Combine
+import Factory
 
 class PacksViewModel: ObservableObject {
 
-    private let packRepo = Repos.packRepo
+    @Injected(\.deck) private var deck
+    @Injected(\.stage) private var stage
+
+
+    private lazy var dataSource = PackDataSource()
+
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var sectionStack = [String]()
 
     @Published var packs = [Pack]()
     @Published var allTags = [Tag]()
@@ -38,20 +46,35 @@ class PacksViewModel: ObservableObject {
     private let log = BlockaLogger("Pack")
 
     init() {
-        onPacksChanged()
-    }
+        deck.onDecks = { it in
+            var packs = [Pack]()
+            var tags = [Tag]()
+            it.forEach { deck in
+                // Get the pack template from the data source
+                var pack = self.dataSource.packs.first { it in
+                    it.id == deck.deckId
+                }
 
-    private func onPacksChanged() {
-        packRepo.packsHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.allPacks = it
+                if var pack = pack {
+                    // Go through each list items of the deck
+                    deck.items.keys.forEach { listId in
+                        let item = deck.items[listId]!!
+                        // Mark them as active in the pack
+                        if item.enabled {
+                            pack = pack.changeStatus(installed: true, config: item.tag)
+                        }
+                    }
+                    // Respect the bundle enabled flag
+                    pack = pack.changeStatus(installed: deck.enabled)
+                    packs.append(pack)
+                }
+            }
+            self.allPacks = packs
             self.findTags()
             self.filter()
-            //TODO: tab counter badge
             self.objectWillChange.send()
-        })
-        .store(in: &cancellables)
+        }
+        onTabPayloadChanged()
     }
 
     func filter() {
@@ -90,5 +113,33 @@ class PacksViewModel: ObservableObject {
         }
         filter()
     }
+    
+    func byId(_ id: String) -> Pack? {
+        return allPacks.first { it in
+            it.id == id
+        }
+    }
 
+    func getListName(_ listId: String) -> String {
+        if let packId = deck.getDeckIdForList(listId) {
+            return packs.first { it in
+                it.id == packId
+            }?.meta.title ?? listId
+        } else {
+            return listId
+        }
+    }
+
+    private func onTabPayloadChanged() {
+        stage.tabPayload
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            if let it = it, let pack = self.byId(it) {
+                self.sectionStack = [pack.id]
+            } else {
+                self.sectionStack = []
+            }
+        })
+        .store(in: &cancellables)
+    }
 }

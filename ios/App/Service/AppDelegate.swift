@@ -11,12 +11,27 @@
 //
 
 import UIKit
+import Factory
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private var token: AppleTokenService?
     private var quick: QuickActionsService?
+
+    @Injected(\.env) private var env
+    @Injected(\.flutter) private var flutter
+    
+    // Reference it so that it is created
+    @Injected(\.tracer) private var tracer
+    @Injected(\.notification) private var notification
+    @Injected(\.payment) private var payment
+    @Injected(\.http) private var http
+    @Injected(\.persistence) private var persistence
+    @Injected(\.stage) private var stage
+    @Injected(\.plusKeypair) private var plusKeypair
+    @Injected(\.stats) private var stats
+    @Injected(\.rate) private var rate
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -36,26 +51,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.w("*** ******************* ***")
         log.w("*** BLOKADA IOS STARTED ***")
         log.w("*** ******************* ***")
-        log.v(Services.env.userAgent())
+        log.v(self.env.getUserAgent())
         log.v("Time now: \(Date().description(with: .current))")
 
-        Services.flutter.start()
-
-        if Services.env.isRunningTests {
+        if self.env.isRunningTests() {
             resetReposForDebug()
         } else {
             resetReposForDebug()
             startAllRepos()
         }
 
-        Repos.stageRepo.onCreate()
         token = AppleTokenService(application)
 
         Services.quickActions.start()
 
         // A bunch of lazy, noone else refs this (early enough).
         let rate = Services.rate
-        let payment = Repos.paymentRepo
+        payment.startObservingPayments()
 
         return true
     }
@@ -94,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         BlockaLogger.v("Main", "Application will terminate")
-        Repos.stageRepo.onDestroy()
+        payment.stopObservingPayments()
     }
 
 }

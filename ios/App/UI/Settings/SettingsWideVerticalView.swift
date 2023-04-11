@@ -33,7 +33,7 @@ struct SettingsWideVerticalView: View {
                     } else if self.tabVM.isSection("logRetention") {
                         NoLogRetentionView()
                     } else if self.tabVM.isSection("changeaccount") {
-                        ChangeAccountView()
+                        ChangeAccountView2()
                     } else {
                         PlaceholderPaneView(title: L10n.mainTabSettings)
                     }

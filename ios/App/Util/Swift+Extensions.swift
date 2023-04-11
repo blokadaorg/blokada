@@ -57,6 +57,27 @@ extension Int {
 
 }
 
+extension Int64 {
+    var upTo99: String {
+        if self > 99 {
+            return "99+"
+        } else {
+            return String(self)
+        }
+    }
+    
+    var compact: String {
+        if self >= 1_000_000 {
+            return String(format: "%.1fM", Double(self) / 1_000_000.0)
+        } else if self >= 1_000 {
+            return String(format: "%.1fK", Double(self) / 1_000.0)
+        } else {
+            return String(self)
+        }
+    }
+
+}
+
 extension UInt64 {
 
     var upTo99: String {

@@ -15,9 +15,9 @@ import Combine
 
 protocol NetxServiceIn: Startable {
 
-    func getStatePublisher() -> AnyPublisher<NetworkStatus, Never>
+    func getStatePublisher() -> AnyPublisher<VpnStatus, Never>
     func getPermsPublisher() -> AnyPublisher<Granted, Never>
-    func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error>
+    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error>
     func startVpn() -> AnyPublisher<Ignored, Error>
     func stopVpn() -> AnyPublisher<Ignored, Error>
     func changePause(until: Date?) -> AnyPublisher<Ignored, Error>
@@ -30,7 +30,7 @@ protocol NetxServiceIn: Startable {
 
 class NetxServiceMock: NetxServiceIn {
 
-    private var netxStateHot: AnyPublisher<NetworkStatus, Never> {
+    private var netxStateHot: AnyPublisher<VpnStatus, Never> {
         writeNetxState.compactMap { $0 }.eraseToAnyPublisher()
     }
 
@@ -38,10 +38,10 @@ class NetxServiceMock: NetxServiceIn {
         writePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    fileprivate let writeNetxState = CurrentValueSubject<NetworkStatus?, Never>(nil)
+    fileprivate let writeNetxState = CurrentValueSubject<VpnStatus?, Never>(nil)
     fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
-    private var config: NetxConfig? = nil
+    private var config: VpnConfig? = nil
     private var perms = false
 
     private var cancellables = Set<AnyCancellable>()
@@ -51,21 +51,16 @@ class NetxServiceMock: NetxServiceIn {
         emitNoPermsOnStart()
     }
 
-    func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
+    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error> {
         return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     
     func startVpn() -> AnyPublisher<Ignored, Error> {
         return Just(true)
         .delay(for: 3, scheduler: self.bgQueue)
-        .map { _ in self.config?.gateway.public_key }
+        .map { _ in self.config?.gatewayPublicKey }
         .map { gatewayId in
-            self.writeNetxState.send(
-                NetworkStatus(
-                    active: true, inProgress: false,
-                    gatewayId: gatewayId, pauseSeconds: 0
-                )
-            )
+            self.writeNetxState.send(.activated)
         }
         .tryMap { _ in true }
         .eraseToAnyPublisher()
@@ -74,7 +69,7 @@ class NetxServiceMock: NetxServiceIn {
     func stopVpn() -> AnyPublisher<Ignored, Error> {
         return Just(true)
         .delay(for: 2, scheduler: self.bgQueue)
-        .map { _ in self.writeNetxState.send(NetworkStatus.disconnected()) }
+        .map { _ in self.writeNetxState.send(.deactivated) }
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
@@ -94,15 +89,14 @@ class NetxServiceMock: NetxServiceIn {
     func changePause(until: Date?) -> AnyPublisher<Ignored, Error> {
         return Just(true)
         .delay(for: 2, scheduler: self.bgQueue)
-        .map { _ in self.writeNetxState.send(NetworkStatus(
-            active: false, inProgress: false,
-            gatewayId: nil, pauseSeconds: until != nil ? 300 : 0
-        )) }
+        .map { _ in self.writeNetxState.send(.deactivated) // TODO: pause
+            
+        }
         .tryMap { _ in true }
         .eraseToAnyPublisher()
     }
 
-    func getStatePublisher() -> AnyPublisher<NetworkStatus, Never> {
+    func getStatePublisher() -> AnyPublisher<VpnStatus, Never> {
         return netxStateHot
     }
 
@@ -118,7 +112,7 @@ class NetxServiceMock: NetxServiceIn {
 
     private func emitNoPermsOnStart() {
         self.writePerms.send(false)
-        self.writeNetxState.send(NetworkStatus.disconnected())
+        self.writeNetxState.send(.deactivated)
     }
 
 }

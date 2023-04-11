@@ -22,62 +22,42 @@ struct SettingsFormNavView: View {
     var body: some View {
         Form {
             SettingsHeaderView()
-
+            
             Section(header: Text(L10n.accountSectionHeaderPrimary)) {
-                NavigationLink(
-                    destination: AccountView(),
-                    tag: "manage",
-                    selection: self.$tabVM.navSetting
-                ) {
-                    SettingsItemView(
-                        title: L10n.accountActionMyAccount,
-                        image: Image.fAccount,
-                        selected: false
-                    )
-                }
+                SettingsItemView(
+                    title: L10n.accountActionMyAccount,
+                    image: Image.fAccount,
+                    selected: false
+                )
+                .background(NavigationLink("", value: "manage").opacity(0))
 
                 if (self.vm.type == .Plus) {
-                    NavigationLink(
-                        destination: LeaseListView(),
-                        tag: "leases",
-                        selection: self.$tabVM.navSetting
-                    ) {
-                        SettingsItemView(
-                            title: L10n.webVpnDevicesHeader,
-                            image: Image.fComputer,
-                            selected: false
-                        )
-                    }
-                }
-
-                NavigationLink(
-                    destination: NoLogRetentionView(),
-                    tag: "logRetention",
-                    selection: self.$tabVM.navSetting
-                ) {
                     SettingsItemView(
-                        title: L10n.activitySectionHeader,
-                        image: Image.fChart,
+                        title: L10n.webVpnDevicesHeader,
+                        image: Image.fComputer,
                         selected: false
                     )
+                    .background(NavigationLink("", value: "leases").opacity(0))
                 }
+
+                SettingsItemView(
+                    title: L10n.activitySectionHeader,
+                    image: Image.fChart,
+                    selected: false
+                )
+                .background(NavigationLink("", value: "logRetention").opacity(0))
             }
-
+            
             Section(header: Text(L10n.accountSectionHeaderOther)) {
-                NavigationLink(
-                    destination: ChangeAccountView(),
-                    tag: "changeaccount",
-                    selection: self.$tabVM.navSetting
-                ) {
-                    SettingsItemView(
-                        title: L10n.accountActionLogout,
-                        image: Image.fLogout,
-                        selected: false
-                    )
-                }
+                SettingsItemView(
+                    title: L10n.accountActionLogout,
+                    image: Image.fLogout,
+                    selected: false
+                )
+                .background(NavigationLink("", value: "changeaccount").opacity(0))
 
                 Button(action: {
-                    self.contentVM.showSheet(.Help)
+                    self.contentVM.stage.showModal(.help)
                 }) {
                     SettingsItemView(
                         title: L10n.universalActionSupport,

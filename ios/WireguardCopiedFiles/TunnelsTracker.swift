@@ -17,7 +17,7 @@ class TunnelsTracker {
         }
     }
 
-    var onTunnelState = { (status: NetworkStatus) in }
+    var onTunnelState = { (status: VpnStatus) in }
 
     init(tunnelsManager: TunnelsManager) {
         self.tunnelsManager = tunnelsManager
@@ -45,50 +45,61 @@ class TunnelsTracker {
             }
         }
     }
+
+    func triggerCurrentStatus() {
+        if let status = currentTunnel?.status {
+            switch(status) {
+                case .activating:
+                    onTunnelState(VpnStatus.reconfiguring)
+                case .deactivating:
+                    onTunnelState(VpnStatus.reconfiguring)
+                case .reasserting:
+                    onTunnelState(VpnStatus.reconfiguring)
+                case .restarting:
+                    onTunnelState(VpnStatus.reconfiguring)
+                case .waiting:
+                    onTunnelState(VpnStatus.reconfiguring)
+                case .inactive:
+                    onTunnelState(VpnStatus.deactivated)
+                case .active:
+                    onTunnelState(VpnStatus.activated)
+            }
+        } else {
+            onTunnelState(VpnStatus.deactivated) // TODO: should be unknown?
+        }
+    }
 }
 
 extension TunnelsTracker: TunnelsManagerActivationDelegate {
     func tunnelActivationAttemptFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationAttemptError) {
-        switch (error) {
-            case .tunnelIsNotInactive:
-                BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), is active")
-                onTunnelState(NetworkStatus(
-                    active: true, inProgress: false,
-                    gatewayId: tunnel.tunnelConfiguration!.peers.first!.publicKey.base64Key,
-                    pauseSeconds: 0
-                ))
-            default:
-                BlockaLogger.e("TunnelsTracker", "tun: \(tunnel.name), activation attempt fail: \(error)")
-                onTunnelState(NetworkStatus.disconnected())
-        }
+//        switch (error) {
+//            case .tunnelIsNotInactive:
+//                BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), is active")
+//                onTunnelState(.activated)
+//            default:
+//                BlockaLogger.e("TunnelsTracker", "tun: \(tunnel.name), activation attempt fail: \(error)")
+//                onTunnelState(.deactivated)
+//        }
     }
 
     func tunnelActivationAttemptSucceeded(tunnel: TunnelContainer) {
-        BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), activation attempt succeeded")
-        onTunnelState(NetworkStatus(
-            active: true, inProgress: false,
-            gatewayId: tunnel.tunnelConfiguration!.peers.first!.publicKey.base64Key,
-            pauseSeconds: 0
-        ))
+//        BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), activation attempt succeeded")
+//        onTunnelState(.activated)
     }
 
     func tunnelActivationFailed(tunnel: TunnelContainer, error: TunnelsManagerActivationError) {
         BlockaLogger.e("TunnelsTracker", "tun: \(tunnel.name), activation fail: \(error)")
-        onTunnelState(NetworkStatus.disconnected())
+        onTunnelState(.deactivated)
     }
 
     func tunnelActivationSucceeded(tunnel: TunnelContainer) {
         BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), activation succeeded")
-        onTunnelState(NetworkStatus(
-            active: true, inProgress: false,
-            gatewayId: tunnel.tunnelConfiguration!.peers.first!.publicKey.base64Key,
-            pauseSeconds: 0
-        ))
+        onTunnelState(.activated)
     }
 
     func tunnelDeactivated(tunnel: TunnelContainer) {
         BlockaLogger.v("TunnelsTracker", "tun: \(tunnel.name), deactivated")
-        onTunnelState(NetworkStatus.disconnected())
+        onTunnelState(.deactivated)
     }
 }
 

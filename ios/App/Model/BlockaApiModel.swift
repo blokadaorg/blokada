@@ -23,7 +23,7 @@ typealias BlockaPublicKey = String
 typealias ActiveUntil = Date
 typealias DeviceToken = Data
 
-struct Account: Codable {
+struct JsonAccount: Codable {
     let id: AccountId
     let active_until: String?
     let active: Bool?
@@ -55,27 +55,16 @@ extension Account: Equatable {
     static func == (lhs: Account, rhs: Account) -> Bool {
         return
             lhs.id == rhs.id &&
-            lhs.active_until == rhs.active_until
+            lhs.activeUntil == rhs.activeUntil
     }
 }
 
 
 struct AccountWrapper: Decodable {
-    let account: Account
+    let account: JsonAccount
 }
 
-struct Gateway: Codable {
-    let public_key: GatewayId
-    let region: String
-    let location: String
-    let resource_usage_percent: Int
-    let ipv4: String
-    let ipv6: String
-    let port: Int
-    //let expires: ActiveUntil
-    let tags: [String]?
-    let country: String?
-
+extension Gateway {
     func niceName() -> String {
         return location.components(separatedBy: "-")
             .map { $0.capitalizingFirstLetter() }
@@ -86,27 +75,14 @@ struct Gateway: Codable {
 extension Gateway: Equatable {
     static func == (lhs: Gateway, rhs: Gateway) -> Bool {
         return
-            lhs.public_key == rhs.public_key &&
+            lhs.publicKey == rhs.publicKey &&
             lhs.ipv4 == rhs.ipv4 &&
             lhs.ipv6 == rhs.ipv6 &&
             lhs.port == rhs.port
     }
 }
 
-struct Gateways: Decodable {
-    let gateways: [Gateway]
-}
-
-struct Lease: Codable, Identifiable {
-    let id = UUID() // Only used to persist or something, do not compare on it
-    let account_id: AccountId
-    let public_key: BlockaPublicKey
-    let gateway_id: GatewayId
-    let expires: String
-    let alias: String?
-    let vip4: String
-    let vip6: String
-
+extension Lease {
     func activeUntil() -> ActiveUntil {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = blockaDateFormat
@@ -125,16 +101,15 @@ struct Lease: Codable, Identifiable {
     }
 
     func niceName() -> String {
-        return alias ?? String(public_key.prefix(5))
+        return alias ?? String(publicKey.prefix(5))
     }
-
 }
 
 extension Lease: Equatable {
     static func == (lhs: Lease, rhs: Lease) -> Bool {
-        return lhs.account_id == rhs.account_id
-            && lhs.public_key == rhs.public_key
-            && lhs.gateway_id == rhs.gateway_id
+        return lhs.accountId == rhs.accountId
+            && lhs.publicKey == rhs.publicKey
+            && lhs.gatewayId == rhs.gatewayId
             && lhs.expires == rhs.expires
             && lhs.alias == rhs.alias
             && lhs.vip4 == rhs.vip4
@@ -148,22 +123,6 @@ extension Date {
         let seconds = DateComponents(second: -10)
         return Calendar.current.date(byAdding: seconds, to: self) ?? self
     }
-}
-
-struct LeaseWrapper: Decodable {
-    let lease: Lease
-    let alias: String?
-}
-
-struct Leases: Decodable {
-    let leases: [Lease]
-}
-
-struct LeaseRequest: Codable {
-    let account_id: AccountId
-    let public_key: BlockaPublicKey
-    let gateway_id: GatewayId
-    let alias: String?
 }
 
 struct ActivityWrapper: Decodable {

@@ -22,7 +22,7 @@ struct LeaseViewModel {
     }
 
     init(mocked: String) {
-        lease = Lease(account_id: mocked, public_key: "", gateway_id: "",
+        lease = Lease(accountId: mocked, publicKey: "", gatewayId: "",
                       expires: "", alias: mocked, vip4: "", vip6: "")
         isMe = false
     }
@@ -35,12 +35,12 @@ struct LeaseViewModel {
 
 extension LeaseViewModel: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(lease.public_key)
+        hasher.combine(lease.publicKey)
     }
 }
 
 extension LeaseViewModel: Equatable {
     static func == (lhs: LeaseViewModel, rhs: LeaseViewModel) -> Bool {
-        lhs.lease.public_key == rhs.lease.public_key
+        lhs.lease.publicKey == rhs.lease.publicKey
     }
 }

@@ -26,26 +26,26 @@ struct DebugView: View {
 
             List {
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                     self.vm.activateAccount()
                 }) {
                     Text("Activate account")
                 }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                     self.vm.deactivateAccount()
                 }) {
                     Text("Deactivate account")
                 }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
 
                     onBackground {
                         sleep(5)
                         onMain {
-                            self.contentVM.showSheet(.RateApp)
+                            //self.contentVM.stage.showModal(.RateApp)
                         }
                     }
                 }) {
@@ -53,7 +53,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
 
                     onBackground {
                         sleep(5)
@@ -66,7 +66,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                        onBackground {
                            sleep(5)
                            onMain {
@@ -78,7 +78,7 @@ struct DebugView: View {
                }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                     onBackground {
                         sleep(5)
                         onMain {
@@ -90,7 +90,7 @@ struct DebugView: View {
                 }
 
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                     onBackground {
                         sleep(5)
                         onMain {

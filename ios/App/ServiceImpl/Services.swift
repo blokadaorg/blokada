@@ -46,10 +46,8 @@ class ServicesSingleton {
     lazy var rate = RateService()
 
     lazy var netx: NetxServiceIn = WgService()
-    lazy var env = EnvService()
     lazy var quickActions = QuickActionsService()
 
-    lazy var flutter = FlutterService()
 }
 
 func resetServices() {

@@ -20,14 +20,14 @@ struct PacksView: View {
     var body: some View {
         List {
             PacksFilterBarView(columns: 3).id("top-packs")
-
             ForEach(self.vm.packs, id: \.self) { pack in
                 ZStack {
-                    PackView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack))
+                    PackView(packsVM: self.vm, vm: PackDetailViewModel(packId: pack.id))
                 }
-                .background(NavigationLink("", destination: PackDetailView(vm: PackDetailViewModel(pack: pack)), tag: pack, selection: self.$tabVM.navPack).opacity(0))
+                .background(
+                    NavigationLink("", value: pack.id).opacity(0)
+                )
             }
-
         }
         .alert(isPresented: self.$vm.showError) {
             Alert(title: Text(L10n.alertErrorHeader), message: Text(L10n.errorPackInstall), dismissButton: .default(Text(L10n.universalActionClose)))

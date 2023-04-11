@@ -14,10 +14,16 @@ import SwiftUI
 
 struct PacksNarrowView: View {
 
+    @ObservedObject var vm = ViewModels.packs
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: self.$vm.sectionStack) {
             PacksView()
             .navigationTitle(L10n.packSectionHeader)
+            .navigationDestination(for: String.self) { packId in
+                PackDetailView(vm: PackDetailViewModel(packId: packId))
+            }
+            .padding(.bottom, 48)
         }
         .accentColor(Color.cAccent)
         .navigationViewStyle(StackNavigationViewStyle())

@@ -12,12 +12,15 @@
 
 import Foundation
 import Combine
+import Factory
 
 class PackDetailViewModel: ObservableObject {
 
-    private let packRepo = Repos.packRepo
-    private let navRepo = Repos.navRepo
+    @Injected(\.deck) private var deck
+
     private var cancellables = Set<AnyCancellable>()
+
+    private var vm = ViewModels.packs
 
     @Published var pack: Pack {
         didSet {
@@ -30,42 +33,24 @@ class PackDetailViewModel: ObservableObject {
 
     private let log = BlockaLogger("Pack")
 
-    init(pack: Pack) {
-        self.pack = pack
+    init(packId: String) {
+        self.pack = vm.byId(packId)!
         self.on = self.pack.status.installed
-        onNavChanged()
-    }
-
-    private func onNavChanged() {
-        navRepo.sectionHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.selected = (it as? Pack) == self.pack
-        })
-        .store(in: &cancellables)
+        selected = (packId == vm.sectionStack.first)
     }
 
     func changeConfig(config: PackConfig, fail: @escaping Faile) {
-        packRepo.changeConfig(pack: pack, config: config)
-        .receive(on: RunLoop.main)
-        .sink(onFailure: { err in fail(err)})
-        .store(in: &cancellables)
+        deck.toggleListEnabledForTag(deckId: pack.id, tag: config)
     }
 
     func install(fail: @escaping Faile) {
         self.log.v("Installing pack")
-        packRepo.installPack(pack)
-        .receive(on: RunLoop.main)
-        .sink(onFailure: { err in fail(err)} )
-        .store(in: &cancellables)
+        deck.toggleListEnabledForTag(deckId: pack.id, tag: pack.configs.first!)
    }
 
     func uninstall(fail: @escaping Faile) {
         self.log.v("uninstalling pack")
-        packRepo.uninstallPack(pack)
-        .receive(on: RunLoop.main)
-        .sink(onFailure: { err in fail(err)} )
-        .store(in: &cancellables)
+        deck.setDeckEnabled(deckId: pack.id, enabled: false)
     }
 
 }

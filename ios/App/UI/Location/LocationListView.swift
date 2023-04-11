@@ -24,7 +24,7 @@ struct LocationListView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                 }) {
                     Text(L10n.universalActionCancel)
                     .foregroundColor(Color.cAccent)
@@ -94,7 +94,7 @@ struct LocationListView: View {
                                         ForEach(locations, id: \.self) { item in
                                             Button(action: {
                                                 withAnimation {
-                                                    self.contentVM.dismissSheet()
+                                                    self.contentVM.stage.dismiss()
                                                     self.vm.changeLocation(item)
                                                 }
                                             }) {

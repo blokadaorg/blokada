@@ -75,12 +75,8 @@ class BlockaApiServiceMock: BlockaApiServiceIn {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
 
-    func postLease(request: LeaseRequest) -> AnyPublisher<Lease, Error> {
+    func postAppleCheckout(request: AppleCheckoutRequest) -> AnyPublisher<JsonAccount, Error> {
         return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
     }
-
-    func deleteLease(request: LeaseRequest) -> AnyPublisher<Ignored, Error> {
-        return Fail(error: "Unsupported in mock").eraseToAnyPublisher()
-    }
-
+    
 }

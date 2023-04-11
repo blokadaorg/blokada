@@ -18,48 +18,88 @@ struct PackDetailView: View {
     @ObservedObject var packsVM = ViewModels.packs
     @ObservedObject var contentVM = ViewModels.content
 
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(self.vm.pack.meta.title)
-                    .font(.system(size: 20))
-                    .bold()
-                    .padding(.bottom)
+                HStack {
+                    PlaceholderView(id: self.vm.pack.id, desaturate: true)
+                    .frame(width: 64, height: 64)
+                    .mask(RoundedRectangle(cornerRadius: 10))
+                    .accessibilityLabel(self.vm.pack.meta.title)
 
-                if !self.vm.pack.meta.slugline.isEmpty {
-                    Text(self.vm.pack.meta.slugline.tr())
-                        .padding(.bottom)
+                    VStack(alignment: .leading) {
+                        Text(vm.pack.meta.title)
+                        //.foregroundColor(self.vm.selected ? Color.cAccent : Color.primary)
+                       // .accessibilitySortPriority(1)
+
+                        Text(
+                            vm.pack.meta.slugline.isEmpty ?
+                                vm.pack.meta.creditName
+                                : vm.pack.meta.slugline.tr()
+                        )
+                        .font(.footnote)
+                        .foregroundColor(Color.secondary)
+                    }
+
+                    Spacer()
                 }
-
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                )
+                
                 if !self.vm.pack.meta.description.isEmpty {
-                    Text(self.vm.pack.meta.description.tr())
+                    HStack(spacing: 0) {
+                        Text(self.vm.pack.meta.description.tr())
+                        Spacer()
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                    )
                 }
 
                 if !self.vm.pack.configs.isEmpty {
-                    Divider()
-
                     Text(L10n.packConfigurationsHeader)
-                        .font(.system(size: 20))
+                        .font(.system(size: 24))
+                        .padding(.top)
                         .bold()
-                        .padding(.bottom)
 
                     VStack(spacing: 0) {
                         ForEach(self.vm.pack.configs, id: \.self) { item in
-                            Button(action: {
-                                self.vm.changeConfig(config: item, fail: { error in
-                                    self.packsVM.showError = true
-                                })
-                            }) {
-                                PackConfigItemView(text: item, active: self.vm.pack.status.config.contains(item))
+                            if item != self.vm.pack.configs.first {
+                                Divider().padding([.top, .bottom], 8)
                             }
+
+                            OptionView(
+                                text: item.capitalized,
+                                image: Image.fPack,
+                                active: self.vm.pack.status.config.contains(item),
+                                action: {
+                                    self.vm.changeConfig(config: item, fail: { error in
+                                        self.packsVM.showError = true
+                                    })
+                                }
+                            )
                         }
                     }
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                    )
                 }
 
-                Divider()
-                    .padding([.top, .bottom])
+                Text(L10n.activityInformationHeader)
+                    .font(.system(size: 24))
+                    .padding(.top)
+                    .bold()
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     Button(action: {
                         withAnimation {
                             self.contentVM.openLink(self.vm.pack.meta.creditUrl)
@@ -69,42 +109,35 @@ struct PackDetailView: View {
                             VStack(alignment: .leading) {
                                 Text(L10n.packAuthor)
                                     .foregroundColor(.secondary)
+                                    .font(.footnote)
                                 Text(self.vm.pack.meta.creditName)
                             }
-
+                            
                             Spacer()
-
+                            
                             Image(systemName: "chevron.right")
                                 .imageScale(.small)
                                 .foregroundColor(.secondary)
                         }
                     }
                 }
-                .font(.footnote)
-                .padding(.bottom, 10)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(colorScheme == .dark ? Color.cSecondaryBackground : Color.cBackground)
+                )
             }
             .padding()
+            .padding(.bottom, 56)
         }
+        .background(colorScheme == .dark ? Color.cBackground : Color.cSecondaryBackground)
         .navigationBarTitle(Text(""), displayMode: .inline)
         .accentColor(Color.cAccent)
     }
 }
 
-struct PackDetailView_Previews: PreviewProvider {
+struct PackDetailV_Previews: PreviewProvider {
     static var previews: some View {
-
-        return Group {
-            PackDetailView(vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: ["ads", "trackers", "regional", "porn", "something"],
-                title: "Energized", slugline: "This is a short slug", description: "The best list on the market",
-                creditName: "Energized Team", configs: ["Spark", "Blue", "Full"])
-                .changeStatus(installed: true, enabledConfig: ["Blue"])
-            ))
-            PackDetailView(vm: PackDetailViewModel(pack: Pack.mocked(id: "1", tags: [],
-                title: "Energized", description: "The best list on the market",
-                creditName: "Energized Team")
-                .changeStatus(installed: false, installing: true)
-            ))
-            .environment(\.locale, .init(identifier: "en"))
-        }
+        PackDetailView(vm: PackDetailViewModel(packId: "oisd"))
     }
 }

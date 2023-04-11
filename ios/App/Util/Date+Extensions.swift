@@ -55,3 +55,22 @@ extension Date {
         return dateFormatterGet.string(from: self)
     }
 }
+
+extension String {
+    var toDate: Date {
+        return convertDate(timestamp: self)
+    }
+}
+
+private let dateFormatter = DateFormatter()
+func convertDate(timestamp: String) -> Date {
+    dateFormatter.dateFormat = blockaDateFormat
+    guard let date = dateFormatter.date(from: timestamp) else {
+        dateFormatter.dateFormat = blockaDateFormatNoNanos
+        guard let date = dateFormatter.date(from: timestamp) else {
+            return Date(timeIntervalSince1970: 0)
+        }
+        return date
+    }
+    return date
+;}

@@ -12,6 +12,7 @@
 
 import Foundation
 import Combine
+import Factory
 
 enum Link {
     case ManageSubscriptions
@@ -29,15 +30,14 @@ enum Link {
 }
 
 class LinkRepo: Startable {
+    @Injected(\.account) private var account
 
     var links: AnyPublisher<[Link: URLComponents], Never> {
         self.writeLinks.compactMap { $0 }.eraseToAnyPublisher()
     }
 
-    private lazy var accountHot = Repos.accountRepo.accountHot
+    private lazy var accountHot = account.accountHot
     private lazy var linksDataSource = LinkDataSource().links
-
-    private lazy var env = Services.env
     private lazy var systemNav = Services.systemNav
 
     fileprivate let writeLinks = CurrentValueSubject<[Link: URLComponents]?, Never>(nil)
@@ -76,7 +76,7 @@ class LinkRepo: Startable {
         .map { it in
             return [
                 "$ACCOUNTID": it.account.id,
-                "$USERAGENT": self.env.userAgent()
+                "$USERAGENT": "TODO" // TODO actual user agent
             ]
         }
         .map { replace in

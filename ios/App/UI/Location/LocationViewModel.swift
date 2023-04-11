@@ -24,14 +24,14 @@ struct LocationViewModel {
     }
 
     init(mocked: String) {
-        gateway = Gateway(public_key: mocked, region: "", location: mocked,
-                          resource_usage_percent: 0, ipv4: "", ipv6: "",
-                          port: 0, tags: nil, country: "DE")
+        gateway = Gateway(publicKey: mocked, region: "", location: mocked,
+                          resourceUsagePercent: 0, ipv4: "", ipv6: "",
+                          port: 0, country: "DE")
         selectedGateway = nil
     }
 
     var isActive: Bool {
-        return gateway.public_key == selectedGateway?.public_key
+        return gateway.publicKey == selectedGateway?.publicKey
     }
 
     var name: String {
@@ -78,12 +78,12 @@ struct LocationViewModel {
 
 extension LocationViewModel: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(gateway.public_key)
+        hasher.combine(gateway.publicKey)
     }
 }
 
 extension LocationViewModel: Equatable {
     static func == (lhs: LocationViewModel, rhs: LocationViewModel) -> Bool {
-        lhs.gateway.public_key == rhs.gateway.public_key
+        lhs.gateway.publicKey == rhs.gateway.publicKey
     }
 }

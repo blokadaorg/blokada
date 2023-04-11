@@ -73,7 +73,7 @@ struct AccountView: View {
                         }
                     } else {
                         Button(action: {
-                            self.contentVM.showSheet(.Payment)
+                            self.contentVM.stage.showModal(.payment)
                         }) {
                             L10n.universalActionUpgrade.toBlokadaPlusText()
                         }

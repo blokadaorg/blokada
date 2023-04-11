@@ -30,9 +30,8 @@ struct MainView: View {
                                 //RippleView(multiplier: 1.2)
 
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
 
-                                ActivitysNarrowView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                JournalNarrowView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksNarrowView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsNarrowView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
@@ -42,18 +41,19 @@ struct MainView: View {
                                 //RippleView(multiplier: 2.0)
 
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
 
-                                ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                JournalWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsWideVerticalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
                         }
                         VStack {
                             Spacer()
-                            TabHorizontalView(onTap: { it in
-                                handleTappedTab(it, scroll: scroll)
-                            })
+                            if tabVM.showNavBar {
+                                TabHorizontalView(onTap: { it in
+                                    handleTappedTab(it, scroll: scroll)
+                                })
+                            }
                         }
                         // Hacky way to show the action sheet that works on ios 15
                         Text("")
@@ -84,17 +84,18 @@ struct MainView: View {
 
                             ZStack {
                                 FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
 
-                                ActivitysWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                JournalWideVerticalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                 PacksWideVerticalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                 SettingsWideVerticalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                             }
                             VStack {
                                 Spacer()
-                                TabHorizontalView(onTap: { it in
-                                    handleTappedTab(it, scroll: scroll)
-                                })
+                                if tabVM.showNavBar {
+                                    TabHorizontalView(onTap: { it in
+                                        handleTappedTab(it, scroll: scroll)
+                                    })
+                                }
                             }
                             // Hacky way to show the action sheet that works on ios 15
                             Text("")
@@ -121,16 +122,17 @@ struct MainView: View {
                         // Landscape, tab bar on the left, next to content
                         ZStack {
                             HStack(spacing: 0) {
-                                TabVerticalView(onTap: { it in
-                                    handleTappedTab(it, scroll: scroll)
-                                })
+                                if tabVM.showNavBar {
+                                    TabVerticalView(onTap: { it in
+                                        handleTappedTab(it, scroll: scroll)
+                                    })
+                                }
                                 ZStack {
                                     //RippleView(multiplier: 1.5)
 
                                     FlutterHomeView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
-                                    HelpButtonView().opacity(self.tabVM.activeTab == .Home ? 1 : 0)
 
-                                    ActivitysWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
+                                    JournalWideHorizontalView().opacity(self.tabVM.activeTab == .Activity ? 1 : 0)
                                     PacksWideHorizontalView().opacity(self.tabVM.activeTab == .Advanced ? 1 : 0)
                                     SettingsWideHorizontalView().opacity(self.tabVM.activeTab == .Settings ? 1 : 0)
                                     
@@ -171,7 +173,7 @@ struct MainView: View {
             if tab == .Activity || tab == .Advanced {
                 withAnimation {
                     scroll.scrollTo(
-                        (tab == .Advanced) ? "top-packs" : "top-activitys",
+                        (tab == .Advanced) ? "top-packs" : "top-journal",
                         anchor: .bottom
                     )
                 }

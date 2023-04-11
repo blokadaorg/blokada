@@ -12,11 +12,12 @@
 
 import Foundation
 import Combine
+import Factory
 
 class LocationListViewModel: ObservableObject {
 
-    private lazy var gatewayRepo = Repos.gatewayRepo
-    private lazy var plusRepo = Repos.plusRepo
+    @Injected(\.plusGateway) private var gateway
+    @Injected(\.plus) private var plus
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -28,8 +29,8 @@ class LocationListViewModel: ObservableObject {
 
     private func onGatewaysChanged() {
         Publishers.CombineLatest(
-            gatewayRepo.gatewaysHot,
-            gatewayRepo.selectedHot
+            gateway.gateways,
+            gateway.selected
         )
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
@@ -52,17 +53,18 @@ class LocationListViewModel: ObservableObject {
 
     func loadGateways(done: @escaping Ok<Void>) {
         items = Dictionary()
-        gatewayRepo.refreshGateways()
-        .receive(on: RunLoop.main)
-        .sink(
-            onFailure: { _ in done(()) },
-            onSuccess: { done(()) }
-        )
-        .store(in: &cancellables)
+        done(())
+//        gatewayRepo.refreshGateways()
+//        .receive(on: RunLoop.main)
+//        .sink(
+//            onFailure: { _ in done(()) },
+//            onSuccess: { done(()) }
+//        )
+//        .store(in: &cancellables)
     }
 
     func changeLocation(_ item: LocationViewModel) {
-        plusRepo.newPlus(item.gateway.public_key)
+        plus.newPlus(item.gateway.publicKey)
     }
 
 }

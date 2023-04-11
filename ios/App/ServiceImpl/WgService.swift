@@ -16,7 +16,7 @@ import NetworkExtension
 
 class WgService: NetxServiceIn {
 
-    var wgStateHot: AnyPublisher<NetworkStatus, Never> {
+    var wgStateHot: AnyPublisher<VpnStatus, Never> {
         writeWgState.compactMap { $0 }.eraseToAnyPublisher()
     }
 
@@ -24,7 +24,7 @@ class WgService: NetxServiceIn {
         writePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
-    fileprivate let writeWgState = CurrentValueSubject<NetworkStatus?, Never>(nil)
+    fileprivate let writeWgState = CurrentValueSubject<VpnStatus?, Never>(nil)
     fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
     fileprivate let checkPermsT = SimpleTasker<Ignored>("checkPerms")
@@ -48,8 +48,9 @@ class WgService: NetxServiceIn {
         initTunnelsManager()
         onPermsGranted_startMonitoringWg()
         onCheckPerms()
-        checkPerms()
-        self.writeWgState.send(NetworkStatus.disconnected())
+
+        // First state will be soon rewritten by actual state unless something is wrong
+        //self.writeWgState.send(VpnStatus.inProgress())
     }
     
     private func initTunnelsManager() {
@@ -64,6 +65,7 @@ class WgService: NetxServiceIn {
                 let tunnelsTracker = TunnelsTracker(tunnelsManager: tunnelsManager)
 
                 tunnelsTracker.onTunnelState = { status in
+                    BlockaLogger.v("WgService", "TunnelsManager status updated")
                     self.writeWgState.send(status)
                 }
 
@@ -71,6 +73,9 @@ class WgService: NetxServiceIn {
                 self.tunnelsTracker = tunnelsTracker
 
                 //self.workaroundFirstConfigProblem(manager: tunnelsManager)
+                BlockaLogger.v("WgService", "TunnelsManager is initialized")
+                tunnelsTracker.triggerCurrentStatus()
+                checkPerms()
             }
         }
     }
@@ -99,23 +104,23 @@ class WgService: NetxServiceIn {
         }
     }
 
-    func setConfig(_ config: NetxConfig) -> AnyPublisher<Ignored, Error> {
+    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error> {
         return getManager()
         // Skip if anything is missing
         .tryMap { manager in
             if manager.numberOfTunnels() == 0 {
                 throw "No VPN perms yet"
             }
-            if config.lease.vip4.isEmpty {
+            if config.leaseVip4.isEmpty {
                 throw "No vip4 is set"
             }
-            if config.privateKey.isEmpty {
+            if config.devicePrivateKey.isEmpty {
                 throw "No privateKey is set"
             }
-            if config.lease.vip4.isEmpty && config.lease.vip6.isEmpty {
+            if config.leaseVip4.isEmpty && config.leaseVip6.isEmpty {
                 throw "No vip4/vip6 is set for lease"
             }
-            if config.gateway.public_key.isEmpty {
+            if config.gatewayPublicKey.isEmpty {
                 throw "No gateway is set"
             }
             return manager
@@ -123,17 +128,17 @@ class WgService: NetxServiceIn {
         // Modify tunnel configuration
         .flatMap { manager in
             let dns = self.getUserDnsIp(config.deviceTag)
-            BlockaLogger.v("WgWgService", "setConfig: gateway: \(config.gateway.niceName()), tag: \(config.deviceTag), dns: \(dns)")
+            BlockaLogger.v("WgWgService", "setConfig: gateway: \(config.gatewayNiceName), tag: \(config.deviceTag), dns: \(dns)")
 
-            var interface = InterfaceConfiguration(privateKey: PrivateKey(base64Key: config.privateKey)!)
+            var interface = InterfaceConfiguration(privateKey: PrivateKey(base64Key: config.devicePrivateKey)!)
             interface.dns = [DNSServer(from: dns)!]
             interface.addresses = [
-                IPAddressRange(from: "\(config.lease.vip4)/32"),
-                IPAddressRange(from: "\(config.lease.vip6)/64"),
+                IPAddressRange(from: "\(config.leaseVip4)/32"),
+                IPAddressRange(from: "\(config.leaseVip6)/64"),
             ].filter { it in it != nil }.map { it in it! }
 
-            var peer = PeerConfiguration(publicKey: PublicKey(base64Key: config.gateway.public_key)!)
-            peer.endpoint = Endpoint(from: "\(config.gateway.ipv4):51820")
+            var peer = PeerConfiguration(publicKey: PublicKey(base64Key: config.gatewayPublicKey)!)
+            peer.endpoint = Endpoint(from: "\(config.gatewayIpv4):51820")
 //            peer.allowedIPs = [
 //                IPAddressRange(from: "0.0.0.0/0")!,
 //                IPAddressRange(from: "::/0")!,
@@ -141,7 +146,7 @@ class WgService: NetxServiceIn {
             peer.allowedIPs = self.localIps.map { it in IPAddressRange(from: it)! }
             peer.persistentKeepAlive = 120
 
-            let tunnelConfiguration = TunnelConfiguration(name: "Blokada+ (\(config.gateway.niceName()))", interface: interface, peers: [peer])
+            let tunnelConfiguration = TunnelConfiguration(name: "Blokada+ (\(config.gatewayNiceName))", interface: interface, peers: [peer])
 
             let container = manager.tunnel(at: 0)
             return Future<TunnelsManager, Error> { promise in
@@ -176,10 +181,11 @@ class WgService: NetxServiceIn {
     }
 
     private func startVpnInternal() -> AnyPublisher<Ignored, Error> {
-        return wgStateHot.filter { !$0.inProgress }.first()
+        return wgStateHot.filter { $0.isReady() }.first()
         .flatMap { state -> AnyPublisher<Ignored, Error> in
             // VPN already started, ignore
-            if state.active {
+            if state == .activated {
+                self.writeWgState.send(.activated)
                 return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
 
@@ -217,7 +223,7 @@ class WgService: NetxServiceIn {
             .flatMap { _ in
                 Publishers.Merge(
                     // Wait until active state is reported
-                    self.wgStateHot.filter { $0.active }.first().tryMap { _ in true }
+                    self.wgStateHot.filter { $0 == .activated }.first().tryMap { _ in true }
                     .eraseToAnyPublisher(),
 
                     // Also make a timeout
@@ -225,7 +231,7 @@ class WgService: NetxServiceIn {
                     .delay(for: 3.0, scheduler: self.bgQueue)
                     .flatMap { _ in self.wgStateHot.first() }
                     .tryMap { state -> Ignored in
-                        if !state.active {
+                        if state != .activated {
                             throw "timeout"
                         }
                         return true
@@ -241,10 +247,11 @@ class WgService: NetxServiceIn {
     }
 
     func stopVpn() -> AnyPublisher<Ignored, Error> {
-        return wgStateHot.filter { !$0.inProgress }.first()
+        return wgStateHot.filter { $0.isReady() }.first()
         .flatMap { state -> AnyPublisher<Ignored, Error> in
             // VPN already stopped, ignore
-            if !state.active {
+            if state == .deactivated { // TODO: paused?
+                self.writeWgState.send(.deactivated)
                 return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
             }
 
@@ -272,7 +279,7 @@ class WgService: NetxServiceIn {
             .flatMap { _ in
                 Publishers.Merge(
                     // Wait until inactive state is reported
-                    self.wgStateHot.filter { !$0.active }.first().tryMap { _ in true }
+                    self.wgStateHot.filter { $0 == .deactivated }.first().tryMap { _ in true }
                     .eraseToAnyPublisher(),
 
                     // Also make a timeout
@@ -280,10 +287,10 @@ class WgService: NetxServiceIn {
                     .delay(for: 15.0, scheduler: self.bgQueue)
                     .flatMap { _ in self.wgStateHot.first() }
                     .tryMap { state -> Ignored in
-                        if state.active {
+                        if state == .activated {
                             //throw "stopvpn timeout"
                             // Somethings up with the wg state callback
-                            self.writeWgState.send(NetworkStatus.disconnected())
+                            self.writeWgState.send(.deactivated)
                         }
                         return true
                     }
@@ -340,7 +347,10 @@ class WgService: NetxServiceIn {
             }
             .eraseToAnyPublisher()
         }
-        .map { _ in true }
+        .map { _ in
+            self.writePerms.send(true)
+            return true
+        }
         .eraseToAnyPublisher()
     }
 
@@ -353,7 +363,7 @@ class WgService: NetxServiceIn {
         }
     }
 
-    func getStatePublisher() -> AnyPublisher<NetworkStatus, Never> {
+    func getStatePublisher() -> AnyPublisher<VpnStatus, Never> {
         return wgStateHot
     }
     
@@ -369,15 +379,33 @@ class WgService: NetxServiceIn {
         checkPermsT.setTask { _ in Just(true)
             .flatMap { _ in self.getManager() }
             .map { manager in
-                return manager.numberOfTunnels() > 0
+                let enabled = manager.numberOfTunnels() > 0
+                print("VPN perms are: \(enabled)")
+                return enabled
             }
-            .map { it in self.writePerms.send(it) }
+            .map { it in
+                self.writePerms.send(it)
+                return it
+            }
+            // Do a second check after a while because of some weird bug misreporting
+            .delay(for: 2, scheduler: self.bgQueue)
+            .flatMap { _ in self.getManager() }
+            .map { manager in
+                let enabled = manager.numberOfTunnels() > 0
+                print("VPN perms are (second check): \(enabled)")
+                return enabled
+            }
+            .map { it in
+                self.writePerms.send(it)
+                return it
+            }
             .map { _ in true }
             .eraseToAnyPublisher()
         }
     }
 
     func refreshOnForeground() {
+        checkPerms()
         tunnelsManager.value?.refreshStatuses()
     }
 
@@ -420,7 +448,7 @@ class WgService: NetxServiceIn {
             } else {
                 // Emit disconnected (fresh app install, or perms rejected)
                 BlockaLogger.v("WgService", "No perms, emitting disconnected")
-                self.writeWgState.send(NetworkStatus.disconnected())
+                self.writeWgState.send(.deactivated)
             }
             
         })
@@ -511,4 +539,3 @@ class WgService: NetxServiceIn {
     }
 
 }
-

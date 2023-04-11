@@ -14,17 +14,18 @@ import Foundation
 
 var ViewModels = ViewModelsSingleton()
 
+// We don't use the Factory DI here because view models are accessed in views as
+// ObservableObjects, and we kinda can't inject them there automatically.
 class ViewModelsSingleton {
-
     lazy var content = ContentViewModel()
     lazy var home = HomeViewModel()
     lazy var tab = TabViewModel()
     lazy var account = AccountViewModel()
     lazy var packs = PacksViewModel()
-    lazy var activity = ActivityViewModel()
+    lazy var journal = JournalViewModel()
+    lazy var custom = CustomViewModel()
     lazy var inbox = InboxViewModel()
     lazy var lease = LeaseListViewModel()
     lazy var payment = PaymentGatewayViewModel()
     lazy var log = LogViewModel()
-
 }

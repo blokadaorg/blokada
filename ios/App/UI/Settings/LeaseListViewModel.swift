@@ -12,11 +12,14 @@
 
 import Foundation
 import Combine
+import Factory
 
 class LeaseListViewModel: ObservableObject {
 
-    private lazy var leaseRepo = Repos.leaseRepo
-    private lazy var accountRepo = Repos.accountRepo
+    private lazy var accountRepo = account
+
+    @Injected(\.account) private var account
+    @Injected(\.plusLease) private var plusLease
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -29,14 +32,14 @@ class LeaseListViewModel: ObservableObject {
     private func onLeasesChanged() {
         // Get latest leases and account info
         Publishers.CombineLatest(
-            leaseRepo.leasesHot, accountRepo.accountHot
+            plusLease.leases, accountRepo.accountHot
         )
         // Map each lease to isMe flag (if lease is for current device)
         .map { it -> Array<(Lease, Bool)> in
             let (leases, account) = it
             return leases.map { (
                 $0, // Lease
-                $0.public_key == account.keypair.publicKey // isMe
+                $0.publicKey == account.keypair.publicKey // isMe
             ) }
         }
         .receive(on: RunLoop.main)
@@ -53,12 +56,12 @@ class LeaseListViewModel: ObservableObject {
     func deleteLease(_ index: IndexSet) {
         let lease = leases[index.first!]
         if !lease.isMe {
-            leaseRepo.deleteLease(lease.lease)
+            plusLease.deleteLease(lease.lease)
         }
     }
 
     func refreshLeases() {
-        leaseRepo.refreshLeases()
+        //plusLease.refreshLeases()
     }
 
 }

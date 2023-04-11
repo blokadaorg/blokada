@@ -12,6 +12,7 @@
 
 import Foundation
 import Combine
+import Factory
 
 protocol HttpServiceIn {
     func get(_ path: String) -> AnyPublisher<Data, Error>
@@ -20,19 +21,19 @@ protocol HttpServiceIn {
 
 class HttpStandardService: HttpServiceIn {
 
-    private lazy var env = Services.env
+    @Injected(\.env) private var env
 
     private let session = URLSession.shared
     private let bgQueue = DispatchQueue(label: "HttpClientBgQueue")
 
     func get(_ path: String) -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: "\(self.env.baseUrl)\(path)") else {
+        guard let url = URL(string: path) else {
             return Fail(error: "HttpStandardService: get: invalid url: \(path)")
                 .eraseToAnyPublisher()
         }
 
         var request = URLRequest(url: url)
-        request.setValue(self.env.userAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(self.env.getUserAgent(), forHTTPHeaderField: "User-Agent")
         request.httpMethod = "GET"
 
         return self.session.dataTaskPublisher(for: request)
@@ -58,13 +59,13 @@ class HttpStandardService: HttpServiceIn {
 
     // TODO: should post/put also repeat on fail?
     func postOrPut(_ path: String, method: String, payload: Encodable?) -> AnyPublisher<Data, Error> {
-        guard let url = URL(string: "\(self.env.baseUrl)\(path)") else {
+        guard let url = URL(string: path) else {
             return Fail(error: "HttpStandardService: post: invalid url: \(path)")
                 .eraseToAnyPublisher()
         }
 
         var request = URLRequest(url: url)
-        request.setValue(self.env.userAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(self.env.getUserAgent(), forHTTPHeaderField: "User-Agent")
         request.httpMethod = method
 
         if payload != nil {

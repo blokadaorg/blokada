@@ -42,8 +42,12 @@ class PrivateDnsService: PrivateDnsServiceIn {
     private lazy var manager = NEDNSSettingsManager.shared()
 
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never> {
+        print("getting manager")
         return getManager()
-        .tryMap { it in it.isEnabled }
+        .tryMap { it in
+            print("mapping manager result")
+            return it.isEnabled
+        }
         .catch { err in
             Just(false)
         }
@@ -54,6 +58,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
         return getManager()
         // Configure the new profile
         .tryMap { it -> NEDNSSettingsManager in
+            print("setting private dns config")
             let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             let profile = NEDNSOverHTTPSSettings(servers: [ "34.117.212.222" ])
             profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)/\(nameSanitized)")

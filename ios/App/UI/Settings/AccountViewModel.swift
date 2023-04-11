@@ -14,10 +14,11 @@ import Foundation
 import UIKit
 import LocalAuthentication
 import Combine
+import Factory
 
 class AccountViewModel: ObservableObject {
 
-    @Published var account: Account?
+    @Published var account: JsonAccount?
     @Published var working: Bool = true
     @Published var showError: Bool = false
     @Published var selectedSettingsTab: String? = nil
@@ -48,7 +49,7 @@ class AccountViewModel: ObservableObject {
 
     private let log = BlockaLogger("Account")
 
-    private lazy var accountRepo = Repos.accountRepo
+    @Injected(\.account) private var accountRepo
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -63,9 +64,7 @@ class AccountViewModel: ObservableObject {
     }
 
     func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
-        accountRepo.restoreAccount(newId)
-        .sink(onSuccess: { success() })
-        .store(in: &cancellables)
+        accountRepo.restoreAccount(newId, completion: success)
     }
 
     func copyAccountIdToClipboard() {

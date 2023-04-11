@@ -45,8 +45,5 @@ class ServicesSingleton {
     lazy var rate = RateService()
 
     lazy var netx = NetxServiceMock()
-    lazy var env = EnvService()
     lazy var quickActions = QuickActionsService()
-
-    lazy var flutter = FlutterService()
 }

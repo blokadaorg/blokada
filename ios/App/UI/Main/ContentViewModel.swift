@@ -12,14 +12,16 @@
 
 import Foundation
 import Combine
+import Factory
 
 class ContentViewModel: ObservableObject {
+    @Injected(\.stage) var stage
 
-    private lazy var sheetRepo = Repos.sheetRepo
+    private lazy var sheetRepo = stage
     private lazy var linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
 
-    @Published var activeSheet: ActiveSheet? = nil
+    @Published var activeSheet: StageModal? = nil
     @Published var showPauseMenu = false {
         didSet {
             self.sheetRepo.showPauseMenu(showPauseMenu)
@@ -31,18 +33,6 @@ class ContentViewModel: ObservableObject {
         onShowPauseMenuChanged()
     }
 
-    func showSheet(_ sheet: ActiveSheet) {
-        sheetRepo.showSheet(sheet, params: nil)
-    }
-
-    func dismissSheet() {
-        sheetRepo.dismiss()
-    }
-
-    func onDismissed() {
-        sheetRepo.onDismissed()
-    }
-
     func openLink(_ link: Link) {
         linkRepo.openLink(link)
     }
@@ -52,7 +42,7 @@ class ContentViewModel: ObservableObject {
     }
 
     private func onSheetChanged() {
-        sheetRepo.currentSheet
+        sheetRepo.currentModal
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.activeSheet = it

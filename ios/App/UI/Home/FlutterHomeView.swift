@@ -12,13 +12,14 @@
 
 import SwiftUI
 import Flutter
+import Factory
 
 struct FlutterHomeView: UIViewControllerRepresentable {
 
-    private let flutter = Services.flutter;
+    @Injected(\.flutter) private var flutter
 
     func makeUIViewController(context: Context) -> FlutterViewController {
-        let engine = self.flutter.flutterEngine
+        let engine = self.flutter.getEngine()
         let controller = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
         self.flutter.setupChannels(controller: controller)
         return controller

@@ -38,7 +38,7 @@ struct RateAppView: View {
                         Button(action: {
                             self.rating = number
                             if number < 4 {
-                                self.contentVM.dismissSheet()
+                                self.contentVM.stage.dismiss()
                             }
                         }) {
                             Image(systemName: self.rating < number ? "star" : "star.fill")
@@ -56,7 +56,7 @@ struct RateAppView: View {
                         .padding()
 
                     Button(action: {
-                        self.contentVM.dismissSheet()
+                        self.contentVM.stage.dismiss()
                         requestReview()
                     }) {
                         ZStack {
@@ -76,7 +76,7 @@ struct RateAppView: View {
 
             .navigationBarItems(trailing:
                 Button(action: {
-                    self.contentVM.dismissSheet()
+                    self.contentVM.stage.dismiss()
                 }) {
                     Text(L10n.universalActionDone)
                 }

@@ -12,58 +12,59 @@
 
 import Foundation
 import Combine
+import Factory
 
 class TabViewModel : ObservableObject {
-
-    private lazy var navRepo = Repos.navRepo
+    @Injected(\.stage) private var stage
 
     @Published var activeTab: Tab = .Home
-    @Published var section: Any? = nil
-
-    // Used by SwiftUI NavigationLinks.
-    // We convert them to our internal nav so that we can do it
-    // manually in iPad views (built in nav is too limited there).
-    @Published var navActivity: HistoryEntry? = nil { didSet {
-            self.setSection(navActivity)
-    }}
-    @Published var navPack: Pack? = nil { didSet {
-        self.setSection(navPack)
-    }}
-    @Published var navSetting: String? = nil { didSet {
-        self.setSection(navSetting)
-    }}
+    @Published var tabPayload = [String]()
+    @Published var showNavBar = true
 
     private var cancellables = Set<AnyCancellable>()
 
     init() {
         onTabChanged()
-        onSectionChanged()
+        onTabPayloadChanged()
+        onShowNavbar()
     }
 
     private func onTabChanged() {
-        navRepo.activeTabHot
+        stage.activeTab
         .receive(on: RunLoop.main)
         .sink(onValue: { it in self.activeTab = it })
         .store(in: &cancellables)
     }
 
-    private func onSectionChanged() {
-        navRepo.sectionHot
+    private func onTabPayloadChanged() {
+        stage.tabPayload
         .receive(on: RunLoop.main)
-        .sink(onValue: { it in self.section = it })
+        .sink(onValue: { it in
+            if let it = it {
+                self.tabPayload = [it]
+            } else {
+                self.tabPayload = []
+            }
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onShowNavbar() {
+        stage.showNavbar
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in self.showNavBar = it })
         .store(in: &cancellables)
     }
 
     func setActiveTab(_ tab: Tab) {
-        navRepo.setActiveTab(tab)
+        stage.setTab(tab)
     }
 
-    func setSection(_ section: Any?) {
-        navRepo.setSection(section)
+    func setSection(_ section: String) {
+        stage.setTabPayload(section)
     }
 
     func isSection(_ section: String) -> Bool {
-        return (self.section as? String) == section
+        return tabPayload.first == section
     }
-
 }

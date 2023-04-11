@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1230"
+   LastUpgradeVersion = "1430"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -31,7 +31,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "47729E0122F447C800B9B36B"
                BuildableName = "Blokada 6.app"
-               BlueprintName = "App"
+               BlueprintName = "Prod"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -83,7 +83,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47729E0122F447C800B9B36B"
             BuildableName = "Blokada 6.app"
-            BlueprintName = "App"
+            BlueprintName = "Prod"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -102,7 +102,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47729E0122F447C800B9B36B"
             BuildableName = "Blokada 6.app"
-            BlueprintName = "App"
+            BlueprintName = "Prod"
             ReferencedContainer = "container:IOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -27,13 +27,13 @@ struct PlusButtonView: View {
                     self.vm.expiredAlertShown = false
 
                     if !self.vm.accountActive {
-                        self.contentVM.showSheet(.Payment)
+                        self.contentVM.stage.showModal(.payment)
                     } else if self.vm.accountType == .Cloud {
                         self.contentVM.openLink(Link.ManageSubscriptions)
                     } else if !self.vm.vpnPermsGranted {
-                        self.contentVM.showSheet(.Activated)
+                        self.contentVM.stage.showModal(.onboarding)
                     } else {
-                        self.contentVM.showSheet(.Location)
+                        self.contentVM.stage.showModal(.plusLocationSelect)
                     }
                 }) {
                     ZStack {

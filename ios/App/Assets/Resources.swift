@@ -36,6 +36,8 @@ extension Color {
     static let cPrimary = Color("Primary")
 
     static let cSemiTransparent = Color("SemiTransparent")
+
+    static let cTextFieldBgLight = Color("TextFieldBackgroundLight")
 }
 
 extension Image {

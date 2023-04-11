@@ -24,8 +24,6 @@ class Tasker<T: Equatable, Y> {
     fileprivate lazy var requests = PassthroughSubject<T, Never>()
     fileprivate lazy var response = PassthroughSubject<TaskResult<T, Y>, Never>()
 
-    fileprivate lazy var processingRepo = Repos.processingRepo
-
     fileprivate let owner: String
     private let debounce: Double
     private let errorIsMajor: Bool
@@ -63,19 +61,19 @@ class Tasker<T: Equatable, Y> {
         }
         .sink(
             onValue: { it in
-                if let err = it.error {
-                    // TODO: what about major errors
-                    self.processingRepo.notify(self.owner, err, major: self.errorIsMajor)
-                } else {
-                    self.processingRepo.notify(self.owner, ongoing: false)
-                }
+//                if let err = it.error {
+//                    // TODO: what about major errors
+////                    self.processingRepo.notify(self.owner, err, major: self.errorIsMajor)
+//                } else {
+////                    self.processingRepo.notify(self.owner, ongoing: false)
+//                }
                 self.response.send(it)
             }
         )
     }
 
     func send(_ argument: T) -> AnyPublisher<Y, Error> {
-        processingRepo.notify(owner, ongoing: true)
+//        processingRepo.notify(owner, ongoing: true)
         let responsePub = response
         // Just return first result if debounce is set, as it's used for cases when we
         // only care about the latest invocation in a short time.
@@ -100,7 +98,7 @@ class SimpleTasker<Y>: Tasker<Bool, Y> {
     }
 
     func send() -> AnyPublisher<Y, Error> {
-        processingRepo.notify(owner, ongoing: true)
+//        processingRepo.notify(owner, ongoing: true)
         let responsePub = response
         .first()
         .tryMap { it -> Y in

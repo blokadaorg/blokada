@@ -11,11 +11,17 @@
 //
 
 import SwiftUI
+import Factory
 
 struct ContentView: View {
 
     @ObservedObject var homeVM = ViewModels.home
     @ObservedObject var vm = ViewModels.content
+
+    @Injected(\.tracer) private var tracer
+    @Injected(\.stats) private var stats
+    
+    var onboarding = AfterActivatedView()
 
     var body: some View {
         // Set accent color on all switches
@@ -31,28 +37,25 @@ struct ContentView: View {
                     MainView()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }
-                .sheet(item: self.$vm.activeSheet, onDismiss: { self.vm.onDismissed() }) { item in
+                .sheet(item: self.$vm.activeSheet, onDismiss: { self.vm.stage.onDismissed() }) { item in
                     switch item {
-                    case .Payment:
+                    case .payment:
                         PaymentGatewayView()
-                    case .Location:
+                    case .plusLocationSelect:
                         LocationListView()
-                    case .Activated:
-                        AfterActivatedView()
-                    case .ShowLog:
-                        LogView()
-                    case .ShareLog:
-                        ShareSheet(activityItems: [LoggerSaver.logFile])
-                    case .Debug:
-                        SupportView() // dont want
-                    case .RateApp:
-                        RateAppView()
-                    case .AdsCounter:
-                        AdsCounterShareView()
-                    case .ShareAdsCounter:
-                        ShareSheet(activityItems: [L10n.mainShareMessage(Services.flutter.shareCounter.compact)])
-                    case .Help:
+                    case .onboarding:
+                        onboarding
+                    case .adsCounterShare:
+                        ShareSheet(activityItems: [L10n.mainShareMessage(stats.blockedCounter.value)])
+                    case .help:
                         SupportView()
+                    case .custom:
+                        CustomV()
+                    case .debugShareLog:
+                        ShareSheet(activityItems: [tracer.file])
+                    default:
+                        // Will never be displayed
+                        EmptyView()
                     }
                 }
                 // Works on ios16+
@@ -89,7 +92,7 @@ struct ContentView: View {
             .alert(isPresented: self.$homeVM.showError) {
                 Alert(title: Text(self.homeVM.errorHeader ?? L10n.alertErrorHeader), message: Text(self.homeVM.showErrorMessage()),
                       dismissButton: Alert.Button.default(
-                        Text(L10n.universalActionClose), action: { self.homeVM.error = nil }
+                        Text(L10n.universalActionClose), action: { self.vm.stage.onDismissed() }
                     )
                 )
             }

@@ -38,10 +38,10 @@ class AppleTokenService {
     }
 
     private func onSendAppleToken() {
-        sendAppleTokenT.setTask { appleToken in Just(appleToken)
-            .flatMap { it in self.api.postAppleDeviceTokenForCurrentUser(deviceToken: it) }
-            .eraseToAnyPublisher()
-        }
+//        sendAppleTokenT.setTask { appleToken in Just(appleToken)
+//            .flatMap { it in self.api.postAppleDeviceTokenForCurrentUser(deviceToken: it) }
+//            .eraseToAnyPublisher()
+//        }
     }
 
 }

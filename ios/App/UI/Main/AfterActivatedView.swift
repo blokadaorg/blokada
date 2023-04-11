@@ -211,7 +211,7 @@ struct AfterActivatedView: View {
                     .frame(maxWidth: 500)
                     .navigationBarItems(trailing:
                         Button(action: {
-                            self.contentVM.dismissSheet()
+                            self.contentVM.stage.dismiss()
                         }) {
                             Text(L10n.universalActionDone)
                         }

@@ -14,6 +14,7 @@ import Foundation
 import UserNotifications
 import UIKit
 import Combine
+import Factory
 
 // NotificationService will display user notification in the future, even when the app is
 // in the background. We use it for notifying users, but also as a mechanism to complete
@@ -71,11 +72,14 @@ class NotificationService {
             [.year,.month,.day,.hour,.minute,.second,],
             from: when
         )
+
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
+        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 40, repeats: false)
         let request = UNNotificationRequest(
             identifier: id, content: mapNotificationToUser(id), trigger: trigger
         )
 
+        print("Scheduling notification \(id) for: \(date), \(request)")
         return Future<Ignored, Error> { promise in
             self.center.getNotificationSettings { settings in
                 guard settings.authorizationStatus == .authorized else {
@@ -106,6 +110,7 @@ class NotificationService {
 }
 
 class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDelegate {
+    @Injected(\.commands) private var commands
 
     private let writeNotification: PassthroughSubject<String, Never>
 
@@ -119,12 +124,7 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
-        // We currently only send push notifications when Lease/Account is about to expire
-        // I haven't tested this, but let's try to invoke the usual flow and hope it works.
-        // Normally (for foreground notif) this would execute timer expiration callback.
-        // So in case of NOTIF_ACC_EXP, it will expire account and deactivate everything.
-        BlockaLogger.w("Notif", "Received push notification, marking NOTIF_ACC_EXP")
-        self.writeNotification.send(NOTIF_ACC_EXP)
+        commands.execute(.remoteNotification)
         completionHandler(.newData)
     }
 
@@ -134,6 +134,7 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        BlockaLogger.w("Notif", "Got foreground system callback for local notification")
         writeNotification.send(notification.request.identifier)
 
         // No notifications while in front

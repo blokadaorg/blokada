@@ -4,9 +4,11 @@
 import Foundation
 import NetworkExtension
 import os
+import Factory
 
 // This is our override of wg-ios that adds the ability to perform protected HTTP requests.
 class BlockaPacketTunnelProvider: PacketTunnelProvider {
+    private var env = Env()
 
     private func performProtectedHttpRequest(url: String, method: String, body: String, completionHandler: @escaping ((Error?, String?) -> Void)) {
         
@@ -14,7 +16,7 @@ class BlockaPacketTunnelProvider: PacketTunnelProvider {
         let url = URL(string: url)!
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.setValue(EnvService().userAgent(), forHTTPHeaderField: "User-Agent")
+        request.setValue(env.getUserAgent(), forHTTPHeaderField: "User-Agent")
 
         if !body.isEmpty {
             request.httpBody = data
@@ -26,6 +28,11 @@ class BlockaPacketTunnelProvider: PacketTunnelProvider {
             guard error == nil else {
                 return completionHandler(error, nil)
             }
+            
+            if let r = response as? HTTPURLResponse, r.statusCode != 200 {
+                return completionHandler("code:\(r.statusCode)", nil)
+            }
+            
             guard let data = data else {
                 return completionHandler(nil, nil)
             }

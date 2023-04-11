@@ -26,9 +26,9 @@ struct PacksWideVerticalView: View {
 
                     ForEach(self.vm.packs, id: \.self) { pack in
                         Button(action: {
-                            self.tabVM.setSection(pack)
+                            self.tabVM.setSection(pack.id)
                         }) {
-                            PackView(packsVM: self.vm, vm: PackDetailViewModel(pack: pack))
+                            PackView(packsVM: self.vm, vm: PackDetailViewModel(packId: pack.id))
                         }
                     }
                 }
@@ -36,8 +36,8 @@ struct PacksWideVerticalView: View {
                 .padding(.bottom, 56 + self.safeAreaInsets.bottom)
 
                 ZStack {
-                    if let it = self.tabVM.section as? Pack  {
-                        PackDetailView(vm: PackDetailViewModel(pack: it))
+                    if let it = self.vm.sectionStack.first  {
+                        PackDetailView(vm: PackDetailViewModel(packId: it))
                     } else {
                         PlaceholderPaneView(title: L10n.mainTabAdvanced)
                     }

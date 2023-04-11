@@ -11,10 +11,13 @@
 //
 
 import SwiftUI
+import Factory
 
 struct HelpButtonView: View {
 
     @Environment(\.safeAreaInsets) var safeAreaInsets
+
+    @Injected(\.env) private var env
 
     @ObservedObject var contentVM = ViewModels.content
 
@@ -25,7 +28,7 @@ struct HelpButtonView: View {
                 Spacer()
 
                 Button(action: {
-                    self.contentVM.showSheet(.Help)
+                    self.contentVM.stage.showModal(.help)
                 }) {
                     Image(systemName: Image.fHelp)
                         .resizable()
@@ -38,22 +41,22 @@ struct HelpButtonView: View {
                 }
                 .contextMenu {
                     Button(action: {
-                        self.contentVM.showSheet(.ShowLog)
+                        self.contentVM.stage.showModal(.debug)
                     }) {
                         Text(L10n.universalActionShowLog)
                         Image(systemName: "list.dash")
                     }
 
                     Button(action: {
-                        self.contentVM.showSheet(.ShareLog)
+                        self.contentVM.stage.showModal(.debug)
                     }) {
                         Text(L10n.universalActionShareLog)
                         Image(systemName: "square.and.arrow.up")
                     }
 
-                    if !Services.env.isProduction {
+                    if !self.env.isProduction() {
                         Button(action: {
-                            self.contentVM.showSheet(.Debug)
+                            self.contentVM.stage.showModal(.debug)
                         }) {
                             Text("Debug tools")
                             Image(systemName: "ant.circle")

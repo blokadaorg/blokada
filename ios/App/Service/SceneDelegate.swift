@@ -12,6 +12,7 @@
 
 import UIKit
 import SwiftUI
+import Factory
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let homeVM = ViewModels.home
     private let tabVM = ViewModels.tab
 
-    private lazy var foreground = Repos.stageRepo
+    @Injected(\.stage) private var foreground
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -75,12 +76,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        foreground.onForeground()
+        foreground.onForeground(true)
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        foreground.onBackground()
+        foreground.onForeground(false)
     }
 
     // Quick action selected by user

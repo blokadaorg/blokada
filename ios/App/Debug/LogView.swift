@@ -11,11 +11,14 @@
 //
 
 import SwiftUI
+import Factory
 
 struct LogView: View {
 
     @ObservedObject var vm = ViewModels.log
     @ObservedObject var contentVM = ViewModels.content
+
+    @Injected(\.env) private var env
 
     var body: some View {
         return VStack(alignment: .leading) {
@@ -46,15 +49,15 @@ struct LogView: View {
                     .foregroundColor(Color.cActivePlus)
                     .frame(width: 32, height: 32)
                     .onTapGesture {
-                        self.contentVM.showSheet(.ShareLog)
+                       // self.contentVM.stage.showModal(.ShareLog)
                     }
-                if !Services.env.isProduction {
+                if !self.env.isProduction() {
                     Image(systemName: "ant.circle")
                         .imageScale(.large)
                         .foregroundColor(Color.cActivePlus)
                         .frame(width: 32, height: 32)
                         .onTapGesture {
-                            self.contentVM.showSheet(.Debug)
+                            self.contentVM.stage.showModal(.debug)
                         }
                 }
             }

@@ -16,16 +16,6 @@ typealias ProductId = String
 typealias TransactionId = String
 typealias TransactionRestored = Bool
 
-struct Product {
-    let id: ProductId
-    let title: String
-    let description: String
-    let price: String
-    let period: Int
-    let type: String
-    let trial: Bool
-}
-
 struct Transaction {
     let id: TransactionId
     let date: String

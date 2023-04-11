@@ -14,12 +14,15 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import Factory
 
 var PAUSE_TIME_SECONDS = 300
 
 class QuickActionsService: Startable {
 
-    private lazy var appRepo = Repos.appRepo
+    @Injected(\.app) private var app
+
+    private lazy var appRepo = app
     private var cancellables = Set<AnyCancellable>()
 
     private let actionStart = UIApplicationShortcutItem(
@@ -58,8 +61,7 @@ class QuickActionsService: Startable {
         } else if type == "stop" {
             appRepo.pauseApp(until: nil)
         } else if type == "pause" {
-            let until = getDateInTheFuture(seconds: PAUSE_TIME_SECONDS)
-            appRepo.pauseApp(until: until)
+            appRepo.pauseApp(until: 30)
         } else {
             BlockaLogger.w("QuickAction", "Unknown action, ignoring")
         }

@@ -13,6 +13,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Factory
 
 struct ShareSheet: UIViewControllerRepresentable {
     typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
@@ -22,6 +23,8 @@ struct ShareSheet: UIViewControllerRepresentable {
     let excludedActivityTypes: [UIActivity.ActivityType]? = nil
     let callback: Callback? = nil
 
+    @Injected(\.env) private var env
+
     func makeUIViewController(context: Context) -> UIActivityViewController {
         let controller = UIActivityViewController(
             activityItems: activityItems,
@@ -29,8 +32,8 @@ struct ShareSheet: UIViewControllerRepresentable {
         controller.excludedActivityTypes = excludedActivityTypes
         controller.completionWithItemsHandler = callback
         BlockaLogger.v("Debug", "Sharing log")
-        BlockaLogger.v("Debug", Services.env.userAgent())
-        BlockaLogger.v("Debug", Services.env.deviceName)
+        BlockaLogger.v("Debug", self.env.getUserAgent())
+        BlockaLogger.v("Debug", self.env.getDeviceName())
         BlockaLogger.v("Debug", "Local time: \("Time now: \(Date().description(with: .current))" )")
         return controller
     }
