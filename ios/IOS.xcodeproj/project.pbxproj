@@ -52,7 +52,6 @@
 		4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterHomeView.swift */; };
 		4E1681A9247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
 		4E1681AA247860490040334B /* ActivityItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* ActivityItemView.swift */; };
-		4E16FE772465622800AA9853 /* hosts.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2EED216241B8D6500407601 /* hosts.txt */; };
 		4E1A84E12476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1A84E22476AE19007FEAFB /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A84E02476AE19007FEAFB /* StatsModel.swift */; };
 		4E1DC4CB27564F3100A4CAB1 /* AccountRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DC4CA27564F3100A4CAB1 /* AccountRepoTests.swift */; };
@@ -554,7 +553,6 @@
 		4E11D2E527206D810042385B /* NoLogRetentionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoLogRetentionView.swift; sourceTree = "<group>"; };
 		4E1264412880061A008D26B2 /* FlutterHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterHomeView.swift; sourceTree = "<group>"; };
 		4E1681A8247860490040334B /* ActivityItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemView.swift; sourceTree = "<group>"; };
-		4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1A84E02476AE19007FEAFB /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1DC4CA27564F3100A4CAB1 /* AccountRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepoTests.swift; sourceTree = "<group>"; };
@@ -675,7 +673,6 @@
 		4E423556245192C7005A0779 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		4E42355924519582005A0779 /* LoggerSaverMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerSaverMock.swift; sourceTree = "<group>"; };
 		4E42355B2451959F005A0779 /* LoggerSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerSaver.swift; sourceTree = "<group>"; };
-		4E4562B1240D111A0022CBF6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E4562B3240D114D0022CBF6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterActivatedView.swift; sourceTree = "<group>"; };
@@ -787,7 +784,6 @@
 		4E99A3BB2514986C0054BF69 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/PackTags.strings; sourceTree = "<group>"; };
 		4E99A3BC2514986C0054BF69 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Ui.strings; sourceTree = "<group>"; };
 		4E9A04612448A93F003AB48D /* NetworkCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
-		4E9A046324499317003AB48D /* NELogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NELogger.swift; sourceTree = "<group>"; };
 		4E9A04652449A006003AB48D /* EnvService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvService.swift; sourceTree = "<group>"; };
 		4E9EB98F27B548420040F375 /* SettingsWideVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWideVerticalView.swift; sourceTree = "<group>"; };
 		4EA105C1242B8A7900559CBB /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
@@ -818,9 +814,6 @@
 		4ED3443E23E190910075B796 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		4ED3445323E1B0A60075B796 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4ED3445523E1B0D90075B796 /* IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOS.entitlements; sourceTree = "<group>"; };
-		4ED3445D23E1B1450075B796 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
-		4ED3445F23E1B1450075B796 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4ED3446023E1B1450075B796 /* IOSNetworkExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSNetworkExtension.entitlements; sourceTree = "<group>"; };
 		4ED349C5246C6C0A00C843FA /* BlokadaPlusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaPlusView.swift; sourceTree = "<group>"; };
 		4ED41CC32478406800155C88 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -837,11 +830,7 @@
 		4EEF1BEE2457FC4300734182 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
 		4EF564BD276A16E5005E3D70 /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitService.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
-		B2240DBF2417F66D00F13E97 /* IOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		B2240DC02417F66D00F13E97 /* libengine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libengine.h; sourceTree = "<group>"; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
-		B285FFFC248F8AE5003EAA35 /* PacketLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketLoop.swift; sourceTree = "<group>"; };
-		B2EED216241B8D6500407601 /* hosts.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hosts.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -896,8 +885,6 @@
 				4E23CFDF293DFAB300613D0A /* WireGuardNetworkExtension */,
 				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				47729E0422F447C800B9B36B /* App */,
-				B2240DBB2417F5DA00F13E97 /* BlockaEngine */,
-				4ED3445C23E1B1450075B796 /* NETX */,
 				4E1DC4C927564F3100A4CAB1 /* AppTests */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
@@ -1388,20 +1375,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4ED3445C23E1B1450075B796 /* NETX */ = {
-			isa = PBXGroup;
-			children = (
-				4E4562B1240D111A0022CBF6 /* Error.swift */,
-				4ED3445F23E1B1450075B796 /* Info.plist */,
-				4ED3446023E1B1450075B796 /* IOSNetworkExtension.entitlements */,
-				4E9A046324499317003AB48D /* NELogger.swift */,
-				4ED3445D23E1B1450075B796 /* PacketTunnelProvider.swift */,
-				4E1A84DE2476A6B9007FEAFB /* StatsModel.swift */,
-				B285FFFC248F8AE5003EAA35 /* PacketLoop.swift */,
-			);
-			path = NETX;
-			sourceTree = "<group>";
-		};
 		4ED41CBF24783D1E00155C88 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1432,16 +1405,6 @@
 				4EAFCE2F2487BA47003601A1 /* ShowTime.swift */,
 			);
 			path = Debug;
-			sourceTree = "<group>";
-		};
-		B2240DBB2417F5DA00F13E97 /* BlockaEngine */ = {
-			isa = PBXGroup;
-			children = (
-				B2EED216241B8D6500407601 /* hosts.txt */,
-				B2240DC02417F66D00F13E97 /* libengine.h */,
-				B2240DBF2417F66D00F13E97 /* IOS-Bridging-Header.h */,
-			);
-			path = BlockaEngine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1632,7 +1595,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E290FBC2498A3E200FC4C61 /* Packs.strings in Resources */,
-				4E16FE772465622800AA9853 /* hosts.txt in Resources */,
 				4E290FC92498AA5900FC4C61 /* PackTags.strings in Resources */,
 				4E65293A248F760700EB871A /* Ui.strings in Resources */,
 				4E7FE9D1244DC28900851E9F /* LaunchScreen.storyboard in Resources */,
