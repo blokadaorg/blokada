@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../main.dart';
-import '../model/UiModel.dart';
-import '../repo/Repos.dart';
-import '../repo/StatsRepo.dart';
+import '../stats/stats.dart';
+import '../util/di.dart';
+import 'myapp.dart';
 
 class FrontScreen extends StatefulWidget {
 
@@ -26,10 +25,10 @@ class FrontScreenState extends State<FrontScreen> {
 
   FrontScreenState({required bool this.autoRefresh, required ScrollController this.controller});
 
-  final StatsRepo statsRepo = Repos.instance.stats;
-
   final bool autoRefresh;
   final ScrollController controller;
+
+  final _store = di<StatsStore>();
 
   var stats = UiStats.empty();
 
@@ -38,7 +37,7 @@ class FrontScreenState extends State<FrontScreen> {
     if (autoRefresh) {
       mobx.autorun((_) {
         setState(() {
-          stats = statsRepo.stats;
+          stats = _store.stats;
         });
       });
     }

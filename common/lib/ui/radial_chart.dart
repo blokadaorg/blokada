@@ -2,10 +2,11 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:common/model/UiModel.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../stats/stats.dart';
 
 class RadialChart extends StatelessWidget {
 

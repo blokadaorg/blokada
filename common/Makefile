@@ -9,7 +9,7 @@ get:
 	flutter pub get
 
 gen:
-	flutter pub run build_runner build
+	./sync-generated-files.sh
 
 test:
 	flutter test

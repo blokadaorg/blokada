@@ -1,7 +1,6 @@
 import 'dart:math';
-
-import 'package:common/model/UiModel.dart';
 import 'package:common/service/I18nService.dart';
+import 'package:common/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 

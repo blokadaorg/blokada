@@ -18,7 +18,7 @@ description: A new Flutter module project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
   flutter:
@@ -49,14 +49,17 @@ dependencies:
       url: git@github.com:kar/i18n_extension.git
       ref: main
   relative_scale: ^2.0.0
+  get_it: ^7.2.0
+  collection: ^1.17.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.3.1
   build_runner: ^2.2.1
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.0.7+3
+  pigeon: ^9.2.4
+  mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

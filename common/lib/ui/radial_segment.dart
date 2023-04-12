@@ -1,4 +1,3 @@
-import 'package:common/model/UiModel.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/radial_chart.dart';
 import 'package:countup/countup.dart';
@@ -6,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../repo/Repos.dart';
-import '../repo/StatsRepo.dart';
+import '../stats/stats.dart';
+import '../util/di.dart';
 
 class RadialSegment extends StatefulWidget {
 
@@ -28,7 +27,7 @@ class RadialSegmentState extends State<RadialSegment> {
 
   final bool autoRefresh;
 
-  final StatsRepo statsRepo = Repos.instance.stats;
+  final _store = di<StatsStore>();
 
   var stats = UiStats.empty();
   var blocked = 0.0;
@@ -44,13 +43,13 @@ class RadialSegmentState extends State<RadialSegment> {
     if (autoRefresh) {
       mobx.autorun((_) {
         setState(() {
-          stats = statsRepo.stats;
+          stats = _store.stats;
           lastAllowed = allowed;
           lastBlocked = blocked;
           lastTotal = total;
-          allowed = statsRepo.stats.dayAllowed.toDouble();
-          blocked = statsRepo.stats.dayBlocked.toDouble();
-          total = statsRepo.stats.dayTotal.toDouble();
+          allowed = _store.stats.dayAllowed.toDouble();
+          blocked = _store.stats.dayBlocked.toDouble();
+          total = _store.stats.dayTotal.toDouble();
         });
       });
     }

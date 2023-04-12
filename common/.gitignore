@@ -1,6 +1,13 @@
 /.android
 
+# generated files are build with a script
 *.g.dart
+*.pg.dart
+*.mocks.dart
+
+# pigeon channel files are also generated
+libgen/ios/*
+libgen/android/*
 
 .DS_Store
 local.properties

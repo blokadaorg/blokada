@@ -21,6 +21,8 @@ fi
 if [[ "$built" = true ]]; then
 	echo "Skipping, already built"
 else
+	flutter pub get
+	./sync-generated-files.sh
 	flutter build ios-framework --output=build/ios-framework --no-debug --no-profile
 	echo $version > build/.version
 fi

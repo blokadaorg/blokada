@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../repo/Repos.dart';
-import '../repo/StatsRepo.dart';
+import '../stats/stats.dart';
 import '../service/LogService.dart';
 import '../service/Services.dart';
+import '../util/di.dart';
 
 class TotalCounter extends StatefulWidget {
 
@@ -32,7 +32,7 @@ class TotalCounterState extends State<TotalCounter> {
 
   final bool autoRefresh;
 
-  final StatsRepo statsRepo = Repos.instance.stats;
+  final _store = di<StatsStore>();
 
   var allowed = 0.0;
   var blocked = 0;
@@ -47,8 +47,8 @@ class TotalCounterState extends State<TotalCounter> {
         setState(() {
           lastAllowed = allowed;
           lastBlocked = blocked;
-          allowed = statsRepo.stats.totalAllowed.toDouble();
-          blocked = statsRepo.stats.totalBlocked;
+          allowed = _store.stats.totalAllowed.toDouble();
+          blocked = _store.stats.totalBlocked;
         });
       });
     }

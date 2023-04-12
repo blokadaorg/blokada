@@ -16,6 +16,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/shared_preferences_ios/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/shared_preferences_ios/.dart_tool" />
     </content>
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
     <orderEntry type="library" name="Flutter Plugins" level="project" />
