@@ -4,6 +4,7 @@ sixcommon:
 	@if test -d "six-common"; then \
 		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
 			echo "Building six-common..."; \
+			cd six-common && make get gen && cd ../ ; \
 			cd six-common && flutter build aar --no-profile && cd ../ ; \
 			mkdir -p app/six-common; \
 			cp -r six-common/build/host/outputs/repo app/six-common; \
