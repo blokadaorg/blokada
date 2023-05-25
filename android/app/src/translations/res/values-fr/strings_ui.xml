@@ -261,13 +261,13 @@
     <string name="payment_feature_desc_battery">L\'autonomie de votre batterie ne va pas être impactée, elle pourrait même s\'améliorer lorsque Blokada Cloud est activé.</string>
     <string name="payment_feature_title_devices_cloud">Plusieurs appareils</string>
     <string name="payment_feature_desc_devices_cloud">Configure and monitor all your devices in one place. Either through our mobile app or our web app.</string>
-    <string name="payment_feature_title_cloud_vpn">The Cloud plus VPN</string>
+    <string name="payment_feature_title_cloud_vpn">Le Cloud plus VPN</string>
     <string name="payment_feature_desc_cloud_vpn">En plus de tous les avantages de Blokada Cloud, vous aurez accès à notre réseau VPN mondial</string>
     <string name="payment_feature_title_faster_connection">Connexion plus rapide</string>
     <string name="payment_feature_desc_faster_connection">Des vitesses exceptionnelles allant jusqu\'à 100 Mbps avec des serveurs partout dans le monde.</string>
     <string name="payment_feature_title_devices">Jusqu\'à 5 appareils</string>
     <string name="payment_feature_desc_devices">Utilisez un seul compte pour partager votre abonnement avec 5 appareils à la fois : iOS, Android ou PC.</string>
-    <string name="payment_feature_title_no_ads">Block Ads</string>
+    <string name="payment_feature_title_no_ads">Bloquer les publicités</string>
     <string name="payment_feature_desc_no_ads">Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.</string>
     <string name="payment_feature_title_support">Excellent support</string>
     <string name="payment_feature_desc_support">Obtenez une réponse rapide à toutes vos questions grâce à notre service client et notre fantastique communauté open source.</string>
