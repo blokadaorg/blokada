@@ -20,11 +20,16 @@ jobs:
         with:
           java-version: 11
 
+      - name: Install dependencies
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com".insteadOf "git@github.com"
+          flutter pub get
+
       - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
-      - run: make
+      - run: make gen build
 
       - name: Run tests
         run: make test
