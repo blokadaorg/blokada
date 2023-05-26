@@ -24,7 +24,9 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
-      - run: |
+
+      - name: Make all
+        run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make all
 
