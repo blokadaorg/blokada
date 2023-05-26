@@ -26,7 +26,7 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - run: |
           git config --global url."https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com".insteadOf "git@github.com"
-          make gen build
+          make all
 
       - name: Run tests
         run: make test
