@@ -22,7 +22,9 @@ jobs:
           channel: 'stable'
 
       - name: Build common lib
-        run: make sixcommon
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make sixcommon
  
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
