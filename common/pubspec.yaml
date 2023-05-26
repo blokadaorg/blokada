@@ -44,7 +44,10 @@ dependencies:
   expandable_bottom_bar: ^2.0.2
   snapping_sheet: ^3.1.0
   animate_gradient: ^0.0.2
-  i18n_extension: ^5.0.1
+  i18n_extension:
+    git:
+      url: git@github.com:kar/i18n_extension.git
+      ref: main
   relative_scale: ^2.0.0
 
 dev_dependencies:

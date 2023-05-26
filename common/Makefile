@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: all get gen build test clean
 
 all: get gen build
 
@@ -13,3 +13,6 @@ gen:
 
 test:
 	flutter test
+
+clean:
+	flutter clean
