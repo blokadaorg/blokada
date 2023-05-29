@@ -2,6 +2,8 @@ import 'package:common/env/env.dart';
 import 'package:common/journal/channel.pg.dart';
 import 'package:common/journal/journal.dart';
 import 'package:common/journal/json.dart';
+import 'package:common/stage/stage.dart';
+import 'package:common/timer/timer.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -13,6 +15,8 @@ import 'fixtures.dart';
   MockSpec<JournalStore>(),
   MockSpec<JournalOps>(),
   MockSpec<JournalJson>(),
+  MockSpec<TimerService>(),
+  MockSpec<StageStore>(),
 ])
 import 'journal_test.mocks.dart';
 
@@ -20,6 +24,12 @@ void main() {
   group("store", () {
     test("willGroupEntriesByRequests", () async {
       await withTrace((trace) async {
+        final ops = MockJournalOps();
+        depend<JournalOps>(ops);
+
+        final timer = MockTimerService();
+        depend<TimerService>(timer);
+
         final env = EnvStore();
         env.setDeviceTag(trace, "deviceName");
         di.registerSingleton<EnvStore>(env);
@@ -42,6 +52,12 @@ void main() {
 
     test("willFilterEntries", () async {
       await withTrace((trace) async {
+        final ops = MockJournalOps();
+        depend<JournalOps>(ops);
+
+        final timer = MockTimerService();
+        depend<TimerService>(timer);
+
         final env = EnvStore();
         env.setDeviceTag(trace, "deviceName");
         di.registerSingleton<EnvStore>(env);
@@ -97,6 +113,12 @@ void main() {
 
     test("willSortEntries", () async {
       await withTrace((trace) async {
+        final ops = MockJournalOps();
+        depend<JournalOps>(ops);
+
+        final timer = MockTimerService();
+        depend<TimerService>(timer);
+
         final env = EnvStore();
         env.setDeviceTag(trace, "deviceName");
         di.registerSingleton<EnvStore>(env);
@@ -123,151 +145,44 @@ void main() {
             subject.filteredEntries.first.domainName, "latency.discord.media");
       });
     });
-  });
 
-  group("binder", () {
-    test("onSearch", () async {
+    test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
-        final store = MockJournalStore();
-        di.registerSingleton<JournalStore>(store);
-
-        final subject = JournalBinder.forTesting();
-
-        verifyNever(store.updateFilter(trace));
-        await subject.onSearch("foo");
-        verify(store.updateFilter(
-          any,
-          searchQuery: "foo",
-        )).called(1);
-      });
-    });
-
-    test("onShowForDevice", () async {
-      await withTrace((trace) async {
-        final store = MockJournalStore();
-        di.registerSingleton<JournalStore>(store);
-
-        final subject = JournalBinder.forTesting();
-
-        verifyNever(store.updateFilter(trace));
-        await subject.onShowForDevice("deviceName");
-        verify(store.updateFilter(
-          any,
-          deviceName: "deviceName",
-        )).called(1);
-      });
-    });
-
-    test("onShowOnly", () async {
-      await withTrace((trace) async {
-        final store = MockJournalStore();
-        di.registerSingleton<JournalStore>(store);
-
-        final subject = JournalBinder.forTesting();
-
-        verifyNever(store.updateFilter(trace));
-
-        await subject.onShowOnly(true, false); // blocked, passed
-        verify(store.updateFilter(
-          any,
-          showOnly: JournalFilterType.showBlocked,
-        )).called(1);
-
-        await subject.onShowOnly(false, true); // blocked, passed
-        verify(store.updateFilter(
-          any,
-          showOnly: JournalFilterType.showPassed,
-        )).called(1);
-
-        await subject.onShowOnly(true, true); // blocked, passed
-        verify(store.updateFilter(
-          any,
-          showOnly: JournalFilterType.showAll,
-        )).called(1);
-
-        await subject.onShowOnly(false, false); // blocked, passed
-        verify(store.updateFilter(
-          any,
-          showOnly: JournalFilterType.showPassed,
-        )).called(1);
-      });
-    });
-
-    test("onJournalChanged", () async {
-      await withTrace((trace) async {
-        final env = EnvStore();
-        env.setDeviceTag(trace, "deviceName");
-        di.registerSingleton<EnvStore>(env);
+        final ops = MockJournalOps();
+        depend<JournalOps>(ops);
 
         final json = MockJournalJson();
-        when(json.getEntries(any))
-            .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        di.registerSingleton<JournalJson>(json);
+        depend<JournalJson>(json);
 
-        final store = JournalStore();
-        di.registerSingleton<JournalStore>(store);
+        final timer = MockTimerService();
+        depend<TimerService>(timer);
 
-        final ops = MockJournalOps();
-        di.registerSingleton<JournalOps>(ops);
+        final stage = MockStageStore();
+        when(stage.isForeground).thenReturn(true);
+        when(stage.route).thenReturn(StageRoute.forTab(StageTab.activity));
+        depend<StageStore>(stage);
 
-        final subject = JournalBinder.forTesting();
+        final subject = JournalStore();
+        verifyNever(json.getEntries(any));
 
-        // Should notify entries changed after fetching
-        verifyNever(ops.doReplaceEntries(any));
-        await store.fetch(trace);
-        verify(ops.doReplaceEntries(any)).called(1);
+        // Won't refresh if not enabled
+        await subject.maybeRefreshJournal(trace);
+        verifyNever(json.getEntries(any));
 
-        // Should notify entries changed after filter change
-        await store.updateFilter(trace, sortNewestFirst: false);
-        verify(ops.doReplaceEntries(any)).called(1);
+        // But will, if enabled
+        await subject.enableRefresh(trace, true);
+        await subject.maybeRefreshJournal(trace);
+        verify(json.getEntries(any));
 
-        await store.updateFilter(trace, sortNewestFirst: true);
-        verify(ops.doReplaceEntries(any)).called(1);
+        // Then it wont refresh (until cooldown time passed)
+        await subject.maybeRefreshJournal(trace);
+        verifyNever(json.getEntries(any));
 
-        await store.updateFilter(trace, searchQuery: "foo");
-        verify(ops.doReplaceEntries(any)).called(1);
-      });
-    });
-
-    test("onFilterChanged", () async {
-      await withTrace((trace) async {
-        final env = EnvStore();
-        env.setDeviceTag(trace, "deviceName");
-        di.registerSingleton<EnvStore>(env);
-
-        final json = MockJournalJson();
-        when(json.getEntries(any))
-            .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        di.registerSingleton<JournalJson>(json);
-
-        final ops = MockJournalOps();
-        di.registerSingleton<JournalOps>(ops);
-
-        final store = JournalStore();
-        di.registerSingleton<JournalStore>(store);
-
-        final subject = JournalBinder.forTesting();
-        verifyNever(ops.doFilterChanged(any));
-
-        await store.fetch(trace);
-        verifyNever(ops.doFilterChanged(any));
-
-        await store.updateFilter(trace, searchQuery: "foo");
-        verify(ops.doFilterChanged(any)).called(1);
-
-        // Setting up exactly same filter should not trigger the callback
-        await store.updateFilter(trace, searchQuery: "foo");
-        verifyNever(ops.doFilterChanged(any));
-
-        await store.updateFilter(trace,
-            searchQuery: null, sortNewestFirst: false);
-        verify(ops.doFilterChanged(any)).called(1);
-
-        await store.updateFilter(trace, sortNewestFirst: false);
-        verifyNever(ops.doFilterChanged(any));
-
-        await store.updateFilter(trace, sortNewestFirst: true);
-        verify(ops.doFilterChanged(any)).called(1);
+        // Imagine cooldown passed, should refresh again
+        subject.lastRefresh =
+            DateTime.now().subtract(const Duration(seconds: 10));
+        await subject.maybeRefreshJournal(trace);
+        verify(json.getEntries(any));
       });
     });
   });

@@ -2,6 +2,7 @@ import 'package:common/notification/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
 
 part 'notification.g.dart';
@@ -40,9 +41,32 @@ enum NotificationEventType {
 
 class NotificationStore = NotificationStoreBase with _$NotificationStore;
 
-abstract class NotificationStoreBase with Store, Traceable {
+abstract class NotificationStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<NotificationOps>();
+
+  NotificationStoreBase() {
+    reactionOnStore((_) => notificationChanges, (_) async {
+      final event = notifications.last;
+      if (event.type == NotificationEventType.show) {
+        await _ops.doShow(event.id.name, event.when!.toIso8601String());
+      } else if (event.type == NotificationEventType.dismiss) {
+        await _ops.doDismiss(event.id.name);
+      }
+    });
+  }
+
+  @override
+  attach() {
+    depend<NotificationOps>(NotificationOps());
+    depend<NotificationStore>(this as NotificationStore);
+  }
+
   @observable
-  List<NotificationEvent> notifications = [];
+  ObservableList<NotificationEvent> notifications = ObservableList();
+
+  // I don't get how triggers for lists/maps work in mobx
+  @observable
+  int notificationChanges = 0;
 
   @action
   Future<void> showWithPayload(
@@ -77,46 +101,6 @@ abstract class NotificationStoreBase with Store, Traceable {
     if (notifications.length > 100) {
       notifications.removeAt(0);
     }
+    notificationChanges++;
   }
-}
-
-class NotificationBinder extends NotificationEvents with Traceable {
-  late final _store = di<NotificationStore>();
-  late final _ops = di<NotificationOps>();
-
-  NotificationBinder() {
-    NotificationEvents.setup(this);
-    _onNotificationEvent();
-  }
-
-  NotificationBinder.forTesting() {
-    _onNotificationEvent();
-  }
-
-  @override
-  Future<void> onUserAction(String notificationId) async {
-    await traceAs("onUserAction", (trace) async {
-      await _store.dismiss(trace, NotificationId.values.byName(notificationId));
-    });
-  }
-
-  _onNotificationEvent() {
-    reaction((_) => _store.notifications.last, (event) async {
-      await traceAs("onNotificationEvent", (trace) async {
-        if (event.type == NotificationEventType.show) {
-          await _ops.doShow(event.id.name, event.when!.toIso8601String());
-        } else if (event.type == NotificationEventType.dismiss) {
-          await _ops.doDismiss(event.id.name);
-        } else {
-          throw Exception("Unknown event type: ${event.type}");
-        }
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<NotificationOps>(NotificationOps());
-  di.registerSingleton<NotificationStore>(NotificationStore());
-  NotificationBinder();
 }

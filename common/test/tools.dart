@@ -1,15 +1,25 @@
+import 'dart:io';
+
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
+import 'package:common/util/tracer.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:test_api/src/backend/invoker.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-String getTestName() {
-  return "test:${Invoker.current!.liveTest.groups.last.name}:test${Invoker.current!.liveTest.individualName.capitalize}";
-}
+final _tracer = dep<Tracer>();
 
 withTrace(Future Function(Trace trace) fn) async {
-  final trace = DebugTrace.as(getTestName());
-  await di.reset();
+  await dep.reset();
+  depend<Tracer>(DefaultTracer());
+  // depend<TraceCollector>(DefaultCollector(inTest: true));
+  depend<TraceCollector>(StdoutCollector());
+
+  final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
+  final module = m[m.length - 2];
+  final group = Invoker.current!.liveTest.groups.last.name;
+  final test = Invoker.current!.liveTest.individualName.capitalize;
+  final trace = _tracer.newTrace("test:$module", "$group:$test");
   await fn(trace);
-  trace.end();
+  await trace.end();
 }

@@ -1,17 +1,22 @@
 import 'dart:async';
 
 import '../util/di.dart';
+import '../util/trace.dart';
 
 abstract class TimerService {
   void set(String name, DateTime when);
   unset(String name);
-  addHandler(String name, Function handler);
+  addHandler(String name, Function(Trace) handler);
 }
 
-class TimerImpl with TimerService {
-
+class DefaultTimer with TimerService, TraceOrigin, Dependable {
   final Map<String, Timer> _timers = {};
-  final Map<String, Function> _handlers = {};
+  final Map<String, Function(Trace)> _handlers = {};
+
+  @override
+  attach() {
+    depend<TimerService>(this);
+  }
 
   @override
   void set(String name, DateTime when) {
@@ -23,8 +28,10 @@ class TimerImpl with TimerService {
     }
 
     unset(name);
-    _timers[name] = Timer(when.difference(DateTime.now()), () {
-      _handlers[name]?.call();
+    _timers[name] = Timer(when.difference(DateTime.now()), () async {
+      await traceAs(name, (trace) async {
+        await _handlers[name]?.call(trace);
+      });
       // TODO: remove handler?
     });
   }
@@ -36,14 +43,19 @@ class TimerImpl with TimerService {
   }
 
   @override
-  addHandler(String name, Function handler) {
+  addHandler(String name, Function(Trace) handler) {
     _handlers[name] = handler;
   }
 }
 
 // A Timer used in tests that allows for manual trigger of handlers.
-class TestingTimer with TimerService {
-  final Map<String, Function> _handlers = {};
+class TestingTimer with TimerService, TraceOrigin, Dependable {
+  final Map<String, Function(Trace)> _handlers = {};
+
+  @override
+  attach() {
+    depend<TimerService>(this);
+  }
 
   @override
   void set(String name, DateTime when) {}
@@ -52,15 +64,13 @@ class TestingTimer with TimerService {
   unset(String name) {}
 
   @override
-  addHandler(String name, Function handler) {
+  addHandler(String name, Function(Trace) handler) {
     _handlers[name] = handler;
   }
 
-  trigger(String name) {
-    _handlers[name]?.call();
+  trigger(String name) async {
+    await traceAs(name, (trace) async {
+      await _handlers[name]?.call(trace);
+    });
   }
-}
-
-Future<void> init() async {
-  di.registerSingleton<TimerService>(TimerImpl());
 }

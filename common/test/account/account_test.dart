@@ -251,53 +251,10 @@ void main() {
         final store = AccountStore();
         di.registerSingleton<AccountStore>(store);
 
-        final subject = AccountBinder.forTesting();
-
         await store.propose(
             trace, JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
 
         verify(ops.doAccountChanged(any)).called(1);
-      });
-    });
-
-    test("onRestoreAccount", () async {
-      await withTrace((trace) async {
-        final store = MockAccountStore();
-        di.registerSingleton<AccountStore>(store);
-
-        final json = MockAccountJson();
-        when(json.getAccount(any, "mocked2")).thenAnswer((_) => Future.value(
-            JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2))));
-        di.registerSingleton<AccountJson>(json);
-
-        final subject = AccountBinder.forTesting();
-
-        await subject.onRestoreAccount("mocked2");
-
-        verify(store.restore(any, any)).called(1);
-      });
-    });
-  });
-
-  group("binderErrors", () {
-    test("onRestoreAccountWillShowModalOnFail", () async {
-      await withTrace((trace) async {
-        final persistence = MockSecurePersistenceService();
-        di.registerSingleton<SecurePersistenceService>(persistence);
-
-        final store = MockAccountStore();
-        when(store.restore(any, any))
-            .thenThrow(Exception("not a proper account id"));
-        di.registerSingleton<AccountStore>(store);
-
-        final stage = MockStageStore();
-        di.registerSingleton<StageStore>(stage);
-
-        final subject = AccountBinder.forTesting();
-
-        await subject.onRestoreAccount("");
-
-        verify(stage.showModalNow(any, any)).called(1);
       });
     });
   });

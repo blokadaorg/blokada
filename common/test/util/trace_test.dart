@@ -1,10 +1,21 @@
+import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
+import 'package:common/util/tracer.dart' as tracer;
+import 'package:common/util/tracer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+final _tracer = dep<Tracer>();
+
 void main() {
+  setUp(() async {
+    await di.reset();
+    depend<Tracer>(DefaultTracer());
+    depend<TraceCollector>(StdoutCollector());
+  });
+
   group("trace", () {
     test("nested tracing basic case", () async {
-      final tParent = DebugTrace.as("parent");
+      final tParent = _tracer.newTrace("root", "parent");
       tParent.addEvent("parent event");
 
       final tMiddle = tParent.start("middle");
@@ -13,38 +24,43 @@ void main() {
       final tChild = tMiddle.start("child");
       tChild.addEvent("child event");
 
-      tChild.end();
-      tMiddle.end();
-      tParent.end();
+      await tChild.end();
+      await tMiddle.end();
+      await tParent.end();
     });
 
     test("will return error unfinished trace", () async {
-      final tParent = DebugTrace.as("parent");
+      final tParent = _tracer.newTrace("root", "parent");
       final tMiddle = tParent.start("middle");
+      final tMiddle2 = tParent.start("middle2");
+      final tMiddle2Child = tMiddle2.start("middle2Child");
       final tChild = tMiddle.start("child");
 
       try {
-        tParent.end();
+        await tParent.end();
         fail("exception not thrown");
       } catch (e) {
         expect(e.toString(), "Bad state: Trace parent has unfinished children");
       }
 
-      tChild.end();
+      await tChild.end();
 
       try {
-        tParent.end();
+        await tParent.end();
         fail("exception not thrown");
       } catch (e) {
         expect(e.toString(), "Bad state: Trace parent has unfinished children");
       }
+
+      await tMiddle2Child.end();
+      await tMiddle2.end();
 
       try {
         throw Exception("doesn't matter");
       } on Exception catch (e, s) {
-        tMiddle.endWithFailure(e, s);
+        await tMiddle.endWithFailure(e, s);
       }
-      tParent.end();
+      await tParent.end();
     });
   });
 
@@ -67,7 +83,7 @@ void main() {
   });
 }
 
-class _TestTraceAs with Traceable {
+class _TestTraceAs with TraceOrigin {
   runSuccess(Future Function(Trace trace) deferred) async {
     await traceAs("test", (trace) async {}, deferred: deferred);
   }

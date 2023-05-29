@@ -17,7 +17,7 @@ import 'fixtures.dart';
 import 'json_test.mocks.dart';
 
 void main() {
-  group("jsonJournalEndpoint", () {
+  group("jsonEndpoint", () {
     test("willParseJson", () async {
       await withTrace((trace) async {
         final subject =

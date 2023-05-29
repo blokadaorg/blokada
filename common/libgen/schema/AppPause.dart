@@ -13,4 +13,7 @@ abstract class AppPauseEvents {
 
   @async
   void onUnpauseApp();
+
+  @async
+  void onRetryStartApp();
 }

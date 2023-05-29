@@ -5,6 +5,7 @@ import 'package:common/app/pause/channel.pg.dart';
 import 'package:common/app/pause/pause.dart';
 import 'package:common/device/device.dart';
 import 'package:common/perm/perm.dart';
+import 'package:common/plus/vpn/vpn.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/timer/timer.dart';
 import 'package:common/util/di.dart';
@@ -21,8 +22,9 @@ import '../../tools.dart';
   MockSpec<DeviceStore>(),
   MockSpec<PermStore>(),
   MockSpec<AccountStore>(),
-  MockSpec<AppStarter>(),
   MockSpec<StageStore>(),
+  MockSpec<AccountRefreshStore>(),
+  MockSpec<PlusVpnStore>(),
 ])
 import 'pause_test.mocks.dart';
 
@@ -38,6 +40,9 @@ void main() {
 
         final timer = MockTimerService();
         di.registerSingleton<TimerService>(timer);
+
+        final ops = MockAppPauseOps();
+        depend<AppPauseOps>(ops);
 
         final subject = AppPauseStore();
 
@@ -59,6 +64,9 @@ void main() {
 
         final timer = MockTimerService();
         di.registerSingleton<TimerService>(timer);
+
+        final ops = MockAppPauseOps();
+        depend<AppPauseOps>(ops);
 
         final subject = AppPauseStore();
 
@@ -91,6 +99,9 @@ void main() {
 
         final stage = MockStageStore();
         di.registerSingleton<StageStore>(stage);
+
+        final ops = MockAppPauseOps();
+        depend<AppPauseOps>(ops);
 
         final subject = AppPauseStore();
 
@@ -173,118 +184,6 @@ void main() {
         await subject.unpauseApp(trace);
 
         verify(stage.showModalNow(any, StageModal.onboarding)).called(1);
-      });
-    });
-  });
-
-  group("binder", () {
-    test("onStartApp", () async {
-      await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-
-        final app = MockAppStore();
-        di.registerSingleton<AppStore>(app);
-
-        final appStarter = MockAppStarter();
-        di.registerSingleton<AppStarter>(appStarter);
-
-        final store = MockAppPauseStore();
-        di.registerSingleton<AppPauseStore>(store);
-
-        final subject = AppPauseBinder.forTesting();
-
-        verifyNever(app.initStarted(any));
-
-        await subject.onStartApp();
-        verify(app.initStarted(any)).called(1);
-        verify(app.initCompleted(any)).called(1);
-        verify(appStarter.startApp()).called(1);
-      });
-    });
-
-    test("onPauseApp", () async {
-      await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-
-        final store = MockAppPauseStore();
-        di.registerSingleton<AppPauseStore>(store);
-
-        final ops = MockAppPauseOps();
-        di.registerSingleton<AppPauseOps>(ops);
-
-        di.registerSingleton<AppStore>(MockAppStore());
-
-        final subject = AppPauseBinder.forTesting();
-
-        await subject.onPauseApp(true);
-
-        verify(store.pauseAppIndefinitely(any)).called(1);
-
-        await subject.onPauseApp(false);
-
-        verify(store.pauseAppUntil(any, any)).called(1);
-      });
-    });
-
-    test("onUnpauseApp", () async {
-      await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-
-        final store = MockAppPauseStore();
-        di.registerSingleton<AppPauseStore>(store);
-
-        final ops = MockAppPauseOps();
-        di.registerSingleton<AppPauseOps>(ops);
-
-        di.registerSingleton<AppStore>(MockAppStore());
-
-        final subject = AppPauseBinder.forTesting();
-
-        await subject.onUnpauseApp();
-
-        verify(store.unpauseApp(any)).called(1);
-      });
-    });
-
-    test("onTimerFired", () async {
-      await withTrace((trace) async {
-        final timer = TestingTimer();
-        di.registerSingleton<TimerService>(timer);
-
-        final store = MockAppPauseStore();
-        di.registerSingleton<AppPauseStore>(store);
-
-        di.registerSingleton<AppStore>(MockAppStore());
-
-        final ops = MockAppPauseOps();
-        di.registerSingleton<AppPauseOps>(ops);
-
-        final subject = AppPauseBinder.forTesting();
-
-        await timer.trigger("app:pause");
-
-        verify(store.unpauseApp(any)).called(1);
-      });
-    });
-
-    test("onPausedUntilChange", () async {
-      await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-        di.registerSingleton<AppStore>(MockAppStore());
-        di.registerSingleton<DeviceStore>(MockDeviceStore());
-        di.registerSingleton<PermStore>(MockPermStore());
-
-        final store = AppPauseStore();
-        di.registerSingleton<AppPauseStore>(store);
-
-        final ops = MockAppPauseOps();
-        di.registerSingleton<AppPauseOps>(ops);
-
-        final subject = AppPauseBinder.forTesting();
-
-        await store.pauseAppUntil(trace, const Duration(seconds: 5));
-
-        verify(ops.doAppPauseDurationChanged(any)).called(1);
       });
     });
   });

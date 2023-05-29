@@ -1,3 +1,4 @@
+import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../util/di.dart';
@@ -13,10 +14,29 @@ typedef ReceiptBlob = String;
 
 class AccountPaymentStore = AccountPaymentStoreBase with _$AccountPaymentStore;
 
-abstract class AccountPaymentStoreBase with Store, Traceable {
+abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   late final _ops = di<AccountPaymentOps>();
   late final _json = di<AccountPaymentJson>();
   late final _account = di<AccountStore>();
+
+  AccountPaymentStoreBase() {
+    reactionOnStore((_) => status, (status) async {
+      await _ops.doPaymentStatusChanged(status);
+    });
+
+    reactionOnStore((_) => products, (products) async {
+      if (products != null) {
+        await _ops.doProductsChanged(products);
+      }
+    });
+  }
+
+  @override
+  attach() {
+    depend<AccountPaymentJson>(AccountPaymentJson());
+    depend<AccountPaymentOps>(AccountPaymentOps());
+    depend<AccountPaymentStore>(this as AccountPaymentStore);
+  }
 
   @observable
   PaymentStatus status = PaymentStatus.unknown;
@@ -178,78 +198,4 @@ abstract class AccountPaymentStoreBase with Store, Traceable {
       throw Exception("Payments not ready");
     }
   }
-}
-
-class AccountPaymentBinder with AccountPaymentEvents, Traceable {
-  late final _store = di<AccountPaymentStore>();
-  late final _ops = di<AccountPaymentOps>();
-
-  AccountPaymentBinder() {
-    AccountPaymentEvents.setup(this);
-    _onStatusChanged();
-    _onProductsChanged();
-  }
-
-  AccountPaymentBinder.forTesting() {
-    _onStatusChanged();
-    _onProductsChanged();
-  }
-
-  @override
-  Future<void> onReceipt(String receipt) async {
-    await traceAs("onReceipt", (trace) async {
-      await _store.restoreInBackground(trace, receipt);
-    });
-  }
-
-  @override
-  Future<void> onFetchProducts() async {
-    await traceAs("onFetchProducts", (trace) async {
-      await _store.fetchProducts(trace);
-    });
-  }
-
-  @override
-  Future<void> onPurchase(String productId) async {
-    await traceAs("onPurchase", (trace) async {
-      await _store.purchase(trace, productId);
-    });
-  }
-
-  @override
-  Future<void> onRestore() async {
-    // TODO:
-    // Only restore implicitly if current account is not active
-    // TODO: finish ongoing transaction after any success or fail (stop procsesnig)
-    await traceAs("onRestore", (trace) async {
-      await _store.restore(trace);
-    });
-  }
-
-  _onStatusChanged() {
-    autorun((_) async {
-      final status = _store.status;
-      await traceAs("onStatusChanged", (trace) async {
-        trace.addAttribute("status", status);
-        await _ops.doPaymentStatusChanged(status);
-      });
-    });
-  }
-
-  _onProductsChanged() {
-    reaction((_) => _store.products, (products) async {
-      if (products != null) {
-        await traceAs("onProductsChanged", (trace) async {
-          await _ops.doProductsChanged(products);
-        });
-      }
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<AccountPaymentJson>(AccountPaymentJson());
-  di.registerSingleton<AccountPaymentOps>(AccountPaymentOps());
-  di.registerSingleton<AccountPaymentStore>(AccountPaymentStore());
-  AccountPaymentBinder();
 }

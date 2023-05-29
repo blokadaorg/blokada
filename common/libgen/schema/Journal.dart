@@ -50,9 +50,6 @@ abstract class JournalOps {
 @FlutterApi()
 abstract class JournalEvents {
   @async
-  void onStartListening();
-
-  @async
   void onSort(bool newestFirst);
 
   @async

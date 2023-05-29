@@ -48,13 +48,13 @@ class MyApp extends StatelessWidget {
         Locale('sv'),
         Locale('tr'),
         Locale('zh'),
-
         Locale('en')
       ],
       title: 'Blokada',
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFF9400), brightness: Brightness.light),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xffFF9400), brightness: Brightness.light),
           primary: const Color(0xffFF9400),
           error: const Color(0xffFF3B30),
           background: Colors.white,
@@ -74,12 +74,11 @@ class MyApp extends StatelessWidget {
                 panelBackground: const Color(0xffF5F7FA),
                 cloud: Color(0xFF007AFF),
                 plus: Color(0xffFF9400),
-                shadow: const Color(0xffF5F7FA)
-            )
-          }
-      ),
+                shadow: const Color(0xffF5F7FA))
+          }),
       darkTheme: FlexThemeData.dark(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffFF9400), brightness: Brightness.dark),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xffFF9400), brightness: Brightness.dark),
           primary: const Color(0xffFF9400),
           error: const Color(0xffFF3B30),
           background: Colors.black,
@@ -93,17 +92,16 @@ class MyApp extends StatelessWidget {
                 panelBackground: const Color(0xff1c1c1e),
                 cloud: Color(0xFF007AFF),
                 plus: Color(0xffFF9400),
-                shadow: Color(0xFF1C1C1E)
-            )
-          }
-      ),
+                shadow: Color(0xFF1C1C1E))
+          }),
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);
         final scale = mediaQueryData.textScaleFactor.clamp(0.8, 1.1);
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
-          child: I18n(child: DefaultBottomBarController(
-              child: const MyHomePage(title: 'Blokada'))),
+          child: I18n(
+              child: DefaultBottomBarController(
+                  child: const MyHomePage(title: 'Blokada'))),
         );
       },
     );
@@ -124,13 +122,11 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class _MyHomePageState extends State<MyHomePage> with TraceOrigin {
   var showBottom = false;
   final snappingSheetController = SnappingSheetController();
 
@@ -163,7 +159,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   sizeBehavior: SheetSizeFill(),
                   draggable: true,
                   childScrollController: frontScreenController,
-                  child: FrontScreen(key: UniqueKey(), autoRefresh: showBottom, controller: frontScreenController),
+                  child: FrontScreen(
+                      key: UniqueKey(),
+                      autoRefresh: showBottom,
+                      controller: frontScreenController),
                 ),
                 snappingPositions: [
                   SnappingPosition.pixels(
@@ -178,10 +177,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     if (sheetPosition.pixels > 500) {
                       showBottom = true;
-                      _stage.showModalNow(DebugTrace.as("fromWidget"), StageModal.stats);
+                      traceAs("fromWidget", (trace) async {
+                        await _stage.showModalNow(trace, StageModal.stats);
+                      });
                     } else {
                       showBottom = false;
-                      _stage.dismissModal(DebugTrace.as("fromWidget"));
+                      traceAs("fromWidget", (trace) async {
+                        await _stage.dismissModal(trace);
+                      });
                     }
                   });
                 },
@@ -242,16 +245,15 @@ class GrabbingWidget extends StatelessWidget {
 }
 
 class BrandTheme extends ThemeExtension<BrandTheme> {
-  const BrandTheme({
-    required this.bgGradientColorInactive,
-    required this.bgGradientColorCloud,
-    required this.bgGradientColorPlus,
-    required this.bgGradientColorBottom,
-    required this.panelBackground,
-    required this.cloud,
-    required this.plus,
-    required this.shadow
-  });
+  const BrandTheme(
+      {required this.bgGradientColorInactive,
+      required this.bgGradientColorCloud,
+      required this.bgGradientColorPlus,
+      required this.bgGradientColorBottom,
+      required this.panelBackground,
+      required this.cloud,
+      required this.plus,
+      required this.shadow});
 
   final Color bgGradientColorInactive;
   final Color bgGradientColorCloud;
@@ -275,10 +277,12 @@ class BrandTheme extends ThemeExtension<BrandTheme> {
     Color? shadow,
   }) =>
       BrandTheme(
-        bgGradientColorInactive: bgGradientColorInactive ?? this.bgGradientColorInactive,
+        bgGradientColorInactive:
+            bgGradientColorInactive ?? this.bgGradientColorInactive,
         bgGradientColorCloud: bgGradientColorCloud ?? this.bgGradientColorCloud,
         bgGradientColorPlus: bgGradientColorPlus ?? this.bgGradientColorPlus,
-        bgGradientColorBottom: bgGradientColorBottom ?? this.bgGradientColorBottom,
+        bgGradientColorBottom:
+            bgGradientColorBottom ?? this.bgGradientColorBottom,
         panelBackground: panelBackground ?? this.panelBackground,
         cloud: cloud ?? this.cloud,
         plus: plus ?? this.plus,
@@ -292,10 +296,14 @@ class BrandTheme extends ThemeExtension<BrandTheme> {
       return this;
     }
     return BrandTheme(
-      bgGradientColorInactive: Color.lerp(bgGradientColorInactive, other.bgGradientColorInactive, t)!,
-      bgGradientColorCloud: Color.lerp(bgGradientColorCloud, other.bgGradientColorCloud, t)!,
-      bgGradientColorPlus: Color.lerp(bgGradientColorPlus, other.bgGradientColorPlus, t)!,
-      bgGradientColorBottom: Color.lerp(bgGradientColorBottom, other.bgGradientColorBottom, t)!,
+      bgGradientColorInactive: Color.lerp(
+          bgGradientColorInactive, other.bgGradientColorInactive, t)!,
+      bgGradientColorCloud:
+          Color.lerp(bgGradientColorCloud, other.bgGradientColorCloud, t)!,
+      bgGradientColorPlus:
+          Color.lerp(bgGradientColorPlus, other.bgGradientColorPlus, t)!,
+      bgGradientColorBottom:
+          Color.lerp(bgGradientColorBottom, other.bgGradientColorBottom, t)!,
       panelBackground: Color.lerp(panelBackground, other.panelBackground, t)!,
       cloud: Color.lerp(cloud, other.cloud, t)!,
       plus: Color.lerp(plus, other.plus, t)!,

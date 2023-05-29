@@ -27,7 +27,7 @@ class PowerButton extends StatefulWidget {
 }
 
 class _PowerButtonState extends State<PowerButton>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, TraceOrigin {
   final _app = di<AppStore>();
   final _appPause = di<AppPauseStore>();
   final _stats = di<StatsStore>();
@@ -131,7 +131,7 @@ class _PowerButtonState extends State<PowerButton>
           // Once the loading spinning is stopped, signal it to other parts of the UI
           // This is when the "counter count up" animation should start
           final status = _app.status;
-          print("loading animation dismissed");
+          //print("loading animation dismissed");
           if (status.isActive()) {
             print("loading animation dismissed, power on is ready");
             _home.powerOnIsReady();
@@ -143,7 +143,7 @@ class _PowerButtonState extends State<PowerButton>
       final s = _app.status;
       pressed = (s.isActive()) || (s.isWorking());
       // A bit of a hack to make sure the flag is flagged
-      print("app status changed");
+      //print("app status changed");
       if (s.isActive() &&
           !_home.powerOnAnimationReady &&
           animLoading.isDismissed) {
@@ -158,9 +158,9 @@ class _PowerButtonState extends State<PowerButton>
       final hasStats = _stats.hasStats;
       final stats = _stats.stats;
 
-      print("another callback triggerred");
+      //print("another callback triggerred");
       if (_home.powerOnAnimationReady && s.isActive() && hasStats) {
-        print("moving loading ring on pos to display the active anim");
+        //print("moving loading ring on pos to display the active anim");
         // Max is 2.0 so that it can display ring overlap
         newCounter = math.min(2.0, stats.dayAllowedRatio / 100);
 
@@ -199,7 +199,7 @@ class _PowerButtonState extends State<PowerButton>
       if (status.isInactive()) {
         animCtrlArcAlpha.reverse();
       } else {
-        print("not working, but active, change arc alpha");
+        //print("not working, but active, change arc alpha");
         animCtrlArcAlpha.forward();
       }
     }
@@ -257,8 +257,9 @@ class _PowerButtonState extends State<PowerButton>
               onTap: () {
                 if (!status.isWorking()) {
                   setState(() {
-                    _appPause.toggleApp(
-                        DebugTrace.as("PowerButton", important: true));
+                    traceAs("fromWidget", (trace) async {
+                      await _appPause.toggleApp(trace);
+                    });
                     _updateAnimations();
                   });
                 }

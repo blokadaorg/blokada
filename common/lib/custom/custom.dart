@@ -1,6 +1,9 @@
 import 'package:mobx/mobx.dart';
 
+import '../stage/stage.dart';
+import '../util/config.dart';
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -9,14 +12,36 @@ part 'custom.g.dart';
 
 class CustomStore = CustomStoreBase with _$CustomStore;
 
-abstract class CustomStoreBase with Store, Traceable {
+abstract class CustomStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<CustomOps>();
   late final _json = di<CustomJson>();
+  late final _stage = di<StageStore>();
+
+  CustomStoreBase() {
+    reactionOnStore((_) => allowed, (allowed) async {
+      await _ops.doCustomAllowedChanged(allowed);
+    });
+
+    reactionOnStore((_) => denied, (denied) async {
+      await _ops.doCustomDeniedChanged(denied);
+    });
+  }
+
+  @override
+  attach() {
+    depend<CustomJson>(CustomJson());
+    depend<CustomOps>(CustomOps());
+    depend<CustomStore>(this as CustomStore);
+  }
 
   @observable
   List<String> denied = [];
 
   @observable
   List<String> allowed = [];
+
+  @observable
+  DateTime lastRefresh = DateTime(0);
 
   @action
   Future<void> fetch(Trace parentTrace) async {
@@ -65,72 +90,25 @@ abstract class CustomStoreBase with Store, Traceable {
       await fetch(trace);
     });
   }
-}
 
-class CustomBinder with CustomEvents, Traceable {
-  late final _store = di<CustomStore>();
-  late final _ops = di<CustomOps>();
+  @action
+  Future<void> maybeRefreshCustom(Trace parentTrace) async {
+    return await traceWith(parentTrace, "maybeRefreshCustom", (trace) async {
+      if (!_stage.isForeground) {
+        return;
+      }
 
-  CustomBinder() {
-    CustomEvents.setup(this);
-    _onCustomAllowedChanged();
-    _onCustomDeniedChanged();
-  }
+      if (!_stage.route.isTop(StageTab.activity)) {
+        return;
+      }
 
-  CustomBinder.forTesting() {
-    _onCustomAllowedChanged();
-    _onCustomDeniedChanged();
-  }
-
-  @override
-  Future<void> onAllow(String domainName) async {
-    await traceAs("onAllow", (trace) async {
-      await _store.allow(trace, domainName);
+      final now = DateTime.now();
+      if (now.difference(lastRefresh).compareTo(cfg.customRefreshCooldown) >
+          0) {
+        await fetch(trace);
+        lastRefresh = now;
+        trace.addEvent("refreshed");
+      }
     });
   }
-
-  @override
-  Future<void> onDeny(String domainName) async {
-    await traceAs("onDeny", (trace) async {
-      await _store.deny(trace, domainName);
-    });
-  }
-
-  @override
-  Future<void> onDelete(String domainName) async {
-    await traceAs("onDelete", (trace) async {
-      await _store.delete(trace, domainName);
-    });
-  }
-
-  @override
-  Future<void> onStartListening() async {
-    await traceAs("onStartListening", (trace) async {
-      _ops.doCustomAllowedChanged(_store.allowed);
-      _ops.doCustomDeniedChanged(_store.denied);
-    });
-  }
-
-  _onCustomAllowedChanged() {
-    reaction((_) => _store.allowed, (allowed) async {
-      await traceAs("onCustomAllowedChanged", (trace) async {
-        await _ops.doCustomAllowedChanged(allowed);
-      });
-    });
-  }
-
-  _onCustomDeniedChanged() {
-    reaction((_) => _store.denied, (denied) async {
-      await traceAs("onCustomDeniedChanged", (trace) async {
-        await _ops.doCustomDeniedChanged(denied);
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<CustomJson>(CustomJson());
-  di.registerSingleton<CustomStore>(CustomStore());
-  di.registerSingleton<CustomOps>(CustomOps());
-  CustomBinder();
 }

@@ -1,7 +1,8 @@
 import 'package:mobx/mobx.dart';
 
-import '../env/env.dart';
+import '../event.dart';
 import '../stage/stage.dart';
+import '../util/config.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
@@ -20,8 +21,36 @@ extension DeviceRetentionExt on DeviceRetention {
 
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
-abstract class DeviceStoreBase with Store, Traceable {
+abstract class DeviceStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<DeviceOps>();
   late final _api = di<DeviceJson>();
+  late final _event = di<EventBus>();
+  late final _stage = di<StageStore>();
+
+  DeviceStoreBase() {
+    reaction((_) => cloudEnabled, (enabled) async {
+      _ops.doCloudEnabled(enabled!);
+    });
+
+    reaction((_) => retention, (retention) async {
+      if (retention != null) {
+        _ops.doRetentionChanged(retention);
+      }
+    });
+
+    reaction((_) => deviceTag, (tag) async {
+      if (tag != null) {
+        _ops.doDeviceTagChanged(tag);
+      }
+    });
+  }
+
+  @override
+  attach() {
+    depend<DeviceOps>(DeviceOps());
+    depend<DeviceJson>(DeviceJson());
+    depend<DeviceStore>(this as DeviceStore);
+  }
 
   @observable
   bool? cloudEnabled;
@@ -35,15 +64,23 @@ abstract class DeviceStoreBase with Store, Traceable {
   @observable
   DeviceRetention? retention;
 
+  @observable
+  DateTime lastRefresh = DateTime(0);
+
+  String? _previousAccountId;
+
   @action
   Future<void> fetch(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
+      trace.addAttribute("tag", deviceTag);
+
       final device = await _api.getDevice(trace);
       cloudEnabled = !device.paused;
       deviceTag = device.deviceTag;
       lists = device.lists;
       retention = device.retention;
-      trace.addAttribute("tag", deviceTag);
+
+      await _event.onEvent(trace, CommonEvent.deviceConfigChanged);
     });
   }
 
@@ -73,99 +110,28 @@ abstract class DeviceStoreBase with Store, Traceable {
       await fetch(trace);
     });
   }
-}
 
-class DeviceBinder extends DeviceEvents with Traceable {
-  late final _store = di<DeviceStore>();
-  late final _ops = di<DeviceOps>();
-  late final _stage = di<StageStore>();
-  late final _env = di<EnvStore>();
+  @action
+  Future<void> maybeRefreshDevice(Trace parentTrace,
+      {bool force = false}) async {
+    return await traceWith(parentTrace, "maybeRefreshDevice", (trace) async {
+      if (!_stage.isForeground) {
+        return;
+      }
 
-  DeviceBinder() {
-    DeviceEvents.setup(this);
-    _init();
-  }
+      // Don't refresh on deep navigation
+      if (!force && _stage.route.payload != null) {
+        return;
+      }
 
-  DeviceBinder.forTesting() {
-    _init();
-  }
-
-  _init() {
-    _onCloudEnabled();
-    _onRetention();
-    _onDeviceTag();
-    _onTabChange();
-    _onAccountIdChange();
-  }
-
-  @override
-  Future<void> onEnableCloud(bool enable) async {
-    await traceAs("onEnableCloud", (trace) async {
-      await _store.setCloudEnabled(trace, enable);
-    });
-  }
-
-  @override
-  Future<void> onSetRetention(String retention) async {
-    await traceAs("onSetRetention", (trace) async {
-      await _store.setRetention(trace, retention);
-    });
-  }
-
-  // Report cloud enabled state changes to the channel
-  _onCloudEnabled() {
-    reaction((_) => _store.cloudEnabled, (enabled) async {
-      await traceAs("onCloudEnabled", (trace) async {
-        _ops.doCloudEnabled(enabled!);
-      });
-    });
-  }
-
-  _onRetention() {
-    reaction((_) => _store.retention, (retention) async {
-      if (retention != null) {
-        await traceAs("onRetention", (trace) async {
-          _ops.doRetentionChanged(retention);
-        });
+      final now = DateTime.now();
+      if (force ||
+          now.difference(lastRefresh).compareTo(cfg.deviceRefreshCooldown) >
+              0) {
+        await fetch(trace);
+        lastRefresh = now;
+        trace.addEvent("refreshed");
       }
     });
   }
-
-  _onDeviceTag() {
-    reaction((_) => _store.deviceTag, (tag) async {
-      if (tag != null) {
-        await traceAs("onDeviceTag", (trace) async {
-          _ops.doDeviceTagChanged(tag);
-        });
-      }
-    });
-  }
-
-  // Will recheck device info on each tab change.
-  // This struct contains something important for each tab.
-  _onTabChange() {
-    reaction((_) => _stage.activeTab, (tab) async {
-      await traceAs("onTabChange", (trace) async {
-        // TODO: this is too often
-        await _store.fetch(trace);
-      });
-    });
-  }
-
-  // Whenever account ID is changed, device tag will change, among other things.
-  _onAccountIdChange() {
-    reaction((_) => _env.accountIdChanges, (counter) async {
-      await traceAs("onAccountIdChange", (trace) async {
-        trace.addAttribute("accountIdCounter", counter);
-        await _store.fetch(trace);
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<DeviceJson>(DeviceJson());
-  di.registerSingleton<DeviceOps>(DeviceOps());
-  di.registerSingleton<DeviceStore>(DeviceStore());
-  DeviceBinder();
 }

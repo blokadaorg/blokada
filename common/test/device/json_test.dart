@@ -22,12 +22,6 @@ const _fixtureJsonEndpoint = '''{
 }''';
 
 void main() {
-  String testName = "";
-  setUp(() async {
-    testName = getTestName();
-    await di.reset();
-  });
-
   group("getDevice", () {
     test("willFetchDevice", () async {
       await withTrace((trace) async {

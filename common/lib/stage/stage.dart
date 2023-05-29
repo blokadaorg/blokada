@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 
-import '../app/app.dart';
+import '../event.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
@@ -8,7 +8,52 @@ import 'channel.pg.dart';
 
 part 'stage.g.dart';
 
-enum StageTab { unknown, home, activity, advanced, settings }
+enum StageTab { root, home, activity, advanced, settings }
+
+class StageRoute {
+  final String path;
+  final StageTab tab;
+  final String? payload;
+
+  StageRoute({
+    required this.path,
+    required this.tab,
+    this.payload,
+  });
+
+  StageRoute.root() : this(path: "/", tab: StageTab.root, payload: null);
+
+  StageRoute.fromPath(String path)
+      : this(
+            path: path.toLowerCase(),
+            tab: _pathToTab(path),
+            payload: _pathToPayload(path));
+
+  StageRoute.forTab(StageTab tab)
+      : this(path: tab.name, tab: tab, payload: null);
+
+  bool isTop(StageTab tab) {
+    return this.tab == tab && payload == null;
+  }
+
+  static StageTab _pathToTab(String path) {
+    final parts = path.split("/");
+    try {
+      return StageTab.values.byName(parts[0].toLowerCase());
+    } catch (e) {
+      return StageTab.home;
+    }
+  }
+
+  static String? _pathToPayload(String path) {
+    final parts = path.split("/");
+    if (parts.length > 1) {
+      return parts[1];
+    } else {
+      return null;
+    }
+  }
+}
 
 enum StageModal {
   none,
@@ -32,7 +77,7 @@ enum StageModal {
   rateApp,
   updatePrompt,
   updateOngoing,
-  updateComplete
+  updateComplete,
 }
 
 class StageWaitingEvent {
@@ -59,17 +104,17 @@ const _modalDismissCooldownTime = Duration(seconds: 3);
 
 class StageStore = StageStoreBase with _$StageStore;
 
-abstract class StageStoreBase with Store, Traceable {
+abstract class StageStoreBase with Store, Traceable, Dependable {
+  late final _ops = dep<StageOps>();
+  late final _event = dep<EventBus>();
+
   final List<StageModal> _modalQueue = [];
 
   @observable
   bool isForeground = false;
 
   @observable
-  StageTab activeTab = StageTab.unknown;
-
-  @observable
-  String? tabPayload;
+  StageRoute route = StageRoute.root();
 
   @observable
   StageModal modal = StageModal.none;
@@ -83,6 +128,22 @@ abstract class StageStoreBase with Store, Traceable {
   @observable
   List<StageWaitingEvent> _waitingEvents = [];
 
+  StageStoreBase() {
+    reactionOnStore((_) => modal, (modal) async {
+      await _ops.doShowModal(modal.name);
+    });
+
+    reactionOnStore((_) => route, (route) async {
+      await _ops.doNavPathChanged(route.path);
+    });
+  }
+
+  @override
+  attach() {
+    depend<StageOps>(StageOps());
+    depend<StageStore>(this as StageStore);
+  }
+
   @action
   Future<void> setForeground(Trace parentTrace, bool isForeground) async {
     return await traceWith(parentTrace, "setForeground", (trace) async {
@@ -93,35 +154,24 @@ abstract class StageStoreBase with Store, Traceable {
           return;
         }
         this.isForeground = isForeground;
+        trace.addAttribute("foreground", isForeground);
+        await _event.onEvent(trace, CommonEvent.stageForegroundChanged);
       }
     });
   }
 
   @action
-  Future<void> setActiveTab(Trace parentTrace, StageTab activeTab) async {
-    return await traceWith(parentTrace, "setActiveTab", (trace) async {
-      if (this.activeTab != activeTab) {
+  Future<void> setRoute(Trace parentTrace, String path) async {
+    return await traceWith(parentTrace, "setRoute", (trace) async {
+      if (path != route.path) {
         if (!isReady) {
-          _waitingEvents.add(StageWaitingEvent("setActiveTab", activeTab));
+          _waitingEvents.add(StageWaitingEvent("setRoute", path));
           trace.addEvent("event queued");
           return;
         }
-        this.activeTab = activeTab;
-        tabPayload = null;
-      }
-    });
-  }
-
-  @action
-  Future<void> setTabPayload(Trace parentTrace, String? tabPayload) async {
-    return await traceWith(parentTrace, "setTabPayload", (trace) async {
-      if (this.tabPayload != tabPayload) {
-        if (!isReady) {
-          _waitingEvents.add(StageWaitingEvent("setTabPayload", tabPayload));
-          trace.addEvent("event queued");
-          return;
-        }
-        this.tabPayload = tabPayload;
+        route = StageRoute.fromPath(path);
+        trace.addAttribute("route", route.path);
+        await _event.onEvent(trace, CommonEvent.stageRouteChanged);
       }
     });
   }
@@ -129,9 +179,11 @@ abstract class StageStoreBase with Store, Traceable {
   @action
   Future<void> showModalNow(Trace parentTrace, StageModal modal) async {
     return await traceWith(parentTrace, "showModalNow", (trace) async {
-      this.modal = modal;
-      _lastDismissTimestamp = DateTime.now();
-      _modalQueue.clear();
+      if (this.modal != modal) {
+        _lastDismissTimestamp = DateTime.now();
+        _modalQueue.clear();
+        await _updateModal(trace, modal);
+      }
     });
   }
 
@@ -140,8 +192,8 @@ abstract class StageStoreBase with Store, Traceable {
     return await traceWith(parentTrace, "queueModal", (trace) async {
       _modalQueue.add(modal);
       if (this.modal == StageModal.none) {
-        this.modal = _modalQueue.removeAt(0);
         _lastDismissTimestamp = DateTime.now();
+        await _updateModal(trace, _modalQueue.removeAt(0));
       }
     });
   }
@@ -161,132 +213,46 @@ abstract class StageStoreBase with Store, Traceable {
           trace.addEvent("dismiss ignored");
           return;
         } else {
-          modal = StageModal.none;
           _lastDismissTimestamp = DateTime.now();
+          await _updateModal(trace, StageModal.none);
         }
       }
 
       if (_modalQueue.isNotEmpty) {
-        modal = _modalQueue.removeAt(0);
+        await _updateModal(trace, _modalQueue.removeAt(0));
       }
     });
   }
 
   @action
   Future<void> setReady(Trace parentTrace, bool isReady) async {
-    return await traceWith(parentTrace, "setReady", (trace) async {
+    return await traceWith(parentTrace, "setStageReady", (trace) async {
+      trace.addAttribute("ready", isReady);
       if (this.isReady == isReady) {
         return;
       }
       this.isReady = isReady;
       if (isReady && _waitingEvents.isNotEmpty) {
+        final events = _waitingEvents.toList();
+        _waitingEvents = [];
         // Process queued events when the app is ready
-        trace.addAttribute("queueProcessed", _waitingEvents.length);
-        for (final event in _waitingEvents) {
+        trace.addAttribute("queueProcessed", events);
+        for (final event in events) {
           switch (event.name) {
             case "setForeground":
               await setForeground(trace, event.payload as bool);
               break;
-            case "setActiveTab":
-              await setActiveTab(trace, event.payload as StageTab);
-              break;
-            case "setTabPayload":
-              await setTabPayload(trace, event.payload as String?);
+            case "setRoute":
+              await setRoute(trace, event.payload);
               break;
           }
         }
-        _waitingEvents = [];
       }
     });
   }
-}
 
-class StageBinder extends StageEvents with Traceable {
-  late final _store = di<StageStore>();
-  late final _ops = di<StageOps>();
-  late final _app = di<AppStore>();
-
-  StageBinder() {
-    StageEvents.setup(this);
-    _onModal();
-    _onNavPath();
+  _updateModal(Trace trace, StageModal modal) async {
+    this.modal = modal;
+    await _event.onEvent(trace, CommonEvent.stageModalChanged);
   }
-
-  StageBinder.forTesting() {
-    _onModal();
-    _onNavPath();
-  }
-
-  @override
-  Future<void> onNavPathChanged(String path) async {
-    await traceAs("onNavPathChanged", (trace) async {
-      final parts = path.split("/");
-      await _store.setActiveTab(
-          trace, StageTab.values.byName(parts[0].toLowerCase()));
-      if (parts.length > 1) {
-        await _store.setTabPayload(trace, parts[1]);
-      } else {
-        await _store.setTabPayload(trace, null);
-      }
-      trace.addAttribute("navPath", path);
-    });
-  }
-
-  @override
-  Future<void> onForeground(bool isForeground) async {
-    await traceAs("onForeground", (trace) async {
-      await _store.setForeground(trace, isForeground);
-    });
-  }
-
-  @override
-  Future<void> onModalTriggered(String modal) async {
-    await traceAs("onModalTriggered", (trace) async {
-      await _store.showModalNow(
-          trace, StageModal.values.byName(modal.toLowerCase()));
-    });
-  }
-
-  @override
-  Future<void> onModalDismissedByUser() async {
-    await traceAs("onModalDismissedByUser", (trace) async {
-      await _store.dismissModal(trace, byPlatform: false);
-    });
-  }
-
-  @override
-  Future<void> onModalDismissedByPlatform() async {
-    await traceAs("onModalDismissedByPlatform", (trace) async {
-      await _store.dismissModal(trace, byPlatform: true);
-    });
-  }
-
-  // Push modal changes to the channel
-  _onModal() {
-    autorun((_) async {
-      await traceAs("onModal", (trace) async {
-        await _ops.doShowModal(_store.modal.name);
-        trace.addAttribute("modal", _store.modal);
-      });
-    });
-  }
-
-  _onNavPath() {
-    reactionOnStore((_) => [_store.activeTab, _store.tabPayload],
-        (List<dynamic> path) async {
-      await traceAs("onNavPath", (trace) async {
-        final tab = path[0] as StageTab;
-        final payload = path[1] as String?;
-        final parsed = "${tab.name}${payload != null ? "/$payload" : ""}";
-        await _ops.doNavPathChanged(parsed);
-        trace.addAttribute("path", parsed);
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<StageOps>(StageOps());
-  di.registerSingleton<StageStore>(StageStore());
-  StageBinder();
 }

@@ -2,12 +2,18 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../env/env.dart';
+import '../stage/stage.dart';
+import '../timer/timer.dart';
+import '../util/config.dart';
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
 part 'journal.g.dart';
+
+const _timerKey = "journalRefresh";
 
 extension JournalFilterExt on JournalFilter {
   // Providing null means "no change" (existing filter is used)
@@ -80,9 +86,39 @@ JournalFilter _noFilter = JournalFilter(
 
 class JournalStore = JournalStoreBase with _$JournalStore;
 
-abstract class JournalStoreBase with Store, Traceable {
+abstract class JournalStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<JournalOps>();
   late final _json = di<JournalJson>();
   late final _env = di<EnvStore>();
+  late final _stage = di<StageStore>();
+  late final _timer = di<TimerService>();
+
+  JournalStoreBase() {
+    reactionOnStore((_) => filteredEntries, (entries) async {
+      _ops.doReplaceEntries(entries);
+    });
+
+    reactionOnStore((_) => filter, (filter) async {
+      _ops.doFilterChanged(filter);
+    });
+
+    reactionOnStore((_) => filterSorting, (filter) async {
+      _ops.doReplaceEntries(filteredEntries);
+    });
+
+    reactionOnStore((_) => devices, (devices) async {
+      _ops.doDevicesChanged(devices);
+    });
+
+    _timer.addHandler(_timerKey, maybeRefreshJournal);
+  }
+
+  @override
+  attach() {
+    depend<JournalOps>(JournalOps());
+    depend<JournalJson>(JournalJson());
+    depend<JournalStore>(this as JournalStore);
+  }
 
   @observable
   JournalFilter filter = _noFilter;
@@ -101,6 +137,12 @@ abstract class JournalStoreBase with Store, Traceable {
   List<String> get devices =>
       allEntries.map((e) => e.deviceName).toSet().toList();
 
+  @observable
+  bool refreshEnabled = false;
+
+  @observable
+  DateTime lastRefresh = DateTime(0);
+
   @action
   Future<void> fetch(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
@@ -112,6 +154,57 @@ abstract class JournalStoreBase with Store, Traceable {
         return _convertEntry(value.first, value.length);
       }).toList();
     });
+  }
+
+  @action
+  Future<void> maybeRefreshJournal(Trace parentTrace) async {
+    return await traceWith(parentTrace, "maybeRefreshJournal", (trace) async {
+      if (!_stage.isForeground) {
+        _stopTimer();
+        return;
+      }
+
+      if (!_stage.route.isTop(StageTab.activity)) {
+        _stopTimer();
+        return;
+      }
+
+      final now = DateTime.now();
+      if (refreshEnabled &&
+          now.difference(lastRefresh).compareTo(cfg.journalRefreshCooldown) >
+              0) {
+        try {
+          await fetch(trace);
+          lastRefresh = now;
+          trace.addEvent("refreshed");
+          _rescheduleTimer();
+        } on Exception catch (e) {
+          _rescheduleTimer();
+        }
+      }
+    });
+  }
+
+  @action
+  Future<void> enableRefresh(Trace parentTrace, bool enabled) async {
+    return await traceWith(parentTrace, "enableRefresh", (trace) async {
+      refreshEnabled = enabled;
+      if (refreshEnabled) {
+        await maybeRefreshJournal(trace);
+        _rescheduleTimer();
+      } else {
+        _stopTimer();
+      }
+      trace.addAttribute("enabled", enabled);
+    });
+  }
+
+  _rescheduleTimer() {
+    _timer.set(_timerKey, DateTime.now().add(cfg.journalRefreshCooldown));
+  }
+
+  _stopTimer() {
+    _timer.unset(_timerKey);
   }
 
   @action
@@ -162,125 +255,4 @@ abstract class JournalStoreBase with Store, Traceable {
       return JournalEntryType.passed;
     }
   }
-}
-
-class JournalBinder with JournalEvents, Traceable {
-  late final _store = di<JournalStore>();
-  late final _ops = di<JournalOps>();
-  late final _env = di<EnvStore>();
-
-  JournalBinder() {
-    JournalEvents.setup(this);
-    _init();
-  }
-
-  JournalBinder.forTesting() {
-    _init();
-  }
-
-  _init() {
-    _onJournalChanged();
-    _onFilterChanged();
-    _onFilterSortingChanged();
-    _onDevicesChanged();
-    _onDeviceNameChanged();
-  }
-
-  @override
-  Future<void> onSearch(String query) async {
-    await traceAs("onSearch", (trace) async {
-      await _store.updateFilter(trace, searchQuery: query);
-    });
-  }
-
-  @override
-  Future<void> onShowForDevice(String deviceName) async {
-    await traceAs("onShowForDevice", (trace) async {
-      await _store.updateFilter(trace, deviceName: deviceName);
-    });
-  }
-
-  @override
-  Future<void> onShowOnly(bool showBlocked, bool showPassed) async {
-    await traceAs("onShowOnly", (trace) async {
-      await _store.updateFilter(
-        trace,
-        showOnly: showBlocked && showPassed
-            ? JournalFilterType.showAll
-            : showBlocked
-                ? JournalFilterType.showBlocked
-                : JournalFilterType.showPassed,
-      );
-    });
-  }
-
-  @override
-  Future<void> onSort(bool newestFirst) async {
-    await traceAs("onSort", (trace) async {
-      await _store.updateFilter(trace, sortNewestFirst: newestFirst);
-    });
-  }
-
-  @override
-  Future<void> onLoadMoreHistoricEntries() async {
-    await traceAs("onLoadMoreHistoricEntries", (trace) async {
-      throw Exception("Loading historic entries not implemented");
-    });
-  }
-
-  @override
-  Future<void> onStartListening() async {
-    await traceAs("onStartListening", (trace) async {
-      _ops.doReplaceEntries(_store.filteredEntries);
-      _ops.doFilterChanged(_store.filter);
-    });
-  }
-
-  _onJournalChanged() {
-    reaction((_) => _store.filteredEntries, (entries) async {
-      await traceAs("onJournalChanged", (trace) async {
-        _ops.doReplaceEntries(entries);
-      });
-    });
-  }
-
-  _onFilterChanged() {
-    reaction((_) => _store.filter, (filter) async {
-      await traceAs("onFilterChanged", (trace) async {
-        _ops.doFilterChanged(filter);
-      });
-    });
-  }
-
-  _onFilterSortingChanged() {
-    reaction((_) => _store.filterSorting, (filter) async {
-      await traceAs("onFilterSortingChanged", (trace) async {
-        _ops.doReplaceEntries(_store.filteredEntries);
-      });
-    });
-  }
-
-  _onDevicesChanged() {
-    reaction((_) => _store.devices, (devices) async {
-      await traceAs("onDevicesChanged", (trace) async {
-        _ops.doDevicesChanged(devices);
-      });
-    });
-  }
-
-  _onDeviceNameChanged() {
-    reaction((_) => _env.deviceName, (name) async {
-      await traceAs("onDeviceNameChanged", (trace) async {
-        // Default to show journal only for the current device
-        _store.updateFilter(trace, deviceName: _env.deviceName);
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<JournalJson>(JournalJson());
-  di.registerSingleton<JournalOps>(JournalOps());
-  di.registerSingleton<JournalStore>(JournalStore());
-  JournalBinder();
 }

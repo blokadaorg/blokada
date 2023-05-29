@@ -1,6 +1,7 @@
 import 'package:common/custom/channel.pg.dart';
 import 'package:common/custom/custom.dart';
 import 'package:common/custom/json.dart';
+import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -11,6 +12,7 @@ import '../tools.dart';
   MockSpec<CustomStore>(),
   MockSpec<CustomOps>(),
   MockSpec<CustomJson>(),
+  MockSpec<StageStore>(),
 ])
 import 'custom_test.mocks.dart';
 import 'fixtures.dart';
@@ -23,6 +25,9 @@ void main() {
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
         di.registerSingleton<CustomJson>(json);
+
+        final ops = MockCustomOps();
+        depend<CustomOps>(ops);
 
         final subject = CustomStore();
         await subject.fetch(trace);
@@ -41,6 +46,9 @@ void main() {
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
         di.registerSingleton<CustomJson>(json);
 
+        final ops = MockCustomOps();
+        depend<CustomOps>(ops);
+
         final subject = CustomStore();
 
         // Will post entry and refresh
@@ -57,24 +65,36 @@ void main() {
         verify(json.getEntries(any)).called(1);
       });
     });
-  });
 
-  group("binder", () {
-    test("onAllowAndOthers", () async {
+    test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
-        final store = MockCustomStore();
-        di.registerSingleton<CustomStore>(store);
+        final json = MockCustomJson();
+        di.registerSingleton<CustomJson>(json);
 
-        final subject = CustomBinder.forTesting();
+        final stage = MockStageStore();
+        when(stage.isForeground).thenReturn(true);
+        when(stage.route).thenReturn(StageRoute.forTab(StageTab.activity));
+        depend<StageStore>(stage);
 
-        await subject.onAllow("test.com");
-        verify(store.allow(any, "test.com")).called(1);
+        final ops = MockCustomOps();
+        depend<CustomOps>(ops);
 
-        await subject.onDeny("test.com");
-        verify(store.deny(any, "test.com")).called(1);
+        final subject = CustomStore();
+        verifyNever(json.getEntries(any));
 
-        await subject.onDelete("test.com");
-        verify(store.delete(any, "test.com")).called(1);
+        // Initially will refresh
+        await subject.maybeRefreshCustom(trace);
+        verify(json.getEntries(any));
+
+        // Then it wont refresh (until cooldown time passed)
+        await subject.maybeRefreshCustom(trace);
+        verifyNever(json.getEntries(any));
+
+        // Imagine cooldown passed, should refresh again
+        subject.lastRefresh =
+            DateTime.now().subtract(const Duration(seconds: 10));
+        await subject.maybeRefreshCustom(trace);
+        verify(json.getEntries(any));
       });
     });
   });

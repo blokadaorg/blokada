@@ -9,4 +9,7 @@ abstract class PersistenceOps {
 
   @async
   String doLoad(String key, bool isSecure, bool isBackup);
+
+  @async
+  void doDelete(String key, bool isSecure, bool isBackup);
 }

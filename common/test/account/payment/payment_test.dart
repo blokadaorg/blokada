@@ -277,10 +277,7 @@ void main() {
         final store = AccountPaymentStore();
         di.registerSingleton<AccountPaymentStore>(store);
 
-        final subject = AccountPaymentBinder.forTesting();
-
         await store.fetchProducts(trace);
-        verify(ops.doPaymentStatusChanged(PaymentStatus.unknown)).called(1);
         verify(ops.doPaymentStatusChanged(PaymentStatus.fetching)).called(1);
         verify(ops.doPaymentStatusChanged(PaymentStatus.ready)).called(1);
       });

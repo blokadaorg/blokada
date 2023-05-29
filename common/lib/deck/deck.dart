@@ -1,6 +1,8 @@
 import 'package:mobx/mobx.dart';
 
 import '../device/device.dart';
+import '../stage/stage.dart';
+import '../util/config.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
@@ -38,9 +40,24 @@ extension DeckItemExt on DeckItem {
 
 class DeckStore = DeckStoreBase with _$DeckStore;
 
-abstract class DeckStoreBase with Store, Traceable {
+abstract class DeckStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<DeckOps>();
   late final _api = di<DeckJson>();
   late final _device = di<DeviceStore>();
+  late final _stage = di<StageStore>();
+
+  DeckStoreBase() {
+    reaction((_) => decksChanges, (_) async {
+      await _ops.doDecksChanged(decks.values.toList());
+    });
+  }
+
+  @override
+  attach() {
+    depend<DeckOps>(DeckOps());
+    depend<DeckJson>(DeckJson());
+    depend<DeckStore>(this as DeckStore);
+  }
 
   @observable
   ObservableMap<DeckId, Deck> decks = ObservableMap();
@@ -51,6 +68,9 @@ abstract class DeckStoreBase with Store, Traceable {
 
   @observable
   List<ListId> enabledByUser = [];
+
+  @observable
+  DateTime lastRefresh = DateTime(0);
 
   @action
   Future<void> fetch(Trace parentTrace) async {
@@ -169,67 +189,24 @@ abstract class DeckStoreBase with Store, Traceable {
       }
     });
   }
-}
 
-class DeckBinder with DeckEvents, Traceable {
-  late final _store = di<DeckStore>();
-  late final _ops = di<DeckOps>();
-  late final _device = di<DeviceStore>();
+  @action
+  Future<void> maybeRefreshDeck(Trace parentTrace) async {
+    return await traceWith(parentTrace, "maybeRefreshDeck", (trace) async {
+      if (!_stage.isForeground) {
+        return;
+      }
 
-  DeckBinder() {
-    DeckEvents.setup(this);
-    _onDeviceLists();
-    _onDecksChanged();
-  }
+      if (!_stage.route.isTop(StageTab.advanced)) {
+        return;
+      }
 
-  DeckBinder.forTesting() {
-    _onDeviceLists();
-    _onDecksChanged();
-  }
-
-  @override
-  Future<void> onEnableDeck(String deckId, bool enable) async {
-    await traceAs("onEnableDeck", (trace) async {
-      await _store.setEnableDeck(trace, deckId, enable);
-    });
-  }
-
-  @override
-  Future<void> onEnableList(String listId, bool enable) async {
-    await traceAs("onEnableList", (trace) async {
-      await _store.setEnableList(trace, listId, enable);
-    });
-  }
-
-  @override
-  Future<void> onToggleListByTag(String deckId, String tag) async {
-    await traceAs("onToggleListByTag", (trace) async {
-      await _store.toggleListByTag(trace, deckId, tag);
-    });
-  }
-
-  _onDeviceLists() {
-    reaction((_) => _device.lists, (lists) async {
-      if (lists != null) {
-        await traceAs("onDeviceLists", (trace) async {
-          await _store.setUserLists(trace, lists);
-        });
+      final now = DateTime.now();
+      if (now.difference(lastRefresh).compareTo(cfg.deckRefreshCooldown) > 0) {
+        await fetch(trace);
+        lastRefresh = now;
+        trace.addEvent("refreshed");
       }
     });
   }
-
-  _onDecksChanged() {
-    reaction((_) => _store.decksChanges, (_) async {
-      await traceAs("onDecksChanged", (trace) async {
-        await _ops.doDecksChanged(_store.decks.values.toList());
-      });
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<DeckJson>(DeckJson());
-  di.registerSingleton<DeckStore>(DeckStore());
-  di.registerSingleton<DeckOps>(DeckOps());
-  DeckBinder();
 }

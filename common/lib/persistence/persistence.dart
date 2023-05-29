@@ -6,8 +6,10 @@ import 'channel.pg.dart';
 
 abstract class PersistenceService {
   Future<void> save(Trace trace, String key, Map<String, dynamic> value);
-  Future<Map<String, dynamic>?> load(Trace trace, String key);
+  Future<void> saveString(Trace trace, String key, String value);
+  Future<String?> load(Trace trace, String key);
   Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key);
+  Future<void> delete(Trace trace, String key);
 }
 
 abstract class SecurePersistenceService extends PersistenceService {}
@@ -22,11 +24,19 @@ abstract class SecurePersistenceService extends PersistenceService {}
 /// - local storage
 /// - automatically backed up storage (iCloud on iOS, Google Drive on Android)
 /// - encrypted storage also automatically backed up
-class PlatformPersistenceImpl extends SecurePersistenceService with Traceable {
+class PlatformPersistence extends SecurePersistenceService
+    with Traceable, Dependable {
   final bool isSecure;
   final bool isBackup;
 
-  PlatformPersistenceImpl({required this.isSecure, required this.isBackup});
+  PlatformPersistence({required this.isSecure, required this.isBackup});
+
+  @override
+  attach() {
+    depend<PersistenceOps>(PersistenceOps());
+    depend<PersistenceService>(this);
+    depend<SecurePersistenceService>(this);
+  }
 
   late final _ops = di<PersistenceOps>();
 
@@ -43,9 +53,12 @@ class PlatformPersistenceImpl extends SecurePersistenceService with Traceable {
   }
 
   @override
-  Future<Map<String, dynamic>?> load(Trace trace, String key) async {
+  Future<String?> load(Trace trace, String key) async {
     try {
-      return await loadOrThrow(trace, key);
+      trace.addAttribute("key", key);
+      trace.addAttribute("isSecure", isSecure);
+      trace.addAttribute("isBackup", isBackup);
+      return await _ops.doLoad(key, isSecure, isBackup);
     } on Exception {
       // TODO: not all exceptions mean that the key is not found
       return null;
@@ -61,11 +74,24 @@ class PlatformPersistenceImpl extends SecurePersistenceService with Traceable {
       await _ops.doSave(key, jsonEncode(value), isSecure, isBackup);
     });
   }
-}
 
-Future<void> init() async {
-  di.registerSingleton<PersistenceOps>(PersistenceOps());
+  @override
+  Future<void> saveString(Trace trace, String key, String value) async {
+    return await traceWith(trace, "saveString", (trace) async {
+      trace.addAttribute("key", key);
+      trace.addAttribute("isSecure", isSecure);
+      trace.addAttribute("isBackup", isBackup);
+      await _ops.doSave(key, value, isSecure, isBackup);
+    });
+  }
 
-  final platform = PlatformPersistenceImpl(isSecure: true, isBackup: true);
-  di.registerSingleton<SecurePersistenceService>(platform);
+  @override
+  Future<void> delete(Trace trace, String key) async {
+    return await traceWith(trace, "delete", (trace) async {
+      trace.addAttribute("key", key);
+      trace.addAttribute("isSecure", isSecure);
+      trace.addAttribute("isBackup", isBackup);
+      await _ops.doDelete(key, isSecure, isBackup);
+    });
+  }
 }

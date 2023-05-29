@@ -51,6 +51,7 @@ dependencies:
   relative_scale: ^2.0.0
   get_it: ^7.2.0
   collection: ^1.17.0
+  http: ^1.0.0
 
 dev_dependencies:
   flutter_test:

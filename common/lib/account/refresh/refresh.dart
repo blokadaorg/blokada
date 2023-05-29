@@ -1,11 +1,14 @@
-import 'dart:io';
-
-import 'package:common/account/refresh/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../app/app.dart';
+import '../../device/device.dart';
+import '../../env/env.dart';
+import '../../event.dart';
 import '../../notification/notification.dart';
+import '../../plus/keypair/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
+import '../../util/config.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../account.dart';
@@ -24,9 +27,6 @@ part 'refresh.g.dart';
 /// It expects maybeRefresh() to be called on app foreground.
 /// It expects onTimerFired() to be called by a timer.
 
-const Duration _accountExpiringTimeSpan = Duration(seconds: 30);
-const Duration _refreshInterval = Duration(minutes: 1);
-const Duration _initFailRetryWait = Duration(seconds: 3);
 const String _keyTimer = "account:expiration";
 
 class AccountExpiration {
@@ -51,7 +51,7 @@ class AccountExpiration {
     AccountStatus newStatus = AccountStatus.inactive;
     // Account wasn't active, and now is
     if (status == AccountStatus.inactive || status == AccountStatus.init) {
-      if (exp.isAfter(now.add(_accountExpiringTimeSpan))) {
+      if (exp.isAfter(now.add(cfg.accountExpiringTimeSpan))) {
         newStatus = AccountStatus.active;
       } else if (exp.isAfter(now)) {
         newStatus = AccountStatus.expiring;
@@ -62,7 +62,7 @@ class AccountExpiration {
       newStatus = AccountStatus.active;
       if (exp.isBefore(now)) {
         newStatus = AccountStatus.expired;
-      } else if (exp.isBefore(now.add(_accountExpiringTimeSpan))) {
+      } else if (exp.isBefore(now.add(cfg.accountExpiringTimeSpan))) {
         newStatus = AccountStatus.expiring;
       }
     }
@@ -77,7 +77,7 @@ class AccountExpiration {
 
   DateTime? getNextDate() {
     if (status == AccountStatus.active) {
-      return expiration.subtract(_accountExpiringTimeSpan);
+      return expiration.subtract(cfg.accountExpiringTimeSpan);
     } else if (status == AccountStatus.expiring) {
       return expiration;
     } else {
@@ -90,10 +90,21 @@ enum AccountStatus { init, active, inactive, expiring, expired, fatal }
 
 class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
-abstract class AccountRefreshStoreBase with Store, Traceable {
+abstract class AccountRefreshStoreBase with Store, Traceable, Dependable {
+  late final _event = di<EventBus>();
   late final _timer = di<TimerService>();
   late final _account = di<AccountStore>();
-  late final _notificationStore = di<NotificationStore>();
+  late final _notification = di<NotificationStore>();
+  late final _stage = di<StageStore>();
+
+  AccountRefreshStoreBase() {
+    _timer.addHandler(_keyTimer, onTimerFired);
+  }
+
+  @override
+  attach() {
+    depend<AccountRefreshStore>(this as AccountRefreshStore);
+  }
 
   bool _initSuccessful = false;
 
@@ -103,10 +114,8 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
   @observable
   AccountExpiration expiration = AccountExpiration.init();
 
-  @observable
-  int accountUpgrades = 0;
-
   AccountType? _previousAccountType;
+  AccountId? _previousAccountId;
 
   @action
   Future<void> init(Trace parentTrace) async {
@@ -116,20 +125,23 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
       if (_initSuccessful) throw StateError("already initialized");
       await _account.load(trace);
       await _account.fetch(trace);
+      await syncAccount(trace, _account.account);
       lastRefresh = DateTime.now();
       _initSuccessful = true;
     }, fallback: (trace) async {
       trace.addEvent("creating new account");
       await _account.create(trace);
+      await syncAccount(trace, _account.account);
       lastRefresh = DateTime.now();
     });
   }
 
-  // This is called when the account is updated in AccountStore.
-  // This means that the methods below will also cause this to be called.
+  // This has to be called when the account is updated in AccountStore.
   @action
-  Future<void> update(Trace parentTrace, AccountState account) async {
-    return await traceWith(parentTrace, "update", (trace) async {
+  Future<void> syncAccount(Trace parentTrace, AccountState? account) async {
+    return await traceWith(parentTrace, "syncAccount", (trace) async {
+      if (account == null) return;
+
       final hasExp = account.jsonAccount.activeUntil != null;
       DateTime? exp =
           hasExp ? DateTime.parse(account.jsonAccount.activeUntil!) : null;
@@ -138,9 +150,16 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
 
       // Track the previous account type so that we can notice when user upgrades
       if (account.type.isUpgradeOver(_previousAccountType)) {
-        accountUpgrades++;
+        await _event.onEvent(trace, CommonEvent.accountTypeChanged);
       }
       _previousAccountType = account.type;
+
+      if (_previousAccountId != null && _previousAccountId != account.id) {
+        await _event.onEvent(trace, CommonEvent.accountIdChanged);
+      }
+      _previousAccountId = account.id;
+
+      await _event.onEvent(trace, CommonEvent.accountChanged);
     });
   }
 
@@ -152,8 +171,15 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
         return;
       }
 
-      if (force || DateTime.now().difference(lastRefresh) > _refreshInterval) {
+      if (!_stage.isForeground) {
+        return;
+      }
+
+      if (force ||
+          _stage.route.isTop(StageTab.settings) ||
+          DateTime.now().difference(lastRefresh) > cfg.accountRefreshCooldown) {
         await _account.fetch(trace);
+        await syncAccount(trace, _account.account);
         lastRefresh = DateTime.now();
         trace.addEvent("refreshed");
       } else {
@@ -173,11 +199,13 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
       // Maybe account got extended externally, so try to refresh
       // This will invoke the update() above.
       await _account.fetch(trace);
+      await syncAccount(trace, _account.account);
       lastRefresh = DateTime.now();
     }, fallback: (trace) async {
       // We may have cut off the internet, so we can't refresh.
       // Mark the account as expired manually.
       await _account.expireOffline(trace);
+      await syncAccount(trace, _account.account);
     });
   }
 
@@ -195,7 +223,7 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
       _timer.set(_keyTimer, expDate);
       trace.addAttribute("timer", expDate);
 
-      _notificationStore.show(trace, NotificationId.accountExpired,
+      _notification.show(trace, NotificationId.accountExpired,
           when: expiration.expiration);
       trace.addAttribute("notificationId", NotificationId.accountExpired);
       trace.addAttribute("notificationDate", expiration.expiration);
@@ -203,139 +231,9 @@ abstract class AccountRefreshStoreBase with Store, Traceable {
       _timer.unset(_keyTimer);
       trace.addAttribute("timer", null);
 
-      _notificationStore.dismiss(trace, NotificationId.accountExpired);
+      _notification.dismiss(trace, NotificationId.accountExpired);
       trace.addAttribute("notificationId", NotificationId.accountExpired);
       trace.addAttribute("notificationDate", null);
     }
   }
-}
-
-class AccountRefreshBinder with AccountRefreshEvents, Traceable, AppStarter {
-  late final _store = di<AccountRefreshStore>();
-  late final _stage = di<StageStore>();
-  late final _timer = di<TimerService>();
-  late final _account = di<AccountStore>();
-
-  late final Duration _wait;
-
-  AccountRefreshBinder() {
-    _wait = _initFailRetryWait;
-    AccountRefreshEvents.setup(this);
-    _init();
-  }
-
-  AccountRefreshBinder.forTesting() {
-    _wait = const Duration(seconds: 0);
-    _init();
-  }
-
-  _init() {
-    _onTimerFired();
-    _onForeground();
-    _onActiveTabIsSettings();
-    _onAccountChanged();
-    _onAccountUpgraded();
-  }
-
-  @override
-  Future<void> startApp() async {
-    await traceAs("startApp", (trace) async {
-      await _initWithRetry(trace);
-    }, fallback: (trace, e) async {
-      await _stage.showModalNow(trace, StageModal.accountInitFailed);
-      throw Exception("Failed to init account, displaying user modal");
-    });
-  }
-
-  @override
-  Future<void> onRetryInit() async {
-    await traceAs("onRetryInit", (trace) async {
-      _stage.dismissModal(trace);
-      await _initWithRetry(trace);
-    }, fallback: (trace, e) async {
-      await _stage.showModalNow(trace, StageModal.accountInitFailed);
-      throw Exception("Failed to retry init account, displaying user modal");
-    });
-  }
-
-  // Init the account with a retry loop. Can be called multiple times if failed.
-  Future<void> _initWithRetry(Trace trace) async {
-    bool success = false;
-    int attempts = 3;
-    while (!success && attempts++ > 0) {
-      try {
-        await _store.init(trace);
-        success = true;
-      } on Exception catch (_) {
-        trace.addEvent("init failed, retrying");
-        sleep(_wait);
-      }
-    }
-
-    if (!success) {
-      return Future.error(Exception("Failed to init account"));
-    }
-  }
-
-  // Set expiration timer handler
-  _onTimerFired() {
-    _timer.addHandler(_keyTimer, () async {
-      await traceAs("onTimerFired", (trace) async {
-        await _store.onTimerFired(trace);
-      });
-    });
-  }
-
-  // Refresh account on foreground (periodically)
-  _onForeground() {
-    reaction((_) => _stage.isForeground, (isForeground) async {
-      if (isForeground) {
-        await traceAs("onForeground", (trace) async {
-          await _store.maybeRefresh(trace);
-        });
-      }
-    });
-  }
-
-  // Refresh account on entering settings tab (always)
-  _onActiveTabIsSettings() {
-    reaction((_) => _stage.activeTab, (tab) async {
-      if (tab == StageTab.settings) {
-        await traceAs("onActiveTabIsSettings", (trace) async {
-          await _store.maybeRefresh(trace, force: true);
-        });
-      }
-    });
-  }
-
-  // Update account when changed by the upstream store
-  _onAccountChanged() {
-    reaction((_) => _account.account, (account) async {
-      if (account != null) {
-        await traceAs("onAccountChanged", (trace) async {
-          await _store.update(trace, account);
-        });
-      }
-    });
-  }
-
-  // Show the onboarding whenever account just got upgraded
-  _onAccountUpgraded() {
-    reaction((_) => _store.accountUpgrades, (_) async {
-      await traceAs("onAccountUpgraded", (trace) async {
-        await _stage.showModalNow(trace, StageModal.onboarding);
-      });
-    });
-  }
-}
-
-abstract class AppStarter {
-  Future<void> startApp();
-}
-
-Future<void> init() async {
-  di.registerSingleton<AccountRefreshStore>(AccountRefreshStore());
-  final binder = AccountRefreshBinder();
-  di.registerSingleton<AccountRefreshEvents>(binder);
-  di.registerSingleton<AppStarter>(binder);
 }

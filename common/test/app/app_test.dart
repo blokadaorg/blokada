@@ -2,6 +2,7 @@ import 'package:common/account/account.dart';
 import 'package:common/app/app.dart';
 import 'package:common/app/channel.pg.dart';
 import 'package:common/device/device.dart';
+import 'package:common/event.dart';
 import 'package:common/perm/perm.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
@@ -11,6 +12,7 @@ import 'package:mockito/mockito.dart';
 
 import '../tools.dart';
 @GenerateNiceMocks([
+  MockSpec<EventBus>(),
   MockSpec<AppStore>(),
   MockSpec<AppOps>(),
   MockSpec<DeviceStore>(),
@@ -23,6 +25,12 @@ void main() {
   group("store", () {
     test("willHandleInitProcedure", () async {
       await withTrace((trace) async {
+        final event = MockEventBus();
+        depend<EventBus>(event);
+
+        final ops = MockAppOps();
+        depend<AppOps>(ops);
+
         final subject = AppStore();
 
         expect(subject.status, AppStatus.unknown);
@@ -37,6 +45,12 @@ void main() {
 
     test("willHandleCloudEnabled", () async {
       await withTrace((trace) async {
+        final event = MockEventBus();
+        depend<EventBus>(event);
+
+        final ops = MockAppOps();
+        depend<AppOps>(ops);
+
         final subject = AppStore();
 
         // Initially the app is deactivated
@@ -61,6 +75,12 @@ void main() {
 
     test("willHandlePause", () async {
       await withTrace((trace) async {
+        final event = MockEventBus();
+        depend<EventBus>(event);
+
+        final ops = MockAppOps();
+        depend<AppOps>(ops);
+
         final subject = AppStore();
 
         // Initially the app is deactivated
@@ -93,6 +113,12 @@ void main() {
   group("storeErrors", () {
     test("initWillFailOnImproperStates", () async {
       await withTrace((trace) async {
+        final event = MockEventBus();
+        depend<EventBus>(event);
+
+        final ops = MockAppOps();
+        depend<AppOps>(ops);
+
         final subject = AppStore();
 
         // Can't complete init before starting
@@ -112,11 +138,14 @@ void main() {
   group("binder", () {
     test("onAppStatus", () async {
       await withTrace((trace) async {
+        final event = MockEventBus();
+        depend<EventBus>(event);
+
+        final ops = MockAppOps();
+        depend<AppOps>(ops);
+
         final store = AppStore();
         di.registerSingleton<AppStore>(store);
-
-        final channel = MockAppOps();
-        di.registerSingleton<AppOps>(channel);
 
         final stage = MockStageStore();
         di.registerSingleton<StageStore>(stage);
@@ -130,37 +159,36 @@ void main() {
         final perm = PermStore();
         di.registerSingleton<PermStore>(perm);
 
-        final subject = AppBinder();
-
-        verifyNever(channel.doAppStatusChanged(any));
+        verifyNever(ops.doAppStatusChanged(any));
         await store.initStarted(trace);
         await store.initCompleted(trace);
-        verify(channel.doAppStatusChanged(any)).called(2);
+        verify(ops.doAppStatusChanged(any)).called(2);
       });
     });
 
     test("onCloudPermStatus", () async {
       await withTrace((trace) async {
-        final store = MockAppStore();
-        di.registerSingleton<AppStore>(store);
+        final event = MockEventBus();
+        depend<EventBus>(event);
 
         final ops = MockAppOps();
-        di.registerSingleton<AppOps>(ops);
+        depend<AppOps>(ops);
+
+        final store = MockAppStore();
+        di.registerSingleton<AppStore>(store);
 
         final perm = PermStore();
         di.registerSingleton<PermStore>(perm);
 
-        final device = DeviceStore();
+        final device = MockDeviceStore();
+        when(device.deviceTag).thenReturn("some-tag");
         di.registerSingleton<DeviceStore>(device);
 
         final account = MockAccountStore();
         di.registerSingleton<AccountStore>(account);
 
-        final subject = AppBinder();
-
         verifyNever(store.cloudPermEnabled(any, any));
 
-        device.deviceTag = "some-tag";
         perm.setPrivateDnsEnabled(trace, "some-tag");
 
         verify(store.cloudPermEnabled(any, true)).called(1);

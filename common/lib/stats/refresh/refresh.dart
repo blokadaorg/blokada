@@ -3,15 +3,12 @@ import 'package:mobx/mobx.dart';
 import '../../account/account.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
+import '../../util/config.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../stats.dart';
 
 part 'refresh.g.dart';
-
-const Duration _whenOnStatsScreen = Duration(seconds: 30);
-const Duration _whenOnHomeScreen = Duration(seconds: 120);
-const Duration _whenOnAnotherScreen = Duration(seconds: 240);
 
 const String keyTimer = "stats:refresh";
 
@@ -30,13 +27,14 @@ class StatsRefreshStrategy {
     required this.isAccountActive,
   });
 
-  StatsRefreshStrategy.init() : this(
-    lastRefresh: DateTime(0),
-    isOnStatsScreen: false,
-    isOnStatsHomeScreen: false,
-    isForeground: false,
-    isAccountActive: false,
-  );
+  StatsRefreshStrategy.init()
+      : this(
+          lastRefresh: DateTime(0),
+          isOnStatsScreen: false,
+          isOnStatsHomeScreen: false,
+          isForeground: false,
+          isAccountActive: false,
+        );
 
   StatsRefreshStrategy update({
     bool? isOnStatsScreen,
@@ -67,18 +65,32 @@ class StatsRefreshStrategy {
     if (!isAccountActive || !isForeground) {
       return null;
     } else if (isOnStatsScreen) {
-      return lastRefresh.add(_whenOnStatsScreen);
+      return lastRefresh.add(cfg.statsRefreshWhenOnStatsScreen);
     } else if (isOnStatsHomeScreen) {
-      return lastRefresh.add(_whenOnHomeScreen);
+      return lastRefresh.add(cfg.statsRefreshWhenOnHomeScreen);
     } else {
-      return lastRefresh.add(_whenOnAnotherScreen);
+      return lastRefresh.add(cfg.statsRefreshWhenOnAnotherScreen);
     }
   }
 }
 
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
-abstract class StatsRefreshStoreBase with Store, Traceable {
+
+abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
+  late final _stats = di<StatsStore>();
   late final _timer = di<TimerService>();
+
+  StatsRefreshStoreBase() {
+    _timer.addHandler(keyTimer, (trace) async {
+      await _stats.fetch(trace);
+      await statsRefreshed(trace);
+    });
+  }
+
+  @override
+  attach() {
+    depend<StatsRefreshStore>(this as StatsRefreshStore);
+  }
 
   @observable
   StatsRefreshStrategy strategy = StatsRefreshStrategy.init();
@@ -93,10 +105,10 @@ abstract class StatsRefreshStoreBase with Store, Traceable {
 
   @action
   Future<void> updateScreen(Trace parentTrace,
-      { required bool isStats, required bool isHome }
-  ) async {
+      {required bool isStats, required bool isHome}) async {
     return await traceWith(parentTrace, "updateScreen", (trace) async {
-      strategy = strategy.update(isOnStatsHomeScreen: isHome, isOnStatsScreen: isStats);
+      strategy = strategy.update(
+          isOnStatsHomeScreen: isHome, isOnStatsScreen: isStats);
       _rescheduleTimer(trace);
     });
   }
@@ -130,65 +142,4 @@ abstract class StatsRefreshStoreBase with Store, Traceable {
 // TODO: drop all stats and refresh on account ID change
 
 // TODO: refresh 3s after VPN settles
-}
-
-class StatsRefreshBinder with Traceable {
-  late final _store = di<StatsRefreshStore>();
-  late final _timer = di<TimerService>();
-  late final _stats = di<StatsStore>();
-  late final _account = di<AccountStore>();
-  late final _stage = di<StageStore>();
-
-  StatsRefreshBinder() {
-    _onTimerFired();
-    _onForeground();
-    _onTabChange();
-    _onAccountChange();
-  }
-
-  _onTimerFired() {
-    _timer.addHandler(keyTimer, () async {
-      await traceAs("onTimerFired", (trace) async {
-        await _stats.fetch(trace);
-        await _store.statsRefreshed(trace);
-      });
-    });
-  }
-
-  // When not in foreground, stats don't refresh
-  _onForeground() {
-    reaction((_) => _stage.isForeground, (isForeground) async {
-      await traceAs("onForeground", (trace) async {
-        await _store.updateForeground(trace, isForeground);
-      });
-    });
-  }
-
-  // Stats refresh more often on the Home tab
-  _onTabChange() {
-    autorun((_) async {
-      final tab = _stage.activeTab;
-      await traceAs("onTabChange", (trace) async {
-        await _store.updateScreen(trace,
-            isHome: tab == StageTab.home,
-            isStats: false // TODO
-        );
-      });
-    });
-  }
-
-  _onAccountChange() {
-    reaction((_) => _account.account, (acc) async {
-      if (acc != null) {
-        await traceAs("onAccountChange", (trace) async {
-          await _store.updateAccount(trace, acc.type.isActive());
-        });
-      }
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton(StatsRefreshStore());
-  StatsRefreshBinder();
 }

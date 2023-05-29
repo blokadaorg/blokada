@@ -25,29 +25,29 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   final _app = di<AppStore>();
 
   late AnimationController controller;
-  late AnimationController controller2;
+  late AnimationController controllerOrange;
 
   @override
   void initState() {
     super.initState();
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5));
-    controller2 =
-        AnimationController(vsync: this, duration: Duration(seconds: 7));
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    controllerOrange =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     mobx.autorun((_) {
       final status = _app.status;
       if (status.isWorking()) {
         controller.reverse();
-        controller2.reverse();
+        controllerOrange.reverse();
       } else if (status == AppStatus.activatedPlus) {
-        controller2.forward();
+        controllerOrange.forward();
         controller.reverse();
       } else if (status == AppStatus.activatedCloud) {
         controller.forward();
-        controller2.reverse();
+        controllerOrange.reverse();
       } else {
         controller.reverse();
-        controller2.reverse();
+        controllerOrange.reverse();
       }
       setState(() {});
     });
@@ -98,7 +98,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         key: Key(theme.bgGradientColorInactive.toString()),
         primaryColors: primaryColorsOrange,
         secondaryColors: secondaryColorsActiveOrange,
-        controller: controller2,
+        controller: controllerOrange,
         child: Padding(
           padding: const EdgeInsets.only(top: 0.0),
           child: Column(

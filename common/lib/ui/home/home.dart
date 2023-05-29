@@ -8,7 +8,7 @@ part 'home.g.dart';
 class HomeStore = HomeStoreBase with _$HomeStore;
 
 // Quite shit store used to control some flag. Remove eventually. TODO
-abstract class HomeStoreBase with Store {
+abstract class HomeStoreBase with Store, Dependable {
   late final _app = di<AppStore>();
 
   HomeStoreBase() {
@@ -18,6 +18,11 @@ abstract class HomeStoreBase with Store {
         resetPowerOn();
       }
     });
+  }
+
+  @override
+  attach() {
+    depend<HomeStore>(this as HomeStore);
   }
 
    @observable
@@ -32,8 +37,4 @@ abstract class HomeStoreBase with Store {
    powerOnIsReady() {
      powerOnAnimationReady = true;
    }
-}
-
-Future<void> init() async {
-  di.registerSingleton<HomeStore>(HomeStore());
 }

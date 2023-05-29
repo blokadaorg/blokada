@@ -12,9 +12,6 @@ abstract class CustomOps {
 @FlutterApi()
 abstract class CustomEvents {
   @async
-  void onStartListening();
-
-  @async
   void onAllow(String domainName);
 
   @async

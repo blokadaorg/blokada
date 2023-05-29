@@ -1,10 +1,7 @@
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../account/account.dart';
-import '../device/device.dart';
-import '../perm/perm.dart';
-import '../stage/stage.dart';
+import '../event.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
@@ -33,21 +30,22 @@ class AppStatusStrategy {
   final bool accountIsCloud;
   final bool accountIsPlus;
   final bool plusPermEnabled;
-  final bool plusEnabled;
+  final bool plusActive;
   final bool reconfiguring;
   final bool appPaused;
 
-  AppStatusStrategy(
-      {this.initStarted = false,
-      this.initCompleted = false,
-      this.cloudPermEnabled = false,
-      this.cloudEnabled = false,
-      this.accountIsCloud = false,
-      this.accountIsPlus = false,
-      this.plusPermEnabled = false,
-      this.plusEnabled = false,
-      this.reconfiguring = false,
-      this.appPaused = false});
+  AppStatusStrategy({
+    this.initStarted = false,
+    this.initCompleted = false,
+    this.cloudPermEnabled = false,
+    this.cloudEnabled = false,
+    this.accountIsCloud = false,
+    this.accountIsPlus = false,
+    this.plusPermEnabled = false,
+    this.plusActive = false,
+    this.reconfiguring = false,
+    this.appPaused = false,
+  });
 
   AppStatusStrategy update({
     bool? initStarted,
@@ -57,7 +55,7 @@ class AppStatusStrategy {
     bool? accountIsCloud,
     bool? accountIsPlus,
     bool? plusPermEnabled,
-    bool? plusEnabled,
+    bool? plusActive,
     bool? reconfiguring,
     bool? appPaused,
   }) {
@@ -69,7 +67,7 @@ class AppStatusStrategy {
       accountIsCloud: accountIsCloud ?? this.accountIsCloud,
       accountIsPlus: accountIsPlus ?? this.accountIsPlus,
       plusPermEnabled: plusPermEnabled ?? this.plusPermEnabled,
-      plusEnabled: plusEnabled ?? this.plusEnabled,
+      plusActive: plusActive ?? this.plusActive,
       reconfiguring: reconfiguring ?? this.reconfiguring,
       appPaused: appPaused ?? this.appPaused,
     );
@@ -82,7 +80,7 @@ class AppStatusStrategy {
       return AppStatus.initializing;
     } else if (reconfiguring) {
       return AppStatus.reconfiguring;
-    } else if (accountIsPlus && plusPermEnabled && plusEnabled) {
+    } else if (accountIsPlus && /*plusPermEnabled &&*/ plusActive) {
       return (appPaused) ? AppStatus.paused : AppStatus.activatedPlus;
     } else if (accountIsCloud && cloudPermEnabled && cloudEnabled) {
       return (appPaused) ? AppStatus.paused : AppStatus.activatedCloud;
@@ -93,13 +91,28 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, plusPermEnabled: $plusPermEnabled, plusEnabled: $plusEnabled, plusReconfiguring: $reconfiguring, appPaused: $appPaused}";
+    return "{initStarted: $initStarted, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, plusReconfiguring: $reconfiguring, appPaused: $appPaused}";
   }
 }
 
 class AppStore = AppStoreBase with _$AppStore;
 
-abstract class AppStoreBase with Store, Traceable {
+abstract class AppStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<AppOps>();
+  late final _event = di<EventBus>();
+
+  AppStoreBase() {
+    reactionOnStore((_) => status, (status) async {
+      await _ops.doAppStatusChanged(status);
+    });
+  }
+
+  @override
+  attach() {
+    depend<AppOps>(AppOps());
+    depend<AppStore>(this as AppStore);
+  }
+
   @observable
   AppStatus status = AppStatus.unknown;
 
@@ -113,7 +126,7 @@ abstract class AppStoreBase with Store, Traceable {
       }
 
       _strategy = _strategy.update(initStarted: true);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
     });
   }
 
@@ -125,7 +138,7 @@ abstract class AppStoreBase with Store, Traceable {
       }
 
       _strategy = _strategy.update(initCompleted: true);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
     });
   }
 
@@ -133,7 +146,7 @@ abstract class AppStoreBase with Store, Traceable {
   Future<void> cloudPermEnabled(Trace parentTrace, bool enabled) async {
     return await traceWith(parentTrace, "cloudPermEnabled", (trace) async {
       _strategy = _strategy.update(cloudPermEnabled: enabled);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
     });
   }
 
@@ -141,7 +154,7 @@ abstract class AppStoreBase with Store, Traceable {
   Future<void> cloudEnabled(Trace parentTrace, bool enabled) async {
     return await traceWith(parentTrace, "cloudEnabled", (trace) async {
       _strategy = _strategy.update(cloudEnabled: enabled);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
     });
   }
 
@@ -151,7 +164,7 @@ abstract class AppStoreBase with Store, Traceable {
     return await traceWith(parentTrace, "accountUpdated", (trace) async {
       _strategy = _strategy.update(
           accountIsCloud: isCloud || isPlus, accountIsPlus: isPlus);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
     });
   }
 
@@ -159,8 +172,19 @@ abstract class AppStoreBase with Store, Traceable {
   Future<void> appPaused(Trace parentTrace, bool paused) async {
     return await traceWith(parentTrace, "appPaused", (trace) async {
       _strategy = _strategy.update(appPaused: paused, reconfiguring: false);
-      status = _strategy.getCurrentStatus();
+      await _updateStatus(trace);
       trace.addAttribute("paused", paused);
+      trace.addAttribute("appStatusStrategy", _strategy);
+      trace.addAttribute("appStatus", status);
+    });
+  }
+
+  @action
+  Future<void> plusActivated(Trace parentTrace, bool active) async {
+    return await traceWith(parentTrace, "plusActivated", (trace) async {
+      _strategy = _strategy.update(plusActive: active, reconfiguring: false);
+      await _updateStatus(trace);
+      trace.addAttribute("active", active);
       trace.addAttribute("appStatusStrategy", _strategy);
       trace.addAttribute("appStatus", status);
     });
@@ -170,71 +194,12 @@ abstract class AppStoreBase with Store, Traceable {
   Future<void> reconfiguring(Trace parentTrace) async {
     return await traceWith(parentTrace, "reconfiguring", (trace) async {
       _strategy = _strategy.update(reconfiguring: true);
-      status = _strategy.getCurrentStatus();
-    });
-  }
-}
-
-class AppBinder with Traceable {
-  late final _store = di<AppStore>();
-  late final _ops = di<AppOps>();
-  late final _device = di<DeviceStore>();
-  late final _perm = di<PermStore>();
-  late final _account = di<AccountStore>();
-  late final _stage = di<StageStore>();
-
-  AppBinder() {
-    _onAppStatus();
-    _onPermStatus();
-    _onDeviceEnabled();
-    _onAccountUpdated();
-  }
-
-  void _onAppStatus() {
-    reactionOnStore((_) => _store.status, (status) async {
-      await traceAs("onAppStatus", (trace) async {
-        await _stage.setReady(trace, !status.isWorking());
-        await _ops.doAppStatusChanged(status);
-        trace.addAttribute("appStatus", status);
-      });
+      await _updateStatus(trace);
     });
   }
 
-  void _onPermStatus() {
-    reactionOnStore((_) => _perm.privateDnsEnabled, (permEnabled) async {
-      await traceAs("onCloudPermStatus", (trace) async {
-        await _store.cloudPermEnabled(trace, permEnabled == _device.deviceTag);
-      });
-    });
+  _updateStatus(Trace trace) async {
+    status = _strategy.getCurrentStatus();
+    await _event.onEvent(trace, CommonEvent.appStatusChanged);
   }
-
-  void _onDeviceEnabled() {
-    reactionOnStore((_) => _device.cloudEnabled, (enabled) async {
-      if (enabled != null) {
-        await traceAs("onCloudEnabled", (trace) async {
-          await _store.cloudEnabled(trace, enabled);
-        });
-      }
-    });
-  }
-
-  void _onAccountUpdated() {
-    reactionOnStore((_) => _account.account, (account) async {
-      if (account != null) {
-        await traceAs("onAccountUpdated", (trace) async {
-          await _store.accountUpdated(
-            trace,
-            isCloud: account.type == AccountType.cloud,
-            isPlus: account.type == AccountType.plus,
-          );
-        });
-      }
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<AppOps>(AppOps());
-  di.registerSingleton<AppStore>(AppStore());
-  AppBinder();
 }

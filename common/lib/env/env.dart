@@ -8,7 +8,15 @@ part 'env.g.dart';
 
 class EnvStore = EnvStoreBase with _$EnvStore;
 
-abstract class EnvStoreBase with Store, Traceable {
+abstract class EnvStoreBase with Store, Traceable, Dependable {
+  late final _ops = di<EnvOps>();
+
+  @override
+  attach() {
+    depend<EnvOps>(EnvOps());
+    depend<EnvStore>(this as EnvStore);
+  }
+
   @observable
   String? accountId;
 
@@ -22,7 +30,7 @@ abstract class EnvStoreBase with Store, Traceable {
   String? deviceName;
 
   @observable
-  String? userAgent;
+  String? devicePublicKey;
 
   @computed
   String get currentUser {
@@ -34,12 +42,21 @@ abstract class EnvStoreBase with Store, Traceable {
   }
 
   @computed
-  String get currentDevice {
+  String get currentDeviceTag {
     final tag = deviceTag;
     if (tag == null) {
       throw Exception("No device tag set yet");
     }
     return tag;
+  }
+
+  @computed
+  String get currentDevicePublicKey {
+    final key = devicePublicKey;
+    if (key == null) {
+      throw Exception("No device public key set yet");
+    }
+    return key;
   }
 
   @action
@@ -71,46 +88,17 @@ abstract class EnvStoreBase with Store, Traceable {
   }
 
   @action
-  Future<void> setUserAgent(Trace parentTrace, String value) async {
-    return await traceWith(parentTrace, "setUserAgent", (trace) async {
-      userAgent = value;
+  Future<void> syncDeviceName(Trace parentTrace) async {
+    return await traceWith(parentTrace, "setDeviceName", (trace) async {
+      final payload = await _ops.doGetEnvPayload();
+      deviceName = payload.deviceName;
     });
   }
 
   @action
-  Future<void> setDeviceName(Trace parentTrace, String value) async {
-    return await traceWith(parentTrace, "setDeviceName", (trace) async {
-      deviceName = value;
+  Future<void> setDevicePublicKey(Trace parentTrace, String value) async {
+    return await traceWith(parentTrace, "setDevicePublicKey", (trace) async {
+      devicePublicKey = value;
     });
   }
-}
-
-class EnvBinder with Traceable {
-  late final _store = di<EnvStore>();
-  late final _ops = di<EnvOps>();
-
-  EnvBinder() {
-    _getUserAgentFromChannel();
-    _onDeviceName();
-  }
-
-  _getUserAgentFromChannel() async {
-    await traceAs("getUserAgentFromChannel", (trace) async {
-      final userAgent = await _ops.doGetUserAgent();
-      await _store.setUserAgent(trace, userAgent);
-    });
-  }
-
-  _onDeviceName() async {
-    await traceAs("onDeviceName", (trace) async {
-      final payload = await _ops.doGetEnvPayload();
-      await _store.setDeviceName(trace, payload.deviceName);
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<EnvOps>(EnvOps());
-  di.registerSingleton<EnvStore>(EnvStore());
-  EnvBinder();
 }

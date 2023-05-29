@@ -26,7 +26,7 @@ class HomeCounter extends StatefulWidget {
 }
 
 class _HomeCounterState extends State<HomeCounter>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, TraceOrigin {
   final _app = di<AppStore>();
   final _appPause = di<AppPauseStore>();
   final _stats = di<StatsStore>();
@@ -73,7 +73,9 @@ class _HomeCounterState extends State<HomeCounter>
           sheetService.openSheet(context);
         } else {
           setState(() {
-            _appPause.toggleApp(DebugTrace.as("HomeCounter", important: true));
+            traceAs("fromWidget", (trace) async {
+              await _appPause.toggleApp(trace);
+            });
           });
         }
       },

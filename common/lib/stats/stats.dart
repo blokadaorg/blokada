@@ -8,7 +8,6 @@ import 'json.dart';
 part 'stats.g.dart';
 
 class UiStats {
-
   final int totalAllowed;
   final int totalBlocked;
 
@@ -33,9 +32,13 @@ class UiStats {
   double dayTotalRatio = 0;
 
   UiStats({
-    required this.totalAllowed, required this.totalBlocked,
-    required this.allowedHistogram, required this.blockedHistogram,
-    required this.avgDayTotal, required this.avgDayAllowed, required this.avgDayBlocked,
+    required this.totalAllowed,
+    required this.totalBlocked,
+    required this.allowedHistogram,
+    required this.blockedHistogram,
+    required this.avgDayTotal,
+    required this.avgDayAllowed,
+    required this.avgDayBlocked,
     required this.latestTimestamp,
   }) {
     dayAllowed = allowedHistogram.reduce((a, b) => a + b);
@@ -44,14 +47,16 @@ class UiStats {
 
     dayAllowedRatio = ((dayAllowed / avgDayAllowed) * 100);
     dayBlockedRatio = ((dayBlocked / avgDayBlocked) * 100);
-    dayTotalRatio = dayAllowedRatio + dayBlockedRatio; // As per Johnny request, to make total ring always bigger than others
+    dayTotalRatio = dayAllowedRatio +
+        dayBlockedRatio; // As per Johnny request, to make total ring always bigger than others
   }
 
   UiStats.empty({
-    this.totalAllowed = 0, this.totalBlocked = 0,
-    this.allowedHistogram = const [], this.blockedHistogram = const [],
+    this.totalAllowed = 0,
+    this.totalBlocked = 0,
+    this.allowedHistogram = const [],
+    this.blockedHistogram = const [],
   });
-
 }
 
 class UiStatsPair {
@@ -62,8 +67,15 @@ class UiStatsPair {
 }
 
 class StatsStore = StatsStoreBase with _$StatsStore;
-abstract class StatsStoreBase with Store, Traceable {
+
+abstract class StatsStoreBase with Store, Traceable, Dependable {
   late final _api = di<StatsJson>();
+
+  @override
+  attach() {
+    depend<StatsJson>(StatsJson());
+    depend<StatsStore>(this as StatsStore);
+  }
 
   @observable
   UiStats stats = UiStats.empty();
@@ -101,7 +113,8 @@ abstract class StatsStoreBase with Store, Traceable {
         final hourIndex = 24 - diffHours - 1;
 
         if (hourIndex < 0) continue;
-        if (latestTimestamp < d.timestamp * 1000) latestTimestamp = d.timestamp * 1000;
+        if (latestTimestamp < d.timestamp * 1000)
+          latestTimestamp = d.timestamp * 1000;
 
         if (isAllowed) {
           allowedHistogram[hourIndex] = d.value.round();
@@ -123,31 +136,37 @@ abstract class StatsStoreBase with Store, Traceable {
       // Get previous week if available
       if (histogram.length >= 2) {
         if (isAllowed) {
-          avgDayAllowed = (histogram.sublist(0, histogram.length - 1).reduce((a, b) => a + b) / (histogram.length - 1)).round();
+          avgDayAllowed = (histogram
+                      .sublist(0, histogram.length - 1)
+                      .reduce((a, b) => a + b) /
+                  (histogram.length - 1))
+              .round();
           avgDayAllowed *= 2;
         } else {
-          avgDayBlocked = (histogram.sublist(0, histogram.length - 1).reduce((a, b) => a + b) / (histogram.length - 1)).round();
+          avgDayBlocked = (histogram
+                      .sublist(0, histogram.length - 1)
+                      .reduce((a, b) => a + b) /
+                  (histogram.length - 1))
+              .round();
           avgDayBlocked *= 2;
         }
       }
     }
 
     // Calculate last week's average based on this week (no data)
-    if (avgDayAllowed == 0) avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 * 2;
-    if (avgDayBlocked == 0) avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
+    if (avgDayAllowed == 0)
+      avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 * 2;
+    if (avgDayBlocked == 0)
+      avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
 
     return UiStats(
-      totalAllowed: int.parse(stats.totalAllowed),
-      totalBlocked: int.parse(stats.totalBlocked),
-      allowedHistogram: allowedHistogram,
-      blockedHistogram: blockedHistogram,
-      avgDayAllowed: avgDayAllowed, avgDayBlocked: avgDayBlocked, avgDayTotal: avgDayAllowed + avgDayBlocked,
-      latestTimestamp: latestTimestamp
-    );
+        totalAllowed: int.parse(stats.totalAllowed),
+        totalBlocked: int.parse(stats.totalBlocked),
+        allowedHistogram: allowedHistogram,
+        blockedHistogram: blockedHistogram,
+        avgDayAllowed: avgDayAllowed,
+        avgDayBlocked: avgDayBlocked,
+        avgDayTotal: avgDayAllowed + avgDayBlocked,
+        latestTimestamp: latestTimestamp);
   }
-}
-
-Future<void> init() async {
-  di.registerSingleton<StatsJson>(StatsJson());
-  di.registerSingleton<StatsStore>(StatsStore());
 }

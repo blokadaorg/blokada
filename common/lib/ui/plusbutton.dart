@@ -3,9 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
+import '../account/account.dart';
 import '../app/app.dart';
 import '../app/channel.pg.dart';
+import '../perm/perm.dart';
+import '../plus/gateway/gateway.dart';
+import '../plus/plus.dart';
+import '../stage/stage.dart';
 import '../util/di.dart';
+import '../util/trace.dart';
 import 'myapp.dart';
 
 class PlusButton extends StatefulWidget {
@@ -17,8 +23,14 @@ class PlusButton extends StatefulWidget {
   }
 }
 
-class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
-  final _app = di<AppStore>();
+class _PlusButtonState extends State<PlusButton>
+    with TickerProviderStateMixin, TraceOrigin {
+  final _app = dep<AppStore>();
+  final _account = dep<AccountStore>();
+  final _gateway = dep<PlusGatewayStore>();
+  final _stage = dep<StageStore>();
+  final _plus = dep<PlusStore>();
+  final _perm = dep<PermStore>();
 
   // TODO: once plusRepo is here, check commented code
 
@@ -48,12 +60,15 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
 
     mobx.autorun((_) {
       final status = _app.status;
+      final gateway = _gateway.currentGateway;
+      final plusEnabled = _plus.plusEnabled;
+
       setState(() {
-        location = "TODO";
-        pressed = status == AppStatus.activatedPlus;
+        location = gateway?.niceName ?? "";
+        pressed = plusEnabled;
         working = status.isWorking();
         active = status.isActive();
-        isPlus = false; // TODO; is plus
+        isPlus = _account.getAccountType() == AccountType.plus;
       });
 
       if (active && !working) {
@@ -81,7 +96,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
                     duration: Duration(milliseconds: 500),
                     child: ElevatedButton(
                         onPressed: () {
-                          // plusRepo.openLocations();
+                          _displayLocations();
                         },
                         child: _buildButtonContent())),
                 // When switch is on
@@ -90,7 +105,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
                     duration: Duration(milliseconds: 500),
                     child: OutlinedButton(
                         onPressed: () {
-                          // plusRepo.openLocations();
+                          _displayLocations();
                         },
                         child: _buildButtonContent())),
                 // When account is not Plus (CTA)
@@ -101,7 +116,7 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
                       duration: Duration(milliseconds: 200),
                       child: ElevatedButton(
                         onPressed: () {
-                          // plusRepo.openLocations();
+                          _displayLocations();
                         },
                         child: Flex(direction: Axis.horizontal, children: [
                           Expanded(
@@ -149,12 +164,14 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
               activeColor: theme.plus,
               onChanged: (value) {
                 setState(() {
-                  // if (appRepo.appState.location.isEmpty) {
-                  //   plusRepo.openLocations();
-                  // } else {
-                  //   pressed = value;
-                  //   plusRepo.switchPlus(value);
-                  // }
+                  if (location.isEmpty) {
+                    _displayLocations();
+                  } else {
+                    pressed = value;
+                    traceAs("fromWidget", (trace) async {
+                      await _plus.switchPlus(trace, value);
+                    });
+                  }
                 });
               },
             ),
@@ -162,5 +179,15 @@ class _PlusButtonState extends State<PlusButton> with TickerProviderStateMixin {
         )
       ],
     );
+  }
+
+  _displayLocations() {
+    traceAs("fromWidget", (trace) async {
+      if (_perm.vpnEnabled) {
+        await _stage.showModalNow(trace, StageModal.plusLocationSelect);
+      } else {
+        await _stage.showModalNow(trace, StageModal.onboarding);
+      }
+    });
   }
 }

@@ -62,13 +62,22 @@ class PlatformHttpService with HttpService, Traceable {
 /// RepeatingHttp
 ///
 /// Will repeat the request if it fails with a retry-able error.
-class RepeatingHttpService with HttpService {
+class RepeatingHttpService with HttpService, Dependable {
   final HttpService _service;
   final int maxRetries;
   final Duration waitTime;
 
-  RepeatingHttpService(this._service,
-      {required this.maxRetries, required this.waitTime});
+  RepeatingHttpService(
+    this._service, {
+    required this.maxRetries,
+    required this.waitTime,
+  });
+
+  @override
+  void attach() {
+    depend<HttpOps>(HttpOps());
+    depend<HttpService>(this);
+  }
 
   @override
   Future<String> get(Trace trace, String url) async {
@@ -106,12 +115,4 @@ class RepeatingHttpService with HttpService {
       }
     }
   }
-}
-
-Future<void> init() async {
-  di.registerSingleton<HttpOps>(HttpOps());
-
-  final http = RepeatingHttpService(PlatformHttpService(),
-      maxRetries: 3, waitTime: const Duration(milliseconds: 500));
-  di.registerSingleton<HttpService>(http);
 }

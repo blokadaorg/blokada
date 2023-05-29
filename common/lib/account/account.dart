@@ -1,8 +1,7 @@
+import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../env/env.dart';
 import '../persistence/persistence.dart';
-import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
@@ -75,9 +74,25 @@ class InvalidAccountId with Exception {}
 
 class AccountStore = AccountStoreBase with _$AccountStore;
 
-abstract class AccountStoreBase with Store, Traceable {
+abstract class AccountStoreBase with Store, Traceable, Dependable {
   late final _api = di<AccountJson>();
+  late final _ops = di<AccountOps>();
   late final _persistence = di<SecurePersistenceService>();
+
+  AccountStoreBase() {
+    reactionOnStore((_) => account, (account) async {
+      if (account != null) {
+        await _ops.doAccountChanged(account.toAccount());
+      }
+    });
+  }
+
+  @override
+  attach() {
+    depend<AccountJson>(AccountJson());
+    depend<AccountOps>(AccountOps());
+    depend<AccountStore>(this as AccountStore);
+  }
 
   @observable
   AccountState? account;
@@ -159,63 +174,4 @@ abstract class AccountStoreBase with Store, Traceable {
   void _ensureValidAccountId(String id) {
     if (id.isEmpty) throw InvalidAccountId();
   }
-}
-
-class AccountBinder with AccountEvents, Traceable {
-  late final _store = di<AccountStore>();
-  late final _ops = di<AccountOps>();
-  late final _stage = di<StageStore>();
-  late final _env = di<EnvStore>();
-
-  AccountBinder() {
-    AccountEvents.setup(this);
-    _onAccount();
-    _onAccountUpdateEnv();
-  }
-
-  AccountBinder.forTesting() {
-    _onAccount();
-    _onAccountUpdateEnv();
-  }
-
-  @override
-  Future<void> onRestoreAccount(String accountId) async {
-    await traceAs("onRestoreAccount", (trace) async {
-      await _store.restore(trace, accountId);
-    }, fallback: (trace, e) async {
-      trace.addEvent("restore failed, displaying user modal");
-      await _stage.showModalNow(trace, StageModal.accountRestoreFailed);
-      throw e;
-    });
-  }
-
-  // Push account changes to the channel
-  _onAccount() {
-    autorun((_) async {
-      final account = _store.account;
-      if (account != null) {
-        await traceAs("onAccount", (trace) async {
-          await _ops.doAccountChanged(account.toAccount());
-        });
-      }
-    });
-  }
-
-  // Update current user account id whenever set
-  _onAccountUpdateEnv() {
-    reaction((_) => _store.account, (account) async {
-      if (account != null) {
-        await traceAs("onAccountUpdateEnv", (trace) async {
-          _env.setAccountId(trace, account.id);
-        });
-      }
-    });
-  }
-}
-
-Future<void> init() async {
-  di.registerSingleton<AccountJson>(AccountJson());
-  di.registerSingleton<AccountOps>(AccountOps());
-  di.registerSingleton<AccountStore>(AccountStore());
-  di.registerSingleton<AccountEvents>(AccountBinder());
 }

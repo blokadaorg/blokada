@@ -2,6 +2,7 @@ import 'package:common/deck/deck.dart';
 import 'package:common/deck/channel.pg.dart';
 import 'package:common/deck/json.dart';
 import 'package:common/device/device.dart';
+import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -13,6 +14,7 @@ import '../tools.dart';
   MockSpec<DeckOps>(),
   MockSpec<DeckJson>(),
   MockSpec<DeviceStore>(),
+  MockSpec<StageStore>(),
 ])
 import 'deck_test.mocks.dart';
 import 'fixtures.dart';
@@ -25,6 +27,9 @@ void main() {
         when(json.getLists(any))
             .thenAnswer((_) => Future.value(fixtureListItems));
         di.registerSingleton<DeckJson>(json);
+
+        final ops = MockDeckOps();
+        depend<DeckOps>(ops);
 
         final subject = DeckStore();
         await subject.fetch(trace);
@@ -53,6 +58,9 @@ void main() {
             .thenAnswer((_) => Future.value(fixtureListItems));
         di.registerSingleton<DeckJson>(json);
 
+        final ops = MockDeckOps();
+        depend<DeckOps>(ops);
+
         final subject = DeckStore();
         await subject.fetch(trace);
 
@@ -68,6 +76,9 @@ void main() {
 
     test("setEnableList", () async {
       await withTrace((trace) async {
+        final ops = MockDeckOps();
+        depend<DeckOps>(ops);
+
         final json = MockDeckJson();
         when(json.getLists(any))
             .thenAnswer((_) => Future.value(fixtureListItems));
@@ -87,56 +98,36 @@ void main() {
         expect(decks.first.items.values.first?.enabled ?? false, true);
       });
     });
-  });
 
-  group("binder", () {
-    test("onEnableList", () async {
+    test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
-        final store = MockDeckStore();
-        di.registerSingleton<DeckStore>(store);
+        final ops = MockDeckOps();
+        depend<DeckOps>(ops);
 
-        final subject = DeckBinder.forTesting();
-        await subject.onEnableList("1", true);
-        verify(store.setEnableList(any, "1", true)).called(1);
-      });
-    });
-
-    test("onDeviceLists", () async {
-      await withTrace((trace) async {
-        final device = DeviceStore();
-        di.registerSingleton<DeviceStore>(device);
-
-        final store = MockDeckStore();
-        di.registerSingleton<DeckStore>(store);
-
-        final subject = DeckBinder.forTesting();
-        device.lists = ["1", "6"];
-        verify(store.setUserLists(any, ["1", "6"])).called(1);
-      });
-    });
-
-    test("onDecksChanged", () async {
-      await withTrace((trace) async {
         final json = MockDeckJson();
-        when(json.getLists(any))
-            .thenAnswer((_) => Future.value(fixtureListItems));
         di.registerSingleton<DeckJson>(json);
 
-        final device = MockDeviceStore();
-        di.registerSingleton<DeviceStore>(device);
+        final stage = MockStageStore();
+        when(stage.isForeground).thenReturn(true);
+        when(stage.route).thenReturn(StageRoute.forTab(StageTab.advanced));
+        depend<StageStore>(stage);
 
-        final ops = MockDeckOps();
-        di.registerSingleton<DeckOps>(ops);
+        final subject = DeckStore();
+        verifyNever(json.getLists(any));
 
-        final store = DeckStore();
-        di.registerSingleton<DeckStore>(store);
+        // Initially will refresh
+        await subject.maybeRefreshDeck(trace);
+        verify(json.getLists(any));
 
-        final subject = DeckBinder.forTesting();
-        await store.fetch(trace);
-        verify(ops.doDecksChanged(any)).called(1);
+        // Then it wont refresh (until cooldown time passed)
+        await subject.maybeRefreshDeck(trace);
+        verifyNever(json.getLists(any));
 
-        await store.setEnableList(trace, "1", true);
-        verify(ops.doDecksChanged(any)).called(1);
+        // Imagine cooldown passed, should refresh again
+        subject.lastRefresh =
+            DateTime.now().subtract(const Duration(minutes: 10));
+        await subject.maybeRefreshDeck(trace);
+        verify(json.getLists(any));
       });
     });
   });
