@@ -1,10 +1,13 @@
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../stage/channel.pg.dart';
+import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../account.dart';
 import 'channel.pg.dart';
+import 'channel.act.dart';
 import 'json.dart';
 
 part 'payment.g.dart';
@@ -14,10 +17,15 @@ typedef ReceiptBlob = String;
 
 class AccountPaymentStore = AccountPaymentStoreBase with _$AccountPaymentStore;
 
+class AccountInactiveAfterPurchase with Exception {}
+
+class PaymentsUnavailable with Exception {}
+
 abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<AccountPaymentOps>();
-  late final _json = di<AccountPaymentJson>();
-  late final _account = di<AccountStore>();
+  late final _ops = dep<AccountPaymentOps>();
+  late final _json = dep<AccountPaymentJson>();
+  late final _account = dep<AccountStore>();
+  late final _stage = dep<StageStore>();
 
   AccountPaymentStoreBase() {
     reactionOnStore((_) => status, (status) async {
@@ -32,9 +40,9 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
+  attach(Act act) {
+    depend<AccountPaymentOps>(getOps(act));
     depend<AccountPaymentJson>(AccountPaymentJson());
-    depend<AccountPaymentOps>(AccountPaymentOps());
     depend<AccountPaymentStore>(this as AccountPaymentStore);
   }
 
@@ -50,15 +58,22 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> fetchProducts(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetchProducts", (trace) async {
-      await _ensureInit();
-      _ensureReady();
-
-      status = PaymentStatus.fetching;
       try {
+        await _ensureInit();
+        _ensureReady();
+        status = PaymentStatus.fetching;
         products = (await _ops.doFetchProducts()).cast<Product>();
         status = PaymentStatus.ready;
-      } on Exception catch (e) {
+      } on PaymentsUnavailable catch (_) {
+        await _stage.showModal(trace, StageModal.paymentUnavailable);
+        rethrow;
+      } on Exception catch (_) {
         status = PaymentStatus.ready;
+        await _stage.showModal(trace, StageModal.paymentTempUnavailable);
+        rethrow;
+      } catch (_) {
+        status = PaymentStatus.ready;
+        await _stage.showModal(trace, StageModal.paymentTempUnavailable);
         rethrow;
       }
     });
@@ -67,11 +82,12 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> purchase(Trace parentTrace, ProductId id) async {
     return await traceWith(parentTrace, "purchase", (trace) async {
-      await _ensureInit();
-      _ensureReady();
-
-      status = PaymentStatus.purchasing;
       try {
+        await _ensureInit();
+        _ensureReady();
+
+        status = PaymentStatus.purchasing;
+
         if (await _processQueuedReceipts(trace)) {
           // Restored from a queued receipt, no need to purchase
           status = PaymentStatus.ready;
@@ -84,6 +100,16 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
+        try {
+          _mapPaymentException(e);
+        } catch (_) {
+          await _stage.showModal(trace, StageModal.paymentFailed);
+          rethrow;
+        }
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.paymentFailed);
+        _ops.doFinishOngoingTransaction();
+        status = PaymentStatus.ready;
         rethrow;
       }
     });
@@ -92,11 +118,12 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> restore(Trace parentTrace) async {
     return await traceWith(parentTrace, "restore", (trace) async {
-      await _ensureInit();
-      _ensureReady();
-
-      status = PaymentStatus.restoring;
       try {
+        await _ensureInit();
+        _ensureReady();
+
+        status = PaymentStatus.restoring;
+
         if (await _processQueuedReceipts(trace)) {
           // Restored from a queued receipt, no need to purchase
           status = PaymentStatus.ready;
@@ -107,6 +134,15 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         await _processReceipt(trace, receipt);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
+        _ops.doFinishOngoingTransaction();
+        status = PaymentStatus.ready;
+        try {
+          _mapPaymentException(e);
+        } on AccountInactiveAfterPurchase catch (_) {
+          await _stage.showModal(trace, StageModal.accountRestoreFailed);
+          rethrow;
+        }
+      } catch (_) {
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
         rethrow;
@@ -150,10 +186,10 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");
       if (!type.isActive()) {
-        throw Exception("Account still inactive after purchase");
+        throw AccountInactiveAfterPurchase();
       }
     } catch (e) {
-      throw Exception("Account still inactive after purchase");
+      throw AccountInactiveAfterPurchase();
     }
 
     _ops.doFinishOngoingTransaction();
@@ -183,12 +219,22 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
     return false;
   }
 
+  _mapPaymentException(Exception e) {
+    final msg = e.toString();
+    if (msg.contains("Payment sheet dismissed")) {
+      // This is just ordinary StoreKit behavior, ignore
+    } else {
+      // Throw again to make sure it is traced
+      throw e;
+    }
+  }
+
   _ensureInit() async {
     if (status == PaymentStatus.unknown &&
         !(await _ops.doArePaymentsAvailable())) {
       status = PaymentStatus.fatal;
-      throw Exception("Payments not available");
-    } else {
+      throw PaymentsUnavailable();
+    } else if (status != PaymentStatus.fatal) {
       status = PaymentStatus.ready;
     }
   }

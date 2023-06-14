@@ -8,5 +8,9 @@ void depend<T extends Object>(T instance) {
 }
 
 mixin Dependable {
-  void attach();
+  void attach(Act act);
+}
+
+mixin Act {
+  bool isProd();
 }

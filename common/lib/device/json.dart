@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../account/account.dart';
 import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
@@ -79,12 +80,12 @@ class JsonDevicePayload {
 }
 
 class DeviceJson {
-  late final _http = di<HttpService>();
-  late final _env = di<EnvStore>();
+  late final _http = dep<HttpService>();
+  late final _account = dep<AccountStore>();
 
   Future<JsonDevice> getDevice(Trace trace) async {
     final data = await _http.get(
-        trace, "$jsonUrl/v2/device?account_id=${_env.currentUser}");
+        trace, "$jsonUrl/v2/device?account_id=${_account.id}");
     return JsonDevice.fromJson(jsonDecode(data));
   }
 
@@ -97,20 +98,20 @@ class DeviceJson {
     dynamic payload = <String, dynamic>{};
     if (paused != null) {
       payload = JsonDevicePayload.forPaused(
-              accountId: _env.currentUser, paused: paused)
+              accountId: _account.id, paused: paused)
           .toJson();
     } else if (lists != null) {
-      payload =
-          JsonDevicePayload.forLists(accountId: _env.currentUser, lists: lists)
-              .toJson();
+      payload = JsonDevicePayload.forLists(
+              accountId: _account.id, lists: lists)
+          .toJson();
     } else if (retention != null) {
       payload = JsonDevicePayload.forRetention(
-              accountId: _env.currentUser, retention: retention)
+              accountId: _account.id, retention: retention)
           .toJson();
     }
 
     await _http.request(trace,
-        "$jsonUrl/v2/device?account_id=${_env.currentUser}", HttpType.put,
+        "$jsonUrl/v2/device?account_id=${_account.id}", HttpType.put,
         payload: jsonEncode(payload));
   }
 }

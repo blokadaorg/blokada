@@ -1,13 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
-import '../env/env.dart';
+import '../device/device.dart';
 import '../stage/stage.dart';
 import '../timer/timer.dart';
 import '../util/config.dart';
+import '../util/cooldown.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -86,14 +88,18 @@ JournalFilter _noFilter = JournalFilter(
 
 class JournalStore = JournalStoreBase with _$JournalStore;
 
-abstract class JournalStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<JournalOps>();
-  late final _json = di<JournalJson>();
-  late final _env = di<EnvStore>();
-  late final _stage = di<StageStore>();
-  late final _timer = di<TimerService>();
+abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
+  late final _ops = dep<JournalOps>();
+  late final _json = dep<JournalJson>();
+  late final _device = dep<DeviceStore>();
+  late final _stage = dep<StageStore>();
+  late final _timer = dep<TimerService>();
 
   JournalStoreBase() {
+    _device.addOn(deviceChanged, onDeviceChanged);
+    _stage.addOnValue(routeChanged, onRouteChanged);
+    _timer.addHandler(_timerKey, onTimerFired);
+
     reactionOnStore((_) => filteredEntries, (entries) async {
       _ops.doReplaceEntries(entries);
     });
@@ -109,13 +115,11 @@ abstract class JournalStoreBase with Store, Traceable, Dependable {
     reactionOnStore((_) => devices, (devices) async {
       _ops.doDevicesChanged(devices);
     });
-
-    _timer.addHandler(_timerKey, maybeRefreshJournal);
   }
 
   @override
-  attach() {
-    depend<JournalOps>(JournalOps());
+  attach(Act act) {
+    depend<JournalOps>(getOps(act));
     depend<JournalJson>(JournalJson());
     depend<JournalStore>(this as JournalStore);
   }
@@ -157,28 +161,24 @@ abstract class JournalStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> maybeRefreshJournal(Trace parentTrace) async {
-    return await traceWith(parentTrace, "maybeRefreshJournal", (trace) async {
-      if (!_stage.isForeground) {
+  Future<void> onTimerFired(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onTimerFired", (trace) async {
+      final route = _stage.route;
+      if (!route.isForeground()) {
         _stopTimer();
         return;
       }
 
-      if (!_stage.route.isTop(StageTab.activity)) {
+      if (!_stage.route.isTab(StageTab.activity)) {
         _stopTimer();
         return;
       }
 
-      final now = DateTime.now();
-      if (refreshEnabled &&
-          now.difference(lastRefresh).compareTo(cfg.journalRefreshCooldown) >
-              0) {
+      if (refreshEnabled) {
         try {
           await fetch(trace);
-          lastRefresh = now;
-          trace.addEvent("refreshed");
           _rescheduleTimer();
-        } on Exception catch (e) {
+        } on Exception catch (_) {
           _rescheduleTimer();
         }
       }
@@ -186,16 +186,41 @@ abstract class JournalStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> enableRefresh(Trace parentTrace, bool enabled) async {
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isForeground()) return;
+    if (!route.isBecameTab(StageTab.activity)) return;
+    if (!refreshEnabled) return;
+
+    return await traceWith(parentTrace, "fetchJournal", (trace) async {
+      await onTimerFired(trace);
+    });
+  }
+
+  @action
+  Future<void> enableRefresh(Trace parentTrace) async {
     return await traceWith(parentTrace, "enableRefresh", (trace) async {
-      refreshEnabled = enabled;
-      if (refreshEnabled) {
-        await maybeRefreshJournal(trace);
-        _rescheduleTimer();
-      } else {
-        _stopTimer();
+      refreshEnabled = true;
+      await onTimerFired(trace);
+    });
+  }
+
+  @action
+  Future<void> disableRefresh(Trace parentTrace) async {
+    return await traceWith(parentTrace, "disableRefresh", (trace) async {
+      refreshEnabled = false;
+      _stopTimer();
+    });
+  }
+
+  @action
+  Future<void> onDeviceChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+      final enabled = _device.retention?.isEnabled() ?? false;
+      if (enabled && _stage.route.isTab(StageTab.activity)) {
+        await enableRefresh(trace);
+      } else if (!enabled) {
+        await disableRefresh(trace);
       }
-      trace.addAttribute("enabled", enabled);
     });
   }
 
@@ -245,9 +270,9 @@ abstract class JournalStoreBase with Store, Traceable, Dependable {
   }
 
   JournalEntryType _convertType(JsonJournalEntry e) {
-    if (e.action == "block" && e.list == _env.deviceTag) {
+    if (e.action == "block" && e.list == _device.deviceTag) {
       return JournalEntryType.blockedDenied;
-    } else if (e.action == "allow" && e.list == _env.deviceTag) {
+    } else if (e.action == "allow" && e.list == _device.deviceTag) {
       return JournalEntryType.passedAllowed;
     } else if (e.action == "block") {
       return JournalEntryType.blocked;

@@ -23,13 +23,15 @@ void main() {
   group("store", () {
     test("fetch", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockPlusGatewayOps();
         depend<PlusGatewayOps>(ops);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        di.registerSingleton<PlusGatewayJson>(json);
+        depend<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         expect(subject.gateways.isEmpty, true);
@@ -44,18 +46,20 @@ void main() {
 
     test("load", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockPlusGatewayOps();
         depend<PlusGatewayOps>(ops);
 
         final persistence = MockPersistenceService();
         when(persistence.load(any, any)).thenAnswer((_) =>
             Future.value("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="));
-        di.registerSingleton<PersistenceService>(persistence);
+        depend<PersistenceService>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        di.registerSingleton<PlusGatewayJson>(json);
+        depend<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(trace);
@@ -70,16 +74,18 @@ void main() {
 
     test("selectGateway", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockPlusGatewayOps();
         depend<PlusGatewayOps>(ops);
 
         final persistence = MockPersistenceService();
-        di.registerSingleton<PersistenceService>(persistence);
+        depend<PersistenceService>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        di.registerSingleton<PlusGatewayJson>(json);
+        depend<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(trace);

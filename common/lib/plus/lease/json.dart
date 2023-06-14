@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:common/env/env.dart';
 
+import '../../account/account.dart';
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
+import '../keypair/keypair.dart';
 
 class TooManyLeasesException implements Exception {}
 
@@ -84,20 +86,22 @@ class JsonLeasePayload {
 }
 
 class PlusLeaseJson {
-  late final _http = di<HttpService>();
-  late final _env = di<EnvStore>();
+  late final _http = dep<HttpService>();
+  late final _env = dep<EnvStore>();
+  late final _keypair = dep<PlusKeypairStore>();
+  late final _account = dep<AccountStore>();
 
   Future<List<JsonLease>> getLeases(Trace trace) async {
     final result = await _http.get(
-        trace, '$jsonUrl/v2/lease?account_id=${_env.currentUser}');
+        trace, '$jsonUrl/v2/lease?account_id=${_account.id}');
     return JsonLeaseEndpoint.fromJson(jsonDecode(result)).leases;
   }
 
   Future<JsonLease> postLease(Trace trace, String gatewayId) async {
     try {
       final payload = JsonLeasePayload(
-          accountId: _env.currentUser,
-          publicKey: _env.currentDevicePublicKey,
+          accountId: _account.id,
+          publicKey: _keypair.currentDevicePublicKey,
           gatewayId: gatewayId,
           alias: _env.deviceName);
 
@@ -116,8 +120,8 @@ class PlusLeaseJson {
 
   Future<void> deleteLeaseByGateway(Trace trace, String gatewayId) async {
     final payload = JsonLeasePayload(
-        accountId: _env.currentUser,
-        publicKey: _env.currentDevicePublicKey,
+        accountId: _account.id,
+        publicKey: _keypair.currentDevicePublicKey,
         gatewayId: gatewayId);
 
     await _http.request(trace, '$jsonUrl/v2/lease', HttpType.delete,

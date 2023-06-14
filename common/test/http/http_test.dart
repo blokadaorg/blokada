@@ -18,7 +18,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockHttpOps();
         when(ops.doGet(any)).thenAnswer((_) => Future.value("some-response"));
-        di.registerSingleton<HttpOps>(ops);
+        depend<HttpOps>(ops);
 
         final subject = PlatformHttpService();
 
@@ -32,7 +32,7 @@ void main() {
         final ops = MockHttpOps();
         when(ops.doRequest(any, any, any))
             .thenAnswer((_) => Future.value("some-response"));
-        di.registerSingleton<HttpOps>(ops);
+        depend<HttpOps>(ops);
 
         final subject = PlatformHttpService();
 
@@ -51,7 +51,7 @@ void main() {
         when(ops.doGet(any)).thenThrow(Exception("some-error"));
         when(ops.doRequest(any, any, any))
             .thenThrow(ArgumentError("not-exception"));
-        di.registerSingleton<HttpOps>(ops);
+        depend<HttpOps>(ops);
 
         final subject = PlatformHttpService();
 
@@ -71,7 +71,7 @@ void main() {
         when(service.get(any, any)).thenAnswer((_) => callCounter++ < 2
             ? Future.error(Exception("some-error"))
             : Future.value("some-response"));
-        di.registerSingleton<HttpService>(service);
+        depend<HttpService>(service);
 
         final subject = RepeatingHttpService(service,
             maxRetries: 1, waitTime: Duration.zero);
@@ -93,7 +93,7 @@ void main() {
         when(service.request(any, any, any)).thenAnswer((_) => callCounter++ < 1
             ? Future.error(Exception("some-error"))
             : Future.value("some-response"));
-        di.registerSingleton<HttpService>(service);
+        depend<HttpService>(service);
 
         final subject = RepeatingHttpService(service,
             maxRetries: 1, waitTime: Duration.zero);

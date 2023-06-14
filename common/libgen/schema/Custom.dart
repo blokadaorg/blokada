@@ -8,15 +8,3 @@ abstract class CustomOps {
   @async
   void doCustomDeniedChanged(List<String> denied);
 }
-
-@FlutterApi()
-abstract class CustomEvents {
-  @async
-  void onAllow(String domainName);
-
-  @async
-  void onDeny(String domainName);
-
-  @async
-  void onDelete(String domainName);
-}

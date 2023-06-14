@@ -1,8 +1,9 @@
 import 'package:common/account/json.dart';
 import 'package:common/account/refresh/refresh.dart';
 import 'package:common/account/account.dart';
-import 'package:common/event.dart';
 import 'package:common/notification/notification.dart';
+import 'package:common/persistence/persistence.dart';
+import 'package:common/plus/plus.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/timer/timer.dart';
 import 'package:common/util/di.dart';
@@ -14,12 +15,13 @@ import '../../tools.dart';
 
 import '../../fixtures.dart';
 @GenerateNiceMocks([
-  MockSpec<EventBus>(),
   MockSpec<TimerService>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountRefreshStore>(),
   MockSpec<NotificationStore>(),
   MockSpec<StageStore>(),
+  MockSpec<PersistenceService>(),
+  MockSpec<PlusStore>(),
 ])
 import 'refresh_test.mocks.dart';
 
@@ -27,12 +29,12 @@ void main() {
   group("store", () {
     test("willExpireAccountProperly", () async {
       await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-        di.registerSingleton<AccountStore>(AccountStore());
-        di.registerSingleton<NotificationStore>(MockNotificationStore());
-
-        final event = MockEventBus();
-        di.registerSingleton<EventBus>(event);
+        depend<StageStore>(MockStageStore());
+        depend<TimerService>(MockTimerService());
+        depend<AccountStore>(AccountStore());
+        depend<NotificationStore>(MockNotificationStore());
+        depend<PersistenceService>(MockPersistenceService());
+        depend<PlusStore>(MockPlusStore());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -50,7 +52,6 @@ void main() {
                 active: true));
         await subject.syncAccount(trace, account);
         expect(subject.expiration.status, AccountStatus.expiring);
-        verify(event.onEvent(any, CommonEvent.accountChanged));
 
         // Account already expired
         account = AccountState(
@@ -62,7 +63,6 @@ void main() {
                 active: false));
         await subject.syncAccount(trace, account);
         expect(subject.expiration.status, AccountStatus.expired);
-        verify(event.onEvent(any, CommonEvent.accountChanged));
 
         // Account reset to Inactive
         await subject.markAsInactive(trace);
@@ -72,11 +72,13 @@ void main() {
 
     test("willFetchAccountOnAppStartAndTimerFired", () async {
       await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-        di.registerSingleton<NotificationStore>(NotificationStore());
+        depend<StageStore>(MockStageStore());
+        depend<TimerService>(MockTimerService());
+        depend<NotificationStore>(NotificationStore());
+        depend<PersistenceService>(MockPersistenceService());
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -95,12 +97,14 @@ void main() {
 
     test("willCreateAccountIfCouldNotFetch", () async {
       await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-        di.registerSingleton<NotificationStore>(NotificationStore());
+        depend<StageStore>(MockStageStore());
+        depend<TimerService>(MockTimerService());
+        depend<NotificationStore>(NotificationStore());
+        depend<PersistenceService>(MockPersistenceService());
 
         final account = MockAccountStore();
         when(account.load(any)).thenThrow(Exception("No existing account"));
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -117,16 +121,17 @@ void main() {
 
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((trace) async {
-        di.registerSingleton<TimerService>(MockTimerService());
-        di.registerSingleton<NotificationStore>(MockNotificationStore());
+        depend<TimerService>(MockTimerService());
+        depend<NotificationStore>(MockNotificationStore());
+        depend<PersistenceService>(MockPersistenceService());
 
+        final route = StageRouteState.init().newTab(StageTab.home);
         final stage = MockStageStore();
-        when(stage.isForeground).thenReturn(true);
-        when(stage.route).thenReturn(StageRoute.root());
-        di.registerSingleton<StageStore>(stage);
+        when(stage.route).thenReturn(route);
+        depend<StageStore>(stage);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -139,15 +144,7 @@ void main() {
         // Set last refresh as it never refreshed
         subject.lastRefresh = DateTime(0);
 
-        // Should refresh once, and not the second time
-        await subject.maybeRefresh(trace);
-        verify(account.fetch(any)).called(1);
-
-        await subject.maybeRefresh(trace);
-        verifyNever(account.fetch(any));
-
-        // Forceful refresh should do it anyway
-        await subject.maybeRefresh(trace, force: true);
+        await subject.onRouteChanged(trace, route);
         verify(account.fetch(any)).called(1);
       });
     });

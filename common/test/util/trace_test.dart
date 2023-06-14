@@ -1,7 +1,7 @@
+import 'package:common/tracer/collectors.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
-import 'package:common/util/tracer.dart' as tracer;
-import 'package:common/util/tracer.dart';
+import 'package:common/tracer/tracer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final _tracer = dep<Tracer>();
@@ -10,18 +10,18 @@ void main() {
   setUp(() async {
     await di.reset();
     depend<Tracer>(DefaultTracer());
-    depend<TraceCollector>(StdoutCollector());
+    depend<TraceCollector>(StdoutTraceCollector());
   });
 
   group("trace", () {
     test("nested tracing basic case", () async {
-      final tParent = _tracer.newTrace("root", "parent");
+      final tParent = _tracer.newTrace("module1", "parent");
       tParent.addEvent("parent event");
 
-      final tMiddle = tParent.start("middle");
+      final tMiddle = tParent.start("module1", "middle");
       tMiddle.addEvent("middle event");
 
-      final tChild = tMiddle.start("child");
+      final tChild = tMiddle.start("module1", "child");
       tChild.addEvent("child event");
 
       await tChild.end();
@@ -30,17 +30,18 @@ void main() {
     });
 
     test("will return error unfinished trace", () async {
-      final tParent = _tracer.newTrace("root", "parent");
-      final tMiddle = tParent.start("middle");
-      final tMiddle2 = tParent.start("middle2");
-      final tMiddle2Child = tMiddle2.start("middle2Child");
-      final tChild = tMiddle.start("child");
+      final tParent = _tracer.newTrace("module1", "parent");
+      final tMiddle = tParent.start("module1", "middle");
+      final tMiddle2 = tParent.start("module1", "middle2");
+      final tMiddle2Child = tMiddle2.start("module1", "middle2Child");
+      final tChild = tMiddle.start("module1", "child");
 
       try {
         await tParent.end();
         fail("exception not thrown");
       } catch (e) {
-        expect(e.toString(), "Bad state: Trace parent has unfinished children");
+        expect(
+            e.toString(), "Bad state: Trace parent has 4 unfinished children");
       }
 
       await tChild.end();
@@ -49,7 +50,8 @@ void main() {
         await tParent.end();
         fail("exception not thrown");
       } catch (e) {
-        expect(e.toString(), "Bad state: Trace parent has unfinished children");
+        expect(
+            e.toString(), "Bad state: Trace parent has 3 unfinished children");
       }
 
       await tMiddle2Child.end();

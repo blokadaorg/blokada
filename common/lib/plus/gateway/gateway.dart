@@ -2,9 +2,14 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../persistence/persistence.dart';
+import '../../stage/channel.pg.dart';
+import '../../stage/stage.dart';
+import '../../util/config.dart';
+import '../../util/cooldown.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
 import '../../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -37,12 +42,16 @@ typedef GatewayId = String;
 
 class PlusGatewayStore = PlusGatewayStoreBase with _$PlusGatewayStore;
 
-abstract class PlusGatewayStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<PlusGatewayOps>();
-  late final _json = di<PlusGatewayJson>();
-  late final _persistence = di<PersistenceService>();
+abstract class PlusGatewayStoreBase
+    with Store, Traceable, Dependable, Cooldown {
+  late final _ops = dep<PlusGatewayOps>();
+  late final _json = dep<PlusGatewayJson>();
+  late final _persistence = dep<PersistenceService>();
+  late final _stage = dep<StageStore>();
 
   PlusGatewayStoreBase() {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+
     reactionOnStore((_) => gatewayChanges, (_) async {
       await _ops.doGatewaysChanged(gateways);
     });
@@ -53,8 +62,8 @@ abstract class PlusGatewayStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
-    depend<PlusGatewayOps>(PlusGatewayOps());
+  attach(Act act) {
+    depend<PlusGatewayOps>(getOps(act));
     depend<PlusGatewayJson>(PlusGatewayJson());
     depend<PlusGatewayStore>(this as PlusGatewayStore);
   }
@@ -103,6 +112,23 @@ abstract class PlusGatewayStoreBase with Store, Traceable, Dependable {
       } on StateError catch (_) {
         throw Exception("Unknown gateway: $id");
       }
+    });
+  }
+
+  @action
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (route.isModal(StageModal.plusLocationSelect)) {
+      return await traceWith(parentTrace, "fetchGatewaysOnModal",
+          (trace) async {
+        await fetch(trace);
+      });
+    }
+
+    if (!route.isBecameForeground()) return;
+    if (!isCooledDown(cfg.plusGatewayRefreshCooldown)) return;
+
+    return await traceWith(parentTrace, "fetchGateways", (trace) async {
+      await fetch(trace);
     });
   }
 }

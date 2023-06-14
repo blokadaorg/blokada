@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:common/env/env.dart';
+import 'package:common/account/account.dart';
 import 'package:common/http/http.dart';
 import 'package:common/json/json.dart';
 import 'package:common/plus/lease/json.dart';
@@ -13,6 +13,7 @@ import '../../tools.dart';
 import 'fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<HttpService>(),
+  MockSpec<AccountStore>(),
 ])
 import 'json_test.mocks.dart';
 
@@ -40,11 +41,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureLeaseEndpoint));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final subject = PlusLeaseJson();
         final entries = await subject.getLeases(trace);
@@ -61,11 +62,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final subject = PlusLeaseJson();
 

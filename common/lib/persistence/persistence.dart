@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../util/di.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 abstract class PersistenceService {
@@ -13,6 +14,8 @@ abstract class PersistenceService {
 }
 
 abstract class SecurePersistenceService extends PersistenceService {}
+
+abstract class LocalPersistenceService extends PersistenceService {}
 
 /// PlatformPersistenceImpl
 ///
@@ -32,13 +35,12 @@ class PlatformPersistence extends SecurePersistenceService
   PlatformPersistence({required this.isSecure, required this.isBackup});
 
   @override
-  attach() {
-    depend<PersistenceOps>(PersistenceOps());
+  attach(Act act) {
+    depend<PersistenceOps>(getOps(act));
     depend<PersistenceService>(this);
-    depend<SecurePersistenceService>(this);
   }
 
-  late final _ops = di<PersistenceOps>();
+  late final _ops = dep<PersistenceOps>();
 
   @override
   Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key) async {

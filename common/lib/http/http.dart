@@ -1,7 +1,12 @@
 import 'dart:io';
 
+import 'package:common/json/json.dart';
+import 'package:flutter/services.dart';
+
+import '../util/async.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 enum HttpType { post, put, delete }
@@ -37,13 +42,19 @@ abstract class HttpService {
 ///
 /// It also adds the User-Agent header to every request.
 class PlatformHttpService with HttpService, Traceable {
-  late final _ops = di<HttpOps>();
+  late final _ops = dep<HttpOps>();
 
   @override
   Future<String> get(Trace trace, String url) async {
     return await traceWith(trace, "get", (trace) async {
-      trace.addAttribute("url", url);
-      return await _ops.doGet(url);
+      trace.addAttribute("url", url, sensitive: true);
+      _addEndpointAttribute(trace, url);
+
+      try {
+        return await _ops.doGet(url);
+      } on PlatformException catch (e) {
+        throw _mapException(e);
+      }
     });
   }
 
@@ -51,11 +62,35 @@ class PlatformHttpService with HttpService, Traceable {
   Future<String> request(Trace trace, String url, HttpType type,
       {String? payload}) async {
     return await traceWith(trace, "postOrPut", (trace) async {
-      trace.addAttribute("url", url);
-      trace.addAttribute("payload", payload);
       trace.addAttribute("type", type);
-      return await _ops.doRequest(url, payload, type.name);
+      trace.addAttribute("url", url, sensitive: true);
+      trace.addAttribute("payload", payload, sensitive: true);
+      _addEndpointAttribute(trace, url);
+
+      try {
+        return await _ops.doRequest(url, payload, type.name);
+      } on PlatformException catch (e) {
+        throw _mapException(e);
+      }
     });
+  }
+
+  _addEndpointAttribute(Trace trace, String url) {
+    if (url.startsWith(jsonUrl)) {
+      final end = url.indexOf("?");
+      final endpoint = url.substring(jsonUrl.length, (end == -1) ? null : end);
+      trace.addAttribute("endpoint", endpoint);
+    }
+  }
+
+  Exception _mapException(PlatformException e) {
+    final msg = e.code;
+    if (msg.startsWith("code:")) {
+      final code = int.parse(msg.substring(5));
+      return HttpCodeException(code, msg);
+    } else {
+      return e;
+    }
   }
 }
 
@@ -74,8 +109,8 @@ class RepeatingHttpService with HttpService, Dependable {
   });
 
   @override
-  void attach() {
-    depend<HttpOps>(HttpOps());
+  void attach(Act act) {
+    depend<HttpOps>(getOps(act));
     depend<HttpService>(this);
   }
 
@@ -100,7 +135,7 @@ class RepeatingHttpService with HttpService, Dependable {
         if (e.shouldRetry() && retries < maxRetries) {
           retries++;
           trace.addEvent("retrying request");
-          sleep(waitTime * retries);
+          await sleepAsync(waitTime * retries);
         } else {
           rethrow;
         }
@@ -108,7 +143,7 @@ class RepeatingHttpService with HttpService, Dependable {
         if (retries < maxRetries) {
           retries++;
           trace.addEvent("retrying request");
-          sleep(waitTime * retries);
+          await sleepAsync(waitTime * retries);
         } else {
           rethrow;
         }

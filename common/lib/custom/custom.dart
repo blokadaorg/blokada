@@ -2,9 +2,11 @@ import 'package:mobx/mobx.dart';
 
 import '../stage/stage.dart';
 import '../util/config.dart';
+import '../util/cooldown.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -12,10 +14,10 @@ part 'custom.g.dart';
 
 class CustomStore = CustomStoreBase with _$CustomStore;
 
-abstract class CustomStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<CustomOps>();
-  late final _json = di<CustomJson>();
-  late final _stage = di<StageStore>();
+abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
+  late final _ops = dep<CustomOps>();
+  late final _json = dep<CustomJson>();
+  late final _stage = dep<StageStore>();
 
   CustomStoreBase() {
     reactionOnStore((_) => allowed, (allowed) async {
@@ -25,12 +27,14 @@ abstract class CustomStoreBase with Store, Traceable, Dependable {
     reactionOnStore((_) => denied, (denied) async {
       await _ops.doCustomDeniedChanged(denied);
     });
+
+    _stage.addOnValue(routeChanged, onRouteChanged);
   }
 
   @override
-  attach() {
+  attach(Act act) {
+    depend<CustomOps>(getOps(act));
     depend<CustomJson>(CustomJson());
-    depend<CustomOps>(CustomOps());
     depend<CustomStore>(this as CustomStore);
   }
 
@@ -67,8 +71,8 @@ abstract class CustomStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> allow(Trace parentTrace, String domainName) async {
     return await traceWith(parentTrace, "allow", (trace) async {
-      await _json.postEntry(trace,
-          JsonCustomEntry(action: "fallthrough", domainName: domainName));
+      await _json.postEntry(
+          trace, JsonCustomEntry(action: "allow", domainName: domainName));
       await fetch(trace);
     });
   }
@@ -92,23 +96,13 @@ abstract class CustomStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> maybeRefreshCustom(Trace parentTrace) async {
-    return await traceWith(parentTrace, "maybeRefreshCustom", (trace) async {
-      if (!_stage.isForeground) {
-        return;
-      }
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isForeground()) return;
+    if (!route.isBecameTab(StageTab.activity)) return;
+    if (!isCooledDown(cfg.customRefreshCooldown)) return;
 
-      if (!_stage.route.isTop(StageTab.activity)) {
-        return;
-      }
-
-      final now = DateTime.now();
-      if (now.difference(lastRefresh).compareTo(cfg.customRefreshCooldown) >
-          0) {
-        await fetch(trace);
-        lastRefresh = now;
-        trace.addEvent("refreshed");
-      }
+    return await traceWith(parentTrace, "fetchCustom", (trace) async {
+      await fetch(trace);
     });
   }
 }

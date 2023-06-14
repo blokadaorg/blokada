@@ -52,6 +52,10 @@ dependencies:
   get_it: ^7.2.0
   collection: ^1.17.0
   http: ^1.0.0
+  dartx: ^1.1.0
+  mocktail: ^0.3.0
+  dismissible_page: ^1.0.2
+  flutter_verification_code: ^1.1.6
 
 dev_dependencies:
   flutter_test:

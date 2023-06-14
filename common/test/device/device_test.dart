@@ -1,7 +1,7 @@
+import 'package:common/account/account.dart';
 import 'package:common/device/channel.pg.dart';
 import 'package:common/device/device.dart';
 import 'package:common/device/json.dart';
-import 'package:common/event.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,10 +10,10 @@ import 'package:mockito/mockito.dart';
 
 import '../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<EventBus>(),
   MockSpec<DeviceJson>(),
   MockSpec<DeviceOps>(),
   MockSpec<StageStore>(),
+  MockSpec<AccountStore>(),
 ])
 import 'device_test.mocks.dart';
 
@@ -24,16 +24,16 @@ void main() {
   group("store", () {
     test("willUpdateObservablesOnFetch", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
+        depend<StageStore>(MockStageStore());
+        depend<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        di.registerSingleton<DeviceJson>(api);
+        depend<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        di.registerSingleton<DeviceOps>(ops);
+        depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
 
@@ -48,16 +48,16 @@ void main() {
 
     test("willFetchOnCallsToActions", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
+        depend<StageStore>(MockStageStore());
+        depend<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        di.registerSingleton<DeviceJson>(api);
+        depend<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        di.registerSingleton<DeviceOps>(ops);
+        depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
 
@@ -78,15 +78,15 @@ void main() {
   group("storeErrors", () {
     test("willNotUpdateObservablesOnFetchError", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
+        depend<StageStore>(MockStageStore());
+        depend<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        di.registerSingleton<DeviceJson>(api);
+        depend<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        di.registerSingleton<DeviceOps>(ops);
+        depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
 
@@ -101,15 +101,15 @@ void main() {
 
     test("willPropagateFetchErrorOnCallsToActions", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
+        depend<StageStore>(MockStageStore());
+        depend<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        di.registerSingleton<DeviceJson>(api);
+        depend<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        di.registerSingleton<DeviceOps>(ops);
+        depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
 

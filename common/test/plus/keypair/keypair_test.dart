@@ -1,8 +1,8 @@
-import 'package:common/env/env.dart';
-import 'package:common/event.dart';
+import 'package:common/account/account.dart';
 import 'package:common/persistence/persistence.dart';
 import 'package:common/plus/keypair/channel.pg.dart';
 import 'package:common/plus/keypair/keypair.dart';
+import 'package:common/plus/plus.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,10 +10,11 @@ import 'package:mockito/mockito.dart';
 
 import '../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<EventBus>(),
   MockSpec<PlusKeypairStore>(),
   MockSpec<PlusKeypairOps>(),
   MockSpec<SecurePersistenceService>(),
+  MockSpec<AccountStore>(),
+  MockSpec<PlusStore>(),
 ])
 import 'keypair_test.mocks.dart';
 
@@ -24,9 +25,6 @@ void main() {
   group("store", () {
     test("generate", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final persistence = MockSecurePersistenceService();
         depend<SecurePersistenceService>(persistence);
 
@@ -35,8 +33,11 @@ void main() {
             .thenAnswer((_) => Future.value(_fixtureKeypair));
         depend<PlusKeypairOps>(ops);
 
-        final env = EnvStore();
-        depend<EnvStore>(env);
+        final account = MockAccountStore();
+        depend<AccountStore>(account);
+
+        final plus = MockPlusStore();
+        depend<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
         verifyNever(ops.doGenerateKeypair());
@@ -45,36 +46,32 @@ void main() {
         verify(ops.doGenerateKeypair()).called(1);
         verify(persistence.save(any, any, any)).called(1);
         expect(subject.currentKeypair, isNotNull);
-        expect(env.devicePublicKey, "publicKey");
       });
     });
 
     test("load", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any)).thenAnswer((_) => Future.value(
             {"publicKey": "publicKey", "privateKey": "privateKey"}));
         depend<SecurePersistenceService>(persistence);
 
-        final env = EnvStore();
-        depend<EnvStore>(env);
+        final account = MockAccountStore();
+        depend<AccountStore>(account);
+
+        final plus = MockPlusStore();
+        depend<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
-        expect(env.devicePublicKey, null);
+        expect(subject.currentKeypair, null);
 
         await subject.load(trace);
-        expect(env.devicePublicKey, "publicKey");
+        expect(subject.currentDevicePublicKey, "publicKey");
       });
     });
 
     test("loadWhenNoPersistence", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any))
             .thenThrow(Exception("not found"));
@@ -85,8 +82,11 @@ void main() {
             .thenAnswer((_) => Future.value(_fixtureKeypair));
         depend<PlusKeypairOps>(ops);
 
-        final env = EnvStore();
-        depend<EnvStore>(env);
+        final account = MockAccountStore();
+        depend<AccountStore>(account);
+
+        final plus = MockPlusStore();
+        depend<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
 

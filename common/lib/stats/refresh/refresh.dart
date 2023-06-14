@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
+import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
 import '../../util/config.dart';
@@ -77,10 +78,15 @@ class StatsRefreshStrategy {
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
 abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
-  late final _stats = di<StatsStore>();
-  late final _timer = di<TimerService>();
+  late final _stats = dep<StatsStore>();
+  late final _timer = dep<TimerService>();
+  late final _stage = dep<StageStore>();
+  late final _account = dep<AccountStore>();
 
   StatsRefreshStoreBase() {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+    _account.addOn(accountChanged, onAccountChanged);
+
     _timer.addHandler(keyTimer, (trace) async {
       await _stats.fetch(trace);
       await statsRefreshed(trace);
@@ -88,7 +94,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
+  attach(Act act) {
     depend<StatsRefreshStore>(this as StatsRefreshStore);
   }
 
@@ -115,16 +121,37 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> updateAccount(Trace parentTrace, bool isActive) async {
-    return await traceWith(parentTrace, "updateAccount", (trace) async {
-      strategy = strategy.update(isAccountActive: isActive);
-      _rescheduleTimer(trace);
-    });
+    return await traceWith(parentTrace, "updateAccount", (trace) async {});
   }
 
   @action
   Future<void> statsRefreshed(Trace parentTrace) async {
     return await traceWith(parentTrace, "statsRefreshed", (trace) async {
       strategy = strategy.statsRefreshed();
+      _rescheduleTimer(trace);
+    });
+  }
+
+  @action
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    return await traceWith(parentTrace, "updateStatsRefreshFreq",
+        (trace) async {
+      await updateForeground(trace, route.isForeground());
+      await updateScreen(
+        trace,
+        isHome: route.isTab(StageTab.home),
+        isStats: route.isKnown(StageKnownRoute.homeStats),
+      );
+    });
+  }
+
+  @action
+  Future<void> onAccountChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onAccountChanged", (trace) async {
+      final account = _account.account!;
+
+      final isActive = account.type.isActive();
+      strategy = strategy.update(isAccountActive: isActive);
       _rescheduleTimer(trace);
     });
   }

@@ -1,3 +1,4 @@
+import 'package:common/device/device.dart';
 import 'package:common/env/env.dart';
 import 'package:common/journal/channel.pg.dart';
 import 'package:common/journal/journal.dart';
@@ -17,6 +18,8 @@ import 'fixtures.dart';
   MockSpec<JournalJson>(),
   MockSpec<TimerService>(),
   MockSpec<StageStore>(),
+  MockSpec<EnvStore>(),
+  MockSpec<DeviceStore>(),
 ])
 import 'journal_test.mocks.dart';
 
@@ -24,20 +27,23 @@ void main() {
   group("store", () {
     test("willGroupEntriesByRequests", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+        depend<DeviceStore>(MockDeviceStore());
+
         final ops = MockJournalOps();
         depend<JournalOps>(ops);
 
         final timer = MockTimerService();
         depend<TimerService>(timer);
 
-        final env = EnvStore();
-        env.setDeviceTag(trace, "deviceName");
-        di.registerSingleton<EnvStore>(env);
+        final env = MockEnvStore();
+        when(env.deviceName).thenReturn("deviceName");
+        depend<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        di.registerSingleton<JournalJson>(json);
+        depend<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(trace);
@@ -52,20 +58,23 @@ void main() {
 
     test("willFilterEntries", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+        depend<DeviceStore>(MockDeviceStore());
+
         final ops = MockJournalOps();
         depend<JournalOps>(ops);
 
         final timer = MockTimerService();
         depend<TimerService>(timer);
 
-        final env = EnvStore();
-        env.setDeviceTag(trace, "deviceName");
-        di.registerSingleton<EnvStore>(env);
+        final env = MockEnvStore();
+        when(env.deviceName).thenReturn("deviceName");
+        depend<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        di.registerSingleton<JournalJson>(json);
+        depend<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(trace);
@@ -113,20 +122,23 @@ void main() {
 
     test("willSortEntries", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+        depend<DeviceStore>(MockDeviceStore());
+
         final ops = MockJournalOps();
         depend<JournalOps>(ops);
 
         final timer = MockTimerService();
         depend<TimerService>(timer);
 
-        final env = EnvStore();
-        env.setDeviceTag(trace, "deviceName");
-        di.registerSingleton<EnvStore>(env);
+        final env = MockEnvStore();
+        when(env.deviceName).thenReturn("deviceName");
+        depend<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        di.registerSingleton<JournalJson>(json);
+        depend<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(trace);
@@ -148,6 +160,8 @@ void main() {
 
     test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
+        depend<DeviceStore>(MockDeviceStore());
+
         final ops = MockJournalOps();
         depend<JournalOps>(ops);
 
@@ -158,30 +172,20 @@ void main() {
         depend<TimerService>(timer);
 
         final stage = MockStageStore();
-        when(stage.isForeground).thenReturn(true);
-        when(stage.route).thenReturn(StageRoute.forTab(StageTab.activity));
+        when(stage.route)
+            .thenReturn(StageRouteState.init().newTab(StageTab.activity));
         depend<StageStore>(stage);
 
         final subject = JournalStore();
         verifyNever(json.getEntries(any));
 
         // Won't refresh if not enabled
-        await subject.maybeRefreshJournal(trace);
+        await subject.onDeviceChanged(trace);
         verifyNever(json.getEntries(any));
 
         // But will, if enabled
         await subject.enableRefresh(trace, true);
-        await subject.maybeRefreshJournal(trace);
-        verify(json.getEntries(any));
-
-        // Then it wont refresh (until cooldown time passed)
-        await subject.maybeRefreshJournal(trace);
-        verifyNever(json.getEntries(any));
-
-        // Imagine cooldown passed, should refresh again
-        subject.lastRefresh =
-            DateTime.now().subtract(const Duration(seconds: 10));
-        await subject.maybeRefreshJournal(trace);
+        await subject.onDeviceChanged(trace);
         verify(json.getEntries(any));
       });
     });

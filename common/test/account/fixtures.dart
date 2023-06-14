@@ -12,6 +12,12 @@ const fixtureJsonAccount = '''{
   "payment_source":"internal"
 }''';
 
+const fixtureJsonAccountLibre = '''{
+  "id":"mockedmocked",
+  "active":false,
+  "type":"libre"
+}''';
+
 const fixtureJsonAccount2 = '''{
   "id":"mocked2",
   "active":false,

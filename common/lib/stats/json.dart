@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../account/account.dart';
 import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
@@ -115,13 +116,13 @@ class JsonDps {
 }
 
 class StatsJson {
-  late final _http = di<HttpService>();
-  late final _env = di<EnvStore>();
+  late final _http = dep<HttpService>();
+  late final _account = dep<AccountStore>();
 
   Future<JsonStatsEndpoint> getStats(
       Trace trace, String since, String downsample) async {
     final data = await _http.get(trace,
-        "$jsonUrl/v2/stats?account_id=${_env.currentUser}&since=$since&downsample=$downsample");
+        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample");
     return JsonStatsEndpoint.fromJson(jsonDecode(data));
   }
 }

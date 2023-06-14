@@ -21,15 +21,3 @@ abstract class DeckOps {
   @async
   void doDecksChanged(List<Deck> decks);
 }
-
-@FlutterApi()
-abstract class DeckEvents {
-  @async
-  void onEnableDeck(String deckId, bool enable);
-
-  @async
-  void onEnableList(String listId, bool enable);
-
-  @async
-  void onToggleListByTag(String deckId, String tag);
-}

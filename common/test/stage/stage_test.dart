@@ -1,113 +1,222 @@
-import 'package:common/event.dart';
+import 'dart:async';
+
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
+import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
 import '../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<EventBus>(),
   MockSpec<StageOps>(),
 ])
 import 'stage_test.mocks.dart';
 
 void main() {
   group("store", () {
-    test("setForeground", () async {
+    test("setBackground", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final ops = MockStageOps();
         depend<StageOps>(ops);
 
         final subject = StageStore();
         subject.setReady(trace, true);
-        expect(subject.isForeground, false);
+        expect(subject.route.isForeground(), false);
 
-        await subject.setForeground(trace, true);
-        expect(subject.isForeground, true);
+        await subject.setRoute(trace, "home");
+        expect(subject.route.isForeground(), true);
 
-        await subject.setForeground(trace, false);
-        expect(subject.isForeground, false);
+        await subject.setBackground(trace);
+        expect(subject.route.isForeground(), false);
       });
     });
 
     test("setRoute", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final ops = MockStageOps();
         depend<StageOps>(ops);
 
         final subject = StageStore();
         subject.setReady(trace, true);
-        expect(subject.route.tab, StageTab.root);
 
         await subject.setRoute(trace, "activity");
-        expect(subject.route.tab, StageTab.activity);
+        expect(subject.route.isBecameTab(StageTab.activity), true);
 
         await subject.setRoute(trace, "settings");
-        expect(subject.route.tab, StageTab.settings);
+        expect(subject.route.isBecameTab(StageTab.settings), true);
 
         await subject.setRoute(trace, "settings/test");
-        expect(subject.route.tab, StageTab.settings);
-        expect(subject.route.payload, "test");
+        expect(subject.route.isTab(StageTab.settings), true);
+        expect(subject.route.route.payload, "test");
       });
     });
 
     test("showModal", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final ops = MockStageOps();
         depend<StageOps>(ops);
 
         final subject = StageStore();
-        expect(subject.modal, StageModal.none);
+        expect(subject.route.modal, null);
 
-        await subject.showModalNow(trace, StageModal.accountInitFailed);
-        expect(subject.modal, StageModal.accountInitFailed);
+        _simulateConfirmation(() async {
+          await subject.modalShown(trace, StageModal.plusLocationSelect);
+        });
 
-        await subject.queueModal(trace, StageModal.accountExpired);
-        expect(subject.modal, StageModal.accountInitFailed);
+        await subject.showModal(trace, StageModal.plusLocationSelect);
+        expect(subject.route.modal, StageModal.plusLocationSelect);
+
+        _simulateConfirmation(() async {
+          await subject.modalDismissed(trace);
+        });
 
         await subject.dismissModal(trace);
-        expect(subject.modal, StageModal.accountExpired);
-
-        await subject.dismissModal(trace);
-        expect(subject.modal, StageModal.none);
-
-        await subject.queueModal(trace, StageModal.accountExpired);
-        expect(subject.modal, StageModal.accountExpired);
+        expect(subject.route.modal, null);
       });
     });
 
-    test("dismissModal", () async {
+    test("advancedModalManagement", () async {
       await withTrace((trace) async {
-        final event = MockEventBus();
-        depend<EventBus>(event);
-
         final ops = MockStageOps();
         depend<StageOps>(ops);
 
         final subject = StageStore();
-        expect(subject.modal, StageModal.none);
+        expect(subject.route.modal, null);
 
-        await subject.showModalNow(trace, StageModal.payment);
-        expect(subject.modal, StageModal.payment);
+        _simulateConfirmation(() async {
+          await subject.modalShown(trace, StageModal.help);
+        });
 
-        // We need to ignore some platform events with a cooldown time as they
-        // are duplicated.
-        await subject.dismissModal(trace, byPlatform: true);
-        expect(subject.modal, StageModal.payment);
+        await subject.showModal(trace, StageModal.help);
+        expect(subject.route.modal, StageModal.help);
 
-        await subject.dismissModal(trace, byPlatform: false);
-        expect(subject.modal, StageModal.none);
+        // User having one sheet opened and opening another one
+        _simulateConfirmation(() async {
+          await subject.modalDismissed(trace);
+          await sleepAsync(const Duration(milliseconds: 600));
+          _simulateConfirmation(() async {
+            await subject.modalShown(trace, StageModal.plusLocationSelect);
+          });
+        });
+        await subject.showModal(trace, StageModal.plusLocationSelect);
+        expect(subject.route.modal, StageModal.plusLocationSelect);
+
+        // Same but manual dismiss
+        _simulateConfirmation(() async {
+          await subject.modalDismissed(trace);
+        });
+        await subject.dismissModal(trace);
+        _simulateConfirmation(() async {
+          await subject.modalShown(trace, StageModal.help);
+        });
+        await subject.showModal(trace, StageModal.help);
+        expect(subject.route.modal, StageModal.help);
       });
     });
+  });
+
+  group("stageRouteState", () {
+    test("basicTest", () async {
+      await withTrace((trace) async {
+        // Init state (background)
+        dynamic route = StageRouteState.init();
+
+        expect(route.isForeground(), false);
+        expect(route.isBecameForeground(), false);
+        expect(route.isTab(StageTab.home), false);
+        expect(route.isBecameTab(StageTab.home), false);
+        expect(route.isMainRoute(), true);
+
+        // Opened home tab (foreground)
+        route = route.newTab(StageTab.home);
+
+        expect(route.isForeground(), true);
+        expect(route.isBecameForeground(), true);
+        expect(route.isTab(StageTab.home), true);
+        expect(route.isBecameTab(StageTab.home), true);
+        expect(route.isMainRoute(), true);
+
+        // Opened a sheet, same tab
+        route = route.newModal(StageModal.plusLocationSelect);
+
+        expect(route.isForeground(), true);
+        expect(route.isBecameForeground(), false);
+        expect(route.isBecameTab(StageTab.home), false);
+        expect(route.isTab(StageTab.home), true);
+        expect(route.isMainRoute(), false);
+        expect(route.isModal(StageModal.plusLocationSelect), true);
+
+        // Dismissed the sheet, same tab, should not report this tab again
+        route = route.newModal(null);
+
+        expect(route.isBecameForeground(), false);
+        expect(route.isBecameTab(StageTab.home), false);
+        expect(route.isTab(StageTab.home), true);
+        expect(route.isMainRoute(), true);
+        expect(route.isModal(StageModal.plusLocationSelect), false);
+
+        // Another tab
+        route = route.newTab(StageTab.settings);
+
+        expect(route.isBecameForeground(), false);
+        expect(route.isBecameTab(StageTab.settings), true);
+        expect(route.isMainRoute(), true);
+
+        // Deep navigation within tab
+        route = route.newRoute(StageRoute.fromPath("settings/account"));
+
+        expect(route.isBecameForeground(), false);
+        expect(route.isBecameTab(StageTab.settings), false);
+        expect(route.isTab(StageTab.settings), true);
+        expect(route.isMainRoute(), false);
+        expect(route.route.payload, "account");
+
+        // Background
+        route = route.newBg();
+
+        expect(route.isForeground(), false);
+        expect(route.isBecameForeground(), false);
+
+        // Came back to deep navigation, should report this tab again
+        route = route.newRoute(StageRoute.fromPath("settings/account"));
+
+        expect(route.isBecameForeground(), true);
+        expect(route.isBecameTab(StageTab.settings), true);
+        expect(route.isMainRoute(), false);
+
+        // Navigate home, open a sheet, and then go bg
+        route = route.newTab(StageTab.home);
+        route = route.newModal(StageModal.plusLocationSelect);
+        route = route.newBg();
+
+        expect(route.isForeground(), false);
+        expect(route.isBecameForeground(), false);
+        expect(route.isModal(StageModal.plusLocationSelect), true);
+        expect(route.isBecameModal(StageModal.plusLocationSelect), false);
+        expect(route.isMainRoute(), false);
+
+        // Coming back to foreground
+        route = route.newTab(StageTab.home);
+
+        expect(route.isForeground(), true);
+        expect(route.isBecameForeground(), true);
+        expect(route.isModal(StageModal.plusLocationSelect), true);
+        expect(route.isBecameModal(StageModal.plusLocationSelect), false);
+        expect(route.isMainRoute(), false);
+
+        // Open another sheet
+        route = route.newModal(StageModal.help);
+        expect(route.isModal(StageModal.help), true);
+        expect(route.isBecameModal(StageModal.help), true);
+      });
+    });
+  });
+}
+
+_simulateConfirmation(Function callback) {
+  // Simulate the confirmation coming after a while
+  Timer(const Duration(milliseconds: 1), () async {
+    await callback();
   });
 }

@@ -33,7 +33,7 @@ _createFixtureConfig({String gw = "gw"}) => VpnConfig(
 
 void main() {
   group("store", () {
-    test("setConfigWillQueueIfNotReady", () async {
+    test("setVpnConfigWillQueueIfNotReady", () async {
       await withTrace((trace) async {
         final ops = MockPlusVpnOps();
         depend<PlusVpnOps>(ops);
@@ -43,13 +43,13 @@ void main() {
 
         // First call will queue up because the status is not ready
         final subject = PlusVpnStore();
-        await subject.setConfig(trace, _createFixtureConfig());
+        await subject.setVpnConfig(trace, _createFixtureConfig());
         verifyNever(ops.doSetVpnConfig(any));
 
         // Several calls should keep only the latest config
         final newConfig = _createFixtureConfig();
         newConfig.deviceTag = "newTag";
-        await subject.setConfig(trace, newConfig);
+        await subject.setVpnConfig(trace, newConfig);
         verifyNever(ops.doSetVpnConfig(any));
 
         // Simulate the status coming after a while
@@ -64,33 +64,6 @@ void main() {
       });
     });
 
-    test("setConfigWillMeasureTime", () async {
-      await withTrace((trace) async {
-        final ops = MockPlusVpnOps();
-        depend<PlusVpnOps>(ops);
-
-        depend<AppStore>(MockAppStore());
-
-        final timer = MockTimerService();
-        depend<TimerService>(timer);
-
-        final subject = PlusVpnStore();
-        await subject.setActualStatus(trace, "deactivated");
-        await subject.setConfig(trace, _createFixtureConfig());
-        verify(ops.doSetVpnConfig(any)).called(1);
-        verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(1);
-
-        // Will unset timer even on fail
-        when(ops.doSetVpnConfig(any)).thenThrow(Exception());
-        await expectLater(
-            subject.setConfig(trace, _createFixtureConfig(gw: "gw2")),
-            throwsException);
-        verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(1);
-      });
-    });
-
     test("setVpnActiveWillQueueWhenNotReady", () async {
       await withTrace((trace) async {
         final ops = MockPlusVpnOps();
@@ -102,11 +75,11 @@ void main() {
         depend<TimerService>(timer);
 
         final subject = PlusVpnStore();
-        await subject.setVpnActive(trace, false);
+        await subject.turnVpnOff(trace);
         verifyNever(ops.doSetVpnActive(any));
 
         // Several calls should keep the latest config
-        await subject.setVpnActive(trace, true);
+        await subject.turnVpnOn(trace);
         verifyNever(ops.doSetVpnActive(any));
         expect(subject.targetStatus, VpnStatus.activated);
 
@@ -140,14 +113,22 @@ void main() {
           await subject.setActualStatus(trace, "activated");
         });
 
-        await subject.setVpnActive(trace, true);
+        await subject.turnVpnOn(trace);
         verify(ops.doSetVpnActive(any)).called(1);
+        verify(timer.set(any, any)).called(1);
+        verify(timer.unset(any)).called(1);
+
+        // Simulate the status coming after a while
+        Timer(const Duration(milliseconds: 1), () async {
+          await subject.setActualStatus(trace, "deactivated");
+        });
+        await subject.turnVpnOff(trace);
         verify(timer.set(any, any)).called(1);
         verify(timer.unset(any)).called(1);
 
         // Will unset timer even on fail
         when(ops.doSetVpnActive(any)).thenThrow(Exception());
-        await expectLater(subject.setVpnActive(trace, true), throwsException);
+        await expectLater(subject.turnVpnOn(trace), throwsException);
         verify(timer.set(any, any)).called(1);
         verify(timer.unset(any)).called(1);
       });
@@ -167,7 +148,7 @@ void main() {
         subject.actualStatus = VpnStatus.deactivated;
         cfg.plusVpnCommandTimeout = const Duration(seconds: 0);
 
-        await expectLater(subject.setVpnActive(trace, true), throwsException);
+        await expectLater(subject.turnVpnOn(trace), throwsException);
       });
     });
   });

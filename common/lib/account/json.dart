@@ -47,7 +47,7 @@ class JsonAccount {
 }
 
 class AccountJson {
-  late final _http = di<HttpService>();
+  late final _http = dep<HttpService>();
 
   Future<JsonAccount> getAccount(Trace trace, String accountId) async {
     final result =

@@ -9,6 +9,7 @@ import 'package:mockito/mockito.dart';
 import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<NotificationOps>(),
+  MockSpec<StageStore>(),
 ])
 import 'notification_test.mocks.dart';
 
@@ -16,11 +17,13 @@ void main() {
   group("binder", () {
     test("onNotificationEvent", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final store = NotificationStore();
-        di.registerSingleton<NotificationStore>(store);
+        depend<NotificationStore>(store);
 
         final ops = MockNotificationOps();
-        di.registerSingleton<NotificationOps>(ops);
+        depend<NotificationOps>(ops);
 
         verifyNever(ops.doShow(any, any));
 

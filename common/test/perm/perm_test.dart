@@ -1,6 +1,5 @@
 import 'package:common/app/app.dart';
 import 'package:common/device/device.dart';
-import 'package:common/device/json.dart';
 import 'package:common/perm/channel.pg.dart';
 import 'package:common/perm/perm.dart';
 import 'package:common/stage/stage.dart';
@@ -15,6 +14,7 @@ import '../tools.dart';
   MockSpec<PermStore>(),
   MockSpec<PermOps>(),
   MockSpec<AppStore>(),
+  MockSpec<StageStore>(),
 ])
 import 'perm_test.mocks.dart';
 
@@ -22,6 +22,8 @@ void main() {
   group("store", () {
     test("permsEnabled", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final app = MockAppStore();
         depend<AppStore>(app);
 
@@ -44,6 +46,8 @@ void main() {
 
     test("incrementTagChangeCounter", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final app = MockAppStore();
         depend<AppStore>(app);
 

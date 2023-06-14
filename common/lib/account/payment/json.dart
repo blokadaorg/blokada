@@ -6,6 +6,7 @@ import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
+import '../account.dart';
 import '../json.dart';
 
 class JsonPaymentCheckoutPayload {
@@ -42,8 +43,8 @@ class JsonPaymentCheckoutPayload {
 }
 
 class AccountPaymentJson {
-  late final _http = di<HttpService>();
-  late final _env = di<EnvStore>();
+  late final _http = dep<HttpService>();
+  late final _account = dep<AccountStore>();
 
   Future<JsonAccount> postCheckout(Trace trace, String blob) async {
     dynamic payload = <String, dynamic>{};
@@ -51,7 +52,7 @@ class AccountPaymentJson {
 
     if (Platform.isIOS) {
       payload = JsonPaymentCheckoutPayload.forApple(
-        accountId: _env.currentUser,
+        accountId: _account.id,
         receipt: blob,
       ).toJson();
       endpoint = "apple";
@@ -62,7 +63,7 @@ class AccountPaymentJson {
       }
 
       payload = JsonPaymentCheckoutPayload.forGoogle(
-        accountId: _env.currentUser,
+        accountId: _account.id,
         purchaseToken: transactionDetails[0],
         subscriptionId: transactionDetails[1],
       ).toJson();

@@ -1,9 +1,11 @@
-import 'package:common/notification/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
+import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
+import 'channel.pg.dart';
 
 part 'notification.g.dart';
 
@@ -16,8 +18,9 @@ class NotificationEvent {
   NotificationEvent.shown(this.id, this.when, {this.payload})
       : type = NotificationEventType.show;
 
-  NotificationEvent.dismissed(this.id)
-      : type = NotificationEventType.dismiss,
+  NotificationEvent.dismissed()
+      : id = NotificationId.all,
+        type = NotificationEventType.dismiss,
         when = null,
         payload = null;
 }
@@ -25,6 +28,7 @@ class NotificationEvent {
 class NotificationPayload {}
 
 enum NotificationId {
+  all,
   accountExpired,
 }
 
@@ -42,22 +46,25 @@ enum NotificationEventType {
 class NotificationStore = NotificationStoreBase with _$NotificationStore;
 
 abstract class NotificationStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<NotificationOps>();
+  late final _ops = dep<NotificationOps>();
+  late final _stage = dep<StageStore>();
 
   NotificationStoreBase() {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+
     reactionOnStore((_) => notificationChanges, (_) async {
       final event = notifications.last;
       if (event.type == NotificationEventType.show) {
         await _ops.doShow(event.id.name, event.when!.toIso8601String());
       } else if (event.type == NotificationEventType.dismiss) {
-        await _ops.doDismiss(event.id.name);
+        await _ops.doDismissAll();
       }
     });
   }
 
   @override
-  attach() {
-    depend<NotificationOps>(NotificationOps());
+  attach(Act act) {
+    depend<NotificationOps>(getOps(act));
     depend<NotificationStore>(this as NotificationStore);
   }
 
@@ -88,11 +95,21 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
     });
   }
 
+  // TODO: for now we just have one notification so dismiss all
   @action
-  Future<void> dismiss(Trace parentTrace, NotificationId id) async {
-    return await traceWith(parentTrace, "dismiss", (trace) async {
-      _addCapped(NotificationEvent.dismissed(id));
-      trace.addAttribute("notificationId", id);
+  Future<void> dismiss(Trace parentTrace,
+      {NotificationId id = NotificationId.all}) async {
+    return await traceWith(parentTrace, "dismissAll", (trace) async {
+      _addCapped(NotificationEvent.dismissed());
+    });
+  }
+
+  @action
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isBecameForeground()) return;
+
+    return await traceWith(parentTrace, "dismissNotifications", (trace) async {
+      await dismiss(trace);
     });
   }
 

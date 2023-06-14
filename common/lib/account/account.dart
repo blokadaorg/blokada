@@ -2,8 +2,12 @@ import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../persistence/persistence.dart';
+import '../stage/channel.pg.dart';
+import '../stage/stage.dart';
 import '../util/di.dart';
+import '../util/emitter.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -20,6 +24,9 @@ part 'account.g.dart';
 ///
 /// It does not handle the account expiration by itself, see AccountRefreshStore.
 
+final accountChanged = EmitterEvent<Account>();
+final accountIdChanged = EmitterEvent<AccountId>();
+
 const String _keyAccount = "account:jsonAccount";
 
 typedef AccountId = String;
@@ -30,13 +37,17 @@ class AccountState {
   JsonAccount jsonAccount;
 
   AccountState(this.id, this.jsonAccount)
-      : type = (jsonAccount.type?.isEmpty ?? true)
-            ? AccountType.libre
-            : AccountType.values.byName(jsonAccount.type ?? "unknown");
+      : type = accountTypeFromName(jsonAccount.type);
 
   AccountState update(JsonAccount apiAccount) {
     return AccountState(id, apiAccount);
   }
+}
+
+AccountType accountTypeFromName(String? name) {
+  return (name?.isEmpty ?? true)
+      ? AccountType.libre
+      : AccountType.values.byName(name ?? "unknown");
 }
 
 enum AccountType {
@@ -51,8 +62,14 @@ extension AccountTypeExt on AccountType {
   }
 
   bool isUpgradeOver(AccountType? other) {
-    return this == AccountType.plus && other != AccountType.plus ||
+    return other != null &&
+            this == AccountType.plus &&
+            other != AccountType.plus ||
         this == AccountType.cloud && other == AccountType.libre;
+  }
+
+  String toSimpleString() {
+    return toString().split('.').last;
   }
 }
 
@@ -74,12 +91,15 @@ class InvalidAccountId with Exception {}
 
 class AccountStore = AccountStoreBase with _$AccountStore;
 
-abstract class AccountStoreBase with Store, Traceable, Dependable {
-  late final _api = di<AccountJson>();
-  late final _ops = di<AccountOps>();
-  late final _persistence = di<SecurePersistenceService>();
+abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
+  late final _api = dep<AccountJson>();
+  late final _ops = dep<AccountOps>();
+  late final _persistence = dep<SecurePersistenceService>();
+  late final _stage = dep<StageStore>();
 
   AccountStoreBase() {
+    willAcceptOn([accountChanged, accountIdChanged]);
+
     reactionOnStore((_) => account, (account) async {
       if (account != null) {
         await _ops.doAccountChanged(account.toAccount());
@@ -88,14 +108,34 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
+  attach(Act act) {
+    depend<AccountOps>(getOps(act));
     depend<AccountJson>(AccountJson());
-    depend<AccountOps>(AccountOps());
     depend<AccountStore>(this as AccountStore);
   }
 
   @observable
   AccountState? account;
+
+  @computed
+  String get id {
+    final id = account?.id;
+    if (id == null) {
+      throw AccountNotInitialized();
+    }
+    return id;
+  }
+
+  @computed
+  AccountType get type {
+    final type = account?.type;
+    if (type == null) {
+      throw AccountNotInitialized();
+    }
+    return type;
+  }
+
+  AccountId? _previousAccountId;
 
   @action
   Future<void> load(Trace parentTrace) async {
@@ -103,7 +143,7 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
       final accJson = await _persistence.loadOrThrow(trace, _keyAccount);
       final jsonAccount = JsonAccount.fromJson(accJson);
       _ensureValidAccountId(jsonAccount.id);
-      account = AccountState(jsonAccount.id, jsonAccount);
+      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
     });
   }
 
@@ -111,8 +151,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
   Future<void> create(Trace parentTrace) async {
     return await traceWith(parentTrace, "create", (trace) async {
       final jsonAccount = await _api.postAccount(trace);
-      account = AccountState(jsonAccount.id, jsonAccount);
       await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
     });
   }
 
@@ -123,8 +163,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
         throw AccountNotInitialized();
       }
       final jsonAccount = await _api.getAccount(trace, account!.id);
-      account = account!.update(jsonAccount);
       await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _changeAccount(trace, account!.update(jsonAccount));
     });
   }
 
@@ -134,8 +174,11 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
       final sanitizedId = _sanitizeAccountId(id);
       _ensureValidAccountId(sanitizedId);
       final jsonAccount = await _api.getAccount(trace, sanitizedId);
-      account = AccountState(jsonAccount.id, jsonAccount);
       await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+      await _stage.showModal(trace, StageModal.onboarding);
+    }, fallback: (trace) async {
+      await _stage.showModal(trace, StageModal.accountInvalid);
     });
   }
 
@@ -143,8 +186,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
   Future<void> propose(Trace parentTrace, JsonAccount jsonAccount) async {
     return await traceWith(parentTrace, "propose", (trace) async {
       _ensureValidAccountId(jsonAccount.id);
-      account = AccountState(jsonAccount.id, jsonAccount);
       await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
     });
   }
 
@@ -158,13 +201,27 @@ abstract class AccountStoreBase with Store, Traceable, Dependable {
         type: AccountType.libre.name,
       );
 
-      account = account!.update(jsonAccount);
       await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _changeAccount(trace, account!.update(jsonAccount));
     });
   }
 
-  AccountType getAccountType() {
-    return account?.type ?? AccountType.libre;
+  _changeAccount(Trace trace, AccountState account) async {
+    final oldA = this.account?.jsonAccount;
+    final newA = account.jsonAccount;
+    this.account = account;
+    if (oldA != null) {
+      if (oldA.type != newA.type || oldA.activeUntil != newA.activeUntil) {
+        await emit(accountChanged, trace, account);
+      }
+    } else {
+      await emit(accountChanged, trace, account);
+    }
+
+    if (_previousAccountId != null && _previousAccountId != account.id) {
+      await emit(accountIdChanged, trace, account.id);
+    }
+    _previousAccountId = account.id;
   }
 
   AccountId _sanitizeAccountId(AccountId id) {

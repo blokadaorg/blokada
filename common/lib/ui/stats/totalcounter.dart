@@ -1,0 +1,97 @@
+import 'package:common/service/I18nService.dart';
+import 'package:common/stage/channel.pg.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:mobx/mobx.dart' as mobx;
+
+import '../../stage/stage.dart';
+import '../../stats/stats.dart';
+import '../../util/di.dart';
+import '../../util/trace.dart';
+import '../minicard/counter.dart';
+import '../minicard/header.dart';
+import '../minicard/minicard.dart';
+import '../minicard/summary.dart';
+
+class TotalCounter extends StatefulWidget {
+  TotalCounter({Key? key, required bool this.autoRefresh}) : super(key: key);
+
+  final bool autoRefresh;
+
+  @override
+  State<StatefulWidget> createState() {
+    return TotalCounterState(autoRefresh: this.autoRefresh);
+  }
+}
+
+class TotalCounterState extends State<TotalCounter> with TraceOrigin {
+  TotalCounterState({required bool this.autoRefresh});
+
+  static const shareChannel = MethodChannel('share');
+
+  final bool autoRefresh;
+
+  final _stats = dep<StatsStore>();
+  final _stage = dep<StageStore>();
+
+  var allowed = 0.0;
+  var blocked = 0;
+  var lastAllowed = 0.0;
+  var lastBlocked = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (autoRefresh) {
+      mobx.autorun((_) {
+        setState(() {
+          lastAllowed = allowed;
+          lastBlocked = blocked;
+          allowed = _stats.stats.totalAllowed.toDouble();
+          blocked = _stats.stats.totalBlocked;
+        });
+      });
+    }
+  }
+
+  Future<void> _shareCounter() async {
+    traceAs("fromWidget", (trace) async {
+      await _stage.showModal(trace, StageModal.adsCounterShare);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MiniCard(
+      child: MiniCardSummary(
+        header: MiniCardHeader(
+          text: "stats header all time".i18n,
+          icon: Icons.timelapse,
+          color: Colors.red,
+          chevronIcon: Icons.ios_share_outlined,
+        ),
+        // bigText: _formatCounter(blocked),
+        big: Text(_stats.formatCounter(blocked),
+            style: const TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w600,
+            )),
+        small: "",
+        footer: _getBlockedText(),
+      ),
+      onTap: () {
+        _shareCounter();
+      },
+    );
+  }
+}
+
+// To not introduce another string, a bit lame
+String _getBlockedText() {
+  return "home status detail active with counter"
+      .i18n
+      .split("*%s*")
+      .map((e) => e.trim())
+      .join(" ");
+}

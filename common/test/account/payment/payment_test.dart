@@ -5,6 +5,7 @@ import 'package:common/account/json.dart';
 import 'package:common/account/payment/channel.pg.dart';
 import 'package:common/account/payment/json.dart';
 import 'package:common/account/payment/payment.dart';
+import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -17,6 +18,7 @@ import '../fixtures.dart';
   MockSpec<AccountPaymentJson>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountPaymentStore>(),
+  MockSpec<StageStore>(),
 ])
 import 'payment_test.mocks.dart';
 
@@ -46,7 +48,7 @@ void main() {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doFetchProducts()).thenAnswer((_) async => _fixtureProducts);
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final subject = AccountPaymentStore();
         expect(subject.status, PaymentStatus.unknown);
@@ -70,15 +72,15 @@ void main() {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
 
@@ -94,15 +96,15 @@ void main() {
       await withTrace((trace) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         subject.receipts = ["receipt1", "receipt2"];
@@ -122,15 +124,15 @@ void main() {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doRestoreWithReceipt()).thenAnswer((_) async => "receipt");
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         expect(subject.status, PaymentStatus.unknown);
@@ -147,17 +149,17 @@ void main() {
       await withTrace((trace) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, "good receipt")).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         when(json.postCheckout(any, "bad receipt"))
             .thenThrow(Exception("bad receipt"));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         subject.receipts = ["old receipt", "good receipt"];
@@ -179,9 +181,11 @@ void main() {
   group("storeErrors", () {
     test("willNotFetchProductsIfNotReady", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => false);
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final subject = AccountPaymentStore();
 
@@ -195,17 +199,19 @@ void main() {
 
     test("willNotCallApiOnFailingPurchase", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipt(any))
             .thenThrow(Exception("Channel failing"));
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
 
@@ -219,17 +225,19 @@ void main() {
 
     test("willNotProposeAccountOnFailingApiCall", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any)).thenThrow(Exception("Api failing"));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
 
@@ -243,18 +251,20 @@ void main() {
 
     test("willNotProposeAccountOnApiReturningInactiveAccount", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
-        di.registerSingleton<AccountPaymentJson>(json);
+        depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        di.registerSingleton<AccountStore>(account);
+        depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
 
@@ -272,10 +282,10 @@ void main() {
       await withTrace((trace) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        di.registerSingleton<AccountPaymentOps>(ops);
+        depend<AccountPaymentOps>(ops);
 
         final store = AccountPaymentStore();
-        di.registerSingleton<AccountPaymentStore>(store);
+        depend<AccountPaymentStore>(store);
 
         await store.fetchProducts(trace);
         verify(ops.doPaymentStatusChanged(PaymentStatus.fetching)).called(1);

@@ -3,6 +3,7 @@ import 'package:pigeon/pigeon.dart';
 enum AppStatus {
   unknown,
   initializing,
+  initFail,
   reconfiguring,
   deactivated,
   paused,

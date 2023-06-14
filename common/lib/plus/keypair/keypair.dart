@@ -1,10 +1,11 @@
 import 'package:mobx/mobx.dart';
 
-import '../../env/env.dart';
-import '../../event.dart';
+import '../../account/account.dart';
 import '../../persistence/persistence.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
+import '../plus.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 part 'keypair.g.dart';
@@ -22,30 +23,43 @@ class PlusKeypairStore = PlusKeypairStoreBase with _$PlusKeypairStore;
 
 abstract class PlusKeypairStoreBase with Store, Traceable, Dependable {
   late final _ops = dep<PlusKeypairOps>();
-  late final _event = dep<EventBus>();
   late final _persistence = dep<SecurePersistenceService>();
-  late final _env = dep<EnvStore>();
+  late final _account = dep<AccountStore>();
+  late final _plus = dep<PlusStore>();
+
+  PlusKeypairStoreBase() {
+    _account.addOn(accountIdChanged, generate);
+  }
 
   @override
-  attach() {
-    depend<PlusKeypairOps>(PlusKeypairOps());
+  attach(Act act) {
+    depend<PlusKeypairOps>(getOps(act));
     depend<PlusKeypairStore>(this as PlusKeypairStore);
   }
 
   @observable
   PlusKeypair? currentKeypair;
 
+  @computed
+  String get currentDevicePublicKey {
+    final key = currentKeypair?.publicKey;
+    if (key == null) {
+      throw Exception("No device public key set yet");
+    }
+    return key;
+  }
+
   @action
   Future<void> load(Trace parentTrace) async {
     return await traceWith(parentTrace, "load", (trace) async {
       try {
+        // throw Exception("test");
         final json = await _persistence.loadOrThrow(trace, _keyKeypair);
         final keypair = PlusKeypair(
           publicKey: json['publicKey'],
           privateKey: json['privateKey'],
         );
         _ensureValidKeypair(keypair);
-        await _env.setDevicePublicKey(trace, keypair.publicKey);
         currentKeypair = keypair;
       } on Exception catch (_) {
         await generate(trace);
@@ -56,12 +70,12 @@ abstract class PlusKeypairStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> generate(Trace parentTrace) async {
     return await traceWith(parentTrace, "generate", (trace) async {
+      // throw Exception("test");
       final keypair = await _ops.doGenerateKeypair();
       _ensureValidKeypair(keypair);
-      await _env.setDevicePublicKey(trace, keypair.publicKey);
       await _persistence.save(trace, _keyKeypair, keypair.toJson());
       currentKeypair = keypair;
-      await _event.onEvent(trace, CommonEvent.plusKeypairChanged);
+      await _plus.clearPlus(trace);
     });
   }
 

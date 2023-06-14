@@ -24,7 +24,7 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureJsonEndpoint));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = AccountJson();
         final account = await subject.getAccount(trace, "some-id");
@@ -42,7 +42,7 @@ void main() {
         final http = MockHttpService();
         when(http.request(any, any, any))
             .thenAnswer((_) => Future.value(fixtureJsonEndpoint));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = AccountJson();
         final account = await subject.postAccount(trace);
@@ -82,7 +82,7 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = AccountJson();
 

@@ -7,6 +7,7 @@ import '../../timer/timer.dart';
 import '../../util/config.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 part 'vpn.g.dart';
@@ -66,17 +67,17 @@ const String _keyTimer = "vpn:timeout";
 class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
 abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<PlusVpnOps>();
-  late final _timer = di<TimerService>();
-  late final _app = di<AppStore>();
+  late final _ops = dep<PlusVpnOps>();
+  late final _timer = dep<TimerService>();
+  late final _app = dep<AppStore>();
 
   PlusVpnStoreBase() {
     _onTimerFired();
   }
 
   @override
-  attach() {
-    depend<PlusVpnOps>(PlusVpnOps());
+  attach(Act act) {
+    depend<PlusVpnOps>(getOps(act));
     depend<PlusVpnStore>(this as PlusVpnStore);
   }
 
@@ -107,15 +108,8 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
         return;
       }
 
-      try {
-        _startCommandTimeout();
-        await _ops.doSetVpnConfig(config);
-        _stopCommandTimeout();
-        actualConfig = config;
-      } on Exception catch (_) {
-        _stopCommandTimeout();
-        rethrow;
-      }
+      await _ops.doSetVpnConfig(config);
+      actualConfig = config;
     }, important: true);
   }
 
@@ -193,8 +187,6 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
     }, important: true);
   }
 
-  VpnStatus getStatus() => actualStatus;
-
   _setActive(bool active) async {
     _startCommandTimeout();
     _statusCompleter = Completer();
@@ -220,11 +212,9 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
   _onTimerFired() {
     _timer.addHandler(_keyTimer, (trace) async {
       // doSetVpnActive command never finished
-      //if (targetStatus != actualStatus) {
       trace.addEvent("setting statusCompleter to fail");
       _statusCompleter?.completeError(Exception("VPN command timed out"));
       _statusCompleter = null;
-      //}
     });
   }
 }

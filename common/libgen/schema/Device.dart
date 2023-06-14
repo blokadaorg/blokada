@@ -11,12 +11,3 @@ abstract class DeviceOps {
   @async
   void doDeviceTagChanged(String deviceTag);
 }
-
-@FlutterApi()
-abstract class DeviceEvents {
-  @async
-  void onEnableCloud(bool enable);
-
-  @async
-  void onSetRetention(String retention);
-}

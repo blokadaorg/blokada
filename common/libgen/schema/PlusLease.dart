@@ -18,12 +18,3 @@ abstract class PlusLeaseOps {
   @async
   void doCurrentLeaseChanged(Lease? lease);
 }
-
-@FlutterApi()
-abstract class PlusLeaseEvents {
-  @async
-  void onNewLease(String gatewayPublicKey);
-
-  @async
-  void onDeleteLease(Lease lease);
-}

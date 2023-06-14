@@ -9,7 +9,7 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 
 // Quite shit store used to control some flag. Remove eventually. TODO
 abstract class HomeStoreBase with Store, Dependable {
-  late final _app = di<AppStore>();
+  late final _app = dep<AppStore>();
 
   HomeStoreBase() {
     autorun((_) {
@@ -21,20 +21,20 @@ abstract class HomeStoreBase with Store, Dependable {
   }
 
   @override
-  attach() {
+  attach(Act act) {
     depend<HomeStore>(this as HomeStore);
   }
 
-   @observable
-   bool powerOnAnimationReady = false;
+  @observable
+  bool powerOnAnimationReady = false;
 
-   @action
-   resetPowerOn() {
-     powerOnAnimationReady = false;
-   }
+  @action
+  resetPowerOn() {
+    powerOnAnimationReady = false;
+  }
 
-   @action
-   powerOnIsReady() {
-     powerOnAnimationReady = true;
-   }
+  @action
+  powerOnIsReady() {
+    powerOnAnimationReady = true;
+  }
 }

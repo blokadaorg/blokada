@@ -1,10 +1,14 @@
+import 'package:common/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
 import '../device/device.dart';
 import '../stage/stage.dart';
 import '../util/config.dart';
+import '../util/cooldown.dart';
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -40,21 +44,24 @@ extension DeckItemExt on DeckItem {
 
 class DeckStore = DeckStoreBase with _$DeckStore;
 
-abstract class DeckStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<DeckOps>();
-  late final _api = di<DeckJson>();
-  late final _device = di<DeviceStore>();
-  late final _stage = di<StageStore>();
+abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
+  late final _ops = dep<DeckOps>();
+  late final _api = dep<DeckJson>();
+  late final _device = dep<DeviceStore>();
+  late final _stage = dep<StageStore>();
 
   DeckStoreBase() {
-    reaction((_) => decksChanges, (_) async {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+    _device.addOn(deviceChanged, onDeviceChanged);
+
+    reactionOnStore((_) => decksChanges, (_) async {
       await _ops.doDecksChanged(decks.values.toList());
     });
   }
 
   @override
-  attach() {
-    depend<DeckOps>(DeckOps());
+  attach(Act act) {
+    depend<DeckOps>(getOps(act));
     depend<DeckJson>(DeckJson());
     depend<DeckStore>(this as DeckStore);
   }
@@ -68,9 +75,6 @@ abstract class DeckStoreBase with Store, Traceable, Dependable {
 
   @observable
   List<ListId> enabledByUser = [];
-
-  @observable
-  DateTime lastRefresh = DateTime(0);
 
   @action
   Future<void> fetch(Trace parentTrace) async {
@@ -149,6 +153,8 @@ abstract class DeckStoreBase with Store, Traceable, Dependable {
       }
       trace.addAttribute("listId", id);
       trace.addAttribute("enabled", enabled);
+    }, fallback: (trace) async {
+      await _stage.showModal(trace, StageModal.fault);
     }, important: true);
   }
 
@@ -162,6 +168,8 @@ abstract class DeckStoreBase with Store, Traceable, Dependable {
       } else {
         throw Exception("List not found: ($id, $tag)");
       }
+    }, fallback: (trace) async {
+      await _stage.showModal(trace, StageModal.fault);
     });
   }
 
@@ -187,26 +195,34 @@ abstract class DeckStoreBase with Store, Traceable, Dependable {
       } else {
         throw Exception("Deck not found: $id");
       }
+    }, fallback: (trace) async {
+      await _stage.showModal(trace, StageModal.fault);
     });
   }
 
   @action
-  Future<void> maybeRefreshDeck(Trace parentTrace) async {
-    return await traceWith(parentTrace, "maybeRefreshDeck", (trace) async {
-      if (!_stage.isForeground) {
-        return;
-      }
-
-      if (!_stage.route.isTop(StageTab.advanced)) {
-        return;
-      }
-
-      final now = DateTime.now();
-      if (now.difference(lastRefresh).compareTo(cfg.deckRefreshCooldown) > 0) {
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isForeground()) return;
+    if (decks.isEmpty) {
+      // Make sure we fetch it at least once even if user does not navigate to
+      // the advanced tab. We need pack names to display activity screen too.
+      return await traceWith(parentTrace, "fetchWhenEmpty", (trace) async {
         await fetch(trace);
-        lastRefresh = now;
-        trace.addEvent("refreshed");
-      }
+      });
+    }
+
+    if (!route.isBecameTab(StageTab.advanced)) return;
+    if (!isCooledDown(cfg.deckRefreshCooldown)) return;
+
+    return await traceWith(parentTrace, "fetchDecks", (trace) async {
+      await fetch(trace);
+    });
+  }
+
+  @action
+  Future<void> onDeviceChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+      await setUserLists(trace, _device.lists!);
     });
   }
 }

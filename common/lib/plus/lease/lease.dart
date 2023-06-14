@@ -2,12 +2,15 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../env/env.dart';
-import '../../event.dart';
+import '../../stage/stage.dart';
 import '../../util/config.dart';
+import '../../util/cooldown.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
 import '../../util/trace.dart';
 import '../gateway/gateway.dart';
+import '../keypair/keypair.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
 
@@ -29,14 +32,17 @@ class NoCurrentLeaseException implements Exception {}
 
 class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
-abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<PlusLeaseOps>();
-  late final _json = di<PlusLeaseJson>();
-  late final _env = di<EnvStore>();
-  late final _event = di<EventBus>();
-  late final _gateway = di<PlusGatewayStore>();
+abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
+  late final _ops = dep<PlusLeaseOps>();
+  late final _json = dep<PlusLeaseJson>();
+  late final _env = dep<EnvStore>();
+  late final _gateway = dep<PlusGatewayStore>();
+  late final _keypair = dep<PlusKeypairStore>();
+  late final _stage = dep<StageStore>();
 
   PlusLeaseStoreBase() {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+
     reactionOnStore((_) => leaseChanges, (_) async {
       await _ops.doLeasesChanged(leases);
     });
@@ -47,9 +53,9 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
+  attach(Act act) {
+    depend<PlusLeaseOps>(getOps(act));
     depend<PlusLeaseJson>(PlusLeaseJson());
-    depend<PlusLeaseOps>(PlusLeaseOps());
     depend<PlusLeaseStore>(this as PlusLeaseStore);
   }
 
@@ -85,7 +91,6 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
       } else {
         await _gateway.selectGateway(trace, null);
       }
-      await _event.onEvent(trace, CommonEvent.plusLeaseChanged);
     });
   }
 
@@ -117,7 +122,7 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
             throw NoCurrentLeaseException();
           }
           trace.addEvent("deleted existing lease for current device alias");
-        } on Exception catch (_) {
+        } catch (_) {
           // Rethrow the initial exception for clarity
           throw e;
         }
@@ -128,7 +133,6 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> deleteLease(Trace parentTrace, Lease lease) async {
     return await traceWith(parentTrace, "deleteLease", (trace) async {
-      //final lease = leases.firstWhere((it) => it.publicKey == id);
       await _json.deleteLease(
         trace,
         JsonLeasePayload(
@@ -142,24 +146,25 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> maybeRefreshLease(Trace parentTrace,
-      {bool force = false}) async {
-    return await traceWith(parentTrace, "maybeRefreshLease", (trace) async {
-      final now = DateTime.now();
-      if (force ||
-          now.difference(lastRefresh).compareTo(cfg.plusLeaseRefreshCooldown) >
-              0) {
-        await fetch(trace);
-        lastRefresh = now;
-        trace.addEvent("refreshed");
-      }
+  Future<void> deleteLeaseById(Trace parentTrace, String leasePublicKey) async {
+    return await traceWith(parentTrace, "deleteLeaseById", (trace) async {
+      final lease = leases.firstWhere((it) => it.publicKey == leasePublicKey);
+      return deleteLease(trace, lease);
     });
   }
 
-  Lease? getCurrentLease() => currentLease;
+  @action
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isBecameForeground()) return;
+    if (!isCooledDown(cfg.plusLeaseRefreshCooldown)) return;
+
+    return await traceWith(parentTrace, "fetchLeases", (trace) async {
+      await fetch(trace);
+    });
+  }
 
   Lease? _findCurrentLease() {
-    return leases
-        .firstWhereOrNull((it) => it.publicKey == _env.currentDevicePublicKey);
+    return leases.firstWhereOrNull(
+        (it) => it.publicKey == _keypair.currentDevicePublicKey);
   }
 }

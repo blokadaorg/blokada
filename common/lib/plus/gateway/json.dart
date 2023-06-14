@@ -83,7 +83,7 @@ class JsonGateway {
 }
 
 class PlusGatewayJson {
-  late final _http = di<HttpService>();
+  late final _http = dep<HttpService>();
 
   Future<List<JsonGateway>> get(Trace trace) async {
     final result = await _http.get(trace, "$jsonUrl/v2/gateway");

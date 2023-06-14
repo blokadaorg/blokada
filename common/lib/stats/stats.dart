@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'package:common/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
+import 'channel.pg.dart';
 import 'json.dart';
 
 part 'stats.g.dart';
@@ -69,11 +73,30 @@ class UiStatsPair {
 class StatsStore = StatsStoreBase with _$StatsStore;
 
 abstract class StatsStoreBase with Store, Traceable, Dependable {
-  late final _api = di<StatsJson>();
+  late final _api = dep<StatsJson>();
+  late final _ops = dep<StatsOps>();
+
+  StatsStoreBase() {
+    reactionOnStore((_) => stats, (stats) async {
+      await _ops.doBlockedCounterChanged(formatCounter(stats.totalBlocked));
+    });
+  }
+
+  String formatCounter(int counter) {
+    if (counter >= 1000000) {
+      return "${(counter / 1000000.0).toStringAsFixed(2)}M";
+    } else if (counter >= 1000) {
+      return "${(counter / 1000.0).toStringAsFixed(1)}K";
+    } else {
+      return "$counter";
+    }
+  }
 
   @override
-  attach() {
+  attach(Act act) {
+    depend<StatsOps>(getOps(act));
     depend<StatsJson>(StatsJson());
+    depend<StatsSheet>(StatsSheet());
     depend<StatsStore>(this as StatsStore);
   }
 

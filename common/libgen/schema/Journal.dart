@@ -46,22 +46,3 @@ abstract class JournalOps {
   // Called whenever user is scrolling down and more entries are available.
   void doHistoricEntriesAvailable(List<JournalEntry> entries);
 }
-
-@FlutterApi()
-abstract class JournalEvents {
-  @async
-  void onSort(bool newestFirst);
-
-  @async
-  void onSearch(String query);
-
-  // TODO: replace with the enum above, once pigeon supports it
-  @async
-  void onShowOnly(bool showBlocked, bool showPassed);
-
-  @async
-  void onShowForDevice(String deviceName);
-
-  @async
-  void onLoadMoreHistoricEntries();
-}

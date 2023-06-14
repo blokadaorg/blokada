@@ -1,14 +1,42 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 
-import '../event.dart';
+import '../util/async.dart';
 import '../util/di.dart';
+import '../util/emitter.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 part 'stage.g.dart';
 
-enum StageTab { root, home, activity, advanced, settings }
+final routeChanged = EmitterEvent<StageRouteState>();
+
+enum StageTab { background, home, activity, advanced, settings }
+
+extension StageKnownRouteExt on StageKnownRoute {
+  String get path {
+    switch (this) {
+      case StageKnownRoute.homeLock:
+        return "home/Lock";
+      case StageKnownRoute.homeUnlock:
+        return "home/Unlock";
+      case StageKnownRoute.homeRate:
+        return "home/Rate";
+      case StageKnownRoute.homeCloseRate:
+        return "home/CloseRate";
+      case StageKnownRoute.homeStats:
+        return "home/Stats";
+    }
+  }
+}
+
+final _background =
+    StageRoute(path: "", tab: StageTab.background, payload: null);
+
+const _afterDismissWait = Duration(milliseconds: 500);
 
 class StageRoute {
   final String path;
@@ -21,20 +49,11 @@ class StageRoute {
     this.payload,
   });
 
-  StageRoute.root() : this(path: "/", tab: StageTab.root, payload: null);
-
   StageRoute.fromPath(String path)
-      : this(
-            path: path.toLowerCase(),
-            tab: _pathToTab(path),
-            payload: _pathToPayload(path));
+      : this(path: path, tab: _pathToTab(path), payload: _pathToPayload(path));
 
   StageRoute.forTab(StageTab tab)
       : this(path: tab.name, tab: tab, payload: null);
-
-  bool isTop(StageTab tab) {
-    return this.tab == tab && payload == null;
-  }
 
   static StageTab _pathToTab(String path) {
     final parts = path.split("/");
@@ -55,39 +74,67 @@ class StageRoute {
   }
 }
 
-enum StageModal {
-  none,
-  fault,
-  accountInitFailed,
-  accountExpired,
-  accountRestoreFailed,
-  accountActivated,
-  onboarding,
-  pause,
-  stats,
-  help,
-  payment,
-  paymentDetails,
-  plusLocationSelect,
-  debug,
-  debugLog,
-  debugLogShare,
-  adsCounter,
-  adsCounterShare,
-  rateApp,
-  updatePrompt,
-  updateOngoing,
-  updateComplete,
+class StageRouteState {
+  final StageRoute route;
+  final StageRoute _prevRoute;
+  final StageModal? modal;
+  final StageModal? _prevModal;
+  final Map<StageTab, StageRoute> _tabStates;
+
+  StageRouteState(
+    this.route,
+    this._prevRoute,
+    this.modal,
+    this._prevModal,
+    this._tabStates,
+  );
+
+  StageRouteState.init()
+      : this(_background, StageRoute.forTab(StageTab.home), null, null, {});
+
+  newBg() => StageRouteState(_background, route, modal, modal, _tabStates);
+
+  newFg() => StageRouteState(_prevRoute, route, modal, modal, _tabStates);
+
+  newRoute(StageRoute route) {
+    // Restore the state for this tab if exists
+    if (route.tab != this.route.tab && route.payload == null && modal == null) {
+      if (_tabStates.containsKey(route.tab)) {
+        final r = _tabStates[route.tab]!;
+        _tabStates.remove(route.tab);
+        return StageRouteState(r, this.route, modal, modal, _tabStates);
+      }
+    }
+    _tabStates[route.tab] = route;
+    return StageRouteState(route, this.route, modal, modal, _tabStates);
+  }
+
+  newModal(StageModal? modal) =>
+      StageRouteState(route, route, modal, this.modal, _tabStates);
+
+  newTab(StageTab tab) =>
+      StageRouteState(StageRoute.forTab(tab), route, modal, modal, _tabStates);
+
+  bool isForeground() => route != _background;
+  bool isTab(StageTab tab) => route.tab == tab;
+  bool isModal(StageModal modal) => this.modal == modal;
+  bool isMainRoute() => route.payload == null && modal == null;
+  bool isKnown(StageKnownRoute to) =>
+      ("${route.tab.name}/${route.payload ?? ""}") == to.path;
+
+  bool isBecameForeground() => isForeground() && _prevRoute == _background;
+  bool isBecameTab(StageTab tab) {
+    if (route.tab != tab) return false;
+    if (route.tab != _prevRoute.tab) return true;
+    return false;
+  }
+
+  bool isBecameModal(StageModal modal) {
+    if (this.modal != modal) return false;
+    if (this.modal != _prevModal) return true;
+    return false;
+  }
 }
-
-class StageWaitingEvent {
-  final String name;
-  final dynamic payload;
-
-  StageWaitingEvent(this.name, this.payload);
-}
-
-const _modalDismissCooldownTime = Duration(seconds: 3);
 
 /// StageStore
 ///
@@ -104,58 +151,61 @@ const _modalDismissCooldownTime = Duration(seconds: 3);
 
 class StageStore = StageStoreBase with _$StageStore;
 
-abstract class StageStoreBase with Store, Traceable, Dependable {
+abstract class StageStoreBase
+    with Store, Traceable, Dependable, ValueEmitter<StageRouteState> {
   late final _ops = dep<StageOps>();
-  late final _event = dep<EventBus>();
-
-  final List<StageModal> _modalQueue = [];
 
   @observable
-  bool isForeground = false;
-
-  @observable
-  StageRoute route = StageRoute.root();
-
-  @observable
-  StageModal modal = StageModal.none;
-
-  DateTime? _lastDismissTimestamp;
+  StageRouteState route = StageRouteState.init();
 
   // Queue up events that happened before the app was initialized, for later.
   @observable
   bool isReady = false;
 
   @observable
-  List<StageWaitingEvent> _waitingEvents = [];
+  bool isLocked = false;
+
+  @observable
+  List<String> _waitingEvents = [];
+
+  StageModal? _waitingOnModal;
+  Completer? _modalCompleter;
+  Completer? _dismissModalCompleter;
 
   StageStoreBase() {
-    reactionOnStore((_) => modal, (modal) async {
-      await _ops.doShowModal(modal.name);
-    });
+    willAcceptOnValue(routeChanged);
 
     reactionOnStore((_) => route, (route) async {
-      await _ops.doNavPathChanged(route.path);
+      await _ops.doRouteChanged(route.route.path);
     });
   }
 
   @override
-  attach() {
-    depend<StageOps>(StageOps());
+  attach(Act act) {
+    depend<StageOps>(getOps(act));
     depend<StageStore>(this as StageStore);
   }
 
   @action
-  Future<void> setForeground(Trace parentTrace, bool isForeground) async {
+  Future<void> setForeground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setForeground", (trace) async {
-      if (this.isForeground != isForeground) {
+      if (!route.isForeground()) {
         if (!isReady) {
-          _waitingEvents.add(StageWaitingEvent("setForeground", isForeground));
-          trace.addEvent("event queued");
-          return;
+          await setRoute(trace, route.newFg().route.path);
+        } else {
+          route = route.newFg();
+          await emitValue(routeChanged, trace, route);
         }
-        this.isForeground = isForeground;
-        trace.addAttribute("foreground", isForeground);
-        await _event.onEvent(trace, CommonEvent.stageForegroundChanged);
+      }
+    });
+  }
+
+  @action
+  Future<void> setBackground(Trace parentTrace) async {
+    return await traceWith(parentTrace, "setBackground", (trace) async {
+      if (route.isForeground()) {
+        route = route.newBg();
+        await emitValue(routeChanged, trace, route);
       }
     });
   }
@@ -163,63 +213,33 @@ abstract class StageStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> setRoute(Trace parentTrace, String path) async {
     return await traceWith(parentTrace, "setRoute", (trace) async {
-      if (path != route.path) {
-        if (!isReady) {
-          _waitingEvents.add(StageWaitingEvent("setRoute", path));
-          trace.addEvent("event queued");
+      if (path != route.route.path) {
+        if (!isReady || isLocked && path != StageKnownRoute.homeLock.path) {
+          _waitingEvents.add(path);
+          trace.addEvent("event queued: $path");
           return;
         }
-        route = StageRoute.fromPath(path);
-        trace.addAttribute("route", route.path);
-        await _event.onEvent(trace, CommonEvent.stageRouteChanged);
-      }
-    });
-  }
 
-  @action
-  Future<void> showModalNow(Trace parentTrace, StageModal modal) async {
-    return await traceWith(parentTrace, "showModalNow", (trace) async {
-      if (this.modal != modal) {
-        _lastDismissTimestamp = DateTime.now();
-        _modalQueue.clear();
-        await _updateModal(trace, modal);
-      }
-    });
-  }
+        route = route.newRoute(StageRoute.fromPath(path));
+        trace.addEvent("route: ${route.route.path}");
+        trace.addEvent("previous: ${route._prevRoute.path}");
+        trace.addEvent("isBecameForeground: ${route.isBecameForeground()}");
 
-  @action
-  Future<void> queueModal(Trace parentTrace, StageModal modal) async {
-    return await traceWith(parentTrace, "queueModal", (trace) async {
-      _modalQueue.add(modal);
-      if (this.modal == StageModal.none) {
-        _lastDismissTimestamp = DateTime.now();
-        await _updateModal(trace, _modalQueue.removeAt(0));
-      }
-    });
-  }
-
-  @action
-  Future<void> dismissModal(Trace parentTrace,
-      {bool byPlatform = false}) async {
-    return await traceWith(parentTrace, "dismissModal", (trace) async {
-      if (modal != StageModal.none) {
-        trace.addAttribute("byPlatform", byPlatform);
-
-        final last = _lastDismissTimestamp;
-        if (byPlatform &&
-            last != null &&
-            last.add(_modalDismissCooldownTime).isAfter(DateTime.now())) {
-          // Ignore this platform callback since it's likely a duplicate
-          trace.addEvent("dismiss ignored");
-          return;
-        } else {
-          _lastDismissTimestamp = DateTime.now();
-          await _updateModal(trace, StageModal.none);
+        // Navigating between routes (tabs) will close modal, but not coming fg.
+        if (!route.isBecameForeground()) {
+          if (route.modal != null) {
+            trace.addEvent("dismiss modal");
+            await dismissModal(trace);
+            await sleepAsync(_afterDismissWait);
+          }
         }
-      }
 
-      if (_modalQueue.isNotEmpty) {
-        await _updateModal(trace, _modalQueue.removeAt(0));
+        if (!route.isMainRoute()) {
+          trace.addEvent("modal: ${route.modal}");
+          trace.addEvent("payload: ${route.route.payload}");
+        }
+        await _actOnRoute(trace, route.route);
+        await emitValue(routeChanged, trace, route);
       }
     });
   }
@@ -227,32 +247,132 @@ abstract class StageStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> setReady(Trace parentTrace, bool isReady) async {
     return await traceWith(parentTrace, "setStageReady", (trace) async {
-      trace.addAttribute("ready", isReady);
-      if (this.isReady == isReady) {
-        return;
-      }
+      if (this.isReady == isReady) return;
       this.isReady = isReady;
-      if (isReady && _waitingEvents.isNotEmpty) {
-        final events = _waitingEvents.toList();
-        _waitingEvents = [];
-        // Process queued events when the app is ready
-        trace.addAttribute("queueProcessed", events);
-        for (final event in events) {
-          switch (event.name) {
-            case "setForeground":
-              await setForeground(trace, event.payload as bool);
-              break;
-            case "setRoute":
-              await setRoute(trace, event.payload);
-              break;
-          }
+      await _processQueue(trace);
+    });
+  }
+
+  @action
+  Future<void> setLocked(Trace parentTrace, bool isLocked) async {
+    if (this.isLocked == isLocked) return;
+
+    return await traceWith(parentTrace, "setLocked", (trace) async {
+      this.isLocked = isLocked;
+      trace.addAttribute("isLocked", isLocked);
+      await _processQueue(trace);
+    });
+  }
+
+  _processQueue(Trace trace) async {
+    if (isReady && !isLocked && _waitingEvents.isNotEmpty) {
+      final events = _waitingEvents.toList();
+      _waitingEvents = [];
+      // Process queued events when the app is ready
+      trace.addAttribute("queueProcessed", events);
+      for (final event in events) {
+        await setRoute(trace, event);
+      }
+    }
+  }
+
+  @action
+  Future<void> showModal(Trace parentTrace, StageModal modal) async {
+    return await traceWith(parentTrace, "showModal", (trace) async {
+      trace.addEvent("modal: $modal");
+      if (route.modal != modal) {
+        if (_modalCompleter != null) {
+          trace.addEvent("waiting for previous modal request to finish");
+          await _modalCompleter?.future;
         }
+
+        if (route.modal != null) {
+          trace.addEvent("dismiss previous modal");
+          await dismissModal(trace);
+          await sleepAsync(_afterDismissWait);
+        }
+
+        _modalCompleter = Completer();
+        _waitingOnModal = modal;
+        await setReady(trace, false);
+        await _ops.doShowModal(modal);
+        await _modalCompleter?.future;
+        await setReady(trace, true);
+        _modalCompleter = null;
+        _waitingOnModal = null;
+
+        await _updateModal(trace, modal);
       }
     });
   }
 
-  _updateModal(Trace trace, StageModal modal) async {
-    this.modal = modal;
-    await _event.onEvent(trace, CommonEvent.stageModalChanged);
+  @action
+  Future<void> modalShown(Trace parentTrace, StageModal modal) async {
+    return await traceWith(parentTrace, "modalShown", (trace) async {
+      if (_waitingOnModal == modal) {
+        _modalCompleter?.complete();
+      } else {
+        trace.addEvent("sheetShown ignored, wrong modal: $modal");
+      }
+    });
+  }
+
+  @action
+  Future<void> dismissModal(Trace parentTrace) async {
+    return await traceWith(parentTrace, "dismissModal", (trace) async {
+      if (route.modal != null) {
+        if (_dismissModalCompleter != null) {
+          return;
+        }
+
+        _dismissModalCompleter = Completer();
+        await setReady(trace, false);
+        await _ops.doDismissModal();
+        await _dismissModalCompleter?.future;
+        await setReady(trace, true);
+        _dismissModalCompleter = null;
+
+        await _updateModal(trace, null);
+      } else {
+        await _ops.doDismissModal();
+      }
+    });
+  }
+
+  @action
+  Future<void> modalDismissed(Trace parentTrace) async {
+    return await traceWith(parentTrace, "modalDismissed", (trace) async {
+      if (_dismissModalCompleter == null && route.modal != null) {
+        await _updateModal(trace, null);
+      } else {
+        _dismissModalCompleter?.complete();
+      }
+    });
+  }
+
+  @action
+  Future<void> showNavbar(Trace parentTrace, bool show) async {
+    return await traceWith(parentTrace, "showNavbar", (trace) async {
+      await _ops.doShowNavbar(show);
+    });
+  }
+
+  _updateModal(Trace trace, StageModal? modal) async {
+    route = route.newModal(modal);
+    await emitValue(routeChanged, trace, route);
+  }
+
+  _actOnRoute(Trace trace, StageRoute route) async {
+    if (route.path == StageKnownRoute.homeLock.path) {
+      await _ops.doShowNavbar(false);
+    } else if (route.path == StageKnownRoute.homeUnlock.path) {
+      await _ops.doShowNavbar(true);
+    }
+
+    if (route.path == StageKnownRoute.homeRate.path) {
+      await _ops.doShowNavbar(false);
+    } else if (route.path == StageKnownRoute.homeCloseRate.path) {
+      await _ops.doShowNavbar(true);
+    }
   }
 }

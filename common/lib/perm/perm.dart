@@ -1,9 +1,12 @@
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
+import '../plus/plus.dart';
+import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import '../device/device.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 part 'perm.g.dart';
@@ -11,15 +14,22 @@ part 'perm.g.dart';
 class PermStore = PermStoreBase with _$PermStore;
 
 abstract class PermStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<PermOps>();
+  late final _ops = dep<PermOps>();
   late final _app = dep<AppStore>();
   late final _device = dep<DeviceStore>();
+  late final _plus = dep<PlusStore>();
+  late final _stage = dep<StageStore>();
 
-  PermStoreBase() {}
+  PermStoreBase() {
+    _stage.addOnValue(routeChanged, onRouteChanged);
+  }
 
   @override
-  attach() {
-    depend<PermOps>(PermOps());
+  attach(Act act) {
+    _app.addOn(appStatusChanged, onAppStatusChanged);
+    _device.addOn(deviceChanged, onDeviceChanged);
+
+    depend<PermOps>(getOps(act));
     depend<PermStore>(this as PermStore);
   }
 
@@ -42,16 +52,20 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "privateDnsEnabled", (trace) async {
       trace.addAttribute("tag", tag);
 
-      privateDnsEnabled = tag;
-      await _app.cloudPermEnabled(trace, tag == _device.deviceTag);
+      if (tag != privateDnsEnabled) {
+        privateDnsEnabled = tag;
+        await _app.cloudPermEnabled(trace, tag == _device.deviceTag);
+      }
     });
   }
 
   @action
   Future<void> setPrivateDnsDisabled(Trace parentTrace) async {
     return await traceWith(parentTrace, "privateDnsDisabled", (trace) async {
-      privateDnsEnabled = null;
-      await _app.cloudPermEnabled(trace, false);
+      if (privateDnsEnabled != null) {
+        privateDnsEnabled = null;
+        await _app.cloudPermEnabled(trace, false);
+      }
     });
   }
 
@@ -66,16 +80,24 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> setNotificationEnabled(Trace parentTrace, bool enabled) async {
     return await traceWith(parentTrace, "notificationEnabled", (trace) async {
-      notificationEnabled = enabled;
-      trace.addAttribute("enabled", enabled);
+      if (enabled != notificationEnabled) {
+        notificationEnabled = enabled;
+        trace.addAttribute("enabled", enabled);
+      }
     });
   }
 
   @action
   Future<void> setVpnPermEnabled(Trace parentTrace, bool enabled) async {
     return await traceWith(parentTrace, "setVpnPermEnabled", (trace) async {
-      vpnEnabled = enabled;
-      trace.addAttribute("enabled", enabled);
+      if (enabled != vpnEnabled) {
+        trace.addAttribute("enabled", enabled);
+        vpnEnabled = enabled;
+        if (!enabled) {
+          await _plus.reactToPermLost(trace);
+          await _app.plusActivated(trace, false);
+        }
+      }
     });
   }
 
@@ -83,8 +105,9 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   // settings if possible. User is meant to activate it manually, but our app
   // can update it on iOS. Then, recheck the perms.
   @action
-  Future<void> syncDeviceTag(Trace parentTrace, String tag) async {
-    return await traceWith(parentTrace, "syncDeviceTag", (trace) async {
+  Future<void> syncPermsAfterTagChange(Trace parentTrace, String tag) async {
+    return await traceWith(parentTrace, "syncPermsAfterTagChange",
+        (trace) async {
       if (_previousTag == null || tag != _previousTag) {
         incrementPrivateDnsTagChangeCounter(trace);
         _previousTag = tag;
@@ -97,14 +120,40 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> syncForeground(Trace parentTrace, bool isForeground) async {
+  Future<void> syncPerms(Trace parentTrace) async {
     // TODO: check all perms on foreground
-    return await traceWith(parentTrace, "syncForeground", (trace) async {
+    return await traceWith(parentTrace, "syncPerms", (trace) async {
       final tag = _device.deviceTag;
-      if (isForeground && tag != null) {
+      if (tag != null) {
         await _recheckDnsPerm(trace, tag);
         await _recheckVpnPerm(trace);
       }
+    });
+  }
+
+  @action
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isBecameForeground()) return;
+
+    return await traceWith(parentTrace, "checkPermsOnFg", (trace) async {
+      await syncPerms(trace);
+    });
+  }
+
+  @action
+  Future<void> onAppStatusChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onAppStatusChanged", (trace) async {
+      if (_app.status.isInactive()) {
+        await syncPerms(trace);
+      }
+    });
+  }
+
+  @action
+  Future<void> onDeviceChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+      final tag = _device.deviceTag!;
+      await syncPermsAfterTagChange(trace, tag);
     });
   }
 

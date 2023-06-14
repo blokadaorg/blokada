@@ -6,7 +6,7 @@ abstract class Trace {
   endWithFailure(Exception e, StackTrace s);
   endWithFatal(Error e, StackTrace s);
 
-  void addAttribute(String key, dynamic value);
+  void addAttribute(String key, dynamic value, {bool sensitive = false});
   void setAttributes(Map<String, dynamic> attributes);
 
   void addEvent(String message, {Map<String, dynamic>? params});
@@ -32,8 +32,6 @@ abstract class Tracer {
 }
 
 mixin Traceable {
-  late final _tracer = dep<Tracer>();
-
   // Wrap the function with tracing of a successful or failure execution.
   // Rethrow on Exception or Error.
   Future<T> traceWith<T>(
@@ -50,9 +48,9 @@ mixin Traceable {
       final result = await fn(trace);
       await trace.end();
       return result;
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       if (fallback == null) {
-        await trace.endWithFailure(e, s);
+        await _handleFailure(trace, e, s);
         rethrow;
       }
 
@@ -60,16 +58,20 @@ mixin Traceable {
         final result = await fallback(trace);
         await trace.end();
         return result;
-      } on Exception catch (e, s) {
-        await trace.endWithFailure(e, s);
-        rethrow;
-      } on Error catch (e, s) {
-        await trace.endWithFatal(e, s);
+      } catch (e, s) {
+        await _handleFailure(trace, e, s);
         rethrow;
       }
-    } on Error catch (e, s) {
+    }
+  }
+
+  _handleFailure(Trace trace, Object e, StackTrace s) async {
+    if (e is Exception) {
+      await trace.endWithFailure(e, s);
+    } else if (e is Error) {
       await trace.endWithFatal(e, s);
-      rethrow;
+    } else {
+      await trace.endWithFatal(StateError("Unknown error: $e"), s);
     }
   }
 }
@@ -80,7 +82,6 @@ mixin TraceOrigin {
   traceAs(
     String name,
     Future Function(Trace trace) fn, {
-    Future Function(Trace trace, Exception e)? fallback,
     Future Function(Trace trace)? deferred,
     bool important = false,
   }) async {
@@ -93,31 +94,10 @@ mixin TraceOrigin {
       }
       await trace.end();
     } on Exception catch (e, s) {
-      if (fallback == null) {
-        if (deferred != null) {
-          await deferred(trace);
-        }
-        await trace.endWithFailure(e, s);
-        return;
+      if (deferred != null) {
+        await deferred(trace);
       }
-
-      try {
-        await fallback(trace, e);
-        if (deferred != null) {
-          await deferred(trace);
-        }
-        await trace.end();
-      } on Exception catch (e, s) {
-        if (deferred != null) {
-          await deferred(trace);
-        }
-        await trace.endWithFailure(e, s);
-      } on Error catch (e, s) {
-        if (deferred != null) {
-          await deferred(trace);
-        }
-        await trace.endWithFatal(e, s);
-      }
+      await trace.endWithFailure(e, s);
     } on Error catch (e, s) {
       if (deferred != null) {
         await deferred(trace);
@@ -126,3 +106,12 @@ mixin TraceOrigin {
     }
   }
 }
+
+String shortString(String s, {int length = 64}) {
+  if (s.length > length) {
+    return "${s.substring(0, length).replaceAll("\n", "").trim()} [...]";
+  } else {
+    return s.replaceAll("\n", "").trim();
+  }
+}
+

@@ -14,7 +14,7 @@ class DefaultTimer with TimerService, TraceOrigin, Dependable {
   final Map<String, Function(Trace)> _handlers = {};
 
   @override
-  attach() {
+  attach(Act act) {
     depend<TimerService>(this);
   }
 
@@ -53,7 +53,7 @@ class TestingTimer with TimerService, TraceOrigin, Dependable {
   final Map<String, Function(Trace)> _handlers = {};
 
   @override
-  attach() {
+  attach(Act act) {
     depend<TimerService>(this);
   }
 

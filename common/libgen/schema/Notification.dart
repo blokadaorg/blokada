@@ -6,11 +6,5 @@ abstract class NotificationOps {
   void doShow(String notificationId, String when);
 
   @async
-  void doDismiss(String notificationId);
-}
-
-@FlutterApi()
-abstract class NotificationEvents {
-  @async
-  void onUserAction(String notificationId);
+  void doDismissAll();
 }

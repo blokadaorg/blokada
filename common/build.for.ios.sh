@@ -10,7 +10,7 @@ built=false
 if [ -e build/.version ]; then
   built_version=$(<build/.version)
   if [[ "$version" = *-dirty ]]; then
-    built=false # always reubild dirty head
+    built=false # always rebuild dirty head
   elif [[ "$version" == "$built_version" ]]; then
     built=true
   else
@@ -23,7 +23,11 @@ if [[ "$built" = true ]]; then
 else
 	flutter pub get
 	./sync-generated-files.sh
-	flutter build ios-framework --output=build/ios-framework --no-debug --no-profile
+	if [ -z "$1" ]; then
+		flutter build ios-framework --output=build/ios-framework --no-profile
+	else
+		flutter build ios-framework --output=build/ios-framework --no-release --no-profile
+	fi
 	echo $version > build/.version
 fi
 

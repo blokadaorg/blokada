@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../account/account.dart';
 import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
@@ -50,12 +51,12 @@ class JsonListItem {
 }
 
 class DeckJson {
-  late final _http = di<HttpService>();
-  late final _env = di<EnvStore>();
+  late final _http = dep<HttpService>();
+  late final _account = dep<AccountStore>();
 
   Future<List<JsonListItem>> getLists(Trace trace) async {
-    final result = await _http.get(
-        trace, "$jsonUrl/v2/list?account_id=${_env.currentUser}");
+    final result =
+        await _http.get(trace, "$jsonUrl/v2/list?account_id=${_account.id}");
     return JsonListEndpoint.fromJson(jsonDecode(result)).lists;
   }
 }

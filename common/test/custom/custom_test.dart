@@ -21,10 +21,12 @@ void main() {
   group("store", () {
     test("willSplitEntriesByType", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final json = MockCustomJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
-        di.registerSingleton<CustomJson>(json);
+        depend<CustomJson>(json);
 
         final ops = MockCustomOps();
         depend<CustomOps>(ops);
@@ -41,10 +43,12 @@ void main() {
 
     test("allowAndOthers", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final json = MockCustomJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
-        di.registerSingleton<CustomJson>(json);
+        depend<CustomJson>(json);
 
         final ops = MockCustomOps();
         depend<CustomOps>(ops);
@@ -69,11 +73,10 @@ void main() {
     test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
         final json = MockCustomJson();
-        di.registerSingleton<CustomJson>(json);
+        depend<CustomJson>(json);
 
+        final route = StageRouteState.init().newTab(StageTab.activity);
         final stage = MockStageStore();
-        when(stage.isForeground).thenReturn(true);
-        when(stage.route).thenReturn(StageRoute.forTab(StageTab.activity));
         depend<StageStore>(stage);
 
         final ops = MockCustomOps();
@@ -82,18 +85,7 @@ void main() {
         final subject = CustomStore();
         verifyNever(json.getEntries(any));
 
-        // Initially will refresh
-        await subject.maybeRefreshCustom(trace);
-        verify(json.getEntries(any));
-
-        // Then it wont refresh (until cooldown time passed)
-        await subject.maybeRefreshCustom(trace);
-        verifyNever(json.getEntries(any));
-
-        // Imagine cooldown passed, should refresh again
-        subject.lastRefresh =
-            DateTime.now().subtract(const Duration(seconds: 10));
-        await subject.maybeRefreshCustom(trace);
+        await subject.onRouteChanged(trace, route);
         verify(json.getEntries(any));
       });
     });

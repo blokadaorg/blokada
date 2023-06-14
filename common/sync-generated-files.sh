@@ -13,10 +13,10 @@ do
     dartPath=$(echo "$name" | sed 's/\([A-Z]\)/\/\1/g')
     dartPath=$(echo $dartPath | tr '[:upper:]' '[:lower:]')
     echo $dartPath
-    flutter pub run pigeon --input $file --dart_out lib$dartPath/channel.pg.dart --swift_out libgen/ios/$name.swift --kotlin_out libgen/android/$name.kt --kotlin_package "channel"
+    dart run pigeon --input $file --dart_out lib$dartPath/channel.pg.dart --swift_out libgen/ios/$name.swift --kotlin_out libgen/android/$name.kt --kotlin_package "channel"
 done
 
 echo "Running flutter build_runner..."
-flutter pub run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 
 echo "Done"

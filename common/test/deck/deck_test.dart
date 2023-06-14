@@ -23,10 +23,13 @@ void main() {
   group("store", () {
     test("willFetchDecks", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+        depend<DeviceStore>(MockDeviceStore());
+
         final json = MockDeckJson();
         when(json.getLists(any))
             .thenAnswer((_) => Future.value(fixtureListItems));
-        di.registerSingleton<DeckJson>(json);
+        depend<DeckJson>(json);
 
         final ops = MockDeckOps();
         depend<DeckOps>(ops);
@@ -53,10 +56,13 @@ void main() {
 
     test("setUserLists", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+        depend<DeviceStore>(MockDeviceStore());
+
         final json = MockDeckJson();
         when(json.getLists(any))
             .thenAnswer((_) => Future.value(fixtureListItems));
-        di.registerSingleton<DeckJson>(json);
+        depend<DeckJson>(json);
 
         final ops = MockDeckOps();
         depend<DeckOps>(ops);
@@ -76,16 +82,18 @@ void main() {
 
     test("setEnableList", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockDeckOps();
         depend<DeckOps>(ops);
 
         final json = MockDeckJson();
         when(json.getLists(any))
             .thenAnswer((_) => Future.value(fixtureListItems));
-        di.registerSingleton<DeckJson>(json);
+        depend<DeckJson>(json);
 
         final device = MockDeviceStore();
-        di.registerSingleton<DeviceStore>(device);
+        depend<DeviceStore>(device);
 
         final subject = DeckStore();
         await subject.fetch(trace);
@@ -101,32 +109,23 @@ void main() {
 
     test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
+        depend<DeviceStore>(MockDeviceStore());
+
         final ops = MockDeckOps();
         depend<DeckOps>(ops);
 
         final json = MockDeckJson();
-        di.registerSingleton<DeckJson>(json);
+        depend<DeckJson>(json);
 
+        final route = StageRouteState.init().newTab(StageTab.advanced);
         final stage = MockStageStore();
-        when(stage.isForeground).thenReturn(true);
-        when(stage.route).thenReturn(StageRoute.forTab(StageTab.advanced));
+        when(stage.route).thenReturn(route);
         depend<StageStore>(stage);
 
         final subject = DeckStore();
         verifyNever(json.getLists(any));
 
-        // Initially will refresh
-        await subject.maybeRefreshDeck(trace);
-        verify(json.getLists(any));
-
-        // Then it wont refresh (until cooldown time passed)
-        await subject.maybeRefreshDeck(trace);
-        verifyNever(json.getLists(any));
-
-        // Imagine cooldown passed, should refresh again
-        subject.lastRefresh =
-            DateTime.now().subtract(const Duration(minutes: 10));
-        await subject.maybeRefreshDeck(trace);
+        await subject.onRouteChanged(trace, route);
         verify(json.getLists(any));
       });
     });

@@ -1,12 +1,16 @@
 import 'package:common/plus/keypair/keypair.dart';
+import 'package:common/plus/lease/json.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
-import '../env/env.dart';
+import '../device/device.dart';
 import '../persistence/persistence.dart';
+import '../stage/channel.pg.dart';
+import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'gateway/channel.pg.dart';
 import 'gateway/gateway.dart';
@@ -23,14 +27,15 @@ const String _keySelected = "plus:active";
 class PlusStore = PlusStoreBase with _$PlusStore;
 
 abstract class PlusStoreBase with Store, Traceable, Dependable {
-  late final _ops = di<PlusOps>();
-  late final _keypair = di<PlusKeypairStore>();
-  late final _gateway = di<PlusGatewayStore>();
-  late final _lease = di<PlusLeaseStore>();
-  late final _vpn = di<PlusVpnStore>();
-  late final _persistence = di<PersistenceService>();
-  late final _app = di<AppStore>();
-  late final _env = dep<EnvStore>();
+  late final _ops = dep<PlusOps>();
+  late final _keypair = dep<PlusKeypairStore>();
+  late final _gateway = dep<PlusGatewayStore>();
+  late final _lease = dep<PlusLeaseStore>();
+  late final _vpn = dep<PlusVpnStore>();
+  late final _persistence = dep<PersistenceService>();
+  late final _app = dep<AppStore>();
+  late final _device = dep<DeviceStore>();
+  late final _stage = dep<StageStore>();
 
   PlusStoreBase() {
     reactionOnStore((_) => plusEnabled, (plusEnabled) async {
@@ -39,8 +44,8 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   }
 
   @override
-  attach() {
-    depend<PlusOps>(PlusOps());
+  attach(Act act) {
+    depend<PlusOps>(getOps(act));
     depend<PlusStore>(this as PlusStore);
   }
 
@@ -62,8 +67,13 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
         // No need to clear lease because backend will clear for the same key/acc
         await _lease.newLease(trace, id);
         await switchPlus(trace, true);
-      } on Exception catch (_) {
-        // TODO: show modal?
+      } on TooManyLeasesException catch (_) {
+        await _app.plusActivated(trace, false);
+        await _stage.showModal(trace, StageModal.plusTooManyLeases);
+      } catch (_) {
+        await _app.plusActivated(trace, false);
+        await _stage.showModal(trace, StageModal.plusVpnFailure);
+        rethrow;
       }
     });
   }
@@ -72,10 +82,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   Future<void> clearPlus(Trace parentTrace) async {
     return await traceWith(parentTrace, "clearPlus", (trace) async {
       await switchPlus(trace, false);
-      final current = _lease.getCurrentLease();
-      if (current != null) {
-        await _lease.deleteLease(trace, current);
-      }
+      _clearLease(trace);
     });
   }
 
@@ -107,7 +114,8 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
       } on Exception catch (_) {
         plusEnabled = false;
         await _saveFlag(trace);
-        await clearPlus(trace);
+        _clearLease(trace);
+        await _stage.showModal(trace, StageModal.plusVpnFailure);
         rethrow;
       }
     });
@@ -116,7 +124,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   VpnConfig _assembleConfig(PlusKeypair keypair, Gateway gateway, Lease lease) {
     return VpnConfig(
       devicePrivateKey: keypair.privateKey,
-      deviceTag: _env.currentDeviceTag,
+      deviceTag: _device.currentDeviceTag,
       gatewayPublicKey: gateway.publicKey,
       gatewayNiceName: gateway.niceName,
       gatewayIpv4: gateway.ipv4,
@@ -127,19 +135,35 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
     );
   }
 
+  _clearLease(Trace trace) async {
+    final current = _lease.currentLease;
+    if (current != null) {
+      await _lease.deleteLease(trace, current);
+    }
+  }
+
   @action
   Future<void> reactToAppPause(Trace parentTrace, bool appActive) async {
     return await traceWith(parentTrace, "reactToAppStatus", (trace) async {
-      if (appActive && plusEnabled && !_vpn.getStatus().isActive()) {
+      if (appActive && plusEnabled && !_vpn.actualStatus.isActive()) {
         await _vpn.turnVpnOn(trace);
         await _lease.fetch(trace);
-      } else if (!appActive && plusEnabled && _vpn.getStatus().isActive()) {
+      } else if (!appActive && (plusEnabled || _vpn.actualStatus.isActive())) {
         await _vpn.turnVpnOff(trace);
       }
     });
   }
 
-  bool getPlusEnabled() => plusEnabled;
+  @action
+  Future<void> reactToPermLost(Trace parentTrace) async {
+    return await traceWith(parentTrace, "reactToPermLost", (trace) async {
+      if (plusEnabled || _vpn.actualStatus.isActive()) {
+        plusEnabled = false;
+        _clearLease(trace);
+        await _vpn.turnVpnOff(trace);
+      }
+    });
+  }
 
   _saveFlag(Trace trace) async {
     await _persistence.saveString(trace, _keySelected, plusEnabled ? "1" : "0");

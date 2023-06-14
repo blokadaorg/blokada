@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:common/account/account.dart';
 import 'package:common/device/json.dart';
-import 'package:common/env/env.dart';
 import 'package:common/http/http.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,6 +11,7 @@ import 'package:mockito/mockito.dart';
 import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<HttpService>(),
+  MockSpec<AccountStore>(),
 ])
 import 'json_test.mocks.dart';
 
@@ -25,14 +26,14 @@ void main() {
   group("getDevice", () {
     test("willFetchDevice", () async {
       await withTrace((trace) async {
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(_fixtureJsonEndpoint));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = DeviceJson();
         final device = await subject.getDevice(trace);
@@ -48,9 +49,9 @@ void main() {
   group("putDevice", () {
     test("willCreateProperPutRequestForPaused", () async {
       await withTrace((trace) async {
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
@@ -60,7 +61,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(trace, paused: true);
@@ -73,9 +74,9 @@ void main() {
 
     test("willCreateProperPutRequestForRetention", () async {
       await withTrace((trace) async {
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
@@ -85,7 +86,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(trace, retention: "1h");
@@ -98,9 +99,9 @@ void main() {
 
     test("willCreateProperPutRequestForLists", () async {
       await withTrace((trace) async {
-        final env = EnvStore();
-        env.setAccountId(trace, "some-id");
-        di.registerSingleton<EnvStore>(env);
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        depend<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
@@ -110,7 +111,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        di.registerSingleton<HttpService>(http);
+        depend<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(trace, lists: ["a", "b"]);

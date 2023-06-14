@@ -7,22 +7,17 @@ class Account {
   final String? type;
   final String? paymentSource;
 
-  Account(
-      {required this.id,
-      required this.activeUntil,
-      required this.active,
-      required this.type,
-      required this.paymentSource});
+  Account({
+    required this.id,
+    required this.activeUntil,
+    required this.active,
+    required this.type,
+    required this.paymentSource,
+  });
 }
 
 @HostApi()
 abstract class AccountOps {
   @async
   void doAccountChanged(Account account);
-}
-
-@FlutterApi()
-abstract class AccountEvents {
-  @async
-  void onRestoreAccount(String accountId);
 }
