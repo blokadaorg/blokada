@@ -232,6 +232,7 @@
 "activity retention policy" = "Dengan mengaktifkan pencatatan aktifitas berarti Anda menerima kebijakan privasi.";
 "activity retention desc" = "Blokada Cloud secara default tidak akan menyimpan data Anda. Jika Anda ingin melihat kumpulan statistik dan aktivitas pemakaian dari semua perangkat Anda, silakan pilih rentang waktu penyimpanan data yang Anda inginkan di bawah ini.";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Pengecualian";
 "userdenied section slugline" = "Atur pemblokiran untuk situs-situs tertentu";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "Izinkan";
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokir";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
@@ -444,8 +447,8 @@
 "stats label blocked" = "Diblokir";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Total";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24 jam";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Sepanjang waktu";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "Buka Pengaturan";
 "dnsprofile desc android" = "Di bagian Settings, cari opsi Private DNS, kemudian salin hostname Anda dengan cara menekan lama.";
 "dnsprofile desc android copy" = "Salin hostname Blokada Cloud Anda untuk kemudian dimasukkan di Settings.";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Sebentar lagi!";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "'Wireguard' dan logo 'Wireguard' adalah merk terdaftar milik Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklist";
 "app settings section header" = "Perangkat ini";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

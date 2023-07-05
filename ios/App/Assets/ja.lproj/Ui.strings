@@ -232,6 +232,7 @@
 "activity retention policy" = "アクティビティ ログを有効にする場合、プライバシーポリシーに同意するものとします。";
 "activity retention desc" = "Blokada Cloud はデフォルトで何も記録しません。統計とアクティビティを表示する場合は、アクティビティ ログを有効にしてください。";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "例外";
 "userdenied section slugline" = "ブロック・許可したサイトを管理する";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "許可";
 // A short one word action to block a hostname.
 "userdenied action block" = "ブロック";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
@@ -445,8 +448,8 @@
 "stats label blocked" = "ブロック";
 // A short one-word label for the counter of total requests.
 "stats label total" = "合計";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24 時間";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "すべての期間";
 
@@ -455,6 +458,9 @@
 "dnsprofile action open settings" = "設定を開く";
 "dnsprofile desc android" = "設定アプリでプライベート DNS の欄を探して長押しし、ホスト名を貼り付けてください。";
 "dnsprofile desc android copy" = "Blokada Cloud のホスト名をコピーして、設定に貼り付けます。";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "もう少しで完了です";
@@ -473,3 +479,7 @@
 "homepage vpn credit" = "「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。";
 "advanced section header packs" = "ブロックリスト";
 "app settings section header" = "設定";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

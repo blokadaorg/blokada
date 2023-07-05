@@ -232,6 +232,7 @@
 "activity retention policy" = "Genom att aktivera aktivitetsloggning godkänner du sekretesspolicyn.";
 "activity retention desc" = "Blokada Cloud loggar inte något som standard. Om du vill se aggregerad statistik och aktivitet från alla dina enheter, aktivera aktivitetsloggning nedan.";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Undantag";
 "userdenied section slugline" = "Hantera blockering av vissa webbplatser";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "Tillåt";
 // A short one word action to block a hostname.
 "userdenied action block" = "Blockera";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "Inställningar";
 "account status text" = "Ditt BLOKADA %@konto är aktivt fram till %@.";
@@ -444,8 +447,8 @@
 "stats label blocked" = "Blockerad";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Totalt";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24h";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Sedan installation";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "Öppna Inställningar";
 "dnsprofile desc android" = "I appen Inställningar, sök efter sektionen Privat DNS, klistra sedan in ditt värdnamn (tryck och håll kvar).";
 "dnsprofile desc android copy" = "Kopiera ditt Blokada Cloud-värdnamn för att klistra in det i Inställningar.";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Nästan där!";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "'WireGuard' och logotypen 'WireGuard' är registrerade varumärken som tillhör Jason A. Donenfeld.";
 "advanced section header packs" = "Blocklistor";
 "app settings section header" = "Denna enhet";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

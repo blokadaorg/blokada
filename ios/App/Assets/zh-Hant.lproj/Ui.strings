@@ -232,6 +232,7 @@
 "activity retention policy" = "啟用活動紀錄即表示您接受隱私權政策。";
 "activity retention desc" = "Blokada Cloud 預設不記錄任何資料。如果您希望在所有裝置上看到匯總的統計資料和活動紀錄，請啟用下方的活動紀錄。";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "例外";
 "userdenied section slugline" = "管理對特定網站的封鎖";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "允許";
 // A short one word action to block a hostname.
 "userdenied action block" = "阻擋";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "設定";
 "account status text" = "您的 BLOKADA %@ 帳號有效日期至 %@ 為止。";
@@ -444,8 +447,8 @@
 "stats label blocked" = "已封鎖";
 // A short one-word label for the counter of total requests.
 "stats label total" = "總共";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24小時";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "所有時間";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "開啟設定";
 "dnsprofile desc android" = "在「設定」app 中，找到「私人 DNS」區塊，然後（長按）貼上您的主機名稱。";
 "dnsprofile desc android copy" = "複製您的 Blokada Cloud 主機名稱，然後在「設定」中貼上。";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "快完成了！";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "「WireGuard」和「WireGuard」標誌是 Jason A. Donenfeld 的註冊商標。";
 "advanced section header packs" = "阻擋清單";
 "app settings section header" = "這台裝置";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

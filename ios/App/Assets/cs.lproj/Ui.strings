@@ -232,6 +232,7 @@
 "activity retention policy" = "Povolením zaznamenávání aktivity souhlasíte se zásadami ochrany osobních údajů.";
 "activity retention desc" = "Služba Blokada Cloud ve výchozím nastavení nic nezaznamenává. Pokud chcete vidět souhrnné statistiky a aktivity ze všech svých zařízení, povolte níže zaznamenávání aktivit.";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Výjimky";
 "userdenied section slugline" = "Spravovat blokování konkrétních webových stránek";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "Povolit";
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokovat";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
@@ -444,8 +447,8 @@
 "stats label blocked" = "Zablokováno";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Celkem";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24h";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Za celou dobu";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "Otevřít Nastavení";
 "dnsprofile desc android" = "V aplikaci Nastavení najděte sekci Soukromé DNS a pak vložte název hostitele (dlouhým klepnutím).";
 "dnsprofile desc android copy" = "Zkopírujte svůj název hostitele služby Blokada Cloud a vložte jej do Nastavení.";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Téměř hotovo!";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "'WireGuard' a logo 'WireGuard' jsou registrované ochranné známky Jasona A. Donenfelda.";
 "advanced section header packs" = "Blocklisty";
 "app settings section header" = "Toto zařízení";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

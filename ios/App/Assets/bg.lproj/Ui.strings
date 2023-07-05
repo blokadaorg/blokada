@@ -232,6 +232,7 @@
 "activity retention policy" = "С активацията на регистрирането на активността, вие приемате политиката за поверителност.";
 "activity retention desc" = "По подразбиране в Blokada Cloud не се регистрира нищо. Ако искате да видите обобщени статистики за активността на всичките си устройства, активирайте по-долу регистрирането на активността.";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Изключения";
 "userdenied section slugline" = "Управлявайте блокирането на определени уеб сайтове";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "Разрешаване";
 // A short one word action to block a hostname.
 "userdenied action block" = "Блокиране";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
@@ -444,8 +447,8 @@
 "stats label blocked" = "Блокирани";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Общо";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24 часа";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "През цялото време";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "Отваряне на настройките";
 "dnsprofile desc android" = "В Настройки на приложението, намерете секцията Частен DNS и след това поставете името на хоста си (с дълго докосване).";
 "dnsprofile desc android copy" = "Копирайте името на хоста на Blokada Cloud, за да го поставите в Настройки.";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "„WireGuard“ и логото „WireGuard“ са регистрирани търговски марки на Jason A. Donenfeld.";
 "advanced section header packs" = "Блокиращи списъци";
 "app settings section header" = "Това устройство";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

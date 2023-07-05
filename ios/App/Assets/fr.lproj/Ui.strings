@@ -232,6 +232,7 @@
 "activity retention policy" = "By enabling activity logging you accept the privacy policy.";
 "activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
+// Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Gérer la blocage de sites web spécifiques";
 // A section name for the list of hosts allowed by user
@@ -242,6 +243,8 @@
 "userdenied action allow" = "Autoriser";
 // A short one word action to block a hostname.
 "userdenied action block" = "Bloquer";
+// Opens the Exceptions screen (where all user defined custom rules are)
+"userdefined action open" = "Open Exceptions";
 
 "account section header settings" = "Paramètres";
 "account status text" = "Votre compte BLOKADA %@ est actif jusqu'au %@.";
@@ -444,8 +447,8 @@
 "stats label blocked" = "Bloqué";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Total";
-// A short header for the stats section of last 24h. Can just say "24h".
-"stats header day" = "24h";
+// A short header for the stats section of last 24h.
+"stats header day" = "Last 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Depuis le début";
 
@@ -454,6 +457,9 @@
 "dnsprofile action open settings" = "Ouvrir les Paramètres";
 "dnsprofile desc android" = "Dans l'application Paramètres, trouvez la section DNS privée, puis collez votre nom d'hôte (appui long).";
 "dnsprofile desc android copy" = "Copiez votre nom d'hôte Blokada Cloud pour le coller dans les Paramètres.";
+"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+// A helpful message during onboarding to help user find the right settings to change
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "On y est presque !";
@@ -472,3 +478,7 @@
 "homepage vpn credit" = "\"WireGuard\" et le logo \"WireGuard\" sont des marques déposées de Jason A. Donenfeld.";
 "advanced section header packs" = "Listes de blocage";
 "app settings section header" = "Cet appareil";
+
+"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
+"lock status unlocked has pin" = "Enter the pin code to change it";
+"lock status unlocked" = "Set your pin code to lock Blokada";

@@ -284,6 +284,10 @@ internal enum L10n {
   internal static let dnsprofileDescAndroidCopy = L10n.tr("Ui", "dnsprofile desc android copy")
   /// Enable Blokada in Settings
   internal static let dnsprofileHeader = L10n.tr("Ui", "dnsprofile header")
+  /// General → VPN, DNS & Device Management → DNS and select Blokada.
+  internal static let dnsprofileNotificationBody = L10n.tr("Ui", "dnsprofile notification body")
+  /// In the Settings app, navigate to:
+  internal static let dnsprofileNotificationSubtitle = L10n.tr("Ui", "dnsprofile notification subtitle")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
@@ -386,6 +390,12 @@ internal enum L10n {
   internal static let locationRegionEurope = L10n.tr("Ui", "location region europe")
   /// Everywhere
   internal static let locationRegionWorldwide = L10n.tr("Ui", "location region worldwide")
+  /// Blokada is locked. Enter the pin code to unlock
+  internal static let lockStatusLocked = L10n.tr("Ui", "lock status locked")
+  /// Set your pin code to lock Blokada
+  internal static let lockStatusUnlocked = L10n.tr("Ui", "lock status unlocked")
+  /// Enter the pin code to change it
+  internal static let lockStatusUnlockedHasPin = L10n.tr("Ui", "lock status unlocked has pin")
   /// Sure!
   internal static let mainRateUsActionSure = L10n.tr("Ui", "main rate us action sure")
   /// How do you like Blokada so far?
@@ -680,7 +690,7 @@ internal enum L10n {
   internal static let statsHeader = L10n.tr("Ui", "stats header")
   /// All time
   internal static let statsHeaderAllTime = L10n.tr("Ui", "stats header all time")
-  /// 24h
+  /// Last 24h
   internal static let statsHeaderDay = L10n.tr("Ui", "stats header day")
   /// Allowed
   internal static let statsLabelAllowed = L10n.tr("Ui", "stats label allowed")
@@ -794,6 +804,8 @@ internal enum L10n {
   internal static let updateDownloadingDescription = L10n.tr("Ui", "update downloading description")
   /// Updated!
   internal static let updateLabelUpdated = L10n.tr("Ui", "update label updated")
+  /// Open Exceptions
+  internal static let userdefinedActionOpen = L10n.tr("Ui", "userdefined action open")
   /// Allow
   internal static let userdeniedActionAllow = L10n.tr("Ui", "userdenied action allow")
   /// Block
