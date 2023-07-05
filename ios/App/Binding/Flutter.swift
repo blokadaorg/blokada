@@ -17,8 +17,6 @@ import Factory
 class Flutter {
     lazy var flutterEngine = FlutterEngine(name: "common")
 
-    private lazy var service = FlutterService()
-
     init() {
         flutterEngine.run()
     }
@@ -29,10 +27,6 @@ class Flutter {
 
     func getEngine() -> FlutterEngine {
         return flutterEngine
-    }
-
-    func setupChannels(controller: FlutterViewController) {
-        service.setupChannels(controller: controller)
     }
 }
 

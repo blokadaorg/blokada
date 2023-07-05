@@ -39,7 +39,7 @@ class LeaseListViewModel: ObservableObject {
             let (leases, account) = it
             return leases.map { (
                 $0, // Lease
-                $0.publicKey == account.keypair.publicKey // isMe
+                $0.publicKey == account.keypair?.publicKey // isMe
             ) }
         }
         .receive(on: RunLoop.main)

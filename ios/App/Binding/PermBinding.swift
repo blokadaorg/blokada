@@ -43,7 +43,7 @@ class PermBinding: PermOps {
     }
 
     func doPrivateDnsEnabled(tag: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        privateDns.isPrivateDnsProfileActive() // TODO deviceName
+        privateDns.isPrivateDnsProfileActive()
         .sink(
             onValue: { it in
                 self.writeDnsProfileActivated.send(it)

@@ -21,7 +21,6 @@ struct FlutterHomeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> FlutterViewController {
         let engine = self.flutter.getEngine()
         let controller = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
-        self.flutter.setupChannels(controller: controller)
         return controller
     }
 

@@ -16,6 +16,8 @@ import Factory
 class PlusKeypairBinding: PlusKeypairOps {
     @Injected(\.flutter) private var flutter
 
+    var currentKeypair: PlusKeypair?
+
     init() {
         PlusKeypairOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
@@ -23,10 +25,12 @@ class PlusKeypairBinding: PlusKeypairOps {
     func doGenerateKeypair(completion: @escaping (Result<PlusKeypair, Error>) -> Void) {
         let privKey = PrivateKey()
         let pubKey = privKey.publicKey
-        completion(.success(PlusKeypair(
+        let currentKeypair = PlusKeypair(
             publicKey: pubKey.base64Key,
             privateKey: privKey.base64Key
-        )))
+        )
+        self.currentKeypair = currentKeypair
+        completion(.success(currentKeypair))
     }
 }
 

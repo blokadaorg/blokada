@@ -206,7 +206,6 @@
 		4E4EDBF0275E5D13007B9394 /* StageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EDBEE275E5D13007B9394 /* StageModel.swift */; };
 		4E52F3AD245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
 		4E52F3AE245AA9E6007E36EE /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E52F3AC245AA9E6007E36EE /* RateAppView.swift */; };
-		4E53CCAC244DD549009B3CF0 /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
 		4E53CCB7244DFE21009B3CF0 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */; };
 		4E53CCB9244DFEB1009B3CF0 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCB8244DFEB1009B3CF0 /* PaymentModel.swift */; };
 		4E53CCBB244DFF99009B3CF0 /* SKProduct+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */; };
@@ -351,7 +350,6 @@
 		4E86510E2A3C968B0060AFB1 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0029E6999D00A8A60D /* Env.swift */; };
 		4E86510F2A3C968B0060AFB1 /* InboxService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57FCDF24A0D5F000960ADF /* InboxService.swift */; };
 		4E8651102A3C968B0060AFB1 /* SettingsFormNoNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90727B43A7200C98D36 /* SettingsFormNoNavView.swift */; };
-		4E8651112A3C968B0060AFB1 /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCA8244DD464009B3CF0 /* EngineService.swift */; };
 		4E8651122A3C968B0060AFB1 /* TunnelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23CFF8293E1F9700613D0A /* TunnelsManager.swift */; };
 		4E8651132A3C968B0060AFB1 /* DnsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9CF247E7C0300AED8F0 /* DnsModel.swift */; };
 		4E8651142A3C968B0060AFB1 /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5F12459D8BD00E339F2 /* PowerView.swift */; };
@@ -390,7 +388,6 @@
 		4E8651372A3C968B0060AFB1 /* AppBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A25276371C6005A59F5 /* AppBinding.swift */; };
 		4E8651382A3C968B0060AFB1 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E8651392A3C968B0060AFB1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
-		4E86513A2A3C968B0060AFB1 /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A2A02785B79D009764F1 /* CryptoService.swift */; };
 		4E86513B2A3C968B0060AFB1 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42352D244EE662005A0779 /* AccountViewModel.swift */; };
 		4E86513C2A3C968B0060AFB1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D00D293E20BC00613D0A /* Endpoint.swift */; };
 		4E86513D2A3C968B0060AFB1 /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0429E6999D00A8A60D /* Http.swift */; };
@@ -505,7 +502,6 @@
 		4E8651AA2A3C968B0060AFB1 /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4E8651AB2A3C968B0060AFB1 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD0A245B2B14009040F1 /* TagView.swift */; };
 		4E8651AC2A3C968B0060AFB1 /* LeaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194A2447436C00191C16 /* LeaseListView.swift */; };
-		4E8651AD2A3C968B0060AFB1 /* CryptoServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */; };
 		4E8651AE2A3C968B0060AFB1 /* PackConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD07245B2794009040F1 /* PackConfigView.swift */; };
 		4E8651AF2A3C968B0060AFB1 /* PermsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4347927730EF4003C1242 /* PermsRepo.swift */; };
 		4E8651B02A3C968B0060AFB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
@@ -524,7 +520,6 @@
 		4E8651BD2A3C968B0060AFB1 /* Perm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD35A2A0CCCAA0039C101 /* Perm.swift */; };
 		4E8651BE2A3C968B0060AFB1 /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
 		4E8651BF2A3C968B0060AFB1 /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
-		4E8651C02A3C968B0060AFB1 /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
 		4E8651C12A3C968B0060AFB1 /* PlusButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F6FF1243DB49E002E1DF6 /* PlusButtonView.swift */; };
 		4E8651C22A3C968B0060AFB1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C64EC29EED6EC00ABB65B /* App.swift */; };
 		4E8651C32A3C968B0060AFB1 /* PackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCEC245AE4DE009040F1 /* PackView.swift */; };
@@ -603,8 +598,6 @@
 		4E8AE1EE2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */; };
 		4E8AE1F02758DD8600BD2E5B /* HttpServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */; };
 		4E8AE1F12758DD8600BD2E5B /* HttpServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */; };
-		4E8AE1F32758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */; };
-		4E8AE1F42758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */; };
 		4E8AE1F62758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
 		4E8AE1F72758F06500BD2E5B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F52758F06500BD2E5B /* AccountModel.swift */; };
 		4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */; };
@@ -676,11 +669,8 @@
 		4EA189CC27B5218700E57470 /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189CA27B5218700E57470 /* OptionView.swift */; };
 		4EA2783024657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EA2783124657E9E00C6372E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
-		4EA7BCE028E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
-		4EA7BCE128E6C4D000F3649A /* FlutterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */; };
 		4EA7BCE328ED7E6F00F3649A /* HelpButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */; };
 		4EA7BCE428ED7E6F00F3649A /* HelpButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */; };
-		4EA9A2A12785B79D009764F1 /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A2A02785B79D009764F1 /* CryptoService.swift */; };
 		4EA9A2A32785B927009764F1 /* ServicesForMocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */; };
 		4EAFCE312487BA47003601A1 /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFCE2F2487BA47003601A1 /* ShowTime.swift */; };
 		4EB355552A430A710096FD66 /* AppStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355542A430A710096FD66 /* AppStart.swift */; };
@@ -1021,7 +1011,6 @@
 		4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		4E4EDBEE275E5D13007B9394 /* StageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageModel.swift; sourceTree = "<group>"; };
 		4E52F3AC245AA9E6007E36EE /* RateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateAppView.swift; sourceTree = "<group>"; };
-		4E53CCA8244DD464009B3CF0 /* EngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineService.swift; sourceTree = "<group>"; };
 		4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		4E53CCB8244DFEB1009B3CF0 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
 		4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+Extensions.swift"; sourceTree = "<group>"; };
@@ -1087,7 +1076,6 @@
 		4E8AE1E92758D93800BD2E5B /* Repos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repos.swift; sourceTree = "<group>"; };
 		4E8AE1EC2758DB8900BD2E5B /* BlockaApiCurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaApiCurrentUserService.swift; sourceTree = "<group>"; };
 		4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceIn.swift; sourceTree = "<group>"; };
-		4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoServiceIn.swift; sourceTree = "<group>"; };
 		4E8AE1F52758F06500BD2E5B /* AccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
 		4E8AE1FB27591F8E00BD2E5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
@@ -1159,9 +1147,7 @@
 		4EA189C427B5060B00E57470 /* SettingsFormNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormNavView.swift; sourceTree = "<group>"; };
 		4EA189CA27B5218700E57470 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		4EA2782F24657E9E00C6372E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
-		4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlutterService.swift; sourceTree = "<group>"; };
 		4EA7BCE228ED7E6F00F3649A /* HelpButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButtonView.swift; sourceTree = "<group>"; };
-		4EA9A2A02785B79D009764F1 /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
 		4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesForMocked.swift; sourceTree = "<group>"; };
 		4EAFCE2F2487BA47003601A1 /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
 		4EB355542A430A710096FD66 /* AppStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppStart.swift; path = "six-common/libgen/ios/AppStart.swift"; sourceTree = SOURCE_ROOT; };
@@ -1336,8 +1322,6 @@
 			isa = PBXGroup;
 			children = (
 				4E8AE1FB27591F8E00BD2E5B /* Services.swift */,
-				4EA9A2A02785B79D009764F1 /* CryptoService.swift */,
-				4E53CCA8244DD464009B3CF0 /* EngineService.swift */,
 				4E42355B2451959F005A0779 /* LoggerSaver.swift */,
 				4E23CFF2293E17D900613D0A /* WgService.swift */,
 			);
@@ -1380,7 +1364,6 @@
 				4E8AE1E32757940300BD2E5B /* PersistenceService.swift */,
 				4E8AE1EF2758DD8600BD2E5B /* HttpServiceIn.swift */,
 				4EE25DC1278C4A9600F2F79B /* HttpProtectedService.swift */,
-				4E8AE1F22758EC2A00BD2E5B /* CryptoServiceIn.swift */,
 				4E2F2A0E2760AB9D005A59F5 /* PrivateDnsService.swift */,
 				4E2F2A222762067E005A59F5 /* SystemNavService.swift */,
 				4EF564BD276A16E5005E3D70 /* StoreKitService.swift */,
@@ -1391,7 +1374,6 @@
 				4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */,
 				4E07F19727906E4300F5A310 /* RateService.swift */,
 				4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */,
-				4EA7BCDF28E6C4D000F3649A /* FlutterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2171,7 +2153,6 @@
 				4E673D0A29E6999D00A8A60D /* Env.swift in Sources */,
 				4E201D1C27551F0C001FA2FF /* InboxService.swift in Sources */,
 				4E61D90827B43A7200C98D36 /* SettingsFormNoNavView.swift in Sources */,
-				4E53CCAC244DD549009B3CF0 /* EngineService.swift in Sources */,
 				4E23CFFE293E1F9700613D0A /* TunnelsManager.swift in Sources */,
 				4E08B9D0247E7C0300AED8F0 /* DnsModel.swift in Sources */,
 				4EEC494D2A4D9822001EF934 /* Tracer.swift in Sources */,
@@ -2212,7 +2193,6 @@
 				4E2F2A26276371C6005A59F5 /* AppBinding.swift in Sources */,
 				4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */,
 				4EBDD3502A0A6B550039C101 /* HomeViewModel.swift in Sources */,
-				4EA9A2A12785B79D009764F1 /* CryptoService.swift in Sources */,
 				4E42352E244EE662005A0779 /* AccountViewModel.swift in Sources */,
 				4E23D031293E20BC00613D0A /* Endpoint.swift in Sources */,
 				4E673D1229E6999D00A8A60D /* Http.swift in Sources */,
@@ -2329,7 +2309,6 @@
 				4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */,
 				4E2ECD0B245B2B14009040F1 /* TagView.swift in Sources */,
 				4E63194B2447436C00191C16 /* LeaseListView.swift in Sources */,
-				4E8AE1F32758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */,
 				4E2ECD08245B2794009040F1 /* PackConfigView.swift in Sources */,
 				4EB4347A27730EF4003C1242 /* PermsRepo.swift in Sources */,
 				4E61D8F327B3D30400C98D36 /* ContentView.swift in Sources */,
@@ -2350,7 +2329,6 @@
 				4EBDD3622A0CDD190039C101 /* PermBinding.swift in Sources */,
 				4EB355642A45C7D10096FD66 /* CustomV.swift in Sources */,
 				4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
-				4EA7BCE028E6C4D000F3649A /* FlutterService.swift in Sources */,
 				4EEC496D2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4E0F6FF2243DB49E002E1DF6 /* PlusButtonView.swift in Sources */,
 				4EEC49692A543AEE001EF934 /* Command.swift in Sources */,
@@ -2504,7 +2482,6 @@
 				4E07F19927906E4300F5A310 /* RateService.swift in Sources */,
 				4EC014022460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E2ECCF1245AE5D1009040F1 /* PlaceholderView.swift in Sources */,
-				4E8AE1F42758EC2A00BD2E5B /* CryptoServiceIn.swift in Sources */,
 				4EEC496B2A543AEE001EF934 /* Command.swift in Sources */,
 				4E8AE1F12758DD8600BD2E5B /* HttpServiceIn.swift in Sources */,
 				4E53CCBC244E00EC009B3CF0 /* PaymentModel.swift in Sources */,
@@ -2621,7 +2598,6 @@
 				4EEF1BF02457FC4300734182 /* DebugViewModel.swift in Sources */,
 				4E0BF79C27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
 				4E7FE9BA244DC28900851E9F /* LeaseListView.swift in Sources */,
-				4EA7BCE128E6C4D000F3649A /* FlutterService.swift in Sources */,
 				4E2F2A162760BE6F005A59F5 /* NavModel.swift in Sources */,
 				4EBDD3512A0A6B550039C101 /* HomeViewModel.swift in Sources */,
 				4E42355224502678005A0779 /* LogViewModel.swift in Sources */,
@@ -2690,7 +2666,6 @@
 				4E86510E2A3C968B0060AFB1 /* Env.swift in Sources */,
 				4E86510F2A3C968B0060AFB1 /* InboxService.swift in Sources */,
 				4E8651102A3C968B0060AFB1 /* SettingsFormNoNavView.swift in Sources */,
-				4E8651112A3C968B0060AFB1 /* EngineService.swift in Sources */,
 				4E8651122A3C968B0060AFB1 /* TunnelsManager.swift in Sources */,
 				4E8651132A3C968B0060AFB1 /* DnsModel.swift in Sources */,
 				4EEC494E2A4D9822001EF934 /* Tracer.swift in Sources */,
@@ -2731,7 +2706,6 @@
 				4E8651372A3C968B0060AFB1 /* AppBinding.swift in Sources */,
 				4E8651382A3C968B0060AFB1 /* LocationView.swift in Sources */,
 				4E8651392A3C968B0060AFB1 /* HomeViewModel.swift in Sources */,
-				4E86513A2A3C968B0060AFB1 /* CryptoService.swift in Sources */,
 				4E86513B2A3C968B0060AFB1 /* AccountViewModel.swift in Sources */,
 				4E86513C2A3C968B0060AFB1 /* Endpoint.swift in Sources */,
 				4E86513D2A3C968B0060AFB1 /* Http.swift in Sources */,
@@ -2848,7 +2822,6 @@
 				4E8651AA2A3C968B0060AFB1 /* NetxServiceIn.swift in Sources */,
 				4E8651AB2A3C968B0060AFB1 /* TagView.swift in Sources */,
 				4E8651AC2A3C968B0060AFB1 /* LeaseListView.swift in Sources */,
-				4E8651AD2A3C968B0060AFB1 /* CryptoServiceIn.swift in Sources */,
 				4E8651AE2A3C968B0060AFB1 /* PackConfigView.swift in Sources */,
 				4E8651AF2A3C968B0060AFB1 /* PermsRepo.swift in Sources */,
 				4E8651B02A3C968B0060AFB1 /* ContentView.swift in Sources */,
@@ -2869,7 +2842,6 @@
 				4E8651BE2A3C968B0060AFB1 /* PermBinding.swift in Sources */,
 				4EB355652A45C7D10096FD66 /* CustomV.swift in Sources */,
 				4E8651BF2A3C968B0060AFB1 /* TopBarBlurView.swift in Sources */,
-				4E8651C02A3C968B0060AFB1 /* FlutterService.swift in Sources */,
 				4EEC496E2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4E8651C12A3C968B0060AFB1 /* PlusButtonView.swift in Sources */,
 				4EEC496A2A543AEE001EF934 /* Command.swift in Sources */,

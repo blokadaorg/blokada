@@ -37,6 +37,7 @@ extension UiJournalEntry: Equatable {
 }
 
 class JournalBinding: JournalOps {
+
     var onEntries: ([UiJournalEntry]) -> Void = { _ in }
     var onFilter: (JournalFilter) -> Void = { _ in }
     var onDevices: ([String]) -> Void = { _ in }
@@ -63,10 +64,9 @@ class JournalBinding: JournalOps {
         onDevices(devices)
         completion(.success(()))
     }
-
+    
     func doHistoricEntriesAvailable(entries: [JournalEntry], completion: @escaping (Result<Void, Error>) -> Void) {
-        // TODO
-        completion(.success(()))
+        
     }
 }
 

@@ -31,6 +31,7 @@ enum Link {
 
 class LinkRepo: Startable {
     @Injected(\.account) private var account
+    @Injected(\.env) private var env
 
     var links: AnyPublisher<[Link: URLComponents], Never> {
         self.writeLinks.compactMap { $0 }.eraseToAnyPublisher()
@@ -76,7 +77,7 @@ class LinkRepo: Startable {
         .map { it in
             return [
                 "$ACCOUNTID": it.account.id,
-                "$USERAGENT": "TODO" // TODO actual user agent
+                "$USERAGENT": self.env.getUserAgent()
             ]
         }
         .map { replace in

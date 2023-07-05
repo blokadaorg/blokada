@@ -32,6 +32,7 @@ class AccountBinding: AccountOps {
     @Injected(\.flutter) private var flutter
     @Injected(\.env) private var env
     @Injected(\.commands) private var commands
+    @Injected(\.plusKeypair) private var keypair
 
     init() {
         AccountOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
@@ -54,8 +55,10 @@ class AccountBinding: AccountOps {
 
     // Accepts account received from the payment callback (usually old receipt).
     private func _proposeAccount(_ newAccount: JsonAccount) {
-        // TODO: keypair
-        writeAccount.send(AccountWithKeypair(account: newAccount, keypair: BlockaKeypair(privateKey: "nope", publicKey: "nope")))
+        writeAccount.send(AccountWithKeypair(
+            account: newAccount,
+            keypair: self.keypair.currentKeypair
+        ))
     }
 }
 

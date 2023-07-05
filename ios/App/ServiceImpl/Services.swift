@@ -29,8 +29,6 @@ class ServicesSingleton {
     lazy var httpProtected: HttpServiceIn = HttpProtectedService()
     //lazy var httpProtected: HttpServiceIn = HttpStandardService()
 
-    lazy var crypto: CryptoServiceIn = CryptoService()
-
     lazy var api: BlockaApiServiceIn = BlockaApiService()
     lazy var apiForCurrentUser = BlockaApiCurrentUserService()
 
