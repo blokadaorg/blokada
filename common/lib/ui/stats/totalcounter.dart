@@ -91,7 +91,8 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
 String _getBlockedText() {
   return "home status detail active with counter"
       .i18n
-      .split("*%s*")
+      .replaceAll("*", "")
+      .split("%*")
       .map((e) => e.trim())
       .join(" ");
 }
