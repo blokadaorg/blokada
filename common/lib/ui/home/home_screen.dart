@@ -33,6 +33,7 @@ class HomeScreenState extends State<HomeScreen>
 
   bool showDebug = false;
   bool hasPin = false;
+  bool working = false;
 
   late AnimationController controller;
   late AnimationController controllerOrange;
@@ -60,18 +61,12 @@ class HomeScreenState extends State<HomeScreen>
 
     _stage.addOnValue(routeChanged, onRouteChanged);
 
-    autorun((_) {
-      setState(() {
-        // isLocked = _lock.isLocked;
-        hasPin = _lock.hasPin;
-      });
-    });
-
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
     controllerOrange =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    mobx.autorun((_) {
+
+    autorun((_) {
       final status = _app.status;
       if (status.isWorking()) {
         controller.reverse();
@@ -86,7 +81,11 @@ class HomeScreenState extends State<HomeScreen>
         controller.reverse();
         controllerOrange.reverse();
       }
-      setState(() {});
+
+      setState(() {
+        hasPin = _lock.hasPin;
+        working = _app.status.isWorking() || !_stage.isReady;
+      });
     });
   }
 
@@ -115,68 +114,71 @@ class HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 60, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // HomeIcon(
-                      //   icon: hasPin
-                      //       ? Icons.lock_outline
-                      //       : Icons.lock_open_outlined,
-                      //   onTap: () {
-                      //     traceAs("fromWidget", (trace) async {
-                      //       await _stage.setRoute(
-                      //           trace, StageKnownRoute.homeLock.path);
-                      //     });
-                      //   },
-                      // ),
-                      HomeIcon(
-                        icon: Icons.help_outline,
-                        onTap: () {
-                          traceAs("fromWidget", (trace) async {
-                            await _stage.showModal(trace, StageModal.help);
-                          });
-                        },
-                      ),
-                    ],
+      child: AbsorbPointer(
+        absorbing: working,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 60, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // HomeIcon(
+                        //   icon: hasPin
+                        //       ? Icons.lock_outline
+                        //       : Icons.lock_open_outlined,
+                        //   onTap: () {
+                        //     traceAs("fromWidget", (trace) async {
+                        //       await _stage.setRoute(
+                        //           trace, StageKnownRoute.homeLock.path);
+                        //     });
+                        //   },
+                        // ),
+                        HomeIcon(
+                          icon: Icons.help_outline,
+                          onTap: () {
+                            traceAs("fromWidget", (trace) async {
+                              await _stage.showModal(trace, StageModal.help);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Spacer(),
-              GestureDetector(
-                onLongPress: () {
-                  traceAs("fromWidget", (trace) async {
-                    await _stage.showModal(trace, StageModal.debug);
-                  });
-                },
-                onHorizontalDragEnd: (_) {
-                  _showCommandDialog(context);
-                },
-                child: Image.asset(
-                  "assets/images/header.png",
-                  width: 220,
-                  height: 60,
-                  fit: BoxFit.scaleDown,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                Spacer(),
+                GestureDetector(
+                  onLongPress: () {
+                    traceAs("fromWidget", (trace) async {
+                      await _stage.showModal(trace, StageModal.debug);
+                    });
+                  },
+                  onHorizontalDragEnd: (_) {
+                    _showCommandDialog(context);
+                  },
+                  child: Image.asset(
+                    "assets/images/header.png",
+                    width: 220,
+                    height: 60,
+                    fit: BoxFit.scaleDown,
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                  ),
                 ),
-              ),
-              const Spacer(),
-              PowerButton(),
-              const SizedBox(height: 50),
-              const Spacer(),
-              const HomeActions(),
-              const SizedBox(height: 110),
-            ],
-          ),
-        ],
+                const Spacer(),
+                PowerButton(),
+                const SizedBox(height: 50),
+                const Spacer(),
+                const HomeActions(),
+                const SizedBox(height: 110),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

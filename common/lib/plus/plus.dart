@@ -169,28 +169,3 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
     await _persistence.saveString(trace, _keySelected, plusEnabled ? "1" : "0");
   }
 }
-
-// bool _autostartHandled = false;
-//
-// _onAutoStartPlus() {
-//   reactionOnStore((_) => _lease.currentLease, (lease) async {
-//     if (lease != null) {
-//       // On start, autostart the VPN in case there was a lease
-//       if (!_autostartHandled && _store.getPlusEnabled()) {
-//         await traceAs('onAutoStartPlus', (trace) async {
-//           // TODO: no perm a problem? one off?
-//           await _store.switchPlus(trace, true);
-//           _autostartHandled = true;
-//         });
-//       }
-//     } else {
-//       // Plus was active, but the lease disappeared, clear it
-//       if (_store.getPlusEnabled()) {
-//         await traceAs('onAutoClearPlus', (trace) async {
-//           await _store.clearPlus(trace);
-//         });
-//       }
-//     }
-//   });
-// }
-//

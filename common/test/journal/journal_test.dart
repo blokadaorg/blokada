@@ -184,7 +184,7 @@ void main() {
         verifyNever(json.getEntries(any));
 
         // But will, if enabled
-        await subject.enableRefresh(trace, true);
+        await subject.enableRefresh(trace);
         await subject.onDeviceChanged(trace);
         verify(json.getEntries(any));
       });

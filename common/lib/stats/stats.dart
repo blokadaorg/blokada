@@ -116,6 +116,14 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     });
   }
 
+  @action
+  Future<void> drop(Trace parentTrace) async {
+    return await traceWith(parentTrace, "drop", (trace) async {
+      stats = UiStats.empty();
+      hasStats = false;
+    });
+  }
+
   UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds

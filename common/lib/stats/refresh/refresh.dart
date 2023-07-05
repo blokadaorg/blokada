@@ -86,6 +86,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
+    _account.addOn(accountIdChanged, onAccountIdChanged);
 
     _timer.addHandler(keyTimer, (trace) async {
       await _stats.fetch(trace);
@@ -156,6 +157,13 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     });
   }
 
+  @action
+  Future<void> onAccountIdChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onAccountIdChanged", (trace) async {
+      await _stats.drop(trace);
+    });
+  }
+
   _rescheduleTimer(Trace trace) {
     // TODO: use periodic timer?
     final newDate = strategy.getNextRefresh();
@@ -165,8 +173,4 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
       _timer.unset(keyTimer);
     }
   }
-
-// TODO: drop all stats and refresh on account ID change
-
-// TODO: refresh 3s after VPN settles
 }

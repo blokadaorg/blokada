@@ -34,14 +34,9 @@ class _PlusButtonState extends State<PlusButton>
   final _plus = dep<PlusStore>();
   final _perm = dep<PermStore>();
 
-  // TODO: once plusRepo is here, check commented code
-
   var activated = false;
   var location = "";
   var isPlus = false;
-  var working = true;
-  var active = false;
-  // TODO: working state ignore touches?
 
   @override
   void initState() {
@@ -56,8 +51,6 @@ class _PlusButtonState extends State<PlusButton>
       setState(() {
         location = gateway?.niceName ?? "";
         activated = plusEnabled;
-        working = status.isWorking();
-        active = status.isActive();
         isPlus = _account.type == AccountType.plus;
       });
     });
@@ -66,71 +59,53 @@ class _PlusButtonState extends State<PlusButton>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return AbsorbPointer(
-      absorbing: working,
-      child: SizedBox(
-          height: 48,
-          child: Stack(
-            children: [
-              // When switch is off
-              AnimatedOpacity(
-                  opacity: (!isPlus || activated) ? 0 : 1,
+    return SizedBox(
+        height: 48,
+        child: Stack(
+          children: [
+            // When switch is off
+            AnimatedOpacity(
+                opacity: (!isPlus || activated) ? 0 : 1,
+                duration: const Duration(milliseconds: 500),
+                child: MiniCard(
+                    color: theme.plus,
+                    onTap: () {
+                      _displayLocations();
+                    },
+                    child: _buildButtonContent())),
+            // When switch is on
+            IgnorePointer(
+              ignoring: !activated,
+              child: AnimatedOpacity(
+                  opacity: activated ? 1 : 0,
                   duration: const Duration(milliseconds: 500),
                   child: MiniCard(
-                      color: theme.plus,
+                      outlined: true,
                       onTap: () {
                         _displayLocations();
                       },
                       child: _buildButtonContent())),
-              // When switch is on
-              IgnorePointer(
-                ignoring: !activated,
-                child: AnimatedOpacity(
-                    opacity: activated ? 1 : 0,
-                    duration: const Duration(milliseconds: 500),
-                    child: MiniCard(
-                        outlined: true,
-                        onTap: () {
-                          _displayLocations();
-                        },
-                        child: _buildButtonContent())),
-              ),
-              // When account is not Plus (CTA)
-              IgnorePointer(
-                ignoring: isPlus,
-                child: AnimatedOpacity(
-                    opacity: isPlus ? 0 : 1,
-                    duration: const Duration(milliseconds: 200),
-                    child: MiniCard(
-                      color: theme.plus,
-                      onTap: () {
-                        _displayPayments();
-                      },
-                      child: Flex(direction: Axis.horizontal, children: [
-                        Expanded(
-                            child: Align(
-                                child: Text("universal action upgrade".i18n)))
-                      ]),
-                    )),
-              )
-
-              // Expanded(
-              //   child: Align(
-              //     alignment: Alignment.centerRight,
-              //     child: CupertinoSwitch(
-              //       value: pressed,
-              //       activeColor: Colors.black54,
-              //       onChanged: (value) {
-              //         setState(() {
-              //           pressed = value;
-              //         });
-              //       },
-              //     ),
-              //   ),
-              // )
-            ],
-          )),
-    );
+            ),
+            // When account is not Plus (CTA)
+            IgnorePointer(
+              ignoring: isPlus,
+              child: AnimatedOpacity(
+                  opacity: isPlus ? 0 : 1,
+                  duration: const Duration(milliseconds: 200),
+                  child: MiniCard(
+                    color: theme.plus,
+                    onTap: () {
+                      _displayPayments();
+                    },
+                    child: Flex(direction: Axis.horizontal, children: [
+                      Expanded(
+                          child: Align(
+                              child: Text("universal action upgrade".i18n)))
+                    ]),
+                  )),
+            )
+          ],
+        ));
   }
 
   Widget _buildButtonContent() {
