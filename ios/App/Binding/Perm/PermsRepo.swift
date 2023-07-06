@@ -31,8 +31,8 @@ class PermsRepo: Startable {
     @Injected(\.cloud) private var cloud
     @Injected(\.perm) private var perm
     @Injected(\.plusVpn) private var plusVpn
+    @Injected(\.notification) private var notification
 
-    private lazy var notification = Services.notification
     private lazy var dialog = Services.dialog
     private lazy var systemNav = Services.systemNav
     private lazy var netx = Services.netx

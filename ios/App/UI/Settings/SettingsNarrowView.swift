@@ -17,7 +17,7 @@ struct SettingsNarrowView: View {
     @ObservedObject var tabVM = ViewModels.tab
 
     var body: some View {
-        NavigationStack(path: self.$tabVM.tabPayload) {
+        NavigationStack(path: self.$tabVM.settingsSection) {
             SettingsFormNavView()
            .navigationBarTitle(L10n.accountSectionHeaderSettings)
            .navigationDestination(for: String.self) { section in

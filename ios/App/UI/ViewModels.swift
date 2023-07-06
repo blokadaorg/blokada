@@ -24,8 +24,6 @@ class ViewModelsSingleton {
     lazy var packs = PacksViewModel()
     lazy var journal = JournalViewModel()
     lazy var custom = CustomViewModel()
-    lazy var inbox = InboxViewModel()
     lazy var lease = LeaseListViewModel()
     lazy var payment = PaymentGatewayViewModel()
-    lazy var log = LogViewModel()
 }

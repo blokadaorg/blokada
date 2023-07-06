@@ -16,7 +16,6 @@ import Factory
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private var token: AppleTokenService?
     private var quick: QuickActionsService?
 
     @Injected(\.env) private var env
@@ -61,12 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             startAllRepos()
         }
 
-        token = AppleTokenService(application)
+        notification.attach(application)
 
         Services.quickActions.start()
 
         // A bunch of lazy, noone else refs this (early enough).
-        let rate = Services.rate
         payment.startObservingPayments()
 
         return true
@@ -77,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
-        token?.onAppleTokenReceived(deviceToken)
+        notification.onAppleTokenReceived(deviceToken)
     }
 
     // Notification registration callback: failure
@@ -85,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-        token?.onAppleTokenFailed(error)
+        notification.onAppleTokenFailed(error)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

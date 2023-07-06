@@ -18,7 +18,12 @@ class TabViewModel : ObservableObject {
     @Injected(\.stage) private var stage
 
     @Published var activeTab: Tab = .Home
-    @Published var tabPayload = [String]()
+
+    @Published var homeSection = [String]()
+    @Published var journalSection = [String]()
+    @Published var deckSection = [String]()
+    @Published var settingsSection = [String]()
+
     @Published var showNavBar = true
 
     private var cancellables = Set<AnyCancellable>()
@@ -40,13 +45,28 @@ class TabViewModel : ObservableObject {
         stage.tabPayload
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
+            self.setEmptySections()
             if let it = it {
-                self.tabPayload = [it]
-            } else {
-                self.tabPayload = []
+                // This is necessary swiftui is weird trust me
+                if self.activeTab == .Home {
+                    self.homeSection = [it]
+                } else if self.activeTab == .Activity {
+                    self.journalSection = [it]
+                } else if self.activeTab == .Advanced {
+                    self.deckSection = [it]
+                } else if self.activeTab == .Settings {
+                    self.settingsSection = [it]
+                }
             }
         })
         .store(in: &cancellables)
+    }
+
+    private func setEmptySections() {
+        self.homeSection = []
+        self.journalSection = []
+        self.deckSection = []
+        self.settingsSection = []
     }
 
     private func onShowNavbar() {
@@ -64,7 +84,11 @@ class TabViewModel : ObservableObject {
         stage.setTabPayload(section)
     }
 
+    // This is only for settings
     func isSection(_ section: String) -> Bool {
-        return tabPayload.first == section
+        if activeTab == .Settings {
+            return settingsSection.first == section
+        }
+        return false
     }
 }

@@ -16,15 +16,19 @@ import Factory
 class PlusKeypairBinding: PlusKeypairOps {
     @Injected(\.flutter) private var flutter
 
+    var currentKeypair: PlusKeypair?
+
     init() {
         PlusKeypairOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
     func doGenerateKeypair(completion: @escaping (Result<PlusKeypair, Error>) -> Void) {
-        completion(.success(PlusKeypair(
+        let currentKeypair = PlusKeypair(
             publicKey: "pk-mocked",
             privateKey: "sk-mocked"
-        )))
+        )
+        self.currentKeypair = currentKeypair
+        completion(.success(currentKeypair))
     }
 }
 

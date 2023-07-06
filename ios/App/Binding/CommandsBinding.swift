@@ -16,7 +16,7 @@ import Factory
 class CommandsBinding: CommandOps {
     @Injected(\.flutter) private var flutter
 
-    lazy var cmd = Commands(binaryMessenger: flutter.getMessenger())
+    lazy var cmd = CommandEvents(binaryMessenger: flutter.getMessenger())
     
     var canAcceptCommands = false
     var queue: [(CommandName, String?, String?)] = []

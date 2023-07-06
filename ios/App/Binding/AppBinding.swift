@@ -15,6 +15,39 @@ import Combine
 import UIKit
 import Factory
 
+enum AccountType {
+    case Libre
+    case Cloud
+    case Plus
+}
+
+func mapAccountType(_ accountType: String?) -> AccountType {
+    switch (accountType) {
+        case "cloud": return AccountType.Cloud
+        case "plus": return AccountType.Plus
+        default: return AccountType.Libre
+    }
+}
+
+extension AccountType {
+
+    func isActive() -> Bool {
+        return self == .Cloud || self == .Plus
+    }
+
+    func toString() -> String {
+        return "\(self)"
+    }
+
+}
+
+enum AppState {
+    case Deactivated
+    case Paused
+    case Activated
+    case New
+}
+
 // Contains "main app state" mostly used in Home screen.
 class AppBinding: AppOps, AppStartOps {
     var appStateHot: AnyPublisher<AppState, Never> {
@@ -31,8 +64,6 @@ class AppBinding: AppOps, AppStartOps {
 
     @Injected(\.flutter) private var flutter
     @Injected(\.commands) private var commands
-
-    private lazy var timer = Services.timer
 
     fileprivate let writeAppState = CurrentValueSubject<AppState?, Never>(nil)
     fileprivate let writeWorking = CurrentValueSubject<Bool?, Never>(nil)

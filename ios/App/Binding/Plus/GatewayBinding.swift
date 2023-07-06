@@ -14,6 +14,24 @@ import Foundation
 import Factory
 import Combine
 
+extension Gateway {
+    func niceName() -> String {
+        return location.components(separatedBy: "-")
+            .map { $0.capitalizingFirstLetter() }
+            .joined(separator: " ")
+    }
+}
+
+extension Gateway: Equatable {
+    static func == (lhs: Gateway, rhs: Gateway) -> Bool {
+        return
+            lhs.publicKey == rhs.publicKey &&
+            lhs.ipv4 == rhs.ipv4 &&
+            lhs.ipv6 == rhs.ipv6 &&
+            lhs.port == rhs.port
+    }
+}
+
 struct GatewaySelection {
     let gateway: Gateway?
 }

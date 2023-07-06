@@ -14,12 +14,53 @@ import Foundation
 import Factory
 import Combine
 
+struct AccountWithKeypair {
+    let account: JsonAccount
+    let keypair: PlusKeypair?
+}
+
+struct JsonAccount: Codable {
+    let id: String
+    let active_until: String?
+    let active: Bool?
+    let type: String?
+
+    func activeUntil() -> Date? {
+        guard let active = active_until else {
+            return nil
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = blockaDateFormat
+        guard let date = dateFormatter.date(from: active) else {
+            dateFormatter.dateFormat = blockaDateFormatNoNanos
+            guard let date = dateFormatter.date(from: active) else {
+                return nil
+            }
+            return date
+        }
+        return date
+    }
+
+    func isActive() -> Bool {
+        return active ?? false
+    }
+}
+
+extension Account: Equatable {
+    static func == (lhs: Account, rhs: Account) -> Bool {
+        return
+            lhs.id == rhs.id &&
+            lhs.activeUntil == rhs.activeUntil
+    }
+}
+
 class AccountBinding: AccountOps {
     var accountHot: AnyPublisher<AccountWithKeypair, Never> {
         self.writeAccount.compactMap { $0 }.eraseToAnyPublisher()
     }
 
-    var accountIdHot: AnyPublisher<AccountId, Never> {
+    var accountIdHot: AnyPublisher<String, Never> {
         self.accountHot.map { it in it.account.id }.removeDuplicates().eraseToAnyPublisher()
     }
 
@@ -39,8 +80,8 @@ class AccountBinding: AccountOps {
     }
 
     // Gets account from API based on user entered account ID. Does sanitization.
-    func restoreAccount(_ newAccountId: AccountId, completion: @escaping () -> Void) {
-        commands.execute(.restore, newAccountId)
+    func restoreAccount(_ newString: String, completion: @escaping () -> Void) {
+        commands.execute(.restore, newString)
     }
 
     func doAccountChanged(account: Account, completion: @escaping (Result<Void, Error>) -> Void) {

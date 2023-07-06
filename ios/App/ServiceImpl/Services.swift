@@ -21,31 +21,10 @@ class ServicesSingleton {
 
     fileprivate init() {}
 
-    lazy var persistenceLocal: PersistenceService = LocalStoragePersistenceService()
-    lazy var persistenceRemote: PersistenceService = ICloudPersistenceService()
-    lazy var persistenceRemoteLegacy: PersistenceService = ICloudPersistenceService()
-
-    lazy var httpStandard: HttpServiceIn = HttpStandardService()
-    lazy var httpProtected: HttpServiceIn = HttpProtectedService()
-    //lazy var httpProtected: HttpServiceIn = HttpStandardService()
-
-    lazy var api: BlockaApiServiceIn = BlockaApiService()
-    lazy var apiForCurrentUser = BlockaApiCurrentUserService()
-
-    lazy var privateDns: PrivateDnsServiceIn = PrivateDnsService()
     lazy var systemNav = SystemNavService()
-
-    lazy var storeKit = StoreKitService()
-    lazy var notification = NotificationService()
-    lazy var job = JobService()
-    lazy var timer = TimerService()
-
     lazy var dialog = DialogService()
-    lazy var rate = RateService()
-
     lazy var netx: NetxServiceIn = WgService()
     lazy var quickActions = QuickActionsService()
-
 }
 
 func resetServices() {

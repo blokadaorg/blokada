@@ -27,7 +27,7 @@ class PermBinding: PermOps {
     @Injected(\.flutter) private var flutter
     @Injected(\.env) private var env
     
-    private lazy var privateDns = Services.privateDns
+    private lazy var privateDns = PrivateDnsService()
     private lazy var netx = Services.netx
     private lazy var permsRepo = Repos.permsRepo
 

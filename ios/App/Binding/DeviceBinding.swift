@@ -15,6 +15,11 @@ import Combine
 import Factory
 import NetworkExtension
 
+typealias CloudDnsProfileActivated = Bool
+typealias CloudDeviceTag = String
+typealias CloudBlocklists = [String]
+typealias CloudActivityRetention = String
+
 class DeviceBinding: DeviceOps {
 
     // Lastest device tag info from backend. Used for Cloud DNS profile and Plus VPN

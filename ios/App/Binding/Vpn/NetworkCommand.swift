@@ -15,7 +15,7 @@ import Foundation
 struct NetworkStatus {
     let active: Bool
     let inProgress: Bool
-    let gatewayId: GatewayId?
+    let gatewayId: String?
     let pauseSeconds: Int
 
     func hasGateway() -> Bool {

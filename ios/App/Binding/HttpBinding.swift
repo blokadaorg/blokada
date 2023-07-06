@@ -18,7 +18,6 @@ class HttpBinding: HttpOps {
     @Injected(\.flutter) private var flutter
     @Injected(\.env) private var env
 
-    private lazy var service = Services.httpProtected
     private lazy var netx = Services.netx
     private var session: URLSession
 
@@ -112,6 +111,8 @@ class HttpBinding: HttpOps {
             }
 
             guard r.statusCode == 200 else {
+                let res = String(data: payload ?? Data(), encoding: .utf8)
+                BlockaLogger.e("http", "\(res)")
                 return completion(Result.failure("code:\(r.statusCode)"))
             }
 

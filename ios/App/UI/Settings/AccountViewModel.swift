@@ -63,7 +63,7 @@ class AccountViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func restoreAccount(_ newId: AccountId, success: @escaping () -> Void) {
+    func restoreAccount(_ newId: String, success: @escaping () -> Void) {
         accountRepo.restoreAccount(newId, completion: success)
     }
 

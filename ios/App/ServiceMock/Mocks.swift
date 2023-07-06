@@ -17,19 +17,13 @@ var Mocks = MocksService()
 
 class MocksService {
 
-    func useEmptyPersistence() {
-        // Will return empty result from persistence
-        Services.persistenceRemote = PersistenceServiceMock()
-        Services.persistenceRemoteLegacy = PersistenceServiceMock()
-    }
-
-    func justAccount(_ id: AccountId) -> AnyPublisher<Account, Error> {
+    func justAccount(_ id: String) -> AnyPublisher<Account, Error> {
         return Just(account(id))
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    func account(_ id: AccountId) -> Account {
+    func account(_ id: String) -> Account {
         return Account(id: id, activeUntil: nil, active: false, type: "free")
     }
 
