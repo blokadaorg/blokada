@@ -1,11 +1,13 @@
 import 'package:mobx/mobx.dart';
 
+import '../account/account.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
+import 'json.dart';
 
 part 'notification.g.dart';
 
@@ -48,9 +50,14 @@ class NotificationStore = NotificationStoreBase with _$NotificationStore;
 abstract class NotificationStoreBase with Store, Traceable, Dependable {
   late final _ops = dep<NotificationOps>();
   late final _stage = dep<StageStore>();
+  late final _account = dep<AccountStore>();
+  late final _json = dep<NotificationJson>();
+
+  String? appleToken;
 
   NotificationStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
+    _account.addOn(accountChanged, sendAppleToken);
 
     reactionOnStore((_) => notificationChanges, (_) async {
       final event = notifications.last;
@@ -65,6 +72,7 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
   @override
   attach(Act act) {
     depend<NotificationOps>(getOps(act));
+    depend<NotificationJson>(NotificationJson());
     depend<NotificationStore>(this as NotificationStore);
   }
 
@@ -110,6 +118,22 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
 
     return await traceWith(parentTrace, "dismissNotifications", (trace) async {
       await dismiss(trace);
+    });
+  }
+
+  @action
+  Future<void> sendAppleToken(Trace parentTrace) async {
+    if (appleToken == null) return;
+    return await traceWith(parentTrace, "sendAppleToken", (trace) async {
+      await _json.postToken(trace, appleToken!);
+      appleToken = null;
+    });
+  }
+
+  @action
+  Future<void> saveAppleToken(Trace parentTrace, String appleToken) async {
+    return await traceWith(parentTrace, "saveAppleToken", (trace) async {
+      this.appleToken = appleToken;
     });
   }
 

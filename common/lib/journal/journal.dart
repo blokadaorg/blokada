@@ -96,7 +96,7 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   late final _timer = dep<TimerService>();
 
   JournalStoreBase() {
-    _device.addOn(deviceChanged, onDeviceChanged);
+    _device.addOn(deviceChanged, updateJournalFreq);
     _stage.addOnValue(routeChanged, onRouteChanged);
     _timer.addHandler(_timerKey, onTimerFired);
 
@@ -190,10 +190,7 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
     if (!route.isForeground()) return;
     if (!route.isBecameTab(StageTab.activity)) return;
     if (!refreshEnabled) return;
-
-    return await traceWith(parentTrace, "fetchJournal", (trace) async {
-      await onTimerFired(trace);
-    });
+    await updateJournalFreq(parentTrace);
   }
 
   @action
@@ -213,8 +210,8 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   }
 
   @action
-  Future<void> onDeviceChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+  Future<void> updateJournalFreq(Trace parentTrace) async {
+    return await traceWith(parentTrace, "updateJournalFreq", (trace) async {
       final enabled = _device.retention?.isEnabled() ?? false;
       if (enabled && _stage.route.isTab(StageTab.activity)) {
         await enableRefresh(trace);

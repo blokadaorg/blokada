@@ -92,7 +92,7 @@ String _getBlockedText() {
   return "home status detail active with counter"
       .i18n
       .replaceAll("*", "")
-      .split("%*")
+      .split("%s")
       .map((e) => e.trim())
       .join(" ");
 }

@@ -46,6 +46,7 @@ class Entrypoint with Commands, Dependable, TraceOrigin, Traceable {
   late final _plus = dep<PlusStore>();
   late final _plusLease = dep<PlusLeaseStore>();
   late final _plusVpn = dep<PlusVpnStore>();
+  late final _notification = dep<NotificationStore>();
 
   late final _timer = dep<TimerService>();
 
@@ -69,8 +70,8 @@ class Entrypoint with Commands, Dependable, TraceOrigin, Traceable {
     EnvStore().attach(act);
     StageStore().attach(act);
     LockStore().attach(act);
-    NotificationStore().attach(act);
     AccountStore().attach(act);
+    NotificationStore().attach(act);
     AccountPaymentStore().attach(act);
     AccountRefreshStore().attach(act);
     DeviceStore().attach(act);
@@ -185,6 +186,8 @@ class Entrypoint with Commands, Dependable, TraceOrigin, Traceable {
           return await _stage.modalDismissed(trace);
         case CommandName.remoteNotification:
           return await _accountRefresh.onRemoteNotification(trace);
+        case CommandName.appleNotificationToken:
+          return await _notification.sendAppleToken(trace, p1!);
       }
     });
   }

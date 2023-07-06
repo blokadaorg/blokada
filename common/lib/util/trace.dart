@@ -109,9 +109,8 @@ mixin TraceOrigin {
 
 String shortString(String s, {int length = 64}) {
   if (s.length > length) {
-    return "${s.substring(0, length).replaceAll("\n", "").trim()} [...]";
+    return "${s.substring(0, length).replaceAll("\n", "").trim()}[...]";
   } else {
     return s.replaceAll("\n", "").trim();
   }
 }
-

@@ -40,6 +40,7 @@ enum CommandName {
 
   // Notification,
   remoteNotification,
+  appleNotificationToken,
 
   // Plus
   newPlus,
