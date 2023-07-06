@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../entrypoint.dart';
+import '../../command/command.dart';
 import '../../util/async.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
@@ -13,7 +13,7 @@ class CommandDialog extends StatefulWidget {
 }
 
 class CommandDialogState extends State<CommandDialog> with TraceOrigin {
-  late final _entrypoint = dep<Entrypoint>();
+  late final _command = dep<CommandStore>();
 
   late TextEditingController _controllerCmd;
   late TextEditingController _controllerOutput;
@@ -116,7 +116,7 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
                 await sleepAsync(const Duration(milliseconds: 500));
               }
               try {
-                await _entrypoint.onCommandString(trace, cmd);
+                await _command.onCommandString(trace, cmd);
                 _controllerOutput.text += "\nOK: $cmd";
               } catch (e) {
                 _controllerOutput.text += "\nFail: $cmd: $e";
@@ -124,7 +124,7 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
             }
             return;
           } else {
-            await _entrypoint.onCommandString(trace, command);
+            await _command.onCommandString(trace, command);
           }
           _controllerOutput.text = "OK";
         } catch (e) {

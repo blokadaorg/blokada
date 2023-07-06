@@ -1,6 +1,7 @@
 import 'package:mocktail/mocktail.dart';
 
 import '../command/channel.pg.dart';
+import '../command/command.dart';
 import '../entrypoint.dart';
 import '../util/act.dart';
 import '../util/di.dart';
@@ -18,21 +19,21 @@ StageOps getOps(Act act) {
   return ops;
 }
 
-final _entrypoint = dep<Entrypoint>();
+final _command = dep<CommandStore>();
 
 _actNormal(MockStageOps ops) {
   registerFallbackValue(StageModal.debug);
   registerFallbackValue(StageModal.fault);
 
   when(() => ops.doShowModal(any())).thenAnswer((p) async {
-    _entrypoint.onCommandWithParam(
+    _command.onCommandWithParam(
       CommandName.modalShown.name,
       (p.positionalArguments[0] as StageModal).name,
     );
   });
 
   when(() => ops.doDismissModal()).thenAnswer((_) async {
-    _entrypoint.onCommand(CommandName.modalDismissed.name);
+    _command.onCommand(CommandName.modalDismissed.name);
   });
 
   when(() => ops.doRouteChanged(any())).thenAnswer(ignore());

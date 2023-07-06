@@ -14,7 +14,6 @@ void main() async {
 
   final entrypoint = Entrypoint();
   entrypoint.attach(ActScreenplay(ActScenario.production));
-  entrypoint.attachPlatformEvents();
   entrypoint.onStartApp();
 
   runApp(const Root());

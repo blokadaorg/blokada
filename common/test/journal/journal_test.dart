@@ -180,12 +180,12 @@ void main() {
         verifyNever(json.getEntries(any));
 
         // Won't refresh if not enabled
-        await subject.onDeviceChanged(trace);
+        await subject.updateJournalFreq(trace);
         verifyNever(json.getEntries(any));
 
         // But will, if enabled
         await subject.enableRefresh(trace);
-        await subject.onDeviceChanged(trace);
+        await subject.updateJournalFreq(trace);
         verify(json.getEntries(any));
       });
     });

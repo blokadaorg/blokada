@@ -72,13 +72,13 @@ void main() {
 
     test("willFetchAccountOnAppStartAndTimerFired", () async {
       await withTrace((trace) async {
+        final account = MockAccountStore();
+        depend<AccountStore>(account);
+
         depend<StageStore>(MockStageStore());
         depend<TimerService>(MockTimerService());
         depend<NotificationStore>(NotificationStore());
         depend<PersistenceService>(MockPersistenceService());
-
-        final account = MockAccountStore();
-        depend<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -97,14 +97,14 @@ void main() {
 
     test("willCreateAccountIfCouldNotFetch", () async {
       await withTrace((trace) async {
+        final account = MockAccountStore();
+        when(account.load(any)).thenThrow(Exception("No existing account"));
+        depend<AccountStore>(account);
+
         depend<StageStore>(MockStageStore());
         depend<TimerService>(MockTimerService());
         depend<NotificationStore>(NotificationStore());
         depend<PersistenceService>(MockPersistenceService());
-
-        final account = MockAccountStore();
-        when(account.load(any)).thenThrow(Exception("No existing account"));
-        depend<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();

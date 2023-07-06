@@ -189,7 +189,6 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
     if (!route.isForeground()) return;
     if (!route.isBecameTab(StageTab.activity)) return;
-    if (!refreshEnabled) return;
     await updateJournalFreq(parentTrace);
   }
 

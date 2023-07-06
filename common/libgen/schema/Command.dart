@@ -14,6 +14,9 @@ enum CommandName {
   pause,
   unpause,
 
+  // Command
+  error,
+
   // Custom
   allow,
   deny,
@@ -71,7 +74,7 @@ abstract class CommandOps {
 }
 
 @FlutterApi()
-abstract class Commands {
+abstract class CommandEvents {
   @async
   void onCommand(String command);
 

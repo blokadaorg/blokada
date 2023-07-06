@@ -1,3 +1,4 @@
+import 'package:common/account/account.dart';
 import 'package:common/notification/channel.pg.dart';
 import 'package:common/notification/notification.dart';
 import 'package:common/stage/stage.dart';
@@ -10,6 +11,7 @@ import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<NotificationOps>(),
   MockSpec<StageStore>(),
+  MockSpec<AccountStore>(),
 ])
 import 'notification_test.mocks.dart';
 
@@ -17,6 +19,7 @@ void main() {
   group("binder", () {
     test("onNotificationEvent", () async {
       await withTrace((trace) async {
+        depend<AccountStore>(MockAccountStore());
         depend<StageStore>(MockStageStore());
 
         final store = NotificationStore();
