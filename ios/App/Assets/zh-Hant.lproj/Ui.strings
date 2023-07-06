@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "阻擋";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "開啟例外";
 
 "account section header settings" = "設定";
 "account status text" = "您的 BLOKADA %@ 帳號有效日期至 %@ 為止。";

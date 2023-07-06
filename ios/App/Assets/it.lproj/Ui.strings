@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blocca";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Apri Eccezioni";
 
 "account section header settings" = "Impostazioni";
 "account status text" = "Il tuo account BLOKADA %@ è attivo fino a %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Totali";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Ultime 24 ore";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Da sempre";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Apri le Impostazioni";
 "dnsprofile desc android" = "Nell'app Impostazioni, trova la sezione DNS Privato, quindi incolla il tuo hostname (pressione prolungata).";
 "dnsprofile desc android copy" = "Copia il tuo hostname Blokada Cloud per incollarlo nelle Impostazioni.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "Dalle Impostazioni, vai a:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Generale → VPN, DNS e Gestione Dispositivo → DNS e seleziona Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Ci siamo quasi!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Liste di blocco";
 "app settings section header" = "Questo dispositivo";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada è bloccata. Inserisci il pin per sbloccare";
+"lock status unlocked has pin" = "Inserisci il pin per cambiarlo";
+"lock status unlocked" = "Imposta il tuo pin per bloccare Blokada";

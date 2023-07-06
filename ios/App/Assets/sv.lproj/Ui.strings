@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blockera";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Öppna Undantag";
 
 "account section header settings" = "Inställningar";
 "account status text" = "Ditt BLOKADA %@konto är aktivt fram till %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Totalt";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Senaste 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Sedan installation";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Öppna Inställningar";
 "dnsprofile desc android" = "I appen Inställningar, sök efter sektionen Privat DNS, klistra sedan in ditt värdnamn (tryck och håll kvar).";
 "dnsprofile desc android copy" = "Kopiera ditt Blokada Cloud-värdnamn för att klistra in det i Inställningar.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "I appen Inställningar, navigera till:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Allmänt → VPN & enhetshantering → DNS och välj Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Nästan där!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Blocklistor";
 "app settings section header" = "Denna enhet";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada är låst. Ange PIN-koden för att låsa upp";
+"lock status unlocked has pin" = "Ange PIN-koden för att ändra den";
+"lock status unlocked" = "Ange din PIN-kod för att låsa Blokada";

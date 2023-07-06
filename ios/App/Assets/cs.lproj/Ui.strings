@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokovat";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Otevřít výjimky";
 
 "account section header settings" = "Nastavení";
 "account status text" = "Váš účet BLOKADA %@ je aktivní do %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Celkem";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Posledních 24 hodin";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Za celou dobu";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Otevřít Nastavení";
 "dnsprofile desc android" = "V aplikaci Nastavení najděte sekci Soukromé DNS a pak vložte název hostitele (dlouhým klepnutím).";
 "dnsprofile desc android copy" = "Zkopírujte svůj název hostitele služby Blokada Cloud a vložte jej do Nastavení.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "V aplikaci v Nastavení přejděte na:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Obecné → VPN, DNS a Správa zařízení → DNS a vyberte Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Téměř hotovo!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Blocklisty";
 "app settings section header" = "Toto zařízení";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada je uzamčena. Zadejte PIN kód pro odemčení";
+"lock status unlocked has pin" = "Zadejte PIN kód pro změnu";
+"lock status unlocked" = "Nastavte PIN kód pro uzamčení Blokady";

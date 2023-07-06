@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokir";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Buka laman pengecualian";
 
 "account section header settings" = "Pengaturan";
 "account status text" = "%@ Akun BLOKADA Anda aktif sampai %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Total";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "24 jam terakhir";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Sepanjang waktu";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Buka Pengaturan";
 "dnsprofile desc android" = "Di bagian Settings, cari opsi Private DNS, kemudian salin hostname Anda dengan cara menekan lama.";
 "dnsprofile desc android copy" = "Salin hostname Blokada Cloud Anda untuk kemudian dimasukkan di Settings.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "Di Pengaturan, buka:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Umum → VPN, DNS dan Pengaturan Perangkat → DNS, kemudian pilih Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Sebentar lagi!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Blocklist";
 "app settings section header" = "Perangkat ini";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada dikunci. Masukan kode pin untuk membuka";
+"lock status unlocked has pin" = "Masukkan kode pin untuk merubah";
+"lock status unlocked" = "Buat kode pin untuk mengunci Blokada";

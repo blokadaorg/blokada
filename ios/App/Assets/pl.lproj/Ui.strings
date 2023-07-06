@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Zablokuj";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Otwórz Wyjątki";
 
 "account section header settings" = "Ustawienia";
 "account status text" = "Twoje konto BLOKADA %@ jest aktywne do %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Ogółem";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Ostatnie 24h";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Od początku";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Otwórz Ustawienia";
 "dnsprofile desc android" = "W ustawieniach aplikacji znajdź sekcję Prywatny DNS, a następnie wklej swoją nazwę hosta (długie stuknięcie).";
 "dnsprofile desc android copy" = "Skopiuj swoją nazwę hosta Blokady Cloud, aby wkleić ją w ustawieniach.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "W aplikacji Ustawienia przejdź do:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Prawie gotowe!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Blocklisty";
 "app settings section header" = "To urządzenie";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada jest zablokowana. Wprowadź kod pin aby odblokować";
+"lock status unlocked has pin" = "Wprowadź kod pin aby go zmienić";
+"lock status unlocked" = "Ustaw kod pin aby zablokować Blokadę";

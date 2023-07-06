@@ -26,16 +26,16 @@
 "error payment inactive after restore" = "Tu pago anterior se ha restaurado, pero la suscripción ya ha caducado. Si crees que esto es un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.";
 "error payment failed" = "Pagos no disponibles actualmente. Asegúrate de tener conexión e inténtalo de nuevo más tarde. Si el problema persiste, contacta con nosotros tocando el icono de ayuda en la parte superior.";
 "error payment failed alternative" = "No se pudo completar el pago. Por favor, asegúrate de que tus datos son correctos e inténtalo de nuevo. Si el problema persiste, por favor ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Los pagos no están disponibles para este dispositivo. O este dispositivo no está actualizado, o aún no gestionamos las compras en su país.";
 "error payment canceled" = "El pago se ha cancelado. No se ha cobrado nada.";
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
 "error unknown" = "Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error multiple apps" = "Hay más de una aplicación Blokada en tu dispositivo. Esto puede causar problemas de conectividad. ¿Quieres solucionarlo ahora?";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Problemas de conectividad";
+"conn isssues slug" = "Problemas de conexión. Por favor, comprueba tu configuración. Pulsa para más detalles.";
+"conn isssues details" = "- Compruebe su conexión a Internet\n- Utilice sólo una aplicación Blokada\n- Desactive otras VPN";
 
 "universal action continue" = "Continuar";
 "universal action cancel" = "Cancelar";
@@ -126,10 +126,10 @@
 "alert update body" = "Blokada %@ ahora está disponible para descargar. Recomendamos descargar la aplicación solo desde nuestras fuentes oficiales y mantenerla actualizada.";
 "update label updated" = "¡Actualizado!";
 "update desc updated" = "¡Ahora estás usando la versión más reciente de Blokada! Recuerda, al donar o suscribirte a Blokada Plus nos permites continuar mejorando la aplicación.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "¡Ahora estás usando la versión más reciente de Blokada!";
 "update downloading description" = "La actualización se está descargando, deberías ver el aviso de instalación en breve.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "¡Blokada me ha ayudado a bloquear %@ anuncios y rastreadores!";
 
 "main rate us header" = "¡Califícanos!";
 "main rate us description" = "Hasta ahora, ¿cuánto te gusta Blokada?";
@@ -158,7 +158,7 @@
 "home status detail paused" = "En pausa hasta que el temporizador termine";
 "home status detail active" = "Bloqueando *anuncios* y *rastreadores*";
 "home status detail active with counter" = "*%@* anuncios y rastreadores bloqueados";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "Anuncios y rastreadores bloqueados las últimas 24 horas";
 "home status detail active slim" = "Blokada *Slim* está activo";
 "home status detail plus" = "*+* protegiendo tu *privacidad*";
 "home status detail progress" = "Por favor, espere...";
@@ -226,11 +226,11 @@
 "activity filter showing for" = "Mostrando para: %@";
 "activity empty text" = "Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.";
 "activity device filter show all" = "Todos los dispositivos";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "¿Deberíamos guardar su actividad?";
 "activity retention option none" = "No guardar mi actividad";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "Sí, guardar mi actividad";
+"activity retention policy" = "Al activar el registro de actividades, acepta la política de privacidad.";
+"activity retention desc" = "Blokada Cloud no está registrando nada por defecto. Si desea ver las estadísticas agregadas y la actividad de todos sus dispositivos, habilite el registro de actividad a continuación.";
 
 // Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "Excepciones";
@@ -244,11 +244,11 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Bloquear";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Abrir Excepciones";
 
 "account section header settings" = "Configuración";
 "account status text" = "Tu cuenta de BLOKADA %@ está activa hasta %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Tu suscripción a BLOKADA está inactiva.";
 
 "account section header primary" = "Principal";
 "account section header other" = "Otros";
@@ -272,8 +272,8 @@
 "account section header general" = "General";
 "account section header subscription" = "Suscripción";
 "account label id" = "ID de cuenta";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Plan de suscripción";
+"account plan none" = "Ningún plan activo";
 "account label active until" = "Activa hasta";
 "account action manage subscription" = "Gestionar suscripción";
 "account action why upgrade" = "¿Por qué deberías actualizar?";
@@ -395,7 +395,7 @@
 "payment plan cta trial" = "Comenzar prueba gratuita de 7 días";
 "payment plan cta monthly" = "Suscripción mensual";
 "payment plan cta annual" = "Suscripción anual";
-"payment plan current" = "(current plan)";
+"payment plan current" = "(plan actual)";
 
 "location region worldwide" = "En todas partes";
 "location region america" = "América";
@@ -442,24 +442,24 @@
 "stats top allowed header" = "Top de solicitudes permitidas";
 "stats top blocked header" = "Top de solicitudes bloqueadas";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "Permitido";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "Bloqueado";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Total";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Últimas 24h";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "Todo el tiempo";
 
 "dnsprofile header" = "Activar Blokada en Ajustes";
 "dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
 "dnsprofile action open settings" = "Abrir Ajustes";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile desc android" = "En la aplicación de configuración, busque la sección DNS privado, y luego pegue su nombre de host (toque largo).";
+"dnsprofile desc android copy" = "Copie su nombre de host Blokada Cloud para pegarlo en Configuración.";
+"dnsprofile notification subtitle" = "En la aplicación Configuración, navegar a:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "¡Ya casi estamos!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Listas de bloqueo";
 "app settings section header" = "Este dispositivo";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada está bloqueado. Introduzca el código pin para desbloquear";
+"lock status unlocked has pin" = "Introduzca el código pin para cambiarlo";
+"lock status unlocked" = "Establece tu código pin para bloquear Blokada";
