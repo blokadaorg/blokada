@@ -21,7 +21,7 @@ struct TracerBinding: TracerOps {
         let fileManager = FileManager.default
         return fileManager.containerURL(
             forSecurityApplicationGroupIdentifier: "group.net.blocka.app"
-        )?.appendingPathComponent("blokada-i6.\(env.getAppVersion()).log")
+        )?.appendingPathComponent("blokada-i6.\(env.getAppVersion()).json")
     }
 
     @Injected(\.flutter) private var flutter
