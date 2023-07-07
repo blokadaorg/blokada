@@ -109,7 +109,7 @@ lane :build_release do |options|
  
  # build the app
  gym(
-   scheme: "IOS",
+   scheme: "Prod",
    output_name: output_name,
    configuration: "Release",
    export_options: {
