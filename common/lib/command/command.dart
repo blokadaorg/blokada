@@ -84,8 +84,18 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
     });
   }
 
-  _name(String cmd, String? p1) =>
-      cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
+  final _censored = [
+    CommandName.restore.name,
+    CommandName.receipt.name,
+    CommandName.appleNotificationToken.name,
+  ];
+
+  String _name(String cmd, String? p1) {
+    if (_censored.contains(cmd)) {
+      p1 = "***";
+    }
+    return cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
+  }
 
   execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
     switch (cmd) {
