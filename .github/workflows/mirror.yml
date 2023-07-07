@@ -2,10 +2,6 @@ name: Update blocklists mirror (Publish)
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - android.v6.**
-      - ios.v6.**
 
 jobs:
   sync:
