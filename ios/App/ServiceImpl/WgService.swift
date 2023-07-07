@@ -75,7 +75,7 @@ class WgService: NetxServiceIn {
                 //self.workaroundFirstConfigProblem(manager: tunnelsManager)
                 BlockaLogger.v("WgService", "TunnelsManager is initialized")
                 tunnelsTracker.triggerCurrentStatus()
-                checkPerms()
+                self.checkPerms()
             }
         }
     }
