@@ -480,5 +480,5 @@
 "app settings section header" = "Cet appareil";
 
 "lock status locked" = "Blokada est verrouillé. Entrez le code PIN pour déverrouiller";
-"lock status unlocked has pin" = "Entrez le code PIN pour le modifier";
+"lock status unlocked has pin" = "Saisissez le code PIN avant de le modifier";
 "lock status unlocked" = "Définissez votre code PIN pour verrouiller Blokada";

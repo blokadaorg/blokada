@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Заблокировать";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Открытые исключения";
 
 "account section header settings" = "Настройки";
 "account status text" = "Ваш аккаунт BLOKADA %@ активен до %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Всего";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Последние 24 ч";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Все время";
 
@@ -457,9 +457,9 @@
 "dnsprofile action open settings" = "Открыть Настройки";
 "dnsprofile desc android" = "Найдите в настройках Персональный DNS и вставьте ваше имя хоста (долгим нажатием).";
 "dnsprofile desc android copy" = "Скопируйте ваше имя хоста Blokada Cloud, чтобы вставить его в настройках.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "В настройках устройства перейдите к:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти готово!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Списки блокировки";
 "app settings section header" = "Это устройство";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada заблокирована. Введите пин-код для разблокировки";
+"lock status unlocked has pin" = "Введите пин-код, чтобы изменить это";
+"lock status unlocked" = "Установите PIN-код для блокировки Blokada";
