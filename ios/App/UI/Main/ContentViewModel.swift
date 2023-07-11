@@ -16,21 +16,24 @@ import Factory
 
 class ContentViewModel: ObservableObject {
     @Injected(\.stage) var stage
+    @Injected(\.tracer) var tracer
 
-    private lazy var sheetRepo = stage
     private lazy var linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
 
     @Published var activeSheet: StageModal? = nil
     @Published var showPauseMenu = false {
         didSet {
-            self.sheetRepo.showPauseMenu(showPauseMenu)
+            self.stage.showPauseMenu(showPauseMenu)
         }
     }
+
+    @Published var shareLog: URL? = nil
 
     init() {
         onSheetChanged()
         onShowPauseMenuChanged()
+        onShareLog()
     }
 
     func openLink(_ link: Link) {
@@ -42,7 +45,7 @@ class ContentViewModel: ObservableObject {
     }
 
     private func onSheetChanged() {
-        sheetRepo.currentModal
+        stage.currentModal
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.activeSheet = it
@@ -51,10 +54,19 @@ class ContentViewModel: ObservableObject {
     }
 
     private func onShowPauseMenuChanged() {
-        sheetRepo.showPauseMenu
+        stage.showPauseMenu
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.showPauseMenu = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onShareLog() {
+        tracer.shareLog
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.shareLog = it
         })
         .store(in: &cancellables)
     }

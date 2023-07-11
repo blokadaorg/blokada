@@ -11,11 +11,13 @@
 //
 
 import SwiftUI
+import Factory
 
 struct SupportView: View {
-
     @ObservedObject var contentVM = ViewModels.content
     @ObservedObject var tabVM = ViewModels.tab
+
+    @Injected(\.commands) private var commands
 
     var body: some View {
         NavigationView {
@@ -69,11 +71,10 @@ struct SupportView: View {
 //                    }
 
                     Button(action: {
-//                        self.contentVM.stage.dismiss()
 //                        self.tabVM.setActiveTab(Tab.Home)
 //                        self.contentVM.stage.showModal(.debug)
                         self.contentVM.stage.dismiss()
-                        self.contentVM.stage.showModal(.debugShareLog)
+                        self.commands.execute(.shareLog)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -86,7 +87,7 @@ struct SupportView: View {
 
                     Button(action: {
                         self.contentVM.stage.dismiss()
-                        self.contentVM.stage.setRoute("home/Rate")
+                        self.contentVM.stage.setRoute("home/rate")
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))

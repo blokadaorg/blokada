@@ -51,8 +51,6 @@ struct ContentView: View {
                         SupportView()
                     case .custom:
                         CustomV()
-                    case .debugShareLog:
-                        ShareSheet(activityItems: [tracer.file])
                     default:
                         // Will never be displayed
                         EmptyView()
@@ -97,6 +95,10 @@ struct ContentView: View {
                 )
             }
         }
+        .sheet(item: self.$vm.shareLog, onDismiss: { self.vm.stage.onDismissed() }) { item in
+            ShareSheet(activityItems: [item])
+        }
+
         // Draw under status bar and bottom bar (we manage it ourselves)
         .edgesIgnoringSafeArea([.top, .bottom])
         .background(Color.cBackground.edgesIgnoringSafeArea(.all))

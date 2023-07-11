@@ -104,7 +104,7 @@ class StageBinding: StageOps {
     }
 
     var supportedSheets: [StageModal] = [
-        .custom, .help, .onboarding, .payment, .plusLocationSelect, .debugShareLog,
+        .custom, .help, .onboarding, .payment, .plusLocationSelect,
         .adsCounterShare
     ]
 

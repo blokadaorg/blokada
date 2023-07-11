@@ -84,7 +84,7 @@ class NotificationBinding: NotificationOps {
     }
 
     func onAppleTokenFailed(_ err: Error) {
-        commands.execute(.error, "Failed registering for remote notifications: \(err)")
+        commands.execute(.warning, "Failed registering for remote notifications: \(err)")
     }
 
     func doShow(notificationId: String, when: String, completion: @escaping (Result<Void, Error>) -> Void) {

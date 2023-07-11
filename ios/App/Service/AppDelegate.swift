@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     @Injected(\.env) private var env
     @Injected(\.flutter) private var flutter
+    @Injected(\.commands) private var commands
     
     // Reference it so that it is created
     @Injected(\.tracer) private var tracer
@@ -43,15 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-
         LoggerSaver.cleanup()
 
-        let log = BlockaLogger("")
-        log.w("*** ******************* ***")
-        log.w("*** BLOKADA IOS STARTED ***")
-        log.w("*** ******************* ***")
-        log.v(self.env.getUserAgent())
-        log.v("Time now: \(Date().description(with: .current))")
+        NSSetUncaughtExceptionHandler { exception in
+            (UIApplication.shared.delegate as? AppDelegate)?.handleException(exception: exception)
+        }
 
         if self.env.isRunningTests() {
             resetReposForDebug()
@@ -68,6 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         payment.startObservingPayments()
 
         return true
+    }
+
+    func handleException(exception: NSException) {
+        let exceptionString = "Exception Name: \(exception.name)\nReason: \(exception.reason ?? "")\nUser Info: \(String(describing: exception.userInfo))"
+        commands.execute(.fatal, exceptionString)
     }
 
     // Notification registration callback: success
@@ -106,7 +108,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BlockaLogger.v("Main", "Application will terminate")
         payment.stopObservingPayments()
     }
-
 }
 
 // Copied from WG - not sure if important

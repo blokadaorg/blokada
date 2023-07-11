@@ -12,26 +12,26 @@
 
 import Foundation
 import Factory
+import Combine
+
+extension URL: Identifiable {
+    public var id: Int {
+        hashValue
+    }
+}
 
 struct TracerBinding: TracerOps {
-    
+    let shareLog = CurrentValueSubject<URL?, Never>(nil)
+
     @Injected(\.env) private var env
-
-    var file: URL? {
-        let fileManager = FileManager.default
-        return fileManager.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app"
-        )?.appendingPathComponent("blokada-i6.\(env.getAppVersion()).json")
-    }
-
     @Injected(\.flutter) private var flutter
     
     init() {
         TracerOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
-    func doStartFile(template: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let logFile = file else {
+    func doStartFile(filename: String, template: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let logFile = getFilename(filename) else {
             return completion(.failure("failed opening file"))
         }
 
@@ -43,8 +43,8 @@ struct TracerBinding: TracerOps {
         completion(.success(()))
     }
 
-    func doSaveBatch(batch: String, mark: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let logFile = file else {
+    func doSaveBatch(filename: String, batch: String, mark: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let logFile = getFilename(filename) else {
             return completion(.failure("failed opening file"))
         }
 
@@ -66,15 +66,46 @@ struct TracerBinding: TracerOps {
                     fileHandle.write(textData)
                     fileHandle.write(dataAfterPos)
                 } catch {
-                    completion(.failure("seeking placement mark in file failed"))
+                    return completion(.failure("seeking placement mark in file failed"))
                 }
             }
         } else {
-            completion(.failure("no existing log file to write batch to"))
+            return completion(.failure("no existing log file to write batch to"))
         }
-        completion(.success(()))
+        return completion(.success(()))
+    }
+
+    func doShareFile(filename: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let logFile = getFilename(filename) else {
+            return completion(.failure("failed opening file"))
+        }
+
+        shareLog.send(logFile)
+        return completion(.success(()))
+    }
+
+    func doFileExists(filename: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        guard let logFile = getFilename(filename) else {
+            return completion(.failure("failed opening file"))
+        }
+
+        let exists = FileManager.default.fileExists(atPath: logFile.path)
+        return completion(.success(exists))
     }
     
+    func doDeleteFile(filename: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let logFile = getFilename(filename) else {
+            return completion(.failure("failed opening file"))
+        }
+
+        do {
+            try FileManager.default.removeItem(at: logFile)
+            return completion(.success(()))
+        } catch {
+            return completion(.failure(error))
+        }
+    }
+
     func findLastOccurrence(of searchString: String, _ fileHandle: FileHandle) throws -> UInt64? {
         assert(searchString.count == 3, "Search string must have exactly 3 characters.")
 
@@ -102,6 +133,13 @@ struct TracerBinding: TracerOps {
         }
         
         return nil
+    }
+
+    func getFilename(_ file: String) -> URL? {
+        let fileManager = FileManager.default
+        return fileManager.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.net.blocka.app"
+        )?.appendingPathComponent(file)
     }
 }
 
