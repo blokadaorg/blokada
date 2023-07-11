@@ -8,9 +8,8 @@ enum StageModal {
   //paymentDetails,
   plusLocationSelect,
   debug,
-  debugShareLog,
+  debugSharing,
   adsCounterShare,
-  //rateApp,
   custom,
   // updatePrompt,
   // updateOngoing,
@@ -28,11 +27,11 @@ enum StageModal {
 }
 
 enum StageKnownRoute {
-  homeLock,
-  homeUnlock,
-  homeRate,
-  homeCloseRate,
   homeStats,
+  homeOverlayLock,
+  homeOverlayRate,
+  homeOverlayCrash,
+  homeCloseOverlay,
 }
 
 @HostApi()

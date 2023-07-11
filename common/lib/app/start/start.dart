@@ -16,6 +16,7 @@ import '../../rate/rate.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
+import '../../tracer/tracer.dart';
 import '../../util/async.dart';
 import '../../util/config.dart';
 import '../../util/di.dart';
@@ -48,8 +49,8 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _stage = dep<StageStore>();
   late final _plus = dep<PlusStore>();
   late final _plusKeypair = dep<PlusKeypairStore>();
-  late final _lock = dep<LockStore>();
   late final _rate = dep<RateStore>();
+  late final _tracer = dep<Tracer>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -93,6 +94,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         await _plus.load(trace);
         await _rate.load(trace);
         await _startAppWithRetry(trace);
+        await _tracer.checkForCrashLog(trace);
         await _app.initCompleted(trace);
       } catch (e) {
         await _app.initFail(trace);

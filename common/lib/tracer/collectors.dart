@@ -378,6 +378,9 @@ class JsonTraceCollector with TraceCollector {
 }
 
 class FileTraceCollector extends TraceCollector {
+  final String filename;
+  final bool immediate;
+
   late final _ops = dep<TracerOps>();
 
   Timer _sendTimer = Timer(Duration.zero, () {});
@@ -386,6 +389,8 @@ class FileTraceCollector extends TraceCollector {
 
   final Map<String, DefaultTrace> _tracesById = {};
   final Map<String, List<DefaultTrace>> _tracesByRoot = {};
+
+  FileTraceCollector(this.filename, {this.immediate = false});
 
   @override
   onStart(DefaultTrace t) {
@@ -403,7 +408,11 @@ class FileTraceCollector extends TraceCollector {
 
   @override
   onEnd(DefaultTrace t) async {
-    if (t._parent == null) _manageTracesQueue();
+    if (t._parent == null && immediate) {
+      sendTraces();
+    } else if (t._parent == null) {
+      _manageTracesQueue();
+    }
   }
 
   @override
@@ -455,7 +464,7 @@ class FileTraceCollector extends TraceCollector {
   \t\t\t
 ]}''';
 
-      await _ops.doStartFile(template);
+      await _ops.doStartFile(filename, template);
       _fileCreated = true;
 
       batch = "  $batch\n";
@@ -463,7 +472,7 @@ class FileTraceCollector extends TraceCollector {
       batch = "  , $batch\n";
     }
 
-    await _ops.doSaveBatch(batch, "\t\t\t");
+    await _ops.doSaveBatch(filename, batch, "\t\t\t");
   }
 
   JsonTraceSpanFormat2 _convertTrace(DefaultTrace t) {

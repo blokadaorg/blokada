@@ -19,16 +19,16 @@ enum StageTab { background, home, activity, advanced, settings }
 extension StageKnownRouteExt on StageKnownRoute {
   String get path {
     switch (this) {
-      case StageKnownRoute.homeLock:
-        return "home/Lock";
-      case StageKnownRoute.homeUnlock:
-        return "home/Unlock";
-      case StageKnownRoute.homeRate:
-        return "home/Rate";
-      case StageKnownRoute.homeCloseRate:
-        return "home/CloseRate";
       case StageKnownRoute.homeStats:
-        return "home/Stats";
+        return "home/stats";
+      case StageKnownRoute.homeCloseOverlay:
+        return "home/close";
+      case StageKnownRoute.homeOverlayLock:
+        return "home/lock";
+      case StageKnownRoute.homeOverlayRate:
+        return "home/rate";
+      case StageKnownRoute.homeOverlayCrash:
+        return "home/crash";
     }
   }
 }
@@ -214,7 +214,8 @@ abstract class StageStoreBase
   Future<void> setRoute(Trace parentTrace, String path) async {
     return await traceWith(parentTrace, "setRoute", (trace) async {
       if (path != route.route.path) {
-        if (!isReady || isLocked && path != StageKnownRoute.homeLock.path) {
+        if (!isReady ||
+            isLocked && path != StageKnownRoute.homeOverlayLock.path) {
           _waitingEvents.add(path);
           trace.addEvent("event queued: $path");
           return;
@@ -363,15 +364,13 @@ abstract class StageStoreBase
   }
 
   _actOnRoute(Trace trace, StageRoute route) async {
-    if (route.path == StageKnownRoute.homeLock.path) {
+    if (route.path == StageKnownRoute.homeOverlayLock.path) {
       await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeUnlock.path) {
-      await _ops.doShowNavbar(true);
-    }
-
-    if (route.path == StageKnownRoute.homeRate.path) {
+    } else if (route.path == StageKnownRoute.homeOverlayRate.path) {
       await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeCloseRate.path) {
+    } else if (route.path == StageKnownRoute.homeOverlayCrash.path) {
+      await _ops.doShowNavbar(false);
+    } else if (route.path == StageKnownRoute.homeCloseOverlay.path) {
       await _ops.doShowNavbar(true);
     }
   }

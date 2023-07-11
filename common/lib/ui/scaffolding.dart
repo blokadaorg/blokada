@@ -6,6 +6,7 @@ import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'coolbg.dart';
+import 'crash/crash_screen.dart';
 import 'home/home_screen.dart';
 import 'lock/lock_screen.dart';
 import 'rate/rate_screen.dart';
@@ -27,11 +28,8 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
   final _duration = const Duration(milliseconds: 800);
   final _curve = Curves.easeInOut;
 
-  var showBottom = false;
-  bool isLocked = false;
-  bool isRate = false;
-
   var _path = "home";
+  StageKnownRoute? _knownRoute;
 
   @override
   void initState() {
@@ -59,25 +57,30 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       _path = path;
 
       setState(() {
-        if (path == StageKnownRoute.homeLock.path) {
-          isLocked = true;
-          _pageCtrl.animateToPage(0, duration: _duration, curve: _curve);
-        } else if (path == StageKnownRoute.homeUnlock.path) {
-          isLocked = false;
-        } else if (path == StageKnownRoute.homeRate.path) {
-          isRate = true;
-          _pageCtrl.animateToPage(0, duration: _duration, curve: _curve);
-        } else if (path == StageKnownRoute.homeCloseRate.path) {
-          isRate = false;
-          _pageCtrl.animateToPage(0, duration: _duration, curve: _curve);
-        } else if (path == StageKnownRoute.homeStats.path) {
-          _pageCtrl.animateToPage(1, duration: _duration, curve: _curve);
+        if (path == StageKnownRoute.homeStats.path) {
+          _animateToPage(1);
         } else if (_stage.route.isTab(StageTab.home) &&
             _stage.route.isMainRoute()) {
-          _pageCtrl.animateToPage(0, duration: _duration, curve: _curve);
+          _animateToPage(0);
+        } else if (path == StageKnownRoute.homeOverlayLock.path) {
+          _knownRoute = StageKnownRoute.homeOverlayLock;
+          _animateToPage(0);
+        } else if (path == StageKnownRoute.homeOverlayRate.path) {
+          _knownRoute = StageKnownRoute.homeOverlayRate;
+          _animateToPage(0);
+        } else if (path == StageKnownRoute.homeOverlayCrash.path) {
+          _knownRoute = StageKnownRoute.homeOverlayCrash;
+          _animateToPage(0);
+        } else if (path == StageKnownRoute.homeCloseOverlay.path) {
+          _knownRoute = null;
+          _animateToPage(0);
         }
       });
     });
+  }
+
+  _animateToPage(int page) {
+    _pageCtrl.animateToPage(page, duration: _duration, curve: _curve);
   }
 
   @override
@@ -86,7 +89,9 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       body: Stack(
         children: [
           PageView(
-            physics: isLocked ? const NeverScrollableScrollPhysics() : null,
+            physics: _knownRoute != null
+                ? const NeverScrollableScrollPhysics()
+                : null,
             controller: _pageCtrl,
             scrollDirection: Axis.vertical,
             children: <Widget>[
@@ -98,7 +103,12 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
                   controller: ScrollController()),
             ],
           ),
-          if (isLocked) const LockScreen() else if (isRate) const RateScreen()
+          if (_knownRoute == StageKnownRoute.homeOverlayLock)
+            const LockScreen()
+          else if (_knownRoute == StageKnownRoute.homeOverlayRate)
+            const RateScreen()
+          else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
+            const CrashScreen()
         ],
       ),
     );

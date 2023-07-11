@@ -27,7 +27,7 @@ class TraceEvent {
   TraceEvent(this.message, this.params, this.time);
 }
 
-abstract class Tracer {
+abstract class TraceFactory {
   newTrace(String module, String name, {bool? important});
 }
 
@@ -77,7 +77,7 @@ mixin Traceable {
 }
 
 mixin TraceOrigin {
-  late final _trace = dep<Tracer>();
+  late final _trace = dep<TraceFactory>();
 
   traceAs(
     String name,

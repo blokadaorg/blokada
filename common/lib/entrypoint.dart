@@ -36,10 +36,11 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
 
   @override
   attach(Act act) {
-    DefaultTracer().attach(act);
+    Tracer().attach(act);
     DefaultTimer().attach(act);
 
     // Two persistence instances, for secure and non-secure data
+    // Non secure data is local
     PlatformPersistence(isSecure: false, isBackup: false).attach(act);
     final secure = PlatformPersistence(isSecure: true, isBackup: true);
     depend<SecurePersistenceService>(secure);

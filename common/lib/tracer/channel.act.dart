@@ -17,6 +17,9 @@ TracerOps getOps(Act act) {
 }
 
 _actNormal(MockTracerOps ops) {
-  when(() => ops.doStartFile(any())).thenAnswer(ignore());
-  when(() => ops.doSaveBatch(any(), any())).thenAnswer(ignore());
+  when(() => ops.doStartFile(any(), any())).thenAnswer(ignore());
+  when(() => ops.doSaveBatch(any(), any(), any())).thenAnswer(ignore());
+  when(() => ops.doShareFile(any())).thenAnswer(ignore());
+  when(() => ops.doFileExists(any())).thenAnswer((_) async => false);
+  when(() => ops.doDeleteFile(any())).thenAnswer(ignore());
 }

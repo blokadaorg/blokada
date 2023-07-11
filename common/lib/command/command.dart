@@ -14,6 +14,7 @@ import '../plus/vpn/vpn.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../timer/timer.dart';
+import '../tracer/tracer.dart';
 import '../util/config.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
@@ -21,6 +22,7 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
+  late final _tracer = dep<Tracer>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
   late final _accountPayment = dep<AccountPaymentStore>();
@@ -182,17 +184,13 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
         return await _accountRefresh.onRemoteNotification(trace);
       case CommandName.appleNotificationToken:
         return await _notification.saveAppleToken(trace, p1!);
-      case CommandName.error:
-        return await platformError(trace, p1!);
+      case CommandName.warning:
+        return await _tracer.platformWarning(trace, p1!);
+      case CommandName.fatal:
+        return await _tracer.fatal(p1!);
+      case CommandName.shareLog:
+        return await _tracer.shareLog(trace, forCrash: false);
     }
-  }
-
-  platformError(Trace parentTrace, String error) async {
-    return await traceWith(parentTrace, "platformError", (trace) async {
-      // Platform code may call this method to report any error
-      // This will report in tracing as error so we can easily see it
-      throw Exception(error);
-    });
   }
 
   _onCommandTimer(String command) {

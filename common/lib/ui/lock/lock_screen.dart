@@ -152,7 +152,7 @@ class _LockScreenState extends State<LockScreen>
 
   _unlock() async {
     traceAs("fromWidget", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeUnlock.path);
+      await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
     });
   }
 

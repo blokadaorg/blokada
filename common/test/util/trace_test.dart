@@ -4,12 +4,12 @@ import 'package:common/util/trace.dart';
 import 'package:common/tracer/tracer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-final _tracer = dep<Tracer>();
+final _tracer = dep<TraceFactory>();
 
 void main() {
   setUp(() async {
     await di.reset();
-    depend<Tracer>(DefaultTracer());
+    depend<TraceFactory>(Tracer());
     depend<TraceCollector>(StdoutTraceCollector());
   });
 

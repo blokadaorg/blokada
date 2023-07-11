@@ -28,9 +28,21 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Execute'),
-          onPressed: () {
-            _executeCommand();
+          child: const Text('Run'),
+          onPressed: () async {
+            _executeCommand(_controllerCmd.text);
+          },
+        ),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.labelLarge,
+          ),
+          child: const Text('Run & Close'),
+          onPressed: () async {
+            final cmd = _controllerCmd.text;
+            Navigator.of(context).pop();
+            await sleepAsync(const Duration(milliseconds: 500));
+            _executeCommand(cmd);
           },
         ),
         TextButton(
@@ -101,12 +113,11 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
     super.dispose();
   }
 
-  _executeCommand() async {
-    final command = _controllerCmd.text;
+  _executeCommand(String command) async {
     if (command.isNotEmpty) {
       await traceAs("commandDialog", (trace) async {
         try {
-          _controllerOutput.text = "...";
+          if (mounted) _controllerOutput.text = "...";
           if (command.contains("&&")) {
             // Split and trim
             final cmds = command.split("&&").map((cmd) => cmd.trim()).toList();
@@ -117,22 +128,22 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
               }
               try {
                 await _command.onCommandString(trace, cmd);
-                _controllerOutput.text += "\nOK: $cmd";
+                if (mounted) _controllerOutput.text += "\nOK: $cmd";
               } catch (e) {
-                _controllerOutput.text += "\nFail: $cmd: $e";
+                if (mounted) _controllerOutput.text += "\nFail: $cmd: $e";
               }
             }
             return;
           } else {
             await _command.onCommandString(trace, command);
           }
-          _controllerOutput.text = "OK";
+          if (mounted) _controllerOutput.text = "OK";
         } catch (e) {
-          _controllerOutput.text = "Fail: $e";
+          if (mounted) _controllerOutput.text = "Fail: $e";
         }
       });
     } else {
-      _controllerOutput.text = "Fail: no command";
+      if (mounted) _controllerOutput.text = "Fail: no command";
     }
   }
 }

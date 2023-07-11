@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:common/service/I18nService.dart';
@@ -6,7 +5,6 @@ import 'package:common/ui/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../lock/lock.dart';
 import '../../rate/rate.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
@@ -95,7 +93,7 @@ class _RateScreenState extends State<RateScreen>
 
   _close() async {
     traceAs("fromWidget", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeCloseRate.path);
+      await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
       await _rate.rate(trace, _rating, _showPlatformDialog);
     });
   }

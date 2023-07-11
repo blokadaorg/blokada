@@ -14,9 +14,6 @@ enum CommandName {
   pause,
   unpause,
 
-  // Command
-  error,
-
   // Custom
   allow,
   deny,
@@ -65,6 +62,11 @@ enum CommandName {
   modalShown,
   modalDismiss,
   modalDismissed,
+
+  // Tracer
+  fatal,
+  warning,
+  shareLog,
 }
 
 @HostApi()

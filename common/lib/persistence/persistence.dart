@@ -15,8 +15,6 @@ abstract class PersistenceService {
 
 abstract class SecurePersistenceService extends PersistenceService {}
 
-abstract class LocalPersistenceService extends PersistenceService {}
-
 /// PlatformPersistenceImpl
 ///
 /// I decided to use native channels for the persistence, since existing

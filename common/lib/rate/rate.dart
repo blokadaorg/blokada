@@ -75,7 +75,7 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
       }
       await _persistence.save(trace, _key, meta.toJson());
       await sleepAsync(const Duration(seconds: 3));
-      await _stage.setRoute(trace, StageKnownRoute.homeRate.path);
+      await _stage.setRoute(trace, StageKnownRoute.homeOverlayRate.path);
     });
   }
 

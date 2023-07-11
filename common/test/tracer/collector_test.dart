@@ -21,15 +21,15 @@ void main() {
       // Outside of the tracing because we need to hook into it
       await dep.reset();
 
-      final tracer = DefaultTracer();
-      depend<Tracer>(tracer);
+      final tracer = Tracer();
+      depend<TraceFactory>(tracer);
 
       var output = "";
       final ops = MockTracerOps();
-      when(ops.doStartFile(any)).thenAnswer((i) async {
+      when(ops.doStartFile(any, any)).thenAnswer((i) async {
         output = i.positionalArguments[0];
       });
-      when(ops.doSaveBatch(any, any)).thenAnswer((i) async {
+      when(ops.doSaveBatch(any, any, any)).thenAnswer((i) async {
         final data = i.positionalArguments[0] as String;
         final mark = i.positionalArguments[1] as String;
         final pos = output.lastIndexOf(mark);
@@ -38,7 +38,7 @@ void main() {
       });
       depend<TracerOps>(ops);
 
-      final subject = FileTraceCollector();
+      final subject = FileTraceCollector("dummy.log.json");
       depend<TraceCollector>(subject);
 
       final parent = tracer.newTrace("testModule1", "root");

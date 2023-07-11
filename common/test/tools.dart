@@ -8,11 +8,11 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:test_api/src/backend/invoker.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-final _tracer = dep<Tracer>();
+final _tracer = dep<TraceFactory>();
 
 withTrace(Future Function(Trace trace) fn) async {
   await dep.reset();
-  depend<Tracer>(DefaultTracer());
+  depend<TraceFactory>(Tracer());
   depend<TraceCollector>(StdoutTraceCollector());
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
