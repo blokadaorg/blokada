@@ -89,7 +89,7 @@ lane :build_release do |options|
  update_code_signing_settings(
    path: './IOS.xcodeproj',
    use_automatic_signing: false,
-   targets: ["App"],
+   targets: ["Prod"],
    code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
    bundle_identifier: app_identifier,
    profile_name: profile_name,
