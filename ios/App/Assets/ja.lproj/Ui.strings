@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "ブロック";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "例外を開く";
 
 "account section header settings" = "設定";
 "account status text" = "BLOKADA %@ - アカウントの有効期限は %@ です。";
@@ -449,7 +449,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "合計";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "24 時間以内";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "すべての期間";
 
@@ -458,9 +458,9 @@
 "dnsprofile action open settings" = "設定を開く";
 "dnsprofile desc android" = "設定アプリでプライベート DNS の欄を探して長押しし、ホスト名を貼り付けてください。";
 "dnsprofile desc android copy" = "Blokada Cloud のホスト名をコピーして、設定に貼り付けます。";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "設定アプリで、以下に移動してください:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "[一般] > [VPN & ネットワーク] > [DNS] から Blokada を選択してください。";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "もう少しで完了です";
@@ -480,6 +480,6 @@
 "advanced section header packs" = "ブロックリスト";
 "app settings section header" = "設定";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada がロックされています。PIN コードを入力してロック解除してください";
+"lock status unlocked has pin" = "変更するには PIN コードを入力してください";
+"lock status unlocked" = "Blokada を PIN コードでロック";
