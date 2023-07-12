@@ -19,7 +19,7 @@ enum JournalEntryType {
   passedAllowed, // Passed because it's on user's personal Allowed list
 }
 
-enum JournalFilterType { showAll, showBlocked, showPassed }
+enum JournalFilterType { all, blocked, passed }
 
 class JournalFilter {
   final JournalFilterType showOnly;

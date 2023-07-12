@@ -49,7 +49,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   @override
   Future<void> onCommand(String command) async {
     _startCommandTimeout(command);
-    await traceAs(_name(command, null), (trace) async {
+    await traceAs(_cmdName(command, null), (trace) async {
       final cmd = _commandFromString(command);
       return await execute(trace, cmd);
     });
@@ -59,7 +59,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   @override
   Future<void> onCommandWithParam(String command, String p1) async {
     _startCommandTimeout(command);
-    await traceAs(_name(command, p1), (trace) async {
+    await traceAs(_cmdName(command, p1), (trace) async {
       final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1);
     });
@@ -69,7 +69,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   @override
   Future<void> onCommandWithParams(String command, String p1, String p2) async {
     _startCommandTimeout(command);
-    await traceAs(_name(command, p1), (trace) async {
+    await traceAs(_cmdName(command, p1), (trace) async {
       final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1, p2: p2);
     });
@@ -84,31 +84,6 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
       final p2 = commandParts.elementAtOrNull(2);
       return await execute(trace, cmd, p1: p1, p2: p2);
     });
-  }
-
-  final _censored = [
-    CommandName.restore.name,
-    CommandName.receipt.name,
-    CommandName.appleNotificationToken.name,
-  ];
-
-  String _name(String cmd, String? p1) {
-    if (_censored.contains(cmd)) {
-      p1 = "***";
-    }
-    return cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
-  }
-
-  final Map<String, CommandName> _lowercaseMap = {
-    for (var cmd in CommandName.values) cmd.name.toLowerCase(): cmd,
-  };
-
-  CommandName _commandFromString(String command) {
-    try {
-      return CommandName.values.byName(command);
-    } catch (_) {
-      return _lowercaseMap[command.toLowerCase()]!;
-    }
   }
 
   execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
@@ -185,9 +160,9 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
       case CommandName.route:
         return await _stage.setRoute(trace, p1!);
       case CommandName.modalShow:
-        return await _stage.showModal(trace, StageModal.values.byName(p1!));
+        return await _stage.showModal(trace, _modalFromString(p1!));
       case CommandName.modalShown:
-        return await _stage.modalShown(trace, StageModal.values.byName(p1!));
+        return await _stage.modalShown(trace, _modalFromString(p1!));
       case CommandName.modalDismiss:
         return await _stage.dismissModal(trace);
       case CommandName.modalDismissed:
@@ -202,6 +177,43 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
         return await _tracer.fatal(p1!);
       case CommandName.shareLog:
         return await _tracer.shareLog(trace, forCrash: false);
+    }
+  }
+
+  final _censoredCommands = [
+    CommandName.restore.name,
+    CommandName.receipt.name,
+    CommandName.appleNotificationToken.name,
+  ];
+
+  String _cmdName(String cmd, String? p1) {
+    if (_censoredCommands.contains(cmd)) {
+      p1 = "***";
+    }
+    return cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
+  }
+
+  final Map<String, CommandName> _lowercaseCommandNames = {
+    for (var cmd in CommandName.values) cmd.name.toLowerCase(): cmd,
+  };
+
+  CommandName _commandFromString(String command) {
+    try {
+      return CommandName.values.byName(command);
+    } catch (_) {
+      return _lowercaseCommandNames[command.toLowerCase()]!;
+    }
+  }
+
+  final Map<String, StageModal> _lowercaseModals = {
+    for (var cmd in StageModal.values) cmd.name.toLowerCase(): cmd,
+  };
+
+  StageModal _modalFromString(String command) {
+    try {
+      return StageModal.values.byName(command);
+    } catch (_) {
+      return _lowercaseModals[command.toLowerCase()]!;
     }
   }
 

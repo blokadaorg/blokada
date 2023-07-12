@@ -26,7 +26,7 @@ _actNormal(MockJournalOps ops) {
 }
 
 final fixtureJournalFilter = JournalFilter(
-  showOnly: JournalFilterType.showAll,
+  showOnly: JournalFilterType.all,
   searchQuery: "",
   deviceName: "",
   sortNewestFirst: false,

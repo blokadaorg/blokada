@@ -54,13 +54,13 @@ extension JournalFilterExt on JournalFilter {
     }
 
     // Apply filtering
-    if (showOnly == JournalFilterType.showBlocked) {
+    if (showOnly == JournalFilterType.blocked) {
       filtered = filtered
           .where((e) =>
               e.type == JournalEntryType.blocked ||
               e.type == JournalEntryType.blockedDenied)
           .toList();
-    } else if (showOnly == JournalFilterType.showPassed) {
+    } else if (showOnly == JournalFilterType.passed) {
       filtered = filtered
           .where((e) =>
               e.type == JournalEntryType.passed ||
@@ -81,7 +81,7 @@ extension JournalFilterExt on JournalFilter {
 }
 
 JournalFilter _noFilter = JournalFilter(
-    showOnly: JournalFilterType.showAll,
+    showOnly: JournalFilterType.all,
     searchQuery: "", // Empty string means "no query"
     deviceName: "", // Empty string means "all devices"
     sortNewestFirst: true);

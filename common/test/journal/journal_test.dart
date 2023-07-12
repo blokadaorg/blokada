@@ -102,7 +102,7 @@ void main() {
           trace,
           searchQuery: "",
           deviceName: "",
-          showOnly: JournalFilterType.showBlocked,
+          showOnly: JournalFilterType.blocked,
         );
 
         expect(subject.filteredEntries.length, 1);
@@ -111,7 +111,7 @@ void main() {
         // Passed only
         await subject.updateFilter(
           trace,
-          showOnly: JournalFilterType.showPassed,
+          showOnly: JournalFilterType.passed,
         );
 
         expect(subject.filteredEntries.length, 1);

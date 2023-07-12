@@ -1,14 +1,5 @@
 import 'package:pigeon/pigeon.dart';
 
-// enum VpnStatus {
-//   unknown,
-//   initializing,
-//   reconfiguring,
-//   deactivated,
-//   paused,
-//   activated
-// }
-
 class VpnConfig {
   late String devicePrivateKey;
   late String deviceTag;
