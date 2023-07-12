@@ -50,7 +50,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   Future<void> onCommand(String command) async {
     _startCommandTimeout(command);
     await traceAs(_name(command, null), (trace) async {
-      final cmd = CommandName.values.byName(command);
+      final cmd = _commandFromString(command);
       return await execute(trace, cmd);
     });
     _stopCommandTimeout(command);
@@ -60,7 +60,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   Future<void> onCommandWithParam(String command, String p1) async {
     _startCommandTimeout(command);
     await traceAs(_name(command, p1), (trace) async {
-      final cmd = CommandName.values.byName(command);
+      final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1);
     });
     _stopCommandTimeout(command);
@@ -70,7 +70,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   Future<void> onCommandWithParams(String command, String p1, String p2) async {
     _startCommandTimeout(command);
     await traceAs(_name(command, p1), (trace) async {
-      final cmd = CommandName.values.byName(command);
+      final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1, p2: p2);
     });
     _stopCommandTimeout(command);
@@ -79,7 +79,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
   Future<void> onCommandString(Trace parentTrace, String command) async {
     return await traceWith(parentTrace, "onCommandString", (trace) async {
       final commandParts = command.split(" ");
-      final cmd = CommandName.values.byName(commandParts.first);
+      final cmd = _commandFromString(commandParts.first);
       final p1 = commandParts.elementAtOrNull(1);
       final p2 = commandParts.elementAtOrNull(2);
       return await execute(trace, cmd, p1: p1, p2: p2);
@@ -97,6 +97,18 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
       p1 = "***";
     }
     return cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
+  }
+
+  final Map<String, CommandName> _lowercaseMap = {
+    for (var cmd in CommandName.values) cmd.name.toLowerCase(): cmd,
+  };
+
+  CommandName _commandFromString(String command) {
+    try {
+      return CommandName.values.byName(command);
+    } catch (_) {
+      return _lowercaseMap[command.toLowerCase()]!;
+    }
   }
 
   execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
@@ -208,7 +220,9 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
 
     _onCommandTimer(command);
     _timer.set(
-        "command:$command", DateTime.now().add(cfg.plusVpnCommandTimeout));
+      "command:$command",
+      DateTime.now().add(cfg.plusVpnCommandTimeout),
+    );
   }
 
   _stopCommandTimeout(String command) {
