@@ -20,6 +20,7 @@ class Root extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
+        Locale('en'),
         Locale('ar'),
         Locale('bg'),
         Locale('cs'),
@@ -40,7 +41,6 @@ class Root extends StatelessWidget {
         Locale('sv'),
         Locale('tr'),
         Locale('zh'),
-        Locale('en')
       ],
       title: 'Blokada',
       themeMode: ThemeMode.system,
