@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Diblokir</string>
     <string name="userdenied_action_allow">Izinkan</string>
     <string name="userdenied_action_block">Blokir</string>
+    <string name="userdefined_action_open">Buka laman pengecualian</string>
     <string name="account_section_header_settings">Pengaturan</string>
     <string name="account_status_text">%s Akun BLOKADA Anda aktif sampai %s.</string>
     <string name="account_status_text_inactive">Langganan BLOKADA Anda tidak aktif.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Diizinkan</string>
     <string name="stats_label_blocked">Diblokir</string>
     <string name="stats_label_total">Total</string>
-    <string name="stats_header_day">24 jam</string>
+    <string name="stats_header_day">24 jam terakhir</string>
     <string name="stats_header_all_time">Sepanjang waktu</string>
     <string name="dnsprofile_header">Aktifkan Blokada di Pengaturan</string>
     <string name="dnsprofile_desc">Di Pengaturan, cari Umum → Manajemen VPN, DNS, &amp; Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="dnsprofile_action_open_settings">Buka Pengaturan</string>
     <string name="dnsprofile_desc_android">Di bagian Settings, cari opsi Private DNS, kemudian salin hostname Anda dengan cara menekan lama.</string>
     <string name="dnsprofile_desc_android_copy">Salin hostname Blokada Cloud Anda untuk kemudian dimasukkan di Settings.</string>
+    <string name="dnsprofile_notification_subtitle">Di Pengaturan, buka:</string>
+    <string name="dnsprofile_notification_body">Umum → VPN, DNS dan Pengaturan Perangkat → DNS, kemudian pilih Blokada.</string>
     <string name="activated_header">Sebentar lagi!</string>
     <string name="activated_desc">Hal-hal berikut diperlukan supaya Blokada bisa berjalan sebagaimana mestinya:</string>
     <string name="activated_desc_all_ok">Perangkat Anda sudah di-set up dan siap untuk digunakan:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'Wireguard\' dan logo \'Wireguard\' adalah merk terdaftar milik Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Blocklist</string>
     <string name="app_settings_section_header">Perangkat ini</string>
+    <string name="lock_status_locked">Blokada dikunci. Masukan kode pin untuk membuka</string>
+    <string name="lock_status_unlocked_has_pin">Masukkan kode pin untuk merubah</string>
+    <string name="lock_status_unlocked">Buat kode pin untuk mengunci Blokada</string>
 </resources>

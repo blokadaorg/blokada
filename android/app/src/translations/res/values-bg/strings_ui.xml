@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Блокирани</string>
     <string name="userdenied_action_allow">Разрешаване</string>
     <string name="userdenied_action_block">Блокиране</string>
+    <string name="userdefined_action_open">Open Exceptions</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Вашият BLOKADA %s профил е активен до %s.</string>
     <string name="account_status_text_inactive">Вашият абонамент за BLOKADA не е активен.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Разрешени</string>
     <string name="stats_label_blocked">Блокирани</string>
     <string name="stats_label_total">Общо</string>
-    <string name="stats_header_day">24 часа</string>
+    <string name="stats_header_day">Last 24h</string>
     <string name="stats_header_all_time">През цялото време</string>
     <string name="dnsprofile_header">Активиране на Blokada в Настройки</string>
     <string name="dnsprofile_desc">В Настройки на приложението отворете Общи → VPN, DNS и управление на устройства → DNS и изберете Blokada.</string>
     <string name="dnsprofile_action_open_settings">Отваряне на настройките</string>
     <string name="dnsprofile_desc_android">В Настройки на приложението, намерете секцията Частен DNS и след това поставете името на хоста си (с дълго докосване).</string>
     <string name="dnsprofile_desc_android_copy">Копирайте името на хоста на Blokada Cloud, за да го поставите в Настройки.</string>
+    <string name="dnsprofile_notification_subtitle">In the Settings app, navigate to:</string>
+    <string name="dnsprofile_notification_body">General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="activated_header">Почти сме готови!</string>
     <string name="activated_desc">Необходимо е следното, за да работи Blokada според очакванията:</string>
     <string name="activated_desc_all_ok">Вашето устройство е настроено и готово за работа:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">„WireGuard“ и логото „WireGuard“ са регистрирани търговски марки на Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Блокиращи списъци</string>
     <string name="app_settings_section_header">Това устройство</string>
+    <string name="lock_status_locked">Blokada is locked. Enter the pin code to unlock</string>
+    <string name="lock_status_unlocked_has_pin">Enter the pin code to change it</string>
+    <string name="lock_status_unlocked">Set your pin code to lock Blokada</string>
 </resources>

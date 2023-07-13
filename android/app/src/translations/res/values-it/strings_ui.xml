@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Bloccati</string>
     <string name="userdenied_action_allow">Consenti</string>
     <string name="userdenied_action_block">Blocca</string>
+    <string name="userdefined_action_open">Apri Eccezioni</string>
     <string name="account_section_header_settings">Impostazioni</string>
     <string name="account_status_text">Il tuo account BLOKADA %s è attivo fino a %s.</string>
     <string name="account_status_text_inactive">Il tuo abbonamento BLOKADA è inattivo.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Consentiti</string>
     <string name="stats_label_blocked">Bloccati</string>
     <string name="stats_label_total">Totali</string>
-    <string name="stats_header_day">24 ore</string>
+    <string name="stats_header_day">Ultime 24 ore</string>
     <string name="stats_header_all_time">Da sempre</string>
     <string name="dnsprofile_header">Abilita Blokada nelle Impostazioni</string>
     <string name="dnsprofile_desc">Nelle Impostazioni, vai su Generale → VPN, DNS e Gestione dispotivo → DNS, e seleziona Blokada.</string>
     <string name="dnsprofile_action_open_settings">Apri le Impostazioni</string>
     <string name="dnsprofile_desc_android">Nell\'app Impostazioni, trova la sezione DNS Privato, quindi incolla il tuo hostname (pressione prolungata).</string>
     <string name="dnsprofile_desc_android_copy">Copia il tuo hostname Blokada Cloud per incollarlo nelle Impostazioni.</string>
+    <string name="dnsprofile_notification_subtitle">Dalle Impostazioni, vai a:</string>
+    <string name="dnsprofile_notification_body">Generale → VPN, DNS e Gestione Dispositivo → DNS e seleziona Blokada.</string>
     <string name="activated_header">Ci siamo quasi!</string>
     <string name="activated_desc">Quanto segue è necessario affinché Blokada funzioni come previsto:</string>
     <string name="activated_desc_all_ok">Il tuo dispositivo è configurato e pronto per l\'uso:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'WireGuard\' e il logo \'WireGuard\' sono marchi registrati di Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Liste di blocco</string>
     <string name="app_settings_section_header">Questo dispositivo</string>
+    <string name="lock_status_locked">Blokada è bloccata. Inserisci il pin per sbloccare</string>
+    <string name="lock_status_unlocked_has_pin">Inserisci il pin per cambiarlo</string>
+    <string name="lock_status_unlocked">Imposta il tuo pin per bloccare Blokada</string>
 </resources>

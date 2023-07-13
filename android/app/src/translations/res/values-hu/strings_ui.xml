@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Reklám szűrve</string>
     <string name="userdenied_action_allow">Engedélyez</string>
     <string name="userdenied_action_block">Blokkolás</string>
+    <string name="userdefined_action_open">Open Exceptions</string>
     <string name="account_section_header_settings">Beállítások</string>
     <string name="account_status_text">A BLOKADA %s fiókod aktív eddig: %s.</string>
     <string name="account_status_text_inactive">A BLOKADA előfizetésed inaktív.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Engedélyezve</string>
     <string name="stats_label_blocked">Blokkolva</string>
     <string name="stats_label_total">Összesen</string>
-    <string name="stats_header_day">24ó</string>
+    <string name="stats_header_day">Last 24h</string>
     <string name="stats_header_all_time">Mindig</string>
     <string name="dnsprofile_header">Blokada engedélyezése a Beállításokban</string>
     <string name="dnsprofile_desc">A Beállítások alkalmazásban navigálj az Általános → VPN, DNS és eszközkezelés → DNS menüpontra, és válaszd a Blokada lehetőséget.</string>
     <string name="dnsprofile_action_open_settings">Beállítások megnyitása</string>
     <string name="dnsprofile_desc_android">A Beállítások appban keresd meg a Privát DNS részt, majd illeszd be a hostnevet (hosszú koppintás).</string>
     <string name="dnsprofile_desc_android_copy">Másold ki a Blokada Cloud hostnevét, hogy beilleszthesd a Beállításokba.</string>
+    <string name="dnsprofile_notification_subtitle">In the Settings app, navigate to:</string>
+    <string name="dnsprofile_notification_body">General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="activated_header">Majdnem kész!</string>
     <string name="activated_desc">A következőkre van szükség ahhoz, hogy a Blokada az elvárásoknak megfelelően működjön:</string>
     <string name="activated_desc_all_ok">Az eszközöd be van állítva, és készen áll a használatra:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">A \"WireGuard\" és a \"WireGuard\" logó Jason A. Donenfeld bejegyzett védjegye.</string>
     <string name="advanced_section_header_packs">Tiltólista</string>
     <string name="app_settings_section_header">Ez az eszköz</string>
+    <string name="lock_status_locked">Blokada is locked. Enter the pin code to unlock</string>
+    <string name="lock_status_unlocked_has_pin">Enter the pin code to change it</string>
+    <string name="lock_status_unlocked">Set your pin code to lock Blokada</string>
 </resources>

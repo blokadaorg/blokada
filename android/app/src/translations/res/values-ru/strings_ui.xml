@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Заблокировано</string>
     <string name="userdenied_action_allow">Разрешить</string>
     <string name="userdenied_action_block">Заблокировать</string>
+    <string name="userdefined_action_open">Открытые исключения</string>
     <string name="account_section_header_settings">Настройки</string>
     <string name="account_status_text">Ваш аккаунт BLOKADA %s активен до %s.</string>
     <string name="account_status_text_inactive">Ваша подписка BLOKADA неактивна.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Разрешено</string>
     <string name="stats_label_blocked">Заблокировано</string>
     <string name="stats_label_total">Всего</string>
-    <string name="stats_header_day">24 часа</string>
+    <string name="stats_header_day">Последние 24 ч</string>
     <string name="stats_header_all_time">Все время</string>
     <string name="dnsprofile_header">Включите Blokada в Настройках</string>
     <string name="dnsprofile_desc">В настройках устройства перейдите в раздел Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="dnsprofile_action_open_settings">Открыть Настройки</string>
     <string name="dnsprofile_desc_android">Найдите в настройках Персональный DNS и вставьте ваше имя хоста (долгим нажатием).</string>
     <string name="dnsprofile_desc_android_copy">Скопируйте ваше имя хоста Blokada Cloud, чтобы вставить его в настройках.</string>
+    <string name="dnsprofile_notification_subtitle">В настройках устройства перейдите к:</string>
+    <string name="dnsprofile_notification_body">Общие → VPN, DNS и управление устройствами → DNS и выберите Blokada.</string>
     <string name="activated_header">Почти готово!</string>
     <string name="activated_desc">Чтобы Blokada работала должным образом, необходимо:</string>
     <string name="activated_desc_all_ok">Ваше устройство настроено и готово к работе:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'WireGuard\' и логотип \'WireGuard\' являются зарегистрированными торговыми марками Джейсона А. Доненфельда (Jason A. Donenfeld).</string>
     <string name="advanced_section_header_packs">Списки блокировки</string>
     <string name="app_settings_section_header">Это устройство</string>
+    <string name="lock_status_locked">Blokada заблокирована. Введите пин-код для разблокировки</string>
+    <string name="lock_status_unlocked_has_pin">Введите пин-код, чтобы изменить это</string>
+    <string name="lock_status_unlocked">Установите PIN-код для блокировки Blokada</string>
 </resources>

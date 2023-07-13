@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">ブロック</string>
     <string name="userdenied_action_allow">許可</string>
     <string name="userdenied_action_block">ブロック</string>
+    <string name="userdefined_action_open">例外を開く</string>
     <string name="account_section_header_settings">設定</string>
     <string name="account_status_text">BLOKADA %s - アカウントの有効期限は %s です。</string>
     <string name="account_status_text_inactive">BLOKADA サブスクリプションが無効です</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">許可</string>
     <string name="stats_label_blocked">ブロック</string>
     <string name="stats_label_total">合計</string>
-    <string name="stats_header_day">24 時間</string>
+    <string name="stats_header_day">24 時間以内</string>
     <string name="stats_header_all_time">すべての期間</string>
     <string name="dnsprofile_header">設定で Blokada を有効にする</string>
     <string name="dnsprofile_desc">設定を開き、[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
     <string name="dnsprofile_action_open_settings">設定を開く</string>
     <string name="dnsprofile_desc_android">設定アプリでプライベート DNS の欄を探して長押しし、ホスト名を貼り付けてください。</string>
     <string name="dnsprofile_desc_android_copy">Blokada Cloud のホスト名をコピーして、設定に貼り付けます。</string>
+    <string name="dnsprofile_notification_subtitle">設定アプリで、以下に移動してください:</string>
+    <string name="dnsprofile_notification_body">[一般] > [VPN &amp; ネットワーク] > [DNS] から Blokada を選択してください。</string>
     <string name="activated_header">もう少しで完了です</string>
     <string name="activated_desc">Blokada が正常に動作するには、以下が必要です:</string>
     <string name="activated_desc_all_ok">すべての設定を完了しました:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。</string>
     <string name="advanced_section_header_packs">ブロックリスト</string>
     <string name="app_settings_section_header">設定</string>
+    <string name="lock_status_locked">Blokada がロックされています。PIN コードを入力してロック解除してください</string>
+    <string name="lock_status_unlocked_has_pin">変更するには PIN コードを入力してください</string>
+    <string name="lock_status_unlocked">Blokada を PIN コードでロック</string>
 </resources>

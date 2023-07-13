@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Blokované</string>
     <string name="userdenied_action_allow">Povolit</string>
     <string name="userdenied_action_block">Blokovat</string>
+    <string name="userdefined_action_open">Otevřít výjimky</string>
     <string name="account_section_header_settings">Nastavení</string>
     <string name="account_status_text">Váš účet BLOKADA %s je aktivní do %s.</string>
     <string name="account_status_text_inactive">Vaše předplatné BLOKADA je neaktivní.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Povoleno</string>
     <string name="stats_label_blocked">Zablokováno</string>
     <string name="stats_label_total">Celkem</string>
-    <string name="stats_header_day">24h</string>
+    <string name="stats_header_day">Posledních 24 hodin</string>
     <string name="stats_header_all_time">Za celou dobu</string>
     <string name="dnsprofile_header">Povolte Blokadu v Nastavení</string>
     <string name="dnsprofile_desc">V aplikaci v Nastavení přejděte do části Obecné → VPN, DNS a správa zařízení → DNS a vyberte možnost Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otevřít Nastavení</string>
     <string name="dnsprofile_desc_android">V aplikaci Nastavení najděte sekci Soukromé DNS a pak vložte název hostitele (dlouhým klepnutím).</string>
     <string name="dnsprofile_desc_android_copy">Zkopírujte svůj název hostitele služby Blokada Cloud a vložte jej do Nastavení.</string>
+    <string name="dnsprofile_notification_subtitle">V aplikaci v Nastavení přejděte na:</string>
+    <string name="dnsprofile_notification_body">Obecné → VPN, DNS a Správa zařízení → DNS a vyberte Blokada.</string>
     <string name="activated_header">Téměř hotovo!</string>
     <string name="activated_desc">Aby Blokada fungovala podle očekávání, je nutné provést následující kroky:</string>
     <string name="activated_desc_all_ok">Zařízení je nastaveno a připraveno k použití:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'WireGuard\' a logo \'WireGuard\' jsou registrované ochranné známky Jasona A. Donenfelda.</string>
     <string name="advanced_section_header_packs">Blocklisty</string>
     <string name="app_settings_section_header">Toto zařízení</string>
+    <string name="lock_status_locked">Blokada je uzamčena. Zadejte PIN kód pro odemčení</string>
+    <string name="lock_status_unlocked_has_pin">Zadejte PIN kód pro změnu</string>
+    <string name="lock_status_unlocked">Nastavte PIN kód pro uzamčení Blokady</string>
 </resources>

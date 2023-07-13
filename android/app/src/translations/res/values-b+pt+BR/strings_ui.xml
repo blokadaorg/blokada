@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Bloqueado</string>
     <string name="userdenied_action_allow">Permitir</string>
     <string name="userdenied_action_block">Bloquear</string>
+    <string name="userdefined_action_open">Open Exceptions</string>
     <string name="account_section_header_settings">Configurações</string>
     <string name="account_status_text">Sua conta BLOKADA %s está ativa até %s.</string>
     <string name="account_status_text_inactive">Sua assinatura BLOKADA está inativa.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Allowed</string>
     <string name="stats_label_blocked">Blocked</string>
     <string name="stats_label_total">Total</string>
-    <string name="stats_header_day">24h</string>
+    <string name="stats_header_day">Last 24h</string>
     <string name="stats_header_all_time">All time</string>
     <string name="dnsprofile_header">Ative o Blokada nas Configurações</string>
     <string name="dnsprofile_desc">Em Configurações, navegue até Geral → VPN, DNS e Gerenciamento de Dispositivos → DNS e selecione o Blokada.</string>
     <string name="dnsprofile_action_open_settings">Abrir Configurações</string>
     <string name="dnsprofile_desc_android">In the Settings app, find the Private DNS section, and then paste your hostname (long tap).</string>
     <string name="dnsprofile_desc_android_copy">Copy your Blokada Cloud hostname to paste it in Settings.</string>
+    <string name="dnsprofile_notification_subtitle">In the Settings app, navigate to:</string>
+    <string name="dnsprofile_notification_body">General → VPN, DNS &amp; Device Management → DNS and select Blokada.</string>
     <string name="activated_header">Quase lá!</string>
     <string name="activated_desc">O seguinte é necessário para que o Blokada funcione conforme o esperado:</string>
     <string name="activated_desc_all_ok">Seu dispositivo está configurado e pronto para uso:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'WireGuard\' e o logotipo \'WireGuard\' são marcas registradas de Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Listas de bloqueio</string>
     <string name="app_settings_section_header">Este dispositivo</string>
+    <string name="lock_status_locked">Blokada is locked. Enter the pin code to unlock</string>
+    <string name="lock_status_unlocked_has_pin">Enter the pin code to change it</string>
+    <string name="lock_status_unlocked">Set your pin code to lock Blokada</string>
 </resources>

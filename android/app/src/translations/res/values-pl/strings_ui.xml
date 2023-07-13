@@ -187,6 +187,7 @@
     <string name="userdenied_tab_blocked">Zablokowane</string>
     <string name="userdenied_action_allow">Zezwól</string>
     <string name="userdenied_action_block">Zablokuj</string>
+    <string name="userdefined_action_open">Otwórz Wyjątki</string>
     <string name="account_section_header_settings">Ustawienia</string>
     <string name="account_status_text">Twoje konto BLOKADA %s jest aktywne do %s.</string>
     <string name="account_status_text_inactive">Twoja subskrypcja BLOKADY jest nieaktywna.</string>
@@ -356,13 +357,15 @@
     <string name="stats_label_allowed">Zezwolone</string>
     <string name="stats_label_blocked">Zablokowane</string>
     <string name="stats_label_total">Ogółem</string>
-    <string name="stats_header_day">24 godz.</string>
+    <string name="stats_header_day">Ostatnie 24h</string>
     <string name="stats_header_all_time">Od początku</string>
     <string name="dnsprofile_header">Aktywuj Blokadę w Ustawieniach</string>
     <string name="dnsprofile_desc">W aplikacji Ustawienia przejdź do Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
     <string name="dnsprofile_action_open_settings">Otwórz Ustawienia</string>
     <string name="dnsprofile_desc_android">W ustawieniach aplikacji znajdź sekcję Prywatny DNS, a następnie wklej swoją nazwę hosta (długie stuknięcie).</string>
     <string name="dnsprofile_desc_android_copy">Skopiuj swoją nazwę hosta Blokady Cloud, aby wkleić ją w ustawieniach.</string>
+    <string name="dnsprofile_notification_subtitle">W aplikacji Ustawienia przejdź do:</string>
+    <string name="dnsprofile_notification_body">Ogólne → VPN i urządzenia zarządzane → DNS i wybierz Blokada.</string>
     <string name="activated_header">Prawie gotowe!</string>
     <string name="activated_desc">Aby Blokada działała zgodnie z oczekiwaniami, konieczne jest:</string>
     <string name="activated_desc_all_ok">Twoje urządzenie jest skonfigurowane i gotowe:</string>
@@ -377,4 +380,7 @@
     <string name="homepage_vpn_credit">\'WireGuard\' i logo \'WireGuard\' są zarejestrowanymi znakami towarowymi Jasona A. Donenfelda.</string>
     <string name="advanced_section_header_packs">Blocklisty</string>
     <string name="app_settings_section_header">To urządzenie</string>
+    <string name="lock_status_locked">Blokada jest zablokowana. Wprowadź kod pin aby odblokować</string>
+    <string name="lock_status_unlocked_has_pin">Wprowadź kod pin aby go zmienić</string>
+    <string name="lock_status_unlocked">Ustaw kod pin aby zablokować Blokadę</string>
 </resources>
