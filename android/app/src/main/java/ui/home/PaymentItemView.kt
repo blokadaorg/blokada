@@ -18,7 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import model.Product
+import channel.accountpayment.Product
 import org.blokada.R
 
 class PaymentItemView : FrameLayout {
@@ -65,7 +65,7 @@ class PaymentItemView : FrameLayout {
             product.trial -> {
                 context.getString(R.string.payment_plan_cta_trial)
             }
-            product.periodMonths == 12 -> {
+            product.periodMonths == 12L -> {
                 context.getString(R.string.payment_plan_cta_annual)
             }
             else -> {
@@ -81,7 +81,7 @@ class PaymentItemView : FrameLayout {
                     R.string.payment_subscription_per_year_then, product.price
                 )
             }
-            product.periodMonths == 12 -> {
+            product.periodMonths == 12L -> {
                 context.getString(
                     R.string.payment_subscription_per_year, product.price
                 )
@@ -101,7 +101,7 @@ class PaymentItemView : FrameLayout {
                 info.visibility = View.VISIBLE
                 info.text = "(current plan)"
             }
-            product.periodMonths == 12 -> {
+            product.periodMonths == 12L -> {
                 info.visibility = View.VISIBLE
                 info.text = makeInfoText(product)
             }

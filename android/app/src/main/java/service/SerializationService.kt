@@ -14,10 +14,21 @@ package service
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
-import model.*
+import model.BlockaAfterUpdate
+import model.BlockaConfig
+import model.BlockaRepo
+import model.BlockaRepoConfig
+import model.BlockaRepoPayload
+import model.BlockaRepoUpdate
+import model.BlokadaException
+import model.BypassedAppIds
+import model.DnsWrapper
+import model.LocalConfig
+import model.NetworkSpecificConfigs
+import model.Packs
+import model.SyncableConfig
 import repository.TranslationPack
-import ui.ActivationViewModel
-import java.util.*
+import java.util.Date
 import kotlin.reflect.KClass
 
 interface SerializationService {
@@ -33,10 +44,6 @@ object JsonSerializationService : SerializationService {
 
     override fun serialize(obj: Any): String {
         when (obj) {
-            is StatsPersisted -> {
-                val adapter = moshi.adapter(StatsPersisted::class.java)
-                return adapter.toJson(obj)
-            }
             is Packs -> {
                 val adapter = moshi.adapter(Packs::class.java)
                 return adapter.toJson(obj)
@@ -55,18 +62,6 @@ object JsonSerializationService : SerializationService {
             }
             is DnsWrapper -> {
                 val adapter = moshi.adapter(DnsWrapper::class.java)
-                return adapter.toJson(obj)
-            }
-            is ActivationViewModel.ActivationState -> {
-                val adapter = moshi.adapter(ActivationViewModel.ActivationState::class.java)
-                return adapter.toJson(obj)
-            }
-            is Account -> {
-                val adapter = moshi.adapter(Account::class.java)
-                return adapter.toJson(obj)
-            }
-            is AdsCounter -> {
-                val adapter = moshi.adapter(AdsCounter::class.java)
                 return adapter.toJson(obj)
             }
             is BypassedAppIds -> {
@@ -108,10 +103,6 @@ object JsonSerializationService : SerializationService {
     override fun <T: Any> deserialize(serialized: Any, type: KClass<T>): T {
         serialized as String
         when (type) {
-            StatsPersisted::class -> {
-                val adapter = moshi.adapter(StatsPersisted::class.java)
-                return adapter.fromJson(serialized) as T
-            }
             Packs::class -> {
                 val adapter = moshi.adapter(Packs::class.java)
                 return adapter.fromJson(serialized) as T
@@ -132,16 +123,8 @@ object JsonSerializationService : SerializationService {
                 val adapter = moshi.adapter(DnsWrapper::class.java)
                 return adapter.fromJson(serialized) as T
             }
-            ActivationViewModel.ActivationState::class -> {
-                val adapter = moshi.adapter(ActivationViewModel.ActivationState::class.java)
-                return adapter.fromJson(serialized) as T
-            }
-            Account::class -> {
-                val adapter = moshi.adapter(Account::class.java)
-                return adapter.fromJson(serialized) as T
-            }
-            AdsCounter::class -> {
-                val adapter = moshi.adapter(AdsCounter::class.java)
+            Sheet.AdsCounter::class -> {
+                val adapter = moshi.adapter(Sheet.AdsCounter::class.java)
                 return adapter.fromJson(serialized) as T
             }
             BypassedAppIds::class -> {
@@ -185,8 +168,6 @@ object JsonSerializationService : SerializationService {
 object NewlineSerializationService : SerializationService {
     override fun serialize(obj: Any): String {
         return when (obj) {
-            is Allowed -> obj.value.joinToString(separator = "\n")
-            is Denied -> obj.value.joinToString(separator = "\n")
             else -> throw BlokadaException("Unsupported type for newline serialization: ${obj.javaClass}")
         }
     }
@@ -194,8 +175,6 @@ object NewlineSerializationService : SerializationService {
     override fun <T : Any> deserialize(serialized: Any, type: KClass<T>): T {
         serialized as String
         return when (type) {
-            Allowed::class -> Allowed(value = serialized.split("\n").filter { it.isNotBlank() }) as T
-            Denied::class -> Denied(value = serialized.split("\n").filter { it.isNotBlank() }) as T
             else -> throw BlokadaException("Unsupported type for newline deserialization: $type")
         }
     }

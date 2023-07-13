@@ -19,7 +19,7 @@ import utils.Logger
 object VpnPermissionService {
 
     private val log = Logger("VpnPerm")
-    private val context = ContextService
+    private val context by lazy { ContextService }
 
     var onPermissionGranted = { granted: Boolean -> }
 

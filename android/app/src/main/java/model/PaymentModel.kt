@@ -14,15 +14,3 @@ package model
 
 typealias ProductId = String
 typealias UserInitiated = Boolean
-
-data class Product(
-        val id: ProductId,
-        val title: String,
-        val description: String,
-        val price: String,
-        val pricePerMonth: String,
-        val periodMonths: Int,
-        val type: String,
-        val trial: Boolean,
-        val owned: Boolean = false
-)

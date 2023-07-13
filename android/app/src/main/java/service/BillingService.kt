@@ -12,20 +12,37 @@
 
 package service
 
-import com.android.billingclient.api.*
+import channel.accountpayment.Product
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProrationMode.DEFERRED
 import com.android.billingclient.api.BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_PRORATED_PRICE
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.queryProductDetails
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import model.*
+import model.BlokadaException
+import model.NoPayments
+import model.NoRelevantPurchase
+import model.PaymentPayload
+import model.ProductId
+import model.runIgnoringException
 import utils.Logger
 import kotlin.coroutines.resumeWithException
 
-class BillingService: IPaymentService {
+val userCancelled = Exception("Payment sheet dismissed")
+val alreadyPurchased = Exception("Already purchased")
 
-    private val context by lazy { Services.context }
+object BillingService: IPaymentService {
+
+    private val context by lazy { ContextService }
 
     private lateinit var client: BillingClient
     private var connected = false
@@ -116,9 +133,10 @@ class BillingService: IPaymentService {
                     description = it.description,
                     price = getPriceString(phase),
                     pricePerMonth = getPricePerMonthString(phase),
-                    periodMonths = getPeriodMonths(phase),
+                    periodMonths = getPeriodMonths(phase).toLong(),
                     type = if(it.productId.startsWith("cloud")) "cloud" else "plus",
-                    trial = getTrial(offer)
+                    trial = getTrial(offer),
+                    owned = false
                 )
             }
         }?.sortedBy { it.periodMonths } ?: emptyList()
@@ -150,12 +168,12 @@ class BillingService: IPaymentService {
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             // Handle an error caused by a user cancelling the purchase flow.
             Logger.v("Billing", "buyProduct: User cancelled purchase")
-            ongoingPurchase?.second?.resumeWithException(UserCancelledException())
+            ongoingPurchase?.second?.resumeWithException(userCancelled)
         } else {
             // Handle any other error codes.
             Logger.w("Billing", "buyProduct: Purchase error: $billingResult")
             val exception = if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-                AlreadyPurchasedException()
+                alreadyPurchased
             } else BlokadaException("Purchase error: $billingResult")
 
             ongoingPurchase?.second?.resumeWithException(exception)
@@ -186,7 +204,7 @@ class BillingService: IPaymentService {
 
     override suspend fun buyProduct(id: ProductId): PaymentPayload {
         if (runIgnoringException({ restorePurchase() }, otherwise = emptyList()).isNotEmpty())
-            throw AlreadyPurchasedException()
+            throw alreadyPurchased
 
         val details = latestProductList.firstOrNull { it.productId == id } ?:
             throw BlokadaException("Unknown product ID")

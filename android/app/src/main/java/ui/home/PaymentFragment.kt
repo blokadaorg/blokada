@@ -12,25 +12,24 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import binding.AccountBinding
 import org.blokada.R
-import ui.AccountViewModel
+import service.Sheet
 import ui.BottomSheetFragment
-import ui.app
 import ui.utils.getColorFromAttr
 import utils.Links
 import utils.withBoldSections
 
 class PaymentFragment : BottomSheetFragment() {
+    override val modal: Sheet = Sheet.Payment
 
-    private lateinit var vm: AccountViewModel
+    private val account by lazy { AccountBinding }
 
     companion object {
         fun newInstance() = PaymentFragment()
@@ -40,10 +39,6 @@ class PaymentFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_payment, container, false)
 
         val back: View = root.findViewById(R.id.back)
@@ -56,25 +51,30 @@ class PaymentFragment : BottomSheetFragment() {
             requireContext().getColorFromAttr(android.R.attr.textColor)
         )
 
-        vm.account.observe(viewLifecycleOwner, { account ->
+        account.live.observe(viewLifecycleOwner) { account ->
             val proceed: View = root.findViewById(R.id.payment_continue)
             proceed.setOnClickListener {
                 dismiss()
                 val nav = findNavController()
-                nav.navigate(HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                    Links.manageSubscriptions(account.id), getString(R.string.universal_action_upgrade)
-                ))
+                nav.navigate(
+                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                        Links.manageSubscriptions(account.id),
+                        getString(R.string.universal_action_upgrade)
+                    )
+                )
             }
 
             val restore: View = root.findViewById(R.id.payment_restore)
             restore.setOnClickListener {
                 dismiss()
                 val nav = findNavController()
-                nav.navigate(HomeFragmentDirections.actionNavigationHomeToWebFragment(
-                    Links.howToRestore, getString(R.string.payment_action_restore)
-                ))
+                nav.navigate(
+                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                        Links.howToRestore, getString(R.string.payment_action_restore)
+                    )
+                )
             }
-        })
+        }
 
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {

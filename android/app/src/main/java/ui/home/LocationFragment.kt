@@ -19,16 +19,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
-import model.Gateway
+import binding.PlusBinding
+import binding.PlusGatewayBinding
+import binding.niceName
+import channel.plusgateway.Gateway
 import org.blokada.R
+import service.Sheet
 import ui.BottomSheetFragment
-import ui.TunnelViewModel
-import ui.app
 import ui.utils.getColorFromAttr
 import utils.Logger
 
 class LocationFragment : BottomSheetFragment() {
+
+    override val modal: Sheet = Sheet.Location
 
     companion object {
         fun newInstance() = LocationFragment()
@@ -37,18 +40,13 @@ class LocationFragment : BottomSheetFragment() {
     var clickable = true
     var cloud = false
 
-    private lateinit var vm: LocationViewModel
-    private lateinit var tunnelVM: TunnelViewModel
+    private val plusGateway by lazy { PlusGatewayBinding }
+    private val plus by lazy { PlusBinding }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it).get(LocationViewModel::class.java)
-            tunnelVM = ViewModelProvider(it.app()).get(TunnelViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_location, container, false)
 
         val goBack = {
@@ -71,7 +69,7 @@ class LocationFragment : BottomSheetFragment() {
         val container3: LinearLayout = root.findViewById(R.id.location_container3)
         val container4: LinearLayout = root.findViewById(R.id.location_container4)
 
-        vm.locations.observe(viewLifecycleOwner, {
+        plusGateway.gatewaysLive.observe(viewLifecycleOwner) { it ->
             val spinner: View = root.findViewById(R.id.spinner)
             spinner.visibility = View.GONE
 
@@ -89,7 +87,7 @@ class LocationFragment : BottomSheetFragment() {
                 }
             }
 
-            for(pairs in groupedLocations) {
+            for (pairs in groupedLocations) {
                 val (region, location) = pairs
                 when (region) {
                     1 -> addLocationItemView(inflater, container1, location)
@@ -98,9 +96,7 @@ class LocationFragment : BottomSheetFragment() {
                     else -> addLocationItemView(inflater, container4, location)
                 }
             }
-        })
-
-        vm.refreshLocations()
+        }
 
         return root
     }
@@ -114,7 +110,7 @@ class LocationFragment : BottomSheetFragment() {
         name.text = location.niceName()
         icon.setImageResource(getFlag(location))
 
-        if (clickable && tunnelVM.isCurrentlySelectedGateway(location.public_key)) {
+        if (clickable && plusGateway.selected.value == location.publicKey) {
             name.setTextColor(requireContext().getColorFromAttr(android.R.attr.colorAccent))
         } else {
             checkmark.visibility = View.GONE
@@ -122,7 +118,7 @@ class LocationFragment : BottomSheetFragment() {
 
         if (clickable) {
             item.setOnClickListener {
-                tunnelVM.changeGateway(location)
+                plus.newPlus(location.publicKey)
                 dismiss()
             }
         }

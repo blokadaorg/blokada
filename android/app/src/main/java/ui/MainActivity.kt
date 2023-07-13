@@ -12,10 +12,10 @@
 
 package ui
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -34,55 +33,61 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import binding.AccountBinding
+import binding.RateBinding
+import binding.StageBinding
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.Tab
 import org.blokada.R
 import repository.Repos
-import service.*
-import ui.home.ActivatedFragment
-import ui.home.FirstTimeFragment
+import service.ContextService
+import service.LogService
+import service.NetworkMonitorPermissionService
+import service.Sheet
+import service.SheetService
+import service.TranslationService
+import service.VpnPermissionService
 import ui.home.HelpFragment
 import ui.settings.SettingsNavigation
 import ui.utils.now
 import ui.web.WebService
-import utils.ExpiredNotification
 import utils.Logger
 
 
 class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
-    private lateinit var accountVM: AccountViewModel
-    private lateinit var tunnelVM: TunnelViewModel
     private lateinit var settingsVM: SettingsViewModel
-    private lateinit var statsVM: StatsViewModel
     private lateinit var blockaRepoVM: BlockaRepoViewModel
-    private lateinit var activationVM: ActivationViewModel
 
-    private val navRepo by lazy { Repos.nav }
-    private val paymentRepo by lazy { Repos.payment }
     private val processingRepo by lazy { Repos.processing }
 
-    private val sheet = Services.sheet
-    private val dialog by lazy { DialogService }
-    private val flutter by lazy { FlutterService }
+    private val stage by lazy { StageBinding }
+    private val rate by lazy { RateBinding }
+    private val account by lazy { AccountBinding }
+    private val sheet by lazy { SheetService }
+    private val context by lazy { ContextService }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Logger.v("MainActivity", "onCreate: $this")
 
-        flutter.setup()
+        settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
+        blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        ContextService.setActivityContext(this)
+        context.setActivityContext(this)
         TranslationService.setup()
-        Services.sheet.onShowFragment = { fragment ->
+        sheet.onShowFragment = { fragment ->
             fragment.show(supportFragmentManager, null)
         }
-        setupEvents()
+        sheet.onHideFragment = { fragment ->
+            fragment.dismiss()
+        }
 
         settingsVM.getTheme()?.let { setTheme(it) }
 
@@ -91,6 +96,12 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val fragmentContainer: ViewGroup = findViewById(R.id.container_fragment)
+
+        stage.onShowNavBar = { show ->
+            navView.visibility = if (show) View.VISIBLE else View.GONE
+        }
+
+        rate.onShowRateDialog = { askForReview(this) }
 
         val mainIssuesOverlay: ViewGroup = findViewById(R.id.main_issues_overlay)
         mainIssuesOverlay.translationY = 200f
@@ -121,9 +132,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home,
+                R.id.navigation_flutterhome,
                 R.id.navigation_activity,
-                R.id.advancedFragment,
+                R.id.navigation_packs,
                 R.id.navigation_settings
             )
         )
@@ -133,7 +144,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         // Set the fragment inset as needed (home fragment has no inset)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val shouldInset = when (destination.id) {
-                R.id.navigation_home -> false
+                R.id.navigation_flutterhome -> false
                 else -> true
             }
             setFragmentInset(fragmentContainer, shouldInset)
@@ -151,9 +162,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         val selectionListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
             val (nav, title) = when (item.itemId) {
                 R.id.navigation_activity -> R.id.navigation_activity to getString(R.string.main_tab_activity)
-                R.id.advancedFragment -> R.id.advancedFragment to getString(R.string.main_tab_advanced)
+                R.id.navigation_packs -> R.id.navigation_packs to getString(R.string.main_tab_advanced)
                 R.id.navigation_settings -> R.id.navigation_settings to getString(R.string.main_tab_settings)
-                else -> R.id.navigation_home to getString(R.string.main_tab_home)
+                else -> R.id.navigation_flutterhome to getString(R.string.main_tab_home)
             }
             navController.navigate(nav)
             item.title = title
@@ -162,11 +173,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             lifecycleScope.launch {
                 val tab = when(item.itemId) {
                     R.id.navigation_activity -> Tab.Activity
-                    R.id.advancedFragment -> Tab.Advanced
+                    R.id.navigation_packs -> Tab.Advanced
                     R.id.navigation_settings -> Tab.Settings
                     else -> Tab.Home
                 }
-                navRepo.setActiveTab(tab)
+                stage.setActiveTab(tab)
             }
 
             true
@@ -182,8 +193,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 R.id.activityDetailFragment -> R.string.main_tab_activity
                 R.id.navigation_packs -> getString(R.string.advanced_section_header_packs)
                 R.id.packDetailFragment -> R.string.advanced_section_header_packs
-                R.id.advancedFragment -> R.string.main_tab_advanced
-                R.id.userDeniedFragment -> R.string.userdenied_section_header
                 R.id.settingsNetworksFragment -> R.string.networks_section_header
                 R.id.networksDetailFragment -> R.string.networks_section_header
                 R.id.appsFragment -> R.string.apps_section_header
@@ -206,93 +215,19 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
     }
 
-    private fun setupEvents() {
-        accountVM = ViewModelProvider(app()).get(AccountViewModel::class.java)
-        tunnelVM = ViewModelProvider(app()).get(TunnelViewModel::class.java)
-        settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
-        statsVM = ViewModelProvider(app()).get(StatsViewModel::class.java)
-        blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
-        activationVM = ViewModelProvider(app()).get(ActivationViewModel::class.java)
+//    private fun setupEvents() {
+//        tunnelVM.tunnelStatus.observe(this, Observer { status ->
+//            if (status.active) {
+//                val firstTime = !(settingsVM.syncableConfig.value?.notFirstRun ?: true)
+//                if (firstTime) {
+//                    settingsVM.setFirstTimeSeen()
+//                    val fragment = FirstTimeFragment.newInstance()
+//                    fragment.show(supportFragmentManager, null)
+//                }
+//            }
+//        })
+//    }
 
-        var expiredDialogShown = false
-        activationVM.state.observe(this, Observer { state ->
-            when (state) {
-                ActivationViewModel.ActivationState.JUST_PURCHASED -> {
-                    accountVM.refreshAccount()
-                    val nav = findNavController(R.id.nav_host_fragment)
-                    nav.navigateUp()
-                }
-                ActivationViewModel.ActivationState.JUST_ACTIVATED -> {
-                    expiredDialogShown = false
-                    val fragment = ActivatedFragment.newInstance()
-                    fragment.show(supportFragmentManager, null)
-                }
-                ActivationViewModel.ActivationState.JUST_EXPIRED -> {
-                    if (!expiredDialogShown) {
-                        expiredDialogShown = true
-                        NotificationService.show(ExpiredNotification())
-                        AlertDialogService.showAlert(getString(R.string.notification_acc_body),
-                            title = getString(R.string.notification_acc_header),
-                            onDismiss = {
-                                lifecycleScope.launch {
-                                    activationVM.setInformedUserAboutExpiration()
-                                    NotificationService.cancel(ExpiredNotification())
-                                    tunnelVM.clearLease()
-                                    //accountVM.refreshAccount()
-                                }
-                            })
-                    }
-                }
-                else -> {}
-            }
-        })
-
-        // A separate global-lifecycle observer to make sure expiration alarm is handled also in bg
-        activationVM.state.observeForever { state ->
-            when (state) {
-                ActivationViewModel.ActivationState.EXPIRING -> {
-                    accountVM.refreshAccount()
-                }
-                ActivationViewModel.ActivationState.JUST_EXPIRED -> {
-                    Logger.v("Main", "Showing expired notification in bg")
-                    NotificationService.show(ExpiredNotification())
-                }
-                else -> {}
-            }
-        }
-
-        accountVM.accountExpiration.observeForever { activeUntil ->
-            //val justBeforeExpired = Date(activeUntil.time - 30 * 1000)
-            activationVM.setExpiration(activeUntil)
-        }
-
-        tunnelVM.tunnelStatus.observe(this, Observer { status ->
-            if (status.active) {
-                val firstTime = !(settingsVM.syncableConfig.value?.notFirstRun ?: true)
-                if (firstTime) {
-                    settingsVM.setFirstTimeSeen()
-                    val fragment = FirstTimeFragment.newInstance()
-                    fragment.show(supportFragmentManager, null)
-                }
-            }
-        })
-
-        lifecycleScope.launch {
-            onPaymentSuccessful_UpdateAccount()
-        }
-    }
-
-    private suspend fun onPaymentSuccessful_UpdateAccount() {
-        paymentRepo.successfulPurchasesHot
-        .collect {
-            Logger.v("Payment", "Received account after payment")
-            accountVM.restoreAccount(it.first.id)
-            if (it.first.isActive()) {
-                delay(1000)
-                sheet.showSheet(Sheet.Activated)
-            }
-        }
-    }
 
     private fun setInsets(toolbar: Toolbar) {
         val root = findViewById<ViewGroup>(R.id.container)
@@ -344,15 +279,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             intent.extras?.getString(ACTION)?.let { action ->
                 when (action) {
                     ACC_MANAGE -> {
-                        accountVM.account.value?.let { account ->
-                            Logger.e("MainActivity", "Navigating to account manage screen not available")
-//                            val nav = findNavController(R.id.nav_host_fragment)
-//                            nav.navigate(R.id.navigation_home)
-//                            nav.navigate(
-//                                HomeFragmentDirections.actionNavigationHomeToWebFragment(
-//                                    Links.manageSubscriptions(account.id), getString(R.string.universal_action_upgrade)
-//                                ))
-                        } ?: Logger.e("MainActivity", "No account while received action $ACC_MANAGE")
                     }
                     else -> {
                         Logger.w("MainActivity", "Received unknown intent: $action")
@@ -365,33 +291,28 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private var lastOnResume = 0L
     override fun onResume() {
         super.onResume()
-        Repos.stage.onForeground()
+        stage.setForeground()
 
         // Avoid multiple consecutive quick onResume events
         if (lastOnResume + 5 * 1000 > now()) return
         lastOnResume = now()
 
         Logger.w("MainActivity", "onResume: $this")
-        tunnelVM.refreshStatus()
+//        tunnelVM.refreshStatus()
         blockaRepoVM.maybeRefreshRepo()
-        lifecycleScope.launch {
-            statsVM.refresh()
-        }
-
-        accountVM.maybeRefreshAccount()
     }
 
     override fun onPause() {
         Logger.w("MainActivity", "onPause: $this")
+        stage.setBackground()
+//        tunnelVM.goToBackground()
         super.onPause()
-        Repos.stage.onBackground()
-        tunnelVM.goToBackground()
     }
 
     override fun onDestroy() {
         Logger.w("MainActivity", "onDestroy: $this")
+        context.unsetActivityContext()
         super.onDestroy()
-        Repos.stage.onDestroy()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -421,15 +342,15 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        SettingsNavigation.handle(this, navController, pref.key, accountVM.account.value)
+        SettingsNavigation.handle(this, navController, pref.key, account.account.value)
         return true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.help_menu, menu)
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.help_menu, menu)
+//        return true
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -499,4 +420,22 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         }
     }
 
+    private fun askForReview(context: Context) {
+        val manager = ReviewManagerFactory.create(context)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                // We got the ReviewInfo object
+                val reviewInfo = request.result
+                val flow = manager.launchReviewFlow(this, reviewInfo)
+                flow.addOnCompleteListener { _ ->
+                    // The flow has finished. The API does not indicate whether the user
+                    // reviewed or not, or even whether the review dialog was shown. Thus, no
+                    // matter the result, we continue our app flow.
+                }
+            } else {
+                // There was some problem, continue regardless of the result.
+            }
+        }
+    }
 }

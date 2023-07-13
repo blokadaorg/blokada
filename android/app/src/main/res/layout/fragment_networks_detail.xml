@@ -78,28 +78,28 @@
             android:orientation="vertical"
             android:padding="@dimen/doubled">
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/network_action_encryptdns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconRef="@drawable/ic_lock_check"
                 app:name="@string/networks_action_encrypt_dns" />
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/network_action_changedns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconRef="@drawable/ic_baseline_no_encryption_24"
                 app:name="@string/networks_action_use_dns" />
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/network_action_networkdns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconRef="@drawable/ic_baseline_dns_24"
                 app:name="@string/networks_action_use_network_dns" />
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/network_action_forcelibre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

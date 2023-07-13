@@ -80,14 +80,14 @@
             android:orientation="vertical"
             android:padding="@dimen/doubled">
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/activity_primaryaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconRef="@drawable/ic_shield_off_outline"
                 app:name="@string/activity_action_add_to_blacklist" />
 
-            <ui.advanced.packs.OptionView
+            <ui.advanced.decks.OptionView
                 android:id="@+id/activity_copyaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

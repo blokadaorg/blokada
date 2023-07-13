@@ -12,14 +12,18 @@
 
 package engine
 
+import channel.plusgateway.Gateway
+import channel.pluslease.Lease
 import com.wireguard.android.backend.Tunnel
-import com.wireguard.config.*
+import com.wireguard.config.Config
+import com.wireguard.config.InetEndpoint
+import com.wireguard.config.InetNetwork
+import com.wireguard.config.Interface
+import com.wireguard.config.Peer
 import com.wireguard.crypto.Key
 import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.delay
 import model.BlokadaException
-import model.Gateway
-import model.Lease
 import repository.AppRepository
 import service.EnvironmentService
 import ui.MainApplication
@@ -29,7 +33,7 @@ import java.net.InetAddress
 object WgTunnel {
 
     private val log = Logger("WgTunnel")
-    private val wgManager = MainApplication.getTunnelManager()
+    private val wgManager by lazy { MainApplication.getTunnelManager() }
     private val apps = AppRepository
 
     private val ALLOWED_IPS = listOf(
@@ -61,7 +65,7 @@ object WgTunnel {
         log.v("Wg tunnel will use DNS address: $dnsAddress")
 
         val peerBuilder = Peer.Builder()
-            .setPublicKey(Key.fromBase64(gateway.public_key))
+            .setPublicKey(Key.fromBase64(gateway.publicKey))
             .setEndpoint(InetEndpoint.parse("${gateway.ipv4}:51820"))
 
         ALLOWED_IPS.forEach {

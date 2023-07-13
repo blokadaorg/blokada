@@ -12,10 +12,21 @@
 
 package engine
 
+import binding.niceName
+import channel.plusgateway.Gateway
+import channel.pluslease.Lease
 import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import model.*
+import kotlinx.coroutines.launch
+import model.BlockaConfig
+import model.BlokadaException
+import model.Dns
+import model.NetworkSpecificConfig
+import model.PrivateKey
+import model.PublicKey
+import model.TunnelFailure
+import model.TunnelStatus
 import repository.DnsDataSource
 import service.ConnectivityService
 import service.VpnPermissionService
@@ -27,7 +38,7 @@ object EngineService {
 
     private val log = Logger("Engine")
     private val vpnPerm = VpnPermissionService
-    private val wgTunnel = WgTunnel
+    private val wgTunnel by lazy { WgTunnel }
     private val scope = GlobalScope
 
     private lateinit var config: EngineConfiguration
@@ -56,7 +67,7 @@ object EngineService {
     }
 
     private suspend fun reload(config: EngineConfiguration, force: Boolean = false) {
-        log.v("Reloading engine, config: $config for ${config.network.network}")
+        log.v("Reloading engine, config: $config for ${config.network.network}, tun: ${config.tunnelEnabled}")
 
         when {
             state.isInProgress() -> {
@@ -77,12 +88,19 @@ object EngineService {
             if (wasActive) stopAll()
 
             when {
-                !config.tunnelEnabled -> state.stopped(config)
+                !config.tunnelEnabled -> {
+                    log.v("Marking engine stopped")
+                    wgTunnel.stop()
+                    state.stopped(config)
+                }
                 !vpnPerm.hasPermission() -> {
                     log.w("No VPN permissions, engine stopped")
                     state.stopped(config.copy(tunnelEnabled = false))
                 }
-                else -> startAll(config)
+                else -> {
+                    log.v("Starting engine")
+                    startAll(config)
+                }
             }
 
             if (this.config != config) {
@@ -272,37 +290,42 @@ private data class EngineState(
     var restarting: Boolean = false,
 ) {
 
+    private val scope = GlobalScope
+
     @Synchronized fun inProgress() {
         tunnel = TunnelStatus.inProgress()
-        onTunnelStatusChanged(tunnel)
     }
 
     @Synchronized fun restarting() {
         restarting = true
         tunnel = TunnelStatus.inProgress()
-        onTunnelStatusChanged(tunnel)
+        notifyListener()
     }
 
     @Synchronized fun plusMode(config: EngineConfiguration) {
         restarting = false
         tunnel = TunnelStatus.connected(config.dns, config.doh, config.gateway())
         currentConfig = config
-        onTunnelStatusChanged(tunnel)
+        notifyListener()
     }
 
     @Synchronized fun stopped(config: EngineConfiguration? = null) {
         tunnel = TunnelStatus.off()
         currentConfig = config
-        onTunnelStatusChanged(tunnel)
+        notifyListener()
     }
 
     @Synchronized fun error(ex: Exception) {
         restarting = false
         tunnel = TunnelStatus.error(TunnelFailure(ex))
-        onTunnelStatusChanged(tunnel)
+        notifyListener()
     }
 
-    @Synchronized fun isRestarting() = restarting
     @Synchronized fun isInProgress() = tunnel.inProgress
 
+    private fun notifyListener() {
+        scope.launch {
+            onTunnelStatusChanged(tunnel)
+        }
+    }
 }

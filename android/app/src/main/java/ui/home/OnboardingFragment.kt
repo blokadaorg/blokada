@@ -12,7 +12,6 @@
 
 package ui.home
 
-import android.content.DialogInterface
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.os.Bundle
@@ -21,34 +20,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import binding.AccountBinding
+import binding.PermBinding
+import binding.StageBinding
+import binding.getType
+import channel.stage.StageModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.AccountType
 import org.blokada.R
 import repository.Repos
-import service.Services
 import service.Sheet
-import ui.ActivationViewModel
 import ui.BottomSheetFragment
-import ui.app
 import ui.utils.getColor
 import ui.utils.getColorFromAttr
 
 class OnboardingFragment : BottomSheetFragment() {
-
-    private val sheet = Services.sheet
-
-    private lateinit var vm: ActivationViewModel
-
+    private val stage by lazy { StageBinding }
+    private val account by lazy { AccountBinding }
     private val permsRepo by lazy { Repos.perms }
-    private val accountRepo by lazy { Repos.account }
+    private val perms by lazy { PermBinding }
+
+    override val modal: Sheet = Sheet.Activated
 
     companion object {
         fun newInstance() = OnboardingFragment()
@@ -58,27 +54,11 @@ class OnboardingFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
-        }
-
         val recheckPerms = {
             GlobalScope.launch(Dispatchers.Main) {
                 dismiss()
                 permsRepo.askForAllMissingPermissions()
-                sheet.showSheet(Sheet.Activated) // Show this screen again to confirm
-            }
-        }
-
-        // If user bought Plus, we want to show the Locations screen right after all perms are set.
-        val maybeShowLocations = {
-            GlobalScope.launch(Dispatchers.Main) {
-                dismiss()
-                delay(500)
-                if (accountRepo.accountTypeHot.first() == AccountType.Plus
-                        && accountRepo.previousAccountHot.first()?.getType() != AccountType.Plus) {
-                    sheet.showSheet(Sheet.Location)
-                }
+                stage.showModal(StageModal.ONBOARDING) // Show this screen again to confirm
             }
         }
 
@@ -99,16 +79,16 @@ class OnboardingFragment : BottomSheetFragment() {
         val subheader: TextView = root.findViewById(R.id.activated_subheader)
         lifecycleScope.launch {
             combine(
-                permsRepo.dnsProfilePermsHot,
+                perms.dnsProfileActivated,
                 permsRepo.notificationPermsHot,
-                permsRepo.vpnProfilePermsHot
+                perms.vpnProfileActivated
             ) { dns, notif, vpn -> Triple(dns, notif, vpn) }
             .collect {
                 val (dns, notif, vpn) = it
-                val isCloud = accountRepo.accountTypeHot.first() == AccountType.Cloud
+                val isCloud = account.account.value.getType() == AccountType.Cloud
                 if (dns && notif && (isCloud || vpn)) {
                     subheader.text = getString(R.string.activated_desc_all_ok)
-                    finishOnboarding = maybeShowLocations
+                    finishOnboarding = ::dismiss
                 } else {
                     subheader.text = getString(R.string.activated_desc)
                     finishOnboarding = recheckPerms
@@ -118,7 +98,7 @@ class OnboardingFragment : BottomSheetFragment() {
 
         val accountLabel: TextView = root.findViewById(R.id.activated_acc_text)
         lifecycleScope.launch(Dispatchers.Main) {
-            accountRepo.accountHot.collect {
+            account.account.collect {
                 accountLabel.text = getString(R.string.activated_label_account, it.getType().name)
             }
         }
@@ -149,7 +129,7 @@ class OnboardingFragment : BottomSheetFragment() {
         val dnsGroup: ViewGroup = root.findViewById(R.id.activated_dns_group)
         dnsGroup.setOnClickListener { finishOnboarding() }
         lifecycleScope.launch {
-            permsRepo.dnsProfilePermsHot
+            perms.dnsProfileActivated
             .collect { granted ->
                 if (granted) {
                     dnsIcon.setImageResource(R.drawable.ic_baseline_check_24)
@@ -170,10 +150,10 @@ class OnboardingFragment : BottomSheetFragment() {
         val vpnGroup: ViewGroup = root.findViewById(R.id.activated_vpn_group)
         vpnGroup.setOnClickListener { finishOnboarding() }
         lifecycleScope.launch {
-            permsRepo.vpnProfilePermsHot
+            perms.vpnProfileActivated
             .collect { granted ->
                 when {
-                    accountRepo.accountTypeHot.first() != AccountType.Plus -> {
+                    account.account.value.getType() != AccountType.Plus -> {
                         vpnGroup.alpha = 0.5f
                         vpnIcon.setImageResource(R.drawable.ic_baseline_close_24)
                         vpnIcon.setColorFilter(
@@ -203,10 +183,4 @@ class OnboardingFragment : BottomSheetFragment() {
 
         return root
     }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        vm.setInformedUserAboutActivation()
-    }
-
 }

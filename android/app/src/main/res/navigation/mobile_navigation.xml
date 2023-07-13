@@ -14,7 +14,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_flutterhome">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/navigation_activity"
-        android:name="ui.stats.StatsFragment"
+        android:name="ui.journal.JournalFragment"
         tools:layout="@layout/fragment_stats">
         <action
             android:id="@+id/action_navigation_activity_to_activityDetailFragment"
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/navigation_packs"
-        android:name="ui.advanced.packs.PacksFragment"
+        android:name="ui.advanced.decks.PacksFragment"
         tools:layout="@layout/fragment_packs">
         <action
             android:id="@+id/action_navigation_packs_to_packDetailFragment"
@@ -141,7 +141,7 @@
     </fragment>
     <fragment
         android:id="@+id/packDetailFragment"
-        android:name="ui.advanced.packs.PackDetailFragment">
+        android:name="ui.advanced.decks.PackDetailFragment">
         <argument
             android:name="packId"
             app:argType="string" />
@@ -175,7 +175,7 @@
     </fragment>
     <fragment
         android:id="@+id/activityDetailFragment"
-        android:name="ui.stats.StatsDetailFragment">
+        android:name="ui.journal.JournalDetailFragment">
         <argument
             android:name="historyId"
             app:argType="string" />
@@ -225,55 +225,8 @@
             app:popUpTo="@id/settingsAppFragment" />
     </fragment>
     <fragment
-        android:id="@+id/advancedFragment"
-        android:name="ui.advanced.AdvancedFragment">
-        <action
-            android:id="@+id/action_advancedFragment_to_navigation_packs"
-            app:destination="@id/navigation_packs"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/advancedFragment" />
-        <action
-            android:id="@+id/action_advancedFragment_to_appsFragment"
-            app:destination="@id/appsFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/advancedFragment" />
-        <action
-            android:id="@+id/action_advancedFragment_to_settingsNetworksFragment"
-            app:destination="@id/settingsNetworksFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/advancedFragment" />
-        <action
-            android:id="@+id/action_advancedFragment_to_webFragment"
-            app:destination="@id/webFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/advancedFragment" />
-        <action
-            android:id="@+id/action_advancedFragment_to_userDeniedFragment"
-            app:destination="@id/userDeniedFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_close_exit"
-            app:popUpTo="@id/advancedFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userDeniedFragment"
-        android:name="ui.advanced.userdenied.UserDeniedFragment" />
-    <fragment
         android:id="@+id/retentionFragment"
-        android:name="ui.stats.RetentionFragment"
+        android:name="ui.journal.RetentionFragment"
         tools:layout="@layout/fragment_retention">
         <action
             android:id="@+id/action_retentionFragment_to_webFragment"

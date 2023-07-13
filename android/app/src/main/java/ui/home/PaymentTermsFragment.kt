@@ -12,23 +12,18 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import binding.AccountBinding
 import org.blokada.R
-import ui.AccountViewModel
 import ui.BottomSheetFragment
-import ui.app
 import utils.Links
 
 class PaymentTermsFragment : BottomSheetFragment() {
-
-    private lateinit var vm: AccountViewModel
+    private val account by lazy { AccountBinding }
 
     companion object {
         fun newInstance() = PaymentTermsFragment()
@@ -38,10 +33,6 @@ class PaymentTermsFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_payment_terms, container, false)
         val nav = findNavController()
 
@@ -55,7 +46,7 @@ class PaymentTermsFragment : BottomSheetFragment() {
             dismiss()
         }
 
-        vm.account.observe(viewLifecycleOwner, Observer { account ->
+        account.live.observe(viewLifecycleOwner) { account ->
             val contact: View = root.findViewById(R.id.payment_support)
             contact.setOnClickListener {
                 nav.navigate(
@@ -65,7 +56,7 @@ class PaymentTermsFragment : BottomSheetFragment() {
                 )
                 dismiss()
             }
-        })
+        }
 
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {

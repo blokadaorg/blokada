@@ -17,25 +17,31 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import binding.AccountBinding
+import binding.StageBinding
+import binding.activeUntil
+import binding.getSource
+import binding.getType
+import binding.isActive
+import channel.account.Account
+import channel.stage.StageModal
 import kotlinx.coroutines.launch
-import model.Account
 import model.AccountType
 import org.blokada.R
 import service.AlertDialogService
-import service.Services
-import service.Sheet
-import ui.AccountViewModel
+import service.BiometricService
 import ui.SettingsViewModel
 import ui.app
 import ui.utils.AndroidUtils
 
 class SettingsAccountFragment : PreferenceFragmentCompat() {
+    private val account by lazy { AccountBinding }
 
     private val alert = AlertDialogService
     private lateinit var vm: SettingsViewModel
-    private lateinit var accountVM: AccountViewModel
 
-    private val biometric by lazy { Services.biometric }
+    private val biometric by lazy { BiometricService }
+    private val stage by lazy { StageBinding }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_account, rootKey)
@@ -46,14 +52,13 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
 
         activity?.let {
             vm = ViewModelProvider(it.app()).get(SettingsViewModel::class.java)
-            accountVM = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
         val accountId: Preference = findPreference("account_id")!!
         val accountType: Preference = findPreference("account_subscription_type")!!
         val activeUntil: Preference = findPreference("account_subscription_active")!!
 
-        accountVM.account.observe(viewLifecycleOwner) { account ->
+        account.live.observe(viewLifecycleOwner) { account ->
             accountId.setOnPreferenceClickListener {
                 handleShowAccountId(account)
                 true
@@ -66,7 +71,7 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
             accountType.setOnPreferenceClickListener {
                 when {
                     account.getSource() == "google" -> {
-                        Services.sheet.showSheet(Sheet.Payment)
+                        stage.showModal(StageModal.PAYMENT)
                     }
                     else -> {}
                 }
@@ -74,7 +79,7 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
             }
 
             activeUntil.summary = if (account.isActive())
-                account.active_until.toString()
+                account.activeUntil().toString()
             else getString(R.string.account_status_text_inactive)
         }
     }

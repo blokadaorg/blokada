@@ -22,19 +22,21 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import binding.AccountBinding
+import binding.isActive
 import model.NetworkType
 import model.isDnsOverHttps
 import org.blokada.R
 import repository.DnsDataSource
 import service.AlertDialogService
-import ui.AccountViewModel
 import ui.NetworksViewModel
-import ui.advanced.packs.OptionView
+import ui.advanced.decks.OptionView
 import ui.app
 import ui.utils.getColorFromAttr
 
 
 class NetworksDetailFragment : Fragment() {
+    private val account by lazy { AccountBinding }
 
     companion object {
         fun newInstance() = NetworksDetailFragment()
@@ -45,7 +47,6 @@ class NetworksDetailFragment : Fragment() {
     private val args: NetworksDetailFragmentArgs by navArgs()
 
     private lateinit var viewModel: NetworksViewModel
-    private lateinit var accountViewModel: AccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +54,6 @@ class NetworksDetailFragment : Fragment() {
     ): View? {
         activity?.let {
             viewModel = ViewModelProvider(it.app()).get(NetworksViewModel::class.java)
-            accountViewModel = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
         }
 
         val root = inflater.inflate(R.layout.fragment_networks_detail, container, false)
@@ -150,7 +150,7 @@ class NetworksDetailFragment : Fragment() {
                 // Summary based on selected actions
                 summaryEncryptDns.visibility = if (cfg.encryptDns) View.VISIBLE else View.GONE
                 summaryUseDnsPlus.visibility = when {
-                    !accountViewModel.isActive() -> View.GONE
+                    account.live.value?.isActive() != true -> View.GONE
                     cfg.useNetworkDns && !cfg.useBlockaDnsInPlusMode -> View.VISIBLE
                     cfg.useBlockaDnsInPlusMode -> View.VISIBLE
                     else -> View.GONE

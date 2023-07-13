@@ -15,7 +15,12 @@ package ui.web
 import android.content.ComponentName
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
@@ -28,14 +33,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.AlertDialogService
-import ui.*
+import ui.BottomSheetFragment
+import ui.SettingsViewModel
+import ui.app
 import ui.utils.openInBrowser
 import utils.Links
 
 class WebFragment : BottomSheetFragment() {
 
-    private lateinit var vm: AccountViewModel
-    private lateinit var activationVM: ActivationViewModel
     private lateinit var settingsVM: SettingsViewModel
 
     companion object {
@@ -56,9 +61,7 @@ class WebFragment : BottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
             settingsVM = ViewModelProvider(it.app()).get(SettingsViewModel::class.java)
-            activationVM = ViewModelProvider(it.app()).get(ActivationViewModel::class.java)
         }
 
         currentUrl = args.url
@@ -136,30 +139,31 @@ class WebFragment : BottomSheetFragment() {
         customTabsIntent.launchUrl(requireContext(), Uri.parse(url))
         requireContext().unbindService(connection)
         waitToComeBack()
-        performActionsAfterExternalViewScenario(url)
+//        performActionsAfterExternalViewScenario(url)
     }
 
     private fun launchInBrowser(url: String) {
         try {
             openInBrowser(url)
             waitToComeBack()
-            performActionsAfterExternalViewScenario(url)
+//            performActionsAfterExternalViewScenario(url)
         } catch (e: Exception) {}
     }
 
     private fun performUrlSpecificActions(url: String) {
         currentUrl = url
-        activationVM.maybeRefreshAccountAfterUrlVisited(url)
+        // TODO: replace this?
+//        activationVM.maybeRefreshAccountAfterUrlVisited(url)
     }
 
-    private fun performActionsAfterExternalViewScenario(url: String) {
-        lifecycleScope.launch {
-            delay(2000) // To not flag it before we get the onResume() call
-
-            // This is to refresh account after we are back from custom tabs or external browser
-            if (Links.isSubscriptionLink(url)) activationVM.setStartedPurchaseFlow()
-        }
-    }
+//    private fun performActionsAfterExternalViewScenario(url: String) {
+//        lifecycleScope.launch {
+//            delay(2000) // To not flag it before we get the onResume() call
+//
+//            // This is to refresh account after we are back from custom tabs or external browser
+//            if (Links.isSubscriptionLink(url)) activationVM.setStartedPurchaseFlow()
+//        }
+//    }
 
     private fun waitToComeBack() {
         lifecycleScope.launch {
@@ -181,7 +185,8 @@ class WebFragment : BottomSheetFragment() {
 
     override fun onResume() {
         super.onResume()
-        activationVM.maybeRefreshAccountAfterOnResume()
+        // TODO: also this
+//        activationVM.maybeRefreshAccountAfterOnResume()
         finishWhenCameBack()
     }
 

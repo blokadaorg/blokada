@@ -20,7 +20,6 @@ import model.AppState
 import model.BlokadaException
 import model.TunnelStatus
 import org.blokada.R
-import service.Host
 import service.Localised
 import ui.Command
 import ui.MainActivity
@@ -49,7 +48,7 @@ sealed class NotificationPrototype(
 class MonitorNotification(
     tunnelStatus: TunnelStatus,
     counter: Long,
-    lastDenied: List<Host>,
+    lastDenied: List<String>,
     appState: AppState,
     working: Boolean,
 ): NotificationPrototype(1, NotificationChannels.ACTIVITY,
@@ -263,6 +262,23 @@ class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
         b.setContentTitle(ctx.getString(R.string.notification_acc_header))
         b.setContentText(ctx.getString(R.string.notification_acc_subtitle))
         b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.notification_acc_body)))
+        //b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+class OnboardingNotification: NotificationPrototype(5, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.activated_header))
+        b.setContentText(ctx.getString(R.string.dnsprofile_notification_subtitle))
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.dnsprofile_notification_body)))
         //b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setPriority(NotificationCompat.PRIORITY_MAX)

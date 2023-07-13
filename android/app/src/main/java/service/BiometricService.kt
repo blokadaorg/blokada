@@ -25,8 +25,7 @@ import model.BlokadaException
 import org.blokada.R
 import kotlin.coroutines.resumeWithException
 
-class BiometricService {
-
+object BiometricService {
     private var ongoingPrompt: CancellableContinuation<BiometricPrompt.AuthenticationResult>? = null
         @Synchronized set
         @Synchronized get

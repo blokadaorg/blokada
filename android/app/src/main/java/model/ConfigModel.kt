@@ -12,6 +12,8 @@
 
 package model
 
+import channel.plusgateway.Gateway
+import channel.pluslease.Lease
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -25,7 +27,6 @@ data class BlockaConfig(
     val vpnEnabled: Boolean,
     val tunnelEnabled: Boolean = false
 ) {
-    fun getAccountId() = keysGeneratedForAccountId
     fun lease() = lease!!
     fun gateway() = gateway!!
 }

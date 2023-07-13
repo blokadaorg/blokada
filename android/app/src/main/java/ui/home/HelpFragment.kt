@@ -12,29 +12,27 @@
 
 package ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import binding.AccountBinding
+import binding.CommandBinding
+import channel.command.CommandName
+import kotlinx.coroutines.launch
 import org.blokada.R
-import ui.AccountViewModel
+import service.Sheet
 import ui.BottomSheetFragment
-import ui.app
 import ui.settings.SettingsFragmentDirections
 import utils.Links
 
 class HelpFragment : BottomSheetFragment() {
+    override val modal: Sheet = Sheet.Help
 
-    private lateinit var vm: AccountViewModel
+    private val account by lazy { AccountBinding }
+    private val command by lazy { CommandBinding }
 
     companion object {
         fun newInstance() = HelpFragment()
@@ -44,10 +42,6 @@ class HelpFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_help, container, false)
 
         val back: View = root.findViewById(R.id.back)
@@ -70,17 +64,35 @@ class HelpFragment : BottomSheetFragment() {
             dismiss()
         }
 
-        vm.account.observe(viewLifecycleOwner, Observer { account ->
+        val logs: View = root.findViewById(R.id.help_log)
+        logs.setOnClickListener {
+            lifecycleScope.launch {
+                command.execute(CommandName.SHARELOG)
+            }
+            dismiss()
+        }
+
+        val rate: View = root.findViewById(R.id.help_rate)
+        rate.setOnClickListener {
+            lifecycleScope.launch {
+                command.execute(CommandName.ROUTE, "home/rate")
+            }
+            dismiss()
+        }
+
+        account.live.observe(viewLifecycleOwner) { account ->
             val contact: View = root.findViewById(R.id.help_contact)
             contact.setOnClickListener {
                 val nav = findNavController()
                 nav.navigate(R.id.navigation_settings)
-                nav.navigate(SettingsFragmentDirections.actionNavigationSettingsToWebFragment(
-                    Links.support(account.id), getString(R.string.universal_action_contact_us)
-                ))
+                nav.navigate(
+                    SettingsFragmentDirections.actionNavigationSettingsToWebFragment(
+                        Links.support(account.id), getString(R.string.universal_action_contact_us)
+                    )
+                )
                 dismiss()
             }
-        })
+        }
 
         return root
     }

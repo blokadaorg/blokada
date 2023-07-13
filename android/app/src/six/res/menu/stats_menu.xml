@@ -15,6 +15,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/stats_custom"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/userdenied_section_header"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/stats_search"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/universal_action_search"

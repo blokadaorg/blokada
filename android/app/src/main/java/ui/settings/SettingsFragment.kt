@@ -21,45 +21,44 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.preference.PreferenceFragmentCompat
-import model.Account
+import binding.AccountBinding
+import binding.activeUntil
+import binding.getType
+import binding.isActive
+import channel.account.Account
 import model.AccountType
 import model.toAccountType
 import org.blokada.R
 import service.ContextService
-import ui.AccountViewModel
-import ui.app
 import utils.Links
 import utils.toBlokadaText
 import utils.toSimpleString
 
 class SettingsFragment : Fragment() {
-
-    private lateinit var vm: AccountViewModel
+    private val account by lazy { AccountBinding }
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        vm.account.observe(viewLifecycleOwner, Observer { account ->
+        account.live.observe(viewLifecycleOwner) { account ->
             val active = root.findViewById<TextView>(R.id.settings_active)
             active.text = if (account.isActive()) {
-                getString(R.string.account_status_text, account.getType().toString(), account.active_until.toSimpleString())
+                getString(
+                    R.string.account_status_text,
+                    account.getType().toString(),
+                    account.activeUntil().toSimpleString()
+                )
                     .toBlokadaText()
             } else {
                 getString(R.string.account_status_text_inactive).toBlokadaText()
             }
-        })
+        }
 
         return root
     }

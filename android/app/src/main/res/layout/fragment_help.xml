@@ -88,6 +88,18 @@
                         android:layout_height="wrap_content"
                         android:text="@string/universal_action_contact_us" />
 
+                    <Button
+                        android:id="@+id/help_log"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/universal_action_show_log" />
+
+                    <Button
+                        android:id="@+id/help_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_rate_us_header" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

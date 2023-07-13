@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Blokada.
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,99 +10,119 @@
   ~ @author Karol Gusak (karol@blocka.net)
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ui.stats.StatsFragment">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/colorBackgroundFloating"
+    android:orientation="vertical"
+    tools:context="ui.journal.custom.UserDeniedFragment">
 
     <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/activity_searchgroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/colorBackground"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/half"
-        android:paddingEnd="@dimen/half"
-        app:layout_constraintBottom_toTopOf="@+id/activity_tabs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <SearchView
-            android:id="@+id/activity_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/activity_filter"
+            android:id="@+id/back"
             android:layout_width="@dimen/icon"
             android:layout_height="@dimen/icon"
             android:padding="@dimen/half"
-            android:src="@drawable/ic_baseline_filter_list_24" />
-    </LinearLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/activity_tabs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/activity_recyclerview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_searchgroup">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_category_recent" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_category_top" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_tabs"
-        tools:listitem="@layout/item_activity" />
-
-    <LinearLayout
-        android:id="@+id/activity_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground"
-        android:orientation="vertical"
-        android:padding="@dimen/normal"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="@dimen/icon_huge"
-            android:layout_height="@dimen/icon_huge"
-            app:tint="?android:attr/shadowColor"
-            android:src="@drawable/ic_baseline_remove_red_eye_24" />
+            android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
+            android:id="@+id/activity_header"
+            style="@style/Text.H3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/doubled"
-            android:maxWidth="@dimen/sheet_maxwidth"
-            android:gravity="center"
-            android:text="@string/userdenied_section_slugline" />
+            android:text="@string/userdenied_section_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="600dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/activity_tabs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/userdenied_tab_allowed" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/userdenied_tab_blocked" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_searchgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/half"
+                android:paddingTop="@dimen/half"
+                android:paddingEnd="@dimen/half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_tabs">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/activity_custom_input"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="textVisiblePassword"
+                    app:searchHintIcon="@drawable/ic_playlist_edit"
+                    app:searchIcon="@drawable/baseline_playlist_add_24" />
+
+                <Button
+                    android:id="@+id/activity_custom_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/userdenied_action_allow" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/activity_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/half"
+                android:layout_marginBottom="@dimen/normal"
+                android:background="?android:attr/shadowColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_searchgroup" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_recyclerview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_divider"
+                tools:listitem="@layout/item_activity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

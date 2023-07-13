@@ -12,9 +12,20 @@
 
 package service
 
-import model.*
+import model.BlockaAfterUpdate
+import model.BlockaConfig
+import model.BlockaRepoConfig
+import model.BlockaRepoPayload
+import model.BlockaRepoUpdate
+import model.BlokadaException
+import model.BypassedAppIds
+import model.Defaults
+import model.DnsWrapper
+import model.LocalConfig
+import model.NetworkSpecificConfigs
+import model.Packs
+import model.SyncableConfig
 import repository.PackMigration
-import ui.ActivationViewModel
 import ui.utils.cause
 import utils.Logger
 import kotlin.reflect.KClass
@@ -32,14 +43,6 @@ object PersistenceService {
     fun save(obj: Any) {
         try {
             when (obj) {
-                is Denied -> file.save(
-                    key = BlocklistService.USER_DENIED,
-                    data = newline.serialize(obj)
-                )
-                is Allowed -> file.save(
-                    key = BlocklistService.USER_ALLOWED,
-                    data = newline.serialize(obj)
-                )
                 else -> prefs.save(getPrefsKey(obj::class), json.serialize(obj))
             }
         } catch (ex: Exception) {
@@ -50,18 +53,6 @@ object PersistenceService {
     fun <T: Any> load(type: KClass<T>): T {
         try {
             val (string, deserializer) = when (type) {
-                Denied::class -> {
-                    file.load(key = BlocklistService.USER_DENIED) to newline
-                }
-                Allowed::class -> {
-                    file.load(key = BlocklistService.USER_ALLOWED) to newline
-                }
-                Account::class -> {
-                    prefs.load(getPrefsKey(type)) to json
-                }
-                AdsCounter::class -> {
-                    prefs.load(getPrefsKey(type)) to json
-                }
                 else -> prefs.load(getPrefsKey(type)) to json
             }
 
@@ -86,15 +77,11 @@ object PersistenceService {
     }
 
     private fun getPrefsKey(type: KClass<*>) = when (type) {
-        StatsPersisted::class -> "stats"
         Packs::class -> "packs"
         BlockaConfig::class -> "blockaConfig"
         LocalConfig::class -> "localConfig"
         SyncableConfig::class -> "syncableConfig"
         DnsWrapper::class -> "dns"
-        ActivationViewModel.ActivationState::class -> "activationState"
-        Account::class -> "account"
-        AdsCounter::class -> "adsCounter"
         BypassedAppIds::class -> "bypassedApps"
         BlockaRepoConfig::class -> "blockaRepoConfig"
         BlockaRepoUpdate::class -> "blockaRepoUpdate"
@@ -105,17 +92,11 @@ object PersistenceService {
     }
 
     private fun <T: Any> getDefault(type: KClass<T>) = when (type) {
-        StatsPersisted::class -> Defaults.stats() as T
-        Allowed::class -> Defaults.allowed() as T
-        Denied::class -> Defaults.denied() as T
         Packs::class -> Defaults.packs() as T
         BlockaConfig::class -> Defaults.blockaConfig() as T
         LocalConfig::class -> Defaults.localConfig() as T
         SyncableConfig::class -> Defaults.syncableConfig() as T
         DnsWrapper::class -> Defaults.dnsWrapper() as T
-        ActivationViewModel.ActivationState::class -> ActivationViewModel.ActivationState.INACTIVE as T
-        Account::class -> throw NoPersistedAccount()
-        AdsCounter::class -> Defaults.adsCounter() as T
         BypassedAppIds::class -> Defaults.bypassedAppIds() as T
         BlockaRepoConfig::class -> Defaults.blockaRepoConfig() as T
         BlockaRepoUpdate::class -> Defaults.noSeenUpdate() as T

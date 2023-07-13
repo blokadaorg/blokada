@@ -16,11 +16,19 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import binding.StageBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import service.Sheet
+import service.SheetService
 
-open class BottomSheetFragment(val skipCollapsed: Boolean = true) : BottomSheetDialogFragment() {
+abstract class BottomSheetFragment(val skipCollapsed: Boolean = true) : BottomSheetDialogFragment() {
+    private val stage by lazy { StageBinding }
+    private val sheet by lazy { SheetService }
+
+    open val modal: Sheet? = null
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog =
             super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -34,6 +42,19 @@ open class BottomSheetFragment(val skipCollapsed: Boolean = true) : BottomSheetD
                 behavior.skipCollapsed = skipCollapsed
             }
         }
+        dialog.setOnDismissListener {
+//            sheet.sheetDismissed()
+        }
+        modal?.run { stage.sheetShown(this) }
         return dialog
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sheet.sheetDismissed()
+    }
+
+    override fun dismiss() {
+        super.dismiss()
     }
 }

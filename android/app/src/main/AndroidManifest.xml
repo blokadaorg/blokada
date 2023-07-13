@@ -152,9 +152,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="service.ExpirationReceiver" />
-
         <receiver android:name="service.DozeReceiver" />
+
+        <receiver android:name="service.NotificationAlarmReceiver" />
 
         <service
             android:name="com.wireguard.android.backend.GoBackend$VpnService"

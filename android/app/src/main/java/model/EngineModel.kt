@@ -12,6 +12,8 @@
 
 package model
 
+import binding.niceName
+import channel.plusgateway.Gateway
 import repository.DnsDataSource
 
 class TunnelStatus private constructor (
@@ -33,7 +35,10 @@ class TunnelStatus private constructor (
     }
 
     fun isPlusMode() = active && gatewayId != null
-    fun wantsPlusMode() = desiredGatewayId != null
+
+    override fun toString(): String {
+        return "TunnelStatus(active=$active, inProgress=$inProgress, restarting=$restarting, error=$error, isUsingDnsOverHttps=$isUsingDnsOverHttps, dns=$dns, gatewayId=$gatewayId, gatewayLabel='$gatewayLabel', desiredGatewayId=$desiredGatewayId)"
+    }
 
     companion object {
         fun off() = TunnelStatus(
@@ -57,8 +62,8 @@ class TunnelStatus private constructor (
             active = true,
             isUsingDnsOverHttps = doh,
             dns = dns,
-            gatewayId = gateway.public_key,
-            desiredGatewayId = gateway.public_key,
+            gatewayId = gateway.publicKey,
+            desiredGatewayId = gateway.publicKey,
             gatewayLabel = gateway.niceName()
         )
 
@@ -70,12 +75,6 @@ class TunnelStatus private constructor (
         fun error(ex: BlokadaException) = TunnelStatus(
             active = false,
             error = ex
-        )
-
-        fun restarting() = TunnelStatus(
-            active = false,
-            inProgress = true,
-            restarting = true
         )
     }
 }

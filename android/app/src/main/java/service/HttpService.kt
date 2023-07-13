@@ -14,8 +14,10 @@ package service
 
 import engine.EngineService
 import model.Uri
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
@@ -54,6 +56,26 @@ object HttpService {
             .url(url)
             .build()
         return httpClient.newCall(request).execute().body()!!.string()
+    }
+
+    fun makeRequest(url: Uri, method: String, body: String?): String {
+        var request = Request.Builder().url(url)
+
+        request = if (body != null) {
+            request.method(method, RequestBody.create(
+                MediaType.get("application/json; charset=utf-8"), body)
+            )
+        } else {
+            request.method(method, null)
+        }
+
+        val response = httpClient.newCall(request.build()).execute()
+
+        if (response.code() != 200) {
+            throw Exception("code:${response.code()}")
+        }
+
+        return response.body()!!.string()
     }
 
 }

@@ -14,9 +14,6 @@ package service
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.widget.TextView
-import android.graphics.Typeface
-import android.widget.Toast
 import org.blokada.R
 import utils.Logger
 
@@ -32,7 +29,7 @@ object AlertDialogService {
         title: Int? = null,
         onDismiss: () -> Unit = {},
         additionalAction: Pair<String, () -> Unit>? = null
-    ) {
+    ): Boolean {
         val ctx = context.requireContext()
         showAlert(
             message = ctx.getString(message),
@@ -40,6 +37,7 @@ object AlertDialogService {
             onDismiss = onDismiss,
             additionalAction = additionalAction
         )
+        return true
     }
 
     fun showAlert(

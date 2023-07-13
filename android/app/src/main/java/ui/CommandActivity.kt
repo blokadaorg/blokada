@@ -20,18 +20,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import model.BlokadaException
-import repository.Repos
 import service.ContextService
 import service.EnvironmentService
-import service.LogService
 import service.NotificationService
 import ui.utils.cause
 import utils.ExecutingCommandNotification
 import utils.Logger
-import java.util.*
 
 enum class Command {
     OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST, DOH
@@ -47,15 +42,12 @@ class CommandActivity : AppCompatActivity() {
 
     private val log = Logger("Command")
 
-    private lateinit var tunnelVM: TunnelViewModel
     private lateinit var settingsVM: SettingsViewModel
 
     private val env by lazy { EnvironmentService }
-    private val appRepo by lazy { Repos.app }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tunnelVM = ViewModelProvider(app()).get(TunnelViewModel::class.java)
         settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
 
         interpretCommand(intent.data.toString())?.let {
@@ -76,13 +68,13 @@ class CommandActivity : AppCompatActivity() {
 
     private fun execute(command: Command, param: Param?) {
         when (command) {
-            Command.OFF -> {
-                GlobalScope.launch { appRepo.pauseApp(Date()) }
-            }
-            Command.ON -> {
-                GlobalScope.launch { appRepo.unpauseApp() }
-            }
-            Command.LOG -> LogService.shareLog()
+//            Command.OFF -> {
+//                GlobalScope.launch { appRepo.pauseApp(Date()) }
+//            }
+//            Command.ON -> {
+//                GlobalScope.launch { appRepo.unpauseApp() }
+//            }
+//            Command.LOG -> LogService.shareLog()
             Command.ACC -> {
                 if (param == ACC_MANAGE) {
                     log.v("Starting account management screen")

@@ -23,6 +23,13 @@ wireguard:
 		fi \
 	fi
 
+pull-sixcommon:
+	@cd six-common; \
+	git pull; \
+	cd ../
+
+devsc: pull-sixcommon clean-sixcommon sixcommon
+
 apk:
 	@if test ! -f "app/build/outputs/apk/six/release/app-six-release.apk"; then \
 		./gradlew assembleSixRelease; \
@@ -40,6 +47,9 @@ clean:
 	cd six-common && flutter clean; \
 	cd ..; \
 	cd wireguard-android && ./gradlew clean; \
+
+clean-sixcommon:
+	@rm -rf app/six-common; \
 
 install:
 	./gradlew installSixRelease

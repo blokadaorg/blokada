@@ -26,7 +26,7 @@ import model.isDnsOverHttps
 import org.blokada.R
 import repository.DnsDataSource
 import ui.BottomSheetFragment
-import ui.advanced.packs.OptionView
+import ui.advanced.decks.OptionView
 
 class DnsChoiceFragment : BottomSheetFragment() {
 

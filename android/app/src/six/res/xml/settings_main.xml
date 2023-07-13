@@ -31,7 +31,7 @@
             app:title="@string/account_action_devices" />
 
         <Preference
-            android:fragment="ui.stats.RetentionFragment"
+            android:fragment="ui.journal.RetentionFragment"
             android:icon="@drawable/ic_baseline_bar_chart_24"
             app:key="main_retention"
             app:title="@string/activity_section_header" />

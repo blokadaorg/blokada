@@ -14,36 +14,16 @@ package repository
 
 object Repos {
 
-    val stage by lazy { StageRepo() }
     val processing by lazy { DebugProcessingRepo() }
-    val nav by lazy { NavRepo() }
-    val cloud by lazy { CloudRepo() }
-    val perms by lazy { DebugPermsRepo() }
-    val app by lazy { DebugAppRepo() }
-    val account by lazy { AccountRepo() }
-    val payment by lazy { PaymentRepo() }
-    val activity by lazy { ActivityRepo() }
-    val stats by lazy { StatsRepo() }
-    val packs by lazy { PackRepo() }
-    val plus by lazy { PlusRepo() }
-
+    val perms by lazy { PermsRepo() }
 
     private var started = false
 
     fun start() {
         if (started) return
         started = true
-        stage.start()
         processing.start()
-        cloud.start()
         perms.start()
-        app.start()
-        account.start()
-        payment.start()
-        activity.start()
-        stats.start()
-        packs.start()
-        plus.start()
     }
 
 }

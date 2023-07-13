@@ -41,6 +41,10 @@ object ContextService {
         this.activityContext = WeakReference(context)
     }
 
+    fun unsetActivityContext() {
+        this.activityContext = WeakReference(null)
+    }
+
     fun requireContext(): Context {
         return activityContext.get() ?: context ?: throw Exception("No context set in ContextService")
     }

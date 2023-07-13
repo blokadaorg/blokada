@@ -15,9 +15,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.stats.RetentionFragment">
+    tools:context="ui.journal.RetentionFragment">
 
-    <ui.stats.StatsRetentionView
+    <ui.journal.RetentionView
         android:id="@+id/activity_retention"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

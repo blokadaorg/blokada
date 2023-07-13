@@ -16,16 +16,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import org.blokada.R
-import ui.AccountViewModel
 import ui.BottomSheetFragment
-import ui.app
 
 class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
-
-    private lateinit var vm: AccountViewModel
-
     var cloud = false
 
     companion object {
@@ -36,10 +30,6 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val root = inflater.inflate(
             if (cloud) R.layout.fragment_payment_features_cloud
             else R.layout.fragment_payment_features

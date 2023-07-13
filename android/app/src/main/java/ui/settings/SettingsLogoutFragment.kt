@@ -14,18 +14,18 @@ package ui.settings
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.preference.*
+import androidx.lifecycle.lifecycleScope
+import androidx.preference.EditTextPreference
+import androidx.preference.PreferenceFragmentCompat
+import binding.AccountBinding
+import binding.CommandBinding
+import channel.command.CommandName
+import kotlinx.coroutines.launch
 import org.blokada.R
-import service.tr
-import ui.AccountViewModel
-import ui.app
-import ui.utils.AndroidUtils
-import utils.Links
 
 class SettingsLogoutFragment : PreferenceFragmentCompat() {
-
-    private lateinit var vm: AccountViewModel
+    private val account by lazy { AccountBinding }
+    private val command by lazy { CommandBinding }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_logout, rootKey)
@@ -34,13 +34,9 @@ class SettingsLogoutFragment : PreferenceFragmentCompat() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        activity?.let {
-            vm = ViewModelProvider(it.app()).get(AccountViewModel::class.java)
-        }
-
         val accountId: EditTextPreference = findPreference("logout_accountid")!!
 
-        vm.account.observe(viewLifecycleOwner, Observer { account ->
+        account.live.observe(viewLifecycleOwner, Observer { account ->
             accountId.summary = getString(R.string.account_id_status_unchanged)
         })
 
@@ -49,7 +45,9 @@ class SettingsLogoutFragment : PreferenceFragmentCompat() {
 //            accountId.text = ""
 //            accountId.setDefaultValue("")
             accountId.summary = getString(R.string.account_action_restoring, id)
-            vm.restoreAccount(accountId = id)
+            lifecycleScope.launch {
+                command.execute(CommandName.RESTORE, id)
+            }
             true
         }
     }

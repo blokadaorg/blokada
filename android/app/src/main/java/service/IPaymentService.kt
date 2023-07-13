@@ -12,14 +12,11 @@
 
 package service
 
+import channel.accountpayment.Product
 import kotlinx.coroutines.delay
 import model.BlokadaException
 import model.PaymentPayload
-import model.Product
 import model.ProductId
-
-class UserCancelledException: BlokadaException("User cancelled")
-class AlreadyPurchasedException: BlokadaException("Subscription already purchased")
 
 interface IPaymentService {
     suspend fun setup()
@@ -44,7 +41,8 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$2.09",
                 periodMonths = 12,
                 type = "cloud",
-                trial = true
+                trial = true,
+                owned = false
             ),
             Product(
                 id = "plus_1month",
@@ -53,7 +51,8 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$5.99",
                 periodMonths = 1,
                 type = "plus",
-                trial = false
+                trial = false,
+                owned = false
             ),
             Product(
                 id = "plus_12month",
@@ -62,7 +61,8 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$3.33",
                 periodMonths = 12,
                 type = "plus",
-                trial = false
+                trial = false,
+                owned = false
             ),
         )
     }

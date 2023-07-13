@@ -12,15 +12,16 @@
 
 package ui.settings.leases
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import model.Lease
+import androidx.recyclerview.widget.RecyclerView
+import binding.niceName
+import channel.pluslease.Lease
 import org.blokada.R
 
 class LeasesAdapter(private val interaction: Interaction) :

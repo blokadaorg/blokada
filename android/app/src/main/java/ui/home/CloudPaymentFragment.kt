@@ -18,26 +18,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.lifecycleScope
+import binding.AccountBinding
+import binding.AccountPaymentBinding
+import binding.getType
+import channel.accountpayment.Product
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import model.AccountType
 import model.NoPayments
-import model.Product
 import org.blokada.R
-import repository.Repos
-import service.AlreadyPurchasedException
 import service.DialogService
-import service.UserCancelledException
+import service.Sheet
 import ui.BottomSheetFragment
-import ui.utils.cause
-import utils.Logger
 
 class CloudPaymentFragment : BottomSheetFragment() {
+    override val modal: Sheet = Sheet.Payment
 
-    private val paymentRepo by lazy { Repos.payment }
-    private val accountRepo by lazy { Repos.account }
+    private val payment by lazy { AccountPaymentBinding }
+    private val account by lazy { AccountBinding }
 
     private val dialog by lazy { DialogService }
 
@@ -88,7 +87,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         // Keep products up to date
         lifecycleScope.launch {
-            paymentRepo.productsHot
+            payment.products.filterNotNull()
             .collect { products ->
                 cloudGroup.removeAllViews()
                 plusGroup.removeAllViews()
@@ -96,7 +95,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                 val cloudProducts = products.filter { it.type == "cloud" }
                 val plusProducts = products.filter { it.type == "plus" }
 
-                val accountType = accountRepo.accountTypeHot.first()
+                val accountType = account.account.value.getType()
                 when (accountType) {
                     // Standard case, user is purchasing Cloud or Plus
                     AccountType.Libre -> {
@@ -132,7 +131,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                     }
                     // User is downgrading to Cloud or changing sub period
                     AccountType.Plus -> {
-                        val activeSub = paymentRepo.activeSubHot.first()
+                        val activeSub = payment.activeSub.value
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
@@ -155,12 +154,12 @@ class CloudPaymentFragment : BottomSheetFragment() {
         }
 
         // On successful purchase
-        lifecycleScope.launch {
-            paymentRepo.successfulPurchasesHot
-            .collect {
-                dismiss()
-            }
-        }
+//        lifecycleScope.launch {
+//            paymentRepo.successfulPurchasesHot
+//            .collect {
+//                dismiss()
+//            }
+//        }
 
         refreshProducts()
 
@@ -172,11 +171,11 @@ class CloudPaymentFragment : BottomSheetFragment() {
             try {
                 showProcessing()
                 hideError()
-                paymentRepo.refresh()
+                payment.refreshProducts()
             } catch (ex: NoPayments) {
                 hideProcessing()
                 delay(500)
-                if (paymentRepo.productsHot.first().isEmpty()) {
+                if (payment.products.value.isNullOrEmpty()) {
                     dialog.showAlert(getString(R.string.error_payment_not_available),
                         okText = getString(R.string.universal_action_continue),
                         okAction = {
@@ -194,26 +193,9 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         // Initiate purchase (will emit on successfulPurchasesHot)
         lifecycleScope.launch {
-            try {
-                if (!change) paymentRepo.buyProduct(p.id)
-                else paymentRepo.changeProduct(p.id)
-            } catch (ex: UserCancelledException) {
-                hideProcessing()
-            } catch (ex: AlreadyPurchasedException) {
-                // User already made the purchase, try to restore instead
-                try {
-                    paymentRepo.restorePurchase()
-                } catch (ex: Exception) {
-                    hideProcessing()
-                    dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
-                    .collect {}
-                }
-            } catch (ex: Exception) {
-                Logger.e("CloudPayment", "Payment failed with error".cause(ex))
-                hideProcessing()
-                dialog.showAlert(getString(R.string.error_payment_failed_alternative))
-                .collect {}
-            }
+            if (!change) payment.buyProduct(p.id)
+            else payment.changeProduct(p.id)
+            hideProcessing()
         }
     }
 
@@ -223,13 +205,8 @@ class CloudPaymentFragment : BottomSheetFragment() {
         processing.animate().alpha(1.0f)
 
         lifecycleScope.launch {
-            try {
-                paymentRepo.restorePurchase()
-            } catch (ex: Exception) {
-                hideProcessing()
-                dialog.showAlert(getString(R.string.error_payment_inactive_after_restore))
-                .collect {}
-            }
+            payment.restorePurchase()
+            dismiss()
         }
     }
 

@@ -13,17 +13,14 @@
 package model
 
 import repository.DnsDataSource
-import ui.PackDataSource
 import service.EnvironmentService
+import ui.advanced.decks.PackDataSource
 import ui.utils.now
 
 object Defaults {
 
     val PACKS_VERSION = 30
 
-    fun stats() = StatsPersisted(entries = emptyMap())
-    fun allowed() = Allowed(value = listOf())
-    fun denied() = Denied(value = listOf())
     fun packs() = Packs(PackDataSource.getPacks(), version = PACKS_VERSION, lastRefreshMillis = 0)
     fun localConfig() = LocalConfig(dnsChoice = FlavorSpecificDefaults.dns)
     fun syncableConfig() = SyncableConfig(rateAppShown = false, notFirstRun = false)
@@ -38,8 +35,6 @@ object Defaults {
         gateway = null,
         vpnEnabled = false
     )
-
-    fun adsCounter() = AdsCounter(persistedValue = 0L)
 
     fun bypassedAppIds() = BypassedAppIds(emptyList()) // Also check AppRepository
 
