@@ -459,7 +459,7 @@
 "dnsprofile desc android copy" = "Копирайте името на хоста на Blokada Cloud, за да го поставите в Настройки.";
 "dnsprofile notification subtitle" = "В Настройки на приложението, отидете до:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Общи → VPN, DNS и Управление на устройства → DNS и изберете Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Почти сме готови!";
@@ -479,6 +479,6 @@
 "advanced section header packs" = "Блокиращи списъци";
 "app settings section header" = "Това устройство";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada е заключена. Въведете Пин код, за да я отключите";
+"lock status unlocked has pin" = "Въведете Пин код, за да го промените";
+"lock status unlocked" = "Задайте Пин кода си, за да заключите Blokada";
