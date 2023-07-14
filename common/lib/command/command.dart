@@ -135,12 +135,12 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
       case CommandName.sortCount:
         return await _journal.updateFilter(trace, sortNewestFirst: false);
       case CommandName.search:
-        return await _journal.updateFilter(trace, searchQuery: p1!);
+        return await _journal.updateFilter(trace, searchQuery: p1);
       case CommandName.filter:
         return await _journal.updateFilter(trace,
             showOnly: JournalFilterType.values.byName(p1!));
       case CommandName.filterDevice:
-        return await _journal.updateFilter(trace, deviceName: p1!);
+        return await _journal.updateFilter(trace, deviceName: p1);
       case CommandName.newPlus:
         return await _plus.newPlus(trace, p1!);
       case CommandName.clearPlus:
