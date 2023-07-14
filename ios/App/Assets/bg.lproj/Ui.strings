@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Блокиране";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Отваряне на изключения";
 
 "account section header settings" = "Настройки";
 "account status text" = "Вашият BLOKADA %@ профил е активен до %@.";
@@ -448,7 +448,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Общо";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Последните 24 ч";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "През цялото време";
 
@@ -457,7 +457,7 @@
 "dnsprofile action open settings" = "Отваряне на настройките";
 "dnsprofile desc android" = "В Настройки на приложението, намерете секцията Частен DNS и след това поставете името на хоста си (с дълго докосване).";
 "dnsprofile desc android copy" = "Копирайте името на хоста на Blokada Cloud, за да го поставите в Настройки.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "В Настройки на приложението, отидете до:";
 // A helpful message during onboarding to help user find the right settings to change
 "dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
 
