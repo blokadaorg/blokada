@@ -74,6 +74,7 @@ class PermBinding: PermOps {
 
     
     func doNotificationEnabled(completion: @escaping (Result<Bool, Error>) -> Void) {
+        // TODO: actual perms?
         completion(.success(false))
     }
     

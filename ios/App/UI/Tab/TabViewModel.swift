@@ -36,14 +36,16 @@ class TabViewModel : ObservableObject {
 
     private func onTabChanged() {
         stage.activeTab
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in self.activeTab = it })
+        //.receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.activeTab = it
+        })
         .store(in: &cancellables)
     }
 
     private func onTabPayloadChanged() {
         stage.tabPayload
-        .receive(on: RunLoop.main)
+        //.receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.setEmptySections()
             if let it = it {
@@ -71,7 +73,7 @@ class TabViewModel : ObservableObject {
 
     private func onShowNavbar() {
         stage.showNavbar
-        .receive(on: RunLoop.main)
+        //.receive(on: RunLoop.main)
         .sink(onValue: { it in self.showNavBar = it })
         .store(in: &cancellables)
     }
