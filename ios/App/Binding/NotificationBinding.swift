@@ -87,9 +87,9 @@ class NotificationBinding: NotificationOps {
         commands.execute(.warning, "Failed registering for remote notifications: \(err)")
     }
 
-    func doShow(notificationId: String, when: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func doShow(notificationId: String, atWhen: String, completion: @escaping (Result<Void, Error>) -> Void) {
         //let whenDate = Date().addingTimeInterval(40)
-        let whenDate = when.toDate
+        let whenDate = atWhen.toDate
         scheduleNotification(id: notificationId, when: whenDate)
         .sink(onFailure: { err in
             completion(.failure(err))

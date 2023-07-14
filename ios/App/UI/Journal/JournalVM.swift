@@ -52,11 +52,11 @@ class JournalViewModel: ObservableObject {
             }
 
             if filtering == 1 {
-                self.commands.execute(.filter, "showBlocked")
+                self.commands.execute(.filter, "blocked")
             } else if filtering == 2 {
-                self.commands.execute(.filter, "showPassed")
+                self.commands.execute(.filter, "passed")
             } else {
-                self.commands.execute(.filter, "showAll")
+                self.commands.execute(.filter, "all")
             }
         }
     }
@@ -106,9 +106,9 @@ class JournalViewModel: ObservableObject {
                 self.search = it.searchQuery
             }
             
-            if it.showOnly == .showBlocked {
+            if it.showOnly == .blocked {
                 self.filtering = 1
-            } else if it.showOnly == .showPassed {
+            } else if it.showOnly == .passed {
                 self.filtering = 2
             } else {
                 self.filtering = 0

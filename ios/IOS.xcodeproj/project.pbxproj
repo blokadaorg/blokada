@@ -1167,6 +1167,7 @@
 			children = (
 				4EBDD3552A0CCC760039C101 /* DeckBinding.swift */,
 				4E2ECCF2245AEFA1009040F1 /* PackModel.swift */,
+				4E0FB70D277095D100735E0D /* PackDataSource.swift */,
 			);
 			path = Deck;
 			sourceTree = "<group>";
@@ -1496,7 +1497,6 @@
 				4ED3445523E1B0D90075B796 /* IOS.entitlements */,
 				47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */,
 				4E356A892437711A0094EE27 /* LinkDataSource.swift */,
-				4E0FB70D277095D100735E0D /* PackDataSource.swift */,
 				4E290FBE2498A3E200FC4C61 /* Packs.strings */,
 				4E290FCB2498AA5900FC4C61 /* PackTags.strings */,
 				4E65293C248F760700EB871A /* Ui.strings */,
