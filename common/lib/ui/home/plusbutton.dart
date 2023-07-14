@@ -130,7 +130,7 @@ class _PlusButtonState extends State<PlusButton>
                     _displayLocations();
                   } else {
                     activated = value;
-                    traceAs("fromWidget", (trace) async {
+                    traceAs("tappedSwitchPlus", (trace) async {
                       await _plus.switchPlus(trace, value);
                     });
                   }
@@ -144,7 +144,7 @@ class _PlusButtonState extends State<PlusButton>
   }
 
   _displayLocations() {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedDisplayLocations", (trace) async {
       if (_perm.vpnEnabled) {
         await _stage.showModal(trace, StageModal.plusLocationSelect);
       } else {
@@ -154,7 +154,7 @@ class _PlusButtonState extends State<PlusButton>
   }
 
   _displayPayments() {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedDisplayPayments", (trace) async {
       await _stage.showModal(trace, StageModal.payment);
     });
   }

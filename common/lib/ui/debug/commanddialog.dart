@@ -115,7 +115,7 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
 
   _executeCommand(String command) async {
     if (command.isNotEmpty) {
-      await traceAs("commandDialog", (trace) async {
+      await traceAs("tappedRunCommand", (trace) async {
         try {
           if (mounted) _controllerOutput.text = "...";
           if (command.contains("&&")) {

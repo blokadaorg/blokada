@@ -116,6 +116,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   Future<void> setUserLists(
       Trace parentTrace, List<ListId> enabledByUser) async {
     return await traceWith(parentTrace, "setUserLists", (trace) async {
+      trace.addAttribute("enabledByUser", enabledByUser);
       this.enabledByUser = enabledByUser;
       for (var deck in decks.values) {
         for (var item in deck.items.values) {

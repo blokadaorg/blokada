@@ -49,13 +49,13 @@ class _CrashScreenState extends State<CrashScreen>
   }
 
   _close() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedCloseCrashScreen", (trace) async {
       await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
     });
   }
 
   _shareLog() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedShareCrashLog", (trace) async {
       await _tracer.shareLog(trace, forCrash: true);
     });
   }

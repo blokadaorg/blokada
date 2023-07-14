@@ -95,7 +95,7 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _checkPin(String pin) async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedCheckPin", (trace) async {
       try {
         if (_lock.isLocked) {
           await _lock.unlock(trace, pin);
@@ -144,14 +144,14 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _clear() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedClearLock", (trace) async {
       await _lock.removeLock(trace);
       bgStateKey.currentState?.animateToClose();
     });
   }
 
   _unlock() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedUnlock", (trace) async {
       await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
     });
   }

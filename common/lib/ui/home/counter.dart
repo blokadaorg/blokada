@@ -62,7 +62,7 @@ class _HomeCounterState extends State<HomeCounter2>
   }
 
   _onTap() {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedSlideToStats", (trace) async {
       await _stage.setRoute(trace, StageKnownRoute.homeStats.path);
     });
   }

@@ -39,13 +39,13 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       if (_pageCtrl.page == 1) {
         _path = StageKnownRoute.homeStats.path;
 
-        traceAs("fromWidget", (trace) async {
+        traceAs("scrolledToStats", (trace) async {
           await _stage.setRoute(trace, _path);
         });
       } else if (_pageCtrl.page == 0) {
         _path = "home";
 
-        traceAs("fromWidget", (trace) async {
+        traceAs("scrolledToHome", (trace) async {
           await _stage.setRoute(trace, _path);
         });
       }

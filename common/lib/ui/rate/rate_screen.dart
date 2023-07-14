@@ -92,7 +92,7 @@ class _RateScreenState extends State<RateScreen>
   }
 
   _close() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedCloseRateScreen", (trace) async {
       await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
       await _rate.rate(trace, _rating, _showPlatformDialog);
     });

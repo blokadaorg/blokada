@@ -319,7 +319,7 @@ class _PowerButtonState extends State<PowerButton>
               onTap: () {
                 if (!status.isWorking()) {
                   setState(() {
-                    traceAs("fromWidget", (trace) async {
+                    traceAs("tappedPowerButton", (trace) async {
                       await _appStart.toggleApp(trace);
                     });
                     _updateAnimations();

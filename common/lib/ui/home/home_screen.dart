@@ -133,7 +133,7 @@ class HomeScreenState extends State<HomeScreen>
                         //       ? Icons.lock_outline
                         //       : Icons.lock_open_outlined,
                         //   onTap: () {
-                        //     traceAs("fromWidget", (trace) async {
+                        //     traceAs("tappedShowLock", (trace) async {
                         //       await _stage.setRoute(
                         //           trace, StageKnownRoute.homeLock.path);
                         //     });
@@ -142,7 +142,7 @@ class HomeScreenState extends State<HomeScreen>
                         HomeIcon(
                           icon: Icons.help_outline,
                           onTap: () {
-                            traceAs("fromWidget", (trace) async {
+                            traceAs("tappedShowHelp", (trace) async {
                               await _stage.showModal(trace, StageModal.help);
                             });
                           },
@@ -154,7 +154,7 @@ class HomeScreenState extends State<HomeScreen>
                 Spacer(),
                 GestureDetector(
                   onLongPress: () {
-                    traceAs("fromWidget", (trace) async {
+                    traceAs("tappedShowDebug", (trace) async {
                       await _stage.showModal(trace, StageModal.debug);
                     });
                   },

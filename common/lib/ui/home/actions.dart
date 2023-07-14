@@ -73,7 +73,7 @@ class _HomeActionsState extends State<HomeActions>
               child: GestureDetector(
                 onTap: () {
                   if (status.isWorking()) return;
-                  traceAs("fromWidget", (trace) async {
+                  traceAs("tappedStatusText", (trace) async {
                     await _appStart.toggleApp(trace);
                   });
                 },

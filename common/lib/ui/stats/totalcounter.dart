@@ -56,7 +56,7 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
   }
 
   Future<void> _shareCounter() async {
-    traceAs("fromWidget", (trace) async {
+    traceAs("tappedShareAdsCounter", (trace) async {
       await _stage.showModal(trace, StageModal.adsCounterShare);
     });
   }
