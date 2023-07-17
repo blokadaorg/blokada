@@ -61,8 +61,14 @@ struct ButtonChoiceView: View {
 
 struct ButtonChoiceView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonChoiceView(product: Product(id: "id", title: "Product 1", description: "Description", price: "49.99", period: 9, type: "plus", trial: false)).previewLayout(.fixed(width: 200, height: 50))
+        ButtonChoiceView(product: Product(
+            id: "id", title: "Product 1", description: "Description",
+            price: "49.99", pricePerMonth: "", periodMonths: 9, type: "plus", trial: false, owned: false
+        )).previewLayout(.fixed(width: 200, height: 50))
 
-        ButtonChoiceView(product: Product(id: "id", title: "Product 1", description: "Description", price: "49.99", period: 9, type: "cloud", trial: false)).previewLayout(.fixed(width: 200, height: 50))
+        ButtonChoiceView(product: Product(
+            id: "id", title: "Product 1", description: "Description",
+            price: "49.99", pricePerMonth: "", periodMonths: 9, type: "cloud", trial: false, owned: false
+        )).previewLayout(.fixed(width: 200, height: 50))
     }
 }

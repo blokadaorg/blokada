@@ -18,8 +18,13 @@ struct PaymentViewModel {
     let product: Product
 
     init(_ name: String) {
-        self.product = Product(id: name, title: name,
-                               description: "Mocked product description", price: "9.99", period: 6, type: name.contains("Cloud") ? "cloud" : "plus", trial: false)
+        self.product = Product(
+            id: name, title: name,
+            description: "Mocked product description",
+            price: "9.99", pricePerMonth: "",
+            periodMonths: 6, type: name.contains("Cloud") ? "cloud" : "plus",
+            trial: false, owned: false
+        )
     }
 
     init( _ product: Product) {

@@ -30,7 +30,7 @@ struct PaymentView: View {
 
                         Text(L10n.paymentSubscriptionPerYearThen(self.vm.price))
                         .foregroundColor(Color.primary)
-                    } else if self.vm.product.period == 12 {
+                    } else if self.vm.product.periodMonths == 12 {
                         Text(L10n.paymentPlanCtaAnnual)
                         .foregroundColor(Color.primary)
                         .font(.headline)
@@ -50,7 +50,7 @@ struct PaymentView: View {
             }
             .frame(height: 64)
 
-            if self.vm.product.period > 1 {
+            if self.vm.product.periodMonths > 1 {
                 Text(self.vm.description)
                 .foregroundColor(Color.secondary)
                 .font(.caption)

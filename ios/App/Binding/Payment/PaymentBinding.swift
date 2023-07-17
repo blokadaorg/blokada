@@ -70,9 +70,11 @@ class AccountPaymentBinding: AccountPaymentOps {
                     title: it.localTitle,
                     description: it.localDescription,
                     price: it.localPrice,
-                    period: Int64(it.durationMonths),
+                    pricePerMonth: "", // TODO use this?
+                    periodMonths: Int64(it.durationMonths),
                     type: (it.productIdentifier.starts(with: "cloud") ? "cloud" : "plus"),
-                    trial: it.isTrial
+                    trial: it.isTrial,
+                    owned: false
                 ) }
                 completion(.success(products))
             },
