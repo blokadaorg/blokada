@@ -116,6 +116,42 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   @action
+  Future<void> changeProduct(Trace parentTrace, ProductId id) async {
+    return await traceWith(parentTrace, "changeProduct", (trace) async {
+      try {
+        await _ensureInit();
+        _ensureReady();
+
+        status = PaymentStatus.purchasing;
+
+        // if (await _processQueuedReceipts(trace)) {
+        //   // Restored from a queued receipt, no need to purchase
+        //   status = PaymentStatus.ready;
+        //   return;
+        // }
+
+        final receipt = await _ops.doChangeProductWithReceipt(id);
+        await _processReceipt(trace, receipt);
+        status = PaymentStatus.ready;
+      } on Exception catch (e) {
+        _ops.doFinishOngoingTransaction();
+        status = PaymentStatus.ready;
+        try {
+          _mapPaymentException(e);
+        } catch (_) {
+          await _stage.showModal(trace, StageModal.paymentFailed);
+          rethrow;
+        }
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.paymentFailed);
+        _ops.doFinishOngoingTransaction();
+        status = PaymentStatus.ready;
+        rethrow;
+      }
+    });
+  }
+
+  @action
   Future<void> restore(Trace parentTrace) async {
     return await traceWith(parentTrace, "restore", (trace) async {
       try {

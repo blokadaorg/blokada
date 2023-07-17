@@ -99,6 +99,9 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
       case CommandName.purchase:
         await _accountPayment.purchase(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
+      case CommandName.changeProduct:
+        await _accountPayment.changeProduct(trace, p1!);
+        return await _accountRefresh.syncAccount(trace, _account.account);
       case CommandName.restorePayment:
         // TODO:
         // Only restore implicitly if current account is not active

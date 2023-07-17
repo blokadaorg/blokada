@@ -8,6 +8,7 @@ enum CommandName {
   receipt,
   fetchProducts,
   purchase,
+  changeProduct,
   restorePayment,
 
   // AppStart
