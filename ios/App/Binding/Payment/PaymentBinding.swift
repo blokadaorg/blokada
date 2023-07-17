@@ -13,6 +13,7 @@
 import Foundation
 import Factory
 import Combine
+import StoreKit
 
 class AccountPaymentBinding: AccountPaymentOps {
     var products = CurrentValueSubject<[Product], Never>([])
@@ -58,7 +59,7 @@ class AccountPaymentBinding: AccountPaymentOps {
     }
 
     func doArePaymentsAvailable(completion: @escaping (Result<Bool, Error>) -> Void) {
-        completion(Result.success(true))
+        completion(Result.success(SKPaymentQueue.canMakePayments()))
     }
 
     func doFetchProducts(completion: @escaping (Result<[Product], Error>) -> Void) {
