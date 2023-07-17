@@ -24,21 +24,27 @@ import 'payment_test.mocks.dart';
 
 final _fixtureProducts = [
   Product(
-      id: "id1",
-      title: "title1",
-      description: "description1",
-      price: "9.99",
-      period: 1,
-      type: "plus",
-      trial: false),
+    id: "id1",
+    title: "title1",
+    description: "description1",
+    price: "9.99",
+    pricePerMonth: "9.99",
+    periodMonths: 1,
+    type: "plus",
+    trial: false,
+    owned: false,
+  ),
   Product(
-      id: "id2",
-      title: "title2",
-      description: "description2",
-      price: "29.99",
-      period: 12,
-      type: "cloud",
-      trial: false),
+    id: "id2",
+    title: "title2",
+    description: "description2",
+    price: "29.99",
+    pricePerMonth: "2.09",
+    periodMonths: 12,
+    type: "cloud",
+    trial: false,
+    owned: false,
+  ),
 ];
 
 void main() {

@@ -14,18 +14,22 @@ class Product {
   String title;
   String description;
   String price;
-  int period;
+  String pricePerMonth;
+  int periodMonths;
   String type;
   bool trial;
+  bool owned;
 
   Product(
     this.id,
     this.title,
     this.description,
     this.price,
-    this.period,
+    this.pricePerMonth,
+    this.periodMonths,
     this.type,
     this.trial,
+    this.owned,
   );
 }
 

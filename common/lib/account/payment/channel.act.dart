@@ -30,14 +30,15 @@ _actNormal(MockAccountPaymentOps ops) {
   when(() => ops.doFetchProducts()).thenAnswer((_) async {
     return [
       Product(
-        id: 'id1',
-        title: 'Product 1',
-        description: 'Desc 1',
-        price: '9.99',
-        period: 1,
-        type: 'cloud',
-        trial: true,
-      ),
+          id: 'id1',
+          title: 'Product 1',
+          description: 'Desc 1',
+          price: '9.99',
+          pricePerMonth: '9.99',
+          periodMonths: 1,
+          type: 'cloud',
+          trial: true,
+          owned: false),
     ];
   });
 
