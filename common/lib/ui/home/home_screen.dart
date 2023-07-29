@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mobx/mobx.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 import '../../app/app.dart';
 import '../../app/channel.pg.dart';
@@ -118,65 +120,68 @@ class HomeScreenState extends State<HomeScreen>
         absorbing: working,
         child: Stack(
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 60, right: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // HomeIcon(
-                        //   icon: hasPin
-                        //       ? Icons.lock_outline
-                        //       : Icons.lock_open_outlined,
-                        //   onTap: () {
-                        //     traceAs("tappedShowLock", (trace) async {
-                        //       await _stage.setRoute(
-                        //           trace, StageKnownRoute.homeLock.path);
-                        //     });
-                        //   },
-                        // ),
-                        HomeIcon(
-                          icon: Icons.help_outline,
-                          onTap: () {
-                            traceAs("tappedShowHelp", (trace) async {
-                              await _stage.showModal(trace, StageModal.help);
-                            });
-                          },
-                        ),
-                      ],
+            RelativeBuilder(builder: (context, height, width, sy, sx) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 60, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // HomeIcon(
+                          //   icon: hasPin
+                          //       ? Icons.lock_outline
+                          //       : Icons.lock_open_outlined,
+                          //   onTap: () {
+                          //     traceAs("tappedShowLock", (trace) async {
+                          //       await _stage.setRoute(
+                          //           trace, StageKnownRoute.homeLock.path);
+                          //     });
+                          //   },
+                          // ),
+                          HomeIcon(
+                            icon: Icons.help_outline,
+                            onTap: () {
+                              traceAs("tappedShowHelp", (trace) async {
+                                await _stage.showModal(trace, StageModal.help);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onLongPress: () {
-                    traceAs("tappedShowDebug", (trace) async {
-                      await _stage.showModal(trace, StageModal.debug);
-                    });
-                  },
-                  onHorizontalDragEnd: (_) {
-                    _showCommandDialog(context);
-                  },
-                  child: Image.asset(
-                    "assets/images/header.png",
-                    width: 220,
-                    height: 60,
-                    fit: BoxFit.scaleDown,
-                    color: Theme.of(context).textTheme.bodyText1!.color,
+                  GestureDetector(
+                    onLongPress: () {
+                      traceAs("tappedShowDebug", (trace) async {
+                        await _stage.showModal(trace, StageModal.debug);
+                      });
+                    },
+                    onHorizontalDragEnd: (_) {
+                      _showCommandDialog(context);
+                    },
+                    child: Image.asset(
+                      "assets/images/header.png",
+                      width: 200,
+                      height: 28,
+                      fit: BoxFit.scaleDown,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                PowerButton(),
-                const SizedBox(height: 50),
-                const Spacer(),
-                const HomeActions(),
-                const SizedBox(height: 110),
-              ],
-            ),
+                  const Spacer(),
+                  const Spacer(),
+                  PowerButton(),
+                  const Spacer(),
+                  const Spacer(),
+                  const HomeActions(),
+                  const Spacer(),
+                  SizedBox(height: sy(60)),
+                ],
+              );
+            }),
           ],
         ),
       ),

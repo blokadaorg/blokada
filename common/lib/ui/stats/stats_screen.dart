@@ -2,6 +2,8 @@ import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
+import 'package:relative_scale/relative_scale.dart';
+import 'dart:math' as math;
 
 import '../../stats/stats.dart';
 import '../../util/di.dart';
@@ -54,34 +56,39 @@ class StatsScreenState extends State<StatsScreen> {
       decoration: BoxDecoration(
         color: theme.bgColor,
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 80),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MiniCard(
-              child: Column(
-                children: [
-                  MiniCardHeader(
-                    text: "stats header day".i18n,
-                    icon: Icons.timelapse,
-                    color: theme.textSecondary,
-                  ),
-                  const SizedBox(height: 4),
-                  RadialSegment(autoRefresh: widget.autoRefresh),
-                  const SizedBox(height: 16),
-                  const Divider(),
-                  ColumnChart(stats: stats),
-                ],
+      child: RelativeBuilder(builder: (context, height, width, sy, sx) {
+        return Column(
+          children: [
+            const SizedBox(height: 42),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: MiniCard(
+                child: Column(
+                  children: [
+                    MiniCardHeader(
+                      text: "stats header day".i18n,
+                      icon: Icons.timelapse,
+                      color: theme.textSecondary,
+                    ),
+                    const SizedBox(height: 4),
+                    RadialSegment(autoRefresh: widget.autoRefresh),
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    ColumnChart(stats: stats),
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: TotalCounter(autoRefresh: widget.autoRefresh),
-          )
-        ],
-      ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: TotalCounter(autoRefresh: widget.autoRefresh),
+            ),
+            const Spacer(),
+            SizedBox(height: sy(60)),
+          ],
+        );
+      }),
     );
   }
 }
