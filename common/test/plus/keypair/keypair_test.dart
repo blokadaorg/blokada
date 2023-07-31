@@ -51,6 +51,9 @@ void main() {
 
     test("load", () async {
       await withTrace((trace) async {
+        final ops = MockPlusKeypairOps();
+        depend<PlusKeypairOps>(ops);
+
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any)).thenAnswer((_) => Future.value(
             {"publicKey": "publicKey", "privateKey": "privateKey"}));
