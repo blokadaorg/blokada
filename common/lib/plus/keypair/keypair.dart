@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import '../../account/account.dart';
 import '../../persistence/persistence.dart';
 import '../../util/di.dart';
+import '../../util/mobx.dart';
 import '../../util/trace.dart';
 import '../plus.dart';
 import 'channel.act.dart';
@@ -29,6 +30,11 @@ abstract class PlusKeypairStoreBase with Store, Traceable, Dependable {
 
   PlusKeypairStoreBase() {
     _account.addOn(accountIdChanged, generate);
+
+    reactionOnStore((_) => currentKeypair, (currentKeypair) async {
+      if (currentKeypair == null) return;
+      await _ops.doCurrentKeypair(currentKeypair);
+    });
   }
 
   @override

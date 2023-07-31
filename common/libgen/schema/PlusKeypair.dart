@@ -9,4 +9,7 @@ class PlusKeypair {
 abstract class PlusKeypairOps {
   @async
   PlusKeypair doGenerateKeypair();
+
+  @async
+  void doCurrentKeypair(PlusKeypair keypair);
 }
