@@ -47,8 +47,6 @@ class UserDeniedFragment : BottomSheetFragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
-
         val root = inflater.inflate(R.layout.fragment_userdenied, container, false)
 
         val cancel: View = root.findViewById(R.id.back)
