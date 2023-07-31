@@ -155,6 +155,15 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    // Case one: refresh when entering the Settings tab (to see devices)
+    if (route.isBecameTab(StageTab.settings) &&
+        isCooledDown(cfg.plusLeaseRefreshCooldown)) {
+      return await traceWith(parentTrace, "fetchLeasesSettings", (trace) async {
+        await fetch(trace);
+      });
+    }
+
+    // Case two: refresh when entering foreground but not too often
     if (!route.isBecameForeground()) return;
     if (!isCooledDown(cfg.plusLeaseRefreshCooldown)) return;
 
