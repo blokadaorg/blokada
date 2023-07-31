@@ -49,24 +49,22 @@ struct LeaseListView: View {
                     }
                 } else {
                     ForEach(self.vm.leases, id: \.self) { lease in
-                        if lease != self.vm.leases.first {
-                            Divider().padding([.top, .bottom], 8)
-                        }
-
-                        OptionView(
-                            text: getLeaseName(lease),
-                            image: Image.fDevices,
-                            active: false,
-                            action: {
-                                
-                            }
-                        )
-                        .contextMenu {
-                            Button(action: {
-                                //self.vm.deleteLease(entry)
-                            }) {
-                                Text(L10n.universalActionDelete)
-                                Image(systemName: Image.fDelete)
+                        VStack {
+                            OptionView(
+                                text: getLeaseName(lease),
+                                image: Image.fDevices,
+                                active: false,
+                                action: {
+                                    
+                                }
+                            )
+                            .contextMenu {
+                                Button(action: {
+                                    //self.vm.deleteLease(entry)
+                                }) {
+                                    Text(L10n.universalActionDelete)
+                                    Image(systemName: Image.fDelete)
+                                }
                             }
                         }
                     }
@@ -86,9 +84,9 @@ struct LeaseListView: View {
     
     func getLeaseName(_ lease: LeaseViewModel) -> String {
         if lease.isMe {
-            return lease.name
-        } else {
             return lease.name + L10n.accountLeaseLabelThisDevice
+        } else {
+            return lease.name
         }
     }
 }
