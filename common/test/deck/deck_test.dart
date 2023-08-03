@@ -1,6 +1,7 @@
 import 'package:common/deck/deck.dart';
 import 'package:common/deck/channel.pg.dart';
 import 'package:common/deck/json.dart';
+import 'package:common/deck/mapper.dart';
 import 'package:common/device/device.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
@@ -23,6 +24,7 @@ void main() {
   group("store", () {
     test("willFetchDecks", () async {
       await withTrace((trace) async {
+        depend<DeckMapper>(CloudDeckMapper());
         depend<StageStore>(MockStageStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -44,18 +46,19 @@ void main() {
         expect(f.deckId, "1hosts");
         expect(f.enabled, false);
         expect(f.items["1"]?.id, "1");
-        expect(f.items["1"]?.tag, "litea");
+        expect(f.items["1"]?.tag, "1hosts/litea");
         expect(f.items["2"]?.id, "2");
-        expect(f.items["2"]?.tag, "lite (wildcards)");
+        expect(f.items["2"]?.tag, "1hosts/lite (wildcards)");
         expect(f.items["5"]?.id, "5");
-        expect(f.items["5"]?.tag, "lite");
+        expect(f.items["5"]?.tag, "1hosts/lite");
         expect(decks.elementAt(1).items["3"]?.id, "3");
-        expect(decks.elementAt(1).items["3"]?.tag, "spotify");
+        expect(decks.elementAt(1).items["3"]?.tag, "goodbyeads/spotify");
       });
     });
 
     test("setUserLists", () async {
       await withTrace((trace) async {
+        depend<DeckMapper>(CloudDeckMapper());
         depend<StageStore>(MockStageStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -82,6 +85,7 @@ void main() {
 
     test("setEnableList", () async {
       await withTrace((trace) async {
+        depend<DeckMapper>(CloudDeckMapper());
         depend<StageStore>(MockStageStore());
 
         final ops = MockDeckOps();
@@ -109,6 +113,7 @@ void main() {
 
     test("willRefreshWhenNeeded", () async {
       await withTrace((trace) async {
+        depend<DeckMapper>(CloudDeckMapper());
         depend<DeviceStore>(MockDeviceStore());
 
         final ops = MockDeckOps();

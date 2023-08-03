@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
@@ -132,76 +133,88 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> setEnableList(Trace parentTrace, ListId id, bool enabled) async {
     return await traceWith(parentTrace, "setEnableList", (trace) async {
-      for (var deck in decks.values) {
-        if (deck.items.containsKey(id)) {
-          decks[deck.deckId] = deck.changeEnabled(id, enabled);
-          decksChanges++;
-          break;
+      try {
+        for (var deck in decks.values) {
+          if (deck.items.containsKey(id)) {
+            decks[deck.deckId] = deck.changeEnabled(id, enabled);
+            decksChanges++;
+            break;
+          }
         }
-      }
 
-      var mapped = _mapper.expandListBundle(trace, id);
-      var ids = [id];
-      if (mapped != null) {
-        ids = mapped.map((e) => _listTagToId[e]!).toList();
-      }
+        var mapped = _mapper.expandListBundle(trace, id);
+        var ids = [id];
+        if (mapped != null) {
+          ids = mapped.map((e) => _listTagToId[e]!).toList();
+        }
 
-      // Copy to perform this atomically
-      final list = List<String>.from(enabledByUser);
-      if (enabled) {
-        list.addAll(ids);
-      } else {
-        list.removeWhere((e) => ids.contains(e));
-      }
-      await _device.setLists(trace, list);
-      enabledByUser = list;
+        // Copy to perform this atomically
+        final list = List<String>.from(enabledByUser);
+        if (enabled) {
+          list.addAll(ids);
+        } else {
+          list.removeWhere((e) => ids.contains(e));
+        }
+        await _device.setLists(trace, list);
+        enabledByUser = list;
 
-      trace.addAttribute("listId", id);
-      trace.addAttribute("enabled", enabled);
-    }, fallback: (trace) async {
-      await _stage.showModal(trace, StageModal.fault);
+        trace.addAttribute("listId", id);
+        trace.addAttribute("enabled", enabled);
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.fault);
+        rethrow;
+      }
     }, important: true);
   }
 
   @action
   Future<void> toggleListByTag(Trace parentTrace, DeckId id, String tag) async {
     return await traceWith(parentTrace, "setToggleListByTag", (trace) async {
-      final deck = decks[id];
-      final list = deck?.items.values.firstWhere((it) => it?.tag == tag);
-      if (list != null) {
-        await setEnableList(parentTrace, list.id, !list.enabled);
-      } else {
-        throw Exception("List not found: ($id, $tag)");
+      try {
+        final deck = decks[id];
+        tag = "$id/$tag";
+        final list =
+            deck?.items.values.firstWhereOrNull((it) => it?.tag == tag);
+        if (list != null) {
+          await setEnableList(parentTrace, list.id, !list.enabled);
+        } else {
+          throw Exception("List not found: ($id, $tag)");
+        }
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.fault);
+        rethrow;
       }
-    }, fallback: (trace) async {
-      await _stage.showModal(trace, StageModal.fault);
     });
   }
 
   @action
   Future<void> setEnableDeck(Trace parentTrace, DeckId id, bool enabled) async {
     return await traceWith(parentTrace, "setEnableDeck", (trace) async {
-      final deck = decks[id];
-      if (deck != null) {
-        if (enabled) {
-          // If no list in active in this deck, activate first
-          if (!deck.items.values.any((it) => it?.enabled ?? false)) {
-            final first = deck.items.values.first!;
-            await setEnableList(trace, first.id, true);
+      try {
+        final deck = decks[id];
+        if (deck != null) {
+          if (enabled) {
+            // If no list in active in this deck, activate first
+            if (!deck.items.values.any((it) => it?.enabled ?? false)) {
+              final first = deck.items.values.first!;
+              await setEnableList(trace, first.id, true);
+            }
+          } else {
+            // Deactivate any active lists for this deck
+            final active =
+                deck.items.values.where((it) => it?.enabled ?? false);
+            for (var item in active) {
+              if (item == null) continue;
+              await setEnableList(trace, item.id, false);
+            }
           }
         } else {
-          // Deactivate any active lists for this deck
-          final active = deck.items.values.where((it) => it?.enabled ?? false);
-          for (var item in active) {
-            if (item == null) continue;
-            await setEnableList(trace, item.id, false);
-          }
+          throw Exception("Deck not found: $id");
         }
-      } else {
-        throw Exception("Deck not found: $id");
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.fault);
+        rethrow;
       }
-    }, fallback: (trace) async {
-      await _stage.showModal(trace, StageModal.fault);
     });
   }
 

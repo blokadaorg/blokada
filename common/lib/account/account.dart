@@ -174,15 +174,17 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   @action
   Future<void> restore(Trace parentTrace, AccountId id) async {
     return await traceWith(parentTrace, "restore", (trace) async {
-      final sanitizedId = _sanitizeAccountId(id);
-      _ensureValidAccountId(sanitizedId);
-      final jsonAccount = await _api.getAccount(trace, sanitizedId);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
-          isBackup: true);
-      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
-      await _stage.showModal(trace, StageModal.onboarding);
-    }, fallback: (trace) async {
-      await _stage.showModal(trace, StageModal.accountInvalid);
+      try {
+        final sanitizedId = _sanitizeAccountId(id);
+        _ensureValidAccountId(sanitizedId);
+        final jsonAccount = await _api.getAccount(trace, sanitizedId);
+        await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+        await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+        await _stage.showModal(trace, StageModal.onboarding);
+      } catch (_) {
+        await _stage.showModal(trace, StageModal.accountInvalid);
+        rethrow;
+      }
     });
   }
 
