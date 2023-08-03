@@ -4,8 +4,9 @@ import 'di.dart';
 
 class ActScreenplay with Act {
   final ActScenario scenario;
+  final String flavor;
 
-  ActScreenplay(this.scenario);
+  ActScreenplay(this.scenario, this.flavor);
 
   @override
   bool isProd() =>
@@ -13,6 +14,9 @@ class ActScreenplay with Act {
 
   @override
   bool hasToys() => scenario == ActScenario.prodWithToys;
+
+  @override
+  bool isFamily() => flavor == 'family';
 }
 
 enum ActScenario {

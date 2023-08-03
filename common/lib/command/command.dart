@@ -123,10 +123,6 @@ class CommandStore
         return await _deck.setEnableDeck(trace, p1!, true);
       case CommandName.disableDeck:
         return await _deck.setEnableDeck(trace, p1!, false);
-      case CommandName.enableList:
-        return await _deck.setEnableList(trace, p1!, true);
-      case CommandName.disableList:
-        return await _deck.setEnableList(trace, p1!, false);
       case CommandName.toggleListByTag:
         return await _deck.toggleListByTag(trace, p1!, p2!);
       case CommandName.enableCloud:

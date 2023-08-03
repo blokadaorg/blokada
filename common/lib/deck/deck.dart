@@ -11,6 +11,7 @@ import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
+import 'mapper.dart';
 
 part 'deck.g.dart';
 
@@ -40,6 +41,7 @@ extension DeckExt on Deck {
 
 extension DeckItemExt on DeckItem {
   isEnabled() => enabled;
+  getDeckId() => tag.split("/")[0];
 }
 
 const _defaultListSelection = "05ea377c9a64cba97bf8a6f38cb3a7fa"; // OISD small
@@ -51,6 +53,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   late final _api = dep<DeckJson>();
   late final _device = dep<DeviceStore>();
   late final _stage = dep<StageStore>();
+  late final _mapper = dep<DeckMapper>();
 
   DeckStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -65,6 +68,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   attach(Act act) {
     depend<DeckOps>(getOps(act));
     depend<DeckJson>(DeckJson());
+    depend<DeckMapper>(act.isFamily() ? FamilyDeckMapper() : CloudDeckMapper());
     depend<DeckStore>(this as DeckStore);
   }
 
@@ -78,34 +82,16 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   @observable
   List<ListId> enabledByUser = [];
 
+  final Map<String, ListId> _listTagToId = {};
+
   @action
   Future<void> fetch(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
       final lists = await _api.getLists(trace);
-      final Map<DeckId, Deck> decks = {};
-      for (var list in lists) {
-        final pathParts = list.path.split("/");
-        if (pathParts.length < 4) {
-          trace.addEvent("skipping list path: ${list.path}");
-          continue;
-        }
-
-        final deckId = pathParts[2];
-        final listTag = pathParts[3];
-
-        final deck = decks[deckId];
-        final enabled = enabledByUser.contains(list.id);
-        if (deck != null) {
-          decks[deckId] = deck.add(list.id, listTag, enabled);
-        } else {
-          decks[deckId] = Deck(
-              deckId: deckId,
-              items: {
-                list.id: DeckItem(id: list.id, tag: listTag, enabled: enabled)
-              },
-              enabled: enabled);
-        }
-      }
+      final deckItems = _convertToDeckItems(trace, lists);
+      var decks = _mapper.bundleDeckItems(trace, deckItems);
+      decks =
+          _mapper.syncEnabledStates(trace, decks, enabledByUser, _listTagToId);
       trace.addAttribute("decksLength", decks.length);
       trace.addAttribute(
           "decks", decks.values.map((it) => it.string()).toList());
@@ -114,39 +100,38 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
     });
   }
 
+  List<DeckItem> _convertToDeckItems(Trace trace, List<JsonListItem> lists) {
+    final List<DeckItem> items = [];
+    for (var list in lists) {
+      final pathParts = list.path.split("/");
+      if (pathParts.length < 4) {
+        trace.addEvent("skipping list path: ${list.path}");
+        continue;
+      }
+
+      final listTag = "${pathParts[2]}/${pathParts[3]}";
+
+      items.add(DeckItem(id: list.id, tag: listTag, enabled: false));
+      _listTagToId[listTag] = list.id;
+    }
+    return items;
+  }
+
   @action
   Future<void> setUserLists(
       Trace parentTrace, List<ListId> enabledByUser) async {
     return await traceWith(parentTrace, "setUserLists", (trace) async {
       trace.addAttribute("enabledByUser", enabledByUser);
       this.enabledByUser = enabledByUser;
-      for (var deck in decks.values) {
-        for (var item in deck.items.values) {
-          if (item == null) continue;
-          if (enabledByUser.contains(item.id) && !item.enabled) {
-            decks[deck.deckId] = deck.changeEnabled(item.id, true);
-            decksChanges++;
-          } else if (!enabledByUser.contains(item.id) && item.enabled) {
-            decks[deck.deckId] = deck.changeEnabled(item.id, false);
-            decksChanges++;
-          }
-        }
-      }
+      decks = ObservableMap.of(
+          _mapper.syncEnabledStates(trace, decks, enabledByUser, _listTagToId));
+      decksChanges++;
     });
   }
 
   @action
   Future<void> setEnableList(Trace parentTrace, ListId id, bool enabled) async {
     return await traceWith(parentTrace, "setEnableList", (trace) async {
-      final list =
-          List<String>.from(enabledByUser); // Copy to perform this atomically
-      if (enabled) {
-        list.add(id);
-      } else {
-        list.remove(id);
-      }
-      await _device.setLists(trace, list);
-      enabledByUser = list;
       for (var deck in decks.values) {
         if (deck.items.containsKey(id)) {
           decks[deck.deckId] = deck.changeEnabled(id, enabled);
@@ -154,6 +139,23 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
           break;
         }
       }
+
+      var mapped = _mapper.expandListBundle(trace, id);
+      var ids = [id];
+      if (mapped != null) {
+        ids = mapped.map((e) => _listTagToId[e]!).toList();
+      }
+
+      // Copy to perform this atomically
+      final list = List<String>.from(enabledByUser);
+      if (enabled) {
+        list.addAll(ids);
+      } else {
+        list.removeWhere((e) => ids.contains(e));
+      }
+      await _device.setLists(trace, list);
+      enabledByUser = list;
+
       trace.addAttribute("listId", id);
       trace.addAttribute("enabled", enabled);
     }, fallback: (trace) async {

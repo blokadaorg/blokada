@@ -1,6 +1,9 @@
 import 'package:pigeon/pigeon.dart';
 
 enum CommandName {
+  // Config
+  setFlavor,
+
   // Account
   restore,
 
@@ -23,8 +26,6 @@ enum CommandName {
   // Deck
   enableDeck,
   disableDeck,
-  enableList,
-  disableList,
   toggleListByTag,
 
   // Device

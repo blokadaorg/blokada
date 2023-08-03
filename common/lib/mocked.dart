@@ -15,7 +15,7 @@ void main() async {
   await I18nService.loadTranslations();
 
   final entrypoint = Entrypoint();
-  entrypoint.attach(ActScreenplay(ActScenario.platformIsMocked));
+  entrypoint.attach(ActScreenplay(ActScenario.platformIsMocked, "mocked"));
   entrypoint.onStartApp();
 
   final CommandStore command = dep<CommandStore>();

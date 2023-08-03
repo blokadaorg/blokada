@@ -14,4 +14,5 @@ mixin Dependable {
 mixin Act {
   bool isProd();
   bool hasToys();
+  bool isFamily();
 }
