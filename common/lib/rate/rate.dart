@@ -41,10 +41,14 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
   @action
   onAppStatusChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onAppStatusChanged", (trace) async {
+      // Let the things settle a bit
+      await sleepAsync(const Duration(seconds: 3));
+
       if (!_app.status.isActive()) return; // When app got active ...
       final meta = rateMetadata;
       if (meta == null) return; // .. but not on first ever app start
       if (meta.lastSeen != null) return; // ... and not if shown previously
+      if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
 
       await show(trace);
     });
@@ -74,7 +78,6 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
         meta = JsonRate(lastSeen: lastSeen, lastRate: meta.lastRate);
       }
       await _persistence.save(trace, _key, meta.toJson());
-      await sleepAsync(const Duration(seconds: 3));
       await _stage.setRoute(trace, StageKnownRoute.homeOverlayRate.path);
     });
   }
