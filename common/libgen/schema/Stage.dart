@@ -31,6 +31,7 @@ enum StageKnownRoute {
   homeOverlayLock,
   homeOverlayRate,
   homeOverlayCrash,
+  homeOverlayFamilyOnboard,
   homeCloseOverlay,
 }
 

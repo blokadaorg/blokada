@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../util/trace.dart';
+import '../../util/trace.dart';
 
 class BlurBackground extends StatefulWidget {
   final bool Function()? canClose;

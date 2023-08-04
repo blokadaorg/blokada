@@ -30,6 +30,8 @@ extension StageKnownRouteExt on StageKnownRoute {
         return "home/rate";
       case StageKnownRoute.homeOverlayCrash:
         return "home/crash";
+      case StageKnownRoute.homeOverlayFamilyOnboard:
+        return "home/familyonboard";
     }
   }
 }
@@ -367,6 +369,8 @@ abstract class StageStoreBase
     } else if (route.path == StageKnownRoute.homeOverlayRate.path) {
       await _ops.doShowNavbar(false);
     } else if (route.path == StageKnownRoute.homeOverlayCrash.path) {
+      await _ops.doShowNavbar(false);
+    } else if (route.path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
       await _ops.doShowNavbar(false);
     } else if (route.path == StageKnownRoute.homeCloseOverlay.path) {
       await _ops.doShowNavbar(true);

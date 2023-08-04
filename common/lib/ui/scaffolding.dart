@@ -1,3 +1,4 @@
+import 'package:common/ui/onboard/family_onboard.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -71,6 +72,9 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
         } else if (path == StageKnownRoute.homeOverlayCrash.path) {
           _knownRoute = StageKnownRoute.homeOverlayCrash;
           _animateToPage(0);
+        } else if (path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
+          _knownRoute = StageKnownRoute.homeOverlayFamilyOnboard;
+          _animateToPage(0);
         } else if (path == StageKnownRoute.homeCloseOverlay.path) {
           _knownRoute = null;
           _animateToPage(0);
@@ -109,6 +113,8 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
             const RateScreen()
           else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
             const CrashScreen()
+          else if (_knownRoute == StageKnownRoute.homeOverlayFamilyOnboard)
+            const FamilyOnboard()
         ],
       ),
     );
