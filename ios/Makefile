@@ -1,4 +1,5 @@
 all: sixcommon build
+.PHONY: family
 
 sixcommon:
 	@echo "Building six-common..."; \
@@ -20,9 +21,14 @@ clean:
 	@fastlane run clean_build_artifacts; \
 	cd six-common && flutter clean; \
 
+clean-sixcommon:
+	@cd six-common && flutter clean && cd ../ ; \
+
 devsc:
 	@echo "Fetch latest six-common"; \
 	cd six-common && git pull --rebase && cd ../ ; \
 	cd six-common && flutter clean && cd ../ ; \
 	cd six-common && ./build.for.ios.sh --onlydebug && cd ../ ; \
 
+family:
+	@xcodebuild build -project IOS.xcodeproj -scheme "Family Prod" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \

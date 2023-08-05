@@ -20,7 +20,7 @@
 "A special blocklist containing mobile ad providers." = "Une liste noire spéciale contenant les fournisseurs de publicités mobiles.";
 "Protects against cyber attacks" = "Protection contre les cyber-attaques";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Une blocklist pour filtrer les sites de phishing. Le phishing est une arnaque visant à vous rediriger vers de faux sites web, qui ont l'air identiques aux vrais, pour piéger leurs visiteurs et dérober des informations privées. Installer cette blocklist vous permettra d'esquiver ce genre de situations.";
-"A new and expanding tracker database" = "A new and expanding tracker database";
+"A new and expanding tracker database" = "Une nouvelle base de données de tracker en expansion";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar est un ensemble de données de première classe généré automatiquement et mis à jour par le biais d'un crawling et d'analyses continus. Consultez les informations de l'auteur pour plus de détails.";
 "Curated blocklist to block trackers and advertisements" = "Liste noire conçue spécifiquement pour bloquer les trackers et publicités";
 "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Ceci est une liste noire mise à jour régulièrement pour le bloquer les publicités, les trackers, et bien plus.";
@@ -32,17 +32,74 @@
 "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "C'est une bonne liste noire principale. Elle est équilibrée, de taille moyenne et fréquemment mise à jour.";
 "A collection of blocklists for various use cases." = "Une collection de listes noires versatiles.";
 "These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Ces listes ont été créées parce que le fondateur du projet voulait plus de granularité sur le blocage des éléments.";
-"A blocklist based on spam reports" = "A blocklist based on spam reports";
+"A blocklist based on spam reports" = "Une liste noire basée sur des rapports de spam";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 est un service qui aide les entreprises en ligne à surveiller les contenus consultés, tester leur pénétration du marché et protéger leur marque. Cette liste se fonde sur des rapports établis et transmis par des entreprises.";
 "A comprehensive lists to block ads and tracking" = "Une liste complète pour bloquer les publicités et le suivi";
 "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock liste les domaines distribuant des publicités, scripts de tracking et malwares. Cette liste empêche votre appareil de s'y connecter.";
-"A general purpose, medium weight list" = "A general purpose, medium weight list";
-"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.";
+"A general purpose, medium weight list" = "Une liste d'usages généraux, de poids moyen";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Cette liste bloque le contenu malveillant et trompeur de manière inoffensive, comme la publicité, le suivi, la télémétrie, la fraude et les serveurs de logiciels malveillants. Cette liste ne bloque pas le porn, les médias sociaux ou les domaines dits de fausses nouvelles. L'ACPL vise à fournir des listes de blocage offrant une protection complète, tout en restant raisonnable dans la taille et la portée.";
 "A reasonably balanced ad blocking hosts file" = "Un fichier de blocage raisonnablement équilibré";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";
-"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.";
-"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.";
-"A blocklist based on malware database" = "A blocklist based on a malware database";
-"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
-"A blocklist from the maker of the adblocker test" = "A blocklist from the maker of the adblocker test";
-"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Il s'agit d'une liste noire d'usage général de petite taille, mise à jour régulièrement.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protégez vos données et boules oculaires des enchères au plus offrant. Veuillez d'abord choisir la configuration Light. Si elle n'est pas assez bonne pour vous, essayez plutôt Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Cette liste universelle bloque principalement les publicités et les publicités des applications mobiles. Ne devrait pas interférer avec les applications et les services normaux.";
+"A blocklist based on malware database" = "Une liste noire basée sur une base de données malveillante";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Une liste noire de sites Web malveillants qui sont utilisés pour la distribution de logiciels malveillants, basée sur urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Une liste noire du fabricant du test de bloqueur de publicités";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Il s'agit de la liste noire officielle de d3ward, le fabricant du site populaire de test de bloqueur de publicité. Elle est destinée à atteindre un score de 100% dans le test. Gardez à l'esprit qu'il s'agit d'une liste minimale. Vous pouvez l'utiliser avec une autre liste noire activée. Si vous souhaitez effectuer le test, rendez-vous sur go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Annonces";
+"Blocks advertisements and tracking" = "Bloque les publicités et le suivi";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Élimine les publicités intrusives et le suivi web. Augmente la vitesse de navigation et protège la confidentialité des utilisateurs.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Protège contre les logiciels malveillants";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Protège contre les logiciels malveillants et les sites Web dangereux. Fournit un bouclier sécurisé contre toute une gamme de menaces informatiques.";
+// Name of the Porn shield
+"Adult Content" = "Contenu pour adultes";
+"Blocks adult and pornographic content" = "Bloque le contenu adulte et pornographique";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Ce filtre cible le contenu adulte pour une expérience en ligne plus sûre. Il protège les utilisateurs des contenus explicites et des risques potentiels.";
+// Name of the Dating shield
+"Dating" = "Rencontres";
+"Blocks dating and relationship-seeking websites" = "Bloque les sites de rencontres et de recherche de relations";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Conçu pour restreindre les plateformes de rencontre en ligne. Il offre une protection contre les distractions potentielles et les interactions indésirables.";
+// Name of the Gambling shield
+"Gambling" = "Jeu";
+"Blocks gambling-related content and websites" = "Bloque le contenu et les sites Web liés au jeu";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Empêche l’accès aux plates-formes et au contenu des jeux de hasard. Aide à prévenir la dépendance et à assurer la sécurité financière.";
+// Name of the Piracy shield
+"Piracy" = "Piraterie";
+"Blocks piracy websites and related content" = "Bloque les sites Web de piratage et les contenus connexes";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Bloque les sites de piratage non autorisés et les plates-formes connexes. Protège la propriété intellectuelle et réduit les risques de téléchargement nocifs.";
+// Name of the Video streaming shield
+"Video streaming" = "Streaming vidéo";
+"Blocks popular video streaming platforms" = "Bloque les plateformes de streaming vidéo populaires";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Permet d'accéder aux meilleurs services de streaming vidéo. Fabriqué pour les utilisateurs désireux de gérer leurs habitudes de visionnage et d'économiser de la bande passante.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Applications de streaming";
+"Blocks streaming apps and related content" = "Bloque les applications de streaming et le contenu connexe";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Comprend une sélection organisée d'applications de streaming populaires. Permet le contrôle granulaire de la consommation des médias.";
+// Name of the Social media shield
+"Social media" = "Réseaux sociaux";
+"Restricts access to social networking platforms" = "Restreint l'accès aux plateformes de réseautage social";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limiter l'accès à diverses plateformes de médias sociaux. Idéal pour améliorer la concentration de travail et modérer l'utilisation des enfants.";
+// Name of the Chat apps shield
+"Chat apps" = "Applications de chat";
+"Restricts popular messaging and chat applications" = "Restreint les applications de messagerie et de chat populaires";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Ce bouclier est conçu pour bloquer les applications de messagerie et de chat largement utilisées. Idéal pour ceux qui veulent contrôler leurs canaux de communication.";
+// Name of the Gaming shield
+"Gaming" = "Jeu";
+"Blocks gaming platforms and related content" = "Bloque les plateformes de jeux et le contenu connexe";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restreint les sites de jeux en ligne et les distractions connexes. Conçu pour les utilisateurs qui veulent un mode de vie numérique équilibré.";
+// Name of the Games shield
+"Games" = "Jeu";
+"Restricts access to popular games" = "Restreint l'accès aux jeux populaires";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Idéal pour les utilisateurs désirant un contrôle d'accès précis au jeu.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Applications de shopping en ligne";
+"Blocks leading e-commerce and shopping applications" = "Bloque les principales applications e-commerce et shopping";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Ce bouclier empêche l'accès aux applications courantes. Il aide les utilisateurs à freiner les achats impulsifs ou les distractions.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Applications diverses";
+"A selection of various popular applications" = "Une sélection de diverses applications populaires";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Ce bouclier fournit une liste d'applications populaires de différents types. Il est créé pour les utilisateurs en vue d'un contrôle plus complet de l'application.";

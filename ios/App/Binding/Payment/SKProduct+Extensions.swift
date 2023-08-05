@@ -51,7 +51,7 @@ extension SKProduct {
        let length = self.durationMonths
        if length == 1 {
            return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
-       } else if self.productIdentifier == "cloud_12month" {
+       } else if self.productIdentifier == "cloud_12month" || self.productIdentifier == "family_12months" {
            let price = self.price.dividing(by: NSDecimalNumber(decimal: (length as NSNumber).decimalValue))
            //return "then \(L10n.paymentSubscriptionPerMonth(formatPrice(price: price)))"
            return "(\(L10n.paymentSubscriptionPerMonth(formatPrice(price: price))))"
@@ -61,8 +61,18 @@ extension SKProduct {
        }
    }
 
-    var isTrial: Bool {
-        return self.introductoryPrice?.paymentMode == SKProductDiscount.PaymentMode.freeTrial
+    var getTrialLength: Int? {
+        if let introPrice = self.introductoryPrice, introPrice.paymentMode == SKProductDiscount.PaymentMode.freeTrial {
+            let period = introPrice.subscriptionPeriod
+            switch (period.unit) {
+                case .day:
+                    return period.numberOfUnits;
+                default:
+                    return 7 // TODO: just a fallback
+            }
+        }
+
+        return nil
     }
 
     private var localInfo: String {

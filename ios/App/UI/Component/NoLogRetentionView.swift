@@ -64,7 +64,7 @@ struct NoLogRetentionView: View {
                 )
                 
                 Button(action: {
-                    self.contentVM.openLink(Link.CloudPrivacy)
+                    self.contentVM.openLink(LinkId.privacyCloud)
                 }) {
                     Text(L10n.activityRetentionPolicy)
                         .multilineTextAlignment(.leading)

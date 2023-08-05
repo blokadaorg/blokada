@@ -12,6 +12,7 @@
 
 "error device offline" = "Din enhet är inte ansluten";
 "error account inactive" = "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.";
+"error account inactive generic" = "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda Blokada.";
 "error account inactive after restore" = "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 "error account invalid" = "Detta konto-ID verkar ogiltigt.";
 "error creating account" = "Kunde inte skapa ett nytt konto. Försök igen senare.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "Kunde inte hämta platser.";
 "error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
 "error multiple apps" = "Det finns mer än en Blokada-app på din enhet. Detta kan orsaka anslutningsproblem. Vill du åtgärda det nu?";
+"error locked" = "Denna åtgärd är inte tillgänglig när appen är i ett låst tillstånd. Lås upp appen för att fortsätta.";
+"error lock invalid" = "En giltig PIN-kod måste vara exakt 4 siffror. Försök igen.";
 
 "conn isssues header" = "Anslutningsproblem";
 "conn isssues slug" = "Problem med anslutningen. Vänligen kontrollera din konfiguration. Tryck för mer information.";
@@ -181,6 +184,8 @@
 "pack category highlights" = "Höjdpunkter";
 "pack category active" = "Aktiva";
 "pack category all" = "Alla";
+
+"shields section header" = "Sköldar";
 
 "location choice header" = "Välj en plats";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(inkluderar Blokada Cloud)";
 "payment plan slugline plus" = "Ytterligare skydd med VPN";
 "payment plan cta trial" = "Få en vecka kostnadsfritt";
+"payment plan cta trial length" = "Starta %@-dagars gratis provperiod";
 "payment plan cta monthly" = "Månadsvis prenumeration";
 "payment plan cta annual" = "Årlig prenumereration";
 "payment plan current" = "(nuvarande plan)";
+
+"payment cancel footer" = "Prenumerationen förnyas automatiskt innan den aktuella faktureringsperioden tar slut. Du kan avbryta när som helst i Inställningar.";
+"payment cancel footer trial short" = "Avbryt under de närmaste %@ dagarna, och du kommer inte att debiteras.";
 
 "location region worldwide" = "Överallt";
 "location region america" = "Amerika";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada är låst. Ange PIN-koden för att låsa upp";
 "lock status unlocked has pin" = "Ange PIN-koden för att ändra den";
 "lock status unlocked" = "Ange din PIN-kod för att låsa Blokada";
+
+"crash body" = "Blokada har oväntat stoppats, och vi beklagar besväret. Genom att dela loggfilen med oss förbättrar du upplevelsen för alla användare. Vänligen hjälp oss att identifiera och åtgärda problemet omgående.";
+
+"universal status waiting for data" = "Väntar på data";
+"universal action disable" = "Inaktivera";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Dra för att låsa upp";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Glid";
+"lock status too many attempts" = "För många felaktiga försök. Försök igen senare";
+"lock status enter to confirm" = "Ange pinkoden igen för att bekräfta";
+"lock status enter or wait" = "Ange ny PIN-kod eller vänta med att låsa...";
+"lock change pin" = "Ändra pin";
+
+"family rename device" = "Byt namn på enhet";
+"family label this device" = "Den här enheten (%@)";
+"family onboard header" = "Välkommen till Blokada Familj!";
+"family onboard body" = "Följ instruktionerna på skärmen för att ställa in din första enhet.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Aktivera";
+"family cta action add device" = "Lägg till en enhet";
+"family cta action finish setup" = "Slutför installationen";
+
+"family status fresh header" = "Hej där!";
+"family status fresh body" = "Aktivera eller återställ ditt konto för att fortsätta";
+"family status ready header" = "Appen är redo!";
+"family status ready body" = "Lägg till din första enhet nu";
+"family status perms header" = "Nästan där!";
+"family status perms body" = "Vänligen ge nödvändiga behörigheter";
+"family status expired header" = "Kontot har löpt ut";
+"family status expired body" = "Vänligen aktivera ditt konto för att fortsätta";
+"family status linked header" = "Appen är länkad!";
+"family status locked header" = "Appen är låst";
+
+"family payment slug" = "Skydda hela din familj med ett abonnemang. Övervaka och skydda alla familjens enheter från oönskat innehåll.";
+"family payment features devices header" = "Övervakning av familjeenheter";
+"family payment features devices body" = "Hantera och övervaka alla dina enheter via en enda app. Kontrollera åtkomst och innehållsfiltrering direkt från enheten.";
+"family payment features performance body" = "Behåll en snabb och lyhörd enhet samtidigt som du ser till att din internetanslutning behåller topphastigheter, allt tack vare vår beprövade teknik.";
+"family payment features dns body" = "Förbättra integriteten mellan alla dina enheter med DNS-kryptering. Blokada använder banbrytande protokoll för att säkerställa att din internettrafik förblir konfidentiell.";
+"family payment features battery body" = "Att aktivera Blokada tömmer inte ditt batteri. Det kan faktiskt hjälpa det att hålla längre genom att blockera onödiga bakgrundsaktiviteter.";
+
+"family account attach header" = "Länka enhet";
+"family account attach body" = "För att länka denna enhet till huvudenheten, slutföra installationen. När enheten är länkad kommer den att låsas, vilket låter dig konfigurera och övervaka den från huvudenheten.";
+"family account qr header" = "Skanna QR-kod";
+"family account qr body" = "Skanna QR-koden från huvudenheten för att initiera länkningsprocessen.";
+// A button to scan QR code
+"family account qr action button" = "Skanna";
+
+"family account link header" = "Länka enhet";
+"family account link name" = "Ange enhetsnamn";
+"family account link qr header" = "Skanna denna QR-kod";
+"family account link qr body" = "Detta fönster stängs automatiskt när den nya enheten har upptäckts.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Koppla ifrån";
+
+"family account decide header" = "Lägg till enhet";
+"family account decide link header" = "Länka en enhet";
+"family account decide link body" = "I Blokada skannar du helt enkelt en QR-kod för att länka och hantera en annan enhet.";
+"family account decide separator" = "- eller -";
+"family account decide this header" = "Använd denna enhet";
+"family account decide this body" = "Alternativt kan du helt enkelt konfigurera Blokada att aktiveras på denna enhet, och ställa in pinkoden för att låsa appen.";
+
+"family shields header" = "Aktivera sköldar för att blockera åtkomst till valt innehåll på dina övervakade enheter.";
+"family shields custom slug" = "Hantera dina egna anpassade poster att blockera eller tillåta.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Annat";
+// When a domain is unknown
+"toplist tld unknown" = "okänd";
+
+"family notification subtitle" = "Familjeskyddet är avstängt";

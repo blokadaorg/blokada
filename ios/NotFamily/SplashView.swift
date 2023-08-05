@@ -17,7 +17,6 @@ struct SplashView: View {
         ZStack {
             Spacer()
             BlokadaView(animate: true)
-                .frame(width: 120, height: 120)
             Spacer()
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)

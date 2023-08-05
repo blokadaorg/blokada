@@ -38,3 +38,28 @@
 "phishing" = "Phishing";
 // One of the tags used for searching blocklists
 "security" = "Sicherheit";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "spam";
+// One of the tags used for searching blocklists
+"dating" = "dating";
+// One of the tags used for searching blocklists
+"piracy" = "Piraterie";
+// One of the tags used for searching blocklists
+"torrent" = "torrent";
+// One of the tags used for searching blocklists
+"streaming" = "streamen";
+// One of the tags used for searching blocklists
+"apps" = "anwendungen";
+// One of the tags used for searching blocklists
+"chat" = "chatten";
+// One of the tags used for searching blocklists
+"gaming" = "spielen";
+// One of the tags used for searching blocklists
+"games" = "spiele";
+// One of the tags used for searching blocklists
+"e-commerce" = "E-Commerce";
+// One of the tags used for searching blocklists
+"other" = "andere";

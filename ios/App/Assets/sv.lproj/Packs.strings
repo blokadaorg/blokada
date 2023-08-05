@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "En blocklista över skadliga webbplatser som används för distribution av malware, baseras på urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "En blocklista från skaparen av annonsblockerartestet";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Detta är den officiella blocklistan från d3ward, skaparen av den populära webbplatsen för att testa annonsblockerare. Det är tänkt att uppnå 100% poäng i testet med denna lista. Kom ihåg, detta är en minimal lista. Du kanske vill använda den tillsammans med en annan blocklista aktiverad. Om du vill utföra testet, besök bara go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Annonser";
+"Blocks advertisements and tracking" = "Blockerar annonser och spårning";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminerar påträngande annonser och spårning av webben. Förbättrar surfhastigheten och skyddar användarnas integritet.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Skyddar mot skadlig programvara";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Försvarar mot skadlig programvara och skadliga webbplatser. Ger en säker sköld mot ett spektrum av cyberhot.";
+// Name of the Porn shield
+"Adult Content" = "Vuxet innehåll";
+"Blocks adult and pornographic content" = "Blockerar vuxet och pornografiskt innehåll";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Detta filter riktar sig till vuxeninnehåll för en säkrare onlineupplevelse. Det skyddar användare från explicita material och potentiella risker.";
+// Name of the Dating shield
+"Dating" = "Dating";
+"Blocks dating and relationship-seeking websites" = "Blockerar dating och relationssökande webbplatser";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Designad för att begränsa plattformar för online dating. Det erbjuder skydd mot potentiella distraktioner och oönskade interaktioner.";
+// Name of the Gambling shield
+"Gambling" = "Hasardspel";
+"Blocks gambling-related content and websites" = "Blockerar spelrelaterat innehåll och webbplatser";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Förnekar tillgång till spelplattformar och innehåll. Hjälper till att förebygga missbruk och garantera finansiell säkerhet.";
+// Name of the Piracy shield
+"Piracy" = "Piratkopiering";
+"Blocks piracy websites and related content" = "Blockerar piratkopieringswebbplatser och relaterat innehåll";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blockerar obehöriga piratkopieringswebbplatser och relaterade plattformar. Skyddar immaterialrätten och minskar riskerna för skadlig nedladdning.";
+// Name of the Video streaming shield
+"Video streaming" = "Streamingtjänster";
+"Blocks popular video streaming platforms" = "Blockerar populära streamingtjänster";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Förhindrar tillgång till streamingtjänster. Skapad för användare som vill hantera tittarvanor och spara bandbredd.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Appar för streamingtjänster";
+"Blocks streaming apps and related content" = "Blockerar appar för streamingtjänster och relaterat innehåll";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Har ett urval av populära appar för streamingtjänster. Tillåter detaljerad kontroll över mediekonsumtionen.";
+// Name of the Social media shield
+"Social media" = "Sociala medier";
+"Restricts access to social networking platforms" = "Begränsar åtkomst till sociala nätverksplattformar";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Begränsar tillgången till olika sociala medieplattformar. Perfekt för att förbättra arbetsfokus och moderera barns användning.";
+// Name of the Chat apps shield
+"Chat apps" = "Chattappar";
+"Restricts popular messaging and chat applications" = "Begränsar populära meddelanden och chattprogram";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Denna sköld är utformad för att blockera välkända chattappar. Perfekt för dem som vill styra sina kommunikationskanaler.";
+// Name of the Gaming shield
+"Gaming" = "Spel";
+"Blocks gaming platforms and related content" = "Blockerar spelplattformar och relaterat innehåll";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Begränsar webbplatser för onlinespel och relaterade distraktioner. Utformad för användare som vill ha en balanserad digital livsstil.";
+// Name of the Games shield
+"Games" = "Spel";
+"Restricts access to popular games" = "Begränsar åtkomst till populära spel";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Visar de bästa spelapplikationerna. Perfekt för användare som vill ha en precis åtkomstkontroll.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Appar för shopping online";
+"Blocks leading e-commerce and shopping applications" = "Blockerar ledande e-handels- och shoppingapplikationer";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Denna sköld förhindrar åtkomst till vanliga shoppingappar. Den hjälper användare att begränsa impulsköp eller distraktioner.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Diverse appar";
+"A selection of various popular applications" = "Ett urval av olika populära applikationer";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Denna sköld listar populära appar av olika typer. Den är skapad för användare som strävar efter en mer omfattande appkontroll.";

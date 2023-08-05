@@ -12,6 +12,7 @@
 
 "error device offline" = "Jouw apparaat is offline";
 "error account inactive" = "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.";
+"error account inactive generic" = "Je account is niet actief. Activeer je account om Blokada te blijven gebruiken.";
 "error account inactive after restore" = "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.";
 "error account invalid" = "Dit account ID is ongeldig.";
 "error creating account" = "Kan geen nieuw account aanmaken. Probeer het later nog eens.";
@@ -20,21 +21,23 @@
 "error vpn" = "Kon de VPN niet tot stand brengen. Start uw apparaat opnieuw op, of verwijder het Blokada VPN profiel in de systeeminstellingen, en probeer het opnieuw.";
 "error vpn perms" = "Geen bevoegdheden verleend om een VPN-profiel aan te maken.";
 "error vpn no current lease" = "Kies eerst een lokatie.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "Blokada Plus is nu uitgeschakeld op dit apparaat. Selecteer een locatie om het opnieuw te activeren.";
 "error vpn too many leases" = "U heeft de apparatenlimiet bereikt. Verwijder een van uw apparaten en probeer het opnieuw.";
 "error vpn expired" = "De VPN is uitgeschakeld. Werk uw abonnement bij om BLOKADA+ te blijven gebruiken";
 "error payment inactive after restore" = "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
 "error payment failed" = "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
 "error payment failed alternative" = "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Betalingen zijn niet beschikbaar voor dit apparaat. Ofwel is dit apparaat niet bijgewerkt of wij verwerken nog geen betalingen in uw land.";
 "error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
+"error unknown" = "Er is een probleem opgetreden. Zorg ervoor dat je online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoontje bovenaan te tikken.";
 "error multiple apps" = "Er is meer dan één Blokada-app op uw apparaat. Dit kan verbindingsproblemen veroorzaken. Wilt u het nu oplossen?";
+"error locked" = "Deze actie is niet beschikbaar wanneer de app zich in een vergrendelde status bevindt. Ontgrendel de app om door te gaan.";
+"error lock invalid" = "Een geldige pincode moet precies 4 cijfers bevatten. Probeer het opnieuw.";
 
 "conn isssues header" = "Verbindingsproblemen";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
+"conn isssues slug" = "Verbindingsproblemen. Controleer uw configuratie. Tik voor details.";
 "conn isssues details" = "- Controleer je internetverbinding\n- Gebruik slechts één Blokada app\n- Deactiveer andere VPN's";
 
 "universal action continue" = "Doorgaan";
@@ -95,16 +98,16 @@
 
 "alert error header" = "Ooeps!";
 "alert vpn expired header" = "BLOKADA+ verlopen";
-"alert download link body" = "For security reasons, to download a file, we need to open this website in your browser. Then, please tap the download link again.";
+"alert download link body" = "Om een bestand te downloaden moeten we deze website openen in je browser. Tik daarna opnieuw op de downloadlink.";
 
 "notification perms header" = "Zet notificaties aan in de instellingen";
 "notification perms desc" = "Deze functie vereist meldingen, schakel ze in voor Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+"notification perms denied" = "U heeft meldingen geweigerd. Gebruik Systeem Voorkeuren om deze te wijzigen.";
 
-"notification vpn expired header" = "BLOKADA+ subscription expired";
+"notification vpn expired header" = "BLOKADA+ abonnement is verlopen";
 "notification vpn expired subtitle" = "De VPN is uitgeschakeld";
-"notification vpn expired body" = "Please update your subscription to continue using BLOKADA+";
-"notification desc settings" = "Swipe the notification left or right for settings.";
+"notification vpn expired body" = "Update uw abonnement om BLOKADA+ te blijven gebruiken";
+"notification desc settings" = "Veeg de notificatie naar links of rechts voor instellingen.";
 
 "notification generic header" = "Blokada: actie vereist";
 "notification generic subtitle" = "Tik voor meer informatie";
@@ -129,7 +132,7 @@
 "update desc updated nodon" = "Je gebruikt de nieuwste versie van Blokada!";
 "update downloading description" = "De update is nu aan het downloaden, en u zou de installatie snel moeten zien.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada hielp me %@ advertenties en trackers te blokkeren!";
 
 "main rate us header" = "Beoordeel ons!";
 "main rate us description" = "Wat vind je tot nu toe van Blokada?";
@@ -182,6 +185,8 @@
 "pack category active" = "Actief";
 "pack category all" = "Alles";
 
+"shields section header" = "Schilden";
+
 "location choice header" = "Kies een Locatie";
 
 "activity section header" = "Activiteit";
@@ -190,10 +195,10 @@
 "activity request allowed" = "Dit verzoek is toegelaten.";
 "activity request allowed whitelisted" = "Dit verzoek is toegelaten, omdat het op uw Toegelaten lijst staat";
 "activity request blocked blacklisted" = "Dit verzoek is geblokkeerd, omdat het op je Blokkeer lijst staat";
-"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
-"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
-"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
-"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
+"activity request allowed list" = "Dit verzoek is toegestaan, omdat het aanwezig is op de *%@* toegestane lijst.";
+"activity request allowed no list" = "Dit verzoek is toegestaan, omdat het niet aanwezig is op je geconfigureerde blokkeerlijsten.";
+"activity request blocked list" = "Dit verzoek is geblokkeerd, omdat het aanwezig is in de *%@* blokkeerlijst.";
+"activity request blocked no list" = "Dit verzoek is geblokkeerd, omdat het op geen van uw geconfigureerde allowlijsten aanwezig is.";
 "activity actions header" = "Acties";
 "activity information header" = "Informatie";
 "activity action add to whitelist" = "Toevoegen aan Toegestaan";
@@ -218,23 +223,27 @@
 "activity category top" = "Top";
 "activity category top blocked" = "Top Geblokkeerd";
 "activity category top allowed" = "Top toegestaan";
+<<<<<<< HEAD
 "activity filter header" = "Which entries would you like to see?";
+=======
+"activity filter header" = "Welke invoergegevens wilt u zien?";
+>>>>>>> b772d49 (family: merge family branch to main)
 "activity filter show all" = "Alle logs";
 "activity filter show blocked" = "Alleen geblokkeerd";
 "activity filter show allowed" = "Alleen toegestaan";
 // A short message "Showing for: Device A"
-"activity filter showing for" = "Showing for: %@";
-"activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
+"activity filter showing for" = "Weergegeven voor: %@";
+"activity empty text" = "Probeer uw apparaat te gebruiken, en kom later hier terug om te zien waar uw apparaat verbinding mee maakt.";
 "activity device filter show all" = "Alle apparaten";
 "activity retention header" = "Moeten we uw activiteit opslaan?";
 "activity retention option none" = "Bewaar mijn activiteit niet";
 "activity retention option 24h" = "Ja, bewaar mijn activiteit";
 "activity retention policy" = "Door het inschakelen van het loggen van activiteiten accepteert u het privacybeleid.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention desc" = "Blokada Cloud logt niets als standaard. Als u de geaggregeerde statistieken en activiteit van al uw apparaten wilt zien, schakel dan hieronder het loggen van activiteiten in.";
 
 // Header for the Exceptions screen (where all user defined custom rules are)
-"userdenied section header" = "Exceptions";
-"userdenied section slugline" = "Manage blocking of particular websites";
+"userdenied section header" = "Uitzonderingen";
+"userdenied section slugline" = "Blokkering van bepaalde websites beheren";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Toegestaan";
 // A section name for the list of hosts blocked by user
@@ -247,8 +256,8 @@
 "userdefined action open" = "Open uitzonderingen";
 
 "account section header settings" = "Instellingen";
-"account status text" = "Your BLOKADA %@ account is active until %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text" = "Je BLOKADA %@ account is actief tot %@.";
+"account status text inactive" = "Uw BLOKADA-abonnement is niet actief.";
 
 "account section header primary" = "Primair";
 "account section header other" = "Overige";
@@ -264,27 +273,27 @@
 "account action tap to show" = "Druk om weer te geven";
 "account action restoring" = "Account herstellen: %@";
 "account label enter to continue" = "Voer je account ID in om door te gaan";
-"account restore description" = "Don't worry, if you lost or forgot your account ID, we can recover it. Please contact our support, and provide us information that will allow us to identify your purchase (eg. last 4 digits of your credit card, or PayPal email).";
-"account create description" = "This is your account ID. Write it down and keep it private. It’s the only way to access your subscription.";
+"account restore description" = "Maak je geen zorgen, als je je account-ID hebt verloren of vergeten, kunnen we het herstellen. Neem contact op met support en geef ons informatie waarmee we je aankoop kunnen identificeren (bijv. laatste 4 cijfers van uw creditcard, of PayPal e-mail).";
+"account create description" = "Dit is uw account-ID. Schrijf het op en houd het privé. Het is de enige manier om uw abonnement te benaderen.";
 "account create confirm" = "Ik heb het opgeschreven";
 
 "account section header my subscription" = "Mijn Abonnement";
 "account section header general" = "Algemeen";
 "account section header subscription" = "Abonnement";
 "account label id" = "Account ID";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Abonnement plan";
+"account plan none" = "Geen actief abonnement";
 "account label active until" = "Actief tot";
 "account action manage subscription" = "Abonnement beheren";
 "account action why upgrade" = "Waarom zou ik upgraden?";
 "account subscription header renew" = "Automatisch vernieuwen";
 "account subscription header payment method" = "Betaalmethode";
-"account subscription renew unsupported" = "Your payment method does not allow to control the auto renewal setting here.";
+"account subscription renew unsupported" = "Uw betalingsmethode staat hier niet toe om de instelling voor automatische verlenging te beheren.";
 
-"account unlock to show" = "Unlock to show your account ID";
+"account unlock to show" = "Ontgrendel om je account-ID te tonen";
 
 "account header logout" = "Herstel aankoop";
-"account logout description" = "Please enter another account ID, or go back to keep using your existing account (this app cannot be used without one).";
+"account logout description" = "Voer een ander account ID in of ga terug om uw bestaande account te blijven gebruiken (deze app kan niet zonder deze te gebruiken).";
 "account id status unchanged" = "(ongewijzigd)";
 "account action how to restore" = "Hoe herstel ik mijn oude account?";
 
@@ -293,16 +302,16 @@
 "account devices not available" = "Niet beschikbaar";
 "account devices out of" = "%@ van de %@";
 
-"account lease label devices list" = "These devices are connected to your account.";
+"account lease label devices list" = "Deze apparaten zijn verbonden met uw account.";
 "account lease label devices" = "Apparaten";
-"account lease label this device" = " (this device)";
+"account lease label this device" = " (dit apparaat)";
 "account lease label name" = "Naam van apparaat";
-"account lease label location" = "Location";
-"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
-"account lease action generate" = "Generate Config";
-"account lease action download" = "Download Config";
-"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
-"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
+"account lease label location" = "Locatie";
+"account lease label generate" = "Het selecteren van een locatie zal een configuratiebestand genereren dat u kunt gebruiken in elke VPN-app die WireGuard ondersteunt. Dit is handig voor platforms waar we onze apps nog niet hebben. Anders raden we aan om onze apps in plaats daarvan te gebruiken.";
+"account lease action generate" = "Genereer configuratie";
+"account lease action download" = "Configuratie downloaden";
+"account lease generated" = "Apparaat toegevoegd! Download de configuratie om het te gebruiken op elk apparaat dat wordt ondersteund door WireGuard.";
+"account lease wireguard desc" = "Blokada gebruikt WireGuard. Configuraties kunnen worden gedownload bij het maken van nieuwe apparaten.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Kies een DNS";
 "account lease label public key" = "Publieke sleutel";
@@ -310,9 +319,10 @@
 "account support action how help" = "Hoe kunnen we je helpen?";
 "account support action kb" = "Open kennisbank";
 
-"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+"account upgrade cloud description" = "Deze functie is een onderdeel van Blokada Plus. Neem contact op met onze klantenservice om een upgrade uit te voeren.";
 
 "payment header activated" = "Geactiveerd!";
+<<<<<<< HEAD
 "payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
 "payment action choose location" = "Kies een locatie";
 "payment action see locations" = "Onze Locaties";
@@ -345,58 +355,100 @@
 "payment action terms and privacy" = "Terms & Privacy";
 "payment action terms" = "Algemene voorwaarden";
 "payment action policy" = "Privacy Policy";
+=======
+"payment activated description" = "Blokada zal nu overschakelen naar Plus-modus en verbinding maken via een van onze beveiligde locaties. Als u niet zeker bent welke te kiezen, wordt het dichtstbijzijnde aangeraden.";
+"payment action choose location" = "Kies een locatie";
+"payment action see locations" = "Onze Locaties";
+
+"payment title" = "Upgrade naar onze VPN-service om de controle over *uw privacy* te behouden.";
+"payment feature title change location" = "Verander de locatie";
+"payment feature desc change location" = "Verberg je IP-adres en doe alsof je in een ander land bent. Dit verbergt je van derden en helpt je je identiteit te beschermen.";
+"payment feature title encrypt data" = "Gegevens versleutelen";
+"payment feature desc encrypt data" = "Gegevens die via onze VPN-tunnel worden verzonden zijn versleuteld met sterke algoritmen om te beschermen tegen interceptie door onbevoegde partijen.";
+"payment feature title encrypt dns" = "DNS versleutelen";
+"payment feature desc encrypt dns" = "Verbeter uw privacy met DNS-versleuteling. Blokada gebruikt moderne protocollen om uw verkeer privé te houden.";
+"payment feature title performance" = "Grote prestaties";
+"payment feature desc performance" = "Houd je apparaat netjes en je internetverbinding op maximale snelheden, dankzij onze nieuwe Cloud oplossing.";
+"payment feature title battery" = "Zero Batterij Impact";
+"payment feature desc battery" = "Uw batterijduur zal niet worden beïnvloed, het kan zelfs verbeteren wanneer Blokada is geactiveerd.";
+"payment feature title devices cloud" = "Meerdere apparaten";
+"payment feature desc devices cloud" = "Configureer en monitor al uw apparaten op één plek. Via onze mobiele app of onze webapp.";
+"payment feature title cloud vpn" = "De Cloud plus VPN";
+"payment feature desc cloud vpn" = "Naast alle voordelen van Blokada Cloud krijgt u toegang tot ons wereldwijde VPN-netwerk";
+"payment feature title faster connection" = "Sneller verbinding";
+"payment feature desc faster connection" = "Geweldige snelheid tot 100 Mbps met servers in verschillende delen van de wereld.";
+"payment feature title devices" = "Tot 5 apparaten";
+"payment feature desc devices" = "Gebruik hetzelfde account om uw abonnement te delen met maximaal 5 apparaten: iOS, Android of PC.";
+"payment feature title no ads" = "Advertenties blokkeren";
+"payment feature desc no ads" = "Gebruik de populaire Blokada adblocking technologie om advertenties op je apparaten te blokkeren. Geavanceerde instellingen zijn beschikbaar.";
+"payment feature title support" = "Goede ondersteuning";
+"payment feature desc support" = "Krijg een prompt antwoord op vragen dankzij onze klantenservice en levendige open source community.";
+"payment action see all features" = "Bekijk Alle Functies";
+"payment action restore" = "Aankopen herstellen";
+"payment action terms and privacy" = "Voorwaarden & Privacy";
+"payment action terms" = "Algemene voorwaarden";
+"payment action policy" = "Privacy Beleid";
+>>>>>>> b772d49 (family: merge family branch to main)
 "payment alert error header" = "Een bericht van de App Store";
 // As in saving money: You are saving $5
-"payment save text" = "You are saving %@";
-"payment conversion note" = "We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.";
+"payment save text" = "Je slaat %@ op";
+"payment conversion note" = "Wij accepteren euro en de prijzen die worden getoond worden ingeschat. Een terugbetaling is beschikbaar als je bank te veel in rekening brengt.";
 
 "payment subscription 1 month" = "1 Maand";
 "payment subscription many months" = "%@ Maanden";
 "payment subscription per month" = "%@ per maand";
-"payment subscription per year" = "%@ per year";
-"payment subscription per year then" = "then %@ per year";
+"payment subscription per year" = "%@ per jaar";
+"payment subscription per year then" = "dan %@ per jaar";
 "payment subscription offer" = "%@ Opslaan";
 
 "payment success label" = "Bedankt!";
-"payment success desc" = "Your account is now active! You may now use all Blokada Plus features on all your devices.";
+"payment success desc" = "Uw account is nu actief! U kunt nu alle Blokada Plus functies gebruiken op al uw apparaten.";
 
-"payment redirect label" = "Redirecting...";
-"payment redirect desc" = "Please wait. This should only take a moment.";
+"payment redirect label" = "Doorsturen...";
+"payment redirect desc" = "Een ogenblik geduld. Dit kan even duren.";
 
-"payment ongoing title" = "Your payment is now being processed.";
-"payment ongoing desc" = "Credit card payments should not take more than a few minutes. Cryptocurrency payments usually take up to an hour, depending on what transaction fee you chose. In case of PayPal, it may take up to 24 hours. You will get redirected once your account is ready. You may also close this screen, and come again later. If you feel like your transaction is taking too long, please contact us.";
+"payment ongoing title" = "Uw betaling wordt nu verwerkt.";
+"payment ongoing desc" = "Betalingen met creditcard mogen niet langer dan een paar minuten duren. Cryptocurrency betalingen duren meestal tot een uur, afhankelijk van de transactiekosten die u hebt gekozen. In het geval van PayPal kan het tot 24 uur duren. U wordt omgeleid zodra uw account klaar is. U kunt dit scherm ook sluiten en later opnieuw komen. Als u denkt dat uw transactie te lang duurt, neem dan contact met ons op.";
 "payment pay google short" = "Google Pay";
 "payment pay apple short" = "Apple Pay";
 "payment change method" = "Wijzigen";
-"payment action pay" = "Pay %@";
-"payment action pay period" = "Pay %@ each period";
-"payment label email" = "Email";
-"payment crypto desc" = "To pay with your cryptocurrency wallet, tap the button below.";
-"payment label choose package" = "Choose your package";
-"payment label choose payment method" = "Choose your payment method";
-"payment label cheapest" = "Cheapest";
-"payment label most popular" = "Most popular";
+"payment action pay" = "Betaal %@";
+"payment action pay period" = "%@ elke periode betalen";
+"payment label email" = "E-mailadres";
+"payment crypto desc" = "Klik op de knop hieronder om te betalen met uw cryptocurrency portemonnee.";
+"payment label choose package" = "Kies je pakket";
+"payment label choose payment method" = "Kies uw betaalmethode";
+"payment label cheapest" = "Goedkoopste";
+"payment label most popular" = "Meest populair";
 "payment label pay with card" = "Betaal met kaart";
 "payment label pay with paypal" = "Betaal met PayPal";
-"payment label pay with crypto" = "Pay with crypto";
+"payment label pay with crypto" = "Betaal met crypto";
 "payment package one month" = "1 Maand";
 "payment package six months" = "6 Maanden";
 "payment package twelve months" = "12 Maanden";
-"payment label discount" = "Save %@ (%@ / mo)";
-"payment label country" = "Country";
+"payment label discount" = "Opslaan %@ (%@ / ma)";
+"payment label country" = "Land:";
 
-"payment euro desc" = "We are based in Europe, so we accept Euro: €10 is roughly $12.";
+"payment euro desc" = "We zijn gevestigd in Europa, dus accepteren we Euro: tien euro is ongeveer $12.";
 
-"payment action compare" = "Compare plans";
-"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment action compare" = "Vergelijk pakketten";
+"payment plan slugline cloud" = "Blokkeert advertenties en trackers";
 // A short information that Plus plan contains Cloud also.
+<<<<<<< HEAD
 "payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "Additional protection with VPN";
 "payment plan cta trial" = "Start 7-Day Free Trial";
+=======
+"payment plan slugline cloud detail" = "(inclusief Blokada Cloud)";
+"payment plan slugline plus" = "Extra bescherming met VPN";
+"payment plan cta trial" = "Start 7-daagse gratis proefperiode";
+"payment plan cta trial length" = "Start %@-daagse gratis proefperiode";
+>>>>>>> b772d49 (family: merge family branch to main)
 "payment plan cta monthly" = "Maandelijks abonneren";
 "payment plan cta annual" = "Jaarlijks abonneren";
 "payment plan current" = "(huidig abonnement)";
 
+<<<<<<< HEAD
 "location region worldwide" = "Overal";
 "location region america" = "Amerika";
 "location region europe" = "Europa";
@@ -406,6 +458,20 @@
 "web vpn devices header" = "VPN Apparaten";
 // A button to open section called "VPN Devices"
 "web vpn devices open action" = "Open VPN Devices";
+=======
+"payment cancel footer" = "Het abonnement wordt automatisch verlengd voordat de huidige factureringsperiode eindigt. U kunt op elk gewenst moment annuleren in Instellingen.";
+"payment cancel footer trial short" = "Annuleren tijdens de komende %@ dagen, en er worden geen kosten in rekening gebracht.";
+
+"location region worldwide" = "Overal";
+"location region america" = "Amerika";
+"location region europe" = "Europa";
+"location region asia" = "Azië";
+"location region australia" = "Australië";
+
+"web vpn devices header" = "VPN Apparaten";
+// A button to open section called "VPN Devices"
+"web vpn devices open action" = "Open VPN-apparaten";
+>>>>>>> b772d49 (family: merge family branch to main)
 "web action open setup" = "Open instellingen";
 "web cta plus header" = "Upgrade naar Blokada Plus om de controle over je privacy te behouden.";
 "web cta plus desc" = "Uw Libre-account geeft u gratis adblocking op uw apparaat met onze opensource-apps. Upgrade naar Blokada Plus voor een nog betere bescherming. Je krijgt toegang tot ons wereldwijde VPN-netwerk en tot onze nieuwe *cloud gebaseerd* adblocking die efficiënter en gemakkelijker te gebruiken is.";
@@ -413,72 +479,159 @@
 "web action generate" = "Genereren";
 
 "setup header" = "Installatie";
+<<<<<<< HEAD
 "setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
 "setup label which device" = "What type of device you wish to set up?";
 "setup label choose" = "Choose any of the following setup options:";
 "setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
 "setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+=======
+"setup desc" = "Er zijn vele manieren om je apparaat te configureren om Blokada Cloud te gebruiken. Kies degene die voor je werkt.";
+"setup label which device" = "Welk type apparaat wilt u instellen?";
+"setup label choose" = "Kies een van de volgende setup-opties:";
+"setup comment wireguard" = "Opmerking: De VPN-configuratie zal Blokada Cloud standaard gebruiken. Kies een andere DNS-instelling als u zich wilt afmelden. 'WireGuard' en het logo 'WireGuard' zijn geregistreerde handelsmerken van Jason A. Donenfeld.";
+"setup comment native apps" = "Opmerking: Native app voor Android ondersteunt Blokada Cloud nog niet. We werken aan de update.";
+>>>>>>> b772d49 (family: merge family branch to main)
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
-"setup step" = "Step %@: %@";
-"setup option label recommended" = "Recommended: %@";
-"setup option label alternative" = "Alternative: %@";
-"setup name label unnamed" = "(unnamed)";
+"setup step" = "Stap %@: %@";
+"setup option label recommended" = "Aanbevolen: %@";
+"setup option label alternative" = "Alternatief: %@";
+"setup name label unnamed" = "(naamloos)";
 
-"setup step name" = "Name your device (optional)";
-"setup step copy" = "Copy your hostname";
-"setup step apply config" = "Apply the new configuration";
-"setup step install" = "Install and start our app";
-"setup step enter tag" = "When asked, enter your tag";
-"setup step download profile" = "Generate and download your profile";
-"setup step install wireguard" = "Install and start WireGuard";
+"setup step name" = "Geef een naam aan uw apparaat (optioneel)";
+"setup step copy" = "Kopieer uw hostnaam";
+"setup step apply config" = "De nieuwe configuratie toepassen";
+"setup step install" = "Installeer onze app en start deze";
+"setup step enter tag" = "Indien gevraagd, voer je tag in";
+"setup step download profile" = "Genereer en download je profiel";
+"setup step install wireguard" = "Installeer en start WireGuard";
 
-"stats header" = "Stats";
+"stats header" = "Statistieken";
 // A ratio between counter of allowed vs denied requests.
-"stats ratio header" = "Ratio";
+"stats ratio header" = "Verhouding";
 // A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
-"stats requests header" = "Requests";
+"stats requests header" = "Verzoeken";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
 "stats requests subheader" = "Vragen na verloop van tijd";
+<<<<<<< HEAD
 "stats top allowed header" = "Top allowed requests";
 "stats top blocked header" = "Top blocked requests";
+=======
+"stats top allowed header" = "Top toegestane aanvragen";
+"stats top blocked header" = "Top geblokkeerde verzoeken";
+>>>>>>> b772d49 (family: merge family branch to main)
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "Toegestaan";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "Geblokkeerd";
 // A short one-word label for the counter of total requests.
-"stats label total" = "Total";
+"stats label total" = "Totaal";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Afgelopen 24 uur";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "Gehele tijd";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile header" = "Blokada inschakelen in Instellingen";
+"dnsprofile desc" = "In de app Instellingen ga je naar Algemeen → VPN, DNS & Apparaatbeheer → DNS en selecteer Blokada.";
+"dnsprofile action open settings" = "Open instellingen";
+"dnsprofile desc android" = "In de Instellingen app, vind je het Privé DNS-gedeelte, en plak je hostname (long tap).";
+"dnsprofile desc android copy" = "Kopieer je Blokada Cloud hostnaam om het te plakken in Instellingen.";
+"dnsprofile notification subtitle" = "Navigeer in Instellingen app, naar:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Algemeen → VPN, DNS & Apparaatbeheer → DNS en selecteer Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "Bijna klaar!";
+"activated desc" = "Het volgende is nodig om Blokada te laten werken zoals verwacht:";
+"activated desc all ok" = "Je apparaat is allemaal ingesteld en goed om weg te gaan:";
+"activated label account" = "Account is actief (%@)";
+"activated label notif yes" = "Meldingen zijn toegestaan";
+"activated label notif no" = "Meldingen toestaan";
+"activated label dns yes" = "DNS-profiel is geactiveerd";
+"activated label dns no" = "DNS-profiel activeren";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "VPN toestaan (Plus alleen)";
+"activated label vpn yes" = "VPN is toegestaan";
+"activated label vpn no" = "VPN toestaan";
 
-"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
+"homepage vpn credit" = "'WireGuard' en het logo 'WireGuard' zijn geregistreerde handelsmerken van Jason A. Donenfeld.";
 "advanced section header packs" = "Blokkeerlijsten";
-"app settings section header" = "This device";
+"app settings section header" = "Dit apparaat";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada wordt vergrendeld. Voer de pincode in om te ontgrendelen";
+"lock status unlocked has pin" = "Voer de pincode in om deze te wijzigen";
+"lock status unlocked" = "Stel je pincode in om Blokada te vergrendelen";
+
+"crash body" = "Blokada is onverwacht gestopt, en spijt ons voor het ongemak. Door het logbestand met ons te delen, verbetert u de ervaring voor alle gebruikers. Help ons dit probleem snel te identificeren en op te lossen.";
+
+"universal status waiting for data" = "Wachten op gegevens";
+"universal action disable" = "Uitschakelen";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Schuif om te ontgrendelen";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Schuif";
+"lock status too many attempts" = "Te veel verkeerde pogingen. Probeer het later opnieuw";
+"lock status enter to confirm" = "Voer de pincode nogmaals in om te bevestigen";
+"lock status enter or wait" = "Voer nieuwe pincode in of wacht om te vergrendelen...";
+"lock change pin" = "Wijzig pin";
+
+"family rename device" = "Apparaatnaam wijzigen";
+"family label this device" = "Dit apparaat (%@)";
+"family onboard header" = "Welkom bij Blokada Family!";
+"family onboard body" = "Volg de instructies op het scherm om je eerste apparaat in te stellen.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Activeren";
+"family cta action add device" = "Apparaat toevoegen";
+"family cta action finish setup" = "Installatie voltooien";
+
+"family status fresh header" = "Hallo daar!";
+"family status fresh body" = "Activeer of herstel je account om verder te gaan";
+"family status ready header" = "App is klaar!";
+"family status ready body" = "Voeg nu je eerste apparaat toe";
+"family status perms header" = "Bijna klaar!";
+"family status perms body" = "Verleen alstublieft de benodigde machtigingen";
+"family status expired header" = "Account is verlopen";
+"family status expired body" = "Activeer je account om verder te gaan";
+"family status linked header" = "App is gekoppeld!";
+"family status locked header" = "App is vergrendeld";
+
+"family payment slug" = "Bescherm uw hele familie met één abonnement. Controleer en bescherm alle toestellen van familie tegen ongewenste inhoud.";
+"family payment features devices header" = "Familie Device Monitoring";
+"family payment features devices body" = "Beheren en controleren van al uw apparaten via een enkele app. Beheer toegang en content die direct vanaf uw apparaat filteren.";
+"family payment features performance body" = "Zorg voor een snel en responsief apparaat terwijl je ervoor zorgt dat je internetverbinding op een pieksnelheid blijft, allemaal dankzij onze bewezen technologie.";
+"family payment features dns body" = "Verbeter privacy op al uw apparaten met DNS-versleuteling. Blokada maakt gebruik van geavanceerde protocollen om ervoor te zorgen dat uw internetverkeer vertrouwelijk blijft.";
+"family payment features battery body" = "Het activeren van Blokada zal je batterij niet leegmaken. Het kan zelfs langer helpen door onnodige achtergrondactiviteiten te blokkeren.";
+
+"family account attach header" = "Apparaat bijvoegen";
+"family account attach body" = "Om dit apparaat te koppelen aan het bovenliggende apparaat, voltooi het installatieproces. Eenmaal gekoppeld, zal dit apparaat worden vergrendeld, zodat u het kunt configureren en monitoren vanaf het bovenliggende apparaat.";
+"family account qr header" = "Scan QR code";
+"family account qr body" = "Scan de QR-code van het bovenliggende apparaat, om het koppelingsproces te initiëren.";
+// A button to scan QR code
+"family account qr action button" = "Scannen";
+
+"family account link header" = "Koppel apparaat";
+"family account link name" = "Apparaatnaam instellen";
+"family account link qr header" = "Scan deze QR-code";
+"family account link qr body" = "Dit scherm wordt automatisch gesloten zodra het nieuwe apparaat is gedetecteerd.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Ontkoppelen";
+
+"family account decide header" = "Apparaat toevoegen";
+"family account decide link header" = "Koppel een apparaat";
+"family account decide link body" = "In Blokada scan je gewoon een QR-code om een ander apparaat te koppelen en te beheren.";
+"family account decide separator" = "- of -";
+"family account decide this header" = "Dit apparaat gebruiken";
+"family account decide this body" = "Als alternatief kun je Blokada instellen om op dit apparaat te werken, en de pin instellen om de app te vergrendelen.";
+
+"family shields header" = "Activeer schilden om toegang tot geselecteerde inhoud van uw gecontroleerde apparaten te blokkeren.";
+"family shields custom slug" = "Beheer uw eigen aangepaste items om te blokkeren of toe te staan.";
+
+// When a company name is other than the big ones
+"toplist company other" = "anders";
+// When a domain is unknown
+"toplist tld unknown" = "Onbekend";
+
+"family notification subtitle" = "Gezinsbescherming is uitgeschakeld";

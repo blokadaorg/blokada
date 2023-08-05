@@ -16,8 +16,6 @@ import Factory
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    private var quick: QuickActionsService?
-
     @Injected(\.env) private var env
     @Injected(\.flutter) private var flutter
     @Injected(\.commands) private var commands
@@ -32,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.plusKeypair) private var plusKeypair
     @Injected(\.stats) private var stats
     @Injected(\.rate) private var rate
+    @Injected(\.link) private var link
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -59,7 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         notification.attach(application)
 
-        Services.quickActions.start()
+        if !flutter.isFlavorFamily {
+            Services.quickActions.start()
+        }
 
         // A bunch of lazy, noone else refs this (early enough).
         payment.startObservingPayments()
@@ -108,6 +109,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BlockaLogger.v("Main", "Application will terminate")
         payment.stopObservingPayments()
     }
+
+    // Handle universal links TODO: Also in SceneDelegate
+    func application(_ application: UIApplication,
+                     continue userActivity: NSUserActivity,
+                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
+    {
+        // Get URL components from the incoming user activity.
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let incomingURL = userActivity.webpageURL else {
+            return false
+        }
+
+        commands.execute(.url, incomingURL.absoluteString)
+        return true
+    }
+
 }
 
 // Copied from WG - not sure if important

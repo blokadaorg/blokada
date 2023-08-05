@@ -20,29 +20,86 @@
 "A special blocklist containing mobile ad providers." = "Omalaatuinen estolista, joka sisältää mobiilimainosten tarjoajat.";
 "Protects against cyber attacks" = "Suojaa verkkohyökkäyksiltä";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Estettyjen lista tietojenkalasteluyrityssivustojen suodattamiseen. Tietokalastelu on väärinkäytös, joka perustuu uudelleenohjaamiseen väärennettyihin verkkosivustoihin, jotka näyttävät täsmälleen alkuperäisiltä, ​​joilla huijataan kävijöitä ja varastetaan arkaluontoisia tietoja. Tämän estolistan asentaminen auttaa sinua estämään tällaiset tilanteet.";
-"A new and expanding tracker database" = "A new and expanding tracker database";
+"A new and expanding tracker database" = "Uusi ja laajentava seurantatietokanta";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar on yksi parhaimmista tietokannoista jäljttäjistä, joka luodaan ja ylläpidetään automaattisesti jatkuvan indeksoinnin ja analysoinnin avulla. Katso lisätietoja tekijän tiedoista.";
 "Curated blocklist to block trackers and advertisements" = "Curated blocklist to block trackers and advertisements";
-"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly.";
-"Analyzes privacy concerns in Android applications" = "Analyzes privacy concerns in Android applications";
-"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized).";
-"A good general purpose blocklist" = "A good general purpose blocklist";
-"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.";
-"A blocklist for ads and tracking, updated regularly" = "A blocklist for ads and tracking, updated regularly";
-"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.";
-"A collection of blocklists for various use cases." = "A collection of blocklists for various use cases.";
-"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.";
-"A blocklist based on spam reports" = "A blocklist based on spam reports";
-"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.";
-"A comprehensive lists to block ads and tracking" = "A comprehensive lists to block ads and tracking";
-"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.";
-"A general purpose, medium weight list" = "A general purpose, medium weight list";
-"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Tämä on kuratoitu ja hyvin huollettu lohkolista estää mainokset, seuranta ja paljon muuta! Päivitetty säännöllisesti.";
+"Analyzes privacy concerns in Android applications" = "Analysoi tietosuojaongelmia Android-sovelluksissa";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Tämä lohkolista perustuu The Exodus Privacy -projektiin, joka analysoi Android-sovelluksia ja etsii sulautettuja seuraajia. Seurantapalvelin on osa ohjelmistoa, jonka tarkoituksena on kerätä tietoja sinusta, tai mitä teet. Tämä on hyvin pieni lista, joten sinun pitäisi myös aktivoida yksi suosituimmista listoista (kuten Energized).";
+"A good general purpose blocklist" = "Hyvä yleiskäyttöinen lohkolista";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Lohkot mainokset, phishing, haittaohjelmat, vakoiluohjelmat, ransomware, huijaus, telemetria, analytiikka, seuranta (missä ei tarvita asianmukaista toiminnallisuutta). Ei saa häiritä normaaleja sovelluksia ja palveluita.";
+"A blocklist for ads and tracking, updated regularly" = "Lohkoluettelo mainoksista ja seurannasta, päivitetään säännöllisesti";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Tämä on hyvä valinta ensisijaiseksi lohkolistaksi. Se on tasapainoinen, keskikokoinen ja usein päivitetty.";
+"A collection of blocklists for various use cases." = "Kokoelma lohkolistoja eri käyttötapauksia varten.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Nämä listat luotiin, koska hankkeen perustaja halusi jotain hieman enemmän valvoa sitä, mitä on estetty.";
+"A blocklist based on spam reports" = "Roskapostin raportteihin perustuva lohkolista";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 on palvelu, joka auttaa verkkoyrityksiä sisällön valvonnassa, levinneisyystestauksessa ja tuotemerkkien suojauksessa. Tämä luettelo perustuu yrityksiltä saatuihin raportteihin.";
+"A comprehensive lists to block ads and tracking" = "Kattavat luettelot mainosten ja seurannan estämiseksi";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock on luettelo verkkotunnuksista, jotka palvelevat mainoksia, komentosarjoja ja haittaohjelmia. Se estää laitteesi yhdistämisen niihin.";
+"A general purpose, medium weight list" = "Yleisluonteinen ja keskikokoinen luettelo";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Tämä luettelo estää vihamielisen ja haitallisen sisällön, kuten mainonnan, seurannan, telemetrian, huijauksen ja haittaohjelmistojen palvelimet. Tämä lista ei estä pornoa, sosiaalista mediaa tai ns. valeuutisverkkoa. CPBL:n tavoitteena on tarjota kattavaa suojaa tarjoavia blokkiluetteloja, mutta niiden koko ja soveltamisala pysyy kohtuullisena.";
 "A reasonably balanced ad blocking hosts file" = "Kohtuullisen tasapainotettu mainosten estävä isäntätiedosto";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";
-"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.";
-"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.";
-"A blocklist based on malware database" = "A blocklist based on a malware database";
-"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Tämä on hyvin tunnettu, yleinen tarkoitus lohkoluettelo pienen koon, päivitetään säännöllisesti.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Suojaa tiedot ja silmämunat huutokaupattavaksi korkeimman tarjoajan kanssa. Valitse ensin Light konfiguraatio. Jos se ei ole tarpeeksi hyvä sinulle, kokeile Pro-konfiguraatiota.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Tämä yleislista estää ensisijaisesti mainokset ja mobiilisovellusten mainokset. Ei saa häiritä tavanomaisia sovelluksia ja palveluita.";
+"A blocklist based on malware database" = "Lohkolista, joka perustuu haittaohjelmistojen tietokantaan";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Lohkolista haittaohjelmia sivustoja, joita käytetään haittaohjelmien jakelun, joka perustuu urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "A blocklist from the maker of the adblocker test";
-"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Tämä on virallinen blocklist d3ward, valmistaja suositun adblocker testaus sivusto. Sen on tarkoitus saavuttaa 100% pisteet testissä. Pidä mielessä, tämä on minimiluettelo. Voit halutessasi käyttää sitä yhdessä toisen lohkolistan ollessa aktivoitu. Jos haluat suorittaa testin, käy vain osoitteessa go.blokada.org/testi";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Mainokset";
+"Blocks advertisements and tracking" = "Estää mainokset ja seurannan";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Poistaa häiritsevät mainokset ja verkkoseurannan. Parantaa selailunopeutta ja suojaa käyttäjien yksityisyyttä.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Suojaa haitallisilta ohjelmilta";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Suojelee pahansuopia ohjelmistoja ja haitallisia verkkosivustoja vastaan. Tarjoaa turvallisen suojan erilaisia kyberuhkia vastaan.";
+// Name of the Porn shield
+"Adult Content" = "Adult Content";
+"Blocks adult and pornographic content" = "Lohkot aikuisten ja pornografinen sisältö";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Tämä suodatin kohdistaa aikuisten sisältöä turvallisempaan verkkoelämykseen. Se suojaa käyttäjiä eksplisiittisistä materiaaleista ja mahdollisista riskeistä.";
+// Name of the Dating shield
+"Dating" = "Päiväys";
+"Blocks dating and relationship-seeking websites" = "Lohkot deittailu- ja ihmissuhdehakusivustot";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Suunniteltu rajoittamaan nettideittailualustoja. Se tarjoaa suojan mahdollisia häiriötekijöitä ja ei-toivottuja vuorovaikutuksia vastaan.";
+// Name of the Gambling shield
+"Gambling" = "Uhkapeli";
+"Blocks gambling-related content and websites" = "Estää uhkapeleihin liittyvän sisällön ja verkkosivut";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Estetään pääsy rahapelialustoihin ja -sisältöihin. Auttaa ehkäisemään riippuvuutta ja varmistamaan taloudellisen turvallisuuden.";
+// Name of the Piracy shield
+"Piracy" = "Merirosvous";
+"Blocks piracy websites and related content" = "Lohkot merirosvouksen sivustot ja niihin liittyvä sisältö";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Estää luvattoman merirosvouksen sivustoja ja niihin liittyviä alustoja. Suojaa immateriaalioikeudet ja vähentää haitallisia latausriskejä.";
+// Name of the Video streaming shield
+"Video streaming" = "Videon streaming";
+"Blocks popular video streaming platforms" = "Estää suosittuja videon suoratoistoalustoja";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Kattaa pääsyn videon suoratoistopalveluihin. Valmistettu käyttäjille, jotka haluavat hallita katselutapoja ja tallentaa kaistanleveyttä.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Sovellusten suoratoistaminen";
+"Blocks streaming apps and related content" = "Estää sovellusten ja niihin liittyvän sisällön suoratoistoa";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Ominaisuudet kuratoitu valikoima suosittuja suoratoistosovelluksia. Mahdollistaa rakeisen kontrollin median kulutuksesta.";
+// Name of the Social media shield
+"Social media" = "Sosiaalinen media";
+"Restricts access to social networking platforms" = "Rajoitetaan pääsyä sosiaalisen verkostoitumisen alustoille";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Rajoitetaan pääsyä erilaisille sosiaalisen median alustoille. Ihanteellinen työn keskittymisen tehostamiseksi ja lasten käytön hillitsemiseksi.";
+// Name of the Chat apps shield
+"Chat apps" = "Chatin sovellukset";
+"Restricts popular messaging and chat applications" = "Rajoittaa suosittuja viestejä ja chat-sovelluksia";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Tämä kilpi on suunniteltu estämään laajalti käytetyt viesti- ja chat-sovellukset. Täydellinen niille, jotka haluavat hallita viestintäkanaviaan.";
+// Name of the Gaming shield
+"Gaming" = "Pelaaminen";
+"Blocks gaming platforms and related content" = "Blocks pelialustat ja niihin liittyvä sisältö";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Rajoittaa online-pelisivustoja ja niihin liittyviä häiriötekijöitä. Suunniteltu käyttäjille, jotka haluavat tasapainoinen digitaalinen elämäntapa.";
+// Name of the Games shield
+"Games" = "Pelit";
+"Restricts access to popular games" = "Rajoitukset pääsy suosittuja pelejä";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Näyttää parhaat pelisovellukset. Ihanteellinen käyttäjille, jotka haluavat tarkan pelin kulunvalvonnan.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Ostossovellukset verkossa";
+"Blocks leading e-commerce and shopping applications" = "Lohkot johtavat sähköistä kaupankäyntiä ja ostoksia";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Tämä kilpi estää pääsyn yhteisiin ostossovelluksiin. Se auttaa käyttäjiä hillitsemään impulssiostoksia tai häiriötekijöitä.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Sekalaiset sovellukset";
+"A selection of various popular applications" = "Valikoima erilaisia suosittuja sovelluksia";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Tämä kilpi tarjoaa luettelon suosituista erilaisista sovelluksista. Se on luotu käyttäjille, joiden tavoitteena on kattavampi sovellushallinta.";

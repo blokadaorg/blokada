@@ -46,28 +46,20 @@ struct SettingsFormNoNavView: View {
                     }
                 }
 
-                Button(action: {
-                    self.tabVM.setSection("logRetention")
-                }) {
-                    SettingsItemView(
-                        title: L10n.activitySectionHeader,
-                        image: Image.fChart,
-                        selected: self.tabVM.isSection("logRetention")
-                    )
+                if (self.vm.type != .Family) {
+                    Button(action: {
+                        self.tabVM.setSection("logRetention")
+                    }) {
+                        SettingsItemView(
+                            title: L10n.activitySectionHeader,
+                            image: Image.fChart,
+                            selected: self.tabVM.isSection("logRetention")
+                        )
+                    }
                 }
             }
 
             Section(header: Text(L10n.accountSectionHeaderOther)) {
-                Button(action: {
-                    self.tabVM.setSection("changeaccount")
-                }) {
-                    SettingsItemView(
-                        title: L10n.accountActionLogout,
-                        image: Image.fLogout,
-                        selected: self.tabVM.isSection("changeaccount")
-                    )
-                }
-
                 Button(action: {
                     self.contentVM.stage.showModal(.help)
                 }) {
@@ -79,7 +71,7 @@ struct SettingsFormNoNavView: View {
                 }
 
                 Button(action: {
-                    self.contentVM.openLink(Link.Credits)
+                    self.contentVM.openLink(LinkId.credits)
                 }) {
                     SettingsItemView(
                         title: L10n.accountActionAbout,

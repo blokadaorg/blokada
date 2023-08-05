@@ -38,3 +38,28 @@
 "phishing" = "tietojenkalastelu";
 // One of the tags used for searching blocklists
 "security" = "turvallisuus";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "roskaposti";
+// One of the tags used for searching blocklists
+"dating" = "dating";
+// One of the tags used for searching blocklists
+"piracy" = "merirosvous";
+// One of the tags used for searching blocklists
+"torrent" = "torrentti";
+// One of the tags used for searching blocklists
+"streaming" = "streaming";
+// One of the tags used for searching blocklists
+"apps" = "sovellukset";
+// One of the tags used for searching blocklists
+"chat" = "chat";
+// One of the tags used for searching blocklists
+"gaming" = "pelaaminen";
+// One of the tags used for searching blocklists
+"games" = "pelit";
+// One of the tags used for searching blocklists
+"e-commerce" = "sähköinen kaupankäynti";
+// One of the tags used for searching blocklists
+"other" = "muu";

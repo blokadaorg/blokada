@@ -33,7 +33,7 @@ struct SupportView: View {
                 VStack {
                     Button(action: {
                         self.contentVM.stage.dismiss()
-                        self.contentVM.openLink(Link.KnowledgeBase)
+                        self.contentVM.openLink(LinkId.knowledgeBase)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -46,7 +46,7 @@ struct SupportView: View {
 
                     Button(action: {
                         self.contentVM.stage.dismiss()
-                        self.contentVM.openLink(Link.Support)
+                        self.contentVM.openLink(LinkId.support)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -74,7 +74,7 @@ struct SupportView: View {
 //                        self.tabVM.setActiveTab(Tab.Home)
 //                        self.contentVM.stage.showModal(.debug)
                         self.contentVM.stage.dismiss()
-                        self.commands.execute(.shareLog)
+                        self.commands.execute(.log)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))
@@ -87,7 +87,7 @@ struct SupportView: View {
 
                     Button(action: {
                         self.contentVM.stage.dismiss()
-                        self.contentVM.stage.setRoute("home/rate")
+                        self.contentVM.stage.showModal(.rate)
                     }) {
                         ZStack {
                             ButtonView(enabled: .constant(true), plus: .constant(true))

@@ -36,7 +36,7 @@ class ContentViewModel: ObservableObject {
         onShareLog()
     }
 
-    func openLink(_ link: Link) {
+    func openLink(_ link: LinkId) {
         linkRepo.openLink(link)
     }
 

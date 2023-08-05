@@ -17,6 +17,8 @@ import Factory
 class PackDetailViewModel: ObservableObject {
 
     @Injected(\.deck) private var deck
+    @Injected(\.cloud) private var device
+    @Injected(\.commands) private var commands
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -53,4 +55,15 @@ class PackDetailViewModel: ObservableObject {
         deck.setDeckEnabled(deckId: pack.id, enabled: false)
     }
 
+    func isSafeSearch() -> Bool {
+        return device.safeSearch
+    }
+
+    func toggleSafeSearch() {
+        var param = "1"
+        if device.safeSearch {
+            param = "0"
+        }
+        commands.execute(.setSafeSearch, param)
+    }
 }

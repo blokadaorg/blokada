@@ -26,26 +26,15 @@ struct LoadingButtonView: View {
             self.action()
         }) {
             ZStack(alignment: alignTrailing ? .trailing : .leading) {
-                if #available(iOS 14.0, *) {
-                    Toggle("", isOn: .constant(self.isOn))
-                        .labelsHidden()
-                        .opacity(loading ? 0 : 1)
-                        .animation(.easeInOut)
-                        .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
+                Toggle("", isOn: .constant(self.isOn))
+                    .labelsHidden()
+                    .opacity(loading ? 0 : 1)
+                    .animation(.easeInOut, value: loading)
+                    .toggleStyle(SwitchToggleStyle(tint: Color.cAccent))
 
-                    ProgressView()
-                        .opacity(loading ? 1 : 0)
-                        .animation(.easeInOut)
-                } else {
-                    Toggle("", isOn: .constant(self.isOn))
-                        .labelsHidden()
-                        .opacity(loading ? 0 : 1)
-                        .animation(.easeInOut)
-
-                    SpinnerView()
-                        .opacity(loading ? 1 : 0)
-                        .animation(.easeInOut)
-                }
+                ProgressView()
+                    .opacity(loading ? 1 : 0)
+                    .animation(.easeInOut, value: loading)
             }
 
         }.buttonStyle(BorderlessButtonStyle())

@@ -12,6 +12,7 @@
 
 "error device offline" = "جهازك غير متّصل بالإنترنت";
 "error account inactive" = "حسابك غير نَشِط. الرجاء تنشيط حسابك من أجل الإستمرار في استخدام BLOKADA+.";
+"error account inactive generic" = "حسابك غير نشط. يرجى تنشيط حسابك من أجل الاستمرار في استخدام بلوكادا.";
 "error account inactive after restore" = "لا يبدو أن هذا حساب نَشِط صالح. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
 "error account invalid" = "يبدو أنّ مُعرِّف الحساب هذا غير صالح.";
 "error creating account" = "تَعذَّر إنشاء حساب جديد. الرجاء المحاولة مرّة أُخرى لاحقاً.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "تعذَّر جلب المواقع.";
 "error unknown" = "حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
 "error multiple apps" = "يوجد أكثر من تطبيق لبلوكادا على جهازك. قد يتسبب ذلك في مشاكل في الاتصال. هل ترغب في إصلاحه الآن؟";
+"error locked" = "هذا الإجراء غير متوفر عندما يكون التطبيق في حالة مقفلة. الرجاء فتح التطبيق للمتابعة.";
+"error lock invalid" = "يجب أن يكون رمز PIN صالح 4 أرقام بالضبط. الرجاء المحاولة مرة أخرى.";
 
 "conn isssues header" = "مشاكل في الاتصال";
 "conn isssues slug" = "مشاكل الاتصال. الرجاء التحقق من الإعدادات الخاصة بك. انقر للحصول على التفاصيل.";
@@ -158,7 +161,7 @@
 "home status detail paused" = "متوقّف مؤقّتاً حتّى ينتهي المؤقِّت";
 "home status detail active" = "حَظْر *الإعلانات* و *المتعقِّبين*";
 "home status detail active with counter" = "تمّ حَظْر *%@* الإعلانات و المتعقِّبين";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "تم حظر الإعلانات و التتبع آخر 24 ساعة";
 "home status detail active slim" = "Blokada *Slim* نَشِط";
 "home status detail plus" = "*+* حماية *خصوصيّتك*";
 "home status detail progress" = "الرجاء الإنتظار...";
@@ -181,6 +184,8 @@
 "pack category highlights" = "الملامح";
 "pack category active" = "مُفَعَّل";
 "pack category all" = "الكل";
+
+"shields section header" = "الدروع";
 
 "location choice header" = "اختر موقع";
 
@@ -226,11 +231,11 @@
 "activity filter showing for" = "عرض لـ: %@";
 "activity empty text" = "حاول استخدام جهازك، و العودة إلى هنا لاحقاً، لمعرفة من أين يتّصل جهازك.";
 "activity device filter show all" = "جميع الأجهزة";
-"activity retention header" = "Should we store your activity?";
+"activity retention header" = "هل يجب أن نخزن نشاطك؟";
 "activity retention option none" = "لا تقم بتخزين نشاطي";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention option 24h" = "نعم، قم بتخزين نشاطي";
+"activity retention policy" = "من خلال تمكين تسجيل النشاط، فإنك توافق على سياسة الخصوصية.";
+"activity retention desc" = "لا يقوم بلوكادا سحابة بتسجيل أي شيء بشكل افتراضي. إذا كنت ترغب في رؤية الإحصائيات المجمعة والنشاط من جميع أجهزتك، قم بتفعيل تسجيل النشاط أدناه.";
 
 // Header for the Exceptions screen (where all user defined custom rules are)
 "userdenied section header" = "الاستثناءات";
@@ -244,7 +249,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "حَظْر";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "فتح الاستثناءات";
 
 "account section header settings" = "الإعدادات";
 "account status text" = "حسابك في BLOKADA %@ نَشِط حتّى %@.";
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(يشمل Blokada Cloud)";
 "payment plan slugline plus" = "حماية إضافيّة مع VPN";
 "payment plan cta trial" = "ابدأ التجربة المجّانيّة لمدة 7 أيام";
+"payment plan cta trial length" = "بدء %@- يوم التجربة المجانية";
 "payment plan cta monthly" = "اشترك شهريّاً";
 "payment plan cta annual" = "اشترك سنويّاً";
 "payment plan current" = "(الخطّة الحاليّة)";
+
+"payment cancel footer" = "يتم تجديد الاشتراك تلقائياً قبل انتهاء فترة الفاتورة الحالية. يمكنك الإلغاء في أي وقت من الإعدادات.";
+"payment cancel footer trial short" = "إلغاء خلال الأيام التالية %@ ولن يتم شحنك.";
 
 "location region worldwide" = "في كل مكان";
 "location region america" = "أمريكا";
@@ -442,24 +451,24 @@
 "stats top allowed header" = "أكثر الطلبات المسموح بها";
 "stats top blocked header" = "أكثر الطلبات المَحظورة";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "مسموح";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "محظور";
 // A short one-word label for the counter of total requests.
-"stats label total" = "Total";
+"stats label total" = "المجموع";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "آخر 24 ساعة";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "كل الوقت";
 
 "dnsprofile header" = "تفعيل بلوكادا في الإعدادات";
 "dnsprofile desc" = "في إعدادات التطبيق ، انتقل إلى العام ←VPN, DNS & إعدادات الجهاز ←DNS و حدّد Blokada.";
 "dnsprofile action open settings" = "فتح الإعدادات";
 "dnsprofile desc android" = "في إعدادات التطبيق ، ابحث عن قسم DNS الخاص ، ثم الصق اسم المضيف الخاص بك (الضغط لفترة طويلة).";
 "dnsprofile desc android copy" = "انسخ اسم مضيف Blokada Cloud للصقه في الإعدادات.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "في تطبيق الإعدادات، انتقل إلى:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "العام → VPN, DNS & Device Management → DNS واختيار بلوكادا.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "انتهينا تقريباً !";
@@ -479,6 +488,80 @@
 "advanced section header packs" = "قوائم الحَظْر";
 "app settings section header" = "هذا الجهاز";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "بلوكادا مقفل. أدخل رمز الدبوس لفتح القفل";
+"lock status unlocked has pin" = "أدخل رمز الدبوس لتغييره";
+"lock status unlocked" = "عيّن رمز الدبوس الخاص بك لقفل بلوكادا";
+
+"crash body" = "لقد توقف بلوكادا بشكل غير متوقع، ونحن نأسف للإزعاج. من خلال مشاركة ملف السجل معنا، أنت تعزز التجربة لجميع المستخدمين. يرجى مساعدتنا في تحديد وإصلاح هذه المشكلة على الفور.";
+
+"universal status waiting for data" = "في انتظار البيانات";
+"universal action disable" = "تعطيل";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "اسحب لفتح القفل";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "الشريحة";
+"lock status too many attempts" = "العديد من المحاولات الخاطئة. حاول مرة أخرى لاحقاً";
+"lock status enter to confirm" = "أدخل رمز الدبوس مرة أخرى لتأكيد";
+"lock status enter or wait" = "أدخل رمز الدبوس الجديد، أو انتظر لقفل...";
+"lock change pin" = "تغيير الدبوس";
+
+"family rename device" = "إعادة تسمية الجهاز";
+"family label this device" = "هذا الجهاز (%@)";
+"family onboard header" = "مرحبا بك في عائلة بلوكادا!";
+"family onboard body" = "اتبع الإرشادات على الشاشة لإعداد جهازك الأول.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "التّفعيل";
+"family cta action add device" = "إضافة جهاز";
+"family cta action finish setup" = "إنهاء الإعداد";
+
+"family status fresh header" = "مرحبًا!";
+"family status fresh body" = "تفعيل أو استعادة حسابك للمتابعة";
+"family status ready header" = "التطبيق جاهز!";
+"family status ready body" = "أضف جهازك الأول الآن";
+"family status perms header" = "انتهينا تقريباً !";
+"family status perms body" = "يرجى منح الأذونات اللازمة";
+"family status expired header" = "انتهت صلاحية الحساب";
+"family status expired body" = "الرجاء تفعيل حسابك للمتابعة";
+"family status linked header" = "التطبيق مرتبط!";
+"family status locked header" = "التطبيق مقفل";
+
+"family payment slug" = "قم بحماية عائلتك بأكملها باشتراك واحد. قم بمراقبة وحماية جميع الأجهزة العائلية من المحتوى غير المرغوب فيه.";
+"family payment features devices header" = "مراقبة الجهاز العائلي";
+"family payment features devices body" = "إدارة ومراقبة جميع أجهزتك من خلال تطبيق واحد. التحكم في الوصول وتصفية المحتوى مباشرة من جهازك.";
+"family payment features performance body" = "الحفاظ على جهاز سريع ومتجاوب مع ضمان الاتصال بالإنترنت الخاص بك يبقى في ذروة السرعة، وكل ذلك بفضل التكنولوجيا التي ثبتت جدواها.";
+"family payment features dns body" = "تعزيز الخصوصية عبر جميع أجهزتك مع تشفير DNS. يستخدم بلوكادا أحدث البروتوكولات لضمان بقاء حركة المرور الخاصة بك على الإنترنت سرية.";
+"family payment features battery body" = "تنشيط بلوكادا لن يستنزف البطارية. قد يساعدك ذلك في الواقع على استمراره لفترة أطول من خلال حظر أنشطة الخلفية غير الضرورية.";
+
+"family account attach header" = "إرفاق الجهاز";
+"family account attach body" = "لربط هذا الجهاز بالجهاز الأصلي، أكمل عملية الإعداد. بمجرد الربط، سيتم تأمين هذا الجهاز، مما يسمح لك بتكوينه ومراقبته من الجهاز الأصلي.";
+"family account qr header" = "Scan QR code";
+"family account qr body" = "قم بمسح رمز QR من الجهاز الأصلي، من أجل بدء عملية الربط.";
+// A button to scan QR code
+"family account qr action button" = "فحص";
+
+"family account link header" = "ربط الجهاز";
+"family account link name" = "تعيين اسم الجهاز";
+"family account link qr header" = "مسح رمز QR هذا";
+"family account link qr body" = "سيتم إغلاق هذه الشاشة تلقائياً بمجرد اكتشاف الجهاز الجديد.";
+
+// A button to unlink linked device
+"family account cta unlink" = "إلغاء الارتباط";
+
+"family account decide header" = "إضافة جهاز";
+"family account decide link header" = "ربط جهاز";
+"family account decide link body" = "في بلوكادا، يمكنك ببساطة مسح رمز QR لربط وإدارة جهاز آخر.";
+"family account decide separator" = "- أو -";
+"family account decide this header" = "استخدم هذا الجهاز";
+"family account decide this body" = "بدلاً من ذلك، يمكنك ببساطة تكوين بلوكادا للعمل على هذا الجهاز، وتعيين الدبوس لقفل التطبيق.";
+
+"family shields header" = "قم بتفعيل الدروع لمنع الوصول إلى المحتوى المحدد على أجهزتك الخاضعة للإشراف.";
+"family shields custom slug" = "إدارة المدخلات المخصصة الخاصة بك للحظر أو السماح.";
+
+// When a company name is other than the big ones
+"toplist company other" = "اخرى";
+// When a domain is unknown
+"toplist tld unknown" = "غير معروف";
+
+"family notification subtitle" = "حماية الأسرة متوقف";

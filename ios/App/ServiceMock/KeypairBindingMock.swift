@@ -30,6 +30,11 @@ class PlusKeypairBinding: PlusKeypairOps {
         self.currentKeypair = currentKeypair
         completion(.success(currentKeypair))
     }
+
+    func doCurrentKeypair(keypair: PlusKeypair, completion: @escaping (Result<Void, Error>) -> Void) {
+        self.currentKeypair = keypair
+        completion(.success(()))
+    }
 }
 
 extension Container {

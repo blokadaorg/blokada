@@ -20,6 +20,8 @@ let NOTIF_ACC_EXP = "accountExpired"
 let NOTIF_LEASE_EXP = "plusLeaseExpired"
 let NOTIF_PAUSE = "pauseTimeout"
 let NOTIF_ONBOARDING = "onboardingDnsAdvice"
+let NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
+let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
 
 func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
@@ -43,6 +45,16 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         content.title = L10n.activatedHeader
         content.subtitle = L10n.dnsprofileNotificationSubtitle
         content.body = L10n.dnsprofileNotificationBody
+        content.sound = .default
+    } else if id == NOTIF_ONBOARDING_FAMILY {
+        content.title = L10n.activatedHeader
+        content.subtitle = L10n.dnsprofileNotificationSubtitle
+        content.body = L10n.dnsprofileNotificationBody.replacingOccurrences(of: "Blokada", with: "Blokada Family")
+        content.sound = .default
+    } else if id == NOTIF_ACC_EXP_FAMILY {
+        content.title = L10n.notificationAccHeader
+        content.subtitle = L10n.familyNotificationSubtitle
+        content.body = L10n.notificationAccBody
         content.sound = .default
     } else {
         content.title = L10n.notificationGenericHeader

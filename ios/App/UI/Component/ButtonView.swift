@@ -20,11 +20,10 @@ struct ButtonView: View {
     var body: some View {
         return ZStack {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .stroke(plus ? Color.cActivePlus : Color.cActive, lineWidth: 2)
+                .stroke(enabled ? (plus ? Color.cAccent : Color.cActive) : Color.cSecondaryBackground, lineWidth: 2)
 
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(plus ? Color.cActivePlus : Color.cActive)
-                .opacity(enabled ? 1 : 0)
+                .fill(enabled ? (plus ? Color.cAccent : Color.cActive) : Color(UIColor.systemGray4))
         }
     }
 }
@@ -33,8 +32,11 @@ struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ButtonView(enabled: .constant(true), plus: .constant(false)).previewLayout(.fixed(width: 200, height: 40))
+                .frame(width: 200, height: 44)
             ButtonView(enabled: .constant(true), plus: .constant(true)).previewLayout(.fixed(width: 200, height: 40))
+                .frame(width: 200, height: 44)
             ButtonView(enabled: .constant(false), plus: .constant(true)).previewLayout(.fixed(width: 200, height: 40))
+                .frame(width: 200, height: 44)
         }
     }
 }

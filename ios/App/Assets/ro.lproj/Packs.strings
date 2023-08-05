@@ -20,29 +20,86 @@
 "A special blocklist containing mobile ad providers." = "O listă specială de blocare care conține furnizori de anunțuri mobile.";
 "Protects against cyber attacks" = "Protejează împotriva atacurilor informatice";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "O listă de blocare pentru filtrarea site-urilor web de înșelăciune. Falsificarea este o practică incorectă bazată pe redirecționarea către site-uri web false, care arată exact ca cele originale, pentru a păcăli vizitatorii, şi pentru a fura informaţii sensibile. Instalarea acestei liste de blocare vă va ajuta să preveniți astfel de situații.";
-"A new and expanding tracker database" = "A new and expanding tracker database";
+"A new and expanding tracker database" = "O nouă bază de date de trackere extinsă";
 "DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar este un set de date cel mai bun în clasă despre trackere care este generat și întreținut automat prin crawling și analiză continuă. Vedeți informațiile despre autor pentru detalii.";
-"Curated blocklist to block trackers and advertisements" = "Curated blocklist to block trackers and advertisements";
-"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly.";
-"Analyzes privacy concerns in Android applications" = "Analyzes privacy concerns in Android applications";
-"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized).";
-"A good general purpose blocklist" = "A good general purpose blocklist";
-"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.";
-"A blocklist for ads and tracking, updated regularly" = "A blocklist for ads and tracking, updated regularly";
-"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated.";
-"A collection of blocklists for various use cases." = "A collection of blocklists for various use cases.";
-"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "These lists were created because the founder of the project wanted something with a little more control over what is being blocked.";
-"A blocklist based on spam reports" = "A blocklist based on spam reports";
-"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies.";
-"A comprehensive lists to block ads and tracking" = "A comprehensive lists to block ads and tracking";
-"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them.";
-"A general purpose, medium weight list" = "A general purpose, medium weight list";
-"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope.";
+"Curated blocklist to block trackers and advertisements" = "Blocarea listelor pentru a bloca trackere și reclame";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Aceasta este o listă de blocare blestemată și bine întreținută pentru a bloca reclame, urmărire și multe altele! Actualizată regulat.";
+"Analyzes privacy concerns in Android applications" = "Analizează preocupările legate de confidențialitate în aplicațiile Android";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Această listă de blocare se bazează pe Proiectul de Confidențialitate Exodus, care analizează aplicațiile Android și caută trackere încorporate. Un tracker este un program menit să colecteze date despre tine, sau ce faci. Aceasta este o listă foarte mică, așa că ar trebui să activați una dintre listele cele mai populare (cum ar fi Energized).";
+"A good general purpose blocklist" = "Un bun scop general blocat";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Blochează reclame, phishing, malware, spyware, ransomware, scanare, telemezie, analize, urmărire (dacă nu este nevoie pentru o funcționalitate adecvată). Nu ar trebui să interfereze cu aplicațiile și serviciile obișnuite.";
+"A blocklist for ads and tracking, updated regularly" = "O listă de blocare pentru reclame și urmărire, actualizată în mod regulat";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Aceasta este o alegere buna ca si lista de blocare primara. Este bine echilibrata, marimea medie si frecvent actualizata.";
+"A collection of blocklists for various use cases." = "O colecție de blocaje pentru diferite cazuri de utilizare.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Aceste liste au fost create pentru că fondatorul proiectului a dorit ceva cu puţin mai mult control asupra ceea ce este blocat.";
+"A blocklist based on spam reports" = "O listă de blocare bazată pe rapoarte spam";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 este un serviciu care ajută întreprinderile online să se bucure de monitorizarea conținutului, de testarea pătrunderii pe piață și de protecția mărcii. Această listă se bazează pe rapoartele primite de la întreprinderi.";
+"A comprehensive lists to block ads and tracking" = "O listă completă pentru a bloca reclamele și urmărirea";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock este o listă cu domenii care servesc reclame, urmărire script-uri și malware. Aceasta împiedică dispozitivul să se conecteze la ele.";
+"A general purpose, medium weight list" = "Listă cu greutate medie";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Această listă blochează serverele malicioase și dăunătoare înșelătoare, cum ar fi publicitatea, urmărirea, telemezia, scanarea și malware-ul. Această listă nu blochează platformele de comunicare socială, așa-numitele domenii de știri false. CPBL are ca scop furnizarea listelor de bloc care oferă protecţie completă, rămânând în acelaşi timp rezonabile ca dimensiune şi domeniu de aplicare.";
 "A reasonably balanced ad blocking hosts file" = "Un fisier, rezonabil echilibrat, de host-uri pentru blocarea reclamelor";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "This is a well known, general purpose blocklist of small size, updated regularly.";
-"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.";
-"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.";
-"A blocklist based on malware database" = "A blocklist based on a malware database";
-"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.";
-"A blocklist from the maker of the adblocker test" = "A blocklist from the maker of the adblocker test";
-"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Aceasta este o listă de blocare cu scop general bine cunoscută, de dimensiuni mici, actualizată în mod regulat.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protejează-ți datele și ochelarii de la licitație către cel mai mare ofertant. Vă rugăm să alegeţi mai întâi Lumina de configurare. Dacă nu este suficient de bun pentru dumneavoastră, încercaţi Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Această listă universală blochează în primul rând reclamele și reclamele pentru aplicații mobile. Nu ar trebui să interfereze cu aplicațiile și serviciile obișnuite.";
+"A blocklist based on malware database" = "O listă de blocare bazată pe o bază de date malware";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "O listă de blocare a site-urilor periculoase care sunt folosite pentru distribuția de programe malware, bazată pe urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "O listă de blocare de la producătorul de teste adblocker";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Aceasta este lista oficială de blocare de la d3ward, producătorul site-ului popular de testare adblocker. Este menit să atingă 100% scor în test. Ține cont că aceasta este o listă minimă. Poate doriți să o folosiți împreună cu o altă listă de blocare activată. Dacă doriți să efectuați testul, doar vizitați go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Reclame";
+"Blocks advertisements and tracking" = "Blochează reclame și urmărire";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Elimină reclamele intruzive şi urmărirea pe web. Îmbunătăţeşte viteza de navigare şi protejează intimitatea utilizatorului.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Protejează împotriva software-ului rău intenționat";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Apără împotriva programelor ostile și site-urilor web dăunătoare. Oferă un scut securizat împotriva unui spectru de amenințări cibernetice.";
+// Name of the Porn shield
+"Adult Content" = "Adult Content";
+"Blocks adult and pornographic content" = "Blochează conținutul pentru adulți și pornografic";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Acest filtru vizează conținutul pentru adulți pentru o experiență online mai sigură. Acesta protejează utilizatorii de materialele explicite și de riscurile potențiale.";
+// Name of the Dating shield
+"Dating" = "Matrimoniale";
+"Blocks dating and relationship-seeking websites" = "Blochează site-uri de întâlniri și căutare de relații";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Concepută pentru a restricționa platformele de întâlniri online. Oferă protecție împotriva potențialelor distrageri și interacțiuni nedorite.";
+// Name of the Gambling shield
+"Gambling" = "Jocuri";
+"Blocks gambling-related content and websites" = "Blochează conținutul asociat jocurilor de noroc și site-urile";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Refuză accesul la platformele și conținutul de jocuri de noroc. Ajută la prevenirea dependenței și la asigurarea siguranței financiare.";
+// Name of the Piracy shield
+"Piracy" = "Piraterie";
+"Blocks piracy websites and related content" = "Blochează site-urile web de piraterie și conținutul asociat";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blochează site-urile de piraterie neautorizate și platformele aferente. Protejează proprietatea intelectuală și reduce riscurile de descărcare dăunătoare.";
+// Name of the Video streaming shield
+"Video streaming" = "Streaming video";
+"Blocks popular video streaming platforms" = "Blochează platforme populare de streaming video";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curbele de acces la serviciile de streaming video. Creat pentru utilizatorii care doresc să gestioneze obiceiurile de vizualizare și să salveze lățimea benzii.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Aplicații de streaming";
+"Blocks streaming apps and related content" = "Blochează aplicațiile de streaming și conținutul asociat";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Funcționează o selecție curată de aplicații populare de streaming. Permite controlul granular asupra consumului media.";
+// Name of the Social media shield
+"Social media" = "Rețele sociale";
+"Restricts access to social networking platforms" = "Restricționează accesul la platformele de socializare în rețea";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limitează accesul la diverse platforme de socializare. Se preocupă mai mult concentrarea eforturilor asupra muncii și moderarea utilizării copiilor.";
+// Name of the Chat apps shield
+"Chat apps" = "Aplicații chat";
+"Restricts popular messaging and chat applications" = "Restricționează aplicațiile populare de mesagerie și chat";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Acest scut este proiectat pentru a bloca aplicațiile de mesagerie și chat utilizate pe scară largă. Perfect pentru cei care doresc să-și controleze canalele de comunicare.";
+// Name of the Gaming shield
+"Gaming" = "Joc";
+"Blocks gaming platforms and related content" = "Blochează platformele de jocuri și conținutul asociat";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restricționează site-urile de jocuri online și distragerile asociate. Conceput pentru utilizatorii care doresc un stil de viață digital echilibrat.";
+// Name of the Games shield
+"Games" = "Jocuri";
+"Restricts access to popular games" = "Restricționează accesul la jocurile populare";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Afişează aplicaţii de joc de top. Ideal pentru utilizatorii care doresc controlul precis al accesului la jocuri.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Aplicații pentru cumpărături online";
+"Blocks leading e-commerce and shopping applications" = "Blochează aplicațiile cele mai importante de comerț electronic și cumpărături";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Acest scut împiedică accesul la aplicațiile obișnuite de cumpărături. Ajuta utilizatorii să reducă achizițiile de impulsuri sau distragerile.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Diverse aplicații";
+"A selection of various popular applications" = "O selecție de diferite candidaturi populare";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Acest scut oferă o listă de aplicații populare de diferite tipuri. Este creat pentru utilizatorii care vizează un control mai complet al aplicațiilor.";

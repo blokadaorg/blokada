@@ -12,6 +12,7 @@
 
 "error device offline" = "Устройството ви е офлайн";
 "error account inactive" = "Вашият профил не е активен. Моля, активирайте го, за да продължите да използвате BLOKADA+.";
+"error account inactive generic" = "Вашият профил не е активен. Моля активирайте го, за да продължите да използвате Blokada.";
 "error account inactive after restore" = "Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
 "error account invalid" = "ID на този профил изглежда е невалиден.";
 "error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
 "error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас, като докоснете иконата за помощ в горната част.";
 "error multiple apps" = "На вашето устройство има повече от едно приложение на Blokada. Възможно е това да причини проблеми със свързването. Искате ли сега да отстраните проблема?";
+"error locked" = "Това действие не е активно, когато приложението е в заключено състояние. Моля, отключете приложението, за да продължите.";
+"error lock invalid" = "Валидният ПИН код трябва да съдържа точно 4 цифри. Моля, опитайте отново.";
 
 "conn isssues header" = "Проблеми със свързването";
 "conn isssues slug" = "Проблеми със свързването. Моля, проверете конфигурацията си. Докоснете за подробности.";
@@ -181,6 +184,8 @@
 "pack category highlights" = "Акценти";
 "pack category active" = "Активно";
 "pack category all" = "Всичкo";
+
+"shields section header" = "Щитове";
 
 "location choice header" = "Избор на местоположение";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(включва Blokada облак)";
 "payment plan slugline plus" = "Допълнителна защита с VPN";
 "payment plan cta trial" = "Започнете 7-дневен безплатен пробен период";
+"payment plan cta trial length" = "Започни с %@-дневен безплатен пробен период";
 "payment plan cta monthly" = "Месечен абонамент";
 "payment plan cta annual" = "Годишен абонамент";
 "payment plan current" = "(текущ план)";
+
+"payment cancel footer" = "Абонаментът се подновява автоматично преди края на текущия период на фактуриране. Можете да отмените абонамента по всяко време в Настройки.";
+"payment cancel footer trial short" = "Анулирайте услугата през следващите %@ дни и няма да бъдете таксувани.";
 
 "location region worldwide" = "Навсякъде";
 "location region america" = "Америка";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada е заключена. Въведете Пин код, за да я отключите";
 "lock status unlocked has pin" = "Въведете Пин код, за да има промяна";
 "lock status unlocked" = "Въведете Пин код, за да заключите Blokada";
+
+"crash body" = "Blokada неочаквано спря да работи и съжаляваме за причиненото неудобство. Споделяйки с нас регистрационния файл, вие подобрявате работата за всички потребители. Моля, помогнете ни бързо да открием и отстраним този проблем.";
+
+"universal status waiting for data" = "Изчакване на данни";
+"universal action disable" = "Деактивиране";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Плъзнете, за да отключите";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Плъзни";
+"lock status too many attempts" = "Твърде много грешни опити. Опитайте отново по-късно";
+"lock status enter to confirm" = "Въведете отново пин кода за потвърждение";
+"lock status enter or wait" = "Въведете нов пин код, или изчакайте да се заключи...";
+"lock change pin" = "Промяна на пин";
+
+"family rename device" = "Преименуване на устройство";
+"family label this device" = "Това устройство (%@)";
+"family onboard header" = "Добре дошли в Blokada Семейство!";
+"family onboard body" = "Следвайте инструкциите на екрана, за да настроите първото си устройство.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Активиране";
+"family cta action add device" = "Добавяне на устройство";
+"family cta action finish setup" = "Завършване на настройката";
+
+"family status fresh header" = "Здравейте!";
+"family status fresh body" = "Активирайте или възстановете профила си, за да продължите";
+"family status ready header" = "Приложението е готово!";
+"family status ready body" = "Добавете сега първото си устройство";
+"family status perms header" = "Почти е готово!";
+"family status perms body" = "Моля, дайте необходимите разрешения";
+"family status expired header" = "Сметката е изтекла";
+"family status expired body" = "Моля, активирайте профила си, за да продължите";
+"family status linked header" = "Приложението е свързано!";
+"family status locked header" = "Приложението е заключено";
+
+"family payment slug" = "Защитете цялото си семейство с един абонамент. Наблюдавайте и защитавайте всички семейни устройства от нежелано съдържание.";
+"family payment features devices header" = "Мониторинг на семейните устройства";
+"family payment features devices body" = "Управлявайте и наблюдавайте всичките си устройства чрез едно приложение. Контролирайте директно от устройството си достъпа и филтрирането на съдържанието.";
+"family payment features performance body" = "Поддържайте бързо и отзивчиво устройство, като същевременно гарантирате, че вашата интернет връзка остава на върхови скорости, всичко това благодарение на нашата доказана технология.";
+"family payment features dns body" = "Подобрете поверителността на всички свои устройства с помощта на криптиран DNS. Blokada използва най-съвременни протоколи, за да гарантира, че интернет трафикът ви остава конфиденциален.";
+"family payment features battery body" = "Активирането на Blokada няма да изтощи батерията ви. Всъщност тя може да помогне за по-дългото ѝ използване, като блокира ненужните фонови дейности.";
+
+"family account attach header" = "Прикачване на устройство";
+"family account attach body" = "За да свържете това устройство с родителското устройство, трябва да завършите процеса на настройка. След като бъде свързано, това устройство ще бъде заключено, което ви позволява от родителското устройство да го конфигурирате и наблюдавате.";
+"family account qr header" = "Сканиране на QR код";
+"family account qr body" = "Сканирайте QR кода от родителското устройство, за да стартирате процеса на свързване.";
+// A button to scan QR code
+"family account qr action button" = "Сканиране";
+
+"family account link header" = "Свързване на устройство";
+"family account link name" = "Задаване на име на устройството";
+"family account link qr header" = "Сканирайте този QR код";
+"family account link qr body" = "Този екран ще се затвори автоматично, след като новото устройство бъде открито.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Прекъсване";
+
+"family account decide header" = "Добавяне на устройство";
+"family account decide link header" = "Свързване на устройство";
+"family account decide link body" = "В Blokada просто сканирате QR код, за да свържете и управлявате друго устройство.";
+"family account decide separator" = "- или -";
+"family account decide this header" = "Използване на това устройство";
+"family account decide this body" = "Като алтернатива можете просто да конфигурирате Blokada да работи на това устройство и да зададете Пин код, с който да заключите приложението.";
+
+"family shields header" = "Активирайте щитовете, за да блокирате достъпа до избрано съдържание на контролираните от вас устройства.";
+"family shields custom slug" = "Управлявайте свои собствени персонализирани записи, които да блокирате или разрешавате.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Другo";
+// When a domain is unknown
+"toplist tld unknown" = "неизвестно";
+
+"family notification subtitle" = "Семейната защита е изключена";

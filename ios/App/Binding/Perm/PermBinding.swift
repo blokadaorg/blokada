@@ -42,7 +42,7 @@ class PermBinding: PermOps {
         onVpnPerms()
     }
 
-    func doPrivateDnsEnabled(tag: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func doPrivateDnsEnabled(tag: String, alias: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         privateDns.isPrivateDnsProfileActive()
         .sink(
             onValue: { it in
@@ -57,8 +57,8 @@ class PermBinding: PermOps {
         .store(in: &cancellables)
     }
     
-    func doSetSetPrivateDnsEnabled(tag: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        privateDns.savePrivateDnsProfile(tag: tag, name: env.getDeviceName())
+    func doSetSetPrivateDnsEnabled(tag: String, alias: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        privateDns.savePrivateDnsProfile(tag: tag, name: alias)
         .sink(
             onFailure: { err in completion(Result.failure(err))},
             onSuccess: { completion(Result.success(())) }
@@ -66,7 +66,15 @@ class PermBinding: PermOps {
         .store(in: &cancellables)
     }
     
-    
+    func doSetSetPrivateDnsForward(completion: @escaping (Result<Void, Error>) -> Void) {
+        privateDns.savePrivateDnsProfile(tag: nil, name: nil)
+        .sink(
+            onFailure: { err in completion(Result.failure(err))},
+            onSuccess: { completion(Result.success(())) }
+        )
+        .store(in: &cancellables)
+    }
+
     //    func doIsEnabledForTag(tag: String) throws -> Bool {
     //        return NEDNSSettingsManager.shared().isEnabled
     //    }

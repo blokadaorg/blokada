@@ -34,6 +34,7 @@ class HomeViewModel: ObservableObject {
     private lazy var selectedLeaseHot = plusLease.currentLease
 
     @Published var showSplash = true
+    @Published var hideContent = false
 
     @Published var appState: AppState = .Deactivated
     @Published var vpnEnabled: Bool = false
@@ -59,6 +60,8 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    @Published var showInput: Bool = false
 
     var expiredAlertShown: Bool = false
 
@@ -99,6 +102,7 @@ class HomeViewModel: ObservableObject {
     
     init() {
         onError()
+        onInput()
         onAppStateChanged()
         onWorking()
         onAccountTypeChanged()
@@ -122,6 +126,15 @@ class HomeViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.error = it?.localizedDescription
+        })
+        .store(in: &cancellables)
+    }
+    
+    private func onInput() {
+        stage.showInput
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.showInput = it
         })
         .store(in: &cancellables)
     }

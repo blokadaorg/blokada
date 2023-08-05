@@ -38,3 +38,28 @@
 "phishing" = "التصيُّد الإحتيالي";
 // One of the tags used for searching blocklists
 "security" = "الحماية";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "البريد المزعج";
+// One of the tags used for searching blocklists
+"dating" = "تاريخ";
+// One of the tags used for searching blocklists
+"piracy" = "القرصنة";
+// One of the tags used for searching blocklists
+"torrent" = "تورنت";
+// One of the tags used for searching blocklists
+"streaming" = "التدفق";
+// One of the tags used for searching blocklists
+"apps" = "تطبيقات";
+// One of the tags used for searching blocklists
+"chat" = "دردشة";
+// One of the tags used for searching blocklists
+"gaming" = "ألعاب";
+// One of the tags used for searching blocklists
+"games" = "ألعاب";
+// One of the tags used for searching blocklists
+"e-commerce" = "التجارة الإلكترونية";
+// One of the tags used for searching blocklists
+"other" = "اخرى";

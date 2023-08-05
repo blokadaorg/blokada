@@ -64,6 +64,11 @@ struct JournalItemView: View {
                     .foregroundColor(Color.secondary)
             }
             Spacer()
+
+            ShieldIconView(id: self.vm.entry.entry.deviceName,  title: self.vm.entry.entry.deviceName, small: true)
+                .frame(width: 32, height: 32)
+                .mask(RoundedRectangle(cornerRadius: 8))
+                .accessibilityLabel(self.vm.entry.entry.deviceName)
         }
         .frame(height: 54)
         .padding([.bottom, .top], 10)

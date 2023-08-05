@@ -20,7 +20,7 @@ struct BlokadaView: View {
     var body: some View {
         Rectangle()
             .fill(LinearGradient(gradient:
-                Gradient(colors: [Color.cActivePlusGradient, Color.cActivePlus]),
+                Gradient(colors: [Color("Orange"), Color.cAccent]),
                                  startPoint: .top, endPoint: point)
             )
             .mask(

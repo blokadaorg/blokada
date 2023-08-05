@@ -38,3 +38,28 @@
 "phishing" = "フィッシング";
 // One of the tags used for searching blocklists
 "security" = "セキュリティ";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "マルウェア";
+// One of the tags used for searching blocklists
+"spam" = "迷惑メール";
+// One of the tags used for searching blocklists
+"dating" = "出会い系";
+// One of the tags used for searching blocklists
+"piracy" = "海賊版";
+// One of the tags used for searching blocklists
+"torrent" = "Torrent";
+// One of the tags used for searching blocklists
+"streaming" = "ストリーミング";
+// One of the tags used for searching blocklists
+"apps" = "アプリ";
+// One of the tags used for searching blocklists
+"chat" = "チャット";
+// One of the tags used for searching blocklists
+"gaming" = "ゲーム総合";
+// One of the tags used for searching blocklists
+"games" = "ゲーム";
+// One of the tags used for searching blocklists
+"e-commerce" = "ネットショッピング";
+// One of the tags used for searching blocklists
+"other" = "その他";

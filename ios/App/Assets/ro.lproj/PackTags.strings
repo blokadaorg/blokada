@@ -38,3 +38,28 @@
 "phishing" = "phishing";
 // One of the tags used for searching blocklists
 "security" = "securitate";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "program malițios";
+// One of the tags used for searching blocklists
+"spam" = "nedorite";
+// One of the tags used for searching blocklists
+"dating" = "matrimonială";
+// One of the tags used for searching blocklists
+"piracy" = "piraterie";
+// One of the tags used for searching blocklists
+"torrent" = "torrent";
+// One of the tags used for searching blocklists
+"streaming" = "transmisiune";
+// One of the tags used for searching blocklists
+"apps" = "aplicații";
+// One of the tags used for searching blocklists
+"chat" = "conversație";
+// One of the tags used for searching blocklists
+"gaming" = "jocuri";
+// One of the tags used for searching blocklists
+"games" = "jocuri";
+// One of the tags used for searching blocklists
+"e-commerce" = "Comerțul electronic";
+// One of the tags used for searching blocklists
+"other" = "alt";

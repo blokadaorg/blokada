@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Eine Sperrliste mit bösartigen Websites, die zur Verbreitung von Malware verwendet werden, basierend auf urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "Eine Sperrliste vom Ersteller des Ad Blocker Tests";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Dies ist die offizielle Sperrliste von d3ward, dem Ersteller der beliebten Website zum Testen von Werbeblockern. Die Liste ist dazu gedacht, ein Testergebnis von 100% auf der Seite zu erreichen. Beachte, dass dies eine Liste mit minimalem Umfang ist. Möglicherweise möchtest du sie zusammen mit einer anderen aktivierten Sperrliste verwenden. Wenn du den Test durchführen möchtest, besuche einfach go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Anzeigen";
+"Blocks advertisements and tracking" = "Blockiert Anzeigen und Tracking";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminiert aufdringliche Werbung und Web-Tracking. Verbessert die Geschwindigkeit des Surfens und schützt die Privatsphäre der Benutzer.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Schützt vor böswilliger Software";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Schützt böswillige Software und schädliche Websites. Bietet einen sicheren Schutz gegen ein Spektrum von Cyber-Bedrohungen.";
+// Name of the Porn shield
+"Adult Content" = "Adult Content";
+"Blocks adult and pornographic content" = "Blockiert erwachsene und pornografische Inhalte";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Dieser Filter richtet sich an erwachsene Inhalte für ein sichereres Online-Erlebnis und schützt die Nutzer vor expliziten Materialien und potenziellen Risiken.";
+// Name of the Dating shield
+"Dating" = "Datiert";
+"Blocks dating and relationship-seeking websites" = "Blockiert Dating und Beziehungssuchende Websites";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Es wurde entwickelt, um Online-Dating Plattformen zu beschränken und bietet Schutz vor möglichen Ablenkungen und unerwünschten Interaktionen.";
+// Name of the Gambling shield
+"Gambling" = "Spielen";
+"Blocks gambling-related content and websites" = "Blockiert Spiel-bezogene Inhalte und Websites";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Verweigert den Zugang zu Glücksspielplattformen und Inhalten, hilft bei der Suchtprävention und der Gewährleistung finanzieller Sicherheit.";
+// Name of the Piracy shield
+"Piracy" = "Piraterie";
+"Blocks piracy websites and related content" = "Blockiert Piraterie Websites und verwandte Inhalte";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blockiert unbefugte Piraterie und zugehörige Plattformen. Schutzt geistiges Eigentum und reduziert schädliche Download-Risiken.";
+// Name of the Video streaming shield
+"Video streaming" = "Video-Streaming";
+"Blocks popular video streaming platforms" = "Blockiert beliebte Video-Streaming-Plattformen";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Begrenzt den Zugriff auf die besten Video-Streaming-Dienste. Hergestellt für Benutzer, die Ansehgewohnheiten verwalten und Bandbreite sparen möchten.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Streaming-Apps";
+"Blocks streaming apps and related content" = "Blockiert Streaming-Apps und verwandte Inhalte";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Funktioniert eine kuratierte Auswahl beliebter Streaming-Apps. Erlaubt eine granulare Kontrolle über den Medienverbrauch.";
+// Name of the Social media shield
+"Social media" = "Soziale Medien";
+"Restricts access to social networking platforms" = "Beschränkt den Zugriff auf soziale Netzwerkplattformen";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Begrenzt den Zugang zu verschiedenen Social-Media-Plattformen. Ideal zur Verbesserung des Arbeitsschwerpunkts und zur Mäßigung der Kindernutzung.";
+// Name of the Chat apps shield
+"Chat apps" = "Chat-Apps";
+"Restricts popular messaging and chat applications" = "Beschränkt beliebte Nachrichten- und Chat-Anwendungen";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Dieser Schild wurde entwickelt, um weit verbreitete Messaging- und Chat-Apps zu blockieren. Perfekt für diejenigen, die ihre Kommunikationskanäle steuern möchten.";
+// Name of the Gaming shield
+"Gaming" = "Spielen";
+"Blocks gaming platforms and related content" = "Blockiert Spielplattformen und verwandte Inhalte";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Begrenzt Online-Gaming-Websites und verwandte Ablenkungen. Entworfen für Anwender, die einen ausgewogenen digitalen Lebensstil wollen.";
+// Name of the Games shield
+"Games" = "Spiele";
+"Restricts access to popular games" = "Beschränkt den Zugriff auf populäre Spiele";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Showcases Top-Gaming-Anwendungen, ideal für Anwender, die eine genaue Kontrolle des Spielzugriffs wünschen.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Online-Shopping-Apps";
+"Blocks leading e-commerce and shopping applications" = "Blockiert führende E-Commerce- und Shopping-Anwendungen";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Dieses Schild verhindert den Zugriff auf die gängigen Einkaufsapps. Es hilft den Benutzern, Impulskäufe oder Ablenkungen einzudämmen.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Verschiedene Apps";
+"A selection of various popular applications" = "Eine Auswahl verschiedener beliebter Anwendungen";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Dieser Schild bietet eine Liste beliebter Apps verschiedener Art. Er wird für Benutzer erstellt, die eine umfassendere App-Steuerung anstreben.";

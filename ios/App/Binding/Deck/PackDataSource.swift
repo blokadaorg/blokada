@@ -157,9 +157,146 @@ class PackDataSource {
             creditName: "d3ward",
             creditUrl: "https://go.blokada.org/d3host",
             configs: ["standard"]
-        )
+        ),
+
+        // Meta packs for the Family flavor
+
+        Pack.mocked(id: "meta_safe_search", tags: [Pack.recommended],
+                    title: "Safe search",
+                    slugline: "Secure Online Browsing",
+                    description: "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["block unsupported"]
+                ),
+
+        Pack.mocked(id: "meta_ads", tags: ["adblocking", "tracking"],
+                    title: "Ads",
+                    slugline: "Blocks advertisements and tracking",
+                    description: "Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["standard", "restrictive"]
+                ),
+
+        Pack.mocked(id: "meta_malware", tags: ["malware", "phishing", "spam"],
+                    title: "Malware",
+                    slugline: "Protects against malicious software",
+                    description: "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["standard"]
+                ),
+
+        Pack.mocked(id: "meta_adult", tags: [Pack.recommended],
+                    title: "Adult Content",
+                    slugline: "Blocks adult and pornographic content",
+                    description: "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["porn"]
+                ),
+
+        Pack.mocked(id: "meta_dating", tags: ["dating"],
+                    title: "Dating",
+                    slugline: "Blocks dating and relationship-seeking websites",
+                    description: "Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["dating"]
+                ),
+
+        Pack.mocked(id: "meta_gambling", tags: ["gambling"],
+                    title: "Gambling",
+                    slugline: "Blocks gambling-related content and websites",
+                    description: "Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["standard"]
+                ),
+    
+        Pack.mocked(id: "meta_piracy", tags: ["piracy", "torrent", "streaming"],
+                    title: "Piracy",
+                    slugline: "Blocks piracy websites and related content",
+                    description: "Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["file hosting", "torrent", "streaming"]
+                ),
+        
+        Pack.mocked(id: "meta_videostreaming", tags: ["streaming"],
+                    title: "Video streaming",
+                    slugline: "Blocks popular video streaming platforms",
+                    description: "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["standard"]
+                ),
+
+        Pack.mocked(id: "meta_apps_streaming", tags: ["apps", "streaming"],
+                    title: "Streaming apps",
+                    slugline: "Blocks streaming apps and related content",
+                    description: "Features a curated selection of popular streaming apps. Allows granular control over media consumption.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["disney plus", "hbo max", "hulu", "netflix", "primevideo", "youtube"]
+                ),
+
+        Pack.mocked(id: "meta_social", tags: ["social", "facebook"],
+                    title: "Social media",
+                    slugline: "Restricts access to social networking platforms",
+                    description: "Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["social networks", "facebook", "instagram", "reddit", "snapchat", "tiktok", "twitter"]
+                ),
+
+        Pack.mocked(id: "meta_apps_chat", tags: ["apps", "chat"],
+                    title: "Chat apps",
+                    slugline: "Restricts popular messaging and chat applications",
+                    description: "This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["discord", "messenger", "signal", "telegram"]
+                ),
+
+        Pack.mocked(id: "meta_gaming", tags: ["gaming"],
+                    title: "Gaming",
+                    slugline: "Blocks gaming platforms and related content",
+                    description: "Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["standard"]
+                ),
+
+        Pack.mocked(id: "meta_apps_games", tags: ["apps", "games"],
+                    title: "Games",
+                    slugline: "Restricts access to popular games",
+                    description: "Showcases top gaming applications. Ideal for users desiring precise game access control.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["fortnite", "league of legends", "minecraft", "roblox", "steam", "twitch"]
+                ),
+
+        Pack.mocked(id: "meta_apps_ecommerce", tags: ["apps", "e-commerce"],
+                    title: "Online shopping apps",
+                    slugline: "Blocks leading e-commerce and shopping applications",
+                    description: "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["amazon", "ebay"]
+                ),
+
+        Pack.mocked(id: "meta_apps_other", tags: ["apps", "other"],
+                    title: "Miscellaneous apps",
+                    slugline: "A selection of various popular applications",
+                    description: "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.",
+                    creditName: "Various authors",
+                    creditUrl: "https://blokada.org",
+                    configs: ["9gag", "chat gpt", "imgur", "pinterest", "tinder"]
+                ),
     ]
 
-    let version = 31
+    let version = 36
     
 }

@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let tabVM = ViewModels.tab
 
     @Injected(\.stage) private var foreground
+    @Injected(\.commands) private var commands
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -55,6 +56,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.homeVM.showSplash = false
         }
+        
+        
+        // Handle universal links
+        // Currently only the link_device url is supported
+        guard let userActivity = connectionOptions.userActivities.first,
+            userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let incomingURL = userActivity.webpageURL else {
+            return
+        }
+
+        commands.execute(.url, incomingURL.absoluteString)
+    }
+    
+    func scene(
+        _ scene: UIScene,
+        continue userActivity: NSUserActivity
+    ) {
+        guard let incomingURL = userActivity.webpageURL else {
+            return
+        }
+
+        commands.execute(.url, incomingURL.absoluteString)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -67,21 +90,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        BlockaLogger.v("Main", "Scene did become active")
+        homeVM.hideContent = false
+        foreground.onForeground(true)
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+
+        // Close the kb when leaving to bg
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
+        homeVM.hideContent = true
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        foreground.onForeground(true)
         UIApplication.shared.applicationIconBadgeNumber = 0
+        foreground.onForeground(false)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        foreground.onForeground(false)
     }
 
     // Quick action selected by user
@@ -92,5 +120,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         Services.quickActions.onQuickAction(shortcutItem.type)
     }
-
 }

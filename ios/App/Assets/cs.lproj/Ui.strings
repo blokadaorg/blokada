@@ -12,6 +12,7 @@
 
 "error device offline" = "Vaše zařízení je offline";
 "error account inactive" = "Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.";
+"error account inactive generic" = "Váš účet není aktivní. Chcete-li Blokadu používat i nadále, aktivujte si prosím svůj účet.";
 "error account inactive after restore" = "Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
 "error account invalid" = "Toto ID účtu se zdá být neplatné.";
 "error creating account" = "Nelze vytvořit nový účet. Opakujte akci později.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "Nelze načíst umístění.";
 "error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
 "error multiple apps" = "Na vašem zařízení je více než jedna aplikace Blokada. To může způsobit problémy s připojením. Chcete to nyní opravit?";
+"error locked" = "Tato akce není k dispozici, pokud je aplikace v uzamčeném stavu. Chcete-li pokračovat, aplikaci odemkněte.";
+"error lock invalid" = "Platný PIN musí mít přesně 4 číslice. Zkuste to prosím znovu.";
 
 "conn isssues header" = "Problémy s připojením";
 "conn isssues slug" = "Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.";
@@ -181,6 +184,8 @@
 "pack category highlights" = "Populární";
 "pack category active" = "Aktivní";
 "pack category all" = "Vše";
+
+"shields section header" = "Štíty";
 
 "location choice header" = "Zvolte umístění";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(včetně Blokada Cloud)";
 "payment plan slugline plus" = "Dodatečná ochrana pomocí VPN";
 "payment plan cta trial" = "Zahájit 7denní bezplatnou zkušební dobu";
+"payment plan cta trial length" = "Začít %@- bezplatné zkušební období";
 "payment plan cta monthly" = "Měsíční předplatné";
 "payment plan cta annual" = "Roční předplatné";
 "payment plan current" = "(aktuální plán)";
+
+"payment cancel footer" = "Předplatné je automaticky obnoveno před ukončením aktuálního fakturačního období. Kdykoli můžete zrušit v Nastavení.";
+"payment cancel footer trial short" = "Zrušit během následujících %@ dní a nebude ti nic účtováno.";
 
 "location region worldwide" = "Všude";
 "location region america" = "Amerika";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada je uzamčena. Zadejte PIN kód pro odemčení";
 "lock status unlocked has pin" = "Zadejte PIN kód pro změnu";
 "lock status unlocked" = "Nastavte PIN kód pro uzamčení Blokady";
+
+"crash body" = "Blokada byla neočekávaně zastavena, omlouváme se za nepříjemnosti. Tím, že s námi sdílíte soubor protokolu, zlepšujete zkušenosti pro všechny uživatele. Pomozte nám prosím tento problém identifikovat a urychleně odstranit.";
+
+"universal status waiting for data" = "Čekání na data";
+"universal action disable" = "Zakázat";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Přejetím odemknete";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Přejeďte";
+"lock status too many attempts" = "Příliš mnoho chybných pokusů. Zkuste to znovu později";
+"lock status enter to confirm" = "Pro potvrzení zadejte PIN kód znovu";
+"lock status enter or wait" = "Zadejte nový PIN kód, nebo počkejte na uzamčení...";
+"lock change pin" = "Změnit PIN";
+
+"family rename device" = "Přejmenovat zařízení";
+"family label this device" = "Toto zařízení (%@)";
+"family onboard header" = "Vítejte v Blokada rodině!";
+"family onboard body" = "Postupujte podle pokynů na obrazovce a nastavte své první zařízení.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Povolit";
+"family cta action add device" = "Přidat zařízení";
+"family cta action finish setup" = "Dokončit nastavení";
+
+"family status fresh header" = "Ahoj!";
+"family status fresh body" = "Chcete-li pokračovat, aktivujte nebo obnovte svůj účet";
+"family status ready header" = "Aplikace je připravena!";
+"family status ready body" = "Přidejte své první zařízení nyní";
+"family status perms header" = "Téměř hotovo!";
+"family status perms body" = "Udělte potřebná oprávnění";
+"family status expired header" = "Platnost účtu vypršela";
+"family status expired body" = "Pro pokračování aktivujte svůj účet";
+"family status linked header" = "Aplikace je propojena!";
+"family status locked header" = "Aplikace je uzamčena";
+
+"family payment slug" = "Chraňte celou rodinu jedním předplatným. Monitorujte a chraňte všechna rodinná zařízení před nežádoucím obsahem.";
+"family payment features devices header" = "Sledování rodinných zařízení";
+"family payment features devices body" = "Spravujte a sledujte všechna svá zařízení prostřednictvím jediné aplikace. Ovládejte přístup a filtrování obsahu přímo ze svého zařízení.";
+"family payment features performance body" = "Udržujte rychlé a pohotové zařízení a zároveň si zajistěte špičkovou rychlost internetového připojení, a to vše díky naší osvědčené technologii.";
+"family payment features dns body" = "Zlepšete soukromí ve všech svých zařízeních pomocí šifrování DNS. Blokada využívá nejmodernější protokoly, které zajišťují důvěrnost vašeho internetového provozu.";
+"family payment features battery body" = "Aktivace aplikace Blokada nevybíjí baterii. Může jí dokonce pomoci prodloužit výdrž, protože blokuje nepotřebné činnosti na pozadí.";
+
+"family account attach header" = "Připojit zařízení";
+"family account attach body" = "Chcete-li toto zařízení propojit s nadřazeným zařízením, dokončete proces nastavení. Po propojení bude toto zařízení uzamčeno a bude možné jej konfigurovat a sledovat z nadřazeného zařízení.";
+"family account qr header" = "Naskenovat QR kód";
+"family account qr body" = "Naskenujte QR kód z nadřazeného zařízení, abyste zahájili proces propojení.";
+// A button to scan QR code
+"family account qr action button" = "Skenovat";
+
+"family account link header" = "Propojit zařízení";
+"family account link name" = "Nastavit název zařízení";
+"family account link qr header" = "Naskenovat tento QR kód";
+"family account link qr body" = "Po zjištění nového zařízení se tato obrazovka automaticky zavře.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Odpojit";
+
+"family account decide header" = "Přidat zařízení";
+"family account decide link header" = "Propojit zařízení";
+"family account decide link body" = "V Blokadě jednoduše naskenujete QR kód pro propojení a správu jiného zařízení.";
+"family account decide separator" = "- nebo -";
+"family account decide this header" = "Použít toto zařízení";
+"family account decide this body" = "Můžete také jednoduše nakonfigurovat aplikaci Blokada tak, aby fungovala na tomto zařízení, a nastavit pin pro uzamčení aplikace.";
+
+"family shields header" = "Aktivujte štíty a zablokujte přístup k vybranému obsahu na sledovaných zařízeních.";
+"family shields custom slug" = "Spravujte vlastní položky, které chcete blokovat nebo povolit.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Ostatní";
+// When a domain is unknown
+"toplist tld unknown" = "neznámé";
+
+"family notification subtitle" = "Ochrana rodiny je vypnutá";

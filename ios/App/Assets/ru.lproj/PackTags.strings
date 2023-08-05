@@ -38,3 +38,28 @@
 "phishing" = "фишинг";
 // One of the tags used for searching blocklists
 "security" = "безопасность";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "вредоносное ПО";
+// One of the tags used for searching blocklists
+"spam" = "спам";
+// One of the tags used for searching blocklists
+"dating" = "знакомства";
+// One of the tags used for searching blocklists
+"piracy" = "пиратство";
+// One of the tags used for searching blocklists
+"torrent" = "торрент";
+// One of the tags used for searching blocklists
+"streaming" = "стриминг";
+// One of the tags used for searching blocklists
+"apps" = "приложения";
+// One of the tags used for searching blocklists
+"chat" = "чат";
+// One of the tags used for searching blocklists
+"gaming" = "игры";
+// One of the tags used for searching blocklists
+"games" = "игры";
+// One of the tags used for searching blocklists
+"e-commerce" = "электронная коммерция";
+// One of the tags used for searching blocklists
+"other" = "другое";

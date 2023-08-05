@@ -14,50 +14,25 @@ import Foundation
 import Combine
 import Factory
 
-enum Link {
-    case ManageSubscriptions
-    case WhyVpn
-    case WhatIsDns
-    case WhyVpnPermissions
-    case CloudDnsSetup
-    case HowToRestore
-    case Support
-    case KnowledgeBase
-    case Privacy
-    case CloudPrivacy
-    case Tos
-    case Credits
-}
+class LinkRepo {
+    
+    @Injected(\.link) private var links
 
-class LinkRepo: Startable {
-    @Injected(\.account) private var account
-    @Injected(\.env) private var env
-
-    var links: AnyPublisher<[Link: URLComponents], Never> {
-        self.writeLinks.compactMap { $0 }.eraseToAnyPublisher()
-    }
-
-    private lazy var accountHot = account.accountHot
-    private lazy var linksDataSource = LinkDataSource().links
     private lazy var systemNav = Services.systemNav
-
-    fileprivate let writeLinks = CurrentValueSubject<[Link: URLComponents]?, Never>(nil)
 
     private var cancellables = Set<AnyCancellable>()
 
-    func start() {
-        onAccountChanged_RefreshLinks()
-    }
-
     // Opens one of well known links, replacing any placeholders (like account id).
-    func openLink(_ link: Link) {
-        links.first()
-        .tryMap { it in it[link]! }
-        .sink(
-            onValue: { it in self.systemNav.openInBrowser(it) },
-            onFailure: { err in BlockaLogger.e("LinkRepo", "Could not find link: \(link)") }
-        )
-        .store(in: &cancellables)
+    func openLink(_ linkId: LinkId) {
+        guard let link = self.links.links.value[linkId] else {
+            return BlockaLogger.e("LinkRepo", "Unknown link: \(linkId)")
+        }
+
+        do {
+            self.systemNav.openInBrowser(try linkToUrlComponents(link))
+        } catch {
+            BlockaLogger.e("LinkRepo", "Failed opening link: \(link)")
+        }
     }
 
     // Opens custom link, does not replace any placeholders.
@@ -72,29 +47,8 @@ class LinkRepo: Startable {
         .store(in: &cancellables)
     }
 
-    private func onAccountChanged_RefreshLinks() {
-        accountHot
-        .map { it in
-            return [
-                "$ACCOUNTID": it.account.id,
-                "$USERAGENT": self.env.getUserAgent()
-            ]
-        }
-        .map { replace in
-            return self.linksDataSource
-            .compactMapValues { it -> URLComponents? in do {
-                return try self.linkToUrlComponents(it, replace: replace)
-            } catch {
-                BlockaLogger.w("LinkRepo", "Could not parse link: \(it): \(error)")
-                return nil
-            }}
-        }
-        .sink(onValue: { it in self.writeLinks.send(it) })
-        .store(in: &cancellables)
-    }
-
     private func linkToUrlComponents(
-        _ link: String, replace: [String: String]
+        _ link: String
     ) throws -> URLComponents {
         if !link.starts(with: "https://") {
             throw "LinkRepo: only https:// links are allowed"
@@ -118,7 +72,7 @@ class LinkRepo: Startable {
 
                     return URLQueryItem(
                         name: String(keyValue[0]),
-                        value: replace[value] ?? value
+                        value: value
                     )
                 }
             }
@@ -139,5 +93,4 @@ class LinkRepo: Startable {
         }
         return url
     }
-
 }

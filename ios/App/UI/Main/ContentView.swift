@@ -20,8 +20,14 @@ struct ContentView: View {
 
     @Injected(\.tracer) private var tracer
     @Injected(\.stats) private var stats
+    @Injected(\.commands) private var commands
     
     var onboarding = AfterActivatedView()
+    var accountChange = AccountChangeView()
+    var accountLink = AccountLinkView()
+    var onboardingAccountDecided = OnboardingAccountDecidedView()
+
+    @State private var userInput = ""
 
     var body: some View {
         // Set accent color on all switches
@@ -43,8 +49,14 @@ struct ContentView: View {
                         PaymentGatewayView()
                     case .plusLocationSelect:
                         LocationListView()
-                    case .onboarding:
+                    case .perms:
                         onboarding
+                    case .onboardingAccountDecided:
+                        onboardingAccountDecided
+                    case .accountChange:
+                        accountChange
+                    case .accountLink:
+                        accountLink
                     case .adsCounterShare:
                         ShareSheet(activityItems: [L10n.mainShareMessage(stats.blockedCounter.value)])
                     case .help:
@@ -82,9 +94,14 @@ struct ContentView: View {
                     .opacity(self.homeVM.showSplash ? 1 : 0)
                 SplashView()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .opacity(self.homeVM.showSplash ? 1 : 0)
+                    .opacity(self.homeVM.showSplash || self.homeVM.hideContent ? 1 : 0)
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.5))
+            }
+            .alert(L10n.familyRenameDevice, isPresented: self.$homeVM.showInput) {
+                TextField("", text: $userInput)
+                Button(L10n.universalActionCancel, action: { self.vm.stage.onDismissed() })
+                Button(L10n.universalActionSave, action: submit)
             }
             // TODO: remove his global alert thing
             .alert(isPresented: self.$homeVM.showError) {
@@ -102,6 +119,11 @@ struct ContentView: View {
         // Draw under status bar and bottom bar (we manage it ourselves)
         .edgesIgnoringSafeArea([.top, .bottom])
         .background(Color.cBackground.edgesIgnoringSafeArea(.all))
+    }
+    
+    func submit() {
+        self.commands.execute(.deviceAlias, self.userInput)
+        self.vm.stage.onDismissed()
     }
 }
 

@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "قائمة حظر بالمواقع الإلكترونيّة الخبيثة التي يتمّ استخدامها لتوزيع البرامج الضارة ، تستند على urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "قائمة حظر من صانع اختبار مانع الإعلانات";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "هذه قائمة الحظر الرسميّة من d3ward ، صانع موقع اختبار Adblocker الشهير. من المفترض أن تحقق درجة 100٪ في الاختبار. ضع في اعتبارك ، هذه قائمة الحدّ الأدنى. قد ترغب في استخدامها مع قائمة حظر أُخرى نشطة. إذا كنت ترغب في إجراء الاختبار ، فما عليك سوى زيارة go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "الإعلانات";
+"Blocks advertisements and tracking" = "كتل الإعلانات والتتبع";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "القضاء على الإعلانات الاقتحامية وتتبع الويب. يعزز سرعة التصفح ويحمي خصوصية المستخدم.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "الحماية من البرمجيات الضارة";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "يدافع ضد البرمجيات الخبيثة والمواقع الضارة. يوفر درعا آمنا ضد طائفة من التهديدات الإلكترونية.";
+// Name of the Porn shield
+"Adult Content" = "Adult Content";
+"Blocks adult and pornographic content" = "حظر المحتوى الكباري والإباحي للكبار";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "هذا الفلتر يستهدف محتوى الكبار للحصول على تجربة أكثر أماناً على الإنترنت. يحمي المستخدمين من المواد الواضحة والمخاطر المحتملة.";
+// Name of the Dating shield
+"Dating" = "تاريخ";
+"Blocks dating and relationship-seeking websites" = "مواقع التواريخ و البحث عن العلاقات";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "مصممة لتقييد منصات التواريخ عبر الإنترنت. توفر الحماية من التشتت والتفاعلات غير المرغوب فيها.";
+// Name of the Gambling shield
+"Gambling" = "المقامرة";
+"Blocks gambling-related content and websites" = "حظر المحتويات والمواقع المتعلقة بالألعاب";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "يحرم من الوصول إلى منصات القمار والمحتوى. يساعد في منع الإدمان وضمان السلامة المالية.";
+// Name of the Piracy shield
+"Piracy" = "القرصنة";
+"Blocks piracy websites and related content" = "منع مواقع القرصنة وما يتصل بها من محتوى";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "تمنع مواقع القرصنة غير المأذون بها والمنصات ذات الصلة بها. تحمي الملكية الفكرية وتقلل من مخاطر التنزيل الضارة.";
+// Name of the Video streaming shield
+"Video streaming" = "بث الفيديو";
+"Blocks popular video streaming platforms" = "حظر منصات بث الفيديو الشائعة";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "تقييد الوصول إلى أعلى خدمات بث الفيديو. مصمم للمستخدمين الراغبين في إدارة عادات العرض وحفظ عرض الترددات.";
+// Name of the Streaming apps shield
+"Streaming apps" = "تطبيقات البث";
+"Blocks streaming apps and related content" = "حظر تطبيقات البث والمحتوى ذي الصلة";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "يميز مجموعة منتقاة من تطبيقات البث الشائعة. يسمح بالتحكم في استهلاك الوسائط.";
+// Name of the Social media shield
+"Social media" = "وسائل التواصل الاجتماعي";
+"Restricts access to social networking platforms" = "تقييد الوصول إلى منصات الشبكات الاجتماعية";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "الحد من الوصول إلى مختلف مناهج وسائط الإعلام الاجتماعية - المثالية لتعزيز التركيز على العمل وتخفيف استخدام الأطفال.";
+// Name of the Chat apps shield
+"Chat apps" = "تطبيقات الدردشة";
+"Restricts popular messaging and chat applications" = "تقييد تطبيقات الرسائل والدردشة الشائعة";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "هذا الدرع مصمم لمنع تطبيقات الرسائل والدردشة المستخدمة على نطاق واسع. مثالي لأولئك الذين يرغبون في التحكم بقنوات اتصالاتهم.";
+// Name of the Gaming shield
+"Gaming" = "ألعاب";
+"Blocks gaming platforms and related content" = "حظر منصات الألعاب والمحتوى ذي الصلة";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "تقيد مواقع الألعاب على الإنترنت وما يتصل بها من تشتيت. مصممة للمستخدمين الذين يريدون أسلوب حياة رقمي متوازن.";
+// Name of the Games shield
+"Games" = "ألعاب";
+"Restricts access to popular games" = "تقييد الوصول إلى الألعاب الشهيرة";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "عرض تطبيقات الألعاب العليا. مثالي للمستخدمين الذين يرغبون في التحكم بدقة في دخول اللعبة.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "تطبيقات التسوق عبر الإنترنت";
+"Blocks leading e-commerce and shopping applications" = "حظر تطبيقات التجارة الإلكترونية والتسوق";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "هذا الدرع يمنع الوصول إلى تطبيقات التسوق الشائعة. إنه يساعد المستخدمين في كبح عمليات شراء أو تشتيت النوافذ.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "تطبيقات متنوعة";
+"A selection of various popular applications" = "مجموعة مختارة من التطبيقات الشائعة المختلفة";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "يوفر هذا الدرع قائمة من التطبيقات الشائعة من مختلف الأنواع. تم إنشاؤها للمستخدمين بهدف التحكم في التطبيق بشكل أكثر شمولا.";

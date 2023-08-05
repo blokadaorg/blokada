@@ -38,3 +38,28 @@
 "phishing" = "phishing";
 // One of the tags used for searching blocklists
 "security" = "zabezpečení";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "spam";
+// One of the tags used for searching blocklists
+"dating" = "seznamka";
+// One of the tags used for searching blocklists
+"piracy" = "pirátství";
+// One of the tags used for searching blocklists
+"torrent" = "torrent";
+// One of the tags used for searching blocklists
+"streaming" = "streamování";
+// One of the tags used for searching blocklists
+"apps" = "aplikace";
+// One of the tags used for searching blocklists
+"chat" = "chat";
+// One of the tags used for searching blocklists
+"gaming" = "hraní";
+// One of the tags used for searching blocklists
+"games" = "hry";
+// One of the tags used for searching blocklists
+"e-commerce" = "elektronické obchodování";
+// One of the tags used for searching blocklists
+"other" = "ostatní";

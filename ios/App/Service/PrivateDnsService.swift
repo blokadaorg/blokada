@@ -18,7 +18,7 @@ import NetworkExtension
 // The UX for user is far from ideal, but the is no other way currently in iOS.
 protocol PrivateDnsServiceIn {
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never>
-    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error>
+    func savePrivateDnsProfile(tag: String?, name: String?) -> AnyPublisher<Ignored, Error>
 }
 
 class PrivateDnsServiceMock: PrivateDnsServiceIn {
@@ -31,7 +31,7 @@ class PrivateDnsServiceMock: PrivateDnsServiceIn {
         return Just(a).eraseToAnyPublisher()
     }
 
-    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error> {
+    func savePrivateDnsProfile(tag: String?, name: String?) -> AnyPublisher<Ignored, Error> {
         return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 
@@ -46,6 +46,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
         return getManager()
         .tryMap { it in
             print("mapping manager result")
+            // TODO: possibly check the exact serverURL here
             return it.isEnabled
         }
         .catch { err in
@@ -54,14 +55,23 @@ class PrivateDnsService: PrivateDnsServiceIn {
         .eraseToAnyPublisher()
     }
 
-    func savePrivateDnsProfile(tag: String, name: String) -> AnyPublisher<Ignored, Error> {
+    func savePrivateDnsProfile(tag: String?, name: String?) -> AnyPublisher<Ignored, Error> {
         return getManager()
         // Configure the new profile
         .tryMap { it -> NEDNSSettingsManager in
-            print("setting private dns config")
+            guard let tag = tag, let name = name else {
+                // Set to public non-filtering server, used only when Family device is unlocked
+                let profile = NEDNSOverHTTPSSettings(servers: [ "1.1.1.1" ])
+                profile.serverURL = URL(string: "https://cloudflare-dns.com/dns-query")
+                BlockaLogger.v("PrivateDns", "URL set to the non-filtering server")
+                it.dnsSettings = profile
+                return it
+            }
+
             let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             let profile = NEDNSOverHTTPSSettings(servers: [ "34.117.212.222" ])
             profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)/\(nameSanitized)")
+            BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
             it.dnsSettings = profile
             return it
         }

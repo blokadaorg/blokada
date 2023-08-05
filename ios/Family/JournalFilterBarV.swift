@@ -26,14 +26,36 @@ struct JournalFilterBarView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "list.dash.header.rectangle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.primary)
-                    .onTapGesture {
-                        self.vm.stage.showModal(.custom)
+                ZStack {
+                    if self.journal.device == "" {
+                        Image(systemName: Image.fDevices)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.primary)
+                    } else if self.journal.device == "." {
+                        Image(systemName: "iphone.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(Color.cAccent)
+                    } else {
+                        ShieldIconView(id: self.journal.device,  title: self.journal.device, small: true)
+                            .frame(width: 32, height: 32)
+                            .mask(RoundedRectangle(cornerRadius: 8))
+                            .accessibilityLabel(self.journal.device)
                     }
+                }
+                .frame(width: 24, height: 24)
+                .onTapGesture {
+                    self.showDevices = true
+                }
+                .actionSheet(isPresented: self.$showDevices) {
+                    ActionSheet(
+                        title: Text(getDevicesText(self.journal.device)),
+                        buttons: getDeviceButtons(devices: self.journal.devices, onDevice: {
+                            self.journal.device = $0
+                        })
+                    )
+                }
 
                 SearchBar(text: self.$journal.search, isFocused: $isFocused)
 
@@ -61,35 +83,19 @@ struct JournalFilterBarView: View {
                                 .cancel()
                             ])
                         }
-                    
-                    Image(systemName: Image.fDevices)
+
+                    Image(systemName: "list.dash.header.rectangle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(self.journal.device == "" ? .primary : Color.cAccent)
+                        .foregroundColor(.primary)
                         .onTapGesture {
-                            self.showDevices = true
-                        }
-                        .actionSheet(isPresented: self.$showDevices) {
-                            ActionSheet(
-                                title: Text(getDevicesText(self.journal.device)),
-                                buttons: getDeviceButtons(devices: self.journal.devices, onDevice: {
-                                    self.journal.device = $0
-                                })
-                            )
+                            self.vm.stage.showModal(.custom)
                         }
                 }
             }
-            Picker(selection: self.$journal.sorting, label: EmptyView()) {
-                Text(L10n.activityCategoryRecent).tag(0)
-               (
-                    Text(self.journal.filtering == 1 ? L10n.activityCategoryTopBlocked : self.journal.filtering == 2 ? L10n.activityCategoryTopAllowed : L10n.activityCategoryTop)
-                ).tag(1)
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            //.padding([.leading, .trailing], 9)
         }
-        .padding(.bottom, 12)
+        .padding(.bottom, 4)
     }
 }
 

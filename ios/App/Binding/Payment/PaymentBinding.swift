@@ -72,8 +72,8 @@ class AccountPaymentBinding: AccountPaymentOps {
                     price: it.localPrice,
                     pricePerMonth: "", // TODO use this?
                     periodMonths: Int64(it.durationMonths),
-                    type: (it.productIdentifier.starts(with: "cloud") ? "cloud" : "plus"),
-                    trial: it.isTrial,
+                    type: String(it.productIdentifier.split(separator: "_")[0]),
+                    trial: it.getTrialLength.map { Int64($0) },
                     owned: false
                 ) }
                 completion(.success(products))

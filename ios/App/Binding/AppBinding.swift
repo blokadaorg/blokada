@@ -19,12 +19,14 @@ enum AccountType {
     case Libre
     case Cloud
     case Plus
+    case Family
 }
 
 func mapAccountType(_ accountType: String?) -> AccountType {
     switch (accountType) {
         case "cloud": return AccountType.Cloud
         case "plus": return AccountType.Plus
+        case "family": return AccountType.Family
         default: return AccountType.Libre
     }
 }
@@ -32,7 +34,7 @@ func mapAccountType(_ accountType: String?) -> AccountType {
 extension AccountType {
 
     func isActive() -> Bool {
-        return self == .Cloud || self == .Plus
+        return self == .Cloud || self == .Plus || self == .Family
     }
 
     func toString() -> String {

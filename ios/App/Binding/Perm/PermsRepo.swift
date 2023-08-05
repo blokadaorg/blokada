@@ -26,6 +26,7 @@ class PermsRepo: Startable {
         writeNotificationPerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
     
+    @Injected(\.flutter) private var flutter
     @Injected(\.stage) private var stage
     @Injected(\.account) private var account
     @Injected(\.cloud) private var cloud
@@ -54,7 +55,7 @@ class PermsRepo: Startable {
         onDnsProfileActivated()
         onForeground_checkNotificationPermsAndClearNotifications()
         onPurchaseSuccessful_showActivatedSheet()
-        onAccountTypeUpgraded_showActivatedSheet()
+        //onAccountTypeUpgraded_showActivatedSheet()
     }
 
     func maybeDisplayDnsProfilePermsDialog() -> AnyPublisher<Ignored, Error> {
@@ -128,7 +129,7 @@ class PermsRepo: Startable {
             return Just(true)
             .delay(for: 0.3, scheduler: self.bgQueue)
             .tryMap { _ -> Ignored in
-                self.sheetRepo.showModal(.onboarding)
+                self.sheetRepo.showModal(.perms)
                 throw err
             }
             .eraseToAnyPublisher()
@@ -151,7 +152,8 @@ class PermsRepo: Startable {
             header: L10n.dnsprofileHeader,
             okText: L10n.dnsprofileActionOpenSettings,
             okAction: {
-                self.notification.scheduleNotification(id: NOTIF_ONBOARDING, when: Date().addingTimeInterval(3))
+                let id = self.flutter.isFlavorFamily ? NOTIF_ONBOARDING_FAMILY : NOTIF_ONBOARDING
+                self.notification.scheduleNotification(id: id, when: Date().addingTimeInterval(3))
                 self.systemNav.openSystemSettings()
             }
         )
@@ -210,35 +212,35 @@ class PermsRepo: Startable {
 //        })
 //        .store(in: &cancellables)
     }
-
-    // We want user to notice when they upgrade.
-    // From Libre to Cloud or Plus, as well as from Cloud to Plus.
-    // In the former case user will have to grant several permissions.
-    // In the latter case, probably just the VPN perm.
-    // If user is returning, it may be that he already has granted all perms.
-    // But we display the Activated sheet anyway, as a way to show that upgrade went ok.
-    // This will also trigger if StoreKit sends us transaction (on start) that upgrades.
-    private func onAccountTypeUpgraded_showActivatedSheet() {
-        accountTypeHot
-        .filter { now in
-            if self.previousAccountType == nil {
-                self.previousAccountType = now
-                return false
-            }
-
-            let prev = self.previousAccountType
-            self.previousAccountType = now
-
-            if prev == .Libre && now != .Libre {
-                return true
-            } else if prev == .Cloud && now == .Plus {
-                return true
-            } else {
-                return false
-            }
-        }
-        .sink(onValue: { _ in self.sheetRepo.showModal(.onboarding)} )
-        .store(in: &cancellables)
-    }
+//
+//    // We want user to notice when they upgrade.
+//    // From Libre to Cloud or Plus, as well as from Cloud to Plus.
+//    // In the former case user will have to grant several permissions.
+//    // In the latter case, probably just the VPN perm.
+//    // If user is returning, it may be that he already has granted all perms.
+//    // But we display the Activated sheet anyway, as a way to show that upgrade went ok.
+//    // This will also trigger if StoreKit sends us transaction (on start) that upgrades.
+//    private func onAccountTypeUpgraded_showActivatedSheet() {
+//        accountTypeHot
+//        .filter { now in
+//            if self.previousAccountType == nil {
+//                self.previousAccountType = now
+//                return false
+//            }
+//
+//            let prev = self.previousAccountType
+//            self.previousAccountType = now
+//
+//            if prev == .Libre && now != .Libre {
+//                return true
+//            } else if prev == .Cloud && now == .Plus {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+//        .sink(onValue: { _ in self.sheetRepo.showModal(.perms)} )
+//        .store(in: &cancellables)
+//    }
 
 }

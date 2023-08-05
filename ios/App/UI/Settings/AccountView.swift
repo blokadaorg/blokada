@@ -24,33 +24,36 @@ struct AccountView: View {
 
     var body: some View {
         Form {
-            Section(header: Text(L10n.accountSectionHeaderGeneral)) {
-                Button(action: {
-                    if self.id == "••••••" {
-                        self.vm.authenticate { id in
-                            self.id = id
-                        }
-                    }
-                }) {
-                    HStack {
-                        Text(L10n.accountLabelId)
-                        .foregroundColor(Color.cPrimary)
-                        Spacer()
-                        Text(self.id)
-                            .foregroundColor(Color.secondary)
-                    }
-                }
-                .contextMenu {
+            if (self.vm.type != .Family) {
+                Section(header: Text(L10n.accountSectionHeaderGeneral)) {
                     Button(action: {
-                        self.vm.authenticate { id in
-                            self.vm.copyAccountIdToClipboard()
+                        if self.id == "••••••" {
+                            self.vm.authenticate { id in
+                                self.id = id
+                            }
                         }
                     }) {
-                        Text(L10n.universalActionCopy)
-                        Image(systemName: Image.fCopy)
+                        HStack {
+                            Text(L10n.accountLabelId)
+                                .foregroundColor(Color.cPrimary)
+                            Spacer()
+                            Text(self.id)
+                                .foregroundColor(Color.secondary)
+                        }
+                    }
+                    .contextMenu {
+                        Button(action: {
+                            self.vm.authenticate { id in
+                                self.vm.copyAccountIdToClipboard()
+                            }
+                        }) {
+                            Text(L10n.universalActionCopy)
+                            Image(systemName: Image.fCopy)
+                        }
                     }
                 }
             }
+
             if self.vm.active {
                 Section(header: Text(L10n.accountSectionHeaderSubscription)) {
                     HStack {
@@ -67,7 +70,7 @@ struct AccountView: View {
 
                     if self.vm.active {
                         Button(action: {
-                            self.contentVM.openLink(Link.ManageSubscriptions)
+                            self.contentVM.openLink(LinkId.manageSubscriptions)
                         }) {
                             Text(L10n.accountActionManageSubscription)
                         }
@@ -80,18 +83,20 @@ struct AccountView: View {
                     }
                 }
             }
-            Section(header: Text(L10n.universalLabelHelp)) {
-                HStack {
-                    Text(L10n.accountActionWhyUpgrade)
-                    Spacer()
-
-                    Button(action: {
-                        self.contentVM.openLink(Link.WhyVpn)
-                    }) {
-                        Image(systemName: Image.fInfo)
-                            .imageScale(.large)
-                            .foregroundColor(Color.cAccent)
-                            .frame(width: 32, height: 32)
+            if (self.vm.type != .Family) {
+                Section(header: Text(L10n.universalLabelHelp)) {
+                    HStack {
+                        Text(L10n.accountActionWhyUpgrade)
+                        Spacer()
+                        
+                        Button(action: {
+                            self.contentVM.openLink(LinkId.whyVpn)
+                        }) {
+                            Image(systemName: Image.fInfo)
+                                .imageScale(.large)
+                                .foregroundColor(Color.cAccent)
+                                .frame(width: 32, height: 32)
+                        }
                     }
                 }
             }

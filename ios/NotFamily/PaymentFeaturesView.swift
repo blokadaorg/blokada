@@ -12,7 +12,7 @@
 
 import SwiftUI
 
-struct PlusFeaturesView: View {
+struct PaymentFeaturesView: View {
 
     @Binding var showSheet: Bool
 
@@ -396,14 +396,14 @@ struct PlusFeaturesView: View {
     }
 }
 
-struct PlusFeaturesView_Previews: PreviewProvider {
+struct PaymentFeaturesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PlusFeaturesView(showSheet: .constant(false))
-            PlusFeaturesView(showSheet: .constant(false))
+            PaymentFeaturesView(showSheet: .constant(false))
+            PaymentFeaturesView(showSheet: .constant(false))
                 .environment(\.sizeCategory, .extraExtraExtraLarge)
                 .environment(\.colorScheme, .dark)
-            PlusFeaturesView(showSheet: .constant(false))
+            PaymentFeaturesView(showSheet: .constant(false))
                 .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (3rd generation)"))
         }
     }

@@ -12,6 +12,7 @@
 
 "error device offline" = "Il tuo dispositivo è offline";
 "error account inactive" = "Il tuo account non è attivo. Per favore, attiva il tuo account per continuare a utilizzare BLOKADA+.";
+"error account inactive generic" = "Il tuo account non è attivo. Per favore, attiva il tuo account per continuare a utilizzare Blokada.";
 "error account inactive after restore" = "Questo non sembra essere un account attivo valido. Se credi che sia un errore, contattaci toccando l'icona di aiuto in alto.";
 "error account invalid" = "Questo ID account non sembra valido.";
 "error creating account" = "Impossibile creare un nuovo account. Riprova più tardi.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "Impossibile ottenere la posizione.";
 "error unknown" = "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.";
 "error multiple apps" = "C'è più di un'app Blokada sul tuo dispositivo. Ciò potrebbe causare problemi di connettività. Vuoi risolverli ora?";
+"error locked" = "Questa azione non è disponibile quando l'app è bloccata. Si prega di sbloccare l'app per procedere.";
+"error lock invalid" = "Un PIN valido deve contenere esattamente 4 cifre. Riprova.";
 
 "conn isssues header" = "Problemi di connessione";
 "conn isssues slug" = "Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.";
@@ -181,6 +184,8 @@
 "pack category highlights" = "In evidenza";
 "pack category active" = "Attiva";
 "pack category all" = "Tutti";
+
+"shields section header" = "Scudi";
 
 "location choice header" = "Scegli una località";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(Blokada Cloud incluso)";
 "payment plan slugline plus" = "Protezione aggiuntiva con la VPN";
 "payment plan cta trial" = "Inizia la prova gratuita di 7 giorni";
+"payment plan cta trial length" = "Inizia la prova gratuita di %@ giorni";
 "payment plan cta monthly" = "Abbonamento mensile";
 "payment plan cta annual" = "Abbonamento annuale";
 "payment plan current" = "(piano attuale)";
+
+"payment cancel footer" = "L'abbonamento viene rinnovato automaticamente prima della fine del periodo di fatturazione corrente. È possibile annullarlo in qualsiasi momento nelle Impostazioni.";
+"payment cancel footer trial short" = "Annulla entro i prossimi %@ giorni e non ti verrà addebitato.";
 
 "location region worldwide" = "Ovunque";
 "location region america" = "America";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada è bloccata. Inserisci il pin per sbloccare";
 "lock status unlocked has pin" = "Inserisci il pin per cambiarlo";
 "lock status unlocked" = "Imposta il tuo pin per bloccare Blokada";
+
+"crash body" = "Blokada si è arrestata inaspettatamente, ci dispiace per l'inconveniente. Condividendo con noi il file di log contribuirai a migliorare l'esperienza per tutti gli utenti. Per favore, aiutaci a identificare e risolvere questo problema.";
+
+"universal status waiting for data" = "In attesa dei dati";
+"universal action disable" = "Disabilita";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Scorri per sbloccare";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Scorri";
+"lock status too many attempts" = "Troppi tentativi errati. Prova di nuovo più tardi";
+"lock status enter to confirm" = "Inserisci nuovamente il codice pin per confermare";
+"lock status enter or wait" = "Inserisci il nuovo codice pin, o attendi per bloccare...";
+"lock change pin" = "Cambia pin";
+
+"family rename device" = "Rinomina dispositivo";
+"family label this device" = "Questo dispositivo (%@)";
+"family onboard header" = "Benvenuto nella famiglia Blokada!";
+"family onboard body" = "Segui le istruzioni a schermo per configurare il tuo primo dispositivo.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Attiva";
+"family cta action add device" = "Aggiungi un dispositivo";
+"family cta action finish setup" = "Termina configurazione";
+
+"family status fresh header" = "Ehilà!";
+"family status fresh body" = "Per continuare, attiva o ripristina il tuo account";
+"family status ready header" = "L'app è pronta!";
+"family status ready body" = "Aggiungi ora il tuo primo dispositivo";
+"family status perms header" = "Ci siamo quasi!";
+"family status perms body" = "Per favore, concedi i permessi necessari";
+"family status expired header" = "Account scaduto";
+"family status expired body" = "Per continuare, per favore attiva il tuo account";
+"family status linked header" = "L'app è collegata!";
+"family status locked header" = "L'app è bloccata";
+
+"family payment slug" = "Proteggi tutta la tua famiglia con un unico abbonamento. Monitora e proteggi tutti i dispositivi da contenuti indesiderati.";
+"family payment features devices header" = "Monitoraggio Dispositivi Familiari";
+"family payment features devices body" = "Gestisci e monitora tutti i tuoi dispositivi tramite una sola app. Controlla l'accesso e il filtraggio dei contenuti direttamente dal tuo dispositivo.";
+"family payment features performance body" = "Mantieni un dispositivo rapido e reattivo, garantendo allo stesso tempo le massime prestazioni della connessione internet, grazie alla nostra comprovata tecnologia.";
+"family payment features dns body" = "Migliora la privacy con la crittografia DNS su tutti i tuoi dispositivi. Blokada utilizza protocolli all'avanguardia per garantire che il tuo traffico internet rimanga riservato.";
+"family payment features battery body" = "L'attivazione di Blokada non consumerà batteria. Al contrario, potrebbe incrementarla grazie al blocco di inutili attività in background.";
+
+"family account attach header" = "Collega dispositivo";
+"family account attach body" = "Per collegare questo dispositivo al principale, completare il processo di installazione. Una volta collegato, questo dispositivo verrà bloccato, per permetterti di configurarlo e monitorarlo dal dispositivo principale.";
+"family account qr header" = "Scansiona codice QR";
+"family account qr body" = "Scansiona il codice QR dal dispositivo principale per avviare il processo di collegamento.";
+// A button to scan QR code
+"family account qr action button" = "Scansione";
+
+"family account link header" = "Collega dispositivo";
+"family account link name" = "Imposta nome dispositivo";
+"family account link qr header" = "Scansiona questo codice QR";
+"family account link qr body" = "Questa schermata si chiuderà automaticamente non appena il nuovo dispositivo verrà rilevato.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Scollega";
+
+"family account decide header" = "Aggiungi dispositivo";
+"family account decide link header" = "Collega un dispositivo";
+"family account decide link body" = "Su Blokada, per collegare e gestire un altro dispositivo, è sufficiente la scansione di un codice QR.";
+"family account decide separator" = "- o -";
+"family account decide this header" = "Usa questo dispositivo";
+"family account decide this body" = "In alternativa, puoi semplicemente configurare Blokada su questo dispositivo e impostare il pin per bloccare l'app.";
+
+"family shields header" = "Attiva la protezione contro l'accesso ai contenuti selezionati sui tuoi dispositivi.";
+"family shields custom slug" = "Gestisci le tue voci personalizzate per bloccare o consentire.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Altro";
+// When a domain is unknown
+"toplist tld unknown" = "sconosciuto";
+
+"family notification subtitle" = "La protezione famiglia è disattivata";

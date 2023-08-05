@@ -12,6 +12,7 @@
 
 "error device offline" = "Twoje urządzenie jest offline";
 "error account inactive" = "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z BLOKADA+.";
+"error account inactive generic" = "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z Blokady.";
 "error account inactive after restore" = "To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.";
 "error account invalid" = "Ten identyfikator konta wygląda na niepoprawny.";
 "error creating account" = "Nie można stworzyć nowego konta. Spróbuj ponownie później.";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "Nie można pobrać lokalizacji.";
 "error unknown" = "Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.";
 "error multiple apps" = "Na urządzeniu znajduje się więcej niż jedna aplikacja Blokada. Może to spowodować problemy z połączeniem. Czy chcesz to teraz naprawić?";
+"error locked" = "Ta akcja jest niedostępna, gdy aplikacja jest w stanie zablokowanym. Odblokuj aplikację, aby kontynuować.";
+"error lock invalid" = "Prawidłowy kod PIN musi składać się z dokładnie 4 cyfr. Spróbuj ponownie.";
 
 "conn isssues header" = "Problemy z połączeniem";
 "conn isssues slug" = "Problemy z połączeniem. Sprawdź konfigurację. Stuknij, aby uzyskać szczegóły.";
@@ -181,6 +184,8 @@
 "pack category highlights" = "Wyróżnione";
 "pack category active" = "Aktywne";
 "pack category all" = "Wszystkie";
+
+"shields section header" = "Tarcze";
 
 "location choice header" = "Wybierz lokalizację";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "(zawiera Blokadę Cloud)";
 "payment plan slugline plus" = "Dodatkowa ochrona z VPN";
 "payment plan cta trial" = "Testuj 7 dni za darmo";
+"payment plan cta trial length" = "Rozpocznij %@-dniowy bezpłatny okres próbny";
 "payment plan cta monthly" = "Subskrybuj miesięcznie";
 "payment plan cta annual" = "Subskrybuj rocznie";
 "payment plan current" = "(obecny plan)";
+
+"payment cancel footer" = "Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Możesz anulować w dowolnym momencie w Ustawieniach.";
+"payment cancel footer trial short" = "Anuluj subskrypcję w ciągu następnych %@ dni, aby nie zostać obciążonym opłatami.";
 
 "location region worldwide" = "Wszędzie";
 "location region america" = "Ameryka";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada jest zablokowana. Wprowadź kod pin aby odblokować";
 "lock status unlocked has pin" = "Wprowadź kod pin aby go zmienić";
 "lock status unlocked" = "Ustaw kod pin aby zablokować Blokadę";
+
+"crash body" = "Blokada została niespodziewanie zatrzymana i przykro nam za niedogodności. Udostępniając nam plik dziennika, poprawiasz komfort dla wszystkich użytkowników. Pomóż nam szybko zidentyfikować i rozwiązać ten problem.";
+
+"universal status waiting for data" = "Oczekiwanie na dane";
+"universal action disable" = "Wyłącz";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Odblokuj";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Przesuń";
+"lock status too many attempts" = "Zbyt wiele nieprawidłowych prób. Spróbuj ponownie później";
+"lock status enter to confirm" = "Wprowadź kod pin ponownie, aby potwierdzić";
+"lock status enter or wait" = "Wprowadź nowy kod pin lub poczekaj, aby zablokować...";
+"lock change pin" = "Zmień pin";
+
+"family rename device" = "Zmień nazwę urządzenia";
+"family label this device" = "To urządzenie (%@)";
+"family onboard header" = "Witaj w Blokada Family!";
+"family onboard body" = "Postępuj zgodnie z instrukcjami na ekranie, aby skonfigurować pierwsze urządzenie.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Uruchom";
+"family cta action add device" = "Dodaj urządzenie";
+"family cta action finish setup" = "Zakończ konfigurację";
+
+"family status fresh header" = "Cześć!";
+"family status fresh body" = "Aktywuj lub przywróć swoje konto, aby kontynuować";
+"family status ready header" = "Aplikacja jest gotowa!";
+"family status ready body" = "Dodaj swoje pierwsze urządzenie";
+"family status perms header" = "Prawie gotowe!";
+"family status perms body" = "Proszę przyznać niezbędne uprawnienia";
+"family status expired header" = "Konto wygasło";
+"family status expired body" = "Aktywuj swoje konto, aby kontynuować";
+"family status linked header" = "Aplikacja jest połączona!";
+"family status locked header" = "Aplikacja jest zablokowana";
+
+"family payment slug" = "Chroń całą swoją rodzinę za pomocą jednej subskrypcji. Monitoruj i chroń wszystkie urządzenia rodzinne przed niechcianymi treściami.";
+"family payment features devices header" = "Monitorowanie urządzeń rodzinnych";
+"family payment features devices body" = "Zarządzaj i monitoruj wszystkie swoje urządzenia za pomocą jednej aplikacji. Kontroluj dostęp i filtrowanie treści bezpośrednio z urządzenia.";
+"family payment features performance body" = "Zachowaj szybkie i elastyczne urządzenie, gwarantując, że Twoje połączenie internetowe pozostanie w szczytowej prędkości, dzięki naszej sprawdzonej technologii.";
+"family payment features dns body" = "Zwiększ prywatność na wszystkich urządzeniach za pomocą szyfrowania DNS. Blokada wykorzystuje najnowocześniejsze protokoły, aby upewnić się, że Twój ruch internetowy pozostaje poufny.";
+"family payment features battery body" = "Aktywacja Blokada nie zużywa baterii. Może to być pomocne przez blokowanie niepotrzebnych czynności w tle.";
+
+"family account attach header" = "Dołącz urządzenie";
+"family account attach body" = "Aby połączyć to urządzenie z urządzeniem nadrzędnym, zakończ proces konfiguracji. Po połączeniu urządzenie zostanie zablokowane, co pozwoli na skonfigurowanie i monitorowanie go z urządzenia nadrzędnego.";
+"family account qr header" = "Scan QR code";
+"family account qr body" = "Zeskanuj kod QR z urządzenia nadrzędnego, aby rozpocząć proces łączenia.";
+// A button to scan QR code
+"family account qr action button" = "Skanuj";
+
+"family account link header" = "Połącz urządzenie";
+"family account link name" = "Ustaw nazwę urządzenia";
+"family account link qr header" = "Zeskanuj ten kod QR";
+"family account link qr body" = "Ten ekran zostanie automatycznie zamknięty po wykryciu nowego urządzenia.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Odłącz";
+
+"family account decide header" = "Dodaj urządzenie";
+"family account decide link header" = "Połącz urządzenie";
+"family account decide link body" = "W Blokadzie po prostu zeskanujesz kod QR, aby połączyć i zarządzać innym urządzeniem.";
+"family account decide separator" = "- lub -";
+"family account decide this header" = "Użyj tego urządzenia";
+"family account decide this body" = "Alternatywnie, możesz po prostu skonfigurować Blokadę do pracy na tym urządzeniu i ustawić pin do zablokowania aplikacji.";
+
+"family shields header" = "Aktywuj tarcze, aby zablokować dostęp do wybranych treści na urządzeniach nadzorowanych.";
+"family shields custom slug" = "Zarządzaj własnymi wpisami, aby zablokować lub zezwolić.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Inne";
+// When a domain is unknown
+"toplist tld unknown" = "nieznany";
+
+"family notification subtitle" = "Ochrona rodziny wyłączona";

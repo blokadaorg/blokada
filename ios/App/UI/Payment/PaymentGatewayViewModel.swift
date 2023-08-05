@@ -22,7 +22,7 @@ class PaymentGatewayViewModel: ObservableObject {
 
     @Published var options = [PaymentViewModel]()
 
-    @Published var working = false
+    @Published var working = true
 
     @Published var showError: Bool = false
     var error: String? = nil {

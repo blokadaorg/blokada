@@ -12,6 +12,7 @@
 
 "error device offline" = "Dispozitivul dumneavoastră este oprit";
 "error account inactive" = "Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.";
+"error account inactive generic" = "Contul tău este inactiv. Te rugăm să îți activezi contul pentru a putea continua să folosești Blokada.";
 "error account inactive after restore" = "Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
 "error account invalid" = "ID-ul acestui cont pare nevalid.";
 "error creating account" = "Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.";
@@ -20,22 +21,24 @@
 "error vpn" = "VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.";
 "error vpn perms" = "Nicio permisiune acordată pentru a crea un profil VPN.";
 "error vpn no current lease" = "Vă rugăm să selectaţi mai întâi o locaţie.";
-"error vpn no current lease new" = "Blokada Plus is now disabled on this device. Please select a location to reactivate it.";
+"error vpn no current lease new" = "Blokada Plus este acum dezactivat pe acest dispozitiv. Vă rugăm să selectați o locație pentru reactivare.";
 "error vpn too many leases" = "Ați atins limita maximă de dispozitive. Vă rugăm să eliminați unul dintre dispozitivele dvs. și să încercați din nou.";
 "error vpn expired" = "VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+";
 "error payment inactive after restore" = "Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
 "error payment failed" = "Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
 "error payment failed alternative" = "Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
-"error payment not available" = "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.";
+"error payment not available" = "Plățile nu sunt disponibile pentru acest dispozitiv. Fie acest dispozitiv nu este actualizat, fie nu ne ocupăm încă de achizițiile din țara ta.";
 "error payment canceled" = "Plata a fost anulată. Nu ați fost taxat.";
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
 "error location failed fetching" = "Nu s-au putut prelua locațiile.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
-"error multiple apps" = "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?";
+"error unknown" = "A apărut o problemă. Asigură-te că ești online și încearcă din nou mai târziu. Dacă problema persistă, te rugăm să ne contactezi prin apăsarea pictogramei de ajutor din partea de sus.";
+"error multiple apps" = "Există mai mult de o aplicație Blokada pe dispozitivul dvs. Acest lucru poate cauza probleme de conectivitate. Doriți să o reparați acum?";
+"error locked" = "Această acțiune nu este disponibilă atunci când aplicația se află într-o stare blocată. Vă rugăm să deblocați aplicația pentru a continua.";
+"error lock invalid" = "Un PIN valid trebuie să fie exact 4 cifre. Vă rugăm să încercaţi din nou.";
 
-"conn isssues header" = "Connectivity issues";
-"conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues header" = "Probleme de conectivitate";
+"conn isssues slug" = "Probleme de conectivitate. Verificați configurarea. Atingeți pentru detalii.";
+"conn isssues details" = "- Verifică-ți conexiunea la internet\n- Folosește doar o aplicație Blokada\n- Dezactivează alte VPN-uri";
 
 "universal action continue" = "Continuă";
 "universal action cancel" = "Anulare";
@@ -82,10 +85,10 @@
 // Common label in tables for the Time column. Think "time of event".
 "universal label time" = "Oră";
 // Common label in tables for the Count column. Think "number of items".
-"universal label count" = "Count";
+"universal label count" = "Număr";
 // Common label in tables for the Type column. Think "type of item".
-"universal label type" = "Type";
-"universal label device" = "Device";
+"universal label type" = "Tip";
+"universal label device" = "Dispozitiv";
 
 "universal status processing" = "Se procesează... Vă rugăm așteptați.";
 "universal status copied to clipboard" = "Copiat în Clipboard";
@@ -97,39 +100,39 @@
 "alert vpn expired header" = "BLOKADA+ a expirat";
 "alert download link body" = "Din motive de securitate, pentru a descărca un fișier, trebuie să deschidem acest website în browser-ul dvs. Apoi, vă rugăm să accesați din nou link-ul de descărcare.";
 
-"notification perms header" = "Enable notifications in Settings";
-"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
-"notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
+"notification perms header" = "Activează notificările în Setări";
+"notification perms desc" = "Această caracteristică necesită notificări, vă rugăm să le porniți pentru Blokada.";
+"notification perms denied" = "Ai refuzat notificările. Pentru a le schimba, te rugăm să folosești Preferințele Sistemului.";
 
 "notification vpn expired header" = "Abonamentul BLOKADA+ a expirat";
 "notification vpn expired subtitle" = "VPN-ul este dezactivat";
 "notification vpn expired body" = "Vă rugăm să vă actualizați abonamentul pentru a continua să utilizați BLOKADA+";
 "notification desc settings" = "Glisați notificarea înspre stânga sau dreapta pentru setări.";
 
-"notification generic header" = "Blokada: Action required";
-"notification generic subtitle" = "Tap to learn more";
-"notification generic body" = "Please open the app for details.";
+"notification generic header" = "Blokada: Este necesară o acțiune";
+"notification generic subtitle" = "Atingeți pentru a afla mai multe";
+"notification generic body" = "Vă rugăm să deschideți aplicația pentru detalii.";
 
 // A short header in a notification shown when account expires
-"notification acc header" = "Subscription expired";
-"notification acc subtitle" = "Adblocking is disabled";
-"notification acc body" = "Please update your subscription to continue using Blokada.";
+"notification acc header" = "Abonamentul a expirat";
+"notification acc subtitle" = "Blocarea este dezactivată";
+"notification acc body" = "Vă rugăm să vă actualizați abonamentul pentru a continua să utilizați Blokada.";
 
-"notification pause header" = "Blokada is still paused";
-"notification pause subtitle" = "Adblocking is disabled";
-"notification pause body" = "Please open the app to resume Blokada.";
+"notification pause header" = "Blokada este în continuare întrerupt";
+"notification pause subtitle" = "Blocarea este dezactivată";
+"notification pause body" = "Vă rugăm să deschideți aplicația pentru a relua Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
-"notification lease header" = "Blokada Plus is off";
+"notification lease header" = "Blokada Plus este oprit";
 
 "notification update header" = "Este disponibilă o actualizare";
 "alert update body" = "Blokada %@ este acum disponibilă pentru descărcare. Vă recomandăm să păstrați aplicația la zi și să o descărcați doar din sursele noastre oficiale.";
 "update label updated" = "Actualizat!";
 "update desc updated" = "Acum folosești cea mai nouă versiune Blokada! Amintește-ți, donarea sau abonarea către Blokada Plus ne permite să continuăm să îmbunătățim aplicația.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated nodon" = "Acum folosiți cea mai nouă versiune de Blokada!";
 "update downloading description" = "Actualizarea este în curs de descărcare și în scurt timp ar trebui să vedeți prompt-ul de instalare.";
 
-"main share message" = "Blokada helped me block %@ ads and trackers!";
+"main share message" = "Blokada m-a ajutat să blochez reclamele și trackerele %@!";
 
 "main rate us header" = "Acordați-ne o notă!";
 "main rate us description" = "Cum vă place Blokada până acum?";
@@ -154,17 +157,17 @@
 "home status paused" = "În Pauză";
 "home status active" = "Activ";
 "home status deactivated" = "Dezactivat";
-"home action tap to activate" = "Tap to activate";
-"home status detail paused" = "Paused until timer ends";
+"home action tap to activate" = "Atingeți pentru a activa";
+"home status detail paused" = "Întrerupt până se termină cronometrul";
 "home status detail active" = "În curs de blocare *reclame* și *trackere*";
 "home status detail active with counter" = "Blocat *%@* reclame și trackere";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "Anunțuri și trackere blocate pe ultimele 24 de ore";
 "home status detail active slim" = "Blokada *Slim* este activă";
 "home status detail plus" = "*+* îți protejează *intimitatea*";
 "home status detail progress" = "Vă rugăm așteptați...";
 
 "home plus button deactivated" = "BLOKADA+ dezactivat";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "VPN dezactivat";
 "home plus button select location" = "Selectați locația";
 "home plus button location" = "Locație: *%@*";
 
@@ -182,6 +185,8 @@
 "pack category active" = "Activ";
 "pack category all" = "Toate";
 
+"shields section header" = "Scuturi";
+
 "location choice header" = "Selectați o locație";
 
 "activity section header" = "Activitate";
@@ -190,10 +195,10 @@
 "activity request allowed" = "Această solicitare a fost permisă.";
 "activity request allowed whitelisted" = "Această solicitare a fost permisă, deoarece se află pe lista de permisii";
 "activity request blocked blacklisted" = "Această solicitare a fost blocată, deoarece se află în lista de restricții";
-"activity request allowed list" = "This request has been allowed, because it's present on the *%@* allowlist.";
-"activity request allowed no list" = "This request has been allowed, as it's not present on any of your configured blocklists.";
-"activity request blocked list" = "This request has been blocked, because it's present on the *%@* blocklist.";
-"activity request blocked no list" = "This request has been blocked, as it's not present on any of your configured allowlists.";
+"activity request allowed list" = "Această solicitare a fost permisă, deoarece este prezentă în lista de permise *%@*.";
+"activity request allowed no list" = "Această solicitare a fost permisă, deoarece nu este prezentă pe niciuna dintre blocurile configurate.";
+"activity request blocked list" = "Această cerere a fost blocată, deoarece este prezentă pe lista de blocare *%@* .";
+"activity request blocked no list" = "Această solicitare a fost blocată, deoarece nu este prezentă pe niciuna dintre listele permise configurate.";
 "activity actions header" = "Acțiuni";
 "activity information header" = "Informaţii";
 "activity action add to whitelist" = "Adaugă la Permise";
@@ -223,17 +228,17 @@
 "activity filter show blocked" = "Doar cele blocate";
 "activity filter show allowed" = "Doar cele permise";
 // A short message "Showing for: Device A"
-"activity filter showing for" = "Showing for: %@";
+"activity filter showing for" = "Afișare pentru: %@";
 "activity empty text" = "Încercaţi să utilizaţi dispozitivul şi reveniţi aici mai târziu pentru a vedea unde se conectează dispozitivul dvs.";
 "activity device filter show all" = "Toate dispozitivele";
-"activity retention header" = "Should we store your activity?";
-"activity retention option none" = "Do not store my activity";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
-"activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
+"activity retention header" = "Ar trebui să îți stocăm activitatea?";
+"activity retention option none" = "Nu-mi păstra activitatea";
+"activity retention option 24h" = "Da, păstrează-mi activitatea";
+"activity retention policy" = "Activând logarea activităților, acceptați politica de confidențialitate.";
+"activity retention desc" = "Blokada Cloud nu înregistrează nimic în mod implicit. Dacă dorești să vezi statisticile agregate și activitatea din toate dispozitivele tale, activează logarea activității mai jos.";
 
 // Header for the Exceptions screen (where all user defined custom rules are)
-"userdenied section header" = "Exceptions";
+"userdenied section header" = "Excepţii";
 "userdenied section slugline" = "Gestionați blocarea anumitor site-uri";
 // A section name for the list of hosts allowed by user
 "userdenied tab allowed" = "Permis";
@@ -244,11 +249,11 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blochează";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Deschide excepții";
 
 "account section header settings" = "Setări";
 "account status text" = "Contul dvs. BLOKADA %@ este activ până la %@.";
-"account status text inactive" = "Your BLOKADA subscription is inactive.";
+"account status text inactive" = "Abonamentul tău BLOKADA este inactiv.";
 
 "account section header primary" = "Principal";
 "account section header other" = "Altele";
@@ -272,8 +277,8 @@
 "account section header general" = "Preferințe generale";
 "account section header subscription" = "Abonament";
 "account label id" = "ID Cont";
-"account label type" = "Subscription plan";
-"account plan none" = "No active plan";
+"account label type" = "Plan de abonament";
+"account plan none" = "Niciun plan activ";
 "account label active until" = "Activ până la";
 "account action manage subscription" = "Gestionare abonament";
 "account action why upgrade" = "De ce ar trebui să trec la BLOKADA+?";
@@ -298,11 +303,11 @@
 "account lease label this device" = " (acest dispozitiv)";
 "account lease label name" = "Denumire dispozitiv";
 "account lease label location" = "Locatie";
-"account lease label generate" = "Selecting a location here will generate a config file that you can use in any VPN app that supports WireGuard. This is useful for platforms where we don't have our apps yet. Otherwise, we recommend using our native apps instead.";
+"account lease label generate" = "Selectarea unei locații aici va genera un fișier de configurare pe care îl poți utiliza în orice aplicație VPN care acceptă WireGuard. Acest lucru este util pentru platformele în care nu avem încă aplicaţiile noastre. Altfel, recomandăm utilizarea aplicaţiilor noastre native.";
 "account lease action generate" = "Genereaza configuratie";
 "account lease action download" = "Descarcă Configurație";
-"account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
-"account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
+"account lease generated" = "Dispozitiv adăugat! Descarcă configurația pentru a o utiliza pe orice dispozitiv suportat de WireGuard.";
+"account lease wireguard desc" = "Blokada folosește WireGuard. Configurațiile pot fi descărcate când se creează dispozitive noi.";
 "account lease label dns" = "DNS";
 "account lease action dns" = "Alege un DNS";
 "account lease label public key" = "Cheie publică";
@@ -310,7 +315,7 @@
 "account support action how help" = "Cu ce ​​vă putem ajuta?";
 "account support action kb" = "Deschide Baza de Cunostințe";
 
-"account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
+"account upgrade cloud description" = "Această caracteristică face parte din Blokada Plus. Pentru a actualiza, vă rugăm să contactați Asistența pentru Clienți.";
 
 "payment header activated" = "Activat!";
 "payment activated description" = "Blokada va trece acum la modul Plus și se va conecta prin una dintre locațiile noastre sigure. Dacă nu sunteţi sigur pe care să o alegeţi, se recomandă locația cea mai apropiat de dvs.";
@@ -323,21 +328,21 @@
 "payment feature title encrypt data" = "Criptare date";
 "payment feature desc encrypt data" = "Datele trimise prin tunelul nostru VPN sunt criptate folosind algoritmi puternici pentru a fi protejate împotriva interceptării de către părți neautorizate.";
 "payment feature title encrypt dns" = "Criptează DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
-"payment feature title performance" = "Great Performance";
-"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
-"payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
-"payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
-"payment feature title cloud vpn" = "The Cloud plus VPN";
-"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
+"payment feature desc encrypt dns" = "Îmbunătățiți-vă intimitatea cu criptarea DNS. Blokada Cloud folosește protocoale moderne pentru a vă proteja traficul privat.";
+"payment feature title performance" = "Mare Performanță";
+"payment feature desc performance" = "Păstrați dispozitivul snappy și conexiunea la internet la viteze maxime, mulțumită noii noastre soluții Cloud.";
+"payment feature title battery" = "Zero impact baterie";
+"payment feature desc battery" = "Durata de viață a bateriei nu va fi afectată, s-ar putea chiar îmbunătăți atunci când Blokada Cloud este activat.";
+"payment feature title devices cloud" = "Dispozitive multiple";
+"payment feature desc devices cloud" = "Configurați și monitorizați toate dispozitivele într-un singur loc. Fie prin aplicația noastră mobilă fie prin aplicația noastră web.";
+"payment feature title cloud vpn" = "Cloud plus VPN";
+"payment feature desc cloud vpn" = "Pe lângă toate beneficiile aplicației Blokada Cloud, vei avea acces la rețeaua noastră globală de VPN";
 "payment feature title faster connection" = "Conexiune mai rapidă";
 "payment feature desc faster connection" = "Viteze mari de până la 100 Mbps cu servere în diferite părți ale lumii.";
 "payment feature title devices" = "Până la 5 dispozitive";
 "payment feature desc devices" = "Folosiți același cont pentru a partaja abonamentul cu până la 5 dispozitive: iOS, Android sau PC.";
-"payment feature title no ads" = "Block Ads";
-"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
+"payment feature title no ads" = "Blochează reclame";
+"payment feature desc no ads" = "Utilizați tehnologia populară de blocare Blokada pentru a bloca anunțurile pe dispozitivele dvs. Sunt disponibile setări avansate.";
 "payment feature title support" = "Asistență de Calitate";
 "payment feature desc support" = "Obțineți un răspuns prompt la orice întrebări datorită Asistenței noastre menită pentru clienți și comunității noastre open source.";
 "payment action see all features" = "Vezi toate caracteristicile";
@@ -353,8 +358,8 @@
 "payment subscription 1 month" = "1 Lună";
 "payment subscription many months" = "%@ Luni";
 "payment subscription per month" = "%@ pe lună";
-"payment subscription per year" = "%@ per year";
-"payment subscription per year then" = "then %@ per year";
+"payment subscription per year" = "%@ pe an";
+"payment subscription per year then" = "apoi %@ pe an";
 "payment subscription offer" = "Economisești %@";
 
 "payment success label" = "Mulţumim!";
@@ -387,15 +392,19 @@
 
 "payment euro desc" = "Suntem stabiliți în Europa, așadar acceptăm Euro: €10 sunt aproximativ $12.";
 
-"payment action compare" = "Compare plans";
-"payment plan slugline cloud" = "Blocks ads and trackers";
+"payment action compare" = "Compară planurile";
+"payment plan slugline cloud" = "Blochează reclamele și trackerele";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
-"payment plan slugline plus" = "Additional protection with VPN";
-"payment plan cta trial" = "Start 7-Day Free Trial";
-"payment plan cta monthly" = "Subscribe Monthly";
-"payment plan cta annual" = "Subscribe Annually";
-"payment plan current" = "(current plan)";
+"payment plan slugline cloud detail" = "(include Blokada Cloud)";
+"payment plan slugline plus" = "Protecție suplimentară cu VPN";
+"payment plan cta trial" = "Începe 7 zile de Încercare gratuită";
+"payment plan cta trial length" = "Începe %@-Day Free Trial";
+"payment plan cta monthly" = "Abonează-te lunar";
+"payment plan cta annual" = "Abonează-te anual";
+"payment plan current" = "(planul actual)";
+
+"payment cancel footer" = "Abonamentul este reînnoit automat înainte de expirarea perioadei de facturare curente. Puteți anula oricând în Setări.";
+"payment cancel footer trial short" = "Anulează în următoarele %@ zile și nu vei fi taxat.";
 
 "location region worldwide" = "Everywhere";
 "location region america" = "America";
@@ -403,82 +412,156 @@
 "location region asia" = "Asia";
 "location region australia" = "Australia";
 
-"web vpn devices header" = "VPN Devices";
+"web vpn devices header" = "Dispozitive VPN";
 // A button to open section called "VPN Devices"
-"web vpn devices open action" = "Open VPN Devices";
-"web action open setup" = "Open setup";
-"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
-"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
+"web vpn devices open action" = "Deschide dispozitive VPN";
+"web action open setup" = "Deschide configurarea";
+"web cta plus header" = "Treceți la Blokada Plus pentru a vă controla confidențialitatea.";
+"web cta plus desc" = "Contul dvs. Libre vă oferă acces gratuit pe dispozitiv cu aplicațiile noastre open source. Treceți la Blokada Plus pentru o protecție și mai bună. Vei avea acces la rețeaua noastră globală de VPN, precum și la noua noastră aplicație *cloud bazată* care este mai eficientă și mai ușor de utilizat.";
 // A short word for a button to generate profile
 "web action generate" = "Generează";
 
-"setup header" = "Setup";
-"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
-"setup label which device" = "What type of device you wish to set up?";
-"setup label choose" = "Choose any of the following setup options:";
-"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
+"setup header" = "Configurare";
+"setup desc" = "Există multe modalități de a configura dispozitivul pentru a utiliza Blokada Cloud. Alege-l pe cel care funcționează pentru tine.";
+"setup label which device" = "Ce tip de dispozitiv doriți să configurați?";
+"setup label choose" = "Alegeți oricare dintre următoarele opțiuni de configurare:";
+"setup comment wireguard" = "Notă: Configurația VPN va utiliza Blokada Cloud în mod implicit. Alegeți o setare DNS diferită dacă doriți să renunțați. „WireGuard” și sigla „WireGuard” sunt mărci înregistrate ale lui Jason A. Donenfeld.";
+"setup comment native apps" = "Notă: Aplicația nativă pentru Android nu acceptă încă Blokada Cloud. Lucrăm la actualizare.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
-"setup step" = "Step %@: %@";
-"setup option label recommended" = "Recommended: %@";
-"setup option label alternative" = "Alternative: %@";
-"setup name label unnamed" = "(unnamed)";
+"setup step" = "Pasul %@: %@";
+"setup option label recommended" = "Recomandat: %@";
+"setup option label alternative" = "Alternativă: %@";
+"setup name label unnamed" = "(nespecificat)";
 
-"setup step name" = "Name your device (optional)";
-"setup step copy" = "Copy your hostname";
-"setup step apply config" = "Apply the new configuration";
-"setup step install" = "Install and start our app";
-"setup step enter tag" = "When asked, enter your tag";
-"setup step download profile" = "Generate and download your profile";
-"setup step install wireguard" = "Install and start WireGuard";
+"setup step name" = "Numește dispozitivul (opțional)";
+"setup step copy" = "Copiază numele gazdei";
+"setup step apply config" = "Aplică noua configurație";
+"setup step install" = "Instalează și pornește aplicația noastră";
+"setup step enter tag" = "Când este solicitat, introduceți eticheta";
+"setup step download profile" = "Generează și descarcă profilul tău";
+"setup step install wireguard" = "Instalează și pornește WireGuard";
 
-"stats header" = "Stats";
+"stats header" = "Statistici";
 // A ratio between counter of allowed vs denied requests.
-"stats ratio header" = "Ratio";
+"stats ratio header" = "Raport";
 // A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
-"stats requests header" = "Requests";
+"stats requests header" = "Cereri";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
-"stats requests subheader" = "Queries over time";
-"stats top allowed header" = "Top allowed requests";
-"stats top blocked header" = "Top blocked requests";
+"stats requests subheader" = "Interogări în timp";
+"stats top allowed header" = "Cele mai acceptate cereri";
+"stats top blocked header" = "Top cereri blocate";
 // A short one-word label for the counter of allowed requests.
-"stats label allowed" = "Allowed";
+"stats label allowed" = "Permis";
 // A short one-word label for the counter of blocked requests.
-"stats label blocked" = "Blocked";
+"stats label blocked" = "Blocat";
 // A short one-word label for the counter of total requests.
 "stats label total" = "Total";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Ultimele 24h";
 // A short header for the stats section of the all time stats.
-"stats header all time" = "All time";
+"stats header all time" = "Tot timpul";
 
-"dnsprofile header" = "Enable Blokada in Settings";
-"dnsprofile desc" = "In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.";
-"dnsprofile action open settings" = "Open Settings";
-"dnsprofile desc android" = "In the Settings app, find the Private DNS section, and then paste your hostname (long tap).";
-"dnsprofile desc android copy" = "Copy your Blokada Cloud hostname to paste it in Settings.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile header" = "Activează Blokada în Setări";
+"dnsprofile desc" = "În aplicația de setări, navigați la General → VPN, DNS & Device Management → DNS și selectați Blokada.";
+"dnsprofile action open settings" = "Deschide Setările";
+"dnsprofile desc android" = "În aplicația Setări, găsește secțiunea Private DNS și apoi lipește-ți numele de gazdă (apăsare lungă).";
+"dnsprofile desc android copy" = "Copiază hostname-ul tău Blokada Cloud pentru a-l lipi în Setări.";
+"dnsprofile notification subtitle" = "În aplicația de setări, navigați la:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "General → VPN, DNS & Management de dispozitive → DNS şi selectaţi Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
-"activated header" = "Almost there!";
-"activated desc" = "The following is necessary for Blokada to work as expected:";
-"activated desc all ok" = "Your device is all set up and good to go:";
-"activated label account" = "Account is active (%@)";
-"activated label notif yes" = "Notifications are allowed";
-"activated label notif no" = "Allow notifications";
-"activated label dns yes" = "DNS profile is activated";
-"activated label dns no" = "Activate DNS profile";
+"activated header" = "Aproape acolo!";
+"activated desc" = "Pentru ca Blokada să funcționeze conform așteptărilor, sunt necesare următoarele:";
+"activated desc all ok" = "Dispozitivul tău este configurat și bun de mers:";
+"activated label account" = "Contul este activ (%@)";
+"activated label notif yes" = "Notificările sunt permise";
+"activated label notif no" = "Permite notificări";
+"activated label dns yes" = "Profilul DNS este activat";
+"activated label dns no" = "Activează profilul DNS";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "Allow VPN (Plus only)";
-"activated label vpn yes" = "VPN is allowed";
-"activated label vpn no" = "Allow VPN";
+"activated label vpn cloud" = "Permite VPN (doar Plus)";
+"activated label vpn yes" = "VPN-ul este permis";
+"activated label vpn no" = "Permite VPN";
 
-"homepage vpn credit" = "'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
+"homepage vpn credit" = "„WireGuard” și sigla „WireGuard” sunt mărci înregistrate ale lui Jason A. Donenfeld.";
 "advanced section header packs" = "Lista Neagră";
 "app settings section header" = "Acest dispozitiv";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada este blocat. Introduceți codul PIN pentru a debloca";
+"lock status unlocked has pin" = "Introduceți codul PIN pentru a-l schimba";
+"lock status unlocked" = "Setați codul PIN pentru a blokada";
+
+"crash body" = "Blokada s-a oprit în mod neașteptat și ne pare rău pentru neplăcerile create. Prin partajarea fișierului de jurnal cu noi, îmbunătățiți experiența pentru toți utilizatorii. Vă rugăm să ne ajutați să identificăm și să rezolvăm această problemă cu promptitudine.";
+
+"universal status waiting for data" = "Se așteaptă date";
+"universal action disable" = "Dezactivează";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Glisați pentru a debloca";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Glisare";
+"lock status too many attempts" = "Prea multe încercări greșite. Încercați din nou mai târziu";
+"lock status enter to confirm" = "Introduceți codul PIN din nou pentru a confirma";
+"lock status enter or wait" = "Introdu noul cod PIN sau așteaptă să se blocheze...";
+"lock change pin" = "Schimbă codul PIN";
+
+"family rename device" = "Redenumire dispozitiv";
+"family label this device" = "Acest dispozitiv (%@)";
+"family onboard header" = "Bine ați venit la familia Blokada!";
+"family onboard body" = "Urmați instrucțiunile de pe ecran pentru a configura primul dispozitiv.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "Activare";
+"family cta action add device" = "Adăugați un dispozitiv";
+"family cta action finish setup" = "Finalizează configurarea";
+
+"family status fresh header" = "Bună ziua!";
+"family status fresh body" = "Activează sau restaurează contul pentru a continua";
+"family status ready header" = "Aplicația este gata!";
+"family status ready body" = "Adaugă primul dispozitiv acum";
+"family status perms header" = "Aproape acolo!";
+"family status perms body" = "Vă rugăm să acordați permisiunile necesare";
+"family status expired header" = "Cont expirat";
+"family status expired body" = "Te rugăm să îți activezi contul pentru a continua";
+"family status linked header" = "Aplicația este conectată!";
+"family status locked header" = "Aplicația este blocată";
+
+"family payment slug" = "Protejează-ți întreaga familie cu un singur abonament. Monitorizează și protejează toate dispozitivele familiale de conținut nedorit.";
+"family payment features devices header" = "Monitorizarea Dispozitivului Familial";
+"family payment features devices body" = "Gestionați și monitorizați toate dispozitivele dvs. printr-o singură aplicație. Controlați accesul și filtrarea conținutului direct de pe dispozitivul dvs.";
+"family payment features performance body" = "Menține un dispozitiv rapid și reactiv, asigurând în același timp că conexiunea ta la internet rămâne la viteze de vârf, toate datorită tehnologiei noastre dovedite.";
+"family payment features dns body" = "Sporirea confidențialității pe toate dispozitivele dvs. cu criptare DNS. Blokada utilizează protocoale de ultimă oră pentru a vă asigura că traficul dvs. de internet rămâne confidențial.";
+"family payment features battery body" = "Activarea Blokada nu va consuma bateria. S-ar putea să o ajute mai mult prin blocarea activităților inutile de fundal.";
+
+"family account attach header" = "Ataşaţi dispozitivul";
+"family account attach body" = "Pentru a lega acest dispozitiv de dispozitivul părinte, finalizați procesul de instalare. Odată conectat, acest dispozitiv va fi blocat, permițându-vă să îl configurați și să-l monitorizați de pe dispozitivul părinte.";
+"family account qr header" = "Scan QR code";
+"family account qr body" = "Scanați codul QR de la dispozitivul părinte, pentru a iniția procesul de conectare.";
+// A button to scan QR code
+"family account qr action button" = "Scanare";
+
+"family account link header" = "Link dispozitiv";
+"family account link name" = "Setează numele dispozitivului";
+"family account link qr header" = "Scanați acest cod QR";
+"family account link qr body" = "Acest ecran se va închide automat după ce noul dispozitiv a fost detectat.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Deconecta";
+
+"family account decide header" = "Adaugă dispozitiv";
+"family account decide link header" = "Leagă un dispozitiv";
+"family account decide link body" = "În Blokada, scanați pur și simplu un cod QR pentru a conecta și administra un alt dispozitiv.";
+"family account decide separator" = "- sau -";
+"family account decide this header" = "Utilizați acest dispozitiv";
+"family account decide this body" = "Alternativ, puteți configura Blokada să funcționeze pe acest dispozitiv și seta pinul pentru a bloca aplicația.";
+
+"family shields header" = "Activați scuturile pentru a bloca accesul la conținutul selectat de pe dispozitivele supravegheate.";
+"family shields custom slug" = "Gestionați propriile intrări personalizate pentru a bloca sau permite.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Altele";
+// When a domain is unknown
+"toplist tld unknown" = "necunoscut";
+
+"family notification subtitle" = "Protecția familială este dezactivată";

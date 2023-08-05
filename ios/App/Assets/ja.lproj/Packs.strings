@@ -16,7 +16,7 @@
 "Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "厳選された複数のソースからのホストファイルを統合および拡張します。オプションで、ポルノ、ソーシャルメディア、その他のカテゴリをブロックする拡張機能を選択できます。";
 "Alternative blocklist with advanced features" = "高度な機能を備えた Alternative ブロックリスト";
 "A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "カスタマイズできる多様な選択肢を持つブロックリスト。より強力であり、アプリやサイトが誤動作したり、表示が崩れる可能性があります。graph.facebook.com と mqtt-mini.facebook.com をブロックします。Facebook アプリで問題が発生した場合は、[アクティビティ] からリクエストを許可することを検討してください。";
-"Adblocking for your mobile device" = "モバイルデバイスの広告ブロック";
+"Adblocking for your mobile device" = "モバイル端末の広告ブロック";
 "A special blocklist containing mobile ad providers." = "モバイル広告プロバイダーを含む特別なフィルター";
 "Protects against cyber attacks" = "サイバー攻撃から保護";
 "A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "フィッシングサイトをブロックするためのリスト。フィッシングは、元のサイトと同じように見える偽のサイトに誘導して個人情報やパスワードを盗み取る不正行為です。このリストはフィッシングからあなたを保護します。";
@@ -35,7 +35,7 @@
 "A blocklist based on spam reports" = "スパムレポートに基づくブロックリスト";
 "Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 は、コンテンツ監視、侵入テスト、ブランド保護をオンライン企業に提供するサービスです。このリストは、企業から受け取ったレポートに基づいています。";
 "A comprehensive lists to block ads and tracking" = "広告とトラッキングをブロックする包括的なブロックリスト";
-"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いのデバイスがそれらに接続することを防止します。";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock は、広告を提供するドメイン、スクリプト、マルウェアのリストです。お使いの端末がそれらに接続することを防止します。";
 "A general purpose, medium weight list" = "総合的、中程度のサイズのブロックリスト";
 "This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "このリストは、広告、トラッキング、テレメトリー、詐欺、マルウェアなど悪意のある有害なコンテンツをブロックします。ポルノ、ソーシャルメディア、フェイスニュースをブロックしません。CPBL は包括的な保護を提供するブロックリストを提供し、サイズと範囲を合理的に維持することを目指しています。";
 "A reasonably balanced ad blocking hosts file" = "合理的でバランスの取れた広告ブロックのホストファイル";
@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "urlhaus.abuse.ch に基づいて、マルウェア配布に使用されている悪意のあるウェブサイトをブロックします。";
 "A blocklist from the maker of the adblocker test" = "広告ブロッカーテストサイト製作者のブロックリスト";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "これは、人気の広告ブロッカーテストサイトの製作者である d3ward の公式ブロックリストです。テストで 100% のスコアを達成するために必要な最低限の内容が含まれており、他のブロックリストと一緒に使用することができます。go.blokada.org/test からテストを実行できます。";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "広告";
+"Blocks advertisements and tracking" = "広告とトラッキングをブロックします";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "煩わしい広告やウェブトラッキングを排除することで快適なブラウジングをできるようにし、ユーザーのプライバシーを保護します。";
+// Name of the Malware shield
+"Malware" = "マルウェア";
+"Protects against malicious software" = "悪意のあるソフトウェアから保護します";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "悪意のあるソフトウェアや有害なウェブサイトから保護します。サイバー空間の脅威から安全を確保する盾となります。";
+// Name of the Porn shield
+"Adult Content" = "Adult Content";
+"Blocks adult and pornographic content" = "成人向けコンテンツとポルノをブロックします";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "より安全なオンライン体験のための成人向けコンテンツを対象としたフィルターです。露骨な描写や潜在的なリスクからユーザーを保護します。";
+// Name of the Dating shield
+"Dating" = "出会い系";
+"Blocks dating and relationship-seeking websites" = "出会い系ウェブサイトをブロックします";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "オンラインの出会い系プラットフォームを制限します。気の迷いや望まない交流から保護します。";
+// Name of the Gambling shield
+"Gambling" = "ギャンブル";
+"Blocks gambling-related content and websites" = "ギャンブル関連のコンテンツとウェブサイトをブロックします";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "ギャンブルプラットフォームやコンテンツへのアクセスを拒否します。依存や浪費を防ぎます。";
+// Name of the Piracy shield
+"Piracy" = "海賊版";
+"Blocks piracy websites and related content" = "著作権を侵害するウェブサイトと関連するコンテンツをブロックします";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "不正な著作権侵害サイトや関連プラットフォームをブロックします。知的財産の保護に貢献し、誤って有害なコンテンツをダウンロードするリスクを軽減します。";
+// Name of the Video streaming shield
+"Video streaming" = "動画ストリーミング";
+"Blocks popular video streaming platforms" = "有名なビデオストリーミングプラットフォームをブロックします";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "上位のビデオストリーミングサービスへのアクセスを制限します。生活習慣の管理や通信量を制限したいユーザー向けです。";
+// Name of the Streaming apps shield
+"Streaming apps" = "ストリーミングアプリ";
+"Blocks streaming apps and related content" = "ストリーミングアプリと関連コンテンツをブロックします";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "人気のストリーミングアプリを制限します。メディア消費を細かく制御できます。";
+// Name of the Social media shield
+"Social media" = "SNS";
+"Restricts access to social networking platforms" = "ソーシャルネットワーキングプラットフォームへのアクセスを制限します";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "さまざまなソーシャルメディアプラットフォームへのアクセスを制限します。作業への集中力を高めたり、子どもの使用を制限したりできます。";
+// Name of the Chat apps shield
+"Chat apps" = "チャットアプリ";
+"Restricts popular messaging and chat applications" = "一般的なメッセージやチャットアプリを制限します";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "このシールドは、広く使われているメッセージングやチャットアプリをブロックするように設計されています。コミュニケーションチャンネルを制御したい人に最適です。";
+// Name of the Gaming shield
+"Gaming" = "ゲーム総合";
+"Blocks gaming platforms and related content" = "ゲームプラットフォームと関連するコンテンツをブロックします";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "オンラインゲームサイトと関連するコンテンツを制限します。バランスの取れたデジタルライフスタイルを望むユーザー向けに設計されています。";
+// Name of the Games shield
+"Games" = "ゲーム";
+"Restricts access to popular games" = "人気のゲームへのアクセスを制限します";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "上位のゲームアプリケーションのリストです。正確なゲームアクセス制御を望むユーザーに最適です。";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "オンラインショッピングアプリ";
+"Blocks leading e-commerce and shopping applications" = "主要な電子商取引およびショッピングアプリケーションをブロックします";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "このシールドは、一般的なショッピングアプリへのアクセスを防ぎます。衝動買いや注意散漫の防止に役立ちます。";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "その他のアプリ";
+"A selection of various popular applications" = "様々な人気のアプリのコレクションです";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "このシールドは、さまざまな種類の人気のアプリのリストを提供します。より包括的なアプリコントロールを目指すユーザーのために作成されました。";

@@ -71,6 +71,7 @@ struct PackDetailView: View {
 
                     VStack(spacing: 0) {
                         ForEach(self.vm.pack.configs, id: \.self) { item in
+                            let tag = "\(self.vm.pack.id)/\(item)"
                             if item != self.vm.pack.configs.first {
                                 Divider().padding([.top, .bottom], 8)
                             }
@@ -78,7 +79,7 @@ struct PackDetailView: View {
                             OptionView(
                                 text: item.capitalized,
                                 image: Image.fPack,
-                                active: self.vm.pack.status.config.contains(item),
+                                active: self.vm.pack.status.config.contains(tag),
                                 canSpin: true,
                                 action: {
                                     self.vm.changeConfig(config: item, fail: { error in

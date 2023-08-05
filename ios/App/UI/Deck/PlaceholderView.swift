@@ -11,6 +11,7 @@
 //
 
 import SwiftUI
+import CryptoKit
 
 struct PlaceholderView: View {
 
@@ -26,11 +27,26 @@ struct PlaceholderView: View {
                     startPoint: .topLeading, endPoint: .bottomTrailing
                 ))
 
-            Image("feature_\(id)")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                //.saturation(desaturate ? 0.5 : 1)
+            Rectangle()
+                .fill(Color(uiColor: generateColor(from: id)))
+                .opacity(0.5)
+
+//            Image("feature_\(id)")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                //.saturation(desaturate ? 0.5 : 1)
         }
+    }
+
+    func generateColor(from string: String) -> UIColor {
+        let hash = SHA256.hash(data: Data(string.utf8))
+        let bytes = Array(hash)
+        
+        let red = CGFloat(bytes[0]) / 255.0
+        let green = CGFloat(bytes[1]) / 255.0
+        let blue = CGFloat(bytes[2]) / 255.0
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 }
 

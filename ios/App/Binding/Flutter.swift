@@ -18,9 +18,13 @@ extension FlutterError: Error {}
 
 class Flutter {
     lazy var flutterEngine = FlutterEngine(name: "common")
+    var isFlavorFamily = false
 
     init() {
         flutterEngine.run()
+        let flavor = Flavor()
+        flavor.attach(messenger: flutterEngine.binaryMessenger)
+        isFlavorFamily = flavor.getFlavor() == "family"
     }
 
     func getMessenger() -> FlutterBinaryMessenger {

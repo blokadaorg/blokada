@@ -14,7 +14,9 @@ import Foundation
 import Factory
 
 class DeckBinding: DeckOps {
+    
     var decks: [Deck] = []
+    var tapMapping: [String: String] = [:]
     var onDecks: ([Deck]) -> Void = { _ in }
 
     @Injected(\.flutter) private var flutter
@@ -24,10 +26,8 @@ class DeckBinding: DeckOps {
         DeckOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
-    func getDeckIdForList(_ listId: String) -> String? {
-        return decks.first { deck in
-            return deck.items.keys.contains(listId)
-        }?.deckId
+    func getTagForListId(_ listId: String) -> String? {
+        return tapMapping[listId]
     }
 
     func setDeckEnabled(deckId: String, enabled: Bool) {
@@ -45,6 +45,11 @@ class DeckBinding: DeckOps {
     func doDecksChanged(decks: [Deck], completion: @escaping (Result<Void, Error>) -> Void) {
         self.decks = decks
         onDecks(decks)
+        completion(.success(()))
+    }
+
+    func doTagMappingChanged(tapMapping: [String : String], completion: @escaping (Result<Void, Error>) -> Void) {
+        self.tapMapping = tapMapping
         completion(.success(()))
     }
 }

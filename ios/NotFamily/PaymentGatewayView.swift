@@ -36,7 +36,7 @@ struct PaymentGatewayView: View {
                                 Text(L10n.paymentActionCompare)
                                 .foregroundColor(Color.cActivePlus)
                                 .sheet(isPresented: self.$showPlusFeaturesSheet) {
-                                    PlusFeaturesView(showSheet: self.$showPlusFeaturesSheet)
+                                    PaymentFeaturesView(showSheet: self.$showPlusFeaturesSheet)
 
                                 }
                                 .padding(.top, 12)
@@ -138,13 +138,13 @@ struct PaymentGatewayView: View {
                                     .actionSheet(isPresented: self.$showPrivacySheet) {
                                         ActionSheet(title: Text(L10n.paymentActionTermsAndPrivacy), buttons: [
                                             .default(Text(L10n.paymentActionTerms)) {
-                                                self.contentVM.openLink(Link.Tos)
+                                                self.contentVM.openLink(LinkId.tos)
                                             },
                                             .default(Text(L10n.paymentActionPolicy)) {
-                                                self.contentVM.openLink(Link.Privacy)
+                                                self.contentVM.openLink(LinkId.privacy)
                                             },
                                             .default(Text(L10n.universalActionSupport)) {
-                                                self.contentVM.openLink(Link.Support)
+                                                self.contentVM.openLink(LinkId.support)
                                             },
                                             .cancel()
                                         ])

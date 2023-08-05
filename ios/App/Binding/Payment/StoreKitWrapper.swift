@@ -12,6 +12,7 @@
 
 import StoreKit
 import Foundation
+import Factory
 
 class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         SKPaymentTransactionObserver {
@@ -22,7 +23,13 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
         "plus_12month",
     ]
 
+    private let productIdentifiersFamily = [
+        "family_month",
+        "family_12months",
+    ]
+
     private let log = BlockaLogger("StoreKit")
+    @Injected(\.flutter) private var flutter
 
     private var products = [SKProduct]()
 
@@ -61,8 +68,13 @@ class StoreKitWrapper: NSObject, SKProductsRequestDelegate, SKRequestDelegate,
             }
 
             self.productsWaiting.value = Cb(ok: ok, fail: fail)
+            
+            var identifiers = self.productIdentifiers
+            if self.flutter.isFlavorFamily {
+                identifiers = self.productIdentifiersFamily
+            }
 
-            let productRequest = SKProductsRequest(productIdentifiers: Set(self.productIdentifiers))
+            let productRequest = SKProductsRequest(productIdentifiers: Set(identifiers))
             productRequest.delegate = self
             productRequest.start()
         }

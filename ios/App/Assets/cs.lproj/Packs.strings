@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Blocklist škodlivých webových stránek, které se používají pro distribuci malware, založený na urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "Blocklist od tvůrce testu blokátorů reklam";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Toto je oficiální blocklist od společnosti d3ward, tvůrce populárního webu pro testování adblockerů. Je určen k dosažení 100% skóre v testu. Mějte na paměti, že se jedná o minimalistický seznam. Možná jej budete chtít použít společně s dalším aktivovaným blocklistem. Pokud chcete test provést, stačí navštívit stránku go.blokada.org";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Reklamy";
+"Blocks advertisements and tracking" = "Blokuje reklamy a slídiče";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminuje rušivé reklamy a webové slídiče. Zvyšuje rychlost procházení a chrání soukromí uživatele.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Chrání před škodlivým softwarem";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Chrání před škodlivým softwarem a škodlivými webovými stránkami. Poskytuje bezpečný štít proti celému spektru kybernetických hrozeb.";
+// Name of the Porn shield
+"Adult Content" = "Obsah pro dospělé";
+"Blocks adult and pornographic content" = "Blokuje obsah pro dospělé a pornografický obsah";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Tento filtr se zaměřuje na obsah pro dospělé a zajišťuje tak bezpečnější používání internetu. Chrání uživatele před explicitními materiály a potenciálními riziky.";
+// Name of the Dating shield
+"Dating" = "Seznamka";
+"Blocks dating and relationship-seeking websites" = "Blokuje seznamovací weby a weby hledající vztahy";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Určeno k omezení online seznamovacích platforem. Nabízí ochranu před možným rozptýlením a nežádoucími interakcemi.";
+// Name of the Gambling shield
+"Gambling" = "Hazardní hry";
+"Blocks gambling-related content and websites" = "Blokuje obsah a webové stránky související s hazardními hrami";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Odmítá přístup k platformám a obsahu hazardních her. Pomáhá předcházet závislosti a zajišťuje finanční bezpečnost.";
+// Name of the Piracy shield
+"Piracy" = "Pirátství";
+"Blocks piracy websites and related content" = "Blokuje pirátské webové stránky a související obsah";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blokuje neautorizované pirátské weby a související platformy. Chrání duševní vlastnictví a snižuje rizika škodlivého stahování.";
+// Name of the Video streaming shield
+"Video streaming" = "Streamování videa";
+"Blocks popular video streaming platforms" = "Blokuje oblíbené platformy pro streamování videa";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Omezuje přístup k nejlepším službám pro streamování videa. Vytvořeno pro uživatele, kteří chtějí spravovat své návyky při sledování a šetřit šířku pásma.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Streamovací aplikace";
+"Blocks streaming apps and related content" = "Blokuje streamovací aplikace a související obsah";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Obsahuje vybraný výběr oblíbených streamovacích aplikací. Umožňuje podrobnou kontrolu nad spotřebou médií.";
+// Name of the Social media shield
+"Social media" = "Sociální sítě";
+"Restricts access to social networking platforms" = "Omezuje přístup k platformám sociálních sítí";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Omezuje přístup k různým platformám sociálních sítí. Ideální pro zvýšení soustředění na práci a pro omezení používání dětmi.";
+// Name of the Chat apps shield
+"Chat apps" = "Chatovací aplikace";
+"Restricts popular messaging and chat applications" = "Omezuje populární aplikace pro zasílání zpráv a chat";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Tento štít je navržen tak, aby zablokoval široce používané aplikace pro zasílání zpráv a chatování. Perfektní pro ty, kdo chtějí ovládat své komunikační kanály.";
+// Name of the Gaming shield
+"Gaming" = "Hraní";
+"Blocks gaming platforms and related content" = "Blokuje herní platformy a související obsah";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Omezuje online herní stránky a související rozptýlení. Určeno pro uživatele, kteří chtějí vyvážený digitální životní styl.";
+// Name of the Games shield
+"Games" = "Hry";
+"Restricts access to popular games" = "Omezuje přístup k oblíbeným hrám";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Zobrazuje nejlepší herní aplikace. Ideální pro uživatele, kteří chtějí přesně ovládat přístup ke hrám.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Online nákupní aplikace";
+"Blocks leading e-commerce and shopping applications" = "Blokuje přední aplikace pro elektronické obchodování a nakupování";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Tento štít zabraňuje přístupu k běžným nákupním aplikacím. Pomáhá uživatelům omezit impulzivní nákupy nebo rozptýlení.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Ostatní aplikace";
+"A selection of various popular applications" = "Výběr dalších populárních aplikací";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Tento štít obsahuje seznam populárních aplikací různého typu. Je vytvořen pro uživatele, kteří usilují o komplexnější kontrolu aplikací.";

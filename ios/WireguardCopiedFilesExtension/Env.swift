@@ -17,7 +17,17 @@ import UIKit
 // Check EnvBinding. There was no point to add a dependency to the NETX.
 class Env {
     func getUserAgent() -> String {
-        return "blokada/\(appVersion) (ios-\(osVersion) six \(buildType) \(cpu) apple \(deviceModel) touch api compatible)"
+        // Family support here was not neccessary as we have no VPN for family.
+        // but if one day...
+        return "blokada/\(appVersion) (ios-\(osVersion) \(flavor) \(buildType) \(cpu) apple \(deviceModel) touch api compatible)"
+    }
+    
+    fileprivate var flavor: String {
+        #if FAMILY
+            return "family"
+        #else
+            return "six"
+        #endif
     }
 
     fileprivate var cpu: String {

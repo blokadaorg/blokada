@@ -12,6 +12,7 @@
 
 "error device offline" = "您的裝置已離線";
 "error account inactive" = "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。";
+"error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
 "error account inactive after restore" = "這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。";
 "error account invalid" = "此帳號 ID 似乎無效。";
 "error creating account" = "無法建立新帳號。請稍候再試。";
@@ -32,6 +33,8 @@
 "error location failed fetching" = "無法取得地點。";
 "error unknown" = "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
 "error multiple apps" = "您的裝置上有超過一款 Blokada app。這可能導致連線問題。是否想要立即修正？";
+"error locked" = "This action is unavailable when the app is in a locked state. Please unlock the app to proceed.";
+"error lock invalid" = "A valid PIN must be exactly 4 digits. Please try again.";
 
 "conn isssues header" = "連線問題";
 "conn isssues slug" = "連線問題。請檢查設定。點一下檢視詳細資訊。";
@@ -181,6 +184,8 @@
 "pack category highlights" = "官方推薦";
 "pack category active" = "啟用";
 "pack category all" = "全部";
+
+"shields section header" = "Shields";
 
 "location choice header" = "選擇位置";
 
@@ -393,9 +398,13 @@
 "payment plan slugline cloud detail" = "（包含 Blokada Cloud）";
 "payment plan slugline plus" = "使用 VPN 獲得增強保護";
 "payment plan cta trial" = "開始 7 天免費試用期";
+"payment plan cta trial length" = "Start %@-Day Free Trial";
 "payment plan cta monthly" = "訂閱月付方案";
 "payment plan cta annual" = "訂閱年付方案";
 "payment plan current" = "（目前方案）";
+
+"payment cancel footer" = "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.";
+"payment cancel footer trial short" = "Cancel during the next %@ days, and you won’t be charged.";
 
 "location region worldwide" = "到處";
 "location region america" = "美洲";
@@ -482,3 +491,77 @@
 "lock status locked" = "Blokada is locked. Enter the pin code to unlock";
 "lock status unlocked has pin" = "Enter the pin code to change it";
 "lock status unlocked" = "Set your pin code to lock Blokada";
+
+"crash body" = "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.";
+
+"universal status waiting for data" = "Waiting for data";
+"universal action disable" = "Disable";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "Slide to unlock";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "Slide";
+"lock status too many attempts" = "Too many wrong attempts. Try again later";
+"lock status enter to confirm" = "Enter the pin code again to confirm";
+"lock status enter or wait" = "Enter new pin code, or wait to lock...";
+"lock change pin" = "Change pin";
+
+"family rename device" = "Rename device";
+"family label this device" = "This device (%@)";
+"family onboard header" = "Welcome to Blokada Family!";
+"family onboard body" = "Follow the instructions on screen to set up your first device.";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "啟用";
+"family cta action add device" = "Add a device";
+"family cta action finish setup" = "Finish setup";
+
+"family status fresh header" = "Hi there!";
+"family status fresh body" = "Activate or restore your account to continue";
+"family status ready header" = "App is ready!";
+"family status ready body" = "Add your first device now";
+"family status perms header" = "快完成了！";
+"family status perms body" = "Please grant the necessary permissions";
+"family status expired header" = "Account expired";
+"family status expired body" = "Please activate your account to continue";
+"family status linked header" = "App is linked!";
+"family status locked header" = "App is locked";
+
+"family payment slug" = "Protect your entire family with one subscription. Monitor and protect all family devices from unwanted content.";
+"family payment features devices header" = "Family Device Monitoring";
+"family payment features devices body" = "Manage and monitor all your devices through a single app. Control access and content filtering directly from your device.";
+"family payment features performance body" = "Maintain a swift and responsive device while ensuring your internet connection remains at peak speeds, all thanks to our proven technology.";
+"family payment features dns body" = "Enhance privacy across all your devices with DNS encryption. Blokada utilizes cutting-edge protocols to ensure your internet traffic remains confidential.";
+"family payment features battery body" = "Activating Blokada won't drain your battery. It might actually help it last longer by blocking unnecessary background activities.";
+
+"family account attach header" = "Attach device";
+"family account attach body" = "To link this device to the parent device, complete the setup process. Once linked, this device will be locked, allowing you to configure and monitor it from the parent device.";
+"family account qr header" = "Scan QR code";
+"family account qr body" = "Scan the QR code from the parent device, in order to initiate the linking process.";
+// A button to scan QR code
+"family account qr action button" = "Scan";
+
+"family account link header" = "Link device";
+"family account link name" = "Set device name";
+"family account link qr header" = "Scan this QR code";
+"family account link qr body" = "This screen will close automatically once the new device has been detected.";
+
+// A button to unlink linked device
+"family account cta unlink" = "Unlink";
+
+"family account decide header" = "Add device";
+"family account decide link header" = "Link a device";
+"family account decide link body" = "In Blokada, you simply scan a QR code to link and manage another device.";
+"family account decide separator" = "- or -";
+"family account decide this header" = "Use this device";
+"family account decide this body" = "Alternatively, you may simply configure Blokada to work on this device, and set the pin to lock the app.";
+
+"family shields header" = "Activate shields to block access to selected content on your supervised devices.";
+"family shields custom slug" = "Manage your own custom entries to block or allow.";
+
+// When a company name is other than the big ones
+"toplist company other" = "Other";
+// When a domain is unknown
+"toplist tld unknown" = "unknown";
+
+"family notification subtitle" = "Family protection is off";

@@ -23,7 +23,7 @@ struct PaymentViewModel {
             description: "Mocked product description",
             price: "9.99", pricePerMonth: "",
             periodMonths: 6, type: name.contains("Cloud") ? "cloud" : "plus",
-            trial: false, owned: false
+            trial: nil, owned: false
         )
     }
 

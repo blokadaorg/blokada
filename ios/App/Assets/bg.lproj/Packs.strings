@@ -46,3 +46,60 @@
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Блокиращ списък със злонамерени уебсайтове, които се използват за разпространение на зловреден софтуер, базиран е на urlhaus.abuse.ch.";
 "A blocklist from the maker of the adblocker test" = "Блокиращ списък от създателя на тестовете за рекламни блокери";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Това е официалният блокиращ списък от d3ward, създателя на популярния уебсайт за тестване на рекламни блокери. Целта е да се постигне 100% резултат в теста. Имайте предвид, че това е минимален списък. Може да искате да го използвате заедно с активиран друг блокиращ списък. Ако искате да направите тест, просто посетете go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Реклами";
+"Blocks advertisements and tracking" = "Блокиране на реклами и проследяване";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Премахва натрапчивите реклами и проследяването в уеб. Подобрява скоростта на сърфиране и защитава поверителността на потребителя.";
+// Name of the Malware shield
+"Malware" = "Зловреден софтуер";
+"Protects against malicious software" = "Защита от злонамерен софтуер";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Защитава от зловреден софтуер и вредни уебсайтове. Осигурява сигурен щит срещу широк спектър от киберзаплахи.";
+// Name of the Porn shield
+"Adult Content" = "Съдържание за възрастни";
+"Blocks adult and pornographic content" = "Блокиране на съдържание за възрастни и порнографско съдържание";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Този филтър е насочен към съдържание за възрастни, за да е по-безопасно онлайн преживяването. Той предпазва потребителите от нецензурни материали и от възможни рискове.";
+// Name of the Dating shield
+"Dating" = "Запознанства";
+"Blocks dating and relationship-seeking websites" = "Блокиране на уебсайтове за запознанства и търсене на връзки";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Предназначено за ограничаване на платформите за онлайн запознанства. Осигурява защита срещу потенциални отклоняващи вниманието фактори и нежелани взаимодействия.";
+// Name of the Gambling shield
+"Gambling" = "Хазарт";
+"Blocks gambling-related content and websites" = "Блокиране на съдържание и уебсайтове, свързани с хазарт";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Отказва достъп до платформи със съдържание за хазарт. Помага за предотвратяване на пристрастяването и осигурява финансова сигурност.";
+// Name of the Piracy shield
+"Piracy" = "Пиратство";
+"Blocks piracy websites and related content" = "Блокиране на съдържание свързано с пиратски уебсайтове";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Блокира неоторизирани сайтове за пиратство и свързаните с тях платформи. Защитава интелектуалната собственост и намалява рисковете от изтегляне на вредни файлове.";
+// Name of the Video streaming shield
+"Video streaming" = "Видео стрийминг";
+"Blocks popular video streaming platforms" = "Блокиране на популярни платформи за предаване на видео съдържание";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Ограничава достъпа до най-добрите услуги за поточно предаване на видео. Създадено за потребители, които искат да управляват своите навици за гледане и да пестят трафик.";
+// Name of the Streaming apps shield
+"Streaming apps" = "Стрийминг приложения";
+"Blocks streaming apps and related content" = "Блокиране на приложенията за стрийминг и свързаното с тях съдържание";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Предлага подбрана селекция от популярни приложения за стрийминг. Позволява пълен контрол върху медийното потребление.";
+// Name of the Social media shield
+"Social media" = "Социални медии";
+"Restricts access to social networking platforms" = "Ограничаване на достъпа до платформи за социални мрежи";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Ограничава достъпа до различни платформи на социалните медии. Подходящо за подобряване на фокуса върху работата и контрол на използването от децата.";
+// Name of the Chat apps shield
+"Chat apps" = "Чат приложения";
+"Restricts popular messaging and chat applications" = "Ограничаване на популярни приложения за съобщения и чат";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Този щит е предназначен за блокиране на широко използвани приложения за съобщения и чат. Идеален за тези, които искат да контролират своите канали за комуникация.";
+// Name of the Gaming shield
+"Gaming" = "Играене";
+"Blocks gaming platforms and related content" = "Блокиране на платформи за игри и свързаното с тях съдържание";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Ограничаване на сайтовете за онлайн игри и свързаните с тях разсейващи фактори. Предназначен за потребители, които искат да водят балансиран цифров начин на живот.";
+// Name of the Games shield
+"Games" = "Игри";
+"Restricts access to popular games" = "Ограничаване на достъпа до популярни игри";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Показва най-добрите приложения за игри. Подходящо за потребители, които желаят прецизен контрол на достъпа до игрите.";
+// Name of the Online shopping apps shield
+"Online shopping apps" = "Приложения за онлайн пазаруване";
+"Blocks leading e-commerce and shopping applications" = "Блокиране на водещи приложения за електронна търговия и пазаруване";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Този щит предотвратява достъпа до обичайните приложения за пазаруване. Той помага на потребителите да ограничат импулсивните покупки или отклоняването на вниманието.";
+// Name of the Miscellaneous apps shield
+"Miscellaneous apps" = "Разни приложения";
+"A selection of various popular applications" = "Селекция от различни популярни приложения";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Този щит предоставя списък с популярни приложения от различен тип. Създаден е за потребители, които се стремят към по-всеобхватен контрол на приложенията.";

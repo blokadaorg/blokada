@@ -22,17 +22,24 @@ struct SpinnerView: View {
     }
 
     var body: some View {
-        Circle()
-            .trim(from: 0, to: 7/10)
-            .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-            .rotationEffect(.degrees(self.spin ? 0 : -360), anchor: .center)
-            .opacity(0.4)
-            .frame(width: 24, height: 24)
-            .onAppear {
-                withAnimation(foreverAnimation) {
-                    self.spin = true
-                }
+        GeometryReader { geometry in
+            ZStack {
+                Circle()
+                    .trim(from: 0, to: 7/10)
+                    .stroke(Color(UIColor.systemGray4), lineWidth: 2)
+                    .rotationEffect(.degrees(self.spin ? 0 : -360), anchor: .center)
+                    .opacity(0.4)
+                    .frame(width: 24, height: 24)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                    .onAppear {
+                        withAnimation(foreverAnimation) {
+                            self.spin = true
+                        }
+                    }
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .fixedSize(horizontal: true, vertical: true)
     }
 }
 

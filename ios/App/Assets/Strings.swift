@@ -16,6 +16,7 @@ class Strings {
     static let account_type_free = "Libre"
     static let account_type_cloud = "Cloud"
     static let account_type_plus = "Plus"
+    static let account_type_family = "Family"
 
     static func activeUntil(_ account: JsonAccount?) -> String {
         let dateFormatter = DateFormatter()
@@ -32,6 +33,8 @@ class Strings {
         if account?.isActive() ?? false {
             if account?.type == "cloud" {
                 return account_type_cloud
+            } else if (account?.type == "family") {
+                return account_type_family
             } else {
                 return account_type_plus
             }

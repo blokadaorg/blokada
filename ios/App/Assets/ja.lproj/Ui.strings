@@ -12,26 +12,29 @@
 
 "error device offline" = "インターネットに接続されていません";
 "error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。";
+"error account inactive generic" = "あなたのアカウントはアクティベートされていません。Blokada を使用するにはアカウントをアクティベートしてください。";
 "error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error account invalid" = "アカウント ID を確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
 "error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error tunnel" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
-"error vpn" = "VPN 接続を確立できませんでした。デバイスを再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
+"error tunnel" = "VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
+"error vpn" = "VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPN プロファイルを作成する権限がありません。";
 "error vpn no current lease" = "接続先を選択してください。";
 "error vpn no current lease new" = "Blokada Plus が無効になりました。接続先を選択して有効にしてください。";
-"error vpn too many leases" = "デバイス数の上限に達しました。いずれかのデバイスを削除して、もう一度やり直してください。";
+"error vpn too many leases" = "端末数の上限に達しました。いずれかの端末を削除して、もう一度やり直してください。";
 "error vpn expired" = "VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。";
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
 "error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment not available" = "このデバイスではお支払いはご利用いただけません。デバイスがアップデートされていないか、お住まいの国からのお支払いに対応していません。";
+"error payment not available" = "この端末ではお支払いはご利用いただけません。端末が最新ではないか、お住まいの国からのお支払いに対応していません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
-"error pack install" = "この機能をインストール（またはアンインストール）できませんでした。後でもう一度お試しください。";
+"error pack install" = "この機能をインストール (またはアンインストール) できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
 "error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error multiple apps" = "デバイスに Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？";
+"error multiple apps" = "端末に Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？";
+"error locked" = "アプリのロック中はできない操作です。続行するにはアプリのロックを解除してください。";
+"error lock invalid" = "4 桁以外の PIN は無効です。もう一度やり直してください。";
 
 "conn isssues header" = "接続エラー";
 "conn isssues slug" = "接続に問題があります。設定を確認してください。タップして詳細を表示します。";
@@ -85,7 +88,7 @@
 "universal label count" = "回数";
 // Common label in tables for the Type column. Think "type of item".
 "universal label type" = "タイプ";
-"universal label device" = "デバイス";
+"universal label device" = "端末";
 
 "universal status processing" = "処理中です... しばらくお待ちください";
 "universal status copied to clipboard" = "クリップボードにコピーしました";
@@ -182,6 +185,8 @@
 "pack category active" = "有効";
 "pack category all" = "すべて";
 
+"shields section header" = "シールド";
+
 "location choice header" = "接続先を選択";
 
 "activity section header" = "アクティビティ";
@@ -224,8 +229,8 @@
 "activity filter show allowed" = "許可されたリクエスト";
 // A short message "Showing for: Device A"
 "activity filter showing for" = "表示: %@";
-"activity empty text" = "デバイスを使用してみて、後でここに戻って、デバイスの接続先を確認してください。";
-"activity device filter show all" = "すべてのデバイス";
+"activity empty text" = "端末を使用してみて、後でここに戻って、端末の接続先を確認してください。";
+"activity device filter show all" = "すべての端末";
 "activity retention header" = "アクティビティを保存しますか？";
 "activity retention option none" = "アクティビティを保存しない";
 "activity retention option 24h" = "はい、アクティビティを保存します";
@@ -254,8 +259,8 @@
 "account section header other" = "その他";
 "account action my account" = "アカウント情報";
 "account action encryption" = "暗号化と DNS";
-"account action devices" = "デバイス管理";
-"account action new device" = "新しいデバイス";
+"account action devices" = "端末管理";
+"account action new device" = "新しい端末";
 "account action inbox" = "受信トレイ";
 "account action logout" = "購入を復元";
 "account action logout only" = "ログアウト";
@@ -284,25 +289,25 @@
 "account unlock to show" = "ロックを解除してアカウント ID を表示する";
 
 "account header logout" = "購入を復元";
-"account logout description" = "別のアカウント ID を入力するか、戻って既存のアカウントを引き続き使用してください（アカウントを利用せずこのアプリを使用することはできません）";
-"account id status unchanged" = "（変更なし）";
+"account logout description" = "別のアカウント ID を入力するか、戻って既存のアカウントを引き続き使用してください (アカウントを利用せずこのアプリを使用することはできません)";
+"account id status unchanged" = "(変更なし)";
 "account action how to restore" = "古いアカウントを復元する方法";
 
 "account subscription days remaining" = "残りの日数：%@";
-"account devices remaining" = "残りのデバイス：%@";
+"account devices remaining" = "残りの端末: %@";
 "account devices not available" = "利用できません";
 "account devices out of" = "%@ / %@";
 
-"account lease label devices list" = "これらのデバイスはあなたのアカウントに接続されています。";
-"account lease label devices" = "デバイス";
-"account lease label this device" = " （このデバイス）";
-"account lease label name" = "デバイス名";
+"account lease label devices list" = "これらの端末はあなたのアカウントに接続されています。";
+"account lease label devices" = "端末";
+"account lease label this device" = " (この端末)";
+"account lease label name" = "端末名";
 "account lease label location" = "接続先";
 "account lease label generate" = "接続先を選択すると、WireGuard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。";
 "account lease action generate" = "設定ファイルを生成";
 "account lease action download" = "設定ファイルをダウンロード";
-"account lease generated" = "デバイスが追加されました！ 設定ファイルをダウンロードして、WireGuard でサポートされているすべてのデバイスで使用できます。";
-"account lease wireguard desc" = "Blokada は WireGuard を使用しています。設定ファイルをダウンロードして新しいデバイスを追加できます。";
+"account lease generated" = "端末が追加されました！ 設定ファイルをダウンロードして、WireGuard でサポートされているすべての端末で使用できます。";
+"account lease wireguard desc" = "Blokada は WireGuard を使用しています。設定ファイルをダウンロードして新しい端末を追加できます。";
 "account lease label dns" = "DNS";
 "account lease action dns" = "DNS を選択";
 "account lease label public key" = "公開鍵";
@@ -325,19 +330,19 @@
 "payment feature title encrypt dns" = "DNS を暗号化";
 "payment feature desc encrypt dns" = "DNS 暗号化でプライバシーを保護しましょう。Blokada Cloud は最新のプロトコルを使用してトラフィックをプライベートに保ちます。";
 "payment feature title performance" = "最適なパフォーマンス";
-"payment feature desc performance" = "新しいクラウドソリューションで、デバイスやインターネット接続の速度を快適に保ちます。";
+"payment feature desc performance" = "新しいクラウドソリューションで、端末やインターネット接続の速度を快適に保ちます。";
 "payment feature title battery" = "バッテリー持ちへの影響なし";
-"payment feature desc battery" = "デバイスのバッテリーの消費量が増加することはありません。Blokada Cloud でさらに削減できる可能性があります。";
-"payment feature title devices cloud" = "複数デバイス";
-"payment feature desc devices cloud" = "モバイルアプリまたはウェブアプリからすべてのデバイスを 1 か所で集中管理します。";
+"payment feature desc battery" = "端末のバッテリーの消費量が増加することはありません。Blokada Cloud でさらに削減できる可能性があります。";
+"payment feature title devices cloud" = "複数端末";
+"payment feature desc devices cloud" = "モバイルアプリまたはウェブアプリからすべての端末を 1 か所で集中管理します。";
 "payment feature title cloud vpn" = "Cloud と VPN";
 "payment feature desc cloud vpn" = "Blokada Cloud のすべての利点に加えて、グローバル VPN ネットワークにアクセスできます。";
 "payment feature title faster connection" = "より高速な接続";
 "payment feature desc faster connection" = "世界のさまざまな地域のサーバーで最高 100Mbps のスピードを実現します。";
-"payment feature title devices" = "最大 5 台のデバイス";
-"payment feature desc devices" = "1 つのアカウントで最大 5 つのデバイス（iOS、Android、PC）を使用できます。";
+"payment feature title devices" = "最大 5 台の端末";
+"payment feature desc devices" = "1 つのアカウントで最大 5 つの端末 (iOS、Android、PC) を使用できます。";
 "payment feature title no ads" = "広告ブロック";
-"payment feature desc no ads" = "Blokada の広告ブロック技術を使用して、デバイス上の広告をブロックします。高度な設定が可能です。";
+"payment feature desc no ads" = "Blokada の広告ブロック技術を使用して、端末の広告をブロックします。高度な設定が可能です。";
 "payment feature title support" = "丁寧なサポート";
 "payment feature desc support" = "カスタマーサポートとオープンソースコミュニティにより、質問に迅速に対応します。";
 "payment action see all features" = "すべての機能を見る";
@@ -358,7 +363,7 @@
 "payment subscription offer" = "%@ 引き";
 
 "payment success label" = "ありがとうございます！";
-"payment success desc" = "アカウントが有効になりました！ すべてのデバイスで Blokada Plus 機能を使用できます。";
+"payment success desc" = "アカウントが有効になりました！ すべての端末で Blokada Plus 機能を使用できます。";
 
 "payment redirect label" = "リダイレクトしています...";
 "payment redirect desc" = "少し時間がかかります
@@ -383,7 +388,7 @@
 "payment package one month" = "1 か月";
 "payment package six months" = "6 か月";
 "payment package twelve months" = "12 か月";
-"payment label discount" = "%@ 引き（%@ / 月）";
+"payment label discount" = "%@ 引き (%@ / 月)";
 "payment label country" = "国";
 
 "payment euro desc" = "私たちはヨーロッパを拠点としているため、ユーロでお支払いいただいています。10 ユーロはおよそ 12 ドルです。";
@@ -391,12 +396,16 @@
 "payment action compare" = "プランを比較";
 "payment plan slugline cloud" = "広告とトラッカーをブロック";
 // A short information that Plus plan contains Cloud also.
-"payment plan slugline cloud detail" = "（Blokada Cloud を含む）";
+"payment plan slugline cloud detail" = "(Blokada Cloud を含む)";
 "payment plan slugline plus" = "VPN による追加保護";
 "payment plan cta trial" = "7 日間の無料トライアルを始める";
+"payment plan cta trial length" = "%n 日間の無料トライアルを開始";
 "payment plan cta monthly" = "月額プラン";
 "payment plan cta annual" = "年額プラン";
-"payment plan current" = "（現在のプラン）";
+"payment plan current" = "(現在のプラン)";
+
+"payment cancel footer" = "サブスクリプションは支払い済みの期間が終了する前に自動更新されます。いつでも設定からキャンセルできます。";
+"payment cancel footer trial short" = "次の %@ 日間はキャンセルします。課金されません。";
 
 "location region worldwide" = "ワールドワイド";
 "location region america" = "アメリカ";
@@ -404,18 +413,18 @@
 "location region asia" = "アジア";
 "location region australia" = "オーストラリア";
 
-"web vpn devices header" = "VPN デバイス";
+"web vpn devices header" = "VPN 端末";
 // A button to open section called "VPN Devices"
-"web vpn devices open action" = "VPN デバイスを開く";
+"web vpn devices open action" = "VPN 端末を開く";
 "web action open setup" = "設定を開く";
 "web cta plus header" = "Blokada Plus にアップグレードして、あなたのプライバシーを管理し続けましょう。";
 "web cta plus desc" = "Libre アカウントでは、オープンソースアプリによる無料の広告ブロックをご利用いただけます。Blokada Plus にアップグレードするとグローバル VPN ネットワークによる更なる保護や、より速く、より使いやすい*クラウドベースの*広告ブロックが選択できます。";
 // A short word for a button to generate profile
 "web action generate" = "生成";
 
-"setup header" = "新しいデバイス";
-"setup desc" = "お使いのデバイスに Blokada Cloud を設定する方法はいくつかあります。最適なものを選択してください。";
-"setup label which device" = "設定するデバイスを選択してください";
+"setup header" = "新しい端末";
+"setup desc" = "お使いの端末に Blokada Cloud を設定する方法はいくつかあります。最適なものを選択してください。";
+"setup label which device" = "設定する端末を選択してください";
 "setup label choose" = "対応する設定方法は以下の通りです:";
 "setup comment wireguard" = "注意: VPN では、デフォルトで Blokada Cloud が使用されます。その他の DNS を選択することでオプトアウトできます。「WireGuard」と「WireGuard」ロゴは Jason A. Donenfeld の登録商標です。";
 "setup comment native apps" = "注意: Android のネイティブアプリでは現在 Blokada Cloud を利用できません。今後のアップデートで対応する予定です。";
@@ -423,9 +432,9 @@
 "setup step" = "ステップ %@: %@";
 "setup option label recommended" = "推奨: %@";
 "setup option label alternative" = "または: %@";
-"setup name label unnamed" = "（名前がありません）";
+"setup name label unnamed" = "(名前がありません)";
 
-"setup step name" = "デバイスに名前を付ける（オプション）";
+"setup step name" = "端末に名前を付ける (オプション)";
 "setup step copy" = "ホスト名をコピー";
 "setup step apply config" = "新しい設定を適用";
 "setup step install" = "Blokada アプリをインストールして開く";
@@ -466,13 +475,13 @@
 "activated header" = "もう少しで完了です";
 "activated desc" = "Blokada が正常に動作するには、以下が必要です:";
 "activated desc all ok" = "すべての設定を完了しました:";
-"activated label account" = "アカウントがアクティブ（%@）";
+"activated label account" = "アカウントがアクティブ (%@)";
 "activated label notif yes" = "通知が許可されています";
 "activated label notif no" = "通知を許可してください";
 "activated label dns yes" = "DNS プロファイルが有効";
 "activated label dns no" = "DNS プロファイルを有効にしてください";
 // Displayed when user does not have Plus account. Do not translate "Plus".
-"activated label vpn cloud" = "VPN を許可してください（Plus のみ）";
+"activated label vpn cloud" = "VPN を許可してください (Plus のみ)";
 "activated label vpn yes" = "VPN が許可されています";
 "activated label vpn no" = "VPN を許可してください";
 
@@ -483,3 +492,77 @@
 "lock status locked" = "Blokada がロックされています。PIN コードを入力してロック解除してください";
 "lock status unlocked has pin" = "変更するには PIN コードを入力してください";
 "lock status unlocked" = "Blokada を PIN コードでロック";
+
+"crash body" = "Blokada が予期せず停止しました。ご迷惑をおかけして申し訳ありません。ログファイルを共有していただけると、あなたを含むすべてのユーザーのエクスペリエンスの向上に役立ちます。この問題を迅速に特定と修正にご協力ください。";
+
+"universal status waiting for data" = "データ待機中";
+"universal action disable" = "無効にする";
+
+// Translate just Unlock if the original is longer than 16 characters
+"lock action slide unlock" = "スライドしてロック解除";
+// The app will use this version if the Slide to unlock is too long
+"lock action slide unlock short" = "スライド";
+"lock status too many attempts" = "間違えた回数が上限に到達しました。後でもう一度お試しください";
+"lock status enter to confirm" = "もう一度 PIN コードを入力して、確認します";
+"lock status enter or wait" = "新しい PIN コードを入力するま、ロックをお待ちください...";
+"lock change pin" = "PIN を変更";
+
+"family rename device" = "端末名を変更";
+"family label this device" = "この端末 (%@)";
+"family onboard header" = "Blokada Family にようこそ！";
+"family onboard body" = "表示されるガイドに従って、最初の端末を設定しましょう。";
+
+// Displayed when starting the app for the first time, action to activate app
+"family cta action activate" = "有効にする";
+"family cta action add device" = "端末を追加";
+"family cta action finish setup" = "セットアップを終了";
+
+"family status fresh header" = "こんにちは！";
+"family status fresh body" = "続行するにはアカウントをアクティベートまたは復元してください";
+"family status ready header" = "アプリの準備ができました！";
+"family status ready body" = "最初の端末を追加しましょう";
+"family status perms header" = "もう少しで完了です";
+"family status perms body" = "必要な権限を許可してください";
+"family status expired header" = "アカウントの有効期限が切れています";
+"family status expired body" = "アカウントをアクティベートして続行してください";
+"family status linked header" = "アプリがリンクされました！";
+"family status locked header" = "アプリがロックされました";
+
+"family payment slug" = "一つのサブスクリプションで家族を保護できます。家族全員の端末をモニターし、望まない接続から保護しましょう。";
+"family payment features devices header" = "家族の端末をモニター";
+"family payment features devices body" = "すべての端末を一つのアプリでモニター・管理できます。端末から直接、通信やコンテンツフィルタリングを設定しましょう。";
+"family payment features performance body" = "お客様のインターネット接続が最高速度に保たれるようにしながら、迅速かつ応答性の高いデバイスを維持します。";
+"family payment features dns body" = "DNS暗号化により、すべてのデバイスでプライバシーを強化します。Blokadaは最先端のプロトコルを使用して、インターネットトラフィックが機密に保たれるようにします。";
+"family payment features battery body" = "Blokada をアクティブにすると、バッテリーが消耗しません。不要なバックグラウンドアクティビティをブロックすることで、実際には長持ちする可能性があります。";
+
+"family account attach header" = "デバイスを添付";
+"family account attach body" = "このデバイスを親デバイスにリンクするには、セットアッププロセスを完了してください。 リンクされると、このデバイスはロックされ、親デバイスから設定して監視することができます。";
+"family account qr header" = "QR コードをスキャン";
+"family account qr body" = "親端末から QR コードをスキャンし、リンクを開始します。";
+// A button to scan QR code
+"family account qr action button" = "スキャン";
+
+"family account link header" = "端末をリンク";
+"family account link name" = "端末名を設定";
+"family account link qr header" = "この QR コードをスキャンしてください";
+"family account link qr body" = "新しいデバイスが検出されると、この画面は自動的に閉じます。";
+
+// A button to unlink linked device
+"family account cta unlink" = "リンクを解除";
+
+"family account decide header" = "端末の追加";
+"family account decide link header" = "端末をリンクする";
+"family account decide link body" = "Blokadaでは、QRコードをスキャンして別のデバイスをリンクして管理するだけです。";
+"family account decide separator" = "→ または";
+"family account decide this header" = "このデバイスを使用する";
+"family account decide this body" = "または、このデバイスで動作するように Blokada を設定し、アプリをロックするようにピンを設定することもできます。";
+
+"family shields header" = "保護されたデバイス上の選択したコンテンツへのアクセスをブロックするには、シールドを有効にします。";
+"family shields custom slug" = "ブロックまたは許可する独自のカスタムエントリを管理します。";
+
+// When a company name is other than the big ones
+"toplist company other" = "その他";
+// When a domain is unknown
+"toplist tld unknown" = "不明";
+
+"family notification subtitle" = "ファミリー保護はオフです";

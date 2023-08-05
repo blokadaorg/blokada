@@ -69,7 +69,7 @@ struct ChangeAccountView2: View {
                 )
                 
                 Button(action: {
-                    self.contentVM.openLink(Link.HowToRestore)
+                    self.contentVM.openLink(LinkId.howToRestore)
                 }) {
                     Text(L10n.accountActionHowToRestore)
                         .multilineTextAlignment(.leading)
@@ -80,7 +80,7 @@ struct ChangeAccountView2: View {
                 .padding()
                 
                 Button(action: {
-                    self.contentVM.openLink(Link.Support)
+                    self.contentVM.openLink(LinkId.support)
                 }) {
                     Text(L10n.universalActionContactUs)
                         .multilineTextAlignment(.leading)

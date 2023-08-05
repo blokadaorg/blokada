@@ -29,7 +29,6 @@ class RepositoriesSingleton {
 
 func startAllRepos() {
     Repos.permsRepo.start()
-    Repos.linkRepo.start()
 
     // Also start some services that probably should be repos?
     Services.netx.start()

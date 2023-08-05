@@ -11,8 +11,11 @@
 //
 
 import SwiftUI
+import Factory
 
 struct AfterActivatedView: View {
+
+    @Injected(\.flutter) private var flutter
 
     @ObservedObject var contentVM = ViewModels.content
     @ObservedObject var homeVM = ViewModels.home
@@ -32,7 +35,7 @@ struct AfterActivatedView: View {
                         Text((
                             self.homeVM.dnsPermsGranted &&
                             self.homeVM.notificationPermsGranted &&
-                            (self.homeVM.accountType == .Cloud || self.homeVM.vpnPermsGranted) ?
+                            ((self.homeVM.accountType == .Cloud || self.homeVM.accountType == .Family) || self.homeVM.vpnPermsGranted) ?
                                 L10n.activatedDescAllOk : L10n.activatedDesc
                         )
                         )
@@ -41,24 +44,48 @@ struct AfterActivatedView: View {
                             .padding([.top, .bottom])
                         
                         VStack(spacing: 0) {
-                            Button(action: {
-                            }) {
-                                HStack {
-                                    Image(systemName: Image.fCheckmark)
-                                        .imageScale(.large)
-                                        .foregroundColor(Color.cOk)
-                                        .frame(width: 32, height: 32)
-
-                                    Text(L10n.activatedLabelAccount(self.homeVM.accountType))
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.primary)
-
-                                    Spacer()
+                            // TODO: non family flavor where?
+                            if self.homeVM.accountType.isActive() {
+                                Button(action: {
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fInfo)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cOk)
+                                            .frame(width: 32, height: 32)
+                                        
+                                        Text(L10n.activatedLabelAccount(self.homeVM.accountType))
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+                                            .multilineTextAlignment(.leading)
+                                        
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
                                 }
-                                .padding([.leading, .trailing], 18)
-                                .padding([.top, .bottom], 4)
+                            } else {
+                                Button(action: {
+                                    self.homeVM.finishSetup()
+                                }) {
+                                    HStack {
+                                        Image(systemName: Image.fXmark)
+                                            .imageScale(.large)
+                                            .foregroundColor(Color.cError)
+                                            .frame(width: 32, height: 32)
+                                        
+                                        Text(L10n.accountStatusTextInactive)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+                                            .multilineTextAlignment(.leading)
+                                        
+                                        Spacer()
+                                    }
+                                    .padding([.leading, .trailing], 18)
+                                    .padding([.top, .bottom], 4)
+                                }
                             }
-
+                            
                             if self.homeVM.notificationPermsGranted {
                                 Button(action: {
                                 }) {
@@ -67,11 +94,12 @@ struct AfterActivatedView: View {
                                             .imageScale(.large)
                                             .foregroundColor(Color.cOk)
                                             .frame(width: 32, height: 32)
-
+                                        
                                         Text(L10n.activatedLabelNotifYes)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
-
+                                            .multilineTextAlignment(.leading)
+                                        
                                         Spacer()
                                     }
                                     .padding([.leading, .trailing], 18)
@@ -86,17 +114,18 @@ struct AfterActivatedView: View {
                                             .imageScale(.large)
                                             .foregroundColor(Color.cError)
                                             .frame(width: 32, height: 32)
-
+                                        
                                         Text(L10n.activatedLabelNotifNo)
                                             .foregroundColor(.primary)
-
+                                            .multilineTextAlignment(.leading)
+                                        
                                         Spacer()
                                     }
                                     .padding([.leading, .trailing], 18)
                                     .padding([.top, .bottom], 4)
                                 }
                             }
-
+                            
                             if self.homeVM.dnsPermsGranted {
                                 Button(action: {
                                 }) {
@@ -105,11 +134,12 @@ struct AfterActivatedView: View {
                                             .imageScale(.large)
                                             .foregroundColor(Color.cOk)
                                             .frame(width: 32, height: 32)
-
+                                        
                                         Text(L10n.activatedLabelDnsYes)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
-
+                                            .multilineTextAlignment(.leading)
+                                        
                                         Spacer()
                                     }
                                     .padding([.leading, .trailing], 18)
@@ -124,71 +154,75 @@ struct AfterActivatedView: View {
                                             .imageScale(.large)
                                             .foregroundColor(Color.cError)
                                             .frame(width: 32, height: 32)
-
+                                        
                                         Text(L10n.activatedLabelDnsNo)
                                             .foregroundColor(.primary)
-
+                                            .multilineTextAlignment(.leading)
+                                        
                                         Spacer()
                                     }
                                     .padding([.leading, .trailing], 18)
                                     .padding([.top, .bottom], 4)
                                 }
                             }
-
-                            if self.homeVM.accountType != .Plus {
-                                Button(action: {
-                                }) {
-                                    HStack {
-                                        Image(systemName: Image.fXmark)
-                                            .imageScale(.large)
-                                            .foregroundColor(Color.cSecondaryBackground)
-                                            .frame(width: 32, height: 32)
-
-                                        Text(L10n.activatedLabelVpnCloud)
-                                            .foregroundColor(.secondary)
-                                            .multilineTextAlignment(.leading)
-
-                                        Spacer()
+                            
+                            if !self.flutter.isFlavorFamily {
+                                if self.homeVM.accountType != .Plus {
+                                    Button(action: {
+                                    }) {
+                                        HStack {
+                                            Image(systemName: Image.fXmark)
+                                                .imageScale(.large)
+                                                .foregroundColor(Color.cSecondaryBackground)
+                                                .frame(width: 32, height: 32)
+                                            
+                                            Text(L10n.activatedLabelVpnCloud)
+                                                .foregroundColor(.secondary)
+                                                .multilineTextAlignment(.leading)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding([.leading, .trailing], 18)
+                                        .padding([.top, .bottom], 4)
                                     }
-                                    .padding([.leading, .trailing], 18)
-                                    .padding([.top, .bottom], 4)
-                                }
-                            } else if !self.homeVM.vpnPermsGranted {
-                                Button(action: {
-                                    self.homeVM.finishSetup()
-                                }) {
-                                    HStack {
-                                        Image(systemName: Image.fXmark)
-                                            .imageScale(.large)
-                                            .foregroundColor(Color.cError)
-                                            .frame(width: 32, height: 32)
-
-                                        Text(L10n.activatedLabelVpnNo)
-                                            .foregroundColor(.primary)
-
-                                        Spacer()
+                                } else if !self.homeVM.vpnPermsGranted {
+                                    Button(action: {
+                                        self.homeVM.finishSetup()
+                                    }) {
+                                        HStack {
+                                            Image(systemName: Image.fXmark)
+                                                .imageScale(.large)
+                                                .foregroundColor(Color.cError)
+                                                .frame(width: 32, height: 32)
+                                            
+                                            Text(L10n.activatedLabelVpnNo)
+                                                .foregroundColor(.primary)
+                                                .multilineTextAlignment(.leading)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding([.leading, .trailing], 18)
+                                        .padding([.top, .bottom], 4)
                                     }
-                                    .padding([.leading, .trailing], 18)
-                                    .padding([.top, .bottom], 4)
-                                }
-                            } else {
-                                Button(action: {
-                                    
-                                }) {
-                                    HStack {
-                                        Image(systemName: Image.fCheckmark)
-                                            .imageScale(.large)
-                                            .foregroundColor(Color.cOk)
-                                            .frame(width: 32, height: 32)
-
-                                        Text(L10n.activatedLabelVpnYes)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.primary)
-
-                                        Spacer()
+                                } else {
+                                    Button(action: {
+                                        
+                                    }) {
+                                        HStack {
+                                            Image(systemName: Image.fCheckmark)
+                                                .imageScale(.large)
+                                                .foregroundColor(Color.cOk)
+                                                .frame(width: 32, height: 32)
+                                            
+                                            Text(L10n.activatedLabelVpnYes)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.primary)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding([.leading, .trailing], 18)
+                                        .padding([.top, .bottom], 4)
                                     }
-                                    .padding([.leading, .trailing], 18)
-                                    .padding([.top, .bottom], 4)
                                 }
                             }
                         }

@@ -68,7 +68,7 @@ class JournalViewModel: ObservableObject {
             }
 
             if device == "." {
-                self.commands.execute(.filterDevice, self.env.getDeviceName())
+                self.commands.execute(.filterDevice, self.cloud.deviceAlias)
             } else {
                 self.commands.execute(.filterDevice, device)
             }
@@ -93,7 +93,7 @@ class JournalViewModel: ObservableObject {
 
         journal.onFilter = { it in
             if self.device != it.deviceName {
-                if it.deviceName == self.env.getDeviceName() {
+                if it.deviceName == self.cloud.deviceAlias {
                     if self.device != "." {
                         self.device = "."
                     }
@@ -124,7 +124,7 @@ class JournalViewModel: ObservableObject {
         journal.onDevices = { it in
             self.devices = it.filter({ it in
                 // Dont show our own device name on the list
-                it != self.env.getDeviceName()
+                it != self.cloud.deviceAlias
             })
             self.objectWillChange.send()
         }

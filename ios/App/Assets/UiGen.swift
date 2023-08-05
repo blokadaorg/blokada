@@ -274,6 +274,8 @@ internal enum L10n {
   internal static let connIsssuesHeader = L10n.tr("Ui", "conn isssues header")
   /// Connectivity issues. Please check your configuration. Tap for details.
   internal static let connIsssuesSlug = L10n.tr("Ui", "conn isssues slug")
+  /// Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.
+  internal static let crashBody = L10n.tr("Ui", "crash body")
   /// Open Settings
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
@@ -292,6 +294,8 @@ internal enum L10n {
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
   /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
   internal static let errorAccountInactiveAfterRestore = L10n.tr("Ui", "error account inactive after restore")
+  /// Your account is inactive. Please activate your account in order to continue using Blokada.
+  internal static let errorAccountInactiveGeneric = L10n.tr("Ui", "error account inactive generic")
   /// This account ID seems invalid.
   internal static let errorAccountInvalid = L10n.tr("Ui", "error account invalid")
   /// Could not create a new account. Please try again later.
@@ -302,6 +306,10 @@ internal enum L10n {
   internal static let errorFetchingData = L10n.tr("Ui", "error fetching data")
   /// Could not fetch locations.
   internal static let errorLocationFailedFetching = L10n.tr("Ui", "error location failed fetching")
+  /// A valid PIN must be exactly 4 digits. Please try again.
+  internal static let errorLockInvalid = L10n.tr("Ui", "error lock invalid")
+  /// This action is unavailable when the app is in a locked state. Please unlock the app to proceed.
+  internal static let errorLocked = L10n.tr("Ui", "error locked")
   /// There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?
   internal static let errorMultipleApps = L10n.tr("Ui", "error multiple apps")
   /// Could not install (or uninstall) this feature. Please try again later.
@@ -332,6 +340,92 @@ internal enum L10n {
   internal static let errorVpnPerms = L10n.tr("Ui", "error vpn perms")
   /// You reached your devices limit. Please remove one of your devices and try again.
   internal static let errorVpnTooManyLeases = L10n.tr("Ui", "error vpn too many leases")
+  /// To link this device to the parent device, complete the setup process. Once linked, this device will be locked, allowing you to configure and monitor it from the parent device.
+  internal static let familyAccountAttachBody = L10n.tr("Ui", "family account attach body")
+  /// Attach device
+  internal static let familyAccountAttachHeader = L10n.tr("Ui", "family account attach header")
+  /// Unlink
+  internal static let familyAccountCtaUnlink = L10n.tr("Ui", "family account cta unlink")
+  /// Add device
+  internal static let familyAccountDecideHeader = L10n.tr("Ui", "family account decide header")
+  /// In Blokada, you simply scan a QR code to link and manage another device.
+  internal static let familyAccountDecideLinkBody = L10n.tr("Ui", "family account decide link body")
+  /// Link a device
+  internal static let familyAccountDecideLinkHeader = L10n.tr("Ui", "family account decide link header")
+  /// - or -
+  internal static let familyAccountDecideSeparator = L10n.tr("Ui", "family account decide separator")
+  /// Alternatively, you may simply configure Blokada to work on this device, and set the pin to lock the app.
+  internal static let familyAccountDecideThisBody = L10n.tr("Ui", "family account decide this body")
+  /// Use this device
+  internal static let familyAccountDecideThisHeader = L10n.tr("Ui", "family account decide this header")
+  /// Link device
+  internal static let familyAccountLinkHeader = L10n.tr("Ui", "family account link header")
+  /// Set device name
+  internal static let familyAccountLinkName = L10n.tr("Ui", "family account link name")
+  /// This screen will close automatically once the new device has been detected.
+  internal static let familyAccountLinkQrBody = L10n.tr("Ui", "family account link qr body")
+  /// Scan this QR code
+  internal static let familyAccountLinkQrHeader = L10n.tr("Ui", "family account link qr header")
+  /// Scan
+  internal static let familyAccountQrActionButton = L10n.tr("Ui", "family account qr action button")
+  /// Scan the QR code from the parent device, in order to initiate the linking process.
+  internal static let familyAccountQrBody = L10n.tr("Ui", "family account qr body")
+  /// Scan QR code
+  internal static let familyAccountQrHeader = L10n.tr("Ui", "family account qr header")
+  /// Activate
+  internal static let familyCtaActionActivate = L10n.tr("Ui", "family cta action activate")
+  /// Add a device
+  internal static let familyCtaActionAddDevice = L10n.tr("Ui", "family cta action add device")
+  /// Finish setup
+  internal static let familyCtaActionFinishSetup = L10n.tr("Ui", "family cta action finish setup")
+  /// This device (%@)
+  internal static func familyLabelThisDevice(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family label this device", String(describing: p1))
+  }
+  /// Family protection is off
+  internal static let familyNotificationSubtitle = L10n.tr("Ui", "family notification subtitle")
+  /// Follow the instructions on screen to set up your first device.
+  internal static let familyOnboardBody = L10n.tr("Ui", "family onboard body")
+  /// Welcome to Blokada Family!
+  internal static let familyOnboardHeader = L10n.tr("Ui", "family onboard header")
+  /// Activating Blokada won't drain your battery. It might actually help it last longer by blocking unnecessary background activities.
+  internal static let familyPaymentFeaturesBatteryBody = L10n.tr("Ui", "family payment features battery body")
+  /// Manage and monitor all your devices through a single app. Control access and content filtering directly from your device.
+  internal static let familyPaymentFeaturesDevicesBody = L10n.tr("Ui", "family payment features devices body")
+  /// Family Device Monitoring
+  internal static let familyPaymentFeaturesDevicesHeader = L10n.tr("Ui", "family payment features devices header")
+  /// Enhance privacy across all your devices with DNS encryption. Blokada utilizes cutting-edge protocols to ensure your internet traffic remains confidential.
+  internal static let familyPaymentFeaturesDnsBody = L10n.tr("Ui", "family payment features dns body")
+  /// Maintain a swift and responsive device while ensuring your internet connection remains at peak speeds, all thanks to our proven technology.
+  internal static let familyPaymentFeaturesPerformanceBody = L10n.tr("Ui", "family payment features performance body")
+  /// Protect your entire family with one subscription. Monitor and protect all family devices from unwanted content.
+  internal static let familyPaymentSlug = L10n.tr("Ui", "family payment slug")
+  /// Rename device
+  internal static let familyRenameDevice = L10n.tr("Ui", "family rename device")
+  /// Manage your own custom entries to block or allow.
+  internal static let familyShieldsCustomSlug = L10n.tr("Ui", "family shields custom slug")
+  /// Activate shields to block access to selected content on your supervised devices.
+  internal static let familyShieldsHeader = L10n.tr("Ui", "family shields header")
+  /// Please activate your account to continue
+  internal static let familyStatusExpiredBody = L10n.tr("Ui", "family status expired body")
+  /// Account expired
+  internal static let familyStatusExpiredHeader = L10n.tr("Ui", "family status expired header")
+  /// Activate or restore your account to continue
+  internal static let familyStatusFreshBody = L10n.tr("Ui", "family status fresh body")
+  /// Hi there!
+  internal static let familyStatusFreshHeader = L10n.tr("Ui", "family status fresh header")
+  /// App is linked!
+  internal static let familyStatusLinkedHeader = L10n.tr("Ui", "family status linked header")
+  /// App is locked
+  internal static let familyStatusLockedHeader = L10n.tr("Ui", "family status locked header")
+  /// Please grant the necessary permissions
+  internal static let familyStatusPermsBody = L10n.tr("Ui", "family status perms body")
+  /// Almost there!
+  internal static let familyStatusPermsHeader = L10n.tr("Ui", "family status perms header")
+  /// Add your first device now
+  internal static let familyStatusReadyBody = L10n.tr("Ui", "family status ready body")
+  /// App is ready!
+  internal static let familyStatusReadyHeader = L10n.tr("Ui", "family status ready header")
   /// Tap to activate
   internal static let homeActionTapToActivate = L10n.tr("Ui", "home action tap to activate")
   /// ads and trackers blocked since installation
@@ -390,8 +484,20 @@ internal enum L10n {
   internal static let locationRegionEurope = L10n.tr("Ui", "location region europe")
   /// Everywhere
   internal static let locationRegionWorldwide = L10n.tr("Ui", "location region worldwide")
+  /// Slide to unlock
+  internal static let lockActionSlideUnlock = L10n.tr("Ui", "lock action slide unlock")
+  /// Slide
+  internal static let lockActionSlideUnlockShort = L10n.tr("Ui", "lock action slide unlock short")
+  /// Change pin
+  internal static let lockChangePin = L10n.tr("Ui", "lock change pin")
+  /// Enter new pin code, or wait to lock...
+  internal static let lockStatusEnterOrWait = L10n.tr("Ui", "lock status enter or wait")
+  /// Enter the pin code again to confirm
+  internal static let lockStatusEnterToConfirm = L10n.tr("Ui", "lock status enter to confirm")
   /// Blokada is locked. Enter the pin code to unlock
   internal static let lockStatusLocked = L10n.tr("Ui", "lock status locked")
+  /// Too many wrong attempts. Try again later
+  internal static let lockStatusTooManyAttempts = L10n.tr("Ui", "lock status too many attempts")
   /// Set your pin code to lock Blokada
   internal static let lockStatusUnlocked = L10n.tr("Ui", "lock status unlocked")
   /// Enter the pin code to change it
@@ -506,6 +612,12 @@ internal enum L10n {
   internal static let paymentActivatedDescription = L10n.tr("Ui", "payment activated description")
   /// A message from App Store
   internal static let paymentAlertErrorHeader = L10n.tr("Ui", "payment alert error header")
+  /// The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.
+  internal static let paymentCancelFooter = L10n.tr("Ui", "payment cancel footer")
+  /// Cancel during the next %@ days, and you won’t be charged.
+  internal static func paymentCancelFooterTrialShort(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment cancel footer trial short", String(describing: p1))
+  }
   /// Change
   internal static let paymentChangeMethod = L10n.tr("Ui", "payment change method")
   /// We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.
@@ -602,6 +714,10 @@ internal enum L10n {
   internal static let paymentPlanCtaMonthly = L10n.tr("Ui", "payment plan cta monthly")
   /// Start 7-Day Free Trial
   internal static let paymentPlanCtaTrial = L10n.tr("Ui", "payment plan cta trial")
+  /// Start %@-Day Free Trial
+  internal static func paymentPlanCtaTrialLength(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment plan cta trial length", String(describing: p1))
+  }
   /// (current plan)
   internal static let paymentPlanCurrent = L10n.tr("Ui", "payment plan current")
   /// Blocks ads and trackers
@@ -686,6 +802,8 @@ internal enum L10n {
   internal static let setupStepInstallWireguard = L10n.tr("Ui", "setup step install wireguard")
   /// Name your device (optional)
   internal static let setupStepName = L10n.tr("Ui", "setup step name")
+  /// Shields
+  internal static let shieldsSectionHeader = L10n.tr("Ui", "shields section header")
   /// Stats
   internal static let statsHeader = L10n.tr("Ui", "stats header")
   /// All time
@@ -708,6 +826,10 @@ internal enum L10n {
   internal static let statsTopAllowedHeader = L10n.tr("Ui", "stats top allowed header")
   /// Top blocked requests
   internal static let statsTopBlockedHeader = L10n.tr("Ui", "stats top blocked header")
+  /// Other
+  internal static let toplistCompanyOther = L10n.tr("Ui", "toplist company other")
+  /// unknown
+  internal static let toplistTldUnknown = L10n.tr("Ui", "toplist tld unknown")
   /// Cancel
   internal static let universalActionCancel = L10n.tr("Ui", "universal action cancel")
   /// Clear
@@ -724,6 +846,8 @@ internal enum L10n {
   internal static let universalActionCopy = L10n.tr("Ui", "universal action copy")
   /// Delete
   internal static let universalActionDelete = L10n.tr("Ui", "universal action delete")
+  /// Disable
+  internal static let universalActionDisable = L10n.tr("Ui", "universal action disable")
   /// Donate
   internal static let universalActionDonate = L10n.tr("Ui", "universal action donate")
   /// Done
@@ -796,6 +920,8 @@ internal enum L10n {
   internal static let universalStatusRedirect = L10n.tr("Ui", "universal status redirect")
   /// Please restart the app for the changes to take effect.
   internal static let universalStatusRestartRequired = L10n.tr("Ui", "universal status restart required")
+  /// Waiting for data
+  internal static let universalStatusWaitingForData = L10n.tr("Ui", "universal status waiting for data")
   /// You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.
   internal static let updateDescUpdated = L10n.tr("Ui", "update desc updated")
   /// You are now using the newest version of Blokada!
