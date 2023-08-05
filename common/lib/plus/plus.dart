@@ -155,8 +155,8 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> reactToPermLost(Trace parentTrace) async {
-    return await traceWith(parentTrace, "reactToPermLost", (trace) async {
+  Future<void> reactToPlusLost(Trace parentTrace) async {
+    return await traceWith(parentTrace, "reactToPlusLost", (trace) async {
       if (plusEnabled || _vpn.actualStatus.isActive()) {
         plusEnabled = false;
         _clearLease(trace);

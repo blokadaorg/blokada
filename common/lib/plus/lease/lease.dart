@@ -10,6 +10,7 @@ import '../../util/mobx.dart';
 import '../../util/trace.dart';
 import '../gateway/gateway.dart';
 import '../keypair/keypair.dart';
+import '../plus.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -38,6 +39,7 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   late final _env = dep<EnvStore>();
   late final _gateway = dep<PlusGatewayStore>();
   late final _keypair = dep<PlusKeypairStore>();
+  late final _plus = dep<PlusStore>();
   late final _stage = dep<StageStore>();
 
   PlusLeaseStoreBase() {
@@ -86,7 +88,8 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
           await _gateway.selectGateway(trace, current.gatewayId);
         } on Exception catch (_) {
           currentLease = null;
-          trace.addEvent("current lease for unknown gateway, ignoring");
+          trace.addEvent("current lease for unknown gateway, setting to null");
+          await _plus.reactToPlusLost(trace);
         }
       } else {
         await _gateway.selectGateway(trace, null);
