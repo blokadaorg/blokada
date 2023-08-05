@@ -33,9 +33,9 @@
 "error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";
 "error multiple apps" = "Er is meer dan één Blokada-app op uw apparaat. Dit kan verbindingsproblemen veroorzaken. Wilt u het nu oplossen?";
 
-"conn isssues header" = "Connectivity issues";
+"conn isssues header" = "Verbindingsproblemen";
 "conn isssues slug" = "Connectivity issues. Please check your configuration. Tap for details.";
-"conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
+"conn isssues details" = "- Controleer je internetverbinding\n- Gebruik slechts één Blokada app\n- Deactiveer andere VPN's";
 
 "universal action continue" = "Doorgaan";
 "universal action cancel" = "Annuleren";
@@ -82,10 +82,10 @@
 // Common label in tables for the Time column. Think "time of event".
 "universal label time" = "Tijd";
 // Common label in tables for the Count column. Think "number of items".
-"universal label count" = "Count";
+"universal label count" = "Aantal";
 // Common label in tables for the Type column. Think "type of item".
 "universal label type" = "Type";
-"universal label device" = "Device";
+"universal label device" = "Apparaat";
 
 "universal status processing" = "Bezig... Even geduld.";
 "universal status copied to clipboard" = "Gekopieerd naar Klembord";
@@ -97,8 +97,8 @@
 "alert vpn expired header" = "BLOKADA+ verlopen";
 "alert download link body" = "For security reasons, to download a file, we need to open this website in your browser. Then, please tap the download link again.";
 
-"notification perms header" = "Enable notifications in Settings";
-"notification perms desc" = "This feature requires notifications, please switch them on for Blokada.";
+"notification perms header" = "Zet notificaties aan in de instellingen";
+"notification perms desc" = "Deze functie vereist meldingen, schakel ze in voor Blokada.";
 "notification perms denied" = "You denied notifications. To change it, please use System Preferences.";
 
 "notification vpn expired header" = "BLOKADA+ subscription expired";
@@ -111,7 +111,7 @@
 "notification generic body" = "Please open the app for details.";
 
 // A short header in a notification shown when account expires
-"notification acc header" = "Subscription expired";
+"notification acc header" = "Abonnement verlopen";
 "notification acc subtitle" = "Adblocking is disabled";
 "notification acc body" = "Please update your subscription to continue using Blokada.";
 
@@ -120,13 +120,13 @@
 "notification pause body" = "Please open the app to resume Blokada.";
 
 // Displayed in a notification title. Do not translate "Plus".
-"notification lease header" = "Blokada Plus is off";
+"notification lease header" = "Blokada Plus is uitgeschakeld";
 
-"notification update header" = "An update is available";
-"alert update body" = "Blokada %@ is now available for download. We recommend keeping the app up to date, and downloading it only from our official sources.";
+"notification update header" = "Een update is beschikbaar";
+"alert update body" = "Blokada %@ is nu beschikbaar om te downloaden. We raden aan om de app up-to-date te houden en alleen vanuit onze officiële bronnen te downloaden.";
 "update label updated" = "Bijgewerkt!";
-"update desc updated" = "You are now using the newest version of Blokada! Remember, donating or subscribing to Blokada Plus allows us to continue improving the app.";
-"update desc updated nodon" = "You are now using the newest version of Blokada!";
+"update desc updated" = "Je gebruikt nu de nieuwste versie van Blokada! Onthoud, doneren of abonneren op Blokada Plus stelt ons in staat om de app verder te verbeteren.";
+"update desc updated nodon" = "Je gebruikt de nieuwste versie van Blokada!";
 "update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
 
 "main share message" = "Blokada helped me block %@ ads and trackers!";
@@ -154,17 +154,17 @@
 "home status paused" = "Gepauzeerd";
 "home status active" = "Actief";
 "home status deactivated" = "Gedeactiveerd";
-"home action tap to activate" = "Tap to activate";
+"home action tap to activate" = "Tik om te activeren";
 "home status detail paused" = "Paused until timer ends";
 "home status detail active" = "Blokkeert *advertenties* en *trackers*";
 "home status detail active with counter" = "*%@* Advertenties en trackers geblokkeerd";
-"home status detail active day" = "Ads and trackers blocked last 24h";
+"home status detail active day" = "Advertenties en trackers geblokkeerd afgelopen 24u";
 "home status detail active slim" = "Blokada *Slim* is actief";
 "home status detail plus" = "*+* bescherming van uw *privacy*";
 "home status detail progress" = "Even geduld...";
 
 "home plus button deactivated" = "BLOKADA+ gedeactiveerd";
-"home plus button deactivated cloud" = "VPN deactivated";
+"home plus button deactivated cloud" = "VPN gedeactiveerd";
 "home plus button select location" = "Selecteer locatie";
 "home plus button location" = "Locatie: *%@*";
 
@@ -220,16 +220,16 @@
 "activity category top allowed" = "Top Allowed";
 "activity filter header" = "Which entries would you like to see?";
 "activity filter show all" = "All entries";
-"activity filter show blocked" = "Blocked only";
-"activity filter show allowed" = "Allowed only";
+"activity filter show blocked" = "Alleen geblokkeerd";
+"activity filter show allowed" = "Alleen toegestaan";
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Showing for: %@";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
-"activity device filter show all" = "All devices";
-"activity retention header" = "Should we store your activity?";
-"activity retention option none" = "Do not store my activity";
-"activity retention option 24h" = "Yes, store my activity";
-"activity retention policy" = "By enabling activity logging you accept the privacy policy.";
+"activity device filter show all" = "Alle apparaten";
+"activity retention header" = "Moeten we uw activiteit opslaan?";
+"activity retention option none" = "Bewaar mijn activiteit niet";
+"activity retention option 24h" = "Ja, bewaar mijn activiteit";
+"activity retention policy" = "Door het inschakelen van het loggen van activiteiten accepteert u het privacybeleid.";
 "activity retention desc" = "Blokada Cloud is not logging anything by default. If you wish to see the aggregated stats and activity from all of your devices, enable activity logging below.";
 
 // Header for the Exceptions screen (where all user defined custom rules are)
@@ -307,12 +307,12 @@
 "account lease action dns" = "Choose a DNS";
 "account lease label public key" = "Publieke sleutel";
 
-"account support action how help" = "How can we help you?";
+"account support action how help" = "Hoe kunnen we je helpen?";
 "account support action kb" = "Open Knowledge Base";
 
 "account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
 
-"payment header activated" = "Activated!";
+"payment header activated" = "Geactiveerd!";
 "payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
 "payment action choose location" = "Choose a location";
 "payment action see locations" = "Our Locations";
