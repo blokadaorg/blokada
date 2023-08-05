@@ -7,6 +7,7 @@ import '../app/app.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
+import '../timer/timer.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
@@ -16,6 +17,7 @@ import 'json.dart';
 part 'rate.g.dart';
 
 const String _key = "rate:metadata";
+const String _keyTimer = "rate:checkConditions";
 
 class RateStore = RateStoreBase with _$RateStore;
 
@@ -24,8 +26,10 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _app = dep<AppStore>();
+  late final _timer = dep<TimerService>();
 
   RateStoreBase() {
+    _timer.addHandler(_keyTimer, onTimerFired);
     _app.addOn(appStatusChanged, onAppStatusChanged);
   }
 
@@ -42,8 +46,13 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
   onAppStatusChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onAppStatusChanged", (trace) async {
       // Let the things settle a bit
-      await sleepAsync(const Duration(seconds: 3));
+      _timer.set(_keyTimer, DateTime.now().add(const Duration(seconds: 3)));
+    });
+  }
 
+  @action
+  Future<void> onTimerFired(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onTimerFired", (trace) async {
       if (!_app.status.isActive()) return; // When app got active ...
       final meta = rateMetadata;
       if (meta == null) return; // .. but not on first ever app start
