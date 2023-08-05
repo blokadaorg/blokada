@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../app/app.dart';
@@ -108,7 +109,21 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
         return;
       }
 
-      await _ops.doSetVpnConfig(config);
+      var attempts = 3;
+      while (attempts-- > 0) {
+        try {
+          await _ops.doSetVpnConfig(config);
+          attempts = 0;
+        } catch (e) {
+          if (attempts > 0) {
+            trace.addEvent("Failed setting VPN config: $e");
+            await sleepAsync(const Duration(seconds: 3));
+          } else {
+            rethrow;
+          }
+        }
+      }
+
       actualConfig = config;
     }, important: true);
   }
