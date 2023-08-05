@@ -13,6 +13,9 @@
 import Foundation
 import Factory
 
+// TODO: currently if asked for secure AND backup store, we will use the
+// iCloud backup store which does not do any encryption. Account ID is store
+// there, keypair is stored as secure and non backup.
 class PersistenceBinding: PersistenceOps {
     
     @Injected(\.flutter) private var flutter
@@ -22,7 +25,8 @@ class PersistenceBinding: PersistenceOps {
     private let keychain = KeychainSwift()
 
     init() {
-        keychain.synchronizable = true
+        // Keypair needs to stay local
+        keychain.synchronizable = false
         PersistenceOpsSetup.setUp(
             binaryMessenger: flutter.getMessenger() , api: self
         )
@@ -30,12 +34,12 @@ class PersistenceBinding: PersistenceOps {
 
     func doSave(key: String, value: String, isSecure: Bool, isBackup: Bool,
                 completion: @escaping (Result<Void, Error>) -> Void) {
-        if (isSecure) {
-            self.keychain.set(value, forKey: key)
-            completion(.success(()))
-        } else if (isBackup) {
+        if (isBackup) {
             self.iCloud.set(value, forKey: key)
             self.iCloud.synchronize()
+            completion(.success(()))
+        } else if (isSecure) {
+            self.keychain.set(value, forKey: key)
             completion(.success(()))
         } else {
             self.localStorage.set(value, forKey: key)
@@ -45,13 +49,13 @@ class PersistenceBinding: PersistenceOps {
     
     func doLoad(key: String, isSecure: Bool, isBackup: Bool,
                 completion: @escaping (Result<String, Error>) -> Void) {
-        if (isSecure) {
-            guard let it = self.keychain.get(key) else {
+        if (isBackup) {
+            guard let it = self.iCloud.string(forKey: key) else {
                 return completion(.failure(CommonError.emptyResult))
             }
             completion(.success(it))
-        } else if (isBackup) {
-            guard let it = self.iCloud.string(forKey: key) else {
+        } else if (isSecure) {
+            guard let it = self.keychain.get(key) else {
                 return completion(.failure(CommonError.emptyResult))
             }
             completion(.success(it))
@@ -65,11 +69,11 @@ class PersistenceBinding: PersistenceOps {
 
     func doDelete(key: String, isSecure: Bool, isBackup: Bool,
                   completion: @escaping (Result<Void, Error>) -> Void) {
-        if (isSecure) {
-            self.keychain.delete(key)
-            completion(.success(()))
-        } else if (isBackup) {
+        if (isBackup) {
             self.iCloud.removeObject(forKey: key)
+            completion(.success(()))
+        } else if (isSecure) {
+            self.keychain.delete(key)
             completion(.success(()))
         } else {
             self.localStorage.removeObject(forKey: key)
