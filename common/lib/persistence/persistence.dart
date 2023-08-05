@@ -6,11 +6,14 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 abstract class PersistenceService {
-  Future<void> save(Trace trace, String key, Map<String, dynamic> value);
-  Future<void> saveString(Trace trace, String key, String value);
-  Future<String?> load(Trace trace, String key);
-  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key);
-  Future<void> delete(Trace trace, String key);
+  Future<void> save(Trace trace, String key, Map<String, dynamic> value,
+      {bool isBackup});
+  Future<void> saveString(Trace trace, String key, String value,
+      {bool isBackup});
+  Future<String?> load(Trace trace, String key, {bool isBackup});
+  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key,
+      {bool isBackup});
+  Future<void> delete(Trace trace, String key, {bool isBackup});
 }
 
 abstract class SecurePersistenceService extends PersistenceService {}
@@ -28,9 +31,8 @@ abstract class SecurePersistenceService extends PersistenceService {}
 class PlatformPersistence extends SecurePersistenceService
     with Traceable, Dependable {
   final bool isSecure;
-  final bool isBackup;
 
-  PlatformPersistence({required this.isSecure, required this.isBackup});
+  PlatformPersistence({required this.isSecure});
 
   @override
   attach(Act act) {
@@ -41,7 +43,8 @@ class PlatformPersistence extends SecurePersistenceService
   late final _ops = dep<PersistenceOps>();
 
   @override
-  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key) async {
+  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key,
+      {bool isBackup = false}) async {
     return await traceWith(trace, "loadOrThrow", (trace) async {
       trace.addAttribute("key", key);
       trace.addAttribute("isSecure", isSecure);
@@ -53,7 +56,7 @@ class PlatformPersistence extends SecurePersistenceService
   }
 
   @override
-  Future<String?> load(Trace trace, String key) async {
+  Future<String?> load(Trace trace, String key, {bool isBackup = false}) async {
     try {
       trace.addAttribute("key", key);
       trace.addAttribute("isSecure", isSecure);
@@ -66,7 +69,8 @@ class PlatformPersistence extends SecurePersistenceService
   }
 
   @override
-  Future<void> save(Trace trace, String key, Map<String, dynamic> value) async {
+  Future<void> save(Trace trace, String key, Map<String, dynamic> value,
+      {bool isBackup = false}) async {
     return await traceWith(trace, "save", (trace) async {
       trace.addAttribute("key", key);
       trace.addAttribute("isSecure", isSecure);
@@ -76,7 +80,8 @@ class PlatformPersistence extends SecurePersistenceService
   }
 
   @override
-  Future<void> saveString(Trace trace, String key, String value) async {
+  Future<void> saveString(Trace trace, String key, String value,
+      {bool isBackup = false}) async {
     return await traceWith(trace, "saveString", (trace) async {
       trace.addAttribute("key", key);
       trace.addAttribute("isSecure", isSecure);
@@ -86,7 +91,7 @@ class PlatformPersistence extends SecurePersistenceService
   }
 
   @override
-  Future<void> delete(Trace trace, String key) async {
+  Future<void> delete(Trace trace, String key, {bool isBackup = false}) async {
     return await traceWith(trace, "delete", (trace) async {
       trace.addAttribute("key", key);
       trace.addAttribute("isSecure", isSecure);

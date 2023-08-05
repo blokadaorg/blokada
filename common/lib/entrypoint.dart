@@ -39,10 +39,8 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     Tracer().attach(act);
     DefaultTimer().attach(act);
 
-    // Two persistence instances, for secure and non-secure data
-    // Non secure data is local
-    PlatformPersistence(isSecure: false, isBackup: false).attach(act);
-    final secure = PlatformPersistence(isSecure: true, isBackup: true);
+    PlatformPersistence(isSecure: false).attach(act);
+    final secure = PlatformPersistence(isSecure: true);
     depend<SecurePersistenceService>(secure);
 
     RepeatingHttpService(

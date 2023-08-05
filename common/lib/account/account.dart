@@ -140,7 +140,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   @action
   Future<void> load(Trace parentTrace) async {
     return await traceWith(parentTrace, "load", (trace) async {
-      final accJson = await _persistence.loadOrThrow(trace, _keyAccount);
+      final accJson =
+          await _persistence.loadOrThrow(trace, _keyAccount, isBackup: true);
       final jsonAccount = JsonAccount.fromJson(accJson);
       _ensureValidAccountId(jsonAccount.id);
       await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
@@ -151,7 +152,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   Future<void> create(Trace parentTrace) async {
     return await traceWith(parentTrace, "create", (trace) async {
       final jsonAccount = await _api.postAccount(trace);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+          isBackup: true);
       await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
     });
   }
@@ -163,7 +165,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         throw AccountNotInitialized();
       }
       final jsonAccount = await _api.getAccount(trace, account!.id);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+          isBackup: true);
       await _changeAccount(trace, account!.update(jsonAccount));
     });
   }
@@ -174,7 +177,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
       final sanitizedId = _sanitizeAccountId(id);
       _ensureValidAccountId(sanitizedId);
       final jsonAccount = await _api.getAccount(trace, sanitizedId);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+          isBackup: true);
       await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
       await _stage.showModal(trace, StageModal.onboarding);
     }, fallback: (trace) async {
@@ -186,7 +190,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   Future<void> propose(Trace parentTrace, JsonAccount jsonAccount) async {
     return await traceWith(parentTrace, "propose", (trace) async {
       _ensureValidAccountId(jsonAccount.id);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+          isBackup: true);
       await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
     });
   }
@@ -201,7 +206,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         type: AccountType.libre.name,
       );
 
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+          isBackup: true);
       await _changeAccount(trace, account!.update(jsonAccount));
     });
   }
