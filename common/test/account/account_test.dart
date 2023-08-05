@@ -26,7 +26,7 @@ void main() {
     test("loadWillReadFromPersistence", () async {
       await withTrace((trace) async {
         final persistence = MockSecurePersistenceService();
-        when(persistence.loadOrThrow(any, any))
+        when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
         depend<SecurePersistenceService>(persistence);
 
@@ -37,7 +37,7 @@ void main() {
 
         await subject.load(trace);
 
-        verify(persistence.loadOrThrow(any, any)).called(1);
+        verify(persistence.loadOrThrow(any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
         expect(subject.account!.type, AccountType.cloud);
         expect(subject.account!.jsonAccount.active, true);
@@ -61,7 +61,7 @@ void main() {
 
         await subject.create(trace);
 
-        verify(persistence.save(any, any, any)).called(1);
+        verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
         expect(subject.account!.type, AccountType.cloud);
         expect(subject.account!.jsonAccount.active, true);
@@ -71,7 +71,7 @@ void main() {
     test("fetchWillFetchFromApiAndWriteToPersistence", () async {
       await withTrace((trace) async {
         final persistence = MockSecurePersistenceService();
-        when(persistence.loadOrThrow(any, any))
+        when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
         depend<SecurePersistenceService>(persistence);
 
@@ -88,7 +88,7 @@ void main() {
         await subject.load(trace);
         await subject.fetch(trace);
 
-        verify(persistence.save(any, any, any)).called(1);
+        verify(persistence.save(any, any, any, isBackup: true)).called(1);
       });
     });
 
@@ -97,7 +97,7 @@ void main() {
         depend<StageStore>(MockStageStore());
 
         final persistence = MockSecurePersistenceService();
-        when(persistence.loadOrThrow(any, any))
+        when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
         depend<SecurePersistenceService>(persistence);
 
@@ -120,7 +120,7 @@ void main() {
         await subject.restore(trace, "mocked2");
 
         verify(json.getAccount(any, "mocked2")).called(1);
-        verify(persistence.save(any, any, any)).called(1);
+        verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mocked2");
         expect(subject.account!.type, AccountType.libre);
         expect(subject.account!.jsonAccount.active, false);
@@ -130,7 +130,7 @@ void main() {
     test("expireOfflineWillExpireAccountAndWriteToPersistence", () async {
       await withTrace((trace) async {
         final persistence = MockSecurePersistenceService();
-        when(persistence.loadOrThrow(any, any))
+        when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
         depend<SecurePersistenceService>(persistence);
 
@@ -150,7 +150,7 @@ void main() {
 
         await subject.expireOffline(trace);
 
-        verify(persistence.save(any, any, any)).called(1);
+        verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
         expect(subject.account!.type, AccountType.libre);
         expect(subject.account!.jsonAccount.active, false);
@@ -170,7 +170,7 @@ void main() {
         await subject.propose(
             trace, JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
 
-        verify(persistence.save(any, any, any)).called(1);
+        verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mocked2");
       });
     });
@@ -180,7 +180,7 @@ void main() {
     test("willReturnErrorOnEmptyCache", () async {
       await withTrace((trace) async {
         final persistence = MockSecurePersistenceService();
-        when(persistence.loadOrThrow(any, any))
+        when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenThrow(Exception("no account in cache"));
         depend<SecurePersistenceService>(persistence);
 
