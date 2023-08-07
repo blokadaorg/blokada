@@ -147,13 +147,13 @@ class FamilyOnboardState extends State<FamilyOnboard> with TraceOrigin {
         onDone: () => _onIntroEnd(context),
         onSkip: () => _onIntroEnd(context), // You can override onSkip callback
         showSkipButton: true,
-        skipOrBackFlex: 0,
-        nextFlex: 0,
+        skipOrBackFlex: 1,
+        nextFlex: 1,
         showBackButton: false,
         //rtl: true, // Display as right-to-left
         back: const Icon(Icons.arrow_back),
-        skip: const Text('Skip',
-            style: TextStyle(fontSize: 18, color: Colors.white)),
+        skip: Text('universal action cancel'.i18n,
+            style: const TextStyle(fontSize: 18, color: Colors.white)),
         next: Text("universal action continue".i18n,
             style: const TextStyle(fontSize: 18, color: Colors.white)),
         done: Text("universal action continue".i18n,
