@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:common/onboard/onboard.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -55,6 +56,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _plusLease = dep<PlusLeaseStore>();
   late final _rate = dep<RateStore>();
   late final _tracer = dep<Tracer>();
+  late final _onboard = dep<OnboardStore>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -104,6 +106,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
           await _plusLease.fetch(trace);
         }
         await _tracer.checkForCrashLog(trace);
+        await _onboard.maybeShowOnboard(trace);
         await _app.initCompleted(trace);
       } catch (e) {
         await _app.initFail(trace);

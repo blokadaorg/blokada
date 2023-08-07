@@ -13,6 +13,7 @@ import 'http/http.dart';
 import 'journal/journal.dart';
 import 'lock/lock.dart';
 import 'notification/notification.dart';
+import 'onboard/onboard.dart';
 import 'perm/perm.dart';
 import 'persistence/persistence.dart';
 import 'plus/gateway/gateway.dart';
@@ -61,6 +62,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     EnvStore().attach(act);
     StageStore().attach(act);
     LockStore().attach(act);
+    OnboardStore().attach(act);
     AccountStore().attach(act);
     NotificationStore().attach(act);
     AccountPaymentStore().attach(act);

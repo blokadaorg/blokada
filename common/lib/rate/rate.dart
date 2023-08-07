@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
