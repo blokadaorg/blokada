@@ -20,11 +20,11 @@ class FamilyOnboardState extends State<FamilyOnboard> with TraceOrigin {
   GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
 
   void _onIntroEnd(context) {
-    _close();
+    bgStateKey.currentState?.animateToClose();
   }
 
   _close() async {
-    traceAs("tappedCloseRateScreen", (trace) async {
+    traceAs("tappedCloseOverlay", (trace) async {
       await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
     });
   }
