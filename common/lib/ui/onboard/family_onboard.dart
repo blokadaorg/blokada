@@ -1,3 +1,4 @@
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -34,11 +35,11 @@ class FamilyOnboardState extends State<FamilyOnboard> with TraceOrigin {
 
   @override
   Widget build(BuildContext context) {
-    const bodyStyle = TextStyle(fontSize: 19.0, color: Colors.white);
+    const bodyStyle = TextStyle(fontSize: 16.0, color: Colors.white);
 
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
+          fontSize: 36.0, fontWeight: FontWeight.w900, color: Colors.white),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       //pageColor: Colors.white,
@@ -151,16 +152,19 @@ class FamilyOnboardState extends State<FamilyOnboard> with TraceOrigin {
         showBackButton: false,
         //rtl: true, // Display as right-to-left
         back: const Icon(Icons.arrow_back),
-        skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
+        skip: const Text('Skip',
+            style: TextStyle(fontSize: 18, color: Colors.white)),
         next: const Icon(Icons.arrow_forward),
-        done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+        done: Text("universal action done".i18n,
+            style: const TextStyle(fontSize: 18, color: Colors.white)),
         curve: Curves.fastLinearToSlowEaseIn,
         controlsMargin: const EdgeInsets.only(bottom: 64, left: 16, right: 16),
         controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
         dotsDecorator: const DotsDecorator(
           size: Size(10.0, 10.0),
-          color: Color(0xFFBDBDBD),
-          activeSize: Size(22.0, 10.0),
+          color: Colors.white30,
+          activeColor: Colors.white,
+          activeSize: Size(10.0, 10.0),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
           ),
