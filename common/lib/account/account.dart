@@ -178,7 +178,8 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         final sanitizedId = _sanitizeAccountId(id);
         _ensureValidAccountId(sanitizedId);
         final jsonAccount = await _api.getAccount(trace, sanitizedId);
-        await _persistence.save(trace, _keyAccount, jsonAccount.toJson());
+        await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+            isBackup: true);
         await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
         await _stage.showModal(trace, StageModal.onboarding);
       } catch (_) {
