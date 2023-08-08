@@ -115,6 +115,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
         }
       } on Exception catch (_) {
         plusEnabled = false;
+        await _vpn.turnVpnOff(trace);
         await _saveFlag(trace);
         _clearLease(trace);
         await _stage.showModal(trace, StageModal.plusVpnFailure);
@@ -173,8 +174,8 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "reactToPlusLost", (trace) async {
       if (plusEnabled || _vpn.actualStatus.isActive()) {
         plusEnabled = false;
-        _clearLease(trace);
         await _vpn.turnVpnOff(trace);
+        _clearLease(trace);
       }
     });
   }
