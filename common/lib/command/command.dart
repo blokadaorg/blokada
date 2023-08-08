@@ -189,6 +189,13 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
     CommandName.appleNotificationToken.name,
   ];
 
+  final _noTimeLimitCommands = [
+    CommandName.newPlus.name,
+    CommandName.receipt.name,
+    CommandName.restorePayment.name,
+    CommandName.purchase.name,
+  ];
+
   String _cmdName(String cmd, String? p1) {
     if (_censoredCommands.contains(cmd)) {
       p1 = "***";
@@ -231,7 +238,7 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
 
   _startCommandTimeout(String command) {
     // This command is just super slow because of StoreKit
-    if (command == "purchase") return;
+    if (_noTimeLimitCommands.contains(command)) return;
 
     _onCommandTimer(command);
     _timer.set(
