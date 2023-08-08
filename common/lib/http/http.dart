@@ -28,7 +28,7 @@ class HttpCodeException implements Exception {
 }
 
 abstract class HttpService {
-  Future<String> get(Trace trace, String url);
+  Future<String> get(Trace trace, String url, {bool noRetry = false});
 
   Future<String> request(Trace trace, String url, HttpType type,
       {String? payload});
@@ -45,7 +45,7 @@ class PlatformHttpService with HttpService, Traceable {
   late final _ops = dep<HttpOps>();
 
   @override
-  Future<String> get(Trace trace, String url) async {
+  Future<String> get(Trace trace, String url, {bool noRetry = false}) async {
     return await traceWith(trace, "get", (trace) async {
       trace.addAttribute("url", url, sensitive: true);
       _addEndpointAttribute(trace, url);
@@ -115,7 +115,8 @@ class RepeatingHttpService with HttpService, Dependable {
   }
 
   @override
-  Future<String> get(Trace trace, String url) async {
+  Future<String> get(Trace trace, String url, {bool noRetry = false}) async {
+    if (noRetry) return await _service.get(trace, url, noRetry: true);
     return await _repeat(trace, () => _service.get(trace, url));
   }
 

@@ -1,5 +1,6 @@
 import 'package:common/plus/keypair/keypair.dart';
 import 'package:common/plus/lease/json.dart';
+import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
@@ -111,7 +112,20 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
 
           await _vpn.setVpnConfig(trace, _assembleConfig(k, g, l));
           await _vpn.turnVpnOn(trace);
-          await _lease.fetch(trace);
+
+          var requestAttempts = 5;
+          while (requestAttempts-- > 0) {
+            try {
+              // A quick lease check to ensure connectivity
+              await _lease.fetch(trace, noRetry: true);
+              requestAttempts = 0;
+            } catch (_) {
+              // Super lame but VPN service seems very brittle
+              trace.addEvent("Retrying switching plus");
+              await _vpn.turnVpnOff(trace);
+              await _vpn.turnVpnOn(trace);
+            }
+          }
         }
       } on Exception catch (_) {
         plusEnabled = false;

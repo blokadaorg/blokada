@@ -74,9 +74,9 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   DateTime lastRefresh = DateTime(0);
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
+  Future<void> fetch(Trace parentTrace, {bool noRetry = false}) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
-      final leases = await _json.getLeases(trace);
+      final leases = await _json.getLeases(trace, noRetry: noRetry);
       this.leases = leases.map((it) => it.toLease).toList();
       leaseChanges++;
 

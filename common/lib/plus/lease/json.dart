@@ -91,9 +91,10 @@ class PlusLeaseJson {
   late final _keypair = dep<PlusKeypairStore>();
   late final _account = dep<AccountStore>();
 
-  Future<List<JsonLease>> getLeases(Trace trace) async {
+  Future<List<JsonLease>> getLeases(Trace trace, {bool noRetry = false}) async {
     final result = await _http.get(
-        trace, '$jsonUrl/v2/lease?account_id=${_account.id}');
+        trace, '$jsonUrl/v2/lease?account_id=${_account.id}',
+        noRetry: noRetry);
     return JsonLeaseEndpoint.fromJson(jsonDecode(result)).leases;
   }
 
