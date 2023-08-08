@@ -3,6 +3,7 @@ import 'package:common/plus/lease/json.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
+import '../app/channel.pg.dart';
 import '../device/device.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
@@ -38,6 +39,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   late final _stage = dep<StageStore>();
 
   PlusStoreBase() {
+    _app.addOn(appStatusChanged, reactToAppStatus);
     reactionOnStore((_) => plusEnabled, (plusEnabled) async {
       await _ops.doPlusEnabledChanged(plusEnabled);
     });
@@ -151,6 +153,18 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
       } else if (!appActive && (plusEnabled || _vpn.actualStatus.isActive())) {
         await _vpn.turnVpnOff(trace);
       }
+    });
+  }
+
+  @action
+  Future<void> reactToAppStatus(Trace parentTrace) async {
+    if (_app.status != AppStatus.activatedPlus) return;
+    if (plusEnabled) return;
+
+    // If the VPN is active (for example after app start), but we did not
+    // expect it, try to sync the state.
+    return await traceWith(parentTrace, "reactToAppStatus", (trace) async {
+      await switchPlus(trace, true);
     });
   }
 
