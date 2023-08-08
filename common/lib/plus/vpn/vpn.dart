@@ -96,6 +96,8 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
 
   Completer? _statusCompleter;
 
+  bool _settingConfig = false;
+
   @action
   Future<void> setVpnConfig(Trace parentTrace, VpnConfig config) async {
     return await traceWith(parentTrace, "setVpnConfig", (trace) async {
@@ -104,21 +106,24 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
       }
 
       targetConfig = config;
-      if (!actualStatus.isReady()) {
+      if (!actualStatus.isReady() || _settingConfig) {
         trace.addEvent("event queued");
         return;
       }
 
+      _settingConfig = true;
       var attempts = 3;
       while (attempts-- > 0) {
         try {
           await _ops.doSetVpnConfig(config);
           attempts = 0;
+          _settingConfig = false;
         } catch (e) {
           if (attempts > 0) {
             trace.addEvent("Failed setting VPN config: $e");
             await sleepAsync(const Duration(seconds: 3));
           } else {
+            _settingConfig = false;
             rethrow;
           }
         }
