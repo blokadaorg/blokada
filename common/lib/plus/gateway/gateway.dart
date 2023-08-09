@@ -80,9 +80,14 @@ abstract class PlusGatewayStoreBase
   @action
   Future<void> fetch(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
-      final gateways = await _json.get(trace);
-      this.gateways = gateways.map((it) => it.toGateway).toList();
-      gatewayChanges++;
+      try {
+        final gateways = await _json.get(trace);
+        this.gateways = gateways.map((it) => it.toGateway).toList();
+        gatewayChanges++;
+      } catch (e) {
+        // Always emit gateways so the UI displays it
+        gatewayChanges++;
+      }
     });
   }
 
