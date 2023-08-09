@@ -17,6 +17,7 @@ struct OptionView: View {
     let text: String
     let image: String
     let active: Bool
+    let canSpin: Bool
 
     let action: () -> Void
 
@@ -33,7 +34,7 @@ struct OptionView: View {
 
                 Spacer()
 
-                if ongoing {
+                if ongoing && canSpin {
                     ProgressView()
                         .frame(width: 32, height: 32)
                 } else {
@@ -67,7 +68,7 @@ struct OptionView: View {
 
 struct OptionView_Previews: PreviewProvider {
     static var previews: some View {
-        OptionView(text: "Option", image: Image.fHelp, active: false, action: {})
-        OptionView(text: "Option2", image: Image.fAbout, active: true, action: {})
+        OptionView(text: "Option", image: Image.fHelp, active: false, canSpin: true, action: {})
+        OptionView(text: "Option2", image: Image.fAbout, active: true, canSpin: true, action: {})
     }
 }

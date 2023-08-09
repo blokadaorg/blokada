@@ -71,6 +71,7 @@ struct JournalDetailView: View {
                             text: L10n.activityActionAddedToWhitelist,
                             image: Image.fShieldSlash,
                             active: true,
+                            canSpin: true,
                             action: {
                                 self.custom.delete(self.vm.entry.entry.domainName)
                             }
@@ -80,6 +81,7 @@ struct JournalDetailView: View {
                             text: L10n.activityActionAddedToBlacklist,
                             image: Image.fShieldSlash,
                             active: true,
+                            canSpin: true,
                             action: {
                                 self.custom.delete(self.vm.entry.entry.domainName)
                             }
@@ -89,6 +91,7 @@ struct JournalDetailView: View {
                             text: L10n.activityActionAddToBlacklist,
                             image: Image.fShieldSlash,
                             active: false,
+                            canSpin: true,
                             action: {
                                 self.custom.deny(self.vm.entry.entry.domainName)
                             }
@@ -98,6 +101,7 @@ struct JournalDetailView: View {
                             text: L10n.activityActionAddToWhitelist,
                             image: Image.fShieldSlash,
                             active: false,
+                            canSpin: true,
                             action: {
                                 self.custom.allow(self.vm.entry.entry.domainName)
                             }
@@ -110,6 +114,7 @@ struct JournalDetailView: View {
                         text: L10n.userdefinedActionOpen,
                         image: "list.dash.header.rectangle",
                         active: false,
+                        canSpin: false,
                         action: {
                             self.contentVM.stage.showModal(.custom)
                         }
@@ -127,6 +132,7 @@ struct JournalDetailView: View {
                         text: L10n.activityActionCopyToClipboard,
                         image: Image.fCopy,
                         active: false,
+                        canSpin: true,
                         action: {
                             UIPasteboard.general.string = self.vm.entry.entry.domainName
                         }

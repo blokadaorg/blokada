@@ -54,6 +54,7 @@ struct LeaseListView: View {
                                 text: getLeaseName(lease),
                                 image: Image.fDevices,
                                 active: false,
+                                canSpin: false,
                                 action: {
                                     
                                 }
