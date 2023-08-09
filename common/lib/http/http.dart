@@ -4,6 +4,7 @@ import 'package:common/json/json.dart';
 import 'package:flutter/services.dart';
 
 import '../util/async.dart';
+import '../util/config.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
@@ -150,5 +151,36 @@ class RepeatingHttpService with HttpService, Dependable {
         }
       }
     }
+  }
+}
+
+// This service can fail specific requests for testing various scenarios
+class DebugHttpService with HttpService {
+  final HttpService _service;
+
+  DebugHttpService(this._service);
+
+  @override
+  Future<String> get(Trace trace, String url, {bool noRetry = false}) {
+    if (_shouldFail(url)) {
+      throw Exception("Debug: request failed for testing");
+    }
+    return _service.get(trace, url);
+  }
+
+  @override
+  Future<String> request(Trace trace, String url, HttpType type,
+      {String? payload}) {
+    if (_shouldFail(url)) {
+      throw Exception("Debug: request failed for testing");
+    }
+    return _service.request(trace, url, type, payload: payload);
+  }
+
+  bool _shouldFail(String url) {
+    for (var match in cfg.debugFailingRequests) {
+      if (url.contains(match)) return true;
+    }
+    return false;
   }
 }

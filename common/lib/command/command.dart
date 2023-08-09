@@ -180,6 +180,12 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
         return await _tracer.fatal(p1!);
       case CommandName.shareLog:
         return await _tracer.shareLog(trace, forCrash: false);
+      case CommandName.debugHttpFail:
+        cfg.debugFailingRequests.add(p1!);
+        return;
+      case CommandName.debugHttpOk:
+        cfg.debugFailingRequests.remove(p1!);
+        return;
     }
   }
 

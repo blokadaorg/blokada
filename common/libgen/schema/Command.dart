@@ -68,6 +68,10 @@ enum CommandName {
   fatal,
   warning,
   shareLog,
+
+  // Debug
+  debugHttpFail,
+  debugHttpOk,
 }
 
 @HostApi()

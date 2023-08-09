@@ -21,11 +21,13 @@ class Config {
   late Duration statsRefreshWhenOnStatsScreen = const Duration(seconds: 30);
   late Duration statsRefreshWhenOnHomeScreen = const Duration(seconds: 120);
   late Duration statsRefreshWhenOnAnotherScreen = const Duration(seconds: 240);
+
   late DateTime? debugSendTracesUntil =
       _isInDebugMode ? DateTime.now().add(const Duration(minutes: 15)) : null;
   late Uri? debugSendTracesTo = _isInDebugMode
       ? Uri.parse("http://192.168.101.107:4318/v1/traces")
       : null;
+  late List<String> debugFailingRequests = [];
 
   testing() {
     const noWait = Duration(seconds: 0);

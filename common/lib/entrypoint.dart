@@ -43,11 +43,19 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     final secure = PlatformPersistence(isSecure: true);
     depend<SecurePersistenceService>(secure);
 
-    RepeatingHttpService(
-      PlatformHttpService(),
-      maxRetries: cfg.httpMaxRetries,
-      waitTime: cfg.httpRetryDelay,
-    ).attach(act);
+    if (act.hasToys()) {
+      RepeatingHttpService(
+        DebugHttpService(PlatformHttpService()),
+        maxRetries: cfg.httpMaxRetries,
+        waitTime: cfg.httpRetryDelay,
+      ).attach(act);
+    } else {
+      RepeatingHttpService(
+        PlatformHttpService(),
+        maxRetries: cfg.httpMaxRetries,
+        waitTime: cfg.httpRetryDelay,
+      ).attach(act);
+    }
 
     // The stores. Order is important
     EnvStore().attach(act);

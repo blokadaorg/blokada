@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import 'entrypoint.dart';
 import 'service/I18nService.dart';
@@ -13,7 +14,11 @@ void main() async {
   await I18nService.loadTranslations();
 
   final entrypoint = Entrypoint();
-  entrypoint.attach(ActScreenplay(ActScenario.production));
+  if (kReleaseMode) {
+    entrypoint.attach(ActScreenplay(ActScenario.prod));
+  } else {
+    entrypoint.attach(ActScreenplay(ActScenario.prodWithToys));
+  }
   entrypoint.onStartApp();
 
   runApp(const Root());

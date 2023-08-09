@@ -8,11 +8,16 @@ class ActScreenplay with Act {
   ActScreenplay(this.scenario);
 
   @override
-  bool isProd() => scenario == ActScenario.production;
+  bool isProd() =>
+      scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
+
+  @override
+  bool hasToys() => scenario == ActScenario.prodWithToys;
 }
 
 enum ActScenario {
-  production,
+  prod,
+  prodWithToys,
   platformIsMocked,
   connectivityRandomlyFailing,
 }
