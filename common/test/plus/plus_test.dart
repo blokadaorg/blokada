@@ -40,6 +40,8 @@ void main() {
         final ops = MockPlusOps();
         depend<PlusOps>(ops);
 
+        depend<AppStore>(MockAppStore());
+
         final persistence = MockPersistenceService();
         when(persistence.load(any, any)).thenAnswer((_) => Future.value("1"));
         depend<PersistenceService>(persistence);
@@ -89,7 +91,7 @@ void main() {
         verify(app.reconfiguring(any)).called(1);
         verify(lease.newLease(any, "some gateway id")).called(1);
         verify(vpn.turnVpnOn(any)).called(1);
-        verify(lease.fetch(any));
+        verify(lease.fetch(any, noRetry: true)).called(1);
         verify(persistence.saveString(any, any, any));
       });
     });
@@ -156,7 +158,7 @@ void main() {
 
         await subject.switchPlus(trace, true);
         verify(vpn.turnVpnOn(any)).called(1);
-        verify(lease.fetch(any));
+        verify(lease.fetch(any, noRetry: true));
       });
     });
 
