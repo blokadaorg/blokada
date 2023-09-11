@@ -88,6 +88,7 @@ abstract class PlusGatewayStoreBase
         // Always emit gateways so the UI displays it
         gatewayChanges++;
       }
+      markCooldown();
     });
   }
 

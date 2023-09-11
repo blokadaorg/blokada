@@ -94,6 +94,7 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
       } else {
         await _gateway.selectGateway(trace, null);
       }
+      markCooldown();
     });
   }
 

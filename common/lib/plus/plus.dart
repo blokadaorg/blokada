@@ -173,14 +173,20 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> reactToAppStatus(Trace parentTrace) async {
-    if (_app.status != AppStatus.activatedPlus) return;
-    if (plusEnabled) return;
-
-    // If the VPN is active (for example after app start), but we did not
-    // expect it, try to sync the state.
-    return await traceWith(parentTrace, "reactToAppStatus", (trace) async {
-      await switchPlus(trace, true);
-    });
+    if (plusEnabled &&
+        _app.status == AppStatus.activatedCloud &&
+        _vpn.actualStatus == VpnStatus.deactivated) {
+      // If VPN was on, but is not (for example after app restart), bring it up.
+      return await traceWith(parentTrace, "reactToAppStatusC1", (trace) async {
+        await switchPlus(trace, true);
+      });
+    } else if (!plusEnabled && _app.status == AppStatus.activatedPlus) {
+      // If the VPN is active (for example after app start), but we did not
+      // expect it, try to sync the state.
+      return await traceWith(parentTrace, "reactToAppStatusC2", (trace) async {
+        await switchPlus(trace, true);
+      });
+    }
   }
 
   @action

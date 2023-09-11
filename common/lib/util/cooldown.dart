@@ -8,4 +8,8 @@ mixin Cooldown {
     }
     return ready;
   }
+
+  markCooldown() {
+    _timestamp = DateTime.now();
+  }
 }
