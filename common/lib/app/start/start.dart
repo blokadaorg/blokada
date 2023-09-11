@@ -10,6 +10,7 @@ import '../../env/env.dart';
 import '../../journal/journal.dart';
 import '../../lock/lock.dart';
 import '../../perm/perm.dart';
+import '../../plus/gateway/gateway.dart';
 import '../../plus/keypair/keypair.dart';
 import '../../plus/plus.dart';
 import '../../rate/rate.dart';
@@ -49,6 +50,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _stage = dep<StageStore>();
   late final _plus = dep<PlusStore>();
   late final _plusKeypair = dep<PlusKeypairStore>();
+  late final _plusGateway = dep<PlusGatewayStore>();
   late final _rate = dep<RateStore>();
   late final _tracer = dep<Tracer>();
 
@@ -94,6 +96,8 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         await _plus.load(trace);
         await _rate.load(trace);
         await _startAppWithRetry(trace);
+        await _plusGateway.fetch(trace);
+        await _plusGateway.load(trace);
         await _tracer.checkForCrashLog(trace);
         await _app.initCompleted(trace);
       } catch (e) {
