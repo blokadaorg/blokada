@@ -48,32 +48,32 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
 
   @override
   Future<void> onCommand(String command) async {
-    _startCommandTimeout(command);
+    final cmd = _commandFromString(command);
+    _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, null), (trace) async {
-      final cmd = _commandFromString(command);
       return await execute(trace, cmd);
     });
-    _stopCommandTimeout(command);
+    _stopCommandTimeout(cmd);
   }
 
   @override
   Future<void> onCommandWithParam(String command, String p1) async {
-    _startCommandTimeout(command);
+    final cmd = _commandFromString(command);
+    _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, p1), (trace) async {
-      final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1);
     });
-    _stopCommandTimeout(command);
+    _stopCommandTimeout(cmd);
   }
 
   @override
   Future<void> onCommandWithParams(String command, String p1, String p2) async {
-    _startCommandTimeout(command);
+    final cmd = _commandFromString(command);
+    _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, p1), (trace) async {
-      final cmd = _commandFromString(command);
       return await execute(trace, cmd, p1: p1, p2: p2);
     });
-    _stopCommandTimeout(command);
+    _stopCommandTimeout(cmd);
   }
 
   Future<void> onCommandString(Trace parentTrace, String command) async {
@@ -242,8 +242,10 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
     } catch (e) {}
   }
 
-  _startCommandTimeout(String command) {
-    // This command is just super slow because of StoreKit
+  _startCommandTimeout(CommandName cmd) {
+    final command = cmd.name;
+
+    // These commands are just super slow because of StoreKit etc
     if (_noTimeLimitCommands.contains(command)) return;
 
     _onCommandTimer(command);
@@ -253,7 +255,9 @@ class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
     );
   }
 
-  _stopCommandTimeout(String command) {
+  _stopCommandTimeout(CommandName cmd) {
+    final command = cmd.name;
+
     // This command is just super slow because of StoreKit
     if (command == "purchase") return;
 
