@@ -4,7 +4,7 @@ final cfg = Config();
 
 class Config {
   late bool isTest = false;
-  late bool logToConsole = _isInDebugMode;
+  late bool logToConsole = true;
   late int httpMaxRetries = 2;
   late Duration httpRetryDelay = const Duration(seconds: 1);
   late Duration appStartFailWait = const Duration(seconds: 5);
