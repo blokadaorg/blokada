@@ -93,6 +93,8 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
         }
       } else {
         await _gateway.selectGateway(trace, null);
+        trace.addEvent("current lease no longer available");
+        await _plus.reactToPlusLost(trace);
       }
       markCooldown();
     });
