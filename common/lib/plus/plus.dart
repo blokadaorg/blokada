@@ -73,7 +73,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
       } on TooManyLeasesException catch (_) {
         await _app.plusActivated(trace, false);
         await _stage.showModal(trace, StageModal.plusTooManyLeases);
-      } catch (_) {
+      } catch (e) {
         await _app.plusActivated(trace, false);
         await _stage.showModal(trace, StageModal.plusVpnFailure);
         rethrow;
@@ -127,7 +127,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
             }
           }
         }
-      } on Exception catch (_) {
+      } on Exception catch (e) {
         plusEnabled = false;
         await _vpn.turnVpnOff(trace);
         await _saveFlag(trace);
@@ -161,7 +161,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> reactToAppPause(Trace parentTrace, bool appActive) async {
-    return await traceWith(parentTrace, "reactToAppStatus", (trace) async {
+    return await traceWith(parentTrace, "reactToAppPause", (trace) async {
       if (appActive && plusEnabled && !_vpn.actualStatus.isActive()) {
         await switchPlus(trace, true);
       } else if (!appActive && (plusEnabled || _vpn.actualStatus.isActive())) {
