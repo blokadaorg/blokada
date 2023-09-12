@@ -194,8 +194,12 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
         _statusCompleter = null;
         await _app.plusActivated(trace, status.isActive());
       } else {
-        _statusCompleter
-            ?.completeError("VPN returned unexpected status: $status");
+        // _statusCompleter
+        //     ?.completeError("VPN returned unexpected status: $status");
+        // Quietly ignore this error, as we will try again
+        // This may be a bit dangerous, but the states on Android are shit,
+        // so we have to hope for the best.
+        _statusCompleter?.complete();
         _statusCompleter = null;
         if (targetStatus == VpnStatus.activated) {
           await turnVpnOn(trace);
