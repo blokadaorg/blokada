@@ -163,8 +163,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   Future<void> reactToAppPause(Trace parentTrace, bool appActive) async {
     return await traceWith(parentTrace, "reactToAppStatus", (trace) async {
       if (appActive && plusEnabled && !_vpn.actualStatus.isActive()) {
-        await _vpn.turnVpnOn(trace);
-        await _lease.fetch(trace);
+        await switchPlus(trace, true);
       } else if (!appActive && (plusEnabled || _vpn.actualStatus.isActive())) {
         await _vpn.turnVpnOff(trace);
       }
