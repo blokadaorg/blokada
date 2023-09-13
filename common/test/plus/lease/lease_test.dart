@@ -4,6 +4,7 @@ import 'package:common/plus/keypair/keypair.dart';
 import 'package:common/plus/lease/channel.pg.dart';
 import 'package:common/plus/lease/json.dart';
 import 'package:common/plus/lease/lease.dart';
+import 'package:common/plus/plus.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,6 +19,7 @@ import 'fixtures.dart';
   MockSpec<PlusLeaseJson>(),
   MockSpec<PlusGatewayStore>(),
   MockSpec<PlusKeypairStore>(),
+  MockSpec<PlusStore>(),
   MockSpec<StageStore>(),
   MockSpec<EnvStore>(),
 ])
@@ -28,6 +30,7 @@ void main() {
     test("fetch", () async {
       await withTrace((trace) async {
         depend<StageStore>(MockStageStore());
+        depend<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
         depend<PlusLeaseOps>(ops);
@@ -188,6 +191,7 @@ void main() {
     test("newLeaseButNoMatchingLeaseReturned", () async {
       await withTrace((trace) async {
         depend<StageStore>(MockStageStore());
+        depend<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
         depend<PlusLeaseOps>(ops);
@@ -258,6 +262,7 @@ void main() {
     test("deleteLeasePostFailing", () async {
       await withTrace((trace) async {
         depend<StageStore>(MockStageStore());
+        depend<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
         depend<PlusLeaseOps>(ops);
@@ -288,6 +293,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockPlusLeaseOps();
         depend<PlusLeaseOps>(ops);
+        depend<PlusStore>(MockPlusStore());
 
         final json = MockPlusLeaseJson();
         depend<PlusLeaseJson>(json);

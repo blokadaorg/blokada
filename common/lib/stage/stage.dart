@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 
@@ -282,7 +283,7 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "showModal", (trace) async {
       trace.addEvent("modal: $modal");
       if (route.modal != modal) {
-        if (!route.isForeground()) {
+        if (Platform.isAndroid && !route.isForeground()) {
           trace.addEvent("ignoring modal request, app in background");
           return;
         }
