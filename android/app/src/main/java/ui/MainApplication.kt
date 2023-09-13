@@ -73,6 +73,7 @@ import service.ContextService
 import service.DozeService
 import service.FlutterService
 import service.LogService
+import service.MonitorService
 import service.PersistenceService
 import service.TranslationService
 import service.UpdateService
@@ -127,7 +128,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         DozeService.setup(this)
         wgOnCreate()
         setupEvents()
-//        MonitorService.setup(settingsVM.getUseForegroundService())
+        MonitorService.setup(settingsVM.getUseForegroundService())
         Repos.start()
     }
 
@@ -209,9 +210,13 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 //            MonitorService.setCounter(it)
 //        }
 //
-//        tunnelVM.tunnelStatus.observeForever {
-//            MonitorService.setTunnelStatus(it)
-//        }
+        GlobalScope.launch {
+            plusVpn.status.collect {
+                it?.let {
+                    MonitorService.setTunnelStatus(it)
+                }
+            }
+        }
 
         networksVM.activeConfig.observeForever {
             GlobalScope.launch {
@@ -238,15 +243,17 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     }
 
     private suspend fun onAppStateChanged_updateMonitorService() {
-//        appRepo.appStateHot.collect {
-//            MonitorService.setAppState(it)
-//        }
+        app.appStatus.collect {
+            MonitorService.setAppState(it)
+        }
     }
 
     private suspend fun onAppStateWorking_updateMonitorService() {
-//        appRepo.workingHot.collect {
-//            MonitorService.setWorking(it)
-//        }
+        app.working.collect {
+            it?.let {
+                MonitorService.setWorking(it)
+            }
+        }
     }
 
     private suspend fun onAppStateActive_maybeUninstallOtherApps() {

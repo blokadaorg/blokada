@@ -204,15 +204,20 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                 R.id.retentionFragment -> R.string.activity_section_header
                 else -> null
             }
-            toolbar.title = translationId?.let {
-                if (it is Int) getString(it)
+            translationId?.let {
+                toolbar.visibility = View.VISIBLE
+                if (it is Int) toolbar.title = getString(it)
                 else it.toString()
-            } ?: run { toolbar.title }
+            } ?: run {
+                toolbar.visibility = View.GONE
+            }
         }
 
         intent?.let {
             handleIntent(it)
         }
+
+        toolbar.visibility = View.GONE
     }
 
 //    private fun setupEvents() {

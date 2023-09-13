@@ -78,6 +78,13 @@
             app:key="main_about"
             app:title="@string/account_action_about" />
 
+        <!-- Lame bottom padding -->
+        <Preference
+            app:key="main_dummy"
+            app:title="" />
+        <Preference
+            app:key="main_dummy2"
+            app:title="" />
     </PreferenceCategory>
 
 

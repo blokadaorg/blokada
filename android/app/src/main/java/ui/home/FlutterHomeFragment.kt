@@ -15,16 +15,22 @@ package ui.home
 import android.content.Context
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragment
+import io.flutter.embedding.android.RenderMode
 
 class FlutterHomeFragment: FlutterFragment() {
     override fun onAttach(context: Context) {
-        arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
+            arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
         super.onAttach(context)
     }
 }
 
 private class HackyCachedEngineFragmentBuilder(engineId: String):
     FlutterFragment.CachedEngineFragmentBuilder(FlutterHomeFragment::class.java, engineId) {
+
+    init {
+        renderMode(RenderMode.texture)
+    }
+
     fun getBundle(): Bundle {
         return createArgs()
     }

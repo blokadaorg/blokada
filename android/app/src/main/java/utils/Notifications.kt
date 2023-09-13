@@ -16,7 +16,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import model.AppState
+import channel.app.AppStatus
 import model.BlokadaException
 import model.TunnelStatus
 import org.blokada.R
@@ -49,7 +49,7 @@ class MonitorNotification(
     tunnelStatus: TunnelStatus,
     counter: Long,
     lastDenied: List<String>,
-    appState: AppState,
+    appState: AppStatus,
     working: Boolean,
 ): NotificationPrototype(1, NotificationChannels.ACTIVITY,
     create = { ctx ->
@@ -89,14 +89,14 @@ class MonitorNotification(
                 }
                 b.setStyle(style)
 
-                b.addAction(run {
-                    getIntentForCommand(Command.OFF).let {
-                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
-                    }.let {
-                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
-                            ctx.getString(R.string.home_power_action_turn_off), it)
-                    }
-                })
+//                b.addAction(run {
+//                    getIntentForCommand(Command.OFF).let {
+//                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
+//                    }.let {
+//                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+//                            ctx.getString(R.string.home_power_action_turn_off), it)
+//                    }
+//                })
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
@@ -107,7 +107,7 @@ class MonitorNotification(
                     }
                 })
             }
-            appState == AppState.Activated -> {
+            appState == AppStatus.ACTIVATEDCLOUD -> {
                 val protection = ctx.getString(R.string.home_level_medium)
 
                 val title = "%s - %s".format(
@@ -123,14 +123,14 @@ class MonitorNotification(
                 }
                 b.setStyle(style)
 
-                b.addAction(run {
-                    getIntentForCommand(Command.OFF).let {
-                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
-                    }.let {
-                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
-                            ctx.getString(R.string.home_power_action_turn_off), it)
-                    }
-                })
+//                b.addAction(run {
+//                    getIntentForCommand(Command.OFF).let {
+//                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
+//                    }.let {
+//                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+//                            ctx.getString(R.string.home_power_action_turn_off), it)
+//                    }
+//                })
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {
@@ -147,14 +147,14 @@ class MonitorNotification(
                     ctx.getString(R.string.home_status_deactivated).toLowerCase().capitalize()
                 )
 
-                b.addAction(run {
-                    getIntentForCommand(Command.ON).let {
-                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
-                    }.let {
-                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
-                            ctx.getString(R.string.home_power_action_turn_on), it)
-                    }
-                })
+//                b.addAction(run {
+//                    getIntentForCommand(Command.ON).let {
+//                        ctx.getPendingIntentForService(it, PendingIntent.FLAG_UPDATE_CURRENT)
+//                    }.let {
+//                        NotificationCompat.Action(R.drawable.ic_baseline_power_settings_new_24,
+//                            ctx.getString(R.string.home_power_action_turn_on), it)
+//                    }
+//                })
 
                 b.addAction(run {
                     getIntentForCommand(Command.TOAST, ctx.getString(R.string.notification_desc_settings)).let {

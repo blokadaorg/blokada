@@ -53,12 +53,14 @@ object PlusVpnBinding: PlusVpnOps {
     private val gateway by lazy { PlusGatewayBinding }
 
     val config = MutableStateFlow<Pair<VpnConfig?, Boolean>?>(null)
+    val status = MutableStateFlow<TunnelStatus?>(null)
     private val scope = GlobalScope
 
     init {
         PlusVpnOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
         engine.setOnTunnelStatusChangedListener {
             scope.launch {
+                status.value = it
                 command.execute(CommandName.VPNSTATUS, it.toVpnStatus())
             }
         }
