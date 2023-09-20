@@ -128,7 +128,15 @@ class FamilyDeckMapper with DeckMapper {
 
 const _familyMap = {
   "meta_adult": {
-    "porn": ["stevenblack/adult"],
+    "porn": [
+      "stevenblack/adult",
+      "sinfonietta/porn",
+      "tiuxo/porn",
+      "mhxion/porn",
+    ],
+  },
+  "meta_dating": {
+    "dating": ["ut1/dating"],
   },
   "meta_ads": {
     "standard": [
@@ -163,14 +171,90 @@ const _familyMap = {
     ]
   },
   "meta_social": {
-    "facebook": [
+    "social networks": [
       "stevenblack/social",
+      "ut1/social",
+      "sinfonietta/social",
+    ],
+    "facebook": [
       "blacklist/facebook",
       "developerdan/facebook",
       "blocklist/facebook",
     ],
   },
   "meta_gambling": {
-    "standard": ["stevenblack/gambling"],
+    "standard": [
+      "stevenblack/gambling",
+      "ut1/gambling",
+      "sinfonietta/gambling",
+    ],
   },
+  "meta_gaming": {
+    "standard": ["ut1/gaming"],
+  },
+  "meta_piracy": {
+    "file hosting": [
+      "ut1/warez",
+      "ndnspiracy/file hosting",
+      "ndnspiracy/proxies",
+      "ndnspiracy/usenet",
+      "ndnspiracy/warez",
+    ],
+    "torrent": [
+      "ndnspiracy/dht bootstrap nodes",
+      "ndnspiracy/torrent clients",
+      "ndnspiracy/torrent trackers",
+      "ndnspiracy/torrent websites",
+    ],
+    "streaming": [
+      "ndnspiracy/streaming audio",
+      "ndnspiracy/streaming video",
+    ]
+  },
+  "meta_videostreaming": {
+    "standard": [
+      "ndnspiracy/streaming video",
+    ]
+  },
+  "meta_apps_games": {
+    "fortnite": ["ndnsapps/fortnite"],
+    "league of legends": ["ndnsapps/leagueoflegends"],
+    "minecraft": ["ndnsapps/minecraft"],
+    "roblox": ["ndnsapps/roblox"],
+    "steam": ["ndnsapps/steam"],
+    "twitch": ["ndnsapps/twitch"],
+  },
+  "meta_apps_streaming": {
+    "disney plus": ["ndnsapps/disneyplus"],
+    "hbo max": ["ndnsapps/hbomax"],
+    "hulu": ["ndnsapps/hulu"],
+    "netflix": ["ndnsapps/netflix"],
+    "primevideo": ["ndnsapps/primevideo"],
+    "youtube": ["ndnsapps/youtube"],
+  },
+  "meta_apps_chat": {
+    "discord": ["ndnsapps/discord"],
+    "messenger": ["ndnsapps/messenger"],
+    "signal": ["ndnsapps/signal"],
+    "telegram": ["ndnsapps/telegram"],
+  },
+  "meta_apps_commerce": {
+    "amazon": ["ndnsapps/amazon"],
+    "ebay": ["ndnsapps/ebay"],
+  },
+  "meta_apps_social": {
+    "facebook": ["ndnsapps/facebook"],
+    "instagram": ["ndnsapps/instagram"],
+    "snapchat": ["ndnsapps/snapchat"],
+    "tiktok": ["ndnsapps/tiktok"],
+    "twitter": ["ndnsapps/twitter"],
+  },
+  "meta_apps_other": {
+    "9gag": ["ndnsapps/9gag"],
+    "chat gpt": ["ndnsapps/chatgpt"],
+    "imgur": ["ndnsapps/imgur"],
+    "pinterest": ["ndnsapps/pinterest"],
+    "reddit": ["ndnsapps/reddit"],
+    "tinder": ["ndnsapps/tinder"],
+  }
 };
