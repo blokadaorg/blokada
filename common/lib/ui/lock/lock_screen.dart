@@ -5,6 +5,7 @@ import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
 import '../../lock/lock.dart';
 import '../../stage/channel.pg.dart';
@@ -30,11 +31,13 @@ class _LockScreenState extends State<LockScreen>
   bool _isLocked = false;
   bool _hasPin = false;
   bool _showHeaderIcon = false;
+  String? _pinEntered;
 
   late final AnimationController _ctrlShake;
   late final Animation<Offset> _animShake;
 
-  GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
+  final GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
+  final GlobalKey<SlideActionState> _slideUnlockKey = GlobalKey();
 
   @override
   void initState() {
@@ -103,6 +106,7 @@ class _LockScreenState extends State<LockScreen>
         } else {
           await _lock.lock(trace, pin);
           _digitsEntered = 0;
+          _pinEntered = null;
           _showHeaderTextForShortWhile();
         }
       } catch (e) {
@@ -112,6 +116,7 @@ class _LockScreenState extends State<LockScreen>
         Future.delayed(const Duration(milliseconds: 500), () {
           setState(() {
             _digitsEntered = 0;
+            _pinEntered = null;
           });
         });
       }
@@ -168,19 +173,21 @@ class _LockScreenState extends State<LockScreen>
         children: [
           const Spacer(),
           SizedBox(
-            height: 64,
+            height: 96,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: AnimatedCrossFade(
-                firstChild: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      _hasPin ? Icons.lock : Icons.lock_open,
-                      color: Colors.white,
-                      size: 48,
-                    ),
-                  ],
+                firstChild: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        _hasPin ? Icons.lock : Icons.lock_open,
+                        color: Colors.white,
+                        size: 48,
+                      ),
+                    ],
+                  ),
                 ),
                 secondChild: Text(_getHeaderString(),
                     textAlign: TextAlign.center,
@@ -203,55 +210,97 @@ class _LockScreenState extends State<LockScreen>
               child: Circles(amount: 4, filled: _digitsEntered),
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 32),
           SizedBox(
             width: 300,
             child: KeyPad(
               pinLength: 4,
-              onPinEntered: _checkPin,
+              onPinEntered: (pin) {
+                _pinEntered = pin;
+              },
               onDigitEntered: (digits) => setState(() {
                 _digitsEntered = digits;
+                _pinEntered = null;
               }),
             ),
           ),
           const Spacer(),
-          Opacity(
-            opacity: _isLocked ? 0.0 : 1.0,
-            child: Row(
-              children: [
-                if (_hasPin)
-                  GestureDetector(
-                    onTap: _clear,
-                    child: Padding(
-                      padding: const EdgeInsets.all(64),
-                      child: Text(
-                        "universal action clear".i18n,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+          AnimatedCrossFade(
+            crossFadeState: _pinEntered != null
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            duration: const Duration(milliseconds: 300),
+            firstChild: SizedBox(
+              height: 80,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: SlideAction(
+                  key: _slideUnlockKey,
+                  onSubmit: () {
+                    _checkPin(_pinEntered ?? "");
+                    Future.delayed(
+                      Duration(seconds: 1),
+                      () => _slideUnlockKey.currentState?.reset(),
+                    );
+                  },
+                  outerColor: Colors.white.withOpacity(0.2),
+                  innerColor: Colors.black.withOpacity(0.4),
+                  borderRadius: 12,
+                  elevation: 0,
+                  text: _isLocked ? "Slide to unlock" : "Slide to lock",
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  sliderButtonIcon:
+                      Icon(Icons.arrow_forward_ios, color: Colors.white),
+                  submittedIcon: Icon(Icons.lock, color: Colors.white),
+                  sliderRotate: false,
+                ),
+              ),
+            ),
+            secondChild: SizedBox(
+              height: 80,
+              child: Opacity(
+                opacity: _isLocked ? 0.0 : 1.0,
+                child: Row(
+                  children: [
+                    if (_hasPin)
+                      GestureDetector(
+                        onTap: _clear,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 64),
+                          child: Text(
+                            "universal action clear".i18n,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    bgStateKey.currentState?.animateToClose();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(64),
-                    child: Text(
-                      "universal action cancel".i18n,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        bgStateKey.currentState?.animateToClose();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 64),
+                        child: Text(
+                          "universal action cancel".i18n,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                )
-              ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
+          const SizedBox(height: 60),
         ],
       ),
     );

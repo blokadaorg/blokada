@@ -1,4 +1,6 @@
+import 'package:common/ui/homefamily/homefamily_screen.dart';
 import 'package:common/ui/onboard/family_onboard.dart';
+import 'package:common/util/config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -98,14 +100,7 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
                 : null,
             controller: _pageCtrl,
             scrollDirection: Axis.vertical,
-            children: <Widget>[
-              // const Coolbg(),
-              HomeScreen(),
-              StatsScreen(
-                  key: UniqueKey(),
-                  autoRefresh: true,
-                  controller: ScrollController()),
-            ],
+            children: _getPages(),
           ),
           if (_knownRoute == StageKnownRoute.homeOverlayLock)
             const LockScreen()
@@ -118,5 +113,23 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
         ],
       ),
     );
+  }
+
+  _getPages() {
+    final family = cfg.act.isFamily();
+    if (family) {
+      return <Widget>[
+        HomeFamilyScreen(),
+      ];
+    } else {
+      return <Widget>[
+        // const Coolbg(),
+        HomeScreen(),
+        StatsScreen(
+            key: UniqueKey(),
+            autoRefresh: true,
+            controller: ScrollController()),
+      ];
+    }
   }
 }

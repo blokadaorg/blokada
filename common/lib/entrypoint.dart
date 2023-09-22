@@ -37,6 +37,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
 
   @override
   attach(Act act) {
+    cfg.act = act;
     Tracer().attach(act);
     DefaultTimer().attach(act);
 

@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import 'di.dart';
+
 final cfg = Config();
 
 class Config {
@@ -28,6 +30,8 @@ class Config {
       ? Uri.parse("http://192.168.101.107:4318/v1/traces")
       : null;
   late List<String> debugFailingRequests = [];
+
+  late Act act;
 
   testing() {
     const noWait = Duration(seconds: 0);
