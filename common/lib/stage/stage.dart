@@ -210,9 +210,15 @@ abstract class StageStoreBase
   Future<void> setRoute(Trace parentTrace, String path) async {
     return await traceWith(parentTrace, "setRoute", (trace) async {
       if (path != route.route.path) {
+<<<<<<< HEAD
         if (!isReady || !_isForeground) {
           _pathToShow = path;
           trace.addEvent("not ready, route saved: $path");
+=======
+        if (!isReady || isLocked && !path.startsWith("home")) {
+          _waitingEvents.add(path);
+          trace.addEvent("event queued: $path");
+>>>>>>> 22c71c6 (basic family onboarding flow)
           return;
         }
 

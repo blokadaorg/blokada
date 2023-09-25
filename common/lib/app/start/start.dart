@@ -94,6 +94,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
       await _app.initStarted(trace);
       try {
         await _env.syncDeviceName(trace);
+        await _onboard.maybeShowOnboard(trace);
         // Default to show journal only for the current device
         await _journal.updateFilter(trace, deviceName: _env.deviceName);
         await _plusKeypair.load(trace);
@@ -106,7 +107,6 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
           await _plusLease.fetch(trace);
         }
         await _tracer.checkForCrashLog(trace);
-        await _onboard.maybeShowOnboard(trace);
         await _app.initCompleted(trace);
       } catch (e) {
         await _app.initFail(trace);

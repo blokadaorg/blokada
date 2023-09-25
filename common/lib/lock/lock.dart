@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import '../persistence/persistence.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
-import '../util/mobx.dart';
 import '../util/trace.dart';
 
 part 'lock.g.dart';

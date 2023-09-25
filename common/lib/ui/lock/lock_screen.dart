@@ -102,7 +102,8 @@ class _LockScreenState extends State<LockScreen>
       try {
         if (_lock.isLocked) {
           await _lock.unlock(trace, pin);
-          bgStateKey.currentState?.animateToClose();
+          // bgStateKey.currentState?.animateToClose();
+          await _clear();
         } else {
           await _lock.lock(trace, pin);
           _digitsEntered = 0;
@@ -165,7 +166,7 @@ class _LockScreenState extends State<LockScreen>
   Widget build(BuildContext context) {
     return BlurBackground(
       key: bgStateKey,
-      canClose: () => !_isLocked,
+      //canClose: () => !_isLocked,
       onClosed: _unlock,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -262,10 +263,11 @@ class _LockScreenState extends State<LockScreen>
             secondChild: SizedBox(
               height: 80,
               child: Opacity(
-                opacity: _isLocked ? 0.0 : 1.0,
+                opacity: /*_isLocked ? 0.0 :*/ 1.0,
                 child: Row(
                   children: [
-                    if (_hasPin)
+                    //if (_hasPin)
+                    if (false)
                       GestureDetector(
                         onTap: _clear,
                         child: Padding(

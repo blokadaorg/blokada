@@ -1,5 +1,4 @@
 import 'package:common/ui/homefamily/homefamily_screen.dart';
-import 'package:common/ui/onboard/family_onboard.dart';
 import 'package:common/util/config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -12,6 +11,7 @@ import 'coolbg.dart';
 import 'crash/crash_screen.dart';
 import 'home/home_screen.dart';
 import 'lock/lock_screen.dart';
+import 'onboard/family_onboard_screen.dart';
 import 'rate/rate_screen.dart';
 import 'stats/stats_screen.dart';
 
@@ -109,7 +109,7 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
           else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
             const CrashScreen()
           else if (_knownRoute == StageKnownRoute.homeOverlayFamilyOnboard)
-            const FamilyOnboard()
+            const FamilyOnboardScreen()
         ],
       ),
     );

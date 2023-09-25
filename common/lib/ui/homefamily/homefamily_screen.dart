@@ -7,13 +7,13 @@ import 'package:relative_scale/relative_scale.dart';
 import '../../app/app.dart';
 import '../../app/channel.pg.dart';
 import '../../lock/lock.dart';
+import '../../onboard/onboard.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../debug/commanddialog.dart';
 import '../debug/debugoptions.dart';
-import '../home/counter.dart';
 import '../minicard/minicard.dart';
 import '../theme.dart';
 import 'device.dart';
@@ -32,10 +32,12 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   final _app = dep<AppStore>();
   final _stage = dep<StageStore>();
   final _lock = dep<LockStore>();
+  final _onboard = dep<OnboardStore>();
 
   bool showDebug = false;
-  bool hasPin = false;
+  bool locked = false;
   bool working = false;
+  late OnboardState _onboardState;
 
   late AnimationController controller;
   late AnimationController controllerOrange;
@@ -85,8 +87,14 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
       }
 
       setState(() {
-        hasPin = _lock.hasPin;
+        locked = _lock.isLocked;
         working = _app.status.isWorking() || !_stage.isReady;
+      });
+    });
+
+    autorun((_) {
+      setState(() {
+        _onboardState = _onboard.onboardState;
       });
     });
   }
@@ -102,7 +110,29 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
-        await _stage.showModal(trace, StageModal.payment);
+        if (_onboardState == OnboardState.firstTime) {
+          await _stage.showModal(trace, StageModal.payment);
+        } else {
+          await _stage.showModal(trace, StageModal.onboarding);
+        }
+      });
+    };
+  }
+
+  String _getCtaText() {
+    if (_onboardState == OnboardState.firstTime) {
+      return "Start here";
+    } else if (locked) {
+      return "Finish setup";
+    } else {
+      return "Add device";
+    }
+  }
+
+  _handleAccountTap() {
+    return () {
+      traceAs("tappedAccountQr", (trace) async {
+        await _stage.showModal(trace, StageModal.account);
       });
     };
   }
@@ -162,37 +192,58 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                       ),
                     ),
                     const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HomeDevice(
-                        deviceName: "Karolinho",
-                        color: Colors.pink,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HomeDevice(
-                        deviceName: "Little Johnny",
-                        color: Colors.green,
-                      ),
-                    ),
+                    !locked && _onboardState == OnboardState.completed
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: HomeDevice(
+                                  deviceName: "Karolinho",
+                                  color: Colors.pink,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: HomeDevice(
+                                  deviceName: "Little Johnny",
+                                  color: Colors.green,
+                                ),
+                              )
+                            ],
+                          )
+                        : Container(),
                     SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: MiniCard(
-                              onTap: _handleCtaTap(),
-                              color: theme.plus,
-                              child: SizedBox(
-                                height: 32,
-                                child: Center(child: Text("Add device")),
-                              ),
-                            ),
-                          ),
-                        ),
+                        (!locked ||
+                                _onboardState == OnboardState.accountDecided)
+                            ? Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MiniCard(
+                                    onTap: _handleCtaTap(),
+                                    color: theme.plus,
+                                    child: SizedBox(
+                                      height: 32,
+                                      child: Center(child: Text(_getCtaText())),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        (_onboardState == OnboardState.firstTime && !locked)
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MiniCard(
+                                    onTap: _handleAccountTap(),
+                                    child: SizedBox(
+                                      height: 32,
+                                      width: 32,
+                                      child: Icon(Icons.qr_code),
+                                    )),
+                              )
+                            : Container(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: MiniCard(
@@ -200,7 +251,8 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                               child: SizedBox(
                                 height: 32,
                                 width: 32,
-                                child: Icon(Icons.lock),
+                                child:
+                                    Icon(locked ? Icons.lock : Icons.lock_open),
                               )),
                         )
                       ],

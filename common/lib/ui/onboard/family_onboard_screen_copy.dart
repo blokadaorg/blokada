@@ -8,14 +8,15 @@ import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../overlay/blur_background.dart';
 
-class FamilyOnboard extends StatefulWidget {
-  const FamilyOnboard({Key? key}) : super(key: key);
+class FamilyOnboardScreen extends StatefulWidget {
+  const FamilyOnboardScreen({Key? key}) : super(key: key);
 
   @override
-  FamilyOnboardState createState() => FamilyOnboardState();
+  FamilyOnboardScreenState createState() => FamilyOnboardScreenState();
 }
 
-class FamilyOnboardState extends State<FamilyOnboard> with TraceOrigin {
+class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
+    with TraceOrigin {
   final _stage = dep<StageStore>();
   GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
 
