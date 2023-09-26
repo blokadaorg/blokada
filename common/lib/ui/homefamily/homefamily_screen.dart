@@ -132,7 +132,11 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   _handleAccountTap() {
     return () {
       traceAs("tappedAccountQr", (trace) async {
-        await _stage.showModal(trace, StageModal.account);
+        await _stage.showModal(
+            trace,
+            _onboardState == OnboardState.firstTime
+                ? StageModal.accountChange
+                : StageModal.accountLink);
       });
     };
   }
