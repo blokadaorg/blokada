@@ -192,7 +192,7 @@ void main() {
 
         await subject.unpauseApp(trace);
 
-        verify(stage.showModal(any, StageModal.onboarding)).called(1);
+        verify(stage.showModal(any, StageModal.perms)).called(1);
       });
     });
   });

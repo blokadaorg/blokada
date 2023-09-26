@@ -45,7 +45,7 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
       onboardState = OnboardState.values.firstWhere(
           (it) => it.toString() == state,
           orElse: () => OnboardState.firstTime);
-      if (onboardState == OnboardState.completed) return;
+      if (onboardState != OnboardState.firstTime) return;
 
       await _stage.setRoute(
           trace, StageKnownRoute.homeOverlayFamilyOnboard.path);

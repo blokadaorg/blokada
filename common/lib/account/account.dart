@@ -181,7 +181,7 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
             isBackup: true);
         await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
-        await _stage.showModal(trace, StageModal.onboarding);
+        await _stage.showModal(trace, StageModal.perms);
       } catch (_) {
         await _stage.showModal(trace, StageModal.accountInvalid);
         rethrow;

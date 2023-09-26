@@ -164,7 +164,7 @@ abstract class AccountRefreshStoreBase
         // User upgraded
         _metadata.seenExpiredDialog = false;
         await _saveMetadata(trace);
-        await _stage.showModal(trace, StageModal.onboarding);
+        await _stage.showModal(trace, StageModal.perms);
       } else if (account.type == AccountType.libre &&
           prev != AccountType.libre &&
           prev != null) {

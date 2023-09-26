@@ -148,7 +148,7 @@ class _PlusButtonState extends State<PlusButton>
       if (_perm.vpnEnabled) {
         await _stage.showModal(trace, StageModal.plusLocationSelect);
       } else {
-        await _stage.showModal(trace, StageModal.onboarding);
+        await _stage.showModal(trace, StageModal.perms);
       }
     });
   }

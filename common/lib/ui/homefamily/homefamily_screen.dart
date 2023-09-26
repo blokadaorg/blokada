@@ -112,8 +112,12 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
       traceAs("tappedCta", (trace) async {
         if (_onboardState == OnboardState.firstTime) {
           await _stage.showModal(trace, StageModal.payment);
+        } else if (_onboardState == OnboardState.accountDecided) {
+          await _stage.showModal(trace, StageModal.onboardingAccountDecided);
+        } else if (!locked) {
+          await _stage.showModal(trace, StageModal.accountLink);
         } else {
-          await _stage.showModal(trace, StageModal.onboarding);
+          await _stage.showModal(trace, StageModal.perms);
         }
       });
     };

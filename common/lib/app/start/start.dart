@@ -192,7 +192,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         await _stage.showModal(trace, StageModal.payment);
       } on OnboardingException {
         await _app.appPaused(trace, true);
-        await _stage.showModal(trace, StageModal.onboarding);
+        await _stage.showModal(trace, StageModal.perms);
       }
     });
   }
