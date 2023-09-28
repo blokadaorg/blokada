@@ -216,13 +216,14 @@ abstract class StageStoreBase
           return;
         }
 
-        route = route.newRoute(StageRoute.fromPath(path));
-        trace.addEvent("route: ${route.route.path}");
-        trace.addEvent("previous: ${route._prevRoute.path}");
-        trace.addEvent("isBecameForeground: ${route.isBecameForeground()}");
+        final newRoute =
+            route.newModal(null).newRoute(StageRoute.fromPath(path));
+        trace.addEvent("route: ${newRoute.route.path}");
+        trace.addEvent("previous: ${newRoute._prevRoute.path}");
+        trace.addEvent("isBecameForeground: ${newRoute.isBecameForeground()}");
 
         // Navigating between routes (tabs) will close modal, but not coming fg.
-        if (!route.isBecameForeground()) {
+        if (!newRoute.isBecameForeground()) {
           if (route.modal != null) {
             trace.addEvent("dismiss modal");
             await dismissModal(trace);
@@ -230,12 +231,13 @@ abstract class StageStoreBase
           }
         }
 
-        if (!route.isMainRoute()) {
-          trace.addEvent("modal: ${route.modal}");
-          trace.addEvent("payload: ${route.route.payload}");
+        if (!newRoute.isMainRoute()) {
+          trace.addEvent("modal: ${newRoute.modal}");
+          trace.addEvent("payload: ${newRoute.route.payload}");
         }
-        await _actOnRoute(trace, route.route);
-        await emitValue(routeChanged, trace, route);
+        route = newRoute;
+        await _actOnRoute(trace, newRoute.route);
+        await emitValue(routeChanged, trace, newRoute);
       }
     });
   }
@@ -372,7 +374,8 @@ abstract class StageStoreBase
       await _ops.doShowNavbar(false);
     } else if (route.path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
       await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeCloseOverlay.path) {
+    } else if (route.path == StageKnownRoute.homeCloseOverlay.path &&
+        !isLocked) {
       await _ops.doShowNavbar(true);
     }
   }
