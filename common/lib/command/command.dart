@@ -8,6 +8,7 @@ import '../device/device.dart';
 import '../journal/channel.pg.dart';
 import '../journal/journal.dart';
 import '../notification/notification.dart';
+import '../onboard/onboard.dart';
 import '../plus/lease/lease.dart';
 import '../plus/plus.dart';
 import '../plus/vpn/vpn.dart';
@@ -38,6 +39,7 @@ class CommandStore
   late final _plusLease = dep<PlusLeaseStore>();
   late final _plusVpn = dep<PlusVpnStore>();
   late final _notification = dep<NotificationStore>();
+  late final _onboard = dep<OnboardStore>();
 
   late final _timer = dep<TimerService>();
 
@@ -188,6 +190,8 @@ class CommandStore
       case CommandName.debugHttpOk:
         cfg.debugFailingRequests.remove(p1!);
         return;
+      case CommandName.debugOnboard:
+        return await _onboard.setOnboardState(trace, OnboardState.firstTime);
     }
   }
 

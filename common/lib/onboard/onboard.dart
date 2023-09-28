@@ -65,6 +65,7 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
     if (onboardState != OnboardState.firstTime) return;
 
     return await traceWith(parentTrace, "onboardProceed", (trace) async {
+      if (_account.type == AccountType.libre) return;
       await setOnboardState(trace, OnboardState.accountDecided);
     });
   }
