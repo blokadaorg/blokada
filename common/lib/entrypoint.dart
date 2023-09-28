@@ -64,13 +64,13 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     StageStore().attach(act);
     LockStore().attach(act);
     AccountStore().attach(act);
-    OnboardStore().attach(act);
     NotificationStore().attach(act);
     AccountPaymentStore().attach(act);
     AccountRefreshStore().attach(act);
     DeviceStore().attach(act);
     AppStore().attach(act);
     AppStartStore().attach(act);
+    OnboardStore().attach(act);
     CustomStore().attach(act);
     DeckStore().attach(act);
     JournalStore().attach(act);
