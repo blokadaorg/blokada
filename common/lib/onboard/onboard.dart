@@ -51,7 +51,7 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
       });
     }
 
-    if (_account.type == AccountType.libre) return;
+    if (!_account.type.isActive()) return;
     if (onboardState != OnboardState.firstTime) return;
 
     return await traceWith(parentTrace, "onboardProceed", (trace) async {

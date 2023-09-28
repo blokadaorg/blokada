@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
 
+import '../../account/account.dart';
 import '../../app/app.dart';
 import '../../app/channel.pg.dart';
 import '../../lock/lock.dart';
@@ -33,6 +34,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   final _stage = dep<StageStore>();
   final _lock = dep<LockStore>();
   final _onboard = dep<OnboardStore>();
+  final _account = dep<AccountStore>();
 
   bool showDebug = false;
   bool locked = false;
@@ -110,10 +112,12 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
-        if (_onboardState == OnboardState.firstTime) {
-          await _stage.showModal(trace, StageModal.payment);
-        } else if (locked) {
+        if (locked) {
           await _stage.showModal(trace, StageModal.perms);
+        } else if (_onboardState == OnboardState.firstTime) {
+          await _stage.showModal(trace, StageModal.payment);
+        } else if (!_account.type.isActive()) {
+          await _stage.showModal(trace, StageModal.payment);
         } else if (_onboardState == OnboardState.accountDecided) {
           await _stage.showModal(trace, StageModal.onboardingAccountDecided);
         } else {
@@ -125,11 +129,11 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
 
   String _getCtaText() {
     if (_onboardState == OnboardState.firstTime) {
-      return "Start here";
+      return "Activate";
     } else if (locked) {
       return "Finish setup";
     } else {
-      return "Add device";
+      return "Add a device";
     }
   }
 
@@ -151,6 +155,246 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
         return "";
       }
     }
+  }
+
+  List<Widget> _getWidgetsForCurrentState() {
+    if (!locked && _onboardState == OnboardState.completed) {
+      return _widgetsForUnlockedOnboarded();
+    } else if (!locked) {
+      return _widgetsForUnlockedNotOnboarded();
+    } else if (locked && _onboardState == OnboardState.completed) {
+      return _widgetsForLockedOnboarded();
+    } else {
+      return _widgetsForLockedNotOnboarded();
+    }
+  }
+
+  List<Widget> _widgetsForUnlockedOnboarded() {
+    return [
+      const Spacer(),
+      GestureDetector(
+        onLongPress: () {
+          traceAs("tappedShowDebug", (trace) async {
+            await _stage.showModal(trace, StageModal.debug);
+          });
+        },
+        onHorizontalDragEnd: (_) {
+          _showCommandDialog(context);
+        },
+        child: Image.asset(
+          "assets/images/blokada_logo.png",
+          width: 200,
+          height: 128,
+          fit: BoxFit.scaleDown,
+          color: Theme.of(context).textTheme.bodyText1!.color,
+        ),
+      ),
+      const Spacer(),
+      Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HomeDevice(
+              deviceName: "Karolinho",
+              color: Colors.pink,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HomeDevice(
+              deviceName: "Little Johnny",
+              color: Colors.green,
+            ),
+          )
+        ],
+      ),
+    ];
+  }
+
+  List<Widget> _widgetsForUnlockedNotOnboarded() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    return [
+      SizedBox(height: 72),
+      GestureDetector(
+        onLongPress: () {
+          traceAs("tappedShowDebug", (trace) async {
+            await _stage.showModal(trace, StageModal.debug);
+          });
+        },
+        onHorizontalDragEnd: (_) {
+          _showCommandDialog(context);
+        },
+        child: Image.asset(
+          "assets/images/header.png",
+          width: 200,
+          height: 32,
+          fit: BoxFit.scaleDown,
+          color: Theme.of(context).textTheme.bodyText1!.color,
+        ),
+      ),
+      Text("F A M I L Y",
+          style: TextStyle(
+              fontSize: 14,
+              fontFamily: "Menlo",
+              fontWeight: FontWeight.bold,
+              color: theme.textPrimary)),
+      Spacer(),
+      Image.asset(
+        "assets/images/blokada_logo.png",
+        width: 200,
+        height: 300,
+        fit: BoxFit.contain,
+        color: theme.textPrimary.withOpacity(0.1),
+      ),
+      Spacer(),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 48.0),
+        child: _onboardState == OnboardState.firstTime
+            ? Column(
+                children: [
+                  Text(
+                    "First step",
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: theme.textPrimary),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "Activate or restore your account to continue",
+                    style: TextStyle(fontSize: 18, color: theme.textSecondary),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  Text(
+                    "Second step",
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: theme.textPrimary),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "Add your first device",
+                    style: TextStyle(fontSize: 18, color: theme.textSecondary),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+      ),
+      SizedBox(height: 32),
+      const Spacer(),
+    ];
+  }
+
+  List<Widget> _widgetsForLockedNotOnboarded() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    return [
+      SizedBox(height: 72),
+      GestureDetector(
+        onLongPress: () {
+          traceAs("tappedShowDebug", (trace) async {
+            await _stage.showModal(trace, StageModal.debug);
+          });
+        },
+        onHorizontalDragEnd: (_) {
+          _showCommandDialog(context);
+        },
+        child: Image.asset(
+          "assets/images/header.png",
+          width: 200,
+          height: 32,
+          fit: BoxFit.scaleDown,
+          color: Theme.of(context).textTheme.bodyText1!.color,
+        ),
+      ),
+      Text("F A M I L Y",
+          style: TextStyle(
+              fontSize: 14,
+              fontFamily: "Menlo",
+              fontWeight: FontWeight.bold,
+              color: theme.textPrimary)),
+      Spacer(),
+      Icon(Icons.phonelink_lock,
+          size: 200, color: theme.textPrimary.withOpacity(0.1)),
+      Spacer(),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            children: [
+              Text(
+                "One more step",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.textPrimary),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 8),
+              Text(
+                "Please grant the necessary permissions",
+                style: TextStyle(fontSize: 18, color: theme.textSecondary),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+      SizedBox(height: 32),
+      const Spacer(),
+    ];
+  }
+
+  List<Widget> _widgetsForLockedOnboarded() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    return [
+      SizedBox(height: 72),
+      GestureDetector(
+        onLongPress: () {
+          traceAs("tappedShowDebug", (trace) async {
+            await _stage.showModal(trace, StageModal.debug);
+          });
+        },
+        onHorizontalDragEnd: (_) {
+          _showCommandDialog(context);
+        },
+        child: Image.asset(
+          "assets/images/header.png",
+          width: 200,
+          height: 32,
+          fit: BoxFit.scaleDown,
+          color: Theme.of(context).textTheme.bodyText1!.color,
+        ),
+      ),
+      Text("F A M I L Y",
+          style: TextStyle(
+              fontSize: 14,
+              fontFamily: "Menlo",
+              fontWeight: FontWeight.bold,
+              color: theme.textPrimary)),
+      Spacer(),
+      Icon(Icons.lock, size: 200, color: theme.textPrimary.withOpacity(0.1)),
+      Spacer(),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            children: [
+              Text(
+                "Locked",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.textPrimary),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+      SizedBox(height: 32),
+      const Spacer(),
+    ];
   }
 
   _handleAccountTap() {
@@ -200,103 +444,61 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    GestureDetector(
-                      onLongPress: () {
-                        traceAs("tappedShowDebug", (trace) async {
-                          await _stage.showModal(trace, StageModal.debug);
-                        });
-                      },
-                      onHorizontalDragEnd: (_) {
-                        _showCommandDialog(context);
-                      },
-                      child: Image.asset(
-                        "assets/images/blokada_logo.png",
-                        width: 200,
-                        height: 128,
-                        fit: BoxFit.scaleDown,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 24.0, horizontal: 36),
-                      child: Text(
-                        _getDebugStateText(),
-                        style: TextStyle(fontSize: 18),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const Spacer(),
-                    !locked && _onboardState == OnboardState.completed
-                        ? Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: HomeDevice(
-                                  deviceName: "Karolinho",
-                                  color: Colors.pink,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: HomeDevice(
-                                  deviceName: "Little Johnny",
-                                  color: Colors.green,
-                                ),
-                              )
-                            ],
-                          )
-                        : Container(),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        (!locked ||
-                                _onboardState == OnboardState.accountDecided)
-                            ? Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: MiniCard(
-                                    onTap: _handleCtaTap(),
-                                    color: theme.plus,
-                                    child: SizedBox(
-                                      height: 32,
-                                      child: Center(child: Text(_getCtaText())),
+                  children: _getWidgetsForCurrentState() +
+                      [
+                        SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            (!locked ||
+                                    _onboardState ==
+                                        OnboardState.accountDecided)
+                                ? Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MiniCard(
+                                        onTap: _handleCtaTap(),
+                                        color: theme.plus,
+                                        child: SizedBox(
+                                          height: 32,
+                                          child: Center(
+                                              child: Text(_getCtaText())),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              )
-                            : Container(),
-                        (_onboardState == OnboardState.firstTime && !locked)
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MiniCard(
-                                    onTap: _handleAccountTap(),
-                                    child: SizedBox(
-                                      height: 32,
-                                      width: 32,
-                                      child: Icon(Icons.qr_code),
-                                    )),
-                              )
-                            : Container(),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: MiniCard(
-                              onTap: _handleLockTap(),
-                              child: SizedBox(
-                                height: 32,
-                                width: 32,
-                                child:
-                                    Icon(locked ? Icons.lock : Icons.lock_open),
-                              )),
-                        )
+                                  )
+                                : Container(),
+                            (_onboardState == OnboardState.firstTime && !locked)
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MiniCard(
+                                        onTap: _handleAccountTap(),
+                                        child: SizedBox(
+                                          height: 32,
+                                          width: 32,
+                                          child: Icon(Icons.qr_code),
+                                        )),
+                                  )
+                                : Container(),
+                            (_onboardState != OnboardState.firstTime)
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: MiniCard(
+                                        onTap: _handleLockTap(),
+                                        child: SizedBox(
+                                          height: 32,
+                                          width: 32,
+                                          child: Icon(locked
+                                              ? Icons.lock
+                                              : Icons.lock_open),
+                                        )),
+                                  )
+                                : Container()
+                          ],
+                        ),
+                        !locked ? SizedBox(height: sy(40)) : Container(),
+                        SizedBox(height: sy(20)),
                       ],
-                    ),
-                    !locked ? SizedBox(height: sy(40)) : Container(),
-                    SizedBox(height: sy(20)),
-                  ],
                 );
               }),
             ],
