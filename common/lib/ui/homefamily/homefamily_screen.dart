@@ -99,6 +99,17 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
         _onboardState = _onboard.onboardState;
       });
     });
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    );
+
+    _animation = Tween<double>(begin: -1200, end: -800).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.ease),
+    );
+
+    _scaleAnimation = Tween<double>(begin: 1, end: 0.4).animate(_controller);
   }
 
   @override
@@ -106,12 +117,15 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     _stage.removeOnValue(routeChanged, onRouteChanged);
     controller.dispose();
     controllerOrange.dispose();
+
+    _controller.dispose();
     super.dispose();
   }
 
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
+        _animateImage();
         if (locked) {
           await _stage.showModal(trace, StageModal.perms);
         } else if (_onboardState == OnboardState.firstTime) {
@@ -170,25 +184,9 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   }
 
   List<Widget> _widgetsForUnlockedOnboarded() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return [
-      const Spacer(),
-      GestureDetector(
-        onLongPress: () {
-          traceAs("tappedShowDebug", (trace) async {
-            await _stage.showModal(trace, StageModal.debug);
-          });
-        },
-        onHorizontalDragEnd: (_) {
-          _showCommandDialog(context);
-        },
-        child: Image.asset(
-          "assets/images/blokada_logo.png",
-          width: 200,
-          height: 128,
-          fit: BoxFit.scaleDown,
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
-      ),
+      Spacer(),
       const Spacer(),
       Column(
         children: [
@@ -214,38 +212,6 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   List<Widget> _widgetsForUnlockedNotOnboarded() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return [
-      SizedBox(height: 72),
-      GestureDetector(
-        onLongPress: () {
-          traceAs("tappedShowDebug", (trace) async {
-            await _stage.showModal(trace, StageModal.debug);
-          });
-        },
-        onHorizontalDragEnd: (_) {
-          _showCommandDialog(context);
-        },
-        child: Image.asset(
-          "assets/images/header.png",
-          width: 200,
-          height: 32,
-          fit: BoxFit.scaleDown,
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
-      ),
-      Text("F A M I L Y",
-          style: TextStyle(
-              fontSize: 14,
-              fontFamily: "Menlo",
-              fontWeight: FontWeight.bold,
-              color: theme.textPrimary)),
-      Spacer(),
-      Image.asset(
-        "assets/images/blokada_logo.png",
-        width: 200,
-        height: 300,
-        fit: BoxFit.contain,
-        color: theme.textPrimary.withOpacity(0.1),
-      ),
       Spacer(),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 48.0),
@@ -287,41 +253,12 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                 ],
               ),
       ),
-      SizedBox(height: 32),
-      const Spacer(),
     ];
   }
 
   List<Widget> _widgetsForLockedNotOnboarded() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return [
-      SizedBox(height: 72),
-      GestureDetector(
-        onLongPress: () {
-          traceAs("tappedShowDebug", (trace) async {
-            await _stage.showModal(trace, StageModal.debug);
-          });
-        },
-        onHorizontalDragEnd: (_) {
-          _showCommandDialog(context);
-        },
-        child: Image.asset(
-          "assets/images/header.png",
-          width: 200,
-          height: 32,
-          fit: BoxFit.scaleDown,
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
-      ),
-      Text("F A M I L Y",
-          style: TextStyle(
-              fontSize: 14,
-              fontFamily: "Menlo",
-              fontWeight: FontWeight.bold,
-              color: theme.textPrimary)),
-      Spacer(),
-      Icon(Icons.phonelink_lock,
-          size: 200, color: theme.textPrimary.withOpacity(0.1)),
       Spacer(),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48.0),
@@ -343,40 +280,12 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
               ),
             ],
           )),
-      SizedBox(height: 32),
-      const Spacer(),
     ];
   }
 
   List<Widget> _widgetsForLockedOnboarded() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return [
-      SizedBox(height: 72),
-      GestureDetector(
-        onLongPress: () {
-          traceAs("tappedShowDebug", (trace) async {
-            await _stage.showModal(trace, StageModal.debug);
-          });
-        },
-        onHorizontalDragEnd: (_) {
-          _showCommandDialog(context);
-        },
-        child: Image.asset(
-          "assets/images/header.png",
-          width: 200,
-          height: 32,
-          fit: BoxFit.scaleDown,
-          color: Theme.of(context).textTheme.bodyText1!.color,
-        ),
-      ),
-      Text("F A M I L Y",
-          style: TextStyle(
-              fontSize: 14,
-              fontFamily: "Menlo",
-              fontWeight: FontWeight.bold,
-              color: theme.textPrimary)),
-      Spacer(),
-      Icon(Icons.lock, size: 200, color: theme.textPrimary.withOpacity(0.1)),
       Spacer(),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 48.0),
@@ -392,8 +301,6 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
               ),
             ],
           )),
-      SizedBox(height: 32),
-      const Spacer(),
     ];
   }
 
@@ -417,6 +324,18 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     };
   }
 
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<double> _scaleAnimation;
+
+  void _animateImage() {
+    if (_controller.status == AnimationStatus.completed) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
@@ -434,76 +353,119 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
           ],
         ),
       ),
-      child: AbsorbPointer(
-        absorbing: working,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Stack(
-            children: [
-              RelativeBuilder(builder: (context, height, width, sy, sx) {
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _getWidgetsForCurrentState() +
-                      [
-                        SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            (!locked ||
-                                    _onboardState ==
-                                        OnboardState.accountDecided)
-                                ? Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MiniCard(
-                                        onTap: _handleCtaTap(),
-                                        color: theme.plus,
-                                        child: SizedBox(
-                                          height: 32,
-                                          child: Center(
-                                              child: Text(_getCtaText())),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                            (_onboardState == OnboardState.firstTime && !locked)
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: MiniCard(
-                                        onTap: _handleAccountTap(),
-                                        child: SizedBox(
-                                          height: 32,
-                                          width: 32,
-                                          child: Icon(Icons.qr_code),
-                                        )),
-                                  )
-                                : Container(),
-                            (_onboardState != OnboardState.firstTime)
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: MiniCard(
-                                        onTap: _handleLockTap(),
-                                        child: SizedBox(
-                                          height: 32,
-                                          width: 32,
-                                          child: Icon(locked
-                                              ? Icons.lock
-                                              : Icons.lock_open),
-                                        )),
-                                  )
-                                : Container()
-                          ],
-                        ),
-                        !locked ? SizedBox(height: sy(40)) : Container(),
-                        SizedBox(height: sy(20)),
-                      ],
-                );
-              }),
-            ],
+      child: Stack(
+        children: [
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Positioned(
+                left: _animation.value,
+                top: _animation.value,
+                child: ClipRect(
+                  child: Transform.scale(
+                    scale: _scaleAnimation.value,
+                    child: child,
+                  ),
+                ),
+              );
+            },
+            child: Image.asset(
+              "assets/images/blokada_logo.png",
+              width: 2048,
+              height: 2048,
+              //filterQuality: FilterQuality.high,
+              fit: BoxFit.cover,
+              color: Colors.black.withOpacity(0.1),
+            ),
           ),
-        ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Colors.transparent,
+                  theme.bgColorHome1,
+                  theme.bgColor,
+                  theme.bgColor,
+                ],
+              ),
+            ),
+          ),
+          AbsorbPointer(
+            absorbing: working,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Stack(
+                children: [
+                  RelativeBuilder(builder: (context, height, width, sy, sx) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _getWidgetsForCurrentState() +
+                          [
+                            SizedBox(height: 72),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                (!locked ||
+                                        _onboardState ==
+                                            OnboardState.accountDecided)
+                                    ? Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MiniCard(
+                                            onTap: _handleCtaTap(),
+                                            color: theme.plus,
+                                            child: SizedBox(
+                                              height: 32,
+                                              child: Center(
+                                                  child: Text(_getCtaText())),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
+                                (_onboardState == OnboardState.firstTime &&
+                                        !locked)
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: MiniCard(
+                                            onTap: _handleAccountTap(),
+                                            child: SizedBox(
+                                              height: 32,
+                                              width: 32,
+                                              child: Icon(Icons.qr_code),
+                                            )),
+                                      )
+                                    : Container(),
+                                (_onboardState != OnboardState.firstTime)
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: MiniCard(
+                                            onTap: _handleLockTap(),
+                                            child: SizedBox(
+                                              height: 32,
+                                              width: 32,
+                                              child: Icon(locked
+                                                  ? Icons.lock
+                                                  : Icons.lock_open),
+                                            )),
+                                      )
+                                    : Container()
+                              ],
+                            ),
+                            !locked ? SizedBox(height: sy(60)) : Container(),
+                            SizedBox(height: sy(30)),
+                          ],
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
