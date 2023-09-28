@@ -133,6 +133,26 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     }
   }
 
+  String _getDebugStateText() {
+    if (locked) {
+      if (_onboardState == OnboardState.firstTime) {
+        return "Child mode. Please link this device first.";
+      } else if (_onboardState == OnboardState.accountDecided) {
+        return "Child mode. Please finish the setup.";
+      } else {
+        return "Child mode. All setup correctly!";
+      }
+    } else {
+      if (_onboardState == OnboardState.firstTime) {
+        return "Welcome! Please activate or restore your account.";
+      } else if (_onboardState == OnboardState.accountDecided) {
+        return "Great! Please add your child device.";
+      } else {
+        return "";
+      }
+    }
+  }
+
   _handleAccountTap() {
     return () {
       traceAs("tappedAccountQr", (trace) async {
@@ -197,6 +217,15 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                         height: 128,
                         fit: BoxFit.scaleDown,
                         color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 24.0, horizontal: 36),
+                      child: Text(
+                        _getDebugStateText(),
+                        style: TextStyle(fontSize: 18),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     const Spacer(),

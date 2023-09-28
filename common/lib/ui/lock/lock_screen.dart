@@ -109,6 +109,7 @@ class _LockScreenState extends State<LockScreen>
           _digitsEntered = 0;
           _pinEntered = null;
           _showHeaderTextForShortWhile();
+          bgStateKey.currentState?.animateToClose();
         }
       } catch (e) {
         _showHeaderTextForShortWhile();
