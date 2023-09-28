@@ -94,7 +94,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
       await _app.initStarted(trace);
       try {
         await _env.syncDeviceName(trace);
-        await _onboard.maybeShowOnboard(trace);
+        await _onboard.maybeShowOnboardOnStart(trace);
         // Default to show journal only for the current device
         await _journal.updateFilter(trace, deviceName: _env.deviceName);
         await _plusKeypair.load(trace);

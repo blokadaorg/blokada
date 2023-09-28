@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
+import '../onboard/onboard.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
@@ -26,7 +27,11 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _app = dep<AppStore>();
+<<<<<<< HEAD
   late final _stats = dep<StatsStore>();
+=======
+  late final _onboard = dep<OnboardStore>();
+>>>>>>> 399c4e3 (reorganize onboard for both flavors)
   late final _timer = dep<TimerService>();
 
   RateStoreBase() {
@@ -59,7 +64,11 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
       if (meta == null) return; // .. but not on first ever app start
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
+<<<<<<< HEAD
       if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
+=======
+      if (!_onboard.isOnboarded) return; // Skip if not onboarded yet
+>>>>>>> 399c4e3 (reorganize onboard for both flavors)
 
       await show(trace);
     });

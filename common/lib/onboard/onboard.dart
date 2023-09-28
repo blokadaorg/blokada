@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
 import '../app/app.dart';
+import '../perm/perm.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
@@ -20,11 +21,13 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
+  late final _app = dep<AppStore>();
 
   late final Act _act;
 
   OnboardStoreBase() {
     _account.addOn(accountIdChanged, onAccountIdChanged);
+    _app.addOn(appStatusChanged, onAppStatusChanged);
   }
 
   @override
@@ -36,8 +39,38 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
   @observable
   OnboardState onboardState = OnboardState.firstTime;
 
+  bool get isOnboarded => onboardState == OnboardState.completed;
+
+  // React to account changes to show the proper onboarding
   @action
-  maybeShowOnboard(Trace parentTrace) async {
+  Future<void> onAccountIdChanged(Trace parentTrace) async {
+    if (!_act.isFamily()) {
+      // Old flow for the main flavor, just show the onboarding modal
+      return await traceWith(parentTrace, "onboardProceed", (trace) async {
+        await _stage.showModal(trace, StageModal.perms);
+      });
+    }
+
+    if (_account.type == AccountType.libre) return;
+    if (onboardState != OnboardState.firstTime) return;
+
+    return await traceWith(parentTrace, "onboardProceed", (trace) async {
+      await setOnboardState(trace, OnboardState.accountDecided);
+    });
+  }
+
+  @action
+  Future<void> onAppStatusChanged(Trace parentTrace) async {
+    return await traceWith(parentTrace, "onboardFinish", (trace) async {
+      if (_app.status.isActive()) {
+        await setOnboardState(trace, OnboardState.completed);
+      }
+    });
+  }
+
+  // Show the welcome screen on the first start (family only)
+  @action
+  maybeShowOnboardOnStart(Trace parentTrace) async {
     if (!_act.isFamily()) return;
 
     return await traceWith(parentTrace, "maybeShowOnboard", (trace) async {
@@ -57,16 +90,6 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "setOnboardState", (trace) async {
       onboardState = state;
       await _persistence.saveString(trace, _key, state.toString());
-    });
-  }
-
-  @action
-  Future<void> onAccountIdChanged(Trace parentTrace) async {
-    if (onboardState != OnboardState.firstTime) return;
-
-    return await traceWith(parentTrace, "onboardProceed", (trace) async {
-      if (_account.type == AccountType.libre) return;
-      await setOnboardState(trace, OnboardState.accountDecided);
     });
   }
 }
