@@ -86,8 +86,12 @@ class PlatformHttpService with HttpService, Traceable {
 
   Exception _mapException(PlatformException e) {
     final msg = e.code;
+    final msg2 = e.message?.replaceFirst("java.lang.Exception: ", "") ?? "";
     if (msg.startsWith("code:")) {
       final code = int.parse(msg.substring(5));
+      return HttpCodeException(code, msg);
+    } else if (msg2.startsWith("code:")) {
+      final code = int.parse(msg2.substring(5));
       return HttpCodeException(code, msg);
     } else {
       return e;
