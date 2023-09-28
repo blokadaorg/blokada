@@ -294,7 +294,8 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                         )
                       ],
                     ),
-                    SizedBox(height: sy(60)),
+                    !locked ? SizedBox(height: sy(40)) : Container(),
+                    SizedBox(height: sy(20)),
                   ],
                 );
               }),

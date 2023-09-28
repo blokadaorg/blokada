@@ -52,9 +52,9 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       _existingPin = await _persistence.load(trace, _keyLock);
       hasPin = _existingPin != null;
       isLocked = hasPin;
-      if (hasPin) {
-        await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
-      }
+      // if (hasPin) {
+      //   await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
+      // }
 
       //await _stage.setLocked(trace, hasPin);
     });
@@ -71,8 +71,13 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       _existingPin = pin;
       isLocked = true;
       hasPin = true;
+<<<<<<< HEAD
       //await _stage.setLocked(trace, true);
       await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
+=======
+      await _stage.setLocked(trace, true);
+      //await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
+>>>>>>> a6be208 (lock changes)
     });
   }
 
