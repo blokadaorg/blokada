@@ -23,7 +23,6 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.lang.Exception
 
 
 interface StorageService {
@@ -70,6 +69,7 @@ object SharedPreferencesStorageService : StorageService {
         "localConfig" -> localSharedPreferences
         "syncableConfig" -> backedUpSharedPreferences
         "account" -> backedUpSharedPreferences
+        "account:jsonAccount" -> backedUpSharedPreferences
         "networkSpecificConfigs" -> localSharedPreferences // Not send network names anywhere
         else -> if (useBackup) backedUpSharedPreferences else localSharedPreferences
     }
