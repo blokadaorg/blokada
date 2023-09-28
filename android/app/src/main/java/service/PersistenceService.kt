@@ -21,6 +21,7 @@ import model.BlokadaException
 import model.BypassedAppIds
 import model.Defaults
 import model.DnsWrapper
+import model.LegacyAccount
 import model.LocalConfig
 import model.NetworkSpecificConfigs
 import model.Packs
@@ -88,6 +89,7 @@ object PersistenceService {
         BlockaRepoPayload::class -> "blockaRepoPayload"
         BlockaAfterUpdate::class -> "blockaAfterUpdate"
         NetworkSpecificConfigs::class -> "networkSpecificConfigs"
+        LegacyAccount::class -> "account"
         else -> throw BlokadaException("Unsupported type for persistence: $type")
     }
 

@@ -23,6 +23,7 @@ import model.BlockaRepoUpdate
 import model.BlokadaException
 import model.BypassedAppIds
 import model.DnsWrapper
+import model.LegacyAccount
 import model.LocalConfig
 import model.NetworkSpecificConfigs
 import model.Packs
@@ -96,6 +97,10 @@ object JsonSerializationService : SerializationService {
                 val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
                 return adapter.toJson(obj)
             }
+            is LegacyAccount -> {
+                val adapter = moshi.adapter(LegacyAccount::class.java)
+                return adapter.toJson(obj)
+            }
             else -> throw BlokadaException("Unsupported type for json serialization: ${obj.javaClass}")
         }
     }
@@ -157,6 +162,10 @@ object JsonSerializationService : SerializationService {
             }
             NetworkSpecificConfigs::class -> {
                 val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
+                return adapter.fromJson(serialized) as T
+            }
+            LegacyAccount::class -> {
+                val adapter = moshi.adapter(LegacyAccount::class.java)
                 return adapter.fromJson(serialized) as T
             }
             else -> throw BlokadaException("Unsupported type for json deserialization: $type")
