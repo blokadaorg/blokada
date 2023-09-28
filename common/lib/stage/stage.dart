@@ -258,12 +258,22 @@ abstract class StageStoreBase
       trace.addEvent("foreground emitted");
     }
 
+<<<<<<< HEAD
     final path = _pathToShow;
     if (path != null) {
       _pathToShow = null;
       await setRoute(trace, path);
       trace.addEvent("path emitted");
     }
+=======
+    return await traceWith(parentTrace, "setLocked", (trace) async {
+      this.isLocked = isLocked;
+      trace.addAttribute("isLocked", isLocked);
+      await _ops.doShowNavbar(!isLocked);
+      await _processQueue(trace);
+    });
+  }
+>>>>>>> 30c1e06 (hide nav bar when locked)
 
     final modal = _modalToShow;
     if (modal != null) {
