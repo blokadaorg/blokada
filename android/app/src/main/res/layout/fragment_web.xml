@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/doubled"
+            android:layout_marginBottom="@dimen/icon_huge"
             android:text="Tap to open in browser"
             android:textColor="?android:attr/colorPrimary" />
     </FrameLayout>

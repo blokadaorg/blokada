@@ -57,7 +57,7 @@ class PaymentFragment : BottomSheetFragment() {
                 dismiss()
                 val nav = findNavController()
                 nav.navigate(
-                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                    FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                         Links.manageSubscriptions(account.id),
                         getString(R.string.universal_action_upgrade)
                     )
@@ -69,7 +69,7 @@ class PaymentFragment : BottomSheetFragment() {
                 dismiss()
                 val nav = findNavController()
                 nav.navigate(
-                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                    FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                         Links.howToRestore, getString(R.string.payment_action_restore)
                     )
                 )

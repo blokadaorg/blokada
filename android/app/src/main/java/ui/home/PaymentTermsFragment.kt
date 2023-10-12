@@ -50,7 +50,7 @@ class PaymentTermsFragment : BottomSheetFragment() {
             val contact: View = root.findViewById(R.id.payment_support)
             contact.setOnClickListener {
                 nav.navigate(
-                    HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                    FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                         Links.support(account.id), getString(R.string.universal_action_contact_us)
                     )
                 )
@@ -61,7 +61,7 @@ class PaymentTermsFragment : BottomSheetFragment() {
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {
             nav.navigate(
-                HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                     Links.terms, getString(R.string.payment_action_terms)
                 )
             )
@@ -71,7 +71,7 @@ class PaymentTermsFragment : BottomSheetFragment() {
         val privacy: View = root.findViewById(R.id.payment_privacy)
         privacy.setOnClickListener {
             nav.navigate(
-                HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                     Links.privacy, getString(R.string.payment_action_policy)
                 )
             )

@@ -13,7 +13,9 @@
 package ui.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import org.blokada.R
 import ui.BottomSheetFragment
@@ -41,7 +43,7 @@ class FirstTimeFragment : BottomSheetFragment() {
             dismiss()
             val nav = findNavController()
             nav.navigate(
-                HomeFragmentDirections.actionNavigationHomeToWebFragment(
+                FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
                     Links.intro, getString(R.string.intro_header)
                 )
             )
