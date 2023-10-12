@@ -13,13 +13,23 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.devtools.ksp'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
-apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-kapt"
 
+kotlin {
+    jvmToolchain 17
+}
+
 android {
-    compileSdkVersion 33
+    namespace "org.blokada"
+    compileSdk 34
+
+    kotlin {
+        jvmToolchain 17
+    }
 
     buildFeatures {
         buildConfig = true
@@ -98,11 +108,8 @@ android {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled true
 
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -136,33 +143,33 @@ repositories {
 
 dependencies {
     // forgot what is it for
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.8.0-beta01'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0-alpha03'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //implementation 'androidx.navigation:navigation-fragment:2.4.1'
     //implementation 'androidx.navigation:navigation-ui:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.browser:browser:1.4.0'
-    implementation 'androidx.webkit:webkit:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation 'androidx.browser:browser:1.6.0'
+    implementation 'androidx.webkit:webkit:1.8.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     // gplay rate prompt
-    implementation 'com.google.android.play:core:1.10.0'
+    implementation 'com.google.android.play:core:1.10.3'
 
     // json
     implementation 'com.squareup.moshi:moshi:1.13.0'
     implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -181,17 +188,17 @@ dependencies {
     // wireguard deps
     implementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "androidx.annotation:annotation:1.5.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
-    implementation "androidx.activity:activity-ktx:1.6.1"
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.annotation:annotation:1.7.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
+    implementation "androidx.activity:activity-ktx:1.8.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
 
     // External integration (Tasker)
     implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
 
     // Google in app billing
-    implementation 'com.android.billingclient:billing:5.1.0'
-    implementation 'com.android.billingclient:billing-ktx:5.1.0'
+    implementation 'com.android.billingclient:billing:6.0.1'
+    implementation 'com.android.billingclient:billing-ktx:6.0.1'
 
     // Hopefully normal date api?
     implementation 'net.danlew:android.joda:2.10.14'

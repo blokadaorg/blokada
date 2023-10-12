@@ -117,7 +117,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
 
     private val appUninstall = AppUninstallService()
 
-    override fun getViewModelStore() = MainApplication.viewModelStore
+    override val viewModelStore: ViewModelStore
+        get() = MainApplication.viewModelStore
 
     override fun onCreate() {
         super.onCreate()
