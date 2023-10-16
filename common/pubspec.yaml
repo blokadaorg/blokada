@@ -29,14 +29,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  fl_chart: ^0.55.0
-  flutter_svg: ^1.1.1+1
-  flex_color_scheme: ^6.1.2
+  fl_chart: ^0.64.0
+  flutter_svg: ^2.0.7
+  flex_color_scheme: ^7.3.1
   draggable_home: ^1.0.3
-  syncfusion_flutter_charts: ^20.2.40
-  syncfusion_flutter_datagrid: ^20.2.40
-  dio: ^4.0.6
-  visibility_detector: ^0.3.3
+  syncfusion_flutter_charts: ^23.1.40
+  syncfusion_flutter_datagrid: ^23.1.40
+  dio: ^5.3.3
+  visibility_detector: ^0.4.0+2
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
@@ -53,7 +53,7 @@ dependencies:
   collection: ^1.17.0
   http: ^1.0.0
   dartx: ^1.1.0
-  mocktail: ^0.3.0
+  mocktail: ^1.0.1
   dismissible_page: ^1.0.2
   flutter_verification_code: ^1.1.6
 
@@ -63,7 +63,7 @@ dev_dependencies:
   build_runner: ^2.2.1
   flutter_lints: ^2.0.0
   mobx_codegen: ^2.0.7+3
-  pigeon: ^9.2.4
+  pigeon: ^12.0.0
   mockito: ^5.3.2
 
 # For information on the generic Dart part of this file, see the
