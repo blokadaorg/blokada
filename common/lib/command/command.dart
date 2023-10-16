@@ -21,7 +21,9 @@ import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
-class CommandStore with Traceable, Dependable, CommandEvents, TraceOrigin {
+class CommandStore
+    with Traceable, Dependable, TraceOrigin
+    implements CommandEvents {
   late final _tracer = dep<Tracer>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();

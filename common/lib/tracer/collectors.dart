@@ -13,7 +13,7 @@ import 'tracer.dart';
 
 final _collector = dep<TraceCollector>();
 
-class DefaultTrace with Trace {
+class DefaultTrace implements Trace {
   final String _id;
   final String _module;
   final DefaultTrace? _parent;
@@ -140,7 +140,7 @@ class DefaultTrace with Trace {
   }
 }
 
-class StdoutTraceCollector with TraceCollector {
+class StdoutTraceCollector implements TraceCollector {
   final _verbose = true;
 
   @override
@@ -218,7 +218,7 @@ String _mapError(Object? e) {
   }
 }
 
-class JsonTraceCollector with TraceCollector {
+class JsonTraceCollector implements TraceCollector {
   final bool immediate;
   final Uri uri;
 
@@ -498,7 +498,7 @@ class FileTraceCollector extends TraceCollector {
   }
 }
 
-class NoopTraceCollector with TraceCollector {
+class NoopTraceCollector implements TraceCollector {
   @override
   onEnd(DefaultTrace t) {}
 

@@ -17,9 +17,9 @@ typedef ReceiptBlob = String;
 
 class AccountPaymentStore = AccountPaymentStoreBase with _$AccountPaymentStore;
 
-class AccountInactiveAfterPurchase with Exception {}
+class AccountInactiveAfterPurchase implements Exception {}
 
-class PaymentsUnavailable with Exception {}
+class PaymentsUnavailable implements Exception {}
 
 abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   late final _ops = dep<AccountPaymentOps>();

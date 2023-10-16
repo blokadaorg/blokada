@@ -39,7 +39,7 @@ extension DeckExt on Deck {
 }
 
 extension DeckItemExt on DeckItem {
-  isEnabled() => enabled ?? false;
+  isEnabled() => enabled;
 }
 
 class DeckStore = DeckStoreBase with _$DeckStore;

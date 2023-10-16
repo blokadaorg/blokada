@@ -42,7 +42,7 @@ abstract class HttpService {
 /// with no connectivity when user account expires and VPN is on.
 ///
 /// It also adds the User-Agent header to every request.
-class PlatformHttpService with HttpService, Traceable {
+class PlatformHttpService with Traceable implements HttpService {
   late final _ops = dep<HttpOps>();
 
   @override
@@ -102,7 +102,7 @@ class PlatformHttpService with HttpService, Traceable {
 /// RepeatingHttp
 ///
 /// Will repeat the request if it fails with a retry-able error.
-class RepeatingHttpService with HttpService, Dependable {
+class RepeatingHttpService implements HttpService, Dependable {
   final HttpService _service;
   final int maxRetries;
   final Duration waitTime;
@@ -159,7 +159,7 @@ class RepeatingHttpService with HttpService, Dependable {
 }
 
 // This service can fail specific requests for testing various scenarios
-class DebugHttpService with HttpService {
+class DebugHttpService implements HttpService {
   final HttpService _service;
 
   DebugHttpService(this._service);

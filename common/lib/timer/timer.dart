@@ -9,7 +9,7 @@ abstract class TimerService {
   addHandler(String name, Function(Trace) handler);
 }
 
-class DefaultTimer with TimerService, TraceOrigin, Dependable {
+class DefaultTimer with TraceOrigin, Dependable implements TimerService {
   final Map<String, Timer> _timers = {};
   final Map<String, Function(Trace)> _handlers = {};
 
@@ -49,7 +49,7 @@ class DefaultTimer with TimerService, TraceOrigin, Dependable {
 }
 
 // A Timer used in tests that allows for manual trigger of handlers.
-class TestingTimer with TimerService, TraceOrigin, Dependable {
+class TestingTimer with TraceOrigin, Dependable implements TimerService {
   final Map<String, Function(Trace)> _handlers = {};
 
   @override

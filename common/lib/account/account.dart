@@ -85,9 +85,9 @@ extension AccountStateExt on AccountState {
   }
 }
 
-class AccountNotInitialized with Exception {}
+class AccountNotInitialized implements Exception {}
 
-class InvalidAccountId with Exception {}
+class InvalidAccountId implements Exception {}
 
 class AccountStore = AccountStoreBase with _$AccountStore;
 

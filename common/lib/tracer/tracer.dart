@@ -21,7 +21,7 @@ String generateTraceId(int len) {
 final runtimeTraceId = generateTraceId(16);
 String? runtimeLastError;
 
-class Tracer with TraceFactory, Dependable, Traceable {
+class Tracer with Dependable, Traceable implements TraceFactory {
   late final _crashCollector =
       FileTraceCollector(getLogFilename(forCrash: true), immediate: true);
   late final _stage = dep<StageStore>();
@@ -92,7 +92,7 @@ abstract class TraceCollector {
   onEvent(DefaultTrace t, TraceEvent e);
 }
 
-class DefaultTraceCollectorManager with TraceCollector {
+class DefaultTraceCollectorManager implements TraceCollector {
   late final _file = FileTraceCollector(getLogFilename());
   final _stdout =
       cfg.logToConsole ? StdoutTraceCollector() : NoopTraceCollector();
