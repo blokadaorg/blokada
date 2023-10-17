@@ -21,7 +21,7 @@ abstract class DeckMapper {
 
 // The Cloud flavor simply displays lists and their configurations. In other
 // words, bundling happens only by 'author'.
-class CloudDeckMapper with DeckMapper {
+class CloudDeckMapper implements DeckMapper {
   @override
   Map<DeckId, Deck> bundleDeckItems(Trace trace, List<DeckItem> items) {
     final Map<DeckId, Deck> decks = {};
@@ -65,7 +65,7 @@ class CloudDeckMapper with DeckMapper {
 
 // The Family flavor will bundle some lists into more generic decks (e.g.
 // malware, gambling, etc). They may mix lists from different decks / authors.
-class FamilyDeckMapper with DeckMapper {
+class FamilyDeckMapper implements DeckMapper {
   @override
   Map<DeckId, Deck> bundleDeckItems(Trace trace, List<DeckItem> items) {
     final decks = <String, Deck>{};
