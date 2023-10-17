@@ -21,7 +21,7 @@ jobs:
       - name: Get JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 17
 
       - name: Get Flutter
         uses: subosito/flutter-action@v2
