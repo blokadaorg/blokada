@@ -1,4 +1,4 @@
-const jsonUrl = "https://api.blocka.net";
+var jsonUrl = "https://api.blocka.net";
 
 class JsonError extends Error {
   final Map<String, dynamic> json;

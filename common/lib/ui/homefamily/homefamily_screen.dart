@@ -401,6 +401,9 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                       onTap: () {
                         spinImage();
                       },
+                      onHorizontalDragEnd: (_) {
+                        _showCommandDialog(context);
+                      },
                       child: Image.asset(
                         "assets/images/family-logo.png",
                         width: 256,

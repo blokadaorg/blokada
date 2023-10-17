@@ -1,3 +1,4 @@
+import 'package:common/json/json.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,11 @@ void main() async {
   } else {
     entrypoint.attach(ActScreenplay(ActScenario.prodWithToys, flavor));
   }
+
+  if (flavor == "family") {
+    jsonUrl = "https://family.api.blocka.net";
+  }
+
   entrypoint.onStartApp();
 
   runApp(const Root());
