@@ -1,6 +1,5 @@
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-import 'package:mobx/mobx.dart' as mobx;
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
 
@@ -17,6 +16,7 @@ import '../debug/commanddialog.dart';
 import '../debug/debugoptions.dart';
 import '../minicard/minicard.dart';
 import '../theme.dart';
+import '../touch.dart';
 import 'device.dart';
 
 class HomeFamilyScreen extends StatefulWidget {
@@ -43,6 +43,11 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
 
   late AnimationController controller;
   late AnimationController controllerOrange;
+
+  late AnimationController _controller;
+  late Animation<double> _bounceAnimation;
+  late AnimationController _spinController;
+  late Animation<double> _spinAnimation;
 
   var counter = 0;
 
@@ -101,15 +106,33 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     });
 
     _controller = AnimationController(
-      duration: const Duration(seconds: 5),
+      duration: Duration(seconds: 2),
       vsync: this,
     );
 
-    _animation = Tween<double>(begin: -1200, end: -800).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.ease),
-    );
+    _bounceAnimation = Tween<double>(begin: 0, end: 15).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
 
-    _scaleAnimation = Tween<double>(begin: 1, end: 0.4).animate(_controller);
+    _controller.repeat(reverse: true);
+
+    // For spin animation
+    _spinController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+    _spinAnimation =
+        Tween<double>(begin: 0, end: 2 * 3.14).animate(CurvedAnimation(
+      parent: _spinController,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  void spinImage() {
+    _spinController.forward().then((_) {
+      _spinController.reset();
+    });
   }
 
   @override
@@ -119,13 +142,14 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     controllerOrange.dispose();
 
     _controller.dispose();
+    _spinController.dispose();
     super.dispose();
   }
 
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
-        _animateImage();
+        spinImage();
         if (locked) {
           await _stage.showModal(trace, StageModal.perms);
         } else if (_onboardState == OnboardState.firstTime) {
@@ -324,18 +348,6 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     };
   }
 
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  late Animation<double> _scaleAnimation;
-
-  void _animateImage() {
-    if (_controller.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
@@ -354,30 +366,8 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
         ),
       ),
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Positioned(
-                left: _animation.value,
-                top: _animation.value,
-                child: ClipRect(
-                  child: Transform.scale(
-                    scale: _scaleAnimation.value,
-                    child: child,
-                  ),
-                ),
-              );
-            },
-            child: Image.asset(
-              "assets/images/blokada_logo.png",
-              width: 2048,
-              height: 2048,
-              //filterQuality: FilterQuality.high,
-              fit: BoxFit.cover,
-              color: Colors.black.withOpacity(0.1),
-            ),
-          ),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -392,6 +382,38 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                 ],
               ),
             ),
+          ),
+          AnimatedBuilder(
+            animation:
+                foundation.Listenable.merge([_controller, _spinController]),
+            builder: (context, child) {
+              return Positioned(
+                top: _bounceAnimation.value,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 64.0, right: 64, top: 90),
+                  child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001) // Perspective
+                      ..rotateY(_spinAnimation.value),
+                    child: GestureDetector(
+                      onTap: () {
+                        spinImage();
+                      },
+                      child: Image.asset(
+                        "assets/images/family-logo.png",
+                        width: 256,
+                        //height: 600,
+                        //filterQuality: FilterQuality.high,
+                        fit: BoxFit.contain,
+                        //color: Colors.black.withOpacity(0.1),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           AbsorbPointer(
             absorbing: working,
@@ -456,7 +478,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                                     : Container()
                               ],
                             ),
-                            !locked ? SizedBox(height: sy(60)) : Container(),
+                            !locked ? SizedBox(height: sy(40)) : Container(),
                             SizedBox(height: sy(30)),
                           ],
                     );
