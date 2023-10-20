@@ -16,10 +16,13 @@ import android.content.Context
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.android.RenderMode
+import utils.Logger
 
 class FlutterHomeFragment: FlutterFragment() {
+
     override fun onAttach(context: Context) {
             arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
+        Logger.w("Flutter", "Attaching fragment ${this.hashCode()}")
         super.onAttach(context)
     }
 }

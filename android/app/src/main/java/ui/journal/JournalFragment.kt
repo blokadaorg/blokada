@@ -18,7 +18,6 @@ import android.widget.SearchView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import binding.DeviceBinding
@@ -57,9 +56,9 @@ class JournalFragment : Fragment() {
 
         val adapter = JournalAdapter(interaction = object : JournalAdapter.Interaction {
             override fun onClick(item: UiJournalEntry) {
-                val nav = findNavController()
-                nav.navigate(JournalFragmentDirections
-                    .actionNavigationActivityToActivityDetailFragment(item.entry.domainName))
+//                val nav = findNavController()
+//                nav.navigate(JournalFragmentDirections
+//                    .actionNavigationActivityToActivityDetailFragment(item.entry.domainName))
             }
         })
 
@@ -147,12 +146,7 @@ class JournalFragment : Fragment() {
         val retention: RetentionView = root.findViewById(R.id.activity_retention)
         retention.lifecycleScope = lifecycleScope
         retention.openPolicy = {
-            val nav = findNavController()
-            nav.navigate(
-                JournalFragmentDirections.actionNavigationActivityToWebFragment(
-                    Links.privacy, getString(R.string.payment_action_terms_and_privacy)
-                )
-            )
+            stage.setRoute(Links.privacy)
         }
         retention.setup()
 

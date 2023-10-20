@@ -20,7 +20,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import binding.CustomBinding
 import binding.DeckBinding
 import binding.JournalBinding
@@ -41,8 +40,6 @@ class JournalDetailFragment : Fragment() {
     private val journal by lazy { JournalBinding }
     private val deck by lazy { DeckBinding }
 
-    private val args: JournalDetailFragmentArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,8 +57,10 @@ class JournalDetailFragment : Fragment() {
         val primaryAction: OptionView = root.findViewById(R.id.activity_primaryaction)
         val copyAction: OptionView = root.findViewById(R.id.activity_copyaction)
 
+        val historyId = arguments?.getString("id") ?: throw Exception("No history id provided")
+
         val refreshView = {
-            journal.get(args.historyId)?.run {
+            journal.get(historyId)?.run {
                 val deckName = resolveDeckName(this.entry.list)
                 when (this.entry.type) {
                     JournalEntryType.PASSEDALLOWED -> {

@@ -31,6 +31,10 @@ object StageBinding: StageOps {
     private val writeForeground = MutableStateFlow<Boolean?>(null)
     val enteredForegroundHot = writeForeground.filterNotNull().filter { it }
 
+    val route = MutableStateFlow("")
+    val tab = MutableStateFlow(Tab.Home)
+    val payload = MutableStateFlow("")
+
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
@@ -39,6 +43,8 @@ object StageBinding: StageOps {
 
     var onShowNavBar: (Boolean) -> Unit = { }
     private var displayingModal: StageModal? = null
+
+    private var previousRoute = ""
 
     init {
         StageOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -50,8 +56,21 @@ object StageBinding: StageOps {
     }
 
     fun setRoute(route: String) {
+        previousRoute = this.route.value
         scope.launch {
             command.execute(CommandName.ROUTE, route)
+        }
+    }
+
+    fun goBack(): Boolean {
+        if (route.value.startsWith("http")) {
+            setRoute(previousRoute)
+            return true
+        } else if (route.value.contains("/")) {
+            setRoute(route.value.substringBeforeLast("/"))
+            return true
+        } else {
+            return false
         }
     }
 
@@ -159,7 +178,15 @@ object StageBinding: StageOps {
     }
 
     override fun doRouteChanged(path: String, callback: (Result<Unit>) -> Unit) {
-        // TODO: support changing route (tab) by common
+        route.value = path
+        tab.value = Tab.fromRoute(path)
+
+        if (path.contains("/")) {
+            payload.value = path.substringAfter("/")
+        } else {
+            payload.value = ""
+        }
+
         callback(Result.success(Unit))
     }
 

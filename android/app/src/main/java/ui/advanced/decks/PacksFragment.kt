@@ -19,15 +19,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import binding.StageBinding
 import com.google.android.material.tabs.TabLayout
 import model.Pack
 import org.blokada.R
 import ui.app
 
 class PacksFragment : Fragment() {
+
+    private val stage by lazy { StageBinding }
 
     private lateinit var vm: PacksViewModel
 
@@ -47,8 +49,7 @@ class PacksFragment : Fragment() {
         val adapter = PacksAdapter(interaction = object : PacksAdapter.Interaction {
 
             override fun onClick(pack: Pack) {
-                val nav = findNavController()
-                nav.navigate(PacksFragmentDirections.actionNavigationPacksToPackDetailFragment(pack.id))
+                stage.setRoute("advanced/${pack.id}")
             }
 
             override fun onSwitch(pack: Pack, on: Boolean) {

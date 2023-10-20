@@ -17,15 +17,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import binding.AccountBinding
 import binding.CommandBinding
+import binding.StageBinding
 import channel.command.CommandName
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment
-import ui.settings.SettingsFragmentDirections
 import utils.Links
 
 class HelpFragment : BottomSheetFragment() {
@@ -33,6 +32,7 @@ class HelpFragment : BottomSheetFragment() {
 
     private val account by lazy { AccountBinding }
     private val command by lazy { CommandBinding }
+    private val stage by lazy { StageBinding }
 
     companion object {
         fun newInstance() = HelpFragment()
@@ -56,11 +56,7 @@ class HelpFragment : BottomSheetFragment() {
 
         val kb: View = root.findViewById(R.id.help_kb)
         kb.setOnClickListener {
-            val nav = findNavController()
-            nav.navigate(R.id.navigation_settings)
-            nav.navigate(SettingsFragmentDirections.actionNavigationSettingsToWebFragment(
-                Links.kb, getString(R.string.universal_label_help)
-            ))
+            stage.setRoute(Links.kb)
             dismiss()
         }
 
@@ -83,13 +79,7 @@ class HelpFragment : BottomSheetFragment() {
         account.live.observe(viewLifecycleOwner) { account ->
             val contact: View = root.findViewById(R.id.help_contact)
             contact.setOnClickListener {
-                val nav = findNavController()
-                nav.navigate(R.id.navigation_settings)
-                nav.navigate(
-                    SettingsFragmentDirections.actionNavigationSettingsToWebFragment(
-                        Links.support(account.id), getString(R.string.universal_action_contact_us)
-                    )
-                )
+                stage.setRoute(Links.support(account.id))
                 dismiss()
             }
         }

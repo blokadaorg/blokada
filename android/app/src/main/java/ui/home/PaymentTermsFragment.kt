@@ -16,14 +16,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import binding.AccountBinding
+import binding.StageBinding
 import org.blokada.R
 import ui.BottomSheetFragment
 import utils.Links
 
 class PaymentTermsFragment : BottomSheetFragment() {
     private val account by lazy { AccountBinding }
+    private val stage by lazy { StageBinding }
 
     companion object {
         fun newInstance() = PaymentTermsFragment()
@@ -34,7 +35,6 @@ class PaymentTermsFragment : BottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_payment_terms, container, false)
-        val nav = findNavController()
 
         val back: View = root.findViewById(R.id.back)
         back.setOnClickListener {
@@ -49,32 +49,20 @@ class PaymentTermsFragment : BottomSheetFragment() {
         account.live.observe(viewLifecycleOwner) { account ->
             val contact: View = root.findViewById(R.id.payment_support)
             contact.setOnClickListener {
-                nav.navigate(
-                    FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
-                        Links.support(account.id), getString(R.string.universal_action_contact_us)
-                    )
-                )
+                stage.setRoute(Links.support(account.id))
                 dismiss()
             }
         }
 
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {
-            nav.navigate(
-                FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
-                    Links.terms, getString(R.string.payment_action_terms)
-                )
-            )
+            stage.setRoute(Links.terms)
             dismiss()
         }
 
         val privacy: View = root.findViewById(R.id.payment_privacy)
         privacy.setOnClickListener {
-            nav.navigate(
-                FlutterHomeFragmentDirections.actionNavigationHomeToWebFragment(
-                    Links.privacy, getString(R.string.payment_action_policy)
-                )
-            )
+            stage.setRoute(Links.privacy)
             dismiss()
         }
 

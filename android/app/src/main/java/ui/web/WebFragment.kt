@@ -27,8 +27,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import binding.StageBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.blokada.R
@@ -42,6 +41,7 @@ import utils.Links
 class WebFragment : BottomSheetFragment() {
 
     private lateinit var settingsVM: SettingsViewModel
+    private val stage by lazy { StageBinding }
 
     companion object {
         fun newInstance() = WebFragment()
@@ -49,8 +49,6 @@ class WebFragment : BottomSheetFragment() {
 
     private val webService = WebService
     private val alertService = AlertDialogService
-
-    private val args: WebFragmentArgs by navArgs()
 
     private var tabsServiceBound = false
     private var waitingToComeBack = false
@@ -64,7 +62,9 @@ class WebFragment : BottomSheetFragment() {
             settingsVM = ViewModelProvider(it.app()).get(SettingsViewModel::class.java)
         }
 
-        currentUrl = args.url
+        val url = arguments?.getString("url") ?: throw Exception("No url provided")
+
+        currentUrl = url
 
         setHasOptionsMenu(true)
 
@@ -75,12 +75,12 @@ class WebFragment : BottomSheetFragment() {
 
         val openBrowser: View = root.findViewById(R.id.web_openinbrowser)
         openBrowser.setOnClickListener {
-            launchInBrowser(args.url)
+            launchInBrowser(url)
         }
 
-        if ((settingsVM.getUseChromeTabs() || Links.isAvoidWebView(args.url))
+        if ((settingsVM.getUseChromeTabs() || Links.isAvoidWebView(url))
             && (tabsServiceBound || bindChromeTabs())) {
-            launchInCustomTabs(args.url)
+            launchInCustomTabs(url)
         } else {
             // Only instantiate WebView if we're not using custom tabs
             lifecycleScope.launchWhenCreated {
@@ -104,8 +104,8 @@ class WebFragment : BottomSheetFragment() {
                         performUrlSpecificActions(url)
                     }
 
-                    override fun onLoadedWithError(url: String, error: String) {
-                        if (url == args.url) {
+                    override fun onLoadedWithError(urlo: String, error: String) {
+                        if (urlo == url) {
                             context?.let { ctx ->
                                 loadingText.text = ctx.getString(R.string.error_fetching_data)
                             }
@@ -116,8 +116,7 @@ class WebFragment : BottomSheetFragment() {
 
                     override fun onWentBackToTheBeginning() {
                         try {
-                            val nav = findNavController()
-                            nav.navigateUp()
+                            stage.goBack()
                         } catch (ex: Exception) {
                             // It may happen if user navigated away from the app quickly. Ignore
                         }
@@ -126,7 +125,8 @@ class WebFragment : BottomSheetFragment() {
                 })
                 container.addView(webView)
 
-                webView.loadUrl(args.url)
+                webService.resetHistory()
+                webView.loadUrl(url)
             }
         }
 
@@ -176,8 +176,7 @@ class WebFragment : BottomSheetFragment() {
         if (waitingToComeBack) {
             lifecycleScope.launch {
                 delay(1000) // So that user sees we went back
-                val nav = findNavController()
-                nav.navigateUp()
+                stage.goBack()
                 waitingToComeBack = false
             }
         }

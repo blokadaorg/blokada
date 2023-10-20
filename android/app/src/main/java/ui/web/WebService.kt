@@ -12,9 +12,13 @@
 
 package ui.web
 
-import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
+import android.webkit.CookieManager
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import model.Uri
@@ -30,6 +34,7 @@ object WebService {
 
     private var webView = WeakReference<WebView?>(null)
     private var goingBack = false
+    private var shouldResetHistory = true
 
     interface Interaction {
         fun onOpenInBrowser(url: String)
@@ -47,7 +52,6 @@ object WebService {
 
         (view.parent as ViewGroup?)?.removeAllViews()
         goingBack = false
-        view.clearHistory() // This does not seem to work
         view.loadUrl("about:blank") // This doesnt help much either. WebView = <3
         setInteraction(view, interaction)
         return view
@@ -62,6 +66,10 @@ object WebService {
                 true
             } else false
         } ?: false
+    }
+
+    fun resetHistory() {
+        shouldResetHistory = true
     }
 
     private fun createWebView(): WebView {
@@ -123,6 +131,11 @@ object WebService {
             }
 
             override fun onPageFinished(view: WebView?, url: String) {
+                if (shouldResetHistory) {
+                    web.clearHistory()
+                    shouldResetHistory = false
+                }
+
                 // We need to do this hack to the make back button navigation work properly
                 if (goingBack && url == "about:blank") {
                     interaction.onWentBackToTheBeginning()

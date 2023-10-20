@@ -19,8 +19,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import binding.StageBinding
 import org.blokada.R
 import service.tr
 import ui.app
@@ -31,9 +30,8 @@ class PackDetailFragment : Fragment() {
         fun newInstance() = PackDetailFragment()
     }
 
-    private val args: PackDetailFragmentArgs by navArgs()
-
     private lateinit var vm: PacksViewModel
+    private val stage by lazy { StageBinding }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,19 +48,15 @@ class PackDetailFragment : Fragment() {
         val authorGroup: View = root.findViewById(R.id.packs_authorgroup)
         val configContainer: ViewGroup = root.findViewById(R.id.packs_configcontainer)
 
+        val packId = arguments?.getString("id") ?: throw Exception("No pack id provided")
+
         vm.packs.observe(viewLifecycleOwner) {
-            vm.get(args.packId)?.run {
+            vm.get(packId)?.run {
                 slugline.text = meta.slugline.tr()
                 description.text = meta.description.tr()
                 author.text = meta.creditName
                 authorGroup.setOnClickListener {
-                    val nav = findNavController()
-                    nav.navigate(
-                        PackDetailFragmentDirections.actionPackDetailFragmentToWebFragment(
-                            meta.creditUrl,
-                            meta.creditName
-                        )
-                    )
+                    stage.setRoute(meta.creditUrl)
                 }
 
                 configContainer.removeAllViews()

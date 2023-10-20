@@ -19,21 +19,26 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import binding.StageBinding
 import org.blokada.R
 import repository.LANGUAGE_NICE_NAMES
 import service.EnvironmentService
 import service.UpdateService
-import ui.*
+import ui.BlockaRepoViewModel
+import ui.SettingsViewModel
+import ui.THEME_RETRO_KEY
+import ui.THEME_RETRO_NAME
+import ui.app
 import utils.Links
 
 class SettingsAppFragment : PreferenceFragmentCompat() {
 
     private lateinit var vm: SettingsViewModel
     private lateinit var blockaRepoVM: BlockaRepoViewModel
+    private val stage by lazy { StageBinding }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_app, rootKey)
@@ -201,12 +206,7 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
 
         val boot: Preference = findPreference("app_startonboot")!!
         boot.setOnPreferenceClickListener {
-            val nav = findNavController()
-            nav.navigate(
-                SettingsAppFragmentDirections.actionSettingsAppFragmentToWebFragment(
-                    Links.startOnBoot, getString(R.string.app_settings_start_on_boot)
-                )
-            )
+            stage.setRoute(Links.startOnBoot)
             true
         }
 

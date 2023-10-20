@@ -18,11 +18,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import binding.StageBinding
 import org.blokada.R
 import utils.Links
 
 class RetentionFragment : Fragment() {
+    private val stage by lazy { StageBinding }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -34,12 +36,7 @@ class RetentionFragment : Fragment() {
         val retention: RetentionView = root.findViewById(R.id.activity_retention)
         retention.lifecycleScope = lifecycleScope
         retention.openPolicy = {
-            val nav = findNavController()
-            nav.navigate(
-                RetentionFragmentDirections.actionRetentionFragmentToWebFragment(
-                    Links.privacy, getString(R.string.payment_action_terms_and_privacy)
-                )
-            )
+            stage.setRoute(Links.privacy)
         }
         retention.setup()
 

@@ -15,6 +15,7 @@ package ui
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -25,12 +26,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.AccountBinding
@@ -42,7 +40,9 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import model.AccountType
 import model.Tab
+import model.toAccountType
 import org.blokada.R
 import repository.Repos
 import service.ContextService
@@ -52,10 +52,19 @@ import service.Sheet
 import service.SheetService
 import service.TranslationService
 import service.VpnPermissionService
+import ui.advanced.decks.PackDetailFragment
+import ui.advanced.decks.PacksFragment
+import ui.home.FlutterHomeFragment
 import ui.home.HelpFragment
-import ui.settings.SettingsNavigation
+import ui.journal.JournalFragment
+import ui.settings.SettingsAccountFragment
+import ui.settings.SettingsAppFragment
+import ui.settings.SettingsFragment
+import ui.settings.SettingsLogoutFragment
 import ui.utils.now
+import ui.web.WebFragment
 import ui.web.WebService
+import utils.Links
 import utils.Logger
 
 
@@ -71,6 +80,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private val account by lazy { AccountBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
+
+    private val tabHome by lazy { FlutterHomeFragment() }
+    private val tabActivity by lazy { JournalFragment() }
+    private val tabAdvanced by lazy { PacksFragment() }
+    private val tabSettings by lazy { SettingsFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +115,110 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             navView.visibility = if (show) View.VISIBLE else View.GONE
         }
 
+        lifecycleScope.launch {
+            stage.route.collect { route ->
+                Logger.v("Main", "Route: $route")
+
+                // Needed for dynamic translation of the top bar
+                val translationId: Int?
+                val fragment: Fragment?
+                var topNav = true
+                setFragmentInset(fragmentContainer, true)
+
+//                R.id.activityDetailFragment -> R.string.main_tab_activity
+//                R.id.navigation_settings_account -> R.string.account_action_my_account
+//                R.id.settingsLogoutFragment -> R.string.account_header_logout
+//                R.id.settingsAppFragment -> R.string.app_settings_section_header
+//                R.id.leasesFragment -> R.string.account_action_devices
+//                R.id.retentionFragment -> R.string.activity_section_header
+
+                when {
+                    route.startsWith("activity") -> {
+                        translationId = R.string.main_tab_activity
+                        fragment = tabActivity
+                    }
+                    route.startsWith("advanced") -> {
+                        val id = route.substringAfter("/", missingDelimiterValue = "")
+                        if (id.isEmpty()) {
+                            translationId = R.string.advanced_section_header_packs
+                            fragment = tabAdvanced
+                        } else {
+                            translationId = R.string.advanced_section_header_packs
+                            fragment = PackDetailFragment()
+                            fragment.arguments = Bundle().apply {
+                                putString("id", id)
+                            }
+                            topNav = false
+                        }
+                    }
+                    route.startsWith("settings") -> {
+                        val id = route.substringAfter("/", missingDelimiterValue = "")
+                        if (id.isEmpty()) {
+                            translationId = R.string.account_section_header_settings
+                            fragment = tabSettings
+                        } else if (id == "account") {
+                            translationId = R.string.account_action_my_account
+                            fragment = SettingsAccountFragment()
+                            topNav = false
+                        } else if (id == "logout") {
+                            translationId = R.string.account_action_logout
+                            fragment = SettingsLogoutFragment()
+                            topNav = false
+                        } else if (id == "leases") {
+                            translationId = R.string.account_action_devices
+                            fragment = SettingsLogoutFragment()
+                            topNav = false
+                        } else if (id == "retention") {
+                            translationId = R.string.account_section_header_settings
+                            fragment = SettingsLogoutFragment()
+                            topNav = false
+                        } else { // app
+                            translationId = R.string.app_settings_section_header
+                            fragment = SettingsAppFragment()
+                            topNav = false
+                        }
+                    }
+                    route.startsWith("http") -> {
+                        translationId = R.string.universal_action_learn_more
+                        fragment = WebFragment()
+                        fragment.arguments = Bundle().apply {
+                            putString("url", route)
+                        }
+                        topNav = false
+                    }
+                    else -> {
+                        translationId = null
+                        fragment = tabHome
+                        setFragmentInset(fragmentContainer, false)
+                    }
+                }
+
+                // Set the navbar title
+                translationId?.let {
+                    toolbar.visibility = View.VISIBLE
+                    if (it is Int) toolbar.title = getString(it)
+                    else it.toString()
+                } ?: run {
+                    toolbar.visibility = View.GONE
+                }
+
+                // Change actual fragment
+                supportActionBar?.setDisplayHomeAsUpEnabled(!topNav)
+                supportActionBar?.setDisplayShowHomeEnabled(!topNav)
+
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container_fragment, fragment)
+                    .commit()
+
+                // An ugly hack to hide jumping fragments when switching tabs
+                fragmentContainer.visibility = View.INVISIBLE
+                lifecycleScope.launch(Dispatchers.Main) {
+                    delay(100)
+                    fragmentContainer.visibility = View.VISIBLE
+                }
+            }
+        }
+
         rate.onShowRateDialog = { askForReview(this) }
 
         val mainIssuesOverlay: ViewGroup = findViewById(R.id.main_issues_overlay)
@@ -127,51 +245,19 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
         setSupportActionBar(toolbar)
         setInsets(toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_flutterhome,
-                R.id.navigation_activity,
-                R.id.navigation_packs,
-                R.id.navigation_settings
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-        // Set the fragment inset as needed (home fragment has no inset)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            val shouldInset = when (destination.id) {
-                R.id.navigation_flutterhome -> false
-                else -> true
+        navView.setOnItemSelectedListener { it ->
+            // Needed for dynamic translation of the bottom bar
+            val title = when (it.itemId) {
+                R.id.navigation_activity -> getString(R.string.main_tab_activity)
+                R.id.navigation_packs -> getString(R.string.main_tab_advanced)
+                R.id.navigation_settings -> getString(R.string.main_tab_settings)
+                else -> getString(R.string.main_tab_home)
             }
-            setFragmentInset(fragmentContainer, shouldInset)
+            it.title = title
 
-            // An ugly hack to hide jumping fragments when switching tabs
-            fragmentContainer.visibility = View.INVISIBLE
-            lifecycleScope.launch(Dispatchers.Main) {
-                delay(100)
-                fragmentContainer.visibility = View.VISIBLE
-            }
-        }
-
-
-        // Needed for dynamic translation of the bottom bar
-        val selectionListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            val (nav, title) = when (item.itemId) {
-                R.id.navigation_activity -> R.id.navigation_activity to getString(R.string.main_tab_activity)
-                R.id.navigation_packs -> R.id.navigation_packs to getString(R.string.main_tab_advanced)
-                R.id.navigation_settings -> R.id.navigation_settings to getString(R.string.main_tab_settings)
-                else -> R.id.navigation_flutterhome to getString(R.string.main_tab_home)
-            }
-            navController.navigate(nav)
-            item.title = title
-
-            // Also emit tab change in NavRepo
+            // Emit tab change
             lifecycleScope.launch {
-                val tab = when(item.itemId) {
+                val tab = when(it.itemId) {
                     R.id.navigation_activity -> Tab.Activity
                     R.id.navigation_packs -> Tab.Advanced
                     R.id.navigation_settings -> Tab.Settings
@@ -181,36 +267,6 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             }
 
             true
-        }
-        navView.setOnNavigationItemSelectedListener(selectionListener)
-
-        // Needed for dynamic translation of the top bar
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            Logger.v("Navigation", destination.toString())
-
-            val translationId = when (destination.id) {
-                R.id.navigation_activity -> R.string.main_tab_activity
-                R.id.activityDetailFragment -> R.string.main_tab_activity
-                R.id.navigation_packs -> getString(R.string.advanced_section_header_packs)
-                R.id.packDetailFragment -> R.string.advanced_section_header_packs
-                R.id.settingsNetworksFragment -> R.string.networks_section_header
-                R.id.networksDetailFragment -> R.string.networks_section_header
-                R.id.appsFragment -> R.string.apps_section_header
-                R.id.navigation_settings -> R.string.main_tab_settings
-                R.id.navigation_settings_account -> R.string.account_action_my_account
-                R.id.settingsLogoutFragment -> R.string.account_header_logout
-                R.id.settingsAppFragment -> R.string.app_settings_section_header
-                R.id.leasesFragment -> R.string.account_action_devices
-                R.id.retentionFragment -> R.string.activity_section_header
-                else -> null
-            }
-            translationId?.let {
-                toolbar.visibility = View.VISIBLE
-                if (it is Int) toolbar.title = getString(it)
-                else it.toString()
-            } ?: run {
-                toolbar.visibility = View.GONE
-            }
         }
 
         intent?.let {
@@ -322,8 +378,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     override fun onSupportNavigateUp(): Boolean {
         if (WebService.goBack()) return true
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp()
+        return stage.goBack()
     }
 
     override fun onBackPressed() {
@@ -346,8 +401,33 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        SettingsNavigation.handle(this, navController, pref.key, account.account.value)
+        val path = when (pref.key) {
+            "main_account" -> "settings/account"
+            "main_logout" -> "settings/logout"
+            "main_leases" -> "settings/leases"
+            "main_retention" -> "settings/retention"
+            "main_app" -> "settings/app"
+            "main_kb" -> Links.kb
+            "main_donate" -> Links.donate
+            "main_community" -> Links.community
+            "main_support" -> account.account.value?.id?.let { Links.support(it) }
+            "main_about" -> Links.credits
+            "account_subscription_manage" -> null
+            "account_help_why" -> Links.whyUpgrade
+            "logout_howtorestore" -> Links.howToRestore
+            "logout_support" -> account.account.value?.id?.let { Links.support(it) }
+            else -> null
+        }
+
+        when {
+            path != null -> stage.setRoute(path)
+            pref.key == "account_subscription_manage"
+                    && account.account.value?.type.toAccountType() != AccountType.Libre -> {
+                val intent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/account/subscriptions"))
+                startActivity(intent)
+            }
+        }
         return true
     }
 
@@ -367,8 +447,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
             R.id.help_sharelog -> LogService.shareLog()
             R.id.help_marklog -> LogService.markLog()
             R.id.help_settings -> {
-                val nav = findNavController(R.id.nav_host_fragment)
-                nav.navigate(R.id.navigation_settings)
+//                val nav = findNavController(R.id.nav_host_fragment)
+//                nav.navigate(R.id.navigation_settings)
+
+
+
 //                nav.navigate(
 //                    SettingsFragmentDirections.actionNavigationSettingsToSettingsAppFragment()
 //                )
