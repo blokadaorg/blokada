@@ -383,6 +383,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
     override fun onBackPressed() {
         if (WebService.goBack()) return
+        if (stage.goBack()) return
         super.onBackPressed()
     }
 
