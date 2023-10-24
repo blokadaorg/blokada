@@ -87,7 +87,7 @@ class DefaultTrace implements Trace {
     }
     _end = DateTime.now();
     _status = TraceStatus.efault;
-    _statusError = _mapError(e);
+    _statusError = mapError(e);
     _statusStackTrace = s;
 
     Trace? up = _parent;
@@ -107,7 +107,7 @@ class DefaultTrace implements Trace {
     }
     _end = DateTime.now();
     _status = TraceStatus.efatal;
-    _statusError = _mapError(e);
+    _statusError = mapError(e);
     _statusStackTrace = s;
 
     Trace? up = _parent;
@@ -198,15 +198,16 @@ class StdoutTraceCollector implements TraceCollector {
   }
 
   String _shortError(Object? e) {
-    return shortString(_mapError(e));
+    return shortString(mapError(e));
   }
 }
 
-String _mapError(Object? e) {
+String mapError(Object? e) {
   if (e == null) return "[no error object]";
   if (e is PlatformException) {
-    final msg = e.code;
-    return "PlatformException($msg)";
+    final type = e.code;
+    final msg = e.message ?? "";
+    return "PlatformException($type; $msg)";
   } else {
     final s = e.toString();
     if (s.contains("instanceFactory != null")) {
