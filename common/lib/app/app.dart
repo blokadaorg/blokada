@@ -38,6 +38,7 @@ class AppStatusStrategy {
   final bool cloudEnabled;
   final bool accountIsCloud;
   final bool accountIsPlus;
+  final bool accountIsFamily;
   final bool plusPermEnabled;
   final bool plusActive;
   final bool reconfiguring;
@@ -51,6 +52,7 @@ class AppStatusStrategy {
     this.cloudEnabled = false,
     this.accountIsCloud = false,
     this.accountIsPlus = false,
+    this.accountIsFamily = false,
     this.plusPermEnabled = false,
     this.plusActive = false,
     this.reconfiguring = false,
@@ -65,6 +67,7 @@ class AppStatusStrategy {
     bool? cloudEnabled,
     bool? accountIsCloud,
     bool? accountIsPlus,
+    bool? accountIsFamily,
     bool? plusPermEnabled,
     bool? plusActive,
     bool? reconfiguring,
@@ -78,6 +81,7 @@ class AppStatusStrategy {
       cloudEnabled: cloudEnabled ?? this.cloudEnabled,
       accountIsCloud: accountIsCloud ?? this.accountIsCloud,
       accountIsPlus: accountIsPlus ?? this.accountIsPlus,
+      accountIsFamily: accountIsFamily ?? this.accountIsFamily,
       plusPermEnabled: plusPermEnabled ?? this.plusPermEnabled,
       plusActive: plusActive ?? this.plusActive,
       reconfiguring: reconfiguring ?? this.reconfiguring,
@@ -97,6 +101,8 @@ class AppStatusStrategy {
     } else if (accountIsPlus && /*plusPermEnabled &&*/ plusActive) {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedPlus;
     } else if (accountIsCloud && cloudPermEnabled && cloudEnabled) {
+      return (appPaused) ? AppStatus.deactivated : AppStatus.activatedCloud;
+    } else if (accountIsFamily && cloudPermEnabled && cloudEnabled) {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedCloud;
     } else {
       return AppStatus.deactivated;
@@ -198,9 +204,12 @@ abstract class AppStoreBase with Store, Traceable, Dependable, Emitter {
       final account = _account.account!;
       final isCloud = account.type == AccountType.cloud;
       final isPlus = account.type == AccountType.plus;
+      final isFamily = account.type == AccountType.family;
 
       _strategy = _strategy.update(
-          accountIsCloud: isCloud || isPlus, accountIsPlus: isPlus);
+          accountIsCloud: isCloud || isPlus,
+          accountIsPlus: isPlus,
+          accountIsFamily: isFamily);
       await _updateStatus(trace);
     });
   }

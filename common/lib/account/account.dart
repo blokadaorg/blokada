@@ -50,11 +50,7 @@ AccountType accountTypeFromName(String? name) {
       : AccountType.values.byName(name ?? "unknown");
 }
 
-enum AccountType {
-  libre,
-  plus,
-  cloud,
-}
+enum AccountType { libre, plus, cloud, family }
 
 extension AccountTypeExt on AccountType {
   bool isActive() {
@@ -65,7 +61,8 @@ extension AccountTypeExt on AccountType {
     return other != null &&
             this == AccountType.plus &&
             other != AccountType.plus ||
-        this == AccountType.cloud && other == AccountType.libre;
+        this == AccountType.cloud && other == AccountType.libre ||
+        this == AccountType.family && other == AccountType.libre;
   }
 
   String toSimpleString() {
