@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
+import '../util/config.dart';
 import 'scaffolding.dart';
 import 'theme.dart';
 
@@ -13,6 +14,10 @@ class Root extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const plusColor = Color(0xffFF9400);
+    const familyColor = Color(0xffF74C79);
+    final accentColor = cfg.act.isFamily() ? familyColor : plusColor;
+
     return MaterialApp(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -46,10 +51,10 @@ class Root extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xffFF9400),
+            seedColor: accentColor,
             brightness: Brightness.light,
           ),
-          primary: const Color(0xffFF9400),
+          primary: accentColor,
           error: const Color(0xffFF3B30),
           background: Colors.white,
           // textTheme: const TextTheme(
@@ -70,7 +75,8 @@ class Root extends StatelessWidget {
               bgColorHome3: Color(0xffBDBDBD),
               panelBackground: const Color(0xffF5F7FA),
               cloud: Color(0xFF007AFF),
-              plus: Color(0xffFF9400),
+              plus: plusColor,
+              family: familyColor,
               // shadow: const Color(0xffF5F7FA),
               shadow: Color(0xffe8e8e8),
               bgMiniCard: Colors.white,
@@ -81,10 +87,10 @@ class Root extends StatelessWidget {
           }),
       darkTheme: FlexThemeData.dark(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xffFF9400),
+            seedColor: accentColor,
             brightness: Brightness.dark,
           ),
-          primary: const Color(0xffFF9400),
+          primary: accentColor,
           error: const Color(0xffFF3B30),
           background: Colors.black,
           darkIsTrueBlack: true,
@@ -96,7 +102,8 @@ class Root extends StatelessWidget {
               bgColorHome3: Color(0xFF171616),
               panelBackground: const Color(0xff1c1c1e),
               cloud: Color(0xFF007AFF),
-              plus: Color(0xffFF9400),
+              plus: plusColor,
+              family: familyColor,
               shadow: Color(0xFF1E1E1E),
               bgMiniCard: Color(0xFF1F1F1F),
               textPrimary: Colors.white,

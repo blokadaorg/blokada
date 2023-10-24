@@ -442,7 +442,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                                           padding: const EdgeInsets.all(8.0),
                                           child: MiniCard(
                                             onTap: _handleCtaTap(),
-                                            color: theme.plus,
+                                            color: theme.family,
                                             child: SizedBox(
                                               height: 32,
                                               child: Center(
