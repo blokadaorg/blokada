@@ -196,6 +196,9 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                             translationId = null
                             fragment = tabHome
                             setFragmentInset(fragmentContainer, false)
+
+                            // Needed if flutter brings up full screen views while being in another tab
+                            navView.selectedItemId = R.id.navigation_flutterhome
                         }
                     }
 
@@ -270,7 +273,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                     R.id.navigation_settings -> Tab.Settings
                     else -> Tab.Home
                 }
-                stage.setActiveTab(tab)
+                if (stage.tab.value != tab) stage.setActiveTab(tab)
             }
 
             true

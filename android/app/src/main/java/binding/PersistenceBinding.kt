@@ -12,17 +12,30 @@
 
 package binding
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import channel.persistence.PersistenceOps
+import model.BlokadaException
 import model.LegacyAccount
+import service.ContextService
 import service.FlutterService
 import service.JsonSerializationService
 import service.PersistenceService
-import service.SharedPreferencesStorageService
 import utils.Logger
 
 object PersistenceBinding: PersistenceOps {
     private val flutter by lazy { FlutterService }
-    private val storage by lazy { SharedPreferencesStorageService }
+    private val context by lazy { ContextService }
+
+    private val backedUpSharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(context.requireContext())
+    }
+
+    private val localSharedPreferences by lazy {
+        val ctx = context.requireContext()
+        ctx.getSharedPreferences("local", Context.MODE_PRIVATE)
+    }
 
     init {
         PersistenceOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -35,9 +48,19 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        // TODO: isSecure flag, isBackup flag
-        storage.save(key, value)
+        // TODO: isSecure flag better handling
+        if (isSecure || !isBackup) {
+            localSharedPreferences.save(key, value)
+        } else {
+            backedUpSharedPreferences.save(key, value)
+        }
         callback(Result.success(Unit))
+    }
+
+    private fun SharedPreferences.save(key: String, value: String) {
+        val edit = this.edit()
+        edit.putString(key, value)
+        edit.commit() || throw BlokadaException("Could not save $key to SharedPreferences")
     }
 
     override fun doLoad(
@@ -46,7 +69,12 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<String>) -> Unit
     ) {
-        var result = storage.load(key)
+        var result = if (isSecure || !isBackup) {
+            localSharedPreferences.getString(key, null)
+        } else {
+            backedUpSharedPreferences.getString(key, null)
+        }
+
         if (key == "account:jsonAccount") result = handleLegacyAccount(result)
         if (result != null) callback(Result.success(result))
         else callback(Result.failure(Exception("No value for key $key")))
@@ -59,7 +87,11 @@ object PersistenceBinding: PersistenceOps {
         callback: (Result<Unit>) -> Unit
     ) {
         // TODO: proper delete
-        storage.save(key, "")
+        if (isSecure || !isBackup) {
+            localSharedPreferences.save(key, "")
+        } else {
+            backedUpSharedPreferences.save(key, "")
+        }
         callback(Result.success(Unit))
     }
 

@@ -26,7 +26,7 @@ object PackDataSource: FlavorSpecific {
             description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://oisd.nl/",
-            configs = listOf("basic (wildcards)", "extra (wildcards)", "light")
+            configs = listOf("basic (small)", "extra (big)", "nfsw", "light")
         ),
 
         Pack.mocked(id = "stevenblack", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "fake news", "gambling"),
