@@ -49,6 +49,11 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
       return await traceWith(parentTrace, "onboardProceed", (trace) async {
         await _stage.showModal(trace, StageModal.perms);
       });
+    } else {
+      await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
+          (trace) async {
+        await _stage.dismissModal(trace);
+      });
     }
 
     if (!_account.type.isActive()) return;
