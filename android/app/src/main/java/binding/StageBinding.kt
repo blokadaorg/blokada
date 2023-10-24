@@ -157,14 +157,17 @@ object StageBinding: StageOps {
             StageModal.PAYMENTUNAVAILABLE -> R.string.error_payment_not_available
             StageModal.PAYMENTTEMPUNAVAILABLE -> R.string.error_payment_failed
             StageModal.PAYMENTFAILED -> R.string.error_payment_failed_alternative
-            else -> R.string.error_unknown
+            else -> null
         }
 
-        dialog.showAlert(name, onDismiss = ::modalDismissed)
-        scope.launch {
-            command.execute(CommandName.MODALSHOWN, modal.name)
+        if (name != null) {
+            dialog.showAlert(name, onDismiss = ::modalDismissed)
+            scope.launch {
+                command.execute(CommandName.MODALSHOWN, modal.name)
+            }
+            return true
         }
-        return true
+        return false
     }
 
     override fun doDismissModal(callback: (Result<Unit>) -> Unit) {
