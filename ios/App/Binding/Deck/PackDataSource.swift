@@ -21,7 +21,7 @@ class PackDataSource {
             description: "Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services.",
             creditName: "sjhgvr",
             creditUrl: "https://go.blokada.org/oisd",
-            configs: ["basic (wildcards)", "extra (wildcards)", "light"]
+            configs: ["small", "big", "nsfw", "light"]
         ),
 
         Pack.mocked(id: "stevenblack", tags: [Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "fake news", "gambling"],
