@@ -122,7 +122,10 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
     depend<JournalOps>(getOps(act));
     depend<JournalJson>(JournalJson());
     depend<JournalStore>(this as JournalStore);
+    _isFamily = act.isFamily();
   }
+
+  late bool _isFamily;
 
   @observable
   JournalFilter filter = _noFilter;
@@ -169,7 +172,9 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
         return;
       }
 
-      if (!_stage.route.isTab(StageTab.activity)) {
+      // TODO: this should be flavor specific
+      if (!_stage.route.isTab(StageTab.activity) &&
+          !_stage.route.isTab(StageTab.home)) {
         _stopTimer();
         return;
       }
@@ -188,7 +193,8 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
     if (!route.isForeground()) return;
-    if (!route.isBecameTab(StageTab.activity)) return;
+    if (!route.isBecameTab(StageTab.activity) &&
+        !route.isBecameTab(StageTab.home)) return;
     await updateJournalFreq(parentTrace);
   }
 
@@ -213,6 +219,8 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
     return await traceWith(parentTrace, "updateJournalFreq", (trace) async {
       final enabled = _device.retention?.isEnabled() ?? false;
       if (enabled && _stage.route.isTab(StageTab.activity)) {
+        await enableRefresh(trace);
+      } else if (enabled && _isFamily && _stage.route.isTab(StageTab.home)) {
         await enableRefresh(trace);
       } else if (!enabled) {
         await disableRefresh(trace);

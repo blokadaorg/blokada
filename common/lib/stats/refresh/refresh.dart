@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
+import '../../family/famdevice/famdevice.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
@@ -83,13 +84,22 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
 
+  late final bool _isFlavorFamily;
+
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, onAccountIdChanged);
 
     _timer.addHandler(keyTimer, (trace) async {
-      await _stats.fetch(trace);
+      if (_isFlavorFamily) {
+        for (final deviceName in monitoredDevices) {
+          await _stats.fetchForDevice(trace, deviceName);
+        }
+      } else {
+        await _stats.fetch(trace);
+      }
+
       await statsRefreshed(trace);
     });
   }
@@ -97,10 +107,14 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   @override
   attach(Act act) {
     depend<StatsRefreshStore>(this as StatsRefreshStore);
+    _isFlavorFamily = act.isFamily();
   }
 
   @observable
   StatsRefreshStrategy strategy = StatsRefreshStrategy.init();
+
+  @observable
+  List<String> monitoredDevices = [];
 
   @action
   Future<void> updateForeground(Trace parentTrace, bool isForeground) async {
@@ -130,6 +144,14 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "statsRefreshed", (trace) async {
       strategy = strategy.statsRefreshed();
       _rescheduleTimer(trace);
+    });
+  }
+
+  @action
+  Future<void> setMonitoredDevices(
+      Trace parentTrace, List<String> devices) async {
+    return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
+      monitoredDevices = devices;
     });
   }
 

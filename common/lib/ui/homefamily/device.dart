@@ -7,11 +7,13 @@ import 'package:mobx/mobx.dart' as mobx;
 
 import '../../app/app.dart';
 import '../../app/channel.pg.dart';
+import '../../family/famdevice/famdevice.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
+import '../minicard/chart.dart';
 import '../minicard/counter.dart';
 import '../minicard/header.dart';
 import '../minicard/minicard.dart';
@@ -19,12 +21,18 @@ import '../minicard/summary.dart';
 import '../theme.dart';
 
 class HomeDevice extends StatefulWidget {
+  final void Function()? onLongPress;
   final String deviceName;
+  final FamilyDevice device;
+  final bool thisDevice;
   final Color color;
 
   HomeDevice({
     Key? key,
+    this.onLongPress,
     required this.deviceName,
+    required this.device,
+    required this.thisDevice,
     required this.color,
   }) : super(key: key);
 
@@ -63,6 +71,7 @@ class _HomeCounterState extends State<HomeDevice>
 
   _onTap() {
     traceAs("tappedSlideToStats", (trace) async {
+      await _stats.setSelectedDevice(trace, widget.device.deviceName);
       await _stage.setRoute(trace, StageKnownRoute.homeStats.path);
     });
   }
@@ -70,19 +79,23 @@ class _HomeCounterState extends State<HomeDevice>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return MiniCard(
-      onTap: _onTap,
-      outlined: true,
-      child: MiniCardSummary(
-        header: MiniCardHeader(
-          text: widget.deviceName,
-          icon: Icons.phone_iphone,
-          color: widget.color,
-          chevronIcon: Icons.bar_chart,
+    return GestureDetector(
+      onLongPress: widget.onLongPress,
+      child: MiniCard(
+        onTap: _onTap,
+        // outlined: widget.thisDevice,
+        outlined: false,
+        child: MiniCardSummary(
+          header: MiniCardHeader(
+            text: widget.deviceName,
+            icon: Icons.phone_iphone,
+            color: widget.color,
+            chevronIcon: Icons.chevron_right,
+          ),
+          big: MiniCardChart(device: widget.device, color: widget.color),
+          small: "",
+          //footer: "home status detail active".i18n.replaceAll("*", ""),
         ),
-        big: MiniCardCounter(counter: blockedCounter),
-        small: "",
-        footer: "home status detail active".i18n.replaceAll("*", ""),
       ),
     );
   }

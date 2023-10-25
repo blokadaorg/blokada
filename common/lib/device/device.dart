@@ -1,7 +1,9 @@
 import 'package:mobx/mobx.dart';
+import 'package:unique_names_generator/unique_names_generator.dart' as names;
 
 import '../account/account.dart';
-import '../account/channel.pg.dart';
+import '../env/env.dart';
+import '../persistence/persistence.dart';
 import '../stage/stage.dart';
 import '../util/config.dart';
 import '../util/cooldown.dart';
@@ -26,6 +28,8 @@ extension DeviceRetentionExt on DeviceRetention {
   }
 }
 
+const String _key = "device:alias";
+
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase
@@ -34,6 +38,16 @@ abstract class DeviceStoreBase
   late final _api = dep<DeviceJson>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
+  late final _persistence = dep<PersistenceService>();
+
+  late final _names = names.UniqueNamesGenerator(
+    config: names.Config(
+      length: 1,
+      seperator: " ",
+      style: names.Style.capital,
+      dictionaries: [names.animals],
+    ),
+  );
 
   DeviceStoreBase() {
     willAcceptOn([deviceChanged]);
@@ -57,6 +71,12 @@ abstract class DeviceStoreBase
         _ops.doDeviceTagChanged(tag);
       }
     });
+
+    reactionOnStore((_) => deviceAlias, (alias) async {
+      if (alias.isNotEmpty) {
+        _ops.doDeviceAliasChanged(alias);
+      }
+    });
   }
 
   @override
@@ -64,7 +84,10 @@ abstract class DeviceStoreBase
     depend<DeviceOps>(getOps(act));
     depend<DeviceJson>(DeviceJson());
     depend<DeviceStore>(this as DeviceStore);
+    _isFamily = act.isFamily();
   }
+
+  late bool _isFamily;
 
   @observable
   bool? cloudEnabled;
@@ -81,6 +104,9 @@ abstract class DeviceStoreBase
   @observable
   DateTime lastRefresh = DateTime(0);
 
+  @observable
+  String deviceAlias = "";
+
   @computed
   String get currentDeviceTag {
     final tag = deviceTag;
@@ -88,6 +114,13 @@ abstract class DeviceStoreBase
       throw Exception("No device tag set yet");
     }
     return tag;
+  }
+
+  @action
+  Future<void> load(Trace parentTrace) async {
+    return await traceWith(parentTrace, "load", (trace) async {
+      deviceAlias = await _persistence.load(trace, _key) ?? "";
+    });
   }
 
   @action
@@ -102,6 +135,12 @@ abstract class DeviceStoreBase
       retention = device.retention;
 
       await emit(deviceChanged, trace, device);
+
+      // Family should have the retention enabled by default
+      // TODO: a bit hacky
+      if (_isFamily && (retention?.isEmpty ?? true)) {
+        await setRetention(trace, "24h");
+      }
     });
   }
 
@@ -129,6 +168,37 @@ abstract class DeviceStoreBase
       trace.addAttribute("lists", lists);
       await _api.putDevice(trace, lists: lists);
       await fetch(trace);
+    });
+  }
+
+  @action
+  Future<void> setDeviceName(Trace parentTrace, String? deviceName) async {
+    // Name cannot be changed from OS once generated or set by user
+    if (deviceAlias.isNotEmpty) return;
+
+    return await traceWith(parentTrace, "generateDeviceAlias", (trace) async {
+      // Generate a random name and add the device name
+      try {
+        deviceAlias = _names.generate();
+        if (deviceName?.isNotEmpty ?? false) {
+          deviceAlias = "$deviceAlias ($deviceName)";
+        }
+      } on names.UniqueNamesGeneratorException catch (_) {
+        deviceAlias = deviceName ?? "";
+      }
+
+      await _persistence.saveString(trace, _key, deviceAlias);
+      trace.addAttribute("deviceAlias", deviceAlias);
+    });
+  }
+
+  @action
+  Future<void> setDeviceAlias(Trace parentTrace, String deviceAlias) async {
+    return await traceWith(parentTrace, "setDeviceAlias", (trace) async {
+      if (deviceAlias.isEmpty) throw Exception("Device alias cannot be empty");
+
+      this.deviceAlias = deviceAlias;
+      await _persistence.saveString(trace, _key, deviceAlias);
     });
   }
 

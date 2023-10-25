@@ -112,7 +112,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
         incrementPrivateDnsTagChangeCounter(trace);
         _previousTag = tag;
 
-        await _ops.doSetSetPrivateDnsEnabled(tag);
+        await _ops.doSetSetPrivateDnsEnabled(tag, _device.deviceAlias);
         await _recheckDnsPerm(trace, tag);
         await _recheckVpnPerm(trace);
       }
@@ -162,7 +162,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   }
 
   _recheckDnsPerm(Trace trace, DeviceTag tag) async {
-    final isEnabled = await _ops.doPrivateDnsEnabled(tag);
+    final isEnabled = await _ops.doPrivateDnsEnabled(tag, _device.deviceAlias);
     if (isEnabled) {
       await setPrivateDnsEnabled(trace, tag);
     } else {

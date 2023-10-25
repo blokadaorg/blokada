@@ -128,10 +128,7 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   @computed
   AccountType get type {
     final type = account?.type;
-    if (type == null) {
-      throw AccountNotInitialized();
-    }
-    return type;
+    return type ?? AccountType.libre;
   }
 
   AccountId? _previousAccountId;

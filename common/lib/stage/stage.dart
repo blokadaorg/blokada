@@ -32,6 +32,8 @@ extension StageKnownRouteExt on StageKnownRoute {
         return "home/crash";
       case StageKnownRoute.homeOverlayFamilyOnboard:
         return "home/familyonboard";
+      case StageKnownRoute.homeOverlayFamilyDevices:
+        return "home/familydevices";
     }
   }
 }

@@ -192,6 +192,9 @@ class CommandStore
         return;
       case CommandName.debugOnboard:
         return await _onboard.setOnboardState(trace, OnboardState.firstTime);
+      case CommandName.debugBg:
+        cfg.debugBg = !cfg.debugBg;
+        return;
       case CommandName.setFlavor:
         return;
     }

@@ -10,4 +10,7 @@ abstract class DeviceOps {
 
   @async
   void doDeviceTagChanged(String deviceTag);
+
+  @async
+  void doDeviceAliasChanged(String deviceAlias);
 }

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../account/account.dart';
-import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
 import '../util/di.dart';
@@ -123,6 +122,14 @@ class StatsJson {
       Trace trace, String since, String downsample) async {
     final data = await _http.get(trace,
         "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample");
+    return JsonStatsEndpoint.fromJson(jsonDecode(data));
+  }
+
+  Future<JsonStatsEndpoint> getStatsForDevice(
+      Trace trace, String since, String downsample, String deviceName) async {
+    final encoded = Uri.encodeComponent(deviceName);
+    final data = await _http.get(trace,
+        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample&device_name=$encoded");
     return JsonStatsEndpoint.fromJson(jsonDecode(data));
   }
 }

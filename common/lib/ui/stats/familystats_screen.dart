@@ -1,6 +1,4 @@
 import 'package:common/service/I18nService.dart';
-import 'package:common/util/config.dart';
-import 'package:common/util/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -9,6 +7,7 @@ import 'dart:math' as math;
 
 import '../../stats/stats.dart';
 import '../../util/di.dart';
+import '../../util/mobx.dart';
 import '../minicard/header.dart';
 import '../minicard/minicard.dart';
 import '../theme.dart';
@@ -16,8 +15,8 @@ import 'column_chart.dart';
 import 'radial_segment.dart';
 import 'totalcounter.dart';
 
-class StatsScreen extends StatefulWidget {
-  StatsScreen(
+class FamilyStatsScreen extends StatefulWidget {
+  FamilyStatsScreen(
       {Key? key,
       required bool this.autoRefresh,
       required ScrollController this.controller})
@@ -27,10 +26,10 @@ class StatsScreen extends StatefulWidget {
   final ScrollController controller;
 
   @override
-  State<StatefulWidget> createState() => StatsScreenState();
+  State<StatefulWidget> createState() => FamilyStatsScreenState();
 }
 
-class StatsScreenState extends State<StatsScreen> {
+class FamilyStatsScreenState extends State<FamilyStatsScreen> {
   final _store = dep<StatsStore>();
 
   var stats = UiStats.empty();
@@ -38,10 +37,12 @@ class StatsScreenState extends State<StatsScreen> {
   @override
   void initState() {
     super.initState();
+    stats = _store.deviceStats[_store.selectedDevice] ?? UiStats.empty();
+
     if (widget.autoRefresh) {
-      mobx.autorun((_) {
+      reactionOnStore((_) => _store.deviceStatsChangesCounter, (_) async {
         setState(() {
-          stats = _store.stats;
+          stats = _store.deviceStats[_store.selectedDevice] ?? UiStats.empty();
         });
       });
     }
@@ -55,9 +56,6 @@ class StatsScreenState extends State<StatsScreen> {
   Widget content() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Container(
-      decoration: BoxDecoration(
-        color: theme.bgColor,
-      ),
       child: RelativeBuilder(builder: (context, height, width, sy, sx) {
         return Column(
           children: [

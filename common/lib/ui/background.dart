@@ -52,15 +52,15 @@ class _MyGradientPathPainter extends CustomPainter {
     final gradient1 = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Color(0xffff9400), Color(0xffBDBDBD)],
+      colors: [Color(0xffff769a), Color(0xffBDBDBD)],
     );
 
     final gradient2 = LinearGradient(
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
       colors: [
-        Color(0xffff9400).withOpacity(0.0),
-        Color(0xffFF3B30).withOpacity(0.4)
+        Color(0xfff74c79).withOpacity(0.0),
+        Color(0xfff74c79).withOpacity(0.4)
       ],
     );
 
@@ -68,8 +68,8 @@ class _MyGradientPathPainter extends CustomPainter {
       begin: Alignment.bottomRight,
       end: Alignment.topLeft,
       colors: [
-        Color(0xffff9400).withOpacity(0.0),
-        Color(0xFF8B5003).withOpacity(0.8)
+        Color(0xff73deff).withOpacity(0.0),
+        Color(0xFF3468AD).withOpacity(0.8)
       ],
     );
 

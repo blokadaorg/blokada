@@ -8,6 +8,7 @@ import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
 import '../../env/env.dart';
+import '../../family/famdevice/famdevice.dart';
 import '../../journal/journal.dart';
 import '../../lock/lock.dart';
 import '../../perm/perm.dart';
@@ -57,6 +58,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _rate = dep<RateStore>();
   late final _tracer = dep<Tracer>();
   late final _onboard = dep<OnboardStore>();
+  late final _famdevice = dep<FamilyDeviceStore>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -94,9 +96,12 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
       await _app.initStarted(trace);
       try {
         await _env.syncDeviceName(trace);
+        await _device.load(trace);
+        await _device.setDeviceName(trace, _env.deviceName);
+
         await _onboard.maybeShowOnboardOnStart(trace);
         // Default to show journal only for the current device
-        await _journal.updateFilter(trace, deviceName: _env.deviceName);
+        //await _journal.updateFilter(trace, deviceName: _device.deviceAlias);
         await _plusKeypair.load(trace);
         await _plus.load(trace);
         await _rate.load(trace);
@@ -106,6 +111,8 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         if (_account.type == AccountType.plus) {
           await _plusLease.fetch(trace);
         }
+        // TODO: only when family
+        await _famdevice.load(trace);
         await _tracer.checkForCrashLog(trace);
         await _app.initCompleted(trace);
       } catch (e) {

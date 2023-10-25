@@ -76,6 +76,7 @@ enum CommandName {
   debugHttpFail,
   debugHttpOk,
   debugOnboard,
+  debugBg,
 }
 
 @HostApi()

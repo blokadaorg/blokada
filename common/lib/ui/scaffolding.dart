@@ -1,5 +1,3 @@
-import 'package:common/ui/homefamily/homefamily_screen.dart';
-import 'package:common/util/config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +9,6 @@ import 'coolbg.dart';
 import 'crash/crash_screen.dart';
 import 'home/home_screen.dart';
 import 'lock/lock_screen.dart';
-import 'onboard/family_onboard_screen.dart';
 import 'rate/rate_screen.dart';
 import 'stats/stats_screen.dart';
 
@@ -74,9 +71,6 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
         } else if (path == StageKnownRoute.homeOverlayCrash.path) {
           _knownRoute = StageKnownRoute.homeOverlayCrash;
           _animateToPage(0);
-        } else if (path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
-          _knownRoute = StageKnownRoute.homeOverlayFamilyOnboard;
-          _animateToPage(0);
         } else if (path == StageKnownRoute.homeCloseOverlay.path) {
           _knownRoute = null;
           _animateToPage(0);
@@ -108,28 +102,19 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
             const RateScreen()
           else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
             const CrashScreen()
-          else if (_knownRoute == StageKnownRoute.homeOverlayFamilyOnboard)
-            const FamilyOnboardScreen()
         ],
       ),
     );
   }
 
   _getPages() {
-    final family = cfg.act.isFamily();
-    if (family) {
-      return <Widget>[
-        HomeFamilyScreen(),
-      ];
-    } else {
-      return <Widget>[
-        // const Coolbg(),
-        HomeScreen(),
-        StatsScreen(
-            key: UniqueKey(),
-            autoRefresh: true,
-            controller: ScrollController()),
-      ];
-    }
+    return <Widget>[
+      // const Coolbg(),
+      HomeScreen(),
+      StatsScreen(
+          key: UniqueKey(),
+          autoRefresh: true,
+          controller: ScrollController()),
+    ];
   }
 }

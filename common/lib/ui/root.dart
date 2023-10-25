@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 import '../util/config.dart';
+import 'family_scaffolding.dart';
 import 'scaffolding.dart';
 import 'theme.dart';
 
@@ -118,7 +119,9 @@ class Root extends StatelessWidget {
           data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
           child: I18n(
               child: DefaultBottomBarController(
-                  child: const Scaffolding(title: 'Blokada'))),
+                  child: (cfg.act.isFamily())
+                      ? const FamilyScaffolding(title: 'Blokada')
+                      : const Scaffolding(title: 'Blokada'))),
         );
       }),
     );

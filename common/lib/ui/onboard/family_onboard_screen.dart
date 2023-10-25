@@ -58,9 +58,7 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
     return BlurBackground(
       key: bgStateKey,
       onClosed: _close,
-      child: _onboardState == OnboardState.firstTime
-          ? _getFirstTimeScreen(context)
-          : _getAccountIdDecidedScreen(context),
+      child: _getFirstTimeScreen(context),
     );
   }
 
@@ -70,13 +68,28 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Spacer(),
-        Text("Welcome to Blokada Family!",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              // fontWeight: FontWeight.w500,
-            )),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 68.0),
+          child: Column(
+            children: [
+              Text("Welcome to Blokada Family!",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    // fontWeight: FontWeight.w500,
+                  )),
+              const SizedBox(height: 24),
+              Text("Let us take you through the quick setup.",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    // fontWeight: FontWeight.w500,
+                  )),
+            ],
+          ),
+        ),
         Spacer(),
         SizedBox(
           height: 80,

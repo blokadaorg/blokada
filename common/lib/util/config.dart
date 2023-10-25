@@ -30,6 +30,7 @@ class Config {
       ? Uri.parse("http://192.168.101.107:4318/v1/traces")
       : null;
   late List<String> debugFailingRequests = [];
+  late bool debugBg = false;
 
   late Act act;
 

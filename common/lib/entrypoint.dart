@@ -9,6 +9,7 @@ import 'custom/custom.dart';
 import 'deck/deck.dart';
 import 'device/device.dart';
 import 'env/env.dart';
+import 'family/famdevice/famdevice.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
 import 'lock/lock.dart';
@@ -82,6 +83,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     PermStore().attach(act);
     StatsStore().attach(act);
     StatsRefreshStore().attach(act);
+    FamilyDeviceStore().attach(act);
     HomeStore().attach(act);
     RateStore().attach(act);
     CommandStore().attach(act);

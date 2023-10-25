@@ -26,7 +26,7 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
   late final Act _act;
 
   OnboardStoreBase() {
-    _account.addOn(accountIdChanged, onAccountIdChanged);
+    _account.addOn(accountChanged, onAccountChanged);
     _app.addOn(appStatusChanged, onAppStatusChanged);
   }
 
@@ -43,8 +43,9 @@ abstract class OnboardStoreBase with Store, Traceable, Dependable {
 
   // React to account changes to show the proper onboarding
   @action
-  Future<void> onAccountIdChanged(Trace parentTrace) async {
+  Future<void> onAccountChanged(Trace parentTrace) async {
     if (!_act.isFamily()) {
+      if (!_account.type.isActive()) return;
       // Old flow for the main flavor, just show the onboarding modal
       return await traceWith(parentTrace, "onboardProceed", (trace) async {
         await _stage.showModal(trace, StageModal.perms);

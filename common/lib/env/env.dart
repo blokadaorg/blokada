@@ -32,6 +32,7 @@ abstract class EnvStoreBase with Store, Traceable, Dependable {
   }
 
   @observable
+  // OS provided device name, can be generic like "iPhone"
   String? deviceName;
 
   @action

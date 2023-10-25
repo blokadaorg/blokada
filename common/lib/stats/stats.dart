@@ -104,6 +104,15 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   UiStats stats = UiStats.empty();
 
   @observable
+  Map<String, UiStats> deviceStats = {};
+
+  @observable
+  int deviceStatsChangesCounter = 0;
+
+  @observable
+  String? selectedDevice;
+
+  @observable
   bool hasStats = false;
 
   @action
@@ -117,9 +126,33 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   }
 
   @action
+  Future<void> fetchForDevice(Trace parentTrace, String deviceName) async {
+    return await traceWith(parentTrace, "fetchForDevice", (trace) async {
+      final oneDay =
+          await _api.getStatsForDevice(trace, "24h", "1h", deviceName);
+      final oneWeek =
+          await _api.getStatsForDevice(trace, "1w", "24h", deviceName);
+      deviceStats[deviceName] = _convertStats(oneDay, oneWeek);
+      deviceStatsChangesCounter++;
+    });
+  }
+
+  @action
+  Future<void> setSelectedDevice(Trace parentTrace, String deviceName) async {
+    return await traceWith(parentTrace, "setSelectedDevice", (trace) async {
+      if (!deviceStats.containsKey(deviceName)) {
+        throw Exception("Unknown device");
+      }
+      selectedDevice = deviceName;
+    });
+  }
+
+  @action
   Future<void> drop(Trace parentTrace) async {
     return await traceWith(parentTrace, "drop", (trace) async {
       stats = UiStats.empty();
+      deviceStats = {};
+      deviceStatsChangesCounter = 0;
       hasStats = false;
     });
   }
