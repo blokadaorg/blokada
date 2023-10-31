@@ -118,6 +118,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         GlobalScope.launch {
             stage.route.collect { route ->
+                if (route.isNotEmpty())
                 lifecycleScope.launch {
                     Logger.v("Main", "Route: $route")
 
@@ -138,6 +139,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                         route.startsWith("activity") -> {
                             translationId = R.string.main_tab_activity
                             fragment = tabActivity
+                            navView.selectedItemId = R.id.navigation_activity
                         }
 
                         route.startsWith("advanced") -> {
@@ -153,6 +155,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                                 }
                                 topNav = false
                             }
+                            navView.selectedItemId = R.id.navigation_packs
                         }
 
                         route.startsWith("settings") -> {
@@ -181,6 +184,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                                 fragment = SettingsAppFragment()
                                 topNav = false
                             }
+                            navView.selectedItemId = R.id.navigation_settings
                         }
 
                         route.startsWith("http") -> {
