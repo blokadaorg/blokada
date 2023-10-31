@@ -1,3 +1,4 @@
+import 'package:common/account/account.dart';
 import 'package:common/env/env.dart';
 import 'package:common/plus/gateway/gateway.dart';
 import 'package:common/plus/keypair/keypair.dart';
@@ -22,6 +23,7 @@ import 'fixtures.dart';
   MockSpec<PlusStore>(),
   MockSpec<StageStore>(),
   MockSpec<EnvStore>(),
+  MockSpec<AccountStore>(),
 ])
 import 'lease_test.mocks.dart';
 
@@ -301,6 +303,10 @@ void main() {
         final gateway = MockPlusGatewayStore();
         depend<PlusGatewayStore>(gateway);
 
+        final account = MockAccountStore();
+        when(account.type).thenReturn(AccountType.plus);
+        depend<AccountStore>(account);
+
         final route = StageRouteState.init().newTab(StageTab.home);
         final stage = MockStageStore();
         when(stage.route).thenReturn(route);
@@ -311,6 +317,11 @@ void main() {
 
         await subject.onRouteChanged(trace, route);
         verify(json.getLeases(any));
+
+        // Should not fetch lease if not Plus account
+        when(account.type).thenReturn(AccountType.cloud);
+        await subject.onRouteChanged(trace, route);
+        verifyNever(json.getLeases(any));
       });
     });
   });

@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../account/account.dart';
 import '../../env/env.dart';
 import '../../stage/stage.dart';
 import '../../util/config.dart';
@@ -41,6 +42,7 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   late final _keypair = dep<PlusKeypairStore>();
   late final _plus = dep<PlusStore>();
   late final _stage = dep<StageStore>();
+  late final _account = dep<AccountStore>();
 
   PlusLeaseStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -161,6 +163,8 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (_account.type != AccountType.plus) return;
+
     // Case one: refresh when entering the Settings tab (to see devices)
     if (route.isBecameTab(StageTab.settings) &&
         isCooledDown(cfg.plusLeaseRefreshCooldown)) {

@@ -100,7 +100,9 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         await _startAppWithRetry(trace);
         await _plusGateway.fetch(trace);
         await _plusGateway.load(trace);
-        await _plusLease.fetch(trace);
+        if (_account.type == AccountType.plus) {
+          await _plusLease.fetch(trace);
+        }
         await _tracer.checkForCrashLog(trace);
         await _app.initCompleted(trace);
       } catch (e) {
