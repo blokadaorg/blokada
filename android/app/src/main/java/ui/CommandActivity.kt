@@ -20,6 +20,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import binding.AppBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import model.BlokadaException
 import service.ContextService
 import service.EnvironmentService
@@ -45,6 +48,7 @@ class CommandActivity : AppCompatActivity() {
     private lateinit var settingsVM: SettingsViewModel
 
     private val env by lazy { EnvironmentService }
+    private val app by lazy { AppBinding }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,12 +72,12 @@ class CommandActivity : AppCompatActivity() {
 
     private fun execute(command: Command, param: Param?) {
         when (command) {
-//            Command.OFF -> {
-//                GlobalScope.launch { appRepo.pauseApp(Date()) }
-//            }
-//            Command.ON -> {
-//                GlobalScope.launch { appRepo.unpauseApp() }
-//            }
+            Command.OFF -> {
+                GlobalScope.launch { app.pause() }
+            }
+            Command.ON -> {
+                GlobalScope.launch { app.unpause() }
+            }
 //            Command.LOG -> LogService.shareLog()
             Command.ACC -> {
                 if (param == ACC_MANAGE) {

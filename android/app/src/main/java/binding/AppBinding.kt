@@ -36,6 +36,14 @@ object AppBinding: AppOps, AppStartOps {
         AppStartOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
+    suspend fun pause() {
+        command.execute(channel.command.CommandName.PAUSE)
+    }
+
+    suspend fun unpause() {
+        command.execute(channel.command.CommandName.UNPAUSE)
+    }
+
     override fun doAppStatusChanged(status: AppStatus, callback: (Result<Unit>) -> Unit) {
         this.appStatus.value = status
         callback(Result.success(Unit))
