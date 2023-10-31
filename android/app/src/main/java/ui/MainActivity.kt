@@ -58,10 +58,12 @@ import ui.advanced.decks.PacksFragment
 import ui.home.FlutterHomeFragment
 import ui.home.HelpFragment
 import ui.journal.JournalFragment
+import ui.journal.RetentionFragment
 import ui.settings.SettingsAccountFragment
 import ui.settings.SettingsAppFragment
 import ui.settings.SettingsFragment
 import ui.settings.SettingsLogoutFragment
+import ui.settings.leases.LeasesFragment
 import ui.utils.now
 import ui.web.WebFragment
 import ui.web.WebService
@@ -173,11 +175,11 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                                 topNav = false
                             } else if (id == "leases") {
                                 translationId = R.string.account_action_devices
-                                fragment = SettingsLogoutFragment()
+                                fragment = LeasesFragment()
                                 topNav = false
                             } else if (id == "retention") {
                                 translationId = R.string.account_section_header_settings
-                                fragment = SettingsLogoutFragment()
+                                fragment = RetentionFragment()
                                 topNav = false
                             } else { // app
                                 translationId = R.string.app_settings_section_header
