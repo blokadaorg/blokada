@@ -14,6 +14,8 @@ import Foundation
 import Flutter
 import Factory
 
+extension FlutterError: Error {}
+
 class Flutter {
     lazy var flutterEngine = FlutterEngine(name: "common")
 
