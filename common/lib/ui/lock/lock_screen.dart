@@ -175,7 +175,7 @@ class _LockScreenState extends State<LockScreen>
         children: [
           const Spacer(),
           SizedBox(
-            height: 96,
+            height: 112,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: AnimatedCrossFade(
