@@ -42,7 +42,7 @@ class CommandsBinding: CommandOps {
 
     func execute(_ command: CommandName) {
         if canAcceptCommands {
-            cmd.onCommand(command: "\(command)") {}
+            cmd.onCommand(command: "\(command)") { _ in }
         } else {
             queue.append((command, nil, nil))
         }
@@ -50,7 +50,7 @@ class CommandsBinding: CommandOps {
 
     func execute(_ command: CommandName, _ p1: String) {
         if canAcceptCommands {
-            cmd.onCommandWithParam(command: "\(command)", p1: p1) {}
+            cmd.onCommandWithParam(command: "\(command)", p1: p1) { _ in }
         } else {
             queue.append((command, p1, nil))
         }
@@ -58,7 +58,7 @@ class CommandsBinding: CommandOps {
 
     func execute(_ command: CommandName, _ p1: String, _ p2: String) {
         if canAcceptCommands {
-            cmd.onCommandWithParams(command: "\(command)", p1: p1, p2: p2) {}
+            cmd.onCommandWithParams(command: "\(command)", p1: p1, p2: p2) { _ in }
         } else {
             queue.append((command, p1, p2))
         }
