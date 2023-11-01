@@ -42,6 +42,8 @@ extension DeckItemExt on DeckItem {
   isEnabled() => enabled;
 }
 
+const _defaultListSelection = "05ea377c9a64cba97bf8a6f38cb3a7fa"; // OISD small
+
 class DeckStore = DeckStoreBase with _$DeckStore;
 
 abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
@@ -224,6 +226,10 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   Future<void> onDeviceChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
       await setUserLists(trace, _device.lists!);
+      if (_device.lists!.isEmpty) {
+        trace.addEvent("Empty selection, setting default");
+        return await setEnableList(trace, _defaultListSelection, true);
+      }
     });
   }
 }

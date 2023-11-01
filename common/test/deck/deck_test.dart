@@ -129,5 +129,27 @@ void main() {
         verify(json.getLists(any));
       });
     });
+
+    test("willSelectDefaultWhenEmpty", () async {
+      await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
+        final device = MockDeviceStore();
+        when(device.lists).thenReturn([]);
+        depend<DeviceStore>(device);
+
+        final ops = MockDeckOps();
+        depend<DeckOps>(ops);
+
+        final json = MockDeckJson();
+        depend<DeckJson>(json);
+
+        final subject = DeckStore();
+        verifyNever(device.setLists(any, any));
+
+        await subject.onDeviceChanged(trace);
+        verify(device.setLists(any, any));
+      });
+    });
   });
 }
