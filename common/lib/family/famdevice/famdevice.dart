@@ -12,6 +12,7 @@ import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
 import '../../util/trace.dart';
+import 'json.dart';
 
 part 'famdevice.g.dart';
 
@@ -103,33 +104,28 @@ abstract class FamilyDeviceStoreBase
       final json = await _persistence.load(trace, _key);
       if (json == null) return;
 
-      // final d = jsonDecode(json)["devices"]
-      //     .map((e) => FamilyDevice(
-      //           deviceName: e,
-      //           blocked: 0,
-      //           thisDevice: false,
-      //         ))
-      //     .toList() as List<FamilyDevice>;
-      //
-      // devices = d;
+      devices = JsonFamilyDevices.fromJson(jsonDecode(json))
+          .devices
+          .map((e) => _newDevice(e, null))
+          .toList();
+
       await _statsRefresh.setMonitoredDevices(
           trace, devices.map((e) => e.deviceName).toList());
     });
+  }
+
+  _savePersistence(Trace trace) async {
+    await _persistence.save(
+        trace, _key, JsonFamilyDevices.fromList(devices).toJson());
   }
 
   @action
   Future<void> addDevice(Trace parentTrace) async {
     return await traceWith(parentTrace, "addDevice", (trace) async {
       final d = devices;
-      d.add(FamilyDevice(
-        deviceName: "",
-        deviceDisplayName: "...",
-        stats: UiStats.empty(),
-        thisDevice: false,
-      ));
-      final deviceNames = devices.map((e) => e.deviceName).toList();
-      await _persistence.save(trace, _key, {"devices": deviceNames});
+      d.add(_newDevice(null, null));
       devices = d;
+      await _savePersistence(trace);
       devicesChanges++;
     });
   }
@@ -139,10 +135,9 @@ abstract class FamilyDeviceStoreBase
     return await traceWith(parentTrace, "deleteDevice", (trace) async {
       final d = devices;
       d.removeWhere((e) => e.deviceName == deviceAlias);
-      final deviceNames = devices.map((e) => e.deviceName).toList();
-      await _persistence.save(trace, _key, {"devices": deviceNames});
       devices = d;
       devicesChanges++;
+      await _savePersistence(trace);
       await _statsRefresh.setMonitoredDevices(
           trace, devices.map((e) => e.deviceName).toList());
     });
@@ -157,16 +152,7 @@ abstract class FamilyDeviceStoreBase
 
     return await traceWith(parentTrace, "addThisDevice", (trace) async {
       final stats = _stats.deviceStats[_device.deviceAlias];
-      devices = [
-            FamilyDevice(
-              deviceName: _device.deviceAlias,
-              deviceDisplayName:
-                  "${_device.deviceAlias.split('(').first}(this device)",
-              stats: stats ?? UiStats.empty(),
-              thisDevice: true,
-            )
-          ] +
-          devices;
+      devices = [_newDevice(_device.deviceAlias, stats)] + devices;
       devicesChanges++;
     });
   }
@@ -188,12 +174,7 @@ abstract class FamilyDeviceStoreBase
         final stats = _stats.deviceStats[device];
         final index =
             devices.indexOf(devices.firstWhere((e) => e.deviceName == device));
-        d[index] = FamilyDevice(
-          deviceName: device,
-          deviceDisplayName: device,
-          stats: stats ?? UiStats.empty(),
-          thisDevice: false,
-        );
+        d[index] = _newDevice(device, stats);
       }
 
       var i = 0;
@@ -203,12 +184,7 @@ abstract class FamilyDeviceStoreBase
         if (discovered != null) {
           final index = devices
               .indexOf(devices.firstWhere((e) => e.deviceName == device));
-          d[index] = FamilyDevice(
-            deviceName: discovered,
-            deviceDisplayName: discovered,
-            stats: stats ?? UiStats.empty(),
-            thisDevice: false,
-          );
+          d[index] = _newDevice(discovered, stats);
         }
       }
       devices = d;
@@ -216,5 +192,22 @@ abstract class FamilyDeviceStoreBase
       await _statsRefresh.setMonitoredDevices(
           trace, devices.map((e) => e.deviceName).toList());
     });
+  }
+
+  FamilyDevice _newDevice(String? deviceName, UiStats? stats) {
+    var displayName = deviceName ?? "...";
+    var thisDevice = false;
+
+    if (deviceName != null && deviceName == _device.deviceAlias) {
+      displayName = "${deviceName.split('(').first}(this device)";
+      thisDevice = true;
+    }
+
+    return FamilyDevice(
+      deviceName: deviceName ?? "",
+      deviceDisplayName: displayName,
+      stats: stats ?? UiStats.empty(),
+      thisDevice: thisDevice,
+    );
   }
 }
