@@ -106,6 +106,15 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   @observable
   Map<String, UiStats> deviceStats = {};
 
+  @computed
+  UiStats statsForSelectedDevice() {
+    if (selectedDevice == null) {
+      return stats;
+    } else {
+      return deviceStats[selectedDevice] ?? UiStats.empty();
+    }
+  }
+
   @observable
   int deviceStatsChangesCounter = 0;
 

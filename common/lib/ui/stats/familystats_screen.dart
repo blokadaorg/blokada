@@ -37,12 +37,14 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> {
   @override
   void initState() {
     super.initState();
-    stats = _store.deviceStats[_store.selectedDevice] ?? UiStats.empty();
+    setState(() {
+      stats = _store.statsForSelectedDevice();
+    });
 
     if (widget.autoRefresh) {
       reactionOnStore((_) => _store.deviceStatsChangesCounter, (_) async {
         setState(() {
-          stats = _store.deviceStats[_store.selectedDevice] ?? UiStats.empty();
+          stats = _store.statsForSelectedDevice();
         });
       });
     }

@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart' as mobx;
 
 import '../../stats/stats.dart';
 import '../../util/di.dart';
+import '../../util/mobx.dart';
 import '../theme.dart';
 import 'radial_chart.dart';
 
@@ -32,16 +33,21 @@ class RadialSegmentState extends State<RadialSegment> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      stats = _store.statsForSelectedDevice();
+    });
+
     if (widget.autoRefresh) {
-      mobx.autorun((_) {
+      reactionOnStore((_) => _store.deviceStatsChangesCounter, (_) async {
         setState(() {
-          stats = _store.stats;
+          stats = _store.statsForSelectedDevice();
+
           lastAllowed = allowed;
           lastBlocked = blocked;
           lastTotal = total;
-          allowed = _store.stats.dayAllowed.toDouble();
-          blocked = _store.stats.dayBlocked.toDouble();
-          total = _store.stats.dayTotal.toDouble();
+          allowed = stats.dayAllowed.toDouble();
+          blocked = stats.dayBlocked.toDouble();
+          total = stats.dayTotal.toDouble();
         });
       });
     }

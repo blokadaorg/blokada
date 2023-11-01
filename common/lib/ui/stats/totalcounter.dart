@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
+import '../../util/mobx.dart';
 import '../../util/trace.dart';
 import '../minicard/counter.dart';
 import '../minicard/header.dart';
@@ -43,13 +44,22 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
   @override
   void initState() {
     super.initState();
+    final stats = _stats.statsForSelectedDevice();
+    setState(() {
+      lastAllowed = allowed;
+      lastBlocked = blocked;
+      allowed = stats.totalAllowed.toDouble();
+      blocked = stats.totalBlocked;
+    });
+
     if (autoRefresh) {
-      mobx.autorun((_) {
+      reactionOnStore((_) => _stats.deviceStatsChangesCounter, (_) async {
+        final stats = _stats.statsForSelectedDevice();
         setState(() {
           lastAllowed = allowed;
           lastBlocked = blocked;
-          allowed = _stats.stats.totalAllowed.toDouble();
-          blocked = _stats.stats.totalBlocked;
+          allowed = stats.totalAllowed.toDouble();
+          blocked = stats.totalBlocked;
         });
       });
     }
