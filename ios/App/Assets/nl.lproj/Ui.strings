@@ -106,18 +106,18 @@
 "notification vpn expired body" = "Please update your subscription to continue using BLOKADA+";
 "notification desc settings" = "Swipe the notification left or right for settings.";
 
-"notification generic header" = "Blokada: Action required";
-"notification generic subtitle" = "Tap to learn more";
-"notification generic body" = "Please open the app for details.";
+"notification generic header" = "Blokada: actie vereist";
+"notification generic subtitle" = "Tik voor meer informatie";
+"notification generic body" = "Open de app voor meer informatie.";
 
 // A short header in a notification shown when account expires
 "notification acc header" = "Abonnement verlopen";
-"notification acc subtitle" = "Adblocking is disabled";
-"notification acc body" = "Please update your subscription to continue using Blokada.";
+"notification acc subtitle" = "Adblokkeren is uitgeschakeld";
+"notification acc body" = "Update je abonnement om Blokada te blijven gebruiken.";
 
-"notification pause header" = "Blokada is still paused";
-"notification pause subtitle" = "Adblocking is disabled";
-"notification pause body" = "Please open the app to resume Blokada.";
+"notification pause header" = "Blokada is nog steeds gepauzeerd";
+"notification pause subtitle" = "Adblokkeren is uitgeschakeld";
+"notification pause body" = "Open de app om Blokada te hervatten.";
 
 // Displayed in a notification title. Do not translate "Plus".
 "notification lease header" = "Blokada Plus is uitgeschakeld";
@@ -127,7 +127,7 @@
 "update label updated" = "Bijgewerkt!";
 "update desc updated" = "Je gebruikt nu de nieuwste versie van Blokada! Onthoud, doneren of abonneren op Blokada Plus stelt ons in staat om de app verder te verbeteren.";
 "update desc updated nodon" = "Je gebruikt de nieuwste versie van Blokada!";
-"update downloading description" = "The update is now downloading, and you should see the installation prompt shortly.";
+"update downloading description" = "De update is nu aan het downloaden, en u zou de installatie snel moeten zien.";
 
 "main share message" = "Blokada helped me block %@ ads and trackers!";
 
@@ -155,7 +155,7 @@
 "home status active" = "Actief";
 "home status deactivated" = "Gedeactiveerd";
 "home action tap to activate" = "Tik om te activeren";
-"home status detail paused" = "Paused until timer ends";
+"home status detail paused" = "Gepauzeerd tot de timer eindigt";
 "home status detail active" = "Blokkeert *advertenties* en *trackers*";
 "home status detail active with counter" = "*%@* Advertenties en trackers geblokkeerd";
 "home status detail active day" = "Advertenties en trackers geblokkeerd afgelopen 24u";
@@ -217,9 +217,9 @@
 "activity category recent" = "Recent";
 "activity category top" = "Top";
 "activity category top blocked" = "Top Geblokkeerd";
-"activity category top allowed" = "Top Allowed";
+"activity category top allowed" = "Top toegestaan";
 "activity filter header" = "Which entries would you like to see?";
-"activity filter show all" = "All entries";
+"activity filter show all" = "Alle logs";
 "activity filter show blocked" = "Alleen geblokkeerd";
 "activity filter show allowed" = "Alleen toegestaan";
 // A short message "Showing for: Device A"
@@ -236,7 +236,7 @@
 "userdenied section header" = "Exceptions";
 "userdenied section slugline" = "Manage blocking of particular websites";
 // A section name for the list of hosts allowed by user
-"userdenied tab allowed" = "Allowed";
+"userdenied tab allowed" = "Toegestaan";
 // A section name for the list of hosts blocked by user
 "userdenied tab blocked" = "Adv. geblokkeerd";
 // A short one word action to allow a hostname.
@@ -244,7 +244,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokkeren";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Open uitzonderingen";
 
 "account section header settings" = "Instellingen";
 "account status text" = "Your BLOKADA %@ account is active until %@.";
@@ -304,21 +304,21 @@
 "account lease generated" = "Device added! Download the configuration to use it on any device supported by WireGuard.";
 "account lease wireguard desc" = "Blokada uses WireGuard. Configurations can be downloaded when creating new devices.";
 "account lease label dns" = "DNS";
-"account lease action dns" = "Choose a DNS";
+"account lease action dns" = "Kies een DNS";
 "account lease label public key" = "Publieke sleutel";
 
 "account support action how help" = "Hoe kunnen we je helpen?";
-"account support action kb" = "Open Knowledge Base";
+"account support action kb" = "Open kennisbank";
 
 "account upgrade cloud description" = "This feature is a part of Blokada Plus. To upgrade, please contact our Customer Support.";
 
 "payment header activated" = "Geactiveerd!";
 "payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
-"payment action choose location" = "Choose a location";
-"payment action see locations" = "Our Locations";
+"payment action choose location" = "Kies een locatie";
+"payment action see locations" = "Onze Locaties";
 
 "payment title" = "Upgrade to our VPN service to stay in control of *your privacy*.";
-"payment feature title change location" = "Change Location";
+"payment feature title change location" = "Verander de locatie";
 "payment feature desc change location" = "Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.";
 "payment feature title encrypt data" = "Encrypt Data";
 "payment feature desc encrypt data" = "Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.";
@@ -338,14 +338,14 @@
 "payment feature desc devices" = "Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.";
 "payment feature title no ads" = "Block Ads";
 "payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
-"payment feature title support" = "Great Support";
+"payment feature title support" = "Goede ondersteuning";
 "payment feature desc support" = "Get a prompt response to any questions thanks to our Customer Support and vibrant open source community.";
-"payment action see all features" = "See All Features";
+"payment action see all features" = "Bekijk Alle Functies";
 "payment action restore" = "Restore Purchases";
 "payment action terms and privacy" = "Terms & Privacy";
-"payment action terms" = "Terms of Service";
+"payment action terms" = "Algemene voorwaarden";
 "payment action policy" = "Privacy Policy";
-"payment alert error header" = "A message from App Store";
+"payment alert error header" = "Een bericht van de App Store";
 // As in saving money: You are saving $5
 "payment save text" = "You are saving %@";
 "payment conversion note" = "We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.";
@@ -393,26 +393,26 @@
 "payment plan slugline cloud detail" = "(includes Blokada Cloud)";
 "payment plan slugline plus" = "Additional protection with VPN";
 "payment plan cta trial" = "Start 7-Day Free Trial";
-"payment plan cta monthly" = "Subscribe Monthly";
-"payment plan cta annual" = "Subscribe Annually";
-"payment plan current" = "(current plan)";
+"payment plan cta monthly" = "Maandelijks abonneren";
+"payment plan cta annual" = "Jaarlijks abonneren";
+"payment plan current" = "(huidig abonnement)";
 
-"location region worldwide" = "Everywhere";
-"location region america" = "America";
-"location region europe" = "Europe";
-"location region asia" = "Asia";
-"location region australia" = "Australia";
+"location region worldwide" = "Overal";
+"location region america" = "Amerika";
+"location region europe" = "Europa";
+"location region asia" = "Azië";
+"location region australia" = "Australië";
 
-"web vpn devices header" = "VPN Devices";
+"web vpn devices header" = "VPN Apparaten";
 // A button to open section called "VPN Devices"
 "web vpn devices open action" = "Open VPN Devices";
-"web action open setup" = "Open setup";
-"web cta plus header" = "Upgrade to Blokada Plus to stay in control of your privacy.";
-"web cta plus desc" = "Your Libre account gives you free adblocking on your device with our open source apps. Upgrade to Blokada Plus for an even better protection. You'll get access to our global VPN-network as well as our new *cloud based* adblocking that is more efficient and easier to use.";
+"web action open setup" = "Open instellingen";
+"web cta plus header" = "Upgrade naar Blokada Plus om de controle over je privacy te behouden.";
+"web cta plus desc" = "Uw Libre-account geeft u gratis adblocking op uw apparaat met onze opensource-apps. Upgrade naar Blokada Plus voor een nog betere bescherming. Je krijgt toegang tot ons wereldwijde VPN-netwerk en tot onze nieuwe *cloud gebaseerd* adblocking die efficiënter en gemakkelijker te gebruiken is.";
 // A short word for a button to generate profile
 "web action generate" = "Genereren";
 
-"setup header" = "Setup";
+"setup header" = "Installatie";
 "setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
 "setup label which device" = "What type of device you wish to set up?";
 "setup label choose" = "Choose any of the following setup options:";
@@ -438,7 +438,7 @@
 // A header for the chart that display the number of requests over time. Think of it "number of requests". Must be short (one word).
 "stats requests header" = "Requests";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
-"stats requests subheader" = "Queries over time";
+"stats requests subheader" = "Vragen na verloop van tijd";
 "stats top allowed header" = "Top allowed requests";
 "stats top blocked header" = "Top blocked requests";
 // A short one-word label for the counter of allowed requests.
