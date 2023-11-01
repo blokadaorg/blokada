@@ -111,7 +111,7 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, plusReconfiguring: $reconfiguring, appPaused: $appPaused}";
+    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, plusReconfiguring: $reconfiguring, appPaused: $appPaused}";
   }
 }
 

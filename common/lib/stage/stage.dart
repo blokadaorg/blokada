@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 
@@ -16,27 +15,6 @@ part 'stage.g.dart';
 final routeChanged = EmitterEvent<StageRouteState>();
 
 enum StageTab { background, home, activity, advanced, settings }
-
-extension StageKnownRouteExt on StageKnownRoute {
-  String get path {
-    switch (this) {
-      case StageKnownRoute.homeStats:
-        return "home/stats";
-      case StageKnownRoute.homeCloseOverlay:
-        return "home/close";
-      case StageKnownRoute.homeOverlayLock:
-        return "home/lock";
-      case StageKnownRoute.homeOverlayRate:
-        return "home/rate";
-      case StageKnownRoute.homeOverlayCrash:
-        return "home/crash";
-      case StageKnownRoute.homeOverlayFamilyOnboard:
-        return "home/familyonboard";
-      case StageKnownRoute.homeOverlayFamilyDevices:
-        return "home/familydevices";
-    }
-  }
-}
 
 final _background =
     StageRoute(path: "", tab: StageTab.background, payload: null);
@@ -124,8 +102,7 @@ class StageRouteState {
   bool isTab(StageTab tab) => route.tab == tab;
   bool isModal(StageModal modal) => this.modal == modal;
   bool isMainRoute() => route.payload == null && modal == null;
-  bool isKnown(StageKnownRoute to) =>
-      ("${route.tab.name}/${route.payload ?? ""}") == to.path;
+  bool isSection(String section) => route.payload?.startsWith(section) ?? false;
 
   bool isBecameForeground() => isForeground() && _prevRoute == _background;
   bool isBecameTab(StageTab tab) {
@@ -139,6 +116,8 @@ class StageRouteState {
     if (this.modal != _prevModal) return true;
     return false;
   }
+
+  bool wasModal(StageModal modal) => _prevModal == modal;
 }
 
 /// StageStore
@@ -170,6 +149,7 @@ abstract class StageStoreBase
   bool _isForeground = false;
   StageModal? _modalToShow;
   String? _pathToShow;
+  bool _showNavbar = true;
 
   StageModal? _waitingOnModal;
   Completer? _modalCompleter;
@@ -238,7 +218,6 @@ abstract class StageStoreBase
           trace.addEvent("payload: ${newRoute.route.payload}");
         }
         route = newRoute;
-        await _actOnRoute(trace, newRoute.route);
         await emitValue(routeChanged, trace, newRoute);
       }
     });
@@ -246,10 +225,20 @@ abstract class StageStoreBase
 
   @action
   Future<void> setReady(Trace parentTrace, bool isReady) async {
+    if (this.isReady == isReady) return;
     return await traceWith(parentTrace, "setStageReady", (trace) async {
-      if (this.isReady == isReady) return;
+      trace.addAttribute("ready", isReady);
       this.isReady = isReady;
       if (isReady && _isForeground) await _processWaiting(trace);
+    });
+  }
+
+  @action
+  Future<void> setShowNavbar(Trace parentTrace, bool show) async {
+    return await traceWith(parentTrace, "setShowNavbar", (trace) async {
+      if (_showNavbar == show) return;
+      _showNavbar = show;
+      await _actOnModal(trace, route.modal);
     });
   }
 
@@ -260,22 +249,12 @@ abstract class StageStoreBase
       trace.addEvent("foreground emitted");
     }
 
-<<<<<<< HEAD
     final path = _pathToShow;
     if (path != null) {
       _pathToShow = null;
       await setRoute(trace, path);
       trace.addEvent("path emitted");
     }
-=======
-    return await traceWith(parentTrace, "setLocked", (trace) async {
-      this.isLocked = isLocked;
-      trace.addAttribute("isLocked", isLocked);
-      await _ops.doShowNavbar(!isLocked);
-      await _processQueue(trace);
-    });
-  }
->>>>>>> 30c1e06 (hide nav bar when locked)
 
     final modal = _modalToShow;
     if (modal != null) {
@@ -365,30 +344,33 @@ abstract class StageStoreBase
     });
   }
 
-  @action
-  Future<void> showNavbar(Trace parentTrace, bool show) async {
-    return await traceWith(parentTrace, "showNavbar", (trace) async {
-      await _ops.doShowNavbar(show);
-    });
-  }
-
   _updateModal(Trace trace, StageModal? modal) async {
     route = route.newModal(modal);
     await emitValue(routeChanged, trace, route);
+    await _actOnModal(trace, modal);
   }
 
-  _actOnRoute(Trace trace, StageRoute route) async {
-    if (route.path == StageKnownRoute.homeOverlayLock.path) {
-      await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeOverlayRate.path) {
-      await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeOverlayCrash.path) {
-      await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
-      await _ops.doShowNavbar(false);
-    } else if (route.path == StageKnownRoute.homeCloseOverlay.path &&
-        !isLocked) {
-      await _ops.doShowNavbar(true);
+  final noNavbarModals = [
+    StageModal.lock,
+    StageModal.rate,
+    StageModal.crash,
+    StageModal.onboardingFamily,
+  ];
+
+  _actOnModal(Trace trace, StageModal? modal) async {
+    var show = !noNavbarModals.contains(modal);
+    if (!_showNavbar) {
+      show = false;
     }
+    await _ops.doShowNavbar(show);
+  }
+
+  @action
+  Future<void> openLink(Trace parentTrace, StageLink link) async {
+    return await traceWith(parentTrace, "openLink", (trace) async {
+      // TODO: actual uris processing
+      const url = "https://go.blokada.org/privacy_cloud";
+      await _ops.doOpenLink(url);
+    });
   }
 }

@@ -8,7 +8,14 @@ void depend<T extends Object>(T instance) {
 }
 
 mixin Dependable {
+  late final Act act;
+
   void attach(Act act);
+
+  void attachAndSaveAct(Act act) {
+    this.act = act;
+    attach(act);
+  }
 }
 
 mixin Act {

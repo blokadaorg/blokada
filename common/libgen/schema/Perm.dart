@@ -9,6 +9,9 @@ abstract class PermOps {
   void doSetSetPrivateDnsEnabled(String tag, String alias);
 
   @async
+  void doSetSetPrivateDnsForward();
+
+  @async
   bool doNotificationEnabled();
 
   @async

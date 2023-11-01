@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:mobx/mobx.dart';
 
-import '../../account/account.dart';
-import '../../lock/lock.dart';
-import '../../onboard/onboard.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../debug/commanddialog.dart';
+import '../../../account/account.dart';
+import '../../../family/family.dart';
+import '../../../family/model.dart';
+import '../../../lock/lock.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../debug/commanddialog.dart';
 
 class BigLogo extends StatefulWidget {
   const BigLogo({Key? key}) : super(key: key);
@@ -18,9 +19,7 @@ class BigLogo extends StatefulWidget {
 
 class BigLogoState extends State<BigLogo>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
-  final _onboard = dep<OnboardStore>();
-  final _lock = dep<LockStore>();
-  final _account = dep<AccountStore>();
+  final _family = dep<FamilyStore>();
 
   late AnimationController _bounceController;
   late AnimationController _spinController;
@@ -31,7 +30,9 @@ class BigLogoState extends State<BigLogo>
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
 
-  var _locked = true;
+  FamilyPhase _phase = FamilyPhase.fresh;
+  int _deviceChanges = 0;
+  int _devices = 0;
 
   @override
   void initState() {
@@ -72,22 +73,27 @@ class BigLogoState extends State<BigLogo>
     ));
 
     autorun((_) {
-      if (_onboard.onboardState == OnboardState.completed &&
-          !_lock.isLocked &&
-          _account.type.isActive()) {
-        _scaleController.forward();
-      } else if (_lock.isLocked ||
-          _onboard.onboardState != OnboardState.completed ||
-          !_account.type.isActive()) {
-        _scaleController.reverse();
-      }
-    });
-
-    autorun((_) {
       setState(() {
-        _locked = _lock.isLocked;
+        // If status changed, spin logo
+        if (_phase != _family.phase) {
+          spinImage();
+        }
+
+        _phase = _family.phase;
+        _deviceChanges = _family.devicesChanges;
+        _devices = _family.devices.length;
+
+        _updateLogoScale();
       });
     });
+  }
+
+  _updateLogoScale() {
+    if (!_phase.isLocked() && _devices > 1) {
+      _scaleController.forward();
+    } else {
+      _scaleController.reverse();
+    }
   }
 
   @override
@@ -100,7 +106,6 @@ class BigLogoState extends State<BigLogo>
 
   @override
   Widget build(BuildContext context) {
-    spinImage();
     return AnimatedBuilder(
       animation: foundation.Listenable.merge(
           [_bounceController, _spinController, _scaleController]),
@@ -122,9 +127,9 @@ class BigLogoState extends State<BigLogo>
                     spinImage();
                   },
                   onHorizontalDragEnd: (_) {
-                    if (!_locked) {
-                      _showCommandDialog(context);
-                    }
+                    //if (!_phase.isLocked()) {
+                    _showCommandDialog(context);
+                    //}
                   },
                   child: Image.asset(
                     "assets/images/family-logo.png",

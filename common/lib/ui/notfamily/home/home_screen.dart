@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-import 'package:mobx/mobx.dart' as mobx;
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import '../../app/app.dart';
-import '../../app/channel.pg.dart';
-import '../../lock/lock.dart';
-import '../../stage/channel.pg.dart';
-import '../../stage/stage.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../debug/commanddialog.dart';
-import '../debug/debugoptions.dart';
+import '../../../app/app.dart';
+import '../../../app/channel.pg.dart';
+import '../../../lock/lock.dart';
+import '../../../stage/channel.pg.dart';
+import '../../../stage/stage.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../debug/commanddialog.dart';
+import '../../debug/debugoptions.dart';
 import 'actions.dart';
 import 'icon.dart';
 import 'power_button.dart';
-import '../theme.dart';
+import '../../theme.dart';
+
+const pathHomeStats = "home/stats";
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -137,8 +137,7 @@ class HomeScreenState extends State<HomeScreen>
                                 : Icons.lock_open_outlined,
                             onTap: () {
                               traceAs("tappedShowLock", (trace) async {
-                                await _stage.setRoute(trace,
-                                    StageKnownRoute.homeOverlayLock.path);
+                                await _stage.showModal(trace, StageModal.lock);
                               });
                             },
                           ),

@@ -4,20 +4,24 @@ import 'package:mobx/mobx.dart';
 import '../persistence/persistence.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
+import '../util/emitter.dart';
 import '../util/trace.dart';
 
 part 'lock.g.dart';
+
+final lockChanged = EmitterEvent<bool>();
 
 const _keyLock = "lock:pin";
 
 class LockStore = LockStoreBase with _$LockStore;
 
-abstract class LockStoreBase with Store, Traceable, Dependable {
+abstract class LockStoreBase
+    with Store, Traceable, Dependable, Startable, ValueEmitter<bool> {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
 
   LockStoreBase() {
-    _stage.addOnValue(routeChanged, onRouteChanged);
+    willAcceptOnValue(lockChanged);
   }
 
   @override
@@ -26,24 +30,20 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
   }
 
   @observable
-  bool isLocked = false;
+  bool isLocked = true;
 
   @observable
   bool hasPin = false;
 
   String? _existingPin;
 
+  @override
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (route.isBecameForeground()) {
-      return await traceWith(parentTrace, "checkLock", (trace) async {
-        await load(trace);
-      });
-    } else if (!route.isForeground()) {
-      // return await traceWith(parentTrace, "lockForBg", (trace) async {
-      //   await _stage.setLocked(trace, true);
-      // });
-    }
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      await _stage.setShowNavbar(trace, false);
+      await load(trace);
+    });
   }
 
   @action
@@ -52,11 +52,7 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       _existingPin = await _persistence.load(trace, _keyLock);
       hasPin = _existingPin != null;
       isLocked = hasPin;
-      // if (hasPin) {
-      //   await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
-      // }
-
-      //await _stage.setLocked(trace, hasPin);
+      await emitValue(lockChanged, trace, hasPin);
     });
   }
 
@@ -71,19 +67,13 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       _existingPin = pin;
       isLocked = true;
       hasPin = true;
-<<<<<<< HEAD
-      //await _stage.setLocked(trace, true);
-      await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
-=======
-      await _stage.setLocked(trace, true);
-      //await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
->>>>>>> a6be208 (lock changes)
+      await emitValue(lockChanged, trace, true);
     });
   }
 
   @action
-  Future<void> unlock(Trace parentTrace, String pin) async {
-    return await traceWith(parentTrace, "unlock", (trace) async {
+  Future<void> canUnlock(Trace parentTrace, String pin) async {
+    return await traceWith(parentTrace, "canUnlock", (trace) async {
       if (_existingPin == null) {
         throw Exception("Pin not set");
       }
@@ -92,8 +82,17 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
         throw Exception("Invalid pin");
       }
 
+      // No crash means the pin is correct
+    });
+  }
+
+  @action
+  Future<void> unlock(Trace parentTrace, String pin) async {
+    return await traceWith(parentTrace, "unlock", (trace) async {
+      await canUnlock(trace, pin);
+
       isLocked = false;
-      //await _stage.setLocked(trace, false);
+      await emitValue(lockChanged, trace, false);
     });
   }
 

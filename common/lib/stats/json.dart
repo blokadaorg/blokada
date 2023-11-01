@@ -79,18 +79,24 @@ class JsonMetrics {
 class JsonTags {
   late String action;
   String? deviceName;
+  String? company;
+  String? tld;
 
-  JsonTags({required this.action, this.deviceName});
+  JsonTags({required this.action, this.deviceName, this.company, this.tld});
 
   JsonTags.fromJson(Map<String, dynamic> json) {
     action = json['action'];
     deviceName = json.containsKey('device_name') ? json['device_name'] : null;
+    company = json.containsKey('company') ? json['company'] : null;
+    tld = json.containsKey('tld') ? json['tld'] : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['action'] = action;
     data['device_name'] = deviceName;
+    data['company'] = company;
+    data['tld'] = tld;
     return data;
   }
 }
@@ -114,6 +120,26 @@ class JsonDps {
   }
 }
 
+class JsonToplistEndpoint {
+  late JsonStats toplist;
+
+  JsonToplistEndpoint({required this.toplist});
+
+  JsonToplistEndpoint.fromJson(Map<String, dynamic> json) {
+    try {
+      toplist = JsonStats.fromJson(json['toplist']);
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['toplist'] = toplist.toJson();
+    return data;
+  }
+}
+
 class StatsJson {
   late final _http = dep<HttpService>();
   late final _account = dep<AccountStore>();
@@ -131,5 +157,13 @@ class StatsJson {
     final data = await _http.get(trace,
         "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample&device_name=$encoded");
     return JsonStatsEndpoint.fromJson(jsonDecode(data));
+  }
+
+  Future<JsonToplistEndpoint> getToplistForDevice(
+      Trace trace, String deviceName) async {
+    final encoded = Uri.encodeComponent(deviceName);
+    final data = await _http.get(trace,
+        "$jsonUrl/v2/activity/toplist?account_id=${_account.id}&device_name=$encoded");
+    return JsonToplistEndpoint.fromJson(jsonDecode(data));
   }
 }

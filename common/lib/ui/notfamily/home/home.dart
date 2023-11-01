@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 
-import '../../app/app.dart';
-import '../../util/di.dart';
+import '../../../app/app.dart';
+import '../../../util/di.dart';
 
 part 'home.g.dart';
 

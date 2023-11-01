@@ -3,6 +3,7 @@ import 'package:pigeon/pigeon.dart';
 enum StageModal {
   help,
   perms,
+  onboardingFamily,
   onboardingAccountDecided,
   // pause,
   payment,
@@ -27,17 +28,13 @@ enum StageModal {
   paymentUnavailable,
   paymentTempUnavailable,
   paymentFailed,
+  deviceAlias,
+  lock,
+  rate,
+  crash
 }
 
-enum StageKnownRoute {
-  homeStats,
-  homeOverlayLock,
-  homeOverlayRate,
-  homeOverlayCrash,
-  homeOverlayFamilyOnboard,
-  homeOverlayFamilyDevices,
-  homeCloseOverlay,
-}
+enum StageLink { toc }
 
 @HostApi()
 abstract class StageOps {
@@ -52,6 +49,9 @@ abstract class StageOps {
 
   @async
   void doShowNavbar(bool show);
+
+  @async
+  void doOpenLink(String url);
 }
 
 @FlutterApi()

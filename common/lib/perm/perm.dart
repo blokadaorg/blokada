@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
 import '../plus/plus.dart';
+import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
@@ -36,6 +37,11 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   @observable
   DeviceTag? privateDnsEnabled;
 
+  // Used for when we want to skip our own dns and just forward it.
+  // This is only for Family, for when device is unlocked.
+  @observable
+  bool isForwardDns = false;
+
   @observable
   int privateDnsTagChangeCounter = 0;
 
@@ -46,6 +52,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   bool vpnEnabled = false;
 
   DeviceTag? _previousTag;
+  String? _previousAlias;
 
   @action
   Future<void> setPrivateDnsEnabled(Trace parentTrace, DeviceTag tag) async {
@@ -108,13 +115,37 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   Future<void> syncPermsAfterTagChange(Trace parentTrace, String tag) async {
     return await traceWith(parentTrace, "syncPermsAfterTagChange",
         (trace) async {
-      if (_previousTag == null || tag != _previousTag) {
+      if (_previousTag == null ||
+          tag != _previousTag ||
+          _previousAlias == null ||
+          _previousAlias != _device.deviceAlias) {
         incrementPrivateDnsTagChangeCounter(trace);
         _previousTag = tag;
+        _previousAlias = _device.deviceAlias;
 
-        await _ops.doSetSetPrivateDnsEnabled(tag, _device.deviceAlias);
+        if (isForwardDns) {
+          await _ops.doSetSetPrivateDnsForward();
+        } else {
+          await _ops.doSetSetPrivateDnsEnabled(tag, _device.deviceAlias);
+        }
+
         await _recheckDnsPerm(trace, tag);
         await _recheckVpnPerm(trace);
+      }
+    });
+  }
+
+  @action
+  Future<void> setForwardDns(Trace parentTrace, bool forward) async {
+    return await traceWith(parentTrace, "setForwardDns", (trace) async {
+      trace.addAttribute("forward", forward);
+      isForwardDns = forward;
+      final tag = _previousTag;
+      _previousTag = null;
+      if (tag != null) {
+        await syncPermsAfterTagChange(trace, tag);
+      } else if (forward) {
+        await _ops.doSetSetPrivateDnsForward();
       }
     });
   }
@@ -133,7 +164,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (!route.isBecameForeground()) return;
+    if (!route.isBecameForeground() && route.modal != StageModal.perms) return;
 
     return await traceWith(parentTrace, "checkPermsOnFg", (trace) async {
       await syncPerms(trace);
@@ -152,8 +183,8 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> onDeviceChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
-      final tag = _device.deviceTag!;
-      await syncPermsAfterTagChange(trace, tag);
+      final tag = _device.deviceTag;
+      if (tag != null) await syncPermsAfterTagChange(trace, tag);
     });
   }
 

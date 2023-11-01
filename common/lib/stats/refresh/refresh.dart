@@ -1,8 +1,6 @@
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
-import '../../family/famdevice/famdevice.dart';
-import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
 import '../../util/config.dart';
@@ -53,6 +51,16 @@ class StatsRefreshStrategy {
     );
   }
 
+  StatsRefreshStrategy resetLastRefresh() {
+    return StatsRefreshStrategy(
+      lastRefresh: DateTime(0),
+      isOnStatsScreen: isOnStatsScreen,
+      isOnStatsHomeScreen: isOnStatsHomeScreen,
+      isForeground: isForeground,
+      isAccountActive: isAccountActive,
+    );
+  }
+
   StatsRefreshStrategy statsRefreshed() {
     return StatsRefreshStrategy(
       lastRefresh: DateTime.now(),
@@ -67,9 +75,9 @@ class StatsRefreshStrategy {
     if (!isAccountActive || !isForeground) {
       return null;
     } else if (isOnStatsScreen) {
-      return lastRefresh.add(cfg.statsRefreshWhenOnStatsScreen);
+      return lastRefresh.add(cfg.refreshVeryFrequent);
     } else if (isOnStatsHomeScreen) {
-      return lastRefresh.add(cfg.statsRefreshWhenOnHomeScreen);
+      return lastRefresh.add(cfg.refreshOnHome);
     } else {
       return lastRefresh.add(cfg.statsRefreshWhenOnAnotherScreen);
     }
@@ -84,17 +92,20 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
 
-  late final bool _isFlavorFamily;
-
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, onAccountIdChanged);
 
     _timer.addHandler(keyTimer, (trace) async {
-      if (_isFlavorFamily) {
-        for (final deviceName in monitoredDevices) {
-          await _stats.fetchForDevice(trace, deviceName);
+      if (act.isFamily()) {
+        // For family we need to be a bit smart on what device to refresh
+        if (strategy.isOnStatsScreen && _stats.selectedDevice != null) {
+          await _stats.fetchForDevice(trace, _stats.selectedDevice!);
+        } else {
+          for (final deviceName in monitoredDevices) {
+            await _stats.fetchForDevice(trace, deviceName);
+          }
         }
       } else {
         await _stats.fetch(trace);
@@ -107,7 +118,6 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   @override
   attach(Act act) {
     depend<StatsRefreshStore>(this as StatsRefreshStore);
-    _isFlavorFamily = act.isFamily();
   }
 
   @observable
@@ -152,6 +162,8 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
       Trace parentTrace, List<String> devices) async {
     return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
       monitoredDevices = devices;
+      strategy = strategy.resetLastRefresh(); // To cause one immediate refresh
+      _rescheduleTimer(trace);
     });
   }
 
@@ -163,7 +175,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
       await updateScreen(
         trace,
         isHome: route.isTab(StageTab.home),
-        isStats: route.isKnown(StageKnownRoute.homeStats),
+        isStats: route.isTab(StageTab.home) && route.isSection("stats"),
       );
     });
   }

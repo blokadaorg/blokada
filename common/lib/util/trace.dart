@@ -114,3 +114,7 @@ String shortString(String s, {int length = 64}) {
     return s.replaceAll("\n", "").trim();
   }
 }
+
+mixin Startable {
+  Future<void> start(Trace parentTrace);
+}

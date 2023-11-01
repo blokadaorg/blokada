@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../app/app.dart';
-import '../../app/start/start.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../anim/sliding.dart';
-import '../touch.dart';
+import '../../../app/app.dart';
+import '../../../app/start/start.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../anim/sliding.dart';
+import '../../touch.dart';
 import 'plusbutton.dart';
 import 'counter.dart';
 

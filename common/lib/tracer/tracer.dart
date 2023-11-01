@@ -21,7 +21,7 @@ String generateTraceId(int len) {
 final runtimeTraceId = generateTraceId(16);
 String? runtimeLastError;
 
-class Tracer with Dependable, Traceable implements TraceFactory {
+class Tracer with Dependable, Traceable, Startable implements TraceFactory {
   late final _crashCollector =
       FileTraceCollector(getLogFilename(forCrash: true), immediate: true);
   late final _stage = dep<StageStore>();
@@ -34,6 +34,13 @@ class Tracer with Dependable, Traceable implements TraceFactory {
     depend<TraceFactory>(this);
     depend<TracerOps>(getOps(act));
     depend<TraceCollector>(DefaultTraceCollectorManager());
+  }
+
+  @override
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      await checkForCrashLog(trace);
+    });
   }
 
   @override
@@ -57,7 +64,7 @@ class Tracer with Dependable, Traceable implements TraceFactory {
         await deleteCrashLog(trace);
         await _persistence.delete(trace, "tracer:crashProposed");
       } else {
-        await _stage.setRoute(trace, StageKnownRoute.homeOverlayCrash.path);
+        await _stage.showModal(trace, StageModal.crash);
         await _persistence.saveString(trace, "tracer:crashProposed", "1");
       }
     });

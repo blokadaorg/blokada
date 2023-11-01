@@ -3,6 +3,7 @@ import 'package:common/plus/lease/json.dart';
 import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
+import '../account/account.dart';
 import '../app/app.dart';
 import '../app/channel.pg.dart';
 import '../device/device.dart';
@@ -28,7 +29,7 @@ const String _keySelected = "plus:active";
 
 class PlusStore = PlusStoreBase with _$PlusStore;
 
-abstract class PlusStoreBase with Store, Traceable, Dependable {
+abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
   late final _ops = dep<PlusOps>();
   late final _keypair = dep<PlusKeypairStore>();
   late final _gateway = dep<PlusGatewayStore>();
@@ -38,6 +39,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
   late final _app = dep<AppStore>();
   late final _device = dep<DeviceStore>();
   late final _stage = dep<StageStore>();
+  late final _account = dep<AccountStore>();
 
   PlusStoreBase() {
     _app.addOn(appStatusChanged, reactToAppStatus);
@@ -54,6 +56,23 @@ abstract class PlusStoreBase with Store, Traceable, Dependable {
 
   @observable
   bool plusEnabled = false;
+
+  @override
+  @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      // Assuming keypair already loaded
+      await load(trace);
+      if (act.isFamily()) return;
+
+      await _gateway.fetch(trace);
+      await _gateway.load(trace);
+
+      if (_account.type == AccountType.plus) {
+        await _lease.fetch(trace);
+      }
+    });
+  }
 
   @action
   Future<void> load(Trace parentTrace) async {

@@ -22,7 +22,8 @@ extension PlusKeypairExt on PlusKeypair {
 
 class PlusKeypairStore = PlusKeypairStoreBase with _$PlusKeypairStore;
 
-abstract class PlusKeypairStoreBase with Store, Traceable, Dependable {
+abstract class PlusKeypairStoreBase
+    with Store, Traceable, Dependable, Startable {
   late final _ops = dep<PlusKeypairOps>();
   late final _persistence = dep<SecurePersistenceService>();
   late final _account = dep<AccountStore>();
@@ -53,6 +54,15 @@ abstract class PlusKeypairStoreBase with Store, Traceable, Dependable {
       throw Exception("No device public key set yet");
     }
     return key;
+  }
+
+  @override
+  @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      // TODO: needed for family?
+      await load(trace);
+    });
   }
 
   @action

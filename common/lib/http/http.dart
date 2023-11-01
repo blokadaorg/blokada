@@ -24,7 +24,7 @@ class HttpCodeException implements Exception {
   }
 
   bool shouldRetry() {
-    return code > 500;
+    return code >= 500;
   }
 }
 
@@ -102,7 +102,7 @@ class PlatformHttpService with Traceable implements HttpService {
 /// RepeatingHttp
 ///
 /// Will repeat the request if it fails with a retry-able error.
-class RepeatingHttpService implements HttpService, Dependable {
+class RepeatingHttpService with Dependable implements HttpService {
   final HttpService _service;
   final int maxRetries;
   final Duration waitTime;

@@ -1,5 +1,6 @@
 import 'package:mocktail/mocktail.dart';
 
+import '../../util/act.dart';
 import '../../util/di.dart';
 import 'channel.pg.dart';
 
@@ -16,7 +17,10 @@ PlusKeypairOps getOps(Act act) {
 }
 
 _actNormal(MockPlusKeypairOps ops) {
+  registerFallbackValue(PlusKeypair(publicKey: "mocked", privateKey: "mocked"));
+
   when(() => ops.doGenerateKeypair()).thenAnswer((_) async {
     return PlusKeypair(publicKey: "mock-pk", privateKey: "mock-sk");
   });
+  when(() => ops.doCurrentKeypair(any())).thenAnswer(ignore());
 }

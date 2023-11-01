@@ -54,6 +54,7 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
 
     if (autoRefresh) {
       reactionOnStore((_) => _stats.deviceStatsChangesCounter, (_) async {
+        if (!mounted) return;
         final stats = _stats.statsForSelectedDevice();
         setState(() {
           lastAllowed = allowed;

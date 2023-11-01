@@ -13,4 +13,7 @@ abstract class DeviceOps {
 
   @async
   void doDeviceAliasChanged(String deviceAlias);
+
+  @async
+  void doNameProposalsChanged(List<String> names);
 }

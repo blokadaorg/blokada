@@ -3,18 +3,16 @@ import 'account/payment/payment.dart';
 import 'account/refresh/refresh.dart';
 import 'app/app.dart';
 import 'app/start/start.dart';
-import 'command/channel.pg.dart';
 import 'command/command.dart';
 import 'custom/custom.dart';
 import 'deck/deck.dart';
 import 'device/device.dart';
 import 'env/env.dart';
-import 'family/famdevice/famdevice.dart';
+import 'family/family.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
 import 'lock/lock.dart';
 import 'notification/notification.dart';
-import 'onboard/onboard.dart';
 import 'perm/perm.dart';
 import 'persistence/persistence.dart';
 import 'plus/gateway/gateway.dart';
@@ -27,7 +25,7 @@ import 'stage/stage.dart';
 import 'stats/refresh/refresh.dart';
 import 'stats/stats.dart';
 import 'timer/timer.dart';
-import 'ui/home/home.dart';
+import 'ui/notfamily/home/home.dart';
 import 'util/config.dart';
 import 'util/di.dart';
 import 'util/trace.dart';
@@ -39,10 +37,11 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
   @override
   attach(Act act) {
     cfg.act = act;
-    Tracer().attach(act);
-    DefaultTimer().attach(act);
 
-    PlatformPersistence(isSecure: false).attach(act);
+    Tracer().attachAndSaveAct(act);
+    DefaultTimer().attachAndSaveAct(act);
+
+    PlatformPersistence(isSecure: false).attachAndSaveAct(act);
     final secure = PlatformPersistence(isSecure: true);
     depend<SecurePersistenceService>(secure);
 
@@ -51,42 +50,41 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
         DebugHttpService(PlatformHttpService()),
         maxRetries: cfg.httpMaxRetries,
         waitTime: cfg.httpRetryDelay,
-      ).attach(act);
+      ).attachAndSaveAct(act);
     } else {
       RepeatingHttpService(
         PlatformHttpService(),
         maxRetries: cfg.httpMaxRetries,
         waitTime: cfg.httpRetryDelay,
-      ).attach(act);
+      ).attachAndSaveAct(act);
     }
 
     // The stores. Order is important
-    EnvStore().attach(act);
-    StageStore().attach(act);
-    LockStore().attach(act);
-    AccountStore().attach(act);
-    NotificationStore().attach(act);
-    AccountPaymentStore().attach(act);
-    AccountRefreshStore().attach(act);
-    DeviceStore().attach(act);
-    AppStore().attach(act);
-    AppStartStore().attach(act);
-    OnboardStore().attach(act);
-    CustomStore().attach(act);
-    DeckStore().attach(act);
-    JournalStore().attach(act);
-    PlusStore().attach(act);
-    PlusKeypairStore().attach(act);
-    PlusGatewayStore().attach(act);
-    PlusLeaseStore().attach(act);
-    PlusVpnStore().attach(act);
-    PermStore().attach(act);
-    StatsStore().attach(act);
-    StatsRefreshStore().attach(act);
-    FamilyDeviceStore().attach(act);
-    HomeStore().attach(act);
-    RateStore().attach(act);
-    CommandStore().attach(act);
+    EnvStore().attachAndSaveAct(act);
+    LockStore().attachAndSaveAct(act);
+    StageStore().attachAndSaveAct(act);
+    AccountStore().attachAndSaveAct(act);
+    NotificationStore().attachAndSaveAct(act);
+    AccountPaymentStore().attachAndSaveAct(act);
+    AccountRefreshStore().attachAndSaveAct(act);
+    DeviceStore().attachAndSaveAct(act);
+    AppStore().attachAndSaveAct(act);
+    AppStartStore().attachAndSaveAct(act);
+    CustomStore().attachAndSaveAct(act);
+    DeckStore().attachAndSaveAct(act);
+    JournalStore().attachAndSaveAct(act);
+    PlusStore().attachAndSaveAct(act);
+    PlusKeypairStore().attachAndSaveAct(act);
+    PlusGatewayStore().attachAndSaveAct(act);
+    PlusLeaseStore().attachAndSaveAct(act);
+    PlusVpnStore().attachAndSaveAct(act);
+    PermStore().attachAndSaveAct(act);
+    StatsStore().attachAndSaveAct(act);
+    StatsRefreshStore().attachAndSaveAct(act);
+    FamilyStore().attachAndSaveAct(act);
+    HomeStore().attachAndSaveAct(act);
+    RateStore().attachAndSaveAct(act);
+    CommandStore().attachAndSaveAct(act);
 
     depend<Entrypoint>(this);
   }

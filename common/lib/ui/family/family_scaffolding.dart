@@ -1,20 +1,21 @@
 import 'package:common/ui/background.dart';
-import 'package:common/ui/homefamily/homefamily_screen.dart';
-import 'package:common/ui/stats/familystats_screen.dart';
+import 'package:common/ui/family/homefamily/homefamily_screen.dart';
+import 'package:common/ui/family/familystats_screen.dart';
 import 'package:common/ui/theme.dart';
 import 'package:common/util/config.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../lock/lock.dart';
-import '../stage/channel.pg.dart';
-import '../stage/stage.dart';
-import '../util/di.dart';
-import '../util/trace.dart';
-import 'crash/crash_screen.dart';
-import 'lock/lock_screen.dart';
+import '../../lock/lock.dart';
+import '../../stage/channel.pg.dart';
+import '../../stage/stage.dart';
+import '../../util/di.dart';
+import '../../util/trace.dart';
+import '../crash/crash_screen.dart';
+import '../lock/lock_screen.dart';
 import 'onboard/family_onboard_screen.dart';
-import 'rate/rate_screen.dart';
+import '../overlay/overlay_container.dart';
+import '../rate/rate_screen.dart';
 
 class FamilyScaffolding extends StatefulWidget {
   const FamilyScaffolding({Key? key, required this.title}) : super(key: key);
@@ -25,6 +26,8 @@ class FamilyScaffolding extends StatefulWidget {
   State<FamilyScaffolding> createState() => _FamilyScaffoldingState();
 }
 
+const pathHomeStats = "home/stats";
+
 class _FamilyScaffoldingState extends State<FamilyScaffolding>
     with Traceable, TraceOrigin {
   final _stage = dep<StageStore>();
@@ -32,14 +35,15 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
 
   final _verticalPageCtrl = PageController(initialPage: 1);
   final _horizontalPageCtrl = PageController(initialPage: 0);
-  final _duration = const Duration(milliseconds: 800);
+  final _duration = const Duration(milliseconds: 400);
   final _curve = Curves.easeInOut;
 
   final _verticalPageViewKey = GlobalKey();
   final _horizontalPageViewKey = GlobalKey();
 
   var _path = "home";
-  StageKnownRoute? _knownRoute;
+  String? _knownRoute;
+  StageModal? _modal;
 
   var _locked = true;
 
@@ -71,9 +75,8 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
         traceAs("scrolledToHome", (trace) async {
           await _stage.setRoute(trace, _path);
         });
-      } else if (_horizontalPageCtrl.page == 1 &&
-          _path != StageKnownRoute.homeStats.path) {
-        _path = StageKnownRoute.homeStats.path;
+      } else if (_horizontalPageCtrl.page == 1 && _path != pathHomeStats) {
+        _path = pathHomeStats;
 
         traceAs("scrolledToStats", (trace) async {
           await _stage.setRoute(trace, _path);
@@ -84,34 +87,17 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
     autorun((_) {
       final path = _stage.route.route.path;
       if (path == _path) return;
-      _path = path;
 
       setState(() {
-        // if (path == StageKnownRoute.homeStats.path) {
-        //   _animateToPage(1);
-        // } else if (_stage.route.isTab(StageTab.home) &&
-        if (_stage.route.isTab(StageTab.home) && _stage.route.isMainRoute()) {
+        _path = path;
+
+        if (path == pathHomeStats) {
+          //_animateToPage(1);
+          _animateToPageHorizontal(1);
+        } else if (_stage.route.isTab(StageTab.home) &&
+            _stage.route.isMainRoute()) {
           //_animateToPage(1);
           _animateToPageHorizontal(0);
-        } else if (path == StageKnownRoute.homeOverlayLock.path) {
-          _knownRoute = StageKnownRoute.homeOverlayLock;
-          _animateToPage(1);
-        } else if (path == StageKnownRoute.homeOverlayRate.path) {
-          _knownRoute = StageKnownRoute.homeOverlayRate;
-          _animateToPage(1);
-        } else if (path == StageKnownRoute.homeOverlayCrash.path) {
-          _knownRoute = StageKnownRoute.homeOverlayCrash;
-          _animateToPage(1);
-        } else if (path == StageKnownRoute.homeOverlayFamilyOnboard.path) {
-          _knownRoute = StageKnownRoute.homeOverlayFamilyOnboard;
-          _animateToPage(1);
-        } else if (path == StageKnownRoute.homeCloseOverlay.path) {
-          _knownRoute = null;
-          _animateToPage(1);
-        } else if (path == StageKnownRoute.homeOverlayFamilyDevices.path) {
-          _animateToPage(0);
-        } else if (path == StageKnownRoute.homeStats.path) {
-          _animateToPageHorizontal(1);
         }
       });
     });
@@ -119,6 +105,13 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
     autorun((_) {
       setState(() {
         _locked = _lock.isLocked;
+      });
+    });
+
+    autorun((_) {
+      final modal = _stage.route.modal;
+      setState(() {
+        _modal = modal;
       });
     });
   }
@@ -168,9 +161,7 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
             ),
             (cfg.debugBg) ? CoolBackground() : Container(),
             PageView(
-              physics: _knownRoute != null || _locked
-                  ? const NeverScrollableScrollPhysics()
-                  : null,
+              physics: const NeverScrollableScrollPhysics(),
               controller: _horizontalPageCtrl,
               scrollDirection: Axis.horizontal,
               children: [
@@ -186,19 +177,14 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
                   ],
                 ),
                 FamilyStatsScreen(
-                    key: UniqueKey(),
-                    autoRefresh: true,
-                    controller: ScrollController()),
+                  key: UniqueKey(),
+                  onBack: () {
+                    _animateToPageHorizontal(0);
+                  },
+                ),
               ],
             ),
-            if (_knownRoute == StageKnownRoute.homeOverlayLock)
-              const LockScreen()
-            else if (_knownRoute == StageKnownRoute.homeOverlayRate)
-              const RateScreen()
-            else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
-              const CrashScreen()
-            else if (_knownRoute == StageKnownRoute.homeOverlayFamilyOnboard)
-              const FamilyOnboardScreen()
+            OverlayContainer(modal: _modal),
           ],
         ),
       ),

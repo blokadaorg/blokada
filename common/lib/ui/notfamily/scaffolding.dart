@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../stage/channel.pg.dart';
-import '../stage/stage.dart';
-import '../util/di.dart';
-import '../util/trace.dart';
-import 'coolbg.dart';
-import 'crash/crash_screen.dart';
+import '../../stage/channel.pg.dart';
+import '../../stage/stage.dart';
+import '../../util/di.dart';
+import '../../util/trace.dart';
+import '../overlay/overlay_container.dart';
 import 'home/home_screen.dart';
-import 'lock/lock_screen.dart';
-import 'rate/rate_screen.dart';
-import 'stats/stats_screen.dart';
+import '../stats/stats_screen.dart';
 
 class Scaffolding extends StatefulWidget {
   const Scaffolding({Key? key, required this.title}) : super(key: key);
@@ -21,6 +18,8 @@ class Scaffolding extends StatefulWidget {
   State<Scaffolding> createState() => _ScaffoldingState();
 }
 
+const pathHomeStats = "home/stats";
+
 class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
   final _stage = dep<StageStore>();
 
@@ -29,15 +28,16 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
   final _curve = Curves.easeInOut;
 
   var _path = "home";
-  StageKnownRoute? _knownRoute;
+  String? _knownRoute;
+  StageModal? _modal;
 
   @override
   void initState() {
     super.initState();
 
     _pageCtrl.addListener(() {
-      if (_pageCtrl.page == 1 && _path != StageKnownRoute.homeStats.path) {
-        _path = StageKnownRoute.homeStats.path;
+      if (_pageCtrl.page == 1 && _path != pathHomeStats) {
+        _path = pathHomeStats;
 
         traceAs("scrolledToStats", (trace) async {
           await _stage.setRoute(trace, _path);
@@ -57,25 +57,33 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       _path = path;
 
       setState(() {
-        if (path == StageKnownRoute.homeStats.path) {
+        if (path == pathHomeStats) {
           _animateToPage(1);
         } else if (_stage.route.isTab(StageTab.home) &&
             _stage.route.isMainRoute()) {
           _animateToPage(0);
-        } else if (path == StageKnownRoute.homeOverlayLock.path) {
-          _knownRoute = StageKnownRoute.homeOverlayLock;
-          _animateToPage(0);
-        } else if (path == StageKnownRoute.homeOverlayRate.path) {
-          _knownRoute = StageKnownRoute.homeOverlayRate;
-          _animateToPage(0);
-        } else if (path == StageKnownRoute.homeOverlayCrash.path) {
-          _knownRoute = StageKnownRoute.homeOverlayCrash;
-          _animateToPage(0);
-        } else if (path == StageKnownRoute.homeCloseOverlay.path) {
-          _knownRoute = null;
-          _animateToPage(0);
         }
       });
+    });
+
+    autorun((_) {
+      final modal = _stage.route.modal;
+      setState(() {
+        _modal = modal;
+      });
+      // } else if (path == StageKnownRoute.homeOverlayLock.path) {
+      //   _knownRoute = StageKnownRoute.homeOverlayLock;
+      //   _animateToPage(0);
+      // } else if (path == StageKnownRoute.homeOverlayRate.path) {
+      // _knownRoute = StageKnownRoute.homeOverlayRate;
+      // _animateToPage(0);
+      // } else if (path == StageKnownRoute.homeOverlayCrash.path) {
+      // _knownRoute = StageKnownRoute.homeOverlayCrash;
+      // _animateToPage(0);
+      // } else if (path == StageKnownRoute.homeCloseOverlay.path) {
+      // _knownRoute = null;
+      // _animateToPage(0);
+      // }
     });
   }
 
@@ -96,12 +104,7 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
             scrollDirection: Axis.vertical,
             children: _getPages(),
           ),
-          if (_knownRoute == StageKnownRoute.homeOverlayLock)
-            const LockScreen()
-          else if (_knownRoute == StageKnownRoute.homeOverlayRate)
-            const RateScreen()
-          else if (_knownRoute == StageKnownRoute.homeOverlayCrash)
-            const CrashScreen()
+          OverlayContainer(modal: _modal),
         ],
       ),
     );
@@ -112,9 +115,7 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       // const Coolbg(),
       HomeScreen(),
       StatsScreen(
-          key: UniqueKey(),
-          autoRefresh: true,
-          controller: ScrollController()),
+          key: UniqueKey(), autoRefresh: true, controller: ScrollController()),
     ];
   }
 }

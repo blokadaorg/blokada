@@ -32,6 +32,7 @@ enum CommandName {
   enableCloud,
   disableCloud,
   setRetention,
+  deviceAlias,
 
   // Journal
   sortNewest,
@@ -71,6 +72,10 @@ enum CommandName {
   log,
   crashLog,
   canPromptCrashLog,
+
+  // Family commands
+  familyLink,
+  familyWaitForDeviceName,
 
   // Debug
   debugHttpFail,

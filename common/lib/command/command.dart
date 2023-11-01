@@ -5,10 +5,10 @@ import '../app/start/start.dart';
 import '../custom/custom.dart';
 import '../deck/deck.dart';
 import '../device/device.dart';
+import '../family/family.dart';
 import '../journal/channel.pg.dart';
 import '../journal/journal.dart';
 import '../notification/notification.dart';
-import '../onboard/onboard.dart';
 import '../plus/lease/lease.dart';
 import '../plus/plus.dart';
 import '../plus/vpn/vpn.dart';
@@ -39,7 +39,7 @@ class CommandStore
   late final _plusLease = dep<PlusLeaseStore>();
   late final _plusVpn = dep<PlusVpnStore>();
   late final _notification = dep<NotificationStore>();
-  late final _onboard = dep<OnboardStore>();
+  late final _family = dep<FamilyStore>();
 
   late final _timer = dep<TimerService>();
 
@@ -133,6 +133,8 @@ class CommandStore
         return await _device.setCloudEnabled(trace, false);
       case CommandName.setRetention:
         return await _device.setRetention(trace, p1!);
+      case CommandName.deviceAlias:
+        return await _family.renameThisDevice(trace, p1!);
       case CommandName.sortNewest:
         return await _journal.updateFilter(trace, sortNewestFirst: true);
       case CommandName.sortCount:
@@ -174,6 +176,10 @@ class CommandStore
         return await _accountRefresh.onRemoteNotification(trace);
       case CommandName.appleNotificationToken:
         return await _notification.saveAppleToken(trace, p1!);
+      case CommandName.familyLink:
+        return await _family.link(trace, p1!);
+      case CommandName.familyWaitForDeviceName:
+        return await _family.setWaitingForDevice(trace, p1!);
       case CommandName.warning:
         return await _tracer.platformWarning(trace, p1!);
       case CommandName.fatal:
@@ -191,7 +197,9 @@ class CommandStore
         cfg.debugFailingRequests.remove(p1!);
         return;
       case CommandName.debugOnboard:
-        return await _onboard.setOnboardState(trace, OnboardState.firstTime);
+        await _account.restore(trace, "mockedmocked");
+        await _device.setLinkedTag(trace, null);
+        return await _family.deleteAllDevices(trace);
       case CommandName.debugBg:
         cfg.debugBg = !cfg.debugBg;
         return;

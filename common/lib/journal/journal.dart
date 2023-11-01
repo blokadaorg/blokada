@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../device/device.dart';
+import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../timer/timer.dart';
 import '../util/config.dart';
@@ -88,7 +89,8 @@ JournalFilter _noFilter = JournalFilter(
 
 class JournalStore = JournalStoreBase with _$JournalStore;
 
-abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
+abstract class JournalStoreBase
+    with Store, Traceable, Dependable, Startable, Cooldown {
   late final _ops = dep<JournalOps>();
   late final _json = dep<JournalJson>();
   late final _device = dep<DeviceStore>();
@@ -122,10 +124,7 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
     depend<JournalOps>(getOps(act));
     depend<JournalJson>(JournalJson());
     depend<JournalStore>(this as JournalStore);
-    _isFamily = act.isFamily();
   }
-
-  late bool _isFamily;
 
   @observable
   JournalFilter filter = _noFilter;
@@ -151,6 +150,16 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   DateTime lastRefresh = DateTime(0);
 
   @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      if (act.isFamily()) return;
+
+      // Default to show journal only for the current device
+      await updateFilter(trace, deviceName: _device.deviceAlias);
+    });
+  }
+
+  @action
   Future<void> fetch(Trace parentTrace) async {
     return await traceWith(parentTrace, "fetch", (trace) async {
       final entries = await _json.getEntries(trace);
@@ -172,19 +181,29 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
         return;
       }
 
-      // TODO: this should be flavor specific
-      if (!_stage.route.isTab(StageTab.activity) &&
-          !_stage.route.isTab(StageTab.home)) {
+      final isActivity = _stage.route.isTab(StageTab.activity);
+      final isHome = _stage.route.isTab(StageTab.home);
+      final isLinkModal = route.modal == StageModal.accountLink;
+
+      if (!act.isFamily() && !isActivity) {
+        _stopTimer();
+        return;
+      }
+
+      if (act.isFamily() && !isHome && !isActivity) {
         _stopTimer();
         return;
       }
 
       if (refreshEnabled) {
+        final cooldown = (isActivity || isLinkModal)
+            ? cfg.refreshVeryFrequent
+            : cfg.refreshOnHome;
         try {
           await fetch(trace);
-          _rescheduleTimer();
+          _rescheduleTimer(cooldown);
         } on Exception catch (_) {
-          _rescheduleTimer();
+          _rescheduleTimer(cooldown);
         }
       }
     });
@@ -193,8 +212,11 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
     if (!route.isForeground()) return;
-    if (!route.isBecameTab(StageTab.activity) &&
-        !route.isBecameTab(StageTab.home)) return;
+    final isActivity = route.isBecameTab(StageTab.activity);
+    final isHome = route.isBecameTab(StageTab.home);
+    final isLinkModal = route.modal == StageModal.accountLink;
+    if (!act.isFamily() && !isActivity) return;
+    if (act.isFamily() && !isActivity && !isHome && !isLinkModal) return;
     await updateJournalFreq(parentTrace);
   }
 
@@ -217,19 +239,19 @@ abstract class JournalStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> updateJournalFreq(Trace parentTrace) async {
     return await traceWith(parentTrace, "updateJournalFreq", (trace) async {
-      final enabled = _device.retention?.isEnabled() ?? false;
-      if (enabled && _stage.route.isTab(StageTab.activity)) {
+      final on = _device.retention?.isEnabled() ?? false;
+      if (on && _stage.route.isTab(StageTab.activity)) {
         await enableRefresh(trace);
-      } else if (enabled && _isFamily && _stage.route.isTab(StageTab.home)) {
+      } else if (on && act.isFamily() && _stage.route.isTab(StageTab.home)) {
         await enableRefresh(trace);
-      } else if (!enabled) {
+      } else if (!on) {
         await disableRefresh(trace);
       }
     });
   }
 
-  _rescheduleTimer() {
-    _timer.set(_timerKey, DateTime.now().add(cfg.journalRefreshCooldown));
+  _rescheduleTimer(Duration cooldown) {
+    _timer.set(_timerKey, DateTime.now().add(cooldown));
   }
 
   _stopTimer() {

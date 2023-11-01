@@ -4,19 +4,19 @@ import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../../app/app.dart';
-import '../../app/channel.pg.dart';
-import '../../stage/channel.pg.dart';
-import '../../stage/stage.dart';
-import '../../stats/stats.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../minicard/counter.dart';
-import '../minicard/header.dart';
-import '../minicard/minicard.dart';
-import '../minicard/summary.dart';
-import '../theme.dart';
+import '../../../app/app.dart';
+import '../../../app/channel.pg.dart';
+import '../../../stage/stage.dart';
+import '../../../stats/stats.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../minicard/counter.dart';
+import '../../minicard/header.dart';
+import '../../minicard/minicard.dart';
+import '../../minicard/summary.dart';
+import '../../theme.dart';
 import 'home.dart';
+import 'home_screen.dart';
 
 class HomeCounter2 extends StatefulWidget {
   HomeCounter2({Key? key}) : super(key: key);
@@ -63,7 +63,7 @@ class _HomeCounterState extends State<HomeCounter2>
 
   _onTap() {
     traceAs("tappedSlideToStats", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeStats.path);
+      await _stage.setRoute(trace, pathHomeStats);
     });
   }
 

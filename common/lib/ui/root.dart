@@ -6,8 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
 import '../util/config.dart';
-import 'family_scaffolding.dart';
-import 'scaffolding.dart';
+import 'family/family_scaffolding.dart';
+import 'notfamily/scaffolding.dart';
 import 'theme.dart';
 
 class Root extends StatelessWidget {
@@ -16,7 +16,7 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const plusColor = Color(0xffFF9400);
-    const familyColor = Color(0xffF74C79);
+    const familyColor = Color(0xffff678b);
     final accentColor = cfg.act.isFamily() ? familyColor : plusColor;
 
     return MaterialApp(
@@ -99,8 +99,8 @@ class Root extends StatelessWidget {
             const BlokadaTheme(
               bgColor: Color(0xFF000000),
               bgColorHome1: Color(0xFF1A1919),
-              bgColorHome2: Color(0xff262626),
-              bgColorHome3: Color(0xFF171616),
+              bgColorHome2: Color(0xff424242),
+              bgColorHome3: Color(0xff262626),
               panelBackground: const Color(0xff1c1c1e),
               cloud: Color(0xFF007AFF),
               plus: plusColor,

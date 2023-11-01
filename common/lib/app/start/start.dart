@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:common/onboard/onboard.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,21 +5,17 @@ import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
 import '../../env/env.dart';
-import '../../family/famdevice/famdevice.dart';
+import '../../family/family.dart';
 import '../../journal/journal.dart';
 import '../../lock/lock.dart';
 import '../../perm/perm.dart';
-import '../../plus/gateway/gateway.dart';
 import '../../plus/keypair/keypair.dart';
-import '../../plus/lease/lease.dart';
 import '../../plus/plus.dart';
 import '../../rate/rate.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
 import '../../tracer/tracer.dart';
-import '../../util/async.dart';
-import '../../util/config.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../app.dart';
@@ -42,8 +35,9 @@ class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
 abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _ops = dep<AppStartOps>();
+
   late final _env = dep<EnvStore>();
-  late final _journal = dep<JournalStore>();
+  late final _lock = dep<LockStore>();
   late final _app = dep<AppStore>();
   late final _timer = dep<TimerService>();
   late final _device = dep<DeviceStore>();
@@ -51,14 +45,12 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _account = dep<AccountStore>();
   late final _accountRefresh = dep<AccountRefreshStore>();
   late final _stage = dep<StageStore>();
+  late final _journal = dep<JournalStore>();
   late final _plus = dep<PlusStore>();
   late final _plusKeypair = dep<PlusKeypairStore>();
-  late final _plusGateway = dep<PlusGatewayStore>();
-  late final _plusLease = dep<PlusLeaseStore>();
   late final _rate = dep<RateStore>();
   late final _tracer = dep<Tracer>();
-  late final _onboard = dep<OnboardStore>();
-  late final _famdevice = dep<FamilyDeviceStore>();
+  late final _family = dep<FamilyStore>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -90,30 +82,28 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   @observable
   DateTime? pausedUntil;
 
+  // Order matters
+  late final List<Startable> _startables = [
+    _env,
+    _lock,
+    _device,
+    _journal,
+    _plusKeypair,
+    _accountRefresh,
+    _plus,
+    _family,
+    _rate,
+    _tracer,
+  ];
+
   @action
   Future<void> startApp(Trace parentTrace) async {
     await traceWith(parentTrace, "startApp", (trace) async {
       await _app.initStarted(trace);
       try {
-        await _env.syncDeviceName(trace);
-        await _device.load(trace);
-        await _device.setDeviceName(trace, _env.deviceName);
-
-        await _onboard.maybeShowOnboardOnStart(trace);
-        // Default to show journal only for the current device
-        //await _journal.updateFilter(trace, deviceName: _device.deviceAlias);
-        await _plusKeypair.load(trace);
-        await _plus.load(trace);
-        await _rate.load(trace);
-        await _startAppWithRetry(trace);
-        await _plusGateway.fetch(trace);
-        await _plusGateway.load(trace);
-        if (_account.type == AccountType.plus) {
-          await _plusLease.fetch(trace);
+        for (final startable in _startables) {
+          await startable.start(trace);
         }
-        // TODO: only when family
-        await _famdevice.load(trace);
-        await _tracer.checkForCrashLog(trace);
         await _app.initCompleted(trace);
       } catch (e) {
         await _app.initFail(trace);
@@ -121,28 +111,6 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
         rethrow;
       }
     });
-  }
-
-  // Init the account with a retry loop. Can be called multiple times if failed.
-  Future<void> _startAppWithRetry(Trace trace) async {
-    bool success = false;
-    int retries = 2;
-    Exception? lastException;
-    while (!success && retries-- > 0) {
-      try {
-        await _accountRefresh.init(trace);
-        success = true;
-      } on Exception catch (e) {
-        lastException = e;
-        trace.addEvent("init failed, retrying");
-        await sleepAsync(cfg.appStartFailWait);
-      }
-    }
-
-    if (!success) {
-      throw lastException ??
-          Exception("Failed to start app for unknown reason");
-    }
   }
 
   @action

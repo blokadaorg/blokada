@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../rate/rate.dart';
-import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
@@ -93,7 +92,7 @@ class _RateScreenState extends State<RateScreen>
 
   _close() async {
     traceAs("tappedCloseRateScreen", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
+      await _stage.dismissModal(trace);
       await _rate.rate(trace, _rating, _showPlatformDialog);
     });
   }

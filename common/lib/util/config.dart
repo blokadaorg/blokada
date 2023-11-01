@@ -16,19 +16,17 @@ class Config {
   late Duration customRefreshCooldown = const Duration(seconds: 60);
   late Duration deckRefreshCooldown = const Duration(seconds: 60);
   late Duration deviceRefreshCooldown = const Duration(seconds: 60);
-  late Duration journalRefreshCooldown = const Duration(seconds: 10);
   late Duration plusLeaseRefreshCooldown = const Duration(seconds: 60);
   late Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);
   late Duration plusVpnCommandTimeout = const Duration(seconds: 5);
-  late Duration statsRefreshWhenOnStatsScreen = const Duration(seconds: 30);
-  late Duration statsRefreshWhenOnHomeScreen = const Duration(seconds: 120);
   late Duration statsRefreshWhenOnAnotherScreen = const Duration(seconds: 240);
+  late Duration refreshVeryFrequent = const Duration(seconds: 10);
+  late Duration refreshOnHome = const Duration(seconds: 120);
 
   late DateTime? debugSendTracesUntil =
       _isInDebugMode ? DateTime.now().add(const Duration(minutes: 15)) : null;
-  late Uri? debugSendTracesTo = _isInDebugMode
-      ? Uri.parse("http://192.168.101.107:4318/v1/traces")
-      : null;
+  late Uri? debugSendTracesTo =
+      _isInDebugMode ? Uri.parse("http://192.168.1.172:4318/v1/traces") : null;
   late List<String> debugFailingRequests = [];
   late bool debugBg = false;
 

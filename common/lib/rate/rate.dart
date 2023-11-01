@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
-import '../onboard/onboard.dart';
+import '../family/family.dart';
+import '../family/model.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
@@ -22,16 +23,13 @@ const String _keyTimer = "rate:checkConditions";
 
 class RateStore = RateStoreBase with _$RateStore;
 
-abstract class RateStoreBase with Store, Traceable, Dependable {
+abstract class RateStoreBase with Store, Traceable, Dependable, Startable {
   late final _ops = dep<RateOps>();
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _app = dep<AppStore>();
-<<<<<<< HEAD
   late final _stats = dep<StatsStore>();
-=======
-  late final _onboard = dep<OnboardStore>();
->>>>>>> 399c4e3 (reorganize onboard for both flavors)
+  late final _family = dep<FamilyStore>();
   late final _timer = dep<TimerService>();
 
   RateStoreBase() {
@@ -47,6 +45,14 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
 
   @observable
   JsonRate? rateMetadata;
+
+  @override
+  @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      await load(trace);
+    });
+  }
 
   @action
   onAppStatusChanged(Trace parentTrace) async {
@@ -64,11 +70,8 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
       if (meta == null) return; // .. but not on first ever app start
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
-<<<<<<< HEAD
       if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
-=======
-      if (!_onboard.isOnboarded) return; // Skip if not onboarded yet
->>>>>>> 399c4e3 (reorganize onboard for both flavors)
+      if (_family.phase != FamilyPhase.parentHasDevices) return;
 
       await show(trace);
     });
@@ -98,7 +101,7 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
         meta = JsonRate(lastSeen: lastSeen, lastRate: meta.lastRate);
       }
       await _persistence.save(trace, _key, meta.toJson());
-      await _stage.setRoute(trace, StageKnownRoute.homeOverlayRate.path);
+      await _stage.showModal(trace, StageModal.rate);
     });
   }
 

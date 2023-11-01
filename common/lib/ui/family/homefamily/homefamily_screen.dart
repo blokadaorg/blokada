@@ -1,20 +1,19 @@
 import 'package:common/service/I18nService.dart';
-import 'package:common/ui/homefamily/onboardtexts.dart';
+import 'package:common/ui/family/homefamily/onboardtexts.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
 
-import '../../account/account.dart';
-import '../../app/app.dart';
-import '../../app/channel.pg.dart';
-import '../../lock/lock.dart';
-import '../../onboard/onboard.dart';
-import '../../stage/channel.pg.dart';
-import '../../stage/stage.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../debug/debugoptions.dart';
-import '../theme.dart';
+import '../../../app/app.dart';
+import '../../../app/channel.pg.dart';
+import '../../../family/family.dart';
+import '../../../family/model.dart';
+import '../../../stage/channel.pg.dart';
+import '../../../stage/stage.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../debug/debugoptions.dart';
+import '../../theme.dart';
 import 'biglogo.dart';
 import 'ctabuttons.dart';
 import 'devices.dart';
@@ -31,15 +30,12 @@ class HomeFamilyScreen extends StatefulWidget {
 class HomeFamilyScreenState extends State<HomeFamilyScreen>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   final _app = dep<AppStore>();
-  final _account = dep<AccountStore>();
   final _stage = dep<StageStore>();
-  final _lock = dep<LockStore>();
-  final _onboard = dep<OnboardStore>();
+  final _family = dep<FamilyStore>();
 
-  bool showDebug = false;
-  bool locked = false;
-  bool working = false;
-  late OnboardState _onboardState;
+  late bool _working;
+  late FamilyPhase _phase;
+  late int _deviceChanges;
 
   late AnimationController controller;
   late AnimationController controllerOrange;
@@ -88,15 +84,13 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
         controllerOrange.reverse();
       }
 
-      setState(() {
-        locked = _lock.isLocked;
-        working = _app.status.isWorking() || !_stage.isReady;
-      });
+      _working = _app.status.isWorking() || !_stage.isReady;
     });
 
     autorun((_) {
       setState(() {
-        _onboardState = _onboard.onboardState;
+        _phase = _family.phase;
+        _deviceChanges = _family.devicesChanges;
       });
     });
   }
@@ -113,60 +107,65 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
   List<Widget> _getWidgetsForCurrentState() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
 
-    if (!locked &&
-        _onboardState == OnboardState.completed &&
-        _account.type.isActive()) {
+    // Working
+    if (_working || _phase == FamilyPhase.starting) {
       return [
-        Spacer(),
-        Devices(),
-      ];
-    } else if (!locked && _onboardState == OnboardState.completed) {
-      return [
-        Spacer(),
+        const Spacer(),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48.0),
             child: Column(
               children: [
                 Text(
-                  "Hi there!",
+                  "",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: theme.textPrimary),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
-                  "Activate or restore your account to continue" + "\n\n",
+                  "home status detail progress".i18n + "\n\n",
                   style: TextStyle(fontSize: 18, color: theme.textSecondary),
                   textAlign: TextAlign.center,
                 ),
               ],
             )),
-        SizedBox(height: 72),
+        const SizedBox(height: 72),
       ];
-    } else if (!locked) {
-      return [
-        Spacer(),
-        GestureDetector(
-          onTap: () {
-            traceAs("test", (trace) async {
-              final next = _onboardState == OnboardState.firstTime
-                  ? OnboardState.accountDecided
-                  : OnboardState.completed;
-              _onboard.setOnboardState(trace, next);
-            });
-          },
-          child: OnboardTexts(
-              step: _onboardState == OnboardState.firstTime ? 0 : 1),
-        ),
-      ];
-    } else if (locked &&
-        _onboardState == OnboardState.completed &&
-        _app.status.isActive()) {
-      return _widgetsForLockedOnboarded();
-    } else {
-      return _widgetsForLockedNotOnboarded();
+    }
+
+    switch (_phase) {
+      case FamilyPhase.linkedActive:
+        return _widgetsForLinkedOnboarded();
+      case FamilyPhase.lockedActive:
+        return _widgetsForLockedOnboarded();
+      case FamilyPhase.linkedNoPerms:
+        return _widgetsForLockedNotOnboarded();
+      case FamilyPhase.lockedNoPerms:
+        return _widgetsForLockedNotOnboarded();
+      case FamilyPhase.parentHasDevices:
+        return [
+          const Spacer(),
+          const Devices(),
+          CtaButtons(),
+        ];
+      case FamilyPhase.parentNoDevices:
+        return [
+          const Spacer(),
+          const OnboardTexts(step: 1),
+          CtaButtons(),
+        ];
+      case FamilyPhase.fresh:
+        return [
+          const Spacer(),
+          const OnboardTexts(step: 0),
+          CtaButtons(),
+        ];
+      default:
+        {
+          throw Exception("Unknown phase: $_phase");
+        }
     }
   }
 
@@ -193,6 +192,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 72),
+              CtaButtons(),
             ],
           )),
     ];
@@ -217,6 +217,29 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
             ],
           )),
       SizedBox(height: 72),
+      CtaButtons(),
+    ];
+  }
+
+  List<Widget> _widgetsForLinkedOnboarded() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    return [
+      Spacer(),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            children: [
+              Text(
+                "App is linked",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.textPrimary),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+      SizedBox(height: 72),
     ];
   }
 
@@ -228,7 +251,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
       children: [
         BigLogo(),
         AbsorbPointer(
-          absorbing: working,
+          absorbing: _working,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Stack(
@@ -239,8 +262,10 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: _getWidgetsForCurrentState() +
                         [
-                          CtaButtons(),
-                          !locked ? SizedBox(height: sy(40)) : Container(),
+                          // Leave space for navbar
+                          (!_phase.isLocked())
+                              ? SizedBox(height: sy(40))
+                              : Container(),
                           SizedBox(height: sy(30)),
                         ],
                   );

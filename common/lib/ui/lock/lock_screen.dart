@@ -101,8 +101,7 @@ class _LockScreenState extends State<LockScreen>
     traceAs("tappedCheckPin", (trace) async {
       try {
         if (_lock.isLocked) {
-          await _lock.unlock(trace, pin);
-          // bgStateKey.currentState?.animateToClose();
+          await _lock.canUnlock(trace, pin);
           await _clear();
         } else {
           await _lock.lock(trace, pin);
@@ -152,14 +151,14 @@ class _LockScreenState extends State<LockScreen>
 
   _clear() async {
     traceAs("tappedClearLock", (trace) async {
-      await _lock.removeLock(trace);
       bgStateKey.currentState?.animateToClose();
+      await _lock.removeLock(trace);
     });
   }
 
   _unlock() async {
     traceAs("tappedUnlock", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
+      await _stage.dismissModal(trace);
     });
   }
 
@@ -174,39 +173,40 @@ class _LockScreenState extends State<LockScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(),
-          SizedBox(
-            height: 112,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              child: AnimatedCrossFade(
-                firstChild: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        _hasPin ? Icons.lock : Icons.lock_open,
-                        color: Colors.white,
-                        size: 48,
-                      ),
-                    ],
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: AnimatedCrossFade(
+              firstChild: SizedBox(
+                height: 112,
+                child: Center(
+                  child: Icon(
+                    _hasPin ? Icons.lock : Icons.lock_open,
+                    color: Colors.white,
+                    size: 48,
                   ),
                 ),
-                secondChild: Text(_getHeaderString(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      // fontWeight: FontWeight.w500,
-                    )),
-                crossFadeState: _showHeaderIcon
-                    ? CrossFadeState.showFirst
-                    : CrossFadeState.showSecond,
-                duration: const Duration(milliseconds: 300),
               ),
+              secondChild: SizedBox(
+                height: 112,
+                child: Center(
+                  child: Text(_getHeaderString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        // fontWeight: FontWeight.w500,
+                      )),
+                ),
+              ),
+              crossFadeState: _showHeaderIcon
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 300),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(7.0),
             child: SlideTransition(
               position: _animShake,
               child: Circles(amount: 4, filled: _digitsEntered),

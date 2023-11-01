@@ -39,6 +39,7 @@ class RadialSegmentState extends State<RadialSegment> {
 
     if (widget.autoRefresh) {
       reactionOnStore((_) => _store.deviceStatsChangesCounter, (_) async {
+        if (!mounted) return;
         setState(() {
           stats = _store.statsForSelectedDevice();
 

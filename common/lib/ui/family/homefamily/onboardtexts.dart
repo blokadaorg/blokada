@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../util/trace.dart';
-import '../theme.dart';
+import '../../../util/trace.dart';
+import '../../theme.dart';
 
 class OnboardTexts extends StatefulWidget {
   final int step;

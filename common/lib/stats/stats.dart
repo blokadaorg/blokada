@@ -18,6 +18,8 @@ class UiStats {
   final List<int> allowedHistogram;
   final List<int> blockedHistogram;
 
+  final List<UiToplistEntry> toplist;
+
   int latestTimestamp = DateTime.now().millisecondsSinceEpoch;
 
   // Sum for the current day
@@ -40,6 +42,7 @@ class UiStats {
     required this.totalBlocked,
     required this.allowedHistogram,
     required this.blockedHistogram,
+    required this.toplist,
     required this.avgDayTotal,
     required this.avgDayAllowed,
     required this.avgDayBlocked,
@@ -60,14 +63,17 @@ class UiStats {
     this.totalBlocked = 0,
     this.allowedHistogram = const [],
     this.blockedHistogram = const [],
+    this.toplist = const [],
   });
 }
 
-class UiStatsPair {
-  final DateTime timestamp;
+class UiToplistEntry {
+  final String? company;
+  final String? tld;
+  final bool blocked;
   final int value;
 
-  UiStatsPair({required this.timestamp, required this.value});
+  UiToplistEntry(this.company, this.tld, this.blocked, this.value);
 }
 
 class StatsStore = StatsStoreBase with _$StatsStore;
@@ -106,7 +112,6 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   @observable
   Map<String, UiStats> deviceStats = {};
 
-  @computed
   UiStats statsForSelectedDevice() {
     if (selectedDevice == null) {
       return stats;
@@ -122,6 +127,9 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   String? selectedDevice;
 
   @observable
+  bool selectedDeviceIsThisDevice = false;
+
+  @observable
   bool hasStats = false;
 
   @action
@@ -131,6 +139,7 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
       final oneWeek = await _api.getStats(trace, "1w", "24h");
       stats = _convertStats(oneDay, oneWeek);
       hasStats = true;
+      deviceStatsChangesCounter++;
     });
   }
 
@@ -141,18 +150,22 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
           await _api.getStatsForDevice(trace, "24h", "1h", deviceName);
       final oneWeek =
           await _api.getStatsForDevice(trace, "1w", "24h", deviceName);
-      deviceStats[deviceName] = _convertStats(oneDay, oneWeek);
+      final toplist = await _api.getToplistForDevice(trace, deviceName);
+      deviceStats[deviceName] =
+          _convertStats(oneDay, oneWeek, toplist: toplist);
       deviceStatsChangesCounter++;
     });
   }
 
   @action
-  Future<void> setSelectedDevice(Trace parentTrace, String deviceName) async {
+  Future<void> setSelectedDevice(
+      Trace parentTrace, String deviceName, bool thisDevice) async {
     return await traceWith(parentTrace, "setSelectedDevice", (trace) async {
       if (!deviceStats.containsKey(deviceName)) {
         throw Exception("Unknown device");
       }
       selectedDevice = deviceName;
+      selectedDeviceIsThisDevice = thisDevice;
     });
   }
 
@@ -166,7 +179,8 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     });
   }
 
-  UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek) {
+  UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek,
+      {JsonToplistEndpoint? toplist}) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
@@ -232,14 +246,31 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     if (avgDayBlocked == 0)
       avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
 
+    final convertedToplist = toplist == null ? [] : _convertToplist(toplist);
+
     return UiStats(
         totalAllowed: int.parse(stats.totalAllowed),
         totalBlocked: int.parse(stats.totalBlocked),
         allowedHistogram: allowedHistogram,
         blockedHistogram: blockedHistogram,
+        toplist: convertedToplist,
         avgDayAllowed: avgDayAllowed,
         avgDayBlocked: avgDayBlocked,
         avgDayTotal: avgDayAllowed + avgDayBlocked,
         latestTimestamp: latestTimestamp);
+  }
+
+  _convertToplist(JsonToplistEndpoint toplist) {
+    final result = <UiToplistEntry>[];
+    for (var metric in toplist.toplist.metrics) {
+      final action = metric.tags.action;
+      final isAllowed = action == "fallthrough" || action == "allowed";
+      final firstDps = metric.dps.first;
+      final c = (metric.tags.company == "unknown") ? null : metric.tags.company;
+      result.add(UiToplistEntry(
+          c, metric.tags.tld, !isAllowed, firstDps.value.round()));
+    }
+    //result.sort((a, b) => b.value.compareTo(a.value));
+    return result;
   }
 }

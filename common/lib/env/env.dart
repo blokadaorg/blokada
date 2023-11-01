@@ -22,7 +22,7 @@ extension on EnvPayload {
   }
 }
 
-abstract class EnvStoreBase with Store, Traceable, Dependable {
+abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   late final _ops = dep<EnvOps>();
 
   @override
@@ -34,6 +34,14 @@ abstract class EnvStoreBase with Store, Traceable, Dependable {
   @observable
   // OS provided device name, can be generic like "iPhone"
   String? deviceName;
+
+  @override
+  @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      await syncDeviceName(trace);
+    });
+  }
 
   @action
   Future<void> syncDeviceName(Trace parentTrace) async {

@@ -50,7 +50,7 @@ class _CrashScreenState extends State<CrashScreen>
 
   _close() async {
     traceAs("tappedCloseCrashScreen", (trace) async {
-      await _stage.setRoute(trace, StageKnownRoute.homeCloseOverlay.path);
+      await _stage.dismissModal(trace);
     });
   }
 

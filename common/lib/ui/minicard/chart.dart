@@ -2,15 +2,13 @@ import 'dart:math' as math;
 import 'package:common/service/I18nService.dart';
 import 'package:common/util/color_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../family/famdevice/famdevice.dart';
+import '../../family/model.dart';
 import '../../stats/stats.dart';
-import '../../util/di.dart';
 
-class MiniCardChart extends StatefulWidget {
+class MiniCardChart extends StatelessWidget {
   final FamilyDevice device;
   final Color color;
 
@@ -21,35 +19,12 @@ class MiniCardChart extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => MiniCardChartState();
-}
-
-class MiniCardChartState extends State<MiniCardChart> {
-  final _store = dep<StatsStore>();
-
-  var stats = UiStats.empty();
-
-  @override
-  void initState() {
-    super.initState();
-    // autorun((_) {
-    //   setState(() {
-    //     stats = _store.stats;
-    //   });
-    // });
-
-    setState(() {
-      stats = widget.device.stats;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //decoration: BoxDecoration(color: Colors.greenAccent),
-      child: (widget.device.stats.totalBlocked > 0)
-          ? ColumnChart(stats: stats, color: widget.color)
-          : Text("No data yet"),
+      child: (device.deviceName.isNotEmpty && device.stats.totalAllowed > 0)
+          ? ColumnChart(stats: device.stats, color: color)
+          : Text("Waiting for data"),
     );
   }
 }

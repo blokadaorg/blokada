@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../account/account.dart';
-import '../../app/app.dart';
-import '../../app/start/start.dart';
-import '../../family/famdevice/famdevice.dart';
-import '../../lock/lock.dart';
-import '../../onboard/onboard.dart';
-import '../../stage/channel.pg.dart';
-import '../../stage/stage.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../minicard/minicard.dart';
-import '../theme.dart';
+import '../../../account/account.dart';
+import '../../../app/app.dart';
+import '../../../family/family.dart';
+import '../../../family/model.dart';
+import '../../../lock/lock.dart';
+import '../../../stage/channel.pg.dart';
+import '../../../stage/stage.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../minicard/minicard.dart';
+import '../../theme.dart';
 
 class CtaButtons extends StatefulWidget {
   CtaButtons({Key? key}) : super(key: key);
@@ -26,15 +25,10 @@ class CtaButtons extends StatefulWidget {
 class CtaButtonsState extends State<CtaButtons>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   final _stage = dep<StageStore>();
-  final _onboard = dep<OnboardStore>();
-  final _lock = dep<LockStore>();
-  final _account = dep<AccountStore>();
-  final _app = dep<AppStore>();
-  final _start = dep<AppStartStore>();
-  final _famdevice = dep<FamilyDeviceStore>();
+  final _family = dep<FamilyStore>();
 
-  late bool _locked;
-  late OnboardState _onboardState;
+  late FamilyPhase _phase;
+  late bool _hasThisDevice;
 
   @override
   void initState() {
@@ -42,8 +36,8 @@ class CtaButtonsState extends State<CtaButtons>
 
     autorun((_) {
       setState(() {
-        _locked = _lock.isLocked;
-        _onboardState = _onboard.onboardState;
+        _phase = _family.phase;
+        _hasThisDevice = _family.hasThisDevice;
       });
     });
   }
@@ -55,9 +49,7 @@ class CtaButtonsState extends State<CtaButtons>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Big CTA button shown during onboarding
-        (!_locked && _onboardState != OnboardState.completed ||
-                _onboardState == OnboardState.accountDecided ||
-                !_app.status.isActive())
+        (_phase.requiresAction())
             ? Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -73,35 +65,33 @@ class CtaButtonsState extends State<CtaButtons>
               )
             : Container(),
         // Small CTA icon shown only after onboarded
-        (!_locked &&
-                _onboardState == OnboardState.completed &&
-                _app.status.isActive())
+        (!_phase.requiresAction() && _phase.isParent() && !_phase.isLocked())
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MiniCard(
                     onTap: _handleCtaTap(),
                     color: theme.family,
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 32,
                       width: 32,
-                      child: Icon(Icons.add_moderator_outlined),
+                      child: Icon(Icons.add_circle_outline),
                     )),
               )
             : Container(),
         // Small lock icon or QR icon shown always
-        (_onboardState == OnboardState.firstTime && !_locked)
+        (_phase == FamilyPhase.fresh)
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MiniCard(
                     onTap: _handleAccountTap(),
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 32,
                       width: 32,
                       child: Icon(Icons.qr_code),
                     )),
               )
             : Container(),
-        (_onboardState != OnboardState.firstTime)
+        (_phase.isParent())
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MiniCard(
@@ -109,7 +99,8 @@ class CtaButtonsState extends State<CtaButtons>
                     child: SizedBox(
                       height: 32,
                       width: 32,
-                      child: Icon(_locked ? Icons.lock : Icons.lock_open),
+                      child: Icon(
+                          _phase.isLocked() ? Icons.lock : Icons.lock_open),
                     )),
               )
             : Container()
@@ -122,9 +113,9 @@ class CtaButtonsState extends State<CtaButtons>
       traceAs("tappedAccountQr", (trace) async {
         await _stage.showModal(
             trace,
-            _onboardState == OnboardState.firstTime
-                ? StageModal.accountChange
-                : StageModal.accountLink);
+            _phase == FamilyPhase.parentHasDevices
+                ? StageModal.accountLink
+                : StageModal.accountChange);
       });
     };
   }
@@ -132,8 +123,7 @@ class CtaButtonsState extends State<CtaButtons>
   _handleLockTap() {
     return () {
       traceAs("tappedLock", (trace) async {
-        await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
-        await _start.unpauseApp(trace);
+        await _stage.showModal(trace, StageModal.lock);
       });
     };
   }
@@ -141,27 +131,24 @@ class CtaButtonsState extends State<CtaButtons>
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
-        if (_locked) {
+        if (_phase.requiresPerms()) {
           await _stage.showModal(trace, StageModal.perms);
-        } else if (_onboardState == OnboardState.firstTime) {
+        } else if (_phase == FamilyPhase.fresh) {
           await _stage.showModal(trace, StageModal.payment);
-        } else if (!_account.type.isActive()) {
-          await _stage.showModal(trace, StageModal.payment);
-        } else if (_onboardState == OnboardState.accountDecided) {
+        } else if (!_hasThisDevice) {
           await _stage.showModal(trace, StageModal.onboardingAccountDecided);
         } else {
           await _stage.showModal(trace, StageModal.accountLink);
-          await _famdevice.addDevice(trace);
         }
       });
     };
   }
 
   String _getCtaText() {
-    if (_onboardState == OnboardState.firstTime || !_account.type.isActive()) {
-      return "Activate";
-    } else if (_locked) {
+    if (_phase.requiresPerms()) {
       return "Finish setup";
+    } else if (_phase == FamilyPhase.fresh) {
+      return "Activate";
     } else {
       return "Add a device";
     }

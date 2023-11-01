@@ -8,15 +8,15 @@ import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
 
-import '../../app/app.dart';
-import '../../app/channel.pg.dart';
-import '../../app/start/start.dart';
-import '../../stats/stats.dart';
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../touch.dart';
+import '../../../app/app.dart';
+import '../../../app/channel.pg.dart';
+import '../../../app/start/start.dart';
+import '../../../stats/stats.dart';
+import '../../../util/di.dart';
+import '../../../util/trace.dart';
+import '../../touch.dart';
 import 'home.dart';
-import '../theme.dart';
+import '../../theme.dart';
 
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);

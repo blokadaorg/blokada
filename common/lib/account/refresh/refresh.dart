@@ -9,6 +9,7 @@ import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
+import '../../util/async.dart';
 import '../../util/config.dart';
 import '../../util/cooldown.dart';
 import '../../util/di.dart';
@@ -95,7 +96,7 @@ enum AccountStatus { init, active, inactive, expiring, expired, fatal }
 class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
-    with Store, Traceable, Dependable, Cooldown, Emitter {
+    with Store, Traceable, Dependable, Startable, Cooldown, Emitter {
   late final _timer = dep<TimerService>();
   late final _account = dep<AccountStore>();
   late final _notification = dep<NotificationStore>();
@@ -122,6 +123,31 @@ abstract class AccountRefreshStoreBase
   bool _initSuccessful = false;
 
   JsonAccRefreshMeta _metadata = JsonAccRefreshMeta();
+
+  // Init the account with a retry loop. Can be called multiple times if failed.
+  @action
+  Future<void> start(Trace parentTrace) async {
+    return await traceWith(parentTrace, "start", (trace) async {
+      bool success = false;
+      int retries = 2;
+      Exception? lastException;
+      while (!success && retries-- > 0) {
+        try {
+          await init(trace);
+          success = true;
+        } on Exception catch (e) {
+          lastException = e;
+          trace.addEvent("init failed, retrying");
+          await sleepAsync(cfg.appStartFailWait);
+        }
+      }
+
+      if (!success) {
+        throw lastException ??
+            Exception("Failed to start app for unknown reason");
+      }
+    });
+  }
 
   @action
   Future<void> init(Trace parentTrace) async {
