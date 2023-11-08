@@ -57,6 +57,7 @@ import ui.advanced.decks.PackDetailFragment
 import ui.advanced.decks.PacksFragment
 import ui.home.FlutterHomeFragment
 import ui.home.HelpFragment
+import ui.journal.JournalDetailFragment
 import ui.journal.JournalFragment
 import ui.journal.RetentionFragment
 import ui.settings.SettingsAccountFragment
@@ -139,8 +140,18 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
                     when {
                         route.startsWith("activity") -> {
-                            translationId = R.string.main_tab_activity
-                            fragment = tabActivity
+                            val id = route.substringAfter("/", missingDelimiterValue = "")
+                            if (id.isEmpty()) {
+                                translationId = R.string.main_tab_activity
+                                fragment = tabActivity
+                            } else {
+                                translationId = R.string.main_tab_activity
+                                fragment = JournalDetailFragment()
+                                fragment.arguments = Bundle().apply {
+                                    putString("id", id)
+                                }
+                                topNav = false
+                            }
                             navView.selectedItemId = R.id.navigation_activity
                         }
 

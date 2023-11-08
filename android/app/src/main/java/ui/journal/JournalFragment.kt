@@ -56,9 +56,7 @@ class JournalFragment : Fragment() {
 
         val adapter = JournalAdapter(interaction = object : JournalAdapter.Interaction {
             override fun onClick(item: UiJournalEntry) {
-//                val nav = findNavController()
-//                nav.navigate(JournalFragmentDirections
-//                    .actionNavigationActivityToActivityDetailFragment(item.entry.domainName))
+                stage.setRoute("activity/${item.entry.domainName}")
             }
         })
 
