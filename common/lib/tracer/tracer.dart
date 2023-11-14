@@ -127,5 +127,5 @@ String getLogFilename({bool forCrash = false}) {
       : (type == PlatformType.android ? "a" : "mock");
   final mode = forCrash ? "crash" : "log";
 
-  return "blokada-${platform}6.$mode.json";
+  return "blokada-${platform}6.$mode";
 }
