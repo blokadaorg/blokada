@@ -90,10 +90,10 @@ class _CrashScreenState extends State<CrashScreen>
             const SizedBox(height: 70),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 500),
-              child: Text(
-                "error unknown".i18n,
+              child: const Text(
+                "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.",
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.white),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
             const SizedBox(height: 40),

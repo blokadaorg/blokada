@@ -59,7 +59,7 @@ class Tracer with Dependable, Traceable implements TraceFactory {
 
   deleteCrashLog(Trace parentTrace) async {
     return await traceWith(parentTrace, "deleteCrashLog", (trace) async {
-      await _stage.showModal(trace, StageModal.debugSharing);
+      //await _stage.showModal(trace, StageModal.debugSharing);
       await _ops.doDeleteFile(getLogFilename(forCrash: true));
     });
   }
