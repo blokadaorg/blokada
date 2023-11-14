@@ -86,11 +86,10 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        // TODO: proper delete
         if (isSecure || !isBackup) {
-            localSharedPreferences.save(key, "")
+            localSharedPreferences.edit().remove(key).commit()
         } else {
-            backedUpSharedPreferences.save(key, "")
+            backedUpSharedPreferences.edit().remove(key).commit()
         }
         callback(Result.success(Unit))
     }
