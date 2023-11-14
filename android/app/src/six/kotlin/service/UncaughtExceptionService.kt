@@ -12,9 +12,8 @@
 
 package service
 
-import ui.utils.cause
 import utils.FlavorSpecific
-import utils.Logger
+import java.io.File
 
 // We need a separate handler for notlibre because somehow exceptions in Taskers also reach out
 // here as unexpected exceptions (and they are handled normally by the Tasker also). This would
@@ -22,10 +21,23 @@ import utils.Logger
 // The drawback is that once an actual unexpected crash happens, the app just logs it and freezes.
 object UncaughtExceptionService: FlavorSpecific {
 
+    private val context by lazy { ContextService }
+    private const val filename = "blokada-a6.crash"
+
     fun setup() {
         Thread.setDefaultUncaughtExceptionHandler { _, ex ->
-            Logger.e("Fatal", "Uncaught exception, ignoring".cause(ex))
+            val file = File(context.requireAppContext().filesDir, filename)
+            file.writeText(getFatalMessage(ex))
         }
     }
 
+    private fun getFatalMessage(ex: Throwable): String {
+        return """
+            |Fatal from Android:
+            |${ex.message}
+            |${ex.stackTraceToString()}
+            |${ex.cause?.message}
+            |${ex.cause?.stackTraceToString()}
+            |""".trimMargin()
+    }
 }
