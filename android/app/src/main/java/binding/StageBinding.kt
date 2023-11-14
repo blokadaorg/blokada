@@ -41,6 +41,7 @@ object StageBinding: StageOps {
     private val dialog by lazy { AlertDialogService }
     private val scope = GlobalScope
 
+    var showingNavBar = true
     var onShowNavBar: (Boolean) -> Unit = { }
     private var displayingModal: StageModal? = null
 
@@ -187,10 +188,12 @@ object StageBinding: StageOps {
             payload.value = ""
         }
 
+        onShowNavBar(showingNavBar)
         callback(Result.success(Unit))
     }
 
     override fun doShowNavbar(show: Boolean, callback: (Result<Unit>) -> Unit) {
+        showingNavBar = show
         onShowNavBar(show)
         callback(Result.success(Unit))
     }

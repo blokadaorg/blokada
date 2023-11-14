@@ -32,8 +32,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.AccountBinding
+import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
+import channel.command.CommandName
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -65,6 +67,7 @@ import ui.settings.SettingsAppFragment
 import ui.settings.SettingsFragment
 import ui.settings.SettingsLogoutFragment
 import ui.settings.leases.LeasesFragment
+import ui.utils.cause
 import ui.utils.now
 import ui.web.WebFragment
 import ui.web.WebService
@@ -82,6 +85,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
     private val stage by lazy { StageBinding }
     private val rate by lazy { RateBinding }
     private val account by lazy { AccountBinding }
+    private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
 
@@ -121,15 +125,16 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         GlobalScope.launch {
             stage.route.collect { route ->
-                if (route.isNotEmpty())
-                lifecycleScope.launch {
-                    Logger.v("Main", "Route: $route")
+                if (route.isNotEmpty()) {
+                    lifecycleScope.launch {
+                        try {
+                            Logger.v("Main", "Route: $route")
 
-                    // Needed for dynamic translation of the top bar
-                    val translationId: Int?
-                    val fragment: Fragment?
-                    var topNav = true
-                    setFragmentInset(fragmentContainer, true)
+                            // Needed for dynamic translation of the top bar
+                            val translationId: Int?
+                            val fragment: Fragment?
+                            var topNav = true
+                            setFragmentInset(fragmentContainer, true)
 
 //                R.id.activityDetailFragment -> R.string.main_tab_activity
 //                R.id.navigation_settings_account -> R.string.account_action_my_account
@@ -138,109 +143,113 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 //                R.id.leasesFragment -> R.string.account_action_devices
 //                R.id.retentionFragment -> R.string.activity_section_header
 
-                    when {
-                        route.startsWith("activity") -> {
-                            val id = route.substringAfter("/", missingDelimiterValue = "")
-                            if (id.isEmpty()) {
-                                translationId = R.string.main_tab_activity
-                                fragment = tabActivity
-                            } else {
-                                translationId = R.string.main_tab_activity
-                                fragment = JournalDetailFragment()
-                                fragment.arguments = Bundle().apply {
-                                    putString("id", id)
+                            when {
+                                route.startsWith("activity") -> {
+                                    val id = route.substringAfter("/", missingDelimiterValue = "")
+                                    if (id.isEmpty()) {
+                                        translationId = R.string.main_tab_activity
+                                        fragment = tabActivity
+                                    } else {
+                                        translationId = R.string.main_tab_activity
+                                        fragment = JournalDetailFragment()
+                                        fragment.arguments = Bundle().apply {
+                                            putString("id", id)
+                                        }
+                                        topNav = false
+                                    }
+                                    navView.selectedItemId = R.id.navigation_activity
                                 }
-                                topNav = false
-                            }
-                            navView.selectedItemId = R.id.navigation_activity
-                        }
 
-                        route.startsWith("advanced") -> {
-                            val id = route.substringAfter("/", missingDelimiterValue = "")
-                            if (id.isEmpty()) {
-                                translationId = R.string.advanced_section_header_packs
-                                fragment = tabAdvanced
-                            } else {
-                                translationId = R.string.advanced_section_header_packs
-                                fragment = PackDetailFragment()
-                                fragment.arguments = Bundle().apply {
-                                    putString("id", id)
+                                route.startsWith("advanced") -> {
+                                    val id = route.substringAfter("/", missingDelimiterValue = "")
+                                    if (id.isEmpty()) {
+                                        translationId = R.string.advanced_section_header_packs
+                                        fragment = tabAdvanced
+                                    } else {
+                                        translationId = R.string.advanced_section_header_packs
+                                        fragment = PackDetailFragment()
+                                        fragment.arguments = Bundle().apply {
+                                            putString("id", id)
+                                        }
+                                        topNav = false
+                                    }
+                                    navView.selectedItemId = R.id.navigation_packs
                                 }
-                                topNav = false
+
+                                route.startsWith("settings") -> {
+                                    val id = route.substringAfter("/", missingDelimiterValue = "")
+                                    if (id.isEmpty()) {
+                                        translationId = R.string.account_section_header_settings
+                                        fragment = tabSettings
+                                    } else if (id == "account") {
+                                        translationId = R.string.account_action_my_account
+                                        fragment = SettingsAccountFragment()
+                                        topNav = false
+                                    } else if (id == "logout") {
+                                        translationId = R.string.account_action_logout
+                                        fragment = SettingsLogoutFragment()
+                                        topNav = false
+                                    } else if (id == "leases") {
+                                        translationId = R.string.account_action_devices
+                                        fragment = LeasesFragment()
+                                        topNav = false
+                                    } else if (id == "retention") {
+                                        translationId = R.string.account_section_header_settings
+                                        fragment = RetentionFragment()
+                                        topNav = false
+                                    } else { // app
+                                        translationId = R.string.app_settings_section_header
+                                        fragment = SettingsAppFragment()
+                                        topNav = false
+                                    }
+                                    navView.selectedItemId = R.id.navigation_settings
+                                }
+
+                                route.startsWith("http") -> {
+                                    translationId = R.string.universal_action_learn_more
+                                    fragment = WebFragment()
+                                    fragment.arguments = Bundle().apply {
+                                        putString("url", route)
+                                    }
+                                    topNav = false
+                                }
+
+                                else -> {
+                                    translationId = null
+                                    fragment = tabHome
+                                    setFragmentInset(fragmentContainer, false)
+
+                                    // Needed if flutter brings up full screen views while being in another tab
+                                    navView.selectedItemId = R.id.navigation_flutterhome
+                                }
                             }
-                            navView.selectedItemId = R.id.navigation_packs
-                        }
 
-                        route.startsWith("settings") -> {
-                            val id = route.substringAfter("/", missingDelimiterValue = "")
-                            if (id.isEmpty()) {
-                                translationId = R.string.account_section_header_settings
-                                fragment = tabSettings
-                            } else if (id == "account") {
-                                translationId = R.string.account_action_my_account
-                                fragment = SettingsAccountFragment()
-                                topNav = false
-                            } else if (id == "logout") {
-                                translationId = R.string.account_action_logout
-                                fragment = SettingsLogoutFragment()
-                                topNav = false
-                            } else if (id == "leases") {
-                                translationId = R.string.account_action_devices
-                                fragment = LeasesFragment()
-                                topNav = false
-                            } else if (id == "retention") {
-                                translationId = R.string.account_section_header_settings
-                                fragment = RetentionFragment()
-                                topNav = false
-                            } else { // app
-                                translationId = R.string.app_settings_section_header
-                                fragment = SettingsAppFragment()
-                                topNav = false
+                            // Set the navbar title
+                            translationId?.let {
+                                toolbar.visibility = View.VISIBLE
+                                if (it is Int) toolbar.title = getString(it)
+                                else it.toString()
+                            } ?: run {
+                                toolbar.visibility = View.GONE
                             }
-                            navView.selectedItemId = R.id.navigation_settings
-                        }
 
-                        route.startsWith("http") -> {
-                            translationId = R.string.universal_action_learn_more
-                            fragment = WebFragment()
-                            fragment.arguments = Bundle().apply {
-                                putString("url", route)
+                            // Change actual fragment
+                            supportActionBar?.setDisplayHomeAsUpEnabled(!topNav)
+                            supportActionBar?.setDisplayShowHomeEnabled(!topNav)
+
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.container_fragment, fragment)
+                                .commit()
+
+                            // An ugly hack to hide jumping fragments when switching tabs
+                            fragmentContainer.visibility = View.INVISIBLE
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                delay(100)
+                                fragmentContainer.visibility = View.VISIBLE
                             }
-                            topNav = false
+                        } catch (ex: Exception) {
+                            commands.execute(CommandName.FATAL, "Error while routing".cause(ex))
                         }
-
-                        else -> {
-                            translationId = null
-                            fragment = tabHome
-                            setFragmentInset(fragmentContainer, false)
-
-                            // Needed if flutter brings up full screen views while being in another tab
-                            navView.selectedItemId = R.id.navigation_flutterhome
-                        }
-                    }
-
-                    // Set the navbar title
-                    translationId?.let {
-                        toolbar.visibility = View.VISIBLE
-                        if (it is Int) toolbar.title = getString(it)
-                        else it.toString()
-                    } ?: run {
-                        toolbar.visibility = View.GONE
-                    }
-
-                    // Change actual fragment
-                    supportActionBar?.setDisplayHomeAsUpEnabled(!topNav)
-                    supportActionBar?.setDisplayShowHomeEnabled(!topNav)
-
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.container_fragment, fragment)
-                        .commit()
-
-                    // An ugly hack to hide jumping fragments when switching tabs
-                    fragmentContainer.visibility = View.INVISIBLE
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        delay(100)
-                        fragmentContainer.visibility = View.VISIBLE
                     }
                 }
             }
