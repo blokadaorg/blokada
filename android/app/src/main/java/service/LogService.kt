@@ -23,8 +23,6 @@ import android.widget.TextView
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import utils.Logger
 import java.io.BufferedReader
@@ -36,7 +34,9 @@ import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.Instant
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -47,10 +47,10 @@ object LogService {
     private val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.ENGLISH);
 
     init {
-        GlobalScope.launch {
-            Log.println(Log.VERBOSE, "Logger", "Starting logcat streaming")
-            streamingLog()
-        }
+//        GlobalScope.launch {
+//            Log.println(Log.VERBOSE, "Logger", "Starting logcat streaming")
+//            streamingLog()
+//        }
     }
 
     fun onShareLog(name: String, run: PrintsDebugInfo) {
