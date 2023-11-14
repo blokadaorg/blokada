@@ -15,10 +15,6 @@ package service
 import utils.FlavorSpecific
 import java.io.File
 
-// We need a separate handler for notlibre because somehow exceptions in Taskers also reach out
-// here as unexpected exceptions (and they are handled normally by the Tasker also). This would
-// cause the app to terminate when unnecessary.
-// The drawback is that once an actual unexpected crash happens, the app just logs it and freezes.
 object UncaughtExceptionService: FlavorSpecific {
 
     private val context by lazy { ContextService }

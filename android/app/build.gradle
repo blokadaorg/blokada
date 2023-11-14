@@ -189,9 +189,6 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.8.0"
     implementation "androidx.fragment:fragment-ktx:1.6.1"
 
-    // External integration (Tasker)
-    implementation 'com.twofortyfouram:android-plugin-client-sdk-for-locale:4.0.3'
-
     // Google in app billing
     implementation 'com.android.billingclient:billing:6.0.1'
     implementation 'com.android.billingclient:billing-ktx:6.0.1'

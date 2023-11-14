@@ -122,37 +122,6 @@
             </intent-filter>
         </activity>
 
-        <!-- External actions support (like Tasker or trigger urls) -->
-        <activity
-            android:name="ui.TaskerActivity"
-            android:configChanges="orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.Blokada.Translucent"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
-
-        <activity-alias
-            android:name="ui.PluginActivity"
-            android:exported="true"
-            android:icon="@drawable/blokada_logo"
-            android:label="@string/app_name"
-            android:targetActivity="ui.TaskerActivity">
-            <!-- this Intent filter allows the plug-in to be discovered by the host. -->
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
-            </intent-filter>
-        </activity-alias>
-
-        <receiver
-            android:name="ui.TaskerReceiver"
-            android:exported="true">
-
-            <!-- this Intent filter allows the plug-in to discovered by the host. -->
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="service.DozeReceiver" />
 
         <receiver android:name="service.NotificationAlarmReceiver" />
