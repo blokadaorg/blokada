@@ -12,6 +12,8 @@
 
 package binding
 
+import android.app.Activity
+import android.content.Intent
 import channel.command.CommandName
 import channel.stage.StageModal
 import channel.stage.StageOps
@@ -23,6 +25,7 @@ import kotlinx.coroutines.launch
 import model.Tab
 import org.blokada.R
 import service.AlertDialogService
+import service.ContextService
 import service.FlutterService
 import service.Sheet
 import service.SheetService
@@ -35,8 +38,10 @@ object StageBinding: StageOps {
     val tab = MutableStateFlow(Tab.Home)
     val payload = MutableStateFlow("")
 
+    private val context by lazy { ContextService }
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
+    private val stats by lazy { StatsBinding }
     private val sheet by lazy { SheetService }
     private val dialog by lazy { AlertDialogService }
     private val scope = GlobalScope
@@ -78,6 +83,11 @@ object StageBinding: StageOps {
     fun setForeground() {
         scope.launch {
             command.execute(CommandName.FOREGROUND)
+
+            // Special case handling: android wont give us a call when the share sheet is dismissed
+            if (displayingModal == StageModal.ADSCOUNTERSHARE) {
+                modalDismissed()
+            }
         }
     }
 
@@ -141,6 +151,14 @@ object StageBinding: StageOps {
 
         if (name != null) {
             sheet.showSheet(name)
+        } else {
+            // Special case handling
+            if (modal == StageModal.ADSCOUNTERSHARE) {
+                scope.launch {
+                    showShareText()
+                    command.execute(CommandName.MODALSHOWN, modal.name)
+                }
+            }
         }
 
         displayingModal = modal
@@ -172,9 +190,13 @@ object StageBinding: StageOps {
     }
 
     override fun doDismissModal(callback: (Result<Unit>) -> Unit) {
-        displayingModal = null
-        sheet.dismiss()
-        dialog.dismiss()
+        if (displayingModal == StageModal.ADSCOUNTERSHARE) {
+            modalDismissed()
+        } else {
+            displayingModal = null
+            sheet.dismiss()
+            dialog.dismiss()
+        }
         callback(Result.success(Unit))
     }
 
@@ -196,5 +218,20 @@ object StageBinding: StageOps {
         showingNavBar = show
         onShowNavBar(show)
         callback(Result.success(Unit))
+    }
+
+    private fun showShareText() {
+        val ctx = context.requireContext()
+        val activity = ctx as? Activity
+        if (activity != null) {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.main_share_message, stats.blocked))
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            activity.startActivity(shareIntent)
+        }
     }
 }

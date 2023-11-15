@@ -18,11 +18,14 @@ import service.FlutterService
 object StatsBinding: StatsOps {
     private val flutter by lazy { FlutterService }
 
+    var blocked = ""
+
     init {
         StatsOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
     override fun doBlockedCounterChanged(blocked: String, callback: (Result<Unit>) -> Unit) {
+        this.blocked = blocked
         callback(Result.success(Unit))
     }
 }
