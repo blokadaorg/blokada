@@ -283,11 +283,6 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "showModal", (trace) async {
       trace.addEvent("modal: $modal");
       if (route.modal != modal) {
-        if (Platform.isAndroid && !route.isForeground()) {
-          trace.addEvent("ignoring modal request, app in background");
-          return;
-        }
-
         if (_modalCompleter != null) {
           trace.addEvent("waiting for previous modal request to finish");
           await _modalCompleter?.future;
