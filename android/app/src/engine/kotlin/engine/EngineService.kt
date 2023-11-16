@@ -292,6 +292,10 @@ private data class EngineState(
 
     private val scope = GlobalScope
 
+    init {
+        notifyListener()
+    }
+
     @Synchronized fun inProgress() {
         tunnel = TunnelStatus.inProgress()
     }
