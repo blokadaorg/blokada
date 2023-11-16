@@ -7,6 +7,7 @@ import '../app/app.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
+import '../stats/stats.dart';
 import '../timer/timer.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
@@ -26,6 +27,7 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _app = dep<AppStore>();
+  late final _stats = dep<StatsStore>();
   late final _timer = dep<TimerService>();
 
   RateStoreBase() {
@@ -58,6 +60,7 @@ abstract class RateStoreBase with Store, Traceable, Dependable {
       if (meta == null) return; // .. but not on first ever app start
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
+      if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
 
       await show(trace);
     });
