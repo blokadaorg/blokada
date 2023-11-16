@@ -21,8 +21,10 @@ void main() {
         depend<StageOps>(ops);
 
         final subject = StageStore();
-        subject.setReady(trace, true);
+        await subject.setReady(trace, true);
         expect(subject.route.isForeground(), false);
+
+        await subject.setForeground(trace);
 
         await subject.setRoute(trace, "home");
         expect(subject.route.isForeground(), true);
@@ -38,7 +40,8 @@ void main() {
         depend<StageOps>(ops);
 
         final subject = StageStore();
-        subject.setReady(trace, true);
+        await subject.setReady(trace, true);
+        await subject.setForeground(trace);
 
         await subject.setRoute(trace, "activity");
         expect(subject.route.isBecameTab(StageTab.activity), true);
@@ -58,6 +61,8 @@ void main() {
         depend<StageOps>(ops);
 
         final subject = StageStore();
+        await subject.setReady(trace, true);
+        await subject.setForeground(trace);
         expect(subject.route.modal, null);
 
         _simulateConfirmation(() async {
@@ -82,6 +87,8 @@ void main() {
         depend<StageOps>(ops);
 
         final subject = StageStore();
+        await subject.setReady(trace, true);
+        await subject.setForeground(trace);
         expect(subject.route.modal, null);
 
         _simulateConfirmation(() async {
@@ -112,6 +119,40 @@ void main() {
         });
         await subject.showModal(trace, StageModal.help);
         expect(subject.route.modal, StageModal.help);
+      });
+    });
+
+    test("delayedEvents", () async {
+      await withTrace((trace) async {
+        final ops = MockStageOps();
+        depend<StageOps>(ops);
+
+        final subject = StageStore();
+
+        // Stage is not ready, should save this route for later
+        await subject.setRoute(trace, "activity");
+        expect(subject.route.isBecameTab(StageTab.activity), false);
+
+        await subject.setReady(trace, true);
+        await subject.setForeground(trace);
+
+        expect(subject.route.isBecameTab(StageTab.activity), true);
+
+        // When going bg, events wait until foreground
+        await subject.setBackground(trace);
+        expect(subject.route.modal, null);
+
+        // This one gets saved
+        await subject.showModal(trace, StageModal.plusLocationSelect);
+        expect(subject.route.modal, null);
+
+        _simulateConfirmation(() async {
+          await subject.modalShown(trace, StageModal.plusLocationSelect);
+        });
+
+        // Now modal will be shown
+        await subject.setForeground(trace);
+        expect(subject.route.modal, StageModal.plusLocationSelect);
       });
     });
   });

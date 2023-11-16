@@ -163,8 +163,9 @@ abstract class StageStoreBase
   @observable
   bool isReady = false;
 
-  @observable
-  List<String> _waitingEvents = [];
+  bool _isForeground = false;
+  StageModal? _modalToShow;
+  String? _pathToShow;
 
   StageModal? _waitingOnModal;
   Completer? _modalCompleter;
@@ -187,21 +188,16 @@ abstract class StageStoreBase
   @action
   Future<void> setForeground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setForeground", (trace) async {
-      if (!route.isForeground()) {
-        if (!isReady) {
-          await setRoute(trace, route.newFg().route.path);
-        } else {
-          route = route.newFg();
-          await emitValue(routeChanged, trace, route);
-        }
-      }
+      _isForeground = true;
+      if (isReady) await _processWaiting(trace);
     });
   }
 
   @action
   Future<void> setBackground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setBackground", (trace) async {
-      if (route.isForeground()) {
+      _isForeground = false;
+      if (isReady && route.isForeground()) {
         route = route.newBg();
         await emitValue(routeChanged, trace, route);
       }
@@ -212,9 +208,9 @@ abstract class StageStoreBase
   Future<void> setRoute(Trace parentTrace, String path) async {
     return await traceWith(parentTrace, "setRoute", (trace) async {
       if (path != route.route.path) {
-        if (!isReady) {
-          _waitingEvents.add(path);
-          trace.addEvent("event queued: $path");
+        if (!isReady || !_isForeground) {
+          _pathToShow = path;
+          trace.addEvent("not ready, route saved: $path");
           return;
         }
 
@@ -247,19 +243,29 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "setStageReady", (trace) async {
       if (this.isReady == isReady) return;
       this.isReady = isReady;
-      await _processQueue(trace);
+      if (isReady && _isForeground) await _processWaiting(trace);
     });
   }
 
-  _processQueue(Trace trace) async {
-    if (isReady && _waitingEvents.isNotEmpty) {
-      final events = _waitingEvents.toList();
-      _waitingEvents = [];
-      // Process queued events when the app is ready
-      trace.addAttribute("queueProcessed", events);
-      for (final event in events) {
-        await setRoute(trace, event);
-      }
+  _processWaiting(Trace trace) async {
+    if (!route.isForeground()) {
+      route = route.newFg();
+      await emitValue(routeChanged, trace, route);
+      trace.addEvent("foreground emitted");
+    }
+
+    final path = _pathToShow;
+    if (path != null) {
+      _pathToShow = null;
+      await setRoute(trace, path);
+      trace.addEvent("path emitted");
+    }
+
+    final modal = _modalToShow;
+    if (modal != null) {
+      _modalToShow = null;
+      await showModal(trace, modal);
+      trace.addEvent("modal emitted");
     }
   }
 
@@ -268,6 +274,12 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "showModal", (trace) async {
       trace.addEvent("modal: $modal");
       if (route.modal != modal) {
+        if (!isReady || !_isForeground) {
+          _modalToShow = modal;
+          trace.addEvent("not ready, modal saved: $modal");
+          return;
+        }
+
         if (_modalCompleter != null) {
           trace.addEvent("waiting for previous modal request to finish");
           await _modalCompleter?.future;
