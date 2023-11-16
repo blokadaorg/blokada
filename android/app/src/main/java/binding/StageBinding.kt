@@ -34,7 +34,7 @@ object StageBinding: StageOps {
     private val writeForeground = MutableStateFlow<Boolean?>(null)
     val enteredForegroundHot = writeForeground.filterNotNull().filter { it }
 
-    val route = MutableStateFlow("")
+    val route = MutableStateFlow("home")
     val tab = MutableStateFlow(Tab.Home)
     val payload = MutableStateFlow("")
 

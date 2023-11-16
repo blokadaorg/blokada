@@ -56,7 +56,7 @@ object SheetService {
             onHideFragment(this)
             fragment = null
             stage.modalDismissed()
-        } ?: sheetDismissed()
+        } ?: stage.modalDismissed()
     }
 
     fun sheetDismissed() {
