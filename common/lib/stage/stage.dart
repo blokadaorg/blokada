@@ -164,9 +164,6 @@ abstract class StageStoreBase
   bool isReady = false;
 
   @observable
-  bool isLocked = false;
-
-  @observable
   List<String> _waitingEvents = [];
 
   StageModal? _waitingOnModal;
@@ -215,8 +212,7 @@ abstract class StageStoreBase
   Future<void> setRoute(Trace parentTrace, String path) async {
     return await traceWith(parentTrace, "setRoute", (trace) async {
       if (path != route.route.path) {
-        if (!isReady ||
-            isLocked && path != StageKnownRoute.homeOverlayLock.path) {
+        if (!isReady) {
           _waitingEvents.add(path);
           trace.addEvent("event queued: $path");
           return;
@@ -255,19 +251,8 @@ abstract class StageStoreBase
     });
   }
 
-  @action
-  Future<void> setLocked(Trace parentTrace, bool isLocked) async {
-    if (this.isLocked == isLocked) return;
-
-    return await traceWith(parentTrace, "setLocked", (trace) async {
-      this.isLocked = isLocked;
-      trace.addAttribute("isLocked", isLocked);
-      await _processQueue(trace);
-    });
-  }
-
   _processQueue(Trace trace) async {
-    if (isReady && !isLocked && _waitingEvents.isNotEmpty) {
+    if (isReady && _waitingEvents.isNotEmpty) {
       final events = _waitingEvents.toList();
       _waitingEvents = [];
       // Process queued events when the app is ready

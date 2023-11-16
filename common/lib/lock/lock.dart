@@ -41,9 +41,9 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
         await load(trace);
       });
     } else if (!route.isForeground()) {
-      return await traceWith(parentTrace, "lockForBg", (trace) async {
-        await _stage.setLocked(trace, true);
-      });
+      // return await traceWith(parentTrace, "lockForBg", (trace) async {
+      //   await _stage.setLocked(trace, true);
+      // });
     }
   }
 
@@ -57,7 +57,7 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
         await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
       }
 
-      await _stage.setLocked(trace, hasPin);
+      //await _stage.setLocked(trace, hasPin);
     });
   }
 
@@ -72,7 +72,7 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       _existingPin = pin;
       isLocked = true;
       hasPin = true;
-      await _stage.setLocked(trace, true);
+      //await _stage.setLocked(trace, true);
       await _stage.setRoute(trace, StageKnownRoute.homeOverlayLock.path);
     });
   }
@@ -89,7 +89,7 @@ abstract class LockStoreBase with Store, Traceable, Dependable {
       }
 
       isLocked = false;
-      await _stage.setLocked(trace, false);
+      //await _stage.setLocked(trace, false);
     });
   }
 
