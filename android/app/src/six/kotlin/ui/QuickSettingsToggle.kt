@@ -70,37 +70,38 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     private suspend fun syncStatus(): IsActive? {
         val state = app.appStatus.first()
         val working = app.working.first()
+        val tile = qsTile
 
         return when {
-            qsTile == null -> null
+            tile == null -> null
             working == true -> {
-                showActivating()
+                showActivating(tile)
                 null
             }
             state.isActive() -> {
-                showOn()
+                showOn(tile)
                 true
             }
             else -> {
-                showOff()
+                showOff(tile)
                 false
             }
         }
     }
 
-    private fun showActivating() {
+    private fun showActivating(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = "..."
         qsTile.updateTile()
     }
 
-    private fun showOff() {
+    private fun showOff(qsTile: Tile) {
         qsTile.state = Tile.STATE_INACTIVE
         qsTile.label = getString(R.string.home_status_deactivated)
         qsTile.updateTile()
     }
 
-    private fun showOn() {
+    private fun showOn(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = getString(R.string.home_status_active)
         qsTile.updateTile()
