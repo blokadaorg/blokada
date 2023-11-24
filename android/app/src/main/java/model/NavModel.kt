@@ -14,15 +14,16 @@ package model
 
 
 enum class Tab {
-    Home, Activity, Advanced, Settings;
+    Home, Activity, Advanced, Settings, Web;
 
     companion object {
         fun fromRoute(route: String): Tab {
             return when (route.split("/").first().toLowerCase()) {
+                "home" -> Home
                 "activity" -> Activity
                 "advanced" -> Advanced
                 "settings" -> Settings
-                else -> Home
+                else -> Web
             }
         }
     }

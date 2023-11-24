@@ -43,9 +43,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import model.AccountType
 import model.Tab
-import model.toAccountType
 import org.blokada.R
 import repository.Repos
 import service.ContextService
@@ -459,8 +457,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
 
         when {
             path != null -> stage.setRoute(path)
-            pref.key == "account_subscription_manage"
-                    && account.account.value?.type.toAccountType() != AccountType.Libre -> {
+            pref.key == "account_subscription_manage" -> {
                 val intent = Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://play.google.com/store/account/subscriptions"))
                 startActivity(intent)
