@@ -63,7 +63,7 @@ class HelpFragment : BottomSheetFragment() {
         val logs: View = root.findViewById(R.id.help_log)
         logs.setOnClickListener {
             lifecycleScope.launch {
-                command.execute(CommandName.SHARELOG)
+                command.execute(CommandName.LOG)
             }
             dismiss()
         }

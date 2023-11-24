@@ -14,9 +14,11 @@ package service
 
 import utils.FlavorSpecific
 import java.io.File
+import java.util.Date
 
 object UncaughtExceptionService: FlavorSpecific {
 
+    private val env by lazy { EnvironmentService }
     private val context by lazy { ContextService }
     private const val filename = "blokada-a6.crash"
 
@@ -29,7 +31,9 @@ object UncaughtExceptionService: FlavorSpecific {
 
     private fun getFatalMessage(ex: Throwable): String {
         return """
-            |Fatal from Android:
+            |# Blokada 6 for Android # Fatal Report # v0.1
+            |${Date()}
+            |${env.getUserAgent()}
             |${ex.message}
             |${ex.stackTraceToString()}
             |${ex.cause?.message}
