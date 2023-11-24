@@ -42,17 +42,33 @@ class Tracer with Dependable, Traceable implements TraceFactory {
         important: important);
   }
 
+  final _keyCanPrompt = "tracer:canPromptCrashLog";
+
   // Propose the user to send the crash log if it exists from the previous run
-  checkForCrashLog(Trace parentTrace) async {
+  checkForCrashLog(Trace parentTrace, {bool force = false}) async {
     if (!await _ops.doFileExists(getLogFilename(forCrash: true))) return;
 
     return await traceWith(parentTrace, "proposeCrashLog", (trace) async {
+      if (!force && await _persistence.load(trace, _keyCanPrompt) == null) {
+        return;
+      }
+
       if (await _persistence.load(trace, "tracer:crashProposed") != null) {
         await deleteCrashLog(trace);
         await _persistence.delete(trace, "tracer:crashProposed");
       } else {
         await _stage.setRoute(trace, StageKnownRoute.homeOverlayCrash.path);
         await _persistence.saveString(trace, "tracer:crashProposed", "1");
+      }
+    });
+  }
+
+  canPromptCrashLog(Trace parentTrace, bool canPrompt) async {
+    return await traceWith(parentTrace, "canPromptCrashLog", (trace) async {
+      if (canPrompt) {
+        await _persistence.saveString(trace, _keyCanPrompt, "1");
+      } else {
+        await _persistence.delete(trace, _keyCanPrompt);
       }
     });
   }

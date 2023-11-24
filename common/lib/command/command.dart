@@ -180,8 +180,12 @@ class CommandStore
         return await _tracer.platformWarning(trace, p1!);
       case CommandName.fatal:
         return await _tracer.fatal(p1!);
-      case CommandName.shareLog:
+      case CommandName.log:
         return await _tracer.shareLog(trace, forCrash: false);
+      case CommandName.crashLog:
+        return await _tracer.checkForCrashLog(trace, force: true);
+      case CommandName.canPromptCrashLog:
+        return await _tracer.canPromptCrashLog(trace, p1 == "1");
       case CommandName.debugHttpFail:
         cfg.debugFailingRequests.add(p1!);
         return;

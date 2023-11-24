@@ -67,7 +67,9 @@ enum CommandName {
   // Tracer
   fatal,
   warning,
-  shareLog,
+  log,
+  crashLog,
+  canPromptCrashLog,
 
   // Debug
   debugHttpFail,
