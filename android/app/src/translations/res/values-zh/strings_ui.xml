@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">官方推薦</string>
     <string name="pack_category_active">啟用</string>
     <string name="pack_category_all">全部</string>
+    <string name="shields_section_header">Shields</string>
     <string name="location_choice_header">選擇位置</string>
     <string name="activity_section_header">活動</string>
     <string name="activity_section_header_details">活動詳細資訊</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">訂閱月付方案</string>
     <string name="payment_plan_cta_annual">訂閱年付方案</string>
     <string name="payment_plan_current">（目前方案）</string>
+    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
     <string name="location_region_worldwide">到處</string>
     <string name="location_region_america">美洲</string>
     <string name="location_region_europe">歐洲</string>

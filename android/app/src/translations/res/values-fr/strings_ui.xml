@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Points importants</string>
     <string name="pack_category_active">Actif</string>
     <string name="pack_category_all">Tous</string>
+    <string name="shields_section_header">Boucliers</string>
     <string name="location_choice_header">Choisissez une localisation</string>
     <string name="activity_section_header">Activité</string>
     <string name="activity_section_header_details">Détails de l\'activité</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">S\'abonner au mois</string>
     <string name="payment_plan_cta_annual">S\'abonner à l\'année</string>
     <string name="payment_plan_current">(offre actuelle)</string>
+    <string name="payment_cancel_footer">L\'abonnement est automatiquement renouvelé avant la fin de la période de facturation en cours. Vous pouvez annuler à tout moment dans les paramètres.</string>
+    <string name="payment_cancel_footer_trial">Annuler dans les %s prochains jours, et vous ne serez pas facturé. L\'abonnement est automatiquement renouvelé. Après la période d\'essai, vous pouvez annuler à tout moment dans les Paramètres.</string>
     <string name="location_region_worldwide">Partout</string>
     <string name="location_region_america">Amérique</string>
     <string name="location_region_europe">Europe</string>

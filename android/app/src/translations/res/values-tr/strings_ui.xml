@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Öne çıkanlar</string>
     <string name="pack_category_active">Etkin</string>
     <string name="pack_category_all">Tümü</string>
+    <string name="shields_section_header">Shields</string>
     <string name="location_choice_header">Bir konum seçin</string>
     <string name="activity_section_header">Etkinlik</string>
     <string name="activity_section_header_details">Etkinlik Ayrıntıları</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="payment_plan_current">(current plan)</string>
+    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
     <string name="location_region_worldwide">Her yerde</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Avrupa</string>

@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Destacados</string>
     <string name="pack_category_active">Activo</string>
     <string name="pack_category_all">Todo</string>
+    <string name="shields_section_header">Escudos</string>
     <string name="location_choice_header">Elige una ubicación</string>
     <string name="activity_section_header">Actividad</string>
     <string name="activity_section_header_details">Detalles de la actividad</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">Suscripción mensual</string>
     <string name="payment_plan_cta_annual">Suscripción anual</string>
     <string name="payment_plan_current">(plan actual)</string>
+    <string name="payment_cancel_footer">La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Puede cancelar en cualquier momento en Configuración.</string>
+    <string name="payment_cancel_footer_trial">Cancela durante los próximos %s días, y no se te cobrará. La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Después de la prueba, puede cancelar en cualquier momento en Configuración.</string>
     <string name="location_region_worldwide">En todas partes</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>

@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Wyróżnione</string>
     <string name="pack_category_active">Aktywne</string>
     <string name="pack_category_all">Wszystkie</string>
+    <string name="shields_section_header">Tarcze</string>
     <string name="location_choice_header">Wybierz lokalizację</string>
     <string name="activity_section_header">Aktywność</string>
     <string name="activity_section_header_details">Szczegóły Aktywności</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">Subskrybuj miesięcznie</string>
     <string name="payment_plan_cta_annual">Subskrybuj rocznie</string>
     <string name="payment_plan_current">(obecny plan)</string>
+    <string name="payment_cancel_footer">Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Możesz anulować w dowolnym momencie w Ustawieniach.</string>
+    <string name="payment_cancel_footer_trial">Anuluj w ciągu następnych %s dni, a nie zostaniesz obciążony. Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Po zakończeniu okresu próbnego możesz anulować w dowolnym momencie w Ustawieniach.</string>
     <string name="location_region_worldwide">Wszędzie</string>
     <string name="location_region_america">Ameryka</string>
     <string name="location_region_europe">Europa</string>

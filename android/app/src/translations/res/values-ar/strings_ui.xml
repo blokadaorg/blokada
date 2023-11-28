@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">الملامح</string>
     <string name="pack_category_active">مُفَعَّل</string>
     <string name="pack_category_all">الكل</string>
+    <string name="shields_section_header">Shields</string>
     <string name="location_choice_header">اختر موقع</string>
     <string name="activity_section_header">الأنشطة</string>
     <string name="activity_section_header_details">تفاصيل النشاط</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">اشترك شهريّاً</string>
     <string name="payment_plan_cta_annual">اشترك سنويّاً</string>
     <string name="payment_plan_current">(الخطّة الحاليّة)</string>
+    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
     <string name="location_region_worldwide">في كل مكان</string>
     <string name="location_region_america">أمريكا</string>
     <string name="location_region_europe">أوروبا</string>

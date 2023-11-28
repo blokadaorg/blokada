@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Основные моменты</string>
     <string name="pack_category_active">Активно</string>
     <string name="pack_category_all">Все</string>
+    <string name="shields_section_header">Защиты</string>
     <string name="location_choice_header">Выберите местоположение</string>
     <string name="activity_section_header">Активность</string>
     <string name="activity_section_header_details">Описание действия</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">Подписка на месяц</string>
     <string name="payment_plan_cta_annual">Подписка на год</string>
     <string name="payment_plan_current">(текущий тариф)</string>
+    <string name="payment_cancel_footer">Подписка автоматически продлевается до окончания текущего расчетного периода. Отменить подписку можно в любое время в Настройках.</string>
+    <string name="payment_cancel_footer_trial">Отмените подписку в течение следующих %s дней, если не хотите ее продлевать. Подписка автоматически продлевается до окончания текущего расчетного периода. После пробной версии вы можете отменить подписку в любое время в Настройках.</string>
     <string name="location_region_worldwide">Везде</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>

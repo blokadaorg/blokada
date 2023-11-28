@@ -137,6 +137,7 @@
     <string name="pack_category_highlights">Destaques</string>
     <string name="pack_category_active">Ativo</string>
     <string name="pack_category_all">Todas</string>
+    <string name="shields_section_header">Shields</string>
     <string name="location_choice_header">Escolha uma Localização</string>
     <string name="activity_section_header">Atividade</string>
     <string name="activity_section_header_details">Detalhes de Atividade</string>
@@ -320,6 +321,8 @@
     <string name="payment_plan_cta_monthly">Assinar Mensalmente</string>
     <string name="payment_plan_cta_annual">Assinar Anualmente</string>
     <string name="payment_plan_current">(plano atual)</string>
+    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
     <string name="location_region_worldwide">Todos os lugares</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>
