@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="payment_plan_current">(current plan)</string>
     <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
-    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial_short">Cancel during the next %s days, and you won’t be charged.</string>
     <string name="location_region_worldwide">Her yerde</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Avrupa</string>
@@ -357,8 +357,8 @@
     <string name="stats_requests_subheader">Queries over time</string>
     <string name="stats_top_allowed_header">Top allowed requests</string>
     <string name="stats_top_blocked_header">Top blocked requests</string>
-    <string name="stats_label_allowed">Allowed</string>
-    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_allowed">İzin verildi</string>
+    <string name="stats_label_blocked">Engellendi</string>
     <string name="stats_label_total">Total</string>
     <string name="stats_header_day">Last 24h</string>
     <string name="stats_header_all_time">All time</string>

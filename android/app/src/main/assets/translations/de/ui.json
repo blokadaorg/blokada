@@ -321,7 +321,7 @@
     "payment plan cta annual": "Jährlich abonnieren",
     "payment plan current": "(aktueller Plan)",
     "payment cancel footer": "Das Abonnement wird automatisch verlängert, bevor der aktuelle Abrechnungszeitraum endet. Sie können jederzeit in den Einstellungen abbrechen.",
-    "payment cancel footer trial": "Abbrechen während der nächsten %s Tage, und Sie werden nicht belastet. Das Abonnement wird automatisch verlängert, bevor die aktuelle Abrechnungsfrist endet. Nach der Testphase können Sie jederzeit in den Einstellungen abbrechen.",
+    "payment cancel footer trial short": "Abbrechen während der nächsten %s Tage, und Sie werden nicht belastet.",
     "location region worldwide": "Überall",
     "location region america": "Amerika",
     "location region europe": "Europa",

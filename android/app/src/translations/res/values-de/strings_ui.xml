@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Jährlich abonnieren</string>
     <string name="payment_plan_current">(aktueller Plan)</string>
     <string name="payment_cancel_footer">Das Abonnement wird automatisch verlängert, bevor der aktuelle Abrechnungszeitraum endet. Sie können jederzeit in den Einstellungen abbrechen.</string>
-    <string name="payment_cancel_footer_trial">Abbrechen während der nächsten %s Tage, und Sie werden nicht belastet. Das Abonnement wird automatisch verlängert, bevor die aktuelle Abrechnungsfrist endet. Nach der Testphase können Sie jederzeit in den Einstellungen abbrechen.</string>
+    <string name="payment_cancel_footer_trial_short">Abbrechen während der nächsten %s Tage, und Sie werden nicht belastet.</string>
     <string name="location_region_worldwide">Überall</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Europa</string>

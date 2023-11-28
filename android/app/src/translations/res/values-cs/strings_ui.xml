@@ -137,7 +137,7 @@
     <string name="pack_category_highlights">Populární</string>
     <string name="pack_category_active">Aktivní</string>
     <string name="pack_category_all">Vše</string>
-    <string name="shields_section_header">Shields</string>
+    <string name="shields_section_header">Štíty</string>
     <string name="location_choice_header">Zvolte umístění</string>
     <string name="activity_section_header">Aktivita</string>
     <string name="activity_section_header_details">Podrobnosti o aktivitě</string>
@@ -321,8 +321,8 @@
     <string name="payment_plan_cta_monthly">Měsíční předplatné</string>
     <string name="payment_plan_cta_annual">Roční předplatné</string>
     <string name="payment_plan_current">(aktuální plán)</string>
-    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
-    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer">Předplatné je automaticky obnoveno před ukončením aktuálního fakturačního období. Kdykoli můžete zrušit v Nastavení.</string>
+    <string name="payment_cancel_footer_trial_short">Zrušit během následujících %s dní a nebude ti nic účtováno.</string>
     <string name="location_region_worldwide">Všude</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Evropa</string>

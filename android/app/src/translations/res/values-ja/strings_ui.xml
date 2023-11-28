@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">年額プラン</string>
     <string name="payment_plan_current">（現在のプラン）</string>
     <string name="payment_cancel_footer">サブスクリプションは支払い済みの期間が終了する前に自動更新されます。いつでも設定からキャンセルできます。</string>
-    <string name="payment_cancel_footer_trial">次の %s 日以内にキャンセルした場合は請求されません。サブスクリプションは支払い済みの期間が終了する前に自動更新されます。トライアルが終了すると、いつでも設定からキャンセルできます。</string>
+    <string name="payment_cancel_footer_trial_short">次の %s 日間はキャンセルします。課金されません。</string>
     <string name="location_region_worldwide">ワールドワイド</string>
     <string name="location_region_america">アメリカ</string>
     <string name="location_region_europe">ヨーロッパ</string>

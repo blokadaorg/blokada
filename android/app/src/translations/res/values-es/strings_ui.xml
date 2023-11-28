@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Suscripción anual</string>
     <string name="payment_plan_current">(plan actual)</string>
     <string name="payment_cancel_footer">La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Puede cancelar en cualquier momento en Configuración.</string>
-    <string name="payment_cancel_footer_trial">Cancela durante los próximos %s días, y no se te cobrará. La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Después de la prueba, puede cancelar en cualquier momento en Configuración.</string>
+    <string name="payment_cancel_footer_trial_short">Cancela durante los próximos %s días, y no se te cobrará.</string>
     <string name="location_region_worldwide">En todas partes</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>

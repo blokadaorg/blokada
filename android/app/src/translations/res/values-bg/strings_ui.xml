@@ -137,7 +137,7 @@
     <string name="pack_category_highlights">Акценти</string>
     <string name="pack_category_active">Активно</string>
     <string name="pack_category_all">Всичкo</string>
-    <string name="shields_section_header">Shields</string>
+    <string name="shields_section_header">Щитове</string>
     <string name="location_choice_header">Избор на местоположение</string>
     <string name="activity_section_header">Активност</string>
     <string name="activity_section_header_details">Подробности за активността</string>
@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Годишен абонамент</string>
     <string name="payment_plan_current">(текущ план)</string>
     <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
-    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial_short">Cancel during the next %s days, and you won’t be charged.</string>
     <string name="location_region_worldwide">Навсякъде</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>

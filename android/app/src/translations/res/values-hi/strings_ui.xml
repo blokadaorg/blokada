@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="payment_plan_current">(current plan)</string>
     <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
-    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer_trial_short">Cancel during the next %s days, and you won’t be charged.</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europe</string>
@@ -358,7 +358,7 @@
     <string name="stats_top_allowed_header">Top allowed requests</string>
     <string name="stats_top_blocked_header">Top blocked requests</string>
     <string name="stats_label_allowed">Allowed</string>
-    <string name="stats_label_blocked">Blocked</string>
+    <string name="stats_label_blocked">अवरुद्ध</string>
     <string name="stats_label_total">Total</string>
     <string name="stats_header_day">Last 24h</string>
     <string name="stats_header_all_time">All time</string>
@@ -382,7 +382,7 @@
     <string name="activated_label_vpn_no">Allow VPN</string>
     <string name="homepage_vpn_credit">\'WireGuard\' and the \'WireGuard\' logo are registered trademarks of Jason A. Donenfeld.</string>
     <string name="advanced_section_header_packs">Blocklists</string>
-    <string name="app_settings_section_header">This device</string>
+    <string name="app_settings_section_header">यह डिवाइस</string>
     <string name="lock_status_locked">Blokada is locked. Enter the pin code to unlock</string>
     <string name="lock_status_unlocked_has_pin">Enter the pin code to change it</string>
     <string name="lock_status_unlocked">Set your pin code to lock Blokada</string>

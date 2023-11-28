@@ -321,7 +321,7 @@
     "payment plan cta annual": "Langganan Tahunan",
     "payment plan current": "(paket saat ini)",
     "payment cancel footer": "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.",
-    "payment cancel footer trial": "Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.",
+    "payment cancel footer trial short": "Cancel during the next %s days, and you won’t be charged.",
     "location region worldwide": "Di mana saja",
     "location region america": "Amerika",
     "location region europe": "Eropa",

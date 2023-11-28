@@ -88,5 +88,5 @@
     <string name="app_settings_section_use_foreground">Păstrează activ</string>
     <string name="intro_header">Blokada este Activ!</string>
     <string name="intro_text">Un inel albastru înseamnă că Blokada funcționează.\n\nRețineți că unele reclame, precum YouTube, nu pot fi blocate. Cu toate acestea, veţi observa o diferenţă în multe alte aplicaţii.\n\nVă recomandăm să activați opțiunea Mereu pe VPN / Conectare la cerere în setările sistemului dvs.</string>
-    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
+    <string name="intro_text_not_libre">Un inel albastru sau portocaliu înseamnă că Blokada funcționează.\n\nVă recomandăm să activați întotdeauna VPN-ul în setările de sistem.</string>
 </resources>

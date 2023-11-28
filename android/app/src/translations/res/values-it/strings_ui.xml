@@ -322,7 +322,7 @@
     <string name="payment_plan_cta_annual">Abbonamento annuale</string>
     <string name="payment_plan_current">(piano attuale)</string>
     <string name="payment_cancel_footer">L\'abbonamento viene rinnovato automaticamente prima della fine del periodo di fatturazione corrente. È possibile annullare in qualsiasi momento nelle Impostazioni.</string>
-    <string name="payment_cancel_footer_trial">Annulla durante i prossimi giorni %s e non ti verrà addebitato. L\'abbonamento viene rinnovato automaticamente prima della fine del periodo di fatturazione corrente. Dopo la prova, è possibile annullare in qualsiasi momento nelle Impostazioni.</string>
+    <string name="payment_cancel_footer_trial_short">Annulla durante i prossimi giorni %s e non ti verrà addebitato.</string>
     <string name="location_region_worldwide">Ovunque</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europa</string>

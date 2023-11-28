@@ -321,7 +321,7 @@
     "payment plan cta annual": "Suscripción anual",
     "payment plan current": "(plan actual)",
     "payment cancel footer": "La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Puede cancelar en cualquier momento en Configuración.",
-    "payment cancel footer trial": "Cancela durante los próximos %s días, y no se te cobrará. La suscripción se renueva automáticamente antes de que finalice el período de facturación actual. Después de la prueba, puede cancelar en cualquier momento en Configuración.",
+    "payment cancel footer trial short": "Cancela durante los próximos %s días, y no se te cobrará.",
     "location region worldwide": "En todas partes",
     "location region america": "América",
     "location region europe": "Europa",

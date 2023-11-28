@@ -137,7 +137,7 @@
     <string name="pack_category_highlights">Höjdpunkter</string>
     <string name="pack_category_active">Aktiva</string>
     <string name="pack_category_all">Alla</string>
-    <string name="shields_section_header">Shields</string>
+    <string name="shields_section_header">Sköldar</string>
     <string name="location_choice_header">Välj en plats</string>
     <string name="activity_section_header">Aktivitet</string>
     <string name="activity_section_header_details">Aktivitetsinformation</string>
@@ -321,8 +321,8 @@
     <string name="payment_plan_cta_monthly">Månadsvis prenumeration</string>
     <string name="payment_plan_cta_annual">Årlig prenumereration</string>
     <string name="payment_plan_current">(nuvarande plan)</string>
-    <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
-    <string name="payment_cancel_footer_trial">Cancel during the next %s days, and you won’t be charged. The subscription is auto-renewed before the current billing period ends. After trial, you can cancel anytime in Settings.</string>
+    <string name="payment_cancel_footer">Prenumerationen förnyas automatiskt innan den aktuella faktureringsperioden tar slut. Du kan avbryta när som helst i Inställningar.</string>
+    <string name="payment_cancel_footer_trial_short">Avbryt under de närmaste %s dagarna, och du kommer inte att debiteras.</string>
     <string name="location_region_worldwide">Överallt</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Europa</string>

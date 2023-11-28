@@ -61,7 +61,7 @@
     <string name="apps_section_header">ऐप्स</string>
     <string name="apps_label_installed">Installed</string>
     <string name="apps_label_system">System</string>
-    <string name="apps_status_bypassed">(bypassed)</string>
+    <string name="apps_status_bypassed">(नजरअंदाज)</string>
     <string name="apps_filter_header">Which apps would you like to see?</string>
     <string name="apps_filter_action_show_all">All apps</string>
     <string name="apps_filter_action_show_bypassed">Bypassed only</string>
