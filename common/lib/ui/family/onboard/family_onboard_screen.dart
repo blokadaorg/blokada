@@ -81,20 +81,20 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
           ),
         ),
         const Spacer(),
-        GestureDetector(
-          onTap: _openTos,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 68.0, vertical: 16.0),
-            child: Text(
-                "By continuing you agree to our Terms of Service and Privacy Policy.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  // fontWeight: FontWeight.w500,
-                )),
-          ),
-        ),
+        // GestureDetector(
+        //   onTap: _openTos,
+        //   child: const Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 68.0, vertical: 16.0),
+        //     child: Text(
+        //         "By continuing you agree to our Terms of Service and Privacy Policy.",
+        //         textAlign: TextAlign.center,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 12,
+        //           // fontWeight: FontWeight.w500,
+        //         )),
+        //   ),
+        // ),
         SizedBox(
           height: 80,
           child: Padding(
