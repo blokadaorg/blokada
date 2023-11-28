@@ -98,6 +98,17 @@
 
                 </LinearLayout>
 
+                <!-- Trial cancel footer -->
+                <TextView
+                    android:id="@+id/cancel_footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/normal"
+                    android:text="@string/payment_cancel_footer_trial_short"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
                 <!-- Orange plans box -->
                 <LinearLayout
@@ -167,14 +178,37 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/cancel_footer_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/normal"
+                        android:paddingEnd="@dimen/normal"
+                        android:paddingBottom="@dimen/normal"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/payment_cancel_footer"
+                            android:textColor="?android:attr/textColorTertiary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cancel_footer_group"
                         app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
+
 
                         <TextView
                             android:id="@+id/payment_restore"
