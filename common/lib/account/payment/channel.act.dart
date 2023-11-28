@@ -37,7 +37,7 @@ _actNormal(MockAccountPaymentOps ops) {
           pricePerMonth: '9.99',
           periodMonths: 1,
           type: 'cloud',
-          trial: true,
+          trial: 7,
           owned: false),
     ];
   });

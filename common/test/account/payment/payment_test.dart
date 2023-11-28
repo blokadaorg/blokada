@@ -31,7 +31,7 @@ final _fixtureProducts = [
     pricePerMonth: "9.99",
     periodMonths: 1,
     type: "plus",
-    trial: false,
+    trial: null,
     owned: false,
   ),
   Product(
@@ -42,7 +42,7 @@ final _fixtureProducts = [
     pricePerMonth: "2.09",
     periodMonths: 12,
     type: "cloud",
-    trial: false,
+    trial: null,
     owned: false,
   ),
 ];

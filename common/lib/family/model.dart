@@ -22,6 +22,7 @@ enum FamilyPhase {
   parentNoDevices, // Active account, nothing set up yet
   parentHasDevices, // Active account, at least one device setup
   lockedNoPerms, // Device is locked (parent device in child mode), no DNS perms
+  lockedNoAccount, // Device is locked (parent device in child mode), account expired
   lockedActive, // Device is locked and perms good to go
 }
 
@@ -31,6 +32,7 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.fresh ||
         this == FamilyPhase.parentNoDevices ||
         this == FamilyPhase.lockedNoPerms ||
+        this == FamilyPhase.lockedNoAccount ||
         this == FamilyPhase.lockedActive ||
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.linkedActive;
@@ -40,7 +42,8 @@ extension FamilyPhaseExt on FamilyPhase {
     return this == FamilyPhase.fresh ||
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.parentNoDevices ||
-        this == FamilyPhase.lockedNoPerms;
+        this == FamilyPhase.lockedNoPerms ||
+        this == FamilyPhase.lockedNoAccount;
   }
 
   bool requiresPerms() {
@@ -48,10 +51,21 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.lockedNoPerms;
   }
 
+  bool requiresActivation() {
+    return this == FamilyPhase.fresh || this == FamilyPhase.lockedNoAccount;
+  }
+
   bool isParent() {
     return this == FamilyPhase.parentNoDevices ||
         this == FamilyPhase.parentHasDevices ||
         this == FamilyPhase.lockedNoPerms ||
+        this == FamilyPhase.lockedNoAccount ||
         this == FamilyPhase.lockedActive;
+  }
+
+  bool isLinkable() {
+    return this == FamilyPhase.fresh ||
+        this == FamilyPhase.starting ||
+        this == FamilyPhase.parentNoDevices;
   }
 }

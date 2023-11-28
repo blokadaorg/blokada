@@ -1,3 +1,5 @@
+import 'package:dartx/dartx.dart';
+
 import '../account/account.dart';
 import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';
@@ -55,7 +57,7 @@ class CommandStore
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, null), (trace) async {
-      return await execute(trace, cmd);
+      return await _execute(trace, cmd);
     });
     _stopCommandTimeout(cmd);
   }
@@ -65,7 +67,7 @@ class CommandStore
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, p1), (trace) async {
-      return await execute(trace, cmd, p1: p1);
+      return await _execute(trace, cmd, p1: p1);
     });
     _stopCommandTimeout(cmd);
   }
@@ -75,7 +77,7 @@ class CommandStore
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await traceAs(_cmdName(command, p1), (trace) async {
-      return await execute(trace, cmd, p1: p1, p2: p2);
+      return await _execute(trace, cmd, p1: p1, p2: p2);
     });
     _stopCommandTimeout(cmd);
   }
@@ -86,12 +88,15 @@ class CommandStore
       final cmd = _commandFromString(commandParts.first);
       final p1 = commandParts.elementAtOrNull(1);
       final p2 = commandParts.elementAtOrNull(2);
-      return await execute(trace, cmd, p1: p1, p2: p2);
+      return await _execute(trace, cmd, p1: p1, p2: p2);
     });
   }
 
-  execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
+  _execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
+    trace.addAttribute("command", cmd.name);
     switch (cmd) {
+      case CommandName.url:
+        await _executeUrl(trace, p1!);
       case CommandName.restore:
         await _account.restore(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
@@ -177,7 +182,7 @@ class CommandStore
       case CommandName.appleNotificationToken:
         return await _notification.saveAppleToken(trace, p1!);
       case CommandName.familyLink:
-        return await _family.link(trace, p1!);
+        return await _family.link(trace, p1!, p2!);
       case CommandName.familyWaitForDeviceName:
         return await _family.setWaitingForDevice(trace, p1!);
       case CommandName.warning:
@@ -205,6 +210,26 @@ class CommandStore
         return;
       case CommandName.setFlavor:
         return;
+    }
+  }
+
+  _executeUrl(Trace trace, String url) async {
+    try {
+      // Family link device
+      if (url.startsWith(familyLinkBase)) {
+        final tag = url.split("tag=").last.split("&").first.trim();
+        final name = url.split("name=").last.urlDecode.trim();
+        if (tag.isEmpty || name.isEmpty) {
+          throw Exception("Unknown familyLink token parameters");
+        }
+
+        await _execute(trace, CommandName.familyLink, p1: tag, p2: name);
+      } else {
+        throw Exception("Unsupported url: $url");
+      }
+    } catch (e) {
+      await _stage.showModal(trace, StageModal.fault);
+      rethrow;
     }
   }
 

@@ -55,7 +55,6 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuilding familystats: ${_stats.totalAllowed}");
     return content();
   }
 
@@ -158,7 +157,6 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
             padding: const EdgeInsets.all(12.0),
             child: TotalCounter(autoRefresh: true),
           ),
-          const Spacer(),
           SizedBox(height: sy(60)),
         ],
       );

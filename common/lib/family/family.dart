@@ -28,8 +28,8 @@ import 'model.dart';
 part 'family.g.dart';
 
 const String _key = "familyDevice:devices";
-const _linkBase = "https://go.blokada.org/family/link_device";
-const linkTemplate = "$_linkBase?tag=TAG&name=NAME";
+const familyLinkBase = "https://go.blokada.org/family/link_device";
+const linkTemplate = "$familyLinkBase?tag=TAG&name=NAME";
 
 class FamilyStore = FamilyStoreBase with _$FamilyStore;
 
@@ -54,10 +54,10 @@ abstract class FamilyStoreBase
     _lock.addOnValue(lockChanged, updatePhaseFromLock);
     _app.addOn(appStatusChanged, addThisDevice);
     _stage.addOnValue(routeChanged, syncAddingDevice);
+    _device.addOn(deviceChanged, syncLinkedMode);
 
     // TODO: this pattern is probably unwanted
     _onJournalChanges();
-    _onDeviceTagChanges();
     _onStatsChanges();
     _onThisDeviceNameChange();
     _onDnsPermChanges();
@@ -103,15 +103,6 @@ abstract class FamilyStoreBase
     reactionOnStore((_) => _journal.allEntries, (entries) async {
       return await traceAs("onJournalChanged", (trace) async {
         await discoverEntries(trace);
-      });
-    });
-  }
-
-  _onDeviceTagChanges() {
-    reactionOnStore((_) => _cloudDevice.deviceTag, (_) async {
-      return await traceAs("syncLinkedMode", (trace) async {
-        await syncLinkedMode(trace);
-        await _maybeShowOnboardOnStart(trace);
       });
     });
   }
@@ -192,24 +183,12 @@ abstract class FamilyStoreBase
 
   // Links a supervised device to the account
   @action
-  Future<void> link(Trace parentTrace, String token) async {
+  Future<void> link(Trace parentTrace, String tag, String name) async {
     if (!act.isFamily()) return;
     return await traceWith(parentTrace, "link", (trace) async {
-      if (!token.startsWith(_linkBase)) throw Exception("Unknown token url");
-      try {
-        final tag = token.split("tag=").last.split("&").first;
-        final name = token.split("name=").last.urlDecode;
-
-        if (tag.isEmpty || name.isEmpty) {
-          throw Exception("Unknown token parameters");
-        }
-
-        await _cloudDevice.setDeviceAlias(trace, name);
-        await _cloudDevice.setLinkedTag(trace, tag);
-      } catch (_) {
-        await _stage.showModal(trace, StageModal.fault);
-        rethrow;
-      }
+      if (!phase.isLinkable()) throw Exception("Device not linkable anymore");
+      await _cloudDevice.setDeviceAlias(trace, name);
+      await _cloudDevice.setLinkedTag(trace, tag);
     });
   }
 
@@ -232,6 +211,8 @@ abstract class FamilyStoreBase
               .filter((e) => e.deviceName.isNotEmpty)
               .map((e) => e.deviceName)
               .toList());
+
+      _updateDnsForward(devices);
     });
   }
 
@@ -258,7 +239,16 @@ abstract class FamilyStoreBase
     return await traceWith(parentTrace, "deleteDevice", (trace) async {
       _waitingForDevice = null;
       final d = devices;
-      d.removeWhere((e) => e.deviceName == deviceAlias);
+      final device = d.firstWhere((e) => e.deviceName == deviceAlias);
+      d.remove(device);
+
+      // Disable cloud for this device, since user deleted it from the list
+      if (device.thisDevice) {
+        await _device.setCloudEnabled(parentTrace, false);
+        await _lock.removeLock(trace);
+        hasThisDevice = false;
+      }
+
       _updateDevices(d);
       await _savePersistence(trace);
       await _statsRefresh.setMonitoredDevices(
@@ -285,6 +275,7 @@ abstract class FamilyStoreBase
       await _ops.doFamilyLinkTemplateChanged(link);
       linkedMode = _cloudDevice.tagOverwritten;
       _updatePhase();
+      await _maybeShowOnboardOnStart(trace);
     });
   }
 
@@ -315,6 +306,14 @@ abstract class FamilyStoreBase
   Future<void> updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
     if (!act.isFamily()) return;
     appLocked = isLocked;
+
+    if (isLocked) {
+      // Make sure cloud is enabled for this device
+      // This will set appStatus to active and add "this device" to the list
+      if (_device.cloudEnabled == false && accountActive == true) {
+        await _device.setCloudEnabled(parentTrace, true);
+      }
+    }
     _updatePhase();
   }
 
@@ -361,12 +360,6 @@ abstract class FamilyStoreBase
     // When the accountLink modal is dismissed, we drop the unassigned device.
     if (route.modal == null && _waitingForDevice != null) {
       return await deleteDevice(parentTrace, "");
-    }
-
-    // Someone has to make sure the cloud is enabled
-    // TODO: better place
-    if (_device.cloudEnabled == false && accountActive == true) {
-      await _device.setCloudEnabled(parentTrace, true);
     }
   }
 
@@ -451,6 +444,19 @@ abstract class FamilyStoreBase
     hasDevices = d.isNotEmpty;
     devicesChanges++;
     _updatePhase();
+    _updateDnsForward(d);
+  }
+
+  _updateDnsForward(List<FamilyDevice> d) {
+    // If "this device" is used for blocking, use proper dns
+    // Otherwise use forward dns
+    final shouldForward = d.firstWhereOrNull((e) => e.thisDevice) == null;
+    if (shouldForward == _perm.isForwardDns) return;
+
+    traceAs("updateDnsForward", (trace) async {
+      trace.addAttribute("forward", shouldForward);
+      await _perm.setForwardDns(trace, shouldForward);
+    });
   }
 
   Timer? timer;
@@ -462,12 +468,21 @@ abstract class FamilyStoreBase
   }
 
   _updatePhaseNow() {
-    if (linkedMode && appActive) {
+    if (accountActive == null) {
+      phase = FamilyPhase.starting;
+    } else if (linkedMode && appActive) {
+      phase = FamilyPhase.linkedActive;
+    } else if (linkedMode && accountActive == false) {
+      // Special case, app is setup in linked mode, but account got expired
+      // This is parent account, so child device cannot do much about it.
+      // Just display as active on child device.
       phase = FamilyPhase.linkedActive;
     } else if (linkedMode) {
       phase = FamilyPhase.linkedNoPerms;
     } else if (appLocked && appActive) {
       phase = FamilyPhase.lockedActive;
+    } else if (appLocked && accountActive == false) {
+      phase = FamilyPhase.lockedNoAccount;
     } else if (appLocked) {
       phase = FamilyPhase.lockedNoPerms;
     } else if (accountActive == false) {
@@ -482,7 +497,6 @@ abstract class FamilyStoreBase
 
     traceAs("updatePhase", (trace) async {
       trace.addAttribute("phase", phase);
-      await _perm.setForwardDns(trace, !phase.isLocked());
     });
   }
 }

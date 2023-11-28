@@ -38,9 +38,9 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   DeviceTag? privateDnsEnabled;
 
   // Used for when we want to skip our own dns and just forward it.
-  // This is only for Family, for when device is unlocked.
+  // This is only for Family;
   @observable
-  bool isForwardDns = false;
+  bool? isForwardDns;
 
   @observable
   int privateDnsTagChangeCounter = 0;
@@ -123,7 +123,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
 
-        if (isForwardDns) {
+        if (isForwardDns == true) {
           await _ops.doSetSetPrivateDnsForward();
         } else {
           await _ops.doSetSetPrivateDnsEnabled(tag, _device.deviceAlias);

@@ -144,6 +144,8 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
         return _widgetsForLockedNotOnboarded();
       case FamilyPhase.lockedNoPerms:
         return _widgetsForLockedNotOnboarded();
+      case FamilyPhase.lockedNoAccount:
+        return _widgetsForLockedNoAccount();
       case FamilyPhase.parentHasDevices:
         return [
           const Spacer(),
@@ -188,6 +190,35 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
               SizedBox(height: 8),
               Text(
                 "Please grant the necessary permissions",
+                style: TextStyle(fontSize: 18, color: theme.textSecondary),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 72),
+              CtaButtons(),
+            ],
+          )),
+    ];
+  }
+
+  List<Widget> _widgetsForLockedNoAccount() {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    return [
+      Spacer(),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            children: [
+              Text(
+                "Account expired",
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.textPrimary),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 8),
+              Text(
+                "Please activate your account to continue",
                 style: TextStyle(fontSize: 18, color: theme.textSecondary),
                 textAlign: TextAlign.center,
               ),

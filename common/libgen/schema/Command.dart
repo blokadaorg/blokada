@@ -1,6 +1,9 @@
 import 'package:pigeon/pigeon.dart';
 
 enum CommandName {
+  // Universal links / deep links
+  url,
+
   // Config
   setFlavor,
 

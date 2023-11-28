@@ -60,10 +60,11 @@ class DevicesState extends State<Devices>
     return _devices.reversed
         .map((e) => Padding(
               padding: const EdgeInsets.all(8.0),
-              child: (e.thisDevice)
-                  ? HomeDevice(device: e, color: theme.family)
-                  : _wrapInDismissible(
-                      e.deviceName, HomeDevice(device: e, color: Colors.blue)),
+              child: _wrapInDismissible(
+                  e.deviceName,
+                  HomeDevice(
+                      device: e,
+                      color: e.thisDevice ? Colors.pink : Colors.blue)),
             ))
         .toList();
   }

@@ -79,7 +79,7 @@ class CtaButtonsState extends State<CtaButtons>
               )
             : Container(),
         // Small lock icon or QR icon shown always
-        (_phase == FamilyPhase.fresh)
+        (_phase == FamilyPhase.fresh || _phase == FamilyPhase.parentNoDevices)
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MiniCard(
@@ -91,7 +91,9 @@ class CtaButtonsState extends State<CtaButtons>
                     )),
               )
             : Container(),
-        (_phase.isParent())
+        (_phase == FamilyPhase.parentHasDevices ||
+                _phase == FamilyPhase.lockedNoPerms ||
+                _phase == FamilyPhase.lockedActive)
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MiniCard(
@@ -99,8 +101,9 @@ class CtaButtonsState extends State<CtaButtons>
                     child: SizedBox(
                       height: 32,
                       width: 32,
-                      child: Icon(
-                          _phase.isLocked() ? Icons.lock : Icons.lock_open),
+                      child: Icon((_phase.isLocked() || _hasThisDevice)
+                          ? Icons.lock
+                          : Icons.lock_open),
                     )),
               )
             : Container()
@@ -133,7 +136,7 @@ class CtaButtonsState extends State<CtaButtons>
       traceAs("tappedCta", (trace) async {
         if (_phase.requiresPerms()) {
           await _stage.showModal(trace, StageModal.perms);
-        } else if (_phase == FamilyPhase.fresh) {
+        } else if (_phase.requiresActivation()) {
           await _stage.showModal(trace, StageModal.payment);
         } else if (!_hasThisDevice) {
           await _stage.showModal(trace, StageModal.onboardingAccountDecided);
@@ -147,7 +150,7 @@ class CtaButtonsState extends State<CtaButtons>
   String _getCtaText() {
     if (_phase.requiresPerms()) {
       return "Finish setup";
-    } else if (_phase == FamilyPhase.fresh) {
+    } else if (_phase.requiresActivation()) {
       return "Activate";
     } else {
       return "Add a device";

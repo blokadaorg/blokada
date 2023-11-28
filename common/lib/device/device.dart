@@ -222,7 +222,12 @@ abstract class DeviceStoreBase
 
       this.deviceAlias = deviceAlias;
       await _persistence.saveString(trace, _keyAlias, deviceAlias);
-      await emit(deviceChanged, trace, deviceTag!);
+
+      // It's fine to ignore emitting change if linking happens early on in app
+      // start. The UI will be updated once the device is fetched.
+      final tag = deviceTag;
+      if (tag == null) return;
+      await emit(deviceChanged, trace, tag);
     });
   }
 

@@ -46,8 +46,15 @@ class Toplist extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             flex: 1,
-            child: Text(
-              entry.company?.capitalize() ?? entry.tld ?? "Other",
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(entry.tld ?? "unknown"),
+                Text(
+                  entry.company?.capitalize() ?? "Other",
+                  style: TextStyle(color: theme.textSecondary, fontSize: 12),
+                )
+              ],
             ),
           ),
           Text(

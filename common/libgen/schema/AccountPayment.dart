@@ -17,7 +17,7 @@ class Product {
   String pricePerMonth;
   int periodMonths;
   String type;
-  bool trial;
+  int? trial;
   bool owned;
 
   Product(

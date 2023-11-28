@@ -53,6 +53,9 @@ abstract class LockStoreBase
       hasPin = _existingPin != null;
       isLocked = hasPin;
       await emitValue(lockChanged, trace, hasPin);
+      if (isLocked) {
+        await _stage.showModal(trace, StageModal.lock);
+      }
     });
   }
 
@@ -99,6 +102,7 @@ abstract class LockStoreBase
   @action
   Future<void> removeLock(Trace parentTrace) async {
     return await traceWith(parentTrace, "removeLock", (trace) async {
+      if (_existingPin == null) return;
       final pin = _existingPin!;
       await unlock(trace, pin);
       _existingPin = null;

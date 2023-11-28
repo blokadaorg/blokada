@@ -102,7 +102,7 @@ class _LockScreenState extends State<LockScreen>
       try {
         if (_lock.isLocked) {
           await _lock.canUnlock(trace, pin);
-          await _clear();
+          await _unlock(pin);
         } else {
           await _lock.lock(trace, pin);
           _digitsEntered = 0;
@@ -156,8 +156,15 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
-  _unlock() async {
+  _unlock(String pin) async {
     traceAs("tappedUnlock", (trace) async {
+      bgStateKey.currentState?.animateToClose();
+      await _lock.unlock(trace, pin);
+    });
+  }
+
+  _cancel() async {
+    traceAs("tappedCancel", (trace) async {
       await _stage.dismissModal(trace);
     });
   }
@@ -167,7 +174,7 @@ class _LockScreenState extends State<LockScreen>
     return BlurBackground(
       key: bgStateKey,
       //canClose: () => !_isLocked,
-      onClosed: _unlock,
+      onClosed: _cancel,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
