@@ -220,11 +220,10 @@ const _familyMap = {
       "blacklist/facebook",
       "developerdan/facebook",
       "blocklist/facebook",
+      "ndnsapps/facebook",
     ],
-  },
-  "meta_apps_social": {
-    "facebook": ["ndnsapps/facebook"],
     "instagram": ["ndnsapps/instagram"],
+    "reddit": ["ndnsapps/reddit"],
     "snapchat": ["ndnsapps/snapchat"],
     "tiktok": ["ndnsapps/tiktok"],
     "twitter": ["ndnsapps/twitter"],
@@ -255,7 +254,6 @@ const _familyMap = {
     "chat gpt": ["ndnsapps/chatgpt"],
     "imgur": ["ndnsapps/imgur"],
     "pinterest": ["ndnsapps/pinterest"],
-    "reddit": ["ndnsapps/reddit"],
     "tinder": ["ndnsapps/tinder"],
   }
 };

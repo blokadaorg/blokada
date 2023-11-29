@@ -1,5 +1,4 @@
 import 'package:common/service/I18nService.dart';
-import 'package:common/ui/family/homefamily/onboardtexts.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
@@ -13,10 +12,12 @@ import '../../../stage/stage.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import '../../debug/debugoptions.dart';
+import '../../notfamily/home/icon.dart';
 import '../../theme.dart';
 import 'biglogo.dart';
 import 'ctabuttons.dart';
 import 'devices.dart';
+import 'statustexts.dart';
 
 class HomeFamilyScreen extends StatefulWidget {
   HomeFamilyScreen({Key? key}) : super(key: key);
@@ -104,12 +105,78 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     super.dispose();
   }
 
-  List<Widget> _getWidgetsForCurrentState() {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        const BigLogo(),
+        _buildHelpButton(),
+        AbsorbPointer(
+          absorbing: _working,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: RelativeBuilder(builder: (context, height, width, sy, sx) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Main home screen content
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
 
-    // Working
+                      // Devices list or the status texts
+                      (_phase == FamilyPhase.parentHasDevices)
+                          ? const Devices()
+                          : StatusTexts(phase: _phase),
+                      CtaButtons(),
+
+                      // Leave space for navbar
+                      (!_phase.isLocked())
+                          ? SizedBox(height: sy(40))
+                          : Container(),
+                      SizedBox(height: sy(30)),
+                    ],
+                  ),
+
+                  // Loading spinner on covering the content
+                  _buildLoadingSpinner(context),
+                ],
+              );
+            }),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildHelpButton() {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 60, right: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            HomeIcon(
+              icon: Icons.help_outline,
+              onTap: () {
+                traceAs("tappedShowHelp", (trace) async {
+                  await _stage.showModal(trace, StageModal.help);
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildLoadingSpinner(BuildContext context) {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
     if (_working || _phase == FamilyPhase.starting) {
-      return [
+      return Column(children: [
         const Spacer(),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 48.0),
@@ -132,181 +199,10 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
               ],
             )),
         const SizedBox(height: 72),
-      ];
+      ]);
+    } else {
+      return Container();
     }
-
-    switch (_phase) {
-      case FamilyPhase.linkedActive:
-        return _widgetsForLinkedOnboarded();
-      case FamilyPhase.lockedActive:
-        return _widgetsForLockedOnboarded();
-      case FamilyPhase.linkedNoPerms:
-        return _widgetsForLockedNotOnboarded();
-      case FamilyPhase.lockedNoPerms:
-        return _widgetsForLockedNotOnboarded();
-      case FamilyPhase.lockedNoAccount:
-        return _widgetsForLockedNoAccount();
-      case FamilyPhase.parentHasDevices:
-        return [
-          const Spacer(),
-          const Devices(),
-          CtaButtons(),
-        ];
-      case FamilyPhase.parentNoDevices:
-        return [
-          const Spacer(),
-          const OnboardTexts(step: 1),
-          CtaButtons(),
-        ];
-      case FamilyPhase.fresh:
-        return [
-          const Spacer(),
-          const OnboardTexts(step: 0),
-          CtaButtons(),
-        ];
-      default:
-        {
-          throw Exception("Unknown phase: $_phase");
-        }
-    }
-  }
-
-  List<Widget> _widgetsForLockedNotOnboarded() {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return [
-      Spacer(),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0),
-          child: Column(
-            children: [
-              Text(
-                "Almost there!",
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: theme.textPrimary),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 8),
-              Text(
-                "Please grant the necessary permissions",
-                style: TextStyle(fontSize: 18, color: theme.textSecondary),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 72),
-              CtaButtons(),
-            ],
-          )),
-    ];
-  }
-
-  List<Widget> _widgetsForLockedNoAccount() {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return [
-      Spacer(),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0),
-          child: Column(
-            children: [
-              Text(
-                "Account expired",
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: theme.textPrimary),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 8),
-              Text(
-                "Please activate your account to continue",
-                style: TextStyle(fontSize: 18, color: theme.textSecondary),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 72),
-              CtaButtons(),
-            ],
-          )),
-    ];
-  }
-
-  List<Widget> _widgetsForLockedOnboarded() {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return [
-      Spacer(),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0),
-          child: Column(
-            children: [
-              Text(
-                "App is locked",
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: theme.textPrimary),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          )),
-      SizedBox(height: 72),
-      CtaButtons(),
-    ];
-  }
-
-  List<Widget> _widgetsForLinkedOnboarded() {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return [
-      Spacer(),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0),
-          child: Column(
-            children: [
-              Text(
-                "App is linked",
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: theme.textPrimary),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          )),
-      SizedBox(height: 72),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        BigLogo(),
-        AbsorbPointer(
-          absorbing: _working,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Stack(
-              children: [
-                RelativeBuilder(builder: (context, height, width, sy, sx) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _getWidgetsForCurrentState() +
-                        [
-                          // Leave space for navbar
-                          (!_phase.isLocked())
-                              ? SizedBox(height: sy(40))
-                              : Container(),
-                          SizedBox(height: sy(30)),
-                        ],
-                  );
-                }),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
   }
 
   Future<void> _showDebugDialog(BuildContext context) {

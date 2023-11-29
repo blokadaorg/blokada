@@ -53,7 +53,6 @@ abstract class FamilyStoreBase
     _account.addOn(accountChanged, postActivationOnboarding);
     _lock.addOnValue(lockChanged, updatePhaseFromLock);
     _app.addOn(appStatusChanged, addThisDevice);
-    _stage.addOnValue(routeChanged, syncAddingDevice);
     _device.addOn(deviceChanged, syncLinkedMode);
 
     // TODO: this pattern is probably unwanted
@@ -149,17 +148,17 @@ abstract class FamilyStoreBase
   // Try activating the app whenever DNS perms are granted
   _onDnsPermChanges() {
     reactionOnStore((_) => _perm.privateDnsEnabled, (enabled) async {
-      if (accountActive == true) {
+      if (linkedMode) {
+        return await traceAs("familyLinkedPermCheck", (trace) async {
+          appActive = _perm.isPrivateDnsEnabledFor(_device.deviceTag);
+          trace.addAttribute("permEnabled", appActive);
+        });
+      } else if (accountActive == true) {
         if (_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
           return await traceAs("familyAutoUnpause", (trace) async {
             await _start.unpauseApp(trace);
           });
         }
-      } else if (linkedMode) {
-        return await traceAs("familyLinkedPermCheck", (trace) async {
-          appActive = _perm.isPrivateDnsEnabledFor(_device.deviceTag);
-          trace.addAttribute("permEnabled", appActive);
-        });
       }
     });
   }
@@ -178,17 +177,6 @@ abstract class FamilyStoreBase
     if (!act.isFamily()) return;
     return await traceWith(parentTrace, "start", (trace) async {
       await load(trace);
-    });
-  }
-
-  // Links a supervised device to the account
-  @action
-  Future<void> link(Trace parentTrace, String tag, String name) async {
-    if (!act.isFamily()) return;
-    return await traceWith(parentTrace, "link", (trace) async {
-      if (!phase.isLinkable()) throw Exception("Device not linkable anymore");
-      await _cloudDevice.setDeviceAlias(trace, name);
-      await _cloudDevice.setLinkedTag(trace, tag);
     });
   }
 
@@ -221,6 +209,29 @@ abstract class FamilyStoreBase
         trace, _key, JsonFamilyDevices.fromList(devices).toJson());
   }
 
+  // Links a supervised device to the account
+  @action
+  Future<void> link(Trace parentTrace, String tag, String name) async {
+    if (!act.isFamily()) return;
+    return await traceWith(parentTrace, "link", (trace) async {
+      if (!phase.isLinkable()) throw Exception("Device not linkable anymore");
+      _updatePhase(loading: true);
+      await _cloudDevice.setDeviceAlias(trace, name);
+      await _cloudDevice.setLinkedTag(trace, tag);
+      await _stage.showModal(trace, StageModal.lock);
+    });
+  }
+
+  @action
+  Future<void> unlink(Trace parentTrace) async {
+    if (!act.isFamily()) return;
+    return await traceWith(parentTrace, "unlink", (trace) async {
+      if (phase != FamilyPhase.linkedUnlocked) throw Exception("Cannot unlink");
+      _updatePhase(loading: true);
+      await _cloudDevice.setLinkedTag(trace, null);
+    });
+  }
+
   @action
   Future<void> addDevice(
       Trace parentTrace, String deviceAlias, UiStats stats) async {
@@ -235,7 +246,8 @@ abstract class FamilyStoreBase
   }
 
   @action
-  Future<void> deleteDevice(Trace parentTrace, String deviceAlias) async {
+  Future<void> deleteDevice(Trace parentTrace, String deviceAlias,
+      {bool isRename = false}) async {
     return await traceWith(parentTrace, "deleteDevice", (trace) async {
       _waitingForDevice = null;
       final d = devices;
@@ -244,9 +256,11 @@ abstract class FamilyStoreBase
 
       // Disable cloud for this device, since user deleted it from the list
       if (device.thisDevice) {
-        await _device.setCloudEnabled(parentTrace, false);
-        await _lock.removeLock(trace);
         hasThisDevice = false;
+        if (!isRename) {
+          await _device.setCloudEnabled(parentTrace, false);
+          await _lock.removeLock(trace);
+        }
       }
 
       _updateDevices(d);
@@ -305,9 +319,16 @@ abstract class FamilyStoreBase
   @action
   Future<void> updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
     if (!act.isFamily()) return;
+    _updatePhase(loading: true);
     appLocked = isLocked;
 
     if (isLocked) {
+      // Locking means that this device is supposed to be active.
+      // Pop up the perms modal if perms are not granted.
+      if (_perm.isPrivateDnsEnabledFor(_device.deviceTag) == false) {
+        await _stage.showModal(parentTrace, StageModal.perms);
+      }
+
       // Make sure cloud is enabled for this device
       // This will set appStatus to active and add "this device" to the list
       if (_device.cloudEnabled == false && accountActive == true) {
@@ -344,23 +365,11 @@ abstract class FamilyStoreBase
       if (name.isEmpty) throw Exception("Name cannot be empty");
       trace.addAttribute("name", name);
 
-      await deleteDevice(trace, _device.deviceAlias);
+      await deleteDevice(trace, _device.deviceAlias, isRename: true);
       await _device.setDeviceAlias(trace, name);
       await addThisDevice(trace);
       await _stage.setRoute(trace, "home"); // Reset to main tab
     });
-  }
-
-  // When opening the accountLink modal, we add a new device to the list.
-  // This device is empty until the stats endpoint discovers it.
-  // The first unknown device is then assigned as this new device (renamed).
-  @action
-  Future<void> syncAddingDevice(
-      Trace parentTrace, StageRouteState route) async {
-    // When the accountLink modal is dismissed, we drop the unassigned device.
-    if (route.modal == null && _waitingForDevice != null) {
-      return await deleteDevice(parentTrace, "");
-    }
   }
 
   @action
@@ -462,16 +471,23 @@ abstract class FamilyStoreBase
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer
-  _updatePhase() {
+  _updatePhase({bool loading = false}) {
     timer?.cancel();
-    timer = Timer(const Duration(seconds: 1), _updatePhaseNow);
+    if (loading) _updatePhaseNow(true);
+    timer = Timer(const Duration(seconds: 1), () => _updatePhaseNow(false));
   }
 
-  _updatePhaseNow() {
-    if (accountActive == null) {
+  _updatePhaseNow(bool loading) {
+    if (loading) {
       phase = FamilyPhase.starting;
-    } else if (linkedMode && appActive) {
+    } else if (accountActive == null) {
+      phase = FamilyPhase.starting;
+    } else if (linkedMode && appActive && appLocked) {
       phase = FamilyPhase.linkedActive;
+    } else if (linkedMode && appActive) {
+      phase = FamilyPhase.linkedUnlocked;
+    } else if (linkedMode && !appLocked) {
+      phase = FamilyPhase.linkedNoPerms;
     } else if (linkedMode && accountActive == false) {
       // Special case, app is setup in linked mode, but account got expired
       // This is parent account, so child device cannot do much about it.

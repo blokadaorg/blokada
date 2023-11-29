@@ -22,6 +22,7 @@ abstract class LockStoreBase
 
   LockStoreBase() {
     willAcceptOnValue(lockChanged);
+    _stage.addOnValue(routeChanged, _autoLockOnBackground);
   }
 
   @override
@@ -109,5 +110,15 @@ abstract class LockStoreBase
       hasPin = false;
       await _persistence.delete(trace, _keyLock);
     });
+  }
+
+  _autoLockOnBackground(Trace parentTrace, StageRouteState route) async {
+    if (!route.isForeground() && hasPin) {
+      return await traceWith(parentTrace, "autoLockOnBackground",
+          (trace) async {
+        await lock(trace, _existingPin!);
+        await _stage.setRoute(trace, "home");
+      });
+    }
   }
 }

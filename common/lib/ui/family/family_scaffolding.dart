@@ -161,21 +161,13 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
             ),
             (cfg.debugBg) ? CoolBackground() : Container(),
             PageView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: _path == pathHomeStats
+                  ? null
+                  : const NeverScrollableScrollPhysics(),
               controller: _horizontalPageCtrl,
               scrollDirection: Axis.horizontal,
               children: [
-                PageView(
-                  physics: _knownRoute != null || _locked || true
-                      ? const NeverScrollableScrollPhysics()
-                      : null,
-                  controller: _verticalPageCtrl,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    Container(),
-                    HomeFamilyScreen(),
-                  ],
-                ),
+                HomeFamilyScreen(),
                 FamilyStatsScreen(
                   key: UniqueKey(),
                   onBack: () {

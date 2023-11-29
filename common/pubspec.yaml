@@ -59,6 +59,8 @@ dependencies:
   introduction_screen: ^3.1.11
   slide_to_act_reborn: ^3.0.0
   unique_names_generator: ^1.0.0
+  flutter_slidable: ^3.0.1
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

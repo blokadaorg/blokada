@@ -32,6 +32,7 @@ class NotificationPayload {}
 enum NotificationId {
   all,
   accountExpired,
+  accountExpiredFamily,
 }
 
 enum NotificationEventType {

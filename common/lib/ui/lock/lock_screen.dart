@@ -32,6 +32,8 @@ class _LockScreenState extends State<LockScreen>
   bool _hasPin = false;
   bool _showHeaderIcon = false;
   String? _pinEntered;
+  String? _pinConfirmed;
+  int _wrongAttempts = 0;
 
   late final AnimationController _ctrlShake;
   late final Animation<Offset> _animShake;
@@ -93,22 +95,34 @@ class _LockScreenState extends State<LockScreen>
   @override
   void dispose() {
     _ctrlShake.dispose();
-    _timer?.cancel();
+    _iconTimer?.cancel();
     super.dispose();
   }
 
   _checkPin(String pin) async {
     traceAs("tappedCheckPin", (trace) async {
+      setState(() {
+        _showHeaderIcon = true;
+      });
+
       try {
+        if (pin != _pinConfirmed) throw Exception("Pin mismatch");
+
         if (_lock.isLocked) {
+          if (_wrongAttempts >= 3) {
+            throw Exception("Too many wrong attempts");
+          }
+
           await _lock.canUnlock(trace, pin);
           await _unlock(pin);
         } else {
           await _lock.lock(trace, pin);
-          _digitsEntered = 0;
-          _pinEntered = null;
-          _showHeaderTextForShortWhile();
-          bgStateKey.currentState?.animateToClose();
+          setState(() {
+            _digitsEntered = 0;
+            _pinEntered = null;
+            _pinConfirmed = null;
+          });
+          _animateDismiss();
         }
       } catch (e) {
         _showHeaderTextForShortWhile();
@@ -118,15 +132,26 @@ class _LockScreenState extends State<LockScreen>
           setState(() {
             _digitsEntered = 0;
             _pinEntered = null;
+            _pinConfirmed = null;
           });
         });
+
+        if (_isLocked) {
+          _incrementWrongAttempts();
+        }
       }
     });
   }
 
   String _getHeaderString() {
-    if (_isLocked) {
+    if (_wrongAttempts >= 3) {
+      return "Too many wrong attempts. Try again later.";
+    } else if (_showHeaderIcon) {
+      return "";
+    } else if (_isLocked) {
       return "lock status locked".i18n;
+    } else if (_pinEntered != null) {
+      return "Enter the pin code again to confirm";
     } else if (_hasPin) {
       return "lock status unlocked has pin".i18n;
     } else {
@@ -134,15 +159,15 @@ class _LockScreenState extends State<LockScreen>
     }
   }
 
-  Timer? _timer;
+  Timer? _iconTimer;
   _showHeaderTextForShortWhile() {
-    _timer?.cancel();
+    _iconTimer?.cancel();
     setState(() {
       _showHeaderIcon = false;
     });
 
     // Replace the header text with the lock icon after short while
-    _timer = Timer(const Duration(seconds: 5), () {
+    _iconTimer = Timer(const Duration(seconds: 5), () {
       setState(() {
         _showHeaderIcon = true;
       });
@@ -151,14 +176,14 @@ class _LockScreenState extends State<LockScreen>
 
   _clear() async {
     traceAs("tappedClearLock", (trace) async {
-      bgStateKey.currentState?.animateToClose();
+      _animateDismiss();
       await _lock.removeLock(trace);
     });
   }
 
   _unlock(String pin) async {
     traceAs("tappedUnlock", (trace) async {
-      bgStateKey.currentState?.animateToClose();
+      _animateDismiss();
       await _lock.unlock(trace, pin);
     });
   }
@@ -167,6 +192,27 @@ class _LockScreenState extends State<LockScreen>
     traceAs("tappedCancel", (trace) async {
       await _stage.dismissModal(trace);
     });
+  }
+
+  _animateDismiss() {
+    bgStateKey.currentState?.animateToClose();
+  }
+
+  Timer? _wrongAttemptsTimer;
+  _incrementWrongAttempts() {
+    _wrongAttemptsTimer?.cancel();
+    setState(() {
+      _wrongAttempts++;
+    });
+
+    if (_wrongAttempts >= 3) {
+      _wrongAttemptsTimer = Timer(const Duration(seconds: 15), () {
+        setState(() {
+          _wrongAttempts = 0;
+          _showHeaderIcon = false;
+        });
+      });
+    }
   }
 
   @override
@@ -225,17 +271,27 @@ class _LockScreenState extends State<LockScreen>
             child: KeyPad(
               pinLength: 4,
               onPinEntered: (pin) {
-                _pinEntered = pin;
+                setState(() {
+                  if (_pinEntered == null) {
+                    _pinEntered = pin;
+                  } else {
+                    _pinConfirmed = pin;
+                    _checkPin(_pinEntered ?? "");
+                  }
+                });
               },
               onDigitEntered: (digits) => setState(() {
                 _digitsEntered = digits;
-                _pinEntered = null;
+                if (_pinConfirmed != null) {
+                  _pinConfirmed = null;
+                  _pinEntered = null;
+                }
               }),
             ),
           ),
           const Spacer(),
           AnimatedCrossFade(
-            crossFadeState: _pinEntered != null
+            crossFadeState: _pinEntered != null && _isLocked
                 ? CrossFadeState.showFirst
                 : CrossFadeState.showSecond,
             duration: const Duration(milliseconds: 300),
@@ -246,6 +302,9 @@ class _LockScreenState extends State<LockScreen>
                 child: SlideAction(
                   key: _slideUnlockKey,
                   onSubmit: () {
+                    setState(() {
+                      _pinConfirmed = _pinEntered;
+                    });
                     _checkPin(_pinEntered ?? "");
                     Future.delayed(
                       Duration(seconds: 1),
@@ -256,7 +315,7 @@ class _LockScreenState extends State<LockScreen>
                   innerColor: Colors.black.withOpacity(0.4),
                   borderRadius: 12,
                   elevation: 0,
-                  text: _isLocked ? "Slide to unlock" : "Slide to lock",
+                  text: "Slide to unlock",
                   textStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -274,8 +333,7 @@ class _LockScreenState extends State<LockScreen>
                 opacity: /*_isLocked ? 0.0 :*/ 1.0,
                 child: Row(
                   children: [
-                    //if (_hasPin)
-                    if (false)
+                    if (_hasPin && !_isLocked)
                       GestureDetector(
                         onTap: _clear,
                         child: Padding(
@@ -292,7 +350,7 @@ class _LockScreenState extends State<LockScreen>
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        bgStateKey.currentState?.animateToClose();
+                        _animateDismiss();
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 64),

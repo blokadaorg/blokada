@@ -12,6 +12,7 @@ import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import '../../minicard/minicard.dart';
 import '../../theme.dart';
+import '../family_totalcounter.dart';
 
 class CtaButtons extends StatefulWidget {
   CtaButtons({Key? key}) : super(key: key);
@@ -26,9 +27,11 @@ class CtaButtonsState extends State<CtaButtons>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   final _stage = dep<StageStore>();
   final _family = dep<FamilyStore>();
+  final _lock = dep<LockStore>();
 
   late FamilyPhase _phase;
   late bool _hasThisDevice;
+  late bool _hasPin;
 
   @override
   void initState() {
@@ -38,77 +41,139 @@ class CtaButtonsState extends State<CtaButtons>
       setState(() {
         _phase = _family.phase;
         _hasThisDevice = _family.hasThisDevice;
+        _hasPin = _lock.hasPin;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Big CTA button shown during onboarding
-        (_phase.requiresAction())
-            ? Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MiniCard(
-                    onTap: _handleCtaTap(),
-                    color: theme.family,
-                    child: SizedBox(
-                      height: 32,
-                      child: Center(child: Text(_getCtaText())),
-                    ),
+      children: _buildTotalCounter() +
+          _buildBigCtaButton(context) +
+          _buildSmallCtaButton(context) +
+          _buildScanQrButton(context) +
+          _buildLockButton(context),
+    );
+  }
+
+  List<Widget> _buildTotalCounter() {
+    // Total counter shown only when everything is set up
+    if (_phase == FamilyPhase.parentHasDevices) {
+      return [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: FamilyTotalCounter(autoRefresh: true),
+        ),
+        Expanded(child: Container()),
+      ];
+    }
+
+    return [];
+  }
+
+  // Big CTA button shown during onboarding
+  List<Widget> _buildBigCtaButton(BuildContext context) {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+
+    if (_phase.requiresAction()) {
+      return [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MiniCard(
+              onTap: _handleCtaTap(),
+              color: theme.family,
+              child: SizedBox(
+                height: 32,
+                child: Center(
+                  child: Text(
+                    _getCtaText(),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
-              )
-            : Container(),
-        // Small CTA icon shown only after onboarded
-        (!_phase.requiresAction() && _phase.isParent() && !_phase.isLocked())
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MiniCard(
-                    onTap: _handleCtaTap(),
-                    color: theme.family,
-                    child: const SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: Icon(Icons.add_circle_outline),
-                    )),
-              )
-            : Container(),
-        // Small lock icon or QR icon shown always
-        (_phase == FamilyPhase.fresh || _phase == FamilyPhase.parentNoDevices)
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MiniCard(
-                    onTap: _handleAccountTap(),
-                    child: const SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: Icon(Icons.qr_code),
-                    )),
-              )
-            : Container(),
-        (_phase == FamilyPhase.parentHasDevices ||
-                _phase == FamilyPhase.lockedNoPerms ||
-                _phase == FamilyPhase.lockedActive)
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MiniCard(
-                    onTap: _handleLockTap(),
-                    child: SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: Icon((_phase.isLocked() || _hasThisDevice)
-                          ? Icons.lock
-                          : Icons.lock_open),
-                    )),
-              )
-            : Container()
-      ],
-    );
+              ),
+            ),
+          ),
+        )
+      ];
+    }
+
+    return [];
+  }
+
+  // Small CTA icon shown only after onboarded
+  List<Widget> _buildSmallCtaButton(BuildContext context) {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+
+    final canAddDevices =
+        !_phase.requiresAction() && _phase.isParent() && !_phase.isLocked();
+    final canBeUnlinked = _phase == FamilyPhase.linkedUnlocked;
+
+    if (canAddDevices || canBeUnlinked) {
+      return [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MiniCard(
+              onTap: _handleCtaTap(),
+              color: theme.family,
+              child: SizedBox(
+                height: 32,
+                width: 32,
+                child: Icon(
+                    canBeUnlinked ? Icons.link_off : Icons.add_circle_outline,
+                    color: Colors.white),
+              )),
+        )
+      ];
+    }
+
+    return [];
+  }
+
+  // Small lock QR icon shown only when onboarding
+  List<Widget> _buildScanQrButton(BuildContext context) {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+
+    if (_phase == FamilyPhase.fresh || _phase == FamilyPhase.parentNoDevices) {
+      return [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MiniCard(
+              onTap: _handleAccountTap(),
+              child: const SizedBox(
+                height: 32,
+                width: 32,
+                child: Icon(Icons.qr_code),
+              )),
+        )
+      ];
+    }
+
+    return [];
+  }
+
+  // Lock icon shown almost always
+  List<Widget> _buildLockButton(BuildContext context) {
+    final theme = Theme.of(context).extension<BlokadaTheme>()!;
+
+    if (_phase.isLockable()) {
+      return [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MiniCard(
+              onTap: _handleLockTap(),
+              child: SizedBox(
+                height: 32,
+                width: 32,
+                child: Icon(_hasPin ? Icons.lock : Icons.lock_open),
+              )),
+        )
+      ];
+    }
+
+    return [];
   }
 
   _handleAccountTap() {
@@ -134,7 +199,12 @@ class CtaButtonsState extends State<CtaButtons>
   _handleCtaTap() {
     return () {
       traceAs("tappedCta", (trace) async {
-        if (_phase.requiresPerms()) {
+        if (_phase == FamilyPhase.linkedUnlocked) {
+          await _family.unlink(trace);
+          return;
+        } else if (_phase == FamilyPhase.linkedNoPerms && !_hasPin) {
+          await _stage.showModal(trace, StageModal.lock);
+        } else if (_phase.requiresPerms()) {
           await _stage.showModal(trace, StageModal.perms);
         } else if (_phase.requiresActivation()) {
           await _stage.showModal(trace, StageModal.payment);

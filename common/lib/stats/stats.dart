@@ -120,6 +120,11 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     }
   }
 
+  // TODO: Ugly hack
+  UiStats totalStats() {
+    return deviceStats.entries.firstOrNull?.value ?? stats;
+  }
+
   @observable
   int deviceStatsChangesCounter = 0;
 
@@ -150,9 +155,12 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
           await _api.getStatsForDevice(trace, "24h", "1h", deviceName);
       final oneWeek =
           await _api.getStatsForDevice(trace, "1w", "24h", deviceName);
-      final toplist = await _api.getToplistForDevice(trace, deviceName);
-      deviceStats[deviceName] =
-          _convertStats(oneDay, oneWeek, toplist: toplist);
+      final toplistAllowed =
+          await _api.getToplistForDevice(trace, false, deviceName);
+      final toplistBlocked =
+          await _api.getToplistForDevice(trace, true, deviceName);
+      deviceStats[deviceName] = _convertStats(oneDay, oneWeek,
+          toplistAllowed: toplistAllowed, toplistBlocked: toplistBlocked);
       deviceStatsChangesCounter++;
     });
   }
@@ -180,7 +188,8 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   }
 
   UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek,
-      {JsonToplistEndpoint? toplist}) {
+      {JsonToplistEndpoint? toplistAllowed,
+      JsonToplistEndpoint? toplistBlocked}) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
@@ -246,7 +255,10 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     if (avgDayBlocked == 0)
       avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
 
-    final convertedToplist = toplist == null ? [] : _convertToplist(toplist);
+    var convertedToplist =
+        toplistAllowed == null ? [] : _convertToplist(toplistAllowed);
+    convertedToplist = convertedToplist +
+        (toplistBlocked == null ? [] : _convertToplist(toplistBlocked));
 
     return UiStats(
         totalAllowed: int.parse(stats.totalAllowed),

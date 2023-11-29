@@ -160,10 +160,11 @@ class StatsJson {
   }
 
   Future<JsonToplistEndpoint> getToplistForDevice(
-      Trace trace, String deviceName) async {
+      Trace trace, bool blocked, String deviceName) async {
+    final action = blocked ? "blocked" : "allowed";
     final encoded = Uri.encodeComponent(deviceName);
     final data = await _http.get(trace,
-        "$jsonUrl/v2/activity/toplist?account_id=${_account.id}&device_name=$encoded");
+        "$jsonUrl/v2/activity/toplist?account_id=${_account.id}&action=$action&device_name=$encoded");
     return JsonToplistEndpoint.fromJson(jsonDecode(data));
   }
 }

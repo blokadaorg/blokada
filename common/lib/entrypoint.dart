@@ -61,8 +61,8 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
 
     // The stores. Order is important
     EnvStore().attachAndSaveAct(act);
-    LockStore().attachAndSaveAct(act);
     StageStore().attachAndSaveAct(act);
+    LockStore().attachAndSaveAct(act);
     AccountStore().attachAndSaveAct(act);
     NotificationStore().attachAndSaveAct(act);
     AccountPaymentStore().attachAndSaveAct(act);

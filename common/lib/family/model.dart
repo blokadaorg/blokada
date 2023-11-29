@@ -17,6 +17,7 @@ class FamilyDevice {
 enum FamilyPhase {
   starting, // Not yet usable state, UI should show loading
   fresh, // No devices, no active account
+  linkedUnlocked, // Linked and perms, but not locked or no PIN set
   linkedNoPerms, // Linked as child device, no DNS setup yet
   linkedActive, // Linked and all good
   parentNoDevices, // Active account, nothing set up yet
@@ -35,7 +36,8 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.lockedNoAccount ||
         this == FamilyPhase.lockedActive ||
         this == FamilyPhase.linkedNoPerms ||
-        this == FamilyPhase.linkedActive;
+        this == FamilyPhase.linkedActive ||
+        this == FamilyPhase.linkedUnlocked;
   }
 
   bool requiresAction() {
@@ -67,5 +69,14 @@ extension FamilyPhaseExt on FamilyPhase {
     return this == FamilyPhase.fresh ||
         this == FamilyPhase.starting ||
         this == FamilyPhase.parentNoDevices;
+  }
+
+  bool isLockable() {
+    return this == FamilyPhase.linkedActive ||
+        this == FamilyPhase.linkedNoPerms ||
+        this == FamilyPhase.linkedUnlocked ||
+        this == FamilyPhase.lockedActive ||
+        this == FamilyPhase.lockedNoPerms ||
+        this == FamilyPhase.parentHasDevices;
   }
 }

@@ -84,7 +84,11 @@ class StageRouteState {
     if (route.tab != this.route.tab && route.payload == null && modal == null) {
       if (_tabStates.containsKey(route.tab)) {
         final r = _tabStates[route.tab]!;
-        _tabStates.remove(route.tab);
+
+        // Home is special because of the stats sub-screen, we do not want it
+        // to reset the deep navigation on the second tap of the Home tab.
+        if (route.tab != StageTab.home) _tabStates.remove(route.tab);
+
         return StageRouteState(r, this.route, modal, modal, _tabStates);
       }
     }

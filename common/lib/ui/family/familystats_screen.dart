@@ -132,11 +132,26 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
               child: Column(
                 children: [
                   MiniCardHeader(
-                    text: "Toplist",
+                    text: "activity category top blocked".i18n,
                     icon: Icons.stacked_bar_chart,
                     color: theme.textSecondary,
                   ),
-                  Toplist(stats: _stats),
+                  Toplist(stats: _stats, blocked: true),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: MiniCard(
+              child: Column(
+                children: [
+                  MiniCardHeader(
+                    text: "activity category top allowed".i18n,
+                    icon: Icons.stacked_bar_chart,
+                    color: theme.textSecondary,
+                  ),
+                  Toplist(stats: _stats, blocked: false),
                 ],
               ),
             ),
@@ -153,10 +168,6 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: TotalCounter(autoRefresh: true),
-          ),
           SizedBox(height: sy(60)),
         ],
       );
@@ -172,7 +183,8 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
   _openActivityForSelectedDevice() {
     traceAs("tappedActivity", (trace) async {
       await _stage.setRoute(trace, StageTab.activity.name);
-      await _journal.updateFilter(trace, deviceName: _store.selectedDevice);
+      await _journal.updateFilter(trace,
+          deviceName: _store.selectedDevice, searchQuery: "");
     });
   }
 }

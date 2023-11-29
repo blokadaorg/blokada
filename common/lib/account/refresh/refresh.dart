@@ -263,21 +263,24 @@ abstract class AccountRefreshStoreBase
   }
 
   void _updateTimer(Trace trace) {
+    final id = act.isFamily()
+        ? NotificationId.accountExpiredFamily
+        : NotificationId.accountExpired;
+
     DateTime? expDate = expiration.getNextDate();
     if (expDate != null) {
       _timer.set(_keyTimer, expDate);
       trace.addAttribute("timer", expDate);
 
-      _notification.show(trace, NotificationId.accountExpired,
-          when: expiration.expiration);
-      trace.addAttribute("notificationId", NotificationId.accountExpired);
+      _notification.show(trace, id, when: expiration.expiration);
+      trace.addAttribute("notificationId", id);
       trace.addAttribute("notificationDate", expiration.expiration);
     } else {
       _timer.unset(_keyTimer);
       trace.addAttribute("timer", null);
 
-      _notification.dismiss(trace, id: NotificationId.accountExpired);
-      trace.addAttribute("notificationId", NotificationId.accountExpired);
+      _notification.dismiss(trace, id: id);
+      trace.addAttribute("notificationId", id);
       trace.addAttribute("notificationDate", null);
     }
   }
