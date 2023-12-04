@@ -15,17 +15,27 @@ package service
 import utils.FlavorSpecific
 import java.io.File
 import java.util.Date
+import kotlin.system.exitProcess
 
 object UncaughtExceptionService: FlavorSpecific {
 
     private val env by lazy { EnvironmentService }
     private val context by lazy { ContextService }
     private const val filename = "blokada-a6.crash"
+    private var defaultUEH: Thread.UncaughtExceptionHandler? = null
+
+
 
     fun setup() {
-        Thread.setDefaultUncaughtExceptionHandler { _, ex ->
+        defaultUEH = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, ex ->
             val file = File(context.requireAppContext().filesDir, filename)
             file.writeText(getFatalMessage(ex))
+            defaultUEH?.run {
+                this.uncaughtException(thread, ex)
+            } ?: run {
+                exitProcess(2)
+            }
         }
     }
 
