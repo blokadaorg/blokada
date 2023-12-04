@@ -318,6 +318,7 @@
     <string name="payment_plan_slugline_cloud_detail">(includes Blokada Cloud)</string>
     <string name="payment_plan_slugline_plus">Additional protection with VPN</string>
     <string name="payment_plan_cta_trial">Start 7-Day Free Trial</string>
+    <string name="payment_plan_cta_trial_length">Start %s-Day Free Trial</string>
     <string name="payment_plan_cta_monthly">Subscribe Monthly</string>
     <string name="payment_plan_cta_annual">Subscribe Annually</string>
     <string name="payment_plan_current">(current plan)</string>
