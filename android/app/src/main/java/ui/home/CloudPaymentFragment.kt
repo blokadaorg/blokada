@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import binding.AccountBinding
 import binding.AccountPaymentBinding
@@ -79,7 +78,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
         val cloudGroup: ViewGroup = root.findViewById(R.id.payment_container_cloud)
         val plusGroup: ViewGroup = root.findViewById(R.id.payment_container_plus)
-        val cancelFooter: TextView = root.findViewById(R.id.cancel_footer)
+//        val cancelFooter: TextView = root.findViewById(R.id.cancel_footer)
 
         error = root.findViewById(R.id.payment_error_group)
         val retryButton: Button = root.findViewById(R.id.payment_retry)
@@ -152,14 +151,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
 
                 hideProcessing()
                 if (products.isEmpty()) showError() else hideError()
-
-                // Put a proper subscription cancel footer (for trial eligible)
-                val trial = products.firstOrNull { it.trial }
-                if (trial != null) {
-                    // TODO: do not hardcode trial period
-                    cancelFooter.visibility = View.VISIBLE
-                    cancelFooter.text = getString(R.string.payment_cancel_footer_trial_short, "7")
-                }
             }
         }
 
