@@ -13,7 +13,6 @@
 package ui.settings
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -36,16 +35,16 @@ class SettingsLogoutFragment : PreferenceFragmentCompat() {
 
         val accountId: EditTextPreference = findPreference("logout_accountid")!!
 
-        account.live.observe(viewLifecycleOwner, Observer { account ->
+        account.live.observe(viewLifecycleOwner) { _ ->
             accountId.summary = getString(R.string.account_id_status_unchanged)
-        })
+        }
 
         accountId.setOnPreferenceChangeListener { _, id ->
             id as String
+            lifecycleScope.launch {
 //            accountId.text = ""
 //            accountId.setDefaultValue("")
-            accountId.summary = getString(R.string.account_action_restoring, id)
-            lifecycleScope.launch {
+                accountId.summary = getString(R.string.account_action_restoring, id)
                 command.execute(CommandName.RESTORE, id)
             }
             true
