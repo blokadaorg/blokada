@@ -13,6 +13,7 @@ import 'channel.pg.dart';
 part 'stage.g.dart';
 
 final routeChanged = EmitterEvent<StageRouteState>();
+final willEnterBackground = EmitterEvent();
 
 enum StageTab { background, home, activity, advanced, settings }
 
@@ -77,7 +78,7 @@ class StageRouteState {
 
   newBg() => StageRouteState(_background, route, modal, modal, _tabStates);
 
-  newFg() => StageRouteState(_prevRoute, route, modal, modal, _tabStates);
+  newFg() => StageRouteState(_prevRoute, _background, modal, modal, _tabStates);
 
   newRoute(StageRoute route) {
     // Restore the state for this tab if exists
@@ -140,7 +141,7 @@ class StageRouteState {
 class StageStore = StageStoreBase with _$StageStore;
 
 abstract class StageStoreBase
-    with Store, Traceable, Dependable, ValueEmitter<StageRouteState> {
+    with Store, Traceable, Dependable, ValueEmitter<StageRouteState>, Emitter {
   late final _ops = dep<StageOps>();
 
   @observable
@@ -161,6 +162,7 @@ abstract class StageStoreBase
 
   StageStoreBase() {
     willAcceptOnValue(routeChanged);
+    willAcceptOn([willEnterBackground]);
 
     reactionOnStore((_) => route, (route) async {
       await _ops.doRouteChanged(route.route.path);
@@ -184,11 +186,12 @@ abstract class StageStoreBase
   @action
   Future<void> setBackground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setBackground", (trace) async {
-      _isForeground = false;
       if (isReady && route.isForeground()) {
+        await emit(willEnterBackground, trace, route);
         route = route.newBg();
         await emitValue(routeChanged, trace, route);
       }
+      _isForeground = false;
     });
   }
 
@@ -292,10 +295,10 @@ abstract class StageStoreBase
 
         _modalCompleter = Completer();
         _waitingOnModal = modal;
-        await setReady(trace, false);
+        // await setReady(trace, false);
         await _ops.doShowModal(modal);
         await _modalCompleter?.future;
-        await setReady(trace, true);
+        // await setReady(trace, true);
         _modalCompleter = null;
         _waitingOnModal = null;
 
@@ -310,7 +313,8 @@ abstract class StageStoreBase
       if (_waitingOnModal == modal) {
         _modalCompleter?.complete();
       } else {
-        trace.addEvent("sheetShown ignored, wrong modal: $modal");
+        trace.addEvent(
+            "modalShown: wrong modal: $modal, waiting: $_waitingOnModal");
       }
     });
   }
@@ -324,10 +328,10 @@ abstract class StageStoreBase
         }
 
         _dismissModalCompleter = Completer();
-        await setReady(trace, false);
+        // await setReady(trace, false);
         await _ops.doDismissModal();
         await _dismissModalCompleter?.future;
-        await setReady(trace, true);
+        // await setReady(trace, true);
         _dismissModalCompleter = null;
 
         await _updateModal(trace, null);

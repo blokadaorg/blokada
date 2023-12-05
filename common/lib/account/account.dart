@@ -93,7 +93,6 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   late final _ops = dep<AccountOps>();
   late final _persistence = dep<SecurePersistenceService>();
   late final _stage = dep<StageStore>();
-  var _flavorIsFamily;
 
   AccountStoreBase() {
     willAcceptOn([accountChanged, accountIdChanged]);
@@ -110,7 +109,6 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
     depend<AccountOps>(getOps(act));
     depend<AccountJson>(AccountJson());
     depend<AccountStore>(this as AccountStore);
-    _flavorIsFamily = act.isFamily();
   }
 
   @observable
@@ -239,11 +237,11 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
 
   void _ensureValidAccountType(JsonAccount acc) {
     final type = accountTypeFromName(acc.type);
-    if (type == AccountType.family && !_flavorIsFamily) {
+    if (type == AccountType.family && !act.isFamily()) {
       throw InvalidAccountId();
-    } else if (type == AccountType.cloud && _flavorIsFamily) {
+    } else if (type == AccountType.cloud && act.isFamily()) {
       throw InvalidAccountId();
-    } else if (type == AccountType.plus && _flavorIsFamily) {
+    } else if (type == AccountType.plus && act.isFamily()) {
       throw InvalidAccountId();
     }
   }

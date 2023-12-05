@@ -1,7 +1,9 @@
 import 'package:common/journal/channel.pg.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../journal/journal.dart';
 import '../../stage/stage.dart';
@@ -46,7 +48,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
   Widget _buildRow(BuildContext context, UiToplistEntry entry) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Touch(
-      onTap: () => _openActivityForEntry(entry.tld),
+      onLongTap: () => _copyEntry(entry.tld),
       decorationBuilder: (value) {
         return BoxDecoration(
           color: theme.bgColorHome3.withOpacity(value),
@@ -69,7 +71,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
             Stack(
               alignment: Alignment.center,
               children: [
-                Icon(Icons.shield_outlined,
+                Icon(CupertinoIcons.shield,
                     color: entry.blocked ? Colors.red : Colors.green, size: 52),
                 Text(
                   (entry.value > 99) ? "99" : entry.value.toString(),
@@ -83,7 +85,8 @@ class Toplist extends StatelessWidget with TraceOrigin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(entry.tld ?? "unknown", style: TextStyle(fontSize: 18)),
+                  Text(entry.tld ?? "unknown",
+                      style: const TextStyle(fontSize: 18)),
                   Text(
                     entry.company?.capitalize() ?? "Other",
                     style: TextStyle(color: theme.textSecondary, fontSize: 12),
@@ -121,6 +124,13 @@ class Toplist extends StatelessWidget with TraceOrigin {
         searchQuery: entry,
         showOnly: JournalFilterType.all,
       );
+    });
+  }
+
+  _copyEntry(String? entry) {
+    traceAs("tappedCopyEntry", (trace) async {
+      if (entry == null) return;
+      await Clipboard.setData(ClipboardData(text: entry));
     });
   }
 }

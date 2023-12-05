@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -32,6 +33,7 @@ class CtaButtonsState extends State<CtaButtons>
   late FamilyPhase _phase;
   late bool _hasThisDevice;
   late bool _hasPin;
+  late bool _isLocked;
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class CtaButtonsState extends State<CtaButtons>
         _phase = _family.phase;
         _hasThisDevice = _family.hasThisDevice;
         _hasPin = _lock.hasPin;
+        _isLocked = _lock.isLocked;
       });
     });
   }
@@ -50,11 +53,11 @@ class CtaButtonsState extends State<CtaButtons>
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: _buildTotalCounter() +
+      children: //_buildTotalCounter() +
           _buildBigCtaButton(context) +
-          _buildSmallCtaButton(context) +
-          _buildScanQrButton(context) +
-          _buildLockButton(context),
+              _buildSmallCtaButton(context) +
+              _buildScanQrButton(context) +
+              _buildLockButton(context),
     );
   }
 
@@ -122,7 +125,9 @@ class CtaButtonsState extends State<CtaButtons>
                 height: 32,
                 width: 32,
                 child: Icon(
-                    canBeUnlinked ? Icons.link_off : Icons.add_circle_outline,
+                    canBeUnlinked
+                        ? CupertinoIcons.link
+                        : CupertinoIcons.plus_circle,
                     color: Colors.white),
               )),
         )
@@ -145,7 +150,7 @@ class CtaButtonsState extends State<CtaButtons>
               child: const SizedBox(
                 height: 32,
                 width: 32,
-                child: Icon(Icons.qr_code),
+                child: Icon(CupertinoIcons.qrcode),
               )),
         )
       ];
@@ -164,10 +169,10 @@ class CtaButtonsState extends State<CtaButtons>
           padding: const EdgeInsets.all(8.0),
           child: MiniCard(
               onTap: _handleLockTap(),
-              child: SizedBox(
+              child: const SizedBox(
                 height: 32,
                 width: 32,
-                child: Icon(_hasPin ? Icons.lock : Icons.lock_open),
+                child: Icon(CupertinoIcons.lock_fill),
               )),
         )
       ];

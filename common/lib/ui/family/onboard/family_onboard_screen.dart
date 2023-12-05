@@ -1,5 +1,6 @@
 import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
@@ -117,8 +118,9 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
                 fontSize: 18,
               ),
               sliderButtonIcon:
-                  const Icon(Icons.arrow_forward_ios, color: Colors.white),
-              submittedIcon: const Icon(Icons.lock_open, color: Colors.white),
+                  const Icon(CupertinoIcons.chevron_right, color: Colors.white),
+              submittedIcon:
+                  const Icon(CupertinoIcons.chevron_right, color: Colors.white),
               sliderRotate: false,
             ),
           ),

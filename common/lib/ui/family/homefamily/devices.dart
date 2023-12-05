@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:common/service/I18nService.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobx/mobx.dart';
@@ -88,7 +89,7 @@ class DevicesState extends State<Devices>
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
-                      Icons.keyboard_arrow_up,
+                      CupertinoIcons.chevron_up,
                       size: 18,
                       color: theme.textSecondary,
                     ),
@@ -106,7 +107,7 @@ class DevicesState extends State<Devices>
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
-                      Icons.keyboard_arrow_down,
+                      CupertinoIcons.chevron_down,
                       size: 18,
                       color: theme.textSecondary,
                     ),
@@ -166,7 +167,7 @@ class DevicesState extends State<Devices>
             onPressed: (context) => _delete(deviceName),
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
-            icon: thisDevice ? Icons.power_settings_new : Icons.delete,
+            icon: thisDevice ? CupertinoIcons.power : CupertinoIcons.delete,
             label: thisDevice ? 'Disable' : 'Delete',
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),

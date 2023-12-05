@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import '../util/trace.dart';
 import 'channel.pg.dart';
 import 'deck.dart';
@@ -6,7 +8,7 @@ import 'json.dart';
 abstract class DeckMapper {
   // Will return a map of decks, that users can enable/disable.
   // Depending on the mapper, the decks may be virtual.
-  // If so, the ids have then be translated (expanded) into actual lists.
+  // If so, the ids have to be translated (expanded) into actual lists.
   Map<DeckId, Deck> bundleDeckItems(Trace trace, List<DeckItem> items);
 
   // Used by mappers that return virtual decks, this will translate given
@@ -17,6 +19,11 @@ abstract class DeckMapper {
 
   Map<DeckId, Deck> syncEnabledStates(Trace trace, Map<DeckId, Deck> decks,
       List<ListId> enabledByUser, Map<String, ListId> listTagToId);
+
+  // Used by the UI to reverse map a ListId to an user-actionable deck tag.
+  // Tags are used by the UI to display Deck name.
+  // For non-virtual mappers, this will simply return the 1:1 mapping.
+  Map<ListId, String> mapDeckItemTags(Trace trace, List<DeckItem> items);
 }
 
 // The Cloud flavor simply displays lists and their configurations. In other
@@ -60,6 +67,12 @@ class CloudDeckMapper implements DeckMapper {
       }
     }
     return decks;
+  }
+
+  @override
+  Map<ListId, String> mapDeckItemTags(Trace trace, List<DeckItem> items) {
+    final listIdToTag = items.map((e) => MapEntry(e.id, e.tag));
+    return {for (var m in listIdToTag) m.key: m.value};
   }
 }
 
@@ -124,20 +137,44 @@ class FamilyDeckMapper implements DeckMapper {
     }
     return true;
   }
+
+  @override
+  Map<ListId, String> mapDeckItemTags(Trace trace, List<DeckItem> items) {
+    Map<String, String> tagMapping = {};
+
+    for (DeckItem item in items) {
+      bool found = false;
+      for (var familyDeck in _familyMap.entries) {
+        for (var familyConfig in familyDeck.value.entries) {
+          if (familyConfig.value.contains(item.tag)) {
+            tagMapping[item.id] = "${familyDeck.key}/${familyConfig.key}";
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          tagMapping[item.id] = item.tag;
+        }
+      }
+    }
+
+    return tagMapping;
+  }
 }
 
 // The order here decides the UI order
 const _familyMap = {
   "meta_ads": {
     "standard": [
-      "oisd/basic (wildcards)",
+      "oisd/small",
       "goodbyeads/standard",
       "adaway/standard",
       "1hosts/lite (wildcards)",
       "d3host/standard"
     ],
     "restrictive": [
-      "oisd/extra (wildcards)",
+      "oisd/big",
       "ddgtrackerradar/standard",
       "1hosts/xtra (wildcards)",
       // Those below I'm not sure how to treat

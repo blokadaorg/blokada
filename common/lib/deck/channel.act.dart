@@ -18,4 +18,5 @@ DeckOps getOps(Act act) {
 
 _actNormal(MockDeckOps ops) {
   when(() => ops.doDecksChanged(any())).thenAnswer(ignore());
+  when(() => ops.doTagMappingChanged(any())).thenAnswer(ignore());
 }

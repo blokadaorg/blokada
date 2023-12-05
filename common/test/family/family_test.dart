@@ -45,10 +45,7 @@ void main() {
         final subject = FamilyStore();
         subject.attachAndSaveAct(
             ActScreenplay(ActScenario.platformIsMocked, "family"));
-        final token = linkTemplate
-            .replaceFirst("TAG", "abcdef")
-            .replaceFirst("NAME", "Test%20Device");
-        await subject.link(trace, token);
+        await subject.link(trace, "abcdef", "Test%20Device");
 
         verify(device.setDeviceAlias(any, "Test Device"));
         verify(device.setLinkedTag(any, "abcdef"));

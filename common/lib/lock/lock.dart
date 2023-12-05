@@ -1,6 +1,8 @@
 import 'package:common/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
+import '../account/account.dart';
+import '../perm/perm.dart';
 import '../persistence/persistence.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
@@ -19,10 +21,12 @@ abstract class LockStoreBase
     with Store, Traceable, Dependable, Startable, ValueEmitter<bool> {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
+  late final _perm = dep<PermStore>();
+  late final _account = dep<AccountStore>();
 
   LockStoreBase() {
     willAcceptOnValue(lockChanged);
-    _stage.addOnValue(routeChanged, _autoLockOnBackground);
+    _stage.addOn(willEnterBackground, _autoLockOnBackground);
   }
 
   @override
@@ -64,7 +68,7 @@ abstract class LockStoreBase
   Future<void> lock(Trace parentTrace, String pin) async {
     return await traceWith(parentTrace, "lock", (trace) async {
       if (isLocked) {
-        throw Exception("Cannot lock when already locked");
+        return;
       }
 
       await _persistence.saveString(trace, _keyLock, pin);
@@ -112,12 +116,22 @@ abstract class LockStoreBase
     });
   }
 
-  _autoLockOnBackground(Trace parentTrace, StageRouteState route) async {
-    if (!route.isForeground() && hasPin) {
+  @action
+  Future<void> autoLock(Trace parentTrace) async {
+    return await traceWith(parentTrace, "autoLock", (trace) async {
+      if (hasPin) {
+        await lock(trace, _existingPin!);
+      }
+    });
+  }
+
+  _autoLockOnBackground(Trace parentTrace) async {
+    if (hasPin && _perm.isPrivateDnsEnabled && _account.type.isActive()) {
       return await traceWith(parentTrace, "autoLockOnBackground",
           (trace) async {
         await lock(trace, _existingPin!);
         await _stage.setRoute(trace, "home");
+        await _stage.showModal(trace, StageModal.lock);
       });
     }
   }

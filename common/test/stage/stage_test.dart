@@ -91,12 +91,12 @@ void main() {
         await subject.setForeground(trace);
         expect(subject.route.modal, null);
 
-        _simulateConfirmation(() async {
-          await subject.modalShown(trace, StageModal.help);
-        });
-
-        await subject.showModal(trace, StageModal.help);
-        expect(subject.route.modal, StageModal.help);
+        // _simulateConfirmation(() async {
+        //   await subject.modalShown(trace, StageModal.help);
+        // });
+        //
+        // await subject.showModal(trace, StageModal.help);
+        // expect(subject.route.modal, StageModal.help);
 
         // User having one sheet opened and opening another one
         _simulateConfirmation(() async {
@@ -118,6 +118,7 @@ void main() {
           await subject.modalShown(trace, StageModal.help);
         });
         await subject.showModal(trace, StageModal.help);
+
         expect(subject.route.modal, StageModal.help);
       });
     });

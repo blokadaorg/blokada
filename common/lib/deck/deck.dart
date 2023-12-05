@@ -98,6 +98,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
           "decks", decks.values.map((it) => it.string()).toList());
       this.decks = ObservableMap.of(decks);
       decksChanges++;
+      await _ops.doTagMappingChanged(_mapper.mapDeckItemTags(trace, deckItems));
     });
   }
 

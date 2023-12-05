@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
@@ -10,6 +11,7 @@ import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 import '../../lock/lock.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
+import '../../util/async.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import 'circles.dart';
@@ -31,9 +33,13 @@ class _LockScreenState extends State<LockScreen>
   bool _isLocked = false;
   bool _hasPin = false;
   bool _showHeaderIcon = false;
+  bool _dismissing = false;
   String? _pinEntered;
   String? _pinConfirmed;
   int _wrongAttempts = 0;
+  bool _autoLockCanceled = false;
+
+  final KeypadController _keypadCtrl = KeypadController();
 
   late final AnimationController _ctrlShake;
   late final Animation<Offset> _animShake;
@@ -49,6 +55,7 @@ class _LockScreenState extends State<LockScreen>
       setState(() {
         _isLocked = _lock.isLocked;
         _hasPin = _lock.hasPin;
+        if (_hasPin && !_isLocked && !_dismissing) _autoLockAfterShortWhile();
       });
     });
 
@@ -133,6 +140,7 @@ class _LockScreenState extends State<LockScreen>
             _digitsEntered = 0;
             _pinEntered = null;
             _pinConfirmed = null;
+            _keypadCtrl.clear();
           });
         });
 
@@ -145,13 +153,15 @@ class _LockScreenState extends State<LockScreen>
 
   String _getHeaderString() {
     if (_wrongAttempts >= 3) {
-      return "Too many wrong attempts. Try again later.";
+      return "Too many wrong attempts. Try again later";
     } else if (_showHeaderIcon) {
       return "";
     } else if (_isLocked) {
       return "lock status locked".i18n;
     } else if (_pinEntered != null) {
       return "Enter the pin code again to confirm";
+    } else if (_hasPin && _digitsEntered == 0 && !_autoLockCanceled) {
+      return "Enter new pin code, or wait to lock...";
     } else if (_hasPin) {
       return "lock status unlocked has pin".i18n;
     } else {
@@ -174,7 +184,21 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
+  Timer? _autoLockTimer;
+  _autoLockAfterShortWhile() {
+    _autoLockTimer?.cancel();
+    _autoLockTimer = Timer(const Duration(seconds: 6), () {
+      _autoLock();
+    });
+  }
+
+  _cancelAutoLock() {
+    _autoLockCanceled = true;
+    _autoLockTimer?.cancel();
+  }
+
   _clear() async {
+    _cancelAutoLock();
     traceAs("tappedClearLock", (trace) async {
       _animateDismiss();
       await _lock.removeLock(trace);
@@ -182,6 +206,7 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _unlock(String pin) async {
+    _cancelAutoLock();
     traceAs("tappedUnlock", (trace) async {
       _animateDismiss();
       await _lock.unlock(trace, pin);
@@ -189,13 +214,36 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _cancel() async {
+    _cancelAutoLock();
     traceAs("tappedCancel", (trace) async {
       await _stage.dismissModal(trace);
     });
   }
 
+  _autoLock() async {
+    traceAs("autoLock", (trace) async {
+      await _lock.autoLock(trace);
+    });
+  }
+
   _animateDismiss() {
+    _dismissing = true;
+    _cancelAutoLock();
     bgStateKey.currentState?.animateToClose();
+  }
+
+  _handleCancelDelete() {
+    if (_digitsEntered > 0) {
+      _keypadCtrl.delete();
+    } else {
+      _animateDismiss();
+    }
+  }
+
+  _handlePinConfirm() async {
+    await sleepAsync(const Duration(milliseconds: 100));
+    _keypadCtrl.clear();
+    _showHeaderIcon = false;
   }
 
   Timer? _wrongAttemptsTimer;
@@ -234,7 +282,9 @@ class _LockScreenState extends State<LockScreen>
                 height: 112,
                 child: Center(
                   child: Icon(
-                    _hasPin ? Icons.lock : Icons.lock_open,
+                    _isLocked
+                        ? CupertinoIcons.lock_fill
+                        : CupertinoIcons.lock_open,
                     color: Colors.white,
                     size: 48,
                   ),
@@ -270,10 +320,12 @@ class _LockScreenState extends State<LockScreen>
             width: 300,
             child: KeyPad(
               pinLength: 4,
+              controller: _keypadCtrl,
               onPinEntered: (pin) {
                 setState(() {
                   if (_pinEntered == null) {
                     _pinEntered = pin;
+                    if (!_isLocked) _handlePinConfirm();
                   } else {
                     _pinConfirmed = pin;
                     _checkPin(_pinEntered ?? "");
@@ -281,6 +333,7 @@ class _LockScreenState extends State<LockScreen>
                 });
               },
               onDigitEntered: (digits) => setState(() {
+                _cancelAutoLock();
                 _digitsEntered = digits;
                 if (_pinConfirmed != null) {
                   _pinConfirmed = null;
@@ -307,7 +360,7 @@ class _LockScreenState extends State<LockScreen>
                     });
                     _checkPin(_pinEntered ?? "");
                     Future.delayed(
-                      Duration(seconds: 1),
+                      const Duration(seconds: 1),
                       () => _slideUnlockKey.currentState?.reset(),
                     );
                   },
@@ -320,9 +373,10 @@ class _LockScreenState extends State<LockScreen>
                     color: Colors.white,
                     fontSize: 18,
                   ),
-                  sliderButtonIcon:
-                      Icon(Icons.arrow_forward_ios, color: Colors.white),
-                  submittedIcon: Icon(Icons.lock, color: Colors.white),
+                  sliderButtonIcon: const Icon(CupertinoIcons.chevron_right,
+                      color: Colors.white),
+                  submittedIcon: const Icon(CupertinoIcons.chevron_right,
+                      color: Colors.white),
                   sliderRotate: false,
                 ),
               ),
@@ -331,40 +385,44 @@ class _LockScreenState extends State<LockScreen>
               height: 80,
               child: Opacity(
                 opacity: /*_isLocked ? 0.0 :*/ 1.0,
-                child: Row(
-                  children: [
-                    if (_hasPin && !_isLocked)
-                      GestureDetector(
-                        onTap: _clear,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 64),
-                          child: Text(
-                            "universal action clear".i18n,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                child: _dismissing
+                    ? Container()
+                    : Row(
+                        children: [
+                          if (_hasPin && !_isLocked)
+                            GestureDetector(
+                              onTap: _clear,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 64),
+                                child: Text(
+                                  "universal action clear".i18n,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: _handleCancelDelete,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 64),
+                              child: Text(
+                                (_digitsEntered > 0)
+                                    ? "universal action delete".i18n
+                                    : "universal action cancel".i18n,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        _animateDismiss();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 64),
-                        child: Text(
-                          "universal action cancel".i18n,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
               ),
             ),
           ),

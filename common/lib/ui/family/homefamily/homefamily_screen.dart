@@ -1,4 +1,5 @@
 import 'package:common/service/I18nService.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
@@ -160,7 +161,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             HomeIcon(
-              icon: Icons.help_outline,
+              icon: CupertinoIcons.question_circle,
               onTap: () {
                 traceAs("tappedShowHelp", (trace) async {
                   await _stage.showModal(trace, StageModal.help);

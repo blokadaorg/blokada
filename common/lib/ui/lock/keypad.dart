@@ -5,13 +5,36 @@ import 'key.dart';
 typedef StringCallback = void Function(String value);
 typedef IntCallback = void Function(int value);
 
+class KeypadController {
+  Function _delete = () {};
+  Function _clear = () {};
+
+  void delete() {
+    _delete.call();
+  }
+
+  void clear() {
+    _clear.call();
+  }
+
+  void _setDelete(Function delete) {
+    _delete = delete;
+  }
+
+  void _setClear(Function clear) {
+    _clear = clear;
+  }
+}
+
 class KeyPad extends StatefulWidget {
   final int pinLength;
+  final KeypadController controller;
   final StringCallback onPinEntered;
   final IntCallback? onDigitEntered;
 
   const KeyPad({
     super.key,
+    required this.controller,
     required this.pinLength,
     required this.onPinEntered,
     this.onDigitEntered,
@@ -24,13 +47,34 @@ class KeyPad extends StatefulWidget {
 class _KeyPadState extends State<KeyPad> {
   String _pin = '';
 
+  @override
+  void initState() {
+    super.initState();
+    widget.controller._setDelete(delete);
+    widget.controller._setClear(clear);
+  }
+
   _onKeyTap(String digit) {
+    if (_pin.length == widget.pinLength) return;
     _pin += digit;
     widget.onDigitEntered?.call(_pin.length);
     if (_pin.length == widget.pinLength) {
       widget.onPinEntered(_pin);
-      _pin = '';
     }
+  }
+
+  void delete() {
+    setState(() {
+      if (_pin.isNotEmpty) _pin = _pin.substring(0, _pin.length - 1);
+      widget.onDigitEntered?.call(_pin.length);
+    });
+  }
+
+  void clear() {
+    setState(() {
+      _pin = '';
+      widget.onDigitEntered?.call(_pin.length);
+    });
   }
 
   @override

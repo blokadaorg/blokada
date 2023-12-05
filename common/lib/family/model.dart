@@ -17,6 +17,7 @@ class FamilyDevice {
 enum FamilyPhase {
   starting, // Not yet usable state, UI should show loading
   fresh, // No devices, no active account
+  noPerms, // Parent mode, app unlocked, but no perms
   linkedUnlocked, // Linked and perms, but not locked or no PIN set
   linkedNoPerms, // Linked as child device, no DNS setup yet
   linkedActive, // Linked and all good
@@ -42,6 +43,7 @@ extension FamilyPhaseExt on FamilyPhase {
 
   bool requiresAction() {
     return this == FamilyPhase.fresh ||
+        this == FamilyPhase.noPerms ||
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.parentNoDevices ||
         this == FamilyPhase.lockedNoPerms ||
@@ -49,7 +51,8 @@ extension FamilyPhaseExt on FamilyPhase {
   }
 
   bool requiresPerms() {
-    return this == FamilyPhase.linkedNoPerms ||
+    return this == FamilyPhase.noPerms ||
+        this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.lockedNoPerms;
   }
 
@@ -62,7 +65,8 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.parentHasDevices ||
         this == FamilyPhase.lockedNoPerms ||
         this == FamilyPhase.lockedNoAccount ||
-        this == FamilyPhase.lockedActive;
+        this == FamilyPhase.lockedActive ||
+        this == FamilyPhase.noPerms;
   }
 
   bool isLinkable() {
@@ -77,6 +81,7 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.linkedUnlocked ||
         this == FamilyPhase.lockedActive ||
         this == FamilyPhase.lockedNoPerms ||
-        this == FamilyPhase.parentHasDevices;
+        this == FamilyPhase.parentHasDevices ||
+        this == FamilyPhase.noPerms;
   }
 }

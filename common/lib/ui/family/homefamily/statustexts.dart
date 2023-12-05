@@ -72,7 +72,9 @@ class StatusTextsState extends State<StatusTexts>
         return [
           "App is linked!",
         ];
-      case FamilyPhase.linkedNoPerms || FamilyPhase.lockedNoPerms:
+      case FamilyPhase.linkedNoPerms ||
+            FamilyPhase.lockedNoPerms ||
+            FamilyPhase.noPerms:
         return [
           "Almost there!",
           "Please grant the necessary permissions" + "\n\n",

@@ -147,14 +147,15 @@ abstract class FamilyStoreBase
 
   // Try activating the app whenever DNS perms are granted
   _onDnsPermChanges() {
-    reactionOnStore((_) => _perm.privateDnsEnabled, (enabled) async {
+    reactionOnStore((_) => _perm.privateDnsEnabledFor, (enabled) async {
       if (linkedMode) {
         return await traceAs("familyLinkedPermCheck", (trace) async {
-          appActive = _perm.isPrivateDnsEnabledFor(_device.deviceTag);
+          appActive = _perm.isPrivateDnsEnabled;
           trace.addAttribute("permEnabled", appActive);
         });
       } else if (accountActive == true) {
-        if (_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
+        if (_perm.isPrivateDnsEnabled) {
+          _updatePhaseNow(true);
           return await traceAs("familyAutoUnpause", (trace) async {
             await _start.unpauseApp(trace);
           });
@@ -325,7 +326,7 @@ abstract class FamilyStoreBase
     if (isLocked) {
       // Locking means that this device is supposed to be active.
       // Pop up the perms modal if perms are not granted.
-      if (_perm.isPrivateDnsEnabledFor(_device.deviceTag) == false) {
+      if (!_perm.isPrivateDnsEnabled) {
         await _stage.showModal(parentTrace, StageModal.perms);
       }
 
@@ -503,6 +504,8 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoPerms;
     } else if (accountActive == false) {
       phase = FamilyPhase.fresh;
+    } else if (!appActive && hasThisDevice) {
+      phase = FamilyPhase.noPerms;
     } else if (hasDevices == true) {
       phase = FamilyPhase.parentHasDevices;
     } else if (hasDevices == false) {

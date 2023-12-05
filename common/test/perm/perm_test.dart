@@ -34,13 +34,13 @@ void main() {
         depend<PermOps>(ops);
 
         final subject = PermStore();
-        expect(subject.privateDnsEnabled, null);
+        expect(subject.privateDnsEnabledFor, null);
 
         await subject.setPrivateDnsEnabled(trace, "tag");
-        expect(subject.privateDnsEnabled, "tag");
+        expect(subject.privateDnsEnabledFor, "tag");
 
         await subject.setPrivateDnsDisabled(trace);
-        expect(subject.privateDnsEnabled, null);
+        expect(subject.privateDnsEnabledFor, null);
       });
     });
 

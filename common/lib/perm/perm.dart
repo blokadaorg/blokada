@@ -35,7 +35,13 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   }
 
   @observable
-  DeviceTag? privateDnsEnabled;
+  DeviceTag? privateDnsEnabledFor;
+
+  @computed
+  bool get isPrivateDnsEnabled {
+    return _device.deviceTag != null &&
+        privateDnsEnabledFor == _device.deviceTag;
+  }
 
   // Used for when we want to skip our own dns and just forward it.
   // This is only for Family;
@@ -59,8 +65,8 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "privateDnsEnabled", (trace) async {
       trace.addAttribute("tag", tag);
 
-      if (tag != privateDnsEnabled) {
-        privateDnsEnabled = tag;
+      if (tag != privateDnsEnabledFor) {
+        privateDnsEnabledFor = tag;
         await _app.cloudPermEnabled(trace, tag == _device.deviceTag);
       }
     });
@@ -69,8 +75,8 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> setPrivateDnsDisabled(Trace parentTrace) async {
     return await traceWith(parentTrace, "privateDnsDisabled", (trace) async {
-      if (privateDnsEnabled != null) {
-        privateDnsEnabled = null;
+      if (privateDnsEnabledFor != null) {
+        privateDnsEnabledFor = null;
         await _app.cloudPermEnabled(trace, false);
       }
     });
@@ -164,7 +170,9 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (!route.isBecameForeground() && route.modal != StageModal.perms) return;
+    if (!(route.isBecameForeground() || route.modal == StageModal.perms)) {
+      return;
+    }
 
     return await traceWith(parentTrace, "checkPermsOnFg", (trace) async {
       await syncPerms(trace);
@@ -189,7 +197,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   }
 
   bool isPrivateDnsEnabledFor(DeviceTag? tag) {
-    return tag != null && privateDnsEnabled == tag;
+    return tag != null && privateDnsEnabledFor == tag;
   }
 
   _recheckDnsPerm(Trace trace, DeviceTag tag) async {

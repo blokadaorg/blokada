@@ -1,5 +1,6 @@
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/stats/toplist.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -80,7 +81,7 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                       left: 2, right: 8, top: 8, bottom: 8),
                   child: Row(
                     children: [
-                      Icon(Icons.chevron_left,
+                      Icon(CupertinoIcons.chevron_left,
                           color: theme.textSecondary, size: 18),
                       Text(
                         _store.selectedDevice ?? "No device selected",
@@ -100,7 +101,7 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.edit,
+                        child: Icon(CupertinoIcons.pencil,
                             color: theme.textSecondary, size: 18),
                       ),
                     )
@@ -114,7 +115,7 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                 children: [
                   MiniCardHeader(
                     text: "stats header day".i18n,
-                    icon: Icons.timelapse,
+                    icon: CupertinoIcons.clock,
                     color: theme.textSecondary,
                   ),
                   const SizedBox(height: 4),
@@ -133,7 +134,7 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                 children: [
                   MiniCardHeader(
                     text: "activity category top blocked".i18n,
-                    icon: Icons.stacked_bar_chart,
+                    icon: CupertinoIcons.chart_bar,
                     color: theme.textSecondary,
                   ),
                   Toplist(stats: _stats, blocked: true),
@@ -148,23 +149,11 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                 children: [
                   MiniCardHeader(
                     text: "activity category top allowed".i18n,
-                    icon: Icons.stacked_bar_chart,
+                    icon: CupertinoIcons.chart_bar,
                     color: theme.textSecondary,
                   ),
                   Toplist(stats: _stats, blocked: false),
                 ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MiniCard(
-              onTap: _openActivityForSelectedDevice,
-              child: MiniCardHeader(
-                text: "See recent activity",
-                icon: Icons.bar_chart_sharp,
-                color: theme.family,
-                chevronIcon: Icons.chevron_right,
               ),
             ),
           ),

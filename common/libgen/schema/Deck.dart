@@ -20,4 +20,7 @@ class DeckItem {
 abstract class DeckOps {
   @async
   void doDecksChanged(List<Deck> decks);
+
+  @async
+  void doTagMappingChanged(Map<String, String> tapMapping);
 }

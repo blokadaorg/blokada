@@ -26,7 +26,7 @@ class Config {
   late DateTime? debugSendTracesUntil =
       _isInDebugMode ? DateTime.now().add(const Duration(minutes: 15)) : null;
   late Uri? debugSendTracesTo =
-      _isInDebugMode ? Uri.parse("http://192.168.1.172:4318/v1/traces") : null;
+      _isInDebugMode ? Uri.parse("http://192.168.1.173:4318/v1/traces") : null;
   late List<String> debugFailingRequests = [];
   late bool debugBg = false;
 

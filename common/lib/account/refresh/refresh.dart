@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common/account/refresh/json.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../family/family.dart';
 import '../../notification/notification.dart';
 import '../../persistence/persistence.dart';
 import '../../plus/plus.dart';
@@ -103,6 +104,7 @@ abstract class AccountRefreshStoreBase
   late final _stage = dep<StageStore>();
   late final _persistence = dep<PersistenceService>();
   late final _plus = dep<PlusStore>();
+  late final _family = dep<FamilyStore>();
 
   AccountRefreshStoreBase() {
     _timer.addHandler(_keyTimer, onTimerFired);
@@ -267,8 +269,10 @@ abstract class AccountRefreshStoreBase
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
 
+    final shouldSkipNotification = act.isFamily() && _family.linkedMode;
+
     DateTime? expDate = expiration.getNextDate();
-    if (expDate != null) {
+    if (expDate != null && !shouldSkipNotification) {
       _timer.set(_keyTimer, expDate);
       trace.addAttribute("timer", expDate);
 

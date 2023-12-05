@@ -103,7 +103,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
         if (strategy.isOnStatsScreen && _stats.selectedDevice != null) {
           await _stats.fetchForDevice(trace, _stats.selectedDevice!);
         } else {
-          for (final deviceName in monitoredDevices) {
+          for (final deviceName in _monitoredDevices) {
             await _stats.fetchForDevice(trace, deviceName);
           }
         }
@@ -123,8 +123,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   @observable
   StatsRefreshStrategy strategy = StatsRefreshStrategy.init();
 
-  @observable
-  List<String> monitoredDevices = [];
+  List<String> _monitoredDevices = [];
 
   @action
   Future<void> updateForeground(Trace parentTrace, bool isForeground) async {
@@ -161,7 +160,8 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   Future<void> setMonitoredDevices(
       Trace parentTrace, List<String> devices) async {
     return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
-      monitoredDevices = devices;
+      trace.addAttribute("devices", devices);
+      _monitoredDevices = devices;
       strategy = strategy.resetLastRefresh(); // To cause one immediate refresh
       _rescheduleTimer(trace);
     });

@@ -10,6 +10,7 @@ import '../device/device.dart';
 import '../family/family.dart';
 import '../journal/channel.pg.dart';
 import '../journal/journal.dart';
+import '../lock/lock.dart';
 import '../notification/notification.dart';
 import '../plus/lease/lease.dart';
 import '../plus/plus.dart';
@@ -42,6 +43,7 @@ class CommandStore
   late final _plusVpn = dep<PlusVpnStore>();
   late final _notification = dep<NotificationStore>();
   late final _family = dep<FamilyStore>();
+  late final _lock = dep<LockStore>();
 
   late final _timer = dep<TimerService>();
 
@@ -190,6 +192,7 @@ class CommandStore
       case CommandName.fatal:
         return await _tracer.fatal(p1!);
       case CommandName.log:
+        if (_lock.isLocked) throw Exception("App is locked, cannot share log");
         return await _tracer.shareLog(trace, forCrash: false);
       case CommandName.crashLog:
         return await _tracer.checkForCrashLog(trace, force: true);

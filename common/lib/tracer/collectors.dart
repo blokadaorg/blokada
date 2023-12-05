@@ -278,8 +278,8 @@ class JsonTraceCollector implements TraceCollector {
     }
 
     if (modules.isNotEmpty) {
-      print(
-          "$runtimeType done sending traces for ${modules.length} modules ($runtimeTraceId)");
+      // print(
+      //     "$runtimeType done sending traces for ${modules.length} modules ($runtimeTraceId)");
     }
   }
 
@@ -296,7 +296,7 @@ class JsonTraceCollector implements TraceCollector {
       await send(module, wrapSpans(module, json));
       runtimeLastError = null;
     } catch (e, s) {
-      print("Error sending ${traces.length} traces of module $module: $e");
+      // print("Error sending ${traces.length} traces of module $module: $e");
       runtimeLastError = e.toString();
     }
   }
@@ -451,7 +451,7 @@ class FileTraceCollector extends TraceCollector {
       _tracesByRoot.remove(rootId);
 
       await _send(json);
-      print("$runtimeType done sending ${traces.length} traces for $rootId");
+      // print("$runtimeType done sending ${traces.length} traces for $rootId");
     } catch (e, s) {
       print("Error sending traces for $rootId: $e");
       print(s);

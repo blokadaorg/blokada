@@ -95,7 +95,7 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
           //_animateToPage(1);
           _animateToPageHorizontal(1);
         } else if (_stage.route.isTab(StageTab.home) &&
-            _stage.route.isMainRoute()) {
+            (_stage.route.isMainRoute())) {
           //_animateToPage(1);
           _animateToPageHorizontal(0);
         }

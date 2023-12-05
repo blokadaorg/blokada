@@ -8,15 +8,16 @@ class Touch extends StatefulWidget {
   final double maxValue;
   final BoxDecoration Function(double) decorationBuilder;
   final VoidCallback? onTap;
+  final VoidCallback? onLongTap;
 
-  const Touch({
-    super.key,
-    required this.child,
-    this.maxValue = 0.6,
-    required this.decorationBuilder,
-    this.padding,
-    this.onTap,
-  });
+  const Touch(
+      {super.key,
+      required this.child,
+      this.maxValue = 0.6,
+      required this.decorationBuilder,
+      this.padding,
+      this.onTap,
+      this.onLongTap});
 
   @override
   State<StatefulWidget> createState() => TouchState();
@@ -73,6 +74,7 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
         _depress();
       },
       onTap: () => widget.onTap?.call(),
+      onLongPress: () => widget.onLongTap?.call(),
       child: Container(
         decoration: widget.decorationBuilder(_anim.value),
         padding: widget.padding,
@@ -81,5 +83,5 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
     );
   }
 
-  bool _isInteractive() => widget.onTap != null;
+  bool _isInteractive() => widget.onTap != null || widget.onLongTap != null;
 }

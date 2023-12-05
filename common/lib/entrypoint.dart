@@ -62,7 +62,6 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     // The stores. Order is important
     EnvStore().attachAndSaveAct(act);
     StageStore().attachAndSaveAct(act);
-    LockStore().attachAndSaveAct(act);
     AccountStore().attachAndSaveAct(act);
     NotificationStore().attachAndSaveAct(act);
     AccountPaymentStore().attachAndSaveAct(act);
@@ -70,6 +69,8 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     DeviceStore().attachAndSaveAct(act);
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
+    PermStore().attachAndSaveAct(act);
+    LockStore().attachAndSaveAct(act);
     CustomStore().attachAndSaveAct(act);
     DeckStore().attachAndSaveAct(act);
     JournalStore().attachAndSaveAct(act);
@@ -78,7 +79,6 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     PlusGatewayStore().attachAndSaveAct(act);
     PlusLeaseStore().attachAndSaveAct(act);
     PlusVpnStore().attachAndSaveAct(act);
-    PermStore().attachAndSaveAct(act);
     StatsStore().attachAndSaveAct(act);
     StatsRefreshStore().attachAndSaveAct(act);
     FamilyStore().attachAndSaveAct(act);

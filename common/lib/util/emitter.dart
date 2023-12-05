@@ -1,25 +1,25 @@
 import 'trace.dart';
 
 mixin Emitter {
-  final Map<EmitterEvent, List<Function(Trace)>> _listeners = {};
+  final Map<EmitterEvent, List<Function(Trace)>> _valueListeners = {};
 
   willAcceptOn(List<EmitterEvent> events) {
-    _listeners.clear();
-    _listeners.addEntries(events.map((it) => MapEntry(it, [])));
+    _valueListeners.clear();
+    _valueListeners.addEntries(events.map((it) => MapEntry(it, [])));
   }
 
   addOn(EmitterEvent on, Function(Trace) listener) {
-    final listeners = _listeners[on];
+    final listeners = _valueListeners[on];
     if (listeners == null) throw Exception("Unknown event");
     listeners.add(listener);
   }
 
   removeOn(EmitterEvent on, dynamic listener) {
-    _listeners[on]?.remove(listener);
+    _valueListeners[on]?.remove(listener);
   }
 
   emit<T>(EmitterEvent<T> on, Trace trace, T value) async {
-    final listeners = _listeners[on];
+    final listeners = _valueListeners[on];
     if (listeners == null) throw Exception("Unknown event");
     for (final listener in listeners.toList()) {
       // Ignore any listener errors
