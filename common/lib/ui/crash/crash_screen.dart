@@ -66,85 +66,88 @@ class _CrashScreenState extends State<CrashScreen>
     return BlurBackground(
       key: bgStateKey,
       onClosed: _close,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Spacer(),
-            const SizedBox(height: 50),
-            Icon(
-              Icons.electric_bolt_outlined,
-              size: 128,
-              color: Colors.white.withOpacity(0.8),
-            ),
-            const SizedBox(height: 30),
-            Text(
-              "alert error header".i18n,
-              style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white),
-            ),
-            const SizedBox(height: 70),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: const Text(
-                "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.white),
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              const SizedBox(height: 50),
+              Icon(
+                Icons.electric_bolt_outlined,
+                size: 128,
+                color: Colors.white.withOpacity(0.8),
               ),
-            ),
-            const SizedBox(height: 40),
-            AnimatedOpacity(
-              opacity: 1.0,
-              duration: _duration,
-              child: Column(
-                children: [
-                  MiniCard(
-                    onTap: () {
-                      bgStateKey.currentState?.animateToClose();
-                      _shareLog();
-                    },
-                    color: theme.plus,
-                    child: SizedBox(
-                      width: 200,
-                      child: Text("universal action share log".i18n,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 30),
+              Text(
+                "alert error header".i18n,
+                style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white),
               ),
-            ),
-            const Spacer(),
-            AnimatedOpacity(
-              opacity: 1.0,
-              duration: _duration,
-              child: Row(
-                children: [
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      bgStateKey.currentState?.animateToClose();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 64),
-                      child: Text(
-                        "universal action cancel".i18n,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
+              const SizedBox(height: 70),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: const Text(
+                  "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 40),
+              AnimatedOpacity(
+                opacity: 1.0,
+                duration: _duration,
+                child: Column(
+                  children: [
+                    MiniCard(
+                      onTap: () {
+                        bgStateKey.currentState?.animateToClose();
+                        _shareLog();
+                      },
+                      color: theme.plus,
+                      child: SizedBox(
+                        width: 200,
+                        child: Text("universal action share log".i18n,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.white)),
                       ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              const Spacer(),
+              AnimatedOpacity(
+                opacity: 1.0,
+                duration: _duration,
+                child: Row(
+                  children: [
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        bgStateKey.currentState?.animateToClose();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 64),
+                        child: Text(
+                          "universal action cancel".i18n,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

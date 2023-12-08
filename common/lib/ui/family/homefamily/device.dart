@@ -59,20 +59,22 @@ class _HomeCounterState extends State<HomeDevice>
         onTap: _onTap,
         // outlined: widget.thisDevice,
         outlined: false,
-        child: MiniCardSummary(
-          header: MiniCardHeader(
-            text: widget.device.deviceDisplayName,
-            icon: widget.device.thisDevice
-                ? Icons.phonelink_lock
-                : Icons.phone_iphone,
-            color: widget.color,
-            chevronIcon: Icons.chevron_right,
-          ),
-          big: IgnorePointer(
-            ignoring: true,
-            child: MiniCardChart(device: widget.device, color: widget.color),
-          ),
-          small: "",
+        child: Column(
+          children: [
+            MiniCardHeader(
+              text: widget.device.deviceDisplayName,
+              icon: widget.device.thisDevice
+                  ? Icons.phonelink_lock
+                  : Icons.phone_iphone,
+              color: widget.color,
+              chevronIcon: Icons.chevron_right,
+            ),
+            const SizedBox(height: 20),
+            IgnorePointer(
+              ignoring: true,
+              child: MiniCardChart(device: widget.device, color: widget.color),
+            ),
+          ],
           //footer: "home status detail active".i18n.replaceAll("*", ""),
         ),
       ),

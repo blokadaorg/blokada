@@ -84,7 +84,7 @@ class CommandStore
     _stopCommandTimeout(cmd);
   }
 
-  Future<void> onCommandString(Trace parentTrace, String command) async {
+  onCommandString(Trace parentTrace, String command) async {
     return await traceWith(parentTrace, "onCommandString", (trace) async {
       final commandParts = command.split(" ");
       final cmd = _commandFromString(commandParts.first);
@@ -98,19 +98,26 @@ class CommandStore
     trace.addAttribute("command", cmd.name);
     switch (cmd) {
       case CommandName.url:
-        await _executeUrl(trace, p1!);
+        _ensureParam(p1);
+        return await _executeUrl(trace, p1!);
       case CommandName.restore:
+        _ensureParam(p1);
         await _account.restore(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
+      case CommandName.account:
+        return _account.account?.id;
       case CommandName.receipt:
+        _ensureParam(p1);
         await _accountPayment.restoreInBackground(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
       case CommandName.fetchProducts:
         return await _accountPayment.fetchProducts(trace);
       case CommandName.purchase:
+        _ensureParam(p1);
         await _accountPayment.purchase(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
       case CommandName.changeProduct:
+        _ensureParam(p1);
         await _accountPayment.changeProduct(trace, p1!);
         return await _accountRefresh.syncAccount(trace, _account.account);
       case CommandName.restorePayment:
@@ -123,24 +130,33 @@ class CommandStore
       case CommandName.unpause:
         return await _appStart.unpauseApp(trace);
       case CommandName.allow:
+        _ensureParam(p1);
         return await _custom.allow(trace, p1!);
       case CommandName.deny:
+        _ensureParam(p1);
         return await _custom.deny(trace, p1!);
       case CommandName.delete:
+        _ensureParam(p1);
         return await _custom.delete(trace, p1!);
       case CommandName.enableDeck:
+        _ensureParam(p1);
         return await _deck.setEnableDeck(trace, p1!, true);
       case CommandName.disableDeck:
+        _ensureParam(p1);
         return await _deck.setEnableDeck(trace, p1!, false);
       case CommandName.toggleListByTag:
+        _ensureParam(p1);
+        _ensureParam(p2);
         return await _deck.toggleListByTag(trace, p1!, p2!);
       case CommandName.enableCloud:
         return await _device.setCloudEnabled(trace, true);
       case CommandName.disableCloud:
         return await _device.setCloudEnabled(trace, false);
       case CommandName.setRetention:
+        _ensureParam(p1);
         return await _device.setRetention(trace, p1!);
       case CommandName.deviceAlias:
+        _ensureParam(p1);
         return await _family.renameThisDevice(trace, p1!);
       case CommandName.sortNewest:
         return await _journal.updateFilter(trace, sortNewestFirst: true);
@@ -149,11 +165,13 @@ class CommandStore
       case CommandName.search:
         return await _journal.updateFilter(trace, searchQuery: p1);
       case CommandName.filter:
+        _ensureParam(p1);
         return await _journal.updateFilter(trace,
             showOnly: JournalFilterType.values.byName(p1!));
       case CommandName.filterDevice:
         return await _journal.updateFilter(trace, deviceName: p1);
       case CommandName.newPlus:
+        _ensureParam(p1);
         return await _plus.newPlus(trace, p1!);
       case CommandName.clearPlus:
         return await _plus.clearPlus(trace);
@@ -162,18 +180,23 @@ class CommandStore
       case CommandName.deactivatePlus:
         return await _plus.switchPlus(trace, false);
       case CommandName.deleteLease:
+        _ensureParam(p1);
         return await _plusLease.deleteLeaseById(trace, p1!);
       case CommandName.vpnStatus:
+        _ensureParam(p1);
         return await _plusVpn.setActualStatus(trace, p1!);
       case CommandName.foreground:
         return await _stage.setForeground(trace);
       case CommandName.background:
         return await _stage.setBackground(trace);
       case CommandName.route:
+        _ensureParam(p1);
         return await _stage.setRoute(trace, p1!);
       case CommandName.modalShow:
+        _ensureParam(p1);
         return await _stage.showModal(trace, _modalFromString(p1!));
       case CommandName.modalShown:
+        _ensureParam(p1);
         return await _stage.modalShown(trace, _modalFromString(p1!));
       case CommandName.modalDismiss:
         return await _stage.dismissModal(trace);
@@ -182,12 +205,17 @@ class CommandStore
       case CommandName.remoteNotification:
         return await _accountRefresh.onRemoteNotification(trace);
       case CommandName.appleNotificationToken:
+        _ensureParam(p1);
         return await _notification.saveAppleToken(trace, p1!);
       case CommandName.familyLink:
+        _ensureParam(p1);
+        _ensureParam(p2);
         return await _family.link(trace, p1!, p2!);
       case CommandName.familyWaitForDeviceName:
+        _ensureParam(p1);
         return await _family.setWaitingForDevice(trace, p1!);
       case CommandName.warning:
+        _ensureParam(p1);
         return await _tracer.platformWarning(trace, p1!);
       case CommandName.fatal:
         return await _tracer.fatal(p1!);
@@ -199,9 +227,11 @@ class CommandStore
       case CommandName.canPromptCrashLog:
         return await _tracer.canPromptCrashLog(trace, p1 == "1");
       case CommandName.debugHttpFail:
+        _ensureParam(p1);
         cfg.debugFailingRequests.add(p1!);
         return;
       case CommandName.debugHttpOk:
+        _ensureParam(p1);
         cfg.debugFailingRequests.remove(p1!);
         return;
       case CommandName.debugOnboard:
@@ -226,7 +256,7 @@ class CommandStore
           throw Exception("Unknown familyLink token parameters");
         }
 
-        await _execute(trace, CommandName.familyLink, p1: tag, p2: name);
+        return await _execute(trace, CommandName.familyLink, p1: tag, p2: name);
       } else {
         throw Exception("Unsupported url: $url");
       }
@@ -234,6 +264,10 @@ class CommandStore
       await _stage.showModal(trace, StageModal.fault);
       rethrow;
     }
+  }
+
+  _ensureParam(String? p1) {
+    if (p1 == null) throw Exception("Missing parameter");
   }
 
   final _censoredCommands = [
@@ -264,7 +298,11 @@ class CommandStore
     try {
       return CommandName.values.byName(command);
     } catch (_) {
-      return _lowercaseCommandNames[command.toLowerCase()]!;
+      try {
+        return _lowercaseCommandNames[command.toLowerCase()]!;
+      } catch (_) {
+        throw ArgumentError("Unknown command: $command");
+      }
     }
   }
 
@@ -276,7 +314,11 @@ class CommandStore
     try {
       return StageModal.values.byName(command);
     } catch (_) {
-      return _lowercaseModals[command.toLowerCase()]!;
+      try {
+        return _lowercaseModals[command.toLowerCase()]!;
+      } catch (_) {
+        throw ArgumentError("Unknown modal: $command");
+      }
     }
   }
 

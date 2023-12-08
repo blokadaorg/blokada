@@ -117,7 +117,7 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
     if (command.isNotEmpty) {
       await traceAs("tappedRunCommand", (trace) async {
         try {
-          if (mounted) _controllerOutput.text = "...";
+          if (mounted) _controllerOutput.text = "";
           var cmds = [command];
 
           if (command.contains("&&")) {
@@ -131,21 +131,21 @@ class CommandDialogState extends State<CommandDialog> with TraceOrigin {
               await sleepAsync(const Duration(milliseconds: 500));
             }
             try {
-              await _command.onCommandString(trace, cmd);
-              if (mounted) _controllerOutput.text += "\nOK: $cmd";
-            } catch (e) {
-              // Assume that this is a shorthand for route command
-              try {
-                await _command.onCommandString(trace, "route $cmd");
-                if (mounted) _controllerOutput.text += "\nOK: $cmd";
-              } catch (e) {
-                if (mounted) _controllerOutput.text += "\nFail: $cmd: $e";
+              final res = await _command.onCommandString(trace, cmd);
+              if (mounted) {
+                if (res is String) {
+                  _controllerOutput.text += res;
+                } else {
+                  _controllerOutput.text += "OK: $cmd";
+                }
               }
+            } catch (e) {
+              throw Exception("$cmd: $e");
             }
+            if (mounted) _controllerOutput.text += "\n";
           }
-          if (mounted) _controllerOutput.text = "OK";
         } catch (e) {
-          if (mounted) _controllerOutput.text = "Fail: $e";
+          if (mounted) _controllerOutput.text += "$e";
         }
       });
     } else {

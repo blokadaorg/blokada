@@ -118,33 +118,36 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: RelativeBuilder(builder: (context, height, width, sy, sx) {
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  // Main home screen content
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(),
+              return Container(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Main home screen content
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
 
-                      // Devices list or the status texts
-                      (_phase == FamilyPhase.parentHasDevices)
-                          ? const Devices()
-                          : StatusTexts(phase: _phase),
-                      CtaButtons(),
+                        // Devices list or the status texts
+                        (_phase == FamilyPhase.parentHasDevices)
+                            ? const Devices()
+                            : StatusTexts(phase: _phase),
+                        CtaButtons(),
 
-                      // Leave space for navbar
-                      (!_phase.isLocked())
-                          ? SizedBox(height: sy(40))
-                          : Container(),
-                      SizedBox(height: sy(30)),
-                    ],
-                  ),
+                        // Leave space for navbar
+                        (!_phase.isLocked())
+                            ? SizedBox(height: sy(40))
+                            : Container(),
+                        SizedBox(height: sy(30)),
+                      ],
+                    ),
 
-                  // Loading spinner on covering the content
-                  _buildLoadingSpinner(context),
-                ],
+                    // Loading spinner on covering the content
+                    _buildLoadingSpinner(context),
+                  ],
+                ),
               );
             }),
           ),

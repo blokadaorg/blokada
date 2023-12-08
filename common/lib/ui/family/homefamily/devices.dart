@@ -119,7 +119,7 @@ class DevicesState extends State<Devices>
             items: d.sublist(1),
             carouselController: _carouselCtrl,
             options: CarouselOptions(
-              height: 152,
+              height: 176,
               //aspectRatio: 16 / 9,
               viewportFraction: 1.0,
               initialPage: d.length - 1 - 1,

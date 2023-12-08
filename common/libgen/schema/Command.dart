@@ -9,6 +9,7 @@ enum CommandName {
 
   // Account
   restore,
+  account,
 
   // AccountPayment
   receipt,

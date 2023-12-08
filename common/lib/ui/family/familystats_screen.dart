@@ -108,52 +108,61 @@ class FamilyStatsScreenState extends State<FamilyStatsScreen> with TraceOrigin {
                   : Container(),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MiniCard(
-              child: Column(
-                children: [
-                  MiniCardHeader(
-                    text: "stats header day".i18n,
-                    icon: CupertinoIcons.clock,
-                    color: theme.textSecondary,
-                  ),
-                  const SizedBox(height: 4),
-                  const RadialSegment(autoRefresh: true),
-                  const SizedBox(height: 16),
-                  const Divider(),
-                  ColumnChart(stats: _stats),
-                ],
+          SizedBox(
+            width: width > 600 ? 600 : width,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: MiniCard(
+                child: Column(
+                  children: [
+                    MiniCardHeader(
+                      text: "stats header day".i18n,
+                      icon: CupertinoIcons.clock,
+                      color: theme.textSecondary,
+                    ),
+                    const SizedBox(height: 4),
+                    const RadialSegment(autoRefresh: true),
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    ColumnChart(stats: _stats),
+                  ],
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MiniCard(
-              child: Column(
-                children: [
-                  MiniCardHeader(
-                    text: "activity category top blocked".i18n,
-                    icon: CupertinoIcons.chart_bar,
-                    color: theme.textSecondary,
-                  ),
-                  Toplist(stats: _stats, blocked: true),
-                ],
+          Container(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: MiniCard(
+                child: Column(
+                  children: [
+                    MiniCardHeader(
+                      text: "activity category top blocked".i18n,
+                      icon: CupertinoIcons.chart_bar,
+                      color: theme.textSecondary,
+                    ),
+                    Toplist(stats: _stats, blocked: true),
+                  ],
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: MiniCard(
-              child: Column(
-                children: [
-                  MiniCardHeader(
-                    text: "activity category top allowed".i18n,
-                    icon: CupertinoIcons.chart_bar,
-                    color: theme.textSecondary,
-                  ),
-                  Toplist(stats: _stats, blocked: false),
-                ],
+          Container(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: MiniCard(
+                child: Column(
+                  children: [
+                    MiniCardHeader(
+                      text: "activity category top allowed".i18n,
+                      icon: CupertinoIcons.chart_bar,
+                      color: theme.textSecondary,
+                    ),
+                    Toplist(stats: _stats, blocked: false),
+                  ],
+                ),
               ),
             ),
           ),

@@ -269,165 +269,168 @@ class _LockScreenState extends State<LockScreen>
       key: bgStateKey,
       //canClose: () => !_isLocked,
       onClosed: _cancel,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Spacer(),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: AnimatedCrossFade(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: AnimatedCrossFade(
+                firstChild: SizedBox(
+                  height: 112,
+                  child: Center(
+                    child: Icon(
+                      _isLocked
+                          ? CupertinoIcons.lock_fill
+                          : CupertinoIcons.lock_open,
+                      color: Colors.white,
+                      size: 48,
+                    ),
+                  ),
+                ),
+                secondChild: SizedBox(
+                  height: 112,
+                  child: Center(
+                    child: Text(_getHeaderString(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          // fontWeight: FontWeight.w500,
+                        )),
+                  ),
+                ),
+                crossFadeState: _showHeaderIcon
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                duration: const Duration(milliseconds: 300),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(7.0),
+              child: SlideTransition(
+                position: _animShake,
+                child: Circles(amount: 4, filled: _digitsEntered),
+              ),
+            ),
+            const SizedBox(height: 32),
+            SizedBox(
+              width: 300,
+              child: KeyPad(
+                pinLength: 4,
+                controller: _keypadCtrl,
+                onPinEntered: (pin) {
+                  setState(() {
+                    if (_pinEntered == null) {
+                      _pinEntered = pin;
+                      if (!_isLocked) _handlePinConfirm();
+                    } else {
+                      _pinConfirmed = pin;
+                      _checkPin(_pinEntered ?? "");
+                    }
+                  });
+                },
+                onDigitEntered: (digits) => setState(() {
+                  _cancelAutoLock();
+                  _digitsEntered = digits;
+                  if (_pinConfirmed != null) {
+                    _pinConfirmed = null;
+                    _pinEntered = null;
+                  }
+                }),
+              ),
+            ),
+            const Spacer(),
+            AnimatedCrossFade(
+              crossFadeState: _pinEntered != null && _isLocked
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 300),
               firstChild: SizedBox(
-                height: 112,
-                child: Center(
-                  child: Icon(
-                    _isLocked
-                        ? CupertinoIcons.lock_fill
-                        : CupertinoIcons.lock_open,
-                    color: Colors.white,
-                    size: 48,
+                height: 80,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: SlideAction(
+                    key: _slideUnlockKey,
+                    onSubmit: () {
+                      setState(() {
+                        _pinConfirmed = _pinEntered;
+                      });
+                      _checkPin(_pinEntered ?? "");
+                      Future.delayed(
+                        const Duration(seconds: 1),
+                        () => _slideUnlockKey.currentState?.reset(),
+                      );
+                    },
+                    outerColor: Colors.white.withOpacity(0.2),
+                    innerColor: Colors.black.withOpacity(0.4),
+                    borderRadius: 12,
+                    elevation: 0,
+                    text: "Slide to unlock",
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    sliderButtonIcon: const Icon(CupertinoIcons.chevron_right,
+                        color: Colors.white),
+                    submittedIcon: const Icon(CupertinoIcons.chevron_right,
+                        color: Colors.white),
+                    sliderRotate: false,
                   ),
                 ),
               ),
               secondChild: SizedBox(
-                height: 112,
-                child: Center(
-                  child: Text(_getHeaderString(),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        // fontWeight: FontWeight.w500,
-                      )),
-                ),
-              ),
-              crossFadeState: _showHeaderIcon
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              duration: const Duration(milliseconds: 300),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: SlideTransition(
-              position: _animShake,
-              child: Circles(amount: 4, filled: _digitsEntered),
-            ),
-          ),
-          const SizedBox(height: 32),
-          SizedBox(
-            width: 300,
-            child: KeyPad(
-              pinLength: 4,
-              controller: _keypadCtrl,
-              onPinEntered: (pin) {
-                setState(() {
-                  if (_pinEntered == null) {
-                    _pinEntered = pin;
-                    if (!_isLocked) _handlePinConfirm();
-                  } else {
-                    _pinConfirmed = pin;
-                    _checkPin(_pinEntered ?? "");
-                  }
-                });
-              },
-              onDigitEntered: (digits) => setState(() {
-                _cancelAutoLock();
-                _digitsEntered = digits;
-                if (_pinConfirmed != null) {
-                  _pinConfirmed = null;
-                  _pinEntered = null;
-                }
-              }),
-            ),
-          ),
-          const Spacer(),
-          AnimatedCrossFade(
-            crossFadeState: _pinEntered != null && _isLocked
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
-            duration: const Duration(milliseconds: 300),
-            firstChild: SizedBox(
-              height: 80,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: SlideAction(
-                  key: _slideUnlockKey,
-                  onSubmit: () {
-                    setState(() {
-                      _pinConfirmed = _pinEntered;
-                    });
-                    _checkPin(_pinEntered ?? "");
-                    Future.delayed(
-                      const Duration(seconds: 1),
-                      () => _slideUnlockKey.currentState?.reset(),
-                    );
-                  },
-                  outerColor: Colors.white.withOpacity(0.2),
-                  innerColor: Colors.black.withOpacity(0.4),
-                  borderRadius: 12,
-                  elevation: 0,
-                  text: "Slide to unlock",
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                  sliderButtonIcon: const Icon(CupertinoIcons.chevron_right,
-                      color: Colors.white),
-                  submittedIcon: const Icon(CupertinoIcons.chevron_right,
-                      color: Colors.white),
-                  sliderRotate: false,
-                ),
-              ),
-            ),
-            secondChild: SizedBox(
-              height: 80,
-              child: Opacity(
-                opacity: /*_isLocked ? 0.0 :*/ 1.0,
-                child: _dismissing
-                    ? Container()
-                    : Row(
-                        children: [
-                          if (_hasPin && !_isLocked)
+                height: 80,
+                child: Opacity(
+                  opacity: /*_isLocked ? 0.0 :*/ 1.0,
+                  child: _dismissing
+                      ? Container()
+                      : Row(
+                          children: [
+                            if (_hasPin && !_isLocked)
+                              GestureDetector(
+                                onTap: _clear,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 64),
+                                  child: Text(
+                                    "universal action clear".i18n,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            const Spacer(),
                             GestureDetector(
-                              onTap: _clear,
+                              onTap: _handleCancelDelete,
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 64),
                                 child: Text(
-                                  "universal action clear".i18n,
+                                  (_digitsEntered > 0)
+                                      ? "universal action delete".i18n
+                                      : "universal action cancel".i18n,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
                                 ),
                               ),
-                            ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: _handleCancelDelete,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 64),
-                              child: Text(
-                                (_digitsEntered > 0)
-                                    ? "universal action delete".i18n
-                                    : "universal action cancel".i18n,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 60),
-        ],
+            const SizedBox(height: 60),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
 import '../../../stage/stage.dart';
@@ -48,7 +47,10 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
     return BlurBackground(
       key: bgStateKey,
       onClosed: _close,
-      child: _getFirstTimeScreen(context),
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: _getFirstTimeScreen(context),
+      ),
     );
   }
 
