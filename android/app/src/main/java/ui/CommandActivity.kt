@@ -141,14 +141,18 @@ class CommandService : IntentService("cmd") {
 
     override fun onHandleIntent(intent: Intent?) {
         intent?.let {
-            val ctx = ContextService.requireContext()
-            val notification = NotificationService
-            val n = ExecutingCommandNotification()
-            startForeground(n.id, notification.build(n))
+            try {
+                val ctx = ContextService.requireContext()
+                val notification = NotificationService
+                val n = ExecutingCommandNotification()
+                startForeground(n.id, notification.build(n))
 
-            ctx.startActivity(Intent(ACTION_VIEW, it.data).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            })
+                ctx.startActivity(Intent(ACTION_VIEW, it.data).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
+            } catch (ex: Exception) {
+                Logger.e("CommandService", "Could not start activity".cause(ex))
+            }
         }
     }
 
@@ -173,7 +177,11 @@ fun getIntentForCommand(cmd: String): Intent {
 }
 
 fun executeCommand(cmd: Command, param: Param? = null) {
-    val ctx = ContextService.requireContext()
-    val intent = getIntentForCommand(cmd, param)
-    ctx.startForegroundService(intent)
+    try {
+        val ctx = ContextService.requireContext()
+        val intent = getIntentForCommand(cmd, param)
+        ctx.startForegroundService(intent)
+    } catch (ex: Exception) {
+        Logger.e("CommandService", "Could not start service".cause(ex))
+    }
 }

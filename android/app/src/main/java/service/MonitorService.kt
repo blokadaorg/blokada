@@ -232,7 +232,11 @@ class ForegroundService: Service() {
     private fun updateNotification() {
         val prototype = MonitorNotification(tunnelStatus, counter, lastDenied, appState, working)
         val n = notification.build(prototype)
-        startForeground(prototype.id, n)
+        try {
+            startForeground(prototype.id, n)
+        } catch (ex: Exception) {
+            Logger.e("ForegroundService", "Could not startForeground()".cause(ex));
+        }
     }
 
 }
