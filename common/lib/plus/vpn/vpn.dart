@@ -64,6 +64,7 @@ extension on VpnConfig {
 }
 
 const String _keyTimer = "vpn:timeout";
+const String _keyOngoingTimer = "vpn:ongoing:timeout";
 
 class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
@@ -74,6 +75,7 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
 
   PlusVpnStoreBase() {
     _onTimerFired();
+    _onOngoingTimerFired();
   }
 
   @override
@@ -172,7 +174,10 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
       actualStatus = status;
       if (!actualStatus.isReady()) {
         await _app.reconfiguring(trace);
+        _startOngoingTimeout();
         return;
+      } else {
+        _stopOngoingTimeout();
       }
 
       // Done working, fire up any queued events.
@@ -240,5 +245,20 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
       _statusCompleter?.completeError(Exception("VPN command timed out"));
       _statusCompleter = null;
     });
+  }
+
+  _onOngoingTimerFired() {
+    _timer.addHandler(_keyOngoingTimer, (trace) async {
+      trace.addEvent("VPN ongoing status too long");
+      await setActualStatus(trace, "deactivated");
+    });
+  }
+
+  _startOngoingTimeout() {
+    _timer.set(_keyOngoingTimer, DateTime.now().add(cfg.plusVpnCommandTimeout));
+  }
+
+  _stopOngoingTimeout() {
+    _timer.unset(_keyOngoingTimer);
   }
 }
