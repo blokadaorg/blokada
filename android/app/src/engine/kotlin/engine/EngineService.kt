@@ -133,9 +133,13 @@ object EngineService {
 
     private suspend fun stopAll() {
         state.inProgress()
-        wgTunnel.stop()
-        log.w("Waiting after stopping system tunnel, before another start")
-        delay(4000)
+        try {
+            wgTunnel.stop()
+            log.w("Waiting after stopping system tunnel, before another start")
+            delay(4000)
+        } catch (ex: Exception) {
+            log.w("Failed stopping wg".cause(ex))
+        }
         state.stopped()
     }
 
