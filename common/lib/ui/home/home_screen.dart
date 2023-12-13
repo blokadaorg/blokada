@@ -117,7 +117,7 @@ class HomeScreenState extends State<HomeScreen>
         ),
       ),
       child: AbsorbPointer(
-        absorbing: working,
+        absorbing: false,
         child: Stack(
           children: [
             RelativeBuilder(builder: (context, height, width, sy, sx) {
