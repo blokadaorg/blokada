@@ -9,7 +9,6 @@ import 'package:mobx/mobx.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
 import '../../lock/lock.dart';
-import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/async.dart';
 import '../../util/di.dart';
@@ -37,7 +36,6 @@ class _LockScreenState extends State<LockScreen>
   String? _pinEntered;
   String? _pinConfirmed;
   int _wrongAttempts = 0;
-  bool _autoLockCanceled = false;
 
   final KeypadController _keypadCtrl = KeypadController();
 
@@ -55,7 +53,6 @@ class _LockScreenState extends State<LockScreen>
       setState(() {
         _isLocked = _lock.isLocked;
         _hasPin = _lock.hasPin;
-        if (_hasPin && !_isLocked && !_dismissing) _autoLockAfterShortWhile();
       });
     });
 
@@ -160,8 +157,6 @@ class _LockScreenState extends State<LockScreen>
       return "lock status locked".i18n;
     } else if (_pinEntered != null) {
       return "Enter the pin code again to confirm";
-    } else if (_hasPin && _digitsEntered == 0 && !_autoLockCanceled) {
-      return "Enter new pin code, or wait to lock...";
     } else if (_hasPin) {
       return "lock status unlocked has pin".i18n;
     } else {
@@ -184,21 +179,7 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
-  Timer? _autoLockTimer;
-  _autoLockAfterShortWhile() {
-    _autoLockTimer?.cancel();
-    _autoLockTimer = Timer(const Duration(seconds: 6), () {
-      _autoLock();
-    });
-  }
-
-  _cancelAutoLock() {
-    _autoLockCanceled = true;
-    _autoLockTimer?.cancel();
-  }
-
   _clear() async {
-    _cancelAutoLock();
     traceAs("tappedClearLock", (trace) async {
       _animateDismiss();
       await _lock.removeLock(trace);
@@ -206,7 +187,6 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _unlock(String pin) async {
-    _cancelAutoLock();
     traceAs("tappedUnlock", (trace) async {
       _animateDismiss();
       await _lock.unlock(trace, pin);
@@ -214,21 +194,13 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _cancel() async {
-    _cancelAutoLock();
     traceAs("tappedCancel", (trace) async {
       await _stage.dismissModal(trace);
     });
   }
 
-  _autoLock() async {
-    traceAs("autoLock", (trace) async {
-      await _lock.autoLock(trace);
-    });
-  }
-
   _animateDismiss() {
     _dismissing = true;
-    _cancelAutoLock();
     bgStateKey.currentState?.animateToClose();
   }
 
@@ -335,7 +307,6 @@ class _LockScreenState extends State<LockScreen>
                   });
                 },
                 onDigitEntered: (digits) => setState(() {
-                  _cancelAutoLock();
                   _digitsEntered = digits;
                   if (_pinConfirmed != null) {
                     _pinConfirmed = null;
@@ -395,8 +366,8 @@ class _LockScreenState extends State<LockScreen>
                               GestureDetector(
                                 onTap: _clear,
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 64),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 64),
                                   child: Text(
                                     "universal action clear".i18n,
                                     style: const TextStyle(
