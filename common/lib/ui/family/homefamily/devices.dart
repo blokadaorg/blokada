@@ -151,7 +151,8 @@ class DevicesState extends State<Devices>
               e.thisDevice,
               e.deviceName,
               HomeDevice(
-                  device: e, color: e.thisDevice ? Colors.pink : Colors.blue),
+                  device: e,
+                  color: e.thisDevice ? Color(0xffdc30a9) : Color(0xff008db0)),
             )))
         .toList();
   }

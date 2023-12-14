@@ -16,7 +16,7 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const plusColor = Color(0xffFF9400);
-    const familyColor = Color(0xffff678b);
+    const familyColor = Color(0xffdc30a9);
     final accentColor = cfg.act.isFamily() ? familyColor : plusColor;
 
     return MaterialApp(

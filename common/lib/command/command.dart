@@ -204,7 +204,11 @@ class CommandStore
         return await _stage.modalDismissed(trace);
       case CommandName.setPin:
         _ensureParam(p1);
-        return await _lock.lock(trace, p1!);
+        await _lock.lock(trace, p1!);
+        return await _stage.setRoute(trace, "home");
+      case CommandName.unlock:
+        _ensureParam(p1);
+        return await _lock.unlock(trace, p1!);
       case CommandName.remoteNotification:
         return await _accountRefresh.onRemoteNotification(trace);
       case CommandName.appleNotificationToken:

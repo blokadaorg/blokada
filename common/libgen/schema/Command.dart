@@ -72,6 +72,7 @@ enum CommandName {
 
   // Lock
   setPin,
+  unlock,
 
   // Tracer
   fatal,

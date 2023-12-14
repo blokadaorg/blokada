@@ -78,10 +78,10 @@ extension FamilyPhaseExt on FamilyPhase {
   bool isLockable() {
     return this == FamilyPhase.linkedActive ||
         this == FamilyPhase.linkedNoPerms ||
-        this == FamilyPhase.linkedUnlocked ||
+        //this == FamilyPhase.linkedUnlocked ||
         this == FamilyPhase.lockedActive ||
-        this == FamilyPhase.lockedNoPerms ||
-        this == FamilyPhase.parentHasDevices ||
-        this == FamilyPhase.noPerms;
+        this == FamilyPhase.lockedNoPerms;
+    //this == FamilyPhase.parentHasDevices ||
+    //this == FamilyPhase.noPerms;
   }
 }

@@ -24,7 +24,10 @@ class MiniCardChart extends StatelessWidget {
       //decoration: BoxDecoration(color: Colors.greenAccent),
       child: (device.deviceName.isNotEmpty && device.stats.totalAllowed > 0)
           ? ColumnChart(stats: device.stats, color: color)
-          : const Center(child: Text("Waiting for data")),
+          : Container(
+              constraints: const BoxConstraints(maxHeight: 90),
+              child: const Center(child: Text("Waiting for data")),
+            ),
     );
   }
 }

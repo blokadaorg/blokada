@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../account/account.dart';
-import '../../../app/app.dart';
 import '../../../family/family.dart';
 import '../../../family/model.dart';
 import '../../../lock/lock.dart';
