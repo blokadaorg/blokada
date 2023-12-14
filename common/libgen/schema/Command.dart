@@ -70,6 +70,9 @@ enum CommandName {
   modalDismiss,
   modalDismissed,
 
+  // Lock
+  setPin,
+
   // Tracer
   fatal,
   warning,

@@ -1,5 +1,6 @@
 import 'package:common/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
+import 'package:string_validator/string_validator.dart';
 
 import '../account/account.dart';
 import '../perm/perm.dart';
@@ -69,6 +70,10 @@ abstract class LockStoreBase
     return await traceWith(parentTrace, "lock", (trace) async {
       if (isLocked) {
         return;
+      }
+
+      if (pin.length > 4 || !isNumeric(pin)) {
+        throw Exception("Invalid pin");
       }
 
       await _persistence.saveString(trace, _keyLock, pin);

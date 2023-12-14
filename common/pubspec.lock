@@ -803,6 +803,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  string_validator:
+    dependency: "direct main"
+    description:
+      name: string_validator
+      sha256: "54d4f42cd6878ae72793a58a529d9a18ebfdfbfebd9793bbe55c9b28935e8543"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   syncfusion_flutter_charts:
     dependency: "direct main"
     description:

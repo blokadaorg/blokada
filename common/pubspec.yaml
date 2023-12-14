@@ -61,6 +61,7 @@ dependencies:
   unique_names_generator: ^1.0.0
   flutter_slidable: ^3.0.1
   carousel_slider: ^4.2.1
+  string_validator: ^1.0.2
 
 dev_dependencies:
   flutter_test:
