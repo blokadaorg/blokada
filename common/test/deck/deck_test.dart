@@ -150,6 +150,7 @@ void main() {
         depend<DeckJson>(json);
 
         final subject = DeckStore();
+        mockAct(subject);
         verifyNever(device.setLists(any, any));
 
         await subject.onDeviceChanged(trace);

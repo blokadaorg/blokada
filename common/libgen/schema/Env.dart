@@ -20,5 +20,5 @@ abstract class EnvOps {
   EnvPayload doGetEnvPayload();
 
   @async
-  String doGetUserAgent();
+  void doUserAgentChanged(String userAgent);
 }

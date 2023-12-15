@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:common/tracer/collectors.dart';
+import 'package:common/util/act.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:common/tracer/tracer.dart';
@@ -22,4 +23,11 @@ withTrace(Future Function(Trace trace) fn) async {
   final trace = _tracer.newTrace("test:$module", "$group:$test");
   await fn(trace);
   await trace.end();
+}
+
+mockAct(Dependable subject,
+    {Flavor flavor = Flavor.og, Platform platform = Platform.ios}) {
+  final act = ActScreenplay(ActScenario.platformIsMocked, flavor, platform);
+  subject.setActForTest(act);
+  return act;
 }

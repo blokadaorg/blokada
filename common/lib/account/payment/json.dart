@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import '../../env/env.dart';
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
@@ -46,17 +44,17 @@ class AccountPaymentJson {
   late final _http = dep<HttpService>();
   late final _account = dep<AccountStore>();
 
-  Future<JsonAccount> postCheckout(Trace trace, String blob) async {
+  Future<JsonAccount> postCheckout(Trace trace, String blob, Platform p) async {
     dynamic payload = <String, dynamic>{};
     String endpoint;
 
-    if (Platform.isIOS) {
+    if (p == Platform.ios) {
       payload = JsonPaymentCheckoutPayload.forApple(
         accountId: _account.id,
         receipt: blob,
       ).toJson();
       endpoint = "apple";
-    } else if (Platform.isAndroid) {
+    } else if (p == Platform.android) {
       final transactionDetails = blob.split(":::");
       if (transactionDetails.length != 2) {
         throw ArgumentError("Invalid transaction details for Google payment");

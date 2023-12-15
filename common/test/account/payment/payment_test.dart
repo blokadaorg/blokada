@@ -81,7 +81,7 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, any)).thenAnswer(
+        when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         depend<AccountPaymentJson>(json);
 
@@ -89,11 +89,12 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
 
         await subject.purchase(trace, "id1");
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipt("id1")).called(1);
-        verify(json.postCheckout(any, "receipt")).called(1);
+        verify(json.postCheckout(any, "receipt", any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
@@ -105,7 +106,7 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, any)).thenAnswer(
+        when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         depend<AccountPaymentJson>(json);
 
@@ -113,13 +114,14 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
         subject.receipts = ["receipt1", "receipt2"];
 
         // Will try old receipts from the latest first and succeed without purchase
         await subject.purchase(trace, "id1");
         expect(subject.status, PaymentStatus.ready);
         expect(subject.receipts.isEmpty, true);
-        verify(json.postCheckout(any, "receipt2")).called(1);
+        verify(json.postCheckout(any, "receipt2", any)).called(1);
         verify(account.propose(any, any)).called(1);
         verifyNever(ops.doPurchaseWithReceipt(any));
       });
@@ -133,7 +135,7 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, any)).thenAnswer(
+        when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         depend<AccountPaymentJson>(json);
 
@@ -141,12 +143,13 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
         expect(subject.status, PaymentStatus.unknown);
 
         await subject.restore(trace);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doRestoreWithReceipt()).called(1);
-        verify(json.postCheckout(any, "receipt")).called(1);
+        verify(json.postCheckout(any, "receipt", any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
@@ -158,9 +161,9 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, "good receipt")).thenAnswer(
+        when(json.postCheckout(any, "good receipt", any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        when(json.postCheckout(any, "bad receipt"))
+        when(json.postCheckout(any, "bad receipt", any))
             .thenThrow(Exception("bad receipt"));
         depend<AccountPaymentJson>(json);
 
@@ -168,6 +171,7 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
         subject.receipts = ["old receipt", "good receipt"];
         expect(subject.status, PaymentStatus.unknown);
 
@@ -177,8 +181,8 @@ void main() {
 
         expect(subject.status, PaymentStatus.ready);
         expect(subject.receipts.isEmpty, true);
-        verify(json.postCheckout(any, "bad receipt")).called(1);
-        verify(json.postCheckout(any, "good receipt")).called(1);
+        verify(json.postCheckout(any, "bad receipt", any)).called(1);
+        verify(json.postCheckout(any, "good receipt", any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
@@ -224,7 +228,7 @@ void main() {
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipt("id1")).called(1);
-        verifyNever(json.postCheckout(any, any));
+        verifyNever(json.postCheckout(any, any, any));
         verifyNever(account.propose(any, any));
       });
     });
@@ -239,18 +243,20 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, any)).thenThrow(Exception("Api failing"));
+        when(json.postCheckout(any, any, any))
+            .thenThrow(Exception("Api failing"));
         depend<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
 
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipt("id1")).called(1);
-        verify(json.postCheckout(any, "receipt")).called(1);
+        verify(json.postCheckout(any, "receipt", any)).called(1);
         verifyNever(account.propose(any, any));
       });
     });
@@ -265,7 +271,7 @@ void main() {
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, any)).thenAnswer(
+        when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
         depend<AccountPaymentJson>(json);
 
@@ -273,11 +279,12 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = AccountPaymentStore();
+        mockAct(subject);
 
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipt("id1")).called(1);
-        verify(json.postCheckout(any, "receipt")).called(1);
+        verify(json.postCheckout(any, "receipt", any)).called(1);
         verifyNever(account.propose(any, any));
       });
     });

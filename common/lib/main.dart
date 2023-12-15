@@ -1,3 +1,4 @@
+import 'dart:io' as io;
 import 'package:common/json/json.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,7 @@ import 'entrypoint.dart';
 import 'service/I18nService.dart';
 import 'ui/root.dart';
 import 'util/act.dart';
+import 'util/di.dart';
 
 void main() async {
   // Needed for the MethodChannels
@@ -14,14 +16,21 @@ void main() async {
 
   await I18nService.loadTranslations();
 
-  const platform = MethodChannel('org.blokada/flavor');
-  final String flavor = await platform.invokeMethod('getFlavor');
+  const channel = MethodChannel('org.blokada/flavor');
+
+  final Flavor flavor = await channel.invokeMethod('getFlavor') == "family"
+      ? Flavor.family
+      : Flavor.og;
+
+  final Platform platform =
+      io.Platform.isAndroid ? Platform.android : Platform.ios;
 
   final entrypoint = Entrypoint();
   if (kReleaseMode) {
-    entrypoint.attach(ActScreenplay(ActScenario.prod, flavor));
+    entrypoint.attach(ActScreenplay(ActScenario.prod, flavor, platform));
   } else {
-    entrypoint.attach(ActScreenplay(ActScenario.prodWithToys, flavor));
+    entrypoint
+        .attach(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
   }
 
   if (flavor == "family") {

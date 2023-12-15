@@ -43,8 +43,7 @@ void main() {
         depend<DeviceStore>(device);
 
         final subject = FamilyStore();
-        subject.attachAndSaveAct(
-            ActScreenplay(ActScenario.platformIsMocked, "family"));
+        mockAct(subject, flavor: Flavor.family);
         await subject.link(trace, "abcdef", "Test%20Device");
 
         verify(device.setDeviceAlias(any, "Test Device"));

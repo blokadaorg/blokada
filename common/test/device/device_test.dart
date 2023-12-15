@@ -36,6 +36,7 @@ void main() {
         depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
+        mockAct(subject);
 
         await subject.fetch(trace);
 
@@ -60,6 +61,7 @@ void main() {
         depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
+        mockAct(subject);
 
         await subject.setCloudEnabled(trace, true);
         verify(api.putDevice(any, paused: false)).called(1);

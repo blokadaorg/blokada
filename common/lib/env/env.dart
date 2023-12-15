@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -25,6 +26,14 @@ extension on EnvPayload {
 abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   late final _ops = dep<EnvOps>();
 
+  EnvStoreBase() {
+    reactionOnStore((_) => userAgent, (_) async {
+      final ua = userAgent;
+      if (ua == null) return;
+      await _ops.doUserAgentChanged(ua);
+    });
+  }
+
   @override
   attach(Act act) {
     depend<EnvOps>(getOps(act));
@@ -35,20 +44,28 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   // OS provided device name, can be generic like "iPhone"
   String? deviceName;
 
+  @observable
+  String? userAgent;
+
   @override
   @action
   Future<void> start(Trace parentTrace) async {
     return await traceWith(parentTrace, "start", (trace) async {
-      await syncDeviceName(trace);
+      await syncUserAgent(trace);
     });
   }
 
   @action
-  Future<void> syncDeviceName(Trace parentTrace) async {
-    return await traceWith(parentTrace, "setDeviceName", (trace) async {
+  Future<void> syncUserAgent(Trace parentTrace) async {
+    return await traceWith(parentTrace, "syncUserAgent", (trace) async {
       final payload = await _ops.doGetEnvPayload();
       deviceName = payload.deviceName;
+      userAgent = _getUserAgent(payload);
       trace.addAttribute("device", payload.toSimpleString());
     });
+  }
+
+  _getUserAgent(EnvPayload p) {
+    return "blokada/${p.appVersion} (${act.getPlatform().name}-${p.osVersion} ${p.buildFlavor} ${p.buildType} ${p.cpu}) ${p.deviceBrand} ${p.deviceModel})";
   }
 }

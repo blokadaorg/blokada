@@ -218,7 +218,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   _processReceipt(Trace trace, ReceiptBlob receipt) async {
-    final account = await _json.postCheckout(trace, receipt);
+    final account = await _json.postCheckout(trace, receipt, act.getPlatform());
 
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");

@@ -177,6 +177,7 @@ void main() {
         depend<StageStore>(stage);
 
         final subject = JournalStore();
+        mockAct(subject);
         verifyNever(json.getEntries(any));
 
         // Won't refresh if not enabled

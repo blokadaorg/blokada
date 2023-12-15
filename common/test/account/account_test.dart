@@ -34,6 +34,7 @@ void main() {
         depend<AccountOps>(ops);
 
         final subject = AccountStore();
+        mockAct(subject);
 
         await subject.load(trace);
 
@@ -58,6 +59,7 @@ void main() {
         depend<AccountJson>(json);
 
         final subject = AccountStore();
+        mockAct(subject);
 
         await subject.create(trace);
 
@@ -84,6 +86,7 @@ void main() {
         depend<AccountJson>(json);
 
         final subject = AccountStore();
+        mockAct(subject);
 
         await subject.load(trace);
         await subject.fetch(trace);
@@ -110,6 +113,7 @@ void main() {
         depend<AccountJson>(json);
 
         final subject = AccountStore();
+        mockAct(subject);
 
         // First load as normal
         await subject.load(trace);
@@ -141,6 +145,7 @@ void main() {
         depend<AccountJson>(json);
 
         final subject = AccountStore();
+        mockAct(subject);
 
         await subject.load(trace);
 

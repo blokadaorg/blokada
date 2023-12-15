@@ -38,6 +38,7 @@ void main() {
 
         // Initial state
         final subject = AccountRefreshStore();
+        mockAct(subject);
         expect(subject.expiration.status, AccountStatus.init);
 
         // Account will expire very soon

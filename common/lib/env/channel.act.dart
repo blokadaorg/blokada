@@ -1,5 +1,6 @@
 import 'package:mocktail/mocktail.dart';
 
+import '../util/act.dart';
 import '../util/di.dart';
 import 'channel.pg.dart';
 
@@ -29,7 +30,5 @@ _actNormal(MockEnvOps ops) {
     ));
   });
 
-  when(() => ops.doGetUserAgent()).thenAnswer((_) {
-    return Future.value("mocked-user-agent");
-  });
+  when(() => ops.doUserAgentChanged(any())).thenAnswer(ignore());
 }
