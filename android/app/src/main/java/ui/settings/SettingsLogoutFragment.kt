@@ -41,11 +41,14 @@ class SettingsLogoutFragment : PreferenceFragmentCompat() {
 
         accountId.setOnPreferenceChangeListener { _, id ->
             id as String
-            lifecycleScope.launch {
+            // Do only if fragment is attached to context
+            if (isAdded && context != null) {
+                lifecycleScope.launch {
 //            accountId.text = ""
 //            accountId.setDefaultValue("")
-                accountId.summary = getString(R.string.account_action_restoring, id)
-                command.execute(CommandName.RESTORE, id)
+                    accountId.summary = getString(R.string.account_action_restoring, id)
+                    command.execute(CommandName.RESTORE, id)
+                }
             }
             true
         }
