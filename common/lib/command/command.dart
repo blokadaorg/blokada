@@ -227,7 +227,9 @@ class CommandStore
       case CommandName.fatal:
         return await _tracer.fatal(p1!);
       case CommandName.log:
-        if (_lock.isLocked) throw Exception("App is locked, cannot share log");
+        if (_lock.isLocked) {
+          return await _stage.showModal(trace, StageModal.faultLocked);
+        }
         return await _tracer.shareLog(trace, forCrash: false);
       case CommandName.crashLog:
         return await _tracer.checkForCrashLog(trace, force: true);

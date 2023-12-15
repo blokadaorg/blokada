@@ -131,53 +131,65 @@ class _FamilyScaffoldingState extends State<FamilyScaffolding>
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
+            begin: Alignment.topLeft,
             end: Alignment.bottomCenter,
             colors: [
-              theme.bgColorHome3,
-              theme.bgColorHome2,
-              theme.bgColorHome1,
-              theme.bgColor,
-              theme.bgColor,
+              Color(0xff4ae5f6),
+              Color(0xff3c8cff),
+              Color(0xff3c8cff),
             ],
           ),
         ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.transparent,
-                    theme.bgColorHome1,
-                    theme.bgColor,
-                    theme.bgColor,
-                  ],
-                ),
-              ),
-            ),
-            (cfg.debugBg) ? CoolBackground() : Container(),
-            PageView(
-              physics: _path == pathHomeStats
-                  ? null
-                  : const NeverScrollableScrollPhysics(),
-              controller: _horizontalPageCtrl,
-              scrollDirection: Axis.horizontal,
-              children: [
-                HomeFamilyScreen(),
-                FamilyStatsScreen(
-                  key: UniqueKey(),
-                  onBack: () {
-                    _animateToPageHorizontal(0);
-                  },
-                ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.transparent,
+                Color(0xffe450cd),
+                Color(0xffe450cd),
               ],
             ),
-            OverlayContainer(modal: _modal),
-          ],
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.transparent,
+                  Colors.transparent,
+                  Colors.transparent,
+                  theme.bgColorHome1.withOpacity(0.4),
+                  theme.bgColorHome2,
+                  theme.bgColorHome2,
+                  theme.bgColorHome2,
+                ],
+              ),
+            ),
+            child: Stack(
+              children: [
+                PageView(
+                  physics: _path == pathHomeStats
+                      ? null
+                      : const NeverScrollableScrollPhysics(),
+                  controller: _horizontalPageCtrl,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    HomeFamilyScreen(),
+                    FamilyStatsScreen(
+                      key: UniqueKey(),
+                      onBack: () {
+                        _animateToPageHorizontal(0);
+                      },
+                    ),
+                  ],
+                ),
+                OverlayContainer(modal: _modal),
+              ],
+            ),
+          ),
         ),
       ),
     );

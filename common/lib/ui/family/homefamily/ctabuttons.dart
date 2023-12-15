@@ -40,7 +40,7 @@ class CtaButtonsState extends State<CtaButtons>
     autorun((_) {
       setState(() {
         _phase = _family.phase;
-        _hasThisDevice = _family.hasThisDevice;
+        _hasThisDevice = _family.devices.hasThisDevice;
         _hasPin = _lock.hasPin;
         _isLocked = _lock.isLocked;
       });

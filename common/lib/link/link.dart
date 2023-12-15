@@ -1,13 +1,14 @@
 import 'package:collection/collection.dart';
 import 'package:dartx/dartx.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import 'channel.act.dart';
 import '../account/account.dart';
 import '../env/env.dart';
 import '../lock/lock.dart';
 import '../util/act.dart';
 import '../util/di.dart';
+import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
 
@@ -61,6 +62,7 @@ final _linkTemplates = {
 };
 
 abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
+  late final _ops = dep<LinkOps>();
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
   late final _lock = dep<LockStore>();
@@ -71,6 +73,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
 
   @override
   attach(Act act) {
+    depend<LinkOps>(getOps(act));
     depend<LinkStore>(this as LinkStore);
     _lock.addOnValue(lockChanged, updateLinks);
   }
@@ -78,7 +81,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   @override
   @action
   Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+    return await traceWith(parentTrace, "startLink", (trace) async {
       await _prepareTemplates(trace);
       userAgent = _env.userAgent!;
     });
@@ -88,8 +91,13 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   Future<void> updateLinks(Trace parentTrace, bool isLocked) async {
     return await traceWith(parentTrace, "updateLinks", (trace) async {
       for (var id in LinkId.values) {
-        links[id] = _getLink(id);
+        links[id] = _getLink(id, isLocked);
       }
+
+      List<Link> converted =
+          links.entries.map((e) => Link(id: e.key, url: e.value)).toList();
+
+      await _ops.doLinksChanged(converted);
     });
   }
 
@@ -118,17 +126,15 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     }
   }
 
-  String _getLink(LinkId id) {
+  String _getLink(LinkId id, bool isLocked) {
     // Replace placeholders as applicable
     String link = templates[id]!.url;
-    link = link.replaceFirst(_keyUA, userAgent);
+    link = link.replaceFirst(_keyUA, userAgent.urlEncode);
 
-    if (_lock.isLocked) {
-      link = link.replaceFirst(_keyAcc, "");
+    if (isLocked) {
+      return link.replaceFirst(_keyAcc, "");
     } else {
-      link = link.replaceFirst(_keyAcc, _account.id);
+      return link.replaceFirst(_keyAcc, "account-id=${_account.id}");
     }
-
-    return link;
   }
 }

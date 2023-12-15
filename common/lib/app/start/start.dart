@@ -7,6 +7,7 @@ import '../../device/device.dart';
 import '../../env/env.dart';
 import '../../family/family.dart';
 import '../../journal/journal.dart';
+import '../../link/link.dart';
 import '../../lock/lock.dart';
 import '../../perm/perm.dart';
 import '../../plus/keypair/keypair.dart';
@@ -51,6 +52,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _rate = dep<RateStore>();
   late final _tracer = dep<Tracer>();
   late final _family = dep<FamilyStore>();
+  late final _link = dep<LinkStore>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -85,6 +87,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   // Order matters
   late final List<Startable> _startables = [
     _env,
+    _link,
     _lock,
     _device,
     _journal,

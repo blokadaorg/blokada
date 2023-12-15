@@ -16,7 +16,11 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const plusColor = Color(0xffFF9400);
-    const familyColor = Color(0xffdc30a9);
+    const familyColor = Color(0xffe450ba);
+    // const familyColor = Color(0xFFe450cd);
+    // const familyColor = Color(0xffff5889);
+    const familyColor2 = Color(0xff4ae5f6);
+    const familyColor3 = Color(0xff3c8cff);
     final accentColor = cfg.act.isFamily() ? familyColor : plusColor;
 
     return MaterialApp(
@@ -71,8 +75,8 @@ class Root extends StatelessWidget {
           extensions: <ThemeExtension<dynamic>>{
             const BlokadaTheme(
               bgColor: Color(0xFFF2F1F6),
-              bgColorHome1: Color(0xFFC7C7CC),
-              bgColorHome2: Color(0xFFC7C7CC),
+              bgColorHome1: Color(0xFFFFFFFF),
+              bgColorHome2: Color(0xFFEFF1FA),
               bgColorHome3: Color(0xffBDBDBD),
               panelBackground: const Color(0xffF5F7FA),
               cloud: Color(0xFF007AFF),
@@ -98,9 +102,10 @@ class Root extends StatelessWidget {
           extensions: <ThemeExtension<dynamic>>{
             const BlokadaTheme(
               bgColor: Color(0xFF000000),
-              bgColorHome1: Color(0xFF1A1919),
-              bgColorHome2: Color(0xff424242),
-              bgColorHome3: Color(0xff262626),
+              bgColorHome1: Color(0xFF000000),
+              bgColorHome2: Color(0xFF000000),
+              // bgColorHome2: Color(0xff262626),
+              bgColorHome3: Color(0xff424242),
               panelBackground: const Color(0xff1c1c1e),
               cloud: Color(0xFF007AFF),
               plus: plusColor,

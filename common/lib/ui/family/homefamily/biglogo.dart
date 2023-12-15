@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:mobx/mobx.dart';
 
 import '../../../account/account.dart';
+import '../../../family/devices.dart';
 import '../../../family/family.dart';
 import '../../../family/model.dart';
 import '../../../lock/lock.dart';
@@ -31,8 +32,7 @@ class BigLogoState extends State<BigLogo>
   late Animation<double> _scaleAnimation;
 
   FamilyPhase _phase = FamilyPhase.fresh;
-  int _deviceChanges = 0;
-  int _devices = 0;
+  FamilyDevices _devices = FamilyDevices([], null);
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class BigLogoState extends State<BigLogo>
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 1, end: 0.5).animate(CurvedAnimation(
+    _scaleAnimation = Tween<double>(begin: 1, end: 0.7).animate(CurvedAnimation(
       parent: _scaleController,
       curve: Curves.easeInOut,
     ));
@@ -80,8 +80,7 @@ class BigLogoState extends State<BigLogo>
         }
 
         _phase = _family.phase;
-        _deviceChanges = _family.devicesChanges;
-        _devices = _family.devices.length;
+        _devices = _family.devices;
 
         _updateLogoScale();
       });
@@ -89,7 +88,7 @@ class BigLogoState extends State<BigLogo>
   }
 
   _updateLogoScale() {
-    if (!_phase.isLocked() && _devices > 1) {
+    if (!_phase.isLocked() && _devices.entries.length > 1) {
       _scaleController.forward();
     } else {
       _scaleController.reverse();
@@ -131,13 +130,28 @@ class BigLogoState extends State<BigLogo>
                     _showCommandDialog(context);
                     //}
                   },
-                  child: Image.asset(
-                    "assets/images/family-logo.png",
-                    width: 256,
-                    //height: 600,
-                    //filterQuality: FilterQuality.high,
-                    fit: BoxFit.contain,
-                    //color: Colors.black.withOpacity(0.1),
+                  child: Stack(
+                    children: [
+                      Transform.translate(
+                        offset: const Offset(5, 15),
+                        child: Image.asset(
+                          "assets/images/family-logo.png",
+                          width: 160,
+                          fit: BoxFit.contain,
+                          //height: 600,
+                          //filterQuality: FilterQuality.high,
+                          color: Colors.black.withOpacity(0.05),
+                        ),
+                      ),
+                      Image.asset(
+                        "assets/images/family-logo.png",
+                        width: 160,
+                        fit: BoxFit.contain,
+                        //height: 600,
+                        //filterQuality: FilterQuality.high,
+                        //color: Colors.white,
+                      ),
+                    ],
                   ),
                 ),
               ),

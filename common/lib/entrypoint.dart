@@ -11,6 +11,7 @@ import 'env/env.dart';
 import 'family/family.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
+import 'link/link.dart';
 import 'lock/lock.dart';
 import 'notification/notification.dart';
 import 'perm/perm.dart';
@@ -85,6 +86,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     HomeStore().attachAndSaveAct(act);
     RateStore().attachAndSaveAct(act);
     CommandStore().attachAndSaveAct(act);
+    LinkStore().attachAndSaveAct(act);
 
     depend<Entrypoint>(this);
   }

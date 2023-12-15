@@ -50,7 +50,7 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   @override
   @action
   Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+    return await traceWith(parentTrace, "startEnv", (trace) async {
       await syncUserAgent(trace);
     });
   }

@@ -18,8 +18,15 @@ enum LinkId {
   howToRestore,
 }
 
+class Link {
+  LinkId id;
+  String url;
+
+  Link(this.id, this.url);
+}
+
 @HostApi()
 abstract class LinkOps {
   @async
-  void doLinksChanged(Map<LinkId, String> links);
+  void doLinksChanged(List<Link> links);
 }

@@ -6,6 +6,7 @@ import 'package:relative_scale/relative_scale.dart';
 
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
+import '../../../family/devices.dart';
 import '../../../family/family.dart';
 import '../../../family/model.dart';
 import '../../../stage/channel.pg.dart';
@@ -37,7 +38,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
 
   late bool _working;
   late FamilyPhase _phase;
-  late int _deviceChanges;
+  late FamilyDevices _devices;
 
   late AnimationController controller;
   late AnimationController controllerOrange;
@@ -92,7 +93,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
     autorun((_) {
       setState(() {
         _phase = _family.phase;
-        _deviceChanges = _family.devicesChanges;
+        _devices = _family.devices;
       });
     });
   }
@@ -165,6 +166,7 @@ class HomeFamilyScreenState extends State<HomeFamilyScreen>
           children: [
             HomeIcon(
               icon: CupertinoIcons.question_circle,
+              alwaysWhite: true,
               onTap: () {
                 traceAs("tappedShowHelp", (trace) async {
                   await _stage.showModal(trace, StageModal.help);

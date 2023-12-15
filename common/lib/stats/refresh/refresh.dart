@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
@@ -159,6 +160,10 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> setMonitoredDevices(
       Trace parentTrace, List<String> devices) async {
+    if (const DeepCollectionEquality().equals(devices, _monitoredDevices)) {
+      return;
+    }
+
     return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
       trace.addAttribute("devices", devices);
       _monitoredDevices = devices;

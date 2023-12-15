@@ -17,12 +17,12 @@ class _MyGradientPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    final gradient1 = LinearGradient(
+    const gradient1 = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [Colors.red, Colors.yellow],
     );
-    final gradient2 = LinearGradient(
+    const gradient2 = LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
       colors: [Colors.green, Colors.blue],
@@ -52,15 +52,24 @@ class _MyGradientPathPainter extends CustomPainter {
     final gradient1 = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Color(0xffff769a), Color(0xffBDBDBD)],
+      colors: [
+        Color(0xff4ae5f6).withOpacity(0.99),
+        Color(0xff3b8dff).withOpacity(0.7),
+        Color(0xffe450cd).withOpacity(0.7),
+        Color(0xFFF2F1F6),
+        Color(0xFFEFF1FA),
+        Color(0xFFEFF1FA),
+      ],
     );
 
     final gradient2 = LinearGradient(
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
       colors: [
-        Color(0xfff74c79).withOpacity(0.0),
-        Color(0xfff74c79).withOpacity(0.4)
+        const Color(0xffe450cd).withOpacity(0.7),
+        const Color(0xffe450cd).withOpacity(0.7),
+        const Color(0xff3b8dff).withOpacity(0.7),
+        const Color(0xff4ae5f6).withOpacity(0.99),
       ],
     );
 
@@ -68,8 +77,8 @@ class _MyGradientPathPainter extends CustomPainter {
       begin: Alignment.bottomRight,
       end: Alignment.topLeft,
       colors: [
-        Color(0xff73deff).withOpacity(0.0),
-        Color(0xFF3468AD).withOpacity(0.8)
+        const Color(0xff75e2f5).withOpacity(0.0),
+        const Color(0xff75e2f5).withOpacity(0.8)
       ],
     );
 
@@ -80,22 +89,16 @@ class _MyGradientPathPainter extends CustomPainter {
 
     var path = Path();
     path.moveTo(0, 0); // Start at top left
-    path.lineTo(size.width, 0); // Go to top right
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height * 0.1); // Go to top right
     path.quadraticBezierTo(size.width, size.height / 2, 0,
-        size.height * 0.7); // Go to middle right
+        size.height * 0.65); // Go to middle right
     path.lineTo(0, size.height / 2); // Go to bottom left
 
-    final gradient = SweepGradient(
-      colors: [Colors.red, Colors.yellow, Colors.green, Colors.blue],
-      startAngle: 0.0,
-      endAngle: pi * 2,
-      tileMode: TileMode.repeated,
-    );
-
-    final paint = Paint()
-      ..shader = gradient2.createShader(rect)
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(path, paint);
+    // final paint = Paint()
+    //   ..shader = gradient2.createShader(rect)
+    //   ..style = PaintingStyle.fill;
+    // canvas.drawPath(path, paint);
 
     var path2 = Path();
     path2.moveTo(size.width, 0);
@@ -104,10 +107,10 @@ class _MyGradientPathPainter extends CustomPainter {
         size.height * 0.7); // Go to middle right
     path2.lineTo(size.width, size.height / 2); // Go to bottom left
 
-    final paint2 = Paint()
-      ..shader = gradient3.createShader(rect)
-      ..style = PaintingStyle.fill;
-    canvas.drawPath(path2, paint2);
+    // final paint2 = Paint()
+    //   ..shader = gradient3.createShader(rect)
+    //   ..style = PaintingStyle.fill;
+    // canvas.drawPath(path2, paint2);
   }
 
   @override

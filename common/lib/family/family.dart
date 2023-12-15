@@ -22,6 +22,7 @@ import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
+import 'devices.dart';
 import 'json.dart';
 import 'model.dart';
 
@@ -50,12 +51,13 @@ abstract class FamilyStoreBase
   late final _perm = dep<PermStore>();
 
   FamilyStoreBase() {
-    _account.addOn(accountChanged, postActivationOnboarding);
-    _lock.addOnValue(lockChanged, updatePhaseFromLock);
-    _app.addOn(appStatusChanged, addThisDevice);
-    _device.addOn(deviceChanged, syncLinkedMode);
+    _account.addOn(accountChanged, _postActivationOnboarding);
+    _lock.addOnValue(lockChanged, _updatePhaseFromLock);
+    _app.addOn(appStatusChanged, _addThisDevice);
+    _device.addOn(deviceChanged, _syncLinkedMode);
 
     // TODO: this pattern is probably unwanted
+    _onDevicesChanged();
     _onJournalChanges();
     _onStatsChanges();
     _onThisDeviceNameChange();
@@ -85,23 +87,25 @@ abstract class FamilyStoreBase
   bool linkedMode = false;
 
   @observable
-  List<FamilyDevice> devices = [];
-
-  @observable
-  int devicesChanges = 0;
-
-  @observable
-  bool? hasDevices;
-
-  @observable
-  bool hasThisDevice = false;
+  FamilyDevices devices = FamilyDevices([], null);
 
   String? _waitingForDevice;
+
+  _onDevicesChanged() {
+    reactionOnStore((_) => devices, (devices) async {
+      return await traceAs("onDevicesChanged", (trace) async {
+        await _statsRefresh.setMonitoredDevices(trace, devices.getNames());
+        await _savePersistence(trace);
+        _updatePhase();
+        _updateDnsForward(devices.entries);
+      });
+    });
+  }
 
   _onJournalChanges() {
     reactionOnStore((_) => _journal.allEntries, (entries) async {
       return await traceAs("onJournalChanged", (trace) async {
-        await discoverEntries(trace);
+        await _discoverEntries(trace);
       });
     });
   }
@@ -110,19 +114,7 @@ abstract class FamilyStoreBase
   _onStatsChanges() {
     reactionOnStore((_) => _stats.deviceStatsChangesCounter, (_) async {
       for (final entry in _stats.deviceStats.entries) {
-        final d =
-            IterableExtension(devices.where((e) => e.deviceName == entry.key))
-                .firstOrNull;
-        if (d == null) continue;
-
-        final updated = devices;
-        updated[devices.indexOf(d)] = FamilyDevice(
-          deviceName: d.deviceName,
-          deviceDisplayName: d.deviceDisplayName,
-          stats: entry.value,
-          thisDevice: d.thisDevice,
-        );
-        _updateDevices(updated);
+        devices = devices.updateStats(entry.key, entry.value);
       }
     });
   }
@@ -130,18 +122,7 @@ abstract class FamilyStoreBase
   // React to this device name changes
   _onThisDeviceNameChange() {
     reactionOnStore((_) => _device.deviceAlias, (alias) async {
-      final d =
-          IterableExtension(devices.where((e) => e.thisDevice)).firstOrNull;
-      if (d == null) return;
-
-      final updated = devices;
-      updated[devices.indexOf(d)] = FamilyDevice(
-        deviceName: d.deviceName,
-        deviceDisplayName: d.deviceDisplayName,
-        stats: d.stats,
-        thisDevice: true,
-      );
-      _updateDevices(updated);
+      devices = devices.updateThisDeviceName(alias);
     });
   }
 
@@ -173,46 +154,35 @@ abstract class FamilyStoreBase
   }
 
   @override
-  @action
-  Future<void> start(Trace parentTrace) async {
+  start(Trace parentTrace) async {
     if (!act.isFamily()) return;
     return await traceWith(parentTrace, "start", (trace) async {
-      await load(trace);
+      await _load(trace);
     });
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
+  _load(Trace parentTrace) async {
     return await traceWith(parentTrace, "load", (trace) async {
       final json = await _persistence.load(trace, _key);
       if (json == null) return;
 
-      devices = JsonFamilyDevices.fromJson(jsonDecode(json))
-          .devices
-          .map((e) => _newDevice(e, null))
-          .toList();
+      devices = FamilyDevices([], null).fromNames(
+          JsonFamilyDevices.fromJson(jsonDecode(json)).devices,
+          _device.deviceAlias);
 
-      hasThisDevice = devices.firstWhereOrNull((e) => e.thisDevice) != null;
-
-      await _statsRefresh.setMonitoredDevices(
-          trace,
-          devices
-              .filter((e) => e.deviceName.isNotEmpty)
-              .map((e) => e.deviceName)
-              .toList());
-
-      _updateDnsForward(devices);
+      _updateDnsForward(devices.entries);
     });
   }
 
   _savePersistence(Trace trace) async {
     await _persistence.save(
-        trace, _key, JsonFamilyDevices.fromList(devices).toJson());
+        trace, _key, JsonFamilyDevices.fromList(devices.entries).toJson());
   }
 
   // Links a supervised device to the account
   @action
-  Future<void> link(Trace parentTrace, String tag, String name) async {
+  link(Trace parentTrace, String tag, String name) async {
     if (!act.isFamily()) return;
     return await traceWith(parentTrace, "link", (trace) async {
       if (!phase.isLinkable()) throw Exception("Device not linkable anymore");
@@ -224,7 +194,7 @@ abstract class FamilyStoreBase
   }
 
   @action
-  Future<void> unlink(Trace parentTrace) async {
+  unlink(Trace parentTrace) async {
     if (!act.isFamily()) return;
     return await traceWith(parentTrace, "unlink", (trace) async {
       if (phase != FamilyPhase.linkedUnlocked) throw Exception("Cannot unlink");
@@ -234,55 +204,43 @@ abstract class FamilyStoreBase
   }
 
   @action
-  Future<void> addDevice(
-      Trace parentTrace, String deviceAlias, UiStats stats) async {
+  addDevice(Trace parentTrace, String deviceAlias, UiStats stats) async {
     return await traceWith(parentTrace, "addDevice", (trace) async {
       _waitingForDevice = null;
-      final d = devices;
-      d.add(_newDevice(deviceAlias, stats));
-      _updateDevices(d);
-      await _savePersistence(trace);
+      devices = devices.addDevice(deviceAlias, stats);
       await _journal.updateJournalFreq(trace); // To refresh immediately
     });
   }
 
   @action
-  Future<void> deleteDevice(Trace parentTrace, String deviceAlias,
+  deleteDevice(Trace parentTrace, String deviceAlias,
       {bool isRename = false}) async {
     return await traceWith(parentTrace, "deleteDevice", (trace) async {
       _waitingForDevice = null;
-      final d = devices;
-      final device = d.firstWhere((e) => e.deviceName == deviceAlias);
-      d.remove(device);
+      final thisDevice = devices.hasDevice(deviceAlias, thisDevice: true);
 
       // Disable cloud for this device, since user deleted it from the list
-      if (device.thisDevice) {
-        hasThisDevice = false;
-        if (!isRename) {
-          await _device.setCloudEnabled(parentTrace, false);
-          await _lock.removeLock(trace);
-        }
+      if (thisDevice && !isRename) {
+        await _device.setCloudEnabled(parentTrace, false);
+        await _lock.removeLock(trace);
       }
 
-      _updateDevices(d);
-      await _savePersistence(trace);
-      await _statsRefresh.setMonitoredDevices(
-          trace, devices.map((e) => e.deviceName).toList());
+      devices = devices.deleteDevice(deviceAlias);
     });
   }
 
   @action
-  Future<void> deleteAllDevices(Trace parentTrace) async {
+  deleteAllDevices(Trace parentTrace) async {
     return await traceWith(parentTrace, "deleteAllDevices", (trace) async {
       _waitingForDevice = null;
-      _updateDevices([]);
+      devices = FamilyDevices([], false);
       await _savePersistence(trace);
       await _statsRefresh.setMonitoredDevices(trace, []);
     });
   }
 
   @action
-  Future<void> syncLinkedMode(Trace parentTrace) async {
+  _syncLinkedMode(Trace parentTrace) async {
     return await traceWith(parentTrace, "syncLinkedMode", (trace) async {
       final tag = _cloudDevice.deviceTag;
       if (tag == null) return;
@@ -296,7 +254,7 @@ abstract class FamilyStoreBase
 
   // React to account changes to show the proper onboarding
   @action
-  Future<void> postActivationOnboarding(Trace parentTrace) async {
+  _postActivationOnboarding(Trace parentTrace) async {
     accountActive = _account.type.isActive();
     _updatePhase();
 
@@ -318,7 +276,7 @@ abstract class FamilyStoreBase
   }
 
   @action
-  Future<void> updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
+  _updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
     if (!act.isFamily()) return;
     _updatePhase(loading: true);
     appLocked = isLocked;
@@ -342,20 +300,16 @@ abstract class FamilyStoreBase
   // The "this device" is special and is added dynamically if current device has
   // the private dns set correctly
   @action
-  Future<void> addThisDevice(Trace parentTrace) async {
+  _addThisDevice(Trace parentTrace) async {
     appActive = _app.status.isActive() || linkedMode && appActive;
     _updatePhase();
 
     if (!_app.status.isActive()) return;
-    if (devices.where((e) => e.thisDevice).isNotEmpty) return;
+    if (devices.hasThisDevice) return;
 
     return await traceWith(parentTrace, "addThisDevice", (trace) async {
-      final stats = _stats.deviceStats[_device.deviceAlias];
-      _updateDevices([_newDevice(_device.deviceAlias, stats)] + devices);
-      hasThisDevice = true;
-      await _savePersistence(trace);
-      await _statsRefresh.setMonitoredDevices(
-          trace, devices.map((e) => e.deviceName).toList());
+      final stats = _stats.deviceStats[_device.deviceAlias] ?? UiStats.empty();
+      devices = devices.addThisDevice(_device.deviceAlias, stats);
     });
   }
 
@@ -363,18 +317,21 @@ abstract class FamilyStoreBase
   Future<void> renameThisDevice(Trace parentTrace, String newDeviceName) async {
     return await traceWith(parentTrace, "renameThisDevice", (trace) async {
       final name = newDeviceName.trim();
+      if (devices.hasDevice(name, thisDevice: false)) {
+        throw Exception("Device $name already exists");
+      }
       if (name.isEmpty) throw Exception("Name cannot be empty");
       trace.addAttribute("name", name);
 
       await deleteDevice(trace, _device.deviceAlias, isRename: true);
       await _device.setDeviceAlias(trace, name);
-      await addThisDevice(trace);
+      await _addThisDevice(trace);
       await _stage.setRoute(trace, "home"); // Reset to main tab
     });
   }
 
   @action
-  Future<void> setWaitingForDevice(Trace parentTrace, String deviceName) async {
+  setWaitingForDevice(Trace parentTrace, String deviceName) async {
     return await traceWith(parentTrace, "setWaitingForDevice", (trace) async {
       _waitingForDevice = deviceName.trim();
     });
@@ -383,7 +340,7 @@ abstract class FamilyStoreBase
   // Show the welcome screen on the first start (family only)
   _maybeShowOnboardOnStart(Trace parentTrace) async {
     if (_account.type.isActive()) return;
-    if (hasDevices == true) return;
+    if (devices.hasDevices == true) return;
     if (linkedMode) return;
 
     return await traceWith(parentTrace, "showOnboard", (trace) async {
@@ -391,70 +348,28 @@ abstract class FamilyStoreBase
     });
   }
 
-  Future<void> discoverEntries(Trace parentTrace) async {
+  _discoverEntries(Trace parentTrace) async {
     return await traceWith(parentTrace, "discoverEntries", (trace) async {
-      // Sync stats for already known devices
-      final existing = devices.map((e) => e.deviceName);
-      final known = _journal.devices
-          .filter((e) => e != _device.deviceAlias)
-          .filter((e) => existing.contains(e));
+      // Map of device name to stats
+      final known = Map.fromEntries(_journal.devices
+          .map((e) => MapEntry(
+              e, _stats.deviceStats.getOrElse(e, () => UiStats.empty())))
+          .toList());
 
-      final d = devices;
-      for (final device in known) {
-        final stats = _stats.deviceStats[device];
-        final index =
-            devices.indexOf(devices.firstWhere((e) => e.deviceName == device));
-        d[index] = _newDevice(device, stats);
-      }
+      devices = devices.fromStats(known);
 
       // Discover a new device in stats, if we are expecting one
       final newDeviceName = _waitingForDevice;
       if (newDeviceName != null) {
-        final unknown = _journal.devices
-            .filter((e) => e != _device.deviceAlias)
-            .filter((e) => !existing.contains(e));
-        final discovered = unknown.firstWhereOrNull((e) => e == newDeviceName);
-
-        if (discovered != null) {
-          final stats =
-              _stats.deviceStats[_waitingForDevice] ?? UiStats.empty();
+        final stats = _stats.deviceStats[newDeviceName];
+        if (stats != null) {
           await addDevice(trace, newDeviceName, stats);
-
-          // We are waiting on the accountLink sheet, close it
-          await _stage.dismissModal(trace);
         }
+
+        // We are waiting on the accountLink sheet, close it
+        await _stage.dismissModal(trace);
       }
-
-      _updateDevices(d);
-      await _statsRefresh.setMonitoredDevices(
-          trace, devices.map((e) => e.deviceName).toList());
     });
-  }
-
-  FamilyDevice _newDevice(String? deviceName, UiStats? stats) {
-    var displayName = deviceName ?? "...";
-    var thisDevice = false;
-
-    if (deviceName != null && deviceName == _device.deviceAlias) {
-      //displayName = "$deviceName (this device)";
-      displayName = "This device ($deviceName)";
-      thisDevice = true;
-    }
-
-    return FamilyDevice(
-      deviceName: deviceName ?? "",
-      deviceDisplayName: displayName,
-      stats: stats ?? UiStats.empty(),
-      thisDevice: thisDevice,
-    );
-  }
-
-  _updateDevices(List<FamilyDevice> d) {
-    devices = d;
-    hasDevices = d.isNotEmpty;
-    devicesChanges++;
-    _updatePhase();
-    _updateDnsForward(d);
   }
 
   _updateDnsForward(List<FamilyDevice> d) {
@@ -504,11 +419,11 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoPerms;
     } else if (accountActive == false) {
       phase = FamilyPhase.fresh;
-    } else if (!appActive && hasThisDevice) {
+    } else if (!appActive && devices.hasThisDevice) {
       phase = FamilyPhase.noPerms;
-    } else if (hasDevices == true) {
+    } else if (devices.hasDevices == true) {
       phase = FamilyPhase.parentHasDevices;
-    } else if (hasDevices == false) {
+    } else if (devices.hasDevices == false) {
       phase = FamilyPhase.parentNoDevices;
     } else {
       phase = FamilyPhase.starting;

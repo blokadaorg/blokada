@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../family/devices.dart';
 import '../../../family/family.dart';
 import '../../../family/model.dart';
 import '../../../util/di.dart';
@@ -24,8 +25,7 @@ class DevicesState extends State<Devices>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   late final _family = dep<FamilyStore>();
 
-  late List<FamilyDevice> _devices;
-  late int _counter;
+  late FamilyDevices _devices;
 
   late final AnimationController _ctrl = AnimationController(
     duration: const Duration(seconds: 1),
@@ -41,7 +41,6 @@ class DevicesState extends State<Devices>
 
     autorun((_) {
       setState(() {
-        _counter = _family.devicesChanges;
         _devices = _family.devices;
       });
     });
@@ -91,7 +90,7 @@ class DevicesState extends State<Devices>
                     child: Icon(
                       CupertinoIcons.chevron_up,
                       size: 18,
-                      color: theme.textSecondary,
+                      color: Colors.white,
                     ),
                   )),
               Touch(
@@ -109,7 +108,7 @@ class DevicesState extends State<Devices>
                     child: Icon(
                       CupertinoIcons.chevron_down,
                       size: 18,
-                      color: theme.textSecondary,
+                      color: Colors.white,
                     ),
                   )),
             ],
@@ -144,7 +143,7 @@ class DevicesState extends State<Devices>
 
   List<Widget> _getDevices() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return _devices.reversed
+    return _devices.entries.reversed
         .map((e) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: _wrapInDismissible(
@@ -152,7 +151,7 @@ class DevicesState extends State<Devices>
               e.deviceName,
               HomeDevice(
                   device: e,
-                  color: e.thisDevice ? Color(0xffdc30a9) : Color(0xff008db0)),
+                  color: e.thisDevice ? theme.family : Color(0xff3c8cff)),
             )))
         .toList();
   }
