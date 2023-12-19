@@ -22,6 +22,7 @@
     <string name="error_location_failed_fetching">Could not fetch locations.</string>
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="error_multiple_apps">There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?</string>
+    <string name="error_locked">This action is unavailable when the app is in a locked state. Please unlock the app to proceed.</string>
     <string name="conn_isssues_header">Connectivity issues</string>
     <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
     <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
