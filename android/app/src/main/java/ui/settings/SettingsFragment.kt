@@ -39,7 +39,7 @@ class SettingsFragment : Fragment() {
 
         account.live.observe(viewLifecycleOwner) { account ->
             val active = root.findViewById<TextView>(R.id.settings_active)
-            active.text = if (account.isActive()) {
+            active?.text = if (account.isActive()) {
                 getString(
                     R.string.account_status_text,
                     account.getType().toString(),

@@ -33,6 +33,8 @@ import service.BiometricService
 import ui.SettingsViewModel
 import ui.app
 import ui.utils.AndroidUtils
+import ui.utils.cause
+import utils.Logger
 
 class SettingsAccountFragment : PreferenceFragmentCompat() {
     private val account by lazy { AccountBinding }
@@ -88,8 +90,15 @@ class SettingsAccountFragment : PreferenceFragmentCompat() {
     private fun handleShowAccountId(account: Account) {
         lifecycleScope.launch {
             val fragment = this@SettingsAccountFragment
-            if (biometric.isBiometricReady(fragment.requireContext()))
-                biometric.auth(fragment) // Will throw on bad auth
+            if (biometric.isBiometricReady(fragment.requireContext())) {
+                try {
+                    biometric.auth(fragment) // Will throw on bad auth
+                } catch (ex: Exception) {
+                    Logger.e("SettingsAccount", "Could not authenticate".cause(ex));
+                    alert.showAlert(message = ex.message ?: "Could not authenticate")
+                    return@launch
+                }
+            }
 
             alert.showAlert(message = account.id,
                 title = getString(R.string.account_label_id),

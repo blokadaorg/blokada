@@ -35,6 +35,7 @@ import binding.AccountBinding
 import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
+import binding.StageBinding.tab
 import channel.command.CommandName
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -236,9 +237,25 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                         supportActionBar?.setDisplayHomeAsUpEnabled(!topNav)
                         supportActionBar?.setDisplayShowHomeEnabled(!topNav)
 
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container_fragment, fragment)
-                            .commit()
+                        val tag = when {
+                            fragment is FlutterHomeFragment -> "flutterhome"
+                            fragment is JournalFragment -> "journal"
+                            fragment is PacksFragment -> "packs"
+                            fragment is SettingsFragment -> "settings"
+                            else -> null
+                        }
+
+                        if (tag != null) {
+                            val f = supportFragmentManager.findFragmentByTag(tag) ?: fragment
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.container_fragment, f, tag)
+                                .addToBackStack(null)
+                                .commit()
+                        } else {
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.container_fragment, fragment)
+                                .commit()
+                        }
 
                         // An ugly hack to hide jumping fragments when switching tabs
                         fragmentContainer.visibility = View.INVISIBLE

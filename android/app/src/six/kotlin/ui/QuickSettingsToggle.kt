@@ -92,21 +92,28 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     private fun showActivating(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = "..."
-        qsTile.updateTile()
+        updateTile(qsTile)
     }
 
     private fun showOff(qsTile: Tile) {
         qsTile.state = Tile.STATE_INACTIVE
         qsTile.label = getString(R.string.home_status_deactivated)
-        qsTile.updateTile()
+        updateTile(qsTile)
     }
 
     private fun showOn(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = getString(R.string.home_status_active)
-        qsTile.updateTile()
+        updateTile(qsTile)
     }
 
+    // Apparently it can crash for unknown reasons
+    private fun updateTile(gsTile: Tile) {
+        try {
+            qsTile.updateTile()
+        } catch (ex: Exception) {
+        }
+    }
 }
 
 private typealias IsActive = Boolean

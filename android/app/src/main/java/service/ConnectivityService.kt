@@ -18,6 +18,7 @@ import android.net.*
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.SubscriptionManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.NetworkDescriptor
@@ -70,7 +71,7 @@ object ConnectivityService {
 
     private val systemCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
-            scope.launch {
+            scope.launch(Dispatchers.Main) {
                 val descriptor = describeNetwork(network, caps)
                 if (descriptor != null) onNetworkAvailable(descriptor) // Announce for the UI to list it
                 announceActiveNetwork()
@@ -78,14 +79,14 @@ object ConnectivityService {
         }
 
         override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-            scope.launch {
+            scope.launch(Dispatchers.Main) {
                 markDefaultRoute(network, linkProperties)
                 announceActiveNetwork()
             }
         }
 
         override fun onLost(network: Network) {
-            scope.launch {
+            scope.launch(Dispatchers.Main) {
                 cleanupLostNetwork(network)
                 announceActiveNetwork()
             }

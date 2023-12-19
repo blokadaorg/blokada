@@ -37,7 +37,7 @@ object BiometricService {
             override fun onAuthenticationError(errorCode: Int,
                                                errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                ongoingPrompt?.resumeWithException(BlokadaException("biometric: failed: $errorCode: $errString"))
+                ongoingPrompt?.resumeWithException(Exception("biometric: error: $errorCode: $errString"))
                 ongoingPrompt = null
             }
 
