@@ -364,10 +364,10 @@ abstract class FamilyStoreBase
         final stats = _stats.deviceStats[newDeviceName];
         if (stats != null) {
           await addDevice(trace, newDeviceName, stats);
-        }
 
-        // We are waiting on the accountLink sheet, close it
-        await _stage.dismissModal(trace);
+          // We are waiting on the accountLink sheet, close it
+          await _stage.dismissModal(trace);
+        }
       }
     });
   }
