@@ -391,9 +391,12 @@
     "universal status waiting for data": "En attente de données",
     "universal action disable": "Désactiver",
     "lock action slide unlock": "Glisser pour déverrouiller",
+    "lock action slide unlock short": "Diapositive",
     "lock status too many attempts": "Trop de mauvaises tentatives. Réessayez plus tard",
     "lock status enter to confirm": "Entrez à nouveau le code PIN pour confirmer",
     "lock status enter or wait": "Entrez le nouveau code PIN, ou attendez pour le verrouiller...",
+    "lock change pin": "Changer le code PIN",
+    "family rename device": "Renommer l'appareil",
     "family label this device": "Cet appareil (%s)",
     "family onboard header": "Bienvenue dans la famille Blokada !",
     "family onboard body": "Suivez les instructions à l'écran pour configurer votre premier appareil.",
@@ -428,8 +431,11 @@
     "family account decide header": "Ajouter un appareil",
     "family account decide link header": "Lier un appareil",
     "family account decide link body": "Dans Blokada, il vous suffit de scanner un code QR pour relier et gérer un autre appareil.",
+    "family account decide separator": "- ou -",
     "family account decide this header": "Utiliser cet appareil",
     "family account decide this body": "Alternativement, vous pouvez simplement configurer Blokada pour qu'il fonctionne sur cet appareil et configurer le code PIN pour verrouiller l'application.",
     "family shields header": "Activez les boucliers pour bloquer l'accès au contenu sélectionné sur vos appareils surveillés.",
-    "family shields custom slug": "Gérez vos propres entrées personnalisées pour bloquer ou autoriser."
+    "family shields custom slug": "Gérez vos propres entrées personnalisées pour bloquer ou autoriser.",
+    "toplist company other": "Autres",
+    "toplist tld unknown": "inconnue"
 }

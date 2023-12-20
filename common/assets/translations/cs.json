@@ -391,9 +391,12 @@
     "universal status waiting for data": "Čekání na data",
     "universal action disable": "Zakázat",
     "lock action slide unlock": "Přejetím odemknete",
+    "lock action slide unlock short": "Posunutí",
     "lock status too many attempts": "Příliš mnoho chybných pokusů. Zkuste to později",
     "lock status enter to confirm": "Pro potvrzení zadejte PIN kód znovu",
     "lock status enter or wait": "Zadejte nový pin kód, nebo počkejte na zamknutí...",
+    "lock change pin": "Změnit pin",
+    "family rename device": "Přejmenovat zařízení",
     "family label this device": "Toto zařízení (%s)",
     "family onboard header": "Vítejte v rodině Blokady!",
     "family onboard body": "Postupujte podle pokynů na obrazovce a nastavte své první zařízení.",
@@ -428,8 +431,11 @@
     "family account decide header": "Přidat zařízení",
     "family account decide link header": "Propojit zařízení",
     "family account decide link body": "V Blokadě jednoduše naskenujete QR kód pro propojení a správu jiného zařízení.",
+    "family account decide separator": "- nebo -",
     "family account decide this header": "Použít toto zařízení",
     "family account decide this body": "Alternativně můžete jednoduše nakonfigurovat Blokadu, aby fungovala na tomto zařízení, a nastavit pin pro zamknutí aplikace.",
     "family shields header": "Aktivujte štíty pro blokování přístupu k vybranému obsahu ve vašich dohlížených zařízeních.",
-    "family shields custom slug": "Spravujte své vlastní položky pro blokování nebo povolení."
+    "family shields custom slug": "Spravujte své vlastní položky pro blokování nebo povolení.",
+    "toplist company other": "Ostatní",
+    "toplist tld unknown": "neznámé"
 }

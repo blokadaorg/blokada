@@ -391,9 +391,12 @@
     "universal status waiting for data": "In attesa dei dati",
     "universal action disable": "Disabilita",
     "lock action slide unlock": "Scorri per sbloccare",
+    "lock action slide unlock short": "Diapositive",
     "lock status too many attempts": "Troppi tentativi errati. Prova di nuovo più tardi",
     "lock status enter to confirm": "Inserisci nuovamente il codice pin per confermare",
     "lock status enter or wait": "Inserisci il nuovo codice pin, o attendi per bloccare...",
+    "lock change pin": "Cambia pin",
+    "family rename device": "Rinomina dispositivo",
     "family label this device": "Questo dispositivo (%s)",
     "family onboard header": "Benvenuto nella famiglia Blokada!",
     "family onboard body": "Segui le istruzioni a schermo per configurare il tuo primo dispositivo.",
@@ -428,8 +431,11 @@
     "family account decide header": "Aggiungi dispositivo",
     "family account decide link header": "Collega un dispositivo",
     "family account decide link body": "Su Blokada, per collegare e gestire un altro dispositivo, è sufficiente la scansione di un codice QR.",
+    "family account decide separator": "- o -",
     "family account decide this header": "Usa questo dispositivo",
     "family account decide this body": "In alternativa, puoi semplicemente configurare Blokada su questo dispositivo e impostare il pin per bloccare l'app.",
     "family shields header": "Attiva la protezione contro l'accesso ai contenuti selezionati sui tuoi dispositivi.",
-    "family shields custom slug": "Gestisci le tue voci personalizzate per bloccare o consentire."
+    "family shields custom slug": "Gestisci le tue voci personalizzate per bloccare o consentire.",
+    "toplist company other": "Altro",
+    "toplist tld unknown": "sconosciuto"
 }

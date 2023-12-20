@@ -391,9 +391,12 @@
     "universal status waiting for data": "Wachten op gegevens",
     "universal action disable": "Uitschakelen",
     "lock action slide unlock": "Schuif om te ontgrendelen",
+    "lock action slide unlock short": "Schuif",
     "lock status too many attempts": "Te veel verkeerde pogingen. Probeer het later opnieuw",
     "lock status enter to confirm": "Voer de pincode nogmaals in om te bevestigen",
     "lock status enter or wait": "Voer nieuwe pincode in of wacht om te vergrendelen...",
+    "lock change pin": "Wijzig pin",
+    "family rename device": "Apparaatnaam wijzigen",
     "family label this device": "Dit apparaat (%s)",
     "family onboard header": "Welkom bij Blokada Family!",
     "family onboard body": "Volg de instructies op het scherm om je eerste apparaat in te stellen.",
@@ -428,8 +431,11 @@
     "family account decide header": "Apparaat toevoegen",
     "family account decide link header": "Koppel een apparaat",
     "family account decide link body": "In Blokada scan je gewoon een QR-code om een ander apparaat te koppelen en te beheren.",
+    "family account decide separator": "- of -",
     "family account decide this header": "Dit apparaat gebruiken",
     "family account decide this body": "Als alternatief kun je Blokada instellen om op dit apparaat te werken, en de pin instellen om de app te vergrendelen.",
     "family shields header": "Activeer schilden om toegang tot geselecteerde inhoud van uw gecontroleerde apparaten te blokkeren.",
-    "family shields custom slug": "Beheer uw eigen aangepaste items om te blokkeren of toe te staan."
+    "family shields custom slug": "Beheer uw eigen aangepaste items om te blokkeren of toe te staan.",
+    "toplist company other": "anders",
+    "toplist tld unknown": "Onbekend"
 }

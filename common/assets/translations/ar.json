@@ -391,9 +391,12 @@
     "universal status waiting for data": "في انتظار البيانات",
     "universal action disable": "تعطيل",
     "lock action slide unlock": "اسحب لفتح القفل",
+    "lock action slide unlock short": "الشريحة",
     "lock status too many attempts": "العديد من المحاولات الخاطئة. حاول مرة أخرى لاحقاً",
     "lock status enter to confirm": "أدخل رمز الدبوس مرة أخرى لتأكيد",
     "lock status enter or wait": "أدخل رمز الدبوس الجديد، أو انتظر لقفل...",
+    "lock change pin": "تغيير الدبوس",
+    "family rename device": "إعادة تسمية الجهاز",
     "family label this device": "هذا الجهاز (%s)",
     "family onboard header": "مرحبا بك في عائلة بلوكادا!",
     "family onboard body": "اتبع الإرشادات على الشاشة لإعداد جهازك الأول.",
@@ -428,8 +431,11 @@
     "family account decide header": "إضافة جهاز",
     "family account decide link header": "ربط جهاز",
     "family account decide link body": "في بلوكادا، يمكنك ببساطة مسح رمز QR لربط وإدارة جهاز آخر.",
+    "family account decide separator": "- أو -",
     "family account decide this header": "استخدم هذا الجهاز",
     "family account decide this body": "بدلاً من ذلك، يمكنك ببساطة تكوين بلوكادا للعمل على هذا الجهاز، وتعيين الدبوس لقفل التطبيق.",
     "family shields header": "قم بتفعيل الدروع لمنع الوصول إلى المحتوى المحدد على أجهزتك الخاضعة للإشراف.",
-    "family shields custom slug": "إدارة المدخلات المخصصة الخاصة بك للحظر أو السماح."
+    "family shields custom slug": "إدارة المدخلات المخصصة الخاصة بك للحظر أو السماح.",
+    "toplist company other": "اخرى",
+    "toplist tld unknown": "غير معروف"
 }

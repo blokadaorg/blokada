@@ -391,9 +391,12 @@
     "universal status waiting for data": "Warte auf Daten",
     "universal action disable": "Deaktivieren",
     "lock action slide unlock": "Zum Entsperren wischen",
+    "lock action slide unlock short": "Folie",
     "lock status too many attempts": "Zu viele falsche Versuche. Versuchen Sie es später erneut",
     "lock status enter to confirm": "Zum Bestätigen den Pincode erneut eingeben",
     "lock status enter or wait": "Geben Sie einen neuen Pin-Code ein oder warten Sie auf die Sperre...",
+    "lock change pin": "Pin ändern",
+    "family rename device": "Gerät umbenennen",
     "family label this device": "Dieses Gerät (%s)",
     "family onboard header": "Willkommen bei der Blokada Familie!",
     "family onboard body": "Folgen Sie den Anweisungen auf dem Bildschirm, um Ihr erstes Gerät einzurichten.",
@@ -428,8 +431,11 @@
     "family account decide header": "Gerät hinzufügen",
     "family account decide link header": "Gerät verknüpfen",
     "family account decide link body": "In Blokada scannen Sie einfach einen QR-Code, um ein anderes Gerät zu verknüpfen und zu verwalten.",
+    "family account decide separator": "- oder -",
     "family account decide this header": "Dieses Gerät verwenden",
     "family account decide this body": "Alternativ können Sie Blokada einfach so konfigurieren, dass es auf diesem Gerät funktioniert, und den Pin so einstellen, dass die App gesperrt wird.",
     "family shields header": "Aktiviere Schilde, um den Zugriff auf ausgewählte Inhalte auf deinen überwachten Geräten zu sperren.",
-    "family shields custom slug": "Verwalten Sie Ihre eigenen benutzerdefinierten Einträge zu blockieren oder zuzulassen."
+    "family shields custom slug": "Verwalten Sie Ihre eigenen benutzerdefinierten Einträge zu blockieren oder zuzulassen.",
+    "toplist company other": "Andere",
+    "toplist tld unknown": "unbekannt"
 }

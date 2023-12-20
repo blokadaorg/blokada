@@ -391,9 +391,12 @@
     "universal status waiting for data": "Oczekiwanie na dane",
     "universal action disable": "Wyłącz",
     "lock action slide unlock": "Przesuń, aby odblokować",
+    "lock action slide unlock short": "Slajd",
     "lock status too many attempts": "Zbyt wiele nieprawidłowych prób. Spróbuj ponownie później",
     "lock status enter to confirm": "Wprowadź kod pin ponownie, aby potwierdzić",
     "lock status enter or wait": "Wprowadź nowy kod pin lub poczekaj, aby zablokować...",
+    "lock change pin": "Zmień pin",
+    "family rename device": "Zmień nazwę urządzenia",
     "family label this device": "To urządzenie (%s)",
     "family onboard header": "Witaj w Blokada Family!",
     "family onboard body": "Postępuj zgodnie z instrukcjami na ekranie, aby skonfigurować pierwsze urządzenie.",
@@ -428,8 +431,11 @@
     "family account decide header": "Dodaj urządzenie",
     "family account decide link header": "Połącz urządzenie",
     "family account decide link body": "W Blokadzie po prostu zeskanujesz kod QR, aby połączyć i zarządzać innym urządzeniem.",
+    "family account decide separator": "- lub -",
     "family account decide this header": "Użyj tego urządzenia",
     "family account decide this body": "Alternatywnie, możesz po prostu skonfigurować Blokadę do pracy na tym urządzeniu i ustawić pin do zablokowania aplikacji.",
     "family shields header": "Aktywuj tarcze, aby zablokować dostęp do wybranych treści na urządzeniach nadzorowanych.",
-    "family shields custom slug": "Zarządzaj własnymi wpisami, aby zablokować lub zezwolić."
+    "family shields custom slug": "Zarządzaj własnymi wpisami, aby zablokować lub zezwolić.",
+    "toplist company other": "Inne",
+    "toplist tld unknown": "nieznany"
 }

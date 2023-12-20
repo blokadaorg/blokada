@@ -391,9 +391,12 @@
     "universal status waiting for data": "データ待機中",
     "universal action disable": "無効にする",
     "lock action slide unlock": "スライドしてロック解除",
+    "lock action slide unlock short": "スライド",
     "lock status too many attempts": "間違えた回数が上限に到達しました。後でもう一度お試しください",
     "lock status enter to confirm": "もう一度 PIN コードを入力して、確認します",
     "lock status enter or wait": "新しい PIN コードを入力するま、ロックをお待ちください...",
+    "lock change pin": "暗証番号を変更",
+    "family rename device": "デバイス名の変更",
     "family label this device": "この端末 (%s)",
     "family onboard header": "Blokada Family にようこそ！",
     "family onboard body": "表示されるガイドに従って、最初の端末を設定しましょう。",
@@ -428,8 +431,11 @@
     "family account decide header": "端末の追加",
     "family account decide link header": "端末をリンクする",
     "family account decide link body": "Blokadaでは、QRコードをスキャンして別のデバイスをリンクして管理するだけです。",
+    "family account decide separator": "→ または",
     "family account decide this header": "このデバイスを使用する",
     "family account decide this body": "または、このデバイスで動作するように Blokada を設定し、アプリをロックするようにピンを設定することもできます。",
     "family shields header": "保護されたデバイス上の選択したコンテンツへのアクセスをブロックするには、シールドを有効にします。",
-    "family shields custom slug": "ブロックまたは許可する独自のカスタムエントリを管理します。"
+    "family shields custom slug": "ブロックまたは許可する独自のカスタムエントリを管理します。",
+    "toplist company other": "その他",
+    "toplist tld unknown": "不明"
 }
