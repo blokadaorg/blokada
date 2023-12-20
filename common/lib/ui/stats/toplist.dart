@@ -37,7 +37,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      "Waiting for data",
+                      "universal status waiting for data".i18n,
                       style: TextStyle(color: theme.textSecondary),
                     ),
                   ),
@@ -85,10 +85,10 @@ class Toplist extends StatelessWidget with TraceOrigin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(entry.tld ?? "unknown",
+                  Text(entry.tld ?? "toplist tld unknown".i18n,
                       style: const TextStyle(fontSize: 18)),
                   Text(
-                    entry.company?.capitalize() ?? "Other",
+                    entry.company?.capitalize() ?? "toplist company other".i18n,
                     style: TextStyle(color: theme.textSecondary, fontSize: 12),
                   ),
                   Text(

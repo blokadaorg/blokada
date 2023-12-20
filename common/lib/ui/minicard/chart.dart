@@ -26,7 +26,8 @@ class MiniCardChart extends StatelessWidget {
           ? ColumnChart(stats: device.stats, color: color)
           : Container(
               constraints: const BoxConstraints(maxHeight: 90),
-              child: const Center(child: Text("Waiting for data")),
+              child:
+                  Center(child: Text("universal status waiting for data".i18n)),
             ),
     );
   }

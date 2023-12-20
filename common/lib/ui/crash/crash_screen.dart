@@ -1,13 +1,10 @@
-import 'dart:async';
 import 'dart:ui';
 
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
-import 'package:common/util/async.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../tracer/tracer.dart';
 import '../../util/di.dart';
@@ -92,10 +89,10 @@ class _CrashScreenState extends State<CrashScreen>
               const SizedBox(height: 70),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 500),
-                child: const Text(
-                  "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.",
+                child: Text(
+                  "crash body".i18n,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: const TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 40),

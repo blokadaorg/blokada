@@ -1,3 +1,4 @@
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 
 import '../../../family/model.dart';
@@ -60,33 +61,33 @@ class StatusTextsState extends State<StatusTexts>
     switch (phase) {
       case FamilyPhase.fresh:
         return [
-          "Hi there!",
-          "Activate or restore your account to continue" + "\n\n",
+          "family status fresh header".i18n,
+          "${"family status fresh body".i18n}\n\n",
         ];
       case FamilyPhase.parentNoDevices:
         return [
-          "App is ready!",
-          "Add your first device now" + "\n\n",
+          "family status ready header".i18n,
+          "${"family status ready body".i18n}\n\n",
         ];
       case FamilyPhase.linkedActive || FamilyPhase.linkedUnlocked:
         return [
-          "App is linked!",
+          "family status linked header".i18n,
         ];
       case FamilyPhase.linkedNoPerms ||
             FamilyPhase.lockedNoPerms ||
             FamilyPhase.noPerms:
         return [
-          "Almost there!",
-          "Please grant the necessary permissions" + "\n\n",
+          "family status perms header".i18n,
+          "${"family status perms body".i18n}\n\n",
         ];
       case FamilyPhase.lockedNoAccount:
         return [
-          "Account expired",
-          "Please activate your account to continue" + "\n\n",
+          "family status expired header".i18n,
+          "${"family status expired body".i18n}\n\n",
         ];
       case FamilyPhase.lockedActive:
         return [
-          "App is locked",
+          "family status locked header".i18n,
         ];
       default:
         return [""];

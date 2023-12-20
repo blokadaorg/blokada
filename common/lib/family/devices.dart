@@ -1,3 +1,4 @@
+import 'package:common/service/I18nService.dart';
 import 'package:dartx/dartx.dart';
 
 import '../stats/stats.dart';
@@ -76,7 +77,9 @@ class FamilyDevices {
   }
 
   _deviceDisplayName(String name, bool thisDevice) {
-    if (thisDevice) return "This device ($name)";
+    if (thisDevice) {
+      return "family label this device".i18n.replaceFirst("%s", name);
+    }
     return name;
   }
 

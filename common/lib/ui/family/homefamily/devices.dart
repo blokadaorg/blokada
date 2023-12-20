@@ -7,7 +7,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../family/devices.dart';
 import '../../../family/family.dart';
-import '../../../family/model.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import '../../theme.dart';
@@ -32,7 +31,7 @@ class DevicesState extends State<Devices>
     vsync: this,
   );
 
-  CarouselController _carouselCtrl = CarouselController();
+  final CarouselController _carouselCtrl = CarouselController();
 
   @override
   void initState() {
@@ -72,7 +71,7 @@ class DevicesState extends State<Devices>
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
           child: Row(
             children: [
               Touch(
@@ -85,8 +84,8 @@ class DevicesState extends State<Devices>
                       borderRadius: BorderRadius.circular(4),
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4.0),
                     child: Icon(
                       CupertinoIcons.chevron_up,
                       size: 18,
@@ -103,8 +102,8 @@ class DevicesState extends State<Devices>
                       borderRadius: BorderRadius.circular(4),
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4.0),
                     child: Icon(
                       CupertinoIcons.chevron_down,
                       size: 18,
@@ -151,7 +150,7 @@ class DevicesState extends State<Devices>
               e.deviceName,
               HomeDevice(
                   device: e,
-                  color: e.thisDevice ? theme.family : Color(0xff3c8cff)),
+                  color: e.thisDevice ? theme.family : const Color(0xff3c8cff)),
             )))
         .toList();
   }
@@ -168,7 +167,9 @@ class DevicesState extends State<Devices>
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
             icon: thisDevice ? CupertinoIcons.power : CupertinoIcons.delete,
-            label: thisDevice ? 'Disable' : 'Delete',
+            label: thisDevice
+                ? "universal action disable".i18n
+                : "universal action delete".i18n,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
         ],

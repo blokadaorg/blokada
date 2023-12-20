@@ -60,22 +60,21 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Spacer(),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 68.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 68.0),
           child: Column(
             children: [
-              Text("Welcome to Blokada Family!",
+              Text("family onboard header".i18n,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     // fontWeight: FontWeight.w500,
                   )),
-              SizedBox(height: 24),
-              Text(
-                  "Follow the instructions on screen to set up your first device.",
+              const SizedBox(height: 24),
+              Text("family onboard body".i18n,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     // fontWeight: FontWeight.w500,

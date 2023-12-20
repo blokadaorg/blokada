@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
@@ -150,13 +149,13 @@ class _LockScreenState extends State<LockScreen>
 
   String _getHeaderString() {
     if (_wrongAttempts >= 3) {
-      return "Too many wrong attempts. Try again later";
+      return "lock status too many attempts".i18n;
     } else if (_showHeaderIcon) {
       return "";
     } else if (_isLocked) {
       return "lock status locked".i18n;
     } else if (_pinEntered != null) {
-      return "Enter the pin code again to confirm";
+      return "lock status enter to confirm".i18n;
     } else if (_hasPin) {
       return "lock status unlocked has pin".i18n;
     } else {
@@ -341,7 +340,7 @@ class _LockScreenState extends State<LockScreen>
                     innerColor: Colors.black.withOpacity(0.4),
                     borderRadius: 12,
                     elevation: 0,
-                    text: "Slide to unlock",
+                    text: "lock action slide unlock".i18n,
                     textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,

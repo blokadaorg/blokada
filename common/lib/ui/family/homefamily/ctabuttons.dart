@@ -1,3 +1,4 @@
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -222,11 +223,11 @@ class CtaButtonsState extends State<CtaButtons>
 
   String _getCtaText() {
     if (_phase.requiresPerms()) {
-      return "Finish setup";
+      return "family cta action finish setup".i18n;
     } else if (_phase.requiresActivation()) {
-      return "Activate";
+      return "family cta action activate".i18n;
     } else {
-      return "Add a device";
+      return "family cta action add device".i18n;
     }
   }
 }
