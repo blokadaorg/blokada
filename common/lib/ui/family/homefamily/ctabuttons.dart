@@ -111,23 +111,18 @@ class CtaButtonsState extends State<CtaButtons>
 
     final canAddDevices =
         !_phase.requiresAction() && _phase.isParent() && !_phase.isLocked();
-    final canBeUnlinked = _phase == FamilyPhase.linkedUnlocked;
 
-    if (canAddDevices || canBeUnlinked) {
+    if (canAddDevices) {
       return [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: MiniCard(
               onTap: _handleCtaTap(),
               color: theme.family,
-              child: SizedBox(
+              child: const SizedBox(
                 height: 32,
                 width: 32,
-                child: Icon(
-                    canBeUnlinked
-                        ? CupertinoIcons.link
-                        : CupertinoIcons.plus_circle,
-                    color: Colors.white),
+                child: Icon(CupertinoIcons.plus_circle, color: Colors.white),
               )),
         )
       ];
@@ -222,7 +217,9 @@ class CtaButtonsState extends State<CtaButtons>
   }
 
   String _getCtaText() {
-    if (_phase.requiresPerms()) {
+    if (_phase == FamilyPhase.linkedUnlocked) {
+      return "Unlink";
+    } else if (_phase.requiresPerms()) {
       return "family cta action finish setup".i18n;
     } else if (_phase.requiresActivation()) {
       return "family cta action activate".i18n;

@@ -47,7 +47,8 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.parentNoDevices ||
         this == FamilyPhase.lockedNoPerms ||
-        this == FamilyPhase.lockedNoAccount;
+        this == FamilyPhase.lockedNoAccount ||
+        this == FamilyPhase.linkedUnlocked;
   }
 
   bool requiresPerms() {
