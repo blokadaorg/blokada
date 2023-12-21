@@ -13,78 +13,6 @@ part 'refresh.g.dart';
 
 const String keyTimer = "stats:refresh";
 
-class StatsRefreshStrategy {
-  DateTime lastRefresh;
-  bool isOnStatsScreen;
-  bool isOnStatsHomeScreen;
-  bool isForeground;
-  bool isAccountActive;
-
-  StatsRefreshStrategy({
-    required this.lastRefresh,
-    required this.isOnStatsScreen,
-    required this.isOnStatsHomeScreen,
-    required this.isForeground,
-    required this.isAccountActive,
-  });
-
-  StatsRefreshStrategy.init()
-      : this(
-          lastRefresh: DateTime(0),
-          isOnStatsScreen: false,
-          isOnStatsHomeScreen: false,
-          isForeground: false,
-          isAccountActive: false,
-        );
-
-  StatsRefreshStrategy update({
-    bool? isOnStatsScreen,
-    bool? isOnStatsHomeScreen,
-    bool? isForeground,
-    bool? isAccountActive,
-  }) {
-    return StatsRefreshStrategy(
-      lastRefresh: lastRefresh,
-      isOnStatsScreen: isOnStatsScreen ?? this.isOnStatsScreen,
-      isOnStatsHomeScreen: isOnStatsHomeScreen ?? this.isOnStatsHomeScreen,
-      isForeground: isForeground ?? this.isForeground,
-      isAccountActive: isAccountActive ?? this.isAccountActive,
-    );
-  }
-
-  StatsRefreshStrategy resetLastRefresh() {
-    return StatsRefreshStrategy(
-      lastRefresh: DateTime(0),
-      isOnStatsScreen: isOnStatsScreen,
-      isOnStatsHomeScreen: isOnStatsHomeScreen,
-      isForeground: isForeground,
-      isAccountActive: isAccountActive,
-    );
-  }
-
-  StatsRefreshStrategy statsRefreshed() {
-    return StatsRefreshStrategy(
-      lastRefresh: DateTime.now(),
-      isOnStatsScreen: isOnStatsScreen,
-      isOnStatsHomeScreen: isOnStatsHomeScreen,
-      isForeground: isForeground,
-      isAccountActive: isAccountActive,
-    );
-  }
-
-  DateTime? getNextRefresh() {
-    if (!isAccountActive || !isForeground) {
-      return null;
-    } else if (isOnStatsScreen) {
-      return lastRefresh.add(cfg.refreshVeryFrequent);
-    } else if (isOnStatsHomeScreen) {
-      return lastRefresh.add(cfg.refreshOnHome);
-    } else {
-      return lastRefresh.add(cfg.statsRefreshWhenOnAnotherScreen);
-    }
-  }
-}
-
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
 abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
@@ -97,23 +25,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, onAccountIdChanged);
-
-    _timer.addHandler(keyTimer, (trace) async {
-      if (act.isFamily()) {
-        // For family we need to be a bit smart on what device to refresh
-        if (strategy.isOnStatsScreen && _stats.selectedDevice != null) {
-          await _stats.fetchForDevice(trace, _stats.selectedDevice!);
-        } else {
-          for (final deviceName in _monitoredDevices) {
-            await _stats.fetchForDevice(trace, deviceName);
-          }
-        }
-      } else {
-        await _stats.fetch(trace);
-      }
-
-      await statsRefreshed(trace);
-    });
+    _timer.addHandler(keyTimer, _refresh);
   }
 
   @override
@@ -121,40 +33,45 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     depend<StatsRefreshStore>(this as StatsRefreshStore);
   }
 
-  @observable
-  StatsRefreshStrategy strategy = StatsRefreshStrategy.init();
-
   List<String> _monitoredDevices = [];
 
-  @action
-  Future<void> updateForeground(Trace parentTrace, bool isForeground) async {
-    return await traceWith(parentTrace, "updateForeground", (trace) async {
-      strategy = strategy.update(isForeground: isForeground);
-      _rescheduleTimer(trace);
-    });
+  bool _accountIsActive = false;
+  bool _isForeground = false;
+  bool _isHomeScreen = false;
+  String? _isStatsScreenFor;
+
+  DateTime _lastRefresh = DateTime(0);
+
+  DateTime? _getNextRefresh() {
+    if (!_accountIsActive || !_isForeground) {
+      return null;
+    } else if (_isStatsScreenFor != null) {
+      return _lastRefresh.add(cfg.refreshVeryFrequent);
+    } else if (_isHomeScreen) {
+      return _lastRefresh.add(cfg.refreshOnHome);
+    } else {
+      return _lastRefresh.add(cfg.statsRefreshWhenOnAnotherScreen);
+    }
   }
 
-  @action
-  Future<void> updateScreen(Trace parentTrace,
-      {required bool isStats, required bool isHome}) async {
-    return await traceWith(parentTrace, "updateScreen", (trace) async {
-      strategy = strategy.update(
-          isOnStatsHomeScreen: isHome, isOnStatsScreen: isStats);
-      _rescheduleTimer(trace);
-    });
-  }
+  _refresh(Trace trace) async {
+    if (act.isFamily()) {
+      if (_isStatsScreenFor != null) {
+        // Stats screen opened for a device, we need to refresh only that device
+        trace.addAttribute("devices", 1);
+        await _stats.fetchForDevice(trace, _isStatsScreenFor!, toplists: true);
+      } else {
+        // Otherwise just refresh all monitored devices (less often)
+        trace.addAttribute("devices", _monitoredDevices.length);
+        for (final deviceName in _monitoredDevices) {
+          await _stats.fetchForDevice(trace, deviceName);
+        }
+      }
+    } else {
+      await _stats.fetch(trace);
+    }
 
-  @action
-  Future<void> updateAccount(Trace parentTrace, bool isActive) async {
-    return await traceWith(parentTrace, "updateAccount", (trace) async {});
-  }
-
-  @action
-  Future<void> statsRefreshed(Trace parentTrace) async {
-    return await traceWith(parentTrace, "statsRefreshed", (trace) async {
-      strategy = strategy.statsRefreshed();
-      _rescheduleTimer(trace);
-    });
+    _lastRefresh = DateTime.now();
   }
 
   @action
@@ -167,45 +84,38 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
       trace.addAttribute("devices", devices);
       _monitoredDevices = devices;
-      strategy = strategy.resetLastRefresh(); // To cause one immediate refresh
-      _rescheduleTimer(trace);
+      _lastRefresh = DateTime(0); // To cause one immediate refresh
+      _reschedule();
     });
   }
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    return await traceWith(parentTrace, "updateStatsRefreshFreq",
-        (trace) async {
-      await updateForeground(trace, route.isForeground());
-      await updateScreen(
-        trace,
-        isHome: route.isTab(StageTab.home),
-        isStats: route.isTab(StageTab.home) && route.isSection("stats"),
-      );
-    });
+    _isForeground = route.isForeground();
+    _isHomeScreen = route.isTab(StageTab.home);
+
+    if (route.isTab(StageTab.home) && route.isSection("stats")) {
+      _isStatsScreenFor = _stats.selectedDevice;
+    } else {
+      _isStatsScreenFor = null;
+    }
+    _reschedule();
   }
 
   @action
   Future<void> onAccountChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onAccountChanged", (trace) async {
-      final account = _account.account!;
-
-      final isActive = account.type.isActive();
-      strategy = strategy.update(isAccountActive: isActive);
-      _rescheduleTimer(trace);
-    });
+    final account = _account.account!;
+    _accountIsActive = account.type.isActive();
+    _reschedule();
   }
 
   @action
   Future<void> onAccountIdChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onAccountIdChanged", (trace) async {
-      await _stats.drop(trace);
-    });
+    await _stats.drop(parentTrace);
   }
 
-  _rescheduleTimer(Trace trace) {
-    // TODO: use periodic timer?
-    final newDate = strategy.getNextRefresh();
+  _reschedule() {
+    final newDate = _getNextRefresh();
     if (newDate != null) {
       _timer.set(keyTimer, newDate);
     } else {

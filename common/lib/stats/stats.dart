@@ -149,18 +149,28 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> fetchForDevice(Trace parentTrace, String deviceName) async {
+  Future<void> fetchForDevice(Trace parentTrace, String deviceName,
+      {bool toplists = false}) async {
     return await traceWith(parentTrace, "fetchForDevice", (trace) async {
       final oneDay =
           await _api.getStatsForDevice(trace, "24h", "1h", deviceName);
       final oneWeek =
           await _api.getStatsForDevice(trace, "1w", "24h", deviceName);
-      final toplistAllowed =
-          await _api.getToplistForDevice(trace, false, deviceName);
-      final toplistBlocked =
-          await _api.getToplistForDevice(trace, true, deviceName);
-      deviceStats[deviceName] = _convertStats(oneDay, oneWeek,
-          toplistAllowed: toplistAllowed, toplistBlocked: toplistBlocked);
+
+      final toplistAllowed = !toplists
+          ? null
+          : await _api.getToplistForDevice(trace, false, deviceName);
+      final toplistBlocked = !toplists
+          ? null
+          : await _api.getToplistForDevice(trace, true, deviceName);
+
+      deviceStats[deviceName] = _convertStats(
+        oneDay,
+        oneWeek,
+        toplistAllowed: toplistAllowed,
+        toplistBlocked: toplistBlocked,
+        previousStats: deviceStats[deviceName],
+      );
       deviceStatsChangesCounter++;
     });
   }
@@ -189,7 +199,8 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
 
   UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek,
       {JsonToplistEndpoint? toplistAllowed,
-      JsonToplistEndpoint? toplistBlocked}) {
+      JsonToplistEndpoint? toplistBlocked,
+      UiStats? previousStats}) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds
     now = now - now % 3600; // Round down to the nearest hour
@@ -209,8 +220,9 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
         final hourIndex = 24 - diffHours - 1;
 
         if (hourIndex < 0) continue;
-        if (latestTimestamp < d.timestamp * 1000)
+        if (latestTimestamp < d.timestamp * 1000) {
           latestTimestamp = d.timestamp * 1000;
+        }
 
         if (isAllowed) {
           allowedHistogram[hourIndex] = d.value.round();
@@ -250,15 +262,21 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     }
 
     // Calculate last week's average based on this week (no data)
-    if (avgDayAllowed == 0)
+    if (avgDayAllowed == 0) {
       avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 * 2;
-    if (avgDayBlocked == 0)
+    }
+    if (avgDayBlocked == 0) {
       avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
+    }
 
-    var convertedToplist =
+    List<UiToplistEntry> convertedToplist =
         toplistAllowed == null ? [] : _convertToplist(toplistAllowed);
     convertedToplist = convertedToplist +
         (toplistBlocked == null ? [] : _convertToplist(toplistBlocked));
+
+    if (convertedToplist.isEmpty) {
+      convertedToplist = previousStats?.toplist ?? [];
+    }
 
     return UiStats(
         totalAllowed: int.parse(stats.totalAllowed),
