@@ -360,14 +360,11 @@ abstract class FamilyStoreBase
 
       // Discover a new device in stats, if we are expecting one
       final newDeviceName = _waitingForDevice;
-      if (newDeviceName != null) {
-        final stats = _stats.deviceStats[newDeviceName];
-        if (stats != null) {
-          await addDevice(trace, newDeviceName, stats);
+      if (newDeviceName != null && known.containsKey(newDeviceName)) {
+        await addDevice(trace, newDeviceName, known[newDeviceName]!);
 
-          // We are waiting on the accountLink sheet, close it
-          await _stage.dismissModal(trace);
-        }
+        // We are waiting on the accountLink sheet, close it
+        await _stage.dismissModal(trace);
       }
     });
   }

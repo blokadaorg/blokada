@@ -113,7 +113,7 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
               innerColor: Colors.black.withOpacity(0.4),
               borderRadius: 12,
               elevation: 0,
-              text: "Slide to unlock",
+              text: "lock action slide unlock".i18n,
               textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
