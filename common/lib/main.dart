@@ -33,7 +33,7 @@ void main() async {
         .attach(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
   }
 
-  if (flavor == "family") {
+  if (flavor == Flavor.family) {
     jsonUrl = "https://family.api.blocka.net";
   }
 
