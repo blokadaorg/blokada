@@ -132,7 +132,7 @@ abstract class LockStoreBase
   }
 
   _autoLockOnBackground(Trace parentTrace) async {
-    if (hasPin && _perm.isPrivateDnsEnabled && _account.type.isActive()) {
+    if (hasPin) {
       return await traceWith(parentTrace, "autoLockOnBackground",
           (trace) async {
         await lock(trace, _existingPin!);
