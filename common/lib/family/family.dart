@@ -91,6 +91,8 @@ abstract class FamilyStoreBase
 
   String? _waitingForDevice;
 
+  bool _onboardingShown = false;
+
   _onDevicesChanged() {
     reactionOnStore((_) => devices, (devices) async {
       return await traceAs("onDevicesChanged", (trace) async {
@@ -342,6 +344,9 @@ abstract class FamilyStoreBase
     if (_account.type.isActive()) return;
     if (devices.hasDevices == true) return;
     if (linkedMode) return;
+
+    if (_onboardingShown) return;
+    _onboardingShown = true;
 
     return await traceWith(parentTrace, "showOnboard", (trace) async {
       await _stage.showModal(trace, StageModal.onboardingFamily);
