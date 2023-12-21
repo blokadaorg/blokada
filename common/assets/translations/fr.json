@@ -1,6 +1,7 @@
 {
     "error device offline": "Votre appareil est hors ligne",
     "error account inactive": "Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.",
+    "error account inactive generic": "Votre compte est inactif. Veuillez activer votre compte pour continuer à utiliser Blokada.",
     "error account inactive after restore": "Ce compte ne semble pas être valide ou actif. Si vous pensez qu'il s'agit d'une erreur, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.",
     "error account invalid": "Cet ID de compte semble non valide.",
     "error creating account": "Impossible de créer un nouveau compte. Veuillez réessayer plus tard.",
@@ -22,6 +23,7 @@
     "error unknown": "Une erreur est survenue. Assurez-vous d'être en ligne puis réessayez. Si le problème persiste, contactez-nous en utilisant l'icône d'aide en haut de l'écran.",
     "error multiple apps": "Plusieurs applications Blokada sont installées sur votre appareil. Cela peut causer des problèmes de connectivité. Souhaitez-vous corriger ces installations multiples ?",
     "error locked": "Cette action n'est pas disponible lorsque l'application est verrouillée. Veuillez déverrouiller l'application pour continuer.",
+    "error lock invalid": "Un code PIN valide doit comporter exactement 4 chiffres. Veuillez réessayer.",
     "conn isssues header": "Problème de connexion",
     "conn isssues slug": "Problèmes de connesion. Veuillez vérifier votre configuration. Appuyez pour plus de détails.",
     "conn isssues details": "- Vérifiez votre connexion Internet\n- Utilisez une seule application Blokada\n- Désactivez d'autres VPNs",
@@ -428,6 +430,7 @@
     "family account link name": "Définir le nom de l'appareil",
     "family account link qr header": "Scannez ce code QR",
     "family account link qr body": "Cet écran se ferme automatiquement une fois que le nouvel appareil a été détecté.",
+    "family account cta unlink": "Délier",
     "family account decide header": "Ajouter un appareil",
     "family account decide link header": "Lier un appareil",
     "family account decide link body": "Dans Blokada, il vous suffit de scanner un code QR pour relier et gérer un autre appareil.",

@@ -1,6 +1,7 @@
 {
     "error device offline": "Cihazınız çevrimdışı",
     "error account inactive": "Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.",
+    "error account inactive generic": "Your account is inactive. Please activate your account in order to continue using Blokada.",
     "error account inactive after restore": "Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.",
     "error account invalid": "Bu hesap kimliği geçersiz görünüyor.",
     "error creating account": "Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.",
@@ -22,6 +23,7 @@
     "error unknown": "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.",
     "error multiple apps": "There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?",
     "error locked": "This action is unavailable when the app is in a locked state. Please unlock the app to proceed.",
+    "error lock invalid": "A valid PIN must be exactly 4 digits. Please try again.",
     "conn isssues header": "Connectivity issues",
     "conn isssues slug": "Connectivity issues. Please check your configuration. Tap for details.",
     "conn isssues details": "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs",
@@ -428,6 +430,7 @@
     "family account link name": "Set device name",
     "family account link qr header": "Scan this QR code",
     "family account link qr body": "This screen will close automatically once the new device has been detected.",
+    "family account cta unlink": "Unlink",
     "family account decide header": "Add device",
     "family account decide link header": "Link a device",
     "family account decide link body": "In Blokada, you simply scan a QR code to link and manage another device.",

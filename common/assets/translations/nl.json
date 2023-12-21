@@ -1,6 +1,7 @@
 {
     "error device offline": "Jouw apparaat is offline",
     "error account inactive": "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.",
+    "error account inactive generic": "Je account is niet actief. Activeer je account om Blokada te blijven gebruiken.",
     "error account inactive after restore": "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.",
     "error account invalid": "Dit account ID is ongeldig.",
     "error creating account": "Kan geen nieuw account aanmaken. Probeer het later nog eens.",
@@ -22,6 +23,7 @@
     "error unknown": "Er is een probleem opgetreden. Zorg ervoor dat je online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoontje bovenaan te tikken.",
     "error multiple apps": "Er is meer dan één Blokada-app op uw apparaat. Dit kan verbindingsproblemen veroorzaken. Wilt u het nu oplossen?",
     "error locked": "Deze actie is niet beschikbaar wanneer de app zich in een vergrendelde status bevindt. Ontgrendel de app om door te gaan.",
+    "error lock invalid": "Een geldige pincode moet precies 4 cijfers bevatten. Probeer het opnieuw.",
     "conn isssues header": "Verbindingsproblemen",
     "conn isssues slug": "Verbindingsproblemen. Controleer uw configuratie. Tik voor details.",
     "conn isssues details": "- Controleer je internetverbinding\n- Gebruik slechts één Blokada app\n- Deactiveer andere VPN's",
@@ -428,6 +430,7 @@
     "family account link name": "Apparaatnaam instellen",
     "family account link qr header": "Scan deze QR-code",
     "family account link qr body": "Dit scherm wordt automatisch gesloten zodra het nieuwe apparaat is gedetecteerd.",
+    "family account cta unlink": "Ontkoppelen",
     "family account decide header": "Apparaat toevoegen",
     "family account decide link header": "Koppel een apparaat",
     "family account decide link body": "In Blokada scan je gewoon een QR-code om een ander apparaat te koppelen en te beheren.",

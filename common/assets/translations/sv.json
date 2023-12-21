@@ -1,6 +1,7 @@
 {
     "error device offline": "Din enhet är inte ansluten",
     "error account inactive": "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.",
+    "error account inactive generic": "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda Blokada.",
     "error account inactive after restore": "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.",
     "error account invalid": "Detta konto-ID verkar ogiltigt.",
     "error creating account": "Kunde inte skapa ett nytt konto. Försök igen senare.",
@@ -22,6 +23,7 @@
     "error unknown": "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.",
     "error multiple apps": "Det finns mer än en Blokada-app på din enhet. Detta kan orsaka anslutningsproblem. Vill du åtgärda det nu?",
     "error locked": "Denna åtgärd är inte tillgänglig när appen är i ett låst tillstånd. Lås upp appen för att fortsätta.",
+    "error lock invalid": "En giltig PIN-kod måste vara exakt 4 siffror. Försök igen.",
     "conn isssues header": "Anslutningsproblem",
     "conn isssues slug": "Problem med anslutningen. Vänligen kontrollera din konfiguration. Tryck för mer information.",
     "conn isssues details": "- Kontrollera din internetanslutning\n- Använd endast en Blokada-app\n- Inaktivera andra VPN",
@@ -428,6 +430,7 @@
     "family account link name": "Ange enhetsnamn",
     "family account link qr header": "Skanna denna QR-kod",
     "family account link qr body": "Den här skärmen stängs automatiskt när den nya enheten har upptäckts.",
+    "family account cta unlink": "Avlänka",
     "family account decide header": "Lägg till enhet",
     "family account decide link header": "Länka en enhet",
     "family account decide link body": "I Blokada skannar du helt enkelt en QR-kod för att länka och hantera en annan enhet.",

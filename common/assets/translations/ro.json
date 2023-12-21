@@ -1,6 +1,7 @@
 {
     "error device offline": "Dispozitivul dumneavoastră este oprit",
     "error account inactive": "Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.",
+    "error account inactive generic": "Contul tău este inactiv. Te rugăm să îți activezi contul pentru a putea continua să folosești Blokada.",
     "error account inactive after restore": "Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.",
     "error account invalid": "ID-ul acestui cont pare nevalid.",
     "error creating account": "Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.",
@@ -22,6 +23,7 @@
     "error unknown": "A apărut o problemă. Asigură-te că ești online și încearcă din nou mai târziu. Dacă problema persistă, te rugăm să ne contactezi prin apăsarea pictogramei de ajutor din partea de sus.",
     "error multiple apps": "Există mai mult de o aplicație Blokada pe dispozitivul dvs. Acest lucru poate cauza probleme de conectivitate. Doriți să o reparați acum?",
     "error locked": "Această acțiune nu este disponibilă atunci când aplicația se află într-o stare blocată. Vă rugăm să deblocați aplicația pentru a continua.",
+    "error lock invalid": "Un PIN valid trebuie să fie exact 4 cifre. Vă rugăm să încercaţi din nou.",
     "conn isssues header": "Probleme de conectivitate",
     "conn isssues slug": "Probleme de conectivitate. Verificați configurarea. Atingeți pentru detalii.",
     "conn isssues details": "- Verifică-ți conexiunea la internet\n- Folosește doar o aplicație Blokada\n- Dezactivează alte VPN-uri",
@@ -428,6 +430,7 @@
     "family account link name": "Setează numele dispozitivului",
     "family account link qr header": "Scanați acest cod QR",
     "family account link qr body": "Acest ecran se va închide automat după ce noul dispozitiv a fost detectat.",
+    "family account cta unlink": "Deconectare",
     "family account decide header": "Adaugă dispozitiv",
     "family account decide link header": "Leagă un dispozitiv",
     "family account decide link body": "În Blokada, scanați pur și simplu un cod QR pentru a conecta și administra un alt dispozitiv.",

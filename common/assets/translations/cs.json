@@ -1,6 +1,7 @@
 {
     "error device offline": "Vaše zařízení je offline",
     "error account inactive": "Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.",
+    "error account inactive generic": "Váš účet je neaktivní. Abyste mohli pokračovat v používání Blokady, aktivujte svůj účet.",
     "error account inactive after restore": "Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.",
     "error account invalid": "Toto ID účtu se zdá být neplatné.",
     "error creating account": "Nelze vytvořit nový účet. Opakujte akci později.",
@@ -22,6 +23,7 @@
     "error unknown": "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.",
     "error multiple apps": "Na vašem zařízení je více než jedna aplikace Blokada. To může způsobit problémy s připojením. Chcete to nyní opravit?",
     "error locked": "Tato akce není k dispozici, pokud je aplikace v uzamčeném stavu. Pro pokračování prosím odemkněte aplikaci.",
+    "error lock invalid": "Platný PIN musí mít přesně 4 číslice. Zkuste to prosím znovu.",
     "conn isssues header": "Problémy s připojením",
     "conn isssues slug": "Problémy s připojením. Zkontrolujte prosím konfiguraci. Klepněte pro podrobnosti.",
     "conn isssues details": "- Zkontrolujte připojení k internetu\n- Používejte pouze aplikaci Blokada\n- Deaktivujte ostatní VPN",
@@ -428,6 +430,7 @@
     "family account link name": "Nastavit název zařízení",
     "family account link qr header": "Naskenovat tento QR kód",
     "family account link qr body": "Tato obrazovka se automaticky zavře po zjištění nového zařízení.",
+    "family account cta unlink": "Odpojit",
     "family account decide header": "Přidat zařízení",
     "family account decide link header": "Propojit zařízení",
     "family account decide link body": "V Blokadě jednoduše naskenujete QR kód pro propojení a správu jiného zařízení.",

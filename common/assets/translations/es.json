@@ -1,6 +1,7 @@
 {
     "error device offline": "Tu dispositivo está desconectado",
     "error account inactive": "Tu cuenta está inactiva. Activa tu cuenta para continuar usando BLOKADA+.",
+    "error account inactive generic": "Tu cuenta está inactiva. Por favor, activa tu cuenta para continuar usando Blokada.",
     "error account inactive after restore": "Esta no parece ser una cuenta activa válida. Si crees que se trata de un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.",
     "error account invalid": "Este ID de cuenta parece inválido.",
     "error creating account": "No se ha podido crear la cuenta. Inténtalo de nuevo más tarde.",
@@ -22,6 +23,7 @@
     "error unknown": "Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.",
     "error multiple apps": "Hay más de una aplicación Blokada en tu dispositivo. Esto puede causar problemas de conectividad. ¿Quieres solucionarlo ahora?",
     "error locked": "Esta acción no está disponible cuando la aplicación está en un estado bloqueado. Por favor, desbloquea la aplicación para continuar.",
+    "error lock invalid": "Un PIN válido debe tener exactamente 4 dígitos. Por favor, inténtalo de nuevo.",
     "conn isssues header": "Problemas de conectividad",
     "conn isssues slug": "Problemas de conexión. Por favor, comprueba tu configuración. Pulsa para más detalles.",
     "conn isssues details": "- Compruebe su conexión a Internet\n- Utilice sólo una aplicación Blokada\n- Desactive otras VPN",
@@ -428,6 +430,7 @@
     "family account link name": "Nombre del dispositivo",
     "family account link qr header": "Escanear este código QR",
     "family account link qr body": "Esta pantalla se cerrará automáticamente una vez detectado el nuevo dispositivo.",
+    "family account cta unlink": "Desvincular",
     "family account decide header": "Añadir dispositivo",
     "family account decide link header": "Vincular un dispositivo",
     "family account decide link body": "En Blokada, simplemente escanea un código QR para enlazar y administrar otro dispositivo.",

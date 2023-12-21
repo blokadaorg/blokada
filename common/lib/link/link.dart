@@ -130,11 +130,12 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     // Replace placeholders as applicable
     String link = templates[id]!.url;
     link = link.replaceFirst(_keyUA, userAgent.urlEncode);
+    final accountId = _account.account?.id;
 
-    if (isLocked) {
+    if (isLocked || accountId == null) {
       return link.replaceFirst(_keyAcc, "");
     } else {
-      return link.replaceFirst(_keyAcc, "account-id=${_account.id}");
+      return link.replaceFirst(_keyAcc, "account-id=$accountId");
     }
   }
 }

@@ -1,6 +1,7 @@
 {
     "error device offline": "Das Gerät ist nicht verbunden",
     "error account inactive": "Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ verwenden kannst.",
+    "error account inactive generic": "Ihr Konto ist inaktiv. Bitte aktivieren Sie Ihr Konto, um Blokada weiter zu nutzen.",
     "error account inactive after restore": "Dies scheint kein gültiges Konto zu sein. Wenn du denkst, dass dies ein Fehler ist, kontaktiere uns bitte, indem du auf das Hilfe-Symbol oben tippst.",
     "error account invalid": "Diese Kontokennung scheint ungültig zu sein.",
     "error creating account": "Konnte kein neues Konto erstellen. Bitte probiere es später erneut.",
@@ -22,6 +23,7 @@
     "error unknown": "Ein Problem ist aufgetreten. Stelle sicher, dass du online bist und versuche es später noch einmal. Wenn das Problem bestehen bleibt, kontaktiere uns bitte, indem du oben auf das Hilfe-Symbol tippst.",
     "error multiple apps": "Es gibt mehr als eine Blokada-App auf Ihrem Gerät. Dies kann zu Verbindungsproblemen führen. Möchten Sie das Problem jetzt beheben?",
     "error locked": "Diese Aktion ist nicht verfügbar, wenn sich die App in einem gesperrten Zustand befindet. Bitte entsperren Sie die App, um fortzufahren.",
+    "error lock invalid": "Eine gültige PIN muss exakt 4 Zeichen lang sein. Bitte versuchen Sie es erneut.",
     "conn isssues header": "Probleme mit der Konnektivität",
     "conn isssues slug": "Probleme mit der Konnektivität. Bitte überprüfen Sie Ihre Konfiguration. Tippen Sie für Details.",
     "conn isssues details": "- Überprüfen Sie Ihre Internetverbindung\n- Verwenden Sie nur eine Blokada-App\n- Deaktivieren Sie andere VPNs",
@@ -428,6 +430,7 @@
     "family account link name": "Gerätename festlegen",
     "family account link qr header": "Diesen QR-Code scannen",
     "family account link qr body": "Dieser Bildschirm wird automatisch geschlossen, sobald das neue Gerät erkannt wurde.",
+    "family account cta unlink": "Link aufheben",
     "family account decide header": "Gerät hinzufügen",
     "family account decide link header": "Gerät verknüpfen",
     "family account decide link body": "In Blokada scannen Sie einfach einen QR-Code, um ein anderes Gerät zu verknüpfen und zu verwalten.",

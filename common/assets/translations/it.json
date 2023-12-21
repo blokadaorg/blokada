@@ -1,6 +1,7 @@
 {
     "error device offline": "Il tuo dispositivo è offline",
     "error account inactive": "Il tuo account non è attivo. Per favore, attiva il tuo account per continuare a utilizzare BLOKADA+.",
+    "error account inactive generic": "Il tuo account non è attivo. Per favore, attiva il tuo account per continuare a utilizzare Blokada.",
     "error account inactive after restore": "Questo non sembra essere un account attivo valido. Se credi che sia un errore, contattaci toccando l'icona di aiuto in alto.",
     "error account invalid": "Questo ID account non sembra valido.",
     "error creating account": "Impossibile creare un nuovo account. Riprova più tardi.",
@@ -22,6 +23,7 @@
     "error unknown": "Si è verificato un problema. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.",
     "error multiple apps": "C'è più di un'app Blokada sul tuo dispositivo. Ciò potrebbe causare problemi di connettività. Vuoi risolverli ora?",
     "error locked": "Questa azione non è disponibile quando l'app è in uno stato bloccato. Si prega di sbloccare l'app per procedere.",
+    "error lock invalid": "Un PIN valido deve contenere esattamente 4 cifre. Riprova.",
     "conn isssues header": "Problemi di connessione",
     "conn isssues slug": "Problemi di connessione. Per favore, controlla tua configurazione. Clicca per i dettagli.",
     "conn isssues details": "- Controlla la tua connessione Internet\n- Usa solo un'app Blokada\n- Disattiva altre VPN",
@@ -428,6 +430,7 @@
     "family account link name": "Imposta nome dispositivo",
     "family account link qr header": "Scansiona questo codice QR",
     "family account link qr body": "Questa schermata si chiuderà automaticamente non appena il nuovo dispositivo verrà rilevato.",
+    "family account cta unlink": "Scollega",
     "family account decide header": "Aggiungi dispositivo",
     "family account decide link header": "Collega un dispositivo",
     "family account decide link body": "Su Blokada, per collegare e gestire un altro dispositivo, è sufficiente la scansione di un codice QR.",

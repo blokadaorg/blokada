@@ -1,6 +1,7 @@
 {
     "error device offline": "您的裝置已離線",
     "error account inactive": "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。",
+    "error account inactive generic": "Your account is inactive. Please activate your account in order to continue using Blokada.",
     "error account inactive after restore": "這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。",
     "error account invalid": "此帳號 ID 似乎無效。",
     "error creating account": "無法建立新帳號。請稍候再試。",
@@ -22,6 +23,7 @@
     "error unknown": "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。",
     "error multiple apps": "您的裝置上有超過一款 Blokada app。這可能導致連線問題。是否想要立即修正？",
     "error locked": "This action is unavailable when the app is in a locked state. Please unlock the app to proceed.",
+    "error lock invalid": "A valid PIN must be exactly 4 digits. Please try again.",
     "conn isssues header": "連線問題",
     "conn isssues slug": "連線問題。請檢查設定。點一下檢視詳細資訊。",
     "conn isssues details": "- 檢查網路連線\n- 只使用一款 Blokada app\n- 停用其他 VPN",
@@ -428,6 +430,7 @@
     "family account link name": "Set device name",
     "family account link qr header": "Scan this QR code",
     "family account link qr body": "This screen will close automatically once the new device has been detected.",
+    "family account cta unlink": "Unlink",
     "family account decide header": "Add device",
     "family account decide link header": "Link a device",
     "family account decide link body": "In Blokada, you simply scan a QR code to link and manage another device.",
