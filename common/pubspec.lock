@@ -289,6 +289,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.64.0"
+  flare_flutter:
+    dependency: transitive
+    description:
+      name: flare_flutter
+      sha256: "99d63c60f00fac81249ce6410ee015d7b125c63d8278a30da81edf3317a1f6a0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   flex_color_scheme:
     dependency: "direct main"
     description:
@@ -779,6 +787,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  status_alert:
+    dependency: "direct main"
+    description:
+      name: status_alert
+      sha256: "220ce6c1400d19d817665ac5a87f772e87c901677ac37b93320f4764edf4d23f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   stream_channel:
     dependency: transitive
     description:

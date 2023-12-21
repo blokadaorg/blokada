@@ -73,7 +73,7 @@ abstract class LockStoreBase
       }
 
       if (pin.length != 4 || !isNumeric(pin)) {
-        await _stage.showModal(trace, StageModal.fault);
+        await _stage.showModal(trace, StageModal.faultLockInvalid);
         throw Exception("Invalid pin format: $pin");
       }
 

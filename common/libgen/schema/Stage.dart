@@ -18,6 +18,7 @@ enum StageModal {
   // updateComplete,
   fault,
   faultLocked,
+  faultLockInvalid,
   accountChange,
   accountLink,
   accountInitFailed,

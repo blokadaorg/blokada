@@ -4,6 +4,7 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:status_alert/status_alert.dart';
 
 import '../../journal/journal.dart';
 import '../../stage/stage.dart';
@@ -48,7 +49,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
   Widget _buildRow(BuildContext context, UiToplistEntry entry) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Touch(
-      onLongTap: () => _copyEntry(entry.tld),
+      onLongTap: () => _copyEntry(entry.tld, context),
       decorationBuilder: (value) {
         return BoxDecoration(
           color: theme.bgColorHome3.withOpacity(value),
@@ -58,16 +59,6 @@ class Toplist extends StatelessWidget with TraceOrigin {
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
           children: [
-            if (entry.blocked)
-              Container(
-                width: 3,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            if (entry.blocked) const SizedBox(width: 6),
             Stack(
               alignment: Alignment.center,
               children: [
@@ -127,7 +118,16 @@ class Toplist extends StatelessWidget with TraceOrigin {
     });
   }
 
-  _copyEntry(String? entry) {
+  _copyEntry(String? entry, BuildContext context) {
+    StatusAlert.show(
+      context,
+      backgroundColor: Colors.black12,
+      duration: const Duration(seconds: 1),
+      title: "universal status copied to clipboard".i18n,
+      configuration: const IconConfiguration(icon: Icons.copy),
+      maxWidth: 260,
+    );
+
     traceAs("tappedCopyEntry", (trace) async {
       if (entry == null) return;
       await Clipboard.setData(ClipboardData(text: entry));

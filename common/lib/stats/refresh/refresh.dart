@@ -72,6 +72,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     }
 
     _lastRefresh = DateTime.now();
+    _reschedule();
   }
 
   @action
@@ -96,6 +97,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
 
     if (route.isTab(StageTab.home) && route.isSection("stats")) {
       _isStatsScreenFor = _stats.selectedDevice;
+      _lastRefresh = DateTime(0); // To cause one immediate refresh
     } else {
       _isStatsScreenFor = null;
     }
