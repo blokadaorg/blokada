@@ -186,12 +186,12 @@ abstract class StageStoreBase
   @action
   Future<void> setBackground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setBackground", (trace) async {
-      if (isReady && route.isForeground()) {
+      if (route.isForeground()) {
         await emit(willEnterBackground, trace, route);
         route = route.newBg();
+        _isForeground = false;
         await emitValue(routeChanged, trace, route);
       }
-      _isForeground = false;
     });
   }
 

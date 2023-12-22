@@ -135,9 +135,9 @@ abstract class LockStoreBase
     if (hasPin) {
       return await traceWith(parentTrace, "autoLockOnBackground",
           (trace) async {
-        await lock(trace, _existingPin!);
         await _stage.setRoute(trace, "home");
         await _stage.showModal(trace, StageModal.lock);
+        await lock(trace, _existingPin!);
       });
     }
   }
