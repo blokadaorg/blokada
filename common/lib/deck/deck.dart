@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:common/stage/channel.pg.dart';
+import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../device/device.dart';
@@ -46,6 +47,7 @@ extension DeckItemExt on DeckItem {
 }
 
 const _defaultListSelection = "05ea377c9a64cba97bf8a6f38cb3a7fa"; // OISD small
+const _defaultListSelectionFamily = "meta_ads/standard";
 
 class DeckStore = DeckStoreBase with _$DeckStore;
 
@@ -99,6 +101,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
       this.decks = ObservableMap.of(decks);
       decksChanges++;
       await _ops.doTagMappingChanged(_mapper.mapDeckItemTags(trace, deckItems));
+      if (enabledByUser.isNotEmpty) await setUserLists(trace, enabledByUser);
     });
   }
 
@@ -125,10 +128,55 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
     return await traceWith(parentTrace, "setUserLists", (trace) async {
       trace.addAttribute("enabledByUser", enabledByUser);
       this.enabledByUser = enabledByUser;
+
+      if (decks.isEmpty) {
+        // We don't have decks yet, so we can't sync the enabled states
+        trace.addEvent("decks is empty, skipping");
+        return;
+      }
+
       decks = ObservableMap.of(
           _mapper.syncEnabledStates(trace, decks, enabledByUser, _listTagToId));
       decksChanges++;
+
+      // Make sure there is no selected lists that we don't know
+
+      // First, make a list of all ListIds that are selected that we know
+      final knownLists = decks.filter((d) => d.value.enabled).mapValues((it) =>
+          it.value.items.values
+              .mapNotNull((it) => (it?.enabled ?? false) ? it?.id : null));
+      var knownIds = knownLists.values
+          .expand((it) => it)
+          .map((it) => _getMappedIds(trace, it))
+          .expand((it) => it)
+          .distinct()
+          .toList();
+
+      if (knownIds.isEmpty) {
+        // Use default selection for this flavor
+        trace.addEvent("Empty selection, setting default");
+        final def = act.isFamily()
+            ? _defaultListSelectionFamily
+            : _defaultListSelection;
+        knownIds = _getMappedIds(trace, def);
+      }
+
+      // Then, compare to enabledByUser
+      final unknownLists = enabledByUser.where((it) => !knownIds.contains(it));
+      if (unknownLists.isNotEmpty) {
+        trace.addEvent("enabledByUser has unknown list, re-setting");
+        trace.addEvent("enabledByUser: $enabledByUser");
+        trace.addEvent("known: $knownIds");
+
+        await _device.setLists(trace, knownIds);
+      }
     });
+  }
+
+  List<String> _getMappedIds(Trace trace, ListId id) {
+    final mapped = _mapper.expandListBundle(trace, id);
+    if (mapped == null) return [id];
+    return mapped.map((e) => _listTagToId[e]!).toList();
   }
 
   @action
@@ -143,11 +191,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
           }
         }
 
-        var mapped = _mapper.expandListBundle(trace, id);
-        var ids = [id];
-        if (mapped != null) {
-          ids = mapped.map((e) => _listTagToId[e]!).toList();
-        }
+        final ids = _getMappedIds(trace, id);
 
         // Copy to perform this atomically
         final list = List<String>.from(enabledByUser);
@@ -242,10 +286,6 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   Future<void> onDeviceChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
       await setUserLists(trace, _device.lists!);
-      if (_device.lists!.isEmpty) {
-        trace.addEvent("Empty selection, setting default");
-        return await setEnableList(trace, _defaultListSelection, true);
-      }
     });
   }
 }

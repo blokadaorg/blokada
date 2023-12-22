@@ -152,6 +152,8 @@ abstract class StageStoreBase
   bool isReady = false;
 
   bool _isForeground = false;
+  bool _isBecomingBackground = false;
+
   StageModal? _modalToShow;
   String? _pathToShow;
   bool _showNavbar = true;
@@ -180,6 +182,7 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "setForeground", (trace) async {
       _isForeground = true;
       if (isReady) await _processWaiting(trace);
+      _isBecomingBackground = false;
     });
   }
 
@@ -187,10 +190,14 @@ abstract class StageStoreBase
   Future<void> setBackground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setBackground", (trace) async {
       if (route.isForeground()) {
+        _isBecomingBackground = true;
         await emit(willEnterBackground, trace, route);
         route = route.newBg();
-        _isForeground = false;
-        await emitValue(routeChanged, trace, route);
+        if (_isBecomingBackground) {
+          _isForeground = false;
+          await emitValue(routeChanged, trace, route);
+        }
+        _isBecomingBackground = false;
       }
     });
   }
