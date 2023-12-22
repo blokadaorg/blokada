@@ -440,5 +440,6 @@
     "family shields header": "Активируйте защиту, чтобы заблокировать доступ к выбранному контенту на контролируемых устройствах.",
     "family shields custom slug": "Управляйте собственными пользовательскими записями, чтобы блокировать или разрешать их.",
     "toplist company other": "Прочее",
-    "toplist tld unknown": "неизвестно"
+    "toplist tld unknown": "неизвестно",
+    "family notification subtitle": "Защита семьи отключена"
 }

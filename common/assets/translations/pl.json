@@ -440,5 +440,6 @@
     "family shields header": "Aktywuj tarcze, aby zablokować dostęp do wybranych treści na urządzeniach nadzorowanych.",
     "family shields custom slug": "Zarządzaj własnymi wpisami, aby zablokować lub zezwolić.",
     "toplist company other": "Inne",
-    "toplist tld unknown": "nieznany"
+    "toplist tld unknown": "nieznany",
+    "family notification subtitle": "Ochrona rodziny wyłączona"
 }

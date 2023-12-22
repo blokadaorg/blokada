@@ -1,7 +1,7 @@
 {
     "error device offline": "Perangkat Anda offline/tidak terkoneksi",
     "error account inactive": "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.",
-    "error account inactive generic": "Your account is inactive. Please activate your account in order to continue using Blokada.",
+    "error account inactive generic": "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa kembali menggunakan Blokada.",
     "error account inactive after restore": "Akun ini sepertinya tidak valid/aktif. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.",
     "error account invalid": "ID akun ini sepertinya tidak valid.",
     "error creating account": "Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.",
@@ -23,7 +23,7 @@
     "error unknown": "Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.",
     "error multiple apps": "Ada lebih dari satu aplikasi Blokada di perangkat Anda. Hal ini bisa menyebabkan masalah koneksi. Apakah Anda ingin mengaturnya sekarang?",
     "error locked": "Tindakan ini tidak bisa digunakan saat aplikasi terkunci. Silakan buka kunci aplikasi untuk melanjutkan.",
-    "error lock invalid": "A valid PIN must be exactly 4 digits. Please try again.",
+    "error lock invalid": "PIN yang valid harus terdiri dari 4 angka. Silakan coba lagi.",
     "conn isssues header": "Ada masalah konektivitas",
     "conn isssues slug": "Ada masalah koneksi. Harap periksa kembali pengaturan Anda. Ketuk untuk detail lebih lanjut.",
     "conn isssues details": "- Periksa koneksi internet Anda\n- Hanya gunakan satu aplikasi Blokada saja\n- Nonaktifkan VPN lain",
@@ -430,7 +430,7 @@
     "family account link name": "Atur nama perangkat",
     "family account link qr header": "Pindai Kode QR ini",
     "family account link qr body": "Layar ini akan tertutup secara otomatis saat perangkat baru sudah terdeteksi.",
-    "family account cta unlink": "Unlink",
+    "family account cta unlink": "Lepas tautan",
     "family account decide header": "Tambah perangkat",
     "family account decide link header": "Tautkan perangkat",
     "family account decide link body": "Di Blokada, Anda cukup memindai kode QR untuk menautkan dan mengatur perangkat lain.",
@@ -440,5 +440,6 @@
     "family shields header": "Aktifkan perisai untuk memblokir akses ke konten yang telah Anda pilih ke perangkat Anda.",
     "family shields custom slug": "Atur sendiri mana saja entri yang akan diblokir atau diizinkan.",
     "toplist company other": "Lainnya",
-    "toplist tld unknown": "tidak diketahui"
+    "toplist tld unknown": "tidak diketahui",
+    "family notification subtitle": "Family protection is off"
 }

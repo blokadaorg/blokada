@@ -440,5 +440,6 @@
     "family shields header": "قم بتفعيل الدروع لمنع الوصول إلى المحتوى المحدد على أجهزتك الخاضعة للإشراف.",
     "family shields custom slug": "إدارة المدخلات المخصصة الخاصة بك للحظر أو السماح.",
     "toplist company other": "اخرى",
-    "toplist tld unknown": "غير معروف"
+    "toplist tld unknown": "غير معروف",
+    "family notification subtitle": "حماية الأسرة متوقف"
 }

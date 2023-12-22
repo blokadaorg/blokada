@@ -440,5 +440,6 @@
     "family shields header": "Aktiviere Schilde, um den Zugriff auf ausgewählte Inhalte auf deinen überwachten Geräten zu sperren.",
     "family shields custom slug": "Verwalten Sie Ihre eigenen benutzerdefinierten Einträge zu blockieren oder zuzulassen.",
     "toplist company other": "Andere",
-    "toplist tld unknown": "unbekannt"
+    "toplist tld unknown": "unbekannt",
+    "family notification subtitle": "Familienschutz aus"
 }

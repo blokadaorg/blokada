@@ -440,5 +440,6 @@
     "family shields header": "Activez les boucliers pour bloquer l'accès au contenu sélectionné sur vos appareils surveillés.",
     "family shields custom slug": "Gérez vos propres entrées personnalisées pour bloquer ou autoriser.",
     "toplist company other": "Autres",
-    "toplist tld unknown": "inconnue"
+    "toplist tld unknown": "inconnue",
+    "family notification subtitle": "La protection familiale est désactivée"
 }

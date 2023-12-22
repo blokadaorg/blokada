@@ -1,7 +1,7 @@
 {
     "error device offline": "インターネットに接続されていません",
     "error account inactive": "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。",
-    "error account inactive generic": "あなたのアカウントはアクティブではありません。Blokadaの使用を続けるにはアカウントを有効にしてください。",
+    "error account inactive generic": "あなたのアカウントはアクティベートされていません。Blokada を使用するにはアカウントをアクティベートしてください。",
     "error account inactive after restore": "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。",
     "error account invalid": "アカウント ID を確認してください",
     "error creating account": "新しいアカウントを作成できませんでした。後でもう一度お試しください。",
@@ -22,8 +22,8 @@
     "error location failed fetching": "接続先を取得できませんでした。",
     "error unknown": "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。",
     "error multiple apps": "端末に Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？",
-    "error locked": "この操作はアプリがロックされている状態では利用できません。続行するにはアプリのロックを解除してください。",
-    "error lock invalid": "有効なPINは正確に4桁でなければなりません。もう一度やり直してください。",
+    "error locked": "アプリのロック中はできない操作です。続行するにはアプリのロックを解除してください。",
+    "error lock invalid": "4 桁以外の PIN は無効です。もう一度やり直してください。",
     "conn isssues header": "接続エラー",
     "conn isssues slug": "接続に問題があります。設定を確認してください。タップして詳細を表示します。",
     "conn isssues details": "- インターネット接続を確認してください\n- 複数の Blokada アプリをしないでください\n- 他の VPN を無効にしてください",
@@ -397,8 +397,8 @@
     "lock status too many attempts": "間違えた回数が上限に到達しました。後でもう一度お試しください",
     "lock status enter to confirm": "もう一度 PIN コードを入力して、確認します",
     "lock status enter or wait": "新しい PIN コードを入力するま、ロックをお待ちください...",
-    "lock change pin": "暗証番号を変更",
-    "family rename device": "デバイス名の変更",
+    "lock change pin": "PIN を変更",
+    "family rename device": "端末名を変更",
     "family label this device": "この端末 (%s)",
     "family onboard header": "Blokada Family にようこそ！",
     "family onboard body": "表示されるガイドに従って、最初の端末を設定しましょう。",
@@ -440,5 +440,6 @@
     "family shields header": "保護されたデバイス上の選択したコンテンツへのアクセスをブロックするには、シールドを有効にします。",
     "family shields custom slug": "ブロックまたは許可する独自のカスタムエントリを管理します。",
     "toplist company other": "その他",
-    "toplist tld unknown": "不明"
+    "toplist tld unknown": "不明",
+    "family notification subtitle": "ファミリー保護はオフです"
 }

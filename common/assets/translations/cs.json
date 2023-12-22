@@ -440,5 +440,6 @@
     "family shields header": "Aktivujte štíty pro blokování přístupu k vybranému obsahu ve vašich dohlížených zařízeních.",
     "family shields custom slug": "Spravujte své vlastní položky pro blokování nebo povolení.",
     "toplist company other": "Ostatní",
-    "toplist tld unknown": "neznámé"
+    "toplist tld unknown": "neznámé",
+    "family notification subtitle": "Ochrana rodiny je vypnuta"
 }

@@ -440,5 +440,6 @@
     "family shields header": "Aktivera sköldar för att blockera åtkomst till valt innehåll på dina övervakade enheter.",
     "family shields custom slug": "Hantera dina egna anpassade poster att blockera eller tillåta.",
     "toplist company other": "Annat",
-    "toplist tld unknown": "okänd"
+    "toplist tld unknown": "okänd",
+    "family notification subtitle": "Familjeskyddet är avstängt"
 }

@@ -430,7 +430,7 @@
     "family account link name": "Setează numele dispozitivului",
     "family account link qr header": "Scanați acest cod QR",
     "family account link qr body": "Acest ecran se va închide automat după ce noul dispozitiv a fost detectat.",
-    "family account cta unlink": "Deconectare",
+    "family account cta unlink": "Deconecta",
     "family account decide header": "Adaugă dispozitiv",
     "family account decide link header": "Leagă un dispozitiv",
     "family account decide link body": "În Blokada, scanați pur și simplu un cod QR pentru a conecta și administra un alt dispozitiv.",
@@ -440,5 +440,6 @@
     "family shields header": "Activați scuturile pentru a bloca accesul la conținutul selectat de pe dispozitivele supravegheate.",
     "family shields custom slug": "Gestionați propriile intrări personalizate pentru a bloca sau permite.",
     "toplist company other": "Altele",
-    "toplist tld unknown": "necunoscut"
+    "toplist tld unknown": "necunoscut",
+    "family notification subtitle": "Protecția familială este dezactivată"
 }

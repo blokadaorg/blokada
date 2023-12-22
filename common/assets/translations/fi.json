@@ -440,5 +440,6 @@
     "family shields header": "Aktivoi kilvet estääksesi pääsyn valittuun sisältöön valvotuissa laitteissa.",
     "family shields custom slug": "Hallitse omia omia merkintöjäsi estääksesi tai sallitaksesi.",
     "toplist company other": "Muu",
-    "toplist tld unknown": "tuntematon"
+    "toplist tld unknown": "tuntematon",
+    "family notification subtitle": "Perheiden suojelu on pois päältä"
 }

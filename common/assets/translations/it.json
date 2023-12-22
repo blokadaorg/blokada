@@ -440,5 +440,6 @@
     "family shields header": "Attiva la protezione contro l'accesso ai contenuti selezionati sui tuoi dispositivi.",
     "family shields custom slug": "Gestisci le tue voci personalizzate per bloccare o consentire.",
     "toplist company other": "Altro",
-    "toplist tld unknown": "sconosciuto"
+    "toplist tld unknown": "sconosciuto",
+    "family notification subtitle": "La protezione della famiglia è spenta"
 }

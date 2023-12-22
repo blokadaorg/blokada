@@ -440,5 +440,6 @@
     "family shields header": "Ative escudos para bloquear o acesso ao conteúdo selecionado em seus dispositivos supervisionados.",
     "family shields custom slug": "Gerencie suas próprias entradas personalizadas para bloquear ou permitir.",
     "toplist company other": "Outros",
-    "toplist tld unknown": "desconhecido"
+    "toplist tld unknown": "desconhecido",
+    "family notification subtitle": "A proteção familiar está desativada"
 }

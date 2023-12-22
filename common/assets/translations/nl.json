@@ -440,5 +440,6 @@
     "family shields header": "Activeer schilden om toegang tot geselecteerde inhoud van uw gecontroleerde apparaten te blokkeren.",
     "family shields custom slug": "Beheer uw eigen aangepaste items om te blokkeren of toe te staan.",
     "toplist company other": "anders",
-    "toplist tld unknown": "Onbekend"
+    "toplist tld unknown": "Onbekend",
+    "family notification subtitle": "Gezinsbescherming is uitgeschakeld"
 }
