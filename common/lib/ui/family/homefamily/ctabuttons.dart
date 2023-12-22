@@ -218,7 +218,7 @@ class CtaButtonsState extends State<CtaButtons>
 
   String _getCtaText() {
     if (_phase == FamilyPhase.linkedUnlocked) {
-      return "Unlink";
+      return "family account cta unlink".i18n;
     } else if (_phase.requiresPerms()) {
       return "family cta action finish setup".i18n;
     } else if (_phase.requiresActivation()) {
