@@ -249,7 +249,7 @@ class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferen
                             val f = supportFragmentManager.findFragmentByTag(tag) ?: fragment
                             supportFragmentManager.beginTransaction()
                                 .replace(R.id.container_fragment, f, tag)
-                                .addToBackStack(null)
+                                //.addToBackStack(null)
                                 .commit()
                         } else {
                             supportFragmentManager.beginTransaction()
