@@ -12,12 +12,15 @@
 
 package ui.journal.custom
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import androidx.appcompat.widget.SearchView
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +29,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.blokada.R
+import service.ContextService
 import service.Sheet
 import ui.BottomSheetFragment
 
@@ -33,6 +37,10 @@ class UserDeniedFragment : BottomSheetFragment() {
     override val modal: Sheet = Sheet.Custom
 
     private val custom by lazy { CustomBinding }
+    private val ctx by lazy { ContextService }
+    private val inputMethodManager by lazy {
+        ctx.requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
 
     private var allowed: Boolean = true
 
@@ -60,13 +68,20 @@ class UserDeniedFragment : BottomSheetFragment() {
             }
         })
 
-        val input: SearchView = root.findViewById(R.id.activity_custom_input)
+        val input: EditText = root.findViewById(R.id.search_input)
+        val search: ImageView = root.findViewById(R.id.search_icon)
+
         val button: Button = root.findViewById(R.id.activity_custom_add)
         button.setOnClickListener {
-            if (allowed) custom.allow(input.query.toString())
-            else custom.deny(input.query.toString())
-            input.setQuery("", false)
+            if (allowed) custom.allow(input.text.toString())
+            else custom.deny(input.text.toString())
+            input.text = null
             input.clearFocus()
+            inputMethodManager.hideSoftInputFromWindow(button.windowToken, 0)
+        }
+
+        search.setOnClickListener {
+            input.text = null
         }
 
         val manager = LinearLayoutManager(context)

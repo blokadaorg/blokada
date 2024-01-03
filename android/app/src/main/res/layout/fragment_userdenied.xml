@@ -86,20 +86,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/activity_tabs">
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/activity_custom_input"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:inputType="textVisiblePassword"
-                    app:searchHintIcon="@drawable/ic_playlist_edit"
-                    app:searchIcon="@drawable/baseline_playlist_add_24" />
-
-                <Button
-                    android:id="@+id/activity_custom_add"
-                    android:layout_width="wrap_content"
+                <!-- Search Input -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/userdenied_action_allow" />
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <!-- Input Field -->
+                    <EditText
+                        android:id="@+id/search_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="example.com"
+                        android:inputType="textVisiblePassword" />
+
+                    <!-- Search Icon -->
+                    <ImageView
+                        android:id="@+id/search_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/half"
+                        android:layout_marginEnd="@dimen/normal"
+                        android:src="@drawable/ic_baseline_backspace_24" />
+
+                    <Button
+                        android:id="@+id/activity_custom_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/userdenied_action_allow" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
