@@ -38,14 +38,13 @@ class SettingsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
 
         account.live.observe(viewLifecycleOwner) { account ->
-            val active = root.findViewById<TextView>(R.id.settings_active)
-            active?.text = if (account.isActive()) {
-                getString(
+            val active = root.findViewById<TextView?>(R.id.settings_active)
+            if (active != null && account != null && account.isActive()) {
+                active.text = getString(
                     R.string.account_status_text,
                     account.getType().toString(),
                     account.activeUntil().toSimpleString()
-                )
-                    .toBlokadaText()
+                ).toBlokadaText()
             } else {
                 getString(R.string.account_status_text_inactive).toBlokadaText()
             }
