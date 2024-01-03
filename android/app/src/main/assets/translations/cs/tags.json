@@ -12,5 +12,17 @@
     "gambling": "hazardní hry",
     "youtube": "youtube",
     "phishing": "phishing",
-    "security": "zabezpečení"
+    "security": "zabezpečení",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "seznamka",
+    "piracy": "pirátství",
+    "torrent": "torrent",
+    "streaming": "streamování",
+    "apps": "aplikace",
+    "chat": "chat",
+    "gaming": "hraní",
+    "games": "hry",
+    "e-commerce": "elektronické obchodování",
+    "other": "ostatní"
 } }

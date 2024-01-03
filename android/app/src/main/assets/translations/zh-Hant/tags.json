@@ -12,5 +12,17 @@
     "gambling": "賭博",
     "youtube": "youtube",
     "phishing": "網路釣魚",
-    "security": "安全性"
+    "security": "安全性",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "dating",
+    "piracy": "piracy",
+    "torrent": "torrent",
+    "streaming": "streaming",
+    "apps": "apps",
+    "chat": "chat",
+    "gaming": "gaming",
+    "games": "games",
+    "e-commerce": "e-commerce",
+    "other": "other"
 } }

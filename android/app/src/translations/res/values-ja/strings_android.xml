@@ -19,7 +19,7 @@
     <string name="networks_label_configuration_active">これらの設定は有効です</string>
     <string name="networks_label_configuration_enabled">このネットワークに接続されていません</string>
     <string name="networks_label_configuration_inactive">タップしてこのネットワークの設定を変更します</string>
-    <string name="networks_label_details_default_network">以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を（前の画面で）上書きできます。</string>
+    <string name="networks_label_details_default_network">以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を (前の画面で) 上書きできます。</string>
     <string name="networks_action_encrypt_dns">DNS を暗号化</string>
     <string name="networks_action_use_dns">DNS: %s</string>
     <string name="networks_action_use_network_dns">ネットワーク DNS を優先する</string>
@@ -32,9 +32,9 @@
     <string name="networks_permission_request_granted">Blokada がネットワーク名をバックグラウンドで読み込むと通知が表示されることがあります。</string>
     <string name="networks_section_choose_dns">DNS を選択</string>
     <string name="networks_summary_encrypt_dns">Blokada は暗号化された DNS に優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。</string>
-    <string name="networks_summary_use_dns">Blokada はデバイスの DNS として %s を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。</string>
+    <string name="networks_summary_use_dns">Blokada は端末の DNS として %s を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。</string>
     <string name="networks_summary_network_dns">Blokada はネットワーク DNS を使用し、使用できない場合は %s に切り替えます。ネットワーク DNS を使用すると DNS は暗号化されません。ネットワーク上の接続の問題が解決される場合がありますが、保護されていない状態になります。</string>
-    <string name="networks_summary_network_dns_and_plus_mode">Blokada は、ネットワーク DNS が使用されるたびに Plus モードを一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。デバイスが別のネットワークに切り替わると、Plus モードは自動的に復元されます。</string>
+    <string name="networks_summary_network_dns_and_plus_mode">Blokada は、ネットワーク DNS が使用されるたびに Plus モードを一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。端末が別のネットワークに切り替わると、Plus モードは自動的に復元されます。</string>
     <string name="networks_summary_blocka_plus_mode">Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。</string>
     <string name="networks_summary_force_libre_mode">Blokada はこのネットワーク上で常に Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。</string>
     <string name="networks_permission_dialog">Blokada は接続先のネットワークを認識して個別の設定を適用することができます。Blokada がこの機能を有効にするためにはネットワーク名を収集する必要があり、位置情報へのアクセス許可が必要です。アプリが閉じられているか使用されていない場合でも、場合によっては位置情報へのアクセスに関するシステム通知が表示されることがあります。Blokada はネットワーク名のみを読み取りその他の情報は利用しません。</string>
@@ -43,16 +43,16 @@
     <string name="account_encrypt_level_medium">中</string>
     <string name="account_encrypt_level_high">高</string>
     <string name="account_encrypt_label_dns_only">DNS 暗号化</string>
-    <string name="account_encrypt_desc_dns_only">DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。Blokada では暗号化された DNS サーバー（DNS over HTTPS）のみに接続するように設定できます。</string>
+    <string name="account_encrypt_desc_dns_only">DNS は、ドメイン名からウェブサイトのあるサーバーの場所を検索するシステムです。ほとんどの場合、暗号化されていない DNS を使用しているため、閲覧履歴がスパイされる危険性があります。Blokada では暗号化された DNS サーバー (DNS over HTTPS) のみに接続するように設定できます。</string>
     <string name="account_encrypt_label_everything">VPN 経由で接続中</string>
-    <string name="account_encrypt_desc_everything">デバイスは安全な VPN サーバーを介して接続されており、デバイスとの間のすべての通信は強力なアルゴリズムを使用して暗号化されています。これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップの Wi-Fi などの安全でない場所で盗まれるのを防ぎます。</string>
+    <string name="account_encrypt_desc_everything">端末は安全な VPN サーバーを介して接続されており、端末との間のすべての通信は強力なアルゴリズムを使用して暗号化されています。これにより、銀行取引やプライベートな写真などの個人情報が、コーヒーショップの Wi-Fi などの安全でない場所で盗まれるのを防ぎます。</string>
     <string name="account_encrypt_action_turn_on">BLOKADA を ON にする</string>
     <string name="account_encrypt_header_level">暗号化レベル</string>
     <string name="account_encrypt_label_level">レベル</string>
     <string name="account_encrypt_label_level_low">低: 暗号化なし</string>
     <string name="account_encrypt_label_level_medium">中: DNS の暗号化</string>
     <string name="account_encrypt_label_level_high">高：すべての暗号化</string>
-    <string name="account_encrypt_header_explanation">DNS とは、あなたのデバイスをウェブサイトのあるサーバーへ案内するシステムです。BLOKADA は暗号化された DNS サーバーのみをサポートしています。</string>
+    <string name="account_encrypt_header_explanation">DNS とは、あなたの端末をウェブサイトのあるサーバーへ案内するシステムです。BLOKADA は暗号化された DNS サーバーのみをサポートしています。</string>
     <string name="account_encrypt_label_dns">DNS</string>
     <string name="account_encrypt_action_what_is_dns">DNS とは？</string>
     <string name="account_encrypt_section_header">暗号化</string>
@@ -61,7 +61,7 @@
     <string name="apps_section_header">アプリ</string>
     <string name="apps_label_installed">インストール済み</string>
     <string name="apps_label_system">システム</string>
-    <string name="apps_status_bypassed">（バイパス済み）</string>
+    <string name="apps_status_bypassed">(バイパス済み)</string>
     <string name="apps_filter_header">どのアプリを表示しますか？</string>
     <string name="apps_filter_action_show_all">すべて</string>
     <string name="apps_filter_action_show_bypassed">バイパスされたアプリ</string>
@@ -73,7 +73,7 @@
     <string name="app_settings_theme_dark">ダーク</string>
     <string name="app_settings_browser_label">リンクを開く</string>
     <string name="app_settings_browser_internal">内部ブラウザー</string>
-    <string name="app_settings_browser_external">外部ブラウザー（可能な場合）</string>
+    <string name="app_settings_browser_external">外部ブラウザー (可能な場合)</string>
     <string name="app_settings_ipvsix_label">IPv6 を許可する</string>
     <string name="app_settings_section_system">システム</string>
     <string name="app_settings_action_app_info">アプリ情報を開く</string>
@@ -81,12 +81,12 @@
     <string name="app_settings_action_notifications">通知設定を開く</string>
     <string name="app_settings_section_details">詳細</string>
     <string name="app_settings_status_default">システムのデフォルト</string>
-    <string name="app_settings_start_on_boot">デバイス起動時に Blokada を開始</string>
+    <string name="app_settings_start_on_boot">端末起動時に Blokada を開始</string>
     <string name="app_settings_use_dns_over_https">DNS over HTTPS を利用する</string>
     <string name="app_settings_backup">クラウドバックアップ</string>
     <string name="app_settings_section_advanced">詳細</string>
     <string name="app_settings_section_use_foreground">スリープモードにしない</string>
     <string name="intro_header">Blokada が有効です！</string>
-    <string name="intro_text">青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN（Android）/ オンデマンド接続（iOS）を有効にすることをお勧めします。</string>
+    <string name="intro_text">青いリングは Blokada が動作していることを意味します。\n\nYouTube などの一部の広告はブロックできません。ただし、他の多くのアプリには有効です。\n\nシステム設定で常時接続 VPN (Android) / オンデマンド接続 (iOS) を有効にすることをお勧めします。</string>
     <string name="intro_text_not_libre">Blokada が起動していると青またはオレンジのリングが表示されます。\n\nシステム設定で常時接続 VPN を有効にすることをお勧めします。</string>
 </resources>

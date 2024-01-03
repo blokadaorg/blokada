@@ -12,5 +12,17 @@
     "gambling": "القمار",
     "youtube": "يوتيوب",
     "phishing": "التصيُّد الإحتيالي",
-    "security": "الحماية"
+    "security": "الحماية",
+    "malware": "malware",
+    "spam": "البريد المزعج",
+    "dating": "تاريخ",
+    "piracy": "القرصنة",
+    "torrent": "تورنت",
+    "streaming": "التدفق",
+    "apps": "تطبيقات",
+    "chat": "دردشة",
+    "gaming": "ألعاب",
+    "games": "ألعاب",
+    "e-commerce": "التجارة الإلكترونية",
+    "other": "اخرى"
 } }

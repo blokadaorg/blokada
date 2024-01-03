@@ -12,5 +12,17 @@
     "gambling": "азартные игры",
     "youtube": "youtube",
     "phishing": "фишинг",
-    "security": "безопасность"
+    "security": "безопасность",
+    "malware": "вредоносное ПО",
+    "spam": "спам",
+    "dating": "знакомства",
+    "piracy": "пиратство",
+    "torrent": "торрент",
+    "streaming": "стриминг",
+    "apps": "приложения",
+    "chat": "чат",
+    "gaming": "игры",
+    "games": "игры",
+    "e-commerce": "электронная коммерция",
+    "other": "другое"
 } }

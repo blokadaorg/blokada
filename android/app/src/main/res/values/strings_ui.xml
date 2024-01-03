@@ -2,6 +2,7 @@
 <resources>
     <string name="error_device_offline">Your device is offline</string>
     <string name="error_account_inactive">Your account is inactive. Please activate your account in order to continue using BLOKADA+.</string>
+    <string name="error_account_inactive_generic">Your account is inactive. Please activate your account in order to continue using Blokada.</string>
     <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.</string>
     <string name="error_account_invalid">This account ID seems invalid.</string>
     <string name="error_creating_account">Could not create a new account. Please try again later.</string>
@@ -23,6 +24,7 @@
     <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.</string>
     <string name="error_multiple_apps">There is more than one Blokada app on your device. This may cause connectivity issues. Do you wish to fix it now?</string>
     <string name="error_locked">This action is unavailable when the app is in a locked state. Please unlock the app to proceed.</string>
+    <string name="error_lock_invalid">A valid PIN must be exactly 4 digits. Please try again.</string>
     <string name="conn_isssues_header">Connectivity issues</string>
     <string name="conn_isssues_slug">Connectivity issues. Please check your configuration. Tap for details.</string>
     <string name="conn_isssues_details">- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs</string>
@@ -392,9 +394,12 @@
     <string name="universal_status_waiting_for_data">Waiting for data</string>
     <string name="universal_action_disable">Disable</string>
     <string name="lock_action_slide_unlock">Slide to unlock</string>
+    <string name="lock_action_slide_unlock_short">Slide</string>
     <string name="lock_status_too_many_attempts">Too many wrong attempts. Try again later</string>
     <string name="lock_status_enter_to_confirm">Enter the pin code again to confirm</string>
     <string name="lock_status_enter_or_wait">Enter new pin code, or wait to lock...</string>
+    <string name="lock_change_pin">Change pin</string>
+    <string name="family_rename_device">Rename device</string>
     <string name="family_label_this_device">This device (%s)</string>
     <string name="family_onboard_header">Welcome to Blokada Family!</string>
     <string name="family_onboard_body">Follow the instructions on screen to set up your first device.</string>
@@ -426,11 +431,16 @@
     <string name="family_account_link_name">Set device name</string>
     <string name="family_account_link_qr_header">Scan this QR code</string>
     <string name="family_account_link_qr_body">This screen will close automatically once the new device has been detected.</string>
+    <string name="family_account_cta_unlink">Unlink</string>
     <string name="family_account_decide_header">Add device</string>
     <string name="family_account_decide_link_header">Link a device</string>
     <string name="family_account_decide_link_body">In Blokada, you simply scan a QR code to link and manage another device.</string>
+    <string name="family_account_decide_separator">- or -</string>
     <string name="family_account_decide_this_header">Use this device</string>
     <string name="family_account_decide_this_body">Alternatively, you may simply configure Blokada to work on this device, and set the pin to lock the app.</string>
     <string name="family_shields_header">Activate shields to block access to selected content on your supervised devices.</string>
     <string name="family_shields_custom_slug">Manage your own custom entries to block or allow.</string>
+    <string name="toplist_company_other">Other</string>
+    <string name="toplist_tld_unknown">unknown</string>
+    <string name="family_notification_subtitle">Family protection is off</string>
 </resources>

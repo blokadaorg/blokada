@@ -12,5 +12,17 @@
     "gambling": "uhkapelaaminen",
     "youtube": "youtube",
     "phishing": "tietojenkalastelu",
-    "security": "turvallisuus"
+    "security": "turvallisuus",
+    "malware": "malware",
+    "spam": "roskaposti",
+    "dating": "dating",
+    "piracy": "merirosvous",
+    "torrent": "torrentti",
+    "streaming": "streaming",
+    "apps": "sovellukset",
+    "chat": "chat",
+    "gaming": "pelaaminen",
+    "games": "pelit",
+    "e-commerce": "sähköinen kaupankäynti",
+    "other": "muu"
 } }

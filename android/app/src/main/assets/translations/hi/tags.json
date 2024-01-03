@@ -12,5 +12,17 @@
     "gambling": "जुआ",
     "youtube": "यूट्यूब",
     "phishing": "फ़िशिंग",
-    "security": "सुरक्षा"
+    "security": "सुरक्षा",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "dating",
+    "piracy": "piracy",
+    "torrent": "torrent",
+    "streaming": "streaming",
+    "apps": "apps",
+    "chat": "chat",
+    "gaming": "gaming",
+    "games": "games",
+    "e-commerce": "e-commerce",
+    "other": "other"
 } }

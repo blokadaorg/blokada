@@ -12,5 +12,17 @@
     "gambling": "hazard",
     "youtube": "youtube",
     "phishing": "wyłudzanie",
-    "security": "bezpieczeństwo"
+    "security": "bezpieczeństwo",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "randkowanie",
+    "piracy": "piractwo",
+    "torrent": "torrent",
+    "streaming": "strumieniowanie",
+    "apps": "aplikacje",
+    "chat": "czat",
+    "gaming": "gra",
+    "games": "gry",
+    "e-commerce": "handel elektroniczny",
+    "other": "inne"
 } }

@@ -12,5 +12,17 @@
     "gambling": "jocuri de noroc",
     "youtube": "YouTube",
     "phishing": "phishing",
-    "security": "securitate"
+    "security": "securitate",
+    "malware": "program malițios",
+    "spam": "nedorite",
+    "dating": "matrimonială",
+    "piracy": "piraterie",
+    "torrent": "torrent",
+    "streaming": "transmisiune",
+    "apps": "aplicații",
+    "chat": "conversație",
+    "gaming": "jocuri",
+    "games": "jocuri",
+    "e-commerce": "Comerțul electronic",
+    "other": "alt"
 } }

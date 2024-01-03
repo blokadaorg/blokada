@@ -12,5 +12,17 @@
     "gambling": "хазарт",
     "youtube": "youtube",
     "phishing": "измама",
-    "security": "защита"
+    "security": "защита",
+    "malware": "зловреден софтуер",
+    "spam": "спам",
+    "dating": "запознанства",
+    "piracy": "пиратство",
+    "torrent": "торент",
+    "streaming": "стрииминг",
+    "apps": "приложения",
+    "chat": "чат",
+    "gaming": "играене",
+    "games": "игри",
+    "e-commerce": "електронна търговия",
+    "other": "друго"
 } }

@@ -12,5 +12,17 @@
     "gambling": "jogos de azar",
     "youtube": "youtube",
     "phishing": "phishing",
-    "security": "segurança"
+    "security": "segurança",
+    "malware": "malware",
+    "spam": "Spam",
+    "dating": "namoro",
+    "piracy": "pirataria",
+    "torrent": "torrente",
+    "streaming": "transmissão",
+    "apps": "aplicativos",
+    "chat": "bate-papo",
+    "gaming": "jogos",
+    "games": "jogos",
+    "e-commerce": "e-commerce",
+    "other": "Outro"
 } }

@@ -12,5 +12,17 @@
     "gambling": "kansspelen",
     "youtube": "youtube",
     "phishing": "phishing",
-    "security": "beveiliging"
+    "security": "beveiliging",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "Bijwerken",
+    "piracy": "piraterij",
+    "torrent": "torrent",
+    "streaming": "streamen",
+    "apps": "apps",
+    "chat": "chat",
+    "gaming": "Gaming",
+    "games": "spellen",
+    "e-commerce": "e-commerce",
+    "other": "Anders"
 } }

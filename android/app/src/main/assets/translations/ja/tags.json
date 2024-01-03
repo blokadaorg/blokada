@@ -12,5 +12,17 @@
     "gambling": "ギャンブル",
     "youtube": "YouTube",
     "phishing": "フィッシング",
-    "security": "セキュリティ"
+    "security": "セキュリティ",
+    "malware": "マルウェア",
+    "spam": "迷惑メール",
+    "dating": "出会い系",
+    "piracy": "海賊版",
+    "torrent": "Torrent",
+    "streaming": "ストリーミング",
+    "apps": "アプリ",
+    "chat": "チャット",
+    "gaming": "ゲーム総合",
+    "games": "ゲーム",
+    "e-commerce": "ネットショッピング",
+    "other": "その他"
 } }

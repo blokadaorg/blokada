@@ -12,5 +12,17 @@
     "gambling": "spelande",
     "youtube": "youtube",
     "phishing": "nätfiske",
-    "security": "säkerhet"
+    "security": "säkerhet",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "dejting",
+    "piracy": "piratkopiering",
+    "torrent": "torrent",
+    "streaming": "streaming",
+    "apps": "appar",
+    "chat": "Chatt",
+    "gaming": "spel",
+    "games": "spel",
+    "e-commerce": "E-handel",
+    "other": "Annat"
 } }

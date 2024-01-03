@@ -12,5 +12,17 @@
     "gambling": "judi",
     "youtube": "youtube",
     "phishing": "phishing",
-    "security": "keamanan"
+    "security": "keamanan",
+    "malware": "malware",
+    "spam": "spam",
+    "dating": "kencan",
+    "piracy": "pembajakan",
+    "torrent": "torrent",
+    "streaming": "streaming",
+    "apps": "aplikasi",
+    "chat": "percakapan",
+    "gaming": "gaming",
+    "games": "permainan",
+    "e-commerce": "e-commerce",
+    "other": "lainnya"
 } }
