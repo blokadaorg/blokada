@@ -18,13 +18,12 @@
         app:key="app_category"
         app:title="@string/account_section_header_general">
 
-        <ListPreference
+        <Preference
             app:icon="@drawable/ic_baseline_language_24"
             app:key="app_language"
-            app:title="@string/app_settings_language_label"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/app_settings_language_label" />
 
-        <ListPreference
+        <Preference
             app:icon="@drawable/ic_baseline_color_lens_24"
             app:key="app_theme"
             app:title="@string/app_settings_theme_label"
@@ -41,19 +40,13 @@
         app:key="app_category_advanced"
         app:title="@string/app_settings_section_advanced">
 
-        <ListPreference
+        <Preference
             app:icon="@drawable/ic_baseline_app_settings_alt_24"
             app:key="app_useforeground"
             app:title="@string/app_settings_section_use_foreground"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:icon="@drawable/ic_baseline_wifi_24"
-            app:key="app_ping"
-            app:title="Ping networks"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
+        <Preference
             app:icon="@drawable/ic_baseline_open_in_browser_24"
             app:key="app_browser"
             app:title="@string/app_settings_browser_label"

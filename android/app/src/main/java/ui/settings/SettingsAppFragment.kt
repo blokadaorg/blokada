@@ -16,10 +16,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.StageBinding
@@ -29,8 +34,6 @@ import service.EnvironmentService
 import service.UpdateService
 import ui.BlockaRepoViewModel
 import ui.SettingsViewModel
-import ui.THEME_RETRO_KEY
-import ui.THEME_RETRO_NAME
 import ui.app
 import utils.Links
 
@@ -52,94 +55,106 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             blockaRepoVM = ViewModelProvider(it.app()).get(BlockaRepoViewModel::class.java)
         }
 
-        val language: ListPreference = findPreference("app_language")!!
+        val language: Preference = findPreference("app_language")!!
         val languages = mutableMapOf(
             "root" to getString(R.string.app_settings_status_default)
         ).also {
             it.putAll(LANGUAGE_NICE_NAMES.toSortedMap())
         }
-        language.entryValues = languages.keys.toTypedArray()
-        language.entries = languages.map { it.value }.toTypedArray()
-        language.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                "root" -> vm.setLocale(null)
-                else -> vm.setLocale(newValue as String)
-            }
-            true
-        }
-
-        val theme: ListPreference = findPreference("app_theme")!!
-        theme.entryValues = listOf(
-            getString(R.string.app_settings_status_default),
-            getString(R.string.app_settings_theme_dark),
-            getString(R.string.app_settings_theme_light),
-            if (vm.syncableConfig.value?.rated == true) THEME_RETRO_NAME else null
-        ).filterNotNull().toTypedArray()
-        theme.entries = theme.entryValues
-        theme.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.app_settings_theme_dark) -> vm.setUseDarkTheme(true)
-                getString(R.string.app_settings_theme_light) -> vm.setUseDarkTheme(false)
-                THEME_RETRO_NAME -> vm.setUseTheme(THEME_RETRO_KEY)
-                else -> vm.setUseDarkTheme(null)
-            }
-            showRestartRequired()
-            true
-        }
-
-        val browser: ListPreference = findPreference("app_browser")!!
-        browser.entryValues = listOf(
-            getString(R.string.app_settings_browser_internal),
-            getString(R.string.app_settings_browser_external)
-        ).toTypedArray()
-        browser.entries = browser.entryValues
-        browser.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.app_settings_browser_internal) -> vm.setUseChromeTabs(false)
-                else -> vm.setUseChromeTabs(true)
-            }
-            true
-        }
-
-        val yesNoChoice = listOf(
-            getString(R.string.universal_action_yes),
-            getString(R.string.universal_action_no)
-        ).toTypedArray()
-
-        val backup: ListPreference? = findPreference("app_backup")
-        backup?.let { backup ->
-            backup.entryValues = yesNoChoice
-            backup.entries = backup.entryValues
-            backup.setOnPreferenceChangeListener { _, newValue ->
+        language.setOnPreferenceClickListener { _ ->
+            showSingleChoiceDialog(
+                requireContext(), getString(R.string.app_settings_language_label),
+                languages, vm.localConfig.value?.locale ?: "root"
+            ) { newValue ->
                 when (newValue) {
-                    getString(R.string.universal_action_yes) -> vm.setUseBackup(true)
-                    else -> vm.setUseBackup(false)
+                    "root" -> vm.setLocale(null)
+                    else -> vm.setLocale(newValue)
+                }
+            }
+            true
+        }
+
+        val theme: Preference = findPreference("app_theme")!!
+        val themes = mapOf(
+            "default" to getString(R.string.app_settings_status_default),
+            "dark" to getString(R.string.app_settings_theme_dark),
+            "light" to getString(R.string.app_settings_theme_light),
+        )
+        theme.setOnPreferenceClickListener { _ ->
+            val value = when (vm.localConfig.value?.useDarkTheme) {
+                true -> "dark"
+                false -> "light"
+                else -> "default"
+            }
+            showSingleChoiceDialog(
+                requireContext(), getString(R.string.app_settings_theme_label),
+                themes, value
+            ) { newValue ->
+                when (newValue) {
+                    "dark" -> vm.setUseDarkTheme(true)
+                    "light" -> vm.setUseDarkTheme(false)
+                    else -> vm.setUseDarkTheme(null)
+                }
+                showRestartRequired()
+            }
+            true
+        }
+
+        val browser: Preference = findPreference("app_browser")!!
+        val browsers = mapOf(
+            "internal" to getString(R.string.app_settings_browser_internal),
+            "external" to getString(R.string.app_settings_browser_external)
+        )
+        browser.setOnPreferenceClickListener { _ ->
+            val value = if (vm.localConfig.value?.useChromeTabs == true) "external" else "internal"
+            showSingleChoiceDialog(
+                requireContext(), getString(R.string.app_settings_browser_label),
+                browsers, value
+            ) { newValue ->
+                when (newValue) {
+                    "internal" -> vm.setUseChromeTabs(false)
+                    else -> vm.setUseChromeTabs(true)
+                }
+            }
+            true
+        }
+
+        val yesNoChoice = mapOf(
+            "yes" to getString(R.string.universal_action_yes),
+            "no" to getString(R.string.universal_action_no)
+        )
+
+        val backup: Preference? = findPreference("app_backup")
+        backup?.let { backup ->
+            backup.setOnPreferenceClickListener { _ ->
+                val value = if (vm.localConfig.value?.backup == true) "yes" else "no"
+                showSingleChoiceDialog(
+                    requireContext(), getString(R.string.app_settings_backup),
+                    yesNoChoice, value
+                ) { newValue ->
+                    when (newValue) {
+                        "yes" -> vm.setUseBackup(true)
+                        else -> vm.setUseBackup(false)
+                    }
                 }
                 showRestartRequired()
                 true
             }
         }
 
-        val useForeground: ListPreference = findPreference("app_useforeground")!!
-        useForeground.entryValues = yesNoChoice
-        useForeground.entries = useForeground.entryValues
-        useForeground.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.universal_action_yes) -> vm.setUseForegroundService(true)
-                else -> vm.setUseForegroundService(false)
+        val useForeground: Preference = findPreference("app_useforeground")!!
+        useForeground.setOnPreferenceClickListener { _ ->
+            val value = if (vm.localConfig.value?.useForegroundService == true) "yes" else "no"
+            showSingleChoiceDialog(
+                requireContext(), getString(R.string.app_settings_section_use_foreground),
+                yesNoChoice, value
+            ) { newValue ->
+                when (newValue) {
+                    "yes" -> vm.setUseForegroundService(true)
+                    else -> vm.setUseForegroundService(false)
+                }
             }
             showRestartRequired()
-            true
-        }
-
-        val ping: ListPreference = findPreference("app_ping")!!
-        ping.entryValues = yesNoChoice
-        ping.entries = useForeground.entryValues
-        ping.setOnPreferenceChangeListener { _, newValue ->
-            when (newValue) {
-                getString(R.string.universal_action_yes) -> vm.setPingToCheckNetwork(true)
-                else -> vm.setPingToCheckNetwork(false)
-            }
             true
         }
 
@@ -156,41 +171,9 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
         }
 
         vm.localConfig.observe(viewLifecycleOwner, Observer {
-            val value = when (it.useDarkTheme) {
-                true -> getString(R.string.app_settings_theme_dark)
-                false -> getString(R.string.app_settings_theme_light)
-                else -> when (it.themeName) {
-                    THEME_RETRO_KEY -> THEME_RETRO_NAME
-                    else -> getString(R.string.app_settings_status_default)
-                }
-            }
-            theme.setDefaultValue(value)
-            theme.value = value
-
             val locale = it.locale
             val selected = locale ?: "root"
             language.setDefaultValue(selected)
-            language.value = selected
-
-            val b = if (it.useChromeTabs) getString(R.string.app_settings_browser_external)
-            else getString(R.string.app_settings_browser_internal)
-            browser.setDefaultValue(b)
-            browser.value = b
-
-            val useBackup = if (it.backup) getString(R.string.universal_action_yes)
-            else getString(R.string.universal_action_no)
-            backup?.setDefaultValue(useBackup)
-            backup?.value = useBackup
-
-            val useFg = if (it.useForegroundService) getString(R.string.universal_action_yes)
-            else getString(R.string.universal_action_no)
-            useForeground.setDefaultValue(useFg)
-            useForeground.value = useFg
-
-            val usePing = if (it.pingToCheckNetwork) getString(R.string.universal_action_yes)
-            else getString(R.string.universal_action_no)
-            ping.setDefaultValue(usePing)
-            ping.value = usePing
         })
 
         val config: Preference = findPreference("app_config")!!
@@ -247,6 +230,56 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
         putExtra("app_package", ctx.packageName)
         putExtra("app_uid", ctx.applicationInfo.uid)
         putExtra("android.provider.extra.APP_PACKAGE", ctx.packageName)
+    }
+
+    private fun showSingleChoiceDialog(
+        context: Context, title: String,
+       items: Map<String, String>, selected: String?, onItemSelected: (String) -> Unit
+    ) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+
+        val values = items.entries.toTypedArray().associateWith { item ->
+            if (item.key == selected) getString(R.string.universal_action_selected) else ""
+        }.map { it.key.value to it.value }.toList()
+
+        val listView = ListView(requireContext())
+        val adapter = object : ArrayAdapter<Pair<String, String>>(requireContext(),
+            R.layout.item_setting, R.id.settings_name, values) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+                val text1 = view.findViewById<TextView>(R.id.settings_name)
+                val sel1 = view.findViewById<View>(R.id.settings_selected)
+                val sel2 = view.findViewById<View>(R.id.settings_selected_text)
+
+                val item = getItem(position)
+                text1.text = item?.first
+
+                if (item?.second?.isNotEmpty() == true) {
+                    sel1.visibility = View.VISIBLE
+                    sel2.visibility = View.VISIBLE
+                } else {
+                    sel1.visibility = View.GONE
+                    sel2.visibility = View.GONE
+                }
+
+                return view
+            }
+        }
+
+        listView.adapter = adapter
+
+        builder.setView(listView)
+
+        builder.setNegativeButton(getString(R.string.universal_action_cancel), null)
+
+        val dialog = builder.create()
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            onItemSelected(items.keys.toTypedArray()[position])
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }
 
