@@ -20,9 +20,14 @@ import utils.Logger
 
 class FlutterHomeFragment: FlutterFragment() {
 
+    private var argumentsSet = false
+
     override fun onAttach(context: Context) {
+        if (!argumentsSet || arguments == null) {
+            Logger.w("Flutter", "Attaching fragment ${this.hashCode()}")
             arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
-        Logger.w("Flutter", "Attaching fragment ${this.hashCode()}")
+            argumentsSet = true
+        }
         super.onAttach(context)
     }
 }
