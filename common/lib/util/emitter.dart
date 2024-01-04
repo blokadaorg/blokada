@@ -27,6 +27,7 @@ mixin Emitter {
         await listener(trace);
       } catch (e) {
         trace.addEvent("listener threw error: ${e.runtimeType}");
+        trace.addEvent("listener threw error, detail: $e");
       }
     }
   }
@@ -58,6 +59,7 @@ mixin ValueEmitter<T> {
         await listener(trace, value);
       } catch (e) {
         trace.addEvent("listener threw error: ${e.runtimeType}");
+        trace.addEvent("listener threw error, detail: $e");
       }
     }
   }

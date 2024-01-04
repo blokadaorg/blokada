@@ -219,6 +219,7 @@ abstract class DeviceStoreBase
   Future<void> setDeviceAlias(Trace parentTrace, String deviceAlias) async {
     return await traceWith(parentTrace, "setDeviceAlias", (trace) async {
       if (deviceAlias.isEmpty) throw Exception("Device alias cannot be empty");
+      trace.addAttribute("alias", deviceAlias);
 
       this.deviceAlias = deviceAlias;
       await _persistence.saveString(trace, _keyAlias, deviceAlias);
@@ -234,6 +235,7 @@ abstract class DeviceStoreBase
   @action
   Future<void> setLinkedTag(Trace parentTrace, String? linkedTag) async {
     return await traceWith(parentTrace, "setLinkedTag", (trace) async {
+      trace.addAttribute("tag", linkedTag);
       deviceTag = linkedTag;
       if (linkedTag != null) {
         tagOverwritten = true;
