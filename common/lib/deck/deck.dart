@@ -285,7 +285,10 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> onDeviceChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
-      await setUserLists(trace, _device.lists!);
+      final lists = _device.lists;
+      if (lists != null) {
+        await setUserLists(trace, _device.lists!);
+      }
     });
   }
 }

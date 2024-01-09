@@ -40,12 +40,10 @@ abstract class FamilyStoreBase
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
-  late final _start = dep<AppStartStore>();
   late final _lock = dep<LockStore>();
   late final _cloudDevice = dep<DeviceStore>();
   late final _journal = dep<JournalStore>();
   late final _device = dep<DeviceStore>();
-  late final _app = dep<AppStore>();
   late final _stats = dep<StatsStore>();
   late final _statsRefresh = dep<StatsRefreshStore>();
   late final _perm = dep<PermStore>();
@@ -53,7 +51,6 @@ abstract class FamilyStoreBase
   FamilyStoreBase() {
     _account.addOn(accountChanged, _postActivationOnboarding);
     _lock.addOnValue(lockChanged, _updatePhaseFromLock);
-    _app.addOn(appStatusChanged, _addThisDevice);
     _device.addOn(deviceChanged, _syncLinkedMode);
 
     // TODO: this pattern is probably unwanted
@@ -62,6 +59,7 @@ abstract class FamilyStoreBase
     _onStatsChanges();
     _onThisDeviceNameChange();
     _onDnsPermChanges();
+    _onDnsForwardChanges();
     _onPhaseShowNavbar();
   }
 
@@ -78,7 +76,10 @@ abstract class FamilyStoreBase
   bool? accountActive;
 
   @observable
-  bool appActive = false;
+  bool? permsGranted;
+
+  @observable
+  bool? dnsForwarding;
 
   @observable
   bool appLocked = false;
@@ -128,22 +129,17 @@ abstract class FamilyStoreBase
     });
   }
 
-  // Try activating the app whenever DNS perms are granted
   _onDnsPermChanges() {
     reactionOnStore((_) => _perm.privateDnsEnabledFor, (enabled) async {
-      if (linkedMode) {
-        return await traceAs("familyLinkedPermCheck", (trace) async {
-          appActive = _perm.isPrivateDnsEnabled;
-          trace.addAttribute("permEnabled", appActive);
-        });
-      } else if (accountActive == true) {
-        if (_perm.isPrivateDnsEnabled) {
-          _updatePhaseNow(true);
-          return await traceAs("familyAutoUnpause", (trace) async {
-            await _start.unpauseApp(trace);
-          });
-        }
-      }
+      permsGranted = _perm.isPrivateDnsEnabled;
+      _updatePhase();
+    });
+  }
+
+  _onDnsForwardChanges() {
+    reactionOnStore((_) => _perm.isForwardDns, (enabled) async {
+      dnsForwarding = _perm.isForwardDns;
+      _updatePhase();
     });
   }
 
@@ -221,9 +217,7 @@ abstract class FamilyStoreBase
       _waitingForDevice = null;
       final thisDevice = devices.hasDevice(deviceAlias, thisDevice: true);
 
-      // Disable cloud for this device, since user deleted it from the list
       if (thisDevice && !isRename) {
-        await _device.setCloudEnabled(parentTrace, false);
         await _lock.removeLock(trace);
       }
 
@@ -277,6 +271,7 @@ abstract class FamilyStoreBase
     }
   }
 
+  // Locking this device will enable the blocking for "this device"
   @action
   _updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
     if (!act.isFamily()) return;
@@ -291,28 +286,16 @@ abstract class FamilyStoreBase
       }
 
       // Make sure cloud is enabled for this device
-      // This will set appStatus to active and add "this device" to the list
       if (_device.cloudEnabled == false && accountActive == true) {
         await _device.setCloudEnabled(parentTrace, true);
       }
+
+      // Add "this device" to the list
+      if (devices.hasThisDevice == false) {
+        await _addThisDevice(parentTrace);
+      }
     }
     _updatePhase();
-  }
-
-  // The "this device" is special and is added dynamically if current device has
-  // the private dns set correctly
-  @action
-  _addThisDevice(Trace parentTrace) async {
-    appActive = _app.status.isActive() || linkedMode && appActive;
-    _updatePhase();
-
-    if (!_app.status.isActive()) return;
-    if (devices.hasThisDevice) return;
-
-    return await traceWith(parentTrace, "addThisDevice", (trace) async {
-      final stats = _stats.deviceStats[_device.deviceAlias] ?? UiStats.empty();
-      devices = devices.addThisDevice(_device.deviceAlias, stats);
-    });
   }
 
   @action
@@ -329,6 +312,13 @@ abstract class FamilyStoreBase
       await _device.setDeviceAlias(trace, name);
       await _addThisDevice(trace);
       await _stage.setRoute(trace, "home"); // Reset to main tab
+    });
+  }
+
+  _addThisDevice(Trace parentTrace) async {
+    return await traceWith(parentTrace, "addThisDevice", (trace) async {
+      final stats = _stats.deviceStats[_device.deviceAlias] ?? UiStats.empty();
+      devices = devices.addThisDevice(_device.deviceAlias, stats);
     });
   }
 
@@ -398,11 +388,18 @@ abstract class FamilyStoreBase
   _updatePhaseNow(bool loading) {
     if (loading) {
       phase = FamilyPhase.starting;
-    } else if (accountActive == null) {
+    } else if (accountActive ==
+            null /* ||
+        permsGranted == null ||
+        dnsForwarding == null*/
+        ) {
       phase = FamilyPhase.starting;
-    } else if (linkedMode && appActive && appLocked) {
+    } else if (linkedMode &&
+        permsGranted == true &&
+        dnsForwarding == false &&
+        appLocked) {
       phase = FamilyPhase.linkedActive;
-    } else if (linkedMode && appActive) {
+    } else if (linkedMode && permsGranted == true && dnsForwarding == false) {
       phase = FamilyPhase.linkedUnlocked;
     } else if (linkedMode && !appLocked) {
       phase = FamilyPhase.linkedNoPerms;
@@ -413,7 +410,7 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.linkedActive;
     } else if (linkedMode) {
       phase = FamilyPhase.linkedNoPerms;
-    } else if (appLocked && appActive) {
+    } else if (appLocked && permsGranted == true && dnsForwarding == false) {
       phase = FamilyPhase.lockedActive;
     } else if (appLocked && accountActive == false) {
       phase = FamilyPhase.lockedNoAccount;
@@ -421,7 +418,7 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoPerms;
     } else if (accountActive == false) {
       phase = FamilyPhase.fresh;
-    } else if (!appActive && devices.hasThisDevice) {
+    } else if (devices.hasThisDevice && permsGranted != true) {
       phase = FamilyPhase.noPerms;
     } else if (devices.hasDevices == true) {
       phase = FamilyPhase.parentHasDevices;
