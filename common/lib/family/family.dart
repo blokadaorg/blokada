@@ -76,10 +76,10 @@ abstract class FamilyStoreBase
   bool? accountActive;
 
   @observable
-  bool? permsGranted;
+  bool? permsGranted = false;
 
   @observable
-  bool? dnsForwarding;
+  bool? dnsForwarding = false;
 
   @observable
   bool appLocked = false;
@@ -163,7 +163,10 @@ abstract class FamilyStoreBase
   _load(Trace parentTrace) async {
     return await traceWith(parentTrace, "load", (trace) async {
       final json = await _persistence.load(trace, _key);
-      if (json == null) return;
+      if (json == null) {
+        devices = FamilyDevices([], false);
+        return;
+      }
 
       devices = FamilyDevices([], null).fromNames(
           JsonFamilyDevices.fromJson(jsonDecode(json)).devices,
@@ -388,11 +391,7 @@ abstract class FamilyStoreBase
   _updatePhaseNow(bool loading) {
     if (loading) {
       phase = FamilyPhase.starting;
-    } else if (accountActive ==
-            null /* ||
-        permsGranted == null ||
-        dnsForwarding == null*/
-        ) {
+    } else if (accountActive == null || permsGranted == null) {
       phase = FamilyPhase.starting;
     } else if (linkedMode &&
         permsGranted == true &&
@@ -430,6 +429,14 @@ abstract class FamilyStoreBase
 
     traceAs("updatePhase", (trace) async {
       trace.addAttribute("phase", phase);
+      trace.addAttribute("loading", loading);
+      trace.addAttribute("accountActive", accountActive);
+      trace.addAttribute("permsGranted", permsGranted);
+      trace.addAttribute("dnsForwarding", dnsForwarding);
+      trace.addAttribute("appLocked", appLocked);
+      trace.addAttribute("linkedMode", linkedMode);
+      trace.addAttribute("hasDevices", devices.hasDevices);
+      trace.addAttribute("hasThisDevice", devices.hasThisDevice);
     });
   }
 }

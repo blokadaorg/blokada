@@ -152,7 +152,7 @@ abstract class StageStoreBase
   bool isReady = false;
 
   bool _isForeground = false;
-  bool _isBecomingBackground = false;
+  Completer? _foregroundCompleter;
 
   StageModal? _modalToShow;
   String? _pathToShow;
@@ -180,25 +180,40 @@ abstract class StageStoreBase
   @action
   Future<void> setForeground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setForeground", (trace) async {
+      if (_foregroundCompleter != null) {
+        trace.addEvent("waiting for previous fg/bg to finish");
+        await _foregroundCompleter?.future;
+      }
+
+      _foregroundCompleter = Completer();
+
       _isForeground = true;
       if (isReady) await _processWaiting(trace);
-      _isBecomingBackground = false;
+
+      _foregroundCompleter?.complete();
+      _foregroundCompleter = null;
     });
   }
 
   @action
   Future<void> setBackground(Trace parentTrace) async {
     return await traceWith(parentTrace, "setBackground", (trace) async {
+      if (_foregroundCompleter != null) {
+        trace.addEvent("waiting for previous fg/bg to finish");
+        await _foregroundCompleter?.future;
+      }
+
+      _foregroundCompleter = Completer();
+
       if (route.isForeground()) {
-        _isBecomingBackground = true;
         await emit(willEnterBackground, trace, route);
         route = route.newBg();
-        if (_isBecomingBackground) {
-          _isForeground = false;
-          await emitValue(routeChanged, trace, route);
-        }
-        _isBecomingBackground = false;
+        _isForeground = false;
+        await emitValue(routeChanged, trace, route);
       }
+
+      _foregroundCompleter?.complete();
+      _foregroundCompleter = null;
     });
   }
 

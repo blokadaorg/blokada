@@ -149,6 +149,7 @@ abstract class JournalStoreBase
   @observable
   DateTime lastRefresh = DateTime(0);
 
+  @override
   @action
   Future<void> start(Trace parentTrace) async {
     return await traceWith(parentTrace, "start", (trace) async {
@@ -211,9 +212,13 @@ abstract class JournalStoreBase
 
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (!route.isForeground()) return;
-    final isActivity = route.isBecameTab(StageTab.activity);
-    final isHome = route.isBecameTab(StageTab.home);
+    if (!route.isForeground()) {
+      parentTrace.addEvent("journal: route not foreground");
+      return;
+    }
+
+    final isActivity = route.isTab(StageTab.activity);
+    final isHome = route.isTab(StageTab.home);
     final isLinkModal = route.modal == StageModal.accountLink;
     if (!act.isFamily() && !isActivity) return;
     if (act.isFamily() && !isActivity && !isHome && !isLinkModal) return;
@@ -240,6 +245,7 @@ abstract class JournalStoreBase
   Future<void> updateJournalFreq(Trace parentTrace) async {
     return await traceWith(parentTrace, "updateJournalFreq", (trace) async {
       final on = _device.retention?.isEnabled() ?? false;
+      trace.addAttribute("retention", on);
       if (on && _stage.route.isTab(StageTab.activity)) {
         await enableRefresh(trace);
       } else if (on && act.isFamily() && _stage.route.isTab(StageTab.home)) {

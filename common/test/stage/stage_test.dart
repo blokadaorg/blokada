@@ -156,6 +156,24 @@ void main() {
         expect(subject.route.modal, StageModal.plusLocationSelect);
       });
     });
+
+    test("routeChanged", () async {
+      await withTrace((trace) async {
+        final ops = MockStageOps();
+        depend<StageOps>(ops);
+
+        final subject = StageStore();
+
+        int counter = 0;
+        subject.addOnValue(routeChanged, (trace, route) {
+          expect(route.isForeground(), counter++ != 1);
+        });
+
+        await subject.setReady(trace, true);
+        await subject.setBackground(trace);
+        await subject.setForeground(trace);
+      });
+    });
   });
 
   group("stageRouteState", () {
