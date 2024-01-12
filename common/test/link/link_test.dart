@@ -35,7 +35,7 @@ void main() {
         mockAct(subject);
         subject.start(trace);
 
-        await subject.updateLinks(trace, true);
+        await subject.updateLinksFromLock(trace, true);
 
         verify(ops.doLinksChanged(any)).called(1);
       });

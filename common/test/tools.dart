@@ -31,3 +31,6 @@ mockAct(Dependable subject,
   subject.setActForTest(act);
   return act;
 }
+
+final mockedAct =
+    ActScreenplay(ActScenario.platformIsMocked, Flavor.og, Platform.ios);

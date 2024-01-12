@@ -1,6 +1,6 @@
 import 'package:common/deck/deck.dart';
 import 'package:common/deck/channel.pg.dart';
-import 'package:common/deck/json.dart';
+import 'package:common/fsm/filter/json.dart';
 import 'package:common/deck/mapper.dart';
 import 'package:common/device/device.dart';
 import 'package:common/stage/stage.dart';

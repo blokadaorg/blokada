@@ -9,6 +9,7 @@ import 'deck/deck.dart';
 import 'device/device.dart';
 import 'env/env.dart';
 import 'family/family.dart';
+import 'fsm/filter/filter.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
 import 'link/link.dart';
@@ -68,12 +69,16 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     AccountPaymentStore().attachAndSaveAct(act);
     AccountRefreshStore().attachAndSaveAct(act);
     DeviceStore().attachAndSaveAct(act);
+
+    final filter = FilterActor(act);
+    depend(filter);
+
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
     PermStore().attachAndSaveAct(act);
     LockStore().attachAndSaveAct(act);
     CustomStore().attachAndSaveAct(act);
-    DeckStore().attachAndSaveAct(act);
+    //DeckStore().attachAndSaveAct(act);
     JournalStore().attachAndSaveAct(act);
     PlusStore().attachAndSaveAct(act);
     PlusKeypairStore().attachAndSaveAct(act);

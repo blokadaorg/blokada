@@ -62,7 +62,7 @@ abstract class FamilyStoreBase
     _onThisDeviceNameChange();
     _onDnsPermChanges();
     _onDnsForwardChanges();
-    _onPhaseShowNavbar();
+    _onPhaseShowNavbar(act);
   }
 
   @override
@@ -145,8 +145,9 @@ abstract class FamilyStoreBase
     });
   }
 
-  _onPhaseShowNavbar() {
-    if (!act.isFamily()) return;
+  _onPhaseShowNavbar(Act? act) {
+    final a = act ?? this.act;
+    if (!a.isFamily()) return;
     reactionOnStore((_) => phase, (phase) async {
       return await traceAs("onPhaseShowNavbar", (trace) async {
         await _stage.setShowNavbar(trace, !phase.isLocked());

@@ -12,7 +12,7 @@ import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
-import 'json.dart';
+import '../fsm/filter/json.dart';
 import 'mapper.dart';
 
 part 'deck.g.dart';
@@ -276,11 +276,11 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
     if (decks.isEmpty) {
       // Make sure we fetch it at least once even if user does not navigate to
       // the advanced tab. We need pack names to display activity screen too.
-      return await traceWith(parentTrace, "fetchWhenEmpty", (trace) async {
-        await fetch(trace);
-        final lists = _device.lists;
-        if (lists != null) await setUserLists(trace, lists);
-      });
+      // return await traceWith(parentTrace, "fetchWhenEmpty", (trace) async {
+      //   await fetch(trace);
+      //   final lists = _device.lists;
+      //   if (lists != null) await setUserLists(trace, lists);
+      // });
     }
 
     if (!route.isBecameTab(StageTab.advanced)) return;
@@ -293,11 +293,11 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
 
   @action
   Future<void> onDeviceChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
-      final lists = _device.lists;
-      if (lists != null && decks.isNotEmpty) {
-        await setUserLists(trace, lists);
-      }
-    });
+    // return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+    //   final lists = _device.lists;
+    //   if (lists != null && decks.isNotEmpty) {
+    //     await setUserLists(trace, lists);
+    //   }
+    // });
   }
 }

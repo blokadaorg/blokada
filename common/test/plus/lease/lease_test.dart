@@ -255,9 +255,8 @@ void main() {
           throwsA(isA<TooManyLeasesException>()),
         );
 
-        // It tried to delete the old lease for this device and get a new one
-        verify(json.deleteLease(any, any)).called(1);
-        verify(json.postLease(any, any)).called(2);
+        // No attempt to delete lease anymore
+        verify(json.postLease(any, any)).called(1);
       });
     });
 

@@ -18,7 +18,7 @@ void main() async {
 
   final entrypoint = Entrypoint();
   entrypoint.attach(
-      ActScreenplay(ActScenario.platformIsMocked, Flavor.family, Platform.ios));
+      ActScreenplay(ActScenario.platformIsMocked, Flavor.og, Platform.ios));
   entrypoint.onStartApp();
 
   final CommandStore command = dep<CommandStore>();

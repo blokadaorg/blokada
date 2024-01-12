@@ -7,8 +7,8 @@ enum Platform { ios, android }
 
 enum Flavor { og, family }
 
-void depend<T extends Object>(T instance) {
-  dep.registerSingleton<T>(instance);
+void depend<T extends Object>(T instance, {String? tag}) {
+  dep.registerSingleton<T>(instance, instanceName: tag);
 }
 
 mixin Dependable {

@@ -1,4 +1,4 @@
-import 'package:common/deck/json.dart';
+import 'package:common/fsm/filter/json.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const fixtureListEndpoint = '''
@@ -48,7 +48,7 @@ const fixtureListEndpoint = '''
       },
       {
          "id":"2034b164ce8e64953de05746a2aa836a",
-         "name":"mirror/v5/oisd/basicw/hosts.txt",
+         "name":"mirror/v5/oisd/light/hosts.txt",
          "managed":true,
          "is_allowlist":false
       },
@@ -94,33 +94,51 @@ const fixtureListEndpoint = '''
 
 final fixtureListItems = [
   JsonListItem(
-      id: "1",
-      path: "mirror/v5/1hosts/litea/hosts.txt",
-      managed: true,
-      allowlist: false),
+    id: "1",
+    path: "mirror/v5/1hosts/litea/hosts.txt",
+    vendor: "1hosts",
+    variant: "litea",
+    managed: true,
+    allowlist: false,
+  ),
   JsonListItem(
-      id: "2",
-      path: "mirror/v5/1hosts/lite (wildcards)/hosts.txt",
-      managed: true,
-      allowlist: false),
+    id: "2",
+    path: "mirror/v5/1hosts/lite (wildcards)/hosts.txt",
+    vendor: "1hosts",
+    variant: "lite (wildcards)",
+    managed: true,
+    allowlist: false,
+  ),
   JsonListItem(
-      id: "3",
-      path: "mirror/v5/goodbyeads/spotify/hosts.txt",
-      managed: true,
-      allowlist: false),
+    id: "3",
+    path: "mirror/v5/goodbyeads/spotify/hosts.txt",
+    vendor: "goodbyeads",
+    variant: "spotify",
+    managed: true,
+    allowlist: false,
+  ),
   JsonListItem(
-      id: "4",
-      path: "mirror/v5/developerdan/hate and junk/hosts.txt",
-      managed: true,
-      allowlist: false),
+    id: "4",
+    path: "mirror/v5/developerdan/hate and junk/hosts.txt",
+    vendor: "developerdan",
+    variant: "hate and junk",
+    managed: true,
+    allowlist: false,
+  ),
   JsonListItem(
-      id: "5",
-      path: "mirror/v5/1hosts/lite/hosts.txt",
-      managed: true,
-      allowlist: false),
+    id: "5",
+    path: "mirror/v5/1hosts/lite/hosts.txt",
+    vendor: "1hosts",
+    variant: "lite",
+    managed: true,
+    allowlist: false,
+  ),
   JsonListItem(
-      id: "6",
-      path: "mirror/v5/cpbl/mini/hosts.txt",
-      managed: true,
-      allowlist: false)
+    id: "6",
+    path: "mirror/v5/cpbl/mini/hosts.txt",
+    vendor: "cpbl",
+    variant: "mini",
+    managed: true,
+    allowlist: false,
+  )
 ];

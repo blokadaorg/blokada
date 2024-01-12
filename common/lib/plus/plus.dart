@@ -151,6 +151,7 @@ abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
         await _vpn.turnVpnOff(trace);
         await _saveFlag(trace);
         _clearLease(trace);
+        await _app.plusActivated(trace, false);
         await _stage.showModal(trace, StageModal.plusVpnFailure);
         rethrow;
       }
