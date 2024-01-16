@@ -86,6 +86,7 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   List<ListId> enabledByUser = [];
 
   final Map<String, ListId> _listTagToId = {};
+  bool _listsSet = false;
 
   @action
   Future<void> fetch(Trace parentTrace) async {
@@ -152,9 +153,8 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
           .distinct()
           .toList();
 
-      if (knownIds.isEmpty) {
-        // Use default selection for this flavor
-        trace.addEvent("Empty selection, setting default");
+      if (knownIds.isEmpty && !_listsSet) {
+        // Use default selection for this flavor, but only on first set attempt
         final def = act.isFamily()
             ? _defaultListSelectionFamily
             : _defaultListSelection;
@@ -168,7 +168,14 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
         trace.addEvent("enabledByUser: $enabledByUser");
         trace.addEvent("known: $knownIds");
 
+        _listsSet = true;
         await _device.setLists(trace, knownIds);
+      } else if (!_listsSet && enabledByUser.isEmpty) {
+        trace.addEvent("Empty selection, setting default");
+        _listsSet = true;
+        await _device.setLists(trace, knownIds);
+      } else {
+        _listsSet = true;
       }
     });
   }
@@ -271,6 +278,8 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
       // the advanced tab. We need pack names to display activity screen too.
       return await traceWith(parentTrace, "fetchWhenEmpty", (trace) async {
         await fetch(trace);
+        final lists = _device.lists;
+        if (lists != null) await setUserLists(trace, lists);
       });
     }
 
@@ -286,8 +295,8 @@ abstract class DeckStoreBase with Store, Traceable, Dependable, Cooldown {
   Future<void> onDeviceChanged(Trace parentTrace) async {
     return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
       final lists = _device.lists;
-      if (lists != null) {
-        await setUserLists(trace, _device.lists!);
+      if (lists != null && decks.isNotEmpty) {
+        await setUserLists(trace, lists);
       }
     });
   }
