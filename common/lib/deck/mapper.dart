@@ -165,6 +165,9 @@ class FamilyDeckMapper implements DeckMapper {
 
 // The order here decides the UI order
 const _familyMap = {
+  "meta_safe_search": {
+    "block unsupported": ["safesearch/nosafesearch"],
+  },
   "meta_ads": {
     "standard": [
       "oisd/small",
@@ -293,7 +296,4 @@ const _familyMap = {
     "pinterest": ["ndnsapps/pinterest"],
     "tinder": ["ndnsapps/tinder"],
   },
-  "meta_safe_search": {
-    "nosafesearch": ["safesearch/nosafesearch"],
-  }
 };
