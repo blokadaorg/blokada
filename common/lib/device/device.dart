@@ -83,6 +83,10 @@ abstract class DeviceStoreBase
         _ops.doDeviceAliasChanged(alias);
       }
     });
+
+    reactionOnStore((_) => safeSearch, (enabled) async {
+      _ops.doSafeSearchEnabled(safeSearch!);
+    });
   }
 
   @override
@@ -112,6 +116,9 @@ abstract class DeviceStoreBase
 
   @observable
   String deviceAlias = "";
+
+  @observable
+  bool? safeSearch;
 
   @computed
   String get currentDeviceTag {
@@ -154,6 +161,7 @@ abstract class DeviceStoreBase
       cloudEnabled = !device.paused;
       lists = device.lists;
       retention = device.retention;
+      safeSearch = device.safeSearch;
 
       if (!tagOverwritten) deviceTag = device.deviceTag;
 
@@ -246,6 +254,14 @@ abstract class DeviceStoreBase
         await _persistence.delete(trace, _keyTag);
         await fetch(trace);
       }
+    });
+  }
+
+  @action
+  Future<void> setSafeSearch(Trace parentTrace, bool enabled) async {
+    return await traceWith(parentTrace, "setSafeSearch", (trace) async {
+      await _api.putDevice(trace, safeSearch: enabled);
+      await fetch(trace);
     });
   }
 

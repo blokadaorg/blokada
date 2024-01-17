@@ -292,5 +292,8 @@ const _familyMap = {
     "imgur": ["ndnsapps/imgur"],
     "pinterest": ["ndnsapps/pinterest"],
     "tinder": ["ndnsapps/tinder"],
+  },
+  "meta_safe_search": {
+    "nosafesearch": ["safesearch/nosafesearch"],
   }
 };

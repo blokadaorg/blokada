@@ -18,7 +18,12 @@ import '../tools.dart';
 import 'device_test.mocks.dart';
 
 final _fixtureJsonDevice = JsonDevice(
-    deviceTag: "some-tag", lists: ["a", "b"], retention: "24h", paused: true);
+  deviceTag: "some-tag",
+  lists: ["a", "b"],
+  retention: "24h",
+  paused: true,
+  safeSearch: false,
+);
 
 void main() {
   group("store", () {

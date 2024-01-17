@@ -155,6 +155,9 @@ class CommandStore
       case CommandName.setRetention:
         _ensureParam(p1);
         return await _device.setRetention(trace, p1!);
+      case CommandName.setSafeSearch:
+        _ensureParam(p1);
+        return await _device.setSafeSearch(trace, p1 == "1");
       case CommandName.deviceAlias:
         _ensureParam(p1);
         return await _family.renameThisDevice(trace, p1!);

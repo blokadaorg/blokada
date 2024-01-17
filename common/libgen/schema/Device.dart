@@ -16,4 +16,7 @@ abstract class DeviceOps {
 
   @async
   void doNameProposalsChanged(List<String> names);
+
+  @async
+  void doSafeSearchEnabled(bool enabled);
 }

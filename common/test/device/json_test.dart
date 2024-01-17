@@ -19,7 +19,8 @@ const _fixtureJsonEndpoint = '''{
   "device_tag": "some-tag",
   "lists": ["a", "b"],
   "retention": "24h",
-  "paused": true
+  "paused": true,
+  "safe_search": false
 }''';
 
 void main() {

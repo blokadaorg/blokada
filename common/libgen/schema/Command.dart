@@ -37,6 +37,7 @@ enum CommandName {
   disableCloud,
   setRetention,
   deviceAlias,
+  setSafeSearch,
 
   // Journal
   sortNewest,
