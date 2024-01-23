@@ -131,16 +131,16 @@ class HomeScreenState extends State<HomeScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          HomeIcon(
-                            icon: hasPin
-                                ? Icons.lock_outline
-                                : Icons.lock_open_outlined,
-                            onTap: () {
-                              traceAs("tappedShowLock", (trace) async {
-                                await _stage.showModal(trace, StageModal.lock);
-                              });
-                            },
-                          ),
+                          // HomeIcon(
+                          //   icon: hasPin
+                          //       ? Icons.lock_outline
+                          //       : Icons.lock_open_outlined,
+                          //   onTap: () {
+                          //     traceAs("tappedShowLock", (trace) async {
+                          //       await _stage.showModal(trace, StageModal.lock);
+                          //     });
+                          //   },
+                          // ),
                           HomeIcon(
                             icon: Icons.help_outline,
                             onTap: () {
