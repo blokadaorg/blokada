@@ -105,10 +105,35 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   @action
   Future<void> newLease(Trace parentTrace, GatewayId gatewayId) async {
     return await traceWith(parentTrace, "newLease", (trace) async {
-      await _json.postLease(trace, gatewayId);
-      await fetch(trace);
-      if (currentLease == null) {
-        throw NoCurrentLeaseException();
+      try {
+        await _json.postLease(trace, gatewayId);
+        await fetch(trace);
+        if (currentLease == null) {
+          throw NoCurrentLeaseException();
+        }
+      } on TooManyLeasesException catch (e) {
+        // Too many leases, try to remove one with the alias of current device
+        // This may happen if user regenerated keys (reinstall)
+        try {
+          final lease = leases.firstWhere((it) => it.alias == _env.deviceName);
+          await _json.deleteLease(
+            trace,
+            JsonLeasePayload(
+              accountId: lease.accountId,
+              publicKey: lease.publicKey,
+              gatewayId: lease.gatewayId,
+            ),
+          );
+          await _json.postLease(trace, gatewayId);
+          await fetch(trace);
+          if (currentLease == null) {
+            throw NoCurrentLeaseException();
+          }
+          trace.addEvent("deleted existing lease for current device alias");
+        } catch (_) {
+          // Rethrow the initial exception for clarity
+          throw e;
+        }
       }
     });
   }
