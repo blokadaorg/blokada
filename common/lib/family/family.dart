@@ -334,6 +334,7 @@ abstract class FamilyStoreBase
 
   // Show the welcome screen on the first start (family only)
   _maybeShowOnboardOnStart(Trace parentTrace) async {
+    if (!act.isFamily()) return;
     if (_account.type.isActive()) return;
     if (devices.hasDevices == true) return;
     if (linkedMode) return;
