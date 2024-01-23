@@ -82,7 +82,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     PlusVpnStore().attachAndSaveAct(act);
     StatsStore().attachAndSaveAct(act);
     StatsRefreshStore().attachAndSaveAct(act);
-    FamilyStore().attachAndSaveAct(act);
+    FamilyStore(act).attachAndSaveAct(act);
     HomeStore().attachAndSaveAct(act);
     RateStore().attachAndSaveAct(act);
     CommandStore().attachAndSaveAct(act);

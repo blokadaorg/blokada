@@ -48,8 +48,8 @@ abstract class FamilyStoreBase
   late final _statsRefresh = dep<StatsRefreshStore>();
   late final _perm = dep<PermStore>();
 
-  FamilyStoreBase() {
-    if (!act.isFamily()) return;
+  FamilyStoreBase(Act? act) {
+    if (!(act?.isFamily() ?? false)) return;
 
     _account.addOn(accountChanged, _postActivationOnboarding);
     _lock.addOnValue(lockChanged, _updatePhaseFromLock);

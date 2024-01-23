@@ -42,7 +42,7 @@ void main() {
         final device = MockDeviceStore();
         depend<DeviceStore>(device);
 
-        final subject = FamilyStore();
+        final subject = FamilyStore(null);
         mockAct(subject, flavor: Flavor.family);
         await subject.link(trace, "abcdef", "Test%20Device");
 
