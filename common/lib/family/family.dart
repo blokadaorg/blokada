@@ -49,6 +49,8 @@ abstract class FamilyStoreBase
   late final _perm = dep<PermStore>();
 
   FamilyStoreBase() {
+    if (!act.isFamily()) return;
+
     _account.addOn(accountChanged, _postActivationOnboarding);
     _lock.addOnValue(lockChanged, _updatePhaseFromLock);
     _device.addOn(deviceChanged, _syncLinkedMode);
@@ -144,6 +146,7 @@ abstract class FamilyStoreBase
   }
 
   _onPhaseShowNavbar() {
+    if (!act.isFamily()) return;
     reactionOnStore((_) => phase, (phase) async {
       return await traceAs("onPhaseShowNavbar", (trace) async {
         await _stage.setShowNavbar(trace, !phase.isLocked());

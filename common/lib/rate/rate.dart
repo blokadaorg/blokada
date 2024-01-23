@@ -71,7 +71,8 @@ abstract class RateStoreBase with Store, Traceable, Dependable, Startable {
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
       if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
-      if (_family.phase != FamilyPhase.parentHasDevices) return;
+      if (act.isFamily() && _family.phase != FamilyPhase.parentHasDevices)
+        return;
 
       await show(trace);
     });
