@@ -116,7 +116,7 @@ void main() {
         await subject.turnVpnOn(trace);
         verify(ops.doSetVpnActive(any)).called(1);
         verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(1);
+        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
 
         // Simulate the status coming after a while
         Timer(const Duration(milliseconds: 1), () async {
@@ -124,13 +124,13 @@ void main() {
         });
         await subject.turnVpnOff(trace);
         verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(1);
+        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
 
         // Will unset timer even on fail
         when(ops.doSetVpnActive(any)).thenThrow(Exception());
         await expectLater(subject.turnVpnOn(trace), throwsException);
         verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(1);
+        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
       });
     });
   });

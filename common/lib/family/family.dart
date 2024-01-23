@@ -188,7 +188,7 @@ abstract class FamilyStoreBase
     return await traceWith(parentTrace, "link", (trace) async {
       if (!phase.isLinkable()) throw Exception("Device not linkable anymore");
       _updatePhase(loading: true);
-      await _cloudDevice.setDeviceAlias(trace, name);
+      await _cloudDevice.setDeviceAlias(trace, Uri.decodeFull(name));
       await _cloudDevice.setLinkedTag(trace, tag);
       await _stage.showModal(trace, StageModal.lock);
     });

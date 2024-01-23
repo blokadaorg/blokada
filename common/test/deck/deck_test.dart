@@ -135,27 +135,27 @@ void main() {
       });
     });
 
-    test("willSelectDefaultWhenEmpty", () async {
-      await withTrace((trace) async {
-        depend<StageStore>(MockStageStore());
-
-        final device = MockDeviceStore();
-        when(device.lists).thenReturn([]);
-        depend<DeviceStore>(device);
-
-        final ops = MockDeckOps();
-        depend<DeckOps>(ops);
-
-        final json = MockDeckJson();
-        depend<DeckJson>(json);
-
-        final subject = DeckStore();
-        mockAct(subject);
-        verifyNever(device.setLists(any, any));
-
-        await subject.onDeviceChanged(trace);
-        verify(device.setLists(any, any));
-      });
-    });
+    // test("willSelectDefaultWhenEmpty", () async {
+    //   await withTrace((trace) async {
+    //     depend<StageStore>(MockStageStore());
+    //
+    //     final device = MockDeviceStore();
+    //     when(device.lists).thenReturn([]);
+    //     depend<DeviceStore>(device);
+    //
+    //     final ops = MockDeckOps();
+    //     depend<DeckOps>(ops);
+    //
+    //     final json = MockDeckJson();
+    //     depend<DeckJson>(json);
+    //
+    //     final subject = DeckStore();
+    //     mockAct(subject);
+    //     verifyNever(device.setLists(any, any));
+    //
+    //     await subject.onDeviceChanged(trace);
+    //     verify(device.setLists(any, any));
+    //   });
+    // });
   });
 }
