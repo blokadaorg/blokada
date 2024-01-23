@@ -113,9 +113,11 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
         }
       } on TooManyLeasesException catch (e) {
         // Too many leases, try to remove one with the alias of current device
-        // This may happen if user regenerated keys (reinstall)
+        // and the public key of current device
         try {
-          final lease = leases.firstWhere((it) => it.alias == _env.deviceName);
+          final lease = leases.firstWhere((it) =>
+              it.alias == _env.deviceName &&
+              it.publicKey == _keypair.currentDevicePublicKey);
           await _json.deleteLease(
             trace,
             JsonLeasePayload(
