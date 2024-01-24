@@ -102,5 +102,11 @@ abstract class PlusKeypairStoreBase
     if (keypair.privateKey.isEmpty) {
       throw Exception("Private key is empty");
     }
+    if (keypair.publicKey == "pk-mocked") {
+      throw Exception("Public key is mocked");
+    }
+    if (keypair.privateKey == "sk-mocked") {
+      throw Exception("Private key is mocked");
+    }
   }
 }
