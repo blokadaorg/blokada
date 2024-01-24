@@ -90,6 +90,8 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   @action
   Future<void> updateLinks(Trace parentTrace, bool isLocked) async {
     return await traceWith(parentTrace, "updateLinks", (trace) async {
+      trace.addAttribute("isLocked", isLocked);
+
       for (var id in LinkId.values) {
         links[id] = _getLink(id, isLocked);
       }

@@ -58,7 +58,7 @@ abstract class LockStoreBase
       _existingPin = await _persistence.load(trace, _keyLock);
       hasPin = _existingPin != null;
       isLocked = hasPin;
-      await emitValue(lockChanged, trace, hasPin);
+      await emitValue(lockChanged, trace, isLocked);
       if (isLocked) {
         await _stage.showModal(trace, StageModal.lock);
       }
