@@ -272,7 +272,7 @@ abstract class FamilyStoreBase
     }
   }
 
-  _postActivationNonFamily(Trace parent) async {
+  _postActivationNonFamily(Trace parentTrace) async {
     if (!_account.type.isActive()) return;
     // Old flow for the main flavor, just show the onboarding modal
     // TODO: move elsewhere, it's notfamily
