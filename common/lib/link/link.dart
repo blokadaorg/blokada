@@ -75,7 +75,8 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   attach(Act act) {
     depend<LinkOps>(getOps(act));
     depend<LinkStore>(this as LinkStore);
-    _lock.addOnValue(lockChanged, updateLinks);
+    _lock.addOnValue(lockChanged, updateLinksFromLock);
+    _account.addOn(accountChanged, updateLinksFromAccount);
   }
 
   @override
@@ -88,19 +89,30 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   }
 
   @action
-  Future<void> updateLinks(Trace parentTrace, bool isLocked) async {
-    return await traceWith(parentTrace, "updateLinks", (trace) async {
+  Future<void> updateLinksFromLock(Trace parentTrace, bool isLocked) async {
+    return await traceWith(parentTrace, "updateLinksFromLock", (trace) async {
       trace.addAttribute("isLocked", isLocked);
-
-      for (var id in LinkId.values) {
-        links[id] = _getLink(id, isLocked);
-      }
-
-      List<Link> converted =
-          links.entries.map((e) => Link(id: e.key, url: e.value)).toList();
-
-      await _ops.doLinksChanged(converted);
+      await _updateLinks();
     });
+  }
+
+  @action
+  Future<void> updateLinksFromAccount(Trace parentTrace) async {
+    return await traceWith(parentTrace, "updateLinksFromAccount",
+        (trace) async {
+      await _updateLinks();
+    });
+  }
+
+  _updateLinks() async {
+    for (var id in LinkId.values) {
+      links[id] = _getLink(id, _lock.isLocked);
+    }
+
+    List<Link> converted =
+        links.entries.map((e) => Link(id: e.key, url: e.value)).toList();
+
+    await _ops.doLinksChanged(converted);
   }
 
   _prepareTemplates(Trace trace) async {
