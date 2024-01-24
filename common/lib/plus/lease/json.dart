@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common/env/env.dart';
 
 import '../../account/account.dart';
+import '../../device/device.dart';
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
@@ -87,9 +88,9 @@ class JsonLeasePayload {
 
 class PlusLeaseJson {
   late final _http = dep<HttpService>();
-  late final _env = dep<EnvStore>();
   late final _keypair = dep<PlusKeypairStore>();
   late final _account = dep<AccountStore>();
+  late final _device = dep<DeviceStore>();
 
   Future<List<JsonLease>> getLeases(Trace trace, {bool noRetry = false}) async {
     final result = await _http.get(
@@ -101,10 +102,11 @@ class PlusLeaseJson {
   Future<JsonLease> postLease(Trace trace, String gatewayId) async {
     try {
       final payload = JsonLeasePayload(
-          accountId: _account.id,
-          publicKey: _keypair.currentDevicePublicKey,
-          gatewayId: gatewayId,
-          alias: _env.deviceName);
+        accountId: _account.id,
+        publicKey: _keypair.currentDevicePublicKey,
+        gatewayId: gatewayId,
+        alias: _device.deviceAlias,
+      );
 
       final result = await _http.request(
           trace, '$jsonUrl/v2/lease', HttpType.post,

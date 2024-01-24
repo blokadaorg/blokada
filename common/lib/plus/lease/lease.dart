@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
-import '../../env/env.dart';
+import '../../device/device.dart';
 import '../../stage/stage.dart';
 import '../../util/config.dart';
 import '../../util/cooldown.dart';
@@ -37,12 +37,12 @@ class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   late final _ops = dep<PlusLeaseOps>();
   late final _json = dep<PlusLeaseJson>();
-  late final _env = dep<EnvStore>();
   late final _gateway = dep<PlusGatewayStore>();
   late final _keypair = dep<PlusKeypairStore>();
   late final _plus = dep<PlusStore>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
+  late final _device = dep<DeviceStore>();
 
   PlusLeaseStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -116,7 +116,7 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
         // and the public key of current device
         try {
           final lease = leases.firstWhere((it) =>
-              it.alias == _env.deviceName &&
+              it.alias == _device.deviceAlias &&
               it.publicKey == _keypair.currentDevicePublicKey);
           await _json.deleteLease(
             trace,
