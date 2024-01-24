@@ -49,11 +49,7 @@ abstract class FamilyStoreBase
   late final _perm = dep<PermStore>();
 
   FamilyStoreBase(Act? act) {
-    if (!(act?.isFamily() ?? false)) {
-      // TODO: move this
-      _account.addOn(accountChanged, _postActivationNonFamily);
-      return;
-    }
+    if (!(act?.isFamily() ?? false)) return;
 
     _account.addOn(accountChanged, _postActivationOnboarding);
     _lock.addOnValue(lockChanged, _updatePhaseFromLock);
@@ -270,15 +266,6 @@ abstract class FamilyStoreBase
         await _stage.dismissModal(trace);
       });
     }
-  }
-
-  _postActivationNonFamily(Trace parentTrace) async {
-    if (!_account.type.isActive()) return;
-    // Old flow for the main flavor, just show the onboarding modal
-    // TODO: move elsewhere, it's notfamily
-    return await traceWith(parentTrace, "onboardProceed", (trace) async {
-      await _stage.showModal(trace, StageModal.perms);
-    });
   }
 
   // Locking this device will enable the blocking for "this device"

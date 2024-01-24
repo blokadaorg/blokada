@@ -216,6 +216,11 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
     if (oldA != null) {
       if (oldA.type != newA.type || oldA.activeUntil != newA.activeUntil) {
         await emit(accountChanged, trace, account);
+
+        // TODO: better place?
+        if (!act.isFamily() && newA.isActive()) {
+          await _stage.showModal(trace, StageModal.perms);
+        }
       }
     } else {
       await emit(accountChanged, trace, account);
