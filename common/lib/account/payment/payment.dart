@@ -176,7 +176,10 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         try {
           _mapPaymentException(e);
         } on AccountInactiveAfterPurchase catch (_) {
-          await _stage.showModal(trace, StageModal.accountChange);
+          var modal = StageModal.accountRestoreFailed;
+          if (act.isFamily()) modal = StageModal.accountChange;
+
+          await _stage.showModal(trace, modal);
           rethrow;
         }
       } catch (_) {
