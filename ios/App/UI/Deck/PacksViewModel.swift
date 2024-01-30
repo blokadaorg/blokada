@@ -17,7 +17,7 @@ import Factory
 class PacksViewModel: ObservableObject {
 
     @Injected(\.flutter) private var flutter
-    @Injected(\.deck) private var deck
+    @Injected(\.filter) private var filter
     @Injected(\.stage) private var stage
 
 
@@ -36,7 +36,7 @@ class PacksViewModel: ObservableObject {
 
     @Published var filtering = 0 {
         didSet {
-            filter()
+            doFilter()
         }
     }
 
@@ -48,38 +48,42 @@ class PacksViewModel: ObservableObject {
 
     init() {
         filtering = self.flutter.isFlavorFamily ? 3 : 0
-        deck.onDecks = { it in
+        filter.onFilters = { filters, selections in
             var packs = [Pack]()
             var tags = [Tag]()
-            it.forEach { deck in
+            filters.forEach { filter in
                 // Get the pack template from the data source
                 var pack = self.dataSource.packs.first { it in
-                    it.id == deck.deckId
+                    it.id == filter.filterName
                 }
 
                 if var pack = pack {
                     // Go through each list items of the deck
-                    deck.items.keys.forEach { listId in
-                        let item = deck.items[listId]!!
-                        // Mark them as active in the pack
-                        if item.enabled {
-                            pack = pack.changeStatus(installed: true, config: item.tag)
+                    var selection = selections.first { it in
+                        it.filterName == filter.filterName
+                    }
+                    
+                    if var selection = selection {
+                        selection.options.forEach { optionName in
+                            pack = pack.changeStatus(installed: true, config: optionName)
+                            
+                            // Respect the bundle enabled flag
+                            pack = pack.changeStatus(installed: true)
                         }
                     }
-                    // Respect the bundle enabled flag
-                    pack = pack.changeStatus(installed: deck.enabled)
+
                     packs.append(pack)
                 }
             }
             self.allPacks = packs
             self.findTags()
-            self.filter()
+            self.doFilter()
             self.objectWillChange.send()
         }
         onTabPayloadChanged()
     }
 
-    func filter() {
+    func doFilter() {
         if filtering == 1 {
             self.packs = allPacks.filter { pack in
                 pack.status.installed
@@ -115,7 +119,7 @@ class PacksViewModel: ObservableObject {
             //activeTags.insert(tag)
             activeTags = [tag]
         }
-        filter()
+        doFilter()
     }
     
     func byId(_ id: String) -> Pack? {
@@ -125,26 +129,26 @@ class PacksViewModel: ObservableObject {
     }
 
     func getListName(_ listId: String) -> String {
-        if let tag = deck.getTagForListId(listId) {
-            let components = tag.split(separator: "/").map(String.init)
-            if components.count == 2 {
-                let id = components[0]
-                let config = components[1]
-                let title = dataSource.packs.first { it in
-                    it.id == id
-                }?.meta.title
-
-                guard let title = title else {
-                    return tag
-                }
-
-                return "\(title) (\(config.capitalizingFirstLetter()))"
-            } else {
-                return tag
-            }
-        } else {
+//        if let tag = deck.getTagForListId(listId) {
+//            let components = tag.split(separator: "/").map(String.init)
+//            if components.count == 2 {
+//                let id = components[0]
+//                let config = components[1]
+//                let title = dataSource.packs.first { it in
+//                    it.id == id
+//                }?.meta.title
+//
+//                guard let title = title else {
+//                    return tag
+//                }
+//
+//                return "\(title) (\(config.capitalizingFirstLetter()))"
+//            } else {
+//                return tag
+//            }
+//        } else {
             return listId
-        }
+//        }
     }
 
     private func onTabPayloadChanged() {

@@ -23,8 +23,6 @@ struct ShieldCardView: View {
 
     var body: some View {
         ZStack {
-            let tag = "\(self.vm.pack.id)/\(self.vm.pack.configs.first!)"
-            
             if vm.pack.id == "meta_safe_search" {
                 // A special case where we mix a pack and a device setting
                 // TODO: a better model for this
@@ -64,7 +62,7 @@ struct ShieldCardView: View {
                     headerText: vm.pack.tags.joined(separator: ", "),
                     mainTitle: vm.pack.meta.title.tr(),
                     descriptionText: vm.pack.meta.description.tr(),
-                    selected: self.vm.pack.status.config.contains(tag),
+                    selected: self.vm.pack.status.config.contains(vm.pack.configs.first!),
                     action: {
                         self.vm.changeConfig(config: vm.pack.configs.first!, fail: { error in
                             self.packsVM.showError = true
@@ -203,13 +201,11 @@ struct ShieldCardManyView: View {
                 .padding(.bottom, 24)
 
                 ForEach(items, id: \.self) { item in
-                    let tag = "\(id)/\(item)"
-
                     if item != "standard" {
                         Divider()
                     }
                     ShieldItemView(id: item, title: item.capitalizingFirstLetter(),
-                                   selected: self.selected.contains(tag),
+                                   selected: self.selected.contains(item),
                                    action: { self.action(item) }
                     )
                     .onTapGesture {

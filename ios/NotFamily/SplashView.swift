@@ -15,10 +15,32 @@ import SwiftUI
 struct SplashView: View {
     var body: some View {
         ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color("ActivePlusGradient"),
+                    Color.cAccent.opacity(0.8),
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color.clear,
+                    Color.cAccent,
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
             Spacer()
-            BlokadaView(animate: true)
+            Image(Image.iBlokada)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120, height: 120)
+                .foregroundColor(.white)
             Spacer()
         }
+        .foregroundColor(.cPrimaryBackground)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .background(Color.cBackgroundSplash)
         .edgesIgnoringSafeArea(.all)

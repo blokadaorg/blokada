@@ -21,6 +21,8 @@ struct PackDetailView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
+        let pack = self.packsVM.packs.first { it in it.id == self.vm.pack.id }!
+
         ScrollView {
             VStack(alignment: .leading) {
                 HStack {
@@ -63,23 +65,22 @@ struct PackDetailView: View {
                     )
                 }
 
-                if !self.vm.pack.configs.isEmpty {
+                if !pack.configs.isEmpty {
                     Text(L10n.packConfigurationsHeader)
                         .font(.system(size: 24))
                         .padding(.top)
                         .bold()
 
                     VStack(spacing: 0) {
-                        ForEach(self.vm.pack.configs, id: \.self) { item in
-                            let tag = "\(self.vm.pack.id)/\(item)"
-                            if item != self.vm.pack.configs.first {
+                        ForEach(pack.configs, id: \.self) { item in
+                            if item != pack.configs.first {
                                 Divider().padding([.top, .bottom], 8)
                             }
 
                             OptionView(
                                 text: item.capitalized,
                                 image: Image.fPack,
-                                active: self.vm.pack.status.config.contains(tag),
+                                active: pack.status.config.contains(item),
                                 canSpin: true,
                                 action: {
                                     self.vm.changeConfig(config: item, fail: { error in
@@ -117,7 +118,7 @@ struct PackDetailView: View {
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right")
+                            Image(systemName: (self.packsVM.packs.isEmpty) ? "chevron.left" : "chevron.right")
                                 .imageScale(.small)
                                 .foregroundColor(.secondary)
                         }

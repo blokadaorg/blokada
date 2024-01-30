@@ -50,7 +50,7 @@ struct MainView: View {
                         VStack {
                             Spacer()
                             if tabVM.showNavBar {
-                                TabFamilyHorizontalView(onTap: { it in
+                                TabHorizontalView(onTap: { it in
                                     handleTappedTab(it, scroll: scroll)
                                 })
                             }
@@ -92,7 +92,7 @@ struct MainView: View {
                             VStack {
                                 Spacer()
                                 if tabVM.showNavBar {
-                                    TabFamilyHorizontalView(onTap: { it in
+                                    TabHorizontalView(onTap: { it in
                                         handleTappedTab(it, scroll: scroll)
                                     })
                                 }
@@ -123,7 +123,7 @@ struct MainView: View {
                         ZStack {
                             HStack(spacing: 0) {
                                 if tabVM.showNavBar {
-                                    TabFamilyVerticalView(onTap: { it in
+                                    TabVerticalView(onTap: { it in
                                         handleTappedTab(it, scroll: scroll)
                                     })
                                 }

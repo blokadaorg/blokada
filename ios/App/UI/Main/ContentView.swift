@@ -13,6 +13,9 @@
 import SwiftUI
 import Factory
 
+var TAB_VIEW_WIDTH = 80.0
+var TAB_VIEW_HEIGHT = 56.0
+
 struct ContentView: View {
 
     @ObservedObject var homeVM = ViewModels.home

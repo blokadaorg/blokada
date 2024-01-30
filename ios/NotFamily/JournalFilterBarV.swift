@@ -38,8 +38,10 @@ struct JournalFilterBarView: View {
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(Color.cAccent)
                     } else {
-                        Text(self.journal.device.prefix(2).uppercased())
-                            .foregroundStyle(Color.cAccent)
+                        ShieldIconView(id: self.journal.device,  title: self.journal.device, small: true)
+                            .frame(width: 32, height: 32)
+                            .mask(RoundedRectangle(cornerRadius: 8))
+                            .accessibilityLabel(self.journal.device)
                     }
                 }
                 .frame(width: 24, height: 24)

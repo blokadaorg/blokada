@@ -16,7 +16,7 @@ import Factory
 
 class PackDetailViewModel: ObservableObject {
 
-    @Injected(\.deck) private var deck
+    @Injected(\.filter) private var filter
     @Injected(\.cloud) private var device
     @Injected(\.commands) private var commands
 
@@ -42,17 +42,17 @@ class PackDetailViewModel: ObservableObject {
     }
 
     func changeConfig(config: PackConfig, fail: @escaping Faile) {
-        deck.toggleListEnabledForTag(deckId: pack.id, tag: config)
+        filter.toggleFilterOption(filterName: pack.id, optionName: config)
     }
 
     func install(fail: @escaping Faile) {
         self.log.v("Installing pack")
-        deck.toggleListEnabledForTag(deckId: pack.id, tag: pack.configs.first!)
+        filter.enableFilter(filterName: pack.id, enabled: true)
    }
 
     func uninstall(fail: @escaping Faile) {
         self.log.v("uninstalling pack")
-        deck.setDeckEnabled(deckId: pack.id, enabled: false)
+        filter.enableFilter(filterName: pack.id, enabled: false)
     }
 
     func isSafeSearch() -> Bool {

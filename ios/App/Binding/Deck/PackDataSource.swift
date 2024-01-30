@@ -126,7 +126,7 @@ class PackDataSource {
         Pack.mocked(id: "danpollock", tags: [Pack.official, "adblocking", "tracking"],
             title: "Dan Pollock's Hosts",
             slugline: "A reasonably balanced ad blocking hosts file",
-            description: "This is a well known, general purpose blocklist of small size, updated regularly.",
+            description: "This is a well known, general purpose bljocklist of small size, updated regularly.",
             creditName: "Dan Pollock",
             creditUrl: "https://go.blokada.org/danpollock",
             configs: ["standard"]

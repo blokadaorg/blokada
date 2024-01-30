@@ -12,9 +12,7 @@
 
 import SwiftUI
 
-var TAB_VIEW_HEIGHT = 56.0
-
-struct TabHorizontalView: View {
+struct TabVerticalView: View {
 
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @ObservedObject var vm = ViewModels.tab
@@ -30,12 +28,11 @@ struct TabHorizontalView: View {
     }
 
     var content: some View {
-        VStack {
+        HStack {
             Spacer()
-            HStack(alignment: .bottom) {
-                Spacer()
+            VStack(alignment: .leading, spacing: 24) {
                 TabItemView(
-                    id: .Home, icon: "blokada", text: L10n.mainTabHome, badge: nil,
+                    id: .Home, icon: "house", text: L10n.mainTabHome, badge: nil,
                     onTap: { self.onTap($0) }
                 )
                 TabItemView(
@@ -43,30 +40,35 @@ struct TabHorizontalView: View {
                     onTap: { self.onTap($0) }
                 )
                 TabItemView(
-                    id: .Advanced, icon: "cube", text: L10n.mainTabAdvanced, badge: nil,
+                    id: .Advanced, icon: "blokada", text: L10n.shieldsSectionHeader, badge: nil,
                     onTap: { self.onTap($0) }
                 )
+                Spacer()
                 TabItemView(
                     id: .Settings, icon: "gear", text: L10n.mainTabSettings, badge: nil,
                     onTap: { self.onTap($0) }
                 )
-                Spacer()
             }
-            .padding(.bottom, 2)
+            .padding([.top, .bottom], 16)
+            Spacer()
         }
+        .padding(.top, self.safeAreaInsets.top)
         .overlay(
             Rectangle()
-            .frame(width: nil, height: 1, alignment: .top)
-            .foregroundColor(Color(UIColor.systemGray4)),
-            alignment: .top
+            .frame(width: 1, height: nil, alignment: .trailing)
+            .foregroundColor(Color(UIColor.systemGray4))
+            .padding(.trailing, 5), // Idk why it's needed
+
+            alignment: .trailing
         )
-        .frame(height: TAB_VIEW_HEIGHT)
-        .padding(.bottom, self.safeAreaInsets.bottom)
+
+        //.padding(.bottom, self.safeAreaInsets.bottom)
+        .frame(width: TAB_VIEW_WIDTH)
     }
 
 }
 
-struct TabHorizontalView_Previews: PreviewProvider {
+struct TabVerticalView_Previews: PreviewProvider {
     static var previews: some View {
         let inbox = TabViewModel()
         inbox.activeTab = .Activity
@@ -80,14 +82,14 @@ struct TabHorizontalView_Previews: PreviewProvider {
 
 
         return Group {
-            TabHorizontalView(onTap: { _ in })
+            TabVerticalView(onTap: { _ in })
                 .previewLayout(.sizeThatFits)
-            TabHorizontalView(vm: packs, onTap: { _ in })
+            TabVerticalView(vm: packs, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
-            TabHorizontalView(vm: account, onTap: { _ in })
+            TabVerticalView(vm: account, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
-            TabHorizontalView(vm: inbox, onTap: { _ in })
+            TabVerticalView(vm: inbox, onTap: { _ in })
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
                 .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
