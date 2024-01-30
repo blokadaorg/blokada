@@ -204,6 +204,13 @@ abstract class DeviceStoreBase
 
   @action
   Future<void> setDeviceName(Trace parentTrace, String? deviceName) async {
+    // Simple handling of OG flavor (no generated device names)
+    // TODO: refactor
+    if (!act.isFamily()) {
+      deviceAlias = deviceName!;
+      return;
+    }
+
     // Name cannot be changed from OS once generated or set by user
     if (deviceAlias.isNotEmpty) return;
 
@@ -226,6 +233,8 @@ abstract class DeviceStoreBase
   @action
   Future<void> setDeviceAlias(Trace parentTrace, String deviceAlias) async {
     return await traceWith(parentTrace, "setDeviceAlias", (trace) async {
+      if (!act.isFamily())
+        throw Exception("Device alias cannot be used in nonfamily");
       if (deviceAlias.isEmpty) throw Exception("Device alias cannot be empty");
       trace.addAttribute("alias", deviceAlias);
 
