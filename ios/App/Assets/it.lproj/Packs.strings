@@ -103,3 +103,6 @@
 "Miscellaneous apps" = "Applicazioni varie";
 "A selection of various popular applications" = "Una selezione di varie applicazioni popolari";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Questo scudo fornisce un elenco di applicazioni popolari di vario tipo. È creato per gli utenti che puntano a un controllo più completo delle app.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Ricerca sicura";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Attiva la ricerca sicura per filtrare, nei motori di ricerca, i risultati inopportuni. Inoltre, fornisce l'opzione per bloccare i motori di ricerca non supportati i cui risultati non possono essere filtrati.";

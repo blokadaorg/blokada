@@ -104,3 +104,6 @@
 "Miscellaneous apps" = "Miscellaneous apps";
 "A selection of various popular applications" = "A selection of various popular applications";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Safe search";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";

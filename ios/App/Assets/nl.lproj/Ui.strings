@@ -223,11 +223,7 @@
 "activity category top" = "Top";
 "activity category top blocked" = "Top Geblokkeerd";
 "activity category top allowed" = "Top toegestaan";
-<<<<<<< HEAD
-"activity filter header" = "Which entries would you like to see?";
-=======
 "activity filter header" = "Welke invoergegevens wilt u zien?";
->>>>>>> b772d49 (family: merge family branch to main)
 "activity filter show all" = "Alle logs";
 "activity filter show blocked" = "Alleen geblokkeerd";
 "activity filter show allowed" = "Alleen toegestaan";
@@ -322,40 +318,6 @@
 "account upgrade cloud description" = "Deze functie is een onderdeel van Blokada Plus. Neem contact op met onze klantenservice om een upgrade uit te voeren.";
 
 "payment header activated" = "Geactiveerd!";
-<<<<<<< HEAD
-"payment activated description" = "Blokada will now switch into Plus mode, and connect through one of our secure locations. If you are unsure which one to choose, the closest one to you is recommended.";
-"payment action choose location" = "Kies een locatie";
-"payment action see locations" = "Onze Locaties";
-
-"payment title" = "Upgrade to our VPN service to stay in control of *your privacy*.";
-"payment feature title change location" = "Verander de locatie";
-"payment feature desc change location" = "Hide your IP address and pretend you are in another country. This will mask you from third-parties and help protect your identity.";
-"payment feature title encrypt data" = "Encrypt Data";
-"payment feature desc encrypt data" = "Data sent through our VPN tunnel is encrypted using strong algorithms in order to protect against interception by unauthorized parties.";
-"payment feature title encrypt dns" = "Encrypt DNS";
-"payment feature desc encrypt dns" = "Improve your privacy with DNS encryption. Blokada Cloud uses modern protocols to help keep your traffic private.";
-"payment feature title performance" = "Great Performance";
-"payment feature desc performance" = "Keep your device snappy and your Internet connection at max speeds, thanks to our new Cloud solution.";
-"payment feature title battery" = "Zero Battery Impact";
-"payment feature desc battery" = "Your battery life isn't going to be impacted, it might even improve when Blokada Cloud is activated.";
-"payment feature title devices cloud" = "Multiple Devices";
-"payment feature desc devices cloud" = "Configure and monitor all your devices in one place. Either through our mobile app or our web app.";
-"payment feature title cloud vpn" = "The Cloud plus VPN";
-"payment feature desc cloud vpn" = "In addition to all the benefits of Blokada Cloud, you'll get access to our global VPN network";
-"payment feature title faster connection" = "Faster Connection";
-"payment feature desc faster connection" = "Great speeds up to 100Mbps with servers in various parts of the World.";
-"payment feature title devices" = "Up to 5 devices";
-"payment feature desc devices" = "Use the same account to share your subscription with up to 5 devices: iOS, Android, or PC.";
-"payment feature title no ads" = "Block Ads";
-"payment feature desc no ads" = "Use the popular Blokada adblocking technology to block ads on your devices. Advanced settings are available.";
-"payment feature title support" = "Goede ondersteuning";
-"payment feature desc support" = "Get a prompt response to any questions thanks to our Customer Support and vibrant open source community.";
-"payment action see all features" = "Bekijk Alle Functies";
-"payment action restore" = "Restore Purchases";
-"payment action terms and privacy" = "Terms & Privacy";
-"payment action terms" = "Algemene voorwaarden";
-"payment action policy" = "Privacy Policy";
-=======
 "payment activated description" = "Blokada zal nu overschakelen naar Plus-modus en verbinding maken via een van onze beveiligde locaties. Als u niet zeker bent welke te kiezen, wordt het dichtstbijzijnde aangeraden.";
 "payment action choose location" = "Kies een locatie";
 "payment action see locations" = "Onze Locaties";
@@ -388,7 +350,6 @@
 "payment action terms and privacy" = "Voorwaarden & Privacy";
 "payment action terms" = "Algemene voorwaarden";
 "payment action policy" = "Privacy Beleid";
->>>>>>> b772d49 (family: merge family branch to main)
 "payment alert error header" = "Een bericht van de App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Je slaat %@ op";
@@ -434,31 +395,14 @@
 "payment action compare" = "Vergelijk pakketten";
 "payment plan slugline cloud" = "Blokkeert advertenties en trackers";
 // A short information that Plus plan contains Cloud also.
-<<<<<<< HEAD
-"payment plan slugline cloud detail" = "(includes Blokada Cloud)";
-"payment plan slugline plus" = "Additional protection with VPN";
-"payment plan cta trial" = "Start 7-Day Free Trial";
-=======
 "payment plan slugline cloud detail" = "(inclusief Blokada Cloud)";
 "payment plan slugline plus" = "Extra bescherming met VPN";
 "payment plan cta trial" = "Start 7-daagse gratis proefperiode";
 "payment plan cta trial length" = "Start %@-daagse gratis proefperiode";
->>>>>>> b772d49 (family: merge family branch to main)
 "payment plan cta monthly" = "Maandelijks abonneren";
 "payment plan cta annual" = "Jaarlijks abonneren";
 "payment plan current" = "(huidig abonnement)";
 
-<<<<<<< HEAD
-"location region worldwide" = "Overal";
-"location region america" = "Amerika";
-"location region europe" = "Europa";
-"location region asia" = "Azië";
-"location region australia" = "Australië";
-
-"web vpn devices header" = "VPN Apparaten";
-// A button to open section called "VPN Devices"
-"web vpn devices open action" = "Open VPN Devices";
-=======
 "payment cancel footer" = "Het abonnement wordt automatisch verlengd voordat de huidige factureringsperiode eindigt. U kunt op elk gewenst moment annuleren in Instellingen.";
 "payment cancel footer trial short" = "Annuleren tijdens de komende %@ dagen, en er worden geen kosten in rekening gebracht.";
 
@@ -471,7 +415,6 @@
 "web vpn devices header" = "VPN Apparaten";
 // A button to open section called "VPN Devices"
 "web vpn devices open action" = "Open VPN-apparaten";
->>>>>>> b772d49 (family: merge family branch to main)
 "web action open setup" = "Open instellingen";
 "web cta plus header" = "Upgrade naar Blokada Plus om de controle over je privacy te behouden.";
 "web cta plus desc" = "Uw Libre-account geeft u gratis adblocking op uw apparaat met onze opensource-apps. Upgrade naar Blokada Plus voor een nog betere bescherming. Je krijgt toegang tot ons wereldwijde VPN-netwerk en tot onze nieuwe *cloud gebaseerd* adblocking die efficiënter en gemakkelijker te gebruiken is.";
@@ -479,19 +422,11 @@
 "web action generate" = "Genereren";
 
 "setup header" = "Installatie";
-<<<<<<< HEAD
-"setup desc" = "There are many ways to configure your device to use Blokada Cloud. Choose the one that works for you.";
-"setup label which device" = "What type of device you wish to set up?";
-"setup label choose" = "Choose any of the following setup options:";
-"setup comment wireguard" = "Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.";
-"setup comment native apps" = "Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.";
-=======
 "setup desc" = "Er zijn vele manieren om je apparaat te configureren om Blokada Cloud te gebruiken. Kies degene die voor je werkt.";
 "setup label which device" = "Welk type apparaat wilt u instellen?";
 "setup label choose" = "Kies een van de volgende setup-opties:";
 "setup comment wireguard" = "Opmerking: De VPN-configuratie zal Blokada Cloud standaard gebruiken. Kies een andere DNS-instelling als u zich wilt afmelden. 'WireGuard' en het logo 'WireGuard' zijn geregistreerde handelsmerken van Jason A. Donenfeld.";
 "setup comment native apps" = "Opmerking: Native app voor Android ondersteunt Blokada Cloud nog niet. We werken aan de update.";
->>>>>>> b772d49 (family: merge family branch to main)
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
 "setup step" = "Stap %@: %@";
 "setup option label recommended" = "Aanbevolen: %@";
@@ -513,13 +448,8 @@
 "stats requests header" = "Verzoeken";
 // A subheader for the chart that display the number of requests over time. Can be a bit longer.
 "stats requests subheader" = "Vragen na verloop van tijd";
-<<<<<<< HEAD
-"stats top allowed header" = "Top allowed requests";
-"stats top blocked header" = "Top blocked requests";
-=======
 "stats top allowed header" = "Top toegestane aanvragen";
 "stats top blocked header" = "Top geblokkeerde verzoeken";
->>>>>>> b772d49 (family: merge family branch to main)
 // A short one-word label for the counter of allowed requests.
 "stats label allowed" = "Toegestaan";
 // A short one-word label for the counter of blocked requests.

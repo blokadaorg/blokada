@@ -103,3 +103,6 @@
 "Miscellaneous apps" = "Diverse appar";
 "A selection of various popular applications" = "Ett urval av olika populära applikationer";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Denna sköld listar populära appar av olika typer. Den är skapad för användare som strävar efter en mer omfattande appkontroll.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Safe search";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";

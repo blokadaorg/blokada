@@ -56,7 +56,7 @@
 "Protects against malicious software" = "Ochrona przed złośliwym oprogramowaniem";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Broń przed złośliwym oprogramowaniem i szkodliwymi stronami internetowymi. Zapewnia bezpieczną ochronę przed szeregiem zagrożeń cybernetycznych.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "Treści dla dorosłych";
 "Blocks adult and pornographic content" = "Blokuje treści dla dorosłych i pornograficzne";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Ten filtr skierowany jest do treści dla dorosłych dla bezpieczniejszego korzystania z internetu. Ostrzega użytkowników przed wyraźnymi materiałami i potencjalnymi zagrożeniami.";
 // Name of the Dating shield
@@ -103,3 +103,6 @@
 "Miscellaneous apps" = "Różne aplikacje";
 "A selection of various popular applications" = "Wybór różnych popularnych aplikacji";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Ta tarcza dostarcza listę popularnych aplikacji różnego typu. Stworzona dla użytkowników mających na celu bardziej kompleksową kontrolę aplikacji.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Bezpieczne wyszukiwanie";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";

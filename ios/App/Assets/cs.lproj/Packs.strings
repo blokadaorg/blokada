@@ -103,3 +103,6 @@
 "Miscellaneous apps" = "Ostatní aplikace";
 "A selection of various popular applications" = "Výběr dalších populárních aplikací";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Tento štít obsahuje seznam populárních aplikací různého typu. Je vytvořen pro uživatele, kteří usilují o komplexnější kontrolu aplikací.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Bezpečné vyhledávání";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Povolte bezpečné vyhledávání pro filtrování nevhodných výsledků vyhledávání ve vyhledávačích, také umožňuje blokovat nepodporované vyhledávače, které nelze filtrovat.";
