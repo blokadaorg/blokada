@@ -26,7 +26,7 @@ object PackDataSource: FlavorSpecific {
             description = "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services.",
             creditName = "sjhgvr",
             creditUrl = "https://oisd.nl/",
-            configs = listOf("small", "big", "nsfw", "light")
+            configs = listOf("small", "big", "nsfw")
         ),
 
         Pack.mocked(id = "stevenblack", tags = listOf(Pack.official, "adblocking", "tracking", "privacy", "porn", "social", "fake news", "gambling"),
@@ -161,7 +161,7 @@ object PackDataSource: FlavorSpecific {
             description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
             creditName = "badmojr",
             creditUrl = "https://go.blokada.org/1hosts",
-            configs = listOf("lite (wildcards)", "pro (wildcards)", "xtra (wildcards)")
+            configs = listOf("lite", "pro", "xtra")
         ),
 
         Pack.mocked(id = "d3host", tags = listOf(Pack.official, "adblocking", "tracking"),

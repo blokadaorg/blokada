@@ -16,14 +16,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import binding.DeckBinding
+import binding.FilterBinding
 import kotlinx.coroutines.launch
 import model.Pack
 import model.PackConfig
 import model.Packs
 
 class PacksViewModel : ViewModel() {
-    private val deck by lazy { DeckBinding }
+    private val filters by lazy { FilterBinding }
 
     enum class Filter {
         HIGHLIGHTS, ACTIVE, ALL
@@ -37,10 +37,10 @@ class PacksViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            deck.decks
+            filters.filtersAndSelections
             .collect {
-                _packs.value = Packs(it.mapNotNull { d ->
-                   deck.convertDeckToPack(d)
+                _packs.value = Packs(it.first.mapNotNull { f ->
+                   filters.convertDeckToPack(f)
                 }, 0, 0)
                 updateLiveData()
             }
@@ -60,19 +60,19 @@ class PacksViewModel : ViewModel() {
 
     fun changeConfig(pack: Pack, config: PackConfig) {
         viewModelScope.launch {
-            deck.toggleListEnabledForTag(pack.id, config.lowercase())
+            filters.toggleFilterOption(pack.id, config.lowercase())
         }
     }
 
     fun install(pack: Pack) {
         viewModelScope.launch {
-            deck.setDeckEnabled(pack.id, true)
+            filters.enableFilter(pack.id, true)
         }
     }
 
     fun uninstall(pack: Pack) {
         viewModelScope.launch {
-            deck.setDeckEnabled(pack.id, false)
+            filters.enableFilter(pack.id, false)
         }
     }
 

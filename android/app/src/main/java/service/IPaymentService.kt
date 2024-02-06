@@ -14,7 +14,6 @@ package service
 
 import channel.accountpayment.Product
 import kotlinx.coroutines.delay
-import model.BlokadaException
 import model.PaymentPayload
 import model.ProductId
 
@@ -41,7 +40,7 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$2.09",
                 periodMonths = 12,
                 type = "cloud",
-                trial = true,
+                trial = 7,
                 owned = false
             ),
             Product(
@@ -51,7 +50,7 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$5.99",
                 periodMonths = 1,
                 type = "plus",
-                trial = false,
+                trial = null,
                 owned = false
             ),
             Product(
@@ -61,7 +60,7 @@ class PaymentServiceMock: IPaymentService {
                 pricePerMonth = "$3.33",
                 periodMonths = 12,
                 type = "plus",
-                trial = false,
+                trial = null,
                 owned = false
             ),
         )

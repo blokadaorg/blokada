@@ -21,7 +21,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import binding.CustomBinding
-import binding.DeckBinding
+import binding.FilterBinding
 import binding.JournalBinding
 import channel.journal.JournalEntryType
 import org.blokada.R
@@ -38,7 +38,7 @@ class JournalDetailFragment : Fragment() {
 
     private val custom by lazy { CustomBinding }
     private val journal by lazy { JournalBinding }
-    private val deck by lazy { DeckBinding }
+    private val filter by lazy { FilterBinding }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -176,7 +176,8 @@ class JournalDetailFragment : Fragment() {
         return when (list) {
             null -> null
             EnvironmentService.deviceTag -> list
-            else -> deck.getDeckNameForList(list)
+            //else -> deck.getDeckNameForList(list)
+            else -> null
         }
     }
 }

@@ -42,7 +42,8 @@ object EnvBinding: EnvOps {
         ))
     }
 
-    override fun doGetUserAgent(callback: (Result<String>) -> Unit) {
-        callback(Result.success(env.getUserAgent()))
+    override fun doUserAgentChanged(userAgent: String, callback: (Result<Unit>) -> Unit) {
+        // TODO: ignored for now
+        callback(Result.success(Unit))
     }
 }

@@ -62,8 +62,8 @@ class PaymentItemView : FrameLayout {
 
         val header = findViewById<TextView>(R.id.payment_item_header)
         header.text = when {
-            product.trial -> {
-                context.getString(R.string.payment_plan_cta_trial)
+            product.trial != null -> {
+                context.getString(R.string.payment_plan_cta_trial_length, product.trial.toString())
             }
             product.periodMonths == 12L -> {
                 context.getString(R.string.payment_plan_cta_annual)
@@ -76,7 +76,7 @@ class PaymentItemView : FrameLayout {
 
         val text = findViewById<TextView>(R.id.payment_item_text)
         text.text = when {
-            product.trial -> {
+            product.trial != null -> {
                 context.getString(
                     R.string.payment_subscription_per_year_then, product.price
                 )
@@ -113,7 +113,7 @@ class PaymentItemView : FrameLayout {
         // Additional info for this payment option, if any
         val detail = findViewById<TextView>(R.id.payment_item_detail)
         when {
-            product.trial && !product.owned -> {
+            product.trial != null && !product.owned -> {
                 detail.visibility = View.VISIBLE
                 // TODO: less hardcoded payment info
                 detail.text = "Pay after 7 days. Subscription auto-renews every year until canceled."

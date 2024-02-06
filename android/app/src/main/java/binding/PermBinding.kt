@@ -51,13 +51,17 @@ object PermBinding: PermOps {
         }
     }
 
-    override fun doPrivateDnsEnabled(tag: String, callback: (Result<Boolean>) -> Unit) {
+    override fun doPrivateDnsEnabled(tag: String, alias: String, callback: (Result<Boolean>) -> Unit) {
         callback(Result.success(dnsProfileActivated.value))
     }
 
-    override fun doSetSetPrivateDnsEnabled(tag: String, callback: (Result<Unit>) -> Unit) {
+    override fun doSetSetPrivateDnsEnabled(tag: String, alias: String, callback: (Result<Unit>) -> Unit) {
         // Cannot be done on Android
         callback(Result.success(Unit))
+    }
+
+    override fun doSetSetPrivateDnsForward(callback: (Result<Unit>) -> Unit) {
+        TODO("Not yet implemented")
     }
 
     override fun doNotificationEnabled(callback: (Result<Boolean>) -> Unit) {

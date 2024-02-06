@@ -58,7 +58,7 @@ class OnboardingFragment : BottomSheetFragment() {
             GlobalScope.launch(Dispatchers.Main) {
                 dismiss()
                 permsRepo.askForAllMissingPermissions()
-                stage.showModal(StageModal.ONBOARDING) // Show this screen again to confirm
+                stage.showModal(StageModal.PERMS) // Show this screen again to confirm
             }
         }
 

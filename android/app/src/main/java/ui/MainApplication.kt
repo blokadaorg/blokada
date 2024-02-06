@@ -28,11 +28,13 @@ import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
 import binding.CustomBinding
-import binding.DeckBinding
 import binding.DeviceBinding
 import binding.EnvBinding
+import binding.FamilyBinding
+import binding.FilterBinding
 import binding.HttpBinding
 import binding.JournalBinding
+import binding.LinkBinding
 import binding.NotificationBinding
 import binding.PermBinding
 import binding.PersistenceBinding
@@ -105,7 +107,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var device: DeviceBinding
     private lateinit var journal: JournalBinding
     private lateinit var custom: CustomBinding
-    private lateinit var deck: DeckBinding
+    private lateinit var filter: FilterBinding
     private lateinit var perm: PermBinding
     private lateinit var plus: PlusBinding
     private lateinit var plusKeypair: PlusKeypairBinding
@@ -114,6 +116,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var plusVpn: PlusVpnBinding
     private lateinit var rate: RateBinding
     private lateinit var stats: StatsBinding
+    private lateinit var link: LinkBinding
+    private lateinit var family: FamilyBinding
 
     private val appUninstall = AppUninstallService()
 
@@ -150,7 +154,7 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         device = DeviceBinding
         journal = JournalBinding
         custom = CustomBinding
-        deck = DeckBinding
+        filter = FilterBinding
         perm = PermBinding
         plus = PlusBinding
         plusKeypair = PlusKeypairBinding
@@ -159,6 +163,8 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         plusVpn = PlusVpnBinding
         rate = RateBinding
         stats = StatsBinding
+        link = LinkBinding
+        family = FamilyBinding
     }
 
     private fun setupEvents() {

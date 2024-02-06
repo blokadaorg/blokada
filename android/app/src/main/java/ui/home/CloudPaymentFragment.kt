@@ -119,14 +119,14 @@ class CloudPaymentFragment : BottomSheetFragment() {
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
-                            v.product = p.copy(trial = false, owned = true)
+                            v.product = p.copy(trial = null, owned = true)
                             v.onClick = { purchase(p, change = true) }
                         }
 
                         plusProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             plusGroup.addView(v)
-                            v.product = p.copy(trial = false)
+                            v.product = p.copy(trial = null)
                             v.onClick = { purchase(p, change = true) }
                         }
                     }
@@ -136,14 +136,14 @@ class CloudPaymentFragment : BottomSheetFragment() {
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
-                            v.product = p.copy(trial = false, owned = false)
+                            v.product = p.copy(trial = null, owned = false)
                             v.onClick = { purchase(p, change = true) }
                         }
 
                         plusProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             plusGroup.addView(v)
-                            v.product = p.copy(trial = false, owned = p.id == activeSub)
+                            v.product = p.copy(trial = null, owned = p.id == activeSub)
                             v.onClick = { purchase(p, change = true) }
                         }
                     }

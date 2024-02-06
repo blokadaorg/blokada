@@ -21,6 +21,7 @@ import binding.AccountBinding
 import binding.CommandBinding
 import binding.StageBinding
 import channel.command.CommandName
+import channel.stage.StageModal
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.Sheet
@@ -71,7 +72,7 @@ class HelpFragment : BottomSheetFragment() {
         val rate: View = root.findViewById(R.id.help_rate)
         rate.setOnClickListener {
             lifecycleScope.launch {
-                command.execute(CommandName.ROUTE, "home/rate")
+                command.execute(CommandName.MODALSHOW, StageModal.RATE.name)
             }
             dismiss()
         }

@@ -16,8 +16,6 @@ import channel.command.CommandName
 import channel.deck.Deck
 import channel.deck.DeckOps
 import kotlinx.coroutines.flow.MutableStateFlow
-import model.Pack
-import model.PackStatus
 import service.FlutterService
 import ui.advanced.decks.PackDataSource
 
@@ -44,25 +42,6 @@ object DeckBinding: DeckOps {
         return dataSource.firstOrNull { it.id == deckId }?.meta?.title
     }
 
-    // TODO: remove the Pack model
-    fun convertDeckToPack(deck: Deck): Pack? {
-        val data = dataSource.firstOrNull { it.id == deck.deckId } ?: return null
-        return Pack(
-            id = deck.deckId,
-            tags = data.tags,
-            sources = data.sources,
-            meta = data.meta,
-            configs = data.configs.map { it.capitalize() },
-            status = PackStatus(
-                installed = deck.enabled,
-                updatable = false,
-                installing = false,
-                badge = false,
-                config = deck.items.filter { it.value?.enabled == true }.mapNotNull { it.value }.map { it.tag.capitalize() },
-                hits = 0
-            ),
-        )
-    }
 
     suspend fun setDeckEnabled(deckId: String, enabled: Boolean) {
         if (enabled) {
@@ -78,6 +57,14 @@ object DeckBinding: DeckOps {
 
     override fun doDecksChanged(decks: List<Deck>, callback: (Result<Unit>) -> Unit) {
         this.decks.value = decks
+        callback(Result.success(Unit))
+    }
+
+    override fun doTagMappingChanged(
+        tapMapping: Map<String, String>,
+        callback: (Result<Unit>) -> Unit
+    ) {
+        // TODO: not used yet on android
         callback(Result.success(Unit))
     }
 }

@@ -112,7 +112,7 @@ object StageBinding: StageOps {
     fun sheetShown(sheet: Sheet) {
         val name = when (sheet) {
             Sheet.Payment -> StageModal.PAYMENT
-            Sheet.Activated -> StageModal.ONBOARDING
+            Sheet.Activated -> StageModal.PERMS
             Sheet.Location -> StageModal.PLUSLOCATIONSELECT
             Sheet.Help -> StageModal.HELP
             Sheet.Custom -> StageModal.CUSTOM
@@ -142,7 +142,7 @@ object StageBinding: StageOps {
 
         val name = when (modal) {
             StageModal.PAYMENT -> Sheet.Payment
-            StageModal.ONBOARDING -> Sheet.Activated
+            StageModal.PERMS -> Sheet.Activated
             StageModal.PLUSLOCATIONSELECT -> Sheet.Location
             StageModal.HELP -> Sheet.Help
             StageModal.CUSTOM -> Sheet.Custom
@@ -156,6 +156,11 @@ object StageBinding: StageOps {
             if (modal == StageModal.ADSCOUNTERSHARE) {
                 scope.launch {
                     showShareText()
+                    command.execute(CommandName.MODALSHOWN, modal.name)
+                }
+            } else {
+                // Confirm modal was shown for unknown modals, so the common lib can display it
+                scope.launch {
                     command.execute(CommandName.MODALSHOWN, modal.name)
                 }
             }
@@ -218,6 +223,11 @@ object StageBinding: StageOps {
         showingNavBar = show
         onShowNavBar(show)
         callback(Result.success(Unit))
+    }
+
+    override fun doOpenLink(url: String, callback: (Result<Unit>) -> Unit) {
+        // TODO: Used only in family (in onboarding tos)
+        TODO("Not yet implemented")
     }
 
     private fun showShareText() {

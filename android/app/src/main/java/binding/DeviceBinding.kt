@@ -80,4 +80,19 @@ object DeviceBinding: DeviceOps {
         EnvironmentService.deviceTag = deviceTag
         callback(Result.success(Unit))
     }
+
+    override fun doDeviceAliasChanged(deviceAlias: String, callback: (Result<Unit>) -> Unit) {
+        // TODO: not used yet on android
+        callback(Result.success(Unit))
+    }
+
+    override fun doNameProposalsChanged(names: List<String>, callback: (Result<Unit>) -> Unit) {
+        // TODO: not used yet on android
+        callback(Result.success(Unit))
+    }
+
+    override fun doSafeSearchEnabled(enabled: Boolean, callback: (Result<Unit>) -> Unit) {
+        // TODO: not used yet on android
+        callback(Result.success(Unit))
+    }
 }
