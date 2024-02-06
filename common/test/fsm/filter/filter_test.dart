@@ -27,16 +27,10 @@ void main() {
         subject.injectPutUserLists((it) async {});
 
         subject.userLists({});
-        await subject.waitForState("ready");
-        // await subject.reload();
+        final c = await subject.waitForState("ready");
 
-        // expect(
-        //     subject
-        //         .prepareContextDraft()
-        //         .filterSelections
-        //         .where((it) => it.options.isNotEmpty)
-        //         .length,
-        //     1);
+        expect(
+            c.selectedFilters.where((it) => it.options.isNotEmpty).length, 1);
       });
     });
 
@@ -59,15 +53,27 @@ void main() {
 
         await subject.waitForState("ready");
         await c.future;
-        // await subject.reload();
+      });
+    });
 
-        // expect(
-        //     subject
-        //         .prepareContextDraft()
-        //         .filterSelections
-        //         .where((it) => it.options.isNotEmpty)
-        //         .length,
-        //     1);
+    test("listsToTags", () async {
+      await withTrace((trace) async {
+        final act = ActScreenplay(
+            ActScenario.platformIsMocked, Flavor.og, Platform.ios);
+
+        final subject = FilterActor(act);
+        subject.injectApi((it) async {
+          subject.apiOk(fixtureListEndpoint);
+        });
+
+        subject.injectPutUserLists((it) async {});
+
+        subject.userLists({"1"});
+
+        final c = await subject.waitForState("ready");
+
+        expect(
+            c.listsToTags["03489ad60c13b83a55203c804a1567df"], "1hosts/litea");
       });
     });
   });

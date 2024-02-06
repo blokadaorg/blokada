@@ -3,31 +3,38 @@ part of 'filter.dart';
 class _FilterContext with FilterContext, Context<_FilterContext> {
   _FilterContext(
     List<JsonListItem> lists,
-    Set<ListHashId> listSelections,
+    Map<ListHashId, ListTag> listsToTags,
+    Set<ListHashId>? selectedLists,
     Map<FilterConfigKey, bool> configs,
     List<Filter> filters,
-    List<FilterSelection> filterSelections,
+    List<FilterSelection> selectedFilters,
     bool defaultsApplied,
-    bool listSelectionsSet,
   ) {
     this.lists = lists;
-    this.listSelections = listSelections;
+    this.listsToTags = listsToTags;
+    this.selectedLists = selectedLists;
     this.configs = configs;
     this.filters = filters;
-    this.filterSelections = filterSelections;
+    this.selectedFilters = selectedFilters;
     this.defaultsApplied = defaultsApplied;
-    this.listSelectionsSet = listSelectionsSet;
   }
 
   _FilterContext.empty();
 
   @override
-  Context<_FilterContext> copy() => _FilterContext(lists, listSelections,
-      configs, filters, filterSelections, defaultsApplied, listSelectionsSet);
+  Context<_FilterContext> copy() => _FilterContext(
+        lists,
+        listsToTags,
+        selectedLists,
+        configs,
+        filters,
+        selectedFilters,
+        defaultsApplied,
+      );
 
   @override
   String toString() =>
-      "FilterContext{defaultsApplied: $defaultsApplied, listSelections: $listSelections, configs: $configs, filterSelections: $filterSelections}";
+      "FilterContext{defaultsApplied: $defaultsApplied, listSelections: $selectedLists, configs: $configs, filterSelections: $selectedFilters}";
 }
 
 class _$FilterStates extends StateMachine<_FilterContext>
@@ -118,7 +125,8 @@ class _$FilterActor {
   apiFail(Exception error) => _machine.eventOnApiFail(error);
   userLists(UserLists lists) => _machine.eventOnUserLists(lists);
 
-  waitForState(String state) => _machine.waitForState(state);
+  Future<FilterContext> waitForState(String state) =>
+      _machine.waitForState(state);
   addOnState(String state, String tag, Function(State, FilterContext) fn) =>
       _machine.addOnState(state, tag, fn);
 

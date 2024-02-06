@@ -26,12 +26,15 @@ typedef UserLists = Set<ListHashId>;
 
 mixin FilterContext {
   List<JsonListItem> lists = [];
-  Set<ListHashId> listSelections = {};
+  Map<ListHashId, ListTag> listsToTags = {};
+  Set<ListHashId>? selectedLists;
+
   Map<FilterConfigKey, bool> configs = {};
+
   List<Filter> filters = [];
-  List<FilterSelection> filterSelections = [];
+  List<FilterSelection> selectedFilters = [];
+
   bool defaultsApplied = false;
-  bool listSelectionsSet = false;
 }
 
 // @Machine
@@ -57,7 +60,8 @@ mixin FilterStates on StateMachineActions<FilterContext> {
   }
 
   waiting(FilterContext c) async {
-    if (c.listSelectionsSet && c.lists.isNotEmpty /*&& c.configs.isNotEmpty*/) {
+    if (c.selectedLists != null &&
+        c.lists.isNotEmpty /*&& c.configs.isNotEmpty*/) {
       return parse;
     }
   }
@@ -65,6 +69,12 @@ mixin FilterStates on StateMachineActions<FilterContext> {
   onApiOk(FilterContext c, String result) async {
     guard(waiting);
     c.lists = JsonListEndpoint.fromJson(jsonDecode(result)).lists;
+
+    // Prepare a map for quick lookups
+    c.listsToTags = {};
+    for (final list in c.lists) {
+      c.listsToTags[list.id] = "${list.vendor}/${list.variant}";
+    }
     return waiting;
   }
 
@@ -72,27 +82,26 @@ mixin FilterStates on StateMachineActions<FilterContext> {
   onApiFail(FilterContext c) async => init;
 
   onUserLists(FilterContext c, UserLists lists) async {
-    c.listSelections = lists;
-    c.listSelectionsSet = true;
+    c.selectedLists = lists;
     return waiting;
   }
 
   parse(FilterContext c) async {
     // 1: read filters that we know about (no selections yet)
     c.filters = getKnownFilters(act());
-    c.filterSelections = [];
+    c.selectedFilters = [];
 
     // 2: map user selected lists to internal tags
     // Tags are "vendor/variant", like "oisd/small"
     List<ListTag> selection = [];
-    for (final selectedHashId in c.listSelections) {
-      final list = c.lists.firstWhereOrNull((it) => it.id == selectedHashId);
-      if (list == null) {
+    for (final selectedHashId in c.selectedLists ?? {}) {
+      final tag = c.listsToTags[selectedHashId];
+      if (tag == null) {
         log("User has unknown list: $selectedHashId");
         continue;
       }
 
-      selection += ["${list.vendor}/${list.variant}"];
+      selection += [tag];
     }
 
     // 3: find which filters are active based on the tags
@@ -109,7 +118,7 @@ mixin FilterStates on StateMachineActions<FilterContext> {
         // TODO: other options
       }
 
-      c.filterSelections += [FilterSelection(filter.filterName, active)];
+      c.selectedFilters += [FilterSelection(filter.filterName, active)];
     }
 
     return reconfigure;
@@ -118,7 +127,7 @@ mixin FilterStates on StateMachineActions<FilterContext> {
   reconfigure(FilterContext c) async {
     // 1. figure out how to activate each filter
     Set<ListHashId> lists = {};
-    for (final selection in c.filterSelections) {
+    for (final selection in c.selectedFilters) {
       final filter = c.filters.firstWhere(
         (it) => it.filterName == selection.filterName,
       );
@@ -154,7 +163,7 @@ mixin FilterStates on StateMachineActions<FilterContext> {
 
     // For now it's only about lists
     // List can be empty, that's ok
-    if (!setEquals(lists, c.listSelections)) {
+    if (!setEquals(lists, c.selectedLists)) {
       needsReload = true;
       await _putUserLists(lists);
     }
@@ -171,13 +180,13 @@ mixin FilterStates on StateMachineActions<FilterContext> {
 
   defaults(FilterContext c) async {
     // Do nothing if has selections
-    if (c.filterSelections.any((it) => it.options.isNotEmpty)) return ready;
+    if (c.selectedFilters.any((it) => it.options.isNotEmpty)) return ready;
 
     // Or if already applied during this runtime
     if (c.defaultsApplied) return ready;
 
     log("Applying defaults");
-    c.filterSelections = getDefaultEnabled(act());
+    c.selectedFilters = getDefaultEnabled(act());
     c.defaultsApplied = true;
     return reconfigure;
   }
@@ -195,8 +204,8 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     var option = [filter.options.first.optionName];
     if (!enable) option = [];
 
-    c.filterSelections.removeWhere((it) => it.filterName == filterName);
-    c.filterSelections += [FilterSelection(filterName, option)];
+    c.selectedFilters.removeWhere((it) => it.filterName == filterName);
+    c.selectedFilters += [FilterSelection(filterName, option)];
 
     return reconfigure;
   }
@@ -214,7 +223,7 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     filter.options.firstWhere((it) => it.optionName == optionName);
 
     // Get the current option selection for this filter
-    var selection = c.filterSelections.firstWhereOrNull(
+    var selection = c.selectedFilters.firstWhereOrNull(
           (it) => it.filterName == filterName,
         ) ??
         FilterSelection(filterName, []);
@@ -227,8 +236,8 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     }
 
     // Save the change
-    c.filterSelections.remove(selection);
-    c.filterSelections += [selection];
+    c.selectedFilters.remove(selection);
+    c.selectedFilters += [selection];
 
     return reconfigure;
   }
@@ -278,13 +287,15 @@ class FilterActor extends _$FilterActor with TraceOrigin {
           .toList();
       ops.doFiltersChanged(filters);
 
-      final selections = context.filterSelections
+      final selections = context.selectedFilters
           .map((it) => fops.Filter(
                 filterName: it.filterName,
                 options: it.options,
               ))
           .toList();
       ops.doFilterSelectionChanged(selections);
+
+      ops.doListToTagChanged(context.listsToTags);
     });
   }
 }

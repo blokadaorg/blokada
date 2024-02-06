@@ -14,4 +14,7 @@ abstract class FilterOps {
 
   @async
   void doFilterSelectionChanged(List<Filter> selections);
+
+  @async
+  void doListToTagChanged(Map<String, String> listToTag);
 }
