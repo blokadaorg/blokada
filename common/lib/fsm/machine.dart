@@ -70,7 +70,7 @@ abstract class StateMachine<C extends Context<C>> {
   }
 
   _enter(State state) async {
-    final trace = traces.last.start(state, "state");
+    final trace = traces.last.start(state, state);
     handleLog("enter: $state");
     _state = state;
 
@@ -114,7 +114,7 @@ abstract class StateMachine<C extends Context<C>> {
   }
 
   _event(String name, Function(C) fn) async {
-    final trace = traces.last.start(name, "event");
+    final trace = traces.last.start(name, name);
     try {
       handleLog("start event: $name");
       failBehavior = _commonFailBehavior;

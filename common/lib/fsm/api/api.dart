@@ -32,21 +32,19 @@ class HttpRequest {
 }
 
 enum ApiEndpoint {
-  getList("list", params: ["account_id"]);
+  getList("v2/list", params: ["account_id"]);
 
   const ApiEndpoint(
     this.endpoint, {
     this.type = "GET",
     this.params = const [],
-    this.base = "https://api.blocka.net/v2/",
   });
 
   final String endpoint;
   final String type;
-  final String base;
   final List<String> params;
 
-  String get template => base + endpoint + getParams;
+  String get template => endpoint + getParams;
 
   String get getParams {
     if (params.isEmpty) return "";
@@ -121,7 +119,11 @@ mixin ApiStates on StateMachineActions<ApiContext> {
 
   onApiRequest(ApiContext c, ApiEndpoint e) async {
     guard(ready);
-    var url = e.template;
+    final base = act().isFamily()
+        ? "https://family.api.blocka.net/"
+        : "https://api.blocka.net/";
+
+    var url = base + e.template;
     for (final param in e.params) {
       final value = c.queryParams[param];
       if (value == null) throw Exception("missing param: $param");

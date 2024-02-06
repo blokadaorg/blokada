@@ -100,6 +100,9 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
       _lastRefresh = DateTime(0); // To cause one immediate refresh
     } else {
       _isStatsScreenFor = null;
+      if (route.isBecameForeground()) {
+        _lastRefresh = DateTime(0); // To cause one immediate refresh
+      }
     }
     _reschedule();
   }
