@@ -41,7 +41,7 @@
     "Malware": "Зловреден софтуер",
     "Protects against malicious software": "Защита от злонамерен софтуер",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Защитава от зловреден софтуер и вредни уебсайтове. Осигурява сигурен щит срещу широк спектър от киберзаплахи.",
-    "Porn": "Порно",
+    "Adult Content": "Съдържание за възрастни",
     "Blocks adult and pornographic content": "Блокиране на съдържание за възрастни и порнографско съдържание",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Този филтър е насочен към съдържание за възрастни, за да е по-безопасно онлайн преживяването. Той предпазва потребителите от нецензурни материали и от възможни рискове.",
     "Dating": "Запознанства",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Този щит предотвратява достъпа до обичайните приложения за пазаруване. Той помага на потребителите да ограничат импулсивните покупки или отклоняването на вниманието.",
     "Miscellaneous apps": "Разни приложения",
     "A selection of various popular applications": "Селекция от различни популярни приложения",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Този щит предоставя списък с популярни приложения от различен тип. Създаден е за потребители, които се стремят към по-всеобхватен контрол на приложенията."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Този щит предоставя списък с популярни приложения от различен тип. Създаден е за потребители, които се стремят към по-всеобхватен контрол на приложенията.",
+    "Safe search": "Безопасно търсене",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Активиране на безопасно търсене и филтриране на неподходящи резултати от търсене в търсачките, също така предоставя опция за блокиране на неподдържани търсачки, които не могат да бъдат филтрирани."
 } }

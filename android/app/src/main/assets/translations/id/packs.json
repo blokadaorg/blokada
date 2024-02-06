@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Melindungi Anda dari perangkat lunak jahat",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Melindungi Anda dari perangkat lunak jahat dan situs berbahaya. Menyediakan perisai pengaman terhadap sejumlah ancaman siber.",
-    "Porn": "Pornografi",
+    "Adult Content": "Konten dewasa",
     "Blocks adult and pornographic content": "Memblokir pornografi dan dan konten dewasa lainnnya",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Filter ini menyasar konten dewasa untuk pengalaman daring yang lebih aman. Melindungi pengguna dari konten dewasa dan resiko lainnya.",
     "Dating": "Kencan",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Perisai ini mencegah akses ke aplikasi belanja online. Membantu Anda mengurangi pengeluaran mendadak.",
     "Miscellaneous apps": "Aplikasi lain-lain",
     "A selection of various popular applications": "Pilihan berbagai aplikasi populer",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Perisai ini menyediakan daftar berbagai jenis aplikasi populer. Dibuat untuk Anda yang menginginkan kendali lebih terhadap aplikasi yang Anda gunakan."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Perisai ini menyediakan daftar berbagai jenis aplikasi populer. Dibuat untuk Anda yang menginginkan kendali lebih terhadap aplikasi yang Anda gunakan.",
+    "Safe search": "Safe Search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Aktifkan Safe Search untuk menyaring hasil pencarian yang tidak pantas, dan juga menyediakan pilihan untuk memblokir mesin pencari yang tidak didukung yang hasil pencariannya tidak bisa disaring."
 } }

@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Protège contre les logiciels malveillants",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Protège contre les logiciels malveillants et les sites Web dangereux. Fournit un bouclier sécurisé contre toute une gamme de menaces informatiques.",
-    "Porn": "Porn",
+    "Adult Content": "Contenu pour adultes",
     "Blocks adult and pornographic content": "Bloque le contenu adulte et pornographique",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Ce filtre cible le contenu adulte pour une expérience en ligne plus sûre. Il protège les utilisateurs des contenus explicites et des risques potentiels.",
     "Dating": "Rencontres",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Ce bouclier empêche l'accès aux applications courantes. Il aide les utilisateurs à freiner les achats impulsifs ou les distractions.",
     "Miscellaneous apps": "Applications diverses",
     "A selection of various popular applications": "Une sélection de diverses applications populaires",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Ce bouclier fournit une liste d'applications populaires de différents types. Il est créé pour les utilisateurs en vue d'un contrôle plus complet de l'application."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Ce bouclier fournit une liste d'applications populaires de différents types. Il est créé pour les utilisateurs en vue d'un contrôle plus complet de l'application.",
+    "Safe search": "Recherche sécurisée",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Activer la recherche sécurisée pour filtrer les résultats de recherche inappropriés dans les moteurs de recherche ; offre également la possibilité de bloquer les moteurs de recherche non pris en charge qui ne peuvent pas être filtrés."
 } }

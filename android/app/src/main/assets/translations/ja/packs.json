@@ -41,7 +41,7 @@
     "Malware": "マルウェア",
     "Protects against malicious software": "悪意のあるソフトウェアから保護します",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "悪意のあるソフトウェアや有害なウェブサイトから保護します。サイバー空間の脅威から安全を確保する盾となります。",
-    "Porn": "ポルノ",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "成人向けコンテンツとポルノをブロックします",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "より安全なオンライン体験のための成人向けコンテンツを対象としたフィルターです。露骨な描写や潜在的なリスクからユーザーを保護します。",
     "Dating": "出会い系",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "このシールドは、一般的なショッピングアプリへのアクセスを防ぎます。衝動買いや注意散漫の防止に役立ちます。",
     "Miscellaneous apps": "その他のアプリ",
     "A selection of various popular applications": "様々な人気のアプリのコレクションです",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "このシールドは、さまざまな種類の人気のアプリのリストを提供します。より包括的なアプリコントロールを目指すユーザーのために作成されました。"
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "このシールドは、さまざまな種類の人気のアプリのリストを提供します。より包括的なアプリコントロールを目指すユーザーのために作成されました。",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }

@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Protectos contra software malicioso",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Defiende contra el software malicioso y los sitios web perjudiciales. Proporciona un escudo seguro contra un espectro de amenazas cibernéticas.",
-    "Porn": "Porn",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "Bloques de contenido pornográfico y adulto",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Este filtro apunta al contenido para adultos para una experiencia en línea más segura. Protege a los usuarios de materiales explícitos y riesgos potenciales.",
     "Dating": "Citas",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Este escudo impide el acceso a las aplicaciones de compras comunes. Ayuda a los usuarios a frenar las compras o distracciones de impulsos.",
     "Miscellaneous apps": "Aplicaciones multifuncionales",
     "A selection of various popular applications": "Una selección de varias aplicaciones populares",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Este escudo proporciona una lista de aplicaciones populares de varios tipos. Está creado para usuarios que apuntan a un control de aplicaciones más completo."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Este escudo proporciona una lista de aplicaciones populares de varios tipos. Está creado para usuarios que apuntan a un control de aplicaciones más completo.",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }

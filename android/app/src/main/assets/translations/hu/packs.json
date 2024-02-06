@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Protects against malicious software",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.",
-    "Porn": "Porn",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "Blocks adult and pornographic content",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.",
     "Dating": "Dating",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.",
     "Miscellaneous apps": "Miscellaneous apps",
     "A selection of various popular applications": "A selection of various popular applications",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }

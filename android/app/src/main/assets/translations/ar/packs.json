@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "الحماية من البرمجيات الضارة",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "يدافع ضد البرمجيات الخبيثة والمواقع الضارة. يوفر درعا آمنا ضد طائفة من التهديدات الإلكترونية.",
-    "Porn": "Porn",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "حظر المحتوى الكباري والإباحي للكبار",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "هذا الفلتر يستهدف محتوى الكبار للحصول على تجربة أكثر أماناً على الإنترنت. يحمي المستخدمين من المواد الواضحة والمخاطر المحتملة.",
     "Dating": "تاريخ",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "هذا الدرع يمنع الوصول إلى تطبيقات التسوق الشائعة. إنه يساعد المستخدمين في كبح عمليات شراء أو تشتيت النوافذ.",
     "Miscellaneous apps": "تطبيقات متنوعة",
     "A selection of various popular applications": "مجموعة مختارة من التطبيقات الشائعة المختلفة",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "يوفر هذا الدرع قائمة من التطبيقات الشائعة من مختلف الأنواع. تم إنشاؤها للمستخدمين بهدف التحكم في التطبيق بشكل أكثر شمولا."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "يوفر هذا الدرع قائمة من التطبيقات الشائعة من مختلف الأنواع. تم إنشاؤها للمستخدمين بهدف التحكم في التطبيق بشكل أكثر شمولا.",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }

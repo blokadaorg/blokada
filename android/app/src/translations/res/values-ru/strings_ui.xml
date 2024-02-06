@@ -2,7 +2,7 @@
 <resources>
     <string name="error_device_offline">Ваше устройство не в сети</string>
     <string name="error_account_inactive">Ваш аккаунт неактивен. Пожалуйста, его, чтобы продолжить использовать BLOKADA+.</string>
-    <string name="error_account_inactive_generic">Ваша учетная запись неактивна. Пожалуйста, активируйте свою учетную запись, чтобы продолжить использование Blokada.</string>
+    <string name="error_account_inactive_generic">Ваша учетная запись неактивна. Пожалуйста, активируйте ее, чтобы продолжить использование Blokada.</string>
     <string name="error_account_inactive_after_restore">Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на значок помощи в верхней части.</string>
     <string name="error_account_invalid">Этот ID аккаунта кажется недействительным.</string>
     <string name="error_creating_account">Не удалось создать новый аккаунт. Пожалуйста, попробуйте позже.</string>
@@ -394,7 +394,7 @@
     <string name="universal_status_waiting_for_data">Ожидание данных</string>
     <string name="universal_action_disable">Отключено</string>
     <string name="lock_action_slide_unlock">Проведите для разблокировки</string>
-    <string name="lock_action_slide_unlock_short">Слайд</string>
+    <string name="lock_action_slide_unlock_short">Свайп</string>
     <string name="lock_status_too_many_attempts">Слишком много неправильных попыток. Повторите позже</string>
     <string name="lock_status_enter_to_confirm">Для подтверждения введите пин-код еще раз</string>
     <string name="lock_status_enter_or_wait">Введите новый пин-код или дождитесь блокировки...</string>

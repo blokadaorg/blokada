@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Protegge da software malevolo",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Protegge da software malevolo e da siti web dannosi. Fornisce uno scudo sicuro contro una serie di minacce informatiche.",
-    "Porn": "Porno",
+    "Adult Content": "Contenuto per adulti",
     "Blocks adult and pornographic content": "Blocca contenuti per adulti e pornografici",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Questo filtro si rivolge ai contenuti per adulti per un'esperienza online più sicura. Protegge gli utenti da materiali espliciti e altri rischi.",
     "Dating": "Incontri",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Questo scudo impedisce l'accesso alle più comuni app di shopping. Aiuta gli utenti a ridurre gli acquisti compulsivi o incauti.",
     "Miscellaneous apps": "Applicazioni varie",
     "A selection of various popular applications": "Una selezione di varie applicazioni popolari",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Questo scudo fornisce un elenco di applicazioni popolari di vario tipo. È creato per gli utenti che puntano a un controllo più completo delle app."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Questo scudo fornisce un elenco di applicazioni popolari di vario tipo. È creato per gli utenti che puntano a un controllo più completo delle app.",
+    "Safe search": "Ricerca sicura",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Attiva la ricerca sicura per filtrare, nei motori di ricerca, i risultati inopportuni. Inoltre, fornisce l'opzione per bloccare i motori di ricerca non supportati i cui risultati non possono essere filtrati."
 } }

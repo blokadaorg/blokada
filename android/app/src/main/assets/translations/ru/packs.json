@@ -41,7 +41,7 @@
     "Malware": "Вредоносное ПО",
     "Protects against malicious software": "Защищает от вредоносных программ",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Защищает от вредоносных программ и опасных веб-сайтов. Обеспечивает надежную защиту от целого спектра киберугроз.",
-    "Porn": "Порно",
+    "Adult Content": "Только для взрослых",
     "Blocks adult and pornographic content": "Блокирует материалы для взрослых и порнографию",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Этот фильтр предназначен для защиты от контента для взрослых, что делает работу в интернете более безопасной. Он защищает пользователей от откровенных материалов и потенциальных рисков.",
     "Dating": "Знакомства",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Этот щит предотвращает доступ к распространенным приложениям для покупок. Он помогает пользователям отказаться от импульсивных покупок или отвлечься.",
     "Miscellaneous apps": "Различные приложения",
     "A selection of various popular applications": "Подборка различных популярных приложений",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Щит содержит список популярных приложений различных типов. Он создан для пользователей, желающих получить более полный контроль над приложениями."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Щит содержит список популярных приложений различных типов. Он создан для пользователей, желающих получить более полный контроль над приложениями.",
+    "Safe search": "Безопасный поиск",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Включите безопасный поиск для фильтрации неприемлемых результатов поиска в поисковых системах, а также предусмотрите возможность блокировки неподдерживаемых поисковых систем, которые не поддаются фильтрации."
 } }

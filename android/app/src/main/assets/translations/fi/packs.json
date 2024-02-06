@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Suojaa haitallisilta ohjelmilta",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Suojelee pahansuopia ohjelmistoja ja haitallisia verkkosivustoja vastaan. Tarjoaa turvallisen suojan erilaisia kyberuhkia vastaan.",
-    "Porn": "Porn",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "Lohkot aikuisten ja pornografinen sisältö",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Tämä suodatin kohdistaa aikuisten sisältöä turvallisempaan verkkoelämykseen. Se suojaa käyttäjiä eksplisiittisistä materiaaleista ja mahdollisista riskeistä.",
     "Dating": "Päiväys",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Tämä kilpi estää pääsyn yhteisiin ostossovelluksiin. Se auttaa käyttäjiä hillitsemään impulssiostoksia tai häiriötekijöitä.",
     "Miscellaneous apps": "Sekalaiset sovellukset",
     "A selection of various popular applications": "Valikoima erilaisia suosittuja sovelluksia",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Tämä kilpi tarjoaa luettelon suosituista erilaisista sovelluksista. Se on luotu käyttäjille, joiden tavoitteena on kattavampi sovellushallinta."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Tämä kilpi tarjoaa luettelon suosituista erilaisista sovelluksista. Se on luotu käyttäjille, joiden tavoitteena on kattavampi sovellushallinta.",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }

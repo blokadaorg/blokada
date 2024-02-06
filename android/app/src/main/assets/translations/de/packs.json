@@ -41,7 +41,7 @@
     "Malware": "Malware",
     "Protects against malicious software": "Schützt vor böswilliger Software",
     "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.": "Schützt böswillige Software und schädliche Websites. Bietet einen sicheren Schutz gegen ein Spektrum von Cyber-Bedrohungen.",
-    "Porn": "Porn",
+    "Adult Content": "Adult Content",
     "Blocks adult and pornographic content": "Blockiert erwachsene und pornografische Inhalte",
     "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.": "Dieser Filter richtet sich an erwachsene Inhalte für ein sichereres Online-Erlebnis und schützt die Nutzer vor expliziten Materialien und potenziellen Risiken.",
     "Dating": "Datiert",
@@ -76,5 +76,7 @@
     "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.": "Dieses Schild verhindert den Zugriff auf die gängigen Einkaufsapps. Es hilft den Benutzern, Impulskäufe oder Ablenkungen einzudämmen.",
     "Miscellaneous apps": "Verschiedene Apps",
     "A selection of various popular applications": "Eine Auswahl verschiedener beliebter Anwendungen",
-    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Dieser Schild bietet eine Liste beliebter Apps verschiedener Art. Er wird für Benutzer erstellt, die eine umfassendere App-Steuerung anstreben."
+    "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.": "Dieser Schild bietet eine Liste beliebter Apps verschiedener Art. Er wird für Benutzer erstellt, die eine umfassendere App-Steuerung anstreben.",
+    "Safe search": "Safe search",
+    "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.": "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered."
 } }
