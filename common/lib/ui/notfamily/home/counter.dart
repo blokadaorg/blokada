@@ -6,14 +6,11 @@ import 'package:mobx/mobx.dart' as mobx;
 
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
+import '../../../common/widget.dart';
 import '../../../stage/stage.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../minicard/counter.dart';
-import '../../minicard/header.dart';
-import '../../minicard/minicard.dart';
-import '../../minicard/summary.dart';
 import '../../theme.dart';
 import 'home.dart';
 import 'home_screen.dart';
@@ -78,7 +75,7 @@ class _HomeCounterState extends State<HomeCounter2>
           text: "stats header day".i18n,
           icon: Icons.shield_outlined,
           color: (_app.status == AppStatus.activatedPlus)
-              ? theme.plus
+              ? theme.accent
               : theme.cloud,
           chevronIcon: Icons.bar_chart,
         ),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:common/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
+import '../common/model.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
@@ -10,71 +11,6 @@ import 'channel.pg.dart';
 import 'json.dart';
 
 part 'stats.g.dart';
-
-class UiStats {
-  final int totalAllowed;
-  final int totalBlocked;
-
-  final List<int> allowedHistogram;
-  final List<int> blockedHistogram;
-
-  final List<UiToplistEntry> toplist;
-
-  int latestTimestamp = DateTime.now().millisecondsSinceEpoch;
-
-  // Sum for the current day
-  int dayAllowed = 0;
-  int dayBlocked = 0;
-  int dayTotal = 0;
-
-  // Average values per day (taken from at least a week of data)
-  int avgDayAllowed = 0;
-  int avgDayBlocked = 0;
-  int avgDayTotal = 0;
-
-  // Value 0-100 meaning what % of the average daily is the value for the current day
-  double dayAllowedRatio = 0;
-  double dayBlockedRatio = 0;
-  double dayTotalRatio = 0;
-
-  UiStats({
-    required this.totalAllowed,
-    required this.totalBlocked,
-    required this.allowedHistogram,
-    required this.blockedHistogram,
-    required this.toplist,
-    required this.avgDayTotal,
-    required this.avgDayAllowed,
-    required this.avgDayBlocked,
-    required this.latestTimestamp,
-  }) {
-    dayAllowed = allowedHistogram.reduce((a, b) => a + b);
-    dayBlocked = blockedHistogram.reduce((a, b) => a + b);
-    dayTotal = dayAllowed + dayBlocked;
-
-    dayAllowedRatio = ((dayAllowed / avgDayAllowed) * 100);
-    dayBlockedRatio = ((dayBlocked / avgDayBlocked) * 100);
-    dayTotalRatio = dayAllowedRatio +
-        dayBlockedRatio; // As per Johnny request, to make total ring always bigger than others
-  }
-
-  UiStats.empty({
-    this.totalAllowed = 0,
-    this.totalBlocked = 0,
-    this.allowedHistogram = const [],
-    this.blockedHistogram = const [],
-    this.toplist = const [],
-  });
-}
-
-class UiToplistEntry {
-  final String? company;
-  final String? tld;
-  final bool blocked;
-  final int value;
-
-  UiToplistEntry(this.company, this.tld, this.blocked, this.value);
-}
 
 class StatsStore = StatsStoreBase with _$StatsStore;
 
@@ -88,7 +24,7 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     });
   }
 
-  String formatCounter(int counter) {
+  static String formatCounter(int counter) {
     if (counter >= 1000000) {
       return "${(counter / 1000000.0).toStringAsFixed(2)}M";
     } else if (counter >= 1000) {

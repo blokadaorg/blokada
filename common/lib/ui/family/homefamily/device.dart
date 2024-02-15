@@ -1,16 +1,13 @@
 import 'package:common/ui/family/family_scaffolding.dart';
 import 'package:flutter/material.dart';
 
-import '../../../family/family.dart';
-import '../../../family/model.dart';
+import '../../../common/model.dart';
+import '../../../common/widget.dart';
+import '../../../common/widget/minicard/chart.dart';
 import '../../../stage/stage.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../minicard/chart.dart';
-import '../../minicard/header.dart';
-import '../../minicard/minicard.dart';
-import '../../minicard/summary.dart';
 import '../../theme.dart';
 
 class HomeDevice extends StatefulWidget {

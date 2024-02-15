@@ -11,10 +11,10 @@ import 'package:relative_scale/relative_scale.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
 import '../../../app/start/start.dart';
+import '../../../common/widget.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../touch.dart';
 import 'home.dart';
 import '../../theme.dart';
 

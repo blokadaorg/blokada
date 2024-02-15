@@ -128,6 +128,7 @@ abstract class LockStoreBase
       if (hasPin) {
         await lock(trace, _existingPin!);
       }
+      await _stage.showModal(trace, StageModal.lock);
     });
   }
 

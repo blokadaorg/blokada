@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 import 'package:common/service/I18nService.dart';
-import 'package:common/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:relative_scale/relative_scale.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../common/model.dart';
 
 class ColumnChart extends StatelessWidget {
   final UiStats stats;

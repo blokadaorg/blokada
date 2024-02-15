@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:common/fsm/api/api.dart';
-import 'package:common/fsm/machine.dart';
-import 'package:common/util/act.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../tools.dart';
@@ -16,14 +13,15 @@ void main() {
   group("ApiActor", () {
     test("basic", () async {
       await withTrace((trace) async {
-        final subject = ApiActor(mockedAct);
-        subject.injectHttp((it) async {
-          subject.httpOk("result");
-        });
-        subject.queryParams({});
+        final subject = ApiActor(
+          actionHttp: (it) async => "result",
+          actionSleep: (it) async {},
+        );
 
-        subject.request(const HttpRequest(url: "https://example.com/"));
-        final result = await subject.waitForState("success");
+        subject.config("https://example.com/", {});
+        subject.request(HttpRequest(ApiEndpoint.getGateways));
+
+        final result = await subject.waitForState(ApiStates.success);
         expect(result.result, "result");
       });
     });
@@ -31,77 +29,66 @@ void main() {
     test("failingRequest", () async {
       await withTrace((trace) async {
         final error = Exception("error");
-        final subject = ApiActor(mockedAct);
-        subject.injectHttp((it) async {
-          subject.httpFail(error);
-        });
-        await subject.queryParams({});
 
-        await subject.request(const HttpRequest(url: "https://example.com/"));
-        try {
-          final result = await subject.waitForState("success");
-          expect(result.error, error);
-        } catch (e) {}
+        final subject = ApiActor(
+          actionHttp: (it) async => throw error,
+          actionSleep: (it) async {},
+        );
+
+        subject.config("https://example.com/", {});
+        subject.request(HttpRequest(ApiEndpoint.getGateways));
+
+        await expectLater(
+            subject.waitForState(ApiStates.success), throwsA(error));
       });
     });
 
     test("queryParams", () async {
       await withTrace((trace) async {
-        final subject = ApiActor(mockedAct);
-        subject.injectHttp((it) async {
-          subject.httpOk("result");
-        });
-        await subject.queryParams({"account_id": "test"});
+        final subject = ApiActor(
+          actionHttp: (it) async => "result",
+          actionSleep: (it) async {},
+        );
 
-        await subject.apiRequest(ApiEndpoint.getList);
-        final result = await subject.waitForState("success");
+        subject.config("https://example.com/", {ApiParam.accountId: "test"});
+        subject.request(HttpRequest(ApiEndpoint.getLists));
+
+        final result = await subject.waitForState(ApiStates.success);
         expect(result.result, "result");
       });
     });
 
     test("queryParamsMissing", () async {
       await withTrace((trace) async {
-        final subject = ApiActor(mockedAct);
-        subject.injectHttp((it) async {
-          subject.httpOk("result");
-        });
-        await subject.queryParams({});
+        final subject = ApiActor(
+          actionHttp: (it) async => "result",
+          actionSleep: (it) async {},
+        );
 
-        await subject.apiRequest(ApiEndpoint.getList);
-        await expectLater(subject.waitForState("success"), throws);
+        subject.config("https://example.com/", {});
+        subject.request(HttpRequest(ApiEndpoint.getLists));
+
+        await expectLater(subject.waitForState(ApiStates.success), throws);
       });
     });
 
-    test("apiRequest2", () async {
+    test("whenState", () async {
       await withTrace((trace) async {
-        final subject = ApiActor(mockedAct);
-        subject.injectHttp((it) async {
-          subject.httpOk("result");
+        final subject = ApiActor(
+          actionHttp: (it) async => "result",
+          actionSleep: (it) async {},
+        );
+
+        subject.config("https://example.com/", {});
+        subject.request(HttpRequest(ApiEndpoint.getGateways));
+
+        final c = Completer<void>();
+        subject.whenState(ApiStates.success, (_) {
+          c.complete();
         });
-        await subject.queryParams({});
 
-        await subject.waitForState("ready");
-        await subject.apiRequest(ApiEndpoint.getList);
-        await expectLater(subject.waitForState("success"), throws);
+        await c.future;
       });
-    });
-  });
-
-  test("whenState", () async {
-    await withTrace((trace) async {
-      final subject = ApiActor(mockedAct);
-      subject.injectHttp((it) async {
-        subject.httpOk("result");
-      });
-      subject.queryParams({});
-
-      final c = Completer<void>();
-      subject.whenState("success", (_) {
-        c.complete();
-      });
-
-      subject.request(const HttpRequest(url: "https://example.com/"));
-      await c.future;
     });
   });
 }

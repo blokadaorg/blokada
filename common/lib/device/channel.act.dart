@@ -21,4 +21,6 @@ _actNormal(MockDeviceOps ops) {
   when(() => ops.doRetentionChanged(any())).thenAnswer(ignore());
   when(() => ops.doDeviceTagChanged(any())).thenAnswer(ignore());
   when(() => ops.doNameProposalsChanged(any())).thenAnswer(ignore());
+  when(() => ops.doSafeSearchEnabled(any())).thenAnswer(ignore());
+  when(() => ops.doDeviceAliasChanged(any())).thenAnswer(ignore());
 }

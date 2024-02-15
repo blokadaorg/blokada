@@ -6,15 +6,15 @@ import 'package:relative_scale/relative_scale.dart';
 
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
+import '../../../common/model.dart';
+import '../../../common/widget.dart';
 import '../../../family/devices.dart';
 import '../../../family/family.dart';
-import '../../../family/model.dart';
 import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import '../../debug/debugoptions.dart';
-import '../../notfamily/home/icon.dart';
 import '../../theme.dart';
 import 'biglogo.dart';
 import 'ctabuttons.dart';

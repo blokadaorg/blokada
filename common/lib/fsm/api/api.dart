@@ -1,38 +1,38 @@
 import 'dart:async';
 
-import '../../account/account.dart';
-import '../../http/channel.pg.dart';
+import 'package:vistraced/annotations.dart';
+
 import '../../http/http.dart';
-import '../../util/async.dart';
-import '../../util/di.dart';
 import '../machine.dart';
 
-part 'api.genn.dart';
+part 'api.g.dart';
 
-mixin ApiContext {
-  Map<String, String> queryParams = {};
-  HttpRequest? request;
-  String? result;
-  Exception? error;
-  int retries = 2;
-}
+typedef QueryParams = Map<ApiParam, String>;
 
 class HttpRequest {
-  final String url;
-  final String type;
-  final String? payload;
+  final ApiEndpoint endpoint;
   final int retries;
+  String? payload;
+  late String url;
 
-  const HttpRequest({
-    required this.url,
-    this.type = "GET",
+  HttpRequest(
+    this.endpoint, {
     this.payload,
     this.retries = 2,
   });
 }
 
 enum ApiEndpoint {
-  getList("v2/list", params: ["account_id"]);
+  getGateways("v2/gateway"),
+  getLists("v2/list", params: [ApiParam.accountId]),
+  getProfiles("v3/profile", params: [ApiParam.accountId]),
+  postProfile("v3/profile", type: "POST", params: [ApiParam.accountId]),
+  putProfile("v3/profile", type: "PUT", params: [ApiParam.accountId]),
+  deleteProfile("v3/profile", type: "DELETE", params: [ApiParam.accountId]),
+  getDevices("v3/device", params: [ApiParam.accountId]),
+  postDevice("v3/device", type: "POST", params: [ApiParam.accountId]),
+  putDevice("v3/device", type: "PUT", params: [ApiParam.accountId]),
+  deleteDevice("v3/device", type: "DELETE", params: [ApiParam.accountId]);
 
   const ApiEndpoint(
     this.endpoint, {
@@ -42,128 +42,119 @@ enum ApiEndpoint {
 
   final String endpoint;
   final String type;
-  final List<String> params;
+  final List<ApiParam> params;
 
   String get template => endpoint + getParams;
 
   String get getParams {
     if (params.isEmpty) return "";
-    final p = params.map((e) => "$e=($e)").join("&");
+    if (type != "GET") return "";
+    final p = params.map((e) => "${e.name}=${e.placeholder}").join("&");
     return "?$p";
   }
 }
 
-abstract class BlockaHttpRequest extends HttpRequest {
-  final String endpoint;
+enum ApiParam {
+  accountId("account_id");
 
-  BlockaHttpRequest({required this.endpoint})
-      : super(url: "http://api.blocka.net/v2/$endpoint");
+  const ApiParam(this.name) : placeholder = "($name)";
+
+  final String name;
+  final String placeholder;
 }
 
-// @Machine
-mixin ApiStates on StateMachineActions<ApiContext> {
-  late Action<HttpRequest> _http;
+@context
+mixin ApiContext on Context<ApiContext> {
+  String? _baseUrl;
+  HttpRequest? _request;
+  Map<ApiParam, String>? _params;
 
-  init(ApiContext c) async {}
-  ready(ApiContext c) async {}
+  String? result;
+  Object? error;
+  int retries = 2;
 
-  fetch(ApiContext c) async {
-    whenFail(retry, saveContext: true);
-    _http(c.request!);
-    return waiting;
+  // @action
+  late Action<HttpRequest, String> _actionHttp;
+  late Action<void, void> _actionSleep;
+}
+
+@States(ApiContext)
+mixin ApiStates {
+  @initialState
+  static init(ApiContext c) async {
+    if (c._baseUrl != null && c._request != null && c._params != null) {
+      return prepare;
+    }
   }
 
-  waiting(ApiContext c) async {}
-
-  retry(ApiContext c) async {
-    whenFail(failure, saveContext: true);
-    final error = c.error;
-    if (error is HttpCodeException && !error.shouldRetry()) throw error;
-    if (c.retries-- <= 0) throw error ?? Exception("unknown error");
-    await sleepAsync(Duration(seconds: act().isProd() ? 3 : 0));
-    return fetch;
+  static onConfig(ApiContext c, String baseUrl, QueryParams params) async {
+    c.guard([init]);
+    c._baseUrl = baseUrl;
+    c._params = params;
+    return init;
   }
 
-  // @final
-  success(ApiContext c) async {}
-
-  failure(ApiContext c) async {}
-
-  onQueryParams(ApiContext c, Map<String, String> queryParams) async {
-    guard(init);
-    c.queryParams = queryParams;
-    return ready;
+  static onRequest(ApiContext c, HttpRequest request) async {
+    c.guard([init]);
+    c._request = request;
+    return init;
   }
 
-  onHttpOk(ApiContext c, String result) async {
-    guard(waiting);
-    c.result = result;
-    return success;
-  }
-
-  onHttpFail(ApiContext c, Exception error) async {
-    guard(waiting);
-    c.error = error;
-    return retry;
-  }
-
-  onRequest(ApiContext c, HttpRequest request) async {
-    guard(ready);
+  static prepare(ApiContext c) async {
+    final request = c._request!;
     if (request.retries < 0) throw Exception("invalid retries param");
-    c.request = request;
+    if (request.endpoint.type != "GET" && request.payload == null) {
+      throw Exception("missing payload");
+    }
+
+    // Replace param template with actual values
+    var url = c._baseUrl! + request.endpoint.template;
+    for (final param in request.endpoint.params) {
+      final value = c._params![param];
+      if (value == null) throw Exception("missing param: $param");
+      url = url.replaceAll(param.placeholder, value);
+    }
+
+    // Replace param also in payload
+    if (request.payload != null) {
+      for (final param in request.endpoint.params) {
+        final value = c._params![param];
+        if (value == null) throw Exception("missing param: $param");
+        request.payload = request.payload!.replaceAll(param.placeholder, value);
+      }
+    }
+
+    request.url = url;
+    c._request = request;
     c.retries = request.retries;
     c.result = null;
 
     return fetch;
   }
 
-  onApiRequest(ApiContext c, ApiEndpoint e) async {
-    guard(ready);
-    final base = act().isFamily()
-        ? "https://family.api.blocka.net/"
-        : "https://api.blocka.net/";
-
-    var url = base + e.template;
-    for (final param in e.params) {
-      final value = c.queryParams[param];
-      if (value == null) throw Exception("missing param: $param");
-      url = url.replaceAll("($param)", value);
+  static fetch(ApiContext c) async {
+    c.whenFail(retry, saveContext: true);
+    try {
+      c.result = await c._actionHttp(c._request!);
+    } catch (e) {
+      c.error = e;
+      rethrow;
     }
+    return success;
+  }
 
-    log(url);
-
-    c.request = HttpRequest(
-      url: url,
-      type: e.type,
-    );
-    c.result = null;
-
+  static retry(ApiContext c) async {
+    c.whenFail(failure, saveContext: true);
+    final e = c.error ?? Exception("Unknown error");
+    if (e is HttpCodeException && !e.shouldRetry()) throw e;
+    if (c.retries-- <= 0) throw e;
+    await c._actionSleep(null);
     return fetch;
   }
-}
 
-class ApiActor extends _$ApiActor {
-  ApiActor(Act act) : super(act) {
-    if (act.isProd()) {
-      final ops = HttpOps();
-      final account = dep<AccountStore>();
+  // @final
+  static success(ApiContext c) async {}
 
-      injectHttp((it) async {
-        // TODO: err
-        final result = await ops.doGet(it.url);
-        httpOk(result);
-      });
-
-      try {
-        // Account ID may be unavailable
-        queryParams(
-          {"account_id": account.id},
-        );
-      } catch (e) {
-        // This will just create the actor to fail but they are instantiated
-        // for each request.
-        queryParams({});
-      }
-    }
-  }
+  @fatalState
+  static failure(ApiContext c) async {}
 }

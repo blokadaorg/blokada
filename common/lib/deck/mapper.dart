@@ -3,7 +3,6 @@ import 'package:collection/collection.dart';
 import '../util/trace.dart';
 import 'channel.pg.dart';
 import 'deck.dart';
-import '../fsm/filter/json.dart';
 
 abstract class DeckMapper {
   // Will return a map of decks, that users can enable/disable.

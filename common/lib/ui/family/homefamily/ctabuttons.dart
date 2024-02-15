@@ -3,16 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../common/model.dart';
+import '../../../common/widget.dart';
+import '../../../common/widget/family/home/totalcounter.dart';
 import '../../../family/family.dart';
-import '../../../family/model.dart';
 import '../../../lock/lock.dart';
 import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../minicard/minicard.dart';
 import '../../theme.dart';
-import '../family_totalcounter.dart';
 
 class CtaButtons extends StatefulWidget {
   CtaButtons({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class CtaButtonsState extends State<CtaButtons>
             padding: const EdgeInsets.all(8.0),
             child: MiniCard(
               onTap: _handleCtaTap(),
-              color: theme.family,
+              color: theme.accent,
               child: SizedBox(
                 height: 32,
                 child: Center(
@@ -118,7 +118,7 @@ class CtaButtonsState extends State<CtaButtons>
           padding: const EdgeInsets.all(8.0),
           child: MiniCard(
               onTap: _handleCtaTap(),
-              color: theme.family,
+              color: theme.accent,
               child: const SizedBox(
                 height: 32,
                 width: 32,

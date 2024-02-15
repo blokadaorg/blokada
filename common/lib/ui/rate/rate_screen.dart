@@ -5,11 +5,11 @@ import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../common/widget.dart';
 import '../../rate/rate.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../minicard/minicard.dart';
 import '../theme.dart';
 import 'star.dart';
 
@@ -182,7 +182,7 @@ class _RateScreenState extends State<RateScreen>
                         _showPlatformDialog = true;
                         bgStateKey.currentState?.animateToClose();
                       },
-                      color: theme.plus,
+                      color: theme.accent,
                       child: SizedBox(
                         width: 200,
                         child: Text(

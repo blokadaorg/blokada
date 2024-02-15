@@ -3,6 +3,7 @@ import 'package:common/stage/channel.pg.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
+import '../common/model/filter/filter_json.dart';
 import '../device/device.dart';
 import '../stage/stage.dart';
 import '../util/config.dart';
@@ -12,7 +13,6 @@ import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
-import '../fsm/filter/json.dart';
 import 'mapper.dart';
 
 part 'deck.g.dart';

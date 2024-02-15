@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../common/widget.dart';
 import '../../../family/devices.dart';
 import '../../../family/family.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import '../../theme.dart';
-import '../../touch.dart';
 import 'device.dart';
 
 class Devices extends StatefulWidget {
@@ -47,8 +47,8 @@ class DevicesState extends State<Devices>
 
   @override
   void dispose() {
-    super.dispose();
     _ctrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -150,7 +150,7 @@ class DevicesState extends State<Devices>
               e.deviceName,
               HomeDevice(
                   device: e,
-                  color: e.thisDevice ? theme.family : const Color(0xff3c8cff)),
+                  color: e.thisDevice ? theme.accent : const Color(0xff3c8cff)),
             )))
         .toList();
   }

@@ -5,7 +5,6 @@ import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../overlay/overlay_container.dart';
 import 'home/home_screen.dart';
 import '../stats/stats_screen.dart';
 
@@ -104,7 +103,6 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
             scrollDirection: Axis.vertical,
             children: _getPages(),
           ),
-          OverlayContainer(modal: _modal),
         ],
       ),
     );

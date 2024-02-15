@@ -16,4 +16,7 @@ abstract class PermOps {
 
   @async
   bool doVpnEnabled();
+
+  @async
+  void doOpenSettings();
 }

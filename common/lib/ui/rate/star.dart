@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../touch.dart';
+import '../../common/widget.dart';
 
 class RateStar extends StatefulWidget {
   final bool full;

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
+import '../common/model.dart';
 import '../family/family.dart';
-import '../family/model.dart';
 import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';

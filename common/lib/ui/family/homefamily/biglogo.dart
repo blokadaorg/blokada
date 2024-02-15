@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:mobx/mobx.dart';
 
 import '../../../account/account.dart';
+import '../../../common/model.dart';
 import '../../../family/devices.dart';
 import '../../../family/family.dart';
-import '../../../family/model.dart';
 import '../../../lock/lock.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
@@ -97,10 +97,10 @@ class BigLogoState extends State<BigLogo>
 
   @override
   void dispose() {
-    super.dispose();
     _bounceController.dispose();
     _spinController.dispose();
     _scaleController.dispose();
+    super.dispose();
   }
 
   @override

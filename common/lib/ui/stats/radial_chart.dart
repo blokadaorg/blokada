@@ -6,7 +6,7 @@ import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../stats/stats.dart';
+import '../../common/model.dart';
 
 class RadialChart extends StatelessWidget {
   final UiStats stats;

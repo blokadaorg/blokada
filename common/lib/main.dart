@@ -1,12 +1,20 @@
 import 'dart:io' as io;
+import 'package:common/common/widget/family/home/home_screen.dart';
 import 'package:common/json/json.dart';
+import 'package:common/ui/family/family_scaffolding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:vistraced/via.dart';
 
+import 'common/widget/app.dart';
 import 'entrypoint.dart';
+import 'main-widgets.dart';
+import 'mock/via/mock_family.dart';
+import 'mock/via/temp_family.dart';
+import 'mock/widget/mock_scaffolding.dart';
 import 'service/I18nService.dart';
-import 'ui/root.dart';
+import 'ui/notfamily/scaffolding.dart';
 import 'util/act.dart';
 import 'util/di.dart';
 
@@ -39,5 +47,17 @@ void main() async {
 
   entrypoint.onStartApp();
 
-  runApp(const Root());
+  MockModule();
+  TempModule();
+  injector.inject();
+
+  final ws = DevWebsocket();
+  depend(ws);
+  ws.handle();
+
+  runApp(BlokadaApp(
+    content: (flavor == Flavor.family)
+        ? const HomeScreen()
+        : const Scaffolding(title: 'Blokada'),
+  ));
 }

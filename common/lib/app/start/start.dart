@@ -105,7 +105,9 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
       await _app.initStarted(trace);
       try {
         for (final startable in _startables) {
+          trace.addEvent("starting ${startable.runtimeType}");
           await startable.start(trace);
+          trace.addEvent("started ${startable.runtimeType}");
         }
         await _app.initCompleted(trace);
       } catch (e) {

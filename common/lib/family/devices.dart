@@ -1,10 +1,9 @@
 import 'package:common/service/I18nService.dart';
 import 'package:dartx/dartx.dart';
 
-import '../stats/stats.dart';
-import 'model.dart';
-
 import 'package:collection/collection.dart';
+
+import '../common/model.dart';
 
 class FamilyDevices {
   final List<FamilyDevice> entries;
@@ -25,6 +24,8 @@ class FamilyDevices {
                   _deviceDisplayName(name, name == thisDeviceName),
               stats: UiStats.empty(),
               thisDevice: name == thisDeviceName,
+              enabled: true,
+              configured: true,
             ))
         .toList();
     return FamilyDevices(devices, devices.isNotEmpty);
@@ -39,6 +40,8 @@ class FamilyDevices {
         deviceDisplayName: d.deviceDisplayName,
         stats: s,
         thisDevice: d.thisDevice,
+        enabled: d.enabled,
+        configured: d.configured,
       );
     }).toList();
 
@@ -55,6 +58,8 @@ class FamilyDevices {
       deviceDisplayName: name,
       stats: stats,
       thisDevice: false,
+      enabled: true,
+      configured: true,
     ));
 
     return FamilyDevices(updated, true);
@@ -71,6 +76,8 @@ class FamilyDevices {
       deviceDisplayName: _deviceDisplayName(name, true),
       stats: stats,
       thisDevice: true,
+      enabled: false,
+      configured: false,
     );
 
     return FamilyDevices([thisDevice, ...entries], true);
@@ -78,6 +85,7 @@ class FamilyDevices {
 
   _deviceDisplayName(String name, bool thisDevice) {
     if (thisDevice) {
+      return "This device";
       return "family label this device".i18n.replaceFirst("%s", name);
     }
     return name;
@@ -103,6 +111,8 @@ class FamilyDevices {
       deviceDisplayName: d.deviceDisplayName,
       stats: stats,
       thisDevice: d.thisDevice,
+      enabled: d.enabled,
+      configured: d.configured,
     );
 
     return FamilyDevices(updated, true);
@@ -118,6 +128,8 @@ class FamilyDevices {
       deviceDisplayName: d.deviceDisplayName,
       stats: d.stats,
       thisDevice: true,
+      enabled: d.enabled,
+      configured: d.configured,
     );
 
     return FamilyDevices(updated, true);

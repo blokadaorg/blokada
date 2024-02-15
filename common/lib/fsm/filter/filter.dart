@@ -1,18 +1,12 @@
-import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:vistraced/annotations.dart';
 
-import '../../device/device.dart';
-import '../../filter/channel.pg.dart' as fops;
-import '../../util/di.dart';
-import '../../util/trace.dart';
-import '../api/api.dart';
+import '../../common/model.dart';
+import '../../common/model/filter/filter_json.dart';
 import '../machine.dart';
-import 'json.dart';
-import 'known.dart';
-import 'model.dart';
 
-part 'filter.genn.dart';
+part 'filter.g.dart';
 
 /// Filter is the latest model for handling user configurations (blocklists and
 /// other blocking settings). It replaces models Pack, Deck, Shield.
@@ -24,80 +18,83 @@ typedef ListHashId = String;
 typedef Enable = bool;
 typedef UserLists = Set<ListHashId>;
 
-mixin FilterContext {
+@context
+mixin FilterContext on Context<FilterContext> {
   List<JsonListItem> lists = [];
   Map<ListHashId, ListTag> listsToTags = {};
-  Set<ListHashId>? selectedLists;
-
-  Map<FilterConfigKey, bool> configs = {};
 
   List<Filter> filters = [];
   List<FilterSelection> selectedFilters = [];
 
-  bool defaultsApplied = false;
+  Set<ListHashId>? _selectedLists;
+  Map<FilterConfigKey, bool>? _configs;
+  bool _defaultsApplied = false;
+
+  // @action
+  late Action<void, List<JsonListItem>> _actionLists;
+  late Action<void, List<Filter>> _actionKnownFilters;
+  late Action<void, List<FilterSelection>> _actionDefaultEnabled;
+  late Action<UserLists, void> _actionPutUserLists;
+  late Action<Map<FilterConfigKey, bool>, void> _actionPutConfig;
 }
 
-// @Machine
-mixin FilterStates on StateMachineActions<FilterContext> {
-  late Action<ApiEndpoint> _api;
-  late Action<UserLists> _putUserLists;
+@States(FilterContext)
+mixin FilterStates {
+  @fatalState
+  static fatal(FilterContext c) async {}
 
-  // @initial
-  init(FilterContext c) async {
-    return fetchLists;
-  }
-
-  // @fatal
-  fatal(FilterContext c) async {}
-
-  fetchLists(FilterContext c) async {
-    _api(ApiEndpoint.getList);
-
-    // TODO: configs
-    c.configs = {};
-
-    return waiting;
-  }
-
-  waiting(FilterContext c) async {
-    if (c.selectedLists != null &&
-        c.lists.isNotEmpty /*&& c.configs.isNotEmpty*/) {
-      return parse;
-    }
-  }
-
-  onApiOk(FilterContext c, String result) async {
-    guard(waiting);
-    c.lists = JsonListEndpoint.fromJson(jsonDecode(result)).lists;
+  @initialState
+  static reload(FilterContext c) async {
+    //whenFail(init); // todo cooldown
+    c.lists = await c._actionLists(null);
 
     // Prepare a map for quick lookups
     c.listsToTags = {};
     for (final list in c.lists) {
       c.listsToTags[list.id] = "${list.vendor}/${list.variant}";
     }
-    return waiting;
+
+    c._selectedLists = null;
+    c._configs = null;
+    c._defaultsApplied = false;
+
+    return waitForConfig;
   }
 
-  // Some retry logic?
-  onApiFail(FilterContext c) async => init;
-
-  onUserLists(FilterContext c, UserLists lists) async {
-    c.selectedLists = lists;
-    return waiting;
+  static waitForConfig(FilterContext c) async {
+    if (c._configs != null && c._selectedLists != null) return parse;
   }
 
-  parse(FilterContext c) async {
+  static onConfig(
+    FilterContext c,
+    Set<ListHashId>? selectedLists,
+    Map<FilterConfigKey, bool>? configs,
+  ) async {
+    c.guard([waitForConfig]);
+    c._selectedLists = selectedLists;
+    c._configs = configs;
+    return waitForConfig;
+  }
+
+  static clearConfig(FilterContext c) async {
+    c.guard([ready]);
+    c._selectedLists = null;
+    c._configs = null;
+    return waitForConfig;
+  }
+
+  static parse(FilterContext c) async {
     // 1: read filters that we know about (no selections yet)
-    c.filters = getKnownFilters(act());
+    c.filters = await c._actionKnownFilters(null);
     c.selectedFilters = [];
 
     // 2: map user selected lists to internal tags
     // Tags are "vendor/variant", like "oisd/small"
     List<ListTag> selection = [];
-    for (final selectedHashId in c.selectedLists ?? {}) {
+    for (final selectedHashId in c._selectedLists ?? {}) {
       final tag = c.listsToTags[selectedHashId];
       if (tag == null) {
-        log("User has unknown list: $selectedHashId");
+        c.log("User has unknown list: $selectedHashId");
         continue;
       }
 
@@ -108,14 +105,19 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     for (final filter in c.filters) {
       List<OptionName> active = [];
       for (final option in filter.options) {
-        // For List actions, assume an option is active, if all lists specified
-        // for this option are active
         if (option.action == FilterAction.list) {
+          // For List actions, assume an option is active, if all lists specified
+          // for this option are active
           if (option.actionParams.every((it) => selection.contains(it))) {
             active += [option.optionName];
           }
+        } else if (option.action == FilterAction.config) {
+          // For Config actions, assume an option is active, if the config is set
+          final key = FilterConfigKey.values.byName(option.actionParams.first);
+          if (c._configs![key]!) {
+            active += [option.optionName];
+          }
         }
-        // TODO: other options
       }
 
       c.selectedFilters += [FilterSelection(filter.filterName, active)];
@@ -124,9 +126,11 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     return reconfigure;
   }
 
-  reconfigure(FilterContext c) async {
+  static reconfigure(FilterContext c) async {
     // 1. figure out how to activate each filter
     Set<ListHashId> lists = {};
+    Map<FilterConfigKey, bool> configs = {};
+
     for (final selection in c.selectedFilters) {
       final filter = c.filters.firstWhere(
         (it) => it.filterName == selection.filterName,
@@ -138,8 +142,9 @@ mixin FilterStates on StateMachineActions<FilterContext> {
           (it) => it.optionName == o,
         );
 
-        // For list action, activate all lists specified by the option
         if (option.action == FilterAction.list) {
+          // For list action, activate all lists specified by the option
+
           // Each tag needs to be mapped to ListHashId
           for (final listTag in option.actionParams) {
             final list = c.lists.firstWhereOrNull(
@@ -153,86 +158,89 @@ mixin FilterStates on StateMachineActions<FilterContext> {
 
             lists.add(list.id);
           }
+        } else if (option.action == FilterAction.config) {
+          // For config action, set the config to the value specified by the option
+          final key = FilterConfigKey.values.byName(option.actionParams.first);
+          configs[key] = true;
         }
-        // TODO: other actions
       }
     }
 
     // 2. perform the necessary activations
     bool needsReload = false;
 
-    // For now it's only about lists
     // List can be empty, that's ok
-    if (!setEquals(lists, c.selectedLists)) {
+    if (!setEquals(lists, c._selectedLists)) {
+      await c._actionPutUserLists(lists);
       needsReload = true;
-      await _putUserLists(lists);
+    } else if (!mapEquals(configs, c._configs)) {
+      await c._actionPutConfig(configs);
+      needsReload = true;
     }
 
-    // TODO: other actions
-
     if (needsReload) {
-      // Risk of loop if api misbehaves
-      //setState(FilterState.load);
+      //return waitForConfig;
     }
 
     return defaults;
   }
 
-  defaults(FilterContext c) async {
+  static defaults(FilterContext c) async {
     // Do nothing if has selections
     if (c.selectedFilters.any((it) => it.options.isNotEmpty)) return ready;
 
     // Or if already applied during this runtime
-    if (c.defaultsApplied) return ready;
+    if (c._defaultsApplied) return ready;
 
-    log("Applying defaults");
-    c.selectedFilters = getDefaultEnabled(act());
-    c.defaultsApplied = true;
+    c.log("Applying defaults");
+    c.selectedFilters = await c._actionDefaultEnabled(null);
+    c._defaultsApplied = true;
     return reconfigure;
   }
 
-  ready(FilterContext c) async {}
+  static ready(FilterContext c) async {}
 
-  onEnableFilter(FilterContext c, String filterName, bool enable) async {
-    guard(ready);
-    whenFail(ready);
+  static onEnableFilter(
+      FilterContext c, FilterName filterToChange, bool enable) async {
+    c.guard([ready]);
+    c.whenFail(ready);
 
     final filter = c.filters.firstWhere(
-      (it) => it.filterName == filterName,
+      (it) => it.filterName == filterToChange,
     );
 
     var option = [filter.options.first.optionName];
     if (!enable) option = [];
 
-    c.selectedFilters.removeWhere((it) => it.filterName == filterName);
-    c.selectedFilters += [FilterSelection(filterName, option)];
+    c.selectedFilters.removeWhere((it) => it.filterName == filterToChange);
+    c.selectedFilters += [FilterSelection(filterToChange, option)];
 
     return reconfigure;
   }
 
-  onToggleFilterOption(
-      FilterContext c, String filterName, String optionName) async {
-    guard(ready);
-    whenFail(ready);
+  static onToggleFilterOption(FilterContext c, FilterName filterToChange,
+      OptionName optionToChange) async {
+    c.guard([ready]);
+    c.whenFail(ready);
 
     final filter = c.filters.firstWhere(
-      (it) => it.filterName == filterName,
+      (it) => it.filterName == filterToChange,
     );
 
     // Will throw if unknown option
-    filter.options.firstWhere((it) => it.optionName == optionName);
+    filter.options.firstWhere((it) => it.optionName == optionToChange);
 
     // Get the current option selection for this filter
     var selection = c.selectedFilters.firstWhereOrNull(
-          (it) => it.filterName == filterName,
+          (it) => it.filterName == filterToChange,
         ) ??
-        FilterSelection(filterName, []);
+        FilterSelection(filterToChange, []);
 
     // Toggle the option
-    if (selection.options.contains(optionName)) {
-      selection.options.remove(optionName);
+    if (selection.options.contains(optionToChange)) {
+      selection.options.remove(optionToChange);
     } else {
-      selection.options.add(optionName);
+      selection.options.add(optionToChange);
     }
 
     // Save the change
@@ -240,62 +248,5 @@ mixin FilterStates on StateMachineActions<FilterContext> {
     c.selectedFilters += [selection];
 
     return reconfigure;
-  }
-
-  onReload(FilterContext c) async {
-    guard(ready);
-    return fetchLists;
-  }
-}
-
-class FilterActor extends _$FilterActor with TraceOrigin {
-  FilterActor(Act act) : super(act) {
-    if (!act.isProd()) return;
-
-    injectApi((it) async {
-      final actor = ApiActor(act);
-      actor.whenState("ready", (c) async {
-        try {
-          await actor.apiRequest(it);
-          final result = await actor.waitForState("success");
-          apiOk(result.result!);
-        } catch (e) {
-          apiFail(e as Exception);
-        }
-      });
-    });
-
-    final device = dep<DeviceStore>();
-    device.addOn(deviceChanged, (trace) {
-      userLists(device.lists?.toSet() ?? {});
-    });
-
-    injectPutUserLists((it) async {
-      await traceAs("setLists", (trace) async {
-        await device.setLists(trace, it.toList());
-      });
-    });
-
-    final ops = fops.FilterOps();
-
-    addOnState("ready", "ops", (state, context) {
-      final filters = context.filters
-          .map((it) => fops.Filter(
-                filterName: it.filterName,
-                options: it.options.map((it) => it.optionName).toList(),
-              ))
-          .toList();
-      ops.doFiltersChanged(filters);
-
-      final selections = context.selectedFilters
-          .map((it) => fops.Filter(
-                filterName: it.filterName,
-                options: it.options,
-              ))
-          .toList();
-      ops.doFilterSelectionChanged(selections);
-
-      ops.doListToTagChanged(context.listsToTags);
-    });
   }
 }

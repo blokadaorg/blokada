@@ -1,7 +1,7 @@
 import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 
-import '../../../family/model.dart';
+import '../../../common/model.dart';
 import '../../../util/trace.dart';
 import '../../theme.dart';
 

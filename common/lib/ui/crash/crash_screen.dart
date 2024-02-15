@@ -5,11 +5,11 @@ import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../common/widget.dart';
 import '../../stage/stage.dart';
 import '../../tracer/tracer.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../minicard/minicard.dart';
 import '../theme.dart';
 
 class CrashScreen extends StatefulWidget {
@@ -106,7 +106,7 @@ class _CrashScreenState extends State<CrashScreen>
                         bgStateKey.currentState?.animateToClose();
                         _shareLog();
                       },
-                      color: theme.plus,
+                      color: theme.accent,
                       child: SizedBox(
                         width: 200,
                         child: Text("universal action share log".i18n,

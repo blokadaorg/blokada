@@ -1,18 +1,20 @@
+import 'package:dartx/dartx.dart';
+
 import 'package:common/journal/channel.pg.dart';
 import 'package:common/service/I18nService.dart';
-import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:status_alert/status_alert.dart';
 
+import '../../common/model.dart';
+import '../../common/widget.dart';
 import '../../journal/journal.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../theme.dart';
-import '../touch.dart';
 
 class Toplist extends StatelessWidget with TraceOrigin {
   final _store = dep<StatsStore>();
@@ -79,7 +81,8 @@ class Toplist extends StatelessWidget with TraceOrigin {
                   Text(entry.tld ?? "toplist tld unknown".i18n,
                       style: const TextStyle(fontSize: 18)),
                   Text(
-                    entry.company?.capitalize() ?? "toplist company other".i18n,
+                    entry.company?.firstLetterUppercase() ??
+                        "toplist company other".i18n,
                     style: TextStyle(color: theme.textSecondary, fontSize: 12),
                   ),
                   Text(

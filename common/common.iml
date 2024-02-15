@@ -21,6 +21,30 @@
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/flutter_keyboard_visibility/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/flutter_keyboard_visibility/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/flutter_keyboard_visibility/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/package_info_plus/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/video_player_avfoundation/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/wakelock_plus/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

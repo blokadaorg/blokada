@@ -1,4 +1,4 @@
-import 'package:common/fsm/filter/json.dart';
+import 'package:common/common/model/filter/filter_json.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const fixtureListEndpoint = '''

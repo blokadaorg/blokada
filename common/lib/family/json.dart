@@ -1,5 +1,5 @@
+import '../common/model.dart';
 import '../json/json.dart';
-import 'model.dart';
 
 class JsonFamilyDevices {
   late List<String> devices;

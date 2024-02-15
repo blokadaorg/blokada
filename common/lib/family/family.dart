@@ -6,8 +6,7 @@ import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
-import '../app/app.dart';
-import '../app/start/start.dart';
+import '../common/model.dart';
 import '../device/device.dart';
 import '../journal/journal.dart';
 import '../lock/lock.dart';
@@ -24,7 +23,6 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'devices.dart';
 import 'json.dart';
-import 'model.dart';
 
 part 'family.g.dart';
 
@@ -92,9 +90,14 @@ abstract class FamilyStoreBase
   @observable
   FamilyDevices devices = FamilyDevices([], null);
 
+  @observable
+  String onboardLinkTemplate = linkTemplate;
+
   String? _waitingForDevice;
 
   bool _onboardingShown = false;
+
+  var deviceFound = () {};
 
   _onDevicesChanged() {
     reactionOnStore((_) => devices, (devices) async {
@@ -169,6 +172,7 @@ abstract class FamilyStoreBase
       final json = await _persistence.load(trace, _key);
       if (json == null) {
         devices = FamilyDevices([], false);
+        await _addThisDevice(trace);
         return;
       }
 
@@ -249,6 +253,7 @@ abstract class FamilyStoreBase
       if (tag == null) return;
       final link = linkTemplate.replaceAll("TAG", tag);
       await _ops.doFamilyLinkTemplateChanged(link);
+      onboardLinkTemplate = link;
       linkedMode = _cloudDevice.tagOverwritten;
       _updatePhase();
       await _maybeShowOnboardOnStart(trace);
@@ -280,7 +285,7 @@ abstract class FamilyStoreBase
       // Locking means that this device is supposed to be active.
       // Pop up the perms modal if perms are not granted.
       if (!_perm.isPrivateDnsEnabled) {
-        await _stage.showModal(parentTrace, StageModal.perms);
+        //await _stage.showModal(parentTrace, StageModal.perms);
       }
 
       // Make sure cloud is enabled for this device
@@ -289,9 +294,9 @@ abstract class FamilyStoreBase
       }
 
       // Add "this device" to the list
-      if (devices.hasThisDevice == false) {
-        await _addThisDevice(parentTrace);
-      }
+      // if (devices.hasThisDevice == false) {
+      //   await _addThisDevice(parentTrace);
+      // }
     }
     _updatePhase();
   }
@@ -359,6 +364,7 @@ abstract class FamilyStoreBase
 
         // We are waiting on the accountLink sheet, close it
         await _stage.dismissModal(trace);
+        deviceFound();
       }
     });
   }
@@ -413,7 +419,7 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoPerms;
     } else if (accountActive == false) {
       phase = FamilyPhase.fresh;
-    } else if (devices.hasThisDevice && permsGranted != true) {
+    } else if (/*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;
     } else if (devices.hasDevices == true) {
       phase = FamilyPhase.parentHasDevices;

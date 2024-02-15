@@ -10,6 +10,7 @@ import 'device/device.dart';
 import 'env/env.dart';
 import 'family/family.dart';
 import 'fsm/filter/filter.dart';
+import 'fsm/filter/prod.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
 import 'link/link.dart';
@@ -70,7 +71,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     AccountRefreshStore().attachAndSaveAct(act);
     DeviceStore().attachAndSaveAct(act);
 
-    final filter = FilterActor(act);
+    final filter = ProdFilterActor(act);
     depend(filter);
 
     AppStore().attachAndSaveAct(act);

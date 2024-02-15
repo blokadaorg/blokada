@@ -392,7 +392,8 @@ abstract class StageStoreBase
     if (!_showNavbar) {
       show = false;
     }
-    await _ops.doShowNavbar(show);
+    //await _ops.doShowNavbar(show);
+    await _ops.doShowNavbar(false);
   }
 
   @action

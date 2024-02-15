@@ -19,6 +19,7 @@ mixin Emitter {
   }
 
   emit<T>(EmitterEvent<T> on, Trace trace, T value) async {
+    trace.addEvent("emit event: $on");
     final listeners = _valueListeners[on];
     if (listeners == null) throw Exception("Unknown event");
     for (final listener in listeners.toList()) {

@@ -63,6 +63,19 @@ dependencies:
   carousel_slider: ^4.2.1
   string_validator: ^1.0.2
   status_alert: ^1.0.1
+  vistraced:
+    path: ../../kar/vistraced/vistraced/
+  crypto: ^3.0.3
+  web_socket_channel: ^2.4.0
+  modal_bottom_sheet: ^3.0.0-pre
+  qr_flutter: ^4.1.0
+  video_player: ^2.8.2
+  chewie: ^1.7.5
+  animations: ^2.0.11
+  flutter_settings_ui: ^3.0.0
+  super_cupertino_navigation_bar: ^2.1.2
+  pinput: ^4.0.0
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +85,8 @@ dev_dependencies:
   mobx_codegen: ^2.0.7+3
   pigeon: ^12.0.0
   mockito: ^5.3.2
+  vistraced_generator:
+    path: ../../kar/vistraced/vistraced_generator/
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -91,6 +106,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    - assets/videos/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

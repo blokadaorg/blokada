@@ -3,10 +3,10 @@ import 'package:common/ui/stats/toplist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
-import 'dart:math' as math;
 
+import '../../common/model.dart';
+import '../../common/widget.dart';
 import '../../journal/journal.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
@@ -14,13 +14,9 @@ import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
 import '../../util/trace.dart';
-import '../minicard/header.dart';
-import '../minicard/minicard.dart';
 import '../theme.dart';
 import '../stats/column_chart.dart';
 import '../stats/radial_segment.dart';
-import '../stats/totalcounter.dart';
-import '../touch.dart';
 
 class FamilyStatsScreen extends StatefulWidget {
   final VoidCallback? onBack;

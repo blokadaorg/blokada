@@ -4,6 +4,7 @@ import 'package:relative_scale/relative_scale.dart';
 
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
+import '../../../common/widget.dart';
 import '../../../lock/lock.dart';
 import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
@@ -12,7 +13,6 @@ import '../../../util/trace.dart';
 import '../../debug/commanddialog.dart';
 import '../../debug/debugoptions.dart';
 import 'actions.dart';
-import 'icon.dart';
 import 'power_button.dart';
 import '../../theme.dart';
 

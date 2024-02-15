@@ -3,17 +3,12 @@ import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:mobx/mobx.dart' as mobx;
-
+import '../../common/widget.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
 import '../../util/trace.dart';
-import '../minicard/counter.dart';
-import '../minicard/header.dart';
-import '../minicard/minicard.dart';
-import '../minicard/summary.dart';
 
 class TotalCounter extends StatefulWidget {
   TotalCounter({Key? key, required bool this.autoRefresh}) : super(key: key);
@@ -83,7 +78,7 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
           chevronIcon: Icons.ios_share_outlined,
         ),
         // bigText: _formatCounter(blocked),
-        big: Text(_stats.formatCounter(blocked),
+        big: Text(StatsStoreBase.formatCounter(blocked),
             style: const TextStyle(
               fontSize: 34,
               fontWeight: FontWeight.w600,

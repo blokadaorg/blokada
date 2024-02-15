@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import '../../../account/account.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
+import '../../../common/widget.dart';
 import '../../../perm/perm.dart';
 import '../../../plus/gateway/gateway.dart';
 import '../../../plus/plus.dart';
@@ -13,7 +14,6 @@ import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../minicard/minicard.dart';
 import '../../theme.dart';
 
 class PlusButton extends StatefulWidget {
@@ -68,7 +68,7 @@ class _PlusButtonState extends State<PlusButton>
                 opacity: (!isPlus || activated) ? 0 : 1,
                 duration: const Duration(milliseconds: 500),
                 child: MiniCard(
-                    color: theme.plus,
+                    color: theme.accent,
                     onTap: () {
                       _displayLocations();
                     },
@@ -93,7 +93,7 @@ class _PlusButtonState extends State<PlusButton>
                   opacity: isPlus ? 0 : 1,
                   duration: const Duration(milliseconds: 200),
                   child: MiniCard(
-                    color: theme.plus,
+                    color: theme.accent,
                     onTap: () {
                       _displayPayments();
                     },
@@ -123,7 +123,7 @@ class _PlusButtonState extends State<PlusButton>
             alignment: Alignment.centerRight,
             child: CupertinoSwitch(
               value: activated,
-              activeColor: theme.plus,
+              activeColor: theme.accent,
               onChanged: (value) {
                 setState(() {
                   if (location.isEmpty) {

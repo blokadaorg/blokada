@@ -18,6 +18,13 @@ part 'journal.g.dart';
 
 const _timerKey = "journalRefresh";
 
+extension JournalEntryExtension on JournalEntry {
+  bool isBlocked() {
+    return type == JournalEntryType.blocked ||
+        type == JournalEntryType.blockedDenied;
+  }
+}
+
 extension JournalFilterExt on JournalFilter {
   // Providing null means "no change" (existing filter is used)
   // To reset a query/device, provide an empty string.
@@ -149,6 +156,8 @@ abstract class JournalStoreBase
   @observable
   DateTime lastRefresh = DateTime(0);
 
+  bool frequentRefresh = false;
+
   @override
   @action
   Future<void> start(Trace parentTrace) async {
@@ -197,7 +206,7 @@ abstract class JournalStoreBase
       }
 
       if (refreshEnabled) {
-        final cooldown = (isActivity || isLinkModal)
+        final cooldown = (isActivity || isLinkModal || frequentRefresh)
             ? cfg.refreshVeryFrequent
             : cfg.refreshOnHome;
         try {
@@ -238,6 +247,17 @@ abstract class JournalStoreBase
     return await traceWith(parentTrace, "disableRefresh", (trace) async {
       refreshEnabled = false;
       _stopTimer();
+    });
+  }
+
+  @action
+  Future<void> setFrequentRefresh(Trace parentTrace, bool frequent) async {
+    return await traceWith(parentTrace, "frequentRefresh", (trace) async {
+      frequentRefresh = frequent;
+      if (frequent) {
+        refreshEnabled = true;
+        await onTimerFired(trace);
+      }
     });
   }
 
