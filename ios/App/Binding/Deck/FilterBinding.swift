@@ -14,8 +14,10 @@ import Foundation
 import Factory
 
 class FilterBinding: FilterOps {
+
     var filters: [Filter] = []
     var selections: [Filter] = []
+    var listsToTags: [String : String] = [:]
 
     var onFilters: ([Filter], [Filter]) -> Void = { _, _ in }
 
@@ -47,6 +49,11 @@ class FilterBinding: FilterOps {
     func doFilterSelectionChanged(selections: [Filter], completion: @escaping (Result<Void, Error>) -> Void) {
         self.selections = selections
         onFilters(filters, selections)
+        completion(.success(()))
+    }
+
+    func doListToTagChanged(listToTag: [String : String], completion: @escaping (Result<Void, Error>) -> Void) {
+        self.listsToTags = listToTag
         completion(.success(()))
     }
 }
