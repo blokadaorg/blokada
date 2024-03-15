@@ -45,7 +45,16 @@ struct PaymentGatewayView: View {
                             .padding()
                             
                             Spacer()
-                            
+
+                            Text(L10n.familyPaymentSlug)
+                               .multilineTextAlignment(.center)
+                               .lineLimit(6)
+                               .font(.system(size: 16))
+                               .fontWeight(.medium)
+                               .foregroundColor(Color.primary)
+                               .padding(.top, 70)
+                               .padding([.leading, .trailing], 24)
+
                             Button(action: {
                                 withAnimation {
                                     self.showPlusFeaturesSheet = true
@@ -57,18 +66,10 @@ struct PaymentGatewayView: View {
                                     PaymentFeaturesView(showSheet: self.$showPlusFeaturesSheet)
 
                                 }
-                                .padding(.top, 64)
+                                .padding(.top, 50)
                                 .padding(.bottom, 14)
                             }
-                            
-                            Text(L10n.familyPaymentSlug)
-                               .multilineTextAlignment(.center)
-                               .lineLimit(6)
-                               .font(.system(size: 18))
-                               .foregroundColor(Color.secondary)
-                               .padding(.top, 60)
-                               .padding([.leading, .trailing], 24)
-                            
+
                             Spacer()
 
                             VStack {
@@ -130,12 +131,26 @@ struct PaymentGatewayView: View {
                         Spacer()
                     }
                     .background(
-                        CurvedShape()
-                            .fill(
-                                LinearGradient(gradient: Gradient(colors: [Color.cAccent, Color.cPrimaryBackground]),
-                                               startPoint: .top,
-                                               endPoint: .bottom)
+                        ZStack {
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color("Splash2").opacity(0.8),
+                                    Color("Splash3"),
+                                    Color("Splash3")
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottom
                             )
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color.clear,
+                                    Color("Splash1"),
+                                ]),
+                                startPoint: .topTrailing,
+                                endPoint: .bottomLeading
+                            )
+                        }
+                        .mask(CurvedShape())
                     )
 
                     // Overlay when loading or error

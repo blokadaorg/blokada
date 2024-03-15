@@ -15,6 +15,7 @@ import Factory
 import Combine
 
 class PermBinding: PermOps {
+    
     // Whether DNS profile is currently selected or not, refreshed on foreground
     var dnsProfileActivatedHot: AnyPublisher<CloudDnsProfileActivated, Never> {
         self.writeDnsProfileActivated.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
@@ -30,6 +31,7 @@ class PermBinding: PermOps {
     private lazy var privateDns = PrivateDnsService()
     private lazy var netx = Services.netx
     private lazy var permsRepo = Repos.permsRepo
+    private lazy var systemNav = Services.systemNav
 
     fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
 
@@ -88,6 +90,10 @@ class PermBinding: PermOps {
     
     func doVpnEnabled(completion: @escaping (Result<Bool, Error>) -> Void) {
         completion(.success(writeVpnProfilePerms.value))
+    }
+
+    func doOpenSettings(completion: @escaping (Result<Void, Error>) -> Void) {
+        self.systemNav.openSystemSettings()
     }
 
     private func onVpnPerms() {

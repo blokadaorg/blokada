@@ -26,7 +26,8 @@ struct ContentView: View {
     @Injected(\.commands) private var commands
     
     var onboarding = AfterActivatedView()
-    var accountChange = AccountChangeView()
+    //var accountChange = AccountChangeView()
+    var accountChange = ScanQrCodeView()
     var accountLink = AccountLinkView()
     var onboardingAccountDecided = OnboardingAccountDecidedView()
 

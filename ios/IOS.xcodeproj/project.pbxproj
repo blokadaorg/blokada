@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1401,6 +1401,12 @@
 		4EEDBBB32B68EA59004AB456 /* FilterBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */; };
 		4EF5E4792A39D1AE001D1FF7 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF5E4782A39D1AE001D1FF7 /* Env.swift */; };
 		4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF4240E9E95001FA02E /* Resources.swift */; };
+		4EF8ED7E2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		4EF8ED7F2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		4EF8ED802B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1786,9 +1792,9 @@
 		4E90BA3B27BBB6810051FD0C /* JournalListV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListV.swift; sourceTree = "<group>"; };
 		4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsService.swift; sourceTree = "<group>"; };
 		4E9216992966E71700E1C34D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Release/App.xcframework"; sourceTree = "<group>"; };
-		4E92169D2966E72600E1C34D /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Release/Flutter.xcframework"; sourceTree = "<group>"; };
+		4E92169D2966E72600E1C34D /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Release/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E946E452A2483EB0053943D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Debug/App.xcframework"; sourceTree = "<group>"; };
-		4E946E462A2483EC0053943D /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Debug/Flutter.xcframework"; sourceTree = "<group>"; };
+		4E946E462A2483EC0053943D /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Debug/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E946E4C2A29CD160053943D /* PlusVpn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlusVpn.swift; path = "six-common/libgen/ios/PlusVpn.swift"; sourceTree = SOURCE_ROOT; };
 		4E946E4D2A29CD160053943D /* PlusKeypair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlusKeypair.swift; path = "six-common/libgen/ios/PlusKeypair.swift"; sourceTree = SOURCE_ROOT; };
 		4E946E4E2A29CD160053943D /* PlusGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlusGateway.swift; path = "six-common/libgen/ios/PlusGateway.swift"; sourceTree = SOURCE_ROOT; };
@@ -1905,6 +1911,7 @@
 		4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBinding.swift; sourceTree = "<group>"; };
 		4EF5E4782A39D1AE001D1FF7 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeView.swift; sourceTree = "<group>"; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2430,6 +2437,7 @@
 				4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */,
 				4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */,
 				4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */,
+				4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3174,6 +3182,7 @@
 				4EC013FE24606F6C001DF5F7 /* BadgeView.swift in Sources */,
 				4E23D025293E20BC00613D0A /* Array+ConcurrentMap.swift in Sources */,
 				4E2ECCF3245AEFA1009040F1 /* PackModel.swift in Sources */,
+				4EF8ED7E2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E057E77244DBB7500995A6E /* KeychainSwiftDistrib.swift in Sources */,
 				4EECA5032418D142003A2541 /* AccountView.swift in Sources */,
 				4EA105C4242BABC200559CBB /* SupportView.swift in Sources */,
@@ -3355,6 +3364,7 @@
 				4E1276072AE7D0FC00A94994 /* GatewayBinding.swift in Sources */,
 				4E1276082AE7D0FC00A94994 /* Date+Extensions.swift in Sources */,
 				4EA37D722B2C680200E4EC97 /* Link.swift in Sources */,
+				4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E1276092AE7D0FC00A94994 /* ShowTime.swift in Sources */,
 				4E12760A2AE7D0FC00A94994 /* RippleView.swift in Sources */,
 				4E12760B2AE7D0FC00A94994 /* SpinnerView.swift in Sources */,
@@ -3695,6 +3705,7 @@
 				4E270D5B2A80EB8300D3484B /* ErrorPresenter.swift in Sources */,
 				4E270D5C2A80EB8300D3484B /* StoreKitWrapper.swift in Sources */,
 				4E270D5D2A80EB8300D3484B /* SettingsFormNavView.swift in Sources */,
+				4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E58C1422AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */,
 				4E270D5E2A80EB8300D3484B /* SettingsNarrowView.swift in Sources */,
 				4E270D602A80EB8300D3484B /* DNSResolver.swift in Sources */,
@@ -3854,6 +3865,7 @@
 				4EBDD3632A0CDD190039C101 /* PermBinding.swift in Sources */,
 				4E946E602A29CDAC0053943D /* GatewayBinding.swift in Sources */,
 				4E423558245194E0005A0779 /* Date+Extensions.swift in Sources */,
+				4EF8ED802B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4EAFCE312487BA47003601A1 /* ShowTime.swift in Sources */,
 				4E68E9C727BABD7D0059648A /* RippleView.swift in Sources */,
 				4EA37D6F2B2C680200E4EC97 /* Link.swift in Sources */,
@@ -4095,6 +4107,7 @@
 				4E8651462A3C968B0060AFB1 /* BadgeView.swift in Sources */,
 				4E8651472A3C968B0060AFB1 /* Array+ConcurrentMap.swift in Sources */,
 				4E8651482A3C968B0060AFB1 /* PackModel.swift in Sources */,
+				4EF8ED7F2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E86514A2A3C968B0060AFB1 /* KeychainSwiftDistrib.swift in Sources */,
 				4E86514B2A3C968B0060AFB1 /* AccountView.swift in Sources */,
 				4E86514C2A3C968B0060AFB1 /* SupportView.swift in Sources */,
@@ -4345,6 +4358,7 @@
 				4EBF3B5D2A80E55900F637BB /* StoreKitWrapper.swift in Sources */,
 				4EBF3B5E2A80E55900F637BB /* SettingsFormNavView.swift in Sources */,
 				4EBF3B5F2A80E55900F637BB /* SettingsNarrowView.swift in Sources */,
+				4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E58C1432AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */,
 				4EBF3B612A80E55900F637BB /* DNSResolver.swift in Sources */,
 				4EBF3B622A80E55900F637BB /* JournalNoBarV.swift in Sources */,

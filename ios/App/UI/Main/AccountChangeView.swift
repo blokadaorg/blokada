@@ -174,6 +174,16 @@ struct AccountChangeScanView: View {
                 Spacer()
             }
             
+            VStack {
+                Text("Scan the QR code displayed on the parent device.")
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white)
+                Spacer()
+            }
+            .padding([.leading, .trailing], 32)
+            .padding(.top, 64)
+            
             RoundedRectangle(cornerRadius: 8)
                 .stroke(style: StrokeStyle(lineWidth: 2, dash: [10, 5]))
                 .foregroundColor(Color.black.opacity(0.5))
