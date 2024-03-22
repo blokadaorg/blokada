@@ -27,6 +27,7 @@ class PermBinding: PermOps {
 
     @Injected(\.flutter) private var flutter
     @Injected(\.env) private var env
+    @Injected(\.notification) private var notification
     
     private lazy var privateDns = PrivateDnsService()
     private lazy var netx = Services.netx
@@ -93,6 +94,25 @@ class PermBinding: PermOps {
     }
 
     func doOpenSettings(completion: @escaping (Result<Void, Error>) -> Void) {
+        // Ask for notif perms oportunisticly (will help with onboarding)
+        self.notification.askForPermissions()
+            .receive(on: RunLoop.main)
+            .sink(
+                onFailure: { err in
+                    self.openSystemSettings()
+                    completion(Result.success(()))
+                },
+                onSuccess: {
+                    self.openSystemSettings()
+                    completion(Result.success(()))
+                }
+            )
+            .store(in: &cancellables)
+    }
+
+    func openSystemSettings() {
+        let id = self.flutter.isFlavorFamily ? NOTIF_ONBOARDING_FAMILY : NOTIF_ONBOARDING
+        self.notification.scheduleNotification(id: id, when: Date().addingTimeInterval(3))
         self.systemNav.openSystemSettings()
     }
 
