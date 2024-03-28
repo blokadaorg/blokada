@@ -1,4 +1,5 @@
 {
+  "originHash" : "ebbea86db0ac103afe39b671e2df573b4d0017d7db2c4a14f2dde4ca14ffc25b",
   "pins" : [
     {
       "identity" : "codescanner",
@@ -19,5 +20,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

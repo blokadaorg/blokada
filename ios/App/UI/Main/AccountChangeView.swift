@@ -147,6 +147,7 @@ struct AccountChangeView: View {
 }
 
 struct AccountChangeScanView: View {
+    @Injected(\.commands) var commands
     
     @Binding var isShowingScanner: Bool
     let handleScan: (Result<ScanResult, ScanError>) -> Void
@@ -160,7 +161,8 @@ struct AccountChangeScanView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        self.isShowingScanner = false
+                        self.commands.execute(.modalDismiss)
+                        self.commands.execute(.modalShow, "payment")
                     }) {
                         ZStack {
                             Text(L10n.universalActionClose)
