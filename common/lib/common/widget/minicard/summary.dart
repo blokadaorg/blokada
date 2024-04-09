@@ -1,4 +1,7 @@
-part of '../../widget.dart';
+import 'package:flutter/material.dart';
+
+import 'header.dart';
+import '../theme.dart';
 
 class MiniCardSummary extends StatefulWidget {
   final MiniCardHeader header;

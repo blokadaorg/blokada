@@ -1,3 +1,5 @@
+import 'package:common/dragon/dragon_deps.dart';
+
 import 'account/account.dart';
 import 'account/payment/payment.dart';
 import 'account/refresh/refresh.dart';
@@ -5,12 +7,9 @@ import 'app/app.dart';
 import 'app/start/start.dart';
 import 'command/command.dart';
 import 'custom/custom.dart';
-import 'deck/deck.dart';
 import 'device/device.dart';
+import 'dragon/family/family.dart';
 import 'env/env.dart';
-import 'family/family.dart';
-import 'fsm/filter/filter.dart';
-import 'fsm/filter/prod.dart';
 import 'http/http.dart';
 import 'journal/journal.dart';
 import 'link/link.dart';
@@ -28,11 +27,11 @@ import 'stage/stage.dart';
 import 'stats/refresh/refresh.dart';
 import 'stats/stats.dart';
 import 'timer/timer.dart';
+import 'tracer/tracer.dart';
 import 'ui/notfamily/home/home.dart';
 import 'util/config.dart';
 import 'util/di.dart';
 import 'util/trace.dart';
-import 'tracer/tracer.dart';
 
 class Entrypoint with Dependable, TraceOrigin, Traceable {
   late final _appStart = dep<AppStartStore>();
@@ -43,6 +42,8 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
 
     Tracer().attachAndSaveAct(act);
     DefaultTimer().attachAndSaveAct(act);
+
+    DragonDeps().register(act);
 
     PlatformPersistence(isSecure: false).attachAndSaveAct(act);
     final secure = PlatformPersistence(isSecure: true);
@@ -71,8 +72,8 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     AccountRefreshStore().attachAndSaveAct(act);
     DeviceStore().attachAndSaveAct(act);
 
-    final filter = ProdFilterActor(act);
-    depend(filter);
+    // final filter = ProdFilterActor(act);
+    // depend(filter);
 
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
@@ -88,7 +89,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     PlusVpnStore().attachAndSaveAct(act);
     StatsStore().attachAndSaveAct(act);
     StatsRefreshStore().attachAndSaveAct(act);
-    FamilyStore(act).attachAndSaveAct(act);
+    FamilyStore().attachAndSaveAct(act);
     HomeStore().attachAndSaveAct(act);
     RateStore().attachAndSaveAct(act);
     CommandStore().attachAndSaveAct(act);

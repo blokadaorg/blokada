@@ -1,3 +1,4 @@
+import 'package:common/dragon/api/user_agent.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/di.dart';
@@ -25,6 +26,7 @@ extension on EnvPayload {
 
 abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   late final _ops = dep<EnvOps>();
+  late final _agent = dep<UserAgent>();
 
   EnvStoreBase() {
     reactionOnStore((_) => userAgent, (_) async {
@@ -61,6 +63,7 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
       final payload = await _ops.doGetEnvPayload();
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
+      _agent.now = userAgent!;
       trace.addAttribute("device", payload.toSimpleString());
     });
   }

@@ -6,12 +6,15 @@ import 'package:mobx/mobx.dart' as mobx;
 
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
-import '../../../common/widget.dart';
+import '../../../common/widget/minicard/counter.dart';
+import '../../../common/widget/minicard/header.dart';
+import '../../../common/widget/minicard/minicard.dart';
+import '../../../common/widget/minicard/summary.dart';
 import '../../../stage/stage.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../theme.dart';
+import '../../../common/widget/theme.dart';
 import 'home.dart';
 import 'home_screen.dart';
 

@@ -5,12 +5,12 @@ import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../common/widget.dart';
+import '../../common/widget/minicard/minicard.dart';
 import '../../rate/rate.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 import 'star.dart';
 
 class RateScreen extends StatefulWidget {

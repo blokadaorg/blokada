@@ -1,9 +1,24 @@
-import '../../util/di.dart';
 import '../model.dart';
 
-List<FilterSelection> getDefaultEnabled(Act act) {
-  if (act.isFamily()) return _familyEnabled;
-  return _v6Enabled;
+class DefaultFilters {
+  final bool isFamily;
+
+  DefaultFilters(this.isFamily);
+
+  List<FilterSelection> get() => getTemplate(isFamily ? "family" : null);
+
+  List<FilterSelection> getTemplate(String? template) {
+    switch (template) {
+      case "family":
+        return _familyEnabled;
+      case "parent":
+        return _familyEnabled;
+      case "child":
+        return _childEnabled;
+      default:
+        return _v6Enabled;
+    }
+  }
 }
 
 final _v6Enabled = [
@@ -11,6 +26,10 @@ final _v6Enabled = [
 ];
 
 final _familyEnabled = [
-  FilterSelection("meta_safe_search", ["safe search"]),
   FilterSelection("meta_ads", ["standard"]),
+];
+
+final _childEnabled = [
+  FilterSelection("meta_safe_search", ["safe search"]),
+  FilterSelection("meta_adult", ["porn"]),
 ];

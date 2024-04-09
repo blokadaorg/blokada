@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:status_alert/status_alert.dart';
 
+import '../../common/widget/string.dart';
 import '../../common/model.dart';
-import '../../common/widget.dart';
+import '../../common/widget/touch.dart';
 import '../../journal/journal.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 
 class Toplist extends StatelessWidget with TraceOrigin {
   final _store = dep<StatsStore>();

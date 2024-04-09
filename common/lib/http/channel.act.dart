@@ -1,8 +1,8 @@
-import 'package:mocktail/mocktail.dart';
+import 'package:dartx/dartx.dart';
 import 'package:http/http.dart' as http;
+import 'package:mocktail/mocktail.dart';
 
 import '../../util/di.dart';
-import '../util/act.dart';
 import 'channel.pg.dart';
 
 class MockHttpOps extends Mock implements HttpOps {}
@@ -38,6 +38,35 @@ class DirectHttpOps implements HttpOps {
       'Content-Type': 'application/json; charset=UTF-8',
       // TODO: user agent?
     };
+
+    http.Response response;
+    if (type == "post") {
+      response = await http.post(uri, headers: headers, body: payload);
+    } else if (type == "put") {
+      response = await http.put(uri, headers: headers, body: payload);
+    } else if (type == "delete") {
+      response = await http.delete(uri, headers: headers, body: payload);
+    } else {
+      throw Exception("Unsupported type: $type");
+    }
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception("code:${response.statusCode}, body: ${response.body}");
+    }
+  }
+
+  @override
+  Future<String> doRequestWithHeaders(
+      String url, String? payload, String type, Map<String?, String?> h) async {
+    final uri = Uri.parse(url);
+    final headers = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    headers.addAll(h
+        .filter((map) => map.key != null && map.value != null)
+        .map((key, value) => MapEntry(key!, value!)));
 
     http.Response response;
     if (type == "post") {

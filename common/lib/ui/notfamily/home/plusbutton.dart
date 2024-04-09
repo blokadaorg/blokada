@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import '../../../account/account.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
-import '../../../common/widget.dart';
+import '../../../common/widget/minicard/minicard.dart';
 import '../../../perm/perm.dart';
 import '../../../plus/gateway/gateway.dart';
 import '../../../plus/plus.dart';
@@ -14,7 +14,7 @@ import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../theme.dart';
+import '../../../common/widget/theme.dart';
 
 class PlusButton extends StatefulWidget {
   PlusButton({Key? key}) : super(key: key);

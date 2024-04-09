@@ -1,18 +1,14 @@
 import 'package:common/main-widgets.dart';
-import 'package:common/mock/via/mock_family.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
-import 'package:vistraced/via.dart';
 
 import '../account/account.dart';
 import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';
 import '../app/start/start.dart';
-import '../common/model.dart';
 import '../custom/custom.dart';
 import '../device/device.dart';
-import '../family/family.dart';
-import '../fsm/filter/filter.dart';
+import '../dragon/family/family.dart';
 import '../journal/channel.pg.dart';
 import '../journal/journal.dart';
 import '../lock/lock.dart';
@@ -51,7 +47,7 @@ class CommandStore
 
   late final _timer = dep<TimerService>();
 
-  late final _filter = dep<FilterActor>();
+  //late final _filter = dep<FilterActor>();
 
   @override
   void attach(Act act) {
@@ -146,14 +142,17 @@ class CommandStore
         return await _custom.delete(trace, p1!);
       case CommandName.enableDeck:
         _ensureParam(p1);
-        return await _filter.enableFilter(p1!, true);
+        // return await _filter.enableFilter(p1!, true);
+        throw Exception("Not implemented WIP");
       case CommandName.disableDeck:
         _ensureParam(p1);
-        return await _filter.enableFilter(p1!, false);
+        // return await _filter.enableFilter(p1!, false);
+        throw Exception("Not implemented WIP");
       case CommandName.toggleListByTag:
         _ensureParam(p1);
         _ensureParam(p2);
-        return await _filter.toggleFilterOption(p1!, p2!);
+        // return await _filter.toggleFilterOption(p1!, p2!);
+        throw Exception("Not implemented WIP");
       case CommandName.enableCloud:
         return await _device.setCloudEnabled(trace, true);
       case CommandName.disableCloud:
@@ -163,10 +162,12 @@ class CommandStore
         return await _device.setRetention(trace, p1!);
       case CommandName.setSafeSearch:
         _ensureParam(p1);
-        return await _device.setSafeSearch(trace, p1 == "1");
+        //return await _device.setSafeSearch(trace, p1 == "1");
+        throw Exception("Not implemented WIP");
       case CommandName.deviceAlias:
         _ensureParam(p1);
-        return await _family.renameThisDevice(trace, p1!);
+        //return await _family.renameThisDevice(trace, p1!);
+        throw Exception("Not implemented WIP");
       case CommandName.sortNewest:
         return await _journal.updateFilter(trace, sortNewestFirst: true);
       case CommandName.sortCount:
@@ -225,11 +226,10 @@ class CommandStore
         return await _notification.saveAppleToken(trace, p1!);
       case CommandName.familyLink:
         _ensureParam(p1);
-        _ensureParam(p2);
-        return await _family.link(trace, p1!, p2!);
+        return await _family.link(p1!);
       case CommandName.familyWaitForDeviceName:
         _ensureParam(p1);
-        return await _family.setWaitingForDevice(trace, p1!);
+        return await _family.initiateAddDevice(trace, p1!, null);
       case CommandName.warning:
         _ensureParam(p1);
         return await _tracer.platformWarning(trace, p1!);
@@ -253,9 +253,10 @@ class CommandStore
         cfg.debugFailingRequests.remove(p1!);
         return;
       case CommandName.debugOnboard:
-        await _account.restore(trace, "mockedmocked");
-        await _device.setLinkedTag(trace, null);
-        return await _family.deleteAllDevices(trace);
+        // await _account.restore(trace, "mockedmocked");
+        // await _device.setLinkedTag(trace, null);
+        // return await _family.deleteAllDevices(trace);
+        throw Exception("Not implemented WIP");
       case CommandName.debugBg:
         cfg.debugBg = !cfg.debugBg;
         return;
@@ -263,7 +264,8 @@ class CommandStore
         return;
       case CommandName.mock:
         _ensureParam(p1);
-        await mockCommands.handleCommand("$p1 ${p2 ?? ""}");
+        // await mockCommands.handleCommand("$p1 ${p2 ?? ""}");
+        throw Exception("Not implemented WIP");
         return;
       case CommandName.s:
         _ensureParam(p1);

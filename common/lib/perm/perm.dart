@@ -1,12 +1,12 @@
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
+import '../device/device.dart';
 import '../plus/plus.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
-import '../device/device.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -42,11 +42,6 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
     return _device.deviceTag != null &&
         privateDnsEnabledFor == _device.deviceTag;
   }
-
-  // Used for when we want to skip our own dns and just forward it.
-  // This is only for Family;
-  @observable
-  bool? isForwardDns;
 
   @observable
   int privateDnsTagChangeCounter = 0;
@@ -129,29 +124,12 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
 
-        if (isForwardDns == true) {
-          await _ops.doSetSetPrivateDnsForward();
-        } else {
-          await _ops.doSetSetPrivateDnsEnabled(tag, _device.deviceAlias);
+        if (!act.isFamily()) {
+          await _ops.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
+          await _recheckDnsPerm(trace, tag);
         }
 
-        await _recheckDnsPerm(trace, tag);
         await _recheckVpnPerm(trace);
-      }
-    });
-  }
-
-  @action
-  Future<void> setForwardDns(Trace parentTrace, bool forward) async {
-    return await traceWith(parentTrace, "setForwardDns", (trace) async {
-      trace.addAttribute("forward", forward);
-      isForwardDns = forward;
-      final tag = _previousTag;
-      _previousTag = null;
-      if (tag != null) {
-        await syncPermsAfterTagChange(trace, tag);
-      } else if (forward) {
-        await _ops.doSetSetPrivateDnsForward();
       }
     });
   }
@@ -201,7 +179,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
   }
 
   _recheckDnsPerm(Trace trace, DeviceTag tag) async {
-    final isEnabled = await _ops.doPrivateDnsEnabled(tag, _device.deviceAlias);
+    final isEnabled = await _ops.doIsPrivateDnsEnabled(tag);
     if (isEnabled) {
       await setPrivateDnsEnabled(trace, tag);
     } else {

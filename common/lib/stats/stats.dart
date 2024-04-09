@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:common/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,14 +9,14 @@ import '../util/mobx.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
-import 'json.dart';
+import 'json.dart' as json;
 
 part 'stats.g.dart';
 
 class StatsStore = StatsStoreBase with _$StatsStore;
 
 abstract class StatsStoreBase with Store, Traceable, Dependable {
-  late final _api = dep<StatsJson>();
+  late final _api = dep<json.StatsJson>();
   late final _ops = dep<StatsOps>();
 
   StatsStoreBase() {
@@ -37,7 +38,7 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   @override
   attach(Act act) {
     depend<StatsOps>(getOps(act));
-    depend<StatsJson>(StatsJson());
+    depend<json.StatsJson>(json.StatsJson());
     depend<StatsSheet>(StatsSheet());
     depend<StatsStore>(this as StatsStore);
   }
@@ -133,9 +134,10 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
     });
   }
 
-  UiStats _convertStats(JsonStatsEndpoint stats, JsonStatsEndpoint oneWeek,
-      {JsonToplistEndpoint? toplistAllowed,
-      JsonToplistEndpoint? toplistBlocked,
+  UiStats _convertStats(
+      json.JsonStatsEndpoint stats, json.JsonStatsEndpoint oneWeek,
+      {json.JsonToplistEndpoint? toplistAllowed,
+      json.JsonToplistEndpoint? toplistBlocked,
       UiStats? previousStats}) {
     int now = DateTime.now().millisecondsSinceEpoch;
     now = now ~/ 1000; // Drop microseconds
@@ -226,7 +228,7 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
         latestTimestamp: latestTimestamp);
   }
 
-  _convertToplist(JsonToplistEndpoint toplist) {
+  _convertToplist(json.JsonToplistEndpoint toplist) {
     final result = <UiToplistEntry>[];
     for (var metric in toplist.toplist.metrics) {
       final action = metric.tags.action;

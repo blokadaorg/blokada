@@ -1,4 +1,5 @@
-part of '../../widget.dart';
+import 'package:countup/countup.dart';
+import 'package:flutter/material.dart';
 
 class MiniCardCounter extends StatefulWidget {
   final double counter;

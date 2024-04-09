@@ -5,10 +5,11 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
 
 import '../../common/model.dart';
-import '../../common/widget.dart';
+import '../../common/widget/minicard/header.dart';
+import '../../common/widget/minicard/minicard.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 import 'column_chart.dart';
 import 'radial_segment.dart';
 import 'totalcounter.dart';

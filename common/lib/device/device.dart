@@ -83,10 +83,6 @@ abstract class DeviceStoreBase
         _ops.doDeviceAliasChanged(alias);
       }
     });
-
-    reactionOnStore((_) => safeSearch, (enabled) async {
-      _ops.doSafeSearchEnabled(safeSearch!);
-    });
   }
 
   @override
@@ -103,9 +99,6 @@ abstract class DeviceStoreBase
   DeviceTag? deviceTag;
 
   @observable
-  bool tagOverwritten = false;
-
-  @observable
   List<String>? lists;
 
   @observable
@@ -116,9 +109,6 @@ abstract class DeviceStoreBase
 
   @observable
   String deviceAlias = "";
-
-  @observable
-  bool? safeSearch;
 
   @computed
   String get currentDeviceTag {
@@ -142,18 +132,12 @@ abstract class DeviceStoreBase
   Future<void> load(Trace parentTrace) async {
     return await traceWith(parentTrace, "load", (trace) async {
       deviceAlias = await _persistence.load(trace, _keyAlias) ?? "";
-
-      // Tag can be overwritten locally for the family linked device
-      deviceTag = await _persistence.load(trace, _keyTag);
-      if (deviceTag != null) {
-        tagOverwritten = true;
-        await emit(deviceChanged, trace, deviceTag!);
-      }
     });
   }
 
   @action
   Future<void> fetch(Trace parentTrace) async {
+    if (act.isFamily()) return;
     return await traceWith(parentTrace, "fetch", (trace) async {
       trace.addAttribute("tag", deviceTag);
 
@@ -161,17 +145,8 @@ abstract class DeviceStoreBase
       cloudEnabled = !device.paused;
       lists = device.lists;
       retention = device.retention;
-      safeSearch = device.safeSearch;
-
-      if (!tagOverwritten) deviceTag = device.deviceTag;
 
       await emit(deviceChanged, trace, deviceTag!);
-
-      // Family should have the retention enabled by default
-      // TODO: a bit hacky
-      if (act.isFamily() && (retention?.isEmpty ?? true)) {
-        await setRetention(trace, "24h");
-      }
     });
   }
 
@@ -210,68 +185,6 @@ abstract class DeviceStoreBase
       deviceAlias = deviceName!;
       return;
     }
-
-    // Name cannot be changed from OS once generated or set by user
-    if (deviceAlias.isNotEmpty) return;
-
-    return await traceWith(parentTrace, "generateDeviceAlias", (trace) async {
-      // Generate a random name and add the device name
-      try {
-        deviceAlias = _names.generate();
-        // if (deviceName?.isNotEmpty ?? false) {
-        //   deviceAlias = "$deviceAlias ($deviceName)";
-        // }
-      } on names.UniqueNamesGeneratorException catch (_) {
-        deviceAlias = deviceName ?? "";
-      }
-
-      await _persistence.saveString(trace, _keyAlias, deviceAlias);
-      trace.addAttribute("deviceAlias", deviceAlias);
-    });
-  }
-
-  @action
-  Future<void> setDeviceAlias(Trace parentTrace, String deviceAlias) async {
-    return await traceWith(parentTrace, "setDeviceAlias", (trace) async {
-      if (!act.isFamily())
-        throw Exception("Device alias cannot be used in nonfamily");
-      if (deviceAlias.isEmpty) throw Exception("Device alias cannot be empty");
-      trace.addAttribute("alias", deviceAlias);
-
-      this.deviceAlias = deviceAlias;
-      await _persistence.saveString(trace, _keyAlias, deviceAlias);
-
-      // It's fine to ignore emitting change if linking happens early on in app
-      // start. The UI will be updated once the device is fetched.
-      final tag = deviceTag;
-      if (tag == null) return;
-      await emit(deviceChanged, trace, tag);
-    });
-  }
-
-  @action
-  Future<void> setLinkedTag(Trace parentTrace, String? linkedTag) async {
-    return await traceWith(parentTrace, "setLinkedTag", (trace) async {
-      trace.addAttribute("tag", linkedTag);
-      deviceTag = linkedTag;
-      if (linkedTag != null) {
-        tagOverwritten = true;
-        await _persistence.saveString(trace, _keyTag, linkedTag);
-        await emit(deviceChanged, trace, deviceTag!);
-      } else {
-        tagOverwritten = false;
-        await _persistence.delete(trace, _keyTag);
-        await fetch(trace);
-      }
-    });
-  }
-
-  @action
-  Future<void> setSafeSearch(Trace parentTrace, bool enabled) async {
-    return await traceWith(parentTrace, "setSafeSearch", (trace) async {
-      await _api.putDevice(trace, safeSearch: enabled);
-      await fetch(trace);
-    });
   }
 
   @action

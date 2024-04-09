@@ -244,7 +244,7 @@ abstract class StageStoreBase
 
         if (!newRoute.isMainRoute()) {
           trace.addEvent("modal: ${newRoute.modal}");
-          trace.addEvent("payload: ${newRoute.route.payload}");
+          trace.addEvent("payload: ${newRoute.route.fromPayload}");
         }
         route = newRoute;
         await emitValue(routeChanged, trace, newRoute);

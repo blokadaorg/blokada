@@ -1,22 +1,13 @@
-import 'package:common/mock/via/mock_family.dart';
-import 'package:common/mock/widget/mock_scaffolding.dart';
+import 'package:common/command/command.dart';
+import 'package:common/dragon/widget/app.dart';
+import 'package:common/entrypoint.dart';
+import 'package:common/service/I18nService.dart';
+import 'package:common/util/act.dart';
+import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
-import 'package:vistraced/via.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'command/command.dart';
-import 'common/widget/app.dart';
-import 'entrypoint.dart';
-import 'service/I18nService.dart';
-import 'util/act.dart';
-import 'util/di.dart';
-
-@Bootstrap(ViaAct(
-  scenario: "production",
-  platform: ViaPlatform.ios,
-  flavor: "family",
-))
 void main() async {
   // Needed for the MethodChannels
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,14 +20,10 @@ void main() async {
 
   entrypoint.onStartApp();
 
-  MockModule();
-  injector.inject();
-
   final ws = DevWebsocket();
   depend(ws);
   ws.handle();
 
-  // runApp(BlokadaApp(content: MockScaffoldingWidget()));
   runApp(BlokadaApp(content: null));
 }
 

@@ -1,4 +1,7 @@
-part of '../widget.dart';
+import 'package:flutter/material.dart';
+
+import 'theme.dart';
+import 'touch.dart';
 
 class HomeIcon extends StatelessWidget {
   final IconData icon;

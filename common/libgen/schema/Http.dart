@@ -9,4 +9,8 @@ abstract class HttpOps {
 
   @async
   String doRequest(String url, String? payload, String type);
+
+  @async
+  String doRequestWithHeaders(
+      String url, String? payload, String type, Map<String?, String?> headers);
 }

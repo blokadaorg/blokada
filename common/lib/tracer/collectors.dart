@@ -138,6 +138,11 @@ class DefaultTrace implements Trace {
     _events.add(event);
     await _collector.onEvent(this, event);
   }
+
+  @override
+  String toString() {
+    return "$_module:$_name";
+  }
 }
 
 class StdoutTraceCollector implements TraceCollector {

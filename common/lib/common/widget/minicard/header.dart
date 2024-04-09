@@ -1,4 +1,6 @@
-part of '../../widget.dart';
+import 'package:flutter/material.dart';
+
+import '../theme.dart';
 
 class MiniCardHeader extends StatelessWidget {
   final String text;

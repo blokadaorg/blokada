@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:common/mock/via/mock_family.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/util/color_extensions.dart';
 import 'package:countup/countup.dart';
@@ -11,7 +10,7 @@ import '../../common/model.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 import 'radial_chart.dart';
 
 class RadialSegment extends StatefulWidget {
@@ -26,7 +25,8 @@ class RadialSegment extends StatefulWidget {
 class RadialSegmentState extends State<RadialSegment> {
   final _store = dep<StatsStore>();
 
-  var stats = MockUiStats().defaults();
+  //var stats = MockUiStats().defaults();
+  var stats = UiStats.empty();
   var blocked = 0.0;
   var allowed = 0.0;
   var total = 0.0;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:common/account/account.dart';
-import 'package:common/common/model/filter/filter_json.dart';
+import 'package:common/deck/json.dart';
 import 'package:common/http/http.dart';
 import 'package:common/json/json.dart';
 import 'package:common/util/di.dart';

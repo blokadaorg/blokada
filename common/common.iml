@@ -45,6 +45,15 @@
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/.ios/.symlinks/plugins/smart_auth/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/via/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/via/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/via/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via/build" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via_generator/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via_generator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/via/via_generator/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

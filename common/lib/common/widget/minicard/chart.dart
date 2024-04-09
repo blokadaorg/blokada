@@ -4,27 +4,27 @@ import 'package:common/service/I18nService.dart';
 import 'package:common/util/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 import '../../model.dart';
 
 class MiniCardChart extends StatelessWidget {
-  final FamilyDevice device;
+  final UiStats stats;
   final Color color;
+  final bool animate;
 
   const MiniCardChart({
     super.key,
-    required this.device,
+    required this.stats,
     required this.color,
+    this.animate = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //decoration: BoxDecoration(color: Colors.greenAccent),
-      child: ( //!device.thisDevice &&
-              device.deviceName.isNotEmpty && device.stats.totalAllowed > 0)
-          ? _ColumnChart(stats: device.stats, color: color)
+      child: (stats.totalAllowed > 0)
+          ? _ColumnChart(stats: stats, color: color, animate: animate)
           : SizedBox(
               height: 90,
               //constraints: const BoxConstraints(maxHeight: 90),
@@ -44,11 +44,13 @@ class MiniCardChart extends StatelessWidget {
 class _ColumnChart extends StatelessWidget {
   final Color color;
   final UiStats stats;
+  final bool animate;
 
   _ColumnChart({
     Key? key,
     required this.stats,
     required this.color,
+    required this.animate,
   }) : super(key: key) {
     _compute();
   }
@@ -117,9 +119,10 @@ class _ColumnChart extends StatelessWidget {
         ),
         tooltipBehavior: TooltipBehavior(enable: false),
         enableSideBySideSeriesPlacement: false,
-        enableAxisAnimation: true,
+        enableAxisAnimation: animate,
         series: [
           SplineSeries<_ChartData, DateTime>(
+            animationDuration: animate ? 2000 : 0,
             dataSource: dataGreen,
             xValueMapper: (_ChartData data, _) => data.x,
             yValueMapper: (_ChartData data, _) => data.y,

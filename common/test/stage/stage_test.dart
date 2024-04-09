@@ -230,7 +230,7 @@ void main() {
         expect(route.isBecameTab(StageTab.settings), false);
         expect(route.isTab(StageTab.settings), true);
         expect(route.isMainRoute(), false);
-        expect(route.route.payload, "account");
+        expect(route.route.fromPayload, "account");
 
         // Background
         route = route.newBg();

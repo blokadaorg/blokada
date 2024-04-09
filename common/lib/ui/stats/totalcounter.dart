@@ -3,7 +3,9 @@ import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../common/widget.dart';
+import '../../common/widget/minicard/header.dart';
+import '../../common/widget/minicard/minicard.dart';
+import '../../common/widget/minicard/summary.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';

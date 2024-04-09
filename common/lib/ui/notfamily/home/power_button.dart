@@ -11,12 +11,12 @@ import 'package:relative_scale/relative_scale.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
 import '../../../app/start/start.dart';
-import '../../../common/widget.dart';
+import '../../../common/widget/touch.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 import 'home.dart';
-import '../../theme.dart';
+import '../../../common/widget/theme.dart';
 
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);

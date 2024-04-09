@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:common/account/refresh/json.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../family/family.dart';
+import '../../dragon/family/family.dart';
 import '../../notification/notification.dart';
 import '../../persistence/persistence.dart';
 import '../../plus/plus.dart';

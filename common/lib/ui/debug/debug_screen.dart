@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 import 'debugoptions.dart';
 
 class DebugScreen extends StatefulWidget {

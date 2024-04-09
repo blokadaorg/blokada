@@ -25,7 +25,6 @@ local.properties
 migrate_working_dir/
 
 *.swp
-profile
 
 DerivedData/
 

@@ -1,4 +1,4 @@
-part of '../widget.dart';
+import 'package:flutter/material.dart';
 
 class Touch extends StatefulWidget {
   final Widget child;

@@ -1,28 +1,31 @@
 part of '../model.dart';
 
 class FamilyDevice {
-  final String deviceName;
-  final String deviceDisplayName;
+  final JsonDevice device;
+  final JsonProfile profile;
   final UiStats stats;
   final bool thisDevice;
-  final bool enabled;
-  final bool configured;
+  final bool linked;
 
   FamilyDevice({
-    required this.deviceName,
-    required this.deviceDisplayName,
+    required this.device,
+    required this.profile,
     required this.stats,
     required this.thisDevice,
-    required this.enabled,
-    required this.configured,
+    required this.linked,
   });
+}
+
+extension FamilyDeviceExt on FamilyDevice {
+  String get displayName =>
+      !thisDevice ? device.alias : "app settings section header".i18n;
 }
 
 enum FamilyPhase {
   starting, // Not yet usable state, UI should show loading
   fresh, // No devices, no active account
   noPerms, // Parent mode, app unlocked, but no perms
-  linkedUnlocked, // Linked and perms, but not locked or no PIN set
+  linkedExpired, // Linked and perms, but no valid token available
   linkedNoPerms, // Linked as child device, no DNS setup yet
   linkedActive, // Linked and all good
   parentNoDevices, // Active account, nothing set up yet
@@ -42,7 +45,7 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.lockedActive ||
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.linkedActive ||
-        this == FamilyPhase.linkedUnlocked;
+        this == FamilyPhase.linkedExpired;
   }
 
   bool isLocked2() {
@@ -70,28 +73,15 @@ extension FamilyPhaseExt on FamilyPhase {
         this == FamilyPhase.lockedActive;
   }
 
-  bool requiresBobo() {
+  bool requiresBigCta() {
     return this == FamilyPhase.fresh ||
         this == FamilyPhase.noPerms ||
         this == FamilyPhase.linkedNoPerms ||
         this == FamilyPhase.parentNoDevices ||
-        this == FamilyPhase.linkedActive ||
         this == FamilyPhase.lockedActive ||
         this == FamilyPhase.lockedNoPerms ||
         this == FamilyPhase.lockedNoAccount ||
-        this == FamilyPhase.linkedUnlocked;
-  }
-
-  bool hideTabs() {
-    return this == FamilyPhase.fresh ||
-        this == FamilyPhase.noPerms ||
-        this == FamilyPhase.linkedNoPerms ||
-        this == FamilyPhase.starting ||
-        this == FamilyPhase.linkedActive ||
-        this == FamilyPhase.lockedActive ||
-        this == FamilyPhase.lockedNoPerms ||
-        this == FamilyPhase.lockedNoAccount ||
-        this == FamilyPhase.linkedUnlocked;
+        this == FamilyPhase.linkedExpired;
   }
 
   bool requiresPerms() {
@@ -129,4 +119,15 @@ extension FamilyPhaseExt on FamilyPhase {
     //this == FamilyPhase.parentHasDevices ||
     //this == FamilyPhase.noPerms;
   }
+}
+
+class AddingDevice {
+  final JsonDevice device;
+  final JsonProfile profile;
+  late String qrUrl;
+
+  AddingDevice({
+    required this.device,
+    required this.profile,
+  });
 }

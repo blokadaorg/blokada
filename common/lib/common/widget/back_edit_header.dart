@@ -1,4 +1,7 @@
-part of '../widget.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'touch.dart';
+import 'theme.dart';
 
 class BackEditHeaderWidget extends StatelessWidget {
   final String name;

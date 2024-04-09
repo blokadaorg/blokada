@@ -5,12 +5,12 @@ import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../common/widget.dart';
+import '../../common/widget/minicard/minicard.dart';
 import '../../stage/stage.dart';
 import '../../tracer/tracer.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../theme.dart';
+import '../../common/widget/theme.dart';
 
 class CrashScreen extends StatefulWidget {
   const CrashScreen({Key? key}) : super(key: key);

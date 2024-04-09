@@ -267,7 +267,7 @@ final _family = [
         "Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks.",
   ),
   FilterDecor(
-    filterName: "meta_social",
+    filterName: "meta_videostreaming",
     tags: ["social", "facebook"],
     title: "Video streaming",
     slug: "Blocks popular video streaming platforms",
@@ -315,7 +315,7 @@ final _family = [
         "Showcases top gaming applications. Ideal for users desiring precise game access control.",
   ),
   FilterDecor(
-    filterName: "meta_apps_ecommerce",
+    filterName: "meta_apps_commerce",
     tags: ["apps", "e-commerce"],
     title: "Online shopping apps",
     slug: "Blocks leading e-commerce and shopping applications",
