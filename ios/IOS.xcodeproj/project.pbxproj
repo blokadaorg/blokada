@@ -147,7 +147,6 @@
 		4E1276672AE7D0FC00A94994 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42352D244EE662005A0779 /* AccountViewModel.swift */; };
 		4E1276682AE7D0FC00A94994 /* PlusBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E5B2A29CD430053943D /* PlusBinding.swift */; };
 		4E1276692AE7D0FC00A94994 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0229E6999D00A8A60D /* Persistence.swift */; };
-		4E12766A2AE7D0FC00A94994 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
 		4E12766B2AE7D0FC00A94994 /* PrivateDnsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A0E2760AB9D005A59F5 /* PrivateDnsService.swift */; };
 		4E12766C2AE7D0FC00A94994 /* JournalItemVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B592A0928D400048F6A /* JournalItemVM.swift */; };
 		4E12766D2AE7D0FC00A94994 /* ServicesForMocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */; };
@@ -656,8 +655,6 @@
 		4E58C1392AC1B8FB002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C1382AC1B8FB002CA1A3 /* CodeScanner */; };
 		4E58C13B2AC1B905002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C13A2AC1B905002CA1A3 /* CodeScanner */; };
 		4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C13C2AC1B90D002CA1A3 /* CodeScanner */; };
-		4E58C1422AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
-		4E58C1432AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
 		4E58C14B2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
 		4E58C14C2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
 		4E58C14D2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
@@ -696,18 +693,6 @@
 		4E63194D244743C300191C16 /* LeaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194C244743C300191C16 /* LeaseView.swift */; };
 		4E652939248F760700EB871A /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
 		4E65293A248F760700EB871A /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
-		4E6582132AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E6582142AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E6582152AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E6582162AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E6582172AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E6582182AFA6879005AFEF0 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582122AFA6879005AFEF0 /* Family.swift */; };
-		4E65821A2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
-		4E65821B2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
-		4E65821C2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
-		4E65821D2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
-		4E65821E2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
-		4E65821F2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */; };
 		4E673D0629E6999D00A8A60D /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673CFE29E6999D00A8A60D /* Stage.swift */; };
 		4E673D0729E6999D00A8A60D /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673CFE29E6999D00A8A60D /* Stage.swift */; };
 		4E673D0A29E6999D00A8A60D /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0029E6999D00A8A60D /* Env.swift */; };
@@ -1380,11 +1365,8 @@
 		4EEDBB9B2B610E5B004AB456 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBB992B610E5B004AB456 /* MainView.swift */; };
 		4EEDBB9C2B610E5B004AB456 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBB992B610E5B004AB456 /* MainView.swift */; };
 		4EEDBB9D2B6117A2004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
-		4EEDBB9E2B6117A2004AB456 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
 		4EEDBB9F2B6117AC004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
-		4EEDBBA02B6117AC004AB456 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
 		4EEDBBA12B6117B5004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
-		4EEDBBA22B6117B5004AB456 /* AccountLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */; };
 		4EEDBBA42B6117C9004AB456 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4EEDBBA32B6117C9004AB456 /* CodeScanner */; };
 		4EEDBBA52B6118EB004AB456 /* Flavor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E270D012A80EB1100D3484B /* Flavor.swift */; };
 		4EEDBBA72B68EA3E004AB456 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBA62B68EA3E004AB456 /* Filter.swift */; };
@@ -1734,7 +1716,6 @@
 		4E53CCC5244E34A9009B3CF0 /* PaymentGatewayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayViewModel.swift; sourceTree = "<group>"; };
 		4E53CCC8244E39F5009B3CF0 /* PaymentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListView.swift; sourceTree = "<group>"; };
 		4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChangeView.swift; sourceTree = "<group>"; };
-		4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLinkView.swift; sourceTree = "<group>"; };
 		4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountDecidedView.swift; sourceTree = "<group>"; };
 		4E59B8D129EEDBEF005ECD5F /* NotificationBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBinding.swift; sourceTree = "<group>"; };
 		4E59B8D52A014233005ECD5F /* PaymentBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBinding.swift; sourceTree = "<group>"; };
@@ -1756,8 +1737,6 @@
 		4E63194A2447436C00191C16 /* LeaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseListView.swift; sourceTree = "<group>"; };
 		4E63194C244743C300191C16 /* LeaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseView.swift; sourceTree = "<group>"; };
 		4E65293B248F760700EB871A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Ui.strings; sourceTree = "<group>"; };
-		4E6582122AFA6879005AFEF0 /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Family.swift; path = "six-common/libgen/ios/Family.swift"; sourceTree = SOURCE_ROOT; };
-		4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyBinding.swift; sourceTree = "<group>"; };
 		4E673CFE29E6999D00A8A60D /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stage.swift; path = "six-common/libgen/ios/Stage.swift"; sourceTree = SOURCE_ROOT; };
 		4E673D0029E6999D00A8A60D /* Env.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Env.swift; path = "six-common/libgen/ios/Env.swift"; sourceTree = SOURCE_ROOT; };
 		4E673D0129E6999D00A8A60D /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notification.swift; path = "six-common/libgen/ios/Notification.swift"; sourceTree = SOURCE_ROOT; };
@@ -2435,7 +2414,6 @@
 				4E61D8F227B3D30400C98D36 /* ContentView.swift */,
 				4E955DC42771D780008DE06F /* ContentViewModel.swift */,
 				4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */,
-				4E58C13E2AC2BB41002CA1A3 /* AccountLinkView.swift */,
 				4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */,
 				4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */,
 			);
@@ -2539,7 +2517,6 @@
 				4EEC49502A4D983D001EF934 /* TracerBinding.swift */,
 				4EEC49582A4E1435001EF934 /* StatsBinding.swift */,
 				4EEC49602A50205D001EF934 /* RateBinding.swift */,
-				4E6582192AFA6896005AFEF0 /* FamilyBinding.swift */,
 				4EA37D652B2C67AD00E4EC97 /* LinkBinding.swift */,
 			);
 			path = Binding;
@@ -2627,7 +2604,6 @@
 			children = (
 				4EEDBBA62B68EA3E004AB456 /* Filter.swift */,
 				4EA37D6C2B2C680200E4EC97 /* Link.swift */,
-				4E6582122AFA6879005AFEF0 /* Family.swift */,
 				4EEC49682A543AEE001EF934 /* Command.swift */,
 				4EEC49642A503657001EF934 /* Rate.swift */,
 				4EEC49542A4E1417001EF934 /* Stats.swift */,
@@ -3121,7 +3097,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EEDBBA12B6117B5004AB456 /* AccountChangeView.swift in Sources */,
-				4EEDBBA22B6117B5004AB456 /* AccountLinkView.swift in Sources */,
 				4EB4967F2B233CBE00926C85 /* ShieldsWideView.swift in Sources */,
 				4E59B8D62A014233005ECD5F /* PaymentBinding.swift in Sources */,
 				4E23D079294730E200613D0A /* TunnelsTracker.swift in Sources */,
@@ -3231,7 +3206,6 @@
 				4EEDBB9A2B610E5B004AB456 /* MainView.swift in Sources */,
 				4E88AA1A2B2B1B62006B16E7 /* SplashView.swift in Sources */,
 				4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */,
-				4E65821A2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4E02E30E2A56DA620014E884 /* NetworkCommand.swift in Sources */,
 				4E53CCC6244E34A9009B3CF0 /* PaymentGatewayViewModel.swift in Sources */,
 				4E2F2A092760A902005A59F5 /* DeviceBinding.swift in Sources */,
@@ -3262,7 +3236,6 @@
 				4E0B7E50278DB6DA0032259C /* LinkRepo.swift in Sources */,
 				4EEDBBA72B68EA3E004AB456 /* Filter.swift in Sources */,
 				4E11D2E627206D810042385B /* NoLogRetentionView.swift in Sources */,
-				4E6582132AFA6879005AFEF0 /* Family.swift in Sources */,
 				4E1C64E229E81F8B00ABB65B /* PersistenceBinding.swift in Sources */,
 				4E23D054293F3DD800613D0A /* x25519.c in Sources */,
 				4E23D03B293E20BC00613D0A /* NETunnelProviderProtocol+Extension.swift in Sources */,
@@ -3356,7 +3329,6 @@
 				4E1275FF2AE7D0FC00A94994 /* SettingsFormNoNavView.swift in Sources */,
 				4E1276002AE7D0FC00A94994 /* Sequence+Extensions.swift in Sources */,
 				4E1276012AE7D0FC00A94994 /* TracerBinding.swift in Sources */,
-				4E65821F2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4E1276022AE7D0FC00A94994 /* Tracer.swift in Sources */,
 				4E1276042AE7D0FC00A94994 /* LoggerSaverMock.swift in Sources */,
 				4E1276052AE7D0FC00A94994 /* NoLogRetentionView.swift in Sources */,
@@ -3461,10 +3433,8 @@
 				4E1276672AE7D0FC00A94994 /* AccountViewModel.swift in Sources */,
 				4E1276682AE7D0FC00A94994 /* PlusBinding.swift in Sources */,
 				4E1276692AE7D0FC00A94994 /* Persistence.swift in Sources */,
-				4E12766A2AE7D0FC00A94994 /* AccountLinkView.swift in Sources */,
 				4E12766B2AE7D0FC00A94994 /* PrivateDnsService.swift in Sources */,
 				4E12766C2AE7D0FC00A94994 /* JournalItemVM.swift in Sources */,
-				4E6582182AFA6879005AFEF0 /* Family.swift in Sources */,
 				4E12766D2AE7D0FC00A94994 /* ServicesForMocked.swift in Sources */,
 				4E12766E2AE7D0FC00A94994 /* AccountChangeView.swift in Sources */,
 				4E12766F2AE7D0FC00A94994 /* OnboardingAccountDecidedView.swift in Sources */,
@@ -3650,7 +3620,6 @@
 				4E270D252A80EB8300D3484B /* PlusVpn.swift in Sources */,
 				4E270D262A80EB8300D3484B /* OptionView.swift in Sources */,
 				4E270D272A80EB8300D3484B /* key.c in Sources */,
-				4E6582162AFA6879005AFEF0 /* Family.swift in Sources */,
 				4E270D282A80EB8300D3484B /* NotificationToken.swift in Sources */,
 				4E270D292A80EB8300D3484B /* SystemNavService.swift in Sources */,
 				4E270D2A2A80EB8300D3484B /* PlaceholderView.swift in Sources */,
@@ -3706,7 +3675,6 @@
 				4E270D5C2A80EB8300D3484B /* StoreKitWrapper.swift in Sources */,
 				4E270D5D2A80EB8300D3484B /* SettingsFormNavView.swift in Sources */,
 				4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
-				4E58C1422AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */,
 				4E270D5E2A80EB8300D3484B /* SettingsNarrowView.swift in Sources */,
 				4E270D602A80EB8300D3484B /* DNSResolver.swift in Sources */,
 				4E270D612A80EB8300D3484B /* JournalNoBarV.swift in Sources */,
@@ -3780,7 +3748,6 @@
 				4E58C14E2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E270DA12A80EB8300D3484B /* LocationViewModel.swift in Sources */,
 				4E270DA22A80EB8300D3484B /* Journal.swift in Sources */,
-				4E65821D2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4E270DA32A80EB8300D3484B /* Perm.swift in Sources */,
 				4E270DA42A80EB8300D3484B /* PermBinding.swift in Sources */,
 				4E270DA52A80EB8300D3484B /* CustomV.swift in Sources */,
@@ -3851,7 +3818,6 @@
 			files = (
 				4EEDBBA52B6118EB004AB456 /* Flavor.swift in Sources */,
 				4EEDBB9D2B6117A2004AB456 /* AccountChangeView.swift in Sources */,
-				4EEDBB9E2B6117A2004AB456 /* AccountLinkView.swift in Sources */,
 				4E28ADEC2AB99DB0007445C8 /* ShieldsNarrowView.swift in Sources */,
 				4E290FB72497A26800FC4C61 /* BlokadaText.swift in Sources */,
 				4E61D90927B43A7200C98D36 /* SettingsFormNoNavView.swift in Sources */,
@@ -3860,7 +3826,6 @@
 				4EEC494F2A4D9822001EF934 /* Tracer.swift in Sources */,
 				4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */,
 				4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */,
-				4E65821C2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4E11D2E727206D810042385B /* NoLogRetentionView.swift in Sources */,
 				4EBDD3632A0CDD190039C101 /* PermBinding.swift in Sources */,
 				4E946E602A29CDAC0053943D /* GatewayBinding.swift in Sources */,
@@ -3968,7 +3933,6 @@
 				4E2F2A102760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
 				4ECB8B5B2A0928D500048F6A /* JournalItemVM.swift in Sources */,
 				4EA9A2A32785B927009764F1 /* ServicesForMocked.swift in Sources */,
-				4E6582152AFA6879005AFEF0 /* Family.swift in Sources */,
 				4E58C14D2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E7FE9A8244DC28900851E9F /* StreamReader.swift in Sources */,
 				4E7FE9AA244DC28900851E9F /* StoreKitWrapper.swift in Sources */,
@@ -4046,7 +4010,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EEDBB9F2B6117AC004AB456 /* AccountChangeView.swift in Sources */,
-				4EEDBBA02B6117AC004AB456 /* AccountLinkView.swift in Sources */,
 				4EB496802B233CBE00926C85 /* ShieldsWideView.swift in Sources */,
 				4E86510C2A3C968B0060AFB1 /* PaymentBinding.swift in Sources */,
 				4E86510D2A3C968B0060AFB1 /* TunnelsTracker.swift in Sources */,
@@ -4156,7 +4119,6 @@
 				4EEDBB9B2B610E5B004AB456 /* MainView.swift in Sources */,
 				4E88AA1B2B2B1B62006B16E7 /* SplashView.swift in Sources */,
 				4E86517D2A3C968B0060AFB1 /* CombineUtil.swift in Sources */,
-				4E65821B2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4E02E30F2A56DA620014E884 /* NetworkCommand.swift in Sources */,
 				4E86517E2A3C968B0060AFB1 /* PaymentGatewayViewModel.swift in Sources */,
 				4E86517F2A3C968B0060AFB1 /* DeviceBinding.swift in Sources */,
@@ -4187,7 +4149,6 @@
 				4E8651A02A3C968B0060AFB1 /* LinkRepo.swift in Sources */,
 				4EEDBBA82B68EA3E004AB456 /* Filter.swift in Sources */,
 				4E8651A12A3C968B0060AFB1 /* NoLogRetentionView.swift in Sources */,
-				4E6582142AFA6879005AFEF0 /* Family.swift in Sources */,
 				4E8651A22A3C968B0060AFB1 /* PersistenceBinding.swift in Sources */,
 				4E8651A32A3C968B0060AFB1 /* x25519.c in Sources */,
 				4E8651A42A3C968B0060AFB1 /* NETunnelProviderProtocol+Extension.swift in Sources */,
@@ -4303,7 +4264,6 @@
 				4EBF3B272A80E55900F637BB /* OptionView.swift in Sources */,
 				4EBF3B282A80E55900F637BB /* key.c in Sources */,
 				4EBF3B292A80E55900F637BB /* NotificationToken.swift in Sources */,
-				4E6582172AFA6879005AFEF0 /* Family.swift in Sources */,
 				4EBF3B2A2A80E55900F637BB /* SystemNavService.swift in Sources */,
 				4EBF3B2B2A80E55900F637BB /* PlaceholderView.swift in Sources */,
 				4EBF3B2C2A80E55900F637BB /* JournalWideVerticalV.swift in Sources */,
@@ -4359,7 +4319,6 @@
 				4EBF3B5E2A80E55900F637BB /* SettingsFormNavView.swift in Sources */,
 				4EBF3B5F2A80E55900F637BB /* SettingsNarrowView.swift in Sources */,
 				4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
-				4E58C1432AC2BB41002CA1A3 /* AccountLinkView.swift in Sources */,
 				4EBF3B612A80E55900F637BB /* DNSResolver.swift in Sources */,
 				4EBF3B622A80E55900F637BB /* JournalNoBarV.swift in Sources */,
 				4EBF3B632A80E55900F637BB /* WebView.swift in Sources */,
@@ -4433,7 +4392,6 @@
 				4E58C14F2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4EBF3BA32A80E55900F637BB /* LocationViewModel.swift in Sources */,
 				4EBF3BA42A80E55900F637BB /* Journal.swift in Sources */,
-				4E65821E2AFA6896005AFEF0 /* FamilyBinding.swift in Sources */,
 				4EBF3BA52A80E55900F637BB /* Perm.swift in Sources */,
 				4EBF3BA62A80E55900F637BB /* PermBinding.swift in Sources */,
 				4EBF3BA72A80E55900F637BB /* CustomV.swift in Sources */,
