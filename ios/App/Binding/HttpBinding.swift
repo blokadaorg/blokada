@@ -124,6 +124,59 @@ class HttpBinding: HttpOps {
         }
         task.resume()
     }
+    
+    func doRequestWithHeaders(url: String, payload: String?, type: String,
+                              headers: [String? : String?],
+                              completion: @escaping (Result<String, any Error>) -> Void) {
+        if netxState.value == .activated || netxState.value == .reconfiguring {
+            BlockaLogger.v("HttpBinding", "Making protected request")
+            netx.makeProtectedRequest(url: url, method: type.uppercased(), body: payload ?? "")
+            .sink(
+                onValue: { it in completion(.success(it)) },
+                onFailure: { err in completion(.failure(err))}
+            )
+            .store(in: &cancellables)
+            return
+        }
+
+        guard let url = URL(string: url) else {
+            return completion(Result.failure("invalid url"))
+        }
+
+        var request = URLRequest(url: url)
+        for header in headers {
+            request.setValue(header.value, forHTTPHeaderField: header.key!)
+        }
+        request.httpMethod = type.uppercased()
+
+        if payload != nil {
+            request.httpBody = payload?.data(using: .utf8)
+        }
+
+        let task = self.session.dataTask(with: request) { payload, response, error in
+            if let e = error {
+                return completion(Result.failure(e))
+            }
+
+            guard let r = response as? HTTPURLResponse else {
+                return completion(Result.failure("no response"))
+            }
+
+            guard r.statusCode == 200 else {
+                let res = String(data: payload ?? Data(), encoding: .utf8)
+                BlockaLogger.e("http", "\(res)")
+                return completion(Result.failure("code:\(r.statusCode)"))
+            }
+
+            guard let payload = payload else {
+                return completion(Result.success(""))
+            }
+
+            return completion(Result.success(String(decoding: payload, as: UTF8.self)))
+        }
+        task.resume()
+    }
+    
 
     private func onVpnStatus() {
         netx.getStatePublisher()

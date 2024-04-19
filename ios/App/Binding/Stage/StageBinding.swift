@@ -30,7 +30,7 @@ class StageBinding: StageOps {
     let activeTab = CurrentValueSubject<Tab, Never>(Tab.Home)
     let tabPayload = CurrentValueSubject<String?, Never>(nil)
 
-    let showNavbar = CurrentValueSubject<Bool, Never>(true)
+    let showNavbar = CurrentValueSubject<Bool, Never>(false)
     let showInput = CurrentValueSubject<Bool, Never>(false)
     
     let netx = Services.netx

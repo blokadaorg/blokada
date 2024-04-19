@@ -162,7 +162,6 @@ struct AccountChangeScanView: View {
                     Spacer()
                     Button(action: {
                         self.commands.execute(.modalDismiss)
-                        self.commands.execute(.modalShow, "payment")
                     }) {
                         ZStack {
                             Text(L10n.universalActionClose)

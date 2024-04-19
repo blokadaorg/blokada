@@ -28,7 +28,6 @@ struct ContentView: View {
     var onboarding = AfterActivatedView()
     //var accountChange = AccountChangeView()
     var accountChange = ScanQrCodeView()
-    var accountLink = AccountLinkView()
     var onboardingAccountDecided = OnboardingAccountDecidedView()
 
     @State private var userInput = ""
@@ -59,8 +58,6 @@ struct ContentView: View {
                         onboardingAccountDecided
                     case .accountChange:
                         accountChange
-                    case .accountLink:
-                        accountLink
                     case .adsCounterShare:
                         ShareSheet(activityItems: [L10n.mainShareMessage(stats.blockedCounter.value)])
                     case .help:
@@ -126,7 +123,7 @@ struct ContentView: View {
     }
     
     func submit() {
-        self.commands.execute(.deviceAlias, self.userInput)
+        //self.commands.execute(.deviceAlias, self.userInput)
         self.vm.stage.onDismissed()
     }
 }
