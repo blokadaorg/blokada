@@ -1,12 +1,11 @@
+import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/journal/channel.pg.dart';
-import 'package:common/journal/journal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActivityItem extends StatefulWidget {
-  final JournalEntry entry;
+  final UiJournalEntry entry;
 
   const ActivityItem({
     Key? key,
@@ -64,13 +63,12 @@ class ActivityItemState extends State<ActivityItem> {
                     style: const TextStyle(fontSize: 18),
                     overflow: TextOverflow.ellipsis),
                 Text(
-                  widget.entry.time,
+                  widget.entry.timestampText,
                   style: TextStyle(
                       color: context.theme.textSecondary, fontSize: 12),
                 ),
                 Text(
-                  (widget.entry.isBlocked() ? "blocked" : "allowed") +
-                      " ${widget.entry.requests} times",
+                  "${widget.entry.isBlocked() ? "blocked" : "allowed"} ${widget.entry.requests} times",
                   style: TextStyle(
                       color: context.theme.textSecondary, fontSize: 12),
                 ),

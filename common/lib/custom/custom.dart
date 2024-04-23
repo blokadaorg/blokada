@@ -95,6 +95,35 @@ abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
     });
   }
 
+  bool contains(String domainName) {
+    return allowed.contains(domainName) || denied.contains(domainName);
+  }
+
+  // Will move to allowed it on blocked list, and vice versa.
+  // Will do nothing if not existing.
+  toggle(Trace parentTrace, String domainName) async {
+    if (allowed.contains(domainName)) {
+      await delete(parentTrace, domainName);
+      await deny(parentTrace, domainName);
+    } else if (denied.contains(domainName)) {
+      await delete(parentTrace, domainName);
+      await allow(parentTrace, domainName);
+    }
+  }
+
+  // Will add to allowed, or blocked list if not existing, depending on bool.
+  // Will remove if existing.
+  addOrRemove(Trace parentTrace, String domainName,
+      {required bool gotBlocked}) async {
+    if (contains(domainName)) {
+      await delete(parentTrace, domainName);
+    } else if (gotBlocked) {
+      await allow(parentTrace, domainName);
+    } else {
+      await deny(parentTrace, domainName);
+    }
+  }
+
   @action
   Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
     if (!route.isForeground()) return;

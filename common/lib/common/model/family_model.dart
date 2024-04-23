@@ -121,13 +121,16 @@ extension FamilyPhaseExt on FamilyPhase {
   }
 }
 
-class AddingDevice {
+class LinkingDevice {
   final JsonDevice device;
-  final JsonProfile profile;
+  final bool relink;
+  final JsonProfile? profile;
+  late String token;
   late String qrUrl;
 
-  AddingDevice({
+  LinkingDevice({
     required this.device,
-    required this.profile,
+    this.relink = false,
+    this.profile,
   });
 }

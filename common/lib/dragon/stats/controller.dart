@@ -1,11 +1,16 @@
 import 'package:common/common/model.dart';
+import 'package:common/dragon/device/selected_device.dart';
+import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/stats/api.dart';
 import 'package:common/util/di.dart';
 
+const _key = "statsRefresh";
+
 class StatsController {
   late final _api = dep<StatsApi>();
+  late final _scheduler = dep<Scheduler>();
+  late final _selectedDevice = dep<SelectedDeviceTag>();
 
-  DeviceTag? selectedDeviceTag;
   List<DeviceTag> monitorDeviceTags = [];
 
   Map<DeviceTag, UiStats> stats = {};
@@ -13,13 +18,19 @@ class StatsController {
   Function() onStatsUpdated = () {};
   bool autoRefresh = false;
 
+  StatsController() {
+    _selectedDevice.onChange.listen((event) {
+      startAutoRefresh();
+    });
+  }
+
   fetch({bool forceFetchAll = false}) async {
     var t = monitorDeviceTags;
 
     // Refresh only selected device when user is on device screen
     // When on home, fetch all devices, but more rarely
-    if (selectedDeviceTag != null && !forceFetchAll) {
-      t = [selectedDeviceTag!];
+    if (_selectedDevice.now != null && !forceFetchAll) {
+      t = [_selectedDevice.now!];
     }
 
     for (final tag in t) {
@@ -32,31 +43,39 @@ class StatsController {
     }
   }
 
-  startAutoRefresh() {
-    autoRefresh = true;
-    _autoRefresh();
+  startAutoRefresh() async {
+    await _selectedDevice.fetch();
+    _scheduler.addOrUpdate(
+        Job(
+          _key,
+          every: _decideFrequency(),
+          when: [Condition(Event.appForeground, value: "1")],
+          callback: _autoRefresh,
+        ),
+        immediate: true);
   }
 
   stopAutoRefresh() {
-    autoRefresh = false;
+    _scheduler.stop(_key);
   }
 
-  _autoRefresh() async {
-    if (!autoRefresh) return;
+  Future<bool> _autoRefresh() async {
     try {
       await fetch();
     } catch (e) {
       print("Failed to fetch stats: $e");
     }
     onStatsUpdated();
-    await Future.delayed(_decideNextRefresh(), _autoRefresh);
+    return true;
   }
 
-  Duration _decideNextRefresh() {
-    if (selectedDeviceTag != null) {
+  Duration _decideFrequency() {
+    if (_selectedDevice.now != null) {
+      print("stats refresh every 10s");
       return const Duration(seconds: 10);
     }
 
+    print("stats refresh every 2m");
     return const Duration(seconds: 120);
   }
 }

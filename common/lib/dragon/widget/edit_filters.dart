@@ -133,24 +133,12 @@ class EditFiltersSheetState extends State<EditFiltersSheet> {
           filter: filter,
           texts: texts,
           selections: selections,
-          onSelect: (sel) => _updateUserChoice(filter, sel),
+          onSelect: (sel) => _profiles.updateUserChoice(filter, sel),
           bgColor: color);
     } catch (e) {
       throw Exception(
           "Error getting filter decor, filter: ${filter.filterName}: $e");
     }
-  }
-
-  _updateUserChoice(Filter filter, List<String> selections) {
-    final selected = _selectedFilters.now;
-    final index =
-        selected.indexWhere((it) => it.filterName == filter.filterName);
-    if (index == -1) {
-      selected.add(FilterSelection(filter.filterName, selections));
-    } else {
-      selected[index] = FilterSelection(filter.filterName, selections);
-    }
-    _profiles.updateUserChoice(selected);
   }
 
   List<Widget> _buildFooter(BuildContext context) {

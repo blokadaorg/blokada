@@ -59,8 +59,8 @@ abstract class FamilyStoreBase
     _onDnsPermChanges();
     _onPhaseShowNavbar(act);
 
-    _device.onChange =
-        () => traceAs("devicesChanged", (trace) => _reload(trace));
+    _device.onChange = (dirty) =>
+        traceAs("devicesChanged", (trace) => _reload(trace, dirty: dirty));
 
     _auth.onTokenExpired = () {
       print("token expired");
@@ -103,9 +103,8 @@ abstract class FamilyStoreBase
   @observable
   String onboardLinkTemplate = linkTemplate;
 
-  JsonDevice? _addingDevice;
-  String _addingDeviceToken = "";
-  var addingDeviceHeartbeatReceived = () {};
+  LinkingDevice? _linkingDevice;
+  var linkDeviceHeartbeatReceived = () {};
 
   bool _onboardingShown = false;
 
@@ -143,56 +142,56 @@ abstract class FamilyStoreBase
     });
   }
 
-  _reload(Trace parentTrace) async {
+  _reload(Trace parentTrace, {bool dirty = false}) async {
     return await traceWith(parentTrace, "reload", (trace) async {
-      await _device.reload(createIfNeeded: _account.type.isActive());
+      if (!dirty) {
+        await _device.reload(createIfNeeded: _account.type.isActive());
+      }
 
       devices = FamilyDevices([], null).fromApi(_device.devices,
           _profiles.profiles, (await _thisDevice.fetch())?.deviceTag);
       _stats.monitorDeviceTags = devices.getTags();
 
-      _refreshStats();
+      _stats.startAutoRefresh();
     });
-  }
-
-  _refreshStats() async {
-    await _stats.startAutoRefresh();
-    // TODO: stop auto refresh when on bg
   }
 
   // Initiates the QR code based child device registration process,
   // Returns URL to be used in QR code.
   @action
-  Future<AddingDevice> initiateAddDevice(
-      Trace parentTrace, String deviceName, JsonProfile? profile) async {
+  Future<LinkingDevice> initiateLinkDevice(Trace parentTrace, String deviceName,
+      JsonProfile? profile, JsonDevice? device) async {
     return await traceWith(parentTrace, "setWaitingForDevice", (trace) async {
       String qrUrl;
-      AddingDevice d = await _device.addDevice(deviceName, profile);
-      _addingDeviceToken = await _auth.createToken(d.device.deviceTag);
-      print("Adding device token: $_addingDeviceToken");
-      _addingDevice = d.device;
-      _device.onHeartbeat = _finishAddDevice;
+      LinkingDevice d = device == null
+          ? await _device.addDevice(deviceName, profile)
+          : LinkingDevice(device: device, relink: true);
+      d.token = await _auth.createToken(d.device.deviceTag);
+      print("Linking device ${d.device.deviceTag} token: ${d.token}");
+      _linkingDevice = d;
+      _device.onHeartbeat = _finishLinkDevice;
       _device.startHeartbeatMonitoring(d.device.deviceTag);
-      d.qrUrl = _generateLink(_addingDeviceToken);
+      d.qrUrl = _generateLink(d.token);
       return d;
     });
   }
 
-  cancelAddDevice(Trace parentTrace) async {
+  cancelLinkDevice(Trace parentTrace) async {
     return await traceWith(parentTrace, "cancelAddDevice", (trace) async {
-      if (_addingDevice == null) return;
-      print("cancelling device ${_addingDevice?.deviceTag}");
-      await _device.deleteDevice(_addingDevice!);
+      if (_linkingDevice == null) return;
+      final d = _linkingDevice!;
+      print("cancelling device ${d.device.deviceTag}");
+      if (!d.relink) await _device.deleteDevice(d.device);
       _device.stopHeartbeatMonitoring();
-      _addingDevice = null;
+      _linkingDevice = null;
     });
   }
 
-  _finishAddDevice(DeviceTag tag) {
-    if (tag == _addingDevice!.deviceTag) {
-      _addingDevice = null;
+  _finishLinkDevice(DeviceTag tag) {
+    if (tag == _linkingDevice!.device.deviceTag) {
+      _linkingDevice = null;
       _device.stopHeartbeatMonitoring();
-      addingDeviceHeartbeatReceived();
+      linkDeviceHeartbeatReceived();
       traceAs("reloadAfterDeviceAdded", (trace) async {
         await _reload(trace);
       });
@@ -260,8 +259,8 @@ abstract class FamilyStoreBase
   link(String qrUrl) async {
     try {
       final token = qrUrl.split("?token=").last;
-      print("received token: $token");
       final deviceTag = await _auth.useToken(token);
+      print("received proper token for device: $deviceTag: $token");
       await _device.setThisDeviceForLinked(deviceTag, token);
       linkedMode = true;
       linkedTokenOk = true;

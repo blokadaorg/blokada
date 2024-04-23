@@ -36,8 +36,6 @@ enum StageModal {
   crash
 }
 
-enum StageLink { toc }
-
 @HostApi()
 abstract class StageOps {
   @async

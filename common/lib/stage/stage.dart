@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:common/dragon/scheduler.dart';
+import 'package:common/link/channel.pg.dart';
+import 'package:common/link/link.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/async.dart';
@@ -143,6 +146,8 @@ class StageStore = StageStoreBase with _$StageStore;
 abstract class StageStoreBase
     with Store, Traceable, Dependable, ValueEmitter<StageRouteState>, Emitter {
   late final _ops = dep<StageOps>();
+  late final _scheduler = dep<Scheduler>();
+  late final _links = dep<LinkStore>();
 
   @observable
   StageRouteState route = StageRouteState.init();
@@ -210,6 +215,7 @@ abstract class StageStoreBase
         route = route.newBg();
         _isForeground = false;
         await emitValue(routeChanged, trace, route);
+        _scheduler.eventTriggered(Event.appForeground, value: "0");
       }
 
       _foregroundCompleter?.complete();
@@ -276,6 +282,7 @@ abstract class StageStoreBase
       route = route.newFg();
       await emitValue(routeChanged, trace, route);
       trace.addEvent("foreground emitted");
+      _scheduler.eventTriggered(Event.appForeground, value: "1");
     }
 
     final path = _pathToShow;
@@ -397,11 +404,14 @@ abstract class StageStoreBase
   }
 
   @action
-  Future<void> openLink(Trace parentTrace, StageLink link) async {
+  Future<void> openLink(Trace parentTrace, LinkId link) async {
     return await traceWith(parentTrace, "openLink", (trace) async {
-      // TODO: actual uris processing
-      const url = "https://go.blokada.org/privacy_cloud";
-      await _ops.doOpenLink(url);
+      final url = _links.links[link];
+      if (url != null) {
+        await _ops.doOpenLink(url);
+      } else {
+        throw Exception("Link not found: $link");
+      }
     });
   }
 }

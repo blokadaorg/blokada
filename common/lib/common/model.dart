@@ -13,6 +13,8 @@ part 'model/filter/mapping.dart';
 part 'model/filter/model.dart';
 part 'model/filter_decor_model.dart';
 part 'model/http.dart';
+part 'model/journal/json.dart';
+part 'model/journal/model.dart';
 part 'model/json_utils.dart';
 part 'model/list/json.dart';
 part 'model/list/model.dart';

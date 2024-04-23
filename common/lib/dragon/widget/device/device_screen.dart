@@ -9,9 +9,11 @@ import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/controller.dart';
+import 'package:common/dragon/device/selected_device.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/widget/dialog.dart';
+import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
 import 'package:common/dragon/widget/stats/radial_segment.dart';
@@ -21,6 +23,7 @@ import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class DeviceScreen extends StatefulWidget {
@@ -36,6 +39,7 @@ class DeviceScreenState extends State<DeviceScreen> with TraceOrigin {
   late final _family = dep<FamilyStore>();
   late final _device = dep<DeviceController>();
   late final _selectedFilters = dep<SelectedFilters>();
+  late final _selectedDevice = dep<SelectedDeviceTag>();
 
   late FamilyDevice device;
 
@@ -51,6 +55,7 @@ class DeviceScreenState extends State<DeviceScreen> with TraceOrigin {
     _scrollController.addListener(_updateTopBar);
     reactionOnStore((_) => _family.devices, (_) => rebuild());
     _subscription = _selectedFilters.onChange.listen((_) => rebuild());
+    _selectedDevice.now = widget.tag;
   }
 
   rebuild() {
@@ -66,6 +71,7 @@ class DeviceScreenState extends State<DeviceScreen> with TraceOrigin {
 
   @override
   void dispose() {
+    _selectedDevice.now = null;
     _scrollController.removeListener(_updateTopBar);
     _scrollController.dispose();
     _subscription.cancel();
@@ -276,6 +282,30 @@ class DeviceScreenState extends State<DeviceScreen> with TraceOrigin {
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: CommonClickable(
                             onTap: () {
+                              showCupertinoModalBottomSheet(
+                                context: context,
+                                duration: const Duration(milliseconds: 300),
+                                backgroundColor: context.theme.bgColorCard,
+                                builder: (context) =>
+                                    LinkDeviceSheet(device: device.device),
+                              );
+                            },
+                            child: Text("Link ${device.displayName} again",
+                                style: TextStyle(
+                                    color: context.theme.textSecondary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500)),
+                          ),
+                        ),
+                      ),
+                device.thisDevice
+                    ? Container()
+                    : Container(
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: CommonClickable(
+                            onTap: () {
                               showConfirmDialog(context, device.displayName,
                                   onConfirm: () {
                                 Navigator.of(context).pop();
@@ -285,8 +315,8 @@ class DeviceScreenState extends State<DeviceScreen> with TraceOrigin {
                                 });
                               });
                             },
-                            child: const Text("Delete this device",
-                                style: TextStyle(
+                            child: Text("Delete ${device.displayName}",
+                                style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500)),

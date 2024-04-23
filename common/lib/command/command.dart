@@ -227,9 +227,6 @@ class CommandStore
       case CommandName.familyLink:
         _ensureParam(p1);
         return await _family.link(p1!);
-      case CommandName.familyWaitForDeviceName:
-        _ensureParam(p1);
-        return await _family.initiateAddDevice(trace, p1!, null);
       case CommandName.warning:
         _ensureParam(p1);
         return await _tracer.platformWarning(trace, p1!);

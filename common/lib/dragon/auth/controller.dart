@@ -2,24 +2,23 @@ import 'package:common/common/model.dart';
 import 'package:common/dragon/account/account_id.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/device/current_token.dart';
-import 'package:common/timer/timer.dart';
+import 'package:common/dragon/scheduler.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 
-const _key = "auth";
+const _keyRefresh = "authRefreshToken";
+const _keyHeartbeat = "authHeartbeat";
+const _frequencyHeartbeat = Duration(minutes: 30);
 
 class AuthController {
   late final _api = dep<AuthApi>();
   late final _accountId = dep<AccountId>();
   late final _currentToken = dep<CurrentToken>();
-  late final _timer = dep<TimerService>();
+  late final _scheduler = dep<Scheduler>();
 
   Function() onTokenRefreshed = () {};
   Function() onTokenExpired = () {};
 
   start() async {
-    _timer.addHandler(_key, _refreshToken);
-
     final token = await _currentToken.fetch();
     if (token != null) {
       print("current token is $token");
@@ -53,7 +52,12 @@ class AuthController {
         throw Exception("Token is already expired");
       } else {
         onTokenRefreshed();
-        _timer.set(_key, payload.expiry.subtract(const Duration(minutes: 5)));
+        _scheduler.addOrUpdate(Job(
+          _keyRefresh,
+          before: payload.expiry.subtract(const Duration(minutes: 5)),
+          when: [Condition(Event.appForeground, value: "1")],
+          callback: _refreshToken,
+        ));
         return payload;
       }
     } catch (e) {
@@ -62,17 +66,17 @@ class AuthController {
     }
   }
 
-  _refreshToken(Trace trace) async {
+  Future<bool> _refreshToken() async {
     try {
       final token = _currentToken.now;
-      if (token == null) return;
+      if (token == null) return false;
       final payload = await _api.refresh(token);
       _currentToken.now = payload.token;
       onTokenRefreshed();
+      return true;
     } catch (e) {
       onTokenExpired(); // TODO: may be too aggressive
       _currentToken.now = null;
-      trace.addEvent("Failed to refresh token: $e");
       throw Exception("Failed to refresh token: $e");
     }
   }
@@ -80,27 +84,35 @@ class AuthController {
   _startHeartbeat() async {
     final token = _currentToken.now;
     if (token == null) return;
-    _doHeartbeat(token);
+    _scheduler.addOrUpdate(
+        Job(
+          _keyHeartbeat,
+          every: _frequencyHeartbeat,
+          when: [Condition(Event.appForeground, value: "1")],
+          callback: () async => await _doHeartbeat(token),
+        ),
+        immediate: true);
   }
 
-  _doHeartbeat(String token) async {
+  Future<bool> _doHeartbeat(String token) async {
     try {
       print("sending heartbeat");
       await _api.sendHeartbeat(token);
-      Future.delayed(_frequency, () => _doHeartbeat(token));
+      return true;
     } on HttpCodeException catch (e) {
       if (e.code == 401) {
         onTokenExpired();
         _currentToken.now = null;
+        _scheduler.stop(_keyHeartbeat);
         print("token unavailable, stopping heartbeat");
+        throw SchedulerException(e);
       } else {
         print("failed to send heartbeat: $e");
+        throw SchedulerException(e, canRetry: true);
       }
     } catch (e) {
       print("failed to send heartbeat: $e");
-      // xxxx: deal
+      throw SchedulerException(e, canRetry: true);
     }
   }
 }
-
-const _frequency = Duration(minutes: 30);

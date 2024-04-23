@@ -8,9 +8,7 @@ import 'package:common/dragon/widget/home/animated_bg.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
 import 'package:common/dragon/widget/home/smart_onboard.dart';
 import 'package:common/dragon/widget/smart_header/smart_header.dart';
-import 'package:common/dragon/widget/stats/activity_item.dart';
 import 'package:common/dragon/widget/two_letter_icon.dart';
-import 'package:common/journal/channel.pg.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -321,22 +319,6 @@ class MockScaffoldingWidget extends StatelessWidget {
                 SizedBox(height: 48),
               ],
             ),
-            ActivityItem(
-                entry: JournalEntry(
-              domainName: "time.apple.com.sandbox.cdn.various.nice.domains.com",
-              deviceName: "Alva",
-              time: "3 minutes ago",
-              requests: 37,
-              type: JournalEntryType.blocked,
-            )),
-            ActivityItem(
-                entry: JournalEntry(
-              domainName: "tim.cooks.com",
-              deviceName: "Alva",
-              time: "4 minutes ago",
-              requests: 2,
-              type: JournalEntryType.passedAllowed,
-            )),
           ],
         )
       ],

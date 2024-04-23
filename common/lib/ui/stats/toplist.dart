@@ -1,21 +1,20 @@
-import 'package:dartx/dartx.dart';
-
-import 'package:common/journal/channel.pg.dart';
+import 'package:common/journal/channel.pg.dart' as channel;
 import 'package:common/service/I18nService.dart';
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:status_alert/status_alert.dart';
 
-import '../../common/widget/string.dart';
 import '../../common/model.dart';
+import '../../common/widget/string.dart';
+import '../../common/widget/theme.dart';
 import '../../common/widget/touch.dart';
 import '../../journal/journal.dart';
 import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../../common/widget/theme.dart';
 
 class Toplist extends StatelessWidget with TraceOrigin {
   final _store = dep<StatsStore>();
@@ -117,7 +116,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
         trace,
         deviceName: _store.selectedDevice,
         searchQuery: entry,
-        showOnly: JournalFilterType.all,
+        showOnly: channel.JournalFilterType.all,
       );
     });
   }

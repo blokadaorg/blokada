@@ -49,6 +49,9 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
   @observable
   String? userAgent;
 
+  @observable
+  String? appVersion;
+
   @override
   @action
   Future<void> start(Trace parentTrace) async {
@@ -63,6 +66,7 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
       final payload = await _ops.doGetEnvPayload();
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
+      appVersion = payload.appVersion;
       _agent.now = userAgent!;
       trace.addAttribute("device", payload.toSimpleString());
     });

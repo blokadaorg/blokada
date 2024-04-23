@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
 
 import '../../common/model.dart';
@@ -19,18 +20,26 @@ class FilterController {
   bool _defaultsApplied = false;
   bool _needsReload = true;
 
+  List<JsonListItem> _lists = [];
+
   FilterController() {
     _userConfig.onChange.listen((_) => reload());
     _selectedFilters.now = [];
   }
 
+  getLists() async {
+    if (_lists.isEmpty) {
+      _lists = await _apiLists.get();
+    }
+  }
+
   reload() async {
     print("reloading filter controller");
-    final lists = await _apiLists.get();
+    await getLists();
 
     // Prepare a map for quick lookups
     _listsToTags = {};
-    for (final list in lists) {
+    for (final list in _lists) {
       _listsToTags[list.id] = "${list.vendor}/${list.variant}";
     }
 
@@ -41,9 +50,34 @@ class FilterController {
     await _parse();
   }
 
+  String getFilterContainingList(ListHashId id) {
+    final list = _lists.firstWhereOrNull((it) => it.id == id);
+    if (list == null) return "None";
+
+    String? filterName;
+    outer:
+    for (var filter in _knownFilters.get()) {
+      for (var option in filter.options) {
+        if (option.action == FilterAction.list &&
+            option.actionParams.contains("${list.vendor}/${list.variant}")) {
+          filterName = filter.filterName;
+          break outer;
+        }
+      }
+    }
+
+    filterName = filterDecorDefaults
+        .firstWhereOrNull((it) => it.filterName == filterName)
+        ?.title;
+
+    if (filterName == null) return "None";
+
+    return filterName;
+  }
+
   Future<UserFilterConfig> getConfig(List<FilterSelection> s) async {
-    final filters = await _knownFilters.get();
-    final lists = await _apiLists.get();
+    final filters = _knownFilters.get();
+    await getLists();
 
     Set<ListHashId> shouldBeLists = {};
     Map<FilterConfigKey, bool> shouldBeConfigs = {};
@@ -60,7 +94,7 @@ class FilterController {
 
         if (option.action == FilterAction.list) {
           for (final listTag in option.actionParams) {
-            final list = lists.firstWhereOrNull(
+            final list = _lists.firstWhereOrNull(
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 

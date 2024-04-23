@@ -3,12 +3,13 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/route.dart';
 import 'package:common/dragon/widget/device/device_screen.dart';
 import 'package:common/dragon/widget/edit_filters.dart';
+import 'package:common/dragon/widget/exceptions/exceptions_screen.dart';
 import 'package:common/dragon/widget/home/home_screen.dart';
+import 'package:common/dragon/widget/home/overlay.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
-import 'package:common/dragon/widget/settings/mock_settings.dart';
+import 'package:common/dragon/widget/settings/settings_screen.dart';
 import 'package:common/dragon/widget/stats/stats_detail_screen.dart';
 import 'package:common/dragon/widget/stats/stats_screen.dart';
-import 'package:common/journal/channel.pg.dart';
 import 'package:common/util/config.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +193,7 @@ class MainScreenState extends State<MainScreen> {
                             builder: (context) => StatsScreen(
                                 deviceTag: device.device.deviceTag));
                       case "/device/stats/detail":
-                        final entry = settings.arguments as JournalEntry;
+                        final entry = settings.arguments as UiJournalEntry;
                         return StandardRoute(
                             settings: settings,
                             builder: (context) =>
@@ -200,7 +201,11 @@ class MainScreenState extends State<MainScreen> {
                       case "/settings":
                         return StandardRoute(
                             settings: settings,
-                            builder: (context) => const MockSettingsScreen());
+                            builder: (context) => const SettingsScreen());
+                      case "/settings/exceptions":
+                        return StandardRoute(
+                            settings: settings,
+                            builder: (context) => const ExceptionsScreen());
                       default:
                         return StandardRoute(
                             settings: settings,
@@ -215,6 +220,7 @@ class MainScreenState extends State<MainScreen> {
                   right: 0,
                   child: TopCommonBar(),
                 ),
+                const OverlaySheet(),
               ],
             ),
           ),

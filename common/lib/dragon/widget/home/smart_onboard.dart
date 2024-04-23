@@ -1,8 +1,8 @@
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/widget/home/add_device_sheet.dart';
 import 'package:common/dragon/widget/home/big_icon.dart';
+import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/home/private_dns_sheet.dart';
 import 'package:common/lock/lock.dart';
 import 'package:common/service/I18nService.dart';
@@ -158,7 +158,7 @@ class SmartOnboardState extends State<SmartOnboard>
         context: context,
         duration: const Duration(milliseconds: 300),
         backgroundColor: context.theme.bgColorCard,
-        builder: (context) => AddDeviceSheet(),
+        builder: (context) => LinkDeviceSheet(),
       );
     }
   }

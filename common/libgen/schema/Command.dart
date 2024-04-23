@@ -84,7 +84,6 @@ enum CommandName {
 
   // Family commands
   familyLink,
-  familyWaitForDeviceName,
 
   // Debug
   debugHttpFail,

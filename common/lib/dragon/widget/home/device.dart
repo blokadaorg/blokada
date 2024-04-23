@@ -1,7 +1,6 @@
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/chart.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
-import 'package:common/dragon/device/selected_device.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/home/header.dart';
 import 'package:common/util/di.dart';
@@ -26,11 +25,9 @@ class HomeDevice extends StatefulWidget {
 
 class HomeDeviceState extends State<HomeDevice>
     with TickerProviderStateMixin, TraceOrigin {
-  late final _selectedDevice = dep<SelectedDeviceTag>();
   late final _profiles = dep<ProfileController>();
 
   _onTap() async {
-    _selectedDevice.now = widget.device.device.deviceTag;
     _profiles.selectProfile(widget.device.profile);
 
     Navigator.pushNamed(

@@ -1,11 +1,18 @@
+import 'package:common/account/account.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/bg.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/section_label.dart';
 import 'package:common/dragon/widget/settings/settings_item.dart';
+import 'package:common/env/env.dart';
+import 'package:common/link/channel.pg.dart';
+import 'package:common/service/I18nService.dart';
+import 'package:common/stage/stage.dart';
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -15,15 +22,18 @@ import '../../../lock/lock.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
 
-class MockSettingsScreen extends StatefulWidget {
-  const MockSettingsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => SettingsState();
 }
 
-class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
+class SettingsState extends State<SettingsScreen> with TraceOrigin {
   late final _lock = dep<LockStore>();
+  late final _stage = dep<StageStore>();
+  late final _env = dep<EnvStore>();
+  late final _account = dep<AccountStore>();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -58,7 +68,7 @@ class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
               child: ListView(
                 primary: true,
                 children: [
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: SizedBox(
@@ -66,7 +76,7 @@ class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
                       height: 96,
                       child: Stack(
                         children: [
-                          FamilyBgWidget(),
+                          const FamilyBgWidget(),
                           Row(
                             children: [
                               Padding(
@@ -81,31 +91,34 @@ class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
                                 ),
                               ),
                               Expanded(
-                                child: Text(
-                                    "Your Blokada subscription is active until 2024-04-04",
+                                child: Text(_getAccountSubText(),
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .titleMedium!
+                                        .titleSmall!
                                         .copyWith(color: Colors.white)),
                               ),
-                              SizedBox(width: 16),
+                              const SizedBox(width: 16),
                             ],
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 48),
-                  SectionLabel(text: "PRIMARY"),
+                  const SizedBox(height: 48),
+                  SectionLabel(
+                      text: "account section header primary".i18n.capitalize()),
                   CommonCard(
                     child: Column(
                       children: [
                         SettingsItem(
-                            icon: CupertinoIcons.shield,
-                            text: "Blocking",
-                            onTap: () {}),
-                        CommonDivider(),
+                            icon: CupertinoIcons.shield_lefthalf_fill,
+                            text: "My exceptions",
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed("/settings/exceptions");
+                            }),
+                        const CommonDivider(),
                         SettingsItem(
                             icon: CupertinoIcons.ellipsis,
                             text: "Change pin",
@@ -133,31 +146,40 @@ class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
                       ],
                     ),
                   ),
-                  SizedBox(height: 40),
-                  SectionLabel(text: "OTHER"),
+                  const SizedBox(height: 40),
+                  SectionLabel(
+                      text: "account section header other".i18n.capitalize()),
                   CommonCard(
                     child: Column(
                       children: [
                         SettingsItem(
                             icon: CupertinoIcons.return_icon,
-                            text: "Restore purchases",
-                            onTap: () {}),
-                        CommonDivider(),
+                            text: "account action logout".i18n,
+                            onTap: () => _showRestoreDialog(context)),
+                        const CommonDivider(),
                         SettingsItem(
                             icon: CupertinoIcons.question_circle,
-                            text: "Support",
-                            onTap: () {}),
-                        CommonDivider(),
+                            text: "universal action support".i18n,
+                            onTap: () {
+                              traceAs("settingsOpenSupport", (trace) async {
+                                await _stage.openLink(trace, LinkId.support);
+                              });
+                            }),
+                        const CommonDivider(),
                         SettingsItem(
                             icon: CupertinoIcons.person_2,
-                            text: "About",
-                            onTap: () {}),
+                            text: "account action about".i18n,
+                            onTap: () {
+                              traceAs("settingsOpenAbout", (trace) async {
+                                await _stage.openLink(trace, LinkId.credits);
+                              });
+                            }),
                       ],
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Center(
-                      child: Text("Version 24.1.1",
+                      child: Text(_getAppVersion(),
                           style: TextStyle(color: context.theme.divider))),
                 ],
               ),
@@ -167,6 +189,45 @@ class SettingsState extends State<MockSettingsScreen> with TraceOrigin {
         ],
       ),
     );
+  }
+
+  _showRestoreDialog(BuildContext context) {
+    showInputDialog(context,
+        title: "account action logout".i18n,
+        desc: "Enter your account ID to restore your purchases.",
+        inputValue: "", onConfirm: (String value) {
+      traceAs("tappedRestore", (trace) async {
+        await _account.restore(trace, value);
+      });
+    });
+  }
+
+  String _getAccountSubText() {
+    final expire = _account.account?.jsonAccount.activeUntil;
+    if (expire == null) {
+      return "account status text inactive".i18n;
+    }
+
+    final date = DateTime.tryParse(expire);
+    if (date == null) {
+      return "account status text inactive".i18n;
+    }
+
+    String formattedDate =
+        "${date.year}-${padZero(date.month)}-${padZero(date.day)}";
+
+    return "account status text"
+        .i18n
+        .replaceFirst("%s", _account.type.name.firstLetterUppercase())
+        .replaceFirst("%s", formattedDate);
+  }
+
+  String _getAppVersion() {
+    return "Version ${_env.appVersion ?? "unknown"}";
+  }
+
+  String padZero(int number) {
+    return number.toString().padLeft(2, '0');
   }
 }
 
@@ -211,26 +272,26 @@ void _showPinDialog(
     actions: (context) => [
       TextButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text("Cancel"),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
+        child: Text("universal action cancel".i18n),
       ),
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
           onRemove();
         },
-        child: const Text(
-          "Remove pin",
-          style: TextStyle(color: Colors.red),
-        ),
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0.0),
           ),
+        ),
+        child: const Text(
+          "Remove pin",
+          style: TextStyle(color: Colors.red),
         ),
       ),
     ],

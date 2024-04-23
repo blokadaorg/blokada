@@ -1,31 +1,30 @@
-import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/journal/controller.dart';
+import 'package:common/custom/custom.dart';
 import 'package:common/dragon/widget/dialog.dart';
+import 'package:common/dragon/widget/exceptions/exception_item.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
-import 'package:common/dragon/widget/stats/activity_item.dart';
 import 'package:common/util/di.dart';
+import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StatsScreen extends StatefulWidget {
-  final DeviceTag deviceTag;
-
-  const StatsScreen({Key? key, required this.deviceTag}) : super(key: key);
+class ExceptionsScreen extends StatefulWidget {
+  const ExceptionsScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => StatsScreenState();
+  State<StatefulWidget> createState() => ExceptionsScreenState();
 }
 
-class StatsScreenState extends State<StatsScreen> {
+class ExceptionsScreenState extends State<ExceptionsScreen> with TraceOrigin {
   final ScrollController _scrollController = ScrollController();
-  late final _journal = dep<JournalController>();
+  late final _custom = dep<CustomStore>();
 
   bool _isReady = false;
-  late List<UiJournalEntry> _entries;
+  late List<String> _allowed;
+  late List<String> _denied;
 
   @override
   void initState() {
@@ -35,11 +34,20 @@ class StatsScreenState extends State<StatsScreen> {
   }
 
   _reload() async {
-    await _journal.fetch(widget.deviceTag);
-    setState(() {
-      _isReady = true;
-      _entries = _journal.filteredEntries;
+    traceAs("fetchCustom", (trace) async {
+      await _custom.fetch(trace);
+      setState(() {
+        _isReady = true;
+        _allowed = _custom.allowed.toList();
+        _denied = _custom.denied.toList();
+        _sort();
+      });
     });
+  }
+
+  _sort() {
+    _allowed.sort();
+    _denied.sort();
   }
 
   void _updateTopBar() {
@@ -81,7 +89,8 @@ class StatsScreenState extends State<StatsScreen> {
                                 height: 12,
                               ),
                             ] +
-                            _buildItems(context) +
+                            _buildItems(context, _denied) +
+                            _buildItems(context, _allowed) +
                             [
                               Container(
                                 decoration: BoxDecoration(
@@ -96,16 +105,18 @@ class StatsScreenState extends State<StatsScreen> {
                       ),
               ),
               TopBar(
-                  title: "Activity",
+                  title: "My exceptions",
                   trailing: CommonClickable(
                       onTap: () {
-                        showStatsFilterDialog(context, onConfirm: (filter) {
-                          _journal.filter = filter;
-                          _reload();
+                        showAddExceptionDialog(context, onConfirm: (entry) {
+                          traceAs("addCustom", (trace) async {
+                            await _custom.allow(trace, entry);
+                            _reload();
+                          });
                         });
                       },
                       child: Text(
-                        "Search",
+                        "Add",
                         style: TextStyle(
                           color: context.theme.accent,
                           fontSize: 17,
@@ -118,18 +129,55 @@ class StatsScreenState extends State<StatsScreen> {
     );
   }
 
-  List<Widget> _buildItems(BuildContext context) {
-    return _entries.mapIndexed((index, it) {
+  List<Widget> _buildItems(BuildContext context, List<String> items) {
+    return items.mapIndexed((index, it) {
       //return List.generate(100, (index) {
       return Container(
         color: context.theme.bgMiniCard,
         child: Column(children: [
-          ActivityItem(entry: it),
-          index < _entries.length - 1
+          ExceptionItem(
+              entry: it,
+              blocked: items == _denied,
+              onRemove: _onRemove,
+              onChange: _onChange),
+          index < (_denied.length + _allowed.length - 1)
               ? const CommonDivider(indent: 60)
               : Container(),
         ]),
       );
     }).toList();
+  }
+
+  _onRemove(String entry) async {
+    traceAs("deleteCustom", (trace) async {
+      setState(() {
+        if (_denied.contains(entry)) {
+          _denied.remove(entry);
+        } else {
+          _allowed.remove(entry);
+        }
+      });
+      await _custom.delete(trace, entry);
+      _reload();
+    });
+  }
+
+  _onChange(String entry) async {
+    traceAs("changeCustom", (trace) async {
+      final allow = _denied.contains(entry);
+      setState(() {
+        if (allow) {
+          _denied.remove(entry);
+          _allowed.add(entry);
+        } else {
+          _allowed.remove(entry);
+          _denied.add(entry);
+        }
+        _sort();
+      });
+
+      await _custom.toggle(trace, entry);
+      _reload();
+    });
   }
 }

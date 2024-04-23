@@ -3,6 +3,7 @@ import 'package:common/common/defaults/filter_defaults.dart';
 import 'package:common/common/model.dart';
 import 'package:common/dragon/device/current_config.dart';
 import 'package:common/dragon/filter/controller.dart';
+import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/profile/api.dart';
 import 'package:common/util/di.dart';
 
@@ -11,6 +12,7 @@ class ProfileController {
   late final _defaultFilters = dep<DefaultFilters>();
   late final _filters = dep<FilterController>();
   late final _userConfig = dep<CurrentConfig>();
+  late final _selectedFilters = dep<SelectedFilters>();
 
   List<JsonProfile> profiles = [];
 
@@ -82,17 +84,28 @@ class ProfileController {
     // Setting user config causes FilterController to reload
   }
 
-  updateUserChoice(List<FilterSelection> selections) async {
-    print("updating user choice: $selections");
+  updateUserChoice(Filter filter, List<String> options) async {
+    // Immediate UI feedback
+    final old = _selectedFilters.now
+        .firstWhere((it) => it.filterName == filter.filterName);
+    _selectedFilters.now = _selectedFilters.now
+      ..removeWhere((it) => it.filterName == filter.filterName)
+      ..add(FilterSelection(filter.filterName, options));
 
-    final config = await _filters.getConfig(selections);
-    final p = await _profiles.update(_selected.copy(
-      lists: config.lists.toList(),
-      safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
-    ));
-    profiles =
-        profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
-    _userConfig.now = config;
-    onChange();
+    try {
+      final config = await _filters.getConfig(_selectedFilters.now);
+      final p = await _profiles.update(_selected.copy(
+        lists: config.lists.toList(),
+        safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
+      ));
+      profiles =
+          profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
+      _userConfig.now = config;
+      onChange();
+    } catch (e) {
+      _selectedFilters.now = _selectedFilters.now
+        ..removeWhere((it) => it.filterName == filter.filterName)
+        ..add(old);
+    }
   }
 }

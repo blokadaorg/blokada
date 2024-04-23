@@ -6,15 +6,11 @@ import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/home/animated_bg.dart';
 import 'package:common/dragon/widget/home/devices.dart';
 import 'package:common/dragon/widget/home/smart_onboard.dart';
-import 'package:common/dragon/widget/onboard/family_onboard_screen.dart';
 import 'package:common/dragon/widget/smart_header/smart_header.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
-import 'package:common/ui/crash/crash_screen.dart';
 import 'package:common/ui/debug/commanddialog.dart';
-import 'package:common/ui/lock/lock_screen.dart';
-import 'package:common/ui/rate/rate_screen.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
 import 'package:common/util/trace.dart';
@@ -57,7 +53,6 @@ class HomeScreenState extends State<HomeScreen>
         });
       }
     });
-    WidgetsBinding.instance.addObserver(this);
 
     _app.addOn(appStatusChanged, (_) => rebuild());
     reactionOnStore((_) => _family.phase, (_) => rebuild());
@@ -68,41 +63,7 @@ class HomeScreenState extends State<HomeScreen>
 
   rebuild() {
     if (!mounted) return;
-    overlay();
     setState(() => _working = _app.status.isWorking() || !_stage.isReady);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      //_overlayForModal = null;
-      overlay();
-    }
-  }
-
-  OverlayEntry? _overlayEntry;
-  StageModal? _overlayForModal;
-
-  overlay() {
-    if (_overlayForModal == _stage.route.modal) return;
-    _overlayForModal = _stage.route.modal;
-
-    final overlay = _decideOverlay(_stage.route.modal);
-    if (overlay != null) {
-      _overlayEntry?.remove();
-      _overlayEntry = OverlayEntry(builder: (context) => overlay);
-      Overlay.of(context).insert(_overlayEntry!);
-    } else {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
-    }
   }
 
   @override
@@ -143,20 +104,6 @@ class HomeScreenState extends State<HomeScreen>
     ));
   }
 
-  Widget? _decideOverlay(StageModal? modal) {
-    switch (modal) {
-      case StageModal.crash:
-        return const CrashScreen();
-      case StageModal.lock:
-        return const LockScreen();
-      case StageModal.rate:
-        return const RateScreen();
-      case StageModal.onboardingFamily:
-        return const FamilyOnboardScreen();
-      default:
-        return null;
-    }
-  }
   // @override
   // Widget build(BuildContext context) {
   //   return Scaffold(

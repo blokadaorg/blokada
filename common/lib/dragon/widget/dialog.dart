@@ -4,6 +4,8 @@ import 'package:common/common/model.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/profile/profile_dialog.dart';
+import 'package:common/dragon/widget/stats/stats_filter.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +47,7 @@ void showConfirmDialog(BuildContext context, String name,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: const Text("Cancel"),
+        child: Text("universal action cancel".i18n),
       ),
       TextButton(
         onPressed: () {
@@ -57,7 +59,8 @@ void showConfirmDialog(BuildContext context, String name,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: const Text("Delete", style: TextStyle(color: Colors.red)),
+        child: Text("universal action delete".i18n,
+            style: const TextStyle(color: Colors.red)),
       ),
     ],
   );
@@ -112,7 +115,7 @@ void showRenameDialog(BuildContext context, String what, String? name,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: const Text("Cancel"),
+        child: Text("universal action cancel".i18n),
       ),
       TextButton(
         onPressed: () {
@@ -124,7 +127,93 @@ void showRenameDialog(BuildContext context, String what, String? name,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: const Text("Save"),
+        child: Text("universal action save".i18n),
+      ),
+    ],
+  );
+}
+
+void showAddExceptionDialog(
+  BuildContext context, {
+  required Function(String) onConfirm,
+}) {
+  final TextEditingController _ctrl = TextEditingController(text: "");
+
+  showDefaultDialog(
+    context,
+    title: const Text("Add exception"),
+    content: (context) => Column(
+      children: [
+        const Text(
+            "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com"),
+        const SizedBox(height: 16),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Material(
+            child: TextField(
+              controller: _ctrl,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: context.theme.bgColor,
+                focusColor: context.theme.bgColor,
+                hoverColor: context.theme.bgColor,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text("universal action cancel".i18n),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+          onConfirm(_ctrl.text);
+        },
+        child: Text("universal action save".i18n),
+      ),
+    ],
+  );
+}
+
+void showStatsFilterDialog(
+  BuildContext context, {
+  required Function(JournalFilter) onConfirm,
+}) {
+  final ctrl = StatsFilterController();
+  showDefaultDialog(
+    context,
+    title: const Text("Search"),
+    content: (context) => Column(
+      children: [
+        const SizedBox(height: 16),
+        StatsFilter(ctrl: ctrl),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text("universal action cancel".i18n),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+          onConfirm(ctrl.filter);
+        },
+        child: Text("universal action save".i18n),
       ),
     ],
   );
@@ -146,25 +235,26 @@ void showInputDialog(
       children: [
         Text(desc),
         const SizedBox(height: 16),
-        Material(
-          child: TextField(
-            controller: _ctrl,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: context.theme.panelBackground,
-              focusColor: context.theme.panelBackground,
-              hoverColor: context.theme.panelBackground,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: context.theme.divider, width: 1.0),
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: context.theme.divider, width: 1.0),
-                borderRadius: BorderRadius.circular(2.0),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Material(
+            child: TextField(
+              controller: _ctrl,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: context.theme.bgColor,
+                focusColor: context.theme.bgColor,
+                hoverColor: context.theme.bgColor,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                ),
               ),
             ),
           ),
@@ -174,14 +264,14 @@ void showInputDialog(
     actions: (context) => [
       TextButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text("Cancel"),
+        child: Text("universal action cancel".i18n),
       ),
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
           onConfirm(_ctrl.text);
         },
-        child: const Text("Save"),
+        child: Text("universal action save".i18n),
       ),
     ],
   );

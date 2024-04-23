@@ -1,13 +1,13 @@
+import 'package:common/link/channel.pg.dart';
 import 'package:common/service/I18nService.dart';
-import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
 import '../../../stage/stage.dart';
+import '../../../ui/overlay/blur_background.dart';
 import '../../../util/di.dart';
 import '../../../util/trace.dart';
-import '../../../ui/overlay/blur_background.dart';
 
 class FamilyOnboardScreen extends StatefulWidget {
   const FamilyOnboardScreen({Key? key}) : super(key: key);
@@ -136,7 +136,7 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
 
   _openTos() {
     traceAs("tappedOnboardingTos", (trace) async {
-      await _stage.openLink(trace, StageLink.toc);
+      await _stage.openLink(trace, LinkId.tos);
     });
   }
 }

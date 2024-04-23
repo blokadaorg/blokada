@@ -1,7 +1,5 @@
 import 'package:common/common/model.dart';
-import 'package:common/common/model/journal/json.dart';
 import 'package:common/dragon/api/api.dart';
-import 'package:common/journal/json.dart';
 import 'package:common/util/di.dart';
 
 class JournalApi {

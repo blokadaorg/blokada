@@ -126,7 +126,7 @@ class ProfileDialogState extends State<ProfileDialog> {
                   color: context.theme.textSecondary,
                 ),
               ),
-              bgColor: it.profileId == device.profileId
+              borderColor: it.profileId == device.profileId
                   ? getProfileColor(it.template).withOpacity(0.30)
                   : null,
               tapBgColor: context.theme.divider.withOpacity(0.1),

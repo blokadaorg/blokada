@@ -1,18 +1,24 @@
+import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/custom/custom.dart';
+import 'package:common/dragon/filter/controller.dart';
+import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/action_info.dart';
 import 'package:common/dragon/widget/action_item.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
-import 'package:common/journal/channel.pg.dart';
-import 'package:common/journal/journal.dart';
+import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/util/di.dart';
+import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class StatsDetailScreen extends StatefulWidget {
-  final JournalEntry entry;
+  final UiJournalEntry entry;
 
   const StatsDetailScreen({super.key, required this.entry});
 
@@ -20,13 +26,25 @@ class StatsDetailScreen extends StatefulWidget {
   State<StatefulWidget> createState() => StatsDetailScreenState();
 }
 
-class StatsDetailScreenState extends State<StatsDetailScreen> {
+class StatsDetailScreenState extends State<StatsDetailScreen> with TraceOrigin {
+  final _profile = dep<ProfileController>();
+  final _filter = dep<FilterController>();
+  final _custom = dep<CustomStore>();
+
   final ScrollController _scrollController = ScrollController();
+
+  late JsonProfile? profile;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_updateTopBar);
+
+    try {
+      profile = _profile.get(widget.entry.profileId);
+    } catch (e) {
+      profile = null;
+    }
   }
 
   void _updateTopBar() {
@@ -55,7 +73,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                 child: ListView(
                   primary: true,
                   children: [
-                    SizedBox(height: 60),
+                    const SizedBox(height: 60),
                     CommonCard(
                       bgColor:
                           widget.entry.isBlocked() ? Colors.red : Colors.green,
@@ -67,7 +85,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                             Stack(
                               alignment: Alignment.center,
                               children: [
-                                Icon(CupertinoIcons.shield,
+                                const Icon(CupertinoIcons.shield,
                                     color: Colors.white, size: 64),
                                 Transform.translate(
                                   offset: const Offset(0, -3),
@@ -75,7 +93,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                                     (widget.entry.requests > 99)
                                         ? "99"
                                         : widget.entry.requests.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
                                 ),
@@ -95,7 +113,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                                     (widget.entry.isBlocked()
                                         ? "This request has been blocked."
                                         : "This request has been allowed."),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white, fontSize: 14),
                                   ),
                                 ],
@@ -105,7 +123,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     CommonCard(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -118,7 +136,7 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                                   ? Colors.red
                                   : Colors.green,
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             Row(
                               children: [
                                 Column(
@@ -135,9 +153,8 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                                         //     size: 20),
                                         // const SizedBox(width: 4),
                                         Text(
-                                          widget.entry.isBlocked()
-                                              ? "Ad blocking"
-                                              : "None",
+                                          _filter.getFilterContainingList(
+                                              widget.entry.listId),
                                           style: TextStyle(
                                             color: context.theme.textSecondary,
                                             fontSize: 18,
@@ -167,23 +184,51 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                                         style: TextStyle(
                                             color: context.theme.textSecondary,
                                             fontSize: 12)),
-                                    Row(
-                                      children: [
-                                        Icon(CupertinoIcons.person_solid,
-                                            color: Colors.green, size: 20),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          "Child",
-                                          style: TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
+                                    profile != null
+                                        ? Row(
+                                            children: [
+                                              Icon(
+                                                  getProfileIcon(
+                                                      profile!.template),
+                                                  color: getProfileColor(
+                                                      profile!.template),
+                                                  size: 20),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                profile!.displayAlias,
+                                                style: TextStyle(
+                                                  color: getProfileColor(
+                                                      profile!.template),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          )
+                                        : Row(
+                                            children: [
+                                              Icon(
+                                                  CupertinoIcons
+                                                      .question_circle,
+                                                  color: context
+                                                      .theme.textSecondary,
+                                                  size: 20),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                "Unknown",
+                                                style: TextStyle(
+                                                  color: context
+                                                      .theme.textSecondary,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ],
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ],
-                                    ),
                                   ],
                                 ),
                               ],
@@ -192,40 +237,50 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Text("Actions",
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontWeight: FontWeight.bold,
                                 )),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CommonCard(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Column(
                           children: [
                             ActionItem(
-                                icon: CupertinoIcons.shield_slash,
-                                text: widget.entry.isBlocked()
-                                    ? "Add to Allowed"
-                                    : "Add to Blocked",
-                                onTap: () {}),
-                            CommonDivider(indent: 48),
+                                icon: CupertinoIcons.shield_lefthalf_fill,
+                                text: _custom.contains(widget.entry.domainName)
+                                    ? "Remove from My exceptions"
+                                    : "Add to My exceptions",
+                                onTap: () {
+                                  traceAs("addCustom", (trace) async {
+                                    await _custom.addOrRemove(
+                                        trace, widget.entry.domainName,
+                                        gotBlocked: widget.entry.isBlocked());
+                                    setState(() {});
+                                  });
+                                }),
+                            const CommonDivider(indent: 48),
                             ActionItem(
                                 icon: CupertinoIcons.doc_on_clipboard,
                                 text: "Copy name to Clipboard",
-                                onTap: () {}),
+                                onTap: () {
+                                  Clipboard.setData(ClipboardData(
+                                      text: widget.entry.domainName));
+                                }),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Text("Information",
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontWeight: FontWeight.bold,
                                 )),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     CommonCard(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -236,16 +291,16 @@ class StatsDetailScreenState extends State<StatsDetailScreen> {
                               label: "Full name",
                               text: widget.entry.domainName,
                             ),
-                            CommonDivider(indent: 0),
+                            const CommonDivider(indent: 0),
                             ActionInfo(
                               label: "Time",
-                              text: "21/03/2024, 13:23:34",
+                              text: widget.entry.timestamp.toString(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),

@@ -6,8 +6,8 @@ import 'package:common/common/widget/touch.dart';
 import 'package:common/dragon/family/devices.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/dialog.dart';
-import 'package:common/dragon/widget/home/add_device_sheet.dart';
 import 'package:common/dragon/widget/home/device.dart';
+import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
@@ -201,7 +201,7 @@ class DevicesState extends State<Devices>
             context: context,
             duration: const Duration(milliseconds: 300),
             backgroundColor: context.theme.bgColorCard,
-            builder: (context) => AddDeviceSheet(),
+            builder: (context) => LinkDeviceSheet(),
           );
         },
         decorationBuilder: (value) {
@@ -231,7 +231,7 @@ class DevicesState extends State<Devices>
             context: context,
             duration: const Duration(milliseconds: 300),
             backgroundColor: context.theme.bgColorCard,
-            builder: (context) => AddDeviceSheet(),
+            builder: (context) => LinkDeviceSheet(),
           );
         },
         color: context.theme.accent,

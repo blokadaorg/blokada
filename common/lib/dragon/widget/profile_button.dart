@@ -10,7 +10,7 @@ class ProfileButton extends StatefulWidget {
   final String name;
   final Widget? trailing;
   final EdgeInsets padding;
-  final Color? bgColor;
+  final Color? borderColor;
   final Color? tapBgColor;
 
   const ProfileButton({
@@ -21,7 +21,7 @@ class ProfileButton extends StatefulWidget {
     required this.name,
     this.trailing,
     this.padding = const EdgeInsets.all(20),
-    this.bgColor,
+    this.borderColor,
     this.tapBgColor,
   }) : super(key: key);
 
@@ -38,7 +38,13 @@ class ProfileButtonState extends State<ProfileButton> {
       tapBgColor: widget.tapBgColor,
       child: Container(
         decoration: BoxDecoration(
-          color: widget.bgColor ?? context.theme.divider.withOpacity(0.05),
+          color: context.theme.divider.withOpacity(0.05),
+          border: widget.borderColor == null
+              ? null
+              : Border.all(
+                  color: widget.borderColor!,
+                  width: 2.0,
+                ),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Padding(

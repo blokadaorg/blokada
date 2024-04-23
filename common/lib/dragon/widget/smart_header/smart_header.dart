@@ -1,6 +1,4 @@
 import 'package:common/common/model.dart';
-import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/widget/payment_sheet.dart';
 import 'package:common/dragon/widget/smart_header/smart_header_button.dart';
 import 'package:common/lock/lock.dart';
 import 'package:common/stage/channel.pg.dart';
@@ -8,7 +6,6 @@ import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SmartHeader extends StatefulWidget {
   final FamilyPhase phase;
@@ -54,14 +51,15 @@ class SmartHeaderState extends State<SmartHeader>
                   SmartHeaderButton(
                       icon: CupertinoIcons.question_circle,
                       onTap: () {
-                        //_modal.set(StageModal.help);
-
-                        showCupertinoModalBottomSheet(
-                          context: context,
-                          duration: const Duration(milliseconds: 300),
-                          backgroundColor: context.theme.bgColorCard,
-                          builder: (context) => PaymentSheet(),
-                        );
+                        traceAs("tappedHelp", (trace) async {
+                          _stage.showModal(trace, StageModal.help);
+                        });
+                        // showCupertinoModalBottomSheet(
+                        //   context: context,
+                        //   duration: const Duration(milliseconds: 300),
+                        //   backgroundColor: context.theme.bgColorCard,
+                        //   builder: (context) => PaymentSheet(),
+                        // );
                       }),
                   SizedBox(width: 4),
                 ] +

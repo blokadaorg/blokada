@@ -42,7 +42,7 @@ class CommonItemState extends State<CommonItem> {
                 fontSize: 14,
               ),
               overflow: TextOverflow.ellipsis,
-              maxLines: 1,
+              maxLines: 2,
             ),
           ),
           widget.trailing,

@@ -19,12 +19,14 @@ import 'package:common/dragon/device/this_device.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/journal/api.dart';
+import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/list/api.dart';
 import 'package:common/dragon/perm/controller.dart';
 import 'package:common/dragon/perm/dns_perm.dart';
 import 'package:common/dragon/persistence/persistence.dart';
 import 'package:common/dragon/profile/api.dart';
 import 'package:common/dragon/profile/controller.dart';
+import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/stats/api.dart';
 import 'package:common/dragon/stats/controller.dart';
 import 'package:common/util/di.dart';
@@ -73,8 +75,11 @@ class DragonDeps {
     depend<StatsController>(StatsController());
 
     depend<JournalApi>(JournalApi());
+    depend<JournalController>(JournalController());
 
     depend<DnsPerm>(DnsPerm());
     depend<PermController>(PermController());
+
+    depend<Scheduler>(Scheduler(timer: SchedulerTimer()));
   }
 }
