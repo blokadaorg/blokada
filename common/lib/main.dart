@@ -3,7 +3,6 @@ import 'dart:io' as io;
 import 'package:common/dragon/widget/app.dart';
 import 'package:common/entrypoint.dart';
 import 'package:common/json/json.dart';
-import 'package:common/main-widgets.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/notfamily/scaffolding.dart';
 import 'package:common/util/act.dart';
@@ -41,9 +40,9 @@ void main() async {
 
   entrypoint.onStartApp();
 
-  final ws = DevWebsocket();
-  depend(ws);
-  ws.handle();
+  // final ws = DevWebsocket();
+  // depend(ws);
+  // ws.handle();
 
   runApp(BlokadaApp(
     content:

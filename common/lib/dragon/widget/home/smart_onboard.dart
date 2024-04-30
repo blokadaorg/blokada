@@ -1,6 +1,8 @@
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/family/family.dart';
+import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/home/big_icon.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/home/private_dns_sheet.dart';
@@ -12,7 +14,6 @@ import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SmartOnboard extends StatefulWidget {
   final FamilyPhase phase;
@@ -32,6 +33,7 @@ class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   late final _lock = dep<LockStore>();
   late final _stage = dep<StageStore>();
+  late final _family = dep<FamilyStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class SmartOnboardState extends State<SmartOnboard>
           children: [
             //const SizedBox(height: 80),
             widget.deviceCount > 2
-                ? SizedBox(
+                ? const SizedBox(
                     height: 64,
                     child: Image(
                       image: AssetImage('assets/images/header.png'),
@@ -61,7 +63,7 @@ class SmartOnboardState extends State<SmartOnboard>
             const SizedBox(height: 90),
             Text(
               texts.first!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -85,14 +87,14 @@ class SmartOnboardState extends State<SmartOnboard>
                   ),
                 ),
               ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 64,
               child: widget.phase.requiresBigCta()
                   ? _buildButton(context)
                   : Container(),
             ),
-            SizedBox(height: 44),
+            const SizedBox(height: 44),
           ],
         ),
       ),
@@ -102,29 +104,73 @@ class SmartOnboardState extends State<SmartOnboard>
   Widget _buildButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-      child: MiniCard(
-        onTap: _handleCtaTap,
-        color: context.theme.accent,
-        child: SizedBox(
-          height: 32,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                getIcon(widget.phase, forCta: true),
-                color: Colors.white,
-              ),
-              const SizedBox(width: 12),
-              Center(
-                child: Text(
-                  getCtaText(widget.phase),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+      child: Row(
+        children: [
+          Expanded(
+            child: MiniCard(
+              onTap: _handleCtaTap,
+              color: context.theme.accent,
+              child: SizedBox(
+                height: 32,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      getIcon(widget.phase, forCta: true),
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 12),
+                    Center(
+                      child: Text(
+                        getCtaText(widget.phase),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          widget.phase != FamilyPhase.fresh
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: SizedBox(
+                    width: 120,
+                    child: MiniCard(
+                      onTap: () {
+                        traceAs("tappedLink", (trace) async {
+                          await _stage.showModal(
+                              trace, StageModal.accountChange);
+                        });
+                      },
+                      color: context.theme.textPrimary.withOpacity(0.15),
+                      child: SizedBox(
+                        height: 32,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              getIcon(FamilyPhase.linkedExpired, forCta: true),
+                              color: Colors.white,
+                            ),
+                            const SizedBox(width: 12),
+                            Center(
+                              child: Text(
+                                getCtaText(FamilyPhase.linkedExpired),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+        ],
       ),
     );
   }
@@ -134,15 +180,10 @@ class SmartOnboardState extends State<SmartOnboard>
 
     if (p.requiresActivation()) {
       await traceAs("handleCtaTap", (trace) async {
-        _stage.showModal(trace, StageModal.payment);
+        _family.activateCta(trace);
       });
     } else if (p.requiresPerms()) {
-      showCupertinoModalBottomSheet(
-        context: context,
-        duration: const Duration(milliseconds: 300),
-        backgroundColor: context.theme.bgColorCard,
-        builder: (context) => PrivateDnsSheet(),
-      );
+      showSheet(context, builder: (context) => const PrivateDnsSheet());
     } else if (p.isLocked2()) {
       await traceAs("handleCtaTap", (trace) async {
         _stage.showModal(trace, StageModal.lock);
@@ -154,12 +195,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _stage.showModal(trace, StageModal.accountChange);
       });
     } else {
-      showCupertinoModalBottomSheet(
-        context: context,
-        duration: const Duration(milliseconds: 300),
-        backgroundColor: context.theme.bgColorCard,
-        builder: (context) => LinkDeviceSheet(),
-      );
+      showSheet(context, builder: (context) => const LinkDeviceSheet());
     }
   }
 

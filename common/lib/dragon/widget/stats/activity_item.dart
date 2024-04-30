@@ -1,6 +1,7 @@
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,8 @@ class ActivityItemState extends State<ActivityItem> {
   Widget build(BuildContext context) {
     return CommonClickable(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed("/device/stats/detail", arguments: widget.entry);
+        Navigation.open(context, Paths.deviceStatsDetail,
+            arguments: widget.entry);
       },
       tapBorderRadius: BorderRadius.zero,
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 4),

@@ -31,6 +31,7 @@ class CommonClickableState extends State<CommonClickable> {
   bool pressed = false;
 
   _onTapDown(TapDownDetails d) {
+    if (!mounted) return;
     setState(() {
       pressed = true;
     });
@@ -40,6 +41,7 @@ class CommonClickableState extends State<CommonClickable> {
 
   _depress() {
     Future.delayed(_pressHighlightDuration, () {
+      if (!mounted) return;
       setState(() {
         pressed = false;
       });

@@ -22,29 +22,28 @@ class SmartHeaderButtonState extends State<SmartHeaderButton> {
         // color: widget.icon == CupertinoIcons.settings
         //     ? Colors.transparent
         //     : context.theme.textPrimary.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: SizedBox(
         width: 48,
         height: 48,
-        child: widget.iconWidget != null
-            ? widget.iconWidget
-            : Touch(
-                onTap: widget.onTap,
-                decorationBuilder: (value) {
-                  return BoxDecoration(
-                    color: context.theme.bgMiniCard.withOpacity(value * 0.25),
-                    borderRadius: BorderRadius.circular(24),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
-                    widget.icon,
-                    color: Colors.white,
-                  ),
+        child: widget.iconWidget ??
+            Touch(
+              onTap: widget.onTap,
+              decorationBuilder: (value) {
+                return BoxDecoration(
+                  color: context.theme.bgMiniCard.withOpacity(value * 0.25),
+                  borderRadius: BorderRadius.circular(12),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  widget.icon,
+                  color: Colors.white,
                 ),
               ),
+            ),
       ),
     );
   }

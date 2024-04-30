@@ -1,4 +1,5 @@
 import 'package:common/common/model.dart';
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/smart_header/smart_header_button.dart';
 import 'package:common/lock/lock.dart';
 import 'package:common/stage/channel.pg.dart';
@@ -47,23 +48,7 @@ class SmartHeaderState extends State<SmartHeader>
           padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                  SmartHeaderButton(
-                      icon: CupertinoIcons.question_circle,
-                      onTap: () {
-                        traceAs("tappedHelp", (trace) async {
-                          _stage.showModal(trace, StageModal.help);
-                        });
-                        // showCupertinoModalBottomSheet(
-                        //   context: context,
-                        //   duration: const Duration(milliseconds: 300),
-                        //   backgroundColor: context.theme.bgColorCard,
-                        //   builder: (context) => PaymentSheet(),
-                        // );
-                      }),
-                  SizedBox(width: 4),
-                ] +
-                _buildButtons(context),
+            children: _buildButtons(context),
           ),
         ),
         //SmartHeaderOnboard(key: _containerKey, opened: _opened),
@@ -84,23 +69,37 @@ class SmartHeaderState extends State<SmartHeader>
           }));
     }
 
-    list.add(Spacer());
+    list.add(const Spacer());
+    list.add(SmartHeaderButton(
+        icon: CupertinoIcons.question_circle,
+        onTap: () {
+          traceAs("tappedHelp", (trace) async {
+            _stage.showModal(trace, StageModal.help);
+          });
+          // showCupertinoModalBottomSheet(
+          //   context: context,
+          //   duration: const Duration(milliseconds: 300),
+          //   backgroundColor: context.theme.bgColorCard,
+          //   builder: (context) => PaymentSheet(),
+          // );
+        }));
 
     if (!widget.phase.isLocked2() &&
-        widget.phase != FamilyPhase.linkedExpired) {
-      list.add(SmartHeaderButton(
-          icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
-          onTap: () {
-            //_modal.set(StageModal.lock);
-            traceAs("tappedLock", (trace) async {
-              await _lock.autoLock(trace);
-            });
-          }));
+        widget.phase != FamilyPhase.linkedExpired &&
+        widget.phase != FamilyPhase.fresh) {
+      // list.add(SmartHeaderButton(
+      //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
+      //     onTap: () {
+      //       //_modal.set(StageModal.lock);
+      //       traceAs("tappedLock", (trace) async {
+      //         await _lock.autoLock(trace);
+      //       });
+      //     }));
       list.add(SizedBox(width: 4));
       list.add(SmartHeaderButton(
           icon: CupertinoIcons.settings,
           onTap: () {
-            Navigator.pushNamed(context, "/settings");
+            Navigation.open(context, Paths.settings);
           }));
     }
 

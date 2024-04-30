@@ -1,16 +1,15 @@
-import 'dart:ui';
-
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../common/widget/minicard/minicard.dart';
+import '../../common/widget/theme.dart';
 import '../../stage/stage.dart';
 import '../../tracer/tracer.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../../common/widget/theme.dart';
 
 class CrashScreen extends StatefulWidget {
   const CrashScreen({Key? key}) : super(key: key);
@@ -64,7 +63,7 @@ class _CrashScreenState extends State<CrashScreen>
       key: bgStateKey,
       onClosed: _close,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 500),
+        constraints: const BoxConstraints(maxWidth: maxContentWidth),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -88,7 +87,7 @@ class _CrashScreenState extends State<CrashScreen>
               ),
               const SizedBox(height: 70),
               ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500),
+                constraints: const BoxConstraints(maxWidth: maxContentWidth),
                 child: Text(
                   "crash body".i18n,
                   textAlign: TextAlign.center,

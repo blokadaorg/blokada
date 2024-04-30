@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,7 +120,7 @@ class _LockScreenState extends State<LockScreen>
           await _lock.canUnlock(trace, pin);
           await _unlock(pin);
         } else {
-          await _lock.lock(trace, pin);
+          await _lock.setLock(trace, pin);
           setState(() {
             _digitsEntered = 0;
             _pinEntered = null;
@@ -243,7 +244,7 @@ class _LockScreenState extends State<LockScreen>
         //canClose: () => !_isLocked,
         onClosed: _cancel,
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: const BoxConstraints(maxWidth: maxContentWidth),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

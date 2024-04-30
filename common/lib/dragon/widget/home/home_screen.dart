@@ -3,9 +3,9 @@ import 'package:common/common/model.dart';
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/widget/home/animated_bg.dart';
-import 'package:common/dragon/widget/home/devices.dart';
+import 'package:common/dragon/widget/home/home_devices.dart';
 import 'package:common/dragon/widget/home/smart_onboard.dart';
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/smart_header/smart_header.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
@@ -71,37 +71,44 @@ class HomeScreenState extends State<HomeScreen>
     final phase = _family.phase;
     final deviceCount = _family.devices.entries.length;
 
-    return Scaffold(
-        body: Stack(
+    return Stack(
       children: [
-        AnimatedBg(),
-        Stack(
-          children: [
-            Column(
+        Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: maxContentWidth),
+            child: Column(
               children: [
-                SizedBox(height: 48),
+                const SizedBox(height: 48),
                 SmartOnboard(phase: phase, deviceCount: deviceCount),
                 //SmartFooter(phase: phase, hasPin: true),
               ],
             ),
-            phase == FamilyPhase.parentHasDevices
-                ? ListView(
-                    reverse: true,
-                    children: [
-                      Devices(devices: _family.devices),
-                    ],
-                  )
-                : Container(),
-            Column(
-              children: [
-                SizedBox(height: 48),
-                SmartHeader(phase: phase),
-              ],
-            ),
+          ),
+        ),
+        phase == FamilyPhase.parentHasDevices
+            ? Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: maxContentWidth),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 120),
+                    child: ListView(
+                      reverse: true,
+                      children: [
+                        HomeDevices(devices: _family.devices),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : Container(),
+        Column(
+          children: [
+            const SizedBox(height: 48),
+            SmartHeader(phase: phase),
           ],
         ),
       ],
-    ));
+    );
   }
 
   // @override
@@ -225,7 +232,7 @@ class HomeScreenState extends State<HomeScreen>
     return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
-          return CommandDialog();
+          return const CommandDialog();
         });
   }
 }

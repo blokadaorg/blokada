@@ -1,15 +1,8 @@
-import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/route.dart';
-import 'package:common/dragon/widget/device/device_screen.dart';
-import 'package:common/dragon/widget/edit_filters.dart';
-import 'package:common/dragon/widget/exceptions/exceptions_screen.dart';
-import 'package:common/dragon/widget/home/home_screen.dart';
+import 'package:common/dragon/widget/home/animated_bg.dart';
 import 'package:common/dragon/widget/home/overlay.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
-import 'package:common/dragon/widget/settings/settings_screen.dart';
-import 'package:common/dragon/widget/stats/stats_detail_screen.dart';
-import 'package:common/dragon/widget/stats/stats_screen.dart';
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/util/config.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -154,77 +147,30 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  rebuild() => setState(() {});
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        children: [
-          ChangeNotifierProvider(
-            create: (context) => widget.ctrl,
-            child: Stack(
-              children: [
-                Navigator(
-                  key: widget.ctrl.navigatorKey,
-                  observers: [widget.ctrl],
-                  onGenerateRoute: (settings) {
-                    switch (settings.name) {
-                      case "/device":
-                        final device = settings.arguments as FamilyDevice;
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) =>
-                                DeviceScreen(tag: device.device.deviceTag));
-                      case "/device/filters":
-                        final device = settings.arguments as FamilyDevice;
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) => EditFiltersSheet(
-                                profileId: device.profile.profileId));
-                      case "/device/stats":
-                        final device = settings.arguments as FamilyDevice;
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) => StatsScreen(
-                                deviceTag: device.device.deviceTag));
-                      case "/device/stats/detail":
-                        final entry = settings.arguments as UiJournalEntry;
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) =>
-                                StatsDetailScreen(entry: entry));
-                      case "/settings":
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) => const SettingsScreen());
-                      case "/settings/exceptions":
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) => const ExceptionsScreen());
-                      default:
-                        return StandardRoute(
-                            settings: settings,
-                            builder: (context) =>
-                                widget.content ?? const HomeScreen());
-                    }
-                  },
-                ),
-                const Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: TopCommonBar(),
-                ),
-                const OverlaySheet(),
-              ],
+      body: ChangeNotifierProvider(
+        create: (context) => widget.ctrl,
+        child: Stack(
+          children: [
+            const AnimatedBg(),
+            Navigator(
+              key: widget.ctrl.navigatorKey,
+              observers: [widget.ctrl],
+              onGenerateRoute: (settings) {
+                return Navigation().generateRoute(context, settings,
+                    homeContent: widget.content);
+              },
             ),
-          ),
-        ],
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TopCommonBar(),
+            ),
+            const OverlaySheet(),
+          ],
+        ),
       ),
     );
   }

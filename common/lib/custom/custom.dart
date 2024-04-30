@@ -103,10 +103,10 @@ abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
   // Will do nothing if not existing.
   toggle(Trace parentTrace, String domainName) async {
     if (allowed.contains(domainName)) {
-      await delete(parentTrace, domainName);
+      //await delete(parentTrace, domainName);
       await deny(parentTrace, domainName);
     } else if (denied.contains(domainName)) {
-      await delete(parentTrace, domainName);
+      //await delete(parentTrace, domainName);
       await allow(parentTrace, domainName);
     }
   }

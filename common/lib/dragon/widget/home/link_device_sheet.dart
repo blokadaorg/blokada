@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
@@ -35,7 +37,6 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
   bool isReady = false;
 
   final _topBarController = TopBarController();
-  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -44,7 +45,6 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
     _family.linkDeviceHeartbeatReceived = () {
       close();
     };
-    _scrollController.addListener(_updateTopBar);
 
     _setDeviceTemplate();
   }
@@ -60,10 +60,6 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
     });
   }
 
-  _updateTopBar() {
-    _topBarController.updateScrollPos(_scrollController.offset);
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -75,7 +71,6 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
     traceAs("linkDeviceDismiss", (trace) async {
       await _family.cancelLinkDevice(trace);
     });
-    _scrollController.removeListener(_updateTopBar);
     super.dispose();
   }
 
@@ -106,145 +101,135 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: PrimaryScrollController(
-                controller: _scrollController,
-                child: ListView(
-                  children: [
-                    const SizedBox(height: 48),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Column(
-                        children: [
-                          Text(
-                              widget.device == null
-                                  ? "Scan the QR code below with the device you want to add to your family. This screen will close once the device is detected."
-                                  : "Scan the QR code below with the device that needs to be linked again. This screen will close once the device is detected.",
-                              softWrap: true,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  color: context.theme.textSecondary)),
-                        ],
-                      ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 48),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Column(
+                      children: [
+                        Text(
+                            widget.device == null
+                                ? "Scan the QR code below with the device you want to add to your family. This screen will close once the device is detected."
+                                : "Scan the QR code below with the device that needs to be linked again. This screen will close once the device is detected.",
+                            softWrap: true,
+                            textAlign: TextAlign.justify,
+                            style:
+                                TextStyle(color: context.theme.textSecondary)),
+                      ],
                     ),
-                    SizedBox(height: 60),
-                    _showQr
-                        ? Column(
-                            children: [
-                              widget.device != null
-                                  ? Container()
-                                  : Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 24),
-                                      child: Text("DEVICE SETTINGS",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  context.theme.textSecondary)),
-                                    ),
-                              widget.device != null
-                                  ? Container()
-                                  : Container(
-                                      constraints:
-                                          const BoxConstraints(maxWidth: 500),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 8),
-                                        child: CommonCard(
-                                          bgColor: context.theme.bgColor,
-                                          child: Column(
-                                            children: [
-                                              CommonItem(
-                                                onTap: () {
-                                                  showRenameDialog(
-                                                      context,
-                                                      "device",
-                                                      _payload.device.alias,
-                                                      onConfirm: (name) =>
-                                                          _setDeviceTemplate(
-                                                              name: name,
-                                                              profile: _payload
-                                                                  .profile));
-                                                },
-                                                icon: CupertinoIcons
-                                                    .device_phone_portrait,
-                                                text: "Name",
-                                                trailing: Text(
-                                                    _payload.device.alias,
-                                                    style: TextStyle(
-                                                        color: context.theme
-                                                            .textSecondary)),
-                                              ),
-                                              CommonDivider(),
-                                              CommonItem(
-                                                onTap: () {
-                                                  showSelectProfileDialog(
-                                                      context,
-                                                      device: _payload.device,
-                                                      onSelected: (p) {
-                                                    _setDeviceTemplate(
-                                                        name: _payload
-                                                            .device.alias,
-                                                        profile: p);
-                                                  });
-                                                },
-                                                icon: CupertinoIcons
-                                                    .person_crop_circle,
-                                                text: "Blocklist Profile",
-                                                trailing: Row(
-                                                  children: [
-                                                    Icon(
-                                                        getProfileIcon(_payload
+                  ),
+                  SizedBox(height: 60),
+                  _showQr
+                      ? Column(
+                          children: [
+                            widget.device != null
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24),
+                                    child: Text("DEVICE SETTINGS",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                context.theme.textSecondary)),
+                                  ),
+                            widget.device != null
+                                ? Container()
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    child: CommonCard(
+                                      bgColor: context.theme.bgColor,
+                                      child: Column(
+                                        children: [
+                                          CommonItem(
+                                            onTap: () {
+                                              showRenameDialog(
+                                                  context,
+                                                  "device",
+                                                  _payload.device.alias,
+                                                  onConfirm: (name) =>
+                                                      _setDeviceTemplate(
+                                                          name: name,
+                                                          profile: _payload
+                                                              .profile));
+                                            },
+                                            icon: CupertinoIcons
+                                                .device_phone_portrait,
+                                            text: "Name",
+                                            trailing: Text(
+                                                _payload.device.alias,
+                                                style: TextStyle(
+                                                    color: context
+                                                        .theme.textSecondary)),
+                                          ),
+                                          CommonDivider(),
+                                          CommonItem(
+                                            onTap: () {
+                                              showSelectProfileDialog(context,
+                                                  device: _payload.device,
+                                                  onSelected: (p) {
+                                                _setDeviceTemplate(
+                                                    name: _payload.device.alias,
+                                                    profile: p);
+                                              });
+                                            },
+                                            icon: CupertinoIcons
+                                                .person_crop_circle,
+                                            text: "Blocklist Profile",
+                                            trailing: Row(
+                                              children: [
+                                                Icon(
+                                                    getProfileIcon(_payload
+                                                        .profile!.template),
+                                                    color: getProfileColor(
+                                                        _payload
                                                             .profile!.template),
+                                                    size: 18),
+                                                SizedBox(width: 4),
+                                                Text(
+                                                    _payload
+                                                        .profile!.displayAlias,
+                                                    style: TextStyle(
                                                         color: getProfileColor(
                                                             _payload.profile!
-                                                                .template),
-                                                        size: 18),
-                                                    SizedBox(width: 4),
-                                                    Text(
-                                                        _payload.profile!
-                                                            .displayAlias,
-                                                        style: TextStyle(
-                                                            color: getProfileColor(
-                                                                _payload
-                                                                    .profile!
-                                                                    .template))),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
+                                                                .template))),
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ),
-                              const SizedBox(height: 60),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                          color: context.theme.divider
-                                              .withOpacity(0.05),
-                                          width: 2,
-                                        )),
-                                    child: QrImageView(
-                                      data: _payload.qrUrl,
-                                      version: QrVersions.auto,
-                                      size: 200.0,
-                                    ),
                                   ),
-                                ],
-                              ),
-                            ],
-                          )
-                        : const SizedBox(height: 200),
-                    const SizedBox(height: 48),
-                    const CupertinoActivityIndicator(),
-                  ],
-                ),
+                            const SizedBox(height: 60),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: context.theme.divider
+                                            .withOpacity(0.05),
+                                        width: 2,
+                                      )),
+                                  child: QrImageView(
+                                    data: _payload.qrUrl,
+                                    version: QrVersions.auto,
+                                    size: 200.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      : const SizedBox(height: 200),
+                  const SizedBox(height: 48),
+                  const CupertinoActivityIndicator(),
+                ],
               ),
             ),
             Positioned(

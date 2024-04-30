@@ -5,6 +5,7 @@ import 'package:common/dragon/device/controller.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/add_profile_sheet.dart';
+import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/profile_button.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
@@ -14,7 +15,6 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProfileDialog extends StatefulWidget {
   final DeviceTag deviceTag;
@@ -62,11 +62,8 @@ class ProfileDialogState extends State<ProfileDialog> {
               const SizedBox(height: 40),
               CommonClickable(
                 onTap: () {
-                  //Navigator.of(context).pop();
-                  showCupertinoModalBottomSheet(
-                    context: context,
-                    duration: const Duration(milliseconds: 300),
-                    backgroundColor: context.theme.bgColorCard,
+                  showSheet(
+                    context,
                     builder: (context) => const AddProfileSheet(),
                   );
                 },

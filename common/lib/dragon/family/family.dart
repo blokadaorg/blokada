@@ -142,10 +142,24 @@ abstract class FamilyStoreBase
     });
   }
 
-  _reload(Trace parentTrace, {bool dirty = false}) async {
+  // First CTA action to either activate onboarding or open payment
+  activateCta(Trace parentTrace) async {
+    return await traceWith(parentTrace, "activateCta", (trace) async {
+      if (_account.type.isActive()) {
+        _updatePhase(loading: true);
+        await _reload(trace, createDeviceIfNeeded: true);
+        _updatePhase();
+        return;
+      }
+      _stage.showModal(trace, StageModal.payment);
+    });
+  }
+
+  _reload(Trace parentTrace,
+      {bool dirty = false, bool createDeviceIfNeeded = false}) async {
     return await traceWith(parentTrace, "reload", (trace) async {
       if (!dirty) {
-        await _device.reload(createIfNeeded: _account.type.isActive());
+        await _device.reload(createIfNeeded: createDeviceIfNeeded);
       }
 
       devices = FamilyDevices([], null).fromApi(_device.devices,
@@ -327,7 +341,7 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoAccount;
     } else if (appLocked) {
       phase = FamilyPhase.lockedNoPerms;
-    } else if (accountActive == false) {
+    } else if (accountActive == false || _thisDevice.now == null) {
       phase = FamilyPhase.fresh;
     } else if (/*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;

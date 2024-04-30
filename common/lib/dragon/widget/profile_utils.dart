@@ -19,6 +19,6 @@ Color getProfileColor(String template) {
     case "child":
       return Colors.green;
     default:
-      return Colors.black54;
+      return Colors.yellow;
   }
 }

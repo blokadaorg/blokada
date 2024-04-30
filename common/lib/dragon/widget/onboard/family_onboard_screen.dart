@@ -1,3 +1,4 @@
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/link/channel.pg.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,7 +51,7 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
         key: bgStateKey,
         onClosed: _close,
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: const BoxConstraints(maxWidth: maxContentWidth),
           child: _getFirstTimeScreen(context),
         ),
       ),

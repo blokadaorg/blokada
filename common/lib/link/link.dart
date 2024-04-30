@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
+import 'package:common/dragon/family/family.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
-import 'channel.act.dart';
 import '../account/account.dart';
 import '../env/env.dart';
 import '../lock/lock.dart';
-import '../util/act.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
 import '../util/trace.dart';
+import 'channel.act.dart';
 import 'channel.pg.dart';
 
 part 'link.g.dart';
@@ -66,6 +66,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
   late final _lock = dep<LockStore>();
+  late final _family = dep<FamilyStore>();
 
   String userAgent = "";
   Map<LinkId, LinkTemplate> templates = {};
@@ -77,6 +78,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     depend<LinkStore>(this as LinkStore);
     _lock.addOnValue(lockChanged, updateLinksFromLock);
     _account.addOn(accountChanged, updateLinksFromAccount);
+    reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
   }
 
   @override
@@ -104,9 +106,11 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     });
   }
 
+  updateFromLinkedMode(bool linked) => _updateLinks();
+
   _updateLinks() async {
     for (var id in LinkId.values) {
-      links[id] = _getLink(id, _lock.isLocked);
+      links[id] = _getLink(id, _lock.isLocked || _family.linkedMode);
     }
 
     List<Link> converted =

@@ -16,6 +16,8 @@ class JournalController {
   List<UiJournalEntry> allEntries = [];
   List<UiJournalEntry> filteredEntries = [];
 
+  Function() onChange = () {};
+
   fetch(DeviceTag tag) async {
     final entries = await _api.fetch(tag);
     final mapped = entries.map((e) => UiJournalEntry.fromJsonEntry(e)).toList();
@@ -54,5 +56,6 @@ class JournalController {
 
     allEntries = grouped;
     filteredEntries = filter.apply(allEntries);
+    onChange();
   }
 }

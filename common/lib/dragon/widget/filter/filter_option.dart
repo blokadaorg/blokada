@@ -29,6 +29,14 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
   }
 
   @override
+  void didUpdateWidget(FilterOptionWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      selected = widget.selections.contains(widget.option.optionName);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) => SizedBox(
         child: Container(
             child: Padding(

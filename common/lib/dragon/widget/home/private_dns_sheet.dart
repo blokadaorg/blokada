@@ -50,12 +50,12 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Text(
-                  "Activate \"Blokada Family\" in Settings by following these instructions.",
+                  "Activate \"Blokada Family\" in Settings by navigating as shown below.",
                   softWrap: true,
                   textAlign: TextAlign.justify,
                   style: TextStyle(color: context.theme.textSecondary)),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -64,35 +64,37 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                     //Text("In the main section of Settings, tap:",
                     Text("1.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
+                    const PrivateDnsSettingGuideWidget(
                         title: "General", icon: CupertinoIcons.settings),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     //Text("... then swipe down, and tap:",
                     Text("2.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
+                    const PrivateDnsSettingGuideWidget(
                         title: "VPN & Device Management"),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     // Text("... next, tap:",
                     Text("3.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
+                    const PrivateDnsSettingGuideWidget(
                         title: "DNS",
                         icon: CupertinoIcons.ellipsis,
                         edgeText: "Automatic"),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     //Text("... and finally, select:",
                     Text("4.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
+                    const PrivateDnsSettingGuideWidget(
                       title: "Blokada Family",
                       subtitle: "Blokada Family",
-                      icon: CupertinoIcons.shield_fill,
+                      iconReplacement: Image(
+                          image: AssetImage('assets/images/appicon.png'),
+                          width: 24),
                       chevron: false,
                     ),
                   ]),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Expanded(

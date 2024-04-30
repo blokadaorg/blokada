@@ -1,16 +1,15 @@
-import 'dart:ui';
-
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../common/widget/minicard/minicard.dart';
+import '../../common/widget/theme.dart';
 import '../../rate/rate.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
-import '../../common/widget/theme.dart';
 import 'star.dart';
 
 class RateScreen extends StatefulWidget {
@@ -104,7 +103,7 @@ class _RateScreenState extends State<RateScreen>
       key: bgStateKey,
       onClosed: _close,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 500),
+        constraints: const BoxConstraints(maxWidth: maxContentWidth),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(

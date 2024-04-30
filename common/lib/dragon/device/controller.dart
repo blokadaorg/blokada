@@ -49,7 +49,7 @@ class DeviceController {
       ));
 
       _thisDevice.now = newDevice;
-      // reload?
+      devices = await _devices.fetch();
     }
   }
 
@@ -64,9 +64,16 @@ class DeviceController {
     final d = devices.firstWhereOrNull((it) => it.deviceTag == tag);
     if (d == null) throw Exception("Device $tag not found");
 
-    // Remove the "this device" created on boot, and set the assigned one
     if (_thisDevice.now?.deviceTag == tag) return;
-    if (_thisDevice.now != null) await deleteDevice(_thisDevice.now!);
+
+    // Remove the "this device" created on boot, and set the assigned one
+    // if (_thisDevice.now != null) await deleteDevice(_thisDevice.now!);
+    // _thisDevice.now = d;
+
+    // If we were linked to another device, we cant change it now
+    if (_thisDevice.now != null) {
+      throw Exception("Device already linked to ${_thisDevice.now!.deviceTag}");
+    }
     _thisDevice.now = d;
   }
 

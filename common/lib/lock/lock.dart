@@ -110,6 +110,25 @@ abstract class LockStoreBase
     });
   }
 
+  // Sets lock, but does not lock immediately
+  @action
+  Future<void> setLock(Trace parentTrace, String pin) async {
+    return await traceWith(parentTrace, "setLock", (trace) async {
+      if (isLocked) {
+        return;
+      }
+
+      if (pin.length != 4 || !isNumeric(pin)) {
+        await _stage.showModal(trace, StageModal.faultLockInvalid);
+        throw Exception("Invalid pin format: $pin");
+      }
+
+      await _persistence.saveString(trace, _keyLock, pin);
+      _existingPin = pin;
+      hasPin = true;
+    });
+  }
+
   @action
   Future<void> removeLock(Trace parentTrace) async {
     return await traceWith(parentTrace, "removeLock", (trace) async {

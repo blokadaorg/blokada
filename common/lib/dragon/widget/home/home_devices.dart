@@ -5,26 +5,27 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/dragon/family/devices.dart';
 import 'package:common/dragon/family/family.dart';
+import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
-import 'package:common/dragon/widget/home/device.dart';
+import 'package:common/dragon/widget/home/home_device.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class Devices extends StatefulWidget {
+class HomeDevices extends StatefulWidget {
   final FamilyDevices devices;
 
-  const Devices({super.key, required this.devices});
+  const HomeDevices({super.key, required this.devices});
 
   @override
-  DevicesState createState() => DevicesState();
+  HomeDevicesState createState() => HomeDevicesState();
 }
 
-class DevicesState extends State<Devices>
+class HomeDevicesState extends State<HomeDevices>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   late final _family = dep<FamilyStore>();
 
@@ -42,7 +43,7 @@ class DevicesState extends State<Devices>
   }
 
   @override
-  void didUpdateWidget(Devices oldWidget) {
+  void didUpdateWidget(HomeDevices oldWidget) {
     super.didUpdateWidget(oldWidget);
     setState(() {});
   }
@@ -151,10 +152,15 @@ class DevicesState extends State<Devices>
   }
 
   List<Widget> _getDevices(BuildContext context) {
-    //if (widget.devices.) return [];
-    return widget.devices.entries
-        //.filter((e) => !e.thisDevice)
-        //.reversed
+    final priorityDevices = <FamilyDevice>[];
+    if (widget.devices.hasThisDevice) {
+      priorityDevices
+          .add(widget.devices.entries.firstWhere((it) => it.thisDevice));
+    }
+
+    return (priorityDevices +
+            widget.devices.entries.filter((e) => !e.thisDevice).toList())
+        .reversed
         .map((e) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: _wrapInDismissible(
@@ -197,10 +203,8 @@ class DevicesState extends State<Devices>
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
       child: Touch(
         onTap: () {
-          showCupertinoModalBottomSheet(
-            context: context,
-            duration: const Duration(milliseconds: 300),
-            backgroundColor: context.theme.bgColorCard,
+          showSheet(
+            context,
             builder: (context) => LinkDeviceSheet(),
           );
         },
@@ -227,10 +231,8 @@ class DevicesState extends State<Devices>
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: MiniCard(
         onTap: () {
-          showCupertinoModalBottomSheet(
-            context: context,
-            duration: const Duration(milliseconds: 300),
-            backgroundColor: context.theme.bgColorCard,
+          showSheet(
+            context,
             builder: (context) => LinkDeviceSheet(),
           );
         },
