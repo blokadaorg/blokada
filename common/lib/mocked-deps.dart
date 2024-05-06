@@ -15,7 +15,7 @@ import 'mocked-deps.mocks.dart';
 attachMockedDeps() {
   dep.allowReassignment = true;
   final family = MockFamilyStore();
-  when(family.phase).thenReturn(FamilyPhase.fresh);
+  when(family.phase).thenReturn(FamilyPhase.parentHasDevices);
   when(family.devices).thenReturn(FamilyDevices([
     FamilyDevice(
       device: JsonDevice(

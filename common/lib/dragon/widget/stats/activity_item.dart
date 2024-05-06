@@ -2,6 +2,7 @@ import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +70,7 @@ class ActivityItemState extends State<ActivityItem> {
                       color: context.theme.textSecondary, fontSize: 12),
                 ),
                 Text(
-                  "${widget.entry.isBlocked() ? "blocked" : "allowed"} ${widget.entry.requests} times",
+                  _getActionString(),
                   style: TextStyle(
                       color: context.theme.textSecondary, fontSize: 12),
                 ),
@@ -84,5 +85,17 @@ class ActivityItemState extends State<ActivityItem> {
         ],
       ),
     );
+  }
+
+  String _getActionString() {
+    if (widget.entry.isBlocked()) {
+      return "family activity blocked times"
+          .i18n
+          .withParams(widget.entry.requests);
+    } else {
+      return "family activity allowed times"
+          .i18n
+          .withParams(widget.entry.requests);
+    }
   }
 }

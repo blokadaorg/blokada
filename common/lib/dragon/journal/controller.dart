@@ -58,4 +58,8 @@ class JournalController {
     filteredEntries = filter.apply(allEntries);
     onChange();
   }
+
+  resetFilter() {
+    filter = _noFilter;
+  }
 }

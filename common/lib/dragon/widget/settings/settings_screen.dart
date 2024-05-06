@@ -6,6 +6,7 @@ import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/settings/exceptions_section.dart';
 import 'package:common/dragon/widget/settings/settings_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
@@ -45,19 +46,19 @@ class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
 
   Widget _buildForPhone(BuildContext context) {
     return WithTopBar(
-      title: "Settings",
-      child: SettingsSection(),
+      title: "main tab settings".i18n,
+      child: const SettingsSection(),
     );
   }
 
   Widget _buildForTablet(BuildContext context) {
     return WithTopBar(
-      title: "Settings",
+      title: "main tab settings".i18n,
       topBarTrailing: _getAction(context),
       maxWidth: maxContentWidthTablet,
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             flex: 1,
             child: SettingsSection(),
           ),
@@ -73,7 +74,7 @@ class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
   Widget _buildForPath(Paths path, Object? arguments) {
     switch (path) {
       case Paths.settingsExceptions:
-        return ExceptionsSection(primary: false);
+        return const ExceptionsSection(primary: false);
       default:
         return Container();
     }

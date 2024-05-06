@@ -9,6 +9,7 @@ import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/home_device.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
@@ -84,7 +85,7 @@ class HomeDevicesState extends State<HomeDevices>
           child: Row(
             children: [
               _buildAddDeviceButton(context),
-              Spacer(),
+              const Spacer(),
               Touch(
                   onTap: () {
                     _carouselCtrl.nextPage();
@@ -189,7 +190,7 @@ class HomeDevicesState extends State<HomeDevices>
             backgroundColor: context.theme.textPrimary.withOpacity(0.15),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.profile_circled,
-            label: "Profile",
+            label: "family stats label profile".i18n,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
         ],
@@ -205,7 +206,7 @@ class HomeDevicesState extends State<HomeDevices>
         onTap: () {
           showSheet(
             context,
-            builder: (context) => LinkDeviceSheet(),
+            builder: (context) => const LinkDeviceSheet(),
           );
         },
         decorationBuilder: (value) {
@@ -233,7 +234,7 @@ class HomeDevicesState extends State<HomeDevices>
         onTap: () {
           showSheet(
             context,
-            builder: (context) => LinkDeviceSheet(),
+            builder: (context) => const LinkDeviceSheet(),
           );
         },
         color: context.theme.accent,
@@ -243,14 +244,14 @@ class HomeDevicesState extends State<HomeDevices>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.plus_circle,
                   size: 28,
                   color: Colors.white,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  "Add a device",
+                  "family device header add".i18n,
                   style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),

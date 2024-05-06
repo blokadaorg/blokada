@@ -88,14 +88,6 @@ class FamilyDevices {
   //   return FamilyDevices([thisDevice, ...entries], true);
   // }
 
-  // _deviceDisplayName(String name, bool thisDevice) {
-  //   if (thisDevice) {
-  //     return "This device";
-  //     return "family label this device".i18n.replaceFirst("%s", name);
-  //   }
-  //   return name;
-  // }
-
   // FamilyDevices deleteDevice(JsonDevice device) {
   //   final d = _findDeviceByTag(device.deviceTag);
   //   if (d == null) throw Exception("Device ${device.deviceTag} does not exist");

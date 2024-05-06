@@ -84,22 +84,22 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
           CommonCard(
             child: Column(
               children: [
-                SettingsItem(
-                    icon: CupertinoIcons.shield_lefthalf_fill,
-                    text: "My exceptions",
-                    onTap: () {
-                      Navigation.open(context, Paths.settingsExceptions);
-                    }),
-                const CommonDivider(),
+                // SettingsItem(
+                //     icon: CupertinoIcons.shield_lefthalf_fill,
+                //     text: "My exceptions",
+                //     onTap: () {
+                //       Navigation.open(context, Paths.settingsExceptions);
+                //     }),
+                // const CommonDivider(),
                 SettingsItem(
                     icon: CupertinoIcons.ellipsis,
-                    text: "Lock with pin",
+                    text: "family settings lock pin".i18n,
                     onTap: () {
                       if (_lock.hasPin) {
                         _showPinDialog(
                           context,
-                          title: "Lock with pin",
-                          desc: "Enter your new pin",
+                          title: "family settings lock pin".i18n,
+                          desc: "family settings lock enter".i18n,
                           inputValue: "",
                           onConfirm: (String value) {
                             traceAs("tappedChangePin", (parentTrace) async {
@@ -164,7 +164,7 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
   _showRestoreDialog(BuildContext context) {
     showInputDialog(context,
         title: "account action logout".i18n,
-        desc: "Enter your account ID to restore your purchases.",
+        desc: "family account restore desc".i18n,
         inputValue: "", onConfirm: (String value) {
       traceAs("tappedRestore", (trace) async {
         await _account.restore(trace, value);
@@ -188,8 +188,7 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
 
     return "account status text"
         .i18n
-        .replaceFirst("%s", _account.type.name.firstLetterUppercase())
-        .replaceFirst("%s", formattedDate);
+        .withParams(_account.type.name.firstLetterUppercase(), formattedDate);
   }
 
   String _getAppVersion() {
@@ -259,9 +258,9 @@ void _showPinDialog(
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: const Text(
-          "Remove pin",
-          style: TextStyle(color: Colors.red),
+        child: Text(
+          "family settings lock remove".i18n,
+          style: const TextStyle(color: Colors.red),
         ),
       ),
     ],

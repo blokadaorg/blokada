@@ -7,6 +7,14 @@ import '../../util/di.dart';
 import 'api.dart';
 import 'this_device.dart';
 
+class ProfileInUseException implements Exception {
+  ProfileInUseException();
+}
+
+class AlreadyLinkedException implements Exception {
+  AlreadyLinkedException();
+}
+
 class DeviceController {
   late final _devices = dep<DeviceApi>();
   late final _thisDevice = dep<ThisDevice>();
@@ -72,7 +80,7 @@ class DeviceController {
 
     // If we were linked to another device, we cant change it now
     if (_thisDevice.now != null) {
-      throw Exception("Device already linked to ${_thisDevice.now!.deviceTag}");
+      throw AlreadyLinkedException();
     }
     _thisDevice.now = d;
   }
@@ -87,6 +95,7 @@ class DeviceController {
     ));
 
     devices.add(d);
+    onChange(true);
     return LinkingDevice(device: d, profile: p);
   }
 
@@ -140,6 +149,7 @@ class DeviceController {
   deleteDevice(JsonDevice device) async {
     await _devices.delete(device);
     devices = devices.where((it) => it.deviceTag != device.deviceTag).toList();
+    onChange(false);
   }
 
   pauseDevice(JsonDevice device, bool pause) async {
@@ -164,7 +174,7 @@ class DeviceController {
 
   deleteProfile(JsonProfile profile) async {
     if (devices.any((it) => it.profileId == profile.profileId)) {
-      throw Exception("Profile ${profile.profileId} is in use");
+      throw ProfileInUseException();
     }
     await _profiles.deleteProfile(profile);
     //onChange();

@@ -2,6 +2,7 @@ import 'package:common/common/model.dart';
 import 'package:common/common/widget/color.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/filter/filter_option.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
@@ -65,19 +66,24 @@ class FilterWidgetState extends State<FilterWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.texts.tags.join(", ").toUpperCase(),
+                  Text(
+                      widget.texts.tags
+                          .map((e) => e.i18n)
+                          .join(", ")
+                          .toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: context.theme.divider,
                           )),
                   const SizedBox(height: 8.0),
-                  Text(widget.texts.title,
+                  Text(widget.texts.title.i18n,
                       style:
                           Theme.of(context).textTheme.headlineMedium!.copyWith(
                                 fontWeight: FontWeight.bold,
                               )),
+                  const SizedBox(height: 4.0),
                   Text(
-                    widget.texts.description,
+                    widget.texts.description.i18n,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],

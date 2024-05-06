@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
+import 'package:common/service/I18nService.dart';
 
 import '../../common/model.dart';
 import '../../util/di.dart';
@@ -52,7 +53,7 @@ class FilterController {
 
   String getFilterContainingList(ListHashId id) {
     final list = _lists.firstWhereOrNull((it) => it.id == id);
-    if (list == null) return "None";
+    if (list == null) return "family stats label none".i18n;
 
     String? filterName;
     outer:
@@ -70,7 +71,7 @@ class FilterController {
         .firstWhereOrNull((it) => it.filterName == filterName)
         ?.title;
 
-    if (filterName == null) return "None";
+    if (filterName == null) return "family stats label none".i18n;
 
     return filterName;
   }

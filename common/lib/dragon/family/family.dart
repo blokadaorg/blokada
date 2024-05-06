@@ -64,11 +64,9 @@ abstract class FamilyStoreBase
 
     _auth.onTokenExpired = () {
       print("token expired");
-      linkedMode = true;
+      linkedMode = false;
       linkedTokenOk = false;
-      // traceAs("relinkQr", (trace) async {
-      //   await _stage.showModal(trace, StageModal.accountChange);
-      // });
+      _thisDevice.now = null;
       _updatePhase();
     };
     _auth.onTokenRefreshed = () {
@@ -281,11 +279,15 @@ abstract class FamilyStoreBase
       traceAs("dismissAfterLink", (trace) async {
         await _stage.dismissModal(trace);
       });
+    } on AlreadyLinkedException catch (e) {
+      traceAs("alreadyLinked", (trace) async {
+        await _stage.showModal(trace, StageModal.faultLinkAlready);
+      });
+      rethrow;
     } catch (e) {
-      // case: token failed to refresh, invalid, show qr scan prompt
-      // devicetag: perm store, journal store list resolve
-      // maybe devicealias in journal and perms
-      print("Failed to link: $e");
+      traceAs("failLink", (trace) async {
+        await _stage.showModal(trace, StageModal.fault);
+      });
       rethrow;
     }
   }

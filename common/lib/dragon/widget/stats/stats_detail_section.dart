@@ -10,6 +10,7 @@ import 'package:common/dragon/widget/action_info.dart';
 import 'package:common/dragon/widget/action_item.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
@@ -88,8 +89,8 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                             overflow: TextOverflow.ellipsis),
                         Text(
                           (widget.entry.isBlocked()
-                              ? "This request has been blocked."
-                              : "This request has been allowed."),
+                              ? "activity request blocked".i18n
+                              : "activity request allowed".i18n),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 14),
                         ),
@@ -107,7 +108,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
               child: Column(
                 children: [
                   MiniCardHeader(
-                    text: "Reason",
+                    text: "family stats label reason".i18n,
                     icon: CupertinoIcons.shield,
                     color: widget.entry.isBlocked() ? Colors.red : Colors.green,
                   ),
@@ -117,7 +118,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Blocklist",
+                          Text("family stats label blocklist".i18n,
                               style: TextStyle(
                                   color: context.theme.textSecondary,
                                   fontSize: 12)),
@@ -153,7 +154,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Profile",
+                          Text("family stats label profile".i18n,
                               style: TextStyle(
                                   color: context.theme.textSecondary,
                                   fontSize: 12)),
@@ -185,7 +186,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                                         size: 20),
                                     const SizedBox(width: 4),
                                     Text(
-                                      "Unknown",
+                                      "family stats label profile unknown".i18n,
                                       style: TextStyle(
                                         color: context.theme.textSecondary,
                                         fontSize: 18,
@@ -205,7 +206,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
             ),
           ),
           const SizedBox(height: 40),
-          Text("Actions",
+          Text("activity actions header".i18n,
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.bold,
                   )),
@@ -218,8 +219,8 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                   ActionItem(
                       icon: CupertinoIcons.shield_lefthalf_fill,
                       text: _custom.contains(widget.entry.domainName)
-                          ? "Remove from My exceptions"
-                          : "Add to My exceptions",
+                          ? "family stats exceptions remove".i18n
+                          : "family stats exceptions add".i18n,
                       onTap: () {
                         traceAs("addCustom", (trace) async {
                           await _custom.addOrRemove(
@@ -231,7 +232,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                   const CommonDivider(indent: 48),
                   ActionItem(
                       icon: CupertinoIcons.doc_on_clipboard,
-                      text: "Copy name to Clipboard",
+                      text: "activity action copy to clipboard".i18n,
                       onTap: () {
                         Clipboard.setData(
                             ClipboardData(text: widget.entry.domainName));
@@ -241,7 +242,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
             ),
           ),
           const SizedBox(height: 40),
-          Text("Information",
+          Text("activity information header".i18n,
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.bold,
                   )),
@@ -253,12 +254,12 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ActionInfo(
-                    label: "Full name",
+                    label: "activity domain name".i18n,
                     text: widget.entry.domainName,
                   ),
                   const CommonDivider(indent: 0),
                   ActionInfo(
-                    label: "Time",
+                    label: "activity time of occurrence".i18n,
                     text: widget.entry.timestamp.toString(),
                   ),
                 ],

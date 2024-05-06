@@ -8,6 +8,7 @@ import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/filter/filter.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,10 @@ class FiltersSectionState extends State<FiltersSection> {
                     color: getProfileColor(profile.template),
                   ),
                   const SizedBox(height: 8),
-                  Text("${profile.displayAlias} Profile",
+                  Text(
+                      "family profile template name"
+                          .i18n
+                          .withParams(profile.displayAlias),
                       style: const TextStyle(
                           fontSize: 28, fontWeight: FontWeight.w700)),
 
@@ -124,10 +128,10 @@ class FiltersSectionState extends State<FiltersSection> {
   List<Widget> _buildFooter(BuildContext context) {
     return [
       const SizedBox(height: 8),
-      const Padding(
-        padding: EdgeInsets.all(18.0),
-        child: Text("Delete this profile",
-            style: TextStyle(
+      Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Text("family profile action delete".i18n,
+            style: const TextStyle(
                 color: Colors.red, fontSize: 16, fontWeight: FontWeight.w500)),
       ),
       const SizedBox(height: 48),

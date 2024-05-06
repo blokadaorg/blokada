@@ -105,7 +105,7 @@ class Toplist extends StatelessWidget with TraceOrigin {
     if (entry.value == 1) {
       return "$string ${"activity happened one time".i18n}";
     } else {
-      return "$string ${"activity happened many times".i18n.replaceFirst("%s", entry.value.toString())}";
+      return "$string ${"activity happened many times".i18n.withParams(entry.value)}";
     }
   }
 

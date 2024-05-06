@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class BlokadaApp extends StatelessWidget {
   final Widget? content;
   late final ctrl = TopBarController();
+  late final nav = NavigationPopObserver();
 
   BlokadaApp({Key? key, this.content}) : super(key: key);
 
@@ -128,7 +129,8 @@ class BlokadaApp extends StatelessWidget {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
           //child: I18n(child: content),
-          child: I18n(child: MainScreen(content: content, ctrl: ctrl)),
+          child:
+              I18n(child: MainScreen(content: content, ctrl: ctrl, nav: nav)),
         );
       }),
     );
@@ -138,8 +140,10 @@ class BlokadaApp extends StatelessWidget {
 class MainScreen extends StatefulWidget {
   final Widget? content;
   final TopBarController ctrl;
+  final NavigationPopObserver nav;
 
-  const MainScreen({super.key, this.content, required this.ctrl});
+  const MainScreen(
+      {super.key, this.content, required this.ctrl, required this.nav});
 
   @override
   State<StatefulWidget> createState() => MainScreenState();
@@ -156,7 +160,7 @@ class MainScreenState extends State<MainScreen> {
             const AnimatedBg(),
             Navigator(
               key: widget.ctrl.navigatorKey,
-              observers: [widget.ctrl],
+              observers: [widget.ctrl, widget.nav],
               onGenerateRoute: (settings) {
                 return Navigation().generateRoute(context, settings,
                     homeContent: widget.content);

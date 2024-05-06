@@ -1,7 +1,6 @@
 import 'dart:io' as io;
 
 import 'package:common/common/model.dart';
-import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/profile/profile_dialog.dart';
 import 'package:common/dragon/widget/stats/stats_filter.dart';
@@ -13,7 +12,7 @@ void showSelectProfileDialog(BuildContext context,
     {required JsonDevice device, Function(JsonProfile)? onSelected}) {
   showDefaultDialog(
     context,
-    title: const Text("Select profile"),
+    title: Text("family profile action select".i18n),
     content: (context) => ProfileDialog(
         deviceTag: device.deviceTag,
         onSelected: onSelected != null
@@ -30,11 +29,10 @@ void showConfirmDialog(BuildContext context, String name,
     {required Function() onConfirm}) {
   showDefaultDialog(
     context,
-    title: const Text("Delete device"),
+    title: Text("family device action delete".i18n),
     content: (context) => Column(
       children: [
-        Text(
-            "Are you sure you wish to delete $name? The device will be unlinked from your account."),
+        Text("family device delete confirm".i18n.withParams(name)),
       ],
     ),
     actions: (context) => [
@@ -68,22 +66,20 @@ void showConfirmDialog(BuildContext context, String name,
 
 void showRenameDialog(BuildContext context, String what, String? name,
     {required Function(String) onConfirm}) {
-  final TextEditingController _ctrl = TextEditingController(text: name);
+  final TextEditingController ctrl = TextEditingController(text: name);
 
   showDefaultDialog(
     context,
-    title: Text(name == null
-        ? "New ${what.firstLetterUppercase()}"
-        : "Rename ${what.firstLetterUppercase()}"),
+    title: Text(_getTitle(what, name)),
     content: (context) => Column(
       children: [
-        Text("Enter a name for this $what."),
+        Text(_getBrief(what)),
         const SizedBox(height: 16),
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
           child: Material(
             child: TextField(
-              controller: _ctrl,
+              controller: ctrl,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: context.theme.bgColor,
@@ -120,7 +116,7 @@ void showRenameDialog(BuildContext context, String what, String? name,
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
-          onConfirm(_ctrl.text);
+          onConfirm(ctrl.text);
         },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -131,6 +127,30 @@ void showRenameDialog(BuildContext context, String what, String? name,
       ),
     ],
   );
+}
+
+String _getTitle(String what, String? name) {
+  if (what == "device") {
+    if (name == null) {
+      return "family dialog title new device".i18n;
+    } else {
+      return "family dialog title rename device".i18n;
+    }
+  } else {
+    if (name == null) {
+      return "family dialog title new profile".i18n;
+    } else {
+      return "family dialog title rename profile".i18n;
+    }
+  }
+}
+
+String _getBrief(String what) {
+  if (what == "device") {
+    return "family dialog brief device".i18n;
+  } else {
+    return "family dialog brief profile".i18n;
+  }
 }
 
 void showAddExceptionDialog(
@@ -196,7 +216,7 @@ void showStatsFilterDialog(
   final ctrl = StatsFilterController();
   showDefaultDialog(
     context,
-    title: const Text("Search"),
+    title: Text("universal action search".i18n),
     content: (context) => Column(
       children: [
         const SizedBox(height: 16),
@@ -272,6 +292,26 @@ void showInputDialog(
           onConfirm(_ctrl.text);
         },
         child: Text("universal action save".i18n),
+      ),
+    ],
+  );
+}
+
+void showErrorDialog(BuildContext context, String? description) {
+  showDefaultDialog(
+    context,
+    title: Text("alert error header".i18n),
+    content: (context) => Column(
+      children: [
+        Text(description ?? "error unknown".i18n),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Text("universal action close".i18n),
       ),
     ],
   );

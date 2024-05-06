@@ -5,6 +5,7 @@ import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/profile_button.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class AddProfileSheetState extends State<AddProfileSheet> {
   @override
   void initState() {
     super.initState();
-    _topBarController.manualPush("Add a profile");
+    _topBarController.manualPush("family profile action add".i18n);
     _scrollController.addListener(_updateTopBar);
   }
 
@@ -60,14 +61,14 @@ class AddProfileSheetState extends State<AddProfileSheet> {
                 controller: _scrollController,
                 child: ListView(children: [
                   SizedBox(height: 60),
-                  Text("What profile you want to add?",
+                  Text("family profile add".i18n,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall!
                           .copyWith(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8),
-                  Text("Choose a template to get started.",
+                  Text("family profile template".i18n,
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.center),
                   SizedBox(height: 56),
@@ -79,28 +80,30 @@ class AddProfileSheetState extends State<AddProfileSheet> {
                     }),
                     icon: CupertinoIcons.plus_circle_fill,
                     iconColor: getProfileColor(""),
-                    name: "Custom",
+                    name: "family profile name custom".i18n,
                   ),
                   SizedBox(height: 12),
                   ProfileButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      _profile.addProfile("parent", "Parent");
+                      _profile.addProfile(
+                          "parent", "family profile name parent".i18n);
                     },
                     icon: getProfileIcon("parent"),
                     iconColor: getProfileColor("parent"),
-                    name: "Parent",
+                    name: "family profile name parent".i18n,
                     trailing: null,
                   ),
                   SizedBox(height: 12),
                   ProfileButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      _profile.addProfile("child", "Child");
+                      _profile.addProfile(
+                          "child", "family profile name child".i18n);
                     },
                     icon: getProfileIcon("child"),
                     iconColor: getProfileColor("child"),
-                    name: "Child",
+                    name: "family profile name child".i18n,
                     trailing: null,
                   ),
                 ]),
@@ -113,11 +116,11 @@ class AddProfileSheetState extends State<AddProfileSheet> {
               child: TopBar(
                   height: 58,
                   bottomPadding: 16,
-                  title: "Add a profile",
+                  title: "family profile action add".i18n,
                   animateBg: true,
                   trailing: CommonClickable(
                     onTap: () => Navigator.of(context).pop(),
-                    child: Text("Cancel",
+                    child: Text("universal action cancel".i18n,
                         style: TextStyle(color: context.theme.accent)),
                   )),
             ),

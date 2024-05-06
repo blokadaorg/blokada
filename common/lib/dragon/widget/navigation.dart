@@ -14,6 +14,7 @@ import 'package:common/dragon/widget/settings/settings_screen.dart';
 import 'package:common/dragon/widget/stats/stats_detail_section.dart';
 import 'package:common/dragon/widget/stats/stats_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class Navigation with TraceOrigin {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "Activity",
+          title: "activity section header".i18n,
           topBarTrailing: _getStatsAction(context, device.device.deviceTag),
           child: StatsSection(deviceTag: device.device.deviceTag),
         ),
@@ -93,7 +94,7 @@ class Navigation with TraceOrigin {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "Blocklists",
+          title: "family stats label blocklists".i18n,
           child: FiltersSection(profileId: device.profile.profileId),
         ),
       );
@@ -105,7 +106,7 @@ class Navigation with TraceOrigin {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "Details",
+          title: "family device title details".i18n,
           child: StatsDetailSection(entry: entry),
         ),
       );
@@ -113,16 +114,16 @@ class Navigation with TraceOrigin {
 
     if (settings.name == Paths.settings.path) {
       return StandardRoute(
-          settings: settings, builder: (context) => SettingsScreen());
+          settings: settings, builder: (context) => const SettingsScreen());
     }
 
     if (settings.name == Paths.settingsExceptions.path) {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "My exceptions",
+          title: "family stats title".i18n,
           topBarTrailing: _getExceptionsAction(context),
-          child: ExceptionsSection(),
+          child: const ExceptionsSection(),
         ),
       );
     }
@@ -141,7 +142,7 @@ class Navigation with TraceOrigin {
           });
         },
         child: Text(
-          "Search",
+          "universal action search".i18n,
           style: TextStyle(
             color: context.theme.accent,
             fontSize: 17,
@@ -165,5 +166,21 @@ class Navigation with TraceOrigin {
             fontSize: 17,
           ),
         ));
+  }
+}
+
+class NavigationPopObserver extends NavigatorObserver {
+  late final _journal = dep<JournalController>();
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    // Resets journal filter when leaving device section
+    if (route is StandardRoute && previousRoute is StandardRoute) {
+      final r = route.settings;
+      final p = previousRoute.settings;
+      if (r.name == Paths.device.path && p.name == Paths.home.path) {
+        _journal.resetFilter();
+      }
+    }
   }
 }

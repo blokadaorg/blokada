@@ -9,6 +9,7 @@ import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/profile_button.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
@@ -33,6 +34,7 @@ class ProfileDialogState extends State<ProfileDialog> {
   late final _profiles = dep<ProfileController>();
 
   late JsonDevice device;
+  String? error;
 
   @override
   void initState() {
@@ -45,19 +47,38 @@ class ProfileDialogState extends State<ProfileDialog> {
     setState(() {});
   }
 
+  setError(String error) {
+    if (!mounted) return;
+    setState(() {
+      this.error = error;
+    });
+    Future.delayed(const Duration(seconds: 5), () {
+      if (!mounted) return;
+      setState(() {
+        this.error = null;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     device = _devices.getDevice(widget.deviceTag);
+    final thisDevice = _family.devices.getDevice(widget.deviceTag).thisDevice;
 
     return Column(
         children: [
-              Text("Choose a profile to use for ${device.alias}."),
+              thisDevice
+                  ? Text("family profile dialog header this".i18n)
+                  : Text("family profile dialog header"
+                      .i18n
+                      .withParams(device.alias)),
               const SizedBox(height: 32),
             ] +
             _profiles.profiles
                 .map((it) => _buildProfileItem(context, device, it))
                 .flatten()
                 .toList() +
+            _buildErrorMessageMaybe(context) +
             [
               const SizedBox(height: 40),
               CommonClickable(
@@ -86,7 +107,8 @@ class ProfileDialogState extends State<ProfileDialog> {
                 ),
               ),
               const SizedBox(height: 4),
-              const Text("Add new profile", style: TextStyle(fontSize: 12)),
+              Text("family profile action add".i18n,
+                  style: const TextStyle(fontSize: 12)),
             ]);
   }
 
@@ -143,8 +165,14 @@ class ProfileDialogState extends State<ProfileDialog> {
         extentRatio: 0.3,
         children: [
           SlidableAction(
-            onPressed: (c) {
-              device.deleteProfile(it);
+            onPressed: (c) async {
+              try {
+                await device.deleteProfile(it);
+              } on ProfileInUseException catch (e) {
+                setError("family profile error use".i18n);
+              } catch (e) {
+                setError("family profile error".i18n);
+              }
             },
             backgroundColor: Colors.red.withOpacity(0.80),
             foregroundColor: Colors.white,
@@ -155,5 +183,13 @@ class ProfileDialogState extends State<ProfileDialog> {
       ),
       child: child,
     );
+  }
+
+  List<Widget> _buildErrorMessageMaybe(BuildContext context) {
+    if (error == null) return [];
+    return [
+      const SizedBox(height: 16),
+      Text(error!, style: const TextStyle(color: Colors.red)),
+    ];
   }
 }

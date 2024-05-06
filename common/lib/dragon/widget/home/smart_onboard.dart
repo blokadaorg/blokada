@@ -214,12 +214,12 @@ class SmartOnboardState extends State<SmartOnboard>
       case FamilyPhase.linkedActive:
         return [
           "family status linked header".i18n,
-          "Use the parent device to manage this device\n\n",
+          "${"family status linked body".i18n}\n\n",
         ];
       case FamilyPhase.linkedExpired:
         return [
           "family status perms header".i18n,
-          "Scan the QR code to link this device\n\n",
+          "${"family status qr body".i18n}\n\n",
         ];
       case FamilyPhase.linkedNoPerms ||
             FamilyPhase.lockedNoPerms ||
@@ -242,12 +242,12 @@ class SmartOnboardState extends State<SmartOnboard>
           return ["", ""];
         } else {
           return [
-            "Active!",
-            "Tap the device for details\n\n",
+            "family status active header".i18n,
+            "${"family status active body".i18n}\n\n",
           ];
         }
       case FamilyPhase.starting:
-        return ["", "Please wait..."];
+        return ["", "home status detail progress".i18n];
       default:
         return ["", ""];
     }
@@ -277,13 +277,13 @@ IconData? getIcon(FamilyPhase phase, {bool forCta = false}) {
 String getCtaText(FamilyPhase p) {
   if (p == FamilyPhase.linkedExpired) {
     //return "family account cta unlink".i18n;
-    return "Link";
+    return "family cta action link".i18n;
   } else if (p.requiresPerms()) {
     return "family cta action finish setup".i18n;
   } else if (p.requiresActivation()) {
     return "family cta action activate".i18n;
   } else if (p.isLocked2()) {
-    return "Unlock";
+    return "family cta action unlock".i18n;
   } else {
     return "family cta action add device".i18n;
   }

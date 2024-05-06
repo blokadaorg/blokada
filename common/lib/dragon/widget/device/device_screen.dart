@@ -13,6 +13,7 @@ import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/stats/stats_detail_section.dart';
 import 'package:common/dragon/widget/stats/stats_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +125,7 @@ class DeviceScreenState extends State<DeviceScreen> {
           });
         },
         child: Text(
-          "Search",
+          "universal action search".i18n,
           style: TextStyle(
             color: context.theme.accent,
             fontSize: 17,

@@ -2,6 +2,7 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
             //   ],
             // ),
             const SizedBox(height: 24),
-            Text("One more thing",
+            Text("family perms header".i18n,
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall!
@@ -50,9 +51,9 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Text(
-                  "Activate \"Blokada Family\" in Settings by navigating as shown below.",
+                  "family perms brief alt".i18n.withParams("Blokada Family"),
                   softWrap: true,
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                   style: TextStyle(color: context.theme.textSecondary)),
             ),
             const Spacer(),
@@ -64,22 +65,23 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                     //Text("In the main section of Settings, tap:",
                     Text("1.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    const PrivateDnsSettingGuideWidget(
-                        title: "General", icon: CupertinoIcons.settings),
+                    PrivateDnsSettingGuideWidget(
+                        title: "family perms setting ios general".i18n,
+                        icon: CupertinoIcons.settings),
                     const SizedBox(height: 16),
                     //Text("... then swipe down, and tap:",
                     Text("2.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    const PrivateDnsSettingGuideWidget(
-                        title: "VPN & Device Management"),
+                    PrivateDnsSettingGuideWidget(
+                        title: "family perms setting ios vpn".i18n),
                     const SizedBox(height: 16),
                     // Text("... next, tap:",
                     Text("3.",
                         style: TextStyle(color: context.theme.textSecondary)),
-                    const PrivateDnsSettingGuideWidget(
-                        title: "DNS",
+                    PrivateDnsSettingGuideWidget(
+                        title: "family perms setting ios dns".i18n,
                         icon: CupertinoIcons.ellipsis,
-                        edgeText: "Automatic"),
+                        edgeText: "family perms setting ios automatic".i18n),
                     const SizedBox(height: 16),
                     //Text("... and finally, select:",
                     Text("4.",
@@ -106,12 +108,12 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                         _openPerms.open();
                       },
                       color: context.theme.accent,
-                      child: const SizedBox(
+                      child: SizedBox(
                         height: 32,
                         child: Center(
                           child: Text(
-                            "Open Settings",
-                            style: TextStyle(
+                            "dnsprofile action open settings".i18n,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600),
                           ),

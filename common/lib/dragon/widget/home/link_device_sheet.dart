@@ -11,6 +11,7 @@ import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,12 +53,23 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
   _setDeviceTemplate({String? name, JsonProfile? profile}) async {
     await traceAs("setDeviceAdding", (trace) async {
       await _family.cancelLinkDevice(trace);
-      _payload = await _family.initiateLinkDevice(
-          trace, name ?? _generator.get(), profile, widget.device);
+      _payload = await _family.initiateLinkDevice(trace,
+          name ?? _getProbablyUniqueRandomName(), profile, widget.device);
     });
     setState(() {
       isReady = true;
     });
+  }
+
+  String _getProbablyUniqueRandomName() {
+    final existing = _family.devices.entries.map((e) => e.device.alias).toSet();
+    int attempts = 5;
+    String name = _generator.get();
+    while (attempts-- > 0) {
+      if (!existing.contains(name)) return name;
+      name = _generator.get();
+    }
+    return name;
   }
 
   @override
@@ -111,8 +123,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                       children: [
                         Text(
                             widget.device == null
-                                ? "Scan the QR code below with the device you want to add to your family. This screen will close once the device is detected."
-                                : "Scan the QR code below with the device that needs to be linked again. This screen will close once the device is detected.",
+                                ? "family link description new".i18n
+                                : "family link description again".i18n,
                             softWrap: true,
                             textAlign: TextAlign.justify,
                             style:
@@ -120,7 +132,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                       ],
                     ),
                   ),
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   _showQr
                       ? Column(
                           children: [
@@ -129,7 +141,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                                 : Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 24),
-                                    child: Text("DEVICE SETTINGS",
+                                    child: Text(
+                                        "family device label settings".i18n,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color:
@@ -158,14 +171,15 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                                             },
                                             icon: CupertinoIcons
                                                 .device_phone_portrait,
-                                            text: "Name",
+                                            text:
+                                                "account lease label name".i18n,
                                             trailing: Text(
                                                 _payload.device.alias,
                                                 style: TextStyle(
                                                     color: context
                                                         .theme.textSecondary)),
                                           ),
-                                          CommonDivider(),
+                                          const CommonDivider(),
                                           CommonItem(
                                             onTap: () {
                                               showSelectProfileDialog(context,
@@ -178,7 +192,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                                             },
                                             icon: CupertinoIcons
                                                 .person_crop_circle,
-                                            text: "Blocklist Profile",
+                                            text: "family stats label profile"
+                                                .i18n,
                                             trailing: Row(
                                               children: [
                                                 Icon(
@@ -188,7 +203,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                                                         _payload
                                                             .profile!.template),
                                                     size: 18),
-                                                SizedBox(width: 4),
+                                                const SizedBox(width: 4),
                                                 Text(
                                                     _payload
                                                         .profile!.displayAlias,
@@ -239,13 +254,15 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
               child: TopBar(
                 height: 58,
                 bottomPadding: 16,
-                title: widget.device == null ? "Add a device" : "Link a device",
+                title: widget.device == null
+                    ? "family device header add".i18n
+                    : "family device header link".i18n,
                 animateBg: true,
                 trailing: GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: CommonClickable(
                     onTap: () => Navigator.of(context).pop(),
-                    child: Text("Cancel",
+                    child: Text("universal action cancel".i18n,
                         style: TextStyle(color: context.theme.accent)),
                   ),
                 ),

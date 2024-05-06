@@ -107,7 +107,9 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/translations/
+    - assets/translations/ui/
+    - assets/translations/packs/
+    - assets/translations/packtags/
     - assets/videos/
 
   # An image asset can refer to one or more resolution-specific "variants", see

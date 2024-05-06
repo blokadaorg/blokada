@@ -59,17 +59,37 @@ class SmartHeaderState extends State<SmartHeader>
   List<Widget> _buildButtons(BuildContext context) {
     final list = <Widget>[];
 
-    if (!widget.phase.isLocked2()) {
-      list.add(SmartHeaderButton(
-          icon: CupertinoIcons.qrcode_viewfinder,
-          onTap: () async {
-            await traceAs("tappedScan", (trace) async {
-              await _stage.showModal(trace, StageModal.accountChange);
-            });
-          }));
-    }
+    //if (!widget.phase.isLocked2()) {
+    list.add(SmartHeaderButton(
+        icon: CupertinoIcons.qrcode_viewfinder,
+        onTap: () async {
+          await traceAs("tappedScan", (trace) async {
+            await _stage.showModal(trace, StageModal.accountChange);
+          });
+        }));
+    //}
 
     list.add(const Spacer());
+
+    if (!widget.phase.isLocked2() &&
+        widget.phase != FamilyPhase.linkedExpired &&
+        widget.phase != FamilyPhase.fresh) {
+      // list.add(SmartHeaderButton(
+      //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
+      //     onTap: () {
+      //       //_modal.set(StageModal.lock);
+      //       traceAs("tappedLock", (trace) async {
+      //         await _lock.autoLock(trace);
+      //       });
+      //     }));
+      list.add(SmartHeaderButton(
+          icon: CupertinoIcons.settings,
+          onTap: () {
+            Navigation.open(context, Paths.settings);
+          }));
+      list.add(const SizedBox(width: 4));
+    }
+
     list.add(SmartHeaderButton(
         icon: CupertinoIcons.question_circle,
         onTap: () {
@@ -83,25 +103,6 @@ class SmartHeaderState extends State<SmartHeader>
           //   builder: (context) => PaymentSheet(),
           // );
         }));
-
-    if (!widget.phase.isLocked2() &&
-        widget.phase != FamilyPhase.linkedExpired &&
-        widget.phase != FamilyPhase.fresh) {
-      // list.add(SmartHeaderButton(
-      //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
-      //     onTap: () {
-      //       //_modal.set(StageModal.lock);
-      //       traceAs("tappedLock", (trace) async {
-      //         await _lock.autoLock(trace);
-      //       });
-      //     }));
-      list.add(SizedBox(width: 4));
-      list.add(SmartHeaderButton(
-          icon: CupertinoIcons.settings,
-          onTap: () {
-            Navigation.open(context, Paths.settings);
-          }));
-    }
 
     return list;
   }

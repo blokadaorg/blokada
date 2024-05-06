@@ -18,6 +18,7 @@ import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
 import 'package:common/dragon/widget/stats/radial_segment.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
 import 'package:common/util/trace.dart';
@@ -76,14 +77,14 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
       primary: true,
       children: [
         SizedBox(height: getTopPadding(context)),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child:
-              Text("STATISTICS", style: TextStyle(fontWeight: FontWeight.w500)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text("family device label statistics".i18n,
+              style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("See the recent activity of this device.",
+          child: Text("family device brief statistics".i18n,
               style: TextStyle(color: context.theme.textSecondary)),
         ),
         SizedBox(
@@ -99,10 +100,10 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                 ignoring: true,
                 child: Column(
                   children: [
-                    const MiniCardHeader(
-                      text: "Activity",
+                    MiniCardHeader(
+                      text: "activity section header".i18n,
                       icon: CupertinoIcons.chart_bar,
-                      color: Color(0xff33c75a),
+                      color: const Color(0xff33c75a),
                       chevronIcon: Icons.chevron_right,
                     ),
                     const SizedBox(height: 4),
@@ -114,14 +115,14 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
           ),
         ),
         const SizedBox(height: 32),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Text("DEVICE SETTINGS",
-              style: TextStyle(fontWeight: FontWeight.w500)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text("family device label settings".i18n,
+              style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("Edit the blocking profile to apply for this device.",
+          child: Text("family device brief settings alt".i18n,
               style: TextStyle(color: context.theme.textSecondary)),
         ),
         Padding(
@@ -142,7 +143,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                               });
                             },
                             icon: CupertinoIcons.device_phone_portrait,
-                            text: "Name",
+                            text: "account lease label name".i18n,
                             trailing: Text(device.device.alias,
                                 style: TextStyle(
                                     color: context.theme.textSecondary)),
@@ -152,7 +153,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                         showSelectProfileDialog(context, device: device.device);
                       },
                       icon: CupertinoIcons.person_crop_circle,
-                      text: "Blocklist Profile",
+                      text: "family stats label profile".i18n,
                       trailing: Row(
                         children: [
                           Icon(getProfileIcon(device.profile.template),
@@ -172,9 +173,12 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                             arguments: device);
                       },
                       icon: CupertinoIcons.shield,
-                      text: "Blocklists",
+                      text: "family stats label blocklists alt".i18n,
                       trailing: Text(
-                          "${_selectedFilters.now.map((e) => e.options.length).sum()} selected",
+                          "family stats label blocklists count".i18n.withParams(
+                              _selectedFilters.now
+                                  .map((e) => e.options.length)
+                                  .sum()),
                           style: TextStyle(
                             color: context.theme.textSecondary,
                           )),
@@ -184,7 +188,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                     CommonItem(
                       onTap: () {},
                       icon: CupertinoIcons.time,
-                      text: "Pause blocking",
+                      text: "family stats label pause".i18n,
                       chevron: false,
                       trailing: CupertinoSwitch(
                         activeColor: context.theme.accent,
@@ -218,7 +222,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                   },
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Text("Link this device again",
+                  child: Text("family device action link".i18n,
                       style: TextStyle(
                           color: context.theme.textSecondary,
                           fontSize: 16,
@@ -241,8 +245,8 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                   },
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: const Text("Delete this device",
-                      style: TextStyle(
+                  child: Text("family device action delete".i18n,
+                      style: const TextStyle(
                           color: Colors.red,
                           fontSize: 16,
                           fontWeight: FontWeight.w500)),

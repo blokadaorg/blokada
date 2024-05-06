@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/route.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -165,11 +166,15 @@ class TopCommonBarState extends State<TopCommonBar> {
                           onTap: () {
                             ctrl.navigatorKey.currentState!.pop();
                           },
-                          child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
-                              style: TextStyle(
-                                  color: context.theme.accent,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w400)),
+                          child: SizedBox(
+                            width: 88,
+                            child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: context.theme.accent,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400)),
+                          ),
                         ),
                       ),
                     )
@@ -231,24 +236,24 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     if (route is StandardRoute) {
       final s = route.settings;
-      String title = "Home";
+      String title;
 
       switch (s.name) {
         case "/device":
           final device = s.arguments as FamilyDevice;
           title = device.displayName;
         case "/device/filters":
-          title = "Blocklists";
+          title = "family stats label blocklists".i18n;
         case "/device/stats":
-          title = "Activity";
+          title = "activity section header".i18n;
         case "/device/stats/detail":
-          title = "Details";
+          title = "family device title details".i18n;
         case "/settings":
-          title = "Settings";
+          title = "main tab settings".i18n;
         case "/settings/exceptions":
-          title = "My exceptions";
+          title = "family stats title".i18n;
         default:
-          title = "Home";
+          title = "main tab home".i18n;
       }
 
       if (userGesture) {

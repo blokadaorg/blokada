@@ -1,3 +1,4 @@
+import 'package:common/common/defaults/filter_option_decor_defaults.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
@@ -45,7 +46,7 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
             children: [
               TwoLetterIconWidget(name: widget.option.optionName, big: true),
               const SizedBox(width: 12.0),
-              Text(widget.option.optionName.firstLetterUppercase()),
+              Text(_getDecor(widget.option.optionName)),
               Expanded(child: Container()),
               CupertinoSwitch(
                 activeColor: context.theme.accent,
@@ -61,4 +62,8 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
           ),
         )),
       );
+
+  String _getDecor(String option) {
+    return filterOptionDecorDefaults[option] ?? option.firstLetterUppercase();
+  }
 }

@@ -140,7 +140,7 @@ class StatsFilterState extends State<StatsFilter> {
               });
             },
             icon: Icons.sort,
-            text: "Show most common first",
+            text: "family stats filter most common".i18n,
             chevron: false,
             trailing: CupertinoSwitch(
               activeColor: context.theme.accent,
