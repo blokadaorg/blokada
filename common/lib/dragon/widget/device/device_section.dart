@@ -79,7 +79,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
         SizedBox(height: getTopPadding(context)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label statistics".i18n,
+          child: Text("family device label statistics".i18n.capitalize(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
@@ -117,7 +117,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label settings".i18n,
+          child: Text("family device label settings".i18n.capitalize(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
