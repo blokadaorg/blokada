@@ -514,7 +514,7 @@
 "family onboard body" = "Postępuj zgodnie z instrukcjami na ekranie, aby skonfigurować pierwsze urządzenie.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
-"family cta action activate" = "Uruchom";
+"family cta action activate" = "Aktywuj";
 "family cta action add device" = "Dodaj urządzenie";
 "family cta action finish setup" = "Zakończ konfigurację";
 
@@ -673,7 +673,7 @@
 "family dialog brief profile" = "Wprowadź nazwę dla tego profilu.";
 "family dialog brief device" = "Wprowadź nazwę dla tego urządzenia.";
 
-"family search empty" = "Nie znaleziono pasujących do kryteriów wyszukiwania";
+"family search empty" = "Nie znaleziono wyników pasujących do kryteriów wyszukiwania";
 
 // How many times this host has been blocked
 "family activity blocked times" = "zablokowano %@ raz(y)";

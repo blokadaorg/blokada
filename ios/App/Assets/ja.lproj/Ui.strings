@@ -44,7 +44,7 @@
 "universal action cancel" = "キャンセル";
 "universal action close" = "閉じる";
 "universal action done" = "完了";
-"universal action edit" = "Edit";
+"universal action edit" = "編集";
 "universal action try again" = "もう一度やり直してください";
 "universal action learn more" = "詳細";
 "universal action help" = "ヘルプ";
@@ -511,7 +511,7 @@
 "family rename device" = "端末名を変更";
 "family label this device" = "この端末 (%@)";
 "family onboard header" = "Blokada Family にようこそ！";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "%s へようこそ！";
 "family onboard body" = "表示されるガイドに従って、最初の端末を設定しましょう。";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -624,19 +624,19 @@
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "自動";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family stats label reason" = "備考";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "ブロックリスト";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "プロファイル";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "ブロックリスト";
 
 // A label for the number of blocklists selected
 "family stats label blocklists alt" = "Blocklists in profile";

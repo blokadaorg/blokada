@@ -44,7 +44,7 @@
 "universal action cancel" = "Abbrechen";
 "universal action close" = "Schließen";
 "universal action done" = "Fertig";
-"universal action edit" = "Edit";
+"universal action edit" = "Ändern";
 "universal action try again" = "Erneut versuchen";
 "universal action learn more" = "Mehr erfahren";
 "universal action help" = "Hilfe";
@@ -510,7 +510,7 @@
 "family rename device" = "Gerät umbenennen";
 "family label this device" = "Dieses Gerät (%@)";
 "family onboard header" = "Willkommen bei der Blokada Familie!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Willkommen bei %s!";
 "family onboard body" = "Folgen Sie den Anweisungen auf dem Bildschirm, um Ihr erstes Gerät einzurichten.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -524,15 +524,15 @@
 "family status ready body" = "Füge dein erstes Gerät jetzt hinzu";
 "family status perms header" = "Fast geschafft!";
 "family status perms body" = "Bitte erteilen Sie die notwendigen Berechtigungen";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Tippen, um die Einrichtungsprozedur abzuschließen";
 "family status expired header" = "Konto abgelaufen";
 "family status expired body" = "Bitte aktivieren Sie Ihr Konto um fortzufahren";
 "family status linked header" = "App ist verlinkt!";
 "family status locked header" = "App ist gesperrt";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Mit Pin sperren";
+"family settings lock enter" = "Neuen Pin eingeben";
+"family settings lock remove" = "Pin entfernen";
 
 "family payment slug" = "Schützen Sie Ihre gesamte Familie mit einem Abonnement. Überwachen und schützen Sie alle Geräte der Familie vor unerwünschten Inhalten.";
 "family payment features devices header" = "Produktüberwachung";
@@ -572,124 +572,124 @@
 "toplist tld unknown" = "unbekannt";
 
 "family notification subtitle" = "Familienschutz aus";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Dieses Gerät ist bereits verknüpft. Bitte entfernen Sie die Verknüpfung mit der übergeordneten App und versuchen Sie es erneut.";
+"family profile dialog header" = "Wähle ein Profil für %@.";
+"family profile dialog header this" = "Wählen Sie ein Profil für dieses Gerät.";
+"family profile add" = "Welches Profil möchten Sie hinzufügen?";
+"family profile template" = "Wählen Sie eine Vorlage für den Start aus.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Elternteil";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Kind";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Eigene";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Neues Profil hinzufügen";
+"family profile action delete" = "Dieses Profil entfernen";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Dieses Profil wird derzeit verwendet. Bitte stellen Sie sicher, dass kein Gerät es vor dem Löschen verwendet.";
+"family profile error" = "Fehler beim Löschen dieses Profils.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ Profil";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Profil auswählen";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "STATISTIKEN";
+"family device brief statistics" = "Sehen Sie sich die jüngste Aktivität dieses Geräts an.";
+"family device label settings" = "GERÄTE EINSTELLUNGEN";
+"family device brief settings alt" = "Blockierungseinstellungen für dieses Gerät verwalten.";
+"family device action link" = "Dieses Gerät erneut verbinden";
+"family device action delete" = "Dieses Gerät entfernen";
+"family device delete confirm" = "Sind Sie sicher, dass Sie %@löschen möchten? Dadurch wird das Gerät von Ihrem Konto entfernt.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Gerät hinzufügen";
+"family device header link" = "Gerät verknüpfen";
 
-"family perms header" = "One more thing";
+"family perms header" = "Noch eine Sache";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Aktiviere '%@' in den Einstellungen, indem du wie unten gezeigt navigierst.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Allgemein";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN und Geräteverwaltung";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automatisch";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family stats label reason" = "Begründung";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "Sperrliste";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Profil";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Sperrlisten";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Sperrlisten im Profil";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ ausgewählt";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Blockieren pausieren";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Unbekannt";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Keine";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Am häufigsten zuerst anzeigen";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Von Meinen Ausnahmen entfernen";
+"family stats exceptions add" = "Zu Meinen Ausnahmen hinzufügen";
+"family stats title" = "Meine Ausnahmen";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Scannen Sie den QR-Code unten, um ein Gerät Ihrer Familie hinzuzufügen. Dieser Bildschirm wird automatisch geschlossen, sobald das Gerät erkannt wurde.";
+"family link description again" = "Scannen Sie den QR-Code unten, um ein Gerät erneut zu verbinden. Dieser Bildschirm wird automatisch geschlossen, sobald das Gerät erkannt wurde.";
+"family qr brief" = "Scannen Sie den QR-Code, der auf dem übergeordneten Gerät angezeigt wird";
 
 // A section name for details of device activity
 "family device title details" = "Details";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Neues Profil";
+"family dialog title rename profile" = "Profil umbenennen";
+"family dialog title new device" = "Neues Gerät";
+"family dialog title rename device" = "Gerät umbenennen";
+"family dialog brief profile" = "Geben Sie einen Namen für dieses Profil ein.";
+"family dialog brief device" = "Geben Sie einen Namen für dieses Gerät ein.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Keine Treffer für Ihre Suchkriterien gefunden";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "hat %@ mal blockiert";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "erlaubte %@ mal";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Dieses Gerät mit dem übergeordneten Gerät verwalten.";
+"family status qr body" = "Scannen Sie den QR-Code, um dieses Gerät zu verknüpfen.";
+"family status active header" = "Aktiv!";
+"family status active body" = "Tippen Sie auf das Gerät für weitere Details.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Verknüpfen";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Entsperren";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.";

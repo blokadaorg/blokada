@@ -56,7 +56,7 @@
 "Protects against malicious software" = "悪意のあるソフトウェアから保護します";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "悪意のあるソフトウェアや有害なウェブサイトから保護します。サイバー空間の脅威から安全を確保する盾となります。";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "成人向けコンテンツ";
 "Blocks adult and pornographic content" = "成人向けコンテンツとポルノをブロックします";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "より安全なオンライン体験のための成人向けコンテンツを対象としたフィルターです。露骨な描写や潜在的なリスクからユーザーを保護します。";
 // Name of the Dating shield
@@ -104,5 +104,5 @@
 "A selection of various popular applications" = "様々な人気のアプリのコレクションです";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "このシールドは、さまざまな種類の人気のアプリのリストを提供します。より包括的なアプリコントロールを目指すユーザーのために作成されました。";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Safe search" = "セーフサーチ";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "セーフサーチを有効にして検索エンジンで不適切な検索結果を除外すると、フィルタリング非対応の検索エンジンをブロックするオプションも提供します。";

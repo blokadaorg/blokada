@@ -56,7 +56,7 @@
 "Protects against malicious software" = "Protectos contra software malicioso";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Defiende contra el software malicioso y los sitios web perjudiciales. Proporciona un escudo seguro contra un espectro de amenazas cibernéticas.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "Contenido adulto";
 "Blocks adult and pornographic content" = "Bloques de contenido pornográfico y adulto";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Este filtro apunta al contenido para adultos para una experiencia en línea más segura. Protege a los usuarios de materiales explícitos y riesgos potenciales.";
 // Name of the Dating shield
@@ -104,5 +104,5 @@
 "A selection of various popular applications" = "Una selección de varias aplicaciones populares";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Este escudo proporciona una lista de aplicaciones populares de varios tipos. Está creado para usuarios que apuntan a un control de aplicaciones más completo.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Safe search" = "Búsqueda segura";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Habilitar búsqueda segura para filtrar resultados de búsqueda inapropiados en los motores de búsqueda, también proporciona la opción de bloquear motores de búsqueda no soportados que no pueden ser filtrados.";
