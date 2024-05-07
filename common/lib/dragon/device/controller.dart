@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/dragon/device/generator.dart';
 import 'package:common/dragon/profile/controller.dart';
+import 'package:common/service/I18nService.dart';
 
 import '../../common/model.dart';
 import '../../util/di.dart';
@@ -48,7 +49,9 @@ class DeviceController {
     // A new device needs to be created
     if (tag == null || existing == null) {
       // Create a new profile for this device
-      final p = await _profiles.addProfile("parent", "Parent", canReuse: true);
+      final p = await _profiles.addProfile(
+          "parent", "family profile name parent".i18n,
+          canReuse: true);
 
       // Create a new device with that profile
       final newDevice = await _devices.add(JsonDevicePayload.forCreate(
@@ -86,8 +89,9 @@ class DeviceController {
   }
 
   Future<LinkingDevice> addDevice(String alias, JsonProfile? profile) async {
-    final p =
-        profile ?? await _profiles.addProfile("child", "Child", canReuse: true);
+    final p = profile ??
+        await _profiles.addProfile("child", "family profile name child".i18n,
+            canReuse: true);
 
     final d = await _devices.add(JsonDevicePayload.forCreate(
       alias: alias,

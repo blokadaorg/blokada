@@ -188,11 +188,15 @@ class TopCommonBarState extends State<TopCommonBar> {
                           onTap: () {
                             ctrl.navigatorKey.currentState!.pop();
                           },
-                          child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
-                              style: TextStyle(
-                                  color: context.theme.accent,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w400)),
+                          child: SizedBox(
+                            width: 88,
+                            child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: context.theme.accent,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400)),
+                          ),
                         ),
                       ),
                     )

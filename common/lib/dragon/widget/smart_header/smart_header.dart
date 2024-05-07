@@ -60,13 +60,13 @@ class SmartHeaderState extends State<SmartHeader>
     final list = <Widget>[];
 
     //if (!widget.phase.isLocked2()) {
-    list.add(SmartHeaderButton(
-        icon: CupertinoIcons.qrcode_viewfinder,
-        onTap: () async {
-          await traceAs("tappedScan", (trace) async {
-            await _stage.showModal(trace, StageModal.accountChange);
-          });
-        }));
+    // list.add(SmartHeaderButton(
+    //     icon: CupertinoIcons.qrcode_viewfinder,
+    //     onTap: () async {
+    //       await traceAs("tappedScan", (trace) async {
+    //         await _stage.showModal(trace, StageModal.accountChange);
+    //       });
+    //     }));
     //}
 
     list.add(const Spacer());

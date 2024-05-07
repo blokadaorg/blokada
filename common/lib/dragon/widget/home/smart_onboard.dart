@@ -226,7 +226,7 @@ class SmartOnboardState extends State<SmartOnboard>
             FamilyPhase.noPerms:
         return [
           "family status perms header".i18n,
-          "${"family status perms body".i18n}\n\n",
+          "${"family status perms body alt".i18n}\n\n",
         ];
       case FamilyPhase.lockedNoAccount:
         return [
