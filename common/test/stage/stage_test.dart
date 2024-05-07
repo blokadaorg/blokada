@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/dragon/scheduler.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/async.dart';
@@ -10,6 +11,7 @@ import 'package:mockito/annotations.dart';
 import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<StageOps>(),
+  MockSpec<Scheduler>(),
 ])
 import 'stage_test.mocks.dart';
 
@@ -19,6 +21,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         await subject.setReady(trace, true);
@@ -38,6 +41,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         await subject.setReady(trace, true);
@@ -59,6 +63,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         await subject.setReady(trace, true);
@@ -85,6 +90,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         await subject.setReady(trace, true);
@@ -127,6 +133,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
 
@@ -161,6 +168,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
 
@@ -180,7 +188,7 @@ void main() {
     test("basicTest", () async {
       await withTrace((trace) async {
         // Init state (background)
-        dynamic route = StageRouteState.init();
+        StageRouteState route = StageRouteState.init();
 
         expect(route.isForeground(), false);
         expect(route.isBecameForeground(), false);
@@ -230,7 +238,7 @@ void main() {
         expect(route.isBecameTab(StageTab.settings), false);
         expect(route.isTab(StageTab.settings), true);
         expect(route.isMainRoute(), false);
-        expect(route.route.fromPayload, "account");
+        expect(route.route.payload, "account");
 
         // Background
         route = route.newBg();

@@ -1,4 +1,5 @@
 import 'package:common/account/account.dart';
+import 'package:common/dragon/family/family.dart';
 import 'package:common/env/env.dart';
 import 'package:common/link/channel.pg.dart';
 import 'package:common/link/link.dart';
@@ -14,6 +15,7 @@ import '../tools.dart';
   MockSpec<AccountStore>(),
   MockSpec<LockStore>(),
   MockSpec<EnvStore>(),
+  MockSpec<FamilyStore>(),
 ])
 import 'link_test.mocks.dart';
 
@@ -23,6 +25,7 @@ void main() {
       await withTrace((trace) async {
         depend<AccountStore>(MockAccountStore());
         depend<LockStore>(MockLockStore());
+        depend<FamilyStore>(MockFamilyStore());
 
         final env = MockEnvStore();
         when(env.userAgent).thenReturn("mocked user agent");

@@ -79,11 +79,13 @@ class StageRouteState {
   StageRouteState.init()
       : this(_background, StageRoute.forTab(StageTab.home), null, null, {});
 
-  newBg() => StageRouteState(_background, route, modal, modal, _tabStates);
+  StageRouteState newBg() =>
+      StageRouteState(_background, route, modal, modal, _tabStates);
 
-  newFg() => StageRouteState(_prevRoute, _background, modal, modal, _tabStates);
+  StageRouteState newFg() =>
+      StageRouteState(_prevRoute, _background, modal, modal, _tabStates);
 
-  newRoute(StageRoute route) {
+  StageRouteState newRoute(StageRoute route) {
     // Restore the state for this tab if exists
     if (route.tab != this.route.tab && route.payload == null && modal == null) {
       if (_tabStates.containsKey(route.tab)) {
@@ -100,10 +102,10 @@ class StageRouteState {
     return StageRouteState(route, this.route, modal, modal, _tabStates);
   }
 
-  newModal(StageModal? modal) =>
+  StageRouteState newModal(StageModal? modal) =>
       StageRouteState(route, route, modal, this.modal, _tabStates);
 
-  newTab(StageTab tab) =>
+  StageRouteState newTab(StageTab tab) =>
       StageRouteState(StageRoute.forTab(tab), route, modal, modal, _tabStates);
 
   bool isForeground() => route != _background;
@@ -250,7 +252,7 @@ abstract class StageStoreBase
 
         if (!newRoute.isMainRoute()) {
           trace.addEvent("modal: ${newRoute.modal}");
-          trace.addEvent("payload: ${newRoute.route.fromPayload}");
+          trace.addEvent("payload: ${newRoute.route.payload}");
         }
         route = newRoute;
         await emitValue(routeChanged, trace, newRoute);

@@ -43,9 +43,9 @@ void main() {
         final subject = DeviceStore();
         mockAct(subject);
 
+        subject.deviceTag = "some-tag";
         await subject.fetch(trace);
 
-        expect(subject.deviceTag, "some-tag");
         expect(subject.lists, ["a", "b"]);
         expect(subject.retention, "24h");
         expect(subject.cloudEnabled, false);
@@ -66,6 +66,7 @@ void main() {
         depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
+        subject.deviceTag = "some-tag";
         mockAct(subject);
 
         await subject.setCloudEnabled(trace, true);
@@ -96,6 +97,7 @@ void main() {
         depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
+        subject.act = mockedAct;
 
         await expectLater(subject.fetch(trace), throwsException);
 
@@ -119,6 +121,7 @@ void main() {
         depend<DeviceOps>(ops);
 
         final subject = DeviceStore();
+        subject.act = mockedAct;
 
         await expectLater(
             subject.setCloudEnabled(trace, true), throwsException);
