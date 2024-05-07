@@ -372,22 +372,80 @@ internal enum L10n {
   internal static let familyAccountQrBody = L10n.tr("Ui", "family account qr body")
   /// Scan QR code
   internal static let familyAccountQrHeader = L10n.tr("Ui", "family account qr header")
+  /// Enter your account ID to restore your purchases.
+  internal static let familyAccountRestoreDesc = L10n.tr("Ui", "family account restore desc")
+  /// allowed %@ times
+  internal static func familyActivityAllowedTimes(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family activity allowed times", String(describing: p1))
+  }
+  /// blocked %@ times
+  internal static func familyActivityBlockedTimes(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family activity blocked times", String(describing: p1))
+  }
   /// Activate
   internal static let familyCtaActionActivate = L10n.tr("Ui", "family cta action activate")
   /// Add a device
   internal static let familyCtaActionAddDevice = L10n.tr("Ui", "family cta action add device")
   /// Finish setup
   internal static let familyCtaActionFinishSetup = L10n.tr("Ui", "family cta action finish setup")
+  /// Link
+  internal static let familyCtaActionLink = L10n.tr("Ui", "family cta action link")
+  /// Unlock
+  internal static let familyCtaActionUnlock = L10n.tr("Ui", "family cta action unlock")
+  /// Delete this device
+  internal static let familyDeviceActionDelete = L10n.tr("Ui", "family device action delete")
+  /// Link this device again
+  internal static let familyDeviceActionLink = L10n.tr("Ui", "family device action link")
+  /// Manage blocking settings for this device.
+  internal static let familyDeviceBriefSettingsAlt = L10n.tr("Ui", "family device brief settings alt")
+  /// See the recent activity of this device.
+  internal static let familyDeviceBriefStatistics = L10n.tr("Ui", "family device brief statistics")
+  /// Are you sure you want to delete %@? This will unlink the device from your account.
+  internal static func familyDeviceDeleteConfirm(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family device delete confirm", String(describing: p1))
+  }
+  /// Add a device
+  internal static let familyDeviceHeaderAdd = L10n.tr("Ui", "family device header add")
+  /// Link a device
+  internal static let familyDeviceHeaderLink = L10n.tr("Ui", "family device header link")
+  /// DEVICE SETTINGS
+  internal static let familyDeviceLabelSettings = L10n.tr("Ui", "family device label settings")
+  /// STATISTICS
+  internal static let familyDeviceLabelStatistics = L10n.tr("Ui", "family device label statistics")
+  /// Details
+  internal static let familyDeviceTitleDetails = L10n.tr("Ui", "family device title details")
+  /// Enter a name for this device.
+  internal static let familyDialogBriefDevice = L10n.tr("Ui", "family dialog brief device")
+  /// Enter a name for this profile.
+  internal static let familyDialogBriefProfile = L10n.tr("Ui", "family dialog brief profile")
+  /// New device
+  internal static let familyDialogTitleNewDevice = L10n.tr("Ui", "family dialog title new device")
+  /// New profile
+  internal static let familyDialogTitleNewProfile = L10n.tr("Ui", "family dialog title new profile")
+  /// Rename device
+  internal static let familyDialogTitleRenameDevice = L10n.tr("Ui", "family dialog title rename device")
+  /// Rename profile
+  internal static let familyDialogTitleRenameProfile = L10n.tr("Ui", "family dialog title rename profile")
+  /// This device is already linked. Please unlink it using the parent app and try again.
+  internal static let familyFaultLinkAlready = L10n.tr("Ui", "family fault link already")
   /// This device (%@)
   internal static func familyLabelThisDevice(_ p1: Any) -> String {
     return L10n.tr("Ui", "family label this device", String(describing: p1))
   }
+  /// Scan the QR code below to link a device again. This screen will close automatically once the device is detected.
+  internal static let familyLinkDescriptionAgain = L10n.tr("Ui", "family link description again")
+  /// Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.
+  internal static let familyLinkDescriptionNew = L10n.tr("Ui", "family link description new")
   /// Family protection is off
   internal static let familyNotificationSubtitle = L10n.tr("Ui", "family notification subtitle")
   /// Follow the instructions on screen to set up your first device.
   internal static let familyOnboardBody = L10n.tr("Ui", "family onboard body")
   /// Welcome to Blokada Family!
   internal static let familyOnboardHeader = L10n.tr("Ui", "family onboard header")
+  /// Welcome to %s!
+  internal static func familyOnboardHeaderBrand(_ p1: UnsafePointer<CChar>) -> String {
+    return L10n.tr("Ui", "family onboard header brand", p1)
+  }
   /// Activating Blokada won't drain your battery. It might actually help it last longer by blocking unnecessary background activities.
   internal static let familyPaymentFeaturesBatteryBody = L10n.tr("Ui", "family payment features battery body")
   /// Manage and monitor all your devices through a single app. Control access and content filtering directly from your device.
@@ -400,12 +458,98 @@ internal enum L10n {
   internal static let familyPaymentFeaturesPerformanceBody = L10n.tr("Ui", "family payment features performance body")
   /// Protect your entire family with one subscription. Monitor and protect all family devices from unwanted content.
   internal static let familyPaymentSlug = L10n.tr("Ui", "family payment slug")
+  /// Activate '%@' in Settings by navigating as shown below.
+  internal static func familyPermsBriefAlt(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family perms brief alt", String(describing: p1))
+  }
+  /// One more thing
+  internal static let familyPermsHeader = L10n.tr("Ui", "family perms header")
+  /// Automatic
+  internal static let familyPermsSettingIosAutomatic = L10n.tr("Ui", "family perms setting ios automatic")
+  /// DNS
+  internal static let familyPermsSettingIosDns = L10n.tr("Ui", "family perms setting ios dns")
+  /// General
+  internal static let familyPermsSettingIosGeneral = L10n.tr("Ui", "family perms setting ios general")
+  /// VPN & Device Management
+  internal static let familyPermsSettingIosVpn = L10n.tr("Ui", "family perms setting ios vpn")
+  /// Add new profile
+  internal static let familyProfileActionAdd = L10n.tr("Ui", "family profile action add")
+  /// Remove this profile
+  internal static let familyProfileActionDelete = L10n.tr("Ui", "family profile action delete")
+  /// Select profile
+  internal static let familyProfileActionSelect = L10n.tr("Ui", "family profile action select")
+  /// Which profile would you like to add?
+  internal static let familyProfileAdd = L10n.tr("Ui", "family profile add")
+  /// Select a profile to use for %@.
+  internal static func familyProfileDialogHeader(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family profile dialog header", String(describing: p1))
+  }
+  /// Select a profile to use for this device.
+  internal static let familyProfileDialogHeaderThis = L10n.tr("Ui", "family profile dialog header this")
+  /// Failed to delete this profile.
+  internal static let familyProfileError = L10n.tr("Ui", "family profile error")
+  /// This profile is currently in use. Ensure no device is using it before deletion.
+  internal static let familyProfileErrorUse = L10n.tr("Ui", "family profile error use")
+  /// Child
+  internal static let familyProfileNameChild = L10n.tr("Ui", "family profile name child")
+  /// Custom
+  internal static let familyProfileNameCustom = L10n.tr("Ui", "family profile name custom")
+  /// Parent
+  internal static let familyProfileNameParent = L10n.tr("Ui", "family profile name parent")
+  /// Choose a template to get started.
+  internal static let familyProfileTemplate = L10n.tr("Ui", "family profile template")
+  /// %@ Profile
+  internal static func familyProfileTemplateName(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family profile template name", String(describing: p1))
+  }
+  /// Scan the QR code displayed on the parent device
+  internal static let familyQrBrief = L10n.tr("Ui", "family qr brief")
   /// Rename device
   internal static let familyRenameDevice = L10n.tr("Ui", "family rename device")
+  /// No matches found for your search criteria
+  internal static let familySearchEmpty = L10n.tr("Ui", "family search empty")
+  /// Enter your new pin
+  internal static let familySettingsLockEnter = L10n.tr("Ui", "family settings lock enter")
+  /// Lock with pin
+  internal static let familySettingsLockPin = L10n.tr("Ui", "family settings lock pin")
+  /// Remove pin
+  internal static let familySettingsLockRemove = L10n.tr("Ui", "family settings lock remove")
   /// Manage your own custom entries to block or allow.
   internal static let familyShieldsCustomSlug = L10n.tr("Ui", "family shields custom slug")
   /// Activate shields to block access to selected content on your supervised devices.
   internal static let familyShieldsHeader = L10n.tr("Ui", "family shields header")
+  /// Add to My exceptions
+  internal static let familyStatsExceptionsAdd = L10n.tr("Ui", "family stats exceptions add")
+  /// Remove from My exceptions
+  internal static let familyStatsExceptionsRemove = L10n.tr("Ui", "family stats exceptions remove")
+  /// Show most common first
+  internal static let familyStatsFilterMostCommon = L10n.tr("Ui", "family stats filter most common")
+  /// Blocklist
+  internal static let familyStatsLabelBlocklist = L10n.tr("Ui", "family stats label blocklist")
+  /// Blocklists
+  internal static let familyStatsLabelBlocklists = L10n.tr("Ui", "family stats label blocklists")
+  /// Blocklists in profile
+  internal static let familyStatsLabelBlocklistsAlt = L10n.tr("Ui", "family stats label blocklists alt")
+  /// %@ selected
+  internal static func familyStatsLabelBlocklistsCount(_ p1: Any) -> String {
+    return L10n.tr("Ui", "family stats label blocklists count", String(describing: p1))
+  }
+  /// None
+  internal static let familyStatsLabelNone = L10n.tr("Ui", "family stats label none")
+  /// Pause blocking
+  internal static let familyStatsLabelPause = L10n.tr("Ui", "family stats label pause")
+  /// Profile
+  internal static let familyStatsLabelProfile = L10n.tr("Ui", "family stats label profile")
+  /// Unknown
+  internal static let familyStatsLabelProfileUnknown = L10n.tr("Ui", "family stats label profile unknown")
+  /// Reason
+  internal static let familyStatsLabelReason = L10n.tr("Ui", "family stats label reason")
+  /// My exceptions
+  internal static let familyStatsTitle = L10n.tr("Ui", "family stats title")
+  /// Tap on the device for more details.
+  internal static let familyStatusActiveBody = L10n.tr("Ui", "family status active body")
+  /// Active!
+  internal static let familyStatusActiveHeader = L10n.tr("Ui", "family status active header")
   /// Please activate your account to continue
   internal static let familyStatusExpiredBody = L10n.tr("Ui", "family status expired body")
   /// Account expired
@@ -414,14 +558,20 @@ internal enum L10n {
   internal static let familyStatusFreshBody = L10n.tr("Ui", "family status fresh body")
   /// Hi there!
   internal static let familyStatusFreshHeader = L10n.tr("Ui", "family status fresh header")
+  /// Manage this device using the parent device.
+  internal static let familyStatusLinkedBody = L10n.tr("Ui", "family status linked body")
   /// App is linked!
   internal static let familyStatusLinkedHeader = L10n.tr("Ui", "family status linked header")
   /// App is locked
   internal static let familyStatusLockedHeader = L10n.tr("Ui", "family status locked header")
   /// Please grant the necessary permissions
   internal static let familyStatusPermsBody = L10n.tr("Ui", "family status perms body")
+  /// Tap to finish the setup procedure
+  internal static let familyStatusPermsBodyAlt = L10n.tr("Ui", "family status perms body alt")
   /// Almost there!
   internal static let familyStatusPermsHeader = L10n.tr("Ui", "family status perms header")
+  /// Scan the QR code to link this device.
+  internal static let familyStatusQrBody = L10n.tr("Ui", "family status qr body")
   /// Add your first device now
   internal static let familyStatusReadyBody = L10n.tr("Ui", "family status ready body")
   /// App is ready!
@@ -854,6 +1004,8 @@ internal enum L10n {
   internal static let universalActionDone = L10n.tr("Ui", "universal action done")
   /// Download
   internal static let universalActionDownload = L10n.tr("Ui", "universal action download")
+  /// Edit
+  internal static let universalActionEdit = L10n.tr("Ui", "universal action edit")
   /// Filter
   internal static let universalActionFilter = L10n.tr("Ui", "universal action filter")
   /// Help

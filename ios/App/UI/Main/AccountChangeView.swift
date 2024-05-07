@@ -176,7 +176,7 @@ struct AccountChangeScanView: View {
             }
             
             VStack {
-                Text("Scan the QR code displayed on the parent device.")
+                Text(L10n.familyQrBrief)
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)

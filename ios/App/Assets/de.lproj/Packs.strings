@@ -56,7 +56,7 @@
 "Protects against malicious software" = "Schützt vor böswilliger Software";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Schützt böswillige Software und schädliche Websites. Bietet einen sicheren Schutz gegen ein Spektrum von Cyber-Bedrohungen.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "Inhalt für Erwachsene";
 "Blocks adult and pornographic content" = "Blockiert erwachsene und pornografische Inhalte";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Dieser Filter richtet sich an erwachsene Inhalte für ein sichereres Online-Erlebnis und schützt die Nutzer vor expliziten Materialien und potenziellen Risiken.";
 // Name of the Dating shield
@@ -104,5 +104,5 @@
 "A selection of various popular applications" = "Eine Auswahl verschiedener beliebter Anwendungen";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Dieser Schild bietet eine Liste beliebter Apps verschiedener Art. Er wird für Benutzer erstellt, die eine umfassendere App-Steuerung anstreben.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Safe search" = "Sichere Suche";
+"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Aktivieren Sie die sichere Suche, um unangemessene Suchergebnisse in Suchmaschinen herauszufiltern, bietet auch die Möglichkeit, nicht unterstützte Suchmaschinen zu blockieren, die nicht gefiltert werden können.";
