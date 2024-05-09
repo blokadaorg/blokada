@@ -274,6 +274,7 @@ abstract class FamilyStoreBase
       final deviceTag = await _auth.useToken(token);
       print("received proper token for device: $deviceTag: $token");
       await _device.setThisDeviceForLinked(deviceTag, token);
+      _auth.startHeartbeat();
       linkedMode = true;
       linkedTokenOk = true;
       traceAs("dismissAfterLink", (trace) async {

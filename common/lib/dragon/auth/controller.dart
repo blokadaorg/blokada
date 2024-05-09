@@ -31,7 +31,6 @@ class AuthController {
   Future<DeviceTag> useToken(String token) async {
     final payload = await _startMonitoringTokenExpiry(token);
     _currentToken.now = token;
-    _startHeartbeat();
     return payload.deviceTag;
   }
 
@@ -81,7 +80,7 @@ class AuthController {
     }
   }
 
-  _startHeartbeat() async {
+  startHeartbeat() async {
     final token = _currentToken.now;
     if (token == null) return;
     _scheduler.addOrUpdate(
