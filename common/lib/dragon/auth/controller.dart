@@ -3,7 +3,9 @@ import 'package:common/dragon/account/account_id.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/device/current_token.dart';
 import 'package:common/dragon/scheduler.dart';
+import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
+import 'package:common/util/trace.dart';
 
 const _keyRefresh = "authRefreshToken";
 const _keyHeartbeat = "authHeartbeat";
@@ -14,16 +16,28 @@ class AuthController {
   late final _accountId = dep<AccountId>();
   late final _currentToken = dep<CurrentToken>();
   late final _scheduler = dep<Scheduler>();
+  late final _stage = dep<StageStore>();
 
   Function() onTokenRefreshed = () {};
   Function() onTokenExpired = () {};
 
   start() async {
+    await _recheckToken();
+    _stage.addOnValue(routeChanged, onRouteChanged);
+  }
+
+  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+    if (!route.isBecameForeground()) return;
+    _recheckToken();
+  }
+
+  _recheckToken() async {
     final token = await _currentToken.fetch();
     if (token != null) {
       print("current token is $token");
       try {
         useToken(token);
+        startHeartbeat();
       } catch (_) {}
     }
   }
