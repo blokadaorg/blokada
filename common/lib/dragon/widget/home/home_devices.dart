@@ -2,13 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/common/widget/touch.dart';
 import 'package:common/dragon/family/devices.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/home_device.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
+import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
@@ -59,90 +59,123 @@ class HomeDevicesState extends State<HomeDevices>
   Widget build(BuildContext context) {
     final devices = _getDevices(context);
 
-    if (devices.length <= 10) {
-      return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[] +
-              devices +
-              [
-                _buildAddDeviceButton2(context),
-              ] // +
-          //devices,
-          );
+    if (!isTabletMode(context) || devices.length < 2) {
+      // One pane view
+      return Container(
+        constraints: const BoxConstraints(maxWidth: maxContentWidth),
+        child: ListView(
+          reverse: true,
+          children: [_buildAddDeviceButton(context)] + devices,
+        ),
+      );
+    } else {
+      // Two pane view
+      return Container(
+        constraints: const BoxConstraints(maxWidth: maxContentWidth * 2),
+        child: ListView(
+          reverse: true,
+          children: [
+            _buildAddDeviceButton(context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Column(
+                  children: List.generate(
+                      (devices.length / 2).floor(),
+                      (index) => SizedBox(
+                            width: maxContentWidth,
+                            child:
+                                devices[(devices.length - 1) - (2 * index + 1)],
+                          )),
+                ),
+                Column(
+                  children: List.generate(
+                      (devices.length / 2).ceil(),
+                      (index) => SizedBox(
+                            width: maxContentWidth,
+                            child: devices[(devices.length - 1) - (2 * index)],
+                          )),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
     }
 
     // Group devices in pairs and allow vertical carousel scrolling
-    final d = devices.reversed.toList();
-    final pairs = Iterable.generate((d.length / 2).ceil(), (index) => index * 2)
-        .map((i) =>
-            _pairWidget(d.sublist(i, i + 2 >= d.length ? d.length : i + 2)))
-        .toList();
-
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-          child: Row(
-            children: [
-              _buildAddDeviceButton(context),
-              const Spacer(),
-              Touch(
-                  onTap: () {
-                    _carouselCtrl.nextPage();
-                  },
-                  decorationBuilder: (value) {
-                    return BoxDecoration(
-                      color: context.theme.bgMiniCard.withOpacity(value),
-                      borderRadius: BorderRadius.circular(4),
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Icon(
-                      CupertinoIcons.chevron_up,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  )),
-              Touch(
-                  onTap: () {
-                    _carouselCtrl.previousPage();
-                  },
-                  decorationBuilder: (value) {
-                    return BoxDecoration(
-                      color: context.theme.bgMiniCard.withOpacity(value),
-                      borderRadius: BorderRadius.circular(4),
-                    );
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Icon(
-                      CupertinoIcons.chevron_down,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  )),
-            ],
-          ),
-        ),
-        CarouselSlider(
-            items: d.sublist(1),
-            carouselController: _carouselCtrl,
-            options: CarouselOptions(
-              height: 186,
-              //aspectRatio: 16 / 9,
-              viewportFraction: 1.0,
-              initialPage: d.length - 1 - 1,
-              enableInfiniteScroll: true,
-              reverse: true,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 10),
-              enlargeCenterPage: false,
-              scrollDirection: Axis.vertical,
-            )),
-        d.first,
-      ],
-    );
+    // final d = devices.reversed.toList();
+    // final pairs = Iterable.generate((d.length / 2).ceil(), (index) => index * 2)
+    //     .map((i) =>
+    //         _pairWidget(d.sublist(i, i + 2 >= d.length ? d.length : i + 2)))
+    //     .toList();
+    //
+    // return Column(
+    //   children: [
+    //     Padding(
+    //       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+    //       child: Row(
+    //         children: [
+    //           _buildAddDeviceButton(context),
+    //           const Spacer(),
+    //           Touch(
+    //               onTap: () {
+    //                 _carouselCtrl.nextPage();
+    //               },
+    //               decorationBuilder: (value) {
+    //                 return BoxDecoration(
+    //                   color: context.theme.bgMiniCard.withOpacity(value),
+    //                   borderRadius: BorderRadius.circular(4),
+    //                 );
+    //               },
+    //               child: const Padding(
+    //                 padding: EdgeInsets.all(4.0),
+    //                 child: Icon(
+    //                   CupertinoIcons.chevron_up,
+    //                   size: 18,
+    //                   color: Colors.white,
+    //                 ),
+    //               )),
+    //           Touch(
+    //               onTap: () {
+    //                 _carouselCtrl.previousPage();
+    //               },
+    //               decorationBuilder: (value) {
+    //                 return BoxDecoration(
+    //                   color: context.theme.bgMiniCard.withOpacity(value),
+    //                   borderRadius: BorderRadius.circular(4),
+    //                 );
+    //               },
+    //               child: const Padding(
+    //                 padding: EdgeInsets.all(4.0),
+    //                 child: Icon(
+    //                   CupertinoIcons.chevron_down,
+    //                   size: 18,
+    //                   color: Colors.white,
+    //                 ),
+    //               )),
+    //         ],
+    //       ),
+    //     ),
+    //     CarouselSlider(
+    //         items: d.sublist(1),
+    //         carouselController: _carouselCtrl,
+    //         options: CarouselOptions(
+    //           height: 186,
+    //           //aspectRatio: 16 / 9,
+    //           viewportFraction: 1.0,
+    //           initialPage: d.length - 1 - 1,
+    //           enableInfiniteScroll: true,
+    //           reverse: true,
+    //           autoPlay: true,
+    //           autoPlayInterval: const Duration(seconds: 10),
+    //           enlargeCenterPage: false,
+    //           scrollDirection: Axis.vertical,
+    //         )),
+    //     d.first,
+    //   ],
+    // );
   }
 
   Widget _pairWidget(List<Widget> widgets) {
@@ -161,7 +194,6 @@ class HomeDevicesState extends State<HomeDevices>
 
     return (priorityDevices +
             widget.devices.entries.filter((e) => !e.thisDevice).toList())
-        .reversed
         .map((e) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: _wrapInDismissible(
@@ -200,62 +232,39 @@ class HomeDevicesState extends State<HomeDevices>
   }
 
   Widget _buildAddDeviceButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-      child: Touch(
-        onTap: () {
-          showSheet(
-            context,
-            builder: (context) => const LinkDeviceSheet(),
-          );
-        },
-        decorationBuilder: (value) {
-          return BoxDecoration(
-            color: context.theme.bgMiniCard.withOpacity(value),
-            borderRadius: BorderRadius.circular(4),
-          );
-        },
-        child: const Padding(
-          padding: EdgeInsets.all(4.0),
-          child: Icon(
-            CupertinoIcons.plus_circle,
-            size: 32,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAddDeviceButton2(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: MiniCard(
-        onTap: () {
-          showSheet(
-            context,
-            builder: (context) => const LinkDeviceSheet(),
-          );
-        },
-        color: context.theme.accent,
-        child: SizedBox(
-          height: 32,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  CupertinoIcons.plus_circle,
-                  size: 28,
-                  color: Colors.white,
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: maxContentWidth),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: MiniCard(
+            onTap: () {
+              showSheet(
+                context,
+                builder: (context) => const LinkDeviceSheet(),
+              );
+            },
+            color: context.theme.accent,
+            child: SizedBox(
+              height: 32,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      CupertinoIcons.plus_circle,
+                      size: 28,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "family device header add".i18n,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  "family device header add".i18n,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                ),
-              ],
+              ),
             ),
           ),
         ),

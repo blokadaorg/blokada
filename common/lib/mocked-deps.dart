@@ -53,6 +53,24 @@ attachMockedDeps() {
       thisDevice: false,
       linked: true,
     ),
+    FamilyDevice(
+      device: JsonDevice(
+        deviceTag: "abcd",
+        alias: "Device 3",
+        mode: JsonDeviceMode.on,
+        retention: "24h",
+        profileId: "2",
+      ),
+      profile: JsonProfile(
+        profileId: "2",
+        alias: "Profile 2",
+        lists: [],
+        safeSearch: false,
+      ),
+      stats: UiStats.empty(),
+      thisDevice: false,
+      linked: true,
+    ),
   ], false));
   depend<FamilyStore>(family);
 

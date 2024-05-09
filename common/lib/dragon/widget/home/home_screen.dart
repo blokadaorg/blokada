@@ -87,17 +87,9 @@ class HomeScreenState extends State<HomeScreen>
         ),
         phase == FamilyPhase.parentHasDevices
             ? Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 120),
-                    child: ListView(
-                      reverse: true,
-                      children: [
-                        HomeDevices(devices: _family.devices),
-                      ],
-                    ),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 120),
+                  child: HomeDevices(devices: _family.devices),
                 ),
               )
             : Container(),
