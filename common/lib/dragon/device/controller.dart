@@ -48,6 +48,10 @@ class DeviceController {
 
     // A new device needs to be created
     if (tag == null || existing == null) {
+      // Make sure we always have a child profile too on fresh install
+      await _profiles.addProfile("child", "family profile name child".i18n,
+          canReuse: true);
+
       // Create a new profile for this device
       final p = await _profiles.addProfile(
           "parent", "family profile name parent".i18n,

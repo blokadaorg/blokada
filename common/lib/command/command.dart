@@ -226,6 +226,10 @@ class CommandStore
         return await _notification.saveAppleToken(trace, p1!);
       case CommandName.familyLink:
         _ensureParam(p1);
+        // When entering from a camera app qr code scan, this will be called
+        // by the OS very early, and since onStartApp is executed async to not
+        // block the UI thread, we need to wait for the app to be ready.
+        await sleepAsync(const Duration(seconds: 1));
         return await _family.link(p1!);
       case CommandName.warning:
         _ensureParam(p1);

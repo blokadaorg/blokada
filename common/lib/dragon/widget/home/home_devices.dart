@@ -227,8 +227,20 @@ class HomeDevicesState extends State<HomeDevices>
           ),
         ],
       ),
-      child: child,
+      child: Builder(builder: (context) {
+        _showSlidableActionToUser(context);
+        return child;
+      }),
     );
+  }
+
+  _showSlidableActionToUser(BuildContext context) {
+    // To show that the options are available
+    final slidableCtrl = Slidable.of(context);
+    slidableCtrl?.openEndActionPane();
+    Future.delayed(const Duration(seconds: 2), () {
+      slidableCtrl?.close();
+    });
   }
 
   Widget _buildAddDeviceButton(BuildContext context) {

@@ -125,6 +125,7 @@ class ProfileDialogState extends State<ProfileDialog> {
                 if (widget.onSelected != null) {
                   widget.onSelected!.invoke(it);
                 } else {
+                  Navigator.of(context).pop();
                   _devices.changeDeviceProfile(device, it);
                 }
               },
