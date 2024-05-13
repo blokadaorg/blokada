@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/device/slidable_onboarding.dart';
 import 'package:common/dragon/family/devices.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/bottom_sheet.dart';
@@ -29,6 +30,7 @@ class HomeDevices extends StatefulWidget {
 class HomeDevicesState extends State<HomeDevices>
     with TickerProviderStateMixin, Traceable, TraceOrigin {
   late final _family = dep<FamilyStore>();
+  late final _slidableOnboarding = dep<SlidableOnboarding>();
 
   late final AnimationController _ctrl = AnimationController(
     duration: const Duration(seconds: 1),
@@ -228,18 +230,24 @@ class HomeDevicesState extends State<HomeDevices>
         ],
       ),
       child: Builder(builder: (context) {
-        _showSlidableActionToUser(context);
+        _showSlidableActionToUser(Slidable.of(context));
         return child;
       }),
     );
   }
 
-  _showSlidableActionToUser(BuildContext context) {
-    // To show that the options are available
-    final slidableCtrl = Slidable.of(context);
-    slidableCtrl?.openEndActionPane();
+  // To show to user, that the slidable options are available
+  _showSlidableActionToUser(SlidableController? ctrl) async {
+    if (ctrl == null) return;
+    if (await _slidableOnboarding.fetch() == true) return;
+    _slidableOnboarding.now = true;
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      ctrl.openEndActionPane();
+    });
+
     Future.delayed(const Duration(seconds: 2), () {
-      slidableCtrl?.close();
+      ctrl.close();
     });
   }
 

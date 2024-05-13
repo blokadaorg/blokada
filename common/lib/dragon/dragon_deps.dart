@@ -15,6 +15,7 @@ import 'package:common/dragon/device/current_token.dart';
 import 'package:common/dragon/device/generator.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/device/selected_device.dart';
+import 'package:common/dragon/device/slidable_onboarding.dart';
 import 'package:common/dragon/device/this_device.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
@@ -65,6 +66,7 @@ class DragonDeps {
     depend<OpenPerms>(OpenPerms());
     depend<ThisDevice>(ThisDevice());
     depend<SelectedDeviceTag>(SelectedDeviceTag());
+    depend<SlidableOnboarding>(SlidableOnboarding());
 
     depend<AuthApi>(AuthApi());
     depend<CurrentToken>(CurrentToken());
