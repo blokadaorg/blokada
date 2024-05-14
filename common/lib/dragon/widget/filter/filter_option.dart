@@ -53,9 +53,15 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
                   colorOverride: widget.colorOverride,
                   big: true),
               const SizedBox(width: 12.0),
-              Text(widget.nameOverride ??
-                  _getDecor(widget.option.optionName).i18n),
-              Expanded(child: Container()),
+              Expanded(
+                child: Text(
+                  widget.nameOverride ??
+                      _getDecor(widget.option.optionName).i18n,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 8.0),
               CupertinoSwitch(
                 activeColor: context.theme.accent,
                 value: selected,
