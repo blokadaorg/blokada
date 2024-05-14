@@ -110,11 +110,13 @@ class FilterWidgetState extends State<FilterWidget> {
   }
 
   List<Widget> _buildFilterOptions(BuildContext context) {
-    final nameOverride =
-        widget.filter.options.length == 1 ? widget.texts.title.i18n : null;
-
     return widget.filter.options
         .map((it) {
+          String? nameOverride;
+          if (widget.filter.options.length == 1 || it.optionName == "primary") {
+            nameOverride = widget.texts.title.i18n;
+          }
+
           return <Widget>[
             FilterOptionWidget(
                 option: it,

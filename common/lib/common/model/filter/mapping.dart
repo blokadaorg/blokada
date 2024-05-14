@@ -190,7 +190,7 @@ final _family = [
       "1hosts/lite (wildcards)",
       "d3host/standard",
     ]),
-    Option("restrictive", FilterAction.list, [
+    Option("extended", FilterAction.list, [
       "oisd/big",
       "ddgtrackerradar/standard",
       "1hosts/xtra (wildcards)",
