@@ -49,7 +49,8 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
           child: Row(
             children: [
               TwoLetterIconWidget(
-                  name: widget.nameOverride ?? widget.option.optionName.i18n,
+                  name: widget.nameOverride ??
+                      _getDecor(widget.option.optionName.i18n),
                   colorOverride: widget.colorOverride,
                   big: true),
               const SizedBox(width: 12.0),

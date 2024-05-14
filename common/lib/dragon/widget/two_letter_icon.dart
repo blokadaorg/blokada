@@ -30,7 +30,7 @@ class TwoLetterIconWidget extends StatelessWidget {
             height: big ? 60 : 40,
             child: Center(
               child: Text(
-                name.substring(0, 2).toUpperCase(),
+                name.substring(0, 2).toUpperCase().trim(),
                 style: TextStyle(
                   fontSize: big ? 24 : 17,
                   fontWeight: FontWeight.bold,

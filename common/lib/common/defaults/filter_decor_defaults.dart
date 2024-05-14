@@ -260,7 +260,7 @@ final _family = [
   ),
   FilterDecor(
     filterName: "meta_piracy",
-    tags: ["piracy", "torrent", "streaming"],
+    tags: ["piracy", "torrent"],
     title: "Piracy",
     slug: "Blocks piracy websites and related content",
     description:
