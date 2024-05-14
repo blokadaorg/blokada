@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 class FilterOptionWidget extends StatefulWidget {
   final Option option;
   final String? nameOverride;
+  final Color? colorOverride;
   final List<String> selections;
   final Function(bool) onSelect;
 
@@ -16,6 +17,7 @@ class FilterOptionWidget extends StatefulWidget {
       {super.key,
       required this.option,
       this.nameOverride,
+      this.colorOverride,
       required this.selections,
       required this.onSelect});
 
@@ -42,13 +44,13 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        child: Container(
-            child: Padding(
+        child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Row(
             children: [
               TwoLetterIconWidget(
                   name: widget.nameOverride ?? widget.option.optionName.i18n,
+                  colorOverride: widget.colorOverride,
                   big: true),
               const SizedBox(width: 12.0),
               Text(widget.nameOverride ??
@@ -66,7 +68,7 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
               ),
             ],
           ),
-        )),
+        ),
       );
 
   String _getDecor(String option) {

@@ -216,7 +216,7 @@ final _family = [
     title: "Safe search",
     slug: "Secure Online Browsing",
     description:
-        "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.",
+        "Enable safe search to filter out inappropriate search results in search engines.",
   ),
   FilterDecor(
     filterName: "meta_ads",
@@ -277,7 +277,7 @@ final _family = [
   FilterDecor(
     filterName: "meta_apps_streaming",
     tags: ["apps", "streaming"],
-    title: "Streaming apps",
+    title: "Streaming",
     slug: "Blocks streaming apps and related content",
     description:
         "Features a curated selection of popular streaming apps. Allows granular control over media consumption.",
@@ -317,7 +317,7 @@ final _family = [
   FilterDecor(
     filterName: "meta_apps_commerce",
     tags: ["apps", "e-commerce"],
-    title: "Online shopping apps",
+    title: "Online shopping",
     slug: "Blocks leading e-commerce and shopping applications",
     description:
         "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.",
@@ -325,7 +325,7 @@ final _family = [
   FilterDecor(
     filterName: "meta_apps_other",
     tags: ["apps", "other"],
-    title: "Miscellaneous apps",
+    title: "Other apps",
     slug: "A selection of various popular applications",
     description:
         "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.",

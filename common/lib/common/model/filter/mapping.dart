@@ -183,7 +183,7 @@ final _family = [
         action2: FilterAction.list, action2Params: ["safesearch/safesearch"]),
   ]),
   Filter("meta_ads", [
-    Option("standard", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "oisd/small",
       "goodbyeads/standard",
       "adaway/standard",
@@ -205,7 +205,7 @@ final _family = [
     ]),
   ]),
   Filter("meta_malware", [
-    Option("standard", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "phishingarmy/standard",
       "phishingarmy/extended",
       "blocklist/malware",
@@ -223,12 +223,12 @@ final _family = [
     ]),
   ]),
   Filter("meta_dating", [
-    Option("standard", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "ut1/dating",
     ]),
   ]),
   Filter("meta_gambling", [
-    Option("standard", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "stevenblack/gambling",
       "ut1/gambling",
       "sinfonietta/gambling",
@@ -250,7 +250,7 @@ final _family = [
     ]),
   ]),
   Filter("meta_apps_streaming", [
-    Option("standard", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "ndnspiracy/streaming video",
       "ndnspiracy/streaming audio",
     ]),
@@ -274,7 +274,7 @@ final _family = [
     ]),
   ]),
   Filter("meta_social", [
-    Option("social networks", FilterAction.list, [
+    Option("primary", FilterAction.list, [
       "stevenblack/social",
       "ut1/social",
       "sinfonietta/social",

@@ -4,16 +4,19 @@ import '../../common/widget/color.dart';
 
 class TwoLetterIconWidget extends StatelessWidget {
   final String name;
+  final Color? colorOverride;
   final bool big;
 
-  const TwoLetterIconWidget({super.key, required this.name, this.big = false});
+  const TwoLetterIconWidget(
+      {super.key, required this.name, this.colorOverride, this.big = false});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: ColorFiltered(
-        colorFilter: ColorFilter.mode(genColor(name), BlendMode.color),
+        colorFilter:
+            ColorFilter.mode(colorOverride ?? genColor(name), BlendMode.color),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
