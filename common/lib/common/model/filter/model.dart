@@ -27,8 +27,11 @@ class Option {
   final String optionName;
   final FilterAction action;
   final List<String> actionParams;
+  final FilterAction? action2;
+  final List<String>? action2Params;
 
-  Option(this.optionName, this.action, this.actionParams);
+  Option(this.optionName, this.action, this.actionParams,
+      {this.action2, this.action2Params});
 }
 
 enum FilterAction { list, config }

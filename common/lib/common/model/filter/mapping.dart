@@ -179,8 +179,8 @@ final _v6Android = [
 final _family = [
   Filter("meta_safe_search", [
     Option(
-        "safe search", FilterAction.config, [FilterConfigKey.safeSearch.name]),
-    Option("block unsupported", FilterAction.list, ["safesearch/nosafesearch"]),
+        "safe search", FilterAction.config, [FilterConfigKey.safeSearch.name],
+        action2: FilterAction.list, action2Params: ["safesearch/safesearch"]),
   ]),
   Filter("meta_ads", [
     Option("standard", FilterAction.list, [
@@ -248,17 +248,12 @@ final _family = [
       "ndnspiracy/torrent trackers",
       "ndnspiracy/torrent websites",
     ]),
-    Option("streaming", FilterAction.list, [
-      "ndnspiracy/streaming audio",
-      "ndnspiracy/streaming video",
-    ]),
-  ]),
-  Filter("meta_videostreaming", [
-    Option("standard", FilterAction.list, [
-      "ndnspiracy/streaming video",
-    ]),
   ]),
   Filter("meta_apps_streaming", [
+    Option("standard", FilterAction.list, [
+      "ndnspiracy/streaming video",
+      "ndnspiracy/streaming audio",
+    ]),
     Option("disney plus", FilterAction.list, [
       "ndnsapps/disneyplus",
     ]),
@@ -320,12 +315,10 @@ final _family = [
       "ndnsapps/telegram",
     ]),
   ]),
-  Filter("meta_gaming", [
-    Option("standard", FilterAction.list, [
+  Filter("meta_apps_games", [
+    Option("online gaming", FilterAction.list, [
       "ut1/gaming",
     ]),
-  ]),
-  Filter("meta_apps_games", [
     Option("fortnite", FilterAction.list, [
       "ndnsapps/fortnite",
     ]),

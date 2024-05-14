@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
 import 'package:common/service/I18nService.dart';
+import 'package:dartx/dartx.dart';
 
 import '../../common/model.dart';
 import '../../util/di.dart';
@@ -64,6 +65,13 @@ class FilterController {
           filterName = filter.filterName;
           break outer;
         }
+
+        // Repeat same thing for the optional second action
+        if (option.action2 == FilterAction.list &&
+            option.action2Params!.contains("${list.vendor}/${list.variant}")) {
+          filterName = filter.filterName;
+          break outer;
+        }
       }
     }
 
@@ -110,6 +118,26 @@ class FilterController {
           final key = FilterConfigKey.values.byName(option.actionParams.first);
           shouldBeConfigs[key] = true;
         }
+
+        // Repeat same thing for the optional second action
+        if (option.action2 == FilterAction.list) {
+          for (final listTag in option.action2Params!) {
+            final list = _lists.firstWhereOrNull(
+              (it) => "${it.vendor}/${it.variant}" == listTag,
+            );
+
+            if (list == null) {
+              // c.log("Deprecated list, ignoring: $listTag");
+              continue;
+            }
+
+            shouldBeLists.add(list.id);
+          }
+        } else if (option.action2 == FilterAction.config) {
+          final key =
+              FilterConfigKey.values.byName(option.action2Params!.first);
+          shouldBeConfigs[key] = true;
+        }
       }
     }
 
@@ -153,9 +181,26 @@ class FilterController {
             active += [option.optionName];
           }
         }
+
+        // Repeat same thing for the optional second action
+        if (option.action2 == FilterAction.list) {
+          // For List actions, assume an option is active, if all lists specified
+          // for this option are active
+          if (option.action2Params!.every((it) => selection.contains(it))) {
+            active += [option.optionName];
+          }
+        } else if (option.action2 == FilterAction.config) {
+          // For Config actions, assume an option is active, if the config is set
+          final key =
+              FilterConfigKey.values.byName(option.action2Params!.first);
+          if (userConfig.configs[key] == true) {
+            active += [option.optionName];
+          }
+        }
       }
 
-      selectedFilters.add(FilterSelection(filter.filterName, active));
+      selectedFilters
+          .add(FilterSelection(filter.filterName, active.distinct().toList()));
     }
 
     _selectedFilters.now = selectedFilters;
@@ -201,6 +246,30 @@ class FilterController {
         } else if (option.action == FilterAction.config) {
           // For config action, set the config to the value specified by the option
           final key = FilterConfigKey.values.byName(option.actionParams.first);
+          shouldBeConfigs[key] = true;
+        }
+
+        // Repeat same thing for the optional second action
+        if (option.action2 == FilterAction.list) {
+          // For list action, activate all lists specified by the option
+
+          // Each tag needs to be mapped to ListHashId
+          for (final listTag in option.action2Params!) {
+            final list = lists.firstWhereOrNull(
+              (it) => "${it.vendor}/${it.variant}" == listTag,
+            );
+
+            if (list == null) {
+              // c.log("Deprecated list, ignoring: $listTag");
+              continue;
+            }
+
+            shouldBeLists.add(list.id);
+          }
+        } else if (option.action2 == FilterAction.config) {
+          // For config action, set the config to the value specified by the option
+          final key =
+              FilterConfigKey.values.byName(option.action2Params!.first);
           shouldBeConfigs[key] = true;
         }
       }
