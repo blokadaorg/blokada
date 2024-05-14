@@ -179,14 +179,14 @@ class SmartOnboardState extends State<SmartOnboard>
     final p = widget.phase;
 
     if (p.requiresActivation()) {
-      await traceAs("handleCtaTap", (trace) async {
-        _family.activateCta(trace);
+      traceAs("handleCtaTap", (trace) async {
+        await _family.activateCta(trace);
       });
     } else if (p.requiresPerms()) {
       showSheet(context, builder: (context) => const PrivateDnsSheet());
     } else if (p.isLocked2()) {
-      await traceAs("handleCtaTap", (trace) async {
-        _stage.showModal(trace, StageModal.lock);
+      traceAs("handleCtaTap", (trace) async {
+        await _stage.showModal(trace, StageModal.lock);
       });
       // } else if (!_devices.now.hasThisDevice) {
       // await _modal.set(StageModal.onboardingAccountDecided);
