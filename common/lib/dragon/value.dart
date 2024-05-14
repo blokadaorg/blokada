@@ -15,7 +15,6 @@ class NullableValue<T> {
   Future<T?> fetch() async {
     try {
       if (!_resolved) {
-        _resolved = true;
         // Also broadcasts to stream
         now = await doLoad();
       }
@@ -32,16 +31,15 @@ class NullableValue<T> {
   Stream<T?> get onChange => _controller.stream;
 
   set now(T? newValue) {
-    try {
-      if (_value != newValue) {
+    if (!_resolved || _value != newValue) {
+      try {
+        _resolved = true;
         _value = newValue;
         _controller.sink.add(newValue);
         doSave(newValue);
+      } catch (e) {
+        throw Exception("NullableValue $runtimeType failed to save: $e.");
       }
-    } catch (_) {
-      _value = newValue;
-      _controller.sink.add(newValue);
-      doSave(newValue);
     }
   }
 
