@@ -463,13 +463,13 @@
 "stats header all time" = "Todo el tiempo";
 
 "dnsprofile header" = "Activar Blokada en Ajustes";
-"dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
+"dnsprofile desc" = "En la aplicación de configuración, vaya a General → VPN y gestión de dispositivos → DNS y seleccione Blokada.";
 "dnsprofile action open settings" = "Abrir Ajustes";
 "dnsprofile desc android" = "En la aplicación de configuración, busque la sección DNS privado, y luego pegue su nombre de host (toque largo).";
 "dnsprofile desc android copy" = "Copie su nombre de host Blokada Cloud para pegarlo en Configuración.";
 "dnsprofile notification subtitle" = "En la aplicación Configuración, navegar a:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS y seleccione Blokada.";
+"dnsprofile notification body" = "General → VPN y gestión de dispositivos → DNS y seleccione Blokada.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "¡Ya casi estamos!";

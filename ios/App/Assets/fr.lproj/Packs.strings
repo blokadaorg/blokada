@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Bloque les plateformes de streaming vidéo populaires";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Permet d'accéder aux meilleurs services de streaming vidéo. Fabriqué pour les utilisateurs désireux de gérer leurs habitudes de visionnage et d'économiser de la bande passante.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Applications de streaming";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "Bloque les applications de streaming et le contenu connexe";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Comprend une sélection organisée d'applications de streaming populaires. Permet le contrôle granulaire de la consommation des médias.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Restreint l'accès aux jeux populaires";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Idéal pour les utilisateurs désirant un contrôle d'accès précis au jeu.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Applications de shopping en ligne";
+"Online shopping" = "Achats en ligne";
 "Blocks leading e-commerce and shopping applications" = "Bloque les principales applications e-commerce et shopping";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Ce bouclier empêche l'accès aux applications courantes. Il aide les utilisateurs à freiner les achats impulsifs ou les distractions.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Applications diverses";
+"Other apps" = "Autres applications";
 "A selection of various popular applications" = "Une sélection de diverses applications populaires";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Ce bouclier fournit une liste d'applications populaires de différents types. Il est créé pour les utilisateurs en vue d'un contrôle plus complet de l'application.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Recherche sécurisée";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Activer la recherche sécurisée pour filtrer les résultats de recherche inappropriés dans les moteurs de recherche ; offre également la possibilité de bloquer les moteurs de recherche non pris en charge qui ne peuvent pas être filtrés.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Activer la recherche sécurisée pour filtrer les résultats de recherche inappropriés dans les moteurs de recherche.";
+// Filter name, the basic choice
+"Primary" = "Principal";
+// Filter name, additional choice
+"Extended" = "Etendu";
+// Filter name, blocks file hosting sites
+"File hosting" = "Hébergement de fichiers";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Jeux en ligne";

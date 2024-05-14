@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "有名なビデオストリーミングプラットフォームをブロックします";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "上位のビデオストリーミングサービスへのアクセスを制限します。生活習慣の管理や通信量を制限したいユーザー向けです。";
 // Name of the Streaming apps shield
-"Streaming apps" = "ストリーミングアプリ";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "ストリーミングアプリと関連コンテンツをブロックします";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "人気のストリーミングアプリを制限します。メディア消費を細かく制御できます。";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "人気のゲームへのアクセスを制限します";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "上位のゲームアプリケーションのリストです。正確なゲームアクセス制御を望むユーザーに最適です。";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "オンラインショッピングアプリ";
+"Online shopping" = "Online shopping";
 "Blocks leading e-commerce and shopping applications" = "主要な電子商取引およびショッピングアプリケーションをブロックします";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "このシールドは、一般的なショッピングアプリへのアクセスを防ぎます。衝動買いや注意散漫の防止に役立ちます。";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "その他のアプリ";
+"Other apps" = "Other apps";
 "A selection of various popular applications" = "様々な人気のアプリのコレクションです";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "このシールドは、さまざまな種類の人気のアプリのリストを提供します。より包括的なアプリコントロールを目指すユーザーのために作成されました。";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "セーフサーチ";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "セーフサーチを有効にして検索エンジンで不適切な検索結果を除外すると、フィルタリング非対応の検索エンジンをブロックするオプションも提供します。";
+"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+// Filter name, the basic choice
+"Primary" = "Primary";
+// Filter name, additional choice
+"Extended" = "Extended";
+// Filter name, blocks file hosting sites
+"File hosting" = "File hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online gaming";

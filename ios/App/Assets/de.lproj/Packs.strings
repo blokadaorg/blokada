@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Blockiert beliebte Video-Streaming-Plattformen";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Begrenzt den Zugriff auf die besten Video-Streaming-Dienste. Hergestellt für Benutzer, die Ansehgewohnheiten verwalten und Bandbreite sparen möchten.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Streaming-Apps";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "Blockiert Streaming-Apps und verwandte Inhalte";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Funktioniert eine kuratierte Auswahl beliebter Streaming-Apps. Erlaubt eine granulare Kontrolle über den Medienverbrauch.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Beschränkt den Zugriff auf populäre Spiele";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Showcases Top-Gaming-Anwendungen, ideal für Anwender, die eine genaue Kontrolle des Spielzugriffs wünschen.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Online-Shopping-Apps";
+"Online shopping" = "Online-Einkauf";
 "Blocks leading e-commerce and shopping applications" = "Blockiert führende E-Commerce- und Shopping-Anwendungen";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Dieses Schild verhindert den Zugriff auf die gängigen Einkaufsapps. Es hilft den Benutzern, Impulskäufe oder Ablenkungen einzudämmen.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Verschiedene Apps";
+"Other apps" = "Andere Apps";
 "A selection of various popular applications" = "Eine Auswahl verschiedener beliebter Anwendungen";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Dieser Schild bietet eine Liste beliebter Apps verschiedener Art. Er wird für Benutzer erstellt, die eine umfassendere App-Steuerung anstreben.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Sichere Suche";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Aktivieren Sie die sichere Suche, um unangemessene Suchergebnisse in Suchmaschinen herauszufiltern, bietet auch die Möglichkeit, nicht unterstützte Suchmaschinen zu blockieren, die nicht gefiltert werden können.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Aktiviere sichere Suche, um unangemessene Suchergebnisse in Suchmaschinen herauszufiltern.";
+// Filter name, the basic choice
+"Primary" = "Primär";
+// Filter name, additional choice
+"Extended" = "Erweitert";
+// Filter name, blocks file hosting sites
+"File hosting" = "Datei-Hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online-Spiele";

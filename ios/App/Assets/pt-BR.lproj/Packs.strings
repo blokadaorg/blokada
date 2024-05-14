@@ -77,7 +77,7 @@ Pornô, Redes Sociais e outras categorias.";
 "Blocks popular video streaming platforms" = "Bloqueia plataformas populares de streaming de vídeo";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curte o acesso a melhores serviços de streaming de vídeo. Criado para usuários que querem gerenciar hábitos de visualização e economizar largura de banda.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Apps de transmissão";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "Bloqueia aplicativos de streaming e conteúdo relacionado";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Apresenta uma seleção selecionada de aplicativos populares de streaming. Permite o controle granular sobre o consumo de mídia.";
 // Name of the Social media shield
@@ -97,13 +97,23 @@ Pornô, Redes Sociais e outras categorias.";
 "Restricts access to popular games" = "Restringir acesso a jogos populares";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Mostrar os melhores jogos aplicativos. Ideal para usuários que desejarem o controle preciso de acesso ao jogo.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Aplicativos de compras online";
+"Online shopping" = "Online shopping";
 "Blocks leading e-commerce and shopping applications" = "Bloqueia líderes de e-commerce e aplicativos de compras";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Este escudo impede o acesso a aplicativos de compras comuns. Ele ajuda os usuários em controlar compras de impulso ou distrações.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Apps diversos";
+"Other apps" = "Other apps";
 "A selection of various popular applications" = "Uma seleção de várias aplicações populares";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Este escudo fornece uma lista de aplicativos populares de vários tipos. É criado para usuários buscando um controle de aplicativos mais abrangente.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+// Filter name, the basic choice
+"Primary" = "Primary";
+// Filter name, additional choice
+"Extended" = "Extended";
+// Filter name, blocks file hosting sites
+"File hosting" = "File hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online gaming";

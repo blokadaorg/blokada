@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Blochează platforme populare de streaming video";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curbele de acces la serviciile de streaming video. Creat pentru utilizatorii care doresc să gestioneze obiceiurile de vizualizare și să salveze lățimea benzii.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Aplicații de streaming";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "Blochează aplicațiile de streaming și conținutul asociat";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Funcționează o selecție curată de aplicații populare de streaming. Permite controlul granular asupra consumului media.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Restricționează accesul la jocurile populare";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Afişează aplicaţii de joc de top. Ideal pentru utilizatorii care doresc controlul precis al accesului la jocuri.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Aplicații pentru cumpărături online";
+"Online shopping" = "Online shopping";
 "Blocks leading e-commerce and shopping applications" = "Blochează aplicațiile cele mai importante de comerț electronic și cumpărături";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Acest scut împiedică accesul la aplicațiile obișnuite de cumpărături. Ajuta utilizatorii să reducă achizițiile de impulsuri sau distragerile.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Diverse aplicații";
+"Other apps" = "Other apps";
 "A selection of various popular applications" = "O selecție de diferite candidaturi populare";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Acest scut oferă o listă de aplicații populare de diferite tipuri. Este creat pentru utilizatorii care vizează un control mai complet al aplicațiilor.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+// Filter name, the basic choice
+"Primary" = "Primary";
+// Filter name, additional choice
+"Extended" = "Extended";
+// Filter name, blocks file hosting sites
+"File hosting" = "File hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online gaming";

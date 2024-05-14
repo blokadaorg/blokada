@@ -572,7 +572,7 @@
 "toplist tld unknown" = "inconnue";
 
 "family notification subtitle" = "La protection familiale est désactivée";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
+"family fault link already" = "Cet appareil est déjà lié. Veuillez le dissocier en utilisant l'application parent et réessayez.";
 "family profile dialog header" = "Sélectionnez un profil à utiliser pour %@.";
 "family profile dialog header this" = "Sélectionnez un profil à utiliser pour cet appareil.";
 "family profile add" = "Quel profil souhaitez-vous ajouter ?";
@@ -590,7 +590,7 @@
 "family profile action add" = "Ajouter un nouveau profil";
 "family profile action delete" = "Supprimer ce profil";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
+"family profile error use" = "Ce profil est actuellement utilisé. Assurez-vous qu'aucun appareil ne l'utilise avant la suppression.";
 "family profile error" = "Impossible de supprimer ce profil.";
 
 // A name template for profile, like "Child Profile"
@@ -602,9 +602,9 @@
 "family device brief statistics" = "Consulter l'activité récente pour cet appareil.";
 "family device label settings" = "PARAMÈTRES DE L'APPAREIL";
 "family device brief settings alt" = "Gérer les paramètres de blocage pour cet appareil.";
-"family device action link" = "Link this device again";
+"family device action link" = "Relier cet appareil";
 "family device action delete" = "Supprimer cet appareil";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device delete confirm" = "Êtes-vous sûr de vouloir supprimer %@? Cela supprimera l'appareil de votre compte.";
 
 "family device header add" = "Ajouter un appareil";
 "family device header link" = "Associer un appareil";
@@ -612,7 +612,7 @@
 "family perms header" = "Une dernière chose";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Activez '%@' dans les paramètres en naviguant comme indiqué ci-dessous.";
 
 // DNS activation on iOS, in Settings app
 "family perms setting ios general" = "Général";
@@ -629,19 +629,19 @@
 "family stats label reason" = "Motif";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "Liste de blocage";
 
 // A label for which config profile was used to block domain. Keep super short.
 "family stats label profile" = "Profil";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Listes de blocage";
 
 // A label for the number of blocklists selected
 "family stats label blocklists alt" = "Listes de blocage dans le profil";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ sélectionné";
 
 "family stats label pause" = "Suspendre le blocage";
 
@@ -652,15 +652,15 @@
 "family stats label none" = "Aucune";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Afficher les plus communs en premier";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
+"family stats exceptions remove" = "Retirer de Mes exceptions";
+"family stats exceptions add" = "Ajouter à Mes exceptions";
 "family stats title" = "Mes exceptions";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
+"family link description new" = "Scannez le code QR ci-dessous pour ajouter un appareil à votre famille. Cet écran se ferme automatiquement une fois que l'appareil est détecté.";
+"family link description again" = "Scannez le code QR ci-dessous pour relier à nouveau un appareil. Cet écran se ferme automatiquement une fois que l'appareil est détecté.";
 "family qr brief" = "Scannez le QR code affiché sur l'appareil parent";
 
 // A section name for details of device activity
@@ -671,25 +671,25 @@
 "family dialog title new device" = "Nouvel appareil";
 "family dialog title rename device" = "Renommer l'appareil";
 "family dialog brief profile" = "Saisissez le nom de ce profil.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog brief device" = "Entrez un nom pour cet appareil.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Aucune correspondance trouvée pour vos critères de recherche";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "bloqués %@ fois";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "autorisé %@ fois";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Gérer cet appareil en utilisant le périphérique parent.";
+"family status qr body" = "Scannez le code QR pour lier cet appareil.";
+"family status active header" = "Actif!";
+"family status active body" = "Appuyez sur l'appareil pour plus de détails.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Lier";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Déverrouiller";
 
 "family account restore desc" = "Saisissez votre ID pour restaurer vos achats.";

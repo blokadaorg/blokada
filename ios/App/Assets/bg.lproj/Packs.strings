@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Блокиране на популярни платформи за предаване на видео съдържание";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Ограничава достъпа до най-добрите услуги за поточно предаване на видео. Създадено за потребители, които искат да управляват своите навици за гледане и да пестят трафик.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Стрийминг приложения";
+"Streaming" = "Streaming";
 "Blocks streaming apps and related content" = "Блокиране на приложенията за стрийминг и свързаното с тях съдържание";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Предлага подбрана селекция от популярни приложения за стрийминг. Позволява пълен контрол върху медийното потребление.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Ограничаване на достъпа до популярни игри";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Показва най-добрите приложения за игри. Подходящо за потребители, които желаят прецизен контрол на достъпа до игрите.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Приложения за онлайн пазаруване";
+"Online shopping" = "Online shopping";
 "Blocks leading e-commerce and shopping applications" = "Блокиране на водещи приложения за електронна търговия и пазаруване";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Този щит предотвратява достъпа до обичайните приложения за пазаруване. Той помага на потребителите да ограничат импулсивните покупки или отклоняването на вниманието.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Разни приложения";
+"Other apps" = "Other apps";
 "A selection of various popular applications" = "Селекция от различни популярни приложения";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Този щит предоставя списък с популярни приложения от различен тип. Създаден е за потребители, които се стремят към по-всеобхватен контрол на приложенията.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Безопасно търсене";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Активиране на безопасно търсене и филтриране на неподходящи резултати от търсене в търсачките, също така предоставя опция за блокиране на неподдържани търсачки, които не могат да бъдат филтрирани.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+// Filter name, the basic choice
+"Primary" = "Primary";
+// Filter name, additional choice
+"Extended" = "Extended";
+// Filter name, blocks file hosting sites
+"File hosting" = "File hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online gaming";

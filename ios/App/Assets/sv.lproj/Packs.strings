@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Blockerar populära streamingtjänster";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Förhindrar tillgång till streamingtjänster. Skapad för användare som vill hantera tittarvanor och spara bandbredd.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Appar för streamingtjänster";
+"Streaming" = "Streamingtjänster";
 "Blocks streaming apps and related content" = "Blockerar appar för streamingtjänster och relaterat innehåll";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Har ett urval av populära appar för streamingtjänster. Tillåter detaljerad kontroll över mediekonsumtionen.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Begränsar åtkomst till populära spel";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Visar de bästa spelapplikationerna. Perfekt för användare som vill ha en precis åtkomstkontroll.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Appar för shopping online";
+"Online shopping" = "Shopping online";
 "Blocks leading e-commerce and shopping applications" = "Blockerar ledande e-handels- och shoppingapplikationer";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Denna sköld förhindrar åtkomst till vanliga shoppingappar. Den hjälper användare att begränsa impulsköp eller distraktioner.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Diverse appar";
+"Other apps" = "Övriga appar";
 "A selection of various popular applications" = "Ett urval av olika populära applikationer";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Denna sköld listar populära appar av olika typer. Den är skapad för användare som strävar efter en mer omfattande appkontroll.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe Search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Aktivera Safe Search för att filtrera bort olämpliga sökresultat i sökmotorer, ger också möjlighet att blockera sökmotorer som inte har denna funktion.";
+"Safe search" = "Säker sökning";
+"Enable safe search to filter out inappropriate search results in search engines." = "Aktivera säker sökning för att filtrera bort olämpliga sökresultat i sökmotorer.";
+// Filter name, the basic choice
+"Primary" = "Primär";
+// Filter name, additional choice
+"Extended" = "Utökad";
+// Filter name, blocks file hosting sites
+"File hosting" = "Fildelning";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Spel online";

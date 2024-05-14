@@ -56,7 +56,7 @@
 "Protects against malicious software" = "Beschermt tegen kwaadwillende software";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Verdedigt tegen kwaadaardige software en schadelijke websites. Biedt een veilig schild tegen een spectrum van cyberbedreigingen.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "18+ Content";
 "Blocks adult and pornographic content" = "Blokkeert volwassen en pornografische inhoud";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Dit filter is gericht op inhoud van volwassenen voor een veiligere online ervaring. Het beschermt gebruikers tegen expliciete materialen en potentiële risico's.";
 // Name of the Dating shield
@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Blokkeert populaire video streaming platforms";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Beperkt toegang tot top video streamingdiensten. Maak maken voor gebruikers die kijkgewoonten willen beheren en bandbreedte willen besparen.";
 // Name of the Streaming apps shield
-"Streaming apps" = "Apps voor streamen";
+"Streaming" = "Streamen";
 "Blocks streaming apps and related content" = "Blokkeert streaming apps en gerelateerde inhoud";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Beschikt over een gecontroleerde selectie van populaire streaming apps. Staat granular controle over media-verbruik toe.";
 // Name of the Social media shield
@@ -96,13 +96,23 @@
 "Restricts access to popular games" = "Beperkt de toegang tot populaire spellen";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Laat populaire gaming-applicaties zien. Ideaal voor gebruikers die nauwkeurige speltoegangscontrole willen.";
 // Name of the Online shopping apps shield
-"Online shopping apps" = "Online shopping apps";
+"Online shopping" = "Online winkelen";
 "Blocks leading e-commerce and shopping applications" = "Blokken met toonaangevende e-commerce en shopping applicaties";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Dit schild voorkomt toegang tot de gangbare shopping apps. Het helpt gebruikers om impulsen of afleiding te beteugelen.";
 // Name of the Miscellaneous apps shield
-"Miscellaneous apps" = "Diverse apps";
+"Other apps" = "Andere apps";
 "A selection of various popular applications" = "Een selectie van verschillende populaire toepassingen";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Dit schild biedt een lijst van populaire apps van verschillende soorten. Het is gemaakt voor gebruikers die op een uitgebreidere app-controle zijn gericht.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered." = "Enable safe search to filter out inappropriate search results in search engines, also provides the option to block unsupported search engines that cannot be filtered.";
+"Safe search" = "Veilig zoeken";
+"Enable safe search to filter out inappropriate search results in search engines." = "Schakel veilige zoeken in om ongepaste zoekresultaten in zoekmachines uit te schakelen.";
+// Filter name, the basic choice
+"Primary" = "Primair";
+// Filter name, additional choice
+"Extended" = "Extended";
+// Filter name, blocks file hosting sites
+"File hosting" = "Bestands hosting";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrent";
+// Filter name, blocks online gaming
+"Online gaming" = "Online Gaming";

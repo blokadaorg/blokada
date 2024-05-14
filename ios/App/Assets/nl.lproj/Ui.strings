@@ -44,7 +44,7 @@
 "universal action cancel" = "Annuleren";
 "universal action close" = "Sluiten";
 "universal action done" = "Klaar";
-"universal action edit" = "Edit";
+"universal action edit" = "Bewerken";
 "universal action try again" = "Probeer opnieuw";
 "universal action learn more" = "Meer weten";
 "universal action help" = "Hulp";
@@ -510,7 +510,7 @@
 "family rename device" = "Apparaatnaam wijzigen";
 "family label this device" = "Dit apparaat (%@)";
 "family onboard header" = "Welkom bij Blokada Family!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Welkom bij %s!";
 "family onboard body" = "Volg de instructies op het scherm om je eerste apparaat in te stellen.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -524,15 +524,15 @@
 "family status ready body" = "Voeg nu je eerste apparaat toe";
 "family status perms header" = "Bijna klaar!";
 "family status perms body" = "Verleen alstublieft de benodigde machtigingen";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Tik om de setup-procedure te voltooien";
 "family status expired header" = "Account is verlopen";
 "family status expired body" = "Activeer je account om verder te gaan";
 "family status linked header" = "App is gekoppeld!";
 "family status locked header" = "App is vergrendeld";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Vergrendelen met pin";
+"family settings lock enter" = "Voer je nieuwe pin in";
+"family settings lock remove" = "Verwijder pin";
 
 "family payment slug" = "Bescherm uw hele familie met één abonnement. Controleer en bescherm alle toestellen van familie tegen ongewenste inhoud.";
 "family payment features devices header" = "Familie Device Monitoring";
@@ -572,124 +572,124 @@
 "toplist tld unknown" = "Onbekend";
 
 "family notification subtitle" = "Gezinsbescherming is uitgeschakeld";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Dit apparaat is al gekoppeld. Ontkoppel het via de bovenliggende app en probeer het opnieuw.";
+"family profile dialog header" = "Selecteer een profiel om te gebruiken voor %@.";
+"family profile dialog header this" = "Selecteer een profiel om te gebruiken voor dit apparaat.";
+"family profile add" = "Welk profiel wilt u toevoegen?";
+"family profile template" = "Kies een sjabloon om te beginnen.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Ouder";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Kind";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Aangepast";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Nieuw profiel toevoegen";
+"family profile action delete" = "Dit profiel verwijderen";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Dit profiel is momenteel in gebruik. Zorg ervoor dat er geen apparaat gebruik van maakt voordat het verwijderd wordt.";
+"family profile error" = "Kan dit profiel niet verwijderen.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ profiel";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Selecteer een profiel";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "STATISTIEKEN";
+"family device brief statistics" = "Bekijk de recente activiteit van dit apparaat.";
+"family device label settings" = "INSTELLINGEN APPARAAT";
+"family device brief settings alt" = "Blokkeer instellingen voor dit apparaat.";
+"family device action link" = "Koppel dit apparaat opnieuw";
+"family device action delete" = "Verwijder dit apparaat";
+"family device delete confirm" = "Weet je zeker dat je %@wilt verwijderen? Dit zal het apparaat loskoppelen van je account.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Apparaat toevoegen";
+"family device header link" = "Koppel een apparaat";
 
-"family perms header" = "One more thing";
+"family perms header" = "Nog één ding";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Activeer '%@' in Instellingen door te navigeren zoals hieronder weergegeven.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Algemeen";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN & Apparaatbeheer";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automatisch";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family stats label reason" = "Reden";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "Blokkeerlijst";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Profiel";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Blokkeerlijsten";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Blokkeerlijsten in profiel";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ geselecteerd";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Blokkeren pauzeren";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Onbekend";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Geen";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Toon de meest voorkomende eerst";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Verwijderen uit mijn uitzonderingen";
+"family stats exceptions add" = "Aan mijn uitzonderingen toevoegen";
+"family stats title" = "Mijn uitzonderingen";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Scan de QR-code hieronder om een apparaat aan uw familie toe te voegen. Dit scherm wordt automatisch gesloten zodra het apparaat wordt gedetecteerd.";
+"family link description again" = "Scan de QR-code hieronder om een apparaat opnieuw te koppelen. Dit scherm wordt automatisch gesloten zodra het apparaat wordt gedetecteerd.";
+"family qr brief" = "Scan de QR-code weergegeven op het bovenliggende apparaat";
 
 // A section name for details of device activity
 "family device title details" = "Details";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Nieuw profiel";
+"family dialog title rename profile" = "Profielnaam wijzigen";
+"family dialog title new device" = "Nieuw apparaat";
+"family dialog title rename device" = "Apparaatnaam wijzigen";
+"family dialog brief profile" = "Voer een naam in voor dit profiel.";
+"family dialog brief device" = "Voer een naam in voor dit apparaat.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Geen resultaten gevonden voor uw zoekcriteria";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "%@ keer geblokkeerd";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "%@ keer toegestaan";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Dit apparaat beheren met behulp van het bovenliggende apparaat.";
+"family status qr body" = "Scan de QR-code om dit apparaat te koppelen.";
+"family status active header" = "Actief!";
+"family status active body" = "Tik op het apparaat voor meer informatie.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Koppeling";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Ontgrendelen";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Voer uw account-ID in om uw aankopen te herstellen.";
