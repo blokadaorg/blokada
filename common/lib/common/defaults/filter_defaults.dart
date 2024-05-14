@@ -26,10 +26,10 @@ final _v6Enabled = [
 ];
 
 final _familyEnabled = [
-  FilterSelection("meta_ads", ["standard"]),
+  FilterSelection(filterAds, [filterOptionPrimary]),
 ];
 
 final _childEnabled = [
-  FilterSelection("meta_safe_search", ["safe search"]),
-  FilterSelection("meta_adult", ["porn"]),
+  FilterSelection(filterSafeSearch, [filterOptionSafeSearch]),
+  FilterSelection(filterAdult, [filterOptionPorn]),
 ];

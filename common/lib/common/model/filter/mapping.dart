@@ -176,14 +176,21 @@ final _v6Android = [
   ]),
 ];
 
+const filterAds = "meta_ads";
+const filterAdult = "meta_adult";
+const filterSafeSearch = "meta_safe_search";
+const filterOptionPrimary = "primary";
+const filterOptionSafeSearch = "safe search";
+const filterOptionPorn = "porn";
+
 final _family = [
-  Filter("meta_safe_search", [
-    Option(
-        "safe search", FilterAction.config, [FilterConfigKey.safeSearch.name],
+  Filter(filterSafeSearch, [
+    Option(filterOptionSafeSearch, FilterAction.config,
+        [FilterConfigKey.safeSearch.name],
         action2: FilterAction.list, action2Params: ["safesearch/safesearch"]),
   ]),
-  Filter("meta_ads", [
-    Option("primary", FilterAction.list, [
+  Filter(filterAds, [
+    Option(filterOptionPrimary, FilterAction.list, [
       "oisd/small",
       "goodbyeads/standard",
       "adaway/standard",
@@ -214,8 +221,8 @@ final _family = [
       "urlhaus/standard",
     ]),
   ]),
-  Filter("meta_adult", [
-    Option("porn", FilterAction.list, [
+  Filter(filterAdult, [
+    Option(filterOptionPorn, FilterAction.list, [
       "stevenblack/adult",
       "sinfonietta/porn",
       "tiuxo/porn",
