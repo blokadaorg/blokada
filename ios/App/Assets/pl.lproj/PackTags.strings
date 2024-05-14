@@ -50,7 +50,7 @@
 // One of the tags used for searching blocklists
 "torrent" = "torrent";
 // One of the tags used for searching blocklists
-"streaming" = "strumieniowanie";
+"streaming" = "streaming";
 // One of the tags used for searching blocklists
 "apps" = "aplikacje";
 // One of the tags used for searching blocklists
