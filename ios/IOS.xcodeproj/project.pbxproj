@@ -1709,6 +1709,9 @@
 		4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterActivatedView.swift; sourceTree = "<group>"; };
 		4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
+		4E46EBE12BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Packs.strings; sourceTree = "<group>"; };
+		4E46EBE22BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/PackTags.strings; sourceTree = "<group>"; };
+		4E46EBE32BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Ui.strings; sourceTree = "<group>"; };
 		4E4F320F2B1736900087ECA1 /* FamilyProdRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyProdRelease.entitlements; sourceTree = "<group>"; };
 		4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
 		4E53CCB8244DFEB1009B3CF0 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
@@ -2896,6 +2899,7 @@
 				cs,
 				ro,
 				sv,
+				es,
 			);
 			mainGroup = 47729DF922F447C800B9B36B;
 			packageReferences = (
@@ -4522,6 +4526,7 @@
 				4E99A3B4251498630054BF69 /* cs */,
 				4E99A3BA2514986C0054BF69 /* ro */,
 				4E8800F325C401CD001FD4C9 /* sv */,
+				4E46EBE12BF352E50000EFC1 /* es */,
 			);
 			name = Packs.strings;
 			sourceTree = "<group>";
@@ -4543,6 +4548,7 @@
 				4E99A3B5251498630054BF69 /* cs */,
 				4E99A3BB2514986C0054BF69 /* ro */,
 				4E8800F425C401CE001FD4C9 /* sv */,
+				4E46EBE22BF352E50000EFC1 /* es */,
 			);
 			name = PackTags.strings;
 			sourceTree = "<group>";
@@ -4564,6 +4570,7 @@
 				4E99A3B6251498630054BF69 /* cs */,
 				4E99A3BC2514986C0054BF69 /* ro */,
 				4E8800F525C401CE001FD4C9 /* sv */,
+				4E46EBE32BF352E50000EFC1 /* es */,
 			);
 			name = Ui.strings;
 			sourceTree = "<group>";
