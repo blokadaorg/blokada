@@ -13,7 +13,7 @@ class JsonProfile {
   late bool safeSearch;
 
   String get template => _templateInAlias.firstMatch(alias)?.group(1) ?? "";
-  String get displayAlias => alias.removeSuffix(" ($template)");
+  String get displayAlias => alias.removeSuffix(" ($template)").i18n;
 
   JsonProfile({
     required this.profileId,

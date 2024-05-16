@@ -86,8 +86,7 @@ class AddProfileSheetState extends State<AddProfileSheet> {
                   ProfileButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      _profile.addProfile(
-                          "parent", "family profile name parent".i18n);
+                      _profile.addProfile("parent", "Parent");
                     },
                     icon: getProfileIcon("parent"),
                     iconColor: getProfileColor("parent"),
@@ -98,8 +97,7 @@ class AddProfileSheetState extends State<AddProfileSheet> {
                   ProfileButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      _profile.addProfile(
-                          "child", "family profile name child".i18n);
+                      _profile.addProfile("child", "Child");
                     },
                     icon: getProfileIcon("child"),
                     iconColor: getProfileColor("child"),
