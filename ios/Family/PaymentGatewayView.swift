@@ -50,7 +50,7 @@ struct PaymentGatewayView: View {
                                .multilineTextAlignment(.center)
                                .lineLimit(6)
                                .font(.system(size: 16))
-                               .fontWeight(.medium)
+                               //.fontWeight(.medium)
                                .foregroundColor(Color.primary)
                                .padding(.top, 70)
                                .padding([.leading, .trailing], 24)

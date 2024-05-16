@@ -345,7 +345,6 @@
 		4E270D132A80EB8300D3484B /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4E270D142A80EB8300D3484B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCF8245AFBCB009040F1 /* SpinnerView.swift */; };
 		4E270D152A80EB8300D3484B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B3240D114D0022CBF6 /* Error.swift */; };
-		4E270D162A80EB8300D3484B /* PacksNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCFB245B0B56009040F1 /* PacksNarrowView.swift */; };
 		4E270D172A80EB8300D3484B /* SKPaymentTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */; };
 		4E270D182A80EB8300D3484B /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673CFE29E6999D00A8A60D /* Stage.swift */; };
 		4E270D192A80EB8300D3484B /* ContentHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */; };
@@ -355,17 +354,14 @@
 		4E270D1E2A80EB8300D3484B /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF824640356005112C1 /* FileManager+Extensions.swift */; };
 		4E270D1F2A80EB8300D3484B /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD04245B1535009040F1 /* PacksViewModel.swift */; };
 		4E270D202A80EB8300D3484B /* BlokadaText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FB52497A1F700FC4C61 /* BlokadaText.swift */; };
-		4E270D212A80EB8300D3484B /* PacksWideVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E327B2C40800C98D36 /* PacksWideVerticalView.swift */; };
 		4E270D222A80EB8300D3484B /* TunnelErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23CFF6293E1F9700613D0A /* TunnelErrors.swift */; };
 		4E270D232A80EB8300D3484B /* TunnelConfiguration+WgQuickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D013293E20BC00613D0A /* TunnelConfiguration+WgQuickConfig.swift */; };
-		4E270D242A80EB8300D3484B /* PackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCFE245B0E79009040F1 /* PackDetailView.swift */; };
 		4E270D252A80EB8300D3484B /* PlusVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E4C2A29CD160053943D /* PlusVpn.swift */; };
 		4E270D262A80EB8300D3484B /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189CA27B5218700E57470 /* OptionView.swift */; };
 		4E270D272A80EB8300D3484B /* key.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D051293F3DD800613D0A /* key.c */; };
 		4E270D282A80EB8300D3484B /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D011293E20BC00613D0A /* NotificationToken.swift */; };
 		4E270D292A80EB8300D3484B /* SystemNavService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A222762067E005A59F5 /* SystemNavService.swift */; };
 		4E270D2A2A80EB8300D3484B /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCEF245AE5D1009040F1 /* PlaceholderView.swift */; };
-		4E270D2B2A80EB8300D3484B /* JournalWideVerticalV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8FE27B4316C00C98D36 /* JournalWideVerticalV.swift */; };
 		4E270D2C2A80EB8300D3484B /* CustomAddV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355672A45C81D0096FD66 /* CustomAddV.swift */; };
 		4E270D2D2A80EB8300D3484B /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B512A08FE3C00048F6A /* Custom.swift */; };
 		4E270D2E2A80EB8300D3484B /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC014002460741C001DF5F7 /* TabItemView.swift */; };
@@ -395,7 +391,6 @@
 		4E270D472A80EB8300D3484B /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8B24378CA80094EE27 /* Strings.swift */; };
 		4E270D482A80EB8300D3484B /* LeaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E63194C244743C300191C16 /* LeaseView.swift */; };
 		4E270D492A80EB8300D3484B /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCB6244DFE21009B3CF0 /* PaymentViewModel.swift */; };
-		4E270D4A2A80EB8300D3484B /* PacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E027B2C21E00C98D36 /* PacksView.swift */; };
 		4E270D4B2A80EB8300D3484B /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F6FEF243D1048002E1DF6 /* PaymentView.swift */; };
 		4E270D4C2A80EB8300D3484B /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E955DC42771D780008DE06F /* ContentViewModel.swift */; };
 		4E270D4E2A80EB8300D3484B /* WireGuardAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D06329471A2100613D0A /* WireGuardAppError.swift */; };
@@ -413,8 +408,6 @@
 		4E270D5A2A80EB8300D3484B /* LoadingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCF5245AF870009040F1 /* LoadingButtonView.swift */; };
 		4E270D5B2A80EB8300D3484B /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D05D293F5C6F00613D0A /* ErrorPresenter.swift */; };
 		4E270D5C2A80EB8300D3484B /* StoreKitWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */; };
-		4E270D5D2A80EB8300D3484B /* SettingsFormNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189C427B5060B00E57470 /* SettingsFormNavView.swift */; };
-		4E270D5E2A80EB8300D3484B /* SettingsNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78E352245DA3600017B234 /* SettingsNarrowView.swift */; };
 		4E270D602A80EB8300D3484B /* DNSResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D008293E20BC00613D0A /* DNSResolver.swift */; };
 		4E270D612A80EB8300D3484B /* JournalNoBarV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90BA3527BBB5860051FD0C /* JournalNoBarV.swift */; };
 		4E270D622A80EB8300D3484B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F6A246935D100809EA6 /* WebView.swift */; };
@@ -424,7 +417,6 @@
 		4E270D662A80EB8300D3484B /* VpnBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E682A29CE3A0053943D /* VpnBinding.swift */; };
 		4E270D672A80EB8300D3484B /* TunnelStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23CFF5293E1F9700613D0A /* TunnelStatus.swift */; };
 		4E270D682A80EB8300D3484B /* MockTunnels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23CFF9293E1F9700613D0A /* MockTunnels.swift */; };
-		4E270D692A80EB8300D3484B /* SettingsWideVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EB98F27B548420040F375 /* SettingsWideVerticalView.swift */; };
 		4E270D6A2A80EB8300D3484B /* JournalItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* JournalItemV.swift */; };
 		4E270D6B2A80EB8300D3484B /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49542A4E1417001EF934 /* Stats.swift */; };
 		4E270D6C2A80EB8300D3484B /* PeerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D003293E20BC00613D0A /* PeerConfiguration.swift */; };
@@ -446,7 +438,6 @@
 		4E270D7D2A80EB8300D3484B /* IPAddressRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D00C293E20BC00613D0A /* IPAddressRange.swift */; };
 		4E270D7E2A80EB8300D3484B /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA105C1242B8A7900559CBB /* Transitions.swift */; };
 		4E270D7F2A80EB8300D3484B /* Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E4F2A29CD170053943D /* Plus.swift */; };
-		4E270D802A80EB8300D3484B /* JournalWideHorizontalV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90127B4360B00C98D36 /* JournalWideHorizontalV.swift */; };
 		4E270D812A80EB8300D3484B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0129E6999D00A8A60D /* Notification.swift */; };
 		4E270D822A80EB8300D3484B /* StageBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D2729E6ACFA00A8A60D /* StageBinding.swift */; };
 		4E270D832A80EB8300D3484B /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189BE27B5018C00E57470 /* SettingsItemView.swift */; };
@@ -460,7 +451,6 @@
 		4E270D8B2A80EB8300D3484B /* UiGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FC22498A8EA00FC4C61 /* UiGen.swift */; };
 		4E270D8C2A80EB8300D3484B /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E955DC72771DC12008DE06F /* ViewModels.swift */; };
 		4E270D8D2A80EB8300D3484B /* LinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */; };
-		4E270D8E2A80EB8300D3484B /* NoLogRetentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2E527206D810042385B /* NoLogRetentionView.swift */; };
 		4E270D8F2A80EB8300D3484B /* PersistenceBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C64E129E81F8B00ABB65B /* PersistenceBinding.swift */; };
 		4E270D902A80EB8300D3484B /* x25519.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D050293F3DD800613D0A /* x25519.c */; };
 		4E270D912A80EB8300D3484B /* NETunnelProviderProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D014293E20BC00613D0A /* NETunnelProviderProtocol+Extension.swift */; };
@@ -474,7 +464,6 @@
 		4E270D9A2A80EB8300D3484B /* PermsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4347927730EF4003C1242 /* PermsRepo.swift */; };
 		4E270D9B2A80EB8300D3484B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4E270D9C2A80EB8300D3484B /* AppStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355542A430A710096FD66 /* AppStart.swift */; };
-		4E270D9D2A80EB8300D3484B /* JournalNarrowV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DF27206C780042385B /* JournalNarrowV.swift */; };
 		4E270D9E2A80EB8300D3484B /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4E270D9F2A80EB8300D3484B /* CustomBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B562A08FFC300048F6A /* CustomBinding.swift */; };
 		4E270DA02A80EB8300D3484B /* PackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70D277095D100735E0D /* PackDataSource.swift */; };
@@ -482,7 +471,6 @@
 		4E270DA22A80EB8300D3484B /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B502A08FE3C00048F6A /* Journal.swift */; };
 		4E270DA32A80EB8300D3484B /* Perm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD35A2A0CCCAA0039C101 /* Perm.swift */; };
 		4E270DA42A80EB8300D3484B /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
-		4E270DA52A80EB8300D3484B /* CustomV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355632A45C7D10096FD66 /* CustomV.swift */; };
 		4E270DA62A80EB8300D3484B /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
 		4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */; };
 		4E270DA82A80EB8300D3484B /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49682A543AEE001EF934 /* Command.swift */; };
@@ -504,8 +492,6 @@
 		4E270DB82A80EB8300D3484B /* SKProduct+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */; };
 		4E270DB92A80EB8300D3484B /* LoggerSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355B2451959F005A0779 /* LoggerSaver.swift */; };
 		4E270DBA2A80EB8300D3484B /* LocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42353C244F3D21005A0779 /* LocationListViewModel.swift */; };
-		4E270DBC2A80EB8300D3484B /* PacksWideHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F827B3F77400C98D36 /* PacksWideHorizontalView.swift */; };
-		4E270DBD2A80EB8300D3484B /* SettingsWideHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90427B438E600C98D36 /* SettingsWideHorizontalView.swift */; };
 		4E270DBE2A80EB8300D3484B /* SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F527B3DB2E00C98D36 /* SafeArea.swift */; };
 		4E270DBF2A80EB8300D3484B /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCF2417D54E00662E10 /* LocationListView.swift */; };
 		4E270DC02A80EB8300D3484B /* Tasker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E970C082769FE6F00ABD896 /* Tasker.swift */; };
@@ -516,12 +502,10 @@
 		4E270DC52A80EB8300D3484B /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0529E6999D00A8A60D /* Account.swift */; };
 		4E270DC62A80EB8300D3484B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */; };
 		4E270DC72A80EB8300D3484B /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49642A503657001EF934 /* Rate.swift */; };
-		4E270DC82A80EB8300D3484B /* JournalDetailV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D8247FF4BE00AED8F0 /* JournalDetailV.swift */; };
 		4E270DC92A80EB8300D3484B /* WireGuardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D06429471A2100613D0A /* WireGuardResult.swift */; };
 		4E270DCA2A80EB8300D3484B /* AccountPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D82A01425A005ECD5F /* AccountPayment.swift */; };
 		4E270DCB2A80EB8300D3484B /* InterfaceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D002293E20BC00613D0A /* InterfaceConfiguration.swift */; };
 		4E270DCC2A80EB8300D3484B /* LeaseBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E652A29CE200053943D /* LeaseBinding.swift */; };
-		4E270DCD2A80EB8300D3484B /* ChangeAccountView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC495C2A4EFE67001EF934 /* ChangeAccountView2.swift */; };
 		4E270DCF2A80EB8300D3484B /* JournalVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41CC32478406800155C88 /* JournalVM.swift */; };
 		4E270DD02A80EB8300D3484B /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
 		4E270DD12A80EB8300D3484B /* PacksFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8FB27B42C2300C98D36 /* PacksFilterBarView.swift */; };
@@ -566,7 +550,6 @@
 		4E28ADDE2AB4670C007445C8 /* ShieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADDB2AB4670C007445C8 /* ShieldsView.swift */; };
 		4E28ADDF2AB4670C007445C8 /* ShieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADDB2AB4670C007445C8 /* ShieldsView.swift */; };
 		4E28ADE02AB4670C007445C8 /* ShieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADDB2AB4670C007445C8 /* ShieldsView.swift */; };
-		4E28ADEA2AB99A6C007445C8 /* ShieldsNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADE92AB99A6C007445C8 /* ShieldsNarrowView.swift */; };
 		4E28ADEB2AB99A6C007445C8 /* ShieldsNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADE92AB99A6C007445C8 /* ShieldsNarrowView.swift */; };
 		4E28ADEC2AB99DB0007445C8 /* ShieldsNarrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADE92AB99A6C007445C8 /* ShieldsNarrowView.swift */; };
 		4E290FB62497A1F700FC4C61 /* BlokadaText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FB52497A1F700FC4C61 /* BlokadaText.swift */; };
@@ -1071,7 +1054,6 @@
 		4EB4967F2B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
 		4EB496802B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
 		4EB496812B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
-		4EB496822B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
 		4EB496832B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
 		4EB496842B233CBE00926C85 /* ShieldsWideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4967E2B233CBE00926C85 /* ShieldsWideView.swift */; };
 		4EB496862B233D5200926C85 /* ShieldsViewTwoColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB496852B233D5200926C85 /* ShieldsViewTwoColumn.swift */; };
@@ -3605,7 +3587,6 @@
 				4E270D132A80EB8300D3484B /* Date+Extensions.swift in Sources */,
 				4E270D142A80EB8300D3484B /* SpinnerView.swift in Sources */,
 				4E270D152A80EB8300D3484B /* Error.swift in Sources */,
-				4E270D162A80EB8300D3484B /* PacksNarrowView.swift in Sources */,
 				4E270D172A80EB8300D3484B /* SKPaymentTransaction+Extensions.swift in Sources */,
 				4E270D182A80EB8300D3484B /* Stage.swift in Sources */,
 				4E270D192A80EB8300D3484B /* ContentHostingController.swift in Sources */,
@@ -3616,18 +3597,14 @@
 				4E270D1E2A80EB8300D3484B /* FileManager+Extensions.swift in Sources */,
 				4E270D1F2A80EB8300D3484B /* PacksViewModel.swift in Sources */,
 				4E270D202A80EB8300D3484B /* BlokadaText.swift in Sources */,
-				4E270D212A80EB8300D3484B /* PacksWideVerticalView.swift in Sources */,
 				4E270D222A80EB8300D3484B /* TunnelErrors.swift in Sources */,
-				4E28ADEA2AB99A6C007445C8 /* ShieldsNarrowView.swift in Sources */,
 				4E270D232A80EB8300D3484B /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
-				4E270D242A80EB8300D3484B /* PackDetailView.swift in Sources */,
 				4E270D252A80EB8300D3484B /* PlusVpn.swift in Sources */,
 				4E270D262A80EB8300D3484B /* OptionView.swift in Sources */,
 				4E270D272A80EB8300D3484B /* key.c in Sources */,
 				4E270D282A80EB8300D3484B /* NotificationToken.swift in Sources */,
 				4E270D292A80EB8300D3484B /* SystemNavService.swift in Sources */,
 				4E270D2A2A80EB8300D3484B /* PlaceholderView.swift in Sources */,
-				4E270D2B2A80EB8300D3484B /* JournalWideVerticalV.swift in Sources */,
 				4E270D2C2A80EB8300D3484B /* CustomAddV.swift in Sources */,
 				4E270D2D2A80EB8300D3484B /* Custom.swift in Sources */,
 				4E1275F52AE7D0A100A94994 /* PaymentFeaturesView.swift in Sources */,
@@ -3659,7 +3636,6 @@
 				4E270D472A80EB8300D3484B /* Strings.swift in Sources */,
 				4E270D482A80EB8300D3484B /* LeaseView.swift in Sources */,
 				4E270D492A80EB8300D3484B /* PaymentViewModel.swift in Sources */,
-				4E270D4A2A80EB8300D3484B /* PacksView.swift in Sources */,
 				4E270D4B2A80EB8300D3484B /* PaymentView.swift in Sources */,
 				4E270D4C2A80EB8300D3484B /* ContentViewModel.swift in Sources */,
 				4E270D4E2A80EB8300D3484B /* WireGuardAppError.swift in Sources */,
@@ -3677,9 +3653,7 @@
 				4E270D5A2A80EB8300D3484B /* LoadingButtonView.swift in Sources */,
 				4E270D5B2A80EB8300D3484B /* ErrorPresenter.swift in Sources */,
 				4E270D5C2A80EB8300D3484B /* StoreKitWrapper.swift in Sources */,
-				4E270D5D2A80EB8300D3484B /* SettingsFormNavView.swift in Sources */,
 				4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
-				4E270D5E2A80EB8300D3484B /* SettingsNarrowView.swift in Sources */,
 				4E270D602A80EB8300D3484B /* DNSResolver.swift in Sources */,
 				4E270D612A80EB8300D3484B /* JournalNoBarV.swift in Sources */,
 				4E270D622A80EB8300D3484B /* WebView.swift in Sources */,
@@ -3690,7 +3664,6 @@
 				4E270D662A80EB8300D3484B /* VpnBinding.swift in Sources */,
 				4E270D672A80EB8300D3484B /* TunnelStatus.swift in Sources */,
 				4E270D682A80EB8300D3484B /* MockTunnels.swift in Sources */,
-				4E270D692A80EB8300D3484B /* SettingsWideVerticalView.swift in Sources */,
 				4E270D6A2A80EB8300D3484B /* JournalItemV.swift in Sources */,
 				4E270D6B2A80EB8300D3484B /* Stats.swift in Sources */,
 				4E270D6C2A80EB8300D3484B /* PeerConfiguration.swift in Sources */,
@@ -3713,7 +3686,6 @@
 				4E270D7D2A80EB8300D3484B /* IPAddressRange.swift in Sources */,
 				4E270D7E2A80EB8300D3484B /* Transitions.swift in Sources */,
 				4E270D7F2A80EB8300D3484B /* Plus.swift in Sources */,
-				4E270D802A80EB8300D3484B /* JournalWideHorizontalV.swift in Sources */,
 				4E270D812A80EB8300D3484B /* Notification.swift in Sources */,
 				4E270D822A80EB8300D3484B /* StageBinding.swift in Sources */,
 				4E270D832A80EB8300D3484B /* SettingsItemView.swift in Sources */,
@@ -3728,7 +3700,6 @@
 				4E270D8B2A80EB8300D3484B /* UiGen.swift in Sources */,
 				4E270D8C2A80EB8300D3484B /* ViewModels.swift in Sources */,
 				4E270D8D2A80EB8300D3484B /* LinkRepo.swift in Sources */,
-				4E270D8E2A80EB8300D3484B /* NoLogRetentionView.swift in Sources */,
 				4E270D8F2A80EB8300D3484B /* PersistenceBinding.swift in Sources */,
 				4E270D902A80EB8300D3484B /* x25519.c in Sources */,
 				4E270D912A80EB8300D3484B /* NETunnelProviderProtocol+Extension.swift in Sources */,
@@ -3744,7 +3715,6 @@
 				4E270D9B2A80EB8300D3484B /* ContentView.swift in Sources */,
 				4E270D9C2A80EB8300D3484B /* AppStart.swift in Sources */,
 				4E28ADDF2AB4670C007445C8 /* ShieldsView.swift in Sources */,
-				4E270D9D2A80EB8300D3484B /* JournalNarrowV.swift in Sources */,
 				4E270D9E2A80EB8300D3484B /* Deck.swift in Sources */,
 				4ECFFEFF2B4D7DB700154DC1 /* AfterActivatedView.swift in Sources */,
 				4E270D9F2A80EB8300D3484B /* CustomBinding.swift in Sources */,
@@ -3754,7 +3724,6 @@
 				4E270DA22A80EB8300D3484B /* Journal.swift in Sources */,
 				4E270DA32A80EB8300D3484B /* Perm.swift in Sources */,
 				4E270DA42A80EB8300D3484B /* PermBinding.swift in Sources */,
-				4E270DA52A80EB8300D3484B /* CustomV.swift in Sources */,
 				4E270DA62A80EB8300D3484B /* TopBarBlurView.swift in Sources */,
 				4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */,
 				4E270DA82A80EB8300D3484B /* Command.swift in Sources */,
@@ -3764,7 +3733,6 @@
 				4E270DAC2A80EB8300D3484B /* WgService.swift in Sources */,
 				4E270DAD2A80EB8300D3484B /* LeaseListViewModel.swift in Sources */,
 				4EA37D692B2C67AD00E4EC97 /* LinkBinding.swift in Sources */,
-				4EB496822B233CBE00926C85 /* ShieldsWideView.swift in Sources */,
 				4E270DAE2A80EB8300D3484B /* LevelView.swift in Sources */,
 				4EA0292F2B34591D00B689B4 /* SettingsHeaderView.swift in Sources */,
 				4E270DAF2A80EB8300D3484B /* AppDelegate.swift in Sources */,
@@ -3780,8 +3748,6 @@
 				4E270DB82A80EB8300D3484B /* SKProduct+Extensions.swift in Sources */,
 				4E270DB92A80EB8300D3484B /* LoggerSaver.swift in Sources */,
 				4E270DBA2A80EB8300D3484B /* LocationListViewModel.swift in Sources */,
-				4E270DBC2A80EB8300D3484B /* PacksWideHorizontalView.swift in Sources */,
-				4E270DBD2A80EB8300D3484B /* SettingsWideHorizontalView.swift in Sources */,
 				4E270DBE2A80EB8300D3484B /* SafeArea.swift in Sources */,
 				4E270DBF2A80EB8300D3484B /* LocationListView.swift in Sources */,
 				4E270DC02A80EB8300D3484B /* Tasker.swift in Sources */,
@@ -3792,12 +3758,10 @@
 				4E270DC52A80EB8300D3484B /* Account.swift in Sources */,
 				4E270DC62A80EB8300D3484B /* SceneDelegate.swift in Sources */,
 				4E270DC72A80EB8300D3484B /* Rate.swift in Sources */,
-				4E270DC82A80EB8300D3484B /* JournalDetailV.swift in Sources */,
 				4E270DC92A80EB8300D3484B /* WireGuardResult.swift in Sources */,
 				4E270DCA2A80EB8300D3484B /* AccountPayment.swift in Sources */,
 				4E270DCB2A80EB8300D3484B /* InterfaceConfiguration.swift in Sources */,
 				4E270DCC2A80EB8300D3484B /* LeaseBinding.swift in Sources */,
-				4E270DCD2A80EB8300D3484B /* ChangeAccountView2.swift in Sources */,
 				4E1275F22AE7D08400A94994 /* PaymentGatewayView.swift in Sources */,
 				4EA37D702B2C680200E4EC97 /* Link.swift in Sources */,
 				4E270DCF2A80EB8300D3484B /* JournalVM.swift in Sources */,
@@ -5102,7 +5066,7 @@
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5151,7 +5115,7 @@
 				);
 				INFOPLIST_FILE = App/Assets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
