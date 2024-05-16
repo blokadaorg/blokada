@@ -34,98 +34,122 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
         color: context.theme.bgColorCard,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(children: [
-            // Row(
-            //   children: [
-            //     Expanded(child: Container()),
-            //     Text("Cancel", style: TextStyle(color: context.theme.family)),
-            //   ],
-            // ),
-            const SizedBox(height: 24),
-            Text("family perms header".i18n,
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(fontWeight: FontWeight.w700)),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Text(
-                  "family perms brief alt".i18n.withParams("Blokada Family"),
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: context.theme.textSecondary)),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //Text("In the main section of Settings, tap:",
-                    Text("1.",
-                        style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
-                        title: "family perms setting ios general".i18n,
-                        icon: CupertinoIcons.settings),
-                    const SizedBox(height: 16),
-                    //Text("... then swipe down, and tap:",
-                    Text("2.",
-                        style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
-                        title: "family perms setting ios vpn".i18n),
-                    const SizedBox(height: 16),
-                    // Text("... next, tap:",
-                    Text("3.",
-                        style: TextStyle(color: context.theme.textSecondary)),
-                    PrivateDnsSettingGuideWidget(
-                        title: "family perms setting ios dns".i18n,
-                        icon: CupertinoIcons.ellipsis,
-                        edgeText: "family perms setting ios automatic".i18n),
-                    const SizedBox(height: 16),
-                    //Text("... and finally, select:",
-                    Text("4.",
-                        style: TextStyle(color: context.theme.textSecondary)),
-                    const PrivateDnsSettingGuideWidget(
-                      title: "Blokada Family",
-                      subtitle: "Blokada Family",
-                      iconReplacement: Image(
-                          image: AssetImage('assets/images/appicon.png'),
-                          width: 24),
-                      chevron: false,
-                    ),
-                  ]),
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MiniCard(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        _openPerms.open();
-                      },
-                      color: context.theme.accent,
-                      child: SizedBox(
-                        height: 32,
-                        child: Center(
-                          child: Text(
-                            "dnsprofile action open settings".i18n,
-                            style: const TextStyle(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 24),
+                      Text(
+                        "family perms header".i18n,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Text(
+                          "family perms brief alt"
+                              .i18n
+                              .withParams("Blokada Family"),
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: context.theme.textSecondary),
+                        ),
+                      ),
+                      const SizedBox(height: 24), // Replaces Spacer
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "1.",
+                              style:
+                                  TextStyle(color: context.theme.textSecondary),
+                            ),
+                            PrivateDnsSettingGuideWidget(
+                              title: "family perms setting ios general".i18n,
+                              icon: CupertinoIcons.settings,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "2.",
+                              style:
+                                  TextStyle(color: context.theme.textSecondary),
+                            ),
+                            PrivateDnsSettingGuideWidget(
+                              title: "family perms setting ios vpn".i18n,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "3.",
+                              style:
+                                  TextStyle(color: context.theme.textSecondary),
+                            ),
+                            PrivateDnsSettingGuideWidget(
+                              title: "family perms setting ios dns".i18n,
+                              icon: CupertinoIcons.ellipsis,
+                              edgeText:
+                                  "family perms setting ios automatic".i18n,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "4.",
+                              style:
+                                  TextStyle(color: context.theme.textSecondary),
+                            ),
+                            const PrivateDnsSettingGuideWidget(
+                              title: "Blokada Family",
+                              subtitle: "Blokada Family",
+                              iconReplacement: Image(
+                                image: AssetImage('assets/images/appicon.png'),
+                                width: 24,
+                              ),
+                              chevron: false,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 24), // Replaces Spacer
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MiniCard(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          _openPerms.open();
+                        },
+                        color: context.theme.accent,
+                        child: SizedBox(
+                          height: 32,
+                          child: Center(
+                            child: Text(
+                              "dnsprofile action open settings".i18n,
+                              style: const TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-          ]),
+                ],
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
