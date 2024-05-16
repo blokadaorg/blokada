@@ -1,6 +1,8 @@
 import 'package:common/common/model.dart';
+import 'package:common/custom/custom.dart';
 import 'package:common/dragon/journal/api.dart';
 import 'package:common/util/di.dart';
+import 'package:common/util/trace.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 final _noFilter = JournalFilter(
@@ -9,8 +11,9 @@ final _noFilter = JournalFilter(
   sortNewestFirst: true,
 );
 
-class JournalController {
+class JournalController with TraceOrigin {
   late final _api = dep<JournalApi>();
+  late final _custom = dep<CustomStore>();
 
   JournalFilter filter = _noFilter;
   List<UiJournalEntry> allEntries = [];
@@ -56,6 +59,9 @@ class JournalController {
 
     allEntries = grouped;
     filteredEntries = filter.apply(allEntries);
+    await traceAs("fetchCustomInJournal", (trace) async {
+      await _custom.fetch(trace);
+    });
     onChange();
   }
 
