@@ -581,11 +581,20 @@
 // A name of a configuration profile, for parent device
 "family profile name parent" = "Parent";
 
+// A name of a configuration profile, for parent device
+"Parent" = "Parent";
+
 // A name of a configuration profile, for child device
 "family profile name child" = "Enfant";
 
+// A name of a configuration profile, for child device
+"Child" = "Enfant";
+
 // A name of a custom configuration profile template
 "family profile name custom" = "Personnalisé";
+
+// A name of a custom configuration profile template
+"Custom" = "Personnalisé";
 
 "family profile action add" = "Ajouter un nouveau profil";
 "family profile action delete" = "Supprimer ce profil";

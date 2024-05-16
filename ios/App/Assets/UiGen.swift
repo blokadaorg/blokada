@@ -266,6 +266,8 @@ internal enum L10n {
   internal static let alertVpnExpiredHeader = L10n.tr("Ui", "alert vpn expired header")
   /// This device
   internal static let appSettingsSectionHeader = L10n.tr("Ui", "app settings section header")
+  /// Child
+  internal static let child = L10n.tr("Ui", "Child")
   /// - Check your Internet connection
   /// - Use only one Blokada app
   /// - Deactivate other VPNs
@@ -276,6 +278,8 @@ internal enum L10n {
   internal static let connIsssuesSlug = L10n.tr("Ui", "conn isssues slug")
   /// Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.
   internal static let crashBody = L10n.tr("Ui", "crash body")
+  /// Custom
+  internal static let custom = L10n.tr("Ui", "Custom")
   /// Open Settings
   internal static let dnsprofileActionOpenSettings = L10n.tr("Ui", "dnsprofile action open settings")
   /// In the Settings app, navigate to General → VPN, DNS & Device Management → DNS and select Blokada.
@@ -734,6 +738,8 @@ internal enum L10n {
   internal static let packTagsHeader = L10n.tr("Ui", "pack tags header")
   /// None
   internal static let packTagsNone = L10n.tr("Ui", "pack tags none")
+  /// Parent
+  internal static let parent = L10n.tr("Ui", "Parent")
   /// Choose a location
   internal static let paymentActionChooseLocation = L10n.tr("Ui", "payment action choose location")
   /// Compare plans

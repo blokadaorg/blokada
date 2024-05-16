@@ -581,11 +581,20 @@
 // A name of a configuration profile, for parent device
 "family profile name parent" = "Förälder";
 
+// A name of a configuration profile, for parent device
+"Parent" = "Förälder";
+
 // A name of a configuration profile, for child device
 "family profile name child" = "Barn";
 
+// A name of a configuration profile, for child device
+"Child" = "Barn";
+
 // A name of a custom configuration profile template
 "family profile name custom" = "Anpassad";
+
+// A name of a custom configuration profile template
+"Custom" = "Anpassad";
 
 "family profile action add" = "Lägg till ny profil";
 "family profile action delete" = "Ta bort denna profil";

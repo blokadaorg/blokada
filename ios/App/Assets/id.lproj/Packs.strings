@@ -96,23 +96,23 @@
 "Restricts access to popular games" = "Membatasi akses ke aplikasi permainan populer";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Berisi sejumlah aplikasi permainan populer. Cocok untuk Anda yang menginginkan kendali akses yang presisi.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
+"Online shopping" = "Belanja online";
 "Blocks leading e-commerce and shopping applications" = "Memblokir aplikasi e-commerce dan belanja online ternama";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Perisai ini mencegah akses ke aplikasi belanja online. Membantu Anda mengurangi pengeluaran mendadak.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
+"Other apps" = "Aplikasi lainnya";
 "A selection of various popular applications" = "Pilihan berbagai aplikasi populer";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Perisai ini menyediakan daftar berbagai jenis aplikasi populer. Dibuat untuk Anda yang menginginkan kendali lebih terhadap aplikasi yang Anda gunakan.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Safe Search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Aktifkan Safe Search untuk menyaring hasil pencarian yang tidak pantas.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "Utama";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Diperpanjang";
 // Filter name, blocks file hosting sites
 "File hosting" = "File hosting";
 // Filter name, blocks torrent sites
 "Torrent" = "Torrent";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "Game online";
