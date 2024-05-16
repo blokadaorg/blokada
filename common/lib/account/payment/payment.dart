@@ -7,8 +7,8 @@ import '../../stage/stage.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../account.dart';
-import 'channel.pg.dart';
 import 'channel.act.dart';
+import 'channel.pg.dart';
 import 'json.dart';
 
 part 'payment.g.dart';
@@ -177,7 +177,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
           _mapPaymentException(e);
         } on AccountInactiveAfterPurchase catch (_) {
           var modal = StageModal.accountRestoreFailed;
-          if (act.isFamily()) modal = StageModal.accountChange;
+          //if (act.isFamily()) modal = StageModal.accountChange;
 
           await _stage.showModal(trace, modal);
           rethrow;
