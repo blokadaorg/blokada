@@ -62,8 +62,7 @@ class SmartHeaderState extends State<SmartHeader>
     list.add(const Spacer());
 
     if (!widget.phase.isLocked2() &&
-        widget.phase != FamilyPhase.linkedExpired &&
-        widget.phase != FamilyPhase.fresh) {
+        widget.phase != FamilyPhase.linkedExpired) {
       // list.add(SmartHeaderButton(
       //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
       //     onTap: () {
