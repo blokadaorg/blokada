@@ -205,8 +205,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
                                                     size: 18),
                                                 const SizedBox(width: 4),
                                                 Text(
-                                                    _payload
-                                                        .profile!.displayAlias,
+                                                    _payload.profile!
+                                                        .displayAlias.i18n,
                                                     style: TextStyle(
                                                         color: getProfileColor(
                                                             _payload.profile!

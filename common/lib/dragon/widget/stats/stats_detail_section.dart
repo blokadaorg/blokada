@@ -167,7 +167,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                                         size: 20),
                                     const SizedBox(width: 4),
                                     Text(
-                                      profile!.displayAlias,
+                                      profile!.displayAlias.i18n,
                                       style: TextStyle(
                                         color:
                                             getProfileColor(profile!.template),

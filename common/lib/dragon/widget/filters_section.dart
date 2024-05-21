@@ -66,7 +66,7 @@ class FiltersSectionState extends State<FiltersSection> {
                   Text(
                       "family profile template name"
                           .i18n
-                          .withParams(profile.displayAlias),
+                          .withParams(profile.displayAlias.i18n),
                       style: const TextStyle(
                           fontSize: 28, fontWeight: FontWeight.w700)),
 

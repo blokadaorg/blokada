@@ -131,7 +131,7 @@ class ProfileDialogState extends State<ProfileDialog> {
               },
               icon: getProfileIcon(it.template),
               iconColor: getProfileColor(it.template),
-              name: it.displayAlias,
+              name: it.displayAlias.i18n,
               trailing: CommonClickable(
                 onTap: () {
                   showRenameDialog(context, "profile", it.displayAlias,

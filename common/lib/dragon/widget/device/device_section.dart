@@ -160,7 +160,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                               color: getProfileColor(device.profile.template),
                               size: 18),
                           const SizedBox(width: 4),
-                          Text(device.profile.displayAlias,
+                          Text(device.profile.displayAlias.i18n,
                               style: TextStyle(
                                 color: getProfileColor(device.profile.template),
                               )),

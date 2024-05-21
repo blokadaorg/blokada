@@ -4,6 +4,7 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/home/header.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class HomeDeviceState extends State<HomeDevice>
               text: widget.device.displayName,
               iconName: widget.device.device.alias,
               color: widget.color,
-              chevronText: widget.device.profile.displayAlias,
+              chevronText: widget.device.profile.displayAlias.i18n,
               chevronIcon: Icons.chevron_right,
             ),
             const SizedBox(height: 12),
