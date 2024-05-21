@@ -15,7 +15,6 @@ import 'package:common/lock/lock.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/mobx.dart';
 import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
@@ -57,7 +56,6 @@ abstract class FamilyStoreBase
 
     _onStatsChanges();
     _onDnsPermChanges();
-    _onPhaseShowNavbar(act);
 
     _device.onChange = (dirty) =>
         traceAs("devicesChanged", (trace) => _reload(trace, dirty: dirty));
@@ -67,13 +65,13 @@ abstract class FamilyStoreBase
       linkedMode = false;
       linkedTokenOk = false;
       _thisDevice.now = null;
-      _updatePhase();
+      _updatePhase(reason: "tokenExpired");
     };
     _auth.onTokenRefreshed = () {
       print("token refreshed");
       linkedMode = true;
       linkedTokenOk = true;
-      _updatePhase();
+      _updatePhase(reason: "tokenRefreshed");
     };
   }
 
@@ -110,24 +108,14 @@ abstract class FamilyStoreBase
   _onStatsChanges() {
     _stats.onStatsUpdated = () {
       devices = devices.updateStats(_stats.stats);
-      _updatePhase();
+      _updatePhase(reason: "statsChanges");
     };
   }
 
   _onDnsPermChanges() {
     _dnsPerm.onChange.listen((it) {
       permsGranted = it;
-      _updatePhase();
-    });
-  }
-
-  _onPhaseShowNavbar(Act? act) {
-    final a = act ?? this.act;
-    if (!a.isFamily()) return;
-    reactionOnStore((_) => phase, (phase) async {
-      return await traceAs("onPhaseShowNavbar", (trace) async {
-        await _stage.setShowNavbar(trace, !phase.isLocked());
-      });
+      _updatePhase(reason: "dnsPermChanged");
     });
   }
 
@@ -146,7 +134,7 @@ abstract class FamilyStoreBase
       if (_account.type.isActive()) {
         _updatePhase(loading: true);
         await _reload(trace, createDeviceIfNeeded: true);
-        _updatePhase();
+        _updatePhase(reason: "activateCta");
         return;
       }
       _stage.showModal(trace, StageModal.payment);
@@ -231,7 +219,7 @@ abstract class FamilyStoreBase
   _postActivationOnboarding(Trace parentTrace) async {
     accountActive = _account.type.isActive();
     if (accountActive == true) await _reload(parentTrace);
-    _updatePhase();
+    _updatePhase(reason: "postActivationOnboarding");
 
     if (_stage.route.modal == StageModal.payment) {
       await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
@@ -265,7 +253,7 @@ abstract class FamilyStoreBase
     //   //   await _addThisDevice(parentTrace);
     //   // }
     // }
-    _updatePhase();
+    _updatePhase(reason: "fromLock");
   }
 
   link(String qrUrl) async {
@@ -313,8 +301,9 @@ abstract class FamilyStoreBase
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer
-  _updatePhase({bool loading = false}) {
+  _updatePhase({bool loading = false, String reason = ""}) {
     timer?.cancel();
+    print("Will update phase, reason: $reason");
     if (loading) _updatePhaseNow(true);
     timer = Timer(const Duration(seconds: 1), () => _updatePhaseNow(false));
   }
