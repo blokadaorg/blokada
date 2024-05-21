@@ -315,6 +315,7 @@
 		4E270CF12A80E85E00D3484B /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D00A293E20BC00613D0A /* PrivateKey.swift */; };
 		4E270CF32A80E85E00D3484B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4E270CF42A80E85E00D3484B /* libwg-go.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E23CFA5293DF89100613D0A /* libwg-go.a */; };
+		4E270CFB2A80E91700D3484B /* FamilyWGNetx.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E270CF92A80E85E00D3484B /* FamilyWGNetx.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E270D022A80EB1100D3484B /* Flavor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E270D012A80EB1100D3484B /* Flavor.swift */; };
 		4E270D032A80EB1100D3484B /* Flavor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E270D012A80EB1100D3484B /* Flavor.swift */; };
 		4E270D0C2A80EB8300D3484B /* PaymentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D52A014233005ECD5F /* PaymentBinding.swift */; };
@@ -501,6 +502,7 @@
 		4E270DD92A80EB8300D3484B /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4E270DDA2A80EB8300D3484B /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
 		4E270DDC2A80EB8300D3484B /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; };
+		4E270DDD2A80EB8300D3484B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4E270DDE2A80EB8300D3484B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4E270D082A80EB8300D3484B /* Factory */; };
 		4E270DDF2A80EB8300D3484B /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; };
 		4E270DE12A80EB8300D3484B /* Packs.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E290FBE2498A3E200FC4C61 /* Packs.strings */; };
@@ -511,6 +513,7 @@
 		4E270DE92A80EB8300D3484B /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E270DEA2A80EB8300D3484B /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E270DF02A80EB9200D3484B /* Flavor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E1FB62A7B8F24005A2550 /* Flavor.swift */; };
+		4E270DF12A80EBAC00D3484B /* FamilyWGNetx.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E270CF92A80E85E00D3484B /* FamilyWGNetx.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E270DF62A80F30400D3484B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4E270DF52A80F30400D3484B /* Factory */; };
 		4E270DF82A80F31600D3484B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4E270DF72A80F31600D3484B /* Factory */; };
 		4E28ADCC2AB32C92007445C8 /* TabHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28ADCA2AB32C92007445C8 /* TabHorizontalView.swift */; };
@@ -1239,6 +1242,7 @@
 		4EBF3BDB2A80E55900F637BB /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2782F24657E9E00C6372E /* ShareSheet.swift */; };
 		4EBF3BDC2A80E55900F637BB /* JsonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E62758D0BD00BD2E5B /* JsonUtil.swift */; };
 		4EBF3BDE2A80E55900F637BB /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E946E462A2483EC0053943D /* Flutter.xcframework */; };
+		4EBF3BDF2A80E55900F637BB /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4EBF3BE02A80E55900F637BB /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4EBF3B0A2A80E55900F637BB /* Factory */; };
 		4EBF3BE12A80E55900F637BB /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E946E452A2483EB0053943D /* App.xcframework */; };
 		4EBF3BE32A80E55900F637BB /* Packs.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E290FBE2498A3E200FC4C61 /* Packs.strings */; };
@@ -1362,6 +1366,20 @@
 			remoteGlobalIDString = 4EEF402E293A08390036EA57;
 			remoteInfo = WireGuardBridgeiOS;
 		};
+		4E270CFC2A80E91700D3484B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E270CD42A80E85E00D3484B;
+			remoteInfo = "Family WGNetx";
+		};
+		4E270DF22A80EBAC00D3484B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E270CD42A80E85E00D3484B;
+			remoteInfo = "Family WGNetx";
+		};
 		4E8651072A3C968B0060AFB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
@@ -1382,6 +1400,28 @@
 				4E1276C12AE7D0FC00A94994 /* App.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E270CFE2A80E91700D3484B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4E270CFB2A80E91700D3484B /* FamilyWGNetx.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E270DE62A80EB8300D3484B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4E270DF12A80EBAC00D3484B /* FamilyWGNetx.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4E270DE82A80EB8300D3484B /* Embed Frameworks */ = {
@@ -1675,8 +1715,6 @@
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
 		4E8AE1FB27591F8E00BD2E5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		4E8B179D2B177EFE00D1D854 /* JournalFilterBarV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFilterBarV.swift; sourceTree = "<group>"; };
-		4E8D86982BFCDAF600B24613 /* FamilyDevRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyDevRelease.entitlements; sourceTree = "<group>"; };
-		4E8D86992BFCDAFD00B24613 /* FamilyMockedRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyMockedRelease.entitlements; sourceTree = "<group>"; };
 		4E90BA3527BBB5860051FD0C /* JournalNoBarV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalNoBarV.swift; sourceTree = "<group>"; };
 		4E90BA3827BBB5B40051FD0C /* JournalFilterBarV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalFilterBarV.swift; sourceTree = "<group>"; };
 		4E90BA3B27BBB6810051FD0C /* JournalListV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalListV.swift; sourceTree = "<group>"; };
@@ -1859,6 +1897,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E270DDC2A80EB8300D3484B /* Flutter.xcframework in Frameworks */,
+				4E270DDD2A80EB8300D3484B /* NetworkExtension.framework in Frameworks */,
 				4E270DDE2A80EB8300D3484B /* Factory in Frameworks */,
 				4E270DDF2A80EB8300D3484B /* App.xcframework in Frameworks */,
 				4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */,
@@ -1893,6 +1932,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EBF3BDE2A80E55900F637BB /* Flutter.xcframework in Frameworks */,
+				4EBF3BDF2A80E55900F637BB /* NetworkExtension.framework in Frameworks */,
 				4EBF3BE02A80E55900F637BB /* Factory in Frameworks */,
 				4EBF3BE12A80E55900F637BB /* App.xcframework in Frameworks */,
 				4E58C13B2AC1B905002CA1A3 /* CodeScanner in Frameworks */,
@@ -1905,8 +1945,6 @@
 		47729DF922F447C800B9B36B = {
 			isa = PBXGroup;
 			children = (
-				4E8D86992BFCDAFD00B24613 /* FamilyMockedRelease.entitlements */,
-				4E8D86982BFCDAF600B24613 /* FamilyDevRelease.entitlements */,
 				4E270D002A80EAF100D3484B /* NotFamily */,
 				4E270CFF2A80EAEA00D3484B /* Family */,
 				47729E0422F447C800B9B36B /* App */,
@@ -2671,11 +2709,13 @@
 				4E270D0B2A80EB8300D3484B /* Sources */,
 				4E270DDB2A80EB8300D3484B /* Frameworks */,
 				4E270DE02A80EB8300D3484B /* Resources */,
+				4E270DE62A80EB8300D3484B /* Embed Foundation Extensions */,
 				4E270DE82A80EB8300D3484B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4E270DF32A80EBAC00D3484B /* PBXTargetDependency */,
 			);
 			name = FamilyProd;
 			packageProductDependencies = (
@@ -2742,10 +2782,12 @@
 				4EBF3BDD2A80E55900F637BB /* Frameworks */,
 				4EBF3BE22A80E55900F637BB /* Resources */,
 				4EBF3BEA2A80E55900F637BB /* Embed Frameworks */,
+				4E270CFE2A80E91700D3484B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4E270CFD2A80E91700D3484B /* PBXTargetDependency */,
 			);
 			name = FamilyDev;
 			packageProductDependencies = (
@@ -4333,6 +4375,16 @@
 			target = 4EEF402E293A08390036EA57 /* WireGuardBridgeiOS */;
 			targetProxy = 4E270CD62A80E85E00D3484B /* PBXContainerItemProxy */;
 		};
+		4E270CFD2A80E91700D3484B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E270CD42A80E85E00D3484B /* FamilyWGNetx */;
+			targetProxy = 4E270CFC2A80E91700D3484B /* PBXContainerItemProxy */;
+		};
+		4E270DF32A80EBAC00D3484B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E270CD42A80E85E00D3484B /* FamilyWGNetx */;
+			targetProxy = 4E270DF22A80EBAC00D3484B /* PBXContainerItemProxy */;
+		};
 		4E8651062A3C968B0060AFB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4E23CF97293DF7D100613D0A /* WireGuardNetworkExtensioniOS */;
@@ -4676,7 +4728,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = FamilyMockedRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4927,6 +4979,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4EA029322B346FA400B689B4 /* Flavor.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
@@ -4976,6 +5029,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4EA029322B346FA400B689B4 /* Flavor.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FamilyProdRelease.entitlements;
@@ -5236,7 +5290,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = FamilyDevRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
