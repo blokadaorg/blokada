@@ -305,7 +305,7 @@ abstract class FamilyStoreBase
     timer?.cancel();
     print("Will update phase, reason: $reason");
     if (loading != null) _updatePhaseNow(loading);
-    timer = Timer(const Duration(seconds: 3), () => _updatePhaseNow(false));
+    timer = Timer(const Duration(seconds: 2), () => _updatePhaseNow(false));
   }
 
   _updatePhaseNow(bool loading) {
