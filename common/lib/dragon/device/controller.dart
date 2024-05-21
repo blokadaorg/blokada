@@ -39,7 +39,13 @@ class DeviceController {
 
     if (!createIfNeeded) return;
 
-    final d = await _thisDevice.fetch();
+    JsonDevice? d = await _thisDevice.fetch();
+    if (devices.firstWhereOrNull((it) => it.deviceTag == d?.deviceTag) ==
+        null) {
+      // The value o _thisDevice is not correct for current account, reset
+      _thisDevice.now = null;
+      d = null;
+    }
 
     final tag = d?.deviceTag;
     final alias = d?.alias ?? _nextAlias.get();
