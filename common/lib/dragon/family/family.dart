@@ -344,7 +344,9 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.lockedNoAccount;
     } else if (appLocked) {
       phase = FamilyPhase.lockedNoPerms;
-    } else if (accountActive == false || _thisDevice.now == null) {
+    } else if (accountActive == false ||
+        _thisDevice.now == null ||
+        !devices.hasThisDevice) {
       phase = FamilyPhase.fresh;
     } else if (/*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;
