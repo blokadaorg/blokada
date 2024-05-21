@@ -134,7 +134,7 @@ abstract class FamilyStoreBase
       if (_account.type.isActive()) {
         _updatePhase(loading: true);
         await _reload(trace, createDeviceIfNeeded: true);
-        _updatePhase(reason: "activateCta");
+        _updatePhase(loading: false, reason: "activateCta");
         return;
       }
       _stage.showModal(trace, StageModal.payment);
@@ -301,11 +301,11 @@ abstract class FamilyStoreBase
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer
-  _updatePhase({bool loading = false, String reason = ""}) {
+  _updatePhase({bool? loading, String reason = ""}) {
     timer?.cancel();
     print("Will update phase, reason: $reason");
-    if (loading) _updatePhaseNow(true);
-    timer = Timer(const Duration(seconds: 1), () => _updatePhaseNow(false));
+    if (loading != null) _updatePhaseNow(loading);
+    timer = Timer(const Duration(seconds: 3), () => _updatePhaseNow(false));
   }
 
   _updatePhaseNow(bool loading) {
