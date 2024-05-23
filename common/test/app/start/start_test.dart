@@ -50,6 +50,7 @@ void main() {
         depend<AppStartOps>(ops);
 
         final subject = AppStartStore();
+        subject.act = mockedAct;
 
         await subject.pauseAppUntil(trace, const Duration(seconds: 30));
 
@@ -76,6 +77,7 @@ void main() {
         depend<AppStartOps>(ops);
 
         final subject = AppStartStore();
+        subject.act = mockedAct;
 
         await subject.pauseAppIndefinitely(trace);
 
@@ -113,6 +115,7 @@ void main() {
         depend<AppStartOps>(ops);
 
         final subject = AppStartStore();
+        subject.act = mockedAct;
 
         // No perms
         await subject.unpauseApp(trace);

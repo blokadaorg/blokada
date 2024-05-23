@@ -200,7 +200,7 @@ abstract class AccountRefreshStoreBase
           _metadata.seenExpiredDialog = true;
           await _saveMetadata(trace);
           await _stage.showModal(trace, StageModal.accountExpired);
-          await _plus.clearPlus(trace);
+          if (!act.isFamily()) await _plus.clearPlus(trace);
         }
       }
 

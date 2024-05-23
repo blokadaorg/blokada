@@ -37,17 +37,19 @@ class CommandStore
   late final _appStart = dep<AppStartStore>();
   late final _custom = dep<CustomStore>();
   late final _device = dep<DeviceStore>();
+  late final _notification = dep<NotificationStore>();
+  late final _lock = dep<LockStore>();
+
+  // V6 only commands
   late final _journal = dep<JournalStore>();
   late final _plus = dep<PlusStore>();
   late final _plusLease = dep<PlusLeaseStore>();
   late final _plusVpn = dep<PlusVpnStore>();
-  late final _notification = dep<NotificationStore>();
+
+  // Family only commands
   late final _family = dep<FamilyStore>();
-  late final _lock = dep<LockStore>();
 
   late final _timer = dep<TimerService>();
-
-  //late final _filter = dep<FilterActor>();
 
   @override
   void attach(Act act) {

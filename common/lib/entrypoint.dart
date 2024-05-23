@@ -1,3 +1,4 @@
+import 'package:common/deck/deck.dart';
 import 'package:common/dragon/dragon_deps.dart';
 
 import 'account/account.dart';
@@ -43,7 +44,9 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     Tracer().attachAndSaveAct(act);
     DefaultTimer().attachAndSaveAct(act);
 
-    DragonDeps().register(act);
+    if (act.isFamily()) {
+      DragonDeps().register(act);
+    }
 
     PlatformPersistence(isSecure: false).attachAndSaveAct(act);
     final secure = PlatformPersistence(isSecure: true);
@@ -72,25 +75,30 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     AccountRefreshStore().attachAndSaveAct(act);
     DeviceStore().attachAndSaveAct(act);
 
-    // final filter = ProdFilterActor(act);
-    // depend(filter);
-
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
     PermStore().attachAndSaveAct(act);
     LockStore().attachAndSaveAct(act);
     CustomStore().attachAndSaveAct(act);
-    //DeckStore().attachAndSaveAct(act);
-    JournalStore().attachAndSaveAct(act);
-    PlusStore().attachAndSaveAct(act);
-    PlusKeypairStore().attachAndSaveAct(act);
-    PlusGatewayStore().attachAndSaveAct(act);
-    PlusLeaseStore().attachAndSaveAct(act);
-    PlusVpnStore().attachAndSaveAct(act);
+
+    if (!act.isFamily()) {
+      DeckStore().attachAndSaveAct(act);
+      JournalStore().attachAndSaveAct(act);
+      PlusStore().attachAndSaveAct(act);
+      PlusKeypairStore().attachAndSaveAct(act);
+      PlusGatewayStore().attachAndSaveAct(act);
+      PlusLeaseStore().attachAndSaveAct(act);
+      PlusVpnStore().attachAndSaveAct(act);
+      HomeStore().attachAndSaveAct(act);
+    }
+
     StatsStore().attachAndSaveAct(act);
     StatsRefreshStore().attachAndSaveAct(act);
-    FamilyStore().attachAndSaveAct(act);
-    HomeStore().attachAndSaveAct(act);
+
+    if (act.isFamily()) {
+      FamilyStore().attachAndSaveAct(act);
+    }
+
     RateStore().attachAndSaveAct(act);
     CommandStore().attachAndSaveAct(act);
     LinkStore().attachAndSaveAct(act);

@@ -125,6 +125,7 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
   @action
   Future<void> sendAppleToken(Trace parentTrace) async {
     if (appleToken == null) return;
+    if (act.isFamily()) return;
     return await traceWith(parentTrace, "sendAppleToken", (trace) async {
       await _json.postToken(trace, appleToken!);
       appleToken = null;

@@ -102,7 +102,7 @@ abstract class PermStoreBase with Store, Traceable, Dependable {
         trace.addAttribute("enabled", enabled);
         vpnEnabled = enabled;
         if (!enabled) {
-          await _plus.reactToPlusLost(trace);
+          if (!act.isFamily()) await _plus.reactToPlusLost(trace);
           await _app.plusActivated(trace, false);
         }
       }

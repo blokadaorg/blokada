@@ -85,7 +85,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   DateTime? pausedUntil;
 
   // Order matters
-  late final List<Startable> _startables = [
+  late final List<Startable> _startablesV6 = [
     _env,
     _link,
     _lock,
@@ -94,6 +94,16 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     _plusKeypair,
     _accountRefresh,
     _plus,
+    _rate,
+    _tracer,
+  ];
+
+  late final List<Startable> _startablesFamily = [
+    _env,
+    _link,
+    _lock,
+    _device,
+    _accountRefresh,
     _family,
     _rate,
     _tracer,
@@ -104,7 +114,8 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     await traceWith(parentTrace, "startApp", (trace) async {
       await _app.initStarted(trace);
       try {
-        for (final startable in _startables) {
+        final startables = act.isFamily() ? _startablesFamily : _startablesV6;
+        for (final startable in startables) {
           trace.addEvent("starting ${startable.runtimeType}");
           await startable.start(trace);
           trace.addEvent("started ${startable.runtimeType}");
@@ -123,7 +134,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "pauseAppUntil", (trace) async {
       await _app.reconfiguring(trace);
       await _pauseApp(trace);
-      await _plus.reactToAppPause(trace, false);
+      if (!act.isFamily()) await _plus.reactToAppPause(trace, false);
       paused = true;
       await _app.appPaused(trace, true);
       final pausedUntil = DateTime.now().add(duration);
@@ -143,7 +154,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     return await traceWith(parentTrace, "pauseAppIndefinitely", (trace) async {
       await _app.reconfiguring(trace);
       await _pauseApp(trace);
-      await _plus.reactToAppPause(trace, false);
+      if (!act.isFamily()) await _plus.reactToAppPause(trace, false);
       paused = true;
       await _app.appPaused(trace, true);
       _timer.unset(_keyTimer);
@@ -162,7 +173,7 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
       try {
         await _app.reconfiguring(trace);
         await _unpauseApp(trace);
-        await _plus.reactToAppPause(trace, true);
+        if (!act.isFamily()) await _plus.reactToAppPause(trace, true);
         paused = false;
         await _app.appPaused(trace, false);
         _timer.unset(_keyTimer);
