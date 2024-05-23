@@ -25,25 +25,16 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   fl_chart: ^0.64.0
   flutter_svg: ^2.0.7
   flex_color_scheme: ^7.3.1
   draggable_home: ^1.0.3
   syncfusion_flutter_charts: ^23.1.40
-  syncfusion_flutter_datagrid: ^23.1.40
-  dio: ^5.3.3
-  visibility_detector: ^0.4.0+2
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
-  tiktoklikescroller: ^0.2.3
-  expandable_bottom_bar: ^2.0.2
   snapping_sheet: ^3.1.0
-  animate_gradient: ^0.0.2
   i18n_extension:
     git:
       url: git@github.com:kar/i18n_extension.git
@@ -54,9 +45,6 @@ dependencies:
   http: ^1.0.0
   dartx: ^1.1.0
   mocktail: ^1.0.1
-  dismissible_page: ^1.0.2
-  flutter_verification_code: ^1.1.6
-  introduction_screen: ^3.1.11
   slide_to_act_reborn: ^3.0.0
   unique_names_generator: ^1.0.0
   flutter_slidable: ^3.0.1
@@ -69,8 +57,6 @@ dependencies:
   web_socket_channel: ^2.4.0
   modal_bottom_sheet: ^3.0.0-pre
   qr_flutter: ^4.1.0
-  video_player: ^2.8.2
-  chewie: ^1.7.5
   animations: ^2.0.11
   flutter_settings_ui: ^3.0.0
   super_cupertino_navigation_bar: ^2.1.2
@@ -84,6 +70,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.2.1
   flutter_lints: ^2.0.0
+  dependency_validator: ^3.0.0
   mobx_codegen: ^2.0.7+3
   pigeon: ^12.0.0
   mockito: ^5.3.2
