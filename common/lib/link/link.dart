@@ -111,8 +111,9 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   updateFromLinkedMode(bool linked) => _updateLinks();
 
   _updateLinks() async {
+    final linked = act.isFamily() && _family.linkedMode;
     for (var id in LinkId.values) {
-      links[id] = _getLink(id, _lock.isLocked || _family.linkedMode);
+      links[id] = _getLink(id, _lock.isLocked || linked);
     }
 
     List<Link> converted =
