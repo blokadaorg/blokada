@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
 

@@ -1,3 +1,4 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -7,7 +8,6 @@ import 'package:common/dragon/widget/home/big_icon.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/home/private_dns_sheet.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';

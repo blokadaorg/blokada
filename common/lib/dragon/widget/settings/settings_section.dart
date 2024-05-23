@@ -1,4 +1,5 @@
 import 'package:common/account/account.dart';
+import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/string.dart';
@@ -10,7 +11,6 @@ import 'package:common/dragon/widget/section_label.dart';
 import 'package:common/dragon/widget/settings/settings_item.dart';
 import 'package:common/env/env.dart';
 import 'package:common/link/channel.pg.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';

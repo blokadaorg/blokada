@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/route.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

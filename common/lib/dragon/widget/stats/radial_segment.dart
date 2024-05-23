@@ -1,6 +1,6 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 

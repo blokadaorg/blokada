@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'command/channel.pg.dart';
 import 'command/command.dart';
+import 'common/i18n.dart';
 import 'entrypoint.dart';
-import 'service/I18nService.dart';
 import 'ui/notfamily/scaffolding.dart';
 import 'util/act.dart';
 import 'util/di.dart';

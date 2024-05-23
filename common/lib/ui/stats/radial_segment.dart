@@ -1,16 +1,15 @@
 import 'dart:math';
 
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
 import 'package:common/util/color_extensions.dart';
-import 'package:countup/countup.dart';
+import 'package:common/util/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../common/model.dart';
+import '../../common/widget/theme.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
-import '../../util/mobx.dart';
-import '../../common/widget/theme.dart';
 import 'radial_chart.dart';
 
 class RadialSegment extends StatefulWidget {

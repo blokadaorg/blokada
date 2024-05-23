@@ -1,10 +1,10 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/stats/activity_item.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';

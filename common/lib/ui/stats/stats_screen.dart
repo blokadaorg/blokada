@@ -1,15 +1,14 @@
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
+import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
 
 import '../../common/model.dart';
 import '../../common/widget/minicard/header.dart';
 import '../../common/widget/minicard/minicard.dart';
-import '../../stats/stats.dart';
-import '../../util/di.dart';
 import '../../common/widget/theme.dart';
+import '../../stats/stats.dart';
 import 'column_chart.dart';
 import 'radial_segment.dart';
 import 'totalcounter.dart';

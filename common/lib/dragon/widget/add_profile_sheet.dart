@@ -1,3 +1,4 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/profile/controller.dart';
@@ -5,7 +6,6 @@ import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/profile_button.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

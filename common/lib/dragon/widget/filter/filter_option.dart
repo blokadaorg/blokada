@@ -1,9 +1,9 @@
 import 'package:common/common/defaults/filter_option_decor_defaults.dart';
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/two_letter_icon.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
 
 class FilterOptionWidget extends StatefulWidget {

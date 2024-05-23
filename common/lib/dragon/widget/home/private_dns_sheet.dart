@@ -1,8 +1,8 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 

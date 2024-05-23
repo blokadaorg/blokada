@@ -1,3 +1,4 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -10,7 +11,6 @@ import 'package:common/dragon/widget/action_info.dart';
 import 'package:common/dragon/widget/action_item.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';

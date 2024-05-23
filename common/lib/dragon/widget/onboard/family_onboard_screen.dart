@@ -1,6 +1,6 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/link/channel.pg.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';

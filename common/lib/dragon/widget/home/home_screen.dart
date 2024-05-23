@@ -1,4 +1,5 @@
 import 'package:common/app/app.dart';
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
@@ -7,7 +8,6 @@ import 'package:common/dragon/widget/home/home_devices.dart';
 import 'package:common/dragon/widget/home/smart_onboard.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/smart_header/smart_header.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/ui/debug/commanddialog.dart';

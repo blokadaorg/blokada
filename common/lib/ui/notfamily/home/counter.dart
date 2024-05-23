@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
+import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -10,11 +11,10 @@ import '../../../common/widget/minicard/counter.dart';
 import '../../../common/widget/minicard/header.dart';
 import '../../../common/widget/minicard/minicard.dart';
 import '../../../common/widget/minicard/summary.dart';
+import '../../../common/widget/theme.dart';
 import '../../../stage/stage.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
-import '../../../common/widget/theme.dart';
 import 'home.dart';
 import 'home_screen.dart';
 

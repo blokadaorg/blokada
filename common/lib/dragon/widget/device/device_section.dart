@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
@@ -18,7 +19,6 @@ import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
 import 'package:common/dragon/widget/stats/radial_segment.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
 import 'package:common/util/trace.dart';

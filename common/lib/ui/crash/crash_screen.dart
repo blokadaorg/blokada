@@ -1,5 +1,5 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/dragon/widget/navigation.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';

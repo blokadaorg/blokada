@@ -1,10 +1,10 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/chart.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/home/header.dart';
 import 'package:common/dragon/widget/navigation.dart';
-import 'package:common/service/I18nService.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';

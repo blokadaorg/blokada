@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
-import 'package:common/service/I18nService.dart';
+import 'package:common/common/i18n.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../common/model.dart';
