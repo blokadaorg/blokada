@@ -26,10 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  fl_chart: ^0.64.0
-  flutter_svg: ^2.0.7
   flex_color_scheme: ^7.3.1
-  draggable_home: ^1.0.3
   syncfusion_flutter_charts: ^25.2.5
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
@@ -45,20 +42,16 @@ dependencies:
   slide_to_act_reborn: ^3.0.0
   unique_names_generator: ^1.0.0
   flutter_slidable: ^3.0.1
-  carousel_slider: ^4.2.1
   string_validator: ^1.0.2
-  status_alert: ^1.0.1
   crypto: ^3.0.3
-  web_socket_channel: ^2.4.0
   modal_bottom_sheet: ^3.0.0-pre
   qr_flutter: ^4.1.0
   animations: ^2.0.11
-  flutter_settings_ui: ^3.0.0
-  super_cupertino_navigation_bar: ^2.1.2
   pinput: ^4.0.0
   provider: ^6.1.2
   timeago: ^3.6.1
   mockito: ^5.3.2
+  i18n_extension_importer: ^0.0.6
 
 dev_dependencies:
   flutter_test:

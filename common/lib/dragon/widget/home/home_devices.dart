@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -36,8 +35,6 @@ class HomeDevicesState extends State<HomeDevices>
     duration: const Duration(seconds: 1),
     vsync: this,
   );
-
-  final CarouselController _carouselCtrl = CarouselController();
 
   @override
   void initState() {

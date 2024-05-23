@@ -5,6 +5,7 @@ import 'package:relative_scale/relative_scale.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
 import '../../../common/widget/icon.dart';
+import '../../../common/widget/theme.dart';
 import '../../../lock/lock.dart';
 import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
@@ -14,7 +15,6 @@ import '../../debug/commanddialog.dart';
 import '../../debug/debugoptions.dart';
 import 'actions.dart';
 import 'power_button.dart';
-import '../../../common/widget/theme.dart';
 
 const pathHomeStats = "home/stats";
 
@@ -157,7 +157,7 @@ class HomeScreenState extends State<HomeScreen>
                       width: 200,
                       height: 28,
                       fit: BoxFit.scaleDown,
-                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                     ),
                   ),
                   const Spacer(),

@@ -1,8 +1,8 @@
 import 'package:i18n_extension/i18n_extension.dart';
-import 'package:i18n_extension/io/import.dart';
+import 'package:i18n_extension_importer/i18n_extension_importer.dart';
 
 class I18nService {
-  static TranslationsByLocale translations = Translations.byLocale("en");
+  static var translations = Translations.byLocale("en");
 
   static Future<void> loadTranslations() async {
     translations +=
