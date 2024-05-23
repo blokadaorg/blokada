@@ -59,90 +59,93 @@ class _CrashScreenState extends State<CrashScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return BlurBackground(
-      key: bgStateKey,
-      onClosed: _close,
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: maxContentWidth),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Spacer(),
-              const SizedBox(height: 50),
-              Icon(
-                Icons.electric_bolt_outlined,
-                size: 128,
-                color: Colors.white.withOpacity(0.8),
-              ),
-              const SizedBox(height: 30),
-              Text(
-                "alert error header".i18n,
-                style: const TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white),
-              ),
-              const SizedBox(height: 70),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                child: Text(
-                  "crash body".i18n,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+    return Material(
+      type: MaterialType.transparency,
+      child: BlurBackground(
+        key: bgStateKey,
+        onClosed: _close,
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: maxContentWidth),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                const SizedBox(height: 50),
+                Icon(
+                  Icons.electric_bolt_outlined,
+                  size: 128,
+                  color: Colors.white.withOpacity(0.8),
                 ),
-              ),
-              const SizedBox(height: 40),
-              AnimatedOpacity(
-                opacity: 1.0,
-                duration: _duration,
-                child: Column(
-                  children: [
-                    MiniCard(
-                      onTap: () {
-                        bgStateKey.currentState?.animateToClose();
-                        _shareLog();
-                      },
-                      color: theme.accent,
-                      child: SizedBox(
-                        width: 200,
-                        child: Text("universal action share log".i18n,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 30),
+                Text(
+                  "alert error header".i18n,
+                  style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white),
                 ),
-              ),
-              const Spacer(),
-              AnimatedOpacity(
-                opacity: 1.0,
-                duration: _duration,
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        bgStateKey.currentState?.animateToClose();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 64),
-                        child: Text(
-                          "universal action cancel".i18n,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
+                const SizedBox(height: 70),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: maxContentWidth),
+                  child: Text(
+                    "crash body".i18n,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                AnimatedOpacity(
+                  opacity: 1.0,
+                  duration: _duration,
+                  child: Column(
+                    children: [
+                      MiniCard(
+                        onTap: () {
+                          bgStateKey.currentState?.animateToClose();
+                          _shareLog();
+                        },
+                        color: theme.accent,
+                        child: SizedBox(
+                          width: 200,
+                          child: Text("universal action share log".i18n,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(color: Colors.white)),
                         ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const Spacer(),
+                AnimatedOpacity(
+                  opacity: 1.0,
+                  duration: _duration,
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          bgStateKey.currentState?.animateToClose();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 64),
+                          child: Text(
+                            "universal action cancel".i18n,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
