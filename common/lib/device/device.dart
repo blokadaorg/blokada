@@ -138,6 +138,7 @@ abstract class DeviceStoreBase
   @action
   Future<void> fetch(Trace parentTrace) async {
     if (act.isFamily()) return;
+
     return await traceWith(parentTrace, "fetch", (trace) async {
       trace.addAttribute("tag", deviceTag);
 
@@ -145,6 +146,7 @@ abstract class DeviceStoreBase
       cloudEnabled = !device.paused;
       lists = device.lists;
       retention = device.retention;
+      deviceTag = device.deviceTag;
 
       await emit(deviceChanged, trace, deviceTag!);
     });
