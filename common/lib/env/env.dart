@@ -67,7 +67,7 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
       appVersion = payload.appVersion;
-      _agent.now = userAgent!;
+      if (act.isFamily()) _agent.now = userAgent!;
       trace.addAttribute("device", payload.toSimpleString());
     });
   }

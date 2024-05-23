@@ -24,6 +24,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
         await subject.setReady(trace, true);
         expect(subject.route.isForeground(), false);
 
@@ -44,6 +45,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
         await subject.setReady(trace, true);
         await subject.setForeground(trace);
 
@@ -66,6 +68,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
         await subject.setReady(trace, true);
         await subject.setForeground(trace);
         expect(subject.route.modal, null);
@@ -93,6 +96,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
         await subject.setReady(trace, true);
         await subject.setForeground(trace);
         expect(subject.route.modal, null);
@@ -136,6 +140,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
 
         // Stage is not ready, should save this route for later
         await subject.setRoute(trace, "activity");
@@ -171,6 +176,7 @@ void main() {
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
+        subject.act = mockedAct;
 
         int counter = 0;
         subject.addOnValue(routeChanged, (trace, route) {
