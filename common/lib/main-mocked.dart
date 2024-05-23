@@ -18,7 +18,7 @@ void main() async {
 
   await I18nService.loadTranslations();
 
-  const flavor = Flavor.family;
+  const flavor = Flavor.og;
   final entrypoint = Entrypoint();
   entrypoint.attach(
       ActScreenplay(ActScenario.platformIsMocked, flavor, Platform.ios));
@@ -29,7 +29,7 @@ void main() async {
   command.onCommandWithParam(CommandName.route.name, "home");
 
   runApp(BlokadaApp(
-    content: (flavor == Flavor.family) ? null : Scaffolding(title: 'Blokada'),
+    content: const Scaffolding(title: 'Blokada'),
   ));
 
   MockedStart().start();

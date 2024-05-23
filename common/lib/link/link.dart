@@ -78,7 +78,9 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     depend<LinkStore>(this as LinkStore);
     _lock.addOnValue(lockChanged, updateLinksFromLock);
     _account.addOn(accountChanged, updateLinksFromAccount);
-    reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
+    if (act.isFamily()) {
+      reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
+    }
   }
 
   @override
