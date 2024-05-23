@@ -61,6 +61,8 @@ abstract class LockStoreBase
       await emitValue(lockChanged, trace, isLocked);
       if (isLocked) {
         await _stage.showModal(trace, StageModal.lock);
+      } else {
+        if (!act.isFamily()) await _stage.setShowNavbar(trace, true);
       }
     });
   }
@@ -82,6 +84,7 @@ abstract class LockStoreBase
       isLocked = true;
       hasPin = true;
       await emitValue(lockChanged, trace, true);
+      if (!act.isFamily()) await _stage.setShowNavbar(trace, false);
     });
   }
 
@@ -107,6 +110,7 @@ abstract class LockStoreBase
 
       isLocked = false;
       await emitValue(lockChanged, trace, false);
+      if (!act.isFamily()) await _stage.setShowNavbar(trace, false);
     });
   }
 
