@@ -30,15 +30,12 @@ dependencies:
   flutter_svg: ^2.0.7
   flex_color_scheme: ^7.3.1
   draggable_home: ^1.0.3
-  syncfusion_flutter_charts: ^23.1.40
+  syncfusion_flutter_charts: ^25.2.5
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
   snapping_sheet: ^3.1.0
-  i18n_extension:
-    git:
-      url: git@github.com:kar/i18n_extension.git
-      ref: main
+  i18n_extension: ^12.0.1
   relative_scale: ^2.0.0
   get_it: ^7.7.0
   collection: ^1.17.0
@@ -51,8 +48,6 @@ dependencies:
   carousel_slider: ^4.2.1
   string_validator: ^1.0.2
   status_alert: ^1.0.1
-  via:
-    path: ./via/via/
   crypto: ^3.0.3
   web_socket_channel: ^2.4.0
   modal_bottom_sheet: ^3.0.0-pre
