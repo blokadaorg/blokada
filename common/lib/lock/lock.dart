@@ -47,7 +47,7 @@ abstract class LockStoreBase
   @action
   Future<void> start(Trace parentTrace) async {
     return await traceWith(parentTrace, "start", (trace) async {
-      if (act.isFamily()) await _stage.setShowNavbar(trace, false);
+      if (!act.isFamily()) await _stage.setShowNavbar(trace, false);
       await load(trace);
     });
   }

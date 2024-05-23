@@ -217,8 +217,9 @@ abstract class StageStoreBase
         route = route.newBg();
         _isForeground = false;
         await emitValue(routeChanged, trace, route);
-        if (act.isFamily())
+        if (act.isFamily()) {
           _scheduler.eventTriggered(Event.appForeground, value: "0");
+        }
       }
 
       _foregroundCompleter?.complete();
@@ -285,8 +286,9 @@ abstract class StageStoreBase
       route = route.newFg();
       await emitValue(routeChanged, trace, route);
       trace.addEvent("foreground emitted");
-      if (act.isFamily())
+      if (act.isFamily()) {
         _scheduler.eventTriggered(Event.appForeground, value: "1");
+      }
     }
 
     final path = _pathToShow;
@@ -400,11 +402,9 @@ abstract class StageStoreBase
 
   _actOnModal(Trace trace, StageModal? modal) async {
     var show = !noNavbarModals.contains(modal);
-    if (!_showNavbar) {
-      show = false;
-    }
-    //await _ops.doShowNavbar(show);
-    await _ops.doShowNavbar(false);
+    if (!_showNavbar) show = false;
+    if (act.isFamily()) show = false;
+    await _ops.doShowNavbar(show);
   }
 
   @action
