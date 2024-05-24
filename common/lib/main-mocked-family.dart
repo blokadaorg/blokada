@@ -1,4 +1,5 @@
 import 'package:common/dragon/widget/app.dart';
+import 'package:common/mocked-deps.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ void main() async {
   entrypoint.attach(
       ActScreenplay(ActScenario.platformIsMocked, flavor, Platform.ios));
   entrypoint.onStartApp();
+  attachMockedDeps();
 
   final CommandStore command = dep<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home");
