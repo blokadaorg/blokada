@@ -218,9 +218,9 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         await emit(accountChanged, trace, account);
 
         // TODO: better place?
-        if (!act.isFamily() && newA.isActive()) {
-          await _stage.showModal(trace, StageModal.perms);
-        }
+        // if (!act.isFamily() && newA.isActive()) {
+        //   await _stage.showModal(trace, StageModal.perms);
+        // }
       }
     } else {
       await emit(accountChanged, trace, account);
