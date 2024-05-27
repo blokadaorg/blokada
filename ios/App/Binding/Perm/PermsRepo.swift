@@ -31,7 +31,6 @@ class PermsRepo: Startable {
     @Injected(\.account) private var account
     @Injected(\.cloud) private var cloud
     @Injected(\.perm) private var perm
-    @Injected(\.plusVpn) private var plusVpn
     @Injected(\.notification) private var notification
 
     private lazy var dialog = Services.dialog

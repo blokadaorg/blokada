@@ -101,7 +101,6 @@
 		4E12763D2AE7D0FC00A94994 /* LeaseBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E652A29CE200053943D /* LeaseBinding.swift */; };
 		4E12763E2AE7D0FC00A94994 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FBF2498A57000FC4C61 /* Localization.swift */; };
 		4E12763F2AE7D0FC00A94994 /* FlutterHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1264412880061A008D26B2 /* FlutterHomeView.swift */; };
-		4E1276402AE7D0FC00A94994 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4E1276412AE7D0FC00A94994 /* Repos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AE1E92758D93800BD2E5B /* Repos.swift */; };
 		4E1276432AE7D0FC00A94994 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD0D245B2F38009040F1 /* GridStack.swift */; };
 		4E1276442AE7D0FC00A94994 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C64EC29EED6EC00ABB65B /* App.swift */; };
@@ -123,7 +122,6 @@
 		4E1276592AE7D0FC00A94994 /* PlaceholderPaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA189B827B4495B00E57470 /* PlaceholderPaneView.swift */; };
 		4E12765A2AE7D0FC00A94994 /* JournalItemV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1681A8247860490040334B /* JournalItemV.swift */; };
 		4E12765B2AE7D0FC00A94994 /* TabHorizontalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECD10245CBDB3009040F1 /* TabHorizontalView.swift */; };
-		4E12765C2AE7D0FC00A94994 /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
 		4E12765D2AE7D0FC00A94994 /* Http.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0429E6999D00A8A60D /* Http.swift */; };
 		4E12765F2AE7D0FC00A94994 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D6742461407F00FE7737 /* TabViewModel.swift */; };
 		4E1276602AE7D0FC00A94994 /* CustomVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3522A0B7F290039C101 /* CustomVM.swift */; };
@@ -350,7 +348,6 @@
 		4E270D2E2A80EB8300D3484B /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC014002460741C001DF5F7 /* TabItemView.swift */; };
 		4E270D2F2A80EB8300D3484B /* IPAddress+AddrInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D009293E20BC00613D0A /* IPAddress+AddrInfo.swift */; };
 		4E270D302A80EB8300D3484B /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D005293E20BC00613D0A /* TunnelConfiguration.swift */; };
-		4E270D312A80EB8300D3484B /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
 		4E270D322A80EB8300D3484B /* AppBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A25276371C6005A59F5 /* AppBinding.swift */; };
 		4E270D332A80EB8300D3484B /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E270D342A80EB8300D3484B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
@@ -447,7 +444,6 @@
 		4E270D9A2A80EB8300D3484B /* PermsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4347927730EF4003C1242 /* PermsRepo.swift */; };
 		4E270D9B2A80EB8300D3484B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4E270D9C2A80EB8300D3484B /* AppStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355542A430A710096FD66 /* AppStart.swift */; };
-		4E270D9E2A80EB8300D3484B /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4E270D9F2A80EB8300D3484B /* CustomBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B562A08FFC300048F6A /* CustomBinding.swift */; };
 		4E270DA02A80EB8300D3484B /* PackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70D277095D100735E0D /* PackDataSource.swift */; };
 		4E270DA12A80EB8300D3484B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423539244F3ADE005A0779 /* LocationViewModel.swift */; };
@@ -680,6 +676,12 @@
 		4E673D2929E6ACFA00A8A60D /* StageBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D2729E6ACFA00A8A60D /* StageBinding.swift */; };
 		4E68E9C627BABD7D0059648A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68E9C527BABD7D0059648A /* RippleView.swift */; };
 		4E68E9C727BABD7D0059648A /* RippleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68E9C527BABD7D0059648A /* RippleView.swift */; };
+		4E6FD7222BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
+		4E6FD7232BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
+		4E6FD7242BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
+		4E6FD7262BFFB7CD0014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */; };
+		4E6FD7272BFFB7CD0014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */; };
+		4E6FD7282BFFB7CD0014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */; };
 		4E72D6752461407F00FE7737 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D6742461407F00FE7737 /* TabViewModel.swift */; };
 		4E72D6762461407F00FE7737 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D6742461407F00FE7737 /* TabViewModel.swift */; };
 		4E72D678246160EF00FE7737 /* InstalledMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72D677246160EF00FE7737 /* InstalledMarkView.swift */; };
@@ -754,7 +756,6 @@
 		4E8651332A3C968B0060AFB1 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC014002460741C001DF5F7 /* TabItemView.swift */; };
 		4E8651342A3C968B0060AFB1 /* IPAddress+AddrInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D009293E20BC00613D0A /* IPAddress+AddrInfo.swift */; };
 		4E8651352A3C968B0060AFB1 /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D005293E20BC00613D0A /* TunnelConfiguration.swift */; };
-		4E8651362A3C968B0060AFB1 /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
 		4E8651372A3C968B0060AFB1 /* AppBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A25276371C6005A59F5 /* AppBinding.swift */; };
 		4E8651382A3C968B0060AFB1 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4E8651392A3C968B0060AFB1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
@@ -856,7 +857,6 @@
 		4E8651AF2A3C968B0060AFB1 /* PermsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4347927730EF4003C1242 /* PermsRepo.swift */; };
 		4E8651B02A3C968B0060AFB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4E8651B12A3C968B0060AFB1 /* JournalNarrowV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E11D2DF27206C780042385B /* JournalNarrowV.swift */; };
-		4E8651B32A3C968B0060AFB1 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4E8651B42A3C968B0060AFB1 /* CustomBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B562A08FFC300048F6A /* CustomBinding.swift */; };
 		4E8651B62A3C968B0060AFB1 /* PackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70D277095D100735E0D /* PackDataSource.swift */; };
 		4E8651BA2A3C968B0060AFB1 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423539244F3ADE005A0779 /* LocationViewModel.swift */; };
@@ -1047,16 +1047,12 @@
 		4EBDD3512A0A6B550039C101 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
 		4EBDD3532A0B7F290039C101 /* CustomVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3522A0B7F290039C101 /* CustomVM.swift */; };
 		4EBDD3542A0B7F290039C101 /* CustomVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3522A0B7F290039C101 /* CustomVM.swift */; };
-		4EBDD3562A0CCC760039C101 /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
-		4EBDD3572A0CCC760039C101 /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
 		4EBDD35D2A0CCCAA0039C101 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3592A0CCCAA0039C101 /* Device.swift */; };
 		4EBDD35E2A0CCCAA0039C101 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3592A0CCCAA0039C101 /* Device.swift */; };
 		4EBDD35F2A0CCCAA0039C101 /* Perm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD35A2A0CCCAA0039C101 /* Perm.swift */; };
 		4EBDD3602A0CCCAA0039C101 /* Perm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD35A2A0CCCAA0039C101 /* Perm.swift */; };
 		4EBDD3622A0CDD190039C101 /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
 		4EBDD3632A0CDD190039C101 /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
-		4EBDD3652A0CE9BF0039C101 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
-		4EBDD3662A0CE9BF0039C101 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4EBF3B0E2A80E55900F637BB /* PaymentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D52A014233005ECD5F /* PaymentBinding.swift */; };
 		4EBF3B0F2A80E55900F637BB /* TunnelsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D06029409E8900613D0A /* TunnelsTracker.swift */; };
 		4EBF3B102A80E55900F637BB /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0029E6999D00A8A60D /* Env.swift */; };
@@ -1089,7 +1085,6 @@
 		4EBF3B2F2A80E55900F637BB /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC014002460741C001DF5F7 /* TabItemView.swift */; };
 		4EBF3B302A80E55900F637BB /* IPAddress+AddrInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D009293E20BC00613D0A /* IPAddress+AddrInfo.swift */; };
 		4EBF3B312A80E55900F637BB /* TunnelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D005293E20BC00613D0A /* TunnelConfiguration.swift */; };
-		4EBF3B322A80E55900F637BB /* DeckBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3552A0CCC760039C101 /* DeckBinding.swift */; };
 		4EBF3B332A80E55900F637BB /* AppBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A25276371C6005A59F5 /* AppBinding.swift */; };
 		4EBF3B342A80E55900F637BB /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2FC2420B0A60008E318 /* LocationView.swift */; };
 		4EBF3B352A80E55900F637BB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
@@ -1187,7 +1182,6 @@
 		4EBF3B9C2A80E55900F637BB /* PermsRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4347927730EF4003C1242 /* PermsRepo.swift */; };
 		4EBF3B9D2A80E55900F637BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4EBF3B9E2A80E55900F637BB /* AppStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB355542A430A710096FD66 /* AppStart.swift */; };
-		4EBF3BA02A80E55900F637BB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3642A0CE9BF0039C101 /* Deck.swift */; };
 		4EBF3BA12A80E55900F637BB /* CustomBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB8B562A08FFC300048F6A /* CustomBinding.swift */; };
 		4EBF3BA22A80E55900F637BB /* PackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FB70D277095D100735E0D /* PackDataSource.swift */; };
 		4EBF3BA32A80E55900F637BB /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423539244F3ADE005A0779 /* LocationViewModel.swift */; };
@@ -1697,6 +1691,8 @@
 		4E673D2329E6AC2200A8A60D /* Flutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flutter.swift; sourceTree = "<group>"; };
 		4E673D2729E6ACFA00A8A60D /* StageBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageBinding.swift; sourceTree = "<group>"; };
 		4E68E9C527BABD7D0059648A /* RippleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleView.swift; sourceTree = "<group>"; };
+		4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorDeps.swift; sourceTree = "<group>"; };
+		4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorDeps.swift; sourceTree = "<group>"; };
 		4E72D6742461407F00FE7737 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
 		4E72D677246160EF00FE7737 /* InstalledMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledMarkView.swift; sourceTree = "<group>"; };
 		4E78E352245DA3600017B234 /* SettingsNarrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNarrowView.swift; sourceTree = "<group>"; };
@@ -1799,11 +1795,9 @@
 		4EB63F3B24364D5D009CBAC1 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4EBDD3522A0B7F290039C101 /* CustomVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVM.swift; sourceTree = "<group>"; };
-		4EBDD3552A0CCC760039C101 /* DeckBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckBinding.swift; sourceTree = "<group>"; };
 		4EBDD3592A0CCCAA0039C101 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = "six-common/libgen/ios/Device.swift"; sourceTree = SOURCE_ROOT; };
 		4EBDD35A2A0CCCAA0039C101 /* Perm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Perm.swift; path = "six-common/libgen/ios/Perm.swift"; sourceTree = SOURCE_ROOT; };
 		4EBDD3612A0CDD190039C101 /* PermBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermBinding.swift; sourceTree = "<group>"; };
-		4EBDD3642A0CE9BF0039C101 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deck.swift; path = "six-common/libgen/ios/Deck.swift"; sourceTree = SOURCE_ROOT; };
 		4EBF3BF02A80E55900F637BB /* FamilyDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EC013FD24606F6C001DF5F7 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		4EC014002460741C001DF5F7 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
@@ -2012,7 +2006,6 @@
 		4E02E3122A56DBD50014E884 /* Deck */ = {
 			isa = PBXGroup;
 			children = (
-				4EBDD3552A0CCC760039C101 /* DeckBinding.swift */,
 				4E2ECCF2245AEFA1009040F1 /* PackModel.swift */,
 				4E0FB70D277095D100735E0D /* PackDataSource.swift */,
 				4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */,
@@ -2292,6 +2285,7 @@
 				4ECFFEFE2B4D7DB700154DC1 /* AfterActivatedView.swift */,
 				4E2ECD10245CBDB3009040F1 /* TabHorizontalView.swift */,
 				4E61D8E927B2DBF200C98D36 /* TabVerticalView.swift */,
+				4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */,
 			);
 			path = Family;
 			sourceTree = "<group>";
@@ -2311,6 +2305,7 @@
 				4E45F4EC248E87FF002D4DD6 /* AfterActivatedView.swift */,
 				4E28ADCA2AB32C92007445C8 /* TabHorizontalView.swift */,
 				4E28ADCB2AB32C92007445C8 /* TabVerticalView.swift */,
+				4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */,
 			);
 			path = NotFamily;
 			sourceTree = "<group>";
@@ -2562,7 +2557,6 @@
 				4E946E4D2A29CD160053943D /* PlusKeypair.swift */,
 				4E946E502A29CD170053943D /* PlusLease.swift */,
 				4E946E4C2A29CD160053943D /* PlusVpn.swift */,
-				4EBDD3642A0CE9BF0039C101 /* Deck.swift */,
 				4EBDD3592A0CCCAA0039C101 /* Device.swift */,
 				4EBDD35A2A0CCCAA0039C101 /* Perm.swift */,
 				4ECB8B512A08FE3C00048F6A /* Custom.swift */,
@@ -3089,7 +3083,6 @@
 				4EC014012460741C001DF5F7 /* TabItemView.swift in Sources */,
 				4E23D029293E20BC00613D0A /* IPAddress+AddrInfo.swift in Sources */,
 				4E23D021293E20BC00613D0A /* TunnelConfiguration.swift in Sources */,
-				4EBDD3562A0CCC760039C101 /* DeckBinding.swift in Sources */,
 				4E2F2A26276371C6005A59F5 /* AppBinding.swift in Sources */,
 				4E94C2FD2420B0A60008E318 /* LocationView.swift in Sources */,
 				4EBDD3502A0A6B550039C101 /* HomeViewModel.swift in Sources */,
@@ -3171,6 +3164,7 @@
 				4E267F5C243CB79C00D3160F /* BenefitView.swift in Sources */,
 				4E23D02F293E20BC00613D0A /* IPAddressRange.swift in Sources */,
 				4EA105C2242B8A7900559CBB /* Transitions.swift in Sources */,
+				4E6FD7262BFFB7CD0014D80E /* FlavorDeps.swift in Sources */,
 				4E946E572A29CD170053943D /* Plus.swift in Sources */,
 				4E61D90227B4360B00C98D36 /* JournalWideHorizontalV.swift in Sources */,
 				4E673D0C29E6999D00A8A60D /* Notification.swift in Sources */,
@@ -3201,7 +3195,6 @@
 				4E61D8F327B3D30400C98D36 /* ContentView.swift in Sources */,
 				4EB355552A430A710096FD66 /* AppStart.swift in Sources */,
 				4E11D2E027206C790042385B /* JournalNarrowV.swift in Sources */,
-				4EBDD3652A0CE9BF0039C101 /* Deck.swift in Sources */,
 				4E28ADDC2AB4670C007445C8 /* ShieldsView.swift in Sources */,
 				4ECB8B572A08FFC300048F6A /* CustomBinding.swift in Sources */,
 				4E0FB70E277095D100735E0D /* PackDataSource.swift in Sources */,
@@ -3334,7 +3327,6 @@
 				4E12763D2AE7D0FC00A94994 /* LeaseBinding.swift in Sources */,
 				4E12763E2AE7D0FC00A94994 /* Localization.swift in Sources */,
 				4E12763F2AE7D0FC00A94994 /* FlutterHomeView.swift in Sources */,
-				4E1276402AE7D0FC00A94994 /* Deck.swift in Sources */,
 				4E1276412AE7D0FC00A94994 /* Repos.swift in Sources */,
 				4E1276432AE7D0FC00A94994 /* GridStack.swift in Sources */,
 				4E1276442AE7D0FC00A94994 /* App.swift in Sources */,
@@ -3358,7 +3350,6 @@
 				4E1276592AE7D0FC00A94994 /* PlaceholderPaneView.swift in Sources */,
 				4E12765A2AE7D0FC00A94994 /* JournalItemV.swift in Sources */,
 				4E12765B2AE7D0FC00A94994 /* TabHorizontalView.swift in Sources */,
-				4E12765C2AE7D0FC00A94994 /* DeckBinding.swift in Sources */,
 				4E12765D2AE7D0FC00A94994 /* Http.swift in Sources */,
 				4E12765F2AE7D0FC00A94994 /* TabViewModel.swift in Sources */,
 				4E1276602AE7D0FC00A94994 /* CustomVM.swift in Sources */,
@@ -3399,6 +3390,7 @@
 				4E1276852AE7D0FC00A94994 /* LeaseListView.swift in Sources */,
 				4E1276862AE7D0FC00A94994 /* NavModel.swift in Sources */,
 				4E1276872AE7D0FC00A94994 /* HomeViewModel.swift in Sources */,
+				4E6FD7242BFFB7A20014D80E /* FlavorDeps.swift in Sources */,
 				4E1276882AE7D0FC00A94994 /* KeypairBindingMock.swift in Sources */,
 				4E1276892AE7D0FC00A94994 /* PackView.swift in Sources */,
 				4E12768A2AE7D0FC00A94994 /* DeviceBinding.swift in Sources */,
@@ -3557,7 +3549,6 @@
 				4E270D2E2A80EB8300D3484B /* TabItemView.swift in Sources */,
 				4E270D2F2A80EB8300D3484B /* IPAddress+AddrInfo.swift in Sources */,
 				4E270D302A80EB8300D3484B /* TunnelConfiguration.swift in Sources */,
-				4E270D312A80EB8300D3484B /* DeckBinding.swift in Sources */,
 				4E270D322A80EB8300D3484B /* AppBinding.swift in Sources */,
 				4E270D332A80EB8300D3484B /* LocationView.swift in Sources */,
 				4E270D342A80EB8300D3484B /* HomeViewModel.swift in Sources */,
@@ -3635,6 +3626,7 @@
 				4E270D812A80EB8300D3484B /* Notification.swift in Sources */,
 				4E270D822A80EB8300D3484B /* StageBinding.swift in Sources */,
 				4E270D832A80EB8300D3484B /* SettingsItemView.swift in Sources */,
+				4E6FD7222BFFB7A20014D80E /* FlavorDeps.swift in Sources */,
 				4E270D842A80EB8300D3484B /* TabVerticalView.swift in Sources */,
 				4E8B179E2B177EFE00D1D854 /* JournalFilterBarV.swift in Sources */,
 				4E270D852A80EB8300D3484B /* SplashView.swift in Sources */,
@@ -3661,7 +3653,6 @@
 				4E270D9B2A80EB8300D3484B /* ContentView.swift in Sources */,
 				4E270D9C2A80EB8300D3484B /* AppStart.swift in Sources */,
 				4E28ADDF2AB4670C007445C8 /* ShieldsView.swift in Sources */,
-				4E270D9E2A80EB8300D3484B /* Deck.swift in Sources */,
 				4ECFFEFF2B4D7DB700154DC1 /* AfterActivatedView.swift in Sources */,
 				4E270D9F2A80EB8300D3484B /* CustomBinding.swift in Sources */,
 				4E270DA02A80EB8300D3484B /* PackDataSource.swift in Sources */,
@@ -3802,7 +3793,6 @@
 				4E946E672A29CE200053943D /* LeaseBinding.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
 				4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */,
-				4EBDD3662A0CE9BF0039C101 /* Deck.swift in Sources */,
 				4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */,
 				4EA189C627B5060B00E57470 /* SettingsFormNavView.swift in Sources */,
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
@@ -3830,7 +3820,6 @@
 				4E90BA3A27BBB5B40051FD0C /* JournalFilterBarV.swift in Sources */,
 				4EA189BA27B4495B00E57470 /* PlaceholderPaneView.swift in Sources */,
 				4E1681AA247860490040334B /* JournalItemV.swift in Sources */,
-				4EBDD3572A0CCC760039C101 /* DeckBinding.swift in Sources */,
 				4EEDBBA92B68EA3E004AB456 /* Filter.swift in Sources */,
 				4E673D1329E6999D00A8A60D /* Http.swift in Sources */,
 				4E7FE9A6244DC28900851E9F /* PaymentGatewayView.swift in Sources */,
@@ -3879,6 +3868,7 @@
 				4E7FE9C0244DC28900851E9F /* AppDelegate.swift in Sources */,
 				4E290FC42498A8EB00FC4C61 /* UiGen.swift in Sources */,
 				4E946E562A29CD170053943D /* PlusGateway.swift in Sources */,
+				4E6FD7282BFFB7CD0014D80E /* FlavorDeps.swift in Sources */,
 				4E970C0A2769FE6F00ABD896 /* Tasker.swift in Sources */,
 				4E72D679246160EF00FE7737 /* InstalledMarkView.swift in Sources */,
 				4E946E5A2A29CD170053943D /* PlusLease.swift in Sources */,
@@ -3966,7 +3956,6 @@
 				4E8651332A3C968B0060AFB1 /* TabItemView.swift in Sources */,
 				4E8651342A3C968B0060AFB1 /* IPAddress+AddrInfo.swift in Sources */,
 				4E8651352A3C968B0060AFB1 /* TunnelConfiguration.swift in Sources */,
-				4E8651362A3C968B0060AFB1 /* DeckBinding.swift in Sources */,
 				4E8651372A3C968B0060AFB1 /* AppBinding.swift in Sources */,
 				4E8651382A3C968B0060AFB1 /* LocationView.swift in Sources */,
 				4E8651392A3C968B0060AFB1 /* HomeViewModel.swift in Sources */,
@@ -4048,6 +4037,7 @@
 				4E8651892A3C968B0060AFB1 /* BenefitView.swift in Sources */,
 				4E86518B2A3C968B0060AFB1 /* IPAddressRange.swift in Sources */,
 				4E86518C2A3C968B0060AFB1 /* Transitions.swift in Sources */,
+				4E6FD7272BFFB7CD0014D80E /* FlavorDeps.swift in Sources */,
 				4E86518E2A3C968B0060AFB1 /* Plus.swift in Sources */,
 				4E86518F2A3C968B0060AFB1 /* JournalWideHorizontalV.swift in Sources */,
 				4E8651902A3C968B0060AFB1 /* Notification.swift in Sources */,
@@ -4078,7 +4068,6 @@
 				4E8651B02A3C968B0060AFB1 /* ContentView.swift in Sources */,
 				4EB355562A430A710096FD66 /* AppStart.swift in Sources */,
 				4E8651B12A3C968B0060AFB1 /* JournalNarrowV.swift in Sources */,
-				4E8651B32A3C968B0060AFB1 /* Deck.swift in Sources */,
 				4E28ADDD2AB4670C007445C8 /* ShieldsView.swift in Sources */,
 				4E8651B42A3C968B0060AFB1 /* CustomBinding.swift in Sources */,
 				4E8651B62A3C968B0060AFB1 /* PackDataSource.swift in Sources */,
@@ -4182,7 +4171,6 @@
 				4E1275F62AE7D0A100A94994 /* PaymentFeaturesView.swift in Sources */,
 				4EBF3B302A80E55900F637BB /* IPAddress+AddrInfo.swift in Sources */,
 				4EBF3B312A80E55900F637BB /* TunnelConfiguration.swift in Sources */,
-				4EBF3B322A80E55900F637BB /* DeckBinding.swift in Sources */,
 				4EBF3B332A80E55900F637BB /* AppBinding.swift in Sources */,
 				4EBF3B342A80E55900F637BB /* LocationView.swift in Sources */,
 				4EBF3B352A80E55900F637BB /* HomeViewModel.swift in Sources */,
@@ -4261,6 +4249,7 @@
 				4EBF3B832A80E55900F637BB /* Notification.swift in Sources */,
 				4EBF3B842A80E55900F637BB /* StageBinding.swift in Sources */,
 				4EBF3B852A80E55900F637BB /* SettingsItemView.swift in Sources */,
+				4E6FD7232BFFB7A20014D80E /* FlavorDeps.swift in Sources */,
 				4EBF3B862A80E55900F637BB /* TabVerticalView.swift in Sources */,
 				4E8B179F2B177EFE00D1D854 /* JournalFilterBarV.swift in Sources */,
 				4EBF3B872A80E55900F637BB /* SplashView.swift in Sources */,
@@ -4287,7 +4276,6 @@
 				4EBF3B9D2A80E55900F637BB /* ContentView.swift in Sources */,
 				4EBF3B9E2A80E55900F637BB /* AppStart.swift in Sources */,
 				4E28ADE02AB4670C007445C8 /* ShieldsView.swift in Sources */,
-				4EBF3BA02A80E55900F637BB /* Deck.swift in Sources */,
 				4ECFFF002B4D7DB700154DC1 /* AfterActivatedView.swift in Sources */,
 				4EBF3BA12A80E55900F637BB /* CustomBinding.swift in Sources */,
 				4EBF3BA22A80E55900F637BB /* PackDataSource.swift in Sources */,

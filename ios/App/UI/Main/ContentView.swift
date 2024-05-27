@@ -62,8 +62,8 @@ struct ContentView: View {
                         ShareSheet(activityItems: [L10n.mainShareMessage(stats.blockedCounter.value)])
                     case .help:
                         SupportView()
-//                    case .custom:
-//                        CustomV()
+                    case .custom:
+                        CustomV()
                     default:
                         // Will never be displayed
                         EmptyView()

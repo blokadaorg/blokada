@@ -27,10 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.http) private var http
     @Injected(\.persistence) private var persistence
     @Injected(\.stage) private var stage
-    @Injected(\.plusKeypair) private var plusKeypair
     @Injected(\.stats) private var stats
     @Injected(\.rate) private var rate
     @Injected(\.link) private var link
+
+    private var deps = FlavorDeps()
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
