@@ -192,12 +192,12 @@ final _family = [
   Filter(filterAds, [
     Option(filterOptionPrimary, FilterAction.list, [
       "oisd/small",
-      "goodbyeads/standard",
-      "adaway/standard",
-      "1hosts/lite (wildcards)",
       "d3host/standard",
     ]),
     Option("extended", FilterAction.list, [
+      "goodbyeads/standard",
+      "adaway/standard",
+      "1hosts/lite (wildcards)",
       "oisd/big",
       "ddgtrackerradar/standard",
       "1hosts/xtra (wildcards)",
