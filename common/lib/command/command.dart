@@ -1,3 +1,4 @@
+import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/main-widgets.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
@@ -45,6 +46,7 @@ class CommandStore
   late final _plus = dep<PlusStore>();
   late final _plusLease = dep<PlusLeaseStore>();
   late final _plusVpn = dep<PlusVpnStore>();
+  late final _filterLegacy = dep<FilterLegacy>();
 
   // Family only commands
   late final _family = dep<FamilyStore>();
@@ -144,17 +146,14 @@ class CommandStore
         return await _custom.delete(trace, p1!);
       case CommandName.enableDeck:
         _ensureParam(p1);
-        // return await _filter.enableFilter(p1!, true);
-        throw Exception("Not implemented WIP");
+        return await _filterLegacy.enableFilter(p1!);
       case CommandName.disableDeck:
         _ensureParam(p1);
-        // return await _filter.enableFilter(p1!, false);
-        throw Exception("Not implemented WIP");
+        return await _filterLegacy.disableFilter(p1!);
       case CommandName.toggleListByTag:
         _ensureParam(p1);
         _ensureParam(p2);
-        // return await _filter.toggleFilterOption(p1!, p2!);
-        throw Exception("Not implemented WIP");
+        return await _filterLegacy.toggleFilterOption(p1!, p2!);
       case CommandName.enableCloud:
         return await _device.setCloudEnabled(trace, true);
       case CommandName.disableCloud:

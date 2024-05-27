@@ -1,5 +1,5 @@
-import 'package:common/deck/deck.dart';
 import 'package:common/dragon/dragon_deps.dart';
+import 'package:common/dragon/filter/filter_legacy.dart';
 
 import 'account/account.dart';
 import 'account/payment/payment.dart';
@@ -44,9 +44,9 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     Tracer().attachAndSaveAct(act);
     DefaultTimer().attachAndSaveAct(act);
 
-    if (act.isFamily()) {
-      DragonDeps().register(act);
-    }
+    // Newer deps of the new code - temporary, this will eventually
+    // replace the legacy code. Hopefully, you know how it goes :D
+    DragonDeps().register(act);
 
     PlatformPersistence(isSecure: false).attachAndSaveAct(act);
     final secure = PlatformPersistence(isSecure: true);
@@ -75,6 +75,11 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     AccountRefreshStore().attachAndSaveAct(act);
     DeviceStore().attachAndSaveAct(act);
 
+    // Compatibility layer for v6 (temporary
+    if (!act.isFamily()) {
+      depend<FilterLegacy>(FilterLegacy(act));
+    }
+
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
     PermStore().attachAndSaveAct(act);
@@ -82,7 +87,6 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     CustomStore().attachAndSaveAct(act);
 
     if (!act.isFamily()) {
-      DeckStore().attachAndSaveAct(act);
       JournalStore().attachAndSaveAct(act);
       PlusStore().attachAndSaveAct(act);
       PlusKeypairStore().attachAndSaveAct(act);

@@ -34,6 +34,10 @@ import 'package:common/util/di.dart';
 
 class DragonDeps {
   register(Act act) {
+    // First, deps that are also used in v6
+    // currently only for backwards-migrating the new Filters
+    // that replace the old Decks/Packs concept
+
     depend<Act>(act);
 
     depend<BaseUrl>(BaseUrl(act));
@@ -46,7 +50,6 @@ class DragonDeps {
 
     depend<Api>(Api());
     depend<ListApi>(ListApi());
-    depend<DeviceApi>(DeviceApi());
 
     depend<KnownFilters>(KnownFilters(
       isFamily: act.isFamily(),
@@ -57,31 +60,36 @@ class DragonDeps {
     depend<CurrentConfig>(CurrentConfig());
     depend<FilterController>(FilterController());
 
-    depend<Persistence>(Persistence(isSecure: false));
+    // Then family-only deps (for now at least)
+    if (act.isFamily()) {
+      depend<Persistence>(Persistence(isSecure: false));
 
-    depend<ProfileApi>(ProfileApi());
-    depend<ProfileController>(ProfileController());
+      depend<DeviceApi>(DeviceApi());
 
-    depend<NameGenerator>(NameGenerator());
-    depend<OpenPerms>(OpenPerms());
-    depend<ThisDevice>(ThisDevice());
-    depend<SelectedDeviceTag>(SelectedDeviceTag());
-    depend<SlidableOnboarding>(SlidableOnboarding());
+      depend<ProfileApi>(ProfileApi());
+      depend<ProfileController>(ProfileController());
 
-    depend<AuthApi>(AuthApi());
-    depend<CurrentToken>(CurrentToken());
-    depend<DeviceController>(DeviceController());
-    depend<AuthController>(AuthController());
+      depend<NameGenerator>(NameGenerator());
+      depend<OpenPerms>(OpenPerms());
+      depend<ThisDevice>(ThisDevice());
+      depend<SelectedDeviceTag>(SelectedDeviceTag());
+      depend<SlidableOnboarding>(SlidableOnboarding());
 
-    depend<StatsApi>(StatsApi());
-    depend<StatsController>(StatsController());
+      depend<AuthApi>(AuthApi());
+      depend<CurrentToken>(CurrentToken());
+      depend<DeviceController>(DeviceController());
+      depend<AuthController>(AuthController());
 
-    depend<JournalApi>(JournalApi());
-    depend<JournalController>(JournalController());
+      depend<StatsApi>(StatsApi());
+      depend<StatsController>(StatsController());
 
-    depend<DnsPerm>(DnsPerm());
-    depend<PermController>(PermController());
+      depend<JournalApi>(JournalApi());
+      depend<JournalController>(JournalController());
 
-    depend<Scheduler>(Scheduler(timer: SchedulerTimer()));
+      depend<DnsPerm>(DnsPerm());
+      depend<PermController>(PermController());
+
+      depend<Scheduler>(Scheduler(timer: SchedulerTimer()));
+    }
   }
 }
