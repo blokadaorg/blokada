@@ -28,7 +28,7 @@ class StatsFilterState extends State<StatsFilter> {
     filter = widget.ctrl.filter;
     _ctrl.text = filter.searchQuery;
     _ctrl.addListener(() {
-      filter = filter.updateOnly(searchQuery: _ctrl.text);
+      filter = filter.updateOnly(searchQuery: _ctrl.text.toLowerCase());
       widget.ctrl.filter = filter;
     });
   }
