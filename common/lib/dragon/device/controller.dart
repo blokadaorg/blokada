@@ -83,9 +83,12 @@ class DeviceController {
 
     if (_thisDevice.now?.deviceTag == tag) return;
 
-    // Remove the "this device" created on boot, and set the assigned one
-    // if (_thisDevice.now != null) await deleteDevice(_thisDevice.now!);
-    // _thisDevice.now = d;
+    final confirmedThisDevice = devices
+        .firstWhereOrNull((it) => it.deviceTag == _thisDevice.now!.deviceTag);
+    if (confirmedThisDevice == null) {
+      // The linked device got deleted, allow to re-link
+      _thisDevice.now = null;
+    }
 
     // If we were linked to another device, we cant change it now
     if (_thisDevice.now != null) {
