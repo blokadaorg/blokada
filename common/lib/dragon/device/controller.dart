@@ -83,16 +83,12 @@ class DeviceController {
 
     if (_thisDevice.now?.deviceTag == tag) return;
 
-    final confirmedThisDevice = devices
-        .firstWhereOrNull((it) => it.deviceTag == _thisDevice.now!.deviceTag);
-    if (confirmedThisDevice == null) {
-      // The linked device got deleted, allow to re-link
-      _thisDevice.now = null;
-    }
-
     // If we were linked to another device, we cant change it now
     if (_thisDevice.now != null) {
-      throw AlreadyLinkedException();
+      // If the linked device got deleted, allow to re-link
+      final confirmedThisDevice = devices
+          .firstWhereOrNull((it) => it.deviceTag == _thisDevice.now!.deviceTag);
+      if (confirmedThisDevice != null) throw AlreadyLinkedException();
     }
     _thisDevice.now = d;
   }
