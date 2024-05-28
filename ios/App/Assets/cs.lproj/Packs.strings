@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "Blokuje oblíbené platformy pro streamování videa";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Omezuje přístup k nejlepším službám pro streamování videa. Vytvořeno pro uživatele, kteří chtějí spravovat své návyky při sledování a šetřit šířku pásma.";
 // Name of the Streaming apps shield
-"Streaming" = "Streaming";
+"Streaming" = "Streamování";
 "Blocks streaming apps and related content" = "Blokuje streamovací aplikace a související obsah";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Obsahuje vybraný výběr oblíbených streamovacích aplikací. Umožňuje podrobnou kontrolu nad spotřebou médií.";
 // Name of the Social media shield
@@ -96,23 +96,23 @@
 "Restricts access to popular games" = "Omezuje přístup k oblíbeným hrám";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Zobrazuje nejlepší herní aplikace. Ideální pro uživatele, kteří chtějí přesně ovládat přístup ke hrám.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
+"Online shopping" = "Online nákupy";
 "Blocks leading e-commerce and shopping applications" = "Blokuje přední aplikace pro elektronické obchodování a nakupování";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Tento štít zabraňuje přístupu k běžným nákupním aplikacím. Pomáhá uživatelům omezit impulzivní nákupy nebo rozptýlení.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
+"Other apps" = "Další aplikace";
 "A selection of various popular applications" = "Výběr dalších populárních aplikací";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Tento štít obsahuje seznam populárních aplikací různého typu. Je vytvořen pro uživatele, kteří usilují o komplexnější kontrolu aplikací.";
 // Name of the Safe Search shield (for search engines safe search feature)
 "Safe search" = "Bezpečné vyhledávání";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Enable safe search to filter out inappropriate search results in search engines." = "Povolte bezpečné vyhledávání pro odfiltrování nevhodných výsledků vyhledávání ve vyhledávačích.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "Primární";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Rozšířené";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "Hostování souborů";
 // Filter name, blocks torrent sites
 "Torrent" = "Torrent";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "Online hraní";

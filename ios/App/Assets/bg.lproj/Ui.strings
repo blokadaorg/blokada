@@ -44,7 +44,7 @@
 "universal action cancel" = "Отказ";
 "universal action close" = "Затваряне";
 "universal action done" = "Готово";
-"universal action edit" = "Edit";
+"universal action edit" = "Редактиране";
 "universal action try again" = "Опитайте отново";
 "universal action learn more" = "Научете повече";
 "universal action help" = "Помощ";
@@ -510,7 +510,7 @@
 "family rename device" = "Преименуване на устройство";
 "family label this device" = "Това устройство (%@)";
 "family onboard header" = "Добре дошли в Blokada Семейство!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Добре дошли в %s!";
 "family onboard body" = "Следвайте инструкциите на екрана, за да настроите първото си устройство.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -524,15 +524,15 @@
 "family status ready body" = "Добавете сега първото си устройство";
 "family status perms header" = "Почти е готово!";
 "family status perms body" = "Моля, дайте необходимите разрешения";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Докоснете, за да завършите процедурата за настройка";
 "family status expired header" = "Сметката е изтекла";
 "family status expired body" = "Моля, активирайте профила си, за да продължите";
 "family status linked header" = "Приложението е свързано!";
 "family status locked header" = "Приложението е заключено";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Заключване с пин";
+"family settings lock enter" = "Въведете новият пин";
+"family settings lock remove" = "Изтриване на пин";
 
 "family payment slug" = "Защитете цялото си семейство с един абонамент. Наблюдавайте и защитавайте всички семейни устройства от нежелано съдържание.";
 "family payment features devices header" = "Мониторинг на семейните устройства";
@@ -572,133 +572,133 @@
 "toplist tld unknown" = "неизвестно";
 
 "family notification subtitle" = "Семейната защита е изключена";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Това устройство вече е свързано. Моля, прекъснете връзката с него, като използвате главното приложение и опитайте отново.";
+"family profile dialog header" = "Изберете профил, който да използвате за %@.";
+"family profile dialog header this" = "Изберете профил, който да се използва от това устройство.";
+"family profile add" = "Кой профил искате да добавите?";
+"family profile template" = "Изберете шаблон, за да започнете.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Родителски";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "Родител";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Детски";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Дете";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Персонализиран";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Персонализиран";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Добавяне на нов профил";
+"family profile action delete" = "Изтриване на този профил";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Този профил се използва в момента. Уверете се, че не се използва от друго устройство преди да го изтриете.";
+"family profile error" = "Неуспешно изтриване на профила.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ Профил";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Избор на профил";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "СТАТИСТИКА";
+"family device brief statistics" = "Преглед на последната активност на това устройство.";
+"family device label settings" = "НАСТРОЙКИ НА УСТРОЙСТВОТО";
+"family device brief settings alt" = "Управление на настройките за блокиране за това устройство.";
+"family device action link" = "Повторно свързване на устройството";
+"family device action delete" = "Изтриване на устройството";
+"family device delete confirm" = "Сигурни ли сте, че искате да изтриете %@? Това ще прекъсне връзката на устройството с вашия профил.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Добавяне на устройство";
+"family device header link" = "Свързване на устройство";
 
-"family perms header" = "One more thing";
+"family perms header" = "Още едно нещо";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Активирайте \"%@\" в Настройки, като навигирате, както е показано по-долу.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Общи";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN & Управление на устройства";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Автоматично";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family stats label reason" = "Причина";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "Блокиращ списък";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Профил";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Блокиращи списъци";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Блокиращи списъци в профила";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ избрани";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Пауза на блокирането";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Неизвестен";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Няма";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Показване първо на най-често срещаните";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Премахване от изключенията";
+"family stats exceptions add" = "Добавяне към изключенията";
+"family stats title" = "Моите изключения";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Сканирайте QR кода по-долу, за да добавите устройство към вашето семейството. Този екран ще се затвори автоматично, след като устройството бъде открито.";
+"family link description again" = "Сканирайте QR кода по-долу, за да свържете отново устройството. Този екран ще се затвори автоматично, след като устройството бъде открито.";
+"family qr brief" = "Сканирайте QR кода, показан на родителското устройство";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "Детайли";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Нов профил";
+"family dialog title rename profile" = "Преименуване на профил";
+"family dialog title new device" = "Ново устройство";
+"family dialog title rename device" = "Преименуване на устройство";
+"family dialog brief profile" = "Въведете име за профила.";
+"family dialog brief device" = "Въведете име за устройството.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Не са намерени съвпадения по критериите ви за търсене";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "блокирано %@ пъти";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "разрешено %@ пъти";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Управлявайте това устройство, като използвате родителското устройство.";
+"family status qr body" = "Сканирайте QR кода, за да свържете това устройство.";
+"family status active header" = "Активно!";
+"family status active body" = "Докоснете устройството за повече информация.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Връзка";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Отключване";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Въведете ID на профила, за да възстановите покупките си.";

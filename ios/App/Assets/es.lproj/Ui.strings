@@ -172,7 +172,7 @@
 "home plus button select location" = "Elegir ubicación";
 "home plus button location" = "Ubicación: *%@*";
 
-"pack section header" = "Características avanzadas";
+"pack section header" = "Avanzadas";
 "pack section header details" = "Detalles de la funcionalidad";
 "pack action install" = "OBTENER";
 "pack action update" = "ACTUALIZAR";

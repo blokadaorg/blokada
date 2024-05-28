@@ -666,39 +666,39 @@
 // "My exceptions" is a list of user configured custom blocking rules.
 "family stats exceptions remove" = "Remove from My exceptions";
 "family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats title" = "Moje výjimky";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Naskenujte níže uvedený QR kód a přidejte zařízení do vaší rodiny. Tato obrazovka se automaticky zavře, jakmile je zařízení rozpoznáno.";
+"family link description again" = "Naskenujte níže uvedený QR kód a znovu propojte zařízení. Tato obrazovka se po zjištění zařízení automaticky zavře.";
+"family qr brief" = "Naskenujte QR kód zobrazený na nadřazeném zařízení";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "Podrobnosti";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Nový profil";
+"family dialog title rename profile" = "Přejmenovat profil";
+"family dialog title new device" = "Nové zařízení";
+"family dialog title rename device" = "Přejmenovat zařízení";
+"family dialog brief profile" = "Zadejte název pro tento profil.";
+"family dialog brief device" = "Zadejte název pro toto zařízení.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Pro vaše vyhledávací kritéria nebyly nalezeny žádné shody";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "blokováno %@ krát";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "povoleno %@ krát";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Spravovat toto zařízení pomocí nadřazeného zařízení.";
+"family status qr body" = "Naskenujte QR kód pro propojení tohoto zařízení.";
+"family status active header" = "Aktivní!";
+"family status active body" = "Pro více podrobností klepněte na zařízení.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Odkaz";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Odemknout";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Zadejte ID účtu pro obnovení vašich nákupů.";

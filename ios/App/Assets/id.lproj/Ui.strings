@@ -579,22 +579,22 @@
 "family profile template" = "Pilih templat untuk memulai.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Induk";
+"family profile name parent" = "Orang tua";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "Orang tua";
 
 // A name of a configuration profile, for child device
 "family profile name child" = "Anak";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Anak";
 
 // A name of a custom configuration profile template
 "family profile name custom" = "Personalisasi";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Personalisasi";
 
 "family profile action add" = "Tambah profil baru";
 "family profile action delete" = "Hapus profil ini";
