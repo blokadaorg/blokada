@@ -89,6 +89,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     return await traceWith(parentTrace, "startLink", (trace) async {
       await _prepareTemplates(trace);
       userAgent = _env.userAgent!;
+      if (!userAgent.contains("%20")) userAgent = userAgent.urlEncode;
     });
   }
 
@@ -150,7 +151,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
   String _getLink(LinkId id, bool isLocked) {
     // Replace placeholders as applicable
     String link = templates[id]!.url;
-    link = link.replaceFirst(_keyUA, userAgent.urlEncode);
+    link = link.replaceFirst(_keyUA, userAgent);
     final accountId = _account.account?.id;
 
     if (isLocked || accountId == null) {
