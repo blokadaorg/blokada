@@ -89,7 +89,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     return await traceWith(parentTrace, "startLink", (trace) async {
       await _prepareTemplates(trace);
       userAgent = _env.userAgent!;
-      if (!userAgent.contains("%20")) userAgent = userAgent.urlEncode;
+      //if (!userAgent.contains("%20")) userAgent = userAgent.urlEncode;
     });
   }
 
