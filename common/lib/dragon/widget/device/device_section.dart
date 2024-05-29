@@ -132,22 +132,18 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
               children: [
                 Column(
                   children: [
-                    (device.thisDevice)
-                        ? Container()
-                        : CommonItem(
-                            onTap: () {
-                              showRenameDialog(
-                                  context, "device", device.device.alias,
-                                  onConfirm: (name) {
-                                _device.renameDevice(device.device, name);
-                              });
-                            },
-                            icon: CupertinoIcons.device_phone_portrait,
-                            text: "account lease label name".i18n,
-                            trailing: Text(device.device.alias,
-                                style: TextStyle(
-                                    color: context.theme.textSecondary)),
-                          ),
+                    CommonItem(
+                      onTap: () {
+                        showRenameDialog(context, "device", device.device.alias,
+                            onConfirm: (name) {
+                          _device.renameDevice(device.device, name);
+                        });
+                      },
+                      icon: CupertinoIcons.device_phone_portrait,
+                      text: "account lease label name".i18n,
+                      trailing: Text(device.device.alias,
+                          style: TextStyle(color: context.theme.textSecondary)),
+                    ),
                     CommonItem(
                       onTap: () {
                         showSelectProfileDialog(context, device: device.device);
