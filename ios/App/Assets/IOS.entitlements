@@ -8,6 +8,7 @@
 	<array/>
 	<key>com.apple.developer.networking.networkextension</key>
 	<array>
+		<string>dns-settings</string>
 		<string>packet-tunnel-provider</string>
 	</array>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>

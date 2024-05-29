@@ -1575,8 +1575,7 @@
 		4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsService.swift; sourceTree = "<group>"; };
 		4E9216992966E71700E1C34D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Release/App.xcframework"; sourceTree = "<group>"; };
 		4E92169D2966E72600E1C34D /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Release/Flutter.xcframework"; sourceTree = "<group>"; };
-		4E92C6EF2C04C3F800A33170 /* FamilyDevRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyDevRelease.entitlements; sourceTree = "<group>"; };
-		4E92C6F02C04C3FD00A33170 /* FamilyMockedRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyMockedRelease.entitlements; sourceTree = "<group>"; };
+		4E92C6EF2C04C3F800A33170 /* Family.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Family.entitlements; sourceTree = "<group>"; };
 		4E92C6F12C04C45D00A33170 /* CustomV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomV.swift; sourceTree = "<group>"; };
 		4E92C6F52C05CA9600A33170 /* AccountBindingFlavor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBindingFlavor.swift; sourceTree = "<group>"; };
 		4E92C6F92C05CACD00A33170 /* AccountBindingFlavor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBindingFlavor.swift; sourceTree = "<group>"; };
@@ -1797,8 +1796,7 @@
 		47729DF922F447C800B9B36B = {
 			isa = PBXGroup;
 			children = (
-				4E92C6F02C04C3FD00A33170 /* FamilyMockedRelease.entitlements */,
-				4E92C6EF2C04C3F800A33170 /* FamilyDevRelease.entitlements */,
+				4E92C6EF2C04C3F800A33170 /* Family.entitlements */,
 				4E270D002A80EAF100D3484B /* NotFamily */,
 				4E270CFF2A80EAEA00D3484B /* Family */,
 				47729E0422F447C800B9B36B /* App */,
@@ -4379,7 +4377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4418,7 +4416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = FamilyMockedRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4589,7 +4587,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 240221;
@@ -4635,7 +4633,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = FamilyProdRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 240221;
@@ -4842,7 +4840,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4885,7 +4883,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = FamilyDevRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
