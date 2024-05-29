@@ -124,6 +124,12 @@ class DeviceController {
 
     try {
       final updated = await _devices.rename(device, alias);
+
+      // Also update thisDevice if it was renamed
+      if (_thisDevice.now?.deviceTag == device.deviceTag) {
+        _thisDevice.now = updated;
+      }
+
       _commit(updated);
       return updated;
     } catch (e) {
