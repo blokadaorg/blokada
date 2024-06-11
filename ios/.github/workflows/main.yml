@@ -35,6 +35,12 @@ jobs:
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
           keychain-password: signingtmp
 
+      - name: Check cert
+        run: security find-identity -v -p codesigning ~/Library/Keychains/signing_temp.keychain-db
+
+      - name: Make default keychain
+        run: security default-keychain -s ~/Library/Keychains/signing_temp.keychain-db
+
       - name: Build iOS binary
         run: bundle exec fastlane build_blokada
         env:
