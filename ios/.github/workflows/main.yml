@@ -31,6 +31,24 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
- 
-      - name: Build & test binary
-        run: make build
+
+      - name: Install bundler
+        run: gem install bundler:1.17.2
+
+      - name: Install fastlane
+        run: bundler install
+
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          keychain-password: signingtmp
+
+      - name: Build iOS binary
+        run: bundle exec fastlane build_blokada
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
