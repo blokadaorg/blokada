@@ -29,11 +29,11 @@ jobs:
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
+          ruby-version: 3.3.1
           bundler-cache: true
 
       - name: Install bundler
-        run: gem install bundler:1.17.2
+        run: gem install bundler:2.5.11
 
       - name: Install fastlane
         run: bundler install
