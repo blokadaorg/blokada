@@ -31,4 +31,4 @@ devsc:
 	cd six-common && ./build.for.ios.sh --onlydebug && cd ../ ; \
 
 family:
-	@xcodebuild build -project IOS.xcodeproj -scheme "Family Prod" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \
+	@xcodebuild build -project IOS.xcodeproj -scheme "FamilyProd" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \
