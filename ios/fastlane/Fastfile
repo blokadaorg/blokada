@@ -56,7 +56,9 @@ lane :prepare_signing do |options|
      api_key: api_key,
      keychain_path: ENV["KEYCHAIN_PATH"],
      keychain_password: "signingtmp",
-     generate_apple_certs: false
+     generate_apple_certs: false,
+     use_legacy_api: false,
+     skip_install: true
    )
  
  # main app profile
