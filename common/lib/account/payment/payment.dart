@@ -97,6 +97,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
 
         final receipt = await _ops.doPurchaseWithReceipt(id);
         await _processReceipt(trace, receipt);
+        await _stage.dismissModal(trace);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
