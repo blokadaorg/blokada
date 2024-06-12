@@ -20,18 +20,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up ruby env
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.2
-          bundler-cache: true
-
-      - name: Install bundler
-        run: gem install bundler:1.17.2
-
-      - name: Install fastlane
-        run: bundler install
-
       - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -42,8 +30,20 @@ jobs:
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make sixcommon
  
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.7
+          bundler-cache: true
+
+      - name: Install bundler
+        run: gem install bundler:2.4.22
+
+      - name: Install fastlane
+        run: bundler install
+
       - name: Import Code-Signing Certificates
-        uses: Apple-Actions/import-codesign-certs@v1
+        uses: Apple-Actions/import-codesign-certs@v3
         with:
           p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
           p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
