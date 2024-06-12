@@ -58,7 +58,7 @@ object HttpService {
         return httpClient.newCall(request).execute().body()!!.string()
     }
 
-    fun makeRequest(url: Uri, method: String, body: String?): String {
+    fun makeRequest(url: Uri, method: String, body: String?, headers: Map<String, String>? = null): String {
         var request = Request.Builder().url(url)
 
         request = if (body != null) {
@@ -67,6 +67,10 @@ object HttpService {
             )
         } else {
             request.method(method, null)
+        }
+
+        headers?.forEach { (key, value) ->
+            request.addHeader(key, value)
         }
 
         val response = httpClient.newCall(request.build()).execute()

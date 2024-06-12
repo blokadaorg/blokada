@@ -30,7 +30,6 @@ import binding.CommandBinding
 import binding.CustomBinding
 import binding.DeviceBinding
 import binding.EnvBinding
-import binding.FamilyBinding
 import binding.FilterBinding
 import binding.HttpBinding
 import binding.JournalBinding
@@ -117,7 +116,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
     private lateinit var rate: RateBinding
     private lateinit var stats: StatsBinding
     private lateinit var link: LinkBinding
-    private lateinit var family: FamilyBinding
 
     private val appUninstall = AppUninstallService()
 
@@ -164,7 +162,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
         rate = RateBinding
         stats = StatsBinding
         link = LinkBinding
-        family = FamilyBinding
     }
 
     private fun setupEvents() {

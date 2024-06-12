@@ -18,8 +18,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import repository.Repos
 import service.ConnectivityService
+import service.ContextService
 import service.FlutterService
+import service.SystemNavService
 import service.VpnPermissionService
+
 
 object PermBinding: PermOps {
     val dnsProfileActivated = MutableStateFlow(false)
@@ -31,6 +34,8 @@ object PermBinding: PermOps {
     private val vpnPerms by lazy { VpnPermissionService }
     private val connectivity by lazy { ConnectivityService }
     private val device by lazy { DeviceBinding }
+    private val context by lazy { ContextService }
+    private val systemNav by lazy { SystemNavService }
     private val scope = GlobalScope
 
     init {
@@ -51,17 +56,22 @@ object PermBinding: PermOps {
         }
     }
 
-    override fun doPrivateDnsEnabled(tag: String, alias: String, callback: (Result<Boolean>) -> Unit) {
+    override fun doIsPrivateDnsEnabled(tag: String, callback: (Result<Boolean>) -> Unit) {
         callback(Result.success(dnsProfileActivated.value))
     }
 
-    override fun doSetSetPrivateDnsEnabled(tag: String, alias: String, callback: (Result<Unit>) -> Unit) {
+    override fun doSetPrivateDnsEnabled(
+        tag: String,
+        alias: String,
+        callback: (Result<Unit>) -> Unit
+    ) {
         // Cannot be done on Android
         callback(Result.success(Unit))
     }
 
-    override fun doSetSetPrivateDnsForward(callback: (Result<Unit>) -> Unit) {
-        TODO("Not yet implemented")
+    override fun doSetDns(tag: String, callback: (Result<Unit>) -> Unit) {
+        // Cannot be done on Android
+        callback(Result.success(Unit))
     }
 
     override fun doNotificationEnabled(callback: (Result<Boolean>) -> Unit) {
@@ -73,6 +83,11 @@ object PermBinding: PermOps {
         val enabled = vpnPerms.hasPermission()
         vpnProfileActivated.value = enabled
         callback(Result.success(enabled))
+    }
+
+    override fun doOpenSettings(callback: (Result<Unit>) -> Unit) {
+        systemNav.openNetworkSettings()
+        callback(Result.success(Unit))
     }
 
 }

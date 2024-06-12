@@ -13,14 +13,16 @@
 package binding
 
 import channel.command.CommandName
-import channel.deck.Deck
-import channel.deck.DeckOps
+import channel.filter.Filter
+import channel.filter.FilterOps
 import kotlinx.coroutines.flow.MutableStateFlow
 import service.FlutterService
 import ui.advanced.decks.PackDataSource
 
-object DeckBinding: DeckOps {
-    val decks = MutableStateFlow<List<Deck>>(emptyList())
+object DeckBinding: FilterOps {
+    val filters = MutableStateFlow<List<Filter>>(emptyList())
+    val selections = MutableStateFlow<List<Filter>>(emptyList())
+    val listToTags = MutableStateFlow<Map<String, String>>(emptyMap())
 
     private val dataSource = PackDataSource.getPacks()
 
@@ -28,20 +30,17 @@ object DeckBinding: DeckOps {
     private val command by lazy { CommandBinding }
 
     init {
-        DeckOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
+        FilterOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
-    fun getDeckIdForList(listId: String): String? {
-        return decks.value.firstOrNull {
-            it.items.keys.contains(listId)
-        }?.deckId
+    private fun getDeckIdForList(listId: String): String? {
+        return listToTags.value[listId]?.split("/")?.firstOrNull();
     }
 
     fun getDeckNameForList(listId: String): String? {
         val deckId = getDeckIdForList(listId) ?: return null
         return dataSource.firstOrNull { it.id == deckId }?.meta?.title
     }
-
 
     suspend fun setDeckEnabled(deckId: String, enabled: Boolean) {
         if (enabled) {
@@ -55,16 +54,23 @@ object DeckBinding: DeckOps {
         command.execute(CommandName.TOGGLELISTBYTAG, deckId, tag)
     }
 
-    override fun doDecksChanged(decks: List<Deck>, callback: (Result<Unit>) -> Unit) {
-        this.decks.value = decks
+    override fun doFiltersChanged(filters: List<Filter>, callback: (Result<Unit>) -> Unit) {
+        this.filters.value = filters
         callback(Result.success(Unit))
     }
 
-    override fun doTagMappingChanged(
-        tapMapping: Map<String, String>,
+    override fun doFilterSelectionChanged(
+        selections: List<Filter>,
         callback: (Result<Unit>) -> Unit
     ) {
-        // TODO: not used yet on android
+        this.selections.value = selections
+        callback(Result.success(Unit))
+    }
+
+    override fun doListToTagChanged(
+        listToTag: Map<String, String>,
+        callback: (Result<Unit>) -> Unit
+    ) {
         callback(Result.success(Unit))
     }
 }

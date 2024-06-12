@@ -53,4 +53,23 @@ object HttpBinding: HttpOps {
             }
         }
     }
+
+    override fun doRequestWithHeaders(
+        url: String,
+        payload: String?,
+        type: String,
+        headers: Map<String?, String?>,
+        callback: (Result<String>) -> Unit
+    ) {
+        GlobalScope.async(Dispatchers.IO) {
+            try {
+                val h = headers.mapKeys { it.key!! }.mapValues { it.value!! }
+
+                val content = http.makeRequest(url, type, payload, h)
+                callback(Result.success(content))
+            } catch (e: Exception) {
+                callback(Result.failure(e))
+            }
+        }
+    }
 }
