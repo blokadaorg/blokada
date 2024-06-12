@@ -23,11 +23,11 @@
             app:key="app_language"
             app:title="@string/app_settings_language_label" />
 
-        <Preference
-            app:icon="@drawable/ic_baseline_color_lens_24"
-            app:key="app_theme"
-            app:title="@string/app_settings_theme_label"
-            app:useSimpleSummaryProvider="true" />
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_baseline_color_lens_24"-->
+<!--            app:key="app_theme"-->
+<!--            app:title="@string/app_settings_theme_label"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
         <Preference
             app:icon="@drawable/ic_baseline_refresh_24"

@@ -74,31 +74,31 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             true
         }
 
-        val theme: Preference = findPreference("app_theme")!!
-        val themes = mapOf(
-            "default" to getString(R.string.app_settings_status_default),
-            "dark" to getString(R.string.app_settings_theme_dark),
-            "light" to getString(R.string.app_settings_theme_light),
-        )
-        theme.setOnPreferenceClickListener { _ ->
-            val value = when (vm.localConfig.value?.useDarkTheme) {
-                true -> "dark"
-                false -> "light"
-                else -> "default"
-            }
-            showSingleChoiceDialog(
-                requireContext(), getString(R.string.app_settings_theme_label),
-                themes, value
-            ) { newValue ->
-                when (newValue) {
-                    "dark" -> vm.setUseDarkTheme(true)
-                    "light" -> vm.setUseDarkTheme(false)
-                    else -> vm.setUseDarkTheme(null)
-                }
-                showRestartRequired()
-            }
-            true
-        }
+//        val theme: Preference = findPreference("app_theme")!!
+//        val themes = mapOf(
+//            "default" to getString(R.string.app_settings_status_default),
+//            "dark" to getString(R.string.app_settings_theme_dark),
+//            "light" to getString(R.string.app_settings_theme_light),
+//        )
+//        theme.setOnPreferenceClickListener { _ ->
+//            val value = when (vm.localConfig.value?.useDarkTheme) {
+//                true -> "dark"
+//                false -> "light"
+//                else -> "default"
+//            }
+//            showSingleChoiceDialog(
+//                requireContext(), getString(R.string.app_settings_theme_label),
+//                themes, value
+//            ) { newValue ->
+//                when (newValue) {
+//                    "dark" -> vm.setUseDarkTheme(true)
+//                    "light" -> vm.setUseDarkTheme(false)
+//                    else -> vm.setUseDarkTheme(null)
+//                }
+//                showRestartRequired()
+//            }
+//            true
+//        }
 
         val browser: Preference = findPreference("app_browser")!!
         val browsers = mapOf(
