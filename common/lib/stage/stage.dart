@@ -277,6 +277,7 @@ abstract class StageStoreBase
     return await traceWith(parentTrace, "setShowNavbar", (trace) async {
       if (_showNavbar == show) return;
       _showNavbar = show;
+      trace.addAttribute("show", show);
       await _actOnModal(trace, route.modal);
     });
   }
@@ -404,6 +405,7 @@ abstract class StageStoreBase
     var show = !noNavbarModals.contains(modal);
     if (!_showNavbar) show = false;
     if (act.isFamily()) show = false;
+    trace.addAttribute("show", show);
     await _ops.doShowNavbar(show);
   }
 
