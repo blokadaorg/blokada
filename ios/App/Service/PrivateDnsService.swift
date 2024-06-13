@@ -61,7 +61,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
         .tryMap { it -> NEDNSSettingsManager in
             guard let name = name else {
                 // Only tag used (v3 api)
-                let profile = NEDNSOverHTTPSSettings(servers: [ "34.117.212.222" ])
+                let profile = NEDNSOverHTTPSSettings(servers: [])
                 profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)")
                 BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
                 it.dnsSettings = profile
@@ -70,7 +70,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
 
             // Older tag + name
             let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-            let profile = NEDNSOverHTTPSSettings(servers: [ "34.117.212.222" ])
+            let profile = NEDNSOverHTTPSSettings(servers: [])
             profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)/\(nameSanitized)")
             BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
             it.dnsSettings = profile
