@@ -195,9 +195,6 @@ struct PaymentGatewayView: View {
                     .background(Color.cPrimaryBackground)
                     .opacity(self.vm.working || self.vm.error != nil || self.vm.options.isEmpty ? 1.0 : 0.0)
                     .transition(.opacity)
-                    .animation(
-                        Animation.easeIn(duration: 0.3).repeatCount(1)
-                    )
                     .frame(maxWidth: 500)
                     .padding()
                     .accessibilityHidden(true)
