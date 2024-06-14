@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -35,9 +36,7 @@ import binding.AccountBinding
 import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
-import binding.StageBinding.tab
 import channel.command.CommandName
-import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.Dispatchers
@@ -74,7 +73,7 @@ import utils.Links
 import utils.Logger
 
 
-class MainActivity : LocalizationActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     private lateinit var settingsVM: SettingsViewModel
     private lateinit var blockaRepoVM: BlockaRepoViewModel

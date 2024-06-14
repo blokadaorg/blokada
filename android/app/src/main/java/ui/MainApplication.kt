@@ -13,6 +13,7 @@
 package ui
 
 import android.app.Activity
+import android.app.Application
 import android.app.Service
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
@@ -46,7 +47,6 @@ import binding.RateBinding
 import binding.StageBinding
 import binding.StatsBinding
 import binding.TracerBinding
-import com.akexorcist.localizationactivity.ui.LocalizationApplication
 import com.wireguard.android.backend.Backend
 import com.wireguard.android.backend.GoBackend
 import com.wireguard.android.configStore.FileConfigStore
@@ -82,9 +82,8 @@ import ui.advanced.decks.PacksViewModel
 import ui.utils.cause
 import utils.Logger
 import java.lang.ref.WeakReference
-import java.util.Locale
 
-class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
+class MainApplication: Application(), ViewModelStoreOwner {
 
     private lateinit var settingsVM: SettingsViewModel
     private lateinit var blockaRepoVM: BlockaRepoViewModel
@@ -294,10 +293,6 @@ class MainApplication: LocalizationApplication(), ViewModelStoreOwner {
             log.v("Marking repo payload as acted on")
             persistence.save(payload)
         }
-    }
-
-    override fun getDefaultLanguage(): Locale {
-        return TranslationService.getLocale()
     }
 
     // Stuff taken from Wireguard

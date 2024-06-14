@@ -37,6 +37,11 @@ android {
         viewBinding = true
     }
 
+    androidResources {
+        // For app-specific language select
+        generateLocaleConfig = true
+    }
+
     defaultConfig {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 28
@@ -171,9 +176,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
-
-    // dynamic translations
-    implementation 'com.akexorcist:localization:1.2.9'
 
     // engine deps
     implementation 'org.pcap4j:pcap4j-core:1.7.7'

@@ -18,10 +18,10 @@
         app:key="app_category"
         app:title="@string/account_section_header_general">
 
-        <Preference
-            app:icon="@drawable/ic_baseline_language_24"
-            app:key="app_language"
-            app:title="@string/app_settings_language_label" />
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_baseline_language_24"-->
+<!--            app:key="app_language"-->
+<!--            app:title="@string/app_settings_language_label" />-->
 
 <!--        <Preference-->
 <!--            app:icon="@drawable/ic_baseline_color_lens_24"-->

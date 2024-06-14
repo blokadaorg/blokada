@@ -13,13 +13,12 @@
 package service
 
 import androidx.core.os.LocaleListCompat
-import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import repository.TranslationRepository
 import repository.getFirstSupportedLocale
 import repository.getTranslationRepository
 import ui.utils.cause
 import utils.Logger
-import java.util.*
+import java.util.Locale
 
 object TranslationService {
 
@@ -85,18 +84,8 @@ object TranslationService {
     private fun reload(skipUpdatingActivity: Boolean = false) {
         if (initialized) {
             log.v("Reloading translations repositories")
-            if (!skipUpdatingActivity) applyLocaleToActivity()
+//            if (!skipUpdatingActivity) applyLocaleToActivity()
             repo = getTranslationRepository(this.locale)
-        }
-    }
-
-    private fun applyLocaleToActivity() {
-        try {
-            val ctx = ContextService.requireContext() as LocalizationActivity
-            ctx.setLanguage(locale)
-            log.v("Applied locale to activity")
-        } catch (ex: Exception) {
-            log.e("Could not apply locale to activity".cause(ex))
         }
     }
 
