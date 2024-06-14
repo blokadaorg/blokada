@@ -89,7 +89,11 @@ object AppRepository {
         "com.m800.liveconnect.mobile.agent.prod",
         "com.m800.liveconnect.mobile.agent.tb",
         // TomTom Go #878
-        "com.tomtom.gplay.navapp"
+        "com.tomtom.gplay.navapp",
+        // Android Auto
+        "com.google.android.projection.gearhead",
+        // RCS
+        "com.google.android.apps.messaging"
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
