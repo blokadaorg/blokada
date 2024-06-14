@@ -12,6 +12,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.blokada">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -141,6 +142,7 @@
         <service
             android:name="com.wireguard.android.backend.GoBackend$VpnService"
             android:permission="android.permission.BIND_VPN_SERVICE"
+            tools:replace="android:exported"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.VpnService" />
