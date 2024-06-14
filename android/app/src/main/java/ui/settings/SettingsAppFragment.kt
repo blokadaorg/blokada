@@ -29,7 +29,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.StageBinding
 import org.blokada.R
-import repository.LANGUAGE_NICE_NAMES
 import service.EnvironmentService
 import service.UpdateService
 import ui.BlockaRepoViewModel
@@ -55,24 +54,31 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             blockaRepoVM = ViewModelProvider(it.app()).get(BlockaRepoViewModel::class.java)
         }
 
-        val language: Preference = findPreference("app_language")!!
-        val languages = mutableMapOf(
-            "root" to getString(R.string.app_settings_status_default)
-        ).also {
-            it.putAll(LANGUAGE_NICE_NAMES.toSortedMap())
-        }
-        language.setOnPreferenceClickListener { _ ->
-            showSingleChoiceDialog(
-                requireContext(), getString(R.string.app_settings_language_label),
-                languages, vm.localConfig.value?.locale ?: "root"
-            ) { newValue ->
-                when (newValue) {
-                    "root" -> vm.setLocale(null)
-                    else -> vm.setLocale(newValue)
-                }
-            }
-            true
-        }
+//        val language: Preference = findPreference("app_language")!!
+//        val languages = mutableMapOf(
+//            "root" to getString(R.string.app_settings_status_default)
+//        ).also {
+//            it.putAll(LANGUAGE_NICE_NAMES.toSortedMap())
+//        }
+//        language.setOnPreferenceClickListener { _ ->
+//            showSingleChoiceDialog(
+//                requireContext(), getString(R.string.app_settings_language_label),
+//                languages, vm.localConfig.value?.locale ?: "root"
+//            ) { newValue ->
+//                when (newValue) {
+//                    "root" -> vm.setLocale(null)
+//                    else -> vm.setLocale(newValue)
+//                }
+//            }
+//            true
+//        }
+//
+//        vm.localConfig.observe(viewLifecycleOwner, Observer {
+//            val locale = it.locale
+//            val selected = locale ?: "root"
+//            language.setDefaultValue(selected)
+//        })
+
 
 //        val theme: Preference = findPreference("app_theme")!!
 //        val themes = mapOf(
@@ -169,12 +175,6 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             }
             true
         }
-
-        vm.localConfig.observe(viewLifecycleOwner, Observer {
-            val locale = it.locale
-            val selected = locale ?: "root"
-            language.setDefaultValue(selected)
-        })
 
         val config: Preference = findPreference("app_config")!!
         config.setOnPreferenceClickListener {
