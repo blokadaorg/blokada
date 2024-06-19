@@ -1205,6 +1205,12 @@
 		4EEDBBB32B68EA59004AB456 /* FilterBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */; };
 		4EF5E4792A39D1AE001D1FF7 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF5E4782A39D1AE001D1FF7 /* Env.swift */; };
 		4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF4240E9E95001FA02E /* Resources.swift */; };
+		4EF8B6852C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
+		4EF8B6862C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
+		4EF8B6872C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
+		4EF8B6882C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
+		4EF8B6892C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
+		4EF8B68A2C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
 		4EF8ED7E2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED7F2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED802B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
@@ -1699,6 +1705,7 @@
 		4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBinding.swift; sourceTree = "<group>"; };
 		4EF5E4782A39D1AE001D1FF7 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OfferCodes+Extensions.swift"; sourceTree = "<group>"; };
 		4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeView.swift; sourceTree = "<group>"; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1878,6 +1885,7 @@
 				4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */,
 				4E53CCBA244DFF99009B3CF0 /* SKProduct+Extensions.swift */,
 				4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */,
+				4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -3042,6 +3050,7 @@
 				4EBDD3622A0CDD190039C101 /* PermBinding.swift in Sources */,
 				4EB355642A45C7D10096FD66 /* CustomV.swift in Sources */,
 				4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */,
+				4EF8B6852C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EEC496D2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4EEC49692A543AEE001EF934 /* Command.swift in Sources */,
 				4EEC49512A4D983D001EF934 /* TracerBinding.swift in Sources */,
@@ -3189,6 +3198,7 @@
 				4E12765A2AE7D0FC00A94994 /* JournalItemV.swift in Sources */,
 				4E12765B2AE7D0FC00A94994 /* TabHorizontalView.swift in Sources */,
 				4E12765D2AE7D0FC00A94994 /* Http.swift in Sources */,
+				4EF8B68A2C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4E12765F2AE7D0FC00A94994 /* TabViewModel.swift in Sources */,
 				4E1276602AE7D0FC00A94994 /* CustomVM.swift in Sources */,
 				4EEDBBAC2B68EA3E004AB456 /* Filter.swift in Sources */,
@@ -3448,6 +3458,7 @@
 				4E270DB62A80EB8300D3484B /* PlusKeypair.swift in Sources */,
 				4E270DB72A80EB8300D3484B /* BlockaLogger.swift in Sources */,
 				4E270DB82A80EB8300D3484B /* SKProduct+Extensions.swift in Sources */,
+				4EF8B6882C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4E270DB92A80EB8300D3484B /* LoggerSaver.swift in Sources */,
 				4E270DBE2A80EB8300D3484B /* SafeArea.swift in Sources */,
 				4E270DC02A80EB8300D3484B /* Tasker.swift in Sources */,
@@ -3556,6 +3567,7 @@
 				4E2ECD0F245B2F38009040F1 /* GridStack.swift in Sources */,
 				4E1C64F329EED6EC00ABB65B /* App.swift in Sources */,
 				4E7FE99E244DC28900851E9F /* SupportView.swift in Sources */,
+				4EF8B6872C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EEDBBB02B68EA59004AB456 /* FilterBinding.swift in Sources */,
 				4E90BA3727BBB5860051FD0C /* JournalNoBarV.swift in Sources */,
 				4E2ECCF7245AF870009040F1 /* LoadingButtonView.swift in Sources */,
@@ -3838,6 +3850,7 @@
 				4E8651BE2A3C968B0060AFB1 /* PermBinding.swift in Sources */,
 				4EB355652A45C7D10096FD66 /* CustomV.swift in Sources */,
 				4E8651BF2A3C968B0060AFB1 /* TopBarBlurView.swift in Sources */,
+				4EF8B6862C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EEC496E2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4EEC496A2A543AEE001EF934 /* Command.swift in Sources */,
 				4EEC49522A4D983D001EF934 /* TracerBinding.swift in Sources */,
@@ -4006,6 +4019,7 @@
 				4ECFFF002B4D7DB700154DC1 /* AfterActivatedView.swift in Sources */,
 				4EBF3BA12A80E55900F637BB /* CustomBinding.swift in Sources */,
 				4EBF3BA22A80E55900F637BB /* PackDataSource.swift in Sources */,
+				4EF8B6892C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4E58C14F2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4EBF3BA42A80E55900F637BB /* Journal.swift in Sources */,
 				4EBF3BA52A80E55900F637BB /* Perm.swift in Sources */,

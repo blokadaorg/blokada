@@ -11,6 +11,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct PaymentGatewayView: View {
 
@@ -81,12 +82,23 @@ struct PaymentGatewayView: View {
 
                             Button(action: {
                                 withAnimation {
+                                    self.presentOfferCodeRedeemSheet()
+                                }
+                            }) {
+                                Text("Redeem Offer")
+                                .foregroundColor(Color.cAccent)
+                                .multilineTextAlignment(.center)
+                            }
+
+                            Button(action: {
+                                withAnimation {
                                     self.vm.restoreTransactions()
                                 }
                             }) {
                                 Text(L10n.paymentActionRestore)
                                 .foregroundColor(Color.cAccent)
                                 .multilineTextAlignment(.center)
+                                .padding(.top, 8)
                             }
 
                             Button(action: {
