@@ -148,21 +148,21 @@ repositories {
 
 dependencies {
     // forgot what is it for
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0-alpha03'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.20"
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.browser:browser:1.6.0'
-    implementation 'androidx.webkit:webkit:1.8.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'androidx.browser:browser:1.8.0'
+    implementation 'androidx.webkit:webkit:1.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
 
     // gplay rate prompt
     implementation 'com.google.android.play:core:1.10.3'
@@ -185,15 +185,15 @@ dependencies {
 
     // wireguard deps
     implementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "androidx.annotation:annotation:1.7.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
-    implementation "androidx.activity:activity-ktx:1.8.0"
-    implementation "androidx.fragment:fragment-ktx:1.6.1"
+    implementation "androidx.datastore:datastore-preferences:1.1.1"
+    implementation "androidx.annotation:annotation:1.8.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.2"
+    implementation "androidx.activity:activity-ktx:1.9.0"
+    implementation "androidx.fragment:fragment-ktx:1.8.0"
 
     // Google in app billing
-    implementation 'com.android.billingclient:billing:6.0.1'
-    implementation 'com.android.billingclient:billing-ktx:6.0.1'
+    implementation 'com.android.billingclient:billing:7.0.0'
+    implementation 'com.android.billingclient:billing-ktx:7.0.0'
 
     // Hopefully normal date api?
     implementation 'net.danlew:android.joda:2.10.14'
