@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Условия и политика конфиденциальности</string>
     <string name="payment_action_terms">Условия предоставления услуг</string>
     <string name="payment_action_policy">Политика конфиденциальности</string>
+    <string name="payment_action_offer">Применить промокод</string>
     <string name="payment_alert_error_header">Сообщение из App Store</string>
     <string name="payment_save_text">Вы сохраняете %s</string>
     <string name="payment_conversion_note">Мы принимаем евро, и отображаемые цены являются приблизительными. Возврат доступен, если ваш банк взимает слишком большую комиссию.</string>

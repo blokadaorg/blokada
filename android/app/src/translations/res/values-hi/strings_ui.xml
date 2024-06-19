@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">शर्तें और गोपनीयता नीति</string>
     <string name="payment_action_terms">सेवा की शर्तें</string>
     <string name="payment_action_policy">गोपनीयता नीति</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">ऐप स्टोर से एक संदेश</string>
     <string name="payment_save_text">You are saving %s</string>
     <string name="payment_conversion_note">We accept Euro, and the displayed prices are an estimate. A refund is available if your bank charges too much.</string>

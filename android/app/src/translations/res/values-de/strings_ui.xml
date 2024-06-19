@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">AGB &amp; Datenschutz</string>
     <string name="payment_action_terms">AGB</string>
     <string name="payment_action_policy">Datenschutzerklärung</string>
+    <string name="payment_action_offer">Angebotscode anwenden</string>
     <string name="payment_alert_error_header">Eine Nachricht aus dem App Store</string>
     <string name="payment_save_text">Du sparst %s</string>
     <string name="payment_conversion_note">Wir empfangen Zahlungen in Euro und die angezeigten Preise sind geschätzt. Wenn deine Bank zu viel abbucht ist eine Erstattung möglich.</string>

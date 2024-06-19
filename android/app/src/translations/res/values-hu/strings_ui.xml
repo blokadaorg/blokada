@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Feltételek és Adatvédelem</string>
     <string name="payment_action_terms">Felhasználási feltételek</string>
     <string name="payment_action_policy">Adatvédelmi irányelvek</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">Egy üzenet az App Store-ból</string>
     <string name="payment_save_text">Ezzel %s-t takarít meg</string>
     <string name="payment_conversion_note">Elfogadunk Eurót, és a feltüntetett értékek becsültek. Megvan a refund lehetősége, ha a bankja túl sokat von le.</string>

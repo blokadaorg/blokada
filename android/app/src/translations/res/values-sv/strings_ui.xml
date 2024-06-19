@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Villkor &amp; Integritet</string>
     <string name="payment_action_terms">Användarvillkor</string>
     <string name="payment_action_policy">Integritetspolicy</string>
+    <string name="payment_action_offer">Ange rabattkod</string>
     <string name="payment_alert_error_header">Ett meddelande från App Store</string>
     <string name="payment_save_text">Du sparar %s</string>
     <string name="payment_conversion_note">Vi accepterar euro och de visade priserna är en uppskattning. En återbetalning är tillgänglig om dina bankavgifter blir för höga.</string>

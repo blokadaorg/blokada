@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">利用規約とプライバシー</string>
     <string name="payment_action_terms">利用規約</string>
     <string name="payment_action_policy">プライバシーポリシー</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">App Store からのメッセージ</string>
     <string name="payment_save_text">%s 引き</string>
     <string name="payment_conversion_note">ユーロを受け付けており、表示された価格は見積もりです。銀行手数料が多すぎる場合は払い戻しを受け付けます。</string>

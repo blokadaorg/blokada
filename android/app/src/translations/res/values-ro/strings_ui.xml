@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Termenii de utilizare și confidențialitate</string>
     <string name="payment_action_terms">Termenii Serviciului</string>
     <string name="payment_action_policy">Politica de confidenţialitate</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">Un mesaj de la App Store</string>
     <string name="payment_save_text">Economisești %s</string>
     <string name="payment_conversion_note">Acceptăm Euro, iar prețurile afișate sunt o estimare. O rambursare este disponibilă în cazul în care banca ta costă prea mult.</string>

@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Условия &amp; Поверителност</string>
     <string name="payment_action_terms">Условия за ползване</string>
     <string name="payment_action_policy">Декларация за поверителност</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">Съобщение от App Store</string>
     <string name="payment_save_text">Спестявате %s</string>
     <string name="payment_conversion_note">Приемаме Евро, а показаните цени са приблизителни. Възможно е възстановяване на средства, ако банката ви начисли твърде висока такса.</string>

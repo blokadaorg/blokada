@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Conditions d\'utilisation et Confidentialité</string>
     <string name="payment_action_terms">Conditions d\'utilisation</string>
     <string name="payment_action_policy">Politique de confidentialité</string>
+    <string name="payment_action_offer">Appliquer le code promo</string>
     <string name="payment_alert_error_header">Un message de l\'App Store</string>
     <string name="payment_save_text">Vous faites une économie de %s</string>
     <string name="payment_conversion_note">Nous acceptons l\'Euro (€). Les prix affichés sont une estimation. Un remboursement est possible si vos frais bancaires s\'avèrent trop élevés.</string>

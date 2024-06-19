@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Termini e Privacy</string>
     <string name="payment_action_terms">Termini del Servizio</string>
     <string name="payment_action_policy">Politica sulla Privacy</string>
+    <string name="payment_action_offer">Applica Codice Offerta</string>
     <string name="payment_alert_error_header">Un messaggio dall\'App Store</string>
     <string name="payment_save_text">Stai risparmiando %s</string>
     <string name="payment_conversion_note">Accettiamo Euro e i prezzi visualizzati sono approssimativi. Se la tua banca ti addebita troppo potrai ricevere un rimborso.</string>

@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Warunki i polityka prywatności</string>
     <string name="payment_action_terms">Warunki usługi</string>
     <string name="payment_action_policy">Polityka Prywatności</string>
+    <string name="payment_action_offer">Zastosuj Kod Oferty</string>
     <string name="payment_alert_error_header">Wiadomość od App Store</string>
     <string name="payment_save_text">Oszczędzasz %s</string>
     <string name="payment_conversion_note">Akceptujemy Euro, a podane ceny są cenami orientacyjnymi. Zwrot jest możliwy, jeśli bank naliczy zbyt wysokie opłaty.</string>

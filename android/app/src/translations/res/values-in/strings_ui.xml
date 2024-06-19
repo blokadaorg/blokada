@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Syarat &amp; Privasi</string>
     <string name="payment_action_terms">Ketentuan Layanan</string>
     <string name="payment_action_policy">Kebijakan Privasi</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">Sebuah pesan dari App Store</string>
     <string name="payment_save_text">Anda menghemat %s</string>
     <string name="payment_conversion_note">Kami menerima mata uang Euro, dan tarif langganan yang ditampilkan hanya berupa perkiraan. Pengembalian uang bisa dilakukan jika bank Anda mengutip biaya admin terlalu tinggi.</string>

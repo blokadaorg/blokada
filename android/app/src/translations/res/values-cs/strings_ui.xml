@@ -282,6 +282,7 @@
     <string name="payment_action_terms_and_privacy">Podmínky &amp; Soukromí</string>
     <string name="payment_action_terms">Podmínky použití služby</string>
     <string name="payment_action_policy">Zásady ochrany osobních údajů</string>
+    <string name="payment_action_offer">Apply Offer Code</string>
     <string name="payment_alert_error_header">Zpráva z App Store</string>
     <string name="payment_save_text">Ušetříte %s</string>
     <string name="payment_conversion_note">Přijímáme euro a zobrazené ceny jsou pouze orientační. Pokud vaše banka účtuje za nevýhodný kurz, vrácení peněz je možné.</string>
