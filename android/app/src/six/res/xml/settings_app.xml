@@ -40,11 +40,11 @@
         app:key="app_category_advanced"
         app:title="@string/app_settings_section_advanced">
 
-        <Preference
-            app:icon="@drawable/ic_baseline_app_settings_alt_24"
-            app:key="app_useforeground"
-            app:title="@string/app_settings_section_use_foreground"
-            app:useSimpleSummaryProvider="true" />
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_baseline_app_settings_alt_24"-->
+<!--            app:key="app_useforeground"-->
+<!--            app:title="@string/app_settings_section_use_foreground"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
         <Preference
             app:icon="@drawable/ic_baseline_open_in_browser_24"

@@ -162,10 +162,6 @@
             android:name="service.RestartJob"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <service android:name="service.ForegroundService"
-            android:foregroundServiceType=""
-            />
-
         <service android:name="ui.CommandService" />
 
         <service

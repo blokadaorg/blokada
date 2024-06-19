@@ -148,21 +148,21 @@ class SettingsAppFragment : PreferenceFragmentCompat() {
             }
         }
 
-        val useForeground: Preference = findPreference("app_useforeground")!!
-        useForeground.setOnPreferenceClickListener { _ ->
-            val value = if (vm.localConfig.value?.useForegroundService == true) "yes" else "no"
-            showSingleChoiceDialog(
-                requireContext(), getString(R.string.app_settings_section_use_foreground),
-                yesNoChoice, value
-            ) { newValue ->
-                when (newValue) {
-                    "yes" -> vm.setUseForegroundService(true)
-                    else -> vm.setUseForegroundService(false)
-                }
-            }
-            showRestartRequired()
-            true
-        }
+//        val useForeground: Preference = findPreference("app_useforeground")!!
+//        useForeground.setOnPreferenceClickListener { _ ->
+//            val value = if (vm.localConfig.value?.useForegroundService == true) "yes" else "no"
+//            showSingleChoiceDialog(
+//                requireContext(), getString(R.string.app_settings_section_use_foreground),
+//                yesNoChoice, value
+//            ) { newValue ->
+//                when (newValue) {
+//                    "yes" -> vm.setUseForegroundService(true)
+//                    else -> vm.setUseForegroundService(false)
+//                }
+//            }
+//            showRestartRequired()
+//            true
+//        }
 
         val details: Preference = findPreference("app_details")!!
         details.summary = EnvironmentService.getUserAgent()

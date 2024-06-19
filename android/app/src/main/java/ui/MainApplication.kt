@@ -130,7 +130,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         DozeService.setup(this)
         wgOnCreate()
         setupEvents()
-        MonitorService.setup(settingsVM.getUseForegroundService())
+        MonitorService.setup(false)
         Repos.start()
     }
 
