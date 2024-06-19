@@ -45,7 +45,7 @@ android {
     defaultConfig {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 28
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 666230229
         versionName "23.2.29"
 

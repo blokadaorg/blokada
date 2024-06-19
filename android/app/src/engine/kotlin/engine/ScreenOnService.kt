@@ -16,6 +16,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.core.content.ContextCompat
 import service.ContextService
 import utils.Logger
 
@@ -36,7 +37,8 @@ object ScreenOnService {
         val intentFilter = IntentFilter(Intent.ACTION_SCREEN_ON)
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
         val mReceiver: BroadcastReceiver = ScreenStateBroadcastReceiver()
-        ctx.requireAppContext().registerReceiver(mReceiver, intentFilter)
+        val context = ctx.requireAppContext();
+        ContextCompat.registerReceiver(context, mReceiver, intentFilter, ContextCompat.RECEIVER_NOT_EXPORTED)
         Logger.v("ScreenOn", "Registered for Screen ON")
     }
 

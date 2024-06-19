@@ -61,14 +61,6 @@ fun Context.getPendingIntentForActivity(intent: Intent, flags: Int): PendingInte
     }
 }
 
-fun Context.getPendingIntentForBroadcast(intent: Intent, flags: Int): PendingIntent {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        PendingIntent.getBroadcast(this, 0, intent, flags or PendingIntent.FLAG_IMMUTABLE)
-    } else {
-        PendingIntent.getBroadcast(this, 0, intent, flags)
-    }
-}
-
 fun String.cause(ex: Throwable): String {
     return when (ex) {
         is SystemTunnelRevoked -> "$this: ${ex.localizedMessage}"
