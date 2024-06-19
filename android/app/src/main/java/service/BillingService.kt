@@ -16,8 +16,8 @@ import channel.accountpayment.Product
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingFlowParams.ProrationMode.DEFERRED
-import com.android.billingclient.api.BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_PRORATED_PRICE
+import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.CHARGE_PRORATED_PRICE
+import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.DEFERRED
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
@@ -316,8 +316,8 @@ object BillingService: IPaymentService {
 
         val prorate = when {
             // Upgrade cases
-            existingId == "cloud_12month" -> IMMEDIATE_AND_CHARGE_PRORATED_PRICE
-            existingId == "plus_1month" && id == "plus_12month" -> IMMEDIATE_AND_CHARGE_PRORATED_PRICE
+            existingId == "cloud_12month" -> CHARGE_PRORATED_PRICE
+            existingId == "plus_1month" && id == "plus_12month" -> CHARGE_PRORATED_PRICE
             // Downgrade case
             else -> DEFERRED
         }
@@ -326,7 +326,7 @@ object BillingService: IPaymentService {
             .setSubscriptionUpdateParams(
                 BillingFlowParams.SubscriptionUpdateParams.newBuilder()
                 .setOldPurchaseToken(existingToken)
-                .setReplaceProrationMode(prorate)
+                .setSubscriptionReplacementMode(prorate)
                 .build()
             )
             .setProductDetailsParamsList(listOf(
