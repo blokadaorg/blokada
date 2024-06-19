@@ -4303,7 +4303,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4321,7 +4321,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -4350,7 +4350,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/Assets/IOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4368,7 +4368,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4518,7 +4518,7 @@
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -4536,7 +4536,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/wireguard-apple/Sources/WireGuardKitGo/out",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.network-extension";
 				PRODUCT_NAME = WireGuardNetworkExtension;
@@ -4559,7 +4559,7 @@
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -4577,7 +4577,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/wireguard-apple/Sources/WireGuardKitGo/out",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.network-extension";
 				PRODUCT_NAME = WireGuardNetworkExtension;
@@ -4604,7 +4604,7 @@
 				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4622,7 +4622,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
@@ -4650,7 +4650,7 @@
 				CODE_SIGN_ENTITLEMENTS = Family.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 240230;
+				CURRENT_PROJECT_VERSION = 240231;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4668,7 +4668,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 24.2.30;
+				MARKETING_VERSION = 24.2.31;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
 				PRODUCT_NAME = "Blokada Family";
