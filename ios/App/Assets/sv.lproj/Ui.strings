@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Villkor & Integritet";
 "payment action terms" = "Användarvillkor";
 "payment action policy" = "Integritetspolicy";
+// A button to use offer code to redeem offer
+"payment action offer" = "Ange rabattkod";
 "payment alert error header" = "Ett meddelande från App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Du sparar %@";

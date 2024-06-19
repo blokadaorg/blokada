@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Voorwaarden & Privacy";
 "payment action terms" = "Algemene voorwaarden";
 "payment action policy" = "Privacy Beleid";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Een bericht van de App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Je slaat %@ op";

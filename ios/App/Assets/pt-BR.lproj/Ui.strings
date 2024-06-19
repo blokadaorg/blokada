@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Termos e Privacidade";
 "payment action terms" = "Termos de Serviço";
 "payment action policy" = "Política de Privacidade";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Uma mensagem da App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Você está salvando %@";

@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "條款與隱私";
 "payment action terms" = "服務條款";
 "payment action policy" = "隱私權政策";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "來自 App Store 的訊息";
 // As in saving money: You are saving $5
 "payment save text" = "您省下了 %@";

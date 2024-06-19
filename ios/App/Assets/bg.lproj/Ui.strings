@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Условия & Поверителност";
 "payment action terms" = "Условия за ползване";
 "payment action policy" = "Декларация за поверителност";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Съобщение от App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Спестявате %@";

@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Podmínky & Soukromí";
 "payment action terms" = "Podmínky použití služby";
 "payment action policy" = "Zásady ochrany osobních údajů";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Zpráva z App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Ušetříte %@";

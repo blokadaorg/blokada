@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Feltételek és Adatvédelem";
 "payment action terms" = "Felhasználási feltételek";
 "payment action policy" = "Adatvédelmi irányelvek";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Egy üzenet az App Store-ból";
 // As in saving money: You are saving $5
 "payment save text" = "Ezzel %@-t takarít meg";

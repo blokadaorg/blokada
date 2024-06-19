@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "利用規約とプライバシー";
 "payment action terms" = "利用規約";
 "payment action policy" = "プライバシーポリシー";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "App Store からのメッセージ";
 // As in saving money: You are saving $5
 "payment save text" = "%@ 引き";

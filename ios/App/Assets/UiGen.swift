@@ -744,6 +744,8 @@ internal enum L10n {
   internal static let paymentActionChooseLocation = L10n.tr("Ui", "payment action choose location")
   /// Compare plans
   internal static let paymentActionCompare = L10n.tr("Ui", "payment action compare")
+  /// Apply Offer Code
+  internal static let paymentActionOffer = L10n.tr("Ui", "payment action offer")
   /// Pay %@
   internal static func paymentActionPay(_ p1: Any) -> String {
     return L10n.tr("Ui", "payment action pay", String(describing: p1))

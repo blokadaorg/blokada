@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Termenii de utilizare și confidențialitate";
 "payment action terms" = "Termenii Serviciului";
 "payment action policy" = "Politica de confidenţialitate";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Un mesaj de la App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Economisești %@";

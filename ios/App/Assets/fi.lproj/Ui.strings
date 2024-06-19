@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "Ehdot ja yksityisyys";
 "payment action terms" = "Käyttöehdot";
 "payment action policy" = "Tietosuojakäytäntö";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "Viesti App Storesta";
 // As in saving money: You are saving $5
 "payment save text" = "Säästät %@";

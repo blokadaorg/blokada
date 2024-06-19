@@ -351,6 +351,8 @@
 "payment action terms and privacy" = "शर्तें और गोपनीयता नीति";
 "payment action terms" = "सेवा की शर्तें";
 "payment action policy" = "गोपनीयता नीति";
+// A button to use offer code to redeem offer
+"payment action offer" = "Apply Offer Code";
 "payment alert error header" = "ऐप स्टोर से एक संदेश";
 // As in saving money: You are saving $5
 "payment save text" = "You are saving %@";
