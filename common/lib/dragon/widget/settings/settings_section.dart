@@ -183,6 +183,10 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
       return "account status text inactive".i18n;
     }
 
+    if (date.isBefore(DateTime.now())) {
+      return "account status text inactive".i18n;
+    }
+
     String formattedDate =
         "${date.year}-${padZero(date.month)}-${padZero(date.day)}";
 
