@@ -85,7 +85,7 @@ struct PaymentGatewayView: View {
                                     self.presentOfferCodeRedeemSheet()
                                 }
                             }) {
-                                Text("Redeem Offer")
+                                Text(L10n.paymentActionOffer)
                                 .foregroundColor(Color.cAccent)
                                 .multilineTextAlignment(.center)
                             }
