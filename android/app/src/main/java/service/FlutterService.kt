@@ -24,7 +24,7 @@ object FlutterService {
 
     fun setup() {
         engine = FlutterEngine(ctx.requireAppContext())
-        binding.Flavor.attach(engine.dartExecutor.binaryMessenger)
+        Flavor.attach(engine.dartExecutor.binaryMessenger)
         engine.dartExecutor.executeDartEntrypoint(
             DartExecutor.DartEntrypoint.createDefault()
         )

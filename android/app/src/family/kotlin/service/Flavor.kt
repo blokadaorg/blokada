@@ -10,7 +10,7 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package binding
+package service
 
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -30,6 +30,6 @@ object Flavor {
     }
 
     fun getFlavor(): String {
-        return "notfamily"
+        return "family"
     }
 }
