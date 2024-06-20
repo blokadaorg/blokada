@@ -130,6 +130,10 @@ android {
         six.manifest.srcFile 'src/six/AndroidManifest.xml'
         six.res.srcDirs += 'src/six/res'
 
+        family.java.srcDirs += 'src/family/kotlin'
+        family.manifest.srcFile 'src/family/AndroidManifest.xml'
+        family.res.srcDirs += 'src/family/res'
+
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
         beta.res.srcDirs += 'src/translations/res'
