@@ -26,9 +26,7 @@ List<Filter> _getKnownFilters(bool isFamily, bool isIos) {
 
 final _v6iOS = [
   Filter("oisd", [
-    Option("small", FilterAction.list, [
-      "oisd/light"
-    ]), // change on oisd/small once backend doesnt force the former as default
+    Option("small", FilterAction.list, ["oisd/small"]),
     Option("big", FilterAction.list, ["oisd/big"]),
     Option("nsfw", FilterAction.list, ["oisd/nsfw"]),
   ]),
@@ -101,9 +99,7 @@ final _v6iOS = [
 
 final _v6Android = [
   Filter("oisd", [
-    Option("small", FilterAction.list, [
-      "oisd/light"
-    ]), // change on oisd/small once backend doesnt force the former as default
+    Option("small", FilterAction.list, ["oisd/small"]),
     Option("big", FilterAction.list, ["oisd/big"]),
     Option("nsfw", FilterAction.list, ["oisd/nsfw"]),
   ]),
