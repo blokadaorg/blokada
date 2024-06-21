@@ -178,6 +178,9 @@ class FilterLegacy with Traceable, TraceOrigin {
     if (config == null) return;
     final lists = config.lists;
     if (lists == _device.lists?.toSet()) return;
+    if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
+    // v2 will force the default config on empty list.
+    // Instead we assume FilterController will set the defaults shortly after.
 
     // UserConfigs got updated by FilterController, push to v2 api
     traceAs("onUserConfigChangedLegacy", (trace) async {
