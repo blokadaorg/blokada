@@ -252,6 +252,7 @@ void showInputDialog(
     context,
     title: Text(title),
     content: (context) => Container(
+      color: context.theme.panelBackground,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
