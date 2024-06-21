@@ -39,6 +39,10 @@ aab:
 	@if test ! -f "app/build/outputs/bundle/sixRelease/app-six-release.aab"; then \
 		./gradlew bundleSixRelease; \
 	fi
+aabfamily:
+	@if test ! -f "app/build/outputs/bundle/familyRelease/app-family-release.aab"; then \
+		./gradlew bundleFamilyRelease; \
+	fi
 
 clean:
 	@rm -rf app/six-common; \
