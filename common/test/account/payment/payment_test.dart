@@ -75,6 +75,8 @@ void main() {
 
     test("willPerformPurchase", () async {
       await withTrace((trace) async {
+        depend<StageStore>(MockStageStore());
+
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
