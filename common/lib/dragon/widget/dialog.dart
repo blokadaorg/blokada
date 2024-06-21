@@ -251,35 +251,38 @@ void showInputDialog(
   showDefaultDialog(
     context,
     title: Text(title),
-    content: (context) => Column(
-      children: [
-        Text(desc),
-        const SizedBox(height: 16),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Material(
-            child: TextField(
-              controller: _ctrl,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: context.theme.bgColor,
-                focusColor: context.theme.bgColor,
-                hoverColor: context.theme.bgColor,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+    content: (context) => Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(desc),
+          const SizedBox(height: 16),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Material(
+              child: TextField(
+                controller: _ctrl,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: context.theme.bgColor,
+                  focusColor: context.theme.bgColor,
+                  hoverColor: context.theme.bgColor,
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: context.theme.bgColor, width: 0.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: context.theme.bgColor, width: 0.0),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
     actions: (context) => [
       TextButton(
