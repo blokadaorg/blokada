@@ -10,30 +10,24 @@
  * @author Karol Gusak (karol@blocka.net)
  */
 
-package service
+package binding
 
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 
-object Flavor {
-    val CHANNEL_NAME = "org.blokada/flavor"
+object BackNav {
+    val CHANNEL_NAME = "org.blokada/back"
+
+    lateinit var channel: MethodChannel;
 
     fun attach(messenger: BinaryMessenger) {
-        val channel = MethodChannel(
+        channel = MethodChannel(
             messenger,
             CHANNEL_NAME
         )
-
-        channel.setMethodCallHandler { call, result ->
-            result.success(getFlavor())
-        }
     }
 
-    fun getFlavor(): String {
-        return "notfamily"
-    }
-
-    fun isFamily(): Boolean {
-        return true;
+    fun onBackPressed() {
+        channel.invokeMethod("onBackPressed", null);
     }
 }

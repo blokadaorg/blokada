@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.AccountBinding
+import binding.BackNav
 import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
+    private val backNav by lazy { BackNav }
 
     private val tabHome by lazy { FlutterHomeFragment() }
     private val tabActivity by lazy { JournalFragment() }

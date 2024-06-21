@@ -104,7 +104,10 @@ object BillingService: IPaymentService {
     }
 
     override suspend fun refreshProducts(): List<Product> {
-        val ids = listOf("cloud_12month", "plus_month", "plus_12month")
+        val idsV6 = listOf("cloud_12month", "plus_month", "plus_12month")
+        val idsFamily = listOf("family_month", "family_12months")
+
+        val ids = if (Flavor.isFamily()) idsFamily else idsV6
 
         val params = QueryProductDetailsParams.newBuilder()
         params.setProductList(ids.map {

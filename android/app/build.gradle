@@ -209,6 +209,9 @@ dependencies {
     debugImplementation 'org.blokada.flutter.common:flutter_debug:1.0'
     releaseImplementation 'org.blokada.flutter.common:flutter_release:1.0'
 
+    // QR code scanning lib
+    familyImplementation "io.github.g00fy2.quickie:quickie-bundled:1.10.0"
+
     // test deps
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -29,6 +29,7 @@ import service.ContextService
 import service.FlutterService
 import service.Sheet
 import service.SheetService
+import ui.utils.openInBrowser
 
 object StageBinding: StageOps {
     private val writeForeground = MutableStateFlow<Boolean?>(null)
@@ -226,8 +227,8 @@ object StageBinding: StageOps {
     }
 
     override fun doOpenLink(url: String, callback: (Result<Unit>) -> Unit) {
-        // TODO: Used only in family (in onboarding tos)
-        TODO("Not yet implemented")
+        openInBrowser(url)
+        callback(Result.success(Unit))
     }
 
     private fun showShareText() {

@@ -19,14 +19,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import binding.AccountBinding
 import binding.CommandBinding
+import binding.LinkBinding
 import binding.StageBinding
 import channel.command.CommandName
+import channel.link.LinkId
 import channel.stage.StageModal
 import kotlinx.coroutines.launch
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment
-import utils.Links
 
 class HelpFragment : BottomSheetFragment() {
     override val modal: Sheet = Sheet.Help
@@ -34,6 +35,7 @@ class HelpFragment : BottomSheetFragment() {
     private val account by lazy { AccountBinding }
     private val command by lazy { CommandBinding }
     private val stage by lazy { StageBinding }
+    private val link by lazy { LinkBinding }
 
     companion object {
         fun newInstance() = HelpFragment()
@@ -57,7 +59,7 @@ class HelpFragment : BottomSheetFragment() {
 
         val kb: View = root.findViewById(R.id.help_kb)
         kb.setOnClickListener {
-            stage.setRoute(Links.kb)
+            link.openLink(LinkId.KNOWLEDGEBASE)
             dismiss()
         }
 
@@ -80,7 +82,7 @@ class HelpFragment : BottomSheetFragment() {
         account.live.observe(viewLifecycleOwner) { account ->
             val contact: View = root.findViewById(R.id.help_contact)
             contact.setOnClickListener {
-                stage.setRoute(Links.support(account.id))
+                link.openLink(LinkId.SUPPORT)
                 dismiss()
             }
         }

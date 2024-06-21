@@ -30,6 +30,10 @@
     <color name="blue">#007AFF</color>
     <color name="blue_2">#5856D5</color>
 
+    <color name="splash_1">#E450CD</color>
+    <color name="splash_2">#4AE5F6</color>
+    <color name="splash_3">#3C8CFF</color>
+
     <color name="blue_home">#054079</color>
     <color name="blue_home_light">#6198CD</color>
     <color name="blue_bg">#66007AFF</color>

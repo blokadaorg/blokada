@@ -13,18 +13,28 @@
 package binding
 
 import channel.link.Link
+import channel.link.LinkId
 import channel.link.LinkOps
 import service.FlutterService
+import ui.utils.openInBrowser
 
 object LinkBinding: LinkOps {
     private val flutter by lazy { FlutterService }
+
+    var links: List<Link> = emptyList()
 
     init {
         LinkOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
     override fun doLinksChanged(links: List<Link>, callback: (Result<Unit>) -> Unit) {
-        // TODO: ignored for now
+        this.links = links
         callback(Result.success(Unit))
+    }
+
+    fun openLink(id: LinkId) {
+        links.find { it.id == id }?.let {
+            openInBrowser(it.url)
+        }
     }
 }

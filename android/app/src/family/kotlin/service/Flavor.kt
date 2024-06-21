@@ -32,4 +32,8 @@ object Flavor {
     fun getFlavor(): String {
         return "family"
     }
+
+    fun isFamily(): Boolean {
+        return true;
+    }
 }
