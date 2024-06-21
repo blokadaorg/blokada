@@ -1,0 +1,64 @@
+name: Blokada Family for Android (Publish)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - android.family.**
+
+env:
+  main_project_module: app
+  playstore_name: org.blokada.family
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./six-android
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build common lib
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make sixcommon
+
+      - name: Build aab
+        run: make aabfamily
+
+      - name: Sign app AAB
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: six-android/app/build/outputs/bundle/familyRelease
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: org.blokada.family
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          track: internal
+          status: completed
+          whatsNewDirectory: six-android/whatsnew
