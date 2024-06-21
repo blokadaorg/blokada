@@ -227,6 +227,7 @@ void _showPinDialog(
     context,
     title: Text(title),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(desc),
         const SizedBox(height: 16),
