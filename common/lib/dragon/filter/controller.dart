@@ -16,6 +16,7 @@ class FilterController {
   late final _defaultFilters = dep<DefaultFilters>();
   late final _selectedFilters = dep<SelectedFilters>();
   late final _userConfig = dep<CurrentConfig>();
+  late final _act = dep<Act>();
 
   var _listsToTags = <ListHashId, ListTag>{};
 
@@ -299,9 +300,11 @@ class FilterController {
     // Or if already applied during this runtime
     if (_defaultsApplied) return;
 
-    //c.log("Applying defaults");
-    // final defaults = _defaultFilters.get();
-    // _selectedFilters.now = defaults;
+    if (!_act.isFamily()) {
+      print("Applying defaults");
+      final defaults = _defaultFilters.get();
+      _selectedFilters.now = defaults;
+    }
 
     _defaultsApplied = true;
     await _reconfigure();
