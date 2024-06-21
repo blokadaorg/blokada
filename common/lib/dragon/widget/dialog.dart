@@ -252,7 +252,6 @@ void showInputDialog(
     context,
     title: Text(title),
     content: (context) => Container(
-      color: context.theme.panelBackground,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -342,6 +341,7 @@ void showDefaultDialog(
           barrierDismissible: true,
           builder: (BuildContext context) => AlertDialog(
             title: title,
+            backgroundColor: context.theme.panelBackground,
             content: content(context),
             actions: actions(context),
           ),
