@@ -55,8 +55,11 @@ class PaymentItemView : FrameLayout {
             }
         }
         group.setBackgroundResource(
-            if (product.type == "cloud") R.drawable.bg_payment_item_cloud
-            else R.drawable.bg_payment_item_plus
+            when (product.type) {
+                "cloud" -> R.drawable.bg_payment_item_cloud
+                "family" -> R.drawable.bg_payment_item_family
+                else -> R.drawable.bg_payment_item_plus
+            }
         )
         group.alpha = if (product.owned) 0.2f else 1.0f
 

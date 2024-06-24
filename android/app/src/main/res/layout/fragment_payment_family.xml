@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/colorBackgroundFloating"
+    android:padding="@dimen/half"
+    tools:context="ui.home.CloudPaymentFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/payment_plans_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                <TextView
+                    android:id="@+id/payment_allfeatures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/half"
+                    android:text="@string/payment_action_see_all_features"
+                    android:textColor="?android:attr/colorPrimary" />
+
+                <!-- Violet plans box -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_payment_group_family"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="@dimen/header_height"
+                            android:src="@drawable/header"
+                            android:tint="?android:attr/textColor" />
+
+                        <TextView
+                            style="@style/Text.H2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="FAMILY"
+                            android:textColor="@color/splash_1"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/family_payment_slug"
+                        android:textColor="?android:attr/textColorTertiaryInverse" />
+
+                    <LinearLayout
+                        android:id="@+id/payment_container_cloud"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <!-- Trial cancel footer -->
+                <TextView
+                    android:id="@+id/cancel_footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="@dimen/normal"
+                    android:text="@string/payment_cancel_footer_trial_short"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/half"
+                    android:layout_marginBottom="@dimen/normal"
+                    android:background="?android:attr/shadowColor" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/cancel_footer_group"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/normal"
+                        android:paddingEnd="@dimen/normal"
+                        android:paddingBottom="@dimen/normal"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_max="@dimen/maxwidth">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/payment_cancel_footer"
+                            android:textColor="?android:attr/textColorTertiary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cancel_footer_group"
+                        app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
+
+                        <TextView
+                            android:id="@+id/payment_offer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/half"
+                            android:text="@string/payment_action_offer"
+                            android:textColor="?android:attr/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/payment_restore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/half"
+                            android:text="@string/payment_action_restore"
+                            android:textColor="?android:attr/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/payment_terms"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/half"
+                            android:text="@string/payment_action_terms_and_privacy"
+                            android:textColor="?android:attr/colorPrimary" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/payment_processing_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackgroundFloating"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/normal" />
+
+        <TextView
+            android:id="@+id/payment_processing_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/universal_status_processing" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/payment_error_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackgroundFloating"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/doubled"
+        android:paddingEnd="@dimen/doubled"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/sheet_maxwidth"
+            android:text="@string/error_payment_failed" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/normal"
+            android:layout_marginBottom="@dimen/normal"
+            android:background="?android:attr/shadowColor" />
+
+        <Button
+            android:id="@+id/payment_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/universal_action_try_again" />
+
+    </LinearLayout>
+</FrameLayout>

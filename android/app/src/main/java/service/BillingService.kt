@@ -130,6 +130,9 @@ object BillingService: IPaymentService {
             if (offer == null || phase == null) {
                 null
             } else {
+                var type = if(it.productId.startsWith("cloud")) "cloud" else "plus"
+                if (it.productId.startsWith("family")) type = "family"
+
                 Product(
                     id = it.productId,
                     title = it.title,
@@ -137,7 +140,7 @@ object BillingService: IPaymentService {
                     price = getPriceString(phase),
                     pricePerMonth = getPricePerMonthString(phase),
                     periodMonths = getPeriodMonths(phase).toLong(),
-                    type = if(it.productId.startsWith("cloud")) "cloud" else "plus",
+                    type = type,
                     trial = getTrial(offer),
                     owned = false
                 )

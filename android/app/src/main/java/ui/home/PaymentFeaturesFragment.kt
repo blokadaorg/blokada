@@ -17,10 +17,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.blokada.R
+import service.Flavor
 import ui.BottomSheetFragment
 
 class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
     var cloud = false
+    var family = false
 
     companion object {
         fun newInstance() = PaymentFeaturesFragment()
@@ -32,6 +34,7 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
     ): View? {
         val root = inflater.inflate(
             if (cloud) R.layout.fragment_payment_features_cloud
+            else if (family) R.layout.fragment_payment_features_family
             else R.layout.fragment_payment_features
         , container, false)
 
@@ -51,8 +54,13 @@ class PaymentFeaturesFragment : BottomSheetFragment(skipCollapsed = false) {
     }
 
     private fun showPaymentFragmentAgain() {
-        val fragment = CloudPaymentFragment.newInstance()
-        fragment.show(parentFragmentManager, null)
+        if (Flavor.isFamily()) {
+            val fragment = FamilyPaymentFragment.newInstance()
+            fragment.show(parentFragmentManager, null)
+        } else {
+            val fragment = CloudPaymentFragment.newInstance()
+            fragment.show(parentFragmentManager, null)
+        }
     }
 
 }

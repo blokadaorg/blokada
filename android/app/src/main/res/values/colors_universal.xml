@@ -40,5 +40,7 @@
     <color name="orange_bg">#66FF9400</color>
     <color name="orange_home">#8B5003</color>
     <color name="orange_home_light">#F0B262</color>
+    <color name="pink_home_light">#E450CD</color>
+    <color name="pink_bg">#66BD89B5</color>
 
 </resources>

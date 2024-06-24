@@ -17,6 +17,7 @@ import binding.StageBinding
 import model.BlokadaException
 import ui.home.CloudPaymentFragment
 import ui.home.ConnIssuesFragment
+import ui.home.FamilyPaymentFragment
 import ui.home.HelpFragment
 import ui.home.LocationFragment
 import ui.home.OnboardingFragment
@@ -39,7 +40,12 @@ object SheetService {
 
     fun showSheet(sheet: Sheet) {
         val fragment = when (sheet) {
-            Sheet.Payment -> CloudPaymentFragment.newInstance()
+            Sheet.Payment -> {
+                if (Flavor.isFamily())
+                    FamilyPaymentFragment.newInstance()
+                else
+                    CloudPaymentFragment.newInstance()
+            }
             Sheet.Activated -> OnboardingFragment.newInstance()
             Sheet.ConnIssues -> ConnIssuesFragment.newInstance()
             Sheet.Location -> LocationFragment.newInstance()
