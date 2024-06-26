@@ -482,6 +482,13 @@
     <string name="family_perms_setting_ios_vpn">VPN i urządzenia zarządzane</string>
     <string name="family_perms_setting_ios_dns">DNS</string>
     <string name="family_perms_setting_ios_automatic">Automatyczne</string>
+    <string name="family_perms_setting_android_connections">Połączenia</string>
+    <string name="family_perms_setting_android_more">Więcej ustawień połączenia</string>
+    <string name="family_perms_setting_android_dns">Prywatny DNS</string>
+    <string name="family_perms_setting_android_host">Adres dostawcy prywatnego DNS</string>
+    <string name="family_perms_setting_android_similar">(lub podobne)</string>
+    <string name="family_perms_setting_android_optional">(nie zawsze obecne)</string>
+    <string name="family_perms_copy_android">Na koniec dotknij i przytrzymaj pole tekstowe, aby wkleić niezbędną konfigurację.</string>
     <string name="family_stats_label_reason">Przyczyna</string>
     <string name="family_stats_label_blocklist">Blocklista</string>
     <string name="family_stats_label_profile">Profil</string>
