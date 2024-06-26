@@ -6,7 +6,8 @@ import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/home/big_icon.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
-import 'package:common/dragon/widget/home/private_dns_sheet.dart';
+import 'package:common/dragon/widget/home/private_dns_sheet_android.dart';
+import 'package:common/dragon/widget/home/private_dns_sheet_ios.dart';
 import 'package:common/lock/lock.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
@@ -34,6 +35,7 @@ class SmartOnboardState extends State<SmartOnboard>
   late final _lock = dep<LockStore>();
   late final _stage = dep<StageStore>();
   late final _family = dep<FamilyStore>();
+  late final _act = dep<Act>();
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +185,11 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(trace);
       });
     } else if (p.requiresPerms()) {
-      showSheet(context, builder: (context) => const PrivateDnsSheet());
+      final perms = (_act.getPlatform() == Platform.ios)
+          ? const PrivateDnsSheetIos()
+          : const PrivateDnsSheetAndroid();
+
+      showSheet(context, builder: (context) => perms);
     } else if (p.isLocked2()) {
       traceAs("handleCtaTap", (trace) async {
         await _stage.showModal(trace, StageModal.lock);

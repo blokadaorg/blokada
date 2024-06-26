@@ -66,6 +66,7 @@ class ProfileDialogState extends State<ProfileDialog> {
     final thisDevice = _family.devices.getDevice(widget.deviceTag).thisDevice;
 
     return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
               thisDevice
                   ? Text("family profile dialog header this".i18n)

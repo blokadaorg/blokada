@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/dragon/scheduler.dart';
+import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/link/channel.pg.dart';
 import 'package:common/link/link.dart';
 import 'package:mobx/mobx.dart';
@@ -260,6 +261,14 @@ abstract class StageStoreBase
         await emitValue(routeChanged, trace, newRoute);
       }
     });
+  }
+
+  late final ctrl = dep<TopBarController>();
+  @action
+  Future<void> back(Trace parentTrace) async {
+    if (!ctrl.goBackFromPlatform()) {
+      await _ops.doHomeReached();
+    }
   }
 
   @action

@@ -1,5 +1,6 @@
 import 'package:common/dragon/dragon_deps.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
+import 'package:common/dragon/widget/home/top_bar.dart';
 
 import 'account/account.dart';
 import 'account/payment/payment.dart';
@@ -107,6 +108,7 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
     CommandStore().attachAndSaveAct(act);
     LinkStore().attachAndSaveAct(act);
 
+    depend<TopBarController>(TopBarController());
     depend<Entrypoint>(this);
   }
 

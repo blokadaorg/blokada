@@ -3,7 +3,10 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class PermOps {
   @async
-  bool doIsPrivateDnsEnabled(String tag);
+  String getPrivateDnsSetting();
+
+  @async
+  bool doIsPrivateDnsEnabled(String tag); // Obsolete
 
   @async
   void doSetPrivateDnsEnabled(String tag, String alias);

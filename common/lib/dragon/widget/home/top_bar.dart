@@ -358,6 +358,14 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  bool goBackFromPlatform() {
+    if (nav.length == 1) {
+      return false;
+    }
+    navigatorKey.currentState!.pop();
+    return true;
+  }
 }
 
 // For some reason math.pow wont compile

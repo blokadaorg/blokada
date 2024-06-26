@@ -10,6 +10,7 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
   final Widget? iconReplacement;
   final IconData? icon;
   final bool chevron;
+  final bool android;
 
   const PrivateDnsSettingGuideWidget({
     Key? key,
@@ -19,6 +20,7 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
     this.iconReplacement,
     this.icon,
     this.chevron = true,
+    this.android = false,
   }) : super(key: key);
 
   @override
@@ -40,13 +42,15 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
                     ? Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: context.theme.textSecondary,
+                          color: (android)
+                              ? Colors.blue
+                              : context.theme.textSecondary,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Icon(
-                            size: 16,
+                            size: (android) ? 24 : 16,
                             icon!,
                             color: Colors.white,
                           ),
@@ -82,7 +86,7 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
                             fontSize: 14, color: context.theme.textSecondary))
                     : Container(),
                 const SizedBox(width: 4),
-                (chevron)
+                (chevron && !android)
                     ? Icon(
                         size: 16,
                         CupertinoIcons.chevron_forward,

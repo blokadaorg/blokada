@@ -72,6 +72,7 @@ void showRenameDialog(BuildContext context, String what, String? name,
     context,
     title: Text(_getTitle(what, name)),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(_getBrief(what)),
         const SizedBox(height: 16),
@@ -163,6 +164,7 @@ void showAddExceptionDialog(
     context,
     title: const Text("Add exception"),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
             "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com"),
@@ -218,6 +220,7 @@ void showStatsFilterDialog(
     context,
     title: Text("universal action search".i18n),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
         StatsFilter(ctrl: ctrl),
@@ -305,6 +308,7 @@ void showErrorDialog(BuildContext context, String? description) {
     context,
     title: Text("alert error header".i18n),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(description ?? "error unknown".i18n),
       ],

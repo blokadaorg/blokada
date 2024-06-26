@@ -2,7 +2,6 @@ import 'package:mocktail/mocktail.dart';
 
 import '../command/channel.pg.dart';
 import '../command/command.dart';
-import '../entrypoint.dart';
 import '../util/act.dart';
 import '../util/di.dart';
 import 'channel.pg.dart';
@@ -38,4 +37,5 @@ _actNormal(MockStageOps ops) {
 
   when(() => ops.doRouteChanged(any())).thenAnswer(ignore());
   when(() => ops.doShowNavbar(any())).thenAnswer(ignore());
+  when(() => ops.doHomeReached()).thenAnswer(ignore());
 }

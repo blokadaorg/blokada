@@ -2,20 +2,23 @@ import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/open_perms.dart';
+import 'package:common/dragon/perm/controller.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class PrivateDnsSheet extends StatefulWidget {
-  const PrivateDnsSheet({Key? key}) : super(key: key);
+class PrivateDnsSheetAndroid extends StatefulWidget {
+  const PrivateDnsSheetAndroid({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PrivateDnsSheetState();
+  State<StatefulWidget> createState() => PrivateDnsSheetAndroidState();
 }
 
-class PrivateDnsSheetState extends State<PrivateDnsSheet> {
+class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
   late final _openPerms = dep<OpenPerms>();
+  late final _perm = dep<PermController>();
 
   @override
   void initState() {
@@ -60,7 +63,7 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),
-                      const SizedBox(height: 24), // Replaces Spacer
+                      const SizedBox(height: 16), // Replaces Spacer
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -72,8 +75,10 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "family perms setting ios general".i18n,
-                              icon: CupertinoIcons.settings,
+                              title: "Connections",
+                              subtitle: "(or similar)",
+                              icon: CupertinoIcons.wifi,
+                              android: true,
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -82,7 +87,9 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "family perms setting ios vpn".i18n,
+                              title: "More connection settings",
+                              subtitle: "(not always present)",
+                              android: true,
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -91,10 +98,8 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "family perms setting ios dns".i18n,
-                              icon: CupertinoIcons.ellipsis,
-                              edgeText:
-                                  "family perms setting ios automatic".i18n,
+                              title: "Private DNS",
+                              android: true,
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -103,18 +108,23 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             const PrivateDnsSettingGuideWidget(
-                              title: "Blokada Family",
-                              subtitle: "Blokada Family",
-                              iconReplacement: Image(
-                                image: AssetImage('assets/images/appicon.png'),
-                                width: 24,
-                              ),
-                              chevron: false,
+                              title: "Hostname of private DNS Provider",
+                              subtitle: "(or similar)",
+                              android: true,
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 24), // Replaces Spacer
+                      const SizedBox(height: 16), // Replaces Spacer
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Text(
+                          "Then, paste the hostname from the clipboard by a long tap on the text field.",
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: context.theme.textSecondary),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -127,6 +137,8 @@ class PrivateDnsSheetState extends State<PrivateDnsSheet> {
                       child: MiniCard(
                         onTap: () {
                           Navigator.of(context).pop();
+                          Clipboard.setData(ClipboardData(
+                              text: _perm.getAndroidPrivateDnsString()));
                           _openPerms.open();
                         },
                         color: context.theme.accent,

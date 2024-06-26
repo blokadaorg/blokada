@@ -70,6 +70,7 @@ enum CommandName {
   modalShown,
   modalDismiss,
   modalDismissed,
+  back,
 
   // Lock
   setPin,

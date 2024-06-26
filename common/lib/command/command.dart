@@ -217,6 +217,8 @@ class CommandStore
         _ensureParam(p1);
         await _lock.lock(trace, p1!);
         return await _stage.setRoute(trace, "home");
+      case CommandName.back:
+        return await _stage.back(trace);
       case CommandName.unlock:
         _ensureParam(p1);
         return await _lock.unlock(trace, p1!);

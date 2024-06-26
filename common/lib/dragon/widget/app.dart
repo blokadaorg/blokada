@@ -4,6 +4,7 @@ import 'package:common/dragon/widget/home/overlay.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/util/config.dart';
+import 'package:common/util/di.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,7 +13,8 @@ import 'package:provider/provider.dart';
 
 class BlokadaApp extends StatelessWidget {
   final Widget? content;
-  late final ctrl = TopBarController();
+  late final ctrl = dep<TopBarController>();
+
   late final nav = NavigationPopObserver();
 
   BlokadaApp({Key? key, this.content}) : super(key: key);
