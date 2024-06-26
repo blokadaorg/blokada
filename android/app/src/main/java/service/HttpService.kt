@@ -66,7 +66,9 @@ object HttpService {
                 MediaType.get("application/json; charset=utf-8"), body)
             )
         } else {
-            request.method(method, null)
+            // Retrofit doesn't allow a null body for POST
+            val emptyBody = if (method == "POST") RequestBody.create(null, "") else null
+            request.method(method, emptyBody)
         }
 
         headers?.forEach { (key, value) ->

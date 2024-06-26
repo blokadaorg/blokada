@@ -21,6 +21,7 @@ import ui.home.FamilyPaymentFragment
 import ui.home.HelpFragment
 import ui.home.LocationFragment
 import ui.home.OnboardingFragment
+import ui.home.ScanQrFragment
 import ui.journal.custom.UserDeniedFragment
 
 enum class Sheet {
@@ -30,7 +31,8 @@ enum class Sheet {
     Activated, // A welcome showing right after purchase
     AdsCounter, // A big total ads blocked display with option no share
     ConnIssues, // A detail view when tapping the connection issues overlay
-    Custom // Displays user defined custom exceptions lists
+    Custom, // Displays user defined custom exceptions lists
+    AccountChange, // Displays the scan QR code screen
 }
 
 object SheetService {
@@ -51,6 +53,7 @@ object SheetService {
             Sheet.Location -> LocationFragment.newInstance()
             Sheet.Help -> HelpFragment.newInstance()
             Sheet.Custom -> UserDeniedFragment.newInstance()
+            Sheet.AccountChange -> ScanQrFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }
         this.fragment = fragment

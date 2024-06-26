@@ -266,7 +266,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     override fun onBackPressed() {
         if (WebService.goBack()) return
         if (stage.goBack()) return
-        super.onBackPressed()
+        lifecycleScope.launch {
+            commands.execute(CommandName.BACK)
+        }
+        //super.onBackPressed()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -117,6 +117,7 @@ object StageBinding: StageOps {
             Sheet.Location -> StageModal.PLUSLOCATIONSELECT
             Sheet.Help -> StageModal.HELP
             Sheet.Custom -> StageModal.CUSTOM
+            Sheet.AccountChange -> StageModal.ACCOUNTCHANGE
             else -> null
         }
 
@@ -147,6 +148,7 @@ object StageBinding: StageOps {
             StageModal.PLUSLOCATIONSELECT -> Sheet.Location
             StageModal.HELP -> Sheet.Help
             StageModal.CUSTOM -> Sheet.Custom
+            StageModal.ACCOUNTCHANGE -> Sheet.AccountChange
             else -> null
         }
 
@@ -228,6 +230,11 @@ object StageBinding: StageOps {
 
     override fun doOpenLink(url: String, callback: (Result<Unit>) -> Unit) {
         openInBrowser(url)
+        callback(Result.success(Unit))
+    }
+
+    override fun doHomeReached(callback: (Result<Unit>) -> Unit) {
+        context.requireActivity().finish();
         callback(Result.success(Unit))
     }
 

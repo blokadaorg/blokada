@@ -252,7 +252,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/doubled"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -302,7 +301,6 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="@dimen/normal"
                             android:layout_marginBottom="@dimen/normal"
                             android:background="?android:attr/shadowColor" />
 
