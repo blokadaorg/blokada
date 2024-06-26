@@ -75,8 +75,10 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "Connections",
-                              subtitle: "(or similar)",
+                              title: "family perms setting android connections"
+                                  .i18n,
+                              subtitle:
+                                  "family perms setting android similar".i18n,
                               icon: CupertinoIcons.wifi,
                               android: true,
                             ),
@@ -87,8 +89,9 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "More connection settings",
-                              subtitle: "(not always present)",
+                              title: "family perms setting android more".i18n,
+                              subtitle:
+                                  "family perms setting android optional".i18n,
                               android: true,
                             ),
                             const SizedBox(height: 16),
@@ -98,7 +101,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             PrivateDnsSettingGuideWidget(
-                              title: "Private DNS",
+                              title: "family perms setting android dns".i18n,
                               android: true,
                             ),
                             const SizedBox(height: 16),
@@ -107,9 +110,10 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                               style:
                                   TextStyle(color: context.theme.textSecondary),
                             ),
-                            const PrivateDnsSettingGuideWidget(
-                              title: "Hostname of private DNS Provider",
-                              subtitle: "(or similar)",
+                            PrivateDnsSettingGuideWidget(
+                              title: "family perms setting android host".i18n,
+                              subtitle:
+                                  "family perms setting android similar".i18n,
                               android: true,
                             ),
                           ],
@@ -119,7 +123,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "Then, paste the hostname from the clipboard by a long tap on the text field.",
+                          "family perms copy android".i18n,
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),
