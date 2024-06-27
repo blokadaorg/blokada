@@ -19,6 +19,7 @@ class FilterController {
   late final _act = dep<Act>();
 
   var _listsToTags = <ListHashId, ListTag>{};
+  DateTime lastListsFetch = DateTime(0);
 
   bool _defaultsApplied = false;
   bool _needsReload = true;
@@ -30,9 +31,10 @@ class FilterController {
     _selectedFilters.now = [];
   }
 
-  getLists() async {
-    if (_lists.isEmpty) {
+  maybeGetLists() async {
+    if (_lists.isEmpty || _needsReload) {
       _lists = await _apiLists.get();
+      _needsReload = false;
     }
   }
 
@@ -40,7 +42,7 @@ class FilterController {
 
   reload() async {
     print("reloading filter controller");
-    await getLists();
+    await maybeGetLists();
 
     // Prepare a map for quick lookups
     _listsToTags = {};
@@ -50,7 +52,6 @@ class FilterController {
 
 //    _configs = null;
     _defaultsApplied = false;
-    _needsReload = false;
 
     await _parse();
   }
@@ -89,7 +90,7 @@ class FilterController {
 
   Future<UserFilterConfig> getConfig(List<FilterSelection> s) async {
     final filters = _knownFilters.get();
-    await getLists();
+    await maybeGetLists();
 
     Set<ListHashId> shouldBeLists = {};
     Map<FilterConfigKey, bool> shouldBeConfigs = {};
@@ -213,7 +214,6 @@ class FilterController {
   _reconfigure() async {
     final filters = _knownFilters.get();
     final selectedFilters = _selectedFilters.now;
-    final lists = await _apiLists.get();
     final userConfig = _userConfig.now;
 
     // 1. figure out how to activate each filter
@@ -235,7 +235,7 @@ class FilterController {
 
           // Each tag needs to be mapped to ListHashId
           for (final listTag in option.actionParams) {
-            final list = lists.firstWhereOrNull(
+            final list = _lists.firstWhereOrNull(
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
@@ -258,7 +258,7 @@ class FilterController {
 
           // Each tag needs to be mapped to ListHashId
           for (final listTag in option.action2Params!) {
-            final list = lists.firstWhereOrNull(
+            final list = _lists.firstWhereOrNull(
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
