@@ -327,7 +327,7 @@ struct ShieldItemView: View {
 
             Spacer()
 
-            LoadingButtonView(action: self.action, isOn: self.selected, alignTrailing: true, loading: self.loading)
+            LoadingButtonView(action: self.action, isOn: self.selected, alignTrailing: true)
         }
         .padding(8)
     }

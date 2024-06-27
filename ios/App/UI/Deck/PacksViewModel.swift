@@ -49,36 +49,38 @@ class PacksViewModel: ObservableObject {
     init() {
         filtering = self.flutter.isFlavorFamily ? 3 : 0
         filter.onFilters = { filters, selections in
-            var packs = [Pack]()
-            var tags = [Tag]()
-            filters.forEach { filter in
-                // Get the pack template from the data source
-                var pack = self.dataSource.packs.first { it in
-                    it.id == filter.filterName
-                }
-
-                if var pack = pack {
-                    // Go through each list items of the deck
-                    var selection = selections.first { it in
-                        it.filterName == filter.filterName
+            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                var packs = [Pack]()
+                var tags = [Tag]()
+                filters.forEach { filter in
+                    // Get the pack template from the data source
+                    var pack = self.dataSource.packs.first { it in
+                        it.id == filter.filterName
                     }
-                    
-                    if var selection = selection {
-                        selection.options.forEach { optionName in
-                            pack = pack.changeStatus(installed: true, config: optionName)
-                            
-                            // Respect the bundle enabled flag
-                            pack = pack.changeStatus(installed: true)
+
+                    if var pack = pack {
+                        // Go through each list items of the deck
+                        var selection = selections.first { it in
+                            it.filterName == filter.filterName
                         }
-                    }
+                        
+                        if var selection = selection {
+                            selection.options.forEach { optionName in
+                                pack = pack.changeStatus(installed: true, config: optionName)
+                                
+                                // Respect the bundle enabled flag
+                                pack = pack.changeStatus(installed: true)
+                            }
+                        }
 
-                    packs.append(pack)
+                        packs.append(pack)
+                    }
                 }
+                self.allPacks = packs
+                self.findTags()
+                self.doFilter()
+                self.objectWillChange.send()
             }
-            self.allPacks = packs
-            self.findTags()
-            self.doFilter()
-            self.objectWillChange.send()
         }
         onTabPayloadChanged()
     }

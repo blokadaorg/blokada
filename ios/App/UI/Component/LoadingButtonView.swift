@@ -19,10 +19,12 @@ struct LoadingButtonView: View {
     var isOn: Bool = false
     var alignTrailing: Bool = false
 
-    let loading: Bool
+    @State private var loading = false
 
     var body: some View {
         Button(action: {
+            self.loading = true
+            startTimer()
             self.action()
         }) {
             ZStack(alignment: alignTrailing ? .trailing : .leading) {
@@ -39,21 +41,27 @@ struct LoadingButtonView: View {
 
         }.buttonStyle(BorderlessButtonStyle())
     }
+
+    private func startTimer() {
+        Timer.scheduledTimer(withTimeInterval: 1.8, repeats: false) { _ in
+            loading = false
+        }
+    }
 }
 
 struct LoadingButtonView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LoadingButtonView(isOn: false, loading: false)
+            LoadingButtonView(isOn: false)
                 .previewLayout(.sizeThatFits)
-            LoadingButtonView(isOn: false, loading: false)
+            LoadingButtonView(isOn: false)
                 .previewLayout(.sizeThatFits)
                 .environment(\.colorScheme, .dark)
-            LoadingButtonView(isOn: true, loading: false)
+            LoadingButtonView(isOn: true)
                 .previewLayout(.sizeThatFits)
-            LoadingButtonView(isOn: true, loading: true)
+            LoadingButtonView(isOn: true)
                 .previewLayout(.sizeThatFits)
-            LoadingButtonView(isOn: false, alignTrailing: true, loading: true)
+            LoadingButtonView(isOn: false, alignTrailing: true)
                 .previewLayout(.sizeThatFits)
         }
     }

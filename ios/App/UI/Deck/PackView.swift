@@ -57,7 +57,7 @@ struct PackView: View {
                         self.packsVM.showError = true
                     }
                 }
-            }, isOn: self.vm.pack.status.installed && !self.vm.pack.status.updatable, alignTrailing: true, loading: self.vm.pack.status.installing)
+            }, isOn: self.vm.pack.status.installed && !self.vm.pack.status.updatable, alignTrailing: true)
         }
         .padding(8)
     }

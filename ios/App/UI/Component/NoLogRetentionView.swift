@@ -53,7 +53,7 @@ struct NoLogRetentionView: View {
                                 self.vm.logRetentionSelected = ""
                                 self.vm.applyLogRetention()
                             }
-                        }, isOn: self.vm.logRetention != "", alignTrailing: true, loading: false)
+                        }, isOn: self.vm.logRetention != "", alignTrailing: true)
                     }
                     .padding(12)
                 }

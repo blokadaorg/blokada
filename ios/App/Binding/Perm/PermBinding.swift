@@ -15,7 +15,7 @@ import Factory
 import Combine
 
 class PermBinding: PermOps {
-    
+
     // Whether DNS profile is currently selected or not, refreshed on foreground
     var dnsProfileActivatedHot: AnyPublisher<CloudDnsProfileActivated, Never> {
         self.writeDnsProfileActivated.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
@@ -102,6 +102,10 @@ class PermBinding: PermOps {
                 }
             )
             .store(in: &cancellables)
+    }
+
+    func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {
+        completion(.failure("not implemented for ios"))
     }
 
     func openSystemSettings() {

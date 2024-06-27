@@ -22,6 +22,7 @@ extension StageModal: Identifiable {
 }
 
 class StageBinding: StageOps {
+
     let enteredForegroundHot = CurrentValueSubject<Bool?, Never>(nil)
     let currentModal = CurrentValueSubject<StageModal?, Never>(nil)
     let showPauseMenu = CurrentValueSubject<Bool, Never>(false)
@@ -183,6 +184,11 @@ class StageBinding: StageOps {
         if let link = URL(string: url) {
           UIApplication.shared.open(link)
         }
+        completion(.success(()))
+    }
+
+    func doHomeReached(completion: @escaping (Result<Void, any Error>) -> Void) {
+        // not used on ios
         completion(.success(()))
     }
 }
