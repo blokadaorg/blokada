@@ -636,6 +636,22 @@
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios automatic" = "Automático";
 
+// A section name in system preferences
+"family perms setting android connections" = "Connections";
+// A section name in system preferences
+"family perms setting android more" = "More connection settings";
+// A section name in system preferences
+"family perms setting android dns" = "Private DNS";
+// A section name in system preferences
+"family perms setting android host" = "Private DNS provider hostname";
+
+// Used in context, 'go to section named X, or similar'
+"family perms setting android similar" = "(or similar)";
+// Used in context 'go to section named X (not always present)'
+"family perms setting android optional" = "(not always present)";
+
+"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Razón";
 

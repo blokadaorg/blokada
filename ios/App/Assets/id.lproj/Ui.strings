@@ -352,7 +352,7 @@
 "payment action terms" = "Ketentuan Layanan";
 "payment action policy" = "Kebijakan Privasi";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Masukkan kode penawaran";
 "payment alert error header" = "Sebuah pesan dari App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Anda menghemat %@";
@@ -635,6 +635,22 @@
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios automatic" = "Otomatis";
+
+// A section name in system preferences
+"family perms setting android connections" = "Connections";
+// A section name in system preferences
+"family perms setting android more" = "More connection settings";
+// A section name in system preferences
+"family perms setting android dns" = "Private DNS";
+// A section name in system preferences
+"family perms setting android host" = "Private DNS provider hostname";
+
+// Used in context, 'go to section named X, or similar'
+"family perms setting android similar" = "(or similar)";
+// Used in context 'go to section named X (not always present)'
+"family perms setting android optional" = "(not always present)";
+
+"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Alasan";

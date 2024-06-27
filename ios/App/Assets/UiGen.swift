@@ -466,8 +466,22 @@ internal enum L10n {
   internal static func familyPermsBriefAlt(_ p1: Any) -> String {
     return L10n.tr("Ui", "family perms brief alt", String(describing: p1))
   }
+  /// Finally, tap and hold the text field to paste the necessary configuration.
+  internal static let familyPermsCopyAndroid = L10n.tr("Ui", "family perms copy android")
   /// One more thing
   internal static let familyPermsHeader = L10n.tr("Ui", "family perms header")
+  /// Connections
+  internal static let familyPermsSettingAndroidConnections = L10n.tr("Ui", "family perms setting android connections")
+  /// Private DNS
+  internal static let familyPermsSettingAndroidDns = L10n.tr("Ui", "family perms setting android dns")
+  /// Private DNS provider hostname
+  internal static let familyPermsSettingAndroidHost = L10n.tr("Ui", "family perms setting android host")
+  /// More connection settings
+  internal static let familyPermsSettingAndroidMore = L10n.tr("Ui", "family perms setting android more")
+  /// (not always present)
+  internal static let familyPermsSettingAndroidOptional = L10n.tr("Ui", "family perms setting android optional")
+  /// (or similar)
+  internal static let familyPermsSettingAndroidSimilar = L10n.tr("Ui", "family perms setting android similar")
   /// Automatic
   internal static let familyPermsSettingIosAutomatic = L10n.tr("Ui", "family perms setting ios automatic")
   /// DNS
