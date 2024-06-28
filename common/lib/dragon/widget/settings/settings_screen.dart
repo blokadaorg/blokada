@@ -54,7 +54,7 @@ class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
   Widget _buildForTablet(BuildContext context) {
     return WithTopBar(
       title: "main tab settings".i18n,
-      topBarTrailing: _getAction(context),
+      //topBarTrailing: _getAction(context),
       maxWidth: maxContentWidthTablet,
       child: Row(
         children: [

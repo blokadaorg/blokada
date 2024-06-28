@@ -114,6 +114,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 48),
                   const SizedBox(height: 20),
