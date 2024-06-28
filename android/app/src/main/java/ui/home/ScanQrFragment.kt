@@ -41,7 +41,7 @@ class ScanQrFragment : BottomSheetFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_help, container, false)
+        val root = inflater.inflate(R.layout.fragment_loading, container, false)
 
         startScan()
 

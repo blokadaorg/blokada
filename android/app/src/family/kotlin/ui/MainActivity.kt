@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -92,6 +93,11 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        window.apply {
+            setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        }
+
         context.setActivityContext(this)
         TranslationService.setup()
         sheet.onShowFragment = { fragment ->
