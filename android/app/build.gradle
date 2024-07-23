@@ -118,17 +118,17 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/engine/kotlin'
-        main.jniLibs.srcDirs += 'src/engine/jniLibs'
-
-        main.java.srcDirs += 'wireguard-android/ui/src/main/java'
-        main.res.srcDirs += 'wireguard-android/ui/src/main/res'
-
         debug.java.srcDirs += 'src/mock/kotlin'
 
         six.java.srcDirs += 'src/six/kotlin'
         six.manifest.srcFile 'src/six/AndroidManifest.xml'
         six.res.srcDirs += 'src/six/res'
+
+        six.java.srcDirs += 'src/engine/kotlin'
+        six.jniLibs.srcDirs += 'src/engine/jniLibs'
+
+        six.java.srcDirs += 'wireguard-android/ui/src/main/java'
+        six.res.srcDirs += 'wireguard-android/ui/src/main/res'
 
         family.java.srcDirs += 'src/family/kotlin'
         family.manifest.srcFile 'src/family/AndroidManifest.xml'
@@ -181,20 +181,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
 
-    // engine deps
-    implementation 'org.pcap4j:pcap4j-core:1.7.7'
-    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
-    implementation 'dnsjava:dnsjava:2.1.9'
-    implementation 'org.slf4j:slf4j-nop:1.6.1'
-
-    // wireguard deps
-    implementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
-    implementation "androidx.datastore:datastore-preferences:1.1.1"
-    implementation "androidx.annotation:annotation:1.8.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.2"
-    implementation "androidx.activity:activity-ktx:1.9.0"
-    implementation "androidx.fragment:fragment-ktx:1.8.0"
-
     // Google in app billing
     implementation 'com.android.billingclient:billing:7.0.0'
     implementation 'com.android.billingclient:billing-ktx:7.0.0'
@@ -209,8 +195,22 @@ dependencies {
     debugImplementation 'org.blokada.flutter.common:flutter_debug:1.0'
     releaseImplementation 'org.blokada.flutter.common:flutter_release:1.0'
 
-    // QR code scanning lib
-    familyImplementation "io.github.g00fy2.quickie:quickie-bundled:1.10.0"
+    // engine deps
+    implementation 'org.pcap4j:pcap4j-core:1.7.7'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
+    implementation 'dnsjava:dnsjava:2.1.9'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
+
+    // wireguard deps
+    sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
+    sixImplementation "androidx.datastore:datastore-preferences:1.1.1"
+    sixImplementation "androidx.annotation:annotation:1.8.0"
+    sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.2"
+    sixImplementation "androidx.activity:activity-ktx:1.9.0"
+    sixImplementation "androidx.fragment:fragment-ktx:1.8.0"
+
+    // QR code scanning lib (could be family only)
+    implementation "io.github.g00fy2.quickie:quickie-bundled:1.10.0"
 
     // test deps
     testImplementation 'junit:junit:4.13.2'

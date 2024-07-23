@@ -15,7 +15,6 @@ package engine
 import binding.niceName
 import channel.plusgateway.Gateway
 import channel.pluslease.Lease
-import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,7 +23,6 @@ import model.BlokadaException
 import model.Dns
 import model.NetworkSpecificConfig
 import model.PrivateKey
-import model.PublicKey
 import model.TunnelFailure
 import model.TunnelStatus
 import repository.DnsDataSource
@@ -153,14 +151,6 @@ object EngineService {
 
     fun setOnTunnelStatusChangedListener(onTunnelStatusChanged: (TunnelStatus) -> Unit) {
         state.onTunnelStatusChanged = onTunnelStatusChanged
-    }
-
-    fun newKeypair(): Pair<PrivateKey, PublicKey> {
-        // Wireguard generated random keypair
-        val keypair = KeyPair()
-        val secret = keypair.privateKey.toBase64()
-        val public = keypair.publicKey.toBase64()
-        return secret to public
     }
 
 }

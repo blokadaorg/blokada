@@ -140,25 +140,6 @@
         </receiver>
 
         <service
-            android:name="com.wireguard.android.backend.GoBackend$VpnService"
-            android:permission="android.permission.BIND_VPN_SERVICE"
-            tools:replace="android:exported"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.net.VpnService" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name="engine.SystemTunnel"
-            android:permission="android.permission.BIND_VPN_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.net.VpnService" />
-            </intent-filter>
-        </service>
-
-        <service
             android:name="service.RestartJob"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 

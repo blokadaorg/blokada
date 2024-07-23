@@ -12,7 +12,6 @@
 
 package service
 
-import engine.EngineService
 import model.Uri
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -23,7 +22,6 @@ import java.util.concurrent.TimeUnit
 
 object HttpService {
 
-    private val engine = EngineService
     private val env = EnvironmentService
 
     private val httpClient = OkHttpClient.Builder().apply {

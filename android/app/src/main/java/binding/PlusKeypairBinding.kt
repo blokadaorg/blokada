@@ -14,7 +14,7 @@ package binding
 
 import channel.pluskeypair.PlusKeypair
 import channel.pluskeypair.PlusKeypairOps
-import engine.EngineService
+import engine.KeypairService
 import kotlinx.coroutines.flow.MutableStateFlow
 import service.FlutterService
 
@@ -22,7 +22,7 @@ object PlusKeypairBinding: PlusKeypairOps {
     val keypair = MutableStateFlow<PlusKeypair?>(null)
 
     private val flutter by lazy { FlutterService }
-    private val engine by lazy { EngineService }
+    private val engine by lazy { KeypairService }
 
     init {
         PlusKeypairOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
