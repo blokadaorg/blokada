@@ -217,10 +217,12 @@ abstract class FamilyStoreBase
   // React to account changes to show the proper onboarding
   @action
   _postActivationOnboarding(Trace parentTrace) async {
+    parentTrace.addEvent("postActivationOnboarding");
     accountActive = _account.type.isActive();
     if (accountActive == true) await _reload(parentTrace);
     _updatePhase(reason: "postActivationOnboarding");
 
+    parentTrace.addAttribute("modal", _stage.route.modal);
     if (_stage.route.modal == StageModal.payment) {
       await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
           (trace) async {

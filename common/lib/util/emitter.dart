@@ -57,7 +57,9 @@ mixin ValueEmitter<T> {
     for (final listener in _listeners.toList()) {
       // Ignore any listener errors
       try {
+        trace.addEvent("listener call");
         await listener(trace, value);
+        trace.addEvent("listener done");
       } catch (e) {
         trace.addEvent("listener threw error: ${e.runtimeType}");
         trace.addEvent("listener threw error, detail: $e");
