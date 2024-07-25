@@ -130,7 +130,8 @@ class CommandStore
         // TODO:
         // Only restore implicitly if current account is not active
         // TODO: finish ongoing transaction after any success or fail (stop processing)
-        return await _accountPayment.restore(trace);
+        await _accountPayment.restore(trace);
+        return await _accountRefresh.syncAccount(trace, _account.account);
       case CommandName.pause:
         return await _appStart.pauseAppIndefinitely(trace);
       case CommandName.unpause:

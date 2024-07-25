@@ -44,6 +44,7 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
 
   DateTime? _getNextRefresh() {
     if (!_accountIsActive || !_isForeground) {
+      print("stats: skip refresh: acc: $_accountIsActive, fg: $_isForeground");
       return null;
     } else if (_isStatsScreenFor != null) {
       return _lastRefresh.add(cfg.refreshVeryFrequent);

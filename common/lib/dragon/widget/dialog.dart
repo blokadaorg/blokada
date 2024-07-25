@@ -31,6 +31,7 @@ void showConfirmDialog(BuildContext context, String name,
     context,
     title: Text("family device action delete".i18n),
     content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text("family device delete confirm".i18n.withParams(name)),
       ],

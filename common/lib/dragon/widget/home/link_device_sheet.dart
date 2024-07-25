@@ -55,9 +55,9 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
       await _family.cancelLinkDevice(trace);
       _payload = await _family.initiateLinkDevice(trace,
           name ?? _getProbablyUniqueRandomName(), profile, widget.device);
-    });
-    setState(() {
-      isReady = true;
+      setState(() {
+        isReady = true;
+      });
     });
   }
 

@@ -171,6 +171,7 @@ abstract class AccountRefreshStoreBase
       await _account.create(trace);
       await syncAccount(trace, _account.account);
       lastRefresh = DateTime.now();
+      _initSuccessful = true;
     });
   }
 
@@ -221,6 +222,7 @@ abstract class AccountRefreshStoreBase
   Future<void> onTimerFired(Trace parentTrace) async {
     return await traceWith(parentTrace, "onTimerFired", (trace) async {
       if (!_initSuccessful) return;
+      trace.addEvent("timer fired, init successful");
       expiration = expiration.update();
       // Maybe account got extended externally, so try to refresh
       // This will invoke the update() above.
@@ -272,6 +274,7 @@ abstract class AccountRefreshStoreBase
     final shouldSkipNotification = act.isFamily() && _family.linkedMode;
 
     DateTime? expDate = expiration.getNextDate();
+
     if (expDate != null && !shouldSkipNotification) {
       _timer.set(_keyTimer, expDate);
       trace.addAttribute("timer", expDate);
@@ -283,9 +286,11 @@ abstract class AccountRefreshStoreBase
       _timer.unset(_keyTimer);
       trace.addAttribute("timer", null);
 
-      _notification.dismiss(trace, id: id);
-      trace.addAttribute("notificationId", id);
-      trace.addAttribute("notificationDate", null);
+      if (expiration.status == AccountStatus.active) {
+        _notification.dismiss(trace, id: id);
+        trace.addAttribute("notificationId", id);
+        trace.addAttribute("notificationDate", null);
+      }
     }
   }
 

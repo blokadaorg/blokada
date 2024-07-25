@@ -221,7 +221,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
 
   String? waitingPush;
   bool waitingPop = false;
-  bool delayPop = false;
+  bool isPopping = false;
 
   Color backgroundColor = const Color(0xFFF2F1F6);
   bool blurBackground = false;
@@ -308,6 +308,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
 
   _pop() {
     show = 1.0;
+    isPopping = false;
     if (nav.length == 1) return;
     nav.removeLast();
   }
@@ -353,6 +354,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
     }
 
     if (waitingPush != null) {
+      print("pushing: $waitingPush");
       _push(waitingPush!);
       waitingPush = null;
     }
@@ -360,9 +362,11 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
   }
 
   bool goBackFromPlatform() {
+    if (isPopping) return false;
     if (nav.length == 1) {
       return false;
     }
+    isPopping = true;
     navigatorKey.currentState!.pop();
     return true;
   }
