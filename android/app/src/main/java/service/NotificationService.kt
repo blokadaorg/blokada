@@ -20,6 +20,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import utils.ExpiredFamilyNotification
 import utils.ExpiredNotification
 import utils.NotificationChannels
 import utils.NotificationPrototype
@@ -29,6 +30,7 @@ import java.util.Date
 
 // TODO: make a channel level enum
 val NOTIF_ACC_EXP = "accountExpired"
+val NOTIF_ACC_EXP_FAM = "accountExpiredFamily"
 val NOTIF_LEASE_EXP = "plusLeaseExpired"
 val NOTIF_PAUSE = "pauseTimeout"
 val NOTIF_ONBOARDING = "onboardingDnsAdvice"
@@ -109,6 +111,7 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val n = when (intent.getStringExtra("id")) {
             NOTIF_ACC_EXP -> ExpiredNotification()
+            NOTIF_ACC_EXP_FAM -> ExpiredFamilyNotification()
             NOTIF_ONBOARDING -> OnboardingNotification()
             else -> null
         }

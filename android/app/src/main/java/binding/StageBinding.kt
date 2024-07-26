@@ -176,7 +176,7 @@ object StageBinding: StageOps {
     private fun showDialog(modal: StageModal): Boolean {
         val name = when (modal) {
             StageModal.FAULT, StageModal.ACCOUNTINITFAILED -> R.string.error_unknown
-            StageModal.ACCOUNTEXPIRED -> R.string.error_account_inactive
+            StageModal.ACCOUNTEXPIRED -> R.string.error_account_inactive_generic
             StageModal.ACCOUNTRESTOREFAILED -> R.string.error_payment_inactive_after_restore
             StageModal.ACCOUNTINVALID -> R.string.error_account_invalid
             StageModal.PLUSTOOMANYLEASES -> R.string.error_vpn_too_many_leases
