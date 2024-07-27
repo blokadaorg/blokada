@@ -34,6 +34,6 @@ object Flavor {
     }
 
     fun isFamily(): Boolean {
-        return true;
+        return false;
     }
 }
