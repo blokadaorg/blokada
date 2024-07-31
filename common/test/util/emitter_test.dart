@@ -39,6 +39,6 @@ void main() {
   });
 }
 
-final _event = EmitterEvent();
+final _event = EmitterEvent("testEvent");
 
 class _Subject with Emitter {}

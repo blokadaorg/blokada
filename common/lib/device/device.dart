@@ -17,7 +17,7 @@ import 'json.dart';
 
 part 'device.g.dart';
 
-final deviceChanged = EmitterEvent<DeviceTag>();
+final deviceChanged = EmitterEvent<DeviceTag>("deviceChanged");
 
 typedef DeviceTag = String;
 typedef DeviceRetention = String;

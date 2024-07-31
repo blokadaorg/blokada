@@ -12,7 +12,7 @@ import '../util/trace.dart';
 
 part 'lock.g.dart';
 
-final lockChanged = EmitterEvent<bool>();
+final lockChanged = EmitterEvent<bool>("lockChanged");
 
 const _keyLock = "lock:pin";
 

@@ -12,7 +12,7 @@ import 'channel.pg.dart';
 
 part 'app.g.dart';
 
-final appStatusChanged = EmitterEvent<AppStatus>();
+final appStatusChanged = EmitterEvent<AppStatus>("appStatusChanged");
 
 extension AppStatusExt on AppStatus {
   bool isWorking() {

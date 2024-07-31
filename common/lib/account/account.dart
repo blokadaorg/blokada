@@ -24,8 +24,8 @@ part 'account.g.dart';
 ///
 /// It does not handle the account expiration by itself, see AccountRefreshStore.
 
-final accountChanged = EmitterEvent<Account>();
-final accountIdChanged = EmitterEvent<AccountId>();
+final accountChanged = EmitterEvent<Account>("accountChanged");
+final accountIdChanged = EmitterEvent<AccountId>("accountIdChanged");
 
 const String _keyAccount = "account:jsonAccount";
 

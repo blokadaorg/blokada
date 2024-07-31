@@ -16,8 +16,8 @@ import 'channel.pg.dart';
 
 part 'stage.g.dart';
 
-final routeChanged = EmitterEvent<StageRouteState>();
-final willEnterBackground = EmitterEvent();
+final routeChanged = EmitterEvent<StageRouteState>("routeChanged");
+final willEnterBackground = EmitterEvent("willEnterBackground");
 
 enum StageTab { background, home, activity, advanced, settings }
 
