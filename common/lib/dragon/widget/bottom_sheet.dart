@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:common/common/widget/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -21,8 +23,11 @@ showSheet(BuildContext context, {required WidgetBuilder builder}) async {
   return showCupertinoModalBottomSheet(
     context: context,
     duration: const Duration(milliseconds: 300),
-    backgroundColor: context.theme.bgColorCard,
-    builder: builder,
+    backgroundColor:
+        Platform.isAndroid ? Colors.transparent : context.theme.bgColorCard,
+    builder: (c) => Padding(
+        padding: EdgeInsets.only(top: Platform.isAndroid ? 24 : 0),
+        child: builder(c)),
   );
 }
 

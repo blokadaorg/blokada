@@ -4,6 +4,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/perm/controller.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
+import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,61 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
   late final _openPerms = dep<OpenPerms>();
   late final _perm = dep<PermController>();
 
+  final _scrollController = ScrollController();
+  bool _isFullyVisible = false;
+
   @override
   void initState() {
     super.initState();
+
+    // Check if the content is fully visible after the first frame is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkIfContentIsFullyVisible();
+    });
+
+    _scrollController.addListener(() {
+      _checkIfContentIsFullyVisible();
+    });
+  }
+
+  void _checkIfContentIsFullyVisible() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      setState(() {
+        _isFullyVisible = true;
+      });
+    } else {
+      setState(() {
+        _isFullyVisible = false;
+      });
+    }
+  }
+
+  void _onButtonTap() async {
+    if (!_isFullyVisible) {
+      // Scroll to the bottom if content is not fully visible
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      // await sleepAsync(const Duration(seconds: 3));
+      // _performCTA();
+    } else {
+      _performCTA();
+    }
+  }
+
+  void _performCTA() async {
+    Navigator.of(context).pop();
+    await sleepAsync(const Duration(milliseconds: 400));
+    Clipboard.setData(ClipboardData(text: _perm.getAndroidPrivateDnsString()));
+    _openPerms.open();
   }
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -42,6 +91,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
             children: [
               Expanded(
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -143,12 +193,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: MiniCard(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Clipboard.setData(ClipboardData(
-                              text: _perm.getAndroidPrivateDnsString()));
-                          _openPerms.open();
-                        },
+                        onTap: _onButtonTap,
                         color: context.theme.accent,
                         child: SizedBox(
                           height: 32,

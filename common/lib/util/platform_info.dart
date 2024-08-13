@@ -1,5 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 
 class PlatformInfo {
   bool isDesktopOS() =>
@@ -34,6 +36,12 @@ class PlatformInfo {
       return PlatformType.android;
     }
     return PlatformType.unknown;
+  }
+
+  bool isSmallAndroid(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
+    return getCurrentPlatformType() == PlatformType.android &&
+        MediaQuery.of(context).size.height < 750;
   }
 }
 

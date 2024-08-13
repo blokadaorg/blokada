@@ -16,6 +16,7 @@ import 'package:common/dragon/widget/stats/stats_detail_section.dart';
 import 'package:common/dragon/widget/stats/stats_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
 import 'package:common/util/di.dart';
+import 'package:common/util/platform_info.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +46,10 @@ const maxContentWidthTablet = 1500.0;
 
 double getTopPadding(BuildContext context) {
   final topPadding = MediaQuery.of(context).padding.top;
+  print("Top padding: $topPadding");
   final noNotch = topPadding < 30;
-  return (noNotch ? 100 : 68); // I don't get it either
+  final android = PlatformInfo().isSmallAndroid(context) ? 34.0 : 0.0;
+  return (noNotch ? 100 : 68) + android; // I don't get it either
 }
 
 class Navigation with TraceOrigin {

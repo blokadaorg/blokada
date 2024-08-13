@@ -1,4 +1,5 @@
 import 'package:common/common/widget/theme.dart';
+import 'package:common/util/platform_info.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 
@@ -155,7 +156,7 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
     return Opacity(
       opacity: (widget.icon != null || widget.canShowLogo) ? 1 : 0,
       child: SizedBox(
-        height: 150,
+        height: PlatformInfo().isSmallAndroid(context) ? 75 : 150,
         child: AnimatedBuilder(
             animation: foundation.Listenable.merge([_ctrl, _ctrlIdle]),
             builder: (context, child) {

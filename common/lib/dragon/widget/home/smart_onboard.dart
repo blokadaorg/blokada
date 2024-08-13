@@ -12,6 +12,7 @@ import 'package:common/lock/lock.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
+import 'package:common/util/platform_info.dart';
 import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class SmartOnboardState extends State<SmartOnboard>
               canShowLogo: !(widget.phase == FamilyPhase.parentHasDevices &&
                   widget.deviceCount > 2),
             ),
-            const SizedBox(height: 90),
+            SizedBox(height: PlatformInfo().isSmallAndroid(context) ? 45 : 90),
             Text(
               texts.first!,
               style: const TextStyle(
