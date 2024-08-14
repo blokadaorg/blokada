@@ -362,7 +362,12 @@ object BillingService: IPaymentService {
     }
 
     private fun getTrial(it: ProductDetails.SubscriptionOfferDetails): Long? {
-        return if (it.offerTags.contains("free7")) 7 else null
+        return when {
+            it.offerTags.contains("free7") -> 7
+            it.offerTags.contains("free14") -> 14
+            it.offerTags.contains("freetrial") -> 14
+            else -> null
+        }
     }
 
     private fun getPeriodMonths(it: ProductDetails.PricingPhase): Int {
