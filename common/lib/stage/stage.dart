@@ -80,8 +80,9 @@ class StageRouteState {
   StageRouteState.init()
       : this(_background, StageRoute.forTab(StageTab.home), null, null, {});
 
-  StageRouteState newBg() =>
-      StageRouteState(_background, route, modal, modal, _tabStates);
+  StageRouteState newBg() => (route == _background)
+      ? this
+      : StageRouteState(_background, route, modal, modal, _tabStates);
 
   StageRouteState newFg() =>
       StageRouteState(_prevRoute, _background, modal, modal, _tabStates);
