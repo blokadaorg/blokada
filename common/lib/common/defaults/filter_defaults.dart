@@ -31,5 +31,6 @@ final _familyEnabled = [
 
 final _childEnabled = [
   FilterSelection(filterSafeSearch, [filterOptionSafeSearch]),
-  FilterSelection(filterAdult, [filterOptionPorn]),
+  FilterSelection(filterAds, [filterOptionPrimary]),
+  //FilterSelection(filterAdult, [filterOptionPorn]),
 ];
