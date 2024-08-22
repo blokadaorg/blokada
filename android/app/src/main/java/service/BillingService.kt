@@ -23,6 +23,7 @@ import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.queryProductDetails
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.Dispatchers
@@ -160,8 +161,13 @@ object BillingService: IPaymentService {
                     .firstOrNull { it.products.any { it == productId } }
 
                 if (purchase == null) {
+                    Logger.v("Billing", "No relevant purchase found")
+                    Logger.v("Billing", "Expected product: $productId")
+                    Logger.v("Billing", "Purchases: ${purchases.map { it.products }}")
+
                     cont.resumeWithException(NoRelevantPurchase())
                 } else {
+                    //Logger.v("Billing", "Purchase id: ${productId} token: ${purchase.purchaseToken}")
                     cont.resume(PaymentPayload(
                         purchase_token = purchase.purchaseToken,
                         subscription_id = productId,
@@ -189,7 +195,9 @@ object BillingService: IPaymentService {
 
     override suspend fun getActivePurchase(): ProductId? {
         var result: CancellableContinuation<ProductId?>? = null
-        getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
+        getConnectedClient().queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder().setProductType("subs").build()
+        ) { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val successfulPurchases = purchases
                     .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
@@ -241,7 +249,9 @@ object BillingService: IPaymentService {
         @Synchronized get
 
     override suspend fun restorePurchase(): List<PaymentPayload> {
-        getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
+        getConnectedClient().queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder().setProductType("subs").build()
+        ) { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 val successfulPurchases = purchases
                     .filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
@@ -280,7 +290,9 @@ object BillingService: IPaymentService {
         val offerToken = details.subscriptionOfferDetails!!.first().offerToken
 
         // Get existing subscription token
-        getConnectedClient().queryPurchasesAsync("subs") { billingResult, purchases ->
+        getConnectedClient().queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder().setProductType("subs").build()
+        ) { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 // Get latest successful assuming it's the current one
                 val existingPurchase = purchases
@@ -328,6 +340,14 @@ object BillingService: IPaymentService {
             else -> DEFERRED
         }
 
+        var expectId = id
+        if (prorate == DEFERRED) {
+            // Recent billing lib changes around DEFERRED mode report differently
+            // https://developer.android.com/google/play/billing/subscriptions#handle-deferred-replacement
+            expectId = existingId
+            Logger.v("Billing", "Using prorate deferred mode")
+        }
+
         val flowParams = BillingFlowParams.newBuilder()
             .setSubscriptionUpdateParams(
                 BillingFlowParams.SubscriptionUpdateParams.newBuilder()
@@ -350,7 +370,7 @@ object BillingService: IPaymentService {
         }
 
         return suspendCancellableCoroutine { cont ->
-            ongoingPurchase = id to cont
+            ongoingPurchase = expectId to cont
         }
     }
 
