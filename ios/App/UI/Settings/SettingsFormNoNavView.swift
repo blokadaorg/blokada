@@ -61,6 +61,16 @@ struct SettingsFormNoNavView: View {
 
             Section(header: Text(L10n.accountSectionHeaderOther)) {
                 Button(action: {
+                    self.tabVM.setSection("changeaccount")
+                }) {
+                    SettingsItemView(
+                        title: L10n.accountActionLogout,
+                        image: Image.fLogout,
+                        selected: self.tabVM.isSection("changeaccount")
+                    )
+                }
+
+                Button(action: {
                     self.contentVM.stage.showModal(.help)
                 }) {
                     SettingsItemView(

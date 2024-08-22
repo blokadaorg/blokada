@@ -54,7 +54,9 @@ struct ChangeAccountView2: View {
                         Spacer()
                         Button(action: {
                             self.vm.restoreAccount(self.accountId) {
+                                // this callback is not being called
                                 //self.contentVM.stage.dismiss()
+                                //self.contentVM.stage.setTab(Tab.Home)
                             }
                         }) {
                             Text(L10n.universalActionSave)
