@@ -135,6 +135,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         final receipt = await _ops.doChangeProductWithReceipt(id);
         await _processReceipt(trace, receipt);
         status = PaymentStatus.ready;
+        await _closePayments(trace);
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
@@ -286,6 +287,15 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   _ensureReady() {
     if (status != PaymentStatus.ready) {
       throw Exception("Payments not ready");
+    }
+  }
+
+  _closePayments(Trace parentTrace) async {
+    if (_stage.route.modal == StageModal.payment) {
+      await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
+          (trace) async {
+        await _stage.dismissModal(trace);
+      });
     }
   }
 }
