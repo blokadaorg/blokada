@@ -13,7 +13,12 @@
 package ui.journal
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
@@ -144,7 +149,7 @@ class JournalFragment : Fragment() {
         val retention: RetentionView = root.findViewById(R.id.activity_retention)
         retention.lifecycleScope = lifecycleScope
         retention.openPolicy = {
-            stage.setRoute(Links.privacy)
+            stage.setRoute(Links.privacy(false))
         }
         retention.setup()
 

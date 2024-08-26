@@ -28,11 +28,18 @@ object Links {
 
     val kb = "https://go.blokada.org/kb_android"
     val donate = "https://go.blokada.org/donate"
-    val privacy = "https://go.blokada.org/privacy"
-    val terms = "https://go.blokada.org/terms"
+    private val privacy = "https://go.blokada.org/privacy"
+    private val terms = "https://go.blokada.org/terms"
     val credits = "https://blokada.org/"
     val community = "https://go.blokada.org/forum"
     val changelog = "https://go.blokada.org/changelog"
+
+    // TODO: use sixcommon links api instead of this class
+    private val privacy_family = "https://go.blokada.org/privacy_family"
+    private val terms_family = "https://go.blokada.org/terms_family"
+
+    fun privacy(family: Boolean) = if (family) privacy_family else privacy
+    fun terms(family: Boolean) = if (family) terms_family else terms
 
     val updated = "https://go.blokada.org/updated_android"
 

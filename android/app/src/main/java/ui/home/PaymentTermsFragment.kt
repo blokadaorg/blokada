@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import binding.AccountBinding
 import binding.StageBinding
 import org.blokada.R
+import service.Flavor
 import ui.BottomSheetFragment
 import utils.Links
 
@@ -54,15 +55,17 @@ class PaymentTermsFragment : BottomSheetFragment() {
             }
         }
 
+        val isFamily = Flavor.isFamily();
+
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {
-            stage.setRoute(Links.terms)
+            stage.setRoute(Links.terms(isFamily))
             dismiss()
         }
 
         val privacy: View = root.findViewById(R.id.payment_privacy)
         privacy.setOnClickListener {
-            stage.setRoute(Links.privacy)
+            stage.setRoute(Links.privacy(isFamily))
             dismiss()
         }
 

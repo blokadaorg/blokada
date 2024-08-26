@@ -36,7 +36,7 @@ class RetentionFragment : Fragment() {
         val retention: RetentionView = root.findViewById(R.id.activity_retention)
         retention.lifecycleScope = lifecycleScope
         retention.openPolicy = {
-            stage.setRoute(Links.privacy)
+            stage.setRoute(Links.privacy(false))
         }
         retention.setup()
 

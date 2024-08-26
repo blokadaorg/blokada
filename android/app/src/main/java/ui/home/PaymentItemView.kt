@@ -119,7 +119,7 @@ class PaymentItemView : FrameLayout {
             product.trial != null && !product.owned -> {
                 detail.visibility = View.VISIBLE
                 // TODO: less hardcoded payment info
-                detail.text = "Pay after 7 days. Subscription auto-renews every year until canceled."
+                detail.text = "Pay after ${product.trial} days. Subscription auto-renews every year until canceled."
             }
             else -> {
                 detail.visibility = View.GONE
@@ -130,7 +130,11 @@ class PaymentItemView : FrameLayout {
     private fun makeInfoText(p: Product): String {
         val price = p.pricePerMonth // TODO
         return if (p.type == "cloud") {
-            "(%s)".format (
+            "(%s)".format(
+                context.getString(R.string.payment_subscription_per_month, price)
+            )
+        } else if (p.type == "family") {
+            "(%s)".format(
                 context.getString(R.string.payment_subscription_per_month, price)
             )
         } else {
