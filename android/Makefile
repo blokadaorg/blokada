@@ -12,6 +12,18 @@ sixcommon:
 		fi \
 	fi
 
+sixcommon-fvm:
+	@if test -d "six-common"; then \
+		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
+			echo "Building six-common..."; \
+			cd six-common && make get gen && cd ../ ; \
+			cd six-common && fvm flutter build aar --no-profile && cd ../ ; \
+			mkdir -p app/six-common; \
+			cp -r six-common/build/host/outputs/repo app/six-common; \
+			touch app/six-common/marker; \
+		fi \
+	fi
+
 wireguard:
 	@if test -d "wireguard-android"; then \
 		if test ! -d "app/wireguard-android/lib" || test "wireguard-android" -nt "app/wireguard-android/lib/marker"; then \
@@ -29,6 +41,7 @@ pull-sixcommon:
 	cd ../
 
 devsc: pull-sixcommon clean-sixcommon sixcommon
+devsc-fvm: pull-sixcommon clean-sixcommon sixcommon-fvm
 
 apk:
 	@if test ! -f "app/build/outputs/apk/six/release/app-six-release.apk"; then \
