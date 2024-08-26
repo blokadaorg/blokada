@@ -48,7 +48,7 @@ double getTopPadding(BuildContext context) {
   final topPadding = MediaQuery.of(context).padding.top;
   print("Top padding: $topPadding");
   final noNotch = topPadding < 30;
-  final android = PlatformInfo().isSmallAndroid(context) ? 34.0 : 0.0;
+  final android = PlatformInfo().isSmallAndroid(context) ? 24.0 : 0.0;
   return (noNotch ? 100 : 68) + android; // I don't get it either
 }
 
