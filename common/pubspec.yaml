@@ -27,7 +27,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   flex_color_scheme: ^7.3.1
-  syncfusion_flutter_charts: ^25.2.5
+  syncfusion_flutter_charts: ^26.2.10
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
