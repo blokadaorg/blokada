@@ -198,6 +198,7 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
   }
 
   Widget _buildIcon(BuildContext context) {
+    final size = PlatformInfo().isSmallAndroid(context) ? 95.0 : 190.0;
     return Stack(
       children: [
         Transform.translate(
@@ -205,7 +206,7 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
           // offset: Offset(12, 8),
           child: Icon(
             _icon,
-            size: 190,
+            size: size,
             color: context.theme.textPrimary.withOpacity(0.2),
             //color: Colors.white.withOpacity(0.2),
           ),
@@ -215,7 +216,7 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
           // offset: Offset(4, 2),
           child: Icon(
             _icon,
-            size: 192,
+            size: size + 2,
             color: Colors.white,
           ),
         ),
