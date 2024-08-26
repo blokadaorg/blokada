@@ -100,6 +100,19 @@
                     android:scheme="http" />
             </intent-filter>
 
+            <!-- Handle Family link -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="go.blokada.org"
+                    android:pathPrefix="/family/link_device"
+                    android:scheme="https" />
+            </intent-filter>
+
             <!-- Legacy commands to be removed in the future -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

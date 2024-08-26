@@ -21,6 +21,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import binding.AppBinding
+import binding.CommandBinding
+import channel.command.CommandName
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.BlokadaException
@@ -32,7 +34,7 @@ import utils.ExecutingCommandNotification
 import utils.Logger
 
 enum class Command {
-    OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST, DOH
+    OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST, DOH, FAMILY_LINK
 }
 
 const val ACC_MANAGE = "manage_account"
@@ -49,6 +51,7 @@ class CommandActivity : AppCompatActivity() {
 
     private val env by lazy { EnvironmentService }
     private val app by lazy { AppBinding }
+    private val cmd by lazy { CommandBinding }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +107,17 @@ class CommandActivity : AppCompatActivity() {
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
             }
+            Command.FAMILY_LINK -> {
+                if (param?.isBlank() != false) {
+                    throw BlokadaException("Family link param not provided")
+                }
+
+                Toast.makeText(this, "Linking device ...", Toast.LENGTH_LONG).show()
+
+                GlobalScope.launch {
+                    cmd.execute(CommandName.FAMILYLINK, param)
+                }
+            }
             else -> {
                 throw BlokadaException("Unknown command: $command")
             }
@@ -113,7 +127,7 @@ class CommandActivity : AppCompatActivity() {
     private fun interpretCommand(input: String): Pair<Command, Param?>? {
         return when {
             input.startsWith("blocka://cmd/")
-            || input.startsWith("http://cmd.blocka.net/")-> {
+            || input.startsWith("http://cmd.blocka.net/") -> {
                 input.replace("blocka://cmd/", "")
                     .replace("http://cmd.blocka.net/", "")
                     .trimEnd('/')
@@ -121,6 +135,17 @@ class CommandActivity : AppCompatActivity() {
                     .let {
                         try {
                             Command.valueOf(it[0].toUpperCase()) to it.getOrNull(1)
+                        } catch (ex: Exception) { null }
+                    }
+            }
+            // Family link command
+            input.startsWith("https://go.blokada.org/family/link_device") -> {
+                input.replace("https://go.blokada.org/family/link_device", "")
+                    .replace("?token=", "")
+                    .trimEnd('/')
+                    .let {
+                        try {
+                            Command.FAMILY_LINK to it
                         } catch (ex: Exception) { null }
                     }
             }
