@@ -934,6 +934,10 @@ internal enum L10n {
   internal static let paymentSuccessLabel = L10n.tr("Ui", "payment success label")
   /// Upgrade to our VPN service to stay in control of *your privacy*.
   internal static let paymentTitle = L10n.tr("Ui", "payment title")
+  /// Pay after %@ days. Subscription auto-renews every year until canceled.
+  internal static func paymentTrialBrief(_ p1: Any) -> String {
+    return L10n.tr("Ui", "payment trial brief", String(describing: p1))
+  }
   /// Note: Native app for Android does not support Blokada Cloud yet. We are working on the update.
   internal static let setupCommentNativeApps = L10n.tr("Ui", "setup comment native apps")
   /// Note: The VPN configuration will use Blokada Cloud by default. Choose a different DNS setting if you wish to opt out. 'WireGuard' and the 'WireGuard' logo are registered trademarks of Jason A. Donenfeld.
