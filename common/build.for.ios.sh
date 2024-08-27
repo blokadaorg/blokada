@@ -24,9 +24,9 @@ else
 	flutter pub get
 	./sync-generated-files.sh
 	if [ -z "$1" ]; then
-		flutter build ios-framework --output=build/ios-framework --no-profile
+		fvm flutter build ios-framework --output=build/ios-framework --no-profile
 	else
-		flutter build ios-framework --output=build/ios-framework --no-release --no-profile
+		fvm flutter build ios-framework --output=build/ios-framework --no-release --no-profile
 	fi
 	echo $version > build/.version
 fi
