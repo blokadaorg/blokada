@@ -108,6 +108,12 @@ class CommandActivity : AppCompatActivity() {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()
             }
             Command.FAMILY_LINK -> {
+                // Now bring the MainActivity to the foreground
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                }
+                startActivity(intent)
+
                 if (param?.isBlank() != false) {
                     throw BlokadaException("Family link param not provided")
                 }
