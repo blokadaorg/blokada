@@ -148,8 +148,11 @@ abstract class FamilyStoreBase
         await _device.reload(createIfNeeded: createDeviceIfNeeded);
       }
 
-      devices = FamilyDevices([], null).fromApi(_device.devices,
-          _profiles.profiles, (await _thisDevice.fetch())?.deviceTag);
+      final deviceTag = (await _thisDevice.fetch())?.deviceTag;
+      trace.addAttribute("deviceTag", deviceTag);
+
+      devices = FamilyDevices([], null)
+          .fromApi(_device.devices, _profiles.profiles, deviceTag);
       _stats.monitorDeviceTags = devices.getTags();
 
       _stats.startAutoRefresh();
