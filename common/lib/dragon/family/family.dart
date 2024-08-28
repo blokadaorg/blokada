@@ -222,7 +222,9 @@ abstract class FamilyStoreBase
   _postActivationOnboarding(Trace parentTrace) async {
     parentTrace.addEvent("postActivationOnboarding");
     accountActive = _account.type.isActive();
-    if (accountActive == true) await _reload(parentTrace);
+    if (accountActive == true) {
+      await _reload(parentTrace, createDeviceIfNeeded: true);
+    }
     _updatePhase(reason: "postActivationOnboarding");
 
     parentTrace.addAttribute("modal", _stage.route.modal);
