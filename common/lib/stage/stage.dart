@@ -84,8 +84,8 @@ class StageRouteState {
       ? this
       : StageRouteState(_background, route, modal, modal, _tabStates);
 
-  StageRouteState newFg() =>
-      StageRouteState(_prevRoute, _background, modal, modal, _tabStates);
+  StageRouteState newFg({StageModal? m}) => StageRouteState(
+      _prevRoute, _background, m ?? modal, m ?? modal, _tabStates);
 
   StageRouteState newRoute(StageRoute route) {
     // Restore the state for this tab if exists
@@ -298,7 +298,7 @@ abstract class StageStoreBase
 
       if (!route.isForeground()) {
         // A dirty hack since I can't figure out why its bg sometimes
-        route = StageRouteState.init().newFg();
+        route = StageRouteState.init().newFg(m: route.modal);
         trace.addEvent("routeFgHack");
       }
 

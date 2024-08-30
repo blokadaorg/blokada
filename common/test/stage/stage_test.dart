@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:common/dragon/scheduler.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
+import 'package:common/timer/timer.dart';
 import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,6 +13,7 @@ import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<StageOps>(),
   MockSpec<Scheduler>(),
+  MockSpec<TimerService>(),
 ])
 import 'stage_test.mocks.dart';
 
@@ -86,6 +88,40 @@ void main() {
 
         await subject.dismissModal(trace);
         expect(subject.route.modal, null);
+      });
+    });
+
+    test("backgroundAndModal", () async {
+      await withTrace((trace) async {
+        final ops = MockStageOps();
+        depend<StageOps>(ops);
+        depend<Scheduler>(MockScheduler());
+
+        final subject = StageStore();
+        subject.act = mockedAct;
+        await subject.setReady(trace, true);
+        expect(subject.route.isForeground(), false);
+        expect(subject.route.modal, null);
+
+        await subject.setForeground(trace);
+
+        await subject.setRoute(trace, "home");
+        expect(subject.route.isForeground(), true);
+
+        _simulateConfirmation(() async {
+          await subject.modalShown(trace, StageModal.payment);
+        });
+
+        await subject.showModal(trace, StageModal.payment);
+        expect(subject.route.modal, StageModal.payment);
+
+        await subject.setBackground(trace);
+        await subject.setBackground(trace); // double event on purpose
+        expect(subject.route.isForeground(), false);
+
+        await subject.setForeground(trace);
+        await subject.setForeground(trace);
+        expect(subject.route.modal, StageModal.payment);
       });
     });
 
@@ -174,6 +210,7 @@ void main() {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
+        depend<TimerService>(MockTimerService());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -283,6 +320,13 @@ void main() {
         route = route.newModal(StageModal.help);
         expect(route.isModal(StageModal.help), true);
         expect(route.isBecameModal(StageModal.help), true);
+
+        // Modal, Bg, hack fg, see if modal preserved
+        route = route.newBg();
+        route = StageRouteState.init().newFg(m: StageModal.help);
+        expect(route.isForeground(), true);
+        expect(route.isBecameForeground(), true);
+        expect(route.isModal(StageModal.help), true);
       });
     });
   });
