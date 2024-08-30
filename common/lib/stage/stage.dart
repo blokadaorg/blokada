@@ -295,8 +295,15 @@ abstract class StageStoreBase
   _processWaiting(Trace trace) async {
     if (!route.isForeground()) {
       route = route.newFg();
+
+      if (!route.isForeground()) {
+        // A dirty hack since I can't figure out why its bg sometimes
+        route = StageRouteState.init().newFg();
+        trace.addEvent("routeFgHack");
+      }
+
+      trace.addEvent("foreground emitting");
       await emitValue(routeChanged, trace, route);
-      trace.addEvent("foreground emitted");
       if (act.isFamily()) {
         _scheduler.eventTriggered(Event.appForeground, value: "1");
       }
