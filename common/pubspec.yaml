@@ -53,6 +53,18 @@ dependencies:
   mockito: ^5.3.2
   i18n_extension_importer: ^0.0.6
 
+dependency_overrides:
+  syncfusion_flutter_charts:
+    git:
+      url: https://github.com/Luvti/flutter-widgets
+      path: packages/syncfusion_flutter_charts
+      ref: 15e3c4a95e3cf2e2393755bf5aa11c0206ed6dea #flutter/3.24
+  syncfusion_flutter_core:
+    git:
+      url: https://github.com/Luvti/flutter-widgets
+      path: packages/syncfusion_flutter_core
+      ref: 15e3c4a95e3cf2e2393755bf5aa11c0206ed6dea #flutter/3.24
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
