@@ -43,11 +43,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="@dimen/maxwidth">
 
-            <ImageView
-                android:layout_width="@dimen/icon_humonguous"
-                android:layout_height="@dimen/icon_humonguous"
-                android:src="@drawable/blokada_logo" />
-
             <TextView
                 style="@style/Text.Header"
                 android:layout_width="wrap_content"
