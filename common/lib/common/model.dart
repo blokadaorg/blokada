@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 
 part 'model/api.dart';
 part 'model/auth/json.dart';
+part 'model/customlist/json.dart';
 part 'model/device/json.dart';
 part 'model/device/model.dart';
 part 'model/family_model.dart';

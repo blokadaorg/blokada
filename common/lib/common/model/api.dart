@@ -42,7 +42,14 @@ enum ApiEndpoint {
   ]),
   postToken("v3/auth/token", type: "POST"),
   postTokenRefresh("v3/auth/token/refresh", type: "POST"),
-  getTokenInfo("v3/auth/token/info");
+  getTokenInfo("v3/auth/token/info"),
+  getCustomList("v3/customlist", params: [
+    ApiParam.accountId,
+    ApiParam.profileId,
+  ]),
+  postCustomList("v3/customlist", type: "POST", params: [ApiParam.accountId]),
+  deleteCustomList("v3/customlist",
+      type: "DELETE", params: [ApiParam.accountId]);
 
   const ApiEndpoint(
     this.endpoint, {
@@ -67,6 +74,7 @@ enum ApiEndpoint {
 enum ApiParam {
   accountId("account_id"),
   deviceTag("device_tag"),
+  profileId("profile_id"),
   statsSince("since"),
   statsDownsample("downsample");
 

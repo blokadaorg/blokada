@@ -4,7 +4,7 @@ import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/custom/custom.dart';
+import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/action_info.dart';
@@ -32,7 +32,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
     with TraceOrigin {
   final _profile = dep<ProfileController>();
   final _filter = dep<FilterController>();
-  final _custom = dep<CustomStore>();
+  final _custom = dep<CustomListController>();
 
   late JsonProfile? profile;
 
@@ -223,8 +223,7 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                           : "family stats exceptions add".i18n,
                       onTap: () {
                         traceAs("addCustom", (trace) async {
-                          await _custom.addOrRemove(
-                              trace, widget.entry.domainName,
+                          await _custom.addOrRemove(widget.entry.domainName,
                               gotBlocked: widget.entry.isBlocked());
                           setState(() {});
                         });

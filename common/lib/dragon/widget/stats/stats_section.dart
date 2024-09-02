@@ -2,6 +2,7 @@ import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/stats/activity_item.dart';
@@ -22,6 +23,7 @@ class StatsSection extends StatefulWidget {
 
 class StatsSectionState extends State<StatsSection> {
   late final _journal = dep<JournalController>();
+  late final _custom = dep<CustomListController>();
 
   bool _isReady = false;
   late List<UiJournalEntry> _entries;
@@ -35,6 +37,9 @@ class StatsSectionState extends State<StatsSection> {
         _isReady = true;
         _entries = _journal.filteredEntries;
       });
+    };
+    _custom.onChange = () {
+      _reload();
     };
     _reload();
   }

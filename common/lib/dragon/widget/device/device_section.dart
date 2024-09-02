@@ -9,6 +9,7 @@ import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/device/controller.dart';
 import 'package:common/dragon/device/selected_device.dart';
 import 'package:common/dragon/family/family.dart';
@@ -40,6 +41,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
   late final _device = dep<DeviceController>();
   late final _selectedFilters = dep<SelectedFilters>();
   late final _selectedDevice = dep<SelectedDeviceTag>();
+  late final _custom = dep<CustomListController>();
 
   late FamilyDevice device;
 
@@ -72,6 +74,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
   Widget build(BuildContext context) {
     built = true;
     device = _family.devices.getDevice(widget.tag);
+    _custom.setProfileId(device.profile.profileId);
 
     return ListView(
       primary: true,

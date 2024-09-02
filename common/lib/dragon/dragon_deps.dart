@@ -8,6 +8,8 @@ import 'package:common/dragon/api/user_agent.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/auth/controller.dart';
 import 'package:common/dragon/base_url.dart';
+import 'package:common/dragon/customlist/api.dart';
+import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/device/api.dart';
 import 'package:common/dragon/device/controller.dart';
 import 'package:common/dragon/device/current_config.dart';
@@ -68,6 +70,9 @@ class DragonDeps {
 
       depend<ProfileApi>(ProfileApi());
       depend<ProfileController>(ProfileController());
+
+      depend<CustomListApi>(CustomListApi());
+      depend<CustomListController>(CustomListController());
 
       depend<NameGenerator>(NameGenerator());
       depend<OpenPerms>(OpenPerms());
