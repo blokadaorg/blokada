@@ -153,14 +153,14 @@
                         app:layout_constraintTop_toBottomOf="@id/cancel_footer_group"
                         app:layout_constraintWidth_max="@dimen/sheet_maxwidth">
 
-                        <TextView
-                            android:id="@+id/payment_offer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingBottom="@dimen/half"
-                            android:text="@string/payment_action_offer"
-                            android:textColor="?android:attr/colorPrimary" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/payment_offer"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:paddingBottom="@dimen/half"-->
+<!--                            android:text="@string/payment_action_offer"-->
+<!--                            android:textColor="?android:attr/colorPrimary" />-->
 
                         <TextView
                             android:id="@+id/payment_restore"
