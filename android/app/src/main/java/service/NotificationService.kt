@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.Intent
 import utils.ExpiredFamilyNotification
 import utils.ExpiredNotification
+import utils.FamilyOnboardingNotification
 import utils.NotificationChannels
 import utils.NotificationPrototype
 import utils.OnboardingNotification
@@ -34,6 +35,7 @@ val NOTIF_ACC_EXP_FAM = "accountExpiredFamily"
 val NOTIF_LEASE_EXP = "plusLeaseExpired"
 val NOTIF_PAUSE = "pauseTimeout"
 val NOTIF_ONBOARDING = "onboardingDnsAdvice"
+val NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 
 object NotificationService {
     private val context by lazy { ContextService }
@@ -113,6 +115,7 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             NOTIF_ACC_EXP -> ExpiredNotification()
             NOTIF_ACC_EXP_FAM -> ExpiredFamilyNotification()
             NOTIF_ONBOARDING -> OnboardingNotification()
+            NOTIF_ONBOARDING_FAMILY -> FamilyOnboardingNotification()
             else -> null
         }
 

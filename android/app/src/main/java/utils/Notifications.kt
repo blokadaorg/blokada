@@ -273,7 +273,7 @@ class ExpiredNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
     }
 )
 
-class ExpiredFamilyNotification: NotificationPrototype(4, NotificationChannels.BLOCKA,
+class ExpiredFamilyNotification: NotificationPrototype(5, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_acc_header))
@@ -290,13 +290,26 @@ class ExpiredFamilyNotification: NotificationPrototype(4, NotificationChannels.B
     }
 )
 
-class OnboardingNotification: NotificationPrototype(5, NotificationChannels.BLOCKA,
+class OnboardingNotification: NotificationPrototype(6, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.activated_header))
-        b.setContentText(ctx.getString(R.string.dnsprofile_notification_subtitle))
-        b.setStyle(NotificationCompat.BigTextStyle().bigText(ctx.getString(R.string.dnsprofile_notification_body)))
-        //b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setContentText(ctx.getString(R.string.dnsprofile_desc_android))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+class FamilyOnboardingNotification: NotificationPrototype(7, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.activated_header))
+        b.setContentText(ctx.getString(R.string.dnsprofile_desc_android))
         b.setSmallIcon(R.drawable.ic_stat_blokada)
         b.setPriority(NotificationCompat.PRIORITY_MAX)
         b.setVibrate(LongArray(0))
@@ -338,7 +351,7 @@ class OnboardingNotification: NotificationPrototype(5, NotificationChannels.BLOC
 // The old ones are left untouched to not change v5 behavior
 // in case we want separate flavors.
 
-class AccountExpiredNotification: NotificationPrototype(5, NotificationChannels.BLOCKA,
+class AccountExpiredNotification: NotificationPrototype(8, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_acc_header))
@@ -358,7 +371,7 @@ class AccountExpiredNotification: NotificationPrototype(5, NotificationChannels.
 
 // When Plus lease expires. This should normally not happen as leases are
 // automatically extended while the account is active.
-class PlusLeaseExpiredNotification: NotificationPrototype(6, NotificationChannels.BLOCKA,
+class PlusLeaseExpiredNotification: NotificationPrototype(9, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_lease_header))
@@ -377,7 +390,7 @@ class PlusLeaseExpiredNotification: NotificationPrototype(6, NotificationChannel
 )
 
 // When timed-pause runs out.
-class PauseTimeoutNotification: NotificationPrototype(7, NotificationChannels.BLOCKA,
+class PauseTimeoutNotification: NotificationPrototype(10, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_pause_header))
@@ -396,7 +409,7 @@ class PauseTimeoutNotification: NotificationPrototype(7, NotificationChannels.BL
 )
 
 // When executing a command from the background (some silly android requirements)
-class ExecutingCommandNotification: NotificationPrototype(8, NotificationChannels.ACTIVITY,
+class ExecutingCommandNotification: NotificationPrototype(11, NotificationChannels.ACTIVITY,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.universal_status_processing))

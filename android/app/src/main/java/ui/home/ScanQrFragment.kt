@@ -20,6 +20,7 @@ import binding.CommandBinding
 import channel.command.CommandName
 import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
+import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,6 +56,7 @@ class ScanQrFragment : BottomSheetFragment() {
     private fun startScan() {
         scanQrCodeLauncher.launch(ScannerConfig.build {
           //setBarcodeFormats(listOf(BarcodeFormat.)) // set interested barcode formats
+          setBarcodeFormats(listOf(BarcodeFormat.FORMAT_QR_CODE))
           setOverlayStringRes(R.string.family_account_qr_header)
           //setOverlayDrawableRes(R.drawable.baseline_qr_code_scanner_24)
           setHapticSuccessFeedback(true)

@@ -19,9 +19,13 @@ import kotlinx.coroutines.launch
 import repository.Repos
 import service.ConnectivityService
 import service.ContextService
+import service.Flavor
 import service.FlutterService
+import service.NotificationService
 import service.SystemNavService
 import service.VpnPermissionService
+import utils.FamilyOnboardingNotification
+import utils.OnboardingNotification
 
 
 object PermBinding: PermOps {
@@ -30,6 +34,7 @@ object PermBinding: PermOps {
 
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
+    private val notification by lazy { NotificationService }
     private val permsRepo by lazy { Repos.perms }
     private val vpnPerms by lazy { VpnPermissionService }
     private val connectivity by lazy { ConnectivityService }
@@ -90,6 +95,8 @@ object PermBinding: PermOps {
     }
 
     override fun doOpenSettings(callback: (Result<Unit>) -> Unit) {
+        val n = if (Flavor.isFamily()) FamilyOnboardingNotification() else OnboardingNotification();
+        notification.show(n);
         systemNav.openNetworkSettings()
         callback(Result.success(Unit))
     }
