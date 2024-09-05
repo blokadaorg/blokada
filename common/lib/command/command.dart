@@ -1,4 +1,5 @@
 import 'package:common/dragon/filter/filter_legacy.dart';
+import 'package:common/dragon/support/controller.dart';
 import 'package:common/main-widgets.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
@@ -40,6 +41,7 @@ class CommandStore
   late final _device = dep<DeviceStore>();
   late final _notification = dep<NotificationStore>();
   late final _lock = dep<LockStore>();
+  late final _support = dep<SupportController>();
 
   // V6 only commands
   late final _journal = dep<JournalStore>();
@@ -235,6 +237,8 @@ class CommandStore
         // block the UI thread, we need to wait for the app to be ready.
         await sleepAsync(const Duration(seconds: 3));
         return await _family.link(p1!);
+      case CommandName.supportNotify:
+        await _support.notifyNewMessage(trace);
       case CommandName.warning:
         _ensureParam(p1);
         return await _tracer.platformWarning(trace, p1!);

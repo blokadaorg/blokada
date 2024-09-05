@@ -256,6 +256,8 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
           title = "main tab settings".i18n;
         case "/settings/exceptions":
           title = "family stats title".i18n;
+        case "/support":
+          title = "universal label help".i18n;
         default:
           title = "main tab home".i18n;
       }

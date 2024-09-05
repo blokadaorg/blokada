@@ -22,3 +22,5 @@ part 'model/list/model.dart';
 part 'model/profile/json.dart';
 part 'model/stats/json.dart';
 part 'model/stats_model.dart';
+part 'model/support/json.dart';
+part 'model/support/model.dart';

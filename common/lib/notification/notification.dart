@@ -33,6 +33,7 @@ enum NotificationId {
   all,
   accountExpired,
   accountExpiredFamily,
+  supportNewMessage,
 }
 
 enum NotificationEventType {
@@ -63,7 +64,7 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
     reactionOnStore((_) => notificationChanges, (_) async {
       final event = notifications.last;
       if (event.type == NotificationEventType.show) {
-        await _ops.doShow(event.id.name, event.when!.toIso8601String());
+        await _ops.doShow(event.id.name, event.when!.toUtc().toIso8601String());
       } else if (event.type == NotificationEventType.dismiss) {
         await _ops.doDismissAll();
       }

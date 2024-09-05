@@ -5,8 +5,16 @@ import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/widget/profile/profile_dialog.dart';
 import 'package:common/dragon/widget/stats/stats_filter.dart';
+import 'package:common/dragon/widget/support/support_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+void showSupportDialog(BuildContext context) {
+  showDefaultDialog(context,
+      title: Text("universal action more".i18n),
+      content: (context) => const SupportDialog(),
+      actions: (context) => []);
+}
 
 void showSelectProfileDialog(BuildContext context,
     {required JsonDevice device, Function(JsonProfile)? onSelected}) {

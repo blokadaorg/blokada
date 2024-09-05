@@ -53,6 +53,10 @@ class Http {
 
     // Replace param template with actual values
     var url = _baseUrl.now + request.endpoint.template;
+    if (request.endpoint.template.startsWith("http")) {
+      url = request.endpoint.template;
+    }
+
     for (final param in request.endpoint.params) {
       final value = params[param];
       if (value == null) throw Exception("missing param: $param");
@@ -106,6 +110,7 @@ class Http {
 
   Map<ApiParam, String> _params() => {
         ApiParam.accountId: _accountId.now,
+        ApiParam.userAgent: _userAgent.now,
       };
 
   Map<String, String> _headers() => {

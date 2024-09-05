@@ -49,7 +49,9 @@ enum ApiEndpoint {
   ]),
   postCustomList("v3/customlist", type: "POST", params: [ApiParam.accountId]),
   deleteCustomList("v3/customlist",
-      type: "DELETE", params: [ApiParam.accountId]);
+      type: "DELETE", params: [ApiParam.accountId]),
+  postSupport("https://support.blocka.net/v1/support",
+      type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]);
 
   const ApiEndpoint(
     this.endpoint, {
@@ -72,6 +74,7 @@ enum ApiEndpoint {
 }
 
 enum ApiParam {
+  userAgent("user_agent"),
   accountId("account_id"),
   deviceTag("device_tag"),
   profileId("profile_id"),

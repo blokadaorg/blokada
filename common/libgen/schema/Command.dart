@@ -86,6 +86,9 @@ enum CommandName {
   // Family commands
   familyLink,
 
+  // Support
+  supportNotify,
+
   // Debug
   debugHttpFail,
   debugHttpOk,

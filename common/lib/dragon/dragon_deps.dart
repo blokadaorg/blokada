@@ -32,6 +32,11 @@ import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/stats/api.dart';
 import 'package:common/dragon/stats/controller.dart';
+import 'package:common/dragon/support/api.dart';
+import 'package:common/dragon/support/chat_history.dart';
+import 'package:common/dragon/support/controller.dart';
+import 'package:common/dragon/support/current_session.dart';
+import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/util/di.dart';
 
 class DragonDeps {
@@ -95,6 +100,12 @@ class DragonDeps {
       depend<PermController>(PermController());
 
       depend<Scheduler>(Scheduler(timer: SchedulerTimer()));
+
+      depend<SupportApi>(SupportApi());
+      depend<SupportController>(SupportController());
+      depend<CurrentSession>(CurrentSession());
+      depend<ChatHistory>(ChatHistory());
+      depend<SupportUnread>(SupportUnread());
     }
   }
 }
