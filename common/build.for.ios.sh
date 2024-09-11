@@ -18,17 +18,19 @@ if [ -e build/.version ]; then
   fi
 fi
 
-if [[ "$built" = true ]]; then
-	echo "Skipping, already built"
+# if [[ "$built" = true ]]; then
+#	echo "Skipping, already built"
+# else
+
+flutter pub get
+./sync-generated-files.sh
+if [ -z "$1" ]; then
+	fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-debug
 else
-	flutter pub get
-	./sync-generated-files.sh
-	if [ -z "$1" ]; then
-		flutter build ios-framework --output=build/ios-framework --no-profile
-	else
-		flutter build ios-framework --output=build/ios-framework --no-release --no-profile
-	fi
-	echo $version > build/.version
+	fvm flutter build ios-framework --output=build/ios-framework --no-release --no-profile
 fi
+echo $version > build/.version
+
+# fi
 
 echo "Done"
