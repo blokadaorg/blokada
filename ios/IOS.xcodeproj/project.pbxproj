@@ -420,7 +420,6 @@
 		4E270DE32A80EB8300D3484B /* Ui.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E65293C248F760700EB871A /* Ui.strings */; };
 		4E270DE42A80EB8300D3484B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E270DE52A80EB8300D3484B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
-		4E270DE92A80EB8300D3484B /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E270DEA2A80EB8300D3484B /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E270DF02A80EB9200D3484B /* Flavor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3E1FB62A7B8F24005A2550 /* Flavor.swift */; };
 		4E270DF62A80F30400D3484B /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 4E270DF52A80F30400D3484B /* Factory */; };
@@ -979,6 +978,7 @@
 		4EB4968A2B233D5200926C85 /* ShieldsViewTwoColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB496852B233D5200926C85 /* ShieldsViewTwoColumn.swift */; };
 		4EB4968B2B233D5200926C85 /* ShieldsViewTwoColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB496852B233D5200926C85 /* ShieldsViewTwoColumn.swift */; };
 		4EB63F3C24364D5D009CBAC1 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB63F3B24364D5D009CBAC1 /* StreamReader.swift */; };
+		4EBADD562C90915700C7A0A3 /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4EBDD3502A0A6B550039C101 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
 		4EBDD3512A0A6B550039C101 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD34F2A0A6B550039C101 /* HomeViewModel.swift */; };
 		4EBDD3532A0B7F290039C101 /* CustomVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3522A0B7F290039C101 /* CustomVM.swift */; };
@@ -1289,7 +1289,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4E270DE92A80EB8300D3484B /* Flutter.xcframework in Embed Frameworks */,
+				4EBADD562C90915700C7A0A3 /* Flutter.xcframework in Embed Frameworks */,
 				4E270DEA2A80EB8300D3484B /* App.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -2470,7 +2470,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "Prod" */;
 			buildPhases = (
-				4E9E186A2968180A00CBA17C /* ShellScript */,
 				47729DFE22F447C800B9B36B /* Sources */,
 				47729DFF22F447C800B9B36B /* Frameworks */,
 				47729E0022F447C800B9B36B /* Resources */,
@@ -2553,7 +2552,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E270DEB2A80EB8300D3484B /* Build configuration list for PBXNativeTarget "FamilyProd" */;
 			buildPhases = (
-				4E270D0A2A80EB8300D3484B /* Run Script */,
 				4E270D0B2A80EB8300D3484B /* Sources */,
 				4E270DDB2A80EB8300D3484B /* Frameworks */,
 				4E270DE02A80EB8300D3484B /* Resources */,
@@ -2599,7 +2597,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E8652092A3C968B0060AFB1 /* Build configuration list for PBXNativeTarget "Dev" */;
 			buildPhases = (
-				4E86510A2A3C968B0060AFB1 /* ShellScript */,
 				4E86510B2A3C968B0060AFB1 /* Sources */,
 				4E8651F92A3C968B0060AFB1 /* Frameworks */,
 				4E8651FE2A3C968B0060AFB1 /* Resources */,
@@ -2624,7 +2621,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EBF3BED2A80E55900F637BB /* Build configuration list for PBXNativeTarget "FamilyDev" */;
 			buildPhases = (
-				4EBF3B0C2A80E55900F637BB /* ShellScript */,
 				4EBF3B0D2A80E55900F637BB /* Sources */,
 				4EBF3BDD2A80E55900F637BB /* Frameworks */,
 				4EBF3BE22A80E55900F637BB /* Resources */,
@@ -2806,78 +2802,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4E270D0A2A80EB8300D3484B /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH=${PATH}:/opt/homebrew/bin\ncd six-common/\nsource ./build.for.ios.sh\ncd ../\n";
-		};
-		4E86510A2A3C968B0060AFB1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH=${PATH}:/opt/homebrew/bin\ncd six-common/\nsource ./build.for.ios.sh\ncd ../\n";
-		};
-		4E9E186A2968180A00CBA17C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH=${PATH}:/opt/homebrew/bin\ncd six-common/\nsource ./build.for.ios.sh\ncd ../\n";
-		};
-		4EBF3B0C2A80E55900F637BB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH=${PATH}:/opt/homebrew/bin\ncd six-common/\nsource ./build.for.ios.sh\ncd ../\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		47729DFE22F447C800B9B36B /* Sources */ = {

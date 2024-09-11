@@ -3,7 +3,6 @@ all: sixcommon build
 
 sixcommon:
 	@echo "Building six-common..."; \
-        cd six-common && make get gen && cd ../ ; \
 	cd six-common && ./build.for.ios.sh && cd ../ ; \
 
 forsimulator:
