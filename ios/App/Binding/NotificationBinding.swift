@@ -22,6 +22,7 @@ let NOTIF_PAUSE = "pauseTimeout"
 let NOTIF_ONBOARDING = "onboardingDnsAdvice"
 let NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
+let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 
 func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
@@ -30,39 +31,37 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         content.title = L10n.notificationAccHeader
         content.subtitle = L10n.notificationAccSubtitle
         content.body = L10n.notificationAccBody
-        content.sound = .default
     } else if id == NOTIF_LEASE_EXP {
         content.title = L10n.notificationLeaseHeader
         content.subtitle = L10n.notificationVpnExpiredSubtitle
         content.body = L10n.notificationGenericBody
-        content.sound = .default
     } else if id == NOTIF_PAUSE {
         content.title = L10n.notificationPauseHeader
         content.subtitle = L10n.notificationPauseSubtitle
         content.body = L10n.notificationPauseBody
-        content.sound = .default
     } else if id == NOTIF_ONBOARDING {
         content.title = L10n.activatedHeader
         content.subtitle = L10n.dnsprofileNotificationSubtitle
         content.body = L10n.dnsprofileNotificationBody
-        content.sound = .default
     } else if id == NOTIF_ONBOARDING_FAMILY {
         content.title = L10n.activatedHeader
         content.subtitle = L10n.dnsprofileNotificationSubtitle
         content.body = L10n.dnsprofileNotificationBody.replacingOccurrences(of: "Blokada", with: "Blokada Family")
-        content.sound = .default
     } else if id == NOTIF_ACC_EXP_FAMILY {
         content.title = L10n.notificationAccHeader
         content.subtitle = L10n.familyNotificationSubtitle
         content.body = L10n.notificationAccBody
-        content.sound = .default
+    } else if id == NOTIF_SUPPORT_NEWMSG {
+        content.title = "New message!"
+        content.subtitle = "Support has replied"
+        content.body = "Tap to see the reply"
     } else {
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle
         content.body = L10n.notificationGenericBody
-        content.sound = .default
     }
 
+    content.sound = .default
     return content
 }
 
@@ -102,6 +101,7 @@ class NotificationBinding: NotificationOps {
     func doShow(notificationId: String, atWhen: String, completion: @escaping (Result<Void, Error>) -> Void) {
         //let whenDate = Date().addingTimeInterval(40)
         let whenDate = atWhen.toDate
+
         scheduleNotification(id: notificationId, when: whenDate)
         .sink(onFailure: { err in
             completion(.failure(err))
