@@ -17,8 +17,7 @@ jobs:
           submodules: recursive
 
       - name: Get Flutter (FVM)
-      - uses: actions/checkout@v4
-      - uses: kuhnroyal/flutter-fvm-config-action@v2
+        uses: kuhnroyal/flutter-fvm-config-action@v2
         with:
           setup: true
           cache: true
