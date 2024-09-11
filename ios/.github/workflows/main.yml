@@ -16,10 +16,12 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Get Flutter
-        uses: subosito/flutter-action@v2
+      - name: Get Flutter (FVM)
+      - uses: actions/checkout@v4
+      - uses: kuhnroyal/flutter-fvm-config-action@v2
         with:
-          channel: 'stable'
+          setup: true
+          cache: true
 
       - name: Build common lib
         run: |
