@@ -16,15 +16,14 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Get Flutter (FVM)
-        uses: kuhnroyal/flutter-fvm-config-action@v2
-        with:
-          setup: true
-          cache: true
+      # Manually install FVM and add it to PATH
+      - name: Install FVM
+        run: |
+          flutter pub global activate fvm
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
-      # Add FVM to the PATH for subsequent steps
-      - name: Add FVM to PATH
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+      - name: Verify FVM installation
+        run: fvm --version
 
       - name: Build common lib
         run: |
