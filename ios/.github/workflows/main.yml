@@ -16,6 +16,10 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+          channel: 'stable'
+
       # Manually install FVM and add it to PATH
       - name: Install FVM
         run: |
