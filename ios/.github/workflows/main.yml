@@ -22,6 +22,10 @@ jobs:
           setup: true
           cache: true
 
+      # Add FVM to the PATH for subsequent steps
+      - name: Add FVM to PATH
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
       - name: Build common lib
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
