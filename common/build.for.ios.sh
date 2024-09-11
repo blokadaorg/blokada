@@ -22,8 +22,8 @@ fi
 #	echo "Skipping, already built"
 # else
 
-flutter pub get
-./sync-generated-files.sh
+make get
+make gen
 if [ -z "$1" ]; then
 	fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-debug
 else
