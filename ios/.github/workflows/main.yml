@@ -18,6 +18,7 @@ jobs:
 
       - name: Get Flutter
         uses: subosito/flutter-action@v2
+        with:
           channel: 'stable'
 
       # Manually install FVM and add it to PATH
