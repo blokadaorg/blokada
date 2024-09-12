@@ -92,7 +92,7 @@ class SmartHeaderState extends State<SmartHeader>
       //       });
       //     }));
       list.add(SmartHeaderButton(
-          icon: CupertinoIcons.person_solid,
+          icon: CupertinoIcons.person_crop_circle,
           onTap: () {
             Navigation.open(context, Paths.settings);
           }));

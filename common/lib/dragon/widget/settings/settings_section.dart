@@ -1,4 +1,5 @@
 import 'package:common/account/account.dart';
+import 'package:common/command/command.dart';
 import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -33,6 +34,7 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
   late final _stage = dep<StageStore>();
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
+  late final _command = dep<CommandStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +158,11 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                 SettingsItem(
                     icon: CupertinoIcons.doc_text,
                     text: "universal action share log".i18n,
-                    onTap: () => _showRestoreDialog(context)),
+                    onTap: () {
+                      traceAs("supportSendLog", (trace) async {
+                        await _command.onCommand("log");
+                      });
+                    }),
                 const CommonDivider(),
                 SettingsItem(
                     icon: CupertinoIcons.person_2,
