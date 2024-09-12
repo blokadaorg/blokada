@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "يتم تجديد الاشتراك تلقائياً قبل انتهاء فترة الفاتورة الحالية. يمكنك الإلغاء في أي وقت من الإعدادات.";
 "payment cancel footer trial short" = "إلغاء خلال الأيام التالية %@ ولن يتم شحنك.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "في كل مكان";
 "location region america" = "أمريكا";

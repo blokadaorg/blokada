@@ -44,7 +44,7 @@
 "universal action cancel" = "Zrušit";
 "universal action close" = "Zavřít";
 "universal action done" = "Hotovo";
-"universal action edit" = "Edit";
+"universal action edit" = "Upravit";
 "universal action try again" = "Zkusit znovu";
 "universal action learn more" = "Zjistit více";
 "universal action help" = "Nápověda";
@@ -352,7 +352,7 @@
 "payment action terms" = "Podmínky použití služby";
 "payment action policy" = "Zásady ochrany osobních údajů";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Použít kód nabídky";
 "payment alert error header" = "Zpráva z App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Ušetříte %@";
@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Předplatné je automaticky obnoveno před ukončením aktuálního fakturačního období. Kdykoli můžete zrušit v Nastavení.";
 "payment cancel footer trial short" = "Zrušit během následujících %@ dní a nebude ti nic účtováno.";
+"payment trial brief" = "Zaplatit po %@ dnech. Předplatné se automaticky obnovuje každý rok, dokud není zrušeno.";
 
 "location region worldwide" = "Všude";
 "location region america" = "Amerika";
@@ -488,7 +489,7 @@
 "activated label vpn no" = "Povolit VPN";
 
 "homepage vpn credit" = "'WireGuard' a logo 'WireGuard' jsou registrované ochranné známky Jasona A. Donenfelda.";
-"advanced section header packs" = "Blocklisty";
+"advanced section header packs" = "Seznamy blokovaných";
 "app settings section header" = "Toto zařízení";
 
 "lock status locked" = "Blokada je uzamčena. Zadejte PIN kód pro odemčení";
@@ -512,7 +513,7 @@
 "family rename device" = "Přejmenovat zařízení";
 "family label this device" = "Toto zařízení (%@)";
 "family onboard header" = "Vítejte v Blokada rodině!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Vítejte v %s!";
 "family onboard body" = "Postupujte podle pokynů na obrazovce a nastavte své první zařízení.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -526,15 +527,15 @@
 "family status ready body" = "Přidejte své první zařízení nyní";
 "family status perms header" = "Téměř hotovo!";
 "family status perms body" = "Udělte potřebná oprávnění";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Klepnutím dokončíte nastavení";
 "family status expired header" = "Platnost účtu vypršela";
 "family status expired body" = "Pro pokračování aktivujte svůj účet";
 "family status linked header" = "Aplikace je propojena!";
 "family status locked header" = "Aplikace je uzamčena";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Zamknout pomocí pinu";
+"family settings lock enter" = "Zadejte nový pin";
+"family settings lock remove" = "Odstranit pin";
 
 "family payment slug" = "Chraňte celou rodinu jedním předplatným. Monitorujte a chraňte všechna rodinná zařízení před nežádoucím obsahem.";
 "family payment features devices header" = "Sledování rodinných zařízení";
@@ -574,116 +575,116 @@
 "toplist tld unknown" = "neznámé";
 
 "family notification subtitle" = "Ochrana rodiny je vypnutá";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Toto zařízení je již propojeno. Zrušte jeho propojení pomocí nadřazené aplikace a zkuste to znovu.";
+"family profile dialog header" = "Vyberte profil, který chcete použít pro %@.";
+"family profile dialog header this" = "Vyberte profil, který chcete použít pro toto zařízení.";
+"family profile add" = "Který profil si přejete přidat?";
+"family profile template" = "Vyberte si šablonu a začněte.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Rodič";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "Rodič";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Dítě";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Dítě";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Vlastní";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Vlastní";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Přidat nový profil";
+"family profile action delete" = "Odstranit tento profil";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Tento profil je aktuálně používán. Před odstraněním se ujistěte, že jej žádné zařízení nepoužívá.";
+"family profile error" = "Tento profil se nepodařilo odstranit.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ Profil";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Vybrat profil";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "STATISTIKY";
+"family device brief statistics" = "Podívejte se na nedávnou aktivitu tohoto zařízení.";
+"family device label settings" = "NASTAVENÍ ZAŘÍZENÍ";
+"family device brief settings alt" = "Správa nastavení blokování pro toto zařízení.";
+"family device action link" = "Znovu propojit toto zařízení";
+"family device action delete" = "Odstranit toto zařízení";
+"family device delete confirm" = "Určitě chcete odstranit %@? Tím zrušíte propojení zařízení s vaším účtem.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Přidat zařízení";
+"family device header link" = "Propojit zařízení";
 
-"family perms header" = "One more thing";
+"family perms header" = "Ještě jedna věc";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Aktivujte „%@“ v Nastavení navigací, jak je uvedeno níže.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Obecné";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "Správa VPN a Zařízení";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automatický";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Připojení";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Další nastavení připojení";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "Soukromé DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Hostitelský název soukromého poskytovatele DNS";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(nebo podobné)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(není vždy přítomné)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
-
-// A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family perms copy android" = "Nakonec klepněte a podržte textové pole a vložte potřebnou konfiguraci.";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label reason" = "Důvod";
+
+// A label for which blocklist was used to block domain. Keep super short.
+"family stats label blocklist" = "Seznam blokovaných";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Profil";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Seznamy blokovaných";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Seznamy blokovaných v profilu";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ vybráno";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Pozastavit blokování";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Neznámé";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Žádné";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Zobrazit nejčastější jako první";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
+"family stats exceptions remove" = "Odstranit z mých výjimek";
+"family stats exceptions add" = "Přidat do mých výjimek";
 "family stats title" = "Moje výjimky";
 
 "family link description new" = "Naskenujte níže uvedený QR kód a přidejte zařízení do vaší rodiny. Tato obrazovka se automaticky zavře, jakmile je zařízení rozpoznáno.";

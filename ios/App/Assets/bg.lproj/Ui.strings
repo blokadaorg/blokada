@@ -352,7 +352,7 @@
 "payment action terms" = "Условия за ползване";
 "payment action policy" = "Декларация за поверителност";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Прилагане на кода от офертата";
 "payment alert error header" = "Съобщение от App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Спестявате %@";
@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Абонаментът се подновява автоматично преди края на текущия период на фактуриране. Можете да отмените абонамента по всяко време в Настройки.";
 "payment cancel footer trial short" = "Анулирайте услугата през следващите %@ дни и няма да бъдете таксувани.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "Навсякъде";
 "location region america" = "Америка";
@@ -637,20 +638,20 @@
 "family perms setting ios automatic" = "Автоматично";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Връзки";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Още настройки за връзката";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "Частен DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Име на хост на доставчик на частен DNS";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(или подобен)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(не винаги присъства)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "Накрая докоснете и задръжте върху текстовото поле, за да поставите необходимата конфигурация.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Причина";

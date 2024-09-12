@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.";
 "payment cancel footer trial short" = "Cancel during the next %@ days, and you won’t be charged.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "到處";
 "location region america" = "美洲";

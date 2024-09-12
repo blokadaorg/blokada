@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Możesz anulować w dowolnym momencie w Ustawieniach.";
 "payment cancel footer trial short" = "Anuluj subskrypcję w ciągu następnych %@ dni, aby nie zostać obciążonym opłatami.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "Wszędzie";
 "location region america" = "Ameryka";

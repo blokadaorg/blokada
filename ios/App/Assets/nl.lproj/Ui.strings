@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Het abonnement wordt automatisch verlengd voordat de huidige factureringsperiode eindigt. U kunt op elk gewenst moment annuleren in Instellingen.";
 "payment cancel footer trial short" = "Annuleren tijdens de komende %@ dagen, en er worden geen kosten in rekening gebracht.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "Overal";
 "location region america" = "Amerika";

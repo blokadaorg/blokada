@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "L'abonnement est automatiquement renouvelé avant la fin de la période de facturation en cours. Vous pouvez annuler à tout moment dans les paramètres.";
 "payment cancel footer trial short" = "Annulez dans les %@ prochains jours, et vous ne serez pas facturé.";
+"payment trial brief" = "Payez après %@ jours. L'abonnement est renouvelé automatiquement tous les ans jusqu'à annulation.";
 
 "location region worldwide" = "Partout";
 "location region america" = "Amérique";
@@ -637,20 +638,20 @@
 "family perms setting ios automatic" = "Automatique";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Connexions";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Plus de paramètres de connexion";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "DNS privé";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Nom d'hôte du fournisseur DNS privé";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(ou similaire)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(pas toujours présent)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "Enfin, appuyez et maintenez le champ de texte pour coller la configuration nécessaire.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Motif";

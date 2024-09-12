@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Langganan diperbarui secara otomatis sebelum masa langganan saat ini berakhir. Anda bisa membatalkannya kapan saja di Pengaturan.";
 "payment cancel footer trial short" = "Jika Anda membatalkan dalam jangka waktu %@, Anda tidak akan dikenai biaya.";
+"payment trial brief" = "Bayar setelah %@ hari. Langganan diperbarui otomatis setiap tahun sampai dibatalkan.";
 
 "location region worldwide" = "Di mana saja";
 "location region america" = "Amerika";
@@ -637,20 +638,20 @@
 "family perms setting ios automatic" = "Otomatis";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Koneksi";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Pengaturan koneksi lebih lanjut";
 // A section name in system preferences
 "family perms setting android dns" = "Private DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Nama host penyedia Private DNS";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(atau serupa)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(tidak selalu tersedia)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "Terakhir, ketuk dan tahan bidang teks untuk melekatkan konfigurasi yang dibutuhkan.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Alasan";

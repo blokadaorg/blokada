@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Tilaus uudistetaan automaattisesti ennen kuin nykyinen laskutusaika päättyy. Voit peruuttaa milloin tahansa Asetuksissa.";
 "payment cancel footer trial short" = "Peruuta seuraavien %@ päivän aikana ja sinua ei veloiteta.";
+"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
 
 "location region worldwide" = "Kaikkialla";
 "location region america" = "Amerikka";

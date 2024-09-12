@@ -408,6 +408,7 @@
 
 "payment cancel footer" = "Подписка автоматически продлевается до окончания текущего расчетного периода. Отменить подписку можно в любое время в Настройках.";
 "payment cancel footer trial short" = "Откажитесь в течение следующих %@ дней, и плата с вас взиматься не будет.";
+"payment trial brief" = "Оплатить через %@ дней. Подписка автоматически продлевается каждый год, пока не будет отменена.";
 
 "location region worldwide" = "Везде";
 "location region america" = "Америка";
@@ -637,20 +638,20 @@
 "family perms setting ios automatic" = "Автоматически";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Подключения";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Больше настроек подключения";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "Приватный DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Название хоста приватного DNS";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(или аналогичное)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(не всегда)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "Наконец, нажмите и удерживайте текстовое поле, чтобы вставить необходимые настройки.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Причина";
