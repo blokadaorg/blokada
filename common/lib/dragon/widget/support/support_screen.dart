@@ -1,14 +1,12 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_clickable.dart';
-import 'package:common/common/widget/theme.dart';
 import 'package:common/custom/custom.dart';
-import 'package:common/dragon/widget/dialog.dart';
+import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/support/support_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class SupportScreen extends StatefulWidget {
   const SupportScreen({Key? key}) : super(key: key);
@@ -19,6 +17,7 @@ class SupportScreen extends StatefulWidget {
 
 class SupportScreenState extends State<SupportScreen> with TraceOrigin {
   late final _custom = dep<CustomStore>();
+  late final _support = dep<SupportController>();
 
   Paths _path = Paths.support;
   Object? _arguments;
@@ -45,7 +44,7 @@ class SupportScreenState extends State<SupportScreen> with TraceOrigin {
 
   Widget _buildForPhone(BuildContext context) {
     return WithTopBar(
-      title: "universal label help".i18n,
+      title: "Chat with us",
       child: const SupportSection(),
       topBarTrailing: _getAction(context),
     );
@@ -53,7 +52,7 @@ class SupportScreenState extends State<SupportScreen> with TraceOrigin {
 
   Widget _buildForTablet(BuildContext context) {
     return WithTopBar(
-      title: "universal label help".i18n,
+      title: "Chat with us",
       topBarTrailing: _getAction(context),
       maxWidth: maxContentWidthTablet,
       child: Row(
@@ -89,11 +88,10 @@ class SupportScreenState extends State<SupportScreen> with TraceOrigin {
           // traceAs("sendLog", (trace) async {
           //   await _command.onCommand("log");
           // });
-          showSupportDialog(context);
+          //showSupportDialog(context);
+          Navigator.of(context).pop();
+          _support.resetSession();
         },
-        child: Icon(
-          CupertinoIcons.ellipsis_circle,
-          color: context.theme.accent,
-        ));
+        child: Text("End chat", style: TextStyle(color: Colors.red)));
   }
 }

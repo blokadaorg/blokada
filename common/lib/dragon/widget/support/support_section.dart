@@ -20,7 +20,11 @@ class SupportSectionState extends State<SupportSection> {
   final List<types.Message> _messages = [];
 
   final _me = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
-  final _notMe = const types.User(id: 'f590b0b3-3b6b-4b7b-8b3b-3b6b4b7b8b3b');
+  final _notMe = const types.User(
+    id: 'f590b0b3-3b6b-4b7b-8b3b-3b6b4b7b8b3b',
+    firstName: "Blocka Bot",
+    //imageUrl: "assets/images/appicon.png",
+  );
 
   @override
   void initState() {
@@ -48,7 +52,12 @@ class SupportSectionState extends State<SupportSection> {
         onSendPressed: _handleSendPressed,
         user: _me,
         theme: context.theme.chatTheme,
-        emptyState: Text("Ask about anything you want to know!"),
+        showUserAvatars: true,
+        showUserNames: true,
+        inputOptions: InputOptions(
+          sendButtonVisibilityMode: SendButtonVisibilityMode.always,
+        ),
+        emptyState: Center(child: Text("Ask about anything you want to know!")),
       ),
     );
   }

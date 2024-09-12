@@ -123,6 +123,27 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
             ),
           ),
           const SizedBox(height: 40),
+          SectionLabel(text: "universal action help".i18n.capitalize()),
+          CommonCard(
+            child: Column(
+              children: [
+                SettingsItem(
+                    icon: CupertinoIcons.chat_bubble_text,
+                    text: "Chat with us",
+                    onTap: () => Navigation.open(context, Paths.support)),
+                const CommonDivider(),
+                SettingsItem(
+                    icon: CupertinoIcons.person_3,
+                    text: "universal action community".i18n,
+                    onTap: () {
+                      traceAs("settingsOpenCommunity", (trace) async {
+                        await _stage.openLink(trace, LinkId.knowledgeBase);
+                      });
+                    }),
+              ],
+            ),
+          ),
+          const SizedBox(height: 40),
           SectionLabel(text: "account section header other".i18n.capitalize()),
           CommonCard(
             child: Column(
@@ -133,13 +154,9 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                     onTap: () => _showRestoreDialog(context)),
                 const CommonDivider(),
                 SettingsItem(
-                    icon: CupertinoIcons.question_circle,
-                    text: "universal action support".i18n,
-                    onTap: () {
-                      traceAs("settingsOpenSupport", (trace) async {
-                        await _stage.openLink(trace, LinkId.support);
-                      });
-                    }),
+                    icon: CupertinoIcons.doc_text,
+                    text: "universal action share log".i18n,
+                    onTap: () => _showRestoreDialog(context)),
                 const CommonDivider(),
                 SettingsItem(
                     icon: CupertinoIcons.person_2,

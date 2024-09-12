@@ -46,14 +46,14 @@ class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
 
   Widget _buildForPhone(BuildContext context) {
     return WithTopBar(
-      title: "main tab settings".i18n,
+      title: "account action my account".i18n,
       child: const SettingsSection(),
     );
   }
 
   Widget _buildForTablet(BuildContext context) {
     return WithTopBar(
-      title: "main tab settings".i18n,
+      title: "account action my account".i18n,
       //topBarTrailing: _getAction(context),
       maxWidth: maxContentWidthTablet,
       child: Row(

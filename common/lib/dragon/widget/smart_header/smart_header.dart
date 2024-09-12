@@ -92,28 +92,29 @@ class SmartHeaderState extends State<SmartHeader>
       //       });
       //     }));
       list.add(SmartHeaderButton(
-          icon: CupertinoIcons.settings,
+          icon: CupertinoIcons.person_solid,
           onTap: () {
             Navigation.open(context, Paths.settings);
           }));
       list.add(const SizedBox(width: 4));
     }
 
-    list.add(SmartHeaderButton(
-        unread: _unread.now,
-        icon: CupertinoIcons.question_circle,
-        onTap: () {
-          Navigation.open(context, Paths.support);
-          // traceAs("tappedHelp", (trace) async {
-          //   _stage.showModal(trace, StageModal.help);
-          // });
-          // showCupertinoModalBottomSheet(
-          //   context: context,
-          //   duration: const Duration(milliseconds: 300),
-          //   backgroundColor: context.theme.bgColorCard,
-          //   builder: (context) => PaymentSheet(),
-          // );
-        }));
+    // list.add(SmartHeaderButton(
+    //     unread: _unread.now,
+    //     icon: CupertinoIcons.question_circle,
+    //     onTap: () {
+    //       Navigation.open(context, Paths.support);
+    //       // traceAs("tappedHelp", (trace) async {
+    //       //   _stage.showModal(trace, StageModal.help);
+    //       // });
+    //       // showCupertinoModalBottomSheet(
+    //       //   context: context,
+    //       //   duration: const Duration(milliseconds: 300),
+    //       //   backgroundColor: context.theme.bgColorCard,
+    //       //   builder: (context) => PaymentSheet(),
+    //       // );
+    //
+    //     }));
 
     return list;
   }
