@@ -104,6 +104,7 @@ class BlokadaApp extends StatelessWidget {
                 inputTextCursorColor: accentColor,
                 inputBorderRadius: BorderRadius.circular(10),
                 primaryColor: accentColor,
+                secondaryColor: Colors.white,
               ),
             )
           }),
@@ -140,6 +141,7 @@ class BlokadaApp extends StatelessWidget {
                 inputTextCursorColor: accentColor,
                 inputBorderRadius: BorderRadius.circular(10),
                 primaryColor: accentColor,
+                secondaryColor: Color(0xFF1C1C1E),
               ),
             )
           }),
