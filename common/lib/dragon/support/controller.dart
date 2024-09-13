@@ -71,6 +71,7 @@ class SupportController with TraceOrigin {
         final msg =
             await _api.sendMessage(_currentSession.now!, language, message);
         _addMessage(msg);
+        print("Api message: '${msg.message}'");
       }
     } catch (e) {
       print("Error sending chat message");
