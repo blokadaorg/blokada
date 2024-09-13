@@ -19,15 +19,15 @@ class SupportApi {
 
   Future<JsonSupportMessage> sendMessage(
       String sessionId, String language, String message) async {
-    final payload = JsonSupportPayload(
+    final payload = _marshal.fromPayload(JsonSupportPayload(
       sessionId: sessionId,
       language: language,
       message: message,
-    );
+    ));
     print("sendmsg: $payload");
 
-    final result = await _api.request(ApiEndpoint.postSupport,
-        payload: _marshal.fromPayload(payload));
+    final result =
+        await _api.request(ApiEndpoint.postSupport, payload: payload);
     print("sendmsg: $result");
     return _marshal.toMessage(result);
   }
