@@ -25,4 +25,42 @@
     <uses-permission
         android:name="android.permission.REQUEST_INSTALL_PACKAGES"
         tools:node="remove"/>
+
+    <application>
+        <activity
+            android:name="ui.CommandActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Blokada.Translucent"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cmd"
+                    android:scheme="blocka" />
+                <data
+                    android:host="cmd.blocka.net"
+                    android:scheme="http" />
+            </intent-filter>
+
+            <!-- Handle Family link -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="go.blokada.org"
+                    android:pathPrefix="/family/link_device"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>

@@ -21,15 +21,29 @@
         android:name="android.permission.REQUEST_INSTALL_PACKAGES"
         tools:node="remove"/>
 
-    <application
-        android:name="ui.MainApplication"
-        android:allowBackup="true"
-        android:backupAgent="service.BackupAgent"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Blokada.Default">
+    <application>
+        <activity
+            android:name="ui.CommandActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Blokada.Translucent"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="cmd"
+                    android:scheme="blocka" />
+                <data
+                    android:host="cmd.blocka.net"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.wireguard.android.backend.GoBackend$VpnService"
