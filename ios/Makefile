@@ -29,5 +29,11 @@ devsc:
 	cd six-common && flutter clean && cd ../ ; \
 	cd six-common && ./build.for.ios.sh --onlydebug && cd ../ ; \
 
+devsc2:
+	@echo "Fetch latest six-common (force)"; \
+	cd six-common && git reset --hard && git pull --rebase && cd ../ ; \
+	cd six-common && flutter clean && cd ../ ; \
+	cd six-common && ./build.for.ios.sh --onlydebug && cd ../ ; \
+
 family:
 	@xcodebuild build -project IOS.xcodeproj -scheme "FamilyProd" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \
