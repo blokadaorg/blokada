@@ -23,6 +23,7 @@ class Http {
     await _prepare(payload, p, h);
     try {
       print("Api call: ${payload.endpoint} ${payload.url}");
+      print("Api call payload: ${payload.payload}");
       return _call(payload, payload.retries);
     } on HttpCodeException catch (e) {
       throw Exception("Api ${payload.endpoint} returned ${e.code}: $e");
