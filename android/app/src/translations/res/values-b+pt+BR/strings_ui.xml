@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(plano atual)</string>
     <string name="payment_cancel_footer">A assinatura é renovada automaticamente antes do término do período de faturamento atual. Você pode cancelar a qualquer momento nas Configurações.</string>
     <string name="payment_cancel_footer_trial_short">Cancele durante os próximos %s dias, e você não será cobrado.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">Todos os lugares</string>
     <string name="location_region_america">América</string>
     <string name="location_region_europe">Europa</string>

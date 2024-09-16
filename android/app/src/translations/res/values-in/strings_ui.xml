@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(paket saat ini)</string>
     <string name="payment_cancel_footer">Langganan diperbarui secara otomatis sebelum masa langganan saat ini berakhir. Anda bisa membatalkannya kapan saja di Pengaturan.</string>
     <string name="payment_cancel_footer_trial_short">Jika Anda membatalkan dalam jangka waktu %s, Anda tidak akan dikenai biaya.</string>
+    <string name="payment_trial_brief">Bayar setelah %s hari. Langganan diperbarui otomatis setiap tahun sampai dibatalkan.</string>
     <string name="location_region_worldwide">Di mana saja</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Eropa</string>
@@ -482,13 +483,13 @@
     <string name="family_perms_setting_ios_vpn">VPN &amp; Manajemen Perangkat</string>
     <string name="family_perms_setting_ios_dns">DNS</string>
     <string name="family_perms_setting_ios_automatic">Otomatis</string>
-    <string name="family_perms_setting_android_connections">Connections</string>
-    <string name="family_perms_setting_android_more">More connection settings</string>
+    <string name="family_perms_setting_android_connections">Koneksi</string>
+    <string name="family_perms_setting_android_more">Pengaturan koneksi lebih lanjut</string>
     <string name="family_perms_setting_android_dns">Private DNS</string>
-    <string name="family_perms_setting_android_host">Private DNS provider hostname</string>
-    <string name="family_perms_setting_android_similar">(or similar)</string>
-    <string name="family_perms_setting_android_optional">(not always present)</string>
-    <string name="family_perms_copy_android">Finally, tap and hold the text field to paste the necessary configuration.</string>
+    <string name="family_perms_setting_android_host">Nama host penyedia Private DNS</string>
+    <string name="family_perms_setting_android_similar">(atau serupa)</string>
+    <string name="family_perms_setting_android_optional">(tidak selalu tersedia)</string>
+    <string name="family_perms_copy_android">Terakhir, ketuk dan tahan bidang teks untuk melekatkan konfigurasi yang dibutuhkan.</string>
     <string name="family_stats_label_reason">Alasan</string>
     <string name="family_stats_label_blocklist">Blocklist</string>
     <string name="family_stats_label_profile">Profil</string>

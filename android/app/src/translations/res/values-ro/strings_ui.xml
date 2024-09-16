@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(planul actual)</string>
     <string name="payment_cancel_footer">Abonamentul este reînnoit automat înainte de expirarea perioadei de facturare curente. Puteți anula oricând în Setări.</string>
     <string name="payment_cancel_footer_trial_short">Anulează în următoarele %s zile și nu vei fi taxat.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">Everywhere</string>
     <string name="location_region_america">America</string>
     <string name="location_region_europe">Europa</string>

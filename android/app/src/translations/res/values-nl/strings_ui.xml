@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(huidig abonnement)</string>
     <string name="payment_cancel_footer">Het abonnement wordt automatisch verlengd voordat de huidige factureringsperiode eindigt. U kunt op elk gewenst moment annuleren in Instellingen.</string>
     <string name="payment_cancel_footer_trial_short">Annuleren tijdens de komende %s dagen, en er worden geen kosten in rekening gebracht.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">Overal</string>
     <string name="location_region_america">Amerika</string>
     <string name="location_region_europe">Europa</string>

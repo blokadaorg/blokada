@@ -282,7 +282,7 @@
     <string name="payment_action_terms_and_privacy">Условия &amp; Поверителност</string>
     <string name="payment_action_terms">Условия за ползване</string>
     <string name="payment_action_policy">Декларация за поверителност</string>
-    <string name="payment_action_offer">Apply Offer Code</string>
+    <string name="payment_action_offer">Прилагане на кода от офертата</string>
     <string name="payment_alert_error_header">Съобщение от App Store</string>
     <string name="payment_save_text">Спестявате %s</string>
     <string name="payment_conversion_note">Приемаме Евро, а показаните цени са приблизителни. Възможно е възстановяване на средства, ако банката ви начисли твърде висока такса.</string>
@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(текущ план)</string>
     <string name="payment_cancel_footer">Абонаментът се подновява автоматично преди края на текущия период на фактуриране. Можете да отмените абонамента по всяко време в Настройки.</string>
     <string name="payment_cancel_footer_trial_short">Анулирайте услугата през следващите %s дни и няма да бъдете таксувани.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">Навсякъде</string>
     <string name="location_region_america">Америка</string>
     <string name="location_region_europe">Европа</string>
@@ -482,13 +483,13 @@
     <string name="family_perms_setting_ios_vpn">VPN &amp; Управление на устройства</string>
     <string name="family_perms_setting_ios_dns">DNS</string>
     <string name="family_perms_setting_ios_automatic">Автоматично</string>
-    <string name="family_perms_setting_android_connections">Connections</string>
-    <string name="family_perms_setting_android_more">More connection settings</string>
-    <string name="family_perms_setting_android_dns">Private DNS</string>
-    <string name="family_perms_setting_android_host">Private DNS provider hostname</string>
-    <string name="family_perms_setting_android_similar">(or similar)</string>
-    <string name="family_perms_setting_android_optional">(not always present)</string>
-    <string name="family_perms_copy_android">Finally, tap and hold the text field to paste the necessary configuration.</string>
+    <string name="family_perms_setting_android_connections">Връзки</string>
+    <string name="family_perms_setting_android_more">Още настройки за връзката</string>
+    <string name="family_perms_setting_android_dns">Частен DNS</string>
+    <string name="family_perms_setting_android_host">Име на хост на доставчик на частен DNS</string>
+    <string name="family_perms_setting_android_similar">(или подобен)</string>
+    <string name="family_perms_setting_android_optional">(не винаги присъства)</string>
+    <string name="family_perms_copy_android">Накрая докоснете и задръжте върху текстовото поле, за да поставите необходимата конфигурация.</string>
     <string name="family_stats_label_reason">Причина</string>
     <string name="family_stats_label_blocklist">Блокиращ списък</string>
     <string name="family_stats_label_profile">Профил</string>

@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(nykyinen suunnitelma)</string>
     <string name="payment_cancel_footer">Tilaus uudistetaan automaattisesti ennen kuin nykyinen laskutusaika päättyy. Voit peruuttaa milloin tahansa Asetuksissa.</string>
     <string name="payment_cancel_footer_trial_short">Peruuta seuraavien %s päivän aikana ja sinua ei veloiteta.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">Kaikkialla</string>
     <string name="location_region_america">Amerikka</string>
     <string name="location_region_europe">Eurooppa</string>

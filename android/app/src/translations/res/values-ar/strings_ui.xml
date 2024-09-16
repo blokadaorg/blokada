@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(الخطّة الحاليّة)</string>
     <string name="payment_cancel_footer">يتم تجديد الاشتراك تلقائياً قبل انتهاء فترة الفاتورة الحالية. يمكنك الإلغاء في أي وقت من الإعدادات.</string>
     <string name="payment_cancel_footer_trial_short">إلغاء خلال الأيام التالية %s ولن يتم شحنك.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">في كل مكان</string>
     <string name="location_region_america">أمريكا</string>
     <string name="location_region_europe">أوروبا</string>

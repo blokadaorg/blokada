@@ -329,6 +329,7 @@
     <string name="payment_plan_current">（目前方案）</string>
     <string name="payment_cancel_footer">The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.</string>
     <string name="payment_cancel_footer_trial_short">Cancel during the next %s days, and you won’t be charged.</string>
+    <string name="payment_trial_brief">Pay after %s days. Subscription auto-renews every year until canceled.</string>
     <string name="location_region_worldwide">到處</string>
     <string name="location_region_america">美洲</string>
     <string name="location_region_europe">歐洲</string>

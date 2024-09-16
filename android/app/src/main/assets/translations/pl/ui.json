@@ -328,6 +328,7 @@
     "payment plan current": "(obecny plan)",
     "payment cancel footer": "Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Możesz anulować w dowolnym momencie w Ustawieniach.",
     "payment cancel footer trial short": "Anuluj subskrypcję w ciągu następnych %s dni, aby nie zostać obciążonym opłatami.",
+    "payment trial brief": "Zapłać po %s dniach. Subskrypcja odnawiana automatycznie każdego roku do czasu anulowania.",
     "location region worldwide": "Wszędzie",
     "location region america": "Ameryka",
     "location region europe": "Europa",

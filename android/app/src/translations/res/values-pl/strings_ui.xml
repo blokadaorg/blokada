@@ -329,6 +329,7 @@
     <string name="payment_plan_current">(obecny plan)</string>
     <string name="payment_cancel_footer">Subskrypcja jest automatycznie odnawiana przed zakończeniem bieżącego okresu rozliczeniowego. Możesz anulować w dowolnym momencie w Ustawieniach.</string>
     <string name="payment_cancel_footer_trial_short">Anuluj subskrypcję w ciągu następnych %s dni, aby nie zostać obciążonym opłatami.</string>
+    <string name="payment_trial_brief">Zapłać po %s dniach. Subskrypcja odnawiana automatycznie każdego roku do czasu anulowania.</string>
     <string name="location_region_worldwide">Wszędzie</string>
     <string name="location_region_america">Ameryka</string>
     <string name="location_region_europe">Europa</string>

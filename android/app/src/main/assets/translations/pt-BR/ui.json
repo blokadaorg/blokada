@@ -328,6 +328,7 @@
     "payment plan current": "(plano atual)",
     "payment cancel footer": "A assinatura é renovada automaticamente antes do término do período de faturamento atual. Você pode cancelar a qualquer momento nas Configurações.",
     "payment cancel footer trial short": "Cancele durante os próximos %s dias, e você não será cobrado.",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "Todos os lugares",
     "location region america": "América",
     "location region europe": "Europa",

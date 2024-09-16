@@ -328,6 +328,7 @@
     "payment plan current": "(planul actual)",
     "payment cancel footer": "Abonamentul este reînnoit automat înainte de expirarea perioadei de facturare curente. Puteți anula oricând în Setări.",
     "payment cancel footer trial short": "Anulează în următoarele %s zile și nu vei fi taxat.",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "Everywhere",
     "location region america": "America",
     "location region europe": "Europa",

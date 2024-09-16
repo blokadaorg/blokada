@@ -328,6 +328,7 @@
     "payment plan current": "(現在のプラン)",
     "payment cancel footer": "サブスクリプションは支払い済みの期間が終了する前に自動更新されます。いつでも設定からキャンセルできます。",
     "payment cancel footer trial short": "次の %s 日間はキャンセルします。課金されません。",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "ワールドワイド",
     "location region america": "アメリカ",
     "location region europe": "ヨーロッパ",
