@@ -24,7 +24,6 @@ class SupportApi {
       language: language,
       message: message,
     ));
-    print("sendmsg: $payload");
 
     final result =
         await _api.request(ApiEndpoint.postSupport, payload: payload);

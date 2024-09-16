@@ -42,6 +42,14 @@ class JsonSupportPayload {
       'message': message,
       'event': event?.constant,
     };
+
+    if (message == null) {
+      json.remove('message');
+    }
+    if (event == null) {
+      json.remove('event');
+    }
+
     return json;
   }
 }
