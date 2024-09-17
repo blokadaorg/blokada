@@ -53,6 +53,7 @@ dependencies:
   mockito: ^5.3.2
   i18n_extension_importer: ^0.0.6
   flutter_chat_ui: ^1.6.15
+  url_launcher: ^6.3.0
 
 dependency_overrides:
   syncfusion_flutter_charts:
