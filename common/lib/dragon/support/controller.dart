@@ -13,7 +13,7 @@ import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 
 const _keyExpireSession = "supportExpireSession";
-const _expireSessionTime = Duration(minutes: 2);
+const _expireSessionTime = Duration(minutes: 30);
 
 class SupportController with TraceOrigin {
   late final _api = dep<SupportApi>();
@@ -148,6 +148,7 @@ class SupportController with TraceOrigin {
       callback: () async {
         _currentSession.now = null;
         _chatHistory.now = null;
+        messages = [];
         onChange();
         return false; // No reschedule
       },
