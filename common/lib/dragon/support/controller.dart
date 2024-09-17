@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:common/command/command.dart';
 import 'package:common/common/model.dart';
+import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/support/api.dart';
 import 'package:common/dragon/support/chat_history.dart';
 import 'package:common/dragon/support/current_session.dart';
@@ -11,6 +12,9 @@ import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 
+const _keyExpireSession = "supportExpireSession";
+const _expireSessionTime = Duration(minutes: 2);
+
 class SupportController with TraceOrigin {
   late final _api = dep<SupportApi>();
   late final _command = dep<CommandStore>();
@@ -18,6 +22,7 @@ class SupportController with TraceOrigin {
   late final _currentSession = dep<CurrentSession>();
   late final _chatHistory = dep<ChatHistory>();
   late final _unread = dep<SupportUnread>();
+  late final _scheduler = dep<Scheduler>();
 
   String language = "en";
 
@@ -79,6 +84,7 @@ class SupportController with TraceOrigin {
       await sleepAsync(const Duration(milliseconds: 500));
       _addErrorMessage();
     }
+    _updateSessionExpiry();
   }
 
   notifyNewMessage(Trace parentTrace) async {
@@ -133,5 +139,18 @@ class SupportController with TraceOrigin {
         rethrow;
       }
     });
+  }
+
+  _updateSessionExpiry() {
+    _scheduler.addOrUpdate(Job(
+      _keyExpireSession,
+      before: DateTime.now().add(_expireSessionTime),
+      callback: () async {
+        _currentSession.now = null;
+        _chatHistory.now = null;
+        onChange();
+        return false; // No reschedule
+      },
+    ));
   }
 }
