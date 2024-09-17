@@ -13,6 +13,7 @@
 import Foundation
 import Flutter
 import Factory
+import FlutterPluginRegistrant
 
 extension FlutterError: Error {}
 
@@ -22,6 +23,7 @@ class Flutter {
 
     init() {
         flutterEngine.run()
+        GeneratedPluginRegistrant.register(with: flutterEngine)
         let flavor = Flavor()
         flavor.attach(messenger: flutterEngine.binaryMessenger)
         isFlavorFamily = flavor.getFlavor() == "family"

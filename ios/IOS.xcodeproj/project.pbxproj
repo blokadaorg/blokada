@@ -915,6 +915,42 @@
 		4E971F7D246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7B246ADB3300809EA6 /* SKPaymentTransaction+Extensions.swift */; };
 		4E971F7F246BCEA300809EA6 /* PaymentFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7E246BCEA300809EA6 /* PaymentFeaturesView.swift */; };
 		4E971F80246BCEA300809EA6 /* PaymentFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E971F7E246BCEA300809EA6 /* PaymentFeaturesView.swift */; };
+		4E9AB6F72C998ABB0028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB6F82C998ABB0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB6FA2C998AE40028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB6FB2C998AE40028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB6FD2C998B4E0028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */; };
+		4E9AB6FE2C998B4E0028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7022C998BFB0028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB7032C998BFB0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7042C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB7052C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7062C998BFB0028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; };
+		4E9AB7072C998BFB0028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7082C998C140028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; };
+		4E9AB7092C998C140028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB70A2C998C140028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB70B2C998C140028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB70C2C998C140028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB70D2C998C140028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB70E2C998C5F0028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; };
+		4E9AB70F2C998C5F0028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7102C998C5F0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB7112C998C5F0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7122C998C5F0028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB7132C998C5F0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7142C998C6F0028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; };
+		4E9AB7152C998C6F0028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7162C998C6F0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB7172C998C6F0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB7182C998C6F0028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB7192C998C6F0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB71A2C998C850028E0EB /* smart_auth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */; };
+		4E9AB71B2C998C850028E0EB /* smart_auth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB71C2C998C850028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */; };
+		4E9AB71D2C998C850028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9AB71E2C998C850028E0EB /* url_launcher_ios.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */; };
+		4E9AB71F2C998C850028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9EB99027B548420040F375 /* SettingsWideVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EB98F27B548420040F375 /* SettingsWideVerticalView.swift */; };
 		4E9EB99127B548420040F375 /* SettingsWideVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9EB98F27B548420040F375 /* SettingsWideVerticalView.swift */; };
 		4EA0292F2B34591D00B689B4 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0292E2B34591D00B689B4 /* SettingsHeaderView.swift */; };
@@ -1259,6 +1295,9 @@
 			files = (
 				4E1276C02AE7D0FC00A94994 /* Flutter.xcframework in Embed Frameworks */,
 				4E1276C12AE7D0FC00A94994 /* App.xcframework in Embed Frameworks */,
+				4E9AB70B2C998C140028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB7092C998C140028E0EB /* smart_auth.xcframework in Embed Frameworks */,
+				4E9AB70D2C998C140028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1289,7 +1328,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4E9AB6F82C998ABB0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 				4EBADD562C90915700C7A0A3 /* Flutter.xcframework in Embed Frameworks */,
+				4E9AB6FB2C998AE40028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB6FE2C998B4E0028E0EB /* smart_auth.xcframework in Embed Frameworks */,
 				4E270DEA2A80EB8300D3484B /* App.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1314,6 +1356,9 @@
 			files = (
 				4E8652122A3C96BE0060AFB1 /* Flutter.xcframework in Embed Frameworks */,
 				4E86520F2A3C96B70060AFB1 /* App.xcframework in Embed Frameworks */,
+				4E9AB7112C998C5F0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB70F2C998C5F0028E0EB /* smart_auth.xcframework in Embed Frameworks */,
+				4E9AB7132C998C5F0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1326,6 +1371,9 @@
 			files = (
 				4E8651042A3C96490060AFB1 /* Flutter.xcframework in Embed Frameworks */,
 				4E8651022A3C96480060AFB1 /* App.xcframework in Embed Frameworks */,
+				4E9AB71D2C998C850028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB71B2C998C850028E0EB /* smart_auth.xcframework in Embed Frameworks */,
+				4E9AB71F2C998C850028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1338,6 +1386,9 @@
 			files = (
 				4E946E4A2A2483EC0053943D /* Flutter.xcframework in Embed Frameworks */,
 				4E946E482A2483EC0053943D /* App.xcframework in Embed Frameworks */,
+				4E9AB7172C998C6F0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB7152C998C6F0028E0EB /* smart_auth.xcframework in Embed Frameworks */,
+				4E9AB7192C998C6F0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1348,7 +1399,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4E9AB7032C998BFB0028E0EB /* url_launcher_ios.xcframework in Embed Frameworks */,
 				4EBF3BEB2A80E55900F637BB /* Flutter.xcframework in Embed Frameworks */,
+				4E9AB7052C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework in Embed Frameworks */,
+				4E9AB7072C998BFB0028E0EB /* smart_auth.xcframework in Embed Frameworks */,
 				4EBF3BEC2A80E55900F637BB /* App.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1640,6 +1694,12 @@
 		4E99A3BA2514986C0054BF69 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E99A3BB2514986C0054BF69 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/PackTags.strings; sourceTree = "<group>"; };
 		4E99A3BC2514986C0054BF69 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Ui.strings; sourceTree = "<group>"; };
+		4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = url_launcher_ios.xcframework; path = "six-common/build/ios-framework/Release/url_launcher_ios.xcframework"; sourceTree = "<group>"; };
+		4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FlutterPluginRegistrant.xcframework; path = "six-common/build/ios-framework/Release/FlutterPluginRegistrant.xcframework"; sourceTree = "<group>"; };
+		4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = smart_auth.xcframework; path = "six-common/build/ios-framework/Release/smart_auth.xcframework"; sourceTree = "<group>"; };
+		4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = url_launcher_ios.xcframework; path = "six-common/build/ios-framework/Debug/url_launcher_ios.xcframework"; sourceTree = "<group>"; };
+		4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FlutterPluginRegistrant.xcframework; path = "six-common/build/ios-framework/Debug/FlutterPluginRegistrant.xcframework"; sourceTree = "<group>"; };
+		4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = smart_auth.xcframework; path = "six-common/build/ios-framework/Debug/smart_auth.xcframework"; sourceTree = "<group>"; };
 		4E9EB98F27B548420040F375 /* SettingsWideVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWideVerticalView.swift; sourceTree = "<group>"; };
 		4EA0292E2B34591D00B689B4 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		4EA029322B346FA400B689B4 /* Flavor.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Flavor.xcconfig; sourceTree = "<group>"; };
@@ -1716,10 +1776,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E8651032A3C96490060AFB1 /* Flutter.xcframework in Frameworks */,
+				4E9AB71E2C998C850028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */,
 				4E8651012A3C96480060AFB1 /* App.xcframework in Frameworks */,
 				4E270DF62A80F30400D3484B /* Factory in Frameworks */,
 				4E58C1372AC1B7D7002CA1A3 /* CodeScanner in Frameworks */,
+				4E9AB71A2C998C850028E0EB /* smart_auth.xcframework in Frameworks */,
+				4E9AB71C2C998C850028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1728,8 +1791,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E1276B52AE7D0FC00A94994 /* CodeScanner in Frameworks */,
+				4E9AB70C2C998C140028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4E1276B62AE7D0FC00A94994 /* Factory in Frameworks */,
 				4E1276B72AE7D0FC00A94994 /* Flutter.xcframework in Frameworks */,
+				4E9AB7082C998C140028E0EB /* smart_auth.xcframework in Frameworks */,
+				4E9AB70A2C998C140028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 				4E1276B82AE7D0FC00A94994 /* App.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1757,8 +1823,11 @@
 				4E270DDC2A80EB8300D3484B /* Flutter.xcframework in Frameworks */,
 				4E270DDD2A80EB8300D3484B /* NetworkExtension.framework in Frameworks */,
 				4E270DDE2A80EB8300D3484B /* Factory in Frameworks */,
+				4E9AB6F72C998ABB0028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4E270DDF2A80EB8300D3484B /* App.xcframework in Frameworks */,
+				4E9AB6FD2C998B4E0028E0EB /* smart_auth.xcframework in Frameworks */,
 				4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */,
+				4E9AB6FA2C998AE40028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1767,8 +1836,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E58C1392AC1B8FB002CA1A3 /* CodeScanner in Frameworks */,
+				4E9AB7182C998C6F0028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4E28ADDA2AB33169007445C8 /* Factory in Frameworks */,
 				4E946E492A2483EC0053943D /* Flutter.xcframework in Frameworks */,
+				4E9AB7142C998C6F0028E0EB /* smart_auth.xcframework in Frameworks */,
+				4E9AB7162C998C6F0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 				4E946E472A2483EC0053943D /* App.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1778,10 +1850,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E8652112A3C96BD0060AFB1 /* Flutter.xcframework in Frameworks */,
+				4E9AB7122C998C5F0028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4E8651FB2A3C968B0060AFB1 /* NetworkExtension.framework in Frameworks */,
 				4E86520E2A3C96B70060AFB1 /* App.xcframework in Frameworks */,
 				4E270DF82A80F31600D3484B /* Factory in Frameworks */,
 				4EEDBBA42B6117C9004AB456 /* CodeScanner in Frameworks */,
+				4E9AB70E2C998C5F0028E0EB /* smart_auth.xcframework in Frameworks */,
+				4E9AB7102C998C5F0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1792,8 +1867,11 @@
 				4EBF3BDE2A80E55900F637BB /* Flutter.xcframework in Frameworks */,
 				4EBF3BDF2A80E55900F637BB /* NetworkExtension.framework in Frameworks */,
 				4EBF3BE02A80E55900F637BB /* Factory in Frameworks */,
+				4E9AB7022C998BFB0028E0EB /* url_launcher_ios.xcframework in Frameworks */,
 				4EBF3BE12A80E55900F637BB /* App.xcframework in Frameworks */,
+				4E9AB7062C998BFB0028E0EB /* smart_auth.xcframework in Frameworks */,
 				4E58C13B2AC1B905002CA1A3 /* CodeScanner in Frameworks */,
+				4E9AB7042C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2375,6 +2453,12 @@
 		4ED3443D23E190910075B796 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E9AB6FC2C998B4E0028E0EB /* smart_auth.xcframework */,
+				4E9AB6F92C998AE40028E0EB /* FlutterPluginRegistrant.xcframework */,
+				4E9AB7002C998BFB0028E0EB /* FlutterPluginRegistrant.xcframework */,
+				4E9AB7012C998BFB0028E0EB /* smart_auth.xcframework */,
+				4E9AB6F62C998ABB0028E0EB /* url_launcher_ios.xcframework */,
+				4E9AB6FF2C998BFB0028E0EB /* url_launcher_ios.xcframework */,
 				4E92169D2966E72600E1C34D /* Flutter.xcframework */,
 				4E9216992966E71700E1C34D /* App.xcframework */,
 				4E946E452A2483EB0053943D /* App.xcframework */,
