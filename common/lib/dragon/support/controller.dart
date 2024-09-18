@@ -48,14 +48,20 @@ class SupportController with TraceOrigin {
     _unread.now = false;
   }
 
-  resetSession() async {
+  startSession() async {
+    clearSession();
     final id = _newSession();
     _currentSession.now = id;
-    messages = [];
-    _chatHistory.now = null;
     final hi = await _api.sendEvent(
         _currentSession.now!, language, SupportEvent.firstOpen);
     _addMessage(hi);
+  }
+
+  clearSession() async {
+    _currentSession.now = null;
+    _chatHistory.now = null;
+    messages = [];
+    onChange();
   }
 
   sendMessage(String? message) async {
@@ -69,7 +75,7 @@ class SupportController with TraceOrigin {
       if (message != null) _addMyMessage(message);
 
       if (_currentSession.now == null) {
-        await resetSession();
+        await startSession();
       }
 
       if (message != null) {
@@ -146,10 +152,7 @@ class SupportController with TraceOrigin {
       _keyExpireSession,
       before: DateTime.now().add(_expireSessionTime),
       callback: () async {
-        _currentSession.now = null;
-        _chatHistory.now = null;
-        messages = [];
-        onChange();
+        clearSession();
         return false; // No reschedule
       },
     ));

@@ -33,7 +33,7 @@ class SupportDialogState extends State<SupportDialog> with TraceOrigin {
           CupertinoIcons.chat_bubble_text,
           "New chat",
           onTap: () {
-            _support.resetSession();
+            _support.startSession();
           },
         ),
         _buildButton(

@@ -90,7 +90,7 @@ class SupportScreenState extends State<SupportScreen> with TraceOrigin {
           // });
           //showSupportDialog(context);
           Navigator.of(context).pop();
-          _support.resetSession();
+          _support.clearSession();
         },
         child: Text("End", style: TextStyle(color: Colors.red, fontSize: 17)));
   }
