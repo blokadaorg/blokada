@@ -1203,6 +1203,18 @@
 		4EEDBBB12B68EA59004AB456 /* FilterBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */; };
 		4EEDBBB22B68EA59004AB456 /* FilterBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */; };
 		4EEDBBB32B68EA59004AB456 /* FilterBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */; };
+		4EF35C952C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35C962C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35C972C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35C982C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35C992C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35C9A2C9D77DE00699022 /* UrlBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35C942C9D77DE00699022 /* UrlBinding.swift */; };
+		4EF35CA32C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
+		4EF35CA42C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
+		4EF35CA52C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
+		4EF35CA62C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
+		4EF35CA72C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
+		4EF35CA82C9D7BD800699022 /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF35CA22C9D7BD800699022 /* Url.swift */; };
 		4EF5E4792A39D1AE001D1FF7 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF5E4782A39D1AE001D1FF7 /* Env.swift */; };
 		4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7EDF4240E9E95001FA02E /* Resources.swift */; };
 		4EF8B6852C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */; };
@@ -1703,6 +1715,8 @@
 		4EEDBB992B610E5B004AB456 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4EEDBBA62B68EA3E004AB456 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = "six-common/libgen/ios/Filter.swift"; sourceTree = SOURCE_ROOT; };
 		4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBinding.swift; sourceTree = "<group>"; };
+		4EF35C942C9D77DE00699022 /* UrlBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBinding.swift; sourceTree = "<group>"; };
+		4EF35CA22C9D7BD800699022 /* Url.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Url.swift; path = "six-common/libgen/static/Url.swift"; sourceTree = SOURCE_ROOT; };
 		4EF5E4782A39D1AE001D1FF7 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		4EF8B6842C22D0E800744CA4 /* OfferCodes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OfferCodes+Extensions.swift"; sourceTree = "<group>"; };
@@ -2335,6 +2349,7 @@
 				4EEC49582A4E1435001EF934 /* StatsBinding.swift */,
 				4EEC49602A50205D001EF934 /* RateBinding.swift */,
 				4EA37D652B2C67AD00E4EC97 /* LinkBinding.swift */,
+				4EF35C942C9D77DE00699022 /* UrlBinding.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -2418,6 +2433,7 @@
 		4EFFBCA429E6984500CEF37A /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				4EF35CA22C9D7BD800699022 /* Url.swift */,
 				4EEDBBA62B68EA3E004AB456 /* Filter.swift */,
 				4EA37D6C2B2C680200E4EC97 /* Link.swift */,
 				4EEC49682A543AEE001EF934 /* Command.swift */,
@@ -2905,6 +2921,7 @@
 				4E971F6B246935D100809EA6 /* WebView.swift in Sources */,
 				4E1275EE2AE7CF0D00A94994 /* FlavorResources.swift in Sources */,
 				4E78E35D245EC4ED0017B234 /* PackConfigItemView.swift in Sources */,
+				4EF35C952C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E59B8D229EEDBEF005ECD5F /* NotificationBinding.swift in Sources */,
 				4E946E692A29CE3A0053943D /* VpnBinding.swift in Sources */,
 				4E23CFFB293E1F9700613D0A /* TunnelStatus.swift in Sources */,
@@ -2940,6 +2957,7 @@
 				4E673D2829E6ACFA00A8A60D /* StageBinding.swift in Sources */,
 				4EA189BF27B5018D00E57470 /* SettingsItemView.swift in Sources */,
 				4E946E552A29CD170053943D /* PlusGateway.swift in Sources */,
+				4EF35CA32C9D7BD800699022 /* Url.swift in Sources */,
 				4E673D2429E6AC2200A8A60D /* Flutter.swift in Sources */,
 				4E53CCC9244E39F5009B3CF0 /* PaymentListView.swift in Sources */,
 				4E42354B244F9198005A0779 /* LeaseViewModel.swift in Sources */,
@@ -3127,6 +3145,7 @@
 				4E1276602AE7D0FC00A94994 /* CustomVM.swift in Sources */,
 				4EEDBBAC2B68EA3E004AB456 /* Filter.swift in Sources */,
 				4E1276622AE7D0FC00A94994 /* ContentViewModel.swift in Sources */,
+				4EF35C9A2C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E1276632AE7D0FC00A94994 /* SettingsItemView.swift in Sources */,
 				4E1276642AE7D0FC00A94994 /* TabVerticalView.swift in Sources */,
 				4E1276662AE7D0FC00A94994 /* DialogService.swift in Sources */,
@@ -3194,6 +3213,7 @@
 				4E1276AC2AE7D0FC00A94994 /* PackDataSource.swift in Sources */,
 				4E1276AD2AE7D0FC00A94994 /* Swift+Extensions.swift in Sources */,
 				4E1276AE2AE7D0FC00A94994 /* PacksFilterBarView.swift in Sources */,
+				4EF35CA82C9D7BD800699022 /* Url.swift in Sources */,
 				4E1276AF2AE7D0FC00A94994 /* LinkRepo.swift in Sources */,
 				4E1276B02AE7D0FC00A94994 /* AccountBinding.swift in Sources */,
 				4E1276B12AE7D0FC00A94994 /* MainView.swift in Sources */,
@@ -3267,6 +3287,7 @@
 				4E270D1E2A80EB8300D3484B /* FileManager+Extensions.swift in Sources */,
 				4E270D1F2A80EB8300D3484B /* PacksViewModel.swift in Sources */,
 				4E270D202A80EB8300D3484B /* BlokadaText.swift in Sources */,
+				4EF35C982C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E270D252A80EB8300D3484B /* PlusVpn.swift in Sources */,
 				4E270D262A80EB8300D3484B /* OptionView.swift in Sources */,
 				4E92C7022C05CC1800A33170 /* Services.swift in Sources */,
@@ -3367,6 +3388,7 @@
 				4E270DA62A80EB8300D3484B /* TopBarBlurView.swift in Sources */,
 				4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */,
 				4E270DA82A80EB8300D3484B /* Command.swift in Sources */,
+				4EF35CA62C9D7BD800699022 /* Url.swift in Sources */,
 				4E270DA92A80EB8300D3484B /* TracerBinding.swift in Sources */,
 				4E270DAA2A80EB8300D3484B /* App.swift in Sources */,
 				4E270DAB2A80EB8300D3484B /* PackView.swift in Sources */,
@@ -3535,6 +3557,7 @@
 				4E7FE9AA244DC28900851E9F /* StoreKitWrapper.swift in Sources */,
 				4E423549244F9169005A0779 /* LeaseListViewModel.swift in Sources */,
 				4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */,
+				4EF35CA52C9D7BD800699022 /* Url.swift in Sources */,
 				4E673D0D29E6999D00A8A60D /* Notification.swift in Sources */,
 				4E673D1529E6999D00A8A60D /* Account.swift in Sources */,
 				4E90BA3D27BBB6810051FD0C /* JournalListV.swift in Sources */,
@@ -3555,6 +3578,7 @@
 				4E2F2A162760BE6F005A59F5 /* NavModel.swift in Sources */,
 				4EBDD3512A0A6B550039C101 /* HomeViewModel.swift in Sources */,
 				4EB355592A45BF090096FD66 /* KeypairBindingMock.swift in Sources */,
+				4EF35C972C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E2ECCEE245AE4DE009040F1 /* PackView.swift in Sources */,
 				4E2F2A0A2760A902005A59F5 /* DeviceBinding.swift in Sources */,
 				4E42353B244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
@@ -3705,6 +3729,7 @@
 				4E8651702A3C968B0060AFB1 /* WebView.swift in Sources */,
 				4E1275EF2AE7CF0D00A94994 /* FlavorResources.swift in Sources */,
 				4E8651712A3C968B0060AFB1 /* PackConfigItemView.swift in Sources */,
+				4EF35C962C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E8651722A3C968B0060AFB1 /* NotificationBinding.swift in Sources */,
 				4E8651752A3C968B0060AFB1 /* VpnBinding.swift in Sources */,
 				4E8651762A3C968B0060AFB1 /* TunnelStatus.swift in Sources */,
@@ -3740,6 +3765,7 @@
 				4E8651912A3C968B0060AFB1 /* StageBinding.swift in Sources */,
 				4E8651932A3C968B0060AFB1 /* SettingsItemView.swift in Sources */,
 				4E8651962A3C968B0060AFB1 /* PlusGateway.swift in Sources */,
+				4EF35CA42C9D7BD800699022 /* Url.swift in Sources */,
 				4E8651972A3C968B0060AFB1 /* Flutter.swift in Sources */,
 				4E8651982A3C968B0060AFB1 /* PaymentListView.swift in Sources */,
 				4E8651992A3C968B0060AFB1 /* LeaseViewModel.swift in Sources */,
@@ -3963,6 +3989,7 @@
 				4EBF3BB52A80E55900F637BB /* InstalledMarkView.swift in Sources */,
 				4EBF3BB62A80E55900F637BB /* StatsBinding.swift in Sources */,
 				4EBF3BB82A80E55900F637BB /* PlusKeypair.swift in Sources */,
+				4EF35CA72C9D7BD800699022 /* Url.swift in Sources */,
 				4EBF3BB92A80E55900F637BB /* BlockaLogger.swift in Sources */,
 				4EBF3BBA2A80E55900F637BB /* SKProduct+Extensions.swift in Sources */,
 				4EBF3BBB2A80E55900F637BB /* LoggerSaver.swift in Sources */,
@@ -3985,6 +4012,7 @@
 				4EBF3BD62A80E55900F637BB /* HttpBinding.swift in Sources */,
 				4EBF3BD72A80E55900F637BB /* BlokadaPlusView.swift in Sources */,
 				4EBF3BD82A80E55900F637BB /* JournalBinding.swift in Sources */,
+				4EF35C992C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E92C70B2C05CF9700A33170 /* HomeViewModel.swift in Sources */,
 				4EBF3BD92A80E55900F637BB /* MainView.swift in Sources */,
 				4EBF3BDA2A80E55900F637BB /* RateBinding.swift in Sources */,

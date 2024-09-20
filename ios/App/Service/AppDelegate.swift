@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.stats) private var stats
     @Injected(\.rate) private var rate
     @Injected(\.link) private var link
+    @Injected(\.url) private var url
 
     private var deps = FlavorDeps()
 
