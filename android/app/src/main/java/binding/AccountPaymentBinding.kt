@@ -80,23 +80,22 @@ object AccountPaymentBinding: AccountPaymentOps {
         }
     }
 
-    override fun doPurchaseWithReceipt(productId: String, callback: (Result<String>) -> Unit) {
+    override fun doPurchaseWithReceipts(productId: String, callback: (Result<List<String>>) -> Unit) {
         scope.async {
             try {
                 val payload = billing.buyProduct(productId)
-                callback(Result.success(convertToReceipt(payload)))
+                callback(Result.success(listOf(convertToReceipt(payload))))
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
         }
     }
 
-    override fun doRestoreWithReceipt(callback: (Result<String>) -> Unit) {
+    override fun doRestoreWithReceipts(callback: (Result<List<String>>) -> Unit) {
         scope.async {
             try {
                 val payloads = billing.restorePurchase()
-                // TODO: use more than only the first payload?
-                callback(Result.success(convertToReceipt(payloads.first())))
+                callback(Result.success(payloads.map { convertToReceipt(it) }))
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
