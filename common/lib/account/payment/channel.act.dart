@@ -42,8 +42,8 @@ _actNormal(MockAccountPaymentOps ops) {
     ];
   });
 
-  when(() => ops.doPurchaseWithReceipt(any())).thenAnswer((_) async {
-    return "mocked-receipt";
+  when(() => ops.doPurchaseWithReceipts(any())).thenAnswer((_) async {
+    return ["mocked-receipt"];
   });
 
   when(() => ops.doRestoreWithReceipts()).thenAnswer((_) async {

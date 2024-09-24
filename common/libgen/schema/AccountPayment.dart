@@ -42,7 +42,7 @@ abstract class AccountPaymentOps {
   List<Product> doFetchProducts();
 
   @async
-  String doPurchaseWithReceipt(String productId);
+  List<String> doPurchaseWithReceipts(String productId);
 
   @async
   List<String> doRestoreWithReceipts();

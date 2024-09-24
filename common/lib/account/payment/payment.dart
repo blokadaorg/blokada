@@ -95,8 +95,9 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
           return;
         }
 
-        final receipt = await _ops.doPurchaseWithReceipt(id);
-        await _processReceipt(trace, receipt);
+        final receipts = await _ops.doPurchaseWithReceipts(id);
+        await _processReceipt(trace,
+            receipts.first!); // Only one receipt expected in purchase flow
         if (!act.isFamily()) await _stage.showModal(trace, StageModal.perms);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
