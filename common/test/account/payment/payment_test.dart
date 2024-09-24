@@ -133,7 +133,7 @@ void main() {
       await withTrace((trace) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        when(ops.doRestoreWithReceipt()).thenAnswer((_) async => "receipt");
+        when(ops.doRestoreWithReceipts()).thenAnswer((_) async => ["receipt"]);
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
@@ -150,7 +150,7 @@ void main() {
 
         await subject.restore(trace);
         expect(subject.status, PaymentStatus.ready);
-        verify(ops.doRestoreWithReceipt()).called(1);
+        verify(ops.doRestoreWithReceipts()).called(1);
         verify(json.postCheckout(any, "receipt", any)).called(1);
         verify(account.propose(any, any)).called(1);
       });

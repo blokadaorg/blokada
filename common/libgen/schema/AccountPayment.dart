@@ -45,7 +45,7 @@ abstract class AccountPaymentOps {
   String doPurchaseWithReceipt(String productId);
 
   @async
-  String doRestoreWithReceipt();
+  List<String> doRestoreWithReceipts();
 
   @async
   String doChangeProductWithReceipt(String productId);

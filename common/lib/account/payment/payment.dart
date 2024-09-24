@@ -169,8 +169,19 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
           return;
         }
 
-        final receipt = await _ops.doRestoreWithReceipt();
-        await _processReceipt(trace, receipt);
+        // Try each receipt until one is successful
+        final receipts = await _ops.doRestoreWithReceipts();
+        bool success = false;
+        for (final receipt in receipts) {
+          try {
+            await _processReceipt(trace, receipt!);
+            success = true;
+            break;
+          } catch (_) {}
+        }
+        if (!success) {
+          throw AccountInactiveAfterPurchase();
+        }
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
