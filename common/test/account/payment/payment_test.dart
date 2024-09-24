@@ -79,7 +79,8 @@ void main() {
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
+        when(ops.doPurchaseWithReceipts(any))
+            .thenAnswer((_) async => ["receipt"]);
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
@@ -95,7 +96,7 @@ void main() {
 
         await subject.purchase(trace, "id1");
         expect(subject.status, PaymentStatus.ready);
-        verify(ops.doPurchaseWithReceipt("id1")).called(1);
+        verify(ops.doPurchaseWithReceipts("id1")).called(1);
         verify(json.postCheckout(any, "receipt", any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
@@ -125,7 +126,7 @@ void main() {
         expect(subject.receipts.isEmpty, true);
         verify(json.postCheckout(any, "receipt2", any)).called(1);
         verify(account.propose(any, any)).called(1);
-        verifyNever(ops.doPurchaseWithReceipt(any));
+        verifyNever(ops.doPurchaseWithReceipts(any));
       });
     });
 
@@ -215,7 +216,7 @@ void main() {
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        when(ops.doPurchaseWithReceipt(any))
+        when(ops.doPurchaseWithReceipts(any))
             .thenThrow(Exception("Channel failing"));
         depend<AccountPaymentOps>(ops);
 
@@ -229,7 +230,7 @@ void main() {
 
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
-        verify(ops.doPurchaseWithReceipt("id1")).called(1);
+        verify(ops.doPurchaseWithReceipts("id1")).called(1);
         verifyNever(json.postCheckout(any, any, any));
         verifyNever(account.propose(any, any));
       });
@@ -241,7 +242,8 @@ void main() {
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
+        when(ops.doPurchaseWithReceipts(any))
+            .thenAnswer((_) async => ["receipt"]);
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
@@ -257,7 +259,7 @@ void main() {
 
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
-        verify(ops.doPurchaseWithReceipt("id1")).called(1);
+        verify(ops.doPurchaseWithReceipts("id1")).called(1);
         verify(json.postCheckout(any, "receipt", any)).called(1);
         verifyNever(account.propose(any, any));
       });
@@ -269,7 +271,8 @@ void main() {
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        when(ops.doPurchaseWithReceipt(any)).thenAnswer((_) async => "receipt");
+        when(ops.doPurchaseWithReceipts(any))
+            .thenAnswer((_) async => ["receipt"]);
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
@@ -285,7 +288,7 @@ void main() {
 
         await expectLater(subject.purchase(trace, "id1"), throwsException);
         expect(subject.status, PaymentStatus.ready);
-        verify(ops.doPurchaseWithReceipt("id1")).called(1);
+        verify(ops.doPurchaseWithReceipts("id1")).called(1);
         verify(json.postCheckout(any, "receipt", any)).called(1);
         verifyNever(account.propose(any, any));
       });
