@@ -17,17 +17,24 @@ import channel.accountpayment.PaymentStatus
 import channel.accountpayment.Product
 import channel.command.CommandName
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import model.PaymentPayload
 import model.ProductId
 import service.BillingService
 import service.FlutterService
+import utils.Logger
 
 object AccountPaymentBinding: AccountPaymentOps {
     val products = MutableStateFlow<List<Product>?>(null)
     val status = MutableStateFlow(PaymentStatus.UNKNOWN)
     val activeSub = MutableStateFlow<ProductId?>(null)
+
+    private val restored = mutableSetOf<String>()
 
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
@@ -64,6 +71,29 @@ object AccountPaymentBinding: AccountPaymentOps {
         command.execute(CommandName.CHANGEPRODUCT, productId)
     }
 
+    private var debounceJob: Job? = null
+
+    suspend fun verifyWaitingPurchases() {
+        debounceJob?.cancel()
+
+        debounceJob = GlobalScope.launch {
+            delay(3000)
+            if (this.isActive) {
+                try {
+                    billing.restorePurchase().forEach { payload ->
+                        if (payload.purchase_token !in restored) {
+                            restored.add(payload.purchase_token)
+                            command.execute(CommandName.RECEIPT, convertToReceipt(payload))
+                        }
+                    }
+                } catch (e: Exception) {
+                    Logger.v("Payment", "No waiting purchases found")
+                    // ignore
+                }
+            }
+        }
+    }
+
     override fun doArePaymentsAvailable(callback: (Result<Boolean>) -> Unit) {
         // TODO
         callback(Result.success(true))
@@ -95,6 +125,7 @@ object AccountPaymentBinding: AccountPaymentOps {
         scope.async {
             try {
                 val payloads = billing.restorePurchase()
+                payloads.map { restored.add(it.purchase_token) }
                 callback(Result.success(payloads.map { convertToReceipt(it) }))
             } catch (e: Exception) {
                 callback(Result.failure(e))

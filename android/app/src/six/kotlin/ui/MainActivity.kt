@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import binding.AccountBinding
+import binding.AccountPaymentBinding
 import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     private val stage by lazy { StageBinding }
     private val rate by lazy { RateBinding }
     private val account by lazy { AccountBinding }
+    private val payment by lazy { AccountPaymentBinding }
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
@@ -412,6 +414,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         Logger.w("MainActivity", "onResume: $this")
 //        tunnelVM.refreshStatus()
         blockaRepoVM.maybeRefreshRepo()
+
+        lifecycleScope.launch {
+            payment.verifyWaitingPurchases()
+        }
     }
 
     override fun onPause() {
