@@ -16,6 +16,7 @@ import Combine
 import StoreKit
 
 class AccountPaymentBinding: AccountPaymentOps {
+    
     var products = CurrentValueSubject<[Product], Never>([])
     var status = CurrentValueSubject<PaymentStatus, Never>(.unknown)
 
@@ -82,13 +83,13 @@ class AccountPaymentBinding: AccountPaymentOps {
         )
     }
 
-    func doPurchaseWithReceipt(productId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func doPurchaseWithReceipts(productId: String, completion: @escaping (Result<[String], Error>) -> Void) {
         self.storeKit.purchase(productId: productId, ok: { _ in
             self._getReceipt(completion: completion)
         }, fail: { err in completion(.failure(err))} )
     }
 
-    func doRestoreWithReceipt(completion: @escaping (Result<String, Error>) -> Void) {
+    func doRestoreWithReceipts(completion: @escaping (Result<[String], Error>) -> Void) {
         self.storeKit.restorePurchase(
             ok: { _ in self._getReceipt(completion: completion) },
             fail: { err in
@@ -120,11 +121,11 @@ class AccountPaymentBinding: AccountPaymentOps {
     // A purchase can be initiated in one of many ways (explicit buy action from user,
     // a pending transaction from StoreKit, a restore purchase action from user etc).
     // We need a receipt for it to be processed by the backend.
-    private func _getReceipt(completion: @escaping (Result<String, Error>) -> Void) {
+    private func _getReceipt(completion: @escaping (Result<[String], Error>) -> Void) {
         // First, get the receipt of the pending transaction.
         let receipt = self.storeKit.getReceipt()
         if let it = receipt {
-            return completion(.success(it))
+            return completion(.success([it]))
         }
 
         // Try refreshing receipt if unavailable - just StoreKit things
@@ -134,7 +135,7 @@ class AccountPaymentBinding: AccountPaymentOps {
                     return completion(.failure("receipt nil after refresh"))
                 }
 
-                return completion(.success(receipt))
+                return completion(.success([receipt]))
             },
             fail: { err in
                 return completion(.failure(err))
@@ -147,7 +148,7 @@ class AccountPaymentBinding: AccountPaymentOps {
             self._getReceipt(completion: { result in
                 switch (result) {
                 case .success(let it):
-                    self.commands.execute(.receipt, it)
+                    self.commands.execute(.receipt, it.first!) // on IOS we don't use multiple receipts
                     break
                 case .failure(let err):
                     print("onStoreKitOngoingTransation error: \(err)")
