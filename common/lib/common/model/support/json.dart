@@ -106,13 +106,13 @@ class JsonSupportResponse {
 }
 
 class JsonSupportHistoryItem {
-  late String? message;
+  late String? text;
   late String? event;
   late bool isAgent;
   late String timestamp;
 
   JsonSupportHistoryItem({
-    this.message,
+    this.text,
     this.event,
     required this.isAgent,
     required this.timestamp,
@@ -120,7 +120,7 @@ class JsonSupportHistoryItem {
 
   JsonSupportHistoryItem.fromJson(Map<String, dynamic> json) {
     try {
-      message = (json['content'] as Map<String, dynamic>?)?['message'];
+      text = (json['content'] as Map<String, dynamic>?)?['text'];
       event = (json['content'] as Map<String, dynamic>?)?['event'];
       isAgent = json['is_agent'];
       timestamp = json['timestamp'];

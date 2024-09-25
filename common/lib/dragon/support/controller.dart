@@ -9,6 +9,8 @@ import 'package:common/notification/notification.dart';
 import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
+import 'package:dartx/dartx.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 const _keyExpireSession = "supportExpireSession";
 
@@ -20,9 +22,9 @@ class SupportController with TraceOrigin {
   late final _chatHistory = dep<ChatHistory>();
   late final _unread = dep<SupportUnread>();
   late final _scheduler = dep<Scheduler>();
+  late String language = I18n.localeStr;
 
   late int _ttl;
-  String language = "en";
 
   List<SupportMessage> messages = [];
 
@@ -32,18 +34,54 @@ class SupportController with TraceOrigin {
     await _currentSession.fetch();
     await _unread.fetch();
 
-    // TODO: figure out language
-
-    await _chatHistory.fetch();
-    if (_chatHistory.now != null) {
-      messages = _chatHistory.now!.messages;
-      onChange();
+    if (_currentSession.now != null) {
+      try {
+        final session = await _api.getSession(_currentSession.now!);
+        _ttl = session.ttl;
+        if (_ttl < 0) throw Exception("Session expired");
+        await _loadChatHistory(session.history);
+      } catch (e) {
+        print("Error loading session: $e");
+        startSession();
+      }
     } else {
-      _currentSession.now = null;
-      sendMessage(null);
+      startSession();
     }
 
     _unread.now = false;
+  }
+
+  _loadChatHistory(List<JsonSupportHistoryItem> history) async {
+    await _chatHistory.fetch();
+    messages = _chatHistory.now?.messages ?? [];
+
+    final apiHistory = history.filter((e) => e.text?.isBlank == false).map((e) {
+      return SupportMessage(e.text!, DateTime.parse(e.timestamp),
+          isMe: !e.isAgent);
+    }).toList();
+
+    // Put the api history with respect to timestamps, and avoid duplicates
+    for (final msg in apiHistory) {
+      if (messages.any((e) => e.when == msg.when)) {
+        continue;
+      }
+      messages.add(msg);
+    }
+    messages.sort((a, b) => a.when.compareTo(b.when));
+
+    // Drop two exact same messages in a row
+    // TODO: would be better with messages ids or something
+    for (var i = 0; i < messages.length - 1; i++) {
+      if (messages[i].text == messages[i + 1].text) {
+        messages.removeAt(i + 1);
+        i--;
+      }
+    }
+
+    // Update local cache
+    _chatHistory.now = SupportMessages(messages);
+
+    onChange();
   }
 
   startSession() async {
@@ -72,13 +110,12 @@ class SupportController with TraceOrigin {
     }
 
     try {
-      if (message != null) _addMyMessage(message);
-
       if (_currentSession.now == null) {
         await startSession();
       }
 
       if (message != null) {
+        _addMyMessage(message);
         final msg = await _api.sendMessage(_currentSession.now!, message);
         _handleResponse(msg);
       }
@@ -87,7 +124,7 @@ class SupportController with TraceOrigin {
         // Session bad or expired
         clearSession();
         if (!retry) {
-          await startSession();
+          print("Invalid session, Retrying...");
           await sendMessage(message, retry: true);
         } else {
           throw Exception("Retry failed: $e");
@@ -119,10 +156,10 @@ class SupportController with TraceOrigin {
 
   _handleResponse(JsonSupportResponse response) {
     for (final msg in response.messages) {
-      if (msg.message == null) continue; // TODO: support other types of msgs
+      if (msg.text == null) continue; // TODO: support other types of msgs
 
       final message = SupportMessage(
-        msg.message!,
+        msg.text!,
         DateTime.parse(msg.timestamp),
         isMe: !msg.isAgent,
       );
@@ -139,7 +176,7 @@ class SupportController with TraceOrigin {
 
   _addErrorMessage({String? error}) {
     final message = SupportMessage(
-      error ?? "Sorry did not understand, can you repeat?",
+      error ?? "Sorry did not understand, can you repeat?", // TODO: localize
       DateTime.now(),
       isMe: false,
     );
