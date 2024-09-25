@@ -54,8 +54,7 @@ enum ApiEndpoint {
       type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]),
   getSupport("https://support.blocka.net/v3/support",
       type: "GET", params: [ApiParam.sessionId]),
-  putSupport("https://support.blocka.net/v3/support",
-      type: "PUT", params: [ApiParam.sessionId]);
+  putSupport("https://support.blocka.net/v3/support", type: "PUT");
 
   const ApiEndpoint(
     this.endpoint, {
