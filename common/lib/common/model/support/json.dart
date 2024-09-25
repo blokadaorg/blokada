@@ -1,44 +1,77 @@
 part of '../../model.dart';
 
-class JsonSupportMessage {
-  late String message;
+class JsonSupportPayloadCreateSession {
+  late String? message;
+  late SupportEvent? event;
+  late String language;
 
-  JsonSupportMessage({
-    required this.message,
+  JsonSupportPayloadCreateSession({
+    this.message,
+    this.event,
+    required this.language,
   });
 
-  JsonSupportMessage.fromJson(Map<String, dynamic> json) {
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = {
+      'account_id': ApiParam.accountId.placeholder,
+      'user_agent': ApiParam.userAgent.placeholder,
+      'message': message,
+      'event': event?.constant,
+      'language': language,
+    };
+
+    if (message == null) {
+      json.remove('message');
+    }
+    if (event == null) {
+      json.remove('event');
+    }
+
+    return json;
+  }
+}
+
+class JsonSupportSession {
+  late String sessionId;
+  late List<JsonSupportHistoryItem> history;
+  late String created;
+  late int ttl;
+
+  JsonSupportSession({
+    required this.sessionId,
+    required this.history,
+    required this.created,
+    required this.ttl,
+  });
+
+  JsonSupportSession.fromJson(Map<String, dynamic> json) {
     try {
-      message = json['message'];
+      sessionId = json['session']['session_id'];
+      history = (json['session']['history'] as List)
+          .map((e) => JsonSupportHistoryItem.fromJson(e))
+          .toList();
+      created = json['created'];
+      ttl = json['ttl'];
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }
   }
 }
 
-class JsonSupportPayload {
-  // late String userAgent;
-  // late String accountId;
+class JsonSupportPayloadMessage {
   late String sessionId;
-  late String language;
   late String? message;
   late SupportEvent? event;
 
-  JsonSupportPayload({
-    // required this.userAgent,
-    // required this.accountId,
+  JsonSupportPayloadMessage({
     required this.sessionId,
-    required this.language,
     this.message,
     this.event,
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = {
-      'user_agent': ApiParam.userAgent.placeholder,
-      'account_id': ApiParam.accountId.placeholder,
       'session_id': sessionId,
-      'language': language,
       'message': message,
       'event': event?.constant,
     };
@@ -54,12 +87,63 @@ class JsonSupportPayload {
   }
 }
 
+class JsonSupportResponse {
+  late List<JsonSupportHistoryItem> messages;
+
+  JsonSupportResponse({
+    required this.messages,
+  });
+
+  JsonSupportResponse.fromJson(Map<String, dynamic> json) {
+    try {
+      messages = (json['messages'] as List)
+          .map((e) => JsonSupportHistoryItem.fromJson(e))
+          .toList();
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+}
+
+class JsonSupportHistoryItem {
+  late String? message;
+  late String? event;
+  late bool isAgent;
+  late String timestamp;
+
+  JsonSupportHistoryItem({
+    this.message,
+    this.event,
+    required this.isAgent,
+    required this.timestamp,
+  });
+
+  JsonSupportHistoryItem.fromJson(Map<String, dynamic> json) {
+    try {
+      message = (json['content'] as Map<String, dynamic>?)?['message'];
+      event = (json['content'] as Map<String, dynamic>?)?['event'];
+      isAgent = json['is_agent'];
+      timestamp = json['timestamp'];
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+}
+
 class JsonSupportMarshal {
-  JsonSupportMessage toMessage(JsonString json) {
-    return JsonSupportMessage.fromJson(jsonDecode(json));
+  JsonSupportSession toSession(JsonString json) {
+    return JsonSupportSession.fromJson(jsonDecode(json));
   }
 
-  JsonString fromPayload(JsonSupportPayload message) {
+  JsonSupportResponse toResponse(JsonString json) {
+    return JsonSupportResponse.fromJson(jsonDecode(json));
+  }
+
+  JsonString fromMessage(JsonSupportPayloadMessage message) {
     return jsonEncode(message.toJson());
+  }
+
+  JsonString fromCreateSession(JsonSupportPayloadCreateSession payload) {
+    return jsonEncode(payload.toJson());
   }
 }

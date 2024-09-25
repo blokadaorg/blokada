@@ -26,7 +26,8 @@ class Http {
       print("Api call payload: ${payload.payload}");
       return _call(payload, payload.retries);
     } on HttpCodeException catch (e) {
-      throw Exception("Api ${payload.endpoint} returned ${e.code}: $e");
+      throw HttpCodeException(
+          e.code, "Api ${payload.endpoint} failed: ${e.message}");
     } catch (e) {
       throw Exception("Api ${payload.endpoint} failed: $e");
     }

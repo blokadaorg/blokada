@@ -6,28 +6,33 @@ class SupportApi {
   late final _api = dep<Api>();
   late final _marshal = JsonSupportMarshal();
 
-  Future<JsonSupportMessage> sendEvent(
-      String sessionId, String language, SupportEvent event) async {
+  Future<JsonSupportSession> createSession(String language) async {
     final result = await _api.request(ApiEndpoint.postSupport,
-        payload: _marshal.fromPayload(JsonSupportPayload(
-          sessionId: sessionId,
+        payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
-          event: event,
         )));
-    return _marshal.toMessage(result);
+    return _marshal.toSession(result);
   }
 
-  Future<JsonSupportMessage> sendMessage(
-      String sessionId, String language, String message) async {
-    final payload = _marshal.fromPayload(JsonSupportPayload(
+  Future<JsonSupportResponse> sendEvent(
+      String sessionId, SupportEvent event) async {
+    final result = await _api.request(ApiEndpoint.putSupport,
+        payload: _marshal.fromMessage(JsonSupportPayloadMessage(
+          sessionId: sessionId,
+          event: event,
+        )));
+    return _marshal.toResponse(result);
+  }
+
+  Future<JsonSupportResponse> sendMessage(
+      String sessionId, String message) async {
+    final payload = _marshal.fromMessage(JsonSupportPayloadMessage(
       sessionId: sessionId,
-      language: language,
       message: message,
     ));
 
-    final result =
-        await _api.request(ApiEndpoint.postSupport, payload: payload);
+    final result = await _api.request(ApiEndpoint.putSupport, payload: payload);
     print("sendmsg: $result");
-    return _marshal.toMessage(result);
+    return _marshal.toResponse(result);
   }
 }

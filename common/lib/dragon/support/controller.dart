@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:common/command/command.dart';
 import 'package:common/common/model.dart';
 import 'package:common/dragon/scheduler.dart';
@@ -13,7 +11,6 @@ import 'package:common/util/di.dart';
 import 'package:common/util/trace.dart';
 
 const _keyExpireSession = "supportExpireSession";
-const _expireSessionTime = Duration(minutes: 30);
 
 class SupportController with TraceOrigin {
   late final _api = dep<SupportApi>();
@@ -24,6 +21,7 @@ class SupportController with TraceOrigin {
   late final _unread = dep<SupportUnread>();
   late final _scheduler = dep<Scheduler>();
 
+  late int _ttl;
   String language = "en";
 
   List<SupportMessage> messages = [];
@@ -50,11 +48,13 @@ class SupportController with TraceOrigin {
 
   startSession() async {
     clearSession();
-    final id = _newSession();
-    _currentSession.now = id;
-    final hi = await _api.sendEvent(
-        _currentSession.now!, language, SupportEvent.firstOpen);
-    _addMessage(hi);
+    final session = await _api.createSession(language);
+    _currentSession.now = session.sessionId;
+    _ttl = session.ttl;
+    _updateSessionExpiry();
+    final hi =
+        await _api.sendEvent(_currentSession.now!, SupportEvent.firstOpen);
+    _handleResponse(hi);
   }
 
   clearSession() async {
@@ -64,7 +64,7 @@ class SupportController with TraceOrigin {
     onChange();
   }
 
-  sendMessage(String? message) async {
+  sendMessage(String? message, {bool retry = false}) async {
     if (message?.startsWith("cc ") ?? false) {
       await _addMyMessage(message!);
       await _handleCommand(message.substring(3));
@@ -79,10 +79,21 @@ class SupportController with TraceOrigin {
       }
 
       if (message != null) {
-        final msg =
-            await _api.sendMessage(_currentSession.now!, language, message);
-        _addMessage(msg);
-        print("Api message: '${msg.message}'");
+        final msg = await _api.sendMessage(_currentSession.now!, message);
+        _handleResponse(msg);
+      }
+    } on HttpCodeException catch (e) {
+      if (e.code >= 400 && e.code < 500) {
+        // Session bad or expired
+        clearSession();
+        if (!retry) {
+          await startSession();
+          await sendMessage(message, retry: true);
+        } else {
+          throw Exception("Retry failed: $e");
+        }
+      } else {
+        throw Exception("Http error: $e");
       }
     } catch (e) {
       print("Error sending chat message");
@@ -106,9 +117,22 @@ class SupportController with TraceOrigin {
     onChange();
   }
 
-  _addMessage(JsonSupportMessage msg) {
-    final message = SupportMessage(msg.message, DateTime.now(), isMe: false);
+  _handleResponse(JsonSupportResponse response) {
+    for (final msg in response.messages) {
+      if (msg.message == null) continue; // TODO: support other types of msgs
+
+      final message = SupportMessage(
+        msg.message!,
+        DateTime.parse(msg.timestamp),
+        isMe: !msg.isAgent,
+      );
+      _addMessage(message);
+    }
+  }
+
+  _addMessage(SupportMessage message) {
     messages.add(message);
+    messages.sort((a, b) => a.when.compareTo(b.when));
     _chatHistory.now = SupportMessages(messages);
     onChange();
   }
@@ -119,16 +143,7 @@ class SupportController with TraceOrigin {
       DateTime.now(),
       isMe: false,
     );
-    messages.add(message);
-    _chatHistory.now = SupportMessages(messages);
-    onChange();
-  }
-
-  String _newSession() {
-    // Taken from web app
-    // Math.random().toString(36).substring(2, 15)
-
-    return Random().nextDouble().toStringAsFixed(15).substring(2, 15);
+    _addMessage(message);
   }
 
   _handleCommand(String message) async {
@@ -136,9 +151,7 @@ class SupportController with TraceOrigin {
       try {
         await _command.onCommandString(trace, message);
         final msg = SupportMessage("OK", DateTime.now(), isMe: false);
-        messages.add(msg);
-        _chatHistory.now = SupportMessages(messages);
-        onChange();
+        _addMessage(msg);
       } catch (e) {
         await sleepAsync(const Duration(milliseconds: 500));
         _addErrorMessage(error: e.toString());
@@ -150,7 +163,7 @@ class SupportController with TraceOrigin {
   _updateSessionExpiry() {
     _scheduler.addOrUpdate(Job(
       _keyExpireSession,
-      before: DateTime.now().add(_expireSessionTime),
+      before: DateTime.now().add(Duration(seconds: _ttl)),
       callback: () async {
         clearSession();
         return false; // No reschedule

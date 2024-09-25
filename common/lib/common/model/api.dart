@@ -50,8 +50,12 @@ enum ApiEndpoint {
   postCustomList("v3/customlist", type: "POST", params: [ApiParam.accountId]),
   deleteCustomList("v3/customlist",
       type: "DELETE", params: [ApiParam.accountId]),
-  postSupport("https://support.blocka.net/v1/support",
-      type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]);
+  postSupport("https://support.blocka.net/v3/support",
+      type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]),
+  getSupport("https://support.blocka.net/v3/support",
+      type: "GET", params: [ApiParam.sessionId]),
+  putSupport("https://support.blocka.net/v3/support",
+      type: "PUT", params: [ApiParam.sessionId]);
 
   const ApiEndpoint(
     this.endpoint, {
@@ -79,7 +83,8 @@ enum ApiParam {
   deviceTag("device_tag"),
   profileId("profile_id"),
   statsSince("since"),
-  statsDownsample("downsample");
+  statsDownsample("downsample"),
+  sessionId("session_id");
 
   const ApiParam(this.name) : placeholder = "($name)";
 
