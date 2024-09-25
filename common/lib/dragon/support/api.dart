@@ -10,6 +10,7 @@ class SupportApi {
     final result = await _api.request(ApiEndpoint.postSupport,
         payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
+          event: SupportEvent.firstOpen,
         )));
     return _marshal.toSession(result);
   }

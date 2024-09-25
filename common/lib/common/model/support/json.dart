@@ -50,8 +50,8 @@ class JsonSupportSession {
       history = (json['session']['history'] as List)
           .map((e) => JsonSupportHistoryItem.fromJson(e))
           .toList();
-      created = json['created'];
-      ttl = json['ttl'];
+      created = json['session']['created'];
+      ttl = json['session']['ttl'];
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }
