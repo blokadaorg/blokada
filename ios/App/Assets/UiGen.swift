@@ -1002,6 +1002,16 @@ internal enum L10n {
   internal static let statsTopAllowedHeader = L10n.tr("Ui", "stats top allowed header")
   /// Top blocked requests
   internal static let statsTopBlockedHeader = L10n.tr("Ui", "stats top blocked header")
+  /// Chat with us
+  internal static let supportActionChat = L10n.tr("Ui", "support action chat")
+  /// End
+  internal static let supportActionEnd = L10n.tr("Ui", "support action end")
+  /// Sorry did not understand, can you repeat?
+  internal static let supportErrorGeneric = L10n.tr("Ui", "support error generic")
+  /// Blocka Bot
+  internal static let supportNameBot = L10n.tr("Ui", "support name bot")
+  /// Ask about anything you want to know!
+  internal static let supportPlaceholder = L10n.tr("Ui", "support placeholder")
   /// Other
   internal static let toplistCompanyOther = L10n.tr("Ui", "toplist company other")
   /// unknown
