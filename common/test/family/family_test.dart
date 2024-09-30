@@ -28,7 +28,7 @@ import 'family_test.mocks.dart';
 void main() {
   group("store", () {
     test("linkDeviceBasicTest", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<AccountStore>(MockAccountStore());
         depend<LockStore>(MockLockStore());
         depend<AppStore>(MockAppStore());
@@ -42,7 +42,7 @@ void main() {
 
         final subject = FamilyStore();
         mockAct(subject, flavor: Flavor.family);
-        // await subject.link(trace, "abcdef", "Test%20Device");
+        // await subject.link("abcdef", "Test%20Device");
         //
         // verify(device.setDeviceAlias(any, "Test Device"));
         // verify(device.setLinkedTag(any, "abcdef"));

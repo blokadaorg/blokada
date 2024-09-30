@@ -24,7 +24,7 @@ final _fixtureKeypair =
 void main() {
   group("store", () {
     test("generate", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         depend<SecurePersistenceService>(persistence);
 
@@ -42,7 +42,7 @@ void main() {
         final subject = PlusKeypairStore();
         verifyNever(ops.doGenerateKeypair());
 
-        await subject.generate(trace);
+        await subject.generate(m);
         verify(ops.doGenerateKeypair()).called(1);
         verify(persistence.save(any, any, any)).called(1);
         expect(subject.currentKeypair, isNotNull);
@@ -50,7 +50,7 @@ void main() {
     });
 
     test("load", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockPlusKeypairOps();
         depend<PlusKeypairOps>(ops);
 
@@ -68,13 +68,13 @@ void main() {
         final subject = PlusKeypairStore();
         expect(subject.currentKeypair, null);
 
-        await subject.load(trace);
+        await subject.load(m);
         expect(subject.currentDevicePublicKey, "publicKey");
       });
     });
 
     test("loadWhenNoPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any))
             .thenThrow(Exception("not found"));
@@ -93,7 +93,7 @@ void main() {
 
         final subject = PlusKeypairStore();
 
-        await subject.load(trace);
+        await subject.load(m);
         verify(ops.doGenerateKeypair()).called(1);
       });
     });

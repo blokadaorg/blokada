@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -6,7 +7,6 @@ import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/emitter.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -88,7 +88,7 @@ class InvalidAccountId implements Exception {}
 
 class AccountStore = AccountStoreBase with _$AccountStore;
 
-abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
+abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
   late final _api = dep<AccountJson>();
   late final _ops = dep<AccountOps>();
   late final _persistence = dep<SecurePersistenceService>();
@@ -132,69 +132,69 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
   AccountId? _previousAccountId;
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
       final accJson =
-          await _persistence.loadOrThrow(trace, _keyAccount, isBackup: true);
+          await _persistence.loadOrThrow(_keyAccount, m, isBackup: true);
       final jsonAccount = JsonAccount.fromJson(accJson);
       _ensureValidAccountId(jsonAccount.id);
-      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+      await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
 
   @action
-  Future<void> create(Trace parentTrace) async {
-    return await traceWith(parentTrace, "create", (trace) async {
-      final jsonAccount = await _api.postAccount(trace);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+  Future<void> create(Marker m) async {
+    return await log(m).trace("create", (m) async {
+      final jsonAccount = await _api.postAccount(m);
+      await _persistence.save(_keyAccount, jsonAccount.toJson(), m,
           isBackup: true);
-      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+      await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
+  Future<void> fetch(Marker m) async {
+    return await log(m).trace("fetch", (m) async {
       if (account == null) {
         throw AccountNotInitialized();
       }
-      final jsonAccount = await _api.getAccount(trace, account!.id);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+      final jsonAccount = await _api.getAccount(account!.id, m);
+      await _persistence.save(_keyAccount, jsonAccount.toJson(), m,
           isBackup: true);
-      await _changeAccount(trace, account!.update(jsonAccount));
+      await _changeAccount(account!.update(jsonAccount), m);
     });
   }
 
   @action
-  Future<void> restore(Trace parentTrace, AccountId id) async {
-    return await traceWith(parentTrace, "restore", (trace) async {
+  Future<void> restore(AccountId id, Marker m) async {
+    return await log(m).trace("restore", (m) async {
       try {
         final sanitizedId = _sanitizeAccountId(id);
         _ensureValidAccountId(sanitizedId);
-        final jsonAccount = await _api.getAccount(trace, sanitizedId);
-        await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+        final jsonAccount = await _api.getAccount(sanitizedId, m);
+        await _persistence.save(_keyAccount, jsonAccount.toJson(), m,
             isBackup: true);
-        await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+        await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
       } catch (_) {
-        await _stage.showModal(trace, StageModal.accountInvalid);
+        await _stage.showModal(StageModal.accountInvalid, m);
         rethrow;
       }
     });
   }
 
   @action
-  Future<void> propose(Trace parentTrace, JsonAccount jsonAccount) async {
-    return await traceWith(parentTrace, "propose", (trace) async {
+  Future<void> propose(JsonAccount jsonAccount, Marker m) async {
+    return await log(m).trace("propose", (m) async {
       _ensureValidAccountId(jsonAccount.id);
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+      await _persistence.save(_keyAccount, jsonAccount.toJson(), m,
           isBackup: true);
-      await _changeAccount(trace, AccountState(jsonAccount.id, jsonAccount));
+      await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
 
   @action
-  Future<void> expireOffline(Trace parentTrace) async {
-    return await traceWith(parentTrace, "expireOffline", (trace) async {
+  Future<void> expireOffline(Marker m) async {
+    return await log(m).trace("expireOffline", (m) async {
       final jsonAccount = JsonAccount(
         id: account!.id,
         activeUntil: DateTime.now().toIso8601String(),
@@ -202,27 +202,28 @@ abstract class AccountStoreBase with Store, Traceable, Dependable, Emitter {
         type: AccountType.libre.name,
       );
 
-      await _persistence.save(trace, _keyAccount, jsonAccount.toJson(),
+      await _persistence.save(_keyAccount, jsonAccount.toJson(), m,
           isBackup: true);
-      await _changeAccount(trace, account!.update(jsonAccount));
+      await _changeAccount(account!.update(jsonAccount), m);
     });
   }
 
-  _changeAccount(Trace trace, AccountState account) async {
+  _changeAccount(AccountState account, Marker m) async {
     final oldA = this.account?.jsonAccount;
     final newA = account.jsonAccount;
     _ensureValidAccountType(newA);
     this.account = account;
+
     if (oldA != null) {
       if (oldA.type != newA.type || oldA.activeUntil != newA.activeUntil) {
-        await emit(accountChanged, trace, account);
+        await emit(accountChanged, account, m);
       }
     } else {
-      await emit(accountChanged, trace, account);
+      await emit(accountChanged, account, m);
     }
 
     if (_previousAccountId != null && _previousAccountId != account.id) {
-      await emit(accountIdChanged, trace, account.id);
+      await emit(accountIdChanged, account.id, m);
     }
     _previousAccountId = account.id;
   }

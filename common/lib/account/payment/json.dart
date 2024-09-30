@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import '../account.dart';
 import '../json.dart';
 
@@ -44,7 +45,7 @@ class AccountPaymentJson {
   late final _http = dep<HttpService>();
   late final _account = dep<AccountStore>();
 
-  Future<JsonAccount> postCheckout(Trace trace, String blob, Platform p) async {
+  Future<JsonAccount> postCheckout(String blob, Platform p, Marker m) async {
     dynamic payload = <String, dynamic>{};
     String endpoint;
 
@@ -71,7 +72,7 @@ class AccountPaymentJson {
     }
 
     final result = await _http.request(
-        trace, "$jsonUrl/v2/$endpoint/checkout", HttpType.post,
+        "$jsonUrl/v2/$endpoint/checkout", HttpType.post, m,
         payload: jsonEncode(payload));
     return JsonAccount.fromJson(jsonDecode(result)["account"]);
   }

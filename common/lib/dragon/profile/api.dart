@@ -1,3 +1,5 @@
+import 'package:common/logger/logger.dart';
+
 import '../../common/model.dart';
 import '../../util/di.dart';
 import '../api/api.dart';
@@ -6,19 +8,20 @@ class ProfileApi {
   late final _api = dep<Api>();
   late final _marshal = JsonProfileMarshal();
 
-  Future<List<JsonProfile>> fetch() async {
-    final response = await _api.get(ApiEndpoint.getProfiles);
+  Future<List<JsonProfile>> fetch(Marker m) async {
+    final response = await _api.get(ApiEndpoint.getProfiles, m);
     return _marshal.toProfiles(response);
   }
 
-  Future<JsonProfile> add(JsonProfilePayload p) async {
-    final result = await _api.request(ApiEndpoint.postProfile,
+  Future<JsonProfile> add(Marker m, JsonProfilePayload p) async {
+    final result = await _api.request(ApiEndpoint.postProfile, m,
         payload: _marshal.fromPayload(p));
     return _marshal.toProfile(result);
   }
 
-  Future<JsonProfile> rename(JsonProfile profile, String newName) async {
-    final result = await _api.request(ApiEndpoint.putProfile,
+  Future<JsonProfile> rename(
+      Marker m, JsonProfile profile, String newName) async {
+    final result = await _api.request(ApiEndpoint.putProfile, m,
         payload: _marshal.fromPayload(JsonProfilePayload.forUpdateAlias(
           profileId: profile.profileId,
           alias: generateProfileAlias(newName, profile.template),
@@ -26,15 +29,15 @@ class ProfileApi {
     return _marshal.toProfile(result);
   }
 
-  delete(JsonProfile profile) async {
-    await _api.request(ApiEndpoint.deleteProfile,
+  delete(Marker m, JsonProfile profile) async {
+    await _api.request(ApiEndpoint.deleteProfile, m,
         payload: _marshal.fromPayload(JsonProfilePayload.forDelete(
           profileId: profile.profileId,
         )));
   }
 
-  Future<JsonProfile> update(JsonProfile profile) async {
-    final result = await _api.request(ApiEndpoint.putProfile,
+  Future<JsonProfile> update(Marker m, JsonProfile profile) async {
+    final result = await _api.request(ApiEndpoint.putProfile, m,
         payload: _marshal.fromPayload(JsonProfilePayload.forUpdateConfig(
           profileId: profile.profileId,
           lists: profile.lists,

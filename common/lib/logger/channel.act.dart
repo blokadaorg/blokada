@@ -1,22 +1,22 @@
+import 'package:common/util/act.dart';
+import 'package:common/util/di.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../util/di.dart';
-import '../util/act.dart';
 import 'channel.pg.dart';
 
-class MockTracerOps extends Mock implements TracerOps {}
+class MockLoggerOps extends Mock implements LoggerOps {}
 
-TracerOps getOps(Act act) {
+LoggerOps getOps(Act act) {
   if (act.isProd()) {
-    return TracerOps();
+    return LoggerOps();
   }
 
-  final ops = MockTracerOps();
+  final ops = MockLoggerOps();
   _actNormal(ops);
   return ops;
 }
 
-_actNormal(MockTracerOps ops) {
+_actNormal(MockLoggerOps ops) {
   when(() => ops.doStartFile(any(), any())).thenAnswer(ignore());
   when(() => ops.doSaveBatch(any(), any(), any())).thenAnswer(ignore());
   when(() => ops.doShareFile(any())).thenAnswer(ignore());

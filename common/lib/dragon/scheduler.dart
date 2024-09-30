@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/logger/logger.dart';
 import 'package:dartx/dartx.dart';
 
 class Job {
@@ -8,12 +9,14 @@ class Job {
   final Duration? every;
   final List<Condition> when;
   final bool Function()? skip;
-  final Future<bool> Function() callback;
+  final Future<bool> Function(Marker) callback;
+  final Marker marker;
 
   late DateTime next;
 
   Job(
-    this.name, {
+    this.name,
+    this.marker, {
     this.before,
     this.every,
     this.when = const [],
@@ -81,7 +84,7 @@ class SchedulerException implements Exception {
   }
 }
 
-class Scheduler {
+class Scheduler with Logging {
   final List<Condition> _conditions = [];
   final List<Job> _jobs = [];
   final List<JobOrder> _next = [];
@@ -93,37 +96,44 @@ class Scheduler {
     timer.callback = _timerCallback;
   }
 
-  addOrUpdate(Job job, {bool immediate = false}) {
-    _jobs.removeWhere((j) => j == job);
-    _jobs.add(job);
-    _next.removeWhere((o) => o.job == o.job);
-    _reschedule(job, immediate: immediate);
-    _setTimer();
+  addOrUpdate(Job job, {bool immediate = false}) async {
+    await log(job.marker).trace("addOrUpdate", (m) async {
+      await log(m).pair("immediate", immediate);
+      _jobs.removeWhere((j) => j == job);
+      _jobs.add(job);
+      _next.removeWhere((o) => o.job == o.job);
+      _reschedule(job, immediate: immediate);
+      _setTimer(m);
+    });
   }
 
   // think about if its necessary, the return bool from callback may be enough
-  stop(String jobName) {
-    _jobs.removeWhere((j) => j.name == jobName);
-    _next.removeWhere((o) => o.job.name == jobName);
-    _setTimer();
+  stop(String jobName) async {
+    await log(Markers.timer).trace("stop", (m) async {
+      _jobs.removeWhere((j) => j.name == jobName);
+      _next.removeWhere((o) => o.job.name == jobName);
+      _setTimer(m);
+    });
   }
 
-  eventTriggered(Event event, {String? value}) async {
-    print("Event triggered: $event, now: $value");
+  eventTriggered(Marker m, Event event, {String? value}) async {
+    await log(m).trace(event.name, (m) async {
+      log(m).t("Event triggered: $event, now: $value");
 
-    final c = Condition(event, value: value);
-    _conditions.remove(c);
-    _conditions.add(c);
+      final c = Condition(event, value: value);
+      _conditions.remove(c);
+      _conditions.add(c);
 
-    for (final job in _jobs.toList()) {
-      final when = job.when.indexOf(c);
-      if (when == -1) continue;
-      if (!_checkAllConditions(job)) continue;
-      if (!(job.skip?.call() ?? false)) {
-        await _invoke(job); // should await?
+      for (final job in _jobs.toList()) {
+        final when = job.when.indexOf(c);
+        if (when == -1) continue;
+        if (!_checkAllConditions(job)) continue;
+        if (!(job.skip?.call() ?? false)) {
+          await _invoke(job); // should await?
+        }
       }
-    }
-    _setTimer();
+      _setTimer(m);
+    });
   }
 
   _checkAllConditions(Job job) {
@@ -137,26 +147,30 @@ class Scheduler {
   }
 
   _invoke(Job job) async {
-    print("Running job ${job.name} at ${timer.now()}");
-    try {
-      //_jobs.remove(job);
-      final reschedule = await job.callback();
-      _failures.remove(job);
-      if (reschedule) _reschedule(job);
-    } on SchedulerException catch (e) {
-      final failures = _failures[job] ?? 0;
-      if (e.canRetry && failures < 5) {
-        print("rescheduling failed job");
-        _failures[job] = failures + 1;
-        _reschedule(job, retry: true);
-      } else {
-        print("Job ${job.name} failed too many times, wont retry: $e");
+    await log(job.marker).trace("job::${job.name}", (m) async {
+      try {
+        //_jobs.remove(job);
+        final reschedule = await job.callback(job.marker);
+        _failures.remove(job);
+        if (reschedule) _reschedule(job);
+      } on SchedulerException catch (e, s) {
+        final failures = _failures[job] ?? 0;
+        if (e.canRetry && failures < 5) {
+          log(job.marker).w("rescheduling failed job");
+          _failures[job] = failures + 1;
+          _reschedule(job, retry: true);
+        } else {
+          log(job.marker).e(
+              msg: "Job ${job.name} failed too many times, wont retry",
+              err: e,
+              stack: s);
+          timer.jobFail();
+        }
+      } catch (e, s) {
+        log(job.marker).e(msg: "Job ${job.name} failed", err: e, stack: s);
         timer.jobFail();
       }
-    } catch (e) {
-      print("Job ${job.name} failed: $e");
-      timer.jobFail();
-    }
+    });
   }
 
   _reschedule(Job job, {bool immediate = false, bool retry = false}) {
@@ -179,7 +193,7 @@ class Scheduler {
       }
     }
 
-    print("Rescheduling job ${job.name}, next: $next (now: $now)");
+    log(job.marker).i("Rescheduling job ${job.name}, next: $next (now: $now)");
     if (next == null) return;
 
     final order = JobOrder(next, job);
@@ -188,52 +202,58 @@ class Scheduler {
     _next.sort();
   }
 
-  _setTimer() {
+  _setTimer(Marker m) {
     final upcoming = _next.firstOrNull;
     if (upcoming == null) {
-      print("Next job: none, nothing in queue");
       timer.setTimer(null);
       return;
     }
 
     final now = timer.now();
     final when = upcoming.when.difference(now);
-    print("Next job ${upcoming.job.name} at ${upcoming.when} (in $when)");
+    if (when.inSeconds < 1) {
+      log(m).i("Next job ${upcoming.job.name} now");
+    } else {
+      log(m).i("Next job ${upcoming.job.name} at ${upcoming.when} (in $when)");
+    }
+
     try {
       timer.setTimer(when);
-    } catch (e) {
-      print("Failed to set timer: $e");
+    } catch (e, s) {
+      log(m).e(msg: "Failed to set timer", err: e, stack: s);
     }
   }
 
   _timerCallback() async {
-    final now = timer.now();
-    final jobs =
-        _next.takeWhile((j) => !j.when.isAfter(now)).toList().distinct();
-    _next.removeWhere((j) => !j.when.isAfter(now));
+    await log(Markers.timer).trace("scheduler", (m) async {
+      final now = timer.now();
+      final jobs =
+          _next.takeWhile((j) => !j.when.isAfter(now)).toList().distinct();
+      _next.removeWhere((j) => !j.when.isAfter(now));
 
-    for (final job in jobs) {
-      if (_checkAllConditions(job.job)) {
-        if (!(job.job.skip?.call() ?? false)) {
-          await _invoke(job.job); // should await?
-          continue;
+      for (final job in jobs) {
+        if (_checkAllConditions(job.job)) {
+          if (!(job.job.skip?.call() ?? false)) {
+            await _invoke(job.job); // should await?
+            continue;
+          }
         }
+        _reschedule(job.job);
       }
-      _reschedule(job.job);
-    }
 
-    _setTimer();
+      _setTimer(m);
+    });
   }
 }
 
-class SchedulerTimer {
+class SchedulerTimer with Logging {
   Timer? _timer;
   late Function() callback;
   late Function() jobFail;
 
   SchedulerTimer() {
     jobFail = () {
-      print("job failed");
+      log(Markers.timer).i("job failed");
     };
   }
 

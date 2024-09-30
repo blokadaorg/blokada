@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
@@ -10,9 +11,6 @@ import '../../../lock/lock.dart';
 import '../../../stage/channel.pg.dart';
 import '../../../stage/stage.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
-import '../../debug/commanddialog.dart';
-import '../../debug/debugoptions.dart';
 import 'actions.dart';
 import 'power_button.dart';
 
@@ -28,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin, Traceable, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _app = dep<AppStore>();
   final _stage = dep<StageStore>();
   final _lock = dep<LockStore>();
@@ -42,26 +40,9 @@ class HomeScreenState extends State<HomeScreen>
 
   var counter = 0;
 
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (!route.isForeground()) return;
-    if (!route.isTab(StageTab.home)) return;
-
-    if (!route.isBecameModal(StageModal.debug)) return;
-
-    return await traceWith(parentTrace, "showDebug", (trace) async {
-      // On purpose without await
-      trace.addEvent("counter: ${counter++}");
-      _showDebugDialog(context).then((_) {
-        _stage.modalDismissed(trace);
-      });
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-
-    _stage.addOnValue(routeChanged, onRouteChanged);
 
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
@@ -93,7 +74,6 @@ class HomeScreenState extends State<HomeScreen>
 
   @override
   void dispose() {
-    _stage.removeOnValue(routeChanged, onRouteChanged);
     controller.dispose();
     controllerOrange.dispose();
     super.dispose();
@@ -134,9 +114,8 @@ class HomeScreenState extends State<HomeScreen>
                           HomeIcon(
                             icon: Icons.help_outline,
                             onTap: () {
-                              traceAs("tappedShowHelp", (trace) async {
-                                await _stage.showModal(trace, StageModal.help);
-                              });
+                              _stage.showModal(
+                                  StageModal.help, Markers.userTap);
                             },
                           ),
                         ],
@@ -144,14 +123,6 @@ class HomeScreenState extends State<HomeScreen>
                     ),
                   ),
                   GestureDetector(
-                    onLongPress: () {
-                      traceAs("tappedShowDebug", (trace) async {
-                        await _stage.showModal(trace, StageModal.debug);
-                      });
-                    },
-                    onHorizontalDragEnd: (_) {
-                      _showCommandDialog(context);
-                    },
                     child: Image.asset(
                       "assets/images/header.png",
                       width: 200,
@@ -175,21 +146,5 @@ class HomeScreenState extends State<HomeScreen>
         ),
       ),
     );
-  }
-
-  Future<void> _showDebugDialog(BuildContext context) {
-    return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return DebugOptions();
-        });
-  }
-
-  Future<void> _showCommandDialog(BuildContext context) {
-    return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return const CommandDialog();
-        });
   }
 }

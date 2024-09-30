@@ -8,14 +8,12 @@ import 'package:common/dragon/widget/home/home_devices.dart';
 import 'package:common/dragon/widget/home/smart_onboard.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/smart_header/smart_header.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
-import 'package:common/ui/debug/commanddialog.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,11 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen>
-    with
-        TickerProviderStateMixin,
-        Traceable,
-        TraceOrigin,
-        WidgetsBindingObserver {
+    with TickerProviderStateMixin, Logging, WidgetsBindingObserver {
   late final _app = dep<AppStore>();
   late final _family = dep<FamilyStore>();
   late final _stage = dep<StageStore>();
@@ -167,7 +161,6 @@ class HomeScreenState extends State<HomeScreen>
 
   _buildHelpButton() {
     return GestureDetector(
-      onDoubleTap: () => _showCommandDialog(context),
       child: Padding(
         padding: const EdgeInsets.only(top: 60, right: 16),
         child: Row(
@@ -177,8 +170,8 @@ class HomeScreenState extends State<HomeScreen>
               icon: CupertinoIcons.question_circle,
               alwaysWhite: true,
               onTap: () {
-                traceAs("tappedShowHelp", (trace) async {
-                  await _stage.showModal(trace, StageModal.help);
+                log(Markers.userTap).trace("tappedShowHelp", (m) async {
+                  await _stage.showModal(StageModal.help, m);
                 });
               },
             ),
@@ -218,13 +211,5 @@ class HomeScreenState extends State<HomeScreen>
     } else {
       return Container();
     }
-  }
-
-  Future<void> _showCommandDialog(BuildContext context) {
-    return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return const CommandDialog();
-        });
   }
 }

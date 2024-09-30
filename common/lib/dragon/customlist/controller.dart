@@ -1,5 +1,6 @@
 import 'package:common/common/model.dart';
 import 'package:common/dragon/customlist/api.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 
 class CustomListController {
@@ -13,16 +14,16 @@ class CustomListController {
   Function onChange = () {};
 
   // Has to be called before other methods
-  setProfileId(String id) async {
+  setProfileId(String id, Marker m) async {
     if (profileId == id) return;
     profileId = id;
     denied = [];
     allowed = [];
-    await fetch();
+    await fetch(m);
   }
 
-  fetch() async {
-    final entries = await _customlist.fetchForProfile(profileId!);
+  fetch(Marker m) async {
+    final entries = await _customlist.fetchForProfile(profileId!, m);
     denied = entries
         .where((e) => e.action == JsonCustomListAction.block)
         .map((e) => e.domainName)
@@ -37,7 +38,7 @@ class CustomListController {
     onChange();
   }
 
-  _allow(String domain) async {
+  _allow(String domain, Marker m) async {
     allowed.add(domain);
     onChange();
     await _customlist.add(
@@ -46,10 +47,11 @@ class CustomListController {
           domainName: domain,
           action: JsonCustomListAction.allow,
           wildcard: false, // Ignored
-        ));
+        ),
+        m);
   }
 
-  _deny(String domain) async {
+  _deny(String domain, Marker m) async {
     denied.add(domain);
     onChange();
     await _customlist.add(
@@ -58,10 +60,11 @@ class CustomListController {
           domainName: domain,
           action: JsonCustomListAction.block,
           wildcard: false, // Ignored
-        ));
+        ),
+        m);
   }
 
-  _delete(String domain) async {
+  _delete(String domain, Marker m) async {
     allowed.remove(domain);
     denied.remove(domain);
     onChange();
@@ -71,18 +74,19 @@ class CustomListController {
           domainName: domain,
           action: JsonCustomListAction.allow, // Ignored
           wildcard: false, // Ignored
-        ));
+        ),
+        m);
   }
 
-  addOrRemove(String domain, {required bool gotBlocked}) async {
+  addOrRemove(String domain, Marker m, {required bool gotBlocked}) async {
     if (contains(domain)) {
-      await _delete(domain);
+      await _delete(domain, m);
     } else if (gotBlocked) {
-      await _allow(domain);
+      await _allow(domain, m);
     } else {
-      await _deny(domain);
+      await _deny(domain, m);
     }
-    await fetch();
+    await fetch(m);
     onChange();
   }
 

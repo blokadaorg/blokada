@@ -20,7 +20,7 @@ import 'fixtures.dart';
 void main() {
   group("store", () {
     test("willSplitEntriesByType", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final json = MockCustomJson();
@@ -32,7 +32,7 @@ void main() {
         depend<CustomOps>(ops);
 
         final subject = CustomStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         expect(subject.allowed.length, 3);
         expect(subject.allowed.first, "abc.example.com");
@@ -42,7 +42,7 @@ void main() {
     });
 
     test("allowAndOthers", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final json = MockCustomJson();
@@ -56,22 +56,22 @@ void main() {
         final subject = CustomStore();
 
         // Will post entry and refresh
-        await subject.allow(trace, "test.com");
+        await subject.allow("test.com", m);
         verify(json.postEntry(any, any)).called(1);
         verify(json.getEntries(any)).called(1);
 
-        await subject.deny(trace, "test.com");
+        await subject.deny("test.com", m);
         verify(json.postEntry(any, any)).called(1);
         verify(json.getEntries(any)).called(1);
 
-        await subject.delete(trace, "test.com");
+        await subject.delete("test.com", m);
         verify(json.deleteEntry(any, any)).called(1);
         verify(json.getEntries(any)).called(1);
       });
     });
 
     test("willRefreshWhenNeeded", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final json = MockCustomJson();
         depend<CustomJson>(json);
 
@@ -85,7 +85,7 @@ void main() {
         final subject = CustomStore();
         verifyNever(json.getEntries(any));
 
-        await subject.onRouteChanged(trace, route);
+        await subject.onRouteChanged(route, m);
         verify(json.getEntries(any));
       });
     });

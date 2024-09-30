@@ -1,7 +1,6 @@
 import 'package:common/dragon/widget/onboard/family_onboard_screen.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
-import 'package:common/ui/crash/crash_screen.dart';
 import 'package:common/ui/lock/lock_screen.dart';
 import 'package:common/ui/rate/rate_screen.dart';
 import 'package:common/util/di.dart';
@@ -66,8 +65,6 @@ class OverlaySheetState extends State<OverlaySheet>
 
   Widget? _decideOverlay(StageModal? modal) {
     switch (modal) {
-      case StageModal.crash:
-        return const CrashScreen();
       case StageModal.lock:
         return const LockScreen();
       case StageModal.rate:

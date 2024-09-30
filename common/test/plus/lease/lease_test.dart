@@ -30,7 +30,7 @@ import 'lease_test.mocks.dart';
 void main() {
   group("store", () {
     test("fetch", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<PlusStore>(MockPlusStore());
 
@@ -55,17 +55,17 @@ void main() {
         expect(subject.leaseChanges, 0);
         verifyNever(gateway.selectGateway(any, any));
 
-        await subject.fetch(trace);
+        await subject.fetch(m);
         expect(subject.leases.length, 3);
         expect(subject.leases.first.alias, "Solar quokka");
         expect(subject.leaseChanges, 1);
         expect(subject.currentLease, null);
-        verify(gateway.selectGateway(any, null)).called(1);
+        verify(gateway.selectGateway(any, m)).called(1);
       });
     });
 
     test("fetchWithCurrentLease", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
@@ -89,19 +89,18 @@ void main() {
         expect(subject.leaseChanges, 0);
         verifyNever(gateway.selectGateway(any, any));
 
-        await subject.fetch(trace);
+        await subject.fetch(m);
         expect(subject.leaseChanges, 1);
         expect(subject.currentLease, isNotNull);
         expect(subject.currentLease!.alias, "Solar quokka");
         verify(gateway.selectGateway(
-          any,
-          "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=",
-        )).called(1);
+                "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=", m))
+            .called(1);
       });
     });
 
     test("newLease", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
@@ -126,7 +125,7 @@ void main() {
 
         // After posting, it should fetch leases (and we have a matching one in fixtures)
         await subject.newLease(
-            trace, "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=");
+            "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=", m);
         verify(json.postLease(any, any)).called(1);
         expect(subject.currentLease, isNotNull);
         expect(subject.currentLease!.alias, "Solar quokka");
@@ -134,7 +133,7 @@ void main() {
     });
 
     test("deleteLease", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
@@ -154,7 +153,7 @@ void main() {
         depend<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
-        await subject.deleteLease(trace, fixtureLeaseEntries.first.toLease);
+        await subject.deleteLease(fixtureLeaseEntries.first.toLease, m);
         verify(json.deleteLease(any, any)).called(1);
       });
     });
@@ -162,7 +161,7 @@ void main() {
 
   group("storeErrors", () {
     test("newLeasePostFailing", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
@@ -183,15 +182,14 @@ void main() {
         final subject = PlusLeaseStore();
 
         await expectLater(
-          subject.newLease(
-              trace, "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="),
+          subject.newLease("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=", m),
           throwsException,
         );
       });
     });
 
     test("newLeaseButNoMatchingLeaseReturned", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<PlusStore>(MockPlusStore());
 
@@ -214,15 +212,14 @@ void main() {
         final subject = PlusLeaseStore();
 
         await expectLater(
-          subject.newLease(
-              trace, "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="),
+          subject.newLease("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=", m),
           throwsA(isA<NoCurrentLeaseException>()),
         );
       });
     });
 
     test("newLeaseButTooManyLeases", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
@@ -247,11 +244,10 @@ void main() {
         depend<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         await expectLater(
-          subject.newLease(
-              trace, "hO25cJ88KQ8uQZ0Tn71ibz7wUbnvFecmHWgqXzr7IAc="),
+          subject.newLease("hO25cJ88KQ8uQZ0Tn71ibz7wUbnvFecmHWgqXzr7IAc=", m),
           throwsA(isA<TooManyLeasesException>()),
         );
 
@@ -261,7 +257,7 @@ void main() {
     });
 
     test("deleteLeasePostFailing", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<PlusStore>(MockPlusStore());
 
@@ -279,10 +275,10 @@ void main() {
         depend<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         await expectLater(
-          subject.deleteLease(trace, fixtureLeaseEntries.first.toLease),
+          subject.deleteLease(fixtureLeaseEntries.first.toLease, m),
           throwsException,
         );
 
@@ -291,7 +287,7 @@ void main() {
     });
 
     test("willRefreshWhenNeeded", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockPlusLeaseOps();
         depend<PlusLeaseOps>(ops);
         depend<PlusStore>(MockPlusStore());
@@ -314,12 +310,12 @@ void main() {
         final subject = PlusLeaseStore();
         verifyNever(json.getLeases(any));
 
-        await subject.onRouteChanged(trace, route);
+        await subject.onRouteChanged(route, m);
         verify(json.getLeases(any));
 
         // Should not fetch lease if not Plus account
         when(account.type).thenReturn(AccountType.cloud);
-        await subject.onRouteChanged(trace, route);
+        await subject.onRouteChanged(route, m);
         verifyNever(json.getLeases(any));
       });
     });

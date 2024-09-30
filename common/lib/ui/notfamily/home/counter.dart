@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:common/common/i18n.dart';
-import 'package:common/util/trace.dart';
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -28,7 +28,7 @@ class HomeCounter2 extends StatefulWidget {
 }
 
 class _HomeCounterState extends State<HomeCounter2>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _stage = dep<StageStore>();
   final _app = dep<AppStore>();
   final _stats = dep<StatsStore>();
@@ -62,9 +62,7 @@ class _HomeCounterState extends State<HomeCounter2>
   }
 
   _onTap() {
-    traceAs("tappedSlideToStats", (trace) async {
-      await _stage.setRoute(trace, pathHomeStats);
-    });
+    _stage.setRoute(pathHomeStats, Markers.userTap);
   }
 
   @override

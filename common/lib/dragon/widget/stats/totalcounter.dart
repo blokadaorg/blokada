@@ -1,4 +1,5 @@
 import 'package:common/common/i18n.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,6 @@ import '../../../common/widget/minicard/summary.dart';
 import '../../../stage/stage.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 
 class TotalCounter extends StatefulWidget {
   final UiStats stats;
@@ -20,7 +20,7 @@ class TotalCounter extends StatefulWidget {
   State<StatefulWidget> createState() => TotalCounterState();
 }
 
-class TotalCounterState extends State<TotalCounter> with TraceOrigin {
+class TotalCounterState extends State<TotalCounter> with Logging {
   late final _stage = dep<StageStore>();
 
   var allowed = 0.0;
@@ -38,9 +38,7 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
   }
 
   Future<void> _shareCounter() async {
-    await traceAs("shareCounter", (trace) async {
-      await _stage.showModal(trace, StageModal.adsCounterShare);
-    });
+    await _stage.showModal(StageModal.adsCounterShare, Markers.userTap);
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/perm/controller.dart';
 import 'package:common/dragon/widget/home/private_dns_setting_guide.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,7 +70,8 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
   void _performCTA() async {
     Navigator.of(context).pop();
     await sleepAsync(const Duration(milliseconds: 400));
-    Clipboard.setData(ClipboardData(text: _perm.getAndroidPrivateDnsString()));
+    Clipboard.setData(
+        ClipboardData(text: _perm.getAndroidPrivateDnsString(Markers.userTap)));
     _openPerms.open();
   }
 

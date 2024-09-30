@@ -36,7 +36,7 @@ import 'plus_test.mocks.dart';
 void main() {
   group("store", () {
     test("load", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockPlusOps();
         depend<PlusOps>(ops);
 
@@ -49,13 +49,13 @@ void main() {
         final subject = PlusStore();
         expect(subject.plusEnabled, false);
 
-        await subject.load(trace);
+        await subject.load(m);
         expect(subject.plusEnabled, true);
       });
     });
 
     test("newPlus", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
         depend<DeviceStore>(device);
@@ -87,9 +87,9 @@ void main() {
 
         final subject = PlusStore();
 
-        await subject.newPlus(trace, "some gateway id");
+        await subject.newPlus("some gateway id", m);
         verify(app.reconfiguring(any)).called(1);
-        verify(lease.newLease(any, "some gateway id")).called(1);
+        verify(lease.newLease("some gateway id", m)).called(1);
         verify(vpn.turnVpnOn(any)).called(1);
         verify(lease.fetch(any, noRetry: true)).called(1);
         verify(persistence.saveString(any, any, any));
@@ -97,7 +97,7 @@ void main() {
     });
 
     test('clearPlus', () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockPlusOps();
         depend<PlusOps>(ops);
 
@@ -116,7 +116,7 @@ void main() {
 
         final subject = PlusStore();
 
-        await subject.clearPlus(trace);
+        await subject.clearPlus(m);
         verify(lease.deleteLease(any, any)).called(1);
         verify(vpn.turnVpnOff(any)).called(1);
         verify(persistence.saveString(any, any, any));
@@ -124,7 +124,7 @@ void main() {
     });
 
     test("switchPlus", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
         depend<DeviceStore>(device);
@@ -156,14 +156,14 @@ void main() {
 
         final subject = PlusStore();
 
-        await subject.switchPlus(trace, true);
+        await subject.switchPlus(true, m);
         verify(vpn.turnVpnOn(any)).called(1);
         verify(lease.fetch(any, noRetry: true));
       });
     });
 
     // test("reactToAppStatus", () async {
-    //   await withTrace((trace) async {
+    //   await withTrace((m) async {
     //     final ops = MockPlusOps();
     //     depend<PlusOps>(ops);
     //
@@ -184,14 +184,14 @@ void main() {
     //     // Plus should autostart after app started and VPN was active before
     //     subject.plusEnabled = true;
     //     when(vpn.getStatus()).thenReturn(VpnStatus.deactivated);
-    //     await subject.reactToAppStatus(trace, true);
+    //     await subject.reactToAppStatus(true);
     //     verify(app.reconfiguring(any)).called(1);
     //     verify(vpn.setVpnActive(any, true)).called(1);
     //     verify(app.plusActivated(any, true));
     //
     //     // Plus should pause when app got paused
     //     when(vpn.getStatus()).thenReturn(VpnStatus.activated);
-    //     await subject.reactToAppStatus(trace, false);
+    //     await subject.reactToAppStatus(false);
     //     verify(app.reconfiguring(any)).called(1);
     //     verify(vpn.setVpnActive(any, false)).called(1);
     //     verify(app.plusActivated(any, false));
@@ -201,7 +201,7 @@ void main() {
 
   group("storeErrors", () {
     test("switchPlusFailing", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusOps();
@@ -226,14 +226,14 @@ void main() {
 
         // Flags reverted when wont turn on
         when(vpn.turnVpnOn(any)).thenThrow(Exception("some error"));
-        await expectLater(subject.switchPlus(trace, true), throwsException);
+        await expectLater(subject.switchPlus(true, m), throwsException);
         verifyNever(lease.fetch(any));
         expect(subject.plusEnabled, false);
 
         // Flags reverted when is on, and wont turn off
         // subject.plusEnabled = true;
         // when(vpn.turnVpnOff(any)).thenThrow(Exception("some error"));
-        // await expectLater(subject.switchPlus(trace, false), throwsException);
+        // await expectLater(subject.switchPlus(false), throwsException);
         // expect(subject.plusEnabled, true);
       });
     });

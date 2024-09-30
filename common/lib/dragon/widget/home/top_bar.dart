@@ -1,10 +1,11 @@
-import 'dart:math';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/route.dart';
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,8 +53,9 @@ class TopBarState extends State<TopBar> {
               color: widget.animateBg ? Colors.transparent : widget.bgColor,
             ),
             Opacity(
-              opacity:
-                  widget.animateBg ? min(max(ctrl.scroll - 10, 0.0), 1.0) : 1.0,
+              opacity: widget.animateBg
+                  ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0)
+                  : 1.0,
               child: Column(
                 children: [
                   ClipRect(
@@ -209,7 +211,7 @@ class TopCommonBarState extends State<TopCommonBar> {
   }
 }
 
-class TopBarController extends NavigatorObserver with ChangeNotifier {
+class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   bool userGesture = false;
@@ -356,7 +358,6 @@ class TopBarController extends NavigatorObserver with ChangeNotifier {
     }
 
     if (waitingPush != null) {
-      print("pushing: $waitingPush");
       _push(waitingPush!);
       waitingPush = null;
     }

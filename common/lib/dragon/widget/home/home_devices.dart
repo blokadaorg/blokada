@@ -10,8 +10,8 @@ import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/home_device.dart';
 import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class HomeDevices extends StatefulWidget {
 }
 
 class HomeDevicesState extends State<HomeDevices>
-    with TickerProviderStateMixin, Traceable, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   late final _family = dep<FamilyStore>();
   late final _slidableOnboarding = dep<SlidableOnboarding>();
 

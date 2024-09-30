@@ -1,6 +1,6 @@
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
 
-import '../../util/trace.dart';
 import 'background.dart';
 
 class Coolbg extends StatefulWidget {
@@ -11,7 +11,7 @@ class Coolbg extends StatefulWidget {
 }
 
 class _CoolbgState extends State<Coolbg>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   @override
   Widget build(BuildContext context) {
     return Stack(

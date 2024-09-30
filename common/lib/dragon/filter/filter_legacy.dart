@@ -6,8 +6,8 @@ import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/filter/channel.act.dart';
 import 'package:common/filter/channel.pg.dart' as channel;
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 
 import '../debounce.dart';
@@ -21,7 +21,7 @@ import '../debounce.dart';
 
 // However, we wanted the new Filters faster since the old concept
 // was problematic and buggy. So this class exposes it to for old code.
-class FilterLegacy with Traceable, TraceOrigin {
+class FilterLegacy with Logging {
   late final _controller = dep<FilterController>();
   late final _device = dep<DeviceStore>();
   late final _userConfig = dep<CurrentConfig>();
@@ -35,13 +35,14 @@ class FilterLegacy with Traceable, TraceOrigin {
   FilterLegacy(Act act) {
     depend<channel.FilterOps>(getOps(act));
     _device.addOn(deviceChanged, onDeviceChanged);
-    _selectedFilters.onChange.listen((it) => onSelectedFiltersChanged(it));
+    _selectedFilters.onChange
+        .listen((it) => onSelectedFiltersChanged(it, Markers.filter));
     _userConfig.onChange.listen((it) => onUserConfigChanged(it));
     // todo: default value at first start of new account
   }
 
-  Future<void> onDeviceChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onDeviceChangedLegacy", (trace) async {
+  Future<void> onDeviceChanged(Marker m) async {
+    return await log(m).trace("onDeviceChangedLegacy", (m) async {
       final lists = _device.lists;
       if (lists != null) {
         await _acc.start();
@@ -54,8 +55,8 @@ class FilterLegacy with Traceable, TraceOrigin {
   }
 
   // Push it to pigeon, together with KnownFilters converted and the tags
-  onSelectedFiltersChanged(List<FilterSelection> selected) {
-    print("updating filters legacy, selected: ${selected.length}");
+  onSelectedFiltersChanged(List<FilterSelection> selected, Marker m) {
+    log(m).i("updating filters legacy, selected: ${selected.length}");
 
     _ops.doFiltersChanged(_knownFilters.get().map((it) {
       return channel.Filter(
@@ -76,8 +77,8 @@ class FilterLegacy with Traceable, TraceOrigin {
     }));
   }
 
-  enableFilter(String filterName) async {
-    print("enabling filter $filterName");
+  enableFilter(String filterName, Marker m) async {
+    log(m).i("enabling filter $filterName");
 
     final known = _knownFilters
         .get()
@@ -96,9 +97,9 @@ class FilterLegacy with Traceable, TraceOrigin {
     _selectedFilters.now = selected;
 
     try {
-      final config = await _controller.getConfig(_selectedFilters.now);
-      await traceAs("enableFilterLegacy", (trace) async {
-        trace.addAttribute("lists", config.lists);
+      final config = await _controller.getConfig(_selectedFilters.now, m);
+      await log(m).trace("enableFilterLegacy", (m) async {
+        log(m).pair("lists", config.lists);
         _userConfig.now = config;
         // v2 api will be updated by the callback below
       });
@@ -107,8 +108,8 @@ class FilterLegacy with Traceable, TraceOrigin {
     }
   }
 
-  disableFilter(String filterName) async {
-    print("disabling filter $filterName");
+  disableFilter(String filterName, Marker m) async {
+    log(m).i("disabling filter $filterName");
 
     final was = _selectedFilters.now;
     final selected = was.toList();
@@ -116,9 +117,9 @@ class FilterLegacy with Traceable, TraceOrigin {
     _selectedFilters.now = selected;
 
     try {
-      final config = await _controller.getConfig(_selectedFilters.now);
-      await traceAs("disableFilterLegacy", (trace) async {
-        trace.addAttribute("lists", config.lists);
+      final config = await _controller.getConfig(_selectedFilters.now, m);
+      await log(m).trace("disableFilterLegacy", (m) async {
+        log(m).pair("lists", config.lists);
         _userConfig.now = config;
         // v2 api will be updated by the callback below
       });
@@ -127,14 +128,14 @@ class FilterLegacy with Traceable, TraceOrigin {
     }
   }
 
-  toggleFilterOption(String filterName, String option) async {
-    print("toggling filter $filterName option $option");
+  toggleFilterOption(String filterName, String option, Marker m) async {
+    log(m).i("toggling filter $filterName option $option");
 
     final known = _knownFilters
         .get()
         .firstOrNullWhere((it) => it.filterName == filterName);
     if (known == null) {
-      print("filter $filterName not found");
+      log(m).i("filter $filterName not found");
       return;
     }
 
@@ -156,9 +157,9 @@ class FilterLegacy with Traceable, TraceOrigin {
     _selectedFilters.now = selected;
 
     try {
-      final config = await _controller.getConfig(_selectedFilters.now);
-      await traceAs("toggleFilterOptionLegacy", (trace) async {
-        trace.addAttribute("lists", config.lists);
+      final config = await _controller.getConfig(_selectedFilters.now, m);
+      await log(m).trace("toggleFilterOptionLegacy", (m) async {
+        log(m).pair("lists", config.lists);
         _userConfig.now = config;
         // v2 api will be updated by the callback below
       });
@@ -177,9 +178,7 @@ class FilterLegacy with Traceable, TraceOrigin {
 
     _debounce.run(() async {
       // UserConfigs got updated by FilterController, push to v2 api
-      traceAs("onUserConfigChangedLegacy", (trace) async {
-        await _device.setLists(trace, lists.toList());
-      });
+      await _device.setLists(lists.toList(), Markers.filter);
     });
   }
 }

@@ -1,10 +1,10 @@
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
 import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -49,7 +49,7 @@ enum NotificationEventType {
 
 class NotificationStore = NotificationStoreBase with _$NotificationStore;
 
-abstract class NotificationStoreBase with Store, Traceable, Dependable {
+abstract class NotificationStoreBase with Store, Logging, Dependable {
   late final _ops = dep<NotificationOps>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
@@ -87,55 +87,54 @@ abstract class NotificationStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> showWithPayload(
-      Trace parentTrace, NotificationId id, NotificationPayload payload,
+      NotificationId id, NotificationPayload payload, Marker m,
       {DateTime? when}) async {
-    return await traceWith(parentTrace, "showWithPayload", (trace) async {
+    return await log(m).trace("showWithPayload", (m) async {
       _addCapped(NotificationEvent.shown(id, when ?? DateTime.now(),
           payload: payload));
-      trace.addAttribute("notificationId", id);
+      log(m).pair("notificationId", id);
     });
   }
 
   @action
-  Future<void> show(Trace parentTrace, NotificationId id,
-      {DateTime? when}) async {
-    return await traceWith(parentTrace, "show", (trace) async {
+  Future<void> show(NotificationId id, Marker m, {DateTime? when}) async {
+    return await log(m).trace("show", (m) async {
       _addCapped(NotificationEvent.shown(id, when ?? DateTime.now()));
-      trace.addAttribute("notificationId", id);
+      log(m).pair("notificationId", id);
     });
   }
 
   // TODO: for now we just have one notification so dismiss all
   @action
-  Future<void> dismiss(Trace parentTrace,
+  Future<void> dismiss(Marker m,
       {NotificationId id = NotificationId.all}) async {
-    return await traceWith(parentTrace, "dismissAll", (trace) async {
+    return await log(m).trace("dismissAll", (m) async {
       _addCapped(NotificationEvent.dismissed());
     });
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!route.isBecameForeground()) return;
 
-    return await traceWith(parentTrace, "dismissNotifications", (trace) async {
-      await dismiss(trace);
+    return await log(m).trace("dismissNotifications", (m) async {
+      await dismiss(m);
     });
   }
 
   @action
-  Future<void> sendAppleToken(Trace parentTrace) async {
+  Future<void> sendAppleToken(Marker m) async {
     if (appleToken == null) return;
     if (act.isFamily()) return;
-    return await traceWith(parentTrace, "sendAppleToken", (trace) async {
-      await _json.postToken(trace, appleToken!);
+    return await log(m).trace("sendAppleToken", (m) async {
+      await _json.postToken(appleToken!, m);
       appleToken = null;
     });
   }
 
   @action
-  Future<void> saveAppleToken(Trace parentTrace, String appleToken) async {
-    return await traceWith(parentTrace, "saveAppleToken", (trace) async {
+  Future<void> saveAppleToken(String appleToken, Marker m) async {
+    return await log(m).trace("saveAppleToken", (m) async {
       this.appleToken = appleToken;
     });
   }

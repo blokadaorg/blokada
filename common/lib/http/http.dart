@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:common/json/json.dart';
+import 'package:common/logger/logger.dart';
 import 'package:flutter/services.dart';
 
 import '../util/async.dart';
 import '../util/config.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -29,9 +27,9 @@ class HttpCodeException implements Exception {
 }
 
 abstract class HttpService {
-  Future<String> get(Trace trace, String url, {bool noRetry = false});
+  Future<String> get(String url, Marker m, {bool noRetry = false});
 
-  Future<String> request(Trace trace, String url, HttpType type,
+  Future<String> request(String url, HttpType type, Marker m,
       {String? payload});
 }
 
@@ -42,45 +40,40 @@ abstract class HttpService {
 /// with no connectivity when user account expires and VPN is on.
 ///
 /// It also adds the User-Agent header to every request.
-class PlatformHttpService with Traceable implements HttpService {
+class PlatformHttpService with Logging implements HttpService {
   late final _ops = dep<HttpOps>();
 
   @override
-  Future<String> get(Trace trace, String url, {bool noRetry = false}) async {
-    return await traceWith(trace, "get", (trace) async {
-      trace.addAttribute("url", url, sensitive: true);
-      _addEndpointAttribute(trace, url);
+  Future<String> get(String url, Marker m, {bool noRetry = false}) async {
+    log(m).log(msg: "GET", attr: {"url": url}, sensitive: true);
+    _addEndpointAttribute(url, m);
 
-      try {
-        return await _ops.doGet(url);
-      } on PlatformException catch (e) {
-        throw _mapException(e);
-      }
-    });
+    try {
+      return await _ops.doGet(url);
+    } on PlatformException catch (e) {
+      throw _mapException(e);
+    }
   }
 
   @override
-  Future<String> request(Trace trace, String url, HttpType type,
+  Future<String> request(String url, HttpType type, Marker m,
       {String? payload}) async {
-    return await traceWith(trace, "postOrPut", (trace) async {
-      trace.addAttribute("type", type);
-      trace.addAttribute("url", url, sensitive: true);
-      trace.addAttribute("payload", payload, sensitive: true);
-      _addEndpointAttribute(trace, url);
+    log(m).log(msg: "request", attr: {"type": type});
+    log(m).log(attr: {"url": url, "payload": payload}, sensitive: true);
+    _addEndpointAttribute(url, m);
 
-      try {
-        return await _ops.doRequest(url, payload, type.name);
-      } on PlatformException catch (e) {
-        throw _mapException(e);
-      }
-    });
+    try {
+      return await _ops.doRequest(url, payload, type.name);
+    } on PlatformException catch (e) {
+      throw _mapException(e);
+    }
   }
 
-  _addEndpointAttribute(Trace trace, String url) {
+  _addEndpointAttribute(String url, Marker m) {
     if (url.startsWith(jsonUrl)) {
       final end = url.indexOf("?");
       final endpoint = url.substring(jsonUrl.length, (end == -1) ? null : end);
-      trace.addAttribute("endpoint", endpoint);
+      log(m).pair("endpoint", endpoint);
     }
   }
 
@@ -102,7 +95,7 @@ class PlatformHttpService with Traceable implements HttpService {
 /// RepeatingHttp
 ///
 /// Will repeat the request if it fails with a retry-able error.
-class RepeatingHttpService with Dependable implements HttpService {
+class RepeatingHttpService with Dependable, Logging implements HttpService {
   final HttpService _service;
   final int maxRetries;
   final Duration waitTime;
@@ -120,19 +113,18 @@ class RepeatingHttpService with Dependable implements HttpService {
   }
 
   @override
-  Future<String> get(Trace trace, String url, {bool noRetry = false}) async {
-    if (noRetry) return await _service.get(trace, url, noRetry: true);
-    return await _repeat(trace, () => _service.get(trace, url));
+  Future<String> get(String url, Marker m, {bool noRetry = false}) async {
+    if (noRetry) return await _service.get(url, m, noRetry: true);
+    return await _repeat(() => _service.get(url, m), m);
   }
 
   @override
-  Future<String> request(Trace trace, String url, HttpType type,
+  Future<String> request(String url, HttpType type, Marker m,
       {String? payload}) {
-    return _repeat(
-        trace, () => _service.request(trace, url, type, payload: payload));
+    return _repeat(() => _service.request(url, type, m, payload: payload), m);
   }
 
-  Future<String> _repeat(Trace trace, Future<String> Function() action) async {
+  Future<String> _repeat(Future<String> Function() action, Marker m) async {
     var retries = 0;
     while (true) {
       try {
@@ -140,7 +132,7 @@ class RepeatingHttpService with Dependable implements HttpService {
       } on HttpCodeException catch (e) {
         if (e.shouldRetry() && retries < maxRetries) {
           retries++;
-          trace.addEvent("retrying request");
+          log(m).w("retrying request");
           await sleepAsync(waitTime * retries);
         } else {
           rethrow;
@@ -148,7 +140,7 @@ class RepeatingHttpService with Dependable implements HttpService {
       } on Exception catch (e) {
         if (retries < maxRetries) {
           retries++;
-          trace.addEvent("retrying request");
+          log(m).w("retrying request");
           await sleepAsync(waitTime * retries);
         } else {
           rethrow;
@@ -165,20 +157,20 @@ class DebugHttpService implements HttpService {
   DebugHttpService(this._service);
 
   @override
-  Future<String> get(Trace trace, String url, {bool noRetry = false}) {
+  Future<String> get(String url, Marker m, {bool noRetry = false}) {
     if (_shouldFail(url)) {
       throw Exception("Debug: request failed for testing");
     }
-    return _service.get(trace, url);
+    return _service.get(url, m);
   }
 
   @override
-  Future<String> request(Trace trace, String url, HttpType type,
+  Future<String> request(String url, HttpType type, Marker m,
       {String? payload}) {
     if (_shouldFail(url)) {
       throw Exception("Debug: request failed for testing");
     }
-    return _service.request(trace, url, type, payload: payload);
+    return _service.request(url, type, m, payload: payload);
   }
 
   bool _shouldFail(String url) {

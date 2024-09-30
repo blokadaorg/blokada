@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../account/account.dart';
 import '../http/http.dart';
 import '../json/json.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 
 class JsonStatsEndpoint {
   late String totalAllowed;
@@ -145,26 +146,29 @@ class StatsJson {
   late final _account = dep<AccountStore>();
 
   Future<JsonStatsEndpoint> getStats(
-      Trace trace, String since, String downsample) async {
-    final data = await _http.get(trace,
-        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample");
+      String since, String downsample, Marker m) async {
+    final data = await _http.get(
+        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample",
+        m);
     return JsonStatsEndpoint.fromJson(jsonDecode(data));
   }
 
   Future<JsonStatsEndpoint> getStatsForDevice(
-      Trace trace, String since, String downsample, String deviceName) async {
+      String since, String downsample, String deviceName, Marker m) async {
     final encoded = Uri.encodeComponent(deviceName);
-    final data = await _http.get(trace,
-        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample&device_name=$encoded");
+    final data = await _http.get(
+        "$jsonUrl/v2/stats?account_id=${_account.id}&since=$since&downsample=$downsample&device_name=$encoded",
+        m);
     return JsonStatsEndpoint.fromJson(jsonDecode(data));
   }
 
   Future<JsonToplistEndpoint> getToplistForDevice(
-      Trace trace, bool blocked, String deviceName) async {
+      bool blocked, String deviceName, Marker m) async {
     final action = blocked ? "blocked" : "allowed";
     final encoded = Uri.encodeComponent(deviceName);
-    final data = await _http.get(trace,
-        "$jsonUrl/v2/activity/toplist?account_id=${_account.id}&action=$action&device_name=$encoded");
+    final data = await _http.get(
+        "$jsonUrl/v2/activity/toplist?account_id=${_account.id}&action=$action&device_name=$encoded",
+        m);
     return JsonToplistEndpoint.fromJson(jsonDecode(data));
   }
 }

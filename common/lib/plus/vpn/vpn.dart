@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/logger/logger.dart';
 import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,7 +8,6 @@ import '../../app/app.dart';
 import '../../timer/timer.dart';
 import '../../util/config.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -68,7 +68,7 @@ const String _keyOngoingTimer = "vpn:ongoing:timeout";
 
 class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
-abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
+abstract class PlusVpnStoreBase with Store, Logging, Dependable {
   late final _ops = dep<PlusVpnOps>();
   late final _timer = dep<TimerService>();
   late final _app = dep<AppStore>();
@@ -101,15 +101,15 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
   bool _settingConfig = false;
 
   @action
-  Future<void> setVpnConfig(Trace parentTrace, VpnConfig config) async {
-    return await traceWith(parentTrace, "setVpnConfig", (trace) async {
+  Future<void> setVpnConfig(VpnConfig config, Marker m) async {
+    return await log(m).trace("setVpnConfig", (m) async {
       if (actualConfig != null && config.isSame(actualConfig!)) {
         return;
       }
 
       targetConfig = config;
       if (!actualStatus.isReady() || _settingConfig) {
-        trace.addEvent("event queued");
+        log(m).i("event queued");
         return;
       }
 
@@ -122,7 +122,7 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
           _settingConfig = false;
         } catch (e) {
           if (attempts > 0) {
-            trace.addEvent("Failed setting VPN config: $e");
+            log(m).i("Failed setting VPN config: $e");
             await sleepAsync(const Duration(seconds: 3));
           } else {
             _settingConfig = false;
@@ -132,48 +132,48 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
       }
 
       actualConfig = config;
-    }, important: true);
+    });
   }
 
   @action
-  Future<void> turnVpnOn(Trace parentTrace) async {
-    return await traceWith(parentTrace, "turnVpnOn", (trace) async {
+  Future<void> turnVpnOn(Marker m) async {
+    return await log(m).trace("turnVpnOn", (m) async {
       targetStatus = VpnStatus.activated;
       if (!actualStatus.isReady()) {
-        trace.addEvent("event queued");
+        log(m).i("event queued");
         return;
       } else if (actualStatus == targetStatus) {
         return;
       }
 
       await _setActive(true);
-    }, important: true);
+    });
   }
 
   @action
-  Future<void> turnVpnOff(Trace parentTrace) async {
-    return await traceWith(parentTrace, "turnVpnOff", (trace) async {
+  Future<void> turnVpnOff(Marker m) async {
+    return await log(m).trace("turnVpnOff", (m) async {
       targetStatus = VpnStatus.deactivated;
       if (!actualStatus.isReady()) {
-        trace.addEvent("event queued");
+        log(m).i("event queued");
         return;
       } else if (actualStatus == targetStatus) {
         return;
       }
 
       await _setActive(false);
-    }, important: true);
+    });
   }
 
   @action
-  Future<void> setActualStatus(Trace parentTrace, String statusString) async {
-    return await traceWith(parentTrace, "setActualStatus", (trace) async {
+  Future<void> setActualStatus(String statusString, Marker m) async {
+    return await log(m).trace("setActualStatus", (m) async {
       final status = statusString.toVpnStatus();
-      trace.addAttribute("status", status.name);
+      log(m).pair("status", status.name);
 
       actualStatus = status;
       if (!actualStatus.isReady()) {
-        await _app.reconfiguring(trace);
+        await _app.reconfiguring;
         _startOngoingTimeout();
         return;
       } else {
@@ -185,19 +185,19 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
       final actualCfg = actualConfig;
       if (targetCfg != null &&
           (actualCfg == null || !targetCfg.isSame(actualCfg))) {
-        await setVpnConfig(trace, targetCfg);
-        trace.addAttribute("eventProcessed", "setVpnConfig");
+        await setVpnConfig(targetCfg, m);
+        log(m).pair("eventProcessed", "setVpnConfig");
       }
 
       // Finish the ongoing completer or keep trying
       if (targetStatus == actualStatus) {
         _statusCompleter?.complete();
         _statusCompleter = null;
-        await _app.plusActivated(trace, status.isActive());
+        await _app.plusActivated(status.isActive(), m);
       } else if (targetStatus == VpnStatus.unknown) {
         _statusCompleter?.complete();
         _statusCompleter = null;
-        await _app.plusActivated(trace, status.isActive());
+        await _app.plusActivated(status.isActive(), m);
       } else {
         // _statusCompleter
         //     ?.completeError("VPN returned unexpected status: $status");
@@ -207,13 +207,13 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
         _statusCompleter?.complete();
         _statusCompleter = null;
         if (targetStatus == VpnStatus.activated) {
-          await turnVpnOn(trace);
+          await turnVpnOn(m);
         } else {
-          await turnVpnOff(trace);
+          await turnVpnOff(m);
         }
-        trace.addAttribute("eventProcessed", "setVpnActive");
+        log(m).pair("eventProcessed", "setVpnActive");
       }
-    }, important: true);
+    });
   }
 
   _setActive(bool active) async {
@@ -239,18 +239,18 @@ abstract class PlusVpnStoreBase with Store, Traceable, Dependable {
   }
 
   _onTimerFired() {
-    _timer.addHandler(_keyTimer, (trace) async {
+    _timer.addHandler(_keyTimer, (m) async {
       // doSetVpnActive command never finished
-      trace.addEvent("setting statusCompleter to fail");
+      log(m).i("setting statusCompleter to fail");
       _statusCompleter?.completeError(Exception("VPN command timed out"));
       _statusCompleter = null;
     });
   }
 
   _onOngoingTimerFired() {
-    _timer.addHandler(_keyOngoingTimer, (trace) async {
-      trace.addEvent("VPN ongoing status too long");
-      await setActualStatus(trace, "deactivated");
+    _timer.addHandler(_keyOngoingTimer, (m) async {
+      log(m).i("VPN ongoing status too long");
+      await setActualStatus("deactivated", m);
     });
   }
 

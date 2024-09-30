@@ -16,9 +16,9 @@ import 'package:common/dragon/widget/stats/stats_detail_section.dart';
 import 'package:common/dragon/widget/stats/stats_section.dart';
 import 'package:common/dragon/widget/support/support_screen.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/platform_info.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +53,7 @@ double getTopPadding(BuildContext context) {
   return (noNotch ? 100 : 68) + android; // I don't get it either
 }
 
-class Navigation with TraceOrigin {
+class Navigation with Logging {
   late final journal = dep<JournalController>();
   late final _custom = dep<CustomStore>();
 
@@ -147,7 +147,7 @@ class Navigation with TraceOrigin {
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {
             journal.filter = filter;
-            journal.fetch(tag);
+            journal.fetch(tag, Markers.userTap);
           });
         },
         child: Text(
@@ -163,8 +163,8 @@ class Navigation with TraceOrigin {
     return CommonClickable(
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
-            traceAs("addCustom", (trace) async {
-              await _custom.allow(trace, entry);
+            log(Markers.userTap).trace("addCustom", (m) async {
+              await _custom.allow(entry, m);
             });
           });
         },

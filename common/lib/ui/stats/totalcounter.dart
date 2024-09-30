@@ -1,4 +1,5 @@
 import 'package:common/common/i18n.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,6 @@ import '../../stage/stage.dart';
 import '../../stats/stats.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
-import '../../util/trace.dart';
 
 class TotalCounter extends StatefulWidget {
   TotalCounter({Key? key, required bool this.autoRefresh}) : super(key: key);
@@ -23,7 +23,7 @@ class TotalCounter extends StatefulWidget {
   }
 }
 
-class TotalCounterState extends State<TotalCounter> with TraceOrigin {
+class TotalCounterState extends State<TotalCounter> with Logging {
   TotalCounterState({required bool this.autoRefresh});
 
   static const shareChannel = MethodChannel('share');
@@ -64,8 +64,8 @@ class TotalCounterState extends State<TotalCounter> with TraceOrigin {
   }
 
   Future<void> _shareCounter() async {
-    traceAs("tappedShareAdsCounter", (trace) async {
-      await _stage.showModal(trace, StageModal.adsCounterShare);
+    log(Markers.userTap).trace("tappedShareAdsCounter", (m) async {
+      await _stage.showModal(StageModal.adsCounterShare, m);
     });
   }
 

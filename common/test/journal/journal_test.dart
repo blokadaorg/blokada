@@ -26,7 +26,7 @@ import 'journal_test.mocks.dart';
 void main() {
   group("store", () {
     test("willGroupEntriesByRequests", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -46,7 +46,7 @@ void main() {
         depend<JournalJson>(json);
 
         final subject = JournalStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         expect(subject.filteredEntries.length, 2);
         expect(subject.filteredEntries[0].requests, 3);
@@ -57,7 +57,7 @@ void main() {
     });
 
     test("willFilterEntries", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -77,29 +77,29 @@ void main() {
         depend<JournalJson>(json);
 
         final subject = JournalStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         expect(subject.filteredEntries.length, 2);
 
         // Search term (not existing)
-        await subject.updateFilter(trace, searchQuery: "foo");
+        await subject.updateFilter(m, searchQuery: "foo");
 
         expect(subject.filteredEntries.length, 0);
 
         // Search term (existing)
-        await subject.updateFilter(trace, searchQuery: "discord");
+        await subject.updateFilter(m, searchQuery: "discord");
 
         expect(subject.filteredEntries.length, 1);
 
         // Device name (need to reset previous filter)
-        await subject.updateFilter(trace,
+        await subject.updateFilter(m,
             searchQuery: "", deviceName: "deviceName");
 
         expect(subject.filteredEntries.length, 2);
 
         // Blocked only
         await subject.updateFilter(
-          trace,
+          m,
           searchQuery: "",
           deviceName: "",
           showOnly: JournalFilterType.blocked,
@@ -110,7 +110,7 @@ void main() {
 
         // Passed only
         await subject.updateFilter(
-          trace,
+          m,
           showOnly: JournalFilterType.passed,
         );
 
@@ -121,7 +121,7 @@ void main() {
     });
 
     test("willSortEntries", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -141,16 +141,16 @@ void main() {
         depend<JournalJson>(json);
 
         final subject = JournalStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         // Sort by newest first
-        await subject.updateFilter(trace, sortNewestFirst: true);
+        await subject.updateFilter(m, sortNewestFirst: true);
 
         expect(subject.filteredEntries.first.requests, 3);
         expect(subject.filteredEntries.first.domainName, "app-measurement.com");
 
         // Sort by most requests first
-        await subject.updateFilter(trace, sortNewestFirst: false);
+        await subject.updateFilter(m, sortNewestFirst: false);
 
         expect(subject.filteredEntries.first.requests, 4);
         expect(
@@ -159,7 +159,7 @@ void main() {
     });
 
     test("willRefreshWhenNeeded", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
@@ -181,12 +181,12 @@ void main() {
         verifyNever(json.getEntries(any));
 
         // Won't refresh if not enabled
-        await subject.updateJournalFreq(trace);
+        await subject.updateJournalFreq(m);
         verifyNever(json.getEntries(any));
 
         // But will, if enabled
-        await subject.enableRefresh(trace);
-        await subject.updateJournalFreq(trace);
+        await subject.enableRefresh(m);
+        await subject.updateJournalFreq(m);
         verify(json.getEntries(any));
       });
     });

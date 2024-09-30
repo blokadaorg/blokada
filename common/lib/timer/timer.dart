@@ -1,17 +1,18 @@
 import 'dart:async';
 
+import 'package:common/logger/logger.dart';
+
 import '../util/di.dart';
-import '../util/trace.dart';
 
 abstract class TimerService {
   void set(String name, DateTime when);
   unset(String name);
-  addHandler(String name, Function(Trace) handler);
+  addHandler(String name, Function(Marker) handler);
 }
 
-class DefaultTimer with TraceOrigin, Dependable implements TimerService {
+class DefaultTimer with Logging, Dependable implements TimerService {
   final Map<String, Timer> _timers = {};
-  final Map<String, Function(Trace)> _handlers = {};
+  final Map<String, Function(Marker)> _handlers = {};
 
   @override
   attach(Act act) {
@@ -29,8 +30,8 @@ class DefaultTimer with TraceOrigin, Dependable implements TimerService {
 
     unset(name);
     _timers[name] = Timer(when.difference(DateTime.now()), () async {
-      await traceAs(name, (trace) async {
-        await _handlers[name]?.call(trace);
+      await log(Markers.timer).trace(name, (m) async {
+        await _handlers[name]?.call(m);
       });
       // TODO: remove handler?
     });
@@ -43,14 +44,14 @@ class DefaultTimer with TraceOrigin, Dependable implements TimerService {
   }
 
   @override
-  addHandler(String name, Function(Trace) handler) {
+  addHandler(String name, Function(Marker) handler) {
     _handlers[name] = handler;
   }
 }
 
 // A Timer used in tests that allows for manual trigger of handlers.
-class TestingTimer with TraceOrigin, Dependable implements TimerService {
-  final Map<String, Function(Trace)> _handlers = {};
+class TestingTimer with Logging, Dependable implements TimerService {
+  final Map<String, Function(Marker)> _handlers = {};
 
   @override
   attach(Act act) {
@@ -64,13 +65,13 @@ class TestingTimer with TraceOrigin, Dependable implements TimerService {
   unset(String name) {}
 
   @override
-  addHandler(String name, Function(Trace) handler) {
+  addHandler(String name, Function(Marker) handler) {
     _handlers[name] = handler;
   }
 
   trigger(String name) async {
-    await traceAs(name, (trace) async {
-      await _handlers[name]?.call(trace);
+    await log(Markers.timer).trace(name, (m) async {
+      await _handlers[name]?.call(m);
     });
   }
 }

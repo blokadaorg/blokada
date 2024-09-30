@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
-
-import '../../util/trace.dart';
 
 class BlurBackground extends StatefulWidget {
   final bool Function()? canClose;
@@ -22,7 +21,7 @@ class BlurBackground extends StatefulWidget {
 }
 
 class BlurBackgroundState extends State<BlurBackground>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _animDuration = const Duration(milliseconds: 400);
   double _opacity = 0.0;
 

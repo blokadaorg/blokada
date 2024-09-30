@@ -1,5 +1,5 @@
 import 'package:common/common/i18n.dart';
-import 'package:common/util/trace.dart';
+import 'package:common/logger/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -26,7 +26,7 @@ class PlusButton extends StatefulWidget {
 }
 
 class _PlusButtonState extends State<PlusButton>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _app = dep<AppStore>();
   final _account = dep<AccountStore>();
   final _gateway = dep<PlusGatewayStore>();
@@ -130,8 +130,8 @@ class _PlusButtonState extends State<PlusButton>
                     _displayLocations();
                   } else {
                     activated = value;
-                    traceAs("tappedSwitchPlus", (trace) async {
-                      await _plus.switchPlus(trace, value);
+                    log(Markers.userTap).trace("tappedSwitchPlus", (m) async {
+                      await _plus.switchPlus(value, m);
                     });
                   }
                 });
@@ -144,18 +144,18 @@ class _PlusButtonState extends State<PlusButton>
   }
 
   _displayLocations() {
-    traceAs("tappedDisplayLocations", (trace) async {
+    log(Markers.userTap).trace("tappedDisplayLocations", (m) async {
       if (_perm.vpnEnabled) {
-        await _stage.showModal(trace, StageModal.plusLocationSelect);
+        await _stage.showModal(StageModal.plusLocationSelect, m);
       } else {
-        await _stage.showModal(trace, StageModal.perms);
+        await _stage.showModal(StageModal.perms, m);
       }
     });
   }
 
   _displayPayments() {
-    traceAs("tappedDisplayPayments", (trace) async {
-      await _stage.showModal(trace, StageModal.payment);
+    log(Markers.userTap).trace("tappedDisplayPayments", (m) async {
+      await _stage.showModal(StageModal.payment, m);
     });
   }
 }

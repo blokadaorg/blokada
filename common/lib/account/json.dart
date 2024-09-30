@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../http/http.dart';
 import '../json/json.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 
 class JsonAccount {
   late String id;
@@ -49,15 +50,14 @@ class JsonAccount {
 class AccountJson {
   late final _http = dep<HttpService>();
 
-  Future<JsonAccount> getAccount(Trace trace, String accountId) async {
+  Future<JsonAccount> getAccount(String accountId, Marker m) async {
     final result =
-        await _http.get(trace, "$jsonUrl/v2/account?account_id=$accountId");
+        await _http.get("$jsonUrl/v2/account?account_id=$accountId", m);
     return JsonAccount.fromJson(jsonDecode(result)["account"]);
   }
 
-  Future<JsonAccount> postAccount(Trace trace) async {
-    final result =
-        await _http.request(trace, "$jsonUrl/v2/account", HttpType.post);
+  Future<JsonAccount> postAccount(Marker m) async {
+    final result = await _http.request("$jsonUrl/v2/account", HttpType.post, m);
     return JsonAccount.fromJson(jsonDecode(result)["account"]);
   }
 }

@@ -30,6 +30,7 @@ mixin Act {
   bool isProd();
   bool hasToys();
   bool isFamily();
+  bool isTest();
   Platform getPlatform();
   Flavor getFlavor();
 }

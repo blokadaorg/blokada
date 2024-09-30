@@ -14,6 +14,7 @@ import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/stats/stats_detail_section.dart';
 import 'package:common/dragon/widget/stats/stats_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 
@@ -121,7 +122,7 @@ class DeviceScreenState extends State<DeviceScreen> {
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {
             _journal.filter = filter;
-            _journal.fetch(widget.tag);
+            _journal.fetch(widget.tag, Markers.userTap);
           });
         },
         child: Text(

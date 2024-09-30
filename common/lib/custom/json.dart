@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../account/account.dart';
-import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 
 class JsonCustomEndpoint {
   late List<JsonCustomEntry> customList;
@@ -66,21 +66,21 @@ class CustomJson {
   late final _http = dep<HttpService>();
   late final _account = dep<AccountStore>();
 
-  Future<List<JsonCustomEntry>> getEntries(Trace trace) async {
-    final result = await _http.get(
-        trace, "$jsonUrl/v2/customlist?account_id=${_account.id}");
+  Future<List<JsonCustomEntry>> getEntries(Marker m) async {
+    final result =
+        await _http.get("$jsonUrl/v2/customlist?account_id=${_account.id}", m);
     return JsonCustomEndpoint.fromJson(jsonDecode(result)).customList;
   }
 
-  Future<void> postEntry(Trace trace, JsonCustomEntry entry) async {
+  Future<void> postEntry(JsonCustomEntry entry, Marker m) async {
     final payload = JsonCustomPayload.forEntry(entry, accountId: _account.id);
-    await _http.request(trace, "$jsonUrl/v2/customlist", HttpType.post,
+    await _http.request("$jsonUrl/v2/customlist", HttpType.post, m,
         payload: jsonEncode(payload.toJson()));
   }
 
-  Future<void> deleteEntry(Trace trace, JsonCustomEntry entry) async {
+  Future<void> deleteEntry(JsonCustomEntry entry, Marker m) async {
     final payload = JsonCustomPayload.forEntry(entry, accountId: _account.id);
-    await _http.request(trace, "$jsonUrl/v2/customlist", HttpType.delete,
+    await _http.request("$jsonUrl/v2/customlist", HttpType.delete, m,
         payload: jsonEncode(payload.toJson()));
   }
 }

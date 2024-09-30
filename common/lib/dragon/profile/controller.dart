@@ -5,9 +5,10 @@ import 'package:common/dragon/device/current_config.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/profile/api.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 
-class ProfileController {
+class ProfileController with Logging {
   late final _profiles = dep<ProfileApi>();
   late final _defaultFilters = dep<DefaultFilters>();
   late final _filters = dep<FilterController>();
@@ -20,8 +21,8 @@ class ProfileController {
 
   Function onChange = () {};
 
-  reload() async {
-    profiles = await _profiles.fetch();
+  reload(Marker m) async {
+    profiles = await _profiles.fetch(m);
   }
 
   JsonProfile get(String pId) {
@@ -30,7 +31,7 @@ class ProfileController {
     return p;
   }
 
-  Future<JsonProfile> addProfile(String template, String alias,
+  Future<JsonProfile> addProfile(String template, String alias, Marker m,
       {bool canReuse = false}) async {
     if (canReuse) {
       final existing =
@@ -39,52 +40,57 @@ class ProfileController {
     }
 
     final defaultFilters = _defaultFilters.getTemplate(template);
-    final config = await _filters.getConfig(defaultFilters);
+    final config = await _filters.getConfig(defaultFilters, m);
 
-    print(
+    log(m).i(
         "in profile controller: ${config.configs}, so: ${config.configs[FilterConfigKey.safeSearch] ?? false}");
-    final p = await _profiles.add(JsonProfilePayload.forCreate(
-      alias: generateProfileAlias(alias, template),
-      lists: config.lists.toList(),
-      safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
-    ));
+    final p = await _profiles.add(
+        m,
+        JsonProfilePayload.forCreate(
+          alias: generateProfileAlias(alias, template),
+          lists: config.lists.toList(),
+          safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
+        ));
     profiles.add(p);
     onChange();
     return p;
   }
 
-  Future<JsonProfile> renameProfile(JsonProfile profile, String alias) async {
+  Future<JsonProfile> renameProfile(
+      Marker m, JsonProfile profile, String alias) async {
     if (profile.displayAlias == alias) return profile;
     if (!profiles.any((it) => it.profileId == profile.profileId)) {
       throw Exception("Profile ${profile.profileId} not found");
     }
 
-    final p = await _profiles.rename(profile, alias);
+    final p = await _profiles.rename(m, profile, alias);
     profiles =
         profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
     onChange();
     return p;
   }
 
-  deleteProfile(JsonProfile profile) async {
-    await _profiles.delete(profile);
+  deleteProfile(Marker m, JsonProfile profile) async {
+    await _profiles.delete(m, profile);
     profiles =
         profiles.where((it) => it.profileId != profile.profileId).toList();
     onChange();
   }
 
-  selectProfile(JsonProfile profile) {
-    print("selecting profile ${profile.alias}");
-    final config = UserFilterConfig(profile.lists.toSet(), {
-      FilterConfigKey.safeSearch: profile.safeSearch,
+  selectProfile(Marker m, JsonProfile profile) async {
+    await log(m).trace("selectProfile", (m) async {
+      await log(m).i("selecting profile ${profile.alias}");
+      final config = UserFilterConfig(profile.lists.toSet(), {
+        FilterConfigKey.safeSearch: profile.safeSearch,
+      });
+      _userConfig.now = config;
+      _selected = profile;
+      log(m).i("user config set to ${config.configs}");
+      // Setting user config causes FilterController to reload
     });
-    _userConfig.now = config;
-    _selected = profile;
-    print("user config set to ${config.configs}");
-    // Setting user config causes FilterController to reload
   }
 
-  updateUserChoice(Filter filter, List<String> options) async {
+  updateUserChoice(Filter filter, List<String> options, Marker m) async {
     // Immediate UI feedback
     final old = _selectedFilters.now
         .firstWhere((it) => it.filterName == filter.filterName);
@@ -93,11 +99,13 @@ class ProfileController {
       ..add(FilterSelection(filter.filterName, options));
 
     try {
-      final config = await _filters.getConfig(_selectedFilters.now);
-      final p = await _profiles.update(_selected.copy(
-        lists: config.lists.toList(),
-        safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
-      ));
+      final config = await _filters.getConfig(_selectedFilters.now, m);
+      final p = await _profiles.update(
+          m,
+          _selected.copy(
+            lists: config.lists.toList(),
+            safeSearch: config.configs[FilterConfigKey.safeSearch] ?? false,
+          ));
       profiles =
           profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
       _userConfig.now = config;

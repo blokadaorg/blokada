@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../account/account.dart';
-import '../env/env.dart';
 import '../http/http.dart';
 import '../json/json.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 
 class JsonDeviceEndpoint {
   late JsonDevice device;
@@ -99,17 +99,19 @@ class DeviceJson {
   late final _http = dep<HttpService>();
   late final _account = dep<AccountStore>();
 
-  Future<JsonDevice> getDevice(Trace trace) async {
+  Future<JsonDevice> getDevice(Marker m) async {
     final data =
-        await _http.get(trace, "$jsonUrl/v2/device?account_id=${_account.id}");
+        await _http.get("$jsonUrl/v2/device?account_id=${_account.id}", m);
     return JsonDevice.fromJson(jsonDecode(data));
   }
 
-  Future<void> putDevice(Trace trace,
-      {bool? paused,
-      List<String>? lists,
-      String? retention,
-      bool? safeSearch}) async {
+  Future<void> putDevice(
+    Marker m, {
+    bool? paused,
+    List<String>? lists,
+    String? retention,
+    bool? safeSearch,
+  }) async {
     if (paused == null &&
         lists == null &&
         retention == null &&
@@ -136,7 +138,7 @@ class DeviceJson {
     }
 
     await _http.request(
-        trace, "$jsonUrl/v2/device?account_id=${_account.id}", HttpType.put,
+        "$jsonUrl/v2/device?account_id=${_account.id}", HttpType.put, m,
         payload: jsonEncode(payload));
   }
 }

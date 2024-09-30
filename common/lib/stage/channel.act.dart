@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../command/channel.pg.dart';
@@ -28,11 +29,12 @@ _actNormal(MockStageOps ops) {
     _command.onCommandWithParam(
       CommandName.modalShown.name,
       (p.positionalArguments[0] as StageModal).name,
+      Markers.root,
     );
   });
 
   when(() => ops.doDismissModal()).thenAnswer((_) async {
-    _command.onCommand(CommandName.modalDismissed.name);
+    _command.onCommand(CommandName.modalDismissed.name, Markers.root);
   });
 
   when(() => ops.doRouteChanged(any())).thenAnswer(ignore());

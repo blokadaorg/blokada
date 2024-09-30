@@ -24,7 +24,7 @@ import 'fixtures.dart';
 void main() {
   group("store", () {
     test("loadWillReadFromPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
@@ -36,7 +36,7 @@ void main() {
         final subject = AccountStore();
         mockAct(subject);
 
-        await subject.load(trace);
+        await subject.load(m);
 
         verify(persistence.loadOrThrow(any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
@@ -46,7 +46,7 @@ void main() {
     });
 
     test("createWillPostAccountAndWriteToPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         depend<SecurePersistenceService>(persistence);
 
@@ -54,14 +54,14 @@ void main() {
         depend<AccountOps>(ops);
 
         final json = MockAccountJson();
-        when(json.postAccount(any)).thenAnswer((_) =>
+        when(json.postAccount(m)).thenAnswer((_) =>
             Future.value(JsonAccount.fromJson(jsonDecode(fixtureJsonAccount))));
         depend<AccountJson>(json);
 
         final subject = AccountStore();
         mockAct(subject);
 
-        await subject.create(trace);
+        await subject.create(m);
 
         verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
@@ -71,7 +71,7 @@ void main() {
     });
 
     test("fetchWillFetchFromApiAndWriteToPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
@@ -88,15 +88,15 @@ void main() {
         final subject = AccountStore();
         mockAct(subject);
 
-        await subject.load(trace);
-        await subject.fetch(trace);
+        await subject.load(m);
+        await subject.fetch(m);
 
         verify(persistence.save(any, any, any, isBackup: true)).called(1);
       });
     });
 
     test("restoreWillGetAccountWithProvidedId", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final persistence = MockSecurePersistenceService();
@@ -116,14 +116,14 @@ void main() {
         mockAct(subject);
 
         // First load as normal
-        await subject.load(trace);
+        await subject.load(m);
 
         expect(subject.account!.id, "mockedmocked");
 
         // Then try restoring another account
-        await subject.restore(trace, "mocked2");
+        await subject.restore("mocked2", m);
 
-        verify(json.getAccount(any, "mocked2")).called(1);
+        verify(json.getAccount("mocked2", m)).called(1);
         verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mocked2");
         expect(subject.account!.type, AccountType.libre);
@@ -132,7 +132,7 @@ void main() {
     });
 
     test("expireOfflineWillExpireAccountAndWriteToPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
@@ -147,13 +147,13 @@ void main() {
         final subject = AccountStore();
         mockAct(subject);
 
-        await subject.load(trace);
+        await subject.load(m);
 
         expect(subject.account!.id, "mockedmocked");
         expect(subject.account!.type, AccountType.cloud);
         expect(subject.account!.jsonAccount.active, true);
 
-        await subject.expireOffline(trace);
+        await subject.expireOffline(m);
 
         verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");
@@ -163,7 +163,7 @@ void main() {
     });
 
     test("proposeWillUpdateAccountAndWriteToPersistence", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         depend<SecurePersistenceService>(persistence);
 
@@ -173,7 +173,7 @@ void main() {
         final subject = AccountStore();
 
         await subject.propose(
-            trace, JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
+            JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)), m);
 
         verify(persistence.save(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mocked2");
@@ -183,7 +183,7 @@ void main() {
 
   group("storeErrors", () {
     test("willReturnErrorOnEmptyCache", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final persistence = MockSecurePersistenceService();
         when(persistence.loadOrThrow(any, any, isBackup: true))
             .thenThrow(Exception("no account in cache"));
@@ -196,33 +196,33 @@ void main() {
 
         final subject = AccountStore();
 
-        await expectLater(subject.load(trace), throwsException);
+        await expectLater(subject.load(m), throwsException);
       });
     });
 
     test("fetchWillReturnErrorWhenNoLoadCalledBefore", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final subject = AccountStore();
 
         await expectLater(
-            subject.fetch(trace), throwsA(isA<AccountNotInitialized>()));
+            subject.fetch(m), throwsA(isA<AccountNotInitialized>()));
       });
     });
 
     // test("restoreWillThrowOnInvalidAccountId", () async {
-    //   await withTrace((trace) async {
+    //   await withTrace((m) async {
     //     depend<StageStore>(MockStageStore());
     //     final subject = AccountStore();
     //
     //     // Empty account ID
     //     await expectLater(
-    //         subject.restore(trace, ""), throwsA(isA<InvalidAccountId>()));
+    //         subject.restore(""), throwsA(isA<InvalidAccountId>()));
     //   });
     // });
 
     // test("will generate new keypair on empty cache", () async {
     //   final mCache = MockSecurePersistenceSpec();
-    //   when(mCache.loadOrThrow(any, any)).thenAnswer((_) =>
+    //   when(mCache.loadOrThrow(any)).thenAnswer((_) =>
     //       Future.value(jsonDecode(Fixtures.cacheAccount))
     //   );
     //   depend<SecurePersistenceSpec>(mCache);
@@ -249,7 +249,7 @@ void main() {
 
   group("binder", () {
     test("onAccount", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountOps();
         depend<AccountOps>(ops);
 
@@ -260,7 +260,7 @@ void main() {
         depend<AccountStore>(store);
 
         await store.propose(
-            trace, JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
+            JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)), m);
 
         verify(ops.doAccountChanged(any)).called(1);
       });

@@ -1,12 +1,12 @@
+import 'package:common/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
-import 'home/home_screen.dart';
 import '../stats/stats_screen.dart';
+import 'home/home_screen.dart';
 
 class Scaffolding extends StatefulWidget {
   const Scaffolding({Key? key, required this.title}) : super(key: key);
@@ -19,7 +19,7 @@ class Scaffolding extends StatefulWidget {
 
 const pathHomeStats = "home/stats";
 
-class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
+class _ScaffoldingState extends State<Scaffolding> with Logging {
   final _stage = dep<StageStore>();
 
   final _pageCtrl = PageController(initialPage: 0);
@@ -38,14 +38,14 @@ class _ScaffoldingState extends State<Scaffolding> with Traceable, TraceOrigin {
       if (_pageCtrl.page == 1 && _path != pathHomeStats) {
         _path = pathHomeStats;
 
-        traceAs("scrolledToStats", (trace) async {
-          await _stage.setRoute(trace, _path);
+        log(Markers.userTap).trace("scrolledToStats", (m) async {
+          await _stage.setRoute(_path, m);
         });
       } else if (_pageCtrl.page == 0 && _path != "home") {
         _path = "home";
 
-        traceAs("scrolledToHome", (trace) async {
-          await _stage.setRoute(trace, _path);
+        log(Markers.userTap).trace("scrolledToHome", (m) async {
+          await _stage.setRoute(_path, m);
         });
       }
     });

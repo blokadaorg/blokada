@@ -22,7 +22,7 @@ import 'link_test.mocks.dart';
 void main() {
   group("store", () {
     test("willUpdateLinksOnLock", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<AccountStore>(MockAccountStore());
         depend<LockStore>(MockLockStore());
         depend<FamilyStore>(MockFamilyStore());
@@ -36,9 +36,9 @@ void main() {
 
         final subject = LinkStore();
         mockAct(subject);
-        subject.start(trace);
+        subject.start(m);
 
-        await subject.updateLinksFromLock(trace, true);
+        await subject.updateLinksFromLock(true, m);
 
         verify(ops.doLinksChanged(any)).called(1);
       });

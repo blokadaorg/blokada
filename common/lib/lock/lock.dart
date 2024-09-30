@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 import 'package:string_validator/string_validator.dart';
@@ -19,7 +20,7 @@ const _keyLock = "lock:pin";
 class LockStore = LockStoreBase with _$LockStore;
 
 abstract class LockStoreBase
-    with Store, Traceable, Dependable, Startable, ValueEmitter<bool> {
+    with Store, Logging, Dependable, Startable, ValueEmitter<bool> {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
   late final _perm = dep<PermStore>();
@@ -45,52 +46,52 @@ abstract class LockStoreBase
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
-      if (!act.isFamily()) await _stage.setShowNavbar(trace, false);
-      await load(trace);
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
+      if (!act.isFamily()) await _stage.setShowNavbar(false, m);
+      await load(m);
     });
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
-      _existingPin = await _persistence.load(trace, _keyLock);
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
+      _existingPin = await _persistence.load(_keyLock, m);
       hasPin = _existingPin != null;
       isLocked = hasPin;
-      await emitValue(lockChanged, trace, isLocked);
+      await emitValue(lockChanged, isLocked, m);
       if (isLocked) {
-        await _stage.showModal(trace, StageModal.lock);
+        await _stage.showModal(StageModal.lock, m);
       } else {
-        if (!act.isFamily()) await _stage.setShowNavbar(trace, true);
+        if (!act.isFamily()) await _stage.setShowNavbar(true, m);
       }
     });
   }
 
   @action
-  Future<void> lock(Trace parentTrace, String pin) async {
-    return await traceWith(parentTrace, "lock", (trace) async {
+  Future<void> lock(String pin, Marker m) async {
+    return await log(m).trace("lock", (m) async {
       if (isLocked) {
         return;
       }
 
       if (pin.length != 4 || !isNumeric(pin)) {
-        await _stage.showModal(trace, StageModal.faultLockInvalid);
+        await _stage.showModal(StageModal.faultLockInvalid, m);
         throw Exception("Invalid pin format: $pin");
       }
 
-      await _persistence.saveString(trace, _keyLock, pin);
+      await _persistence.saveString(_keyLock, pin, m);
       _existingPin = pin;
       isLocked = true;
       hasPin = true;
-      await emitValue(lockChanged, trace, true);
-      if (!act.isFamily()) await _stage.setShowNavbar(trace, false);
+      await emitValue(lockChanged, true, m);
+      if (!act.isFamily()) await _stage.setShowNavbar(false, m);
     });
   }
 
   @action
-  Future<void> canUnlock(Trace parentTrace, String pin) async {
-    return await traceWith(parentTrace, "canUnlock", (trace) async {
+  Future<void> canUnlock(String pin, Marker m) async {
+    return await log(m).trace("canUnlock", (m) async {
       if (_existingPin == null) {
         throw Exception("Pin not set");
       }
@@ -104,64 +105,63 @@ abstract class LockStoreBase
   }
 
   @action
-  Future<void> unlock(Trace parentTrace, String pin) async {
-    return await traceWith(parentTrace, "unlock", (trace) async {
-      await canUnlock(trace, pin);
+  Future<void> unlock(String pin, Marker m) async {
+    return await log(m).trace("unlock", (m) async {
+      await canUnlock(pin, m);
 
       isLocked = false;
-      await emitValue(lockChanged, trace, false);
-      if (!act.isFamily()) await _stage.setShowNavbar(trace, true);
+      await emitValue(lockChanged, false, m);
+      if (!act.isFamily()) await _stage.setShowNavbar(true, m);
     });
   }
 
   // Sets lock, but does not lock immediately
   @action
-  Future<void> setLock(Trace parentTrace, String pin) async {
-    return await traceWith(parentTrace, "setLock", (trace) async {
+  Future<void> setLock(String pin, Marker m) async {
+    return await log(m).trace("setLock", (m) async {
       if (isLocked) {
         return;
       }
 
       if (pin.length != 4 || !isNumeric(pin)) {
-        await _stage.showModal(trace, StageModal.faultLockInvalid);
+        await _stage.showModal(StageModal.faultLockInvalid, m);
         throw Exception("Invalid pin format: $pin");
       }
 
-      await _persistence.saveString(trace, _keyLock, pin);
+      await _persistence.saveString(_keyLock, pin, m);
       _existingPin = pin;
       hasPin = true;
     });
   }
 
   @action
-  Future<void> removeLock(Trace parentTrace) async {
-    return await traceWith(parentTrace, "removeLock", (trace) async {
+  Future<void> removeLock(Marker m) async {
+    return await log(m).trace("removeLock", (m) async {
       if (_existingPin == null) return;
       final pin = _existingPin!;
-      await unlock(trace, pin);
+      await unlock(pin, m);
       _existingPin = null;
       hasPin = false;
-      await _persistence.delete(trace, _keyLock);
+      await _persistence.delete(_keyLock, m);
     });
   }
 
   @action
-  Future<void> autoLock(Trace parentTrace) async {
-    return await traceWith(parentTrace, "autoLock", (trace) async {
+  Future<void> autoLock(Marker m) async {
+    return await log(m).trace("autoLock", (m) async {
       if (hasPin) {
-        await lock(trace, _existingPin!);
+        await lock(_existingPin!, m);
       }
-      await _stage.showModal(trace, StageModal.lock);
+      await _stage.showModal(StageModal.lock, m);
     });
   }
 
-  _autoLockOnBackground(Trace parentTrace) async {
+  _autoLockOnBackground(Marker m) async {
     if (hasPin) {
-      return await traceWith(parentTrace, "autoLockOnBackground",
-          (trace) async {
-        await _stage.setRoute(trace, "home");
-        await _stage.showModal(trace, StageModal.lock);
-        await lock(trace, _existingPin!);
+      return await log(m).trace("autoLockOnBackground", (m) async {
+        await _stage.setRoute("home", m);
+        await _stage.showModal(StageModal.lock, m);
+        await lock(_existingPin!, m);
       });
     }
   }

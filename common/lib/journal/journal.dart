@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../device/device.dart';
@@ -97,7 +98,7 @@ JournalFilter _noFilter = JournalFilter(
 class JournalStore = JournalStoreBase with _$JournalStore;
 
 abstract class JournalStoreBase
-    with Store, Traceable, Dependable, Startable, Cooldown {
+    with Store, Logging, Dependable, Startable, Cooldown {
   late final _ops = dep<JournalOps>();
   late final _json = dep<JournalJson>();
   late final _device = dep<DeviceStore>();
@@ -160,19 +161,19 @@ abstract class JournalStoreBase
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
       if (act.isFamily()) return;
 
       // Default to show journal only for the current device
-      await updateFilter(trace, deviceName: _device.deviceAlias);
+      await updateFilter(deviceName: _device.deviceAlias, m);
     });
   }
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
-      final entries = await _json.getEntries(trace);
+  Future<void> fetch(Marker m) async {
+    return await log(m).trace("fetch", (m) async {
+      final entries = await _json.getEntries(m);
       final grouped = groupBy(entries, (e) => "${e.action}${e.domainName}");
 
       allEntries = grouped.values.map((value) {
@@ -183,8 +184,8 @@ abstract class JournalStoreBase
   }
 
   @action
-  Future<void> onTimerFired(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onTimerFired", (trace) async {
+  Future<void> onTimerFired(Marker m) async {
+    return await log(m).trace("onTimerFired", (m) async {
       final route = _stage.route;
       if (!route.isForeground()) {
         _stopTimer();
@@ -210,7 +211,7 @@ abstract class JournalStoreBase
             ? cfg.refreshVeryFrequent
             : cfg.refreshOnHome;
         try {
-          await fetch(trace);
+          await fetch;
           _rescheduleTimer(cooldown);
         } on Exception catch (_) {
           _rescheduleTimer(cooldown);
@@ -220,9 +221,9 @@ abstract class JournalStoreBase
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!route.isForeground()) {
-      parentTrace.addEvent("journal: route not foreground");
+      log(m).i("journal: route not foreground");
       return;
     }
 
@@ -231,47 +232,47 @@ abstract class JournalStoreBase
     final isLinkModal = route.modal == StageModal.accountLink;
     if (!act.isFamily() && !isActivity) return;
     if (act.isFamily() && !isActivity && !isHome && !isLinkModal) return;
-    await updateJournalFreq(parentTrace);
+    await updateJournalFreq(m);
   }
 
   @action
-  Future<void> enableRefresh(Trace parentTrace) async {
-    return await traceWith(parentTrace, "enableRefresh", (trace) async {
+  Future<void> enableRefresh(Marker m) async {
+    return await log(m).trace("enableRefresh", (m) async {
       refreshEnabled = true;
-      await onTimerFired(trace);
+      await onTimerFired(m);
     });
   }
 
   @action
-  Future<void> disableRefresh(Trace parentTrace) async {
-    return await traceWith(parentTrace, "disableRefresh", (trace) async {
+  Future<void> disableRefresh(Marker m) async {
+    return await log(m).trace("disableRefresh", (m) async {
       refreshEnabled = false;
       _stopTimer();
     });
   }
 
   @action
-  Future<void> setFrequentRefresh(Trace parentTrace, bool frequent) async {
-    return await traceWith(parentTrace, "frequentRefresh", (trace) async {
+  Future<void> setFrequentRefresh(Marker m, bool frequent) async {
+    return await log(m).trace("frequentRefresh", (m) async {
       frequentRefresh = frequent;
       if (frequent) {
         refreshEnabled = true;
-        await onTimerFired(trace);
+        await onTimerFired(m);
       }
     });
   }
 
   @action
-  Future<void> updateJournalFreq(Trace parentTrace) async {
-    return await traceWith(parentTrace, "updateJournalFreq", (trace) async {
+  Future<void> updateJournalFreq(Marker m) async {
+    return await log(m).trace("updateJournalFreq", (m) async {
       final on = _device.retention?.isEnabled() ?? false;
-      trace.addAttribute("retention", on);
+      log(m).pair("retention", on);
       if (on && _stage.route.isTab(StageTab.activity)) {
-        await enableRefresh(trace);
+        await enableRefresh(m);
       } else if (on && act.isFamily() && _stage.route.isTab(StageTab.home)) {
-        await enableRefresh(trace);
+        await enableRefresh(m);
       } else if (!on) {
-        await disableRefresh(trace);
+        await disableRefresh(m);
       }
     });
   }
@@ -286,13 +287,13 @@ abstract class JournalStoreBase
 
   @action
   Future<void> updateFilter(
-    Trace parentTrace, {
+    Marker m, {
     JournalFilterType? showOnly,
     String? searchQuery,
     String? deviceName,
     bool? sortNewestFirst,
   }) async {
-    return await traceWith(parentTrace, "updateFilter", (trace) async {
+    return await log(m).trace("updateFilter", (m) async {
       final newFilter = filter.updateOnly(
         showOnly: showOnly,
         searchQuery: searchQuery,
@@ -305,7 +306,7 @@ abstract class JournalStoreBase
           newFilter.showOnly != filter.showOnly ||
           newFilter.sortNewestFirst != filter.sortNewestFirst) {
         filter = newFilter;
-        trace.addAttribute("filter", filter.string());
+        log(m).pair("filter", filter.string());
       }
     });
   }

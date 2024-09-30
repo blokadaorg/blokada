@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 import 'package:unique_names_generator/unique_names_generator.dart' as names;
 
@@ -34,7 +35,7 @@ const String _keyTag = "device:tag";
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase
-    with Store, Traceable, Dependable, Startable, Cooldown, Emitter {
+    with Store, Logging, Dependable, Startable, Cooldown, Emitter {
   late final _ops = dep<DeviceOps>();
   late final _api = dep<DeviceJson>();
   late final _stage = dep<StageStore>();
@@ -121,66 +122,65 @@ abstract class DeviceStoreBase
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
-      await load(trace);
-      await setDeviceName(trace, _env.deviceName);
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
+      await load(m);
+      await setDeviceName(_env.deviceName, m);
     });
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
-      deviceAlias = await _persistence.load(trace, _keyAlias) ?? "";
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
+      deviceAlias = await _persistence.load(_keyAlias, m) ?? "";
     });
   }
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
+  Future<void> fetch(Marker m) async {
     if (act.isFamily()) return;
 
-    return await traceWith(parentTrace, "fetch", (trace) async {
-      trace.addAttribute("tag", deviceTag);
+    return await log(m).trace("fetch", (m) async {
+      log(m).pair("tag", deviceTag);
 
-      final device = await _api.getDevice(trace);
+      final device = await _api.getDevice(m);
       cloudEnabled = !device.paused;
       lists = device.lists;
       retention = device.retention;
       deviceTag = device.deviceTag;
 
-      await emit(deviceChanged, trace, deviceTag!);
+      await emit(deviceChanged, deviceTag!, m);
     });
   }
 
   @action
-  Future<void> setCloudEnabled(Trace parentTrace, bool enabled) async {
-    return await traceWith(parentTrace, "setCloudEnabled", (trace) async {
-      await _api.putDevice(trace, paused: !enabled);
-      await fetch(trace);
+  Future<void> setCloudEnabled(bool enabled, Marker m) async {
+    return await log(m).trace("setCloudEnabled", (m) async {
+      await _api.putDevice(m, paused: !enabled);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> setRetention(
-      Trace parentTrace, DeviceRetention retention) async {
-    return await traceWith(parentTrace, "setRetention", (trace) async {
-      trace.addAttribute("retention", retention);
-      await _api.putDevice(trace, retention: retention);
-      await fetch(trace);
+  Future<void> setRetention(DeviceRetention retention, Marker m) async {
+    return await log(m).trace("setRetention", (m) async {
+      log(m).pair("retention", retention);
+      await _api.putDevice(m, retention: retention);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> setLists(Trace parentTrace, List<String> lists) async {
-    return await traceWith(parentTrace, "setLists", (trace) async {
-      trace.addAttribute("lists", lists);
-      await _api.putDevice(trace, lists: lists);
-      await fetch(trace);
+  Future<void> setLists(List<String> lists, Marker m) async {
+    return await log(m).trace("setLists", (m) async {
+      log(m).pair("lists", lists);
+      await _api.putDevice(m, lists: lists);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> setDeviceName(Trace parentTrace, String? deviceName) async {
+  Future<void> setDeviceName(String? deviceName, Marker m) async {
     // Simple handling of OG flavor (no generated device names)
     // TODO: refactor
     if (!act.isFamily()) {
@@ -190,20 +190,20 @@ abstract class DeviceStoreBase
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!route.isForeground()) return;
     if (!route.isMainRoute()) return;
     if (!isCooledDown(cfg.deviceRefreshCooldown)) return;
 
-    return await traceWith(parentTrace, "fetchDevice", (trace) async {
-      await fetch(trace);
+    return await log(m).trace("fetchDevice", (m) async {
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> onAccountChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onAccountChanged", (trace) async {
-      await fetch(trace);
+  Future<void> onAccountChanged(Marker m) async {
+    return await log(m).trace("onAccountChanged", (m) async {
+      await fetch(m);
     });
   }
 }

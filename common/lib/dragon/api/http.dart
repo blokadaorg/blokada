@@ -3,10 +3,11 @@ import 'package:common/dragon/account/account_id.dart';
 import 'package:common/dragon/api/user_agent.dart';
 import 'package:common/dragon/base_url.dart';
 import 'package:common/http/channel.pg.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/services.dart';
 
-class Http {
+class Http with Logging {
   late final _ops = dep<HttpOps>();
   late final _baseUrl = dep<BaseUrl>();
   late final _accountId = dep<AccountId>();
@@ -14,33 +15,37 @@ class Http {
   late final _retry = dep<ApiRetryDuration>();
 
   Future<String> call(
-    HttpRequest payload, {
+    HttpRequest payload,
+    Marker m, {
     QueryParams? params,
     Headers headers = const {},
   }) async {
-    final h = _headers()..addAll(headers);
-    final p = _params()..addAll(params ?? {});
-    await _prepare(payload, p, h);
-    try {
-      print("Api call: ${payload.endpoint} ${payload.url}");
-      print("Api call payload: ${payload.payload}");
-      return _call(payload, payload.retries);
-    } on HttpCodeException catch (e) {
-      throw HttpCodeException(
-          e.code, "Api ${payload.endpoint} failed: ${e.message}");
-    } catch (e) {
-      throw Exception("Api ${payload.endpoint} failed: $e");
-    }
+    return await log(m).trace("call", (m) async {
+      final h = _headers()..addAll(headers);
+      final p = _params()..addAll(params ?? {});
+      await _prepare(payload, p, h);
+      try {
+        log(m).i("Api call: ${payload.endpoint}");
+        log(m).log(attr: {"url": payload.url}, sensitive: true);
+        log(m).log(attr: {"payload": payload.payload}, sensitive: true);
+        return _call(payload, payload.retries, m);
+      } on HttpCodeException catch (e) {
+        throw HttpCodeException(
+            e.code, "Api ${payload.endpoint} failed: ${e.message}");
+      } catch (e) {
+        throw Exception("Api ${payload.endpoint} failed: $e");
+      }
+    });
   }
 
-  Future<String> _call(HttpRequest request, int retries) async {
+  Future<String> _call(HttpRequest request, int retries, Marker m) async {
     try {
-      return await _doOps(request);
+      return await _doOps(request, m);
     } catch (e) {
       if (e is HttpCodeException && !e.shouldRetry()) rethrow;
       if (retries - 1 > 0) {
         await _sleep();
-        return await _call(request, retries - 1);
+        return await _call(request, retries - 1, m);
       } else {
         rethrow;
       }
@@ -78,7 +83,7 @@ class Http {
     request.headers = headers;
   }
 
-  Future<JsonString> _doOps(HttpRequest request) async {
+  Future<JsonString> _doOps(HttpRequest request, Marker m) async {
     try {
       return await _ops.doRequestWithHeaders(
         request.url,
@@ -86,12 +91,12 @@ class Http {
         request.endpoint.type,
         request.headers,
       );
-    } on PlatformException catch (e) {
+    } on PlatformException catch (e, s) {
       final ex = _mapException(e);
-      print("Http: ${request.url}; Failed: $ex");
+      log(m).e(msg: "Http: ${request.url}; Failed", err: ex, stack: s);
       throw ex;
-    } catch (e) {
-      print("Http: ${request.url}; Failed: $e");
+    } catch (e, s) {
+      log(m).e(msg: "Http: ${request.url}; Failed", err: e, stack: s);
       rethrow;
     }
   }

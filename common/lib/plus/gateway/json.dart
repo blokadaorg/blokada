@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 
 class JsonGatewayEndpoint {
   late List<JsonGateway> gateways;
@@ -85,8 +86,8 @@ class JsonGateway {
 class PlusGatewayJson {
   late final _http = dep<HttpService>();
 
-  Future<List<JsonGateway>> get(Trace trace) async {
-    final result = await _http.get(trace, "$jsonUrl/v2/gateway");
+  Future<List<JsonGateway>> get(Marker m) async {
+    final result = await _http.get("$jsonUrl/v2/gateway", m);
     return JsonGatewayEndpoint.fromJson(jsonDecode(result)).gateways;
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:common/account/refresh/json.dart';
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../dragon/family/family.dart';
@@ -97,7 +98,7 @@ enum AccountStatus { init, active, inactive, expiring, expired, fatal }
 class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
-    with Store, Traceable, Dependable, Startable, Cooldown, Emitter {
+    with Store, Logging, Dependable, Startable, Cooldown, Emitter {
   late final _timer = dep<TimerService>();
   late final _account = dep<AccountStore>();
   late final _notification = dep<NotificationStore>();
@@ -128,18 +129,18 @@ abstract class AccountRefreshStoreBase
 
   // Init the account with a retry loop. Can be called multiple times if failed.
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
       bool success = false;
       int retries = 2;
       Exception? lastException;
       while (!success && retries-- > 0) {
         try {
-          await init(trace);
+          await init(m);
           success = true;
         } on Exception catch (e) {
           lastException = e;
-          trace.addEvent("init failed, retrying");
+          log(m).i("init failed, retrying");
           await sleepAsync(cfg.appStartFailWait);
         }
       }
@@ -152,121 +153,125 @@ abstract class AccountRefreshStoreBase
   }
 
   @action
-  Future<void> init(Trace parentTrace) async {
+  Future<void> init(Marker m) async {
     // On app start, try loading cache, then either refresh account from api,
     // or create a new one.
-    return await traceWith(parentTrace, "init", (trace) async {
-      if (_initSuccessful) throw StateError("already initialized");
-      await _account.load(trace);
-      await _account.fetch(trace);
-      final metadataJson = await _persistence.load(trace, _keyRefresh);
-      if (metadataJson != null) {
-        _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
+    return await log(m).trace("init", (m) async {
+      try {
+        if (_initSuccessful) throw StateError("already initialized");
+        await _account.load(m);
+        await _account.fetch(m);
+        final metadataJson = await _persistence.load(_keyRefresh, m);
+        if (metadataJson != null) {
+          _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
+        }
+        await syncAccount(_account.account, m);
+        lastRefresh = DateTime.now();
+        _initSuccessful = true;
+      } catch (e) {
+        log(m).i("creating new account");
+        await _account.create(m);
+        await syncAccount(_account.account, m);
+        lastRefresh = DateTime.now();
+        _initSuccessful = true;
       }
-      await syncAccount(trace, _account.account);
-      lastRefresh = DateTime.now();
-      _initSuccessful = true;
-    }, fallback: (trace) async {
-      trace.addEvent("creating new account");
-      await _account.create(trace);
-      await syncAccount(trace, _account.account);
-      lastRefresh = DateTime.now();
-      _initSuccessful = true;
     });
   }
 
   // This has to be called when the account is updated in AccountStore.
   @action
-  Future<void> syncAccount(Trace parentTrace, AccountState? account) async {
-    return await traceWith(parentTrace, "syncAccount", (trace) async {
+  Future<void> syncAccount(AccountState? account, Marker m) async {
+    return await log(m).trace("syncAccount", (m) async {
       if (account == null) return;
 
       final hasExp = account.jsonAccount.activeUntil != null;
       DateTime? exp =
           hasExp ? DateTime.parse(account.jsonAccount.activeUntil!) : null;
       expiration = expiration.update(expiration: exp);
-      _updateTimer(trace);
+      _updateTimer(m);
 
       // Track the previous account type so that we can notice when user upgrades
       final prev = _metadata.previousAccountType;
       if (account.type.isUpgradeOver(prev)) {
         // User upgraded
         _metadata.seenExpiredDialog = false;
-        await _saveMetadata(trace);
+        await _saveMetadata(m);
       } else if (account.type == AccountType.libre &&
           prev != AccountType.libre &&
           prev != null) {
         // Expired, show dialog if not seen for this expiration
         if (!_metadata.seenExpiredDialog) {
           _metadata.seenExpiredDialog = true;
-          await _saveMetadata(trace);
-          await _stage.showModal(trace, StageModal.accountExpired);
-          if (!act.isFamily()) await _plus.clearPlus(trace);
+          await _saveMetadata(m);
+          await _stage.showModal(StageModal.accountExpired, m);
+          if (!act.isFamily()) await _plus.clearPlus(m);
         }
       }
 
       _metadata.previousAccountType = account.type;
-      await _saveMetadata(trace);
+      await _saveMetadata(m);
     });
   }
 
   // After user has seen the expiration message, mark the account as inactive.
   @action
-  Future<void> markAsInactive(Trace parentTrace) async {
-    return await traceWith(parentTrace, "markAsInactive", (trace) async {
+  Future<void> markAsInactive(Marker m) async {
+    return await log(m).trace("markAsInactive", (m) async {
       expiration = expiration.markAsInactive();
     });
   }
 
   @action
-  Future<void> onTimerFired(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onTimerFired", (trace) async {
-      if (!_initSuccessful) return;
-      trace.addEvent("timer fired, init successful");
-      expiration = expiration.update();
-      // Maybe account got extended externally, so try to refresh
-      // This will invoke the update() above.
-      await _account.fetch(trace);
-      await syncAccount(trace, _account.account);
-      lastRefresh = DateTime.now();
-    }, fallback: (trace) async {
-      // We may have cut off the internet, so we can't refresh.
-      // Mark the account as expired manually.
-      await _account.expireOffline(trace);
-      await syncAccount(trace, _account.account);
-    });
-  }
-
-  @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
-    if (!_initSuccessful) return;
-    if (!route.isForeground()) return;
-
-    return await traceWith(parentTrace, "refreshExpiration", (trace) async {
-      // Refresh when entering the Settings tab, or foreground after enough time
-      if (route.isBecameTab(StageTab.settings) ||
-          isCooledDown(cfg.accountRefreshCooldown)) {
-        await _account.fetch(trace);
-        await syncAccount(trace, _account.account);
-      } else {
-        // Even when not refreshing, recheck the expiration on foreground
+  Future<void> onTimerFired(Marker m) async {
+    return await log(m).trace("onTimerFired", (m) async {
+      try {
+        if (!_initSuccessful) return;
+        log(m).i("timer fired, init successful");
         expiration = expiration.update();
-        _updateTimer(trace);
+        // Maybe account got extended externally, so try to refresh
+        // This will invoke the update() above.
+        await _account.fetch(m);
+        await syncAccount(_account.account, m);
+        lastRefresh = DateTime.now();
+      } catch (e) {
+        // We may have cut off the internet, so we can't refresh.
+        // Mark the account as expired manually.
+        await _account.expireOffline(m);
+        await syncAccount(_account.account, m);
       }
     });
   }
 
   @action
-  Future<void> onRemoteNotification(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onRemoteNotification", (trace) async {
-      // We use remote notifications pushed from the cloud to let the client
-      // know that the account has been extended.
-      await _account.fetch(trace);
-      await syncAccount(trace, _account.account);
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
+    if (!_initSuccessful) return;
+    if (!route.isForeground()) return;
+
+    return await log(m).trace("refreshExpiration", (m) async {
+      // Refresh when entering the Settings tab, or foreground after enough time
+      if (route.isBecameTab(StageTab.settings) ||
+          isCooledDown(cfg.accountRefreshCooldown)) {
+        await _account.fetch(m);
+        await syncAccount(_account.account, m);
+      } else {
+        // Even when not refreshing, recheck the expiration on foreground
+        expiration = expiration.update();
+        _updateTimer(m);
+      }
     });
   }
 
-  void _updateTimer(Trace trace) {
+  @action
+  Future<void> onRemoteNotification(Marker m) async {
+    return await log(m).trace("onRemoteNotification", (m) async {
+      // We use remote notifications pushed from the cloud to let the client
+      // know that the account has been extended.
+      await _account.fetch(m);
+      await syncAccount(_account.account, m);
+    });
+  }
+
+  void _updateTimer(Marker m) {
     final id = act.isFamily()
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
@@ -277,25 +282,25 @@ abstract class AccountRefreshStoreBase
 
     if (expDate != null && !shouldSkipNotification) {
       _timer.set(_keyTimer, expDate);
-      trace.addAttribute("timer", expDate);
+      log(m).pair("timer", expDate);
 
-      _notification.show(trace, id, when: expiration.expiration);
-      trace.addAttribute("notificationId", id);
-      trace.addAttribute("notificationDate", expiration.expiration);
+      _notification.show(id, when: expiration.expiration, m);
+      log(m).pair("notificationId", id);
+      log(m).pair("notificationDate", expiration.expiration);
     } else {
       _timer.unset(_keyTimer);
-      trace.addAttribute("timer", null);
+      log(m).pair("timer", null);
 
       if (expiration.status == AccountStatus.active) {
-        _notification.dismiss(trace, id: id);
-        trace.addAttribute("notificationId", id);
-        trace.addAttribute("notificationDate", null);
+        _notification.dismiss(id: id, m);
+        log(m).pair("notificationId", id);
+        log(m).pair("notificationDate", null);
       }
     }
   }
 
-  _saveMetadata(Trace trace) async {
+  _saveMetadata(Marker m) async {
     await _persistence.saveString(
-        trace, _keyRefresh, jsonEncode(_metadata.toJson()));
+        _keyRefresh, jsonEncode(_metadata.toJson()), m);
   }
 }

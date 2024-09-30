@@ -1,6 +1,6 @@
 import 'package:common/common/i18n.dart';
 import 'package:common/dragon/widget/navigation.dart';
-import 'package:common/link/channel.pg.dart';
+import 'package:common/logger/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
@@ -8,7 +8,6 @@ import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 import '../../../stage/stage.dart';
 import '../../../ui/overlay/blur_background.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 
 class FamilyOnboardScreen extends StatefulWidget {
   const FamilyOnboardScreen({Key? key}) : super(key: key);
@@ -17,8 +16,7 @@ class FamilyOnboardScreen extends StatefulWidget {
   FamilyOnboardScreenState createState() => FamilyOnboardScreenState();
 }
 
-class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
-    with TraceOrigin {
+class FamilyOnboardScreenState extends State<FamilyOnboardScreen> with Logging {
   final _stage = dep<StageStore>();
 
   final GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
@@ -34,8 +32,8 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
   }
 
   _close() async {
-    traceAs("tappedCloseOverlay", (trace) async {
-      await _stage.dismissModal(trace);
+    log(Markers.userTap).trace("tappedCloseOverlay", (m) async {
+      await _stage.dismissModal(m);
     });
   }
 
@@ -133,11 +131,5 @@ class FamilyOnboardScreenState extends State<FamilyOnboardScreen>
         const SizedBox(height: 60),
       ],
     );
-  }
-
-  _openTos() {
-    traceAs("tappedOnboardingTos", (trace) async {
-      await _stage.openLink(trace, LinkId.tos);
-    });
   }
 }

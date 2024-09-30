@@ -1,12 +1,12 @@
 import 'package:common/dragon/device/this_device.dart';
 import 'package:common/dragon/perm/dns_perm.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/perm/channel.pg.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 
-class PermController with Traceable {
+class PermController with Logging {
   late final _ops = dep<PermOps>();
   late final _perm = dep<DnsPerm>();
   late final _deviceTag = dep<ThisDevice>();
@@ -14,20 +14,20 @@ class PermController with Traceable {
 
   late final _stage = dep<StageStore>();
 
-  start() async {
-    _check();
-    _deviceTag.onChange.listen((it) => _check());
+  start(Marker m) async {
+    _check(m);
+    _deviceTag.onChange.listen((it) => _check(m));
     _stage.addOnValue(routeChanged, onRouteChanged);
   }
 
-  String getAndroidPrivateDnsString() {
+  String getAndroidPrivateDnsString(Marker m) {
     try {
       final device = _deviceTag.now!;
       final name = _sanitizeAlias(device.alias);
       final tag = device.deviceTag;
       return "$name-$tag.cloud.blokada.org";
     } catch (e) {
-      print("getAndroidPrivateDnsString: $e");
+      log(m).e(msg: "getAndroidPrivateDnsString", err: e);
       return "";
     }
   }
@@ -38,7 +38,7 @@ class PermController with Traceable {
     return a;
   }
 
-  _check() async {
+  _check(Marker m) async {
     final device = await _deviceTag.fetch();
     if (device == null) {
       _perm.now = false;
@@ -49,22 +49,19 @@ class PermController with Traceable {
     // TODO: do this for both platforms eventually
     if (_act.getPlatform() == Platform.android) {
       final current = await _ops.getPrivateDnsSetting();
-      _perm.now = current == getAndroidPrivateDnsString();
+      _perm.now = current == getAndroidPrivateDnsString(m);
     } else {
       _perm.now = await _ops.doIsPrivateDnsEnabled(device.deviceTag);
     }
   }
 
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!(route.isBecameForeground() || route.modal == StageModal.perms)) {
-      parentTrace.addAttribute(
-          "permIsBecameForeground", route.isBecameForeground());
-      parentTrace.addAttribute("permIsForeground", route.isForeground());
+      log(m).pair("permIsBecameForeground", route.isBecameForeground());
+      log(m).pair("permIsForeground", route.isForeground());
       return;
     }
 
-    return await traceWith(parentTrace, "permCheck", (trace) async {
-      await _check();
-    });
+    await _check(m);
   }
 }

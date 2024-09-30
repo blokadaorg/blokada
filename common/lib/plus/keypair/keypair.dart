@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
@@ -22,8 +23,7 @@ extension PlusKeypairExt on PlusKeypair {
 
 class PlusKeypairStore = PlusKeypairStoreBase with _$PlusKeypairStore;
 
-abstract class PlusKeypairStoreBase
-    with Store, Traceable, Dependable, Startable {
+abstract class PlusKeypairStoreBase with Store, Logging, Dependable, Startable {
   late final _ops = dep<PlusKeypairOps>();
   late final _persistence = dep<SecurePersistenceService>();
   late final _account = dep<AccountStore>();
@@ -58,19 +58,19 @@ abstract class PlusKeypairStoreBase
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
       // TODO: needed for family?
-      await load(trace);
+      await load(m);
     });
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
       try {
         // throw Exception("test");
-        final json = await _persistence.loadOrThrow(trace, _keyKeypair);
+        final json = await _persistence.loadOrThrow(_keyKeypair, m);
         final keypair = PlusKeypair(
           publicKey: json['publicKey'],
           privateKey: json['privateKey'],
@@ -78,20 +78,20 @@ abstract class PlusKeypairStoreBase
         _ensureValidKeypair(keypair);
         currentKeypair = keypair;
       } on Exception catch (_) {
-        await generate(trace);
+        await generate(m);
       }
     });
   }
 
   @action
-  Future<void> generate(Trace parentTrace) async {
-    return await traceWith(parentTrace, "generate", (trace) async {
+  Future<void> generate(Marker m) async {
+    return await log(m).trace("generate", (m) async {
       // throw Exception("test");
       final keypair = await _ops.doGenerateKeypair();
       _ensureValidKeypair(keypair);
-      await _persistence.save(trace, _keyKeypair, keypair.toJson());
+      await _persistence.save(_keyKeypair, keypair.toJson(), m);
       currentKeypair = keypair;
-      await _plus.clearPlus(trace);
+      await _plus.clearPlus(m);
     });
   }
 

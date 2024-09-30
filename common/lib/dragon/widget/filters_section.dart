@@ -9,6 +9,7 @@ import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/filter/filter.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class FiltersSection extends StatefulWidget {
   State<StatefulWidget> createState() => FiltersSectionState();
 }
 
-class FiltersSectionState extends State<FiltersSection> {
+class FiltersSectionState extends State<FiltersSection> with Logging {
   late final _knownFilters = dep<KnownFilters>();
   late final _profiles = dep<ProfileController>();
   late final _selectedFilters = dep<SelectedFilters>();
@@ -35,9 +36,7 @@ class FiltersSectionState extends State<FiltersSection> {
   @override
   void initState() {
     super.initState();
-    _subscription = _selectedFilters.onChange.listen((_) => setState(() {
-          print("refreshing edit_profile: ${_selectedFilters.now}");
-        }));
+    _subscription = _selectedFilters.onChange.listen((_) => setState(() {}));
   }
 
   @override
@@ -117,7 +116,8 @@ class FiltersSectionState extends State<FiltersSection> {
           filter: filter,
           texts: texts,
           selections: selections,
-          onSelect: (sel) => _profiles.updateUserChoice(filter, sel),
+          onSelect: (sel) =>
+              _profiles.updateUserChoice(filter, sel, Markers.userTap),
           bgColor: color);
     } catch (e) {
       throw Exception(

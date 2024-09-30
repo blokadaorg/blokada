@@ -1,6 +1,7 @@
 import 'package:common/dragon/dragon_deps.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
+import 'package:common/logger/logger.dart';
 
 import 'account/account.dart';
 import 'account/payment/payment.dart';
@@ -29,21 +30,19 @@ import 'stage/stage.dart';
 import 'stats/refresh/refresh.dart';
 import 'stats/stats.dart';
 import 'timer/timer.dart';
-import 'tracer/tracer.dart';
 import 'ui/notfamily/home/home.dart';
 import 'util/config.dart';
 import 'util/di.dart';
-import 'util/trace.dart';
 
-class Entrypoint with Dependable, TraceOrigin, Traceable {
+class Entrypoint with Dependable, Logging {
   late final _appStart = dep<AppStartStore>();
 
   @override
   attach(Act act) {
     cfg.act = act;
 
-    Tracer().attachAndSaveAct(act);
     DefaultTimer().attachAndSaveAct(act);
+    LoggerCommands().attachAndSaveAct(act);
 
     // Newer deps of the new code - temporary, this will eventually
     // replace the legacy code. Hopefully, you know how it goes :D
@@ -113,8 +112,6 @@ class Entrypoint with Dependable, TraceOrigin, Traceable {
   }
 
   Future<void> onStartApp() async {
-    await traceAs("onStartApp", (trace) async {
-      await _appStart.startApp(trace);
-    });
+    await _appStart.startApp(1);
   }
 }

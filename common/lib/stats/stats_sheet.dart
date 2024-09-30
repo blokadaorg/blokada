@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
-import '../stage/channel.pg.dart';
-import '../stage/stage.dart';
-import '../util/di.dart';
-import '../util/trace.dart';
-
-class StatsSheet with Traceable {
+class StatsSheet {
   late SnappingSheetController _snappingSheetController;
 
   getOpenPosition(BuildContext context) {
@@ -23,7 +18,7 @@ class StatsSheet with Traceable {
     _snappingSheetController = controller;
   }
 
-  openSheet(Trace trace, BuildContext context) {
+  openSheet(BuildContext context) {
     _snappingSheetController.snapToPosition(getOpenPosition(context));
   }
 }

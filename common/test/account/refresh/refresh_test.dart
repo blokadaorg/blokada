@@ -1,6 +1,6 @@
+import 'package:common/account/account.dart';
 import 'package:common/account/json.dart';
 import 'package:common/account/refresh/refresh.dart';
-import 'package:common/account/account.dart';
 import 'package:common/notification/notification.dart';
 import 'package:common/persistence/persistence.dart';
 import 'package:common/plus/plus.dart';
@@ -11,9 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../tools.dart';
-
 import '../../fixtures.dart';
+import '../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<TimerService>(),
   MockSpec<AccountStore>(),
@@ -28,7 +27,7 @@ import 'refresh_test.mocks.dart';
 void main() {
   group("store", () {
     test("willExpireAccountProperly", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<TimerService>(MockTimerService());
         depend<AccountStore>(AccountStore());
@@ -51,7 +50,7 @@ void main() {
                     .toIso8601String(),
                 type: AccountType.cloud.name,
                 active: true));
-        await subject.syncAccount(trace, account);
+        await subject.syncAccount(account, m);
         expect(subject.expiration.status, AccountStatus.expiring);
 
         // Account already expired
@@ -62,17 +61,17 @@ void main() {
                 activeUntil: DateTime.now().toIso8601String(),
                 type: AccountType.libre.name,
                 active: false));
-        await subject.syncAccount(trace, account);
+        await subject.syncAccount(account, m);
         expect(subject.expiration.status, AccountStatus.expired);
 
         // Account reset to Inactive
-        await subject.markAsInactive(trace);
+        await subject.markAsInactive(m);
         expect(subject.expiration.status, AccountStatus.inactive);
       });
     });
 
     test("willFetchAccountOnAppStartAndTimerFired", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         depend<AccountStore>(account);
 
@@ -86,18 +85,18 @@ void main() {
         expect(subject.expiration.status, AccountStatus.init);
 
         // Load and refresh account on start
-        await subject.init(trace);
+        await subject.init(m);
         verify(account.load(any)).called(1);
         verify(account.fetch(any)).called(1);
 
         // Imagine timer fired
-        await subject.onTimerFired(trace);
+        await subject.onTimerFired(m);
         verify(account.fetch(any)).called(1);
       });
     });
 
     test("willCreateAccountIfCouldNotFetch", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         when(account.load(any)).thenThrow(Exception("No existing account"));
         depend<AccountStore>(account);
@@ -112,7 +111,7 @@ void main() {
         expect(subject.expiration.status, AccountStatus.init);
 
         // Load and refresh account on start
-        await subject.init(trace);
+        await subject.init(m);
 
         verify(account.load(any)).called(1);
         verifyNever(account.fetch(any));
@@ -121,7 +120,7 @@ void main() {
     });
 
     test("maybeRefreshWillRespectLastRefreshTime", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<TimerService>(MockTimerService());
         depend<NotificationStore>(MockNotificationStore());
         depend<PersistenceService>(MockPersistenceService());
@@ -139,13 +138,13 @@ void main() {
         expect(subject.expiration.status, AccountStatus.init);
 
         // Load and refresh account on start
-        await subject.init(trace);
+        await subject.init(m);
         verify(account.fetch(any)).called(1);
 
         // Set last refresh as it never refreshed
         subject.lastRefresh = DateTime(0);
 
-        await subject.onRouteChanged(trace, route);
+        await subject.onRouteChanged(route, m);
         verify(account.fetch(any)).called(1);
       });
     });

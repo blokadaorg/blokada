@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:common/dragon/family/family.dart';
+import 'package:common/logger/logger.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -61,7 +62,7 @@ final _linkTemplates = {
       LinkId.howToRestore, null, null, "https://go.blokada.org/vpnrestore"),
 };
 
-abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
+abstract class LinkStoreBase with Store, Logging, Dependable, Startable {
   late final _ops = dep<LinkOps>();
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
@@ -85,26 +86,25 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "startLink", (trace) async {
-      await _prepareTemplates(trace);
+  Future<void> start(Marker m) async {
+    return await log(m).trace("startLink", (m) async {
+      await _prepareTemplates();
       userAgent = _env.userAgent!;
       //if (!userAgent.contains("%20")) userAgent = userAgent.urlEncode;
     });
   }
 
   @action
-  Future<void> updateLinksFromLock(Trace parentTrace, bool isLocked) async {
-    return await traceWith(parentTrace, "updateLinksFromLock", (trace) async {
-      trace.addAttribute("isLocked", isLocked);
+  Future<void> updateLinksFromLock(bool isLocked, Marker m) async {
+    return await log(m).trace("updateLinksFromLock", (m) async {
+      log(m).pair("isLocked", isLocked);
       await _updateLinks();
     });
   }
 
   @action
-  Future<void> updateLinksFromAccount(Trace parentTrace) async {
-    return await traceWith(parentTrace, "updateLinksFromAccount",
-        (trace) async {
+  Future<void> updateLinksFromAccount(Marker m) async {
+    return await log(m).trace("updateLinksFromAccount", (m) async {
       await _updateLinks();
     });
   }
@@ -123,7 +123,7 @@ abstract class LinkStoreBase with Store, Traceable, Dependable, Startable {
     await _ops.doLinksChanged(converted);
   }
 
-  _prepareTemplates(Trace trace) async {
+  _prepareTemplates() async {
     final p = act.getPlatform();
     final f = act.getFlavor();
 

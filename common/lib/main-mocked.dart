@@ -1,6 +1,6 @@
 import 'package:common/dragon/widget/app.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/stage.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 
 import 'command/channel.pg.dart';
@@ -24,7 +24,7 @@ void main() async {
   entrypoint.onStartApp();
 
   final CommandStore command = dep<CommandStore>();
-  command.onCommandWithParam(CommandName.route.name, "home");
+  command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
   runApp(BlokadaApp(
     content: const Scaffolding(title: 'Blokada'),
@@ -34,12 +34,10 @@ void main() async {
 }
 
 // In mocked, manually trigger the foreground
-class MockedStart with TraceOrigin {
+class MockedStart with Logging {
   late final StageStore _stage = dep<StageStore>();
 
   Future<void> start() async {
-    await traceAs("mockedStart", (trace) async {
-      await _stage.setForeground(trace);
-    });
+    await _stage.setForeground(Markers.start);
   }
 }

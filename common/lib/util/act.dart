@@ -20,6 +20,9 @@ class ActScreenplay with Act {
   bool isFamily() => flavor == Flavor.family;
 
   @override
+  bool isTest() => scenario == ActScenario.test;
+
+  @override
   Platform getPlatform() => platform;
 
   @override
@@ -30,6 +33,7 @@ enum ActScenario {
   prod,
   prodWithToys,
   platformIsMocked,
+  test,
   connectivityRandomlyFailing,
 }
 

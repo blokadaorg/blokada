@@ -1,9 +1,10 @@
 import 'package:common/dragon/api/user_agent.dart';
+import 'package:common/logger/logger.dart';
+import 'package:common/util/trace.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/di.dart';
 import '../util/mobx.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -24,7 +25,7 @@ extension on EnvPayload {
   }
 }
 
-abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
+abstract class EnvStoreBase with Store, Logging, Dependable, Startable {
   late final _ops = dep<EnvOps>();
   late final _agent = dep<UserAgent>();
 
@@ -54,21 +55,21 @@ abstract class EnvStoreBase with Store, Traceable, Dependable, Startable {
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "startEnv", (trace) async {
-      await syncUserAgent(trace);
+  Future<void> start(Marker m) async {
+    return await log(m).trace("startEnv", (m) async {
+      await syncUserAgent(m);
     });
   }
 
   @action
-  Future<void> syncUserAgent(Trace parentTrace) async {
-    return await traceWith(parentTrace, "syncUserAgent", (trace) async {
+  Future<void> syncUserAgent(Marker m) async {
+    return await log(m).trace("syncUserAgent", (m) async {
       final payload = await _ops.doGetEnvPayload();
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
       appVersion = payload.appVersion;
       _agent.now = userAgent!;
-      trace.addAttribute("device", payload.toSimpleString());
+      log(m).pair("device", payload.toSimpleString());
     });
   }
 

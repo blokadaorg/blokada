@@ -1,4 +1,5 @@
 import 'package:common/common/i18n.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/ui/notfamily/home/plusbutton.dart';
 import 'package:common/util/async.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:mobx/mobx.dart';
 import '../../../app/app.dart';
 import '../../../app/start/start.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 import '../../anim/sliding.dart';
 import 'counter.dart';
 
@@ -22,7 +22,7 @@ class HomeActions extends StatefulWidget {
 }
 
 class _HomeActionsState extends State<HomeActions>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _app = dep<AppStore>();
   final _appStart = dep<AppStartStore>();
 
@@ -72,8 +72,8 @@ class _HomeActionsState extends State<HomeActions>
               child: GestureDetector(
                 onTap: () {
                   if (status.isWorking()) return;
-                  traceAs("tappedStatusText", (trace) async {
-                    await _appStart.toggleApp(trace);
+                  log(Markers.userTap).trace("tappedStatusText", (m) async {
+                    await _appStart.toggleApp(m);
                   });
                 },
                 child: Text(

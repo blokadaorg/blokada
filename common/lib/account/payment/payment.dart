@@ -1,11 +1,10 @@
-import 'package:common/tracer/collectors.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import '../account.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -22,7 +21,7 @@ class AccountInactiveAfterPurchase implements Exception {}
 
 class PaymentsUnavailable implements Exception {}
 
-abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
+abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
   late final _ops = dep<AccountPaymentOps>();
   late final _json = dep<AccountPaymentJson>();
   late final _account = dep<AccountStore>();
@@ -57,8 +56,8 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   List<ReceiptBlob> receipts = [];
 
   @action
-  Future<void> fetchProducts(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetchProducts", (trace) async {
+  Future<void> fetchProducts(Marker m) async {
+    return await log(m).trace("fetchProducts", (m) async {
       try {
         await _ensureInit();
         _ensureReady();
@@ -66,39 +65,39 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         products = (await _ops.doFetchProducts()).cast<Product>();
         status = PaymentStatus.ready;
       } on PaymentsUnavailable catch (_) {
-        await _stage.showModal(trace, StageModal.paymentUnavailable);
+        await _stage.showModal(StageModal.paymentUnavailable, m);
         rethrow;
       } on Exception catch (_) {
         status = PaymentStatus.ready;
-        await _stage.showModal(trace, StageModal.paymentTempUnavailable);
+        await _stage.showModal(StageModal.paymentTempUnavailable, m);
         rethrow;
       } catch (_) {
         status = PaymentStatus.ready;
-        await _stage.showModal(trace, StageModal.paymentTempUnavailable);
+        await _stage.showModal(StageModal.paymentTempUnavailable, m);
         rethrow;
       }
     });
   }
 
   @action
-  Future<void> purchase(Trace parentTrace, ProductId id) async {
-    return await traceWith(parentTrace, "purchase", (trace) async {
+  Future<void> purchase(ProductId id, Marker m) async {
+    return await log(m).trace("purchase", (m) async {
       try {
         await _ensureInit();
         _ensureReady();
 
         status = PaymentStatus.purchasing;
 
-        if (await _processQueuedReceipts(trace)) {
+        if (await _processQueuedReceipts(m)) {
           // Restored from a queued receipt, no need to purchase
           status = PaymentStatus.ready;
           return;
         }
 
         final receipts = await _ops.doPurchaseWithReceipts(id);
-        await _processReceipt(trace,
-            receipts.first!); // Only one receipt expected in purchase flow
-        if (!act.isFamily()) await _stage.showModal(trace, StageModal.perms);
+        await _processReceipt(
+            receipts.first!, m); // Only one receipt expected in purchase flow
+        if (!act.isFamily()) await _stage.showModal(StageModal.perms, m);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
@@ -106,11 +105,11 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         try {
           _mapPaymentException(e);
         } catch (_) {
-          await _stage.showModal(trace, StageModal.paymentFailed);
+          await _stage.showModal(StageModal.paymentFailed, m);
           rethrow;
         }
       } catch (_) {
-        await _stage.showModal(trace, StageModal.paymentFailed);
+        await _stage.showModal(StageModal.paymentFailed, m);
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
         rethrow;
@@ -119,35 +118,35 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> changeProduct(Trace parentTrace, ProductId id) async {
-    return await traceWith(parentTrace, "changeProduct", (trace) async {
+  Future<void> changeProduct(ProductId id, Marker m) async {
+    return await log(m).trace("changeProduct", (m) async {
       try {
         await _ensureInit();
         _ensureReady();
 
         status = PaymentStatus.purchasing;
 
-        // if (await _processQueuedReceipts(trace)) {
+        // if (await _processQueuedReceipts) {
         //   // Restored from a queued receipt, no need to purchase
         //   status = PaymentStatus.ready;
         //   return;
         // }
 
         final receipt = await _ops.doChangeProductWithReceipt(id);
-        await _processReceipt(trace, receipt);
+        await _processReceipt(receipt, m);
         status = PaymentStatus.ready;
-        await _closePayments(trace);
+        await _closePayments(m);
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
         try {
           _mapPaymentException(e);
         } catch (_) {
-          await _stage.showModal(trace, StageModal.paymentFailed);
+          await _stage.showModal(StageModal.paymentFailed, m);
           rethrow;
         }
       } catch (_) {
-        await _stage.showModal(trace, StageModal.paymentFailed);
+        await _stage.showModal(StageModal.paymentFailed, m);
         _ops.doFinishOngoingTransaction();
         status = PaymentStatus.ready;
         rethrow;
@@ -156,15 +155,15 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> restore(Trace parentTrace) async {
-    return await traceWith(parentTrace, "restore", (trace) async {
+  Future<void> restore(Marker m) async {
+    return await log(m).trace("restore", (m) async {
       try {
         await _ensureInit();
         _ensureReady();
 
         status = PaymentStatus.restoring;
 
-        if (await _processQueuedReceipts(trace)) {
+        if (await _processQueuedReceipts(m)) {
           // Restored from a queued receipt, no need to purchase
           status = PaymentStatus.ready;
           return;
@@ -175,7 +174,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
         bool success = false;
         for (final receipt in receipts) {
           try {
-            await _processReceipt(trace, receipt!);
+            await _processReceipt(receipt!, m);
             success = true;
             break;
           } catch (_) {}
@@ -193,7 +192,7 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
           var modal = StageModal.accountRestoreFailed;
           //if (act.isFamily()) modal = StageModal.accountChange;
 
-          await _stage.showModal(trace, modal);
+          await _stage.showModal(modal, m);
           rethrow;
         }
       } catch (_) {
@@ -205,21 +204,20 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> restoreInBackground(
-      Trace parentTrace, ReceiptBlob receipt) async {
-    return await traceWith(parentTrace, "restoreInBackground", (trace) async {
+  Future<void> restoreInBackground(ReceiptBlob receipt, Marker m) async {
+    return await log(m).trace("restoreInBackground", (m) async {
       await _ensureInit();
 
       if (status != PaymentStatus.ready) {
         receipts.add(receipt);
-        trace.addAttribute("queued", true);
-        trace.addAttribute("queueSize", receipts.length);
+        log(m).pair("queued", true);
+        log(m).pair("queueSize", receipts.length);
         return;
       }
 
       status = PaymentStatus.restoring;
       try {
-        await _processReceipt(trace, receipt);
+        await _processReceipt(receipt, m);
 
         // Succeeded (no exception), drop any older receipts
         receipts.clear();
@@ -228,14 +226,14 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
       } on Exception catch (e) {
         // Ignore any errors when processing payments in the background
         // Try any (older) queued receipts as a fallback
-        await _processQueuedReceipts(trace);
+        await _processQueuedReceipts(m);
         status = PaymentStatus.ready;
       }
     });
   }
 
-  _processReceipt(Trace trace, ReceiptBlob receipt) async {
-    final account = await _json.postCheckout(trace, receipt, act.getPlatform());
+  _processReceipt(ReceiptBlob receipt, Marker m) async {
+    final account = await _json.postCheckout(receipt, act.getPlatform(), m);
 
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");
@@ -247,21 +245,21 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
     }
 
     _ops.doFinishOngoingTransaction();
-    await _account.propose(trace, account);
+    await _account.propose(account, m);
   }
 
-  Future<bool> _processQueuedReceipts(Trace trace) async {
+  Future<bool> _processQueuedReceipts(Marker m) async {
     if (receipts.isEmpty) {
       return false;
     }
 
-    trace.addAttribute("queueSize", receipts.length);
+    log(m).pair("queueSize", receipts.length);
     while (receipts.isNotEmpty) {
       // Process from the newest receipt first
       final receipt = receipts.removeLast();
       try {
-        await traceWith(trace, "processQueuedReceipt", (trace) async {
-          await _processReceipt(trace, receipt);
+        await log(m).trace("processQueuedReceipt", (m) async {
+          await _processReceipt(receipt, m);
         });
         // Succeeded (no exception), drop any older receipts
         receipts.clear();
@@ -302,11 +300,10 @@ abstract class AccountPaymentStoreBase with Store, Traceable, Dependable {
     }
   }
 
-  _closePayments(Trace parentTrace) async {
+  _closePayments(Marker m) async {
     if (_stage.route.modal == StageModal.payment) {
-      await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
-          (trace) async {
-        await _stage.dismissModal(trace);
+      await log(m).trace("dismissModalAfterAccountIdChange", (m) async {
+        await _stage.dismissModal;
       });
     }
   }

@@ -12,6 +12,7 @@ import 'package:common/dragon/perm/dns_perm.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/stats/controller.dart';
 import 'package:common/lock/lock.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
@@ -27,8 +28,7 @@ const linkTemplate = "$familyLinkBase?token=TOKEN";
 
 class FamilyStore = FamilyStoreBase with _$FamilyStore;
 
-abstract class FamilyStoreBase
-    with Store, Traceable, TraceOrigin, Dependable, Startable {
+abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
   late final _lock = dep<LockStore>();
@@ -49,7 +49,7 @@ abstract class FamilyStoreBase
     if (!(act.isFamily() ?? false)) return;
 
     _acc.start();
-    _perm.start();
+    _perm.start(Markers.start);
 
     _account.addOn(accountChanged, _postActivationOnboarding);
     _lock.addOnValue(lockChanged, _updatePhaseFromLock);
@@ -57,21 +57,21 @@ abstract class FamilyStoreBase
     _onStatsChanges();
     _onDnsPermChanges();
 
-    _device.onChange = (dirty) =>
-        traceAs("devicesChanged", (trace) => _reload(trace, dirty: dirty));
+    _device.onChange = (dirty) => log(Markers.device)
+        .trace("devicesChanged", (m) => _reload(m, dirty: dirty));
 
-    _auth.onTokenExpired = () {
-      print("token expired");
+    _auth.onTokenExpired = (m) {
+      log(m).i("token expired");
       linkedMode = false;
       linkedTokenOk = false;
       _thisDevice.now = null;
-      _updatePhase(reason: "tokenExpired");
+      _updatePhase(m, reason: "tokenExpired");
     };
-    _auth.onTokenRefreshed = () {
-      print("token refreshed");
+    _auth.onTokenRefreshed = (m) {
+      log(m).i("token refreshed");
       linkedMode = true;
       linkedTokenOk = true;
-      _updatePhase(reason: "tokenRefreshed");
+      _updatePhase(m, reason: "tokenRefreshed");
     };
   }
 
@@ -106,100 +106,104 @@ abstract class FamilyStoreBase
 
   // React to stats updates for devices
   _onStatsChanges() {
-    _stats.onStatsUpdated = () {
-      devices = devices.updateStats(_stats.stats);
-      _updatePhase(reason: "statsChanges");
+    _stats.onStatsUpdated = (m) async {
+      return await log(m).trace("statsUpdated", (m) async {
+        devices = devices.updateStats(_stats.stats);
+        _updatePhase(m, reason: "statsChanges");
+      });
     };
   }
 
   _onDnsPermChanges() {
-    _dnsPerm.onChange.listen((it) {
-      permsGranted = it;
-      _updatePhase(reason: "dnsPermChanged");
+    _dnsPerm.onChange.listen((it) async {
+      return await log(Markers.perm).trace("dnsPermChanged", (m) async {
+        permsGranted = it;
+        _updatePhase(m, reason: "dnsPermChanged");
+      });
     });
   }
 
   @override
-  start(Trace parentTrace) async {
+  start(Marker m) async {
     if (!act.isFamily()) return;
-    return await traceWith(parentTrace, "start", (trace) async {
-      await _reload(trace);
-      _auth.start();
+    return await log(m).trace("start", (m) async {
+      await _reload(m);
+      _auth.start(m);
     });
   }
 
   // First CTA action to either activate onboarding or open payment
-  activateCta(Trace parentTrace) async {
-    return await traceWith(parentTrace, "activateCta", (trace) async {
+  activateCta(Marker m) async {
+    return await log(m).trace("activateCta", (m) async {
       if (_account.type.isActive()) {
-        _updatePhase(loading: true);
-        await _reload(trace, createDeviceIfNeeded: true);
-        _updatePhase(loading: false, reason: "activateCta");
+        _updatePhase(m, loading: true);
+        await _reload(m, createDeviceIfNeeded: true);
+        _updatePhase(m, loading: false, reason: "activateCta");
         return;
       }
-      _stage.showModal(trace, StageModal.payment);
+      _stage.showModal(StageModal.payment, m);
     });
   }
 
-  _reload(Trace parentTrace,
+  _reload(Marker m,
       {bool dirty = false, bool createDeviceIfNeeded = false}) async {
-    return await traceWith(parentTrace, "reload", (trace) async {
+    return await log(m).trace("reload", (m) async {
       if (!dirty) {
-        await _device.reload(createIfNeeded: createDeviceIfNeeded);
+        await _device.reload(m, createIfNeeded: createDeviceIfNeeded);
       }
 
       final deviceTag = (await _thisDevice.fetch())?.deviceTag;
-      trace.addAttribute("deviceTag", deviceTag);
+      log(m).pair("deviceTag", deviceTag);
 
       devices = FamilyDevices([], null)
           .fromApi(_device.devices, _profiles.profiles, deviceTag);
       _stats.monitorDeviceTags = devices.getTags();
 
-      _stats.startAutoRefresh();
+      await _stats.startAutoRefresh(m);
     });
   }
 
   // Initiates the QR code based child device registration process,
   // Returns URL to be used in QR code.
   @action
-  Future<LinkingDevice> initiateLinkDevice(Trace parentTrace, String deviceName,
-      JsonProfile? profile, JsonDevice? device) async {
-    return await traceWith(parentTrace, "setWaitingForDevice", (trace) async {
+  Future<LinkingDevice> initiateLinkDevice(String deviceName,
+      JsonProfile? profile, JsonDevice? device, Marker m) async {
+    return await log(m).trace("setWaitingForDevice", (m) async {
       String qrUrl;
       LinkingDevice d = device == null
-          ? await _device.addDevice(deviceName, profile)
+          ? await _device.addDevice(deviceName, profile, m)
           : LinkingDevice(device: device, relink: true);
-      d.token = await _auth.createToken(d.device.deviceTag);
-      print("Linking device ${d.device.deviceTag} token: ${d.token}");
+      d.token = await _auth.createToken(d.device.deviceTag, m);
+      log(m).i("Linking device ${d.device.deviceTag} token: ${d.token}");
       _linkingDevice = d;
-      _device.onHeartbeat = _finishLinkDevice;
-      _device.startHeartbeatMonitoring(d.device.deviceTag);
+      _device.onHeartbeat = (tag) => _finishLinkDevice(m, tag);
+      _device.startHeartbeatMonitoring(d.device.deviceTag, m);
       d.qrUrl = _generateLink(d.token);
       return d;
     });
   }
 
-  cancelLinkDevice(Trace parentTrace) async {
-    return await traceWith(parentTrace, "cancelAddDevice", (trace) async {
+  cancelLinkDevice(Marker m) async {
+    return await log(m).trace("cancelAddDevice", (m) async {
       if (_linkingDevice == null) return;
       final d = _linkingDevice!;
-      print("cancelling device ${d.device.deviceTag}");
-      if (!d.relink) await _device.deleteDevice(d.device);
+      log(m).i("cancelling device ${d.device.deviceTag}");
+      if (!d.relink) await _device.deleteDevice(d.device, m);
       _device.stopHeartbeatMonitoring();
       _linkingDevice = null;
     });
   }
 
-  _finishLinkDevice(DeviceTag tag) {
+  _finishLinkDevice(Marker m, DeviceTag tag) async {
     if (tag == _linkingDevice!.device.deviceTag) {
       _linkingDevice = null;
       _device.stopHeartbeatMonitoring();
       linkDeviceHeartbeatReceived();
-      traceAs("reloadAfterDeviceAdded", (trace) async {
-        await _reload(trace);
+      await log(m).trace("reloadAfterLinkDevice", (m) async {
+        await _reload(4377);
       });
     } else {
-      print("addDevice: unexpected device tag: $tag");
+      log(m).e(msg: "addDevice: unexpected device tag: $tag");
     }
   }
 
@@ -208,39 +212,37 @@ abstract class FamilyStoreBase
   }
 
   @action
-  deleteDevice(Trace parentTrace, JsonDevice device,
-      {bool isRename = false}) async {
-    return await traceWith(parentTrace, "deleteDevice", (trace) async {
-      await _device.deleteDevice(device);
-      await _reload(trace);
+  deleteDevice(JsonDevice device, Marker m, {bool isRename = false}) async {
+    return await log(m).trace("deleteDevice", (m) async {
+      await _device.deleteDevice(device, m);
+      await _reload(m);
       // xxxx: not sure if need to do something when deleting thisdevice
     });
   }
 
   // React to account changes to show the proper onboarding
   @action
-  _postActivationOnboarding(Trace parentTrace) async {
-    parentTrace.addEvent("postActivationOnboarding");
+  _postActivationOnboarding(Marker m) async {
+    log(m).i("postActivationOnboarding");
     accountActive = _account.type.isActive();
     if (accountActive == true) {
-      await _reload(parentTrace, createDeviceIfNeeded: true);
+      await _reload(m, createDeviceIfNeeded: true);
     }
-    _updatePhase(reason: "postActivationOnboarding");
+    _updatePhase(m, reason: "postActivationOnboarding");
 
-    parentTrace.addAttribute("modal", _stage.route.modal);
+    log(m).pair("modal", _stage.route.modal);
     if (_stage.route.modal == StageModal.payment) {
-      await traceWith(parentTrace, "dismissModalAfterAccountIdChange",
-          (trace) async {
-        await _stage.dismissModal(trace);
+      return await log(m).trace("dismissModalAfterAccountIdChange", (m) async {
+        await _stage.dismissModal(m);
       });
     }
   }
 
   // Locking this device will enable the blocking for "this device"
   @action
-  _updatePhaseFromLock(Trace parentTrace, bool isLocked) async {
+  _updatePhaseFromLock(bool isLocked, Marker m) async {
     if (!act.isFamily()) return;
-    _updatePhase(loading: true);
+    _updatePhase(m, loading: true);
     appLocked = isLocked;
 
     // if (isLocked) {
@@ -260,38 +262,34 @@ abstract class FamilyStoreBase
     //   //   await _addThisDevice(parentTrace);
     //   // }
     // }
-    _updatePhase(reason: "fromLock");
+    _updatePhase(m, reason: "fromLock");
   }
 
-  link(String qrUrl) async {
-    try {
-      final token = qrUrl.split("?token=").last;
-      final deviceTag = await _auth.useToken(token);
-      print("received proper token for device: $deviceTag: $token");
-      await _device.setThisDeviceForLinked(deviceTag, token);
-      _auth.startHeartbeat();
-      linkedMode = true;
-      linkedTokenOk = true;
-      traceAs("dismissAfterLink", (trace) async {
-        await _stage.dismissModal(trace);
-      });
-    } on AlreadyLinkedException catch (e) {
-      traceAs("alreadyLinked", (trace) async {
-        await _stage.showModal(trace, StageModal.faultLinkAlready);
-      });
-      rethrow;
-    } catch (e) {
-      traceAs("failLink", (trace) async {
-        await _stage.showModal(trace, StageModal.fault);
-      });
-      rethrow;
-    }
+  link(String qrUrl, Marker m) async {
+    return await log(m).trace("link", (m) async {
+      try {
+        final token = qrUrl.split("?token=").last;
+        final deviceTag = await _auth.useToken(token, m);
+        log(m).i("received proper token for device: $deviceTag: $token");
+        await _device.setThisDeviceForLinked(deviceTag, token, m);
+        _auth.startHeartbeat();
+        linkedMode = true;
+        linkedTokenOk = true;
+        await _stage.dismissModal(m);
+      } on AlreadyLinkedException catch (e) {
+        await _stage.showModal(StageModal.faultLinkAlready, m);
+        rethrow;
+      } catch (e) {
+        await _stage.showModal(StageModal.fault, m);
+        rethrow;
+      }
+    });
   }
 
   // case: device deleted, show start of the flow, maybe some dialog
 
   // Show the welcome screen on the first start (family only)
-  _maybeShowOnboardOnStart(Trace parentTrace) async {
+  _maybeShowOnboardOnStart(Marker m) async {
     if (!act.isFamily()) return;
     if (_account.type.isActive()) return;
     if (devices.hasDevices == true) return;
@@ -300,22 +298,22 @@ abstract class FamilyStoreBase
     if (_onboardingShown) return;
     _onboardingShown = true;
 
-    return await traceWith(parentTrace, "showOnboard", (trace) async {
-      await _stage.showModal(trace, StageModal.onboardingFamily);
+    return await log(m).trace("showOnboard", (m) async {
+      await _stage.showModal(StageModal.onboardingFamily, m);
     });
   }
 
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer
-  _updatePhase({bool? loading, String reason = ""}) {
+  _updatePhase(Marker m, {bool? loading, String reason = ""}) {
     timer?.cancel();
-    print("Will update phase, reason: $reason");
-    if (loading != null) _updatePhaseNow(loading);
-    timer = Timer(const Duration(seconds: 2), () => _updatePhaseNow(false));
+    log(m).i("Will update phase, reason: $reason");
+    if (loading != null) _updatePhaseNow(m, loading);
+    timer = Timer(const Duration(seconds: 2), () => _updatePhaseNow(m, false));
   }
 
-  _updatePhaseNow(bool loading) {
+  _updatePhaseNow(Marker m, bool loading) {
     if (loading) {
       phase = FamilyPhase.starting;
     } else if (accountActive == null || permsGranted == null) {
@@ -354,15 +352,13 @@ abstract class FamilyStoreBase
       phase = FamilyPhase.starting;
     }
 
-    traceAs("updatePhase", (trace) async {
-      trace.addAttribute("phase", phase);
-      trace.addAttribute("loading", loading);
-      trace.addAttribute("accountActive", accountActive);
-      trace.addAttribute("permsGranted", permsGranted);
-      trace.addAttribute("appLocked", appLocked);
-      trace.addAttribute("linkedMode", linkedMode);
-      trace.addAttribute("hasDevices", devices.hasDevices);
-      trace.addAttribute("hasThisDevice", devices.hasThisDevice);
+    log(m).log(msg: "phase updated: $phase", attr: {
+      "loading": loading,
+      "accountActive": accountActive,
+      "permsGranted": permsGranted,
+      "appLocked": appLocked,
+      "linkedMode": linkedMode,
+      "linkedTokenOk": linkedTokenOk,
     });
   }
 }

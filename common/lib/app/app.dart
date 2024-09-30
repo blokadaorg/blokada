@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
@@ -6,7 +7,6 @@ import '../stage/stage.dart';
 import '../util/di.dart';
 import '../util/emitter.dart';
 import '../util/mobx.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -117,7 +117,7 @@ class AppStatusStrategy {
 
 class AppStore = AppStoreBase with _$AppStore;
 
-abstract class AppStoreBase with Store, Traceable, Dependable, Emitter {
+abstract class AppStoreBase with Store, Logging, Dependable, Emitter {
   late final _ops = dep<AppOps>();
   late final _account = dep<AccountStore>();
   late final _stage = dep<StageStore>();
@@ -146,61 +146,61 @@ abstract class AppStoreBase with Store, Traceable, Dependable, Emitter {
   AppStatusStrategy _strategy = AppStatusStrategy();
 
   @action
-  Future<void> initStarted(Trace parentTrace) async {
-    return await traceWith(parentTrace, "initStarted", (trace) async {
+  Future<void> initStarted(Marker m) async {
+    return await log(m).trace("initStarted", (m) async {
       if (status != AppStatus.unknown && status != AppStatus.initFail) {
         throw StateError("initStarted: incorrect status: $status");
       }
 
       _strategy = _strategy.update(initStarted: true, initFail: false);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> initFail(Trace parentTrace) async {
-    return await traceWith(parentTrace, "initFail", (trace) async {
+  Future<void> initFail(Marker m) async {
+    return await log(m).trace("initFail", (m) async {
       if (status != AppStatus.initializing) {
         throw StateError("initFail: incorrect status: $status");
       }
 
       _strategy = _strategy.update(initFail: true);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> initCompleted(Trace parentTrace) async {
-    return await traceWith(parentTrace, "initCompleted", (trace) async {
+  Future<void> initCompleted(Marker m) async {
+    return await log(m).trace("initCompleted", (m) async {
       if (status != AppStatus.initializing) {
         throw StateError("initCompleted: incorrect status: $status");
       }
 
       _strategy = _strategy.update(initFail: false, initCompleted: true);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> cloudPermEnabled(Trace parentTrace, bool enabled) async {
-    return await traceWith(parentTrace, "cloudPermEnabled", (trace) async {
+  Future<void> cloudPermEnabled(bool enabled, Marker m) async {
+    return await log(m).trace("cloudPermEnabled", (m) async {
       _strategy = _strategy.update(cloudPermEnabled: enabled);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> onDeviceChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onDeviceChanged", (trace) async {
+  Future<void> onDeviceChanged(Marker m) async {
+    return await log(m).trace("onDeviceChanged", (m) async {
       final enabled = _device.cloudEnabled;
       _strategy = _strategy.update(cloudEnabled: enabled);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> onAccountChanged(Trace parentTrace) async {
-    return await traceWith(parentTrace, "onAccountChanged", (trace) async {
+  Future<void> onAccountChanged(Marker m) async {
+    return await log(m).trace("onAccountChanged", (m) async {
       final account = _account.account!;
       final isCloud = account.type == AccountType.cloud;
       final isPlus = account.type == AccountType.plus;
@@ -210,44 +210,44 @@ abstract class AppStoreBase with Store, Traceable, Dependable, Emitter {
           accountIsCloud: isCloud || isPlus,
           accountIsPlus: isPlus,
           accountIsFamily: isFamily);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
   @action
-  Future<void> appPaused(Trace parentTrace, bool paused) async {
-    return await traceWith(parentTrace, "appPaused", (trace) async {
+  Future<void> appPaused(bool paused, Marker m) async {
+    return await log(m).trace("appPaused", (m) async {
       _strategy = _strategy.update(appPaused: paused, reconfiguring: false);
-      await _updateStatus(trace);
-      trace.addAttribute("paused", paused);
-      trace.addAttribute("appStatusStrategy", _strategy);
-      trace.addAttribute("appStatus", status);
+      await _updateStatus(m);
+      log(m).pair("paused", paused);
+      log(m).pair("appStatusStrategy", _strategy);
+      log(m).pair("appStatus", status);
     });
   }
 
   @action
-  Future<void> plusActivated(Trace parentTrace, bool active) async {
-    return await traceWith(parentTrace, "plusActivated", (trace) async {
+  Future<void> plusActivated(bool active, Marker m) async {
+    return await log(m).trace("plusActivated", (m) async {
       _strategy = _strategy.update(plusActive: active, reconfiguring: false);
-      await _updateStatus(trace);
-      trace.addAttribute("active", active);
-      trace.addAttribute("appStatusStrategy", _strategy);
-      trace.addAttribute("appStatus", status);
+      await _updateStatus(m);
+      log(m).pair("active", active);
+      log(m).pair("appStatusStrategy", _strategy);
+      log(m).pair("appStatus", status);
     });
   }
 
   @action
-  Future<void> reconfiguring(Trace parentTrace) async {
-    return await traceWith(parentTrace, "reconfiguring", (trace) async {
+  Future<void> reconfiguring(Marker m) async {
+    return await log(m).trace("reconfiguring", (m) async {
       _strategy = _strategy.update(reconfiguring: true);
-      await _updateStatus(trace);
+      await _updateStatus(m);
     });
   }
 
-  _updateStatus(Trace trace) async {
+  _updateStatus(Marker m) async {
     status = _strategy.getCurrentStatus();
     await _stage.setReady(
-        trace, !status.isWorking() && status != AppStatus.unknown);
-    await emit(appStatusChanged, trace, status);
+        !status.isWorking() && status != AppStatus.unknown, m);
+    await emit(appStatusChanged, status, m);
   }
 }

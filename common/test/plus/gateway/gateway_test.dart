@@ -22,7 +22,7 @@ import 'gateway_test.mocks.dart';
 void main() {
   group("store", () {
     test("fetch", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
@@ -37,7 +37,7 @@ void main() {
         expect(subject.gateways.isEmpty, true);
         expect(subject.gatewayChanges, 0);
 
-        await subject.fetch(trace);
+        await subject.fetch(m);
         expect(subject.gateways.length, 3);
         expect(subject.gateways.first.country, 'US');
         expect(subject.gatewayChanges, 1);
@@ -45,7 +45,7 @@ void main() {
     });
 
     test("load", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
@@ -62,10 +62,10 @@ void main() {
         depend<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
         expect(subject.currentGateway, null);
 
-        await subject.load(trace);
+        await subject.load(m);
         expect(subject.currentGateway, isNotNull);
         expect(subject.currentGateway!.publicKey,
             "sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4=");
@@ -73,7 +73,7 @@ void main() {
     });
 
     test("selectGateway", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
@@ -88,23 +88,23 @@ void main() {
         depend<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
-        await subject.fetch(trace);
+        await subject.fetch(m);
         expect(subject.currentGateway, null);
 
         // Basic select gateway
         await subject.selectGateway(
-            trace, "H1TTLm88Zm+fLF3drKPO+wPHG8/d5FkuuOOt+PHVJ3g=");
+            "H1TTLm88Zm+fLF3drKPO+wPHG8/d5FkuuOOt+PHVJ3g=", m);
         expect(subject.currentGateway, isNotNull);
         expect(subject.currentGateway!.country, "DE");
         verify(persistence.saveString(any, any, any)).called(1);
 
         // Throw on select non-existing gateway, old selection still set
-        await expectLater(subject.selectGateway(trace, "not-existing-gateway"),
-            throwsException);
+        await expectLater(
+            subject.selectGateway("not-existing-gateway", m), throwsException);
         expect(subject.currentGateway, isNotNull);
 
         // Unselect gateway
-        await subject.selectGateway(trace, null);
+        await subject.selectGateway(null, m);
         expect(subject.currentGateway, null);
         verify(persistence.delete(any, any)).called(1);
       });

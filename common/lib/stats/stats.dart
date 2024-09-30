@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:common/logger/logger.dart';
 import 'package:common/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
 import '../common/model.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart' as json;
@@ -15,7 +15,7 @@ part 'stats.g.dart';
 
 class StatsStore = StatsStoreBase with _$StatsStore;
 
-abstract class StatsStoreBase with Store, Traceable, Dependable {
+abstract class StatsStoreBase with Store, Logging, Dependable {
   late final _api = dep<json.StatsJson>();
   late final _ops = dep<StatsOps>();
 
@@ -75,10 +75,10 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   bool hasStats = false;
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
-      final oneDay = await _api.getStats(trace, "24h", "1h");
-      final oneWeek = await _api.getStats(trace, "1w", "24h");
+  Future<void> fetch(Marker m) async {
+    return await log(m).trace("fetch", (m) async {
+      final oneDay = await _api.getStats("24h", "1h", m);
+      final oneWeek = await _api.getStats("1w", "24h", m);
       stats = _convertStats(oneDay, oneWeek);
       hasStats = true;
       deviceStatsChangesCounter++;
@@ -86,20 +86,18 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> fetchForDevice(Trace parentTrace, String deviceName,
+  Future<void> fetchForDevice(String deviceName, Marker m,
       {bool toplists = false}) async {
-    return await traceWith(parentTrace, "fetchForDevice", (trace) async {
-      final oneDay =
-          await _api.getStatsForDevice(trace, "24h", "1h", deviceName);
-      final oneWeek =
-          await _api.getStatsForDevice(trace, "1w", "24h", deviceName);
+    return await log(m).trace("fetchForDevice", (m) async {
+      final oneDay = await _api.getStatsForDevice("24h", "1h", deviceName, m);
+      final oneWeek = await _api.getStatsForDevice("1w", "24h", deviceName, m);
 
       final toplistAllowed = !toplists
           ? null
-          : await _api.getToplistForDevice(trace, false, deviceName);
+          : await _api.getToplistForDevice(false, deviceName, m);
       final toplistBlocked = !toplists
           ? null
-          : await _api.getToplistForDevice(trace, true, deviceName);
+          : await _api.getToplistForDevice(true, deviceName, m);
 
       deviceStats[deviceName] = _convertStats(
         oneDay,
@@ -114,8 +112,8 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
 
   @action
   Future<void> setSelectedDevice(
-      Trace parentTrace, String deviceName, bool thisDevice) async {
-    return await traceWith(parentTrace, "setSelectedDevice", (trace) async {
+      Marker m, String deviceName, bool thisDevice) async {
+    return await log(m).trace("setSelectedDevice", (m) async {
       if (!deviceStats.containsKey(deviceName)) {
         throw Exception("Unknown device");
       }
@@ -125,8 +123,8 @@ abstract class StatsStoreBase with Store, Traceable, Dependable {
   }
 
   @action
-  Future<void> drop(Trace parentTrace) async {
-    return await traceWith(parentTrace, "drop", (trace) async {
+  Future<void> drop(Marker m) async {
+    return await log(m).trace("drop", (m) async {
       stats = UiStats.empty();
       deviceStats = {};
       deviceStatsChangesCounter = 0;

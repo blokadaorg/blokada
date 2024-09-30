@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
 import 'package:common/common/i18n.dart';
+import 'package:common/logger/logger.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../common/model.dart';
@@ -10,7 +11,7 @@ import '../device/current_config.dart';
 import '../list/api.dart';
 import 'selected_filters.dart';
 
-class FilterController {
+class FilterController with Logging {
   late final _apiLists = dep<ListApi>();
   late final _knownFilters = dep<KnownFilters>();
   late final _defaultFilters = dep<DefaultFilters>();
@@ -27,33 +28,35 @@ class FilterController {
   List<JsonListItem> _lists = [];
 
   FilterController() {
-    _userConfig.onChange.listen((_) => reload());
+    _userConfig.onChange.listen((_) => reload(Markers.filter));
     _selectedFilters.now = [];
   }
 
-  maybeGetLists() async {
+  maybeGetLists(Marker m) async {
     if (_lists.isEmpty || _needsReload) {
-      _lists = await _apiLists.get();
+      _lists = await _apiLists.get(m);
       _needsReload = false;
     }
   }
 
   Map<ListHashId, ListTag> getListsToTags() => _listsToTags;
 
-  reload() async {
-    print("reloading filter controller");
-    await maybeGetLists();
+  reload(Marker m) async {
+    return await log(m).trace("reload", (m) async {
+      log(m).i("reloading filter controller");
+      await maybeGetLists(m);
 
-    // Prepare a map for quick lookups
-    _listsToTags = {};
-    for (final list in _lists) {
-      _listsToTags[list.id] = "${list.vendor}/${list.variant}";
-    }
+      // Prepare a map for quick lookups
+      _listsToTags = {};
+      for (final list in _lists) {
+        _listsToTags[list.id] = "${list.vendor}/${list.variant}";
+      }
 
 //    _configs = null;
-    _defaultsApplied = false;
+      _defaultsApplied = false;
 
-    await _parse();
+      await _parse(m);
+    });
   }
 
   String getFilterContainingList(ListHashId id) {
@@ -88,9 +91,9 @@ class FilterController {
     return filterName;
   }
 
-  Future<UserFilterConfig> getConfig(List<FilterSelection> s) async {
+  Future<UserFilterConfig> getConfig(List<FilterSelection> s, Marker m) async {
     final filters = _knownFilters.get();
-    await maybeGetLists();
+    await maybeGetLists(m);
 
     Set<ListHashId> shouldBeLists = {};
     Map<FilterConfigKey, bool> shouldBeConfigs = {};
@@ -103,7 +106,7 @@ class FilterController {
         final option = filter.options.firstWhere(
           (it) => it.optionName == o,
         );
-        print("getConfig: for option ${option.optionName}");
+        log(m).i("getConfig: for option ${option.optionName}");
 
         if (option.action == FilterAction.list) {
           for (final listTag in option.actionParams) {
@@ -145,11 +148,11 @@ class FilterController {
       }
     }
 
-    print("getConfig, configs: ${shouldBeConfigs}");
+    log(m).i("getConfig, configs: $shouldBeConfigs");
     return UserFilterConfig(shouldBeLists, shouldBeConfigs);
   }
 
-  _parse() async {
+  _parse(Marker m) async {
     // 1: read filters that we know about (no selections yet)
     final filters = await _knownFilters.get();
     final userConfig = _userConfig.now!;
@@ -208,10 +211,10 @@ class FilterController {
     }
 
     _selectedFilters.now = selectedFilters;
-    _reconfigure();
+    _reconfigure(m);
   }
 
-  _reconfigure() async {
+  _reconfigure(Marker m) async {
     final filters = _knownFilters.get();
     final selectedFilters = _selectedFilters.now;
     final userConfig = _userConfig.now;
@@ -282,16 +285,16 @@ class FilterController {
     // List can be empty, that's ok
     final shouldBeConfig = UserFilterConfig(shouldBeLists, shouldBeConfigs);
     if (userConfig != shouldBeConfig) {
-      print("reloading based on userconfig");
+      log(m).i("reloading based on userconfig");
       _userConfig.now = shouldBeConfig;
       _needsReload = true;
       return;
     }
 
-    await _defaults();
+    await _defaults(m);
   }
 
-  _defaults() async {
+  _defaults(Marker m) async {
     final selectedFilters = _selectedFilters.now;
 
     // Do nothing if has selections
@@ -301,12 +304,12 @@ class FilterController {
     if (_defaultsApplied) return;
 
     if (!_act.isFamily()) {
-      print("Applying defaults");
+      log(m).i("Applying defaults");
       final defaults = _defaultFilters.get();
       _selectedFilters.now = defaults;
     }
 
     _defaultsApplied = true;
-    await _reconfigure();
+    await _reconfigure(m);
   }
 }

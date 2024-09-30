@@ -1,24 +1,9 @@
-import 'package:common/account/payment/channel.pg.dart';
-import 'package:common/account/payment/payment.dart';
-import 'package:common/entrypoint.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-
-import 'tools.dart';
-@GenerateNiceMocks([
-  MockSpec<StageOps>(),
-  MockSpec<StageStore>(),
-])
-import 'entrypoint_test.mocks.dart';
 
 void main() {
   group("binder", () {
     //   test("onNavPathChanged", () async {
-    //     await withTrace((trace) async {
+    //     await withTrace((m) async {
     //       final store = MockStageStore();
     //       depend<StageStore>(store);
     //
@@ -34,7 +19,7 @@ void main() {
     //   });
     //
     //   test("onForeground", () async {
-    //     await withTrace((trace) async {
+    //     await withTrace((m) async {
     //       final store = MockStageStore();
     //       depend<StageStore>(store);
     //
@@ -49,7 +34,7 @@ void main() {
     //   });
     //
     //   test("onModalDismissed", () async {
-    //     await withTrace((trace) async {
+    //     await withTrace((m) async {
     //       final store = MockStageStore();
     //       depend<StageStore>(store);
     //
@@ -61,7 +46,7 @@ void main() {
     //   });
     //
     //   test("onModal", () async {
-    //     await withTrace((trace) async {
+    //     await withTrace((m) async {
     //       final store = StageStore();
     //       depend<StageStore>(store);
     //
@@ -72,7 +57,7 @@ void main() {
     //
     //       verify(ops.doShowModal("none")).called(1);
     //
-    //       store.showModal(trace, StageModal.accountInitFailed);
+    //       store.showModal(StageModal.accountInitFailed);
     //       verify(ops.doShowModal("accountInitFailed")).called(1);
     //     });
     //   });
@@ -82,7 +67,7 @@ void main() {
 // app pause
 // group("binder", () {
 // test("onStartApp", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     depend<TimerService>(MockTimerService());
 //
 //     final app = MockAppStore();
@@ -108,7 +93,7 @@ void main() {
 // });
 
 // test("onRetryInit", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     depend<StageStore>(StageStore());
 //     depend<TimerService>(MockTimerService());
 //
@@ -140,7 +125,7 @@ void main() {
 // });
 
 // test("onPauseApp", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     depend<TimerService>(MockTimerService());
 //
 //     final store = MockAppPauseStore();
@@ -164,7 +149,7 @@ void main() {
 // });
 //
 // test("onUnpauseApp", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     depend<TimerService>(MockTimerService());
 //
 //     final store = MockAppPauseStore();
@@ -184,7 +169,7 @@ void main() {
 // });
 //
 // test("onTimerFired", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     final timer = TestingTimer();
 //     depend<TimerService>(timer);
 //
@@ -205,7 +190,7 @@ void main() {
 // });
 //
 // test("onPausedUntilChange", () async {
-//   await withTrace((trace) async {
+//   await withTrace((m) async {
 //     depend<TimerService>(MockTimerService());
 //     depend<AppStore>(MockAppStore());
 //     depend<DeviceStore>(MockDeviceStore());
@@ -219,7 +204,7 @@ void main() {
 //
 //     final subject = AppPauseBinder.forTesting();
 //
-//     await store.pauseAppUntil(trace, const Duration(seconds: 5));
+//     await store.pauseAppUntil(const Duration(seconds: 5));
 //
 //     verify(ops.doAppPauseDurationChanged(any)).called(1);
 //   });
@@ -231,13 +216,13 @@ void main() {
 
 // group("binder", () {
 //   test("onSearch", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final store = MockJournalStore();
 //       depend<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
-//       verifyNever(store.updateFilter(trace));
+//       verifyNever(store.updateFilter);
 //       await subject.onSearch("foo");
 //       verify(store.updateFilter(
 //         any,
@@ -247,13 +232,13 @@ void main() {
 //   });
 //
 //   test("onShowForDevice", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final store = MockJournalStore();
 //       depend<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
-//       verifyNever(store.updateFilter(trace));
+//       verifyNever(store.updateFilter);
 //       await subject.onShowForDevice("deviceName");
 //       verify(store.updateFilter(
 //         any,
@@ -263,13 +248,13 @@ void main() {
 //   });
 //
 //   test("onShowOnly", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final store = MockJournalStore();
 //       depend<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
-//       verifyNever(store.updateFilter(trace));
+//       verifyNever(store.updateFilter);
 //
 //       await subject.onShowOnly(true, false); // blocked, passed
 //       verify(store.updateFilter(
@@ -298,9 +283,9 @@ void main() {
 //   });
 //
 //   test("onJournalChanged", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final env = EnvStore();
-//       env.setDeviceTag(trace, "deviceName");
+//       env.setDeviceTag("deviceName");
 //       depend<EnvStore>(env);
 //
 //       final json = MockJournalJson();
@@ -318,25 +303,25 @@ void main() {
 //
 //       // Should notify entries changed after fetching
 //       verifyNever(ops.doReplaceEntries(any));
-//       await store.fetch(trace);
+//       await store.fetch;
 //       verify(ops.doReplaceEntries(any)).called(1);
 //
 //       // Should notify entries changed after filter change
-//       await store.updateFilter(trace, sortNewestFirst: false);
+//       await store.updateFilter(sortNewestFirst: false);
 //       verify(ops.doReplaceEntries(any)).called(1);
 //
-//       await store.updateFilter(trace, sortNewestFirst: true);
+//       await store.updateFilter(sortNewestFirst: true);
 //       verify(ops.doReplaceEntries(any)).called(1);
 //
-//       await store.updateFilter(trace, searchQuery: "foo");
+//       await store.updateFilter(searchQuery: "foo");
 //       verify(ops.doReplaceEntries(any)).called(1);
 //     });
 //   });
 //
 //   test("onFilterChanged", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final env = EnvStore();
-//       env.setDeviceTag(trace, "deviceName");
+//       env.setDeviceTag("deviceName");
 //       depend<EnvStore>(env);
 //
 //       final json = MockJournalJson();
@@ -353,24 +338,24 @@ void main() {
 //       final subject = JournalBinder.forTesting();
 //       verifyNever(ops.doFilterChanged(any));
 //
-//       await store.fetch(trace);
+//       await store.fetch;
 //       verifyNever(ops.doFilterChanged(any));
 //
-//       await store.updateFilter(trace, searchQuery: "foo");
+//       await store.updateFilter(searchQuery: "foo");
 //       verify(ops.doFilterChanged(any)).called(1);
 //
 //       // Setting up exactly same filter should not trigger the callback
-//       await store.updateFilter(trace, searchQuery: "foo");
+//       await store.updateFilter(searchQuery: "foo");
 //       verifyNever(ops.doFilterChanged(any));
 //
 //       await store.updateFilter(trace,
 //           searchQuery: null, sortNewestFirst: false);
 //       verify(ops.doFilterChanged(any)).called(1);
 //
-//       await store.updateFilter(trace, sortNewestFirst: false);
+//       await store.updateFilter(sortNewestFirst: false);
 //       verifyNever(ops.doFilterChanged(any));
 //
-//       await store.updateFilter(trace, sortNewestFirst: true);
+//       await store.updateFilter(sortNewestFirst: true);
 //       verify(ops.doFilterChanged(any)).called(1);
 //     });
 //   });
@@ -380,7 +365,7 @@ void main() {
 
 // group("binder", () {
 //   test("onJournalTab", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final stage = StageStore();
 //       depend<StageStore>(stage);
 //
@@ -394,19 +379,19 @@ void main() {
 //       verifyNever(store.maybeRefresh(any));
 //
 //       // When the tab is on, should refresh immediately and with interval
-//       stage.setReady(trace, true);
-//       await stage.setActiveTab(trace, StageTab.activity);
+//       stage.setReady(true);
+//       await stage.setActiveTab(StageTab.activity);
 //       verify(store.maybeRefresh(any)).called(1);
 //       verify(timer.set(any, any)).called(1);
 //
 //       // When another tab is on, should stop refreshing
-//       await stage.setActiveTab(trace, StageTab.settings);
+//       await stage.setActiveTab(StageTab.settings);
 //       verify(timer.unset(any)).called(1);
 //     });
 //   });
 //
 //   test("onBackground", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final stage = StageStore();
 //       depend<StageStore>(stage);
 //
@@ -420,15 +405,15 @@ void main() {
 //       verifyNever(store.maybeRefresh(any));
 //
 //       // When the app is in background, stop refreshing
-//       stage.setReady(trace, true);
-//       await stage.setForeground(trace, true);
-//       await stage.setForeground(trace, false);
+//       stage.setReady(true);
+//       await stage.setForeground(true);
+//       await stage.setForeground(false);
 //       verify(timer.unset(any)).called(1);
 //     });
 //   });
 //
 //   test("onTimerFired", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final timer = MockTimerService();
 //       dynamic callback;
 //       when(timer.addHandler(any, any))
@@ -450,7 +435,7 @@ void main() {
 //   });
 //
 //   test("onRetentionChanged", () async {
-//     await withTrace((trace) async {
+//     await withTrace((m) async {
 //       final device = DeviceStore();
 //       depend<DeviceStore>(device);
 //
@@ -478,7 +463,7 @@ void main() {
 
 //   group("binder", () {
 //     test("onForeground", () async {
-//       await withTrace((trace) async {
+//       await withTrace((m) async {
 //         final store = MockPlusRefreshStore();
 //         depend<PlusRefreshStore>(store);
 //
@@ -510,14 +495,14 @@ void main() {
 //         verifyNever(store.maybeRefreshLease(any));
 //
 //         // When in foreground, should try to refresh
-//         await stage.setReady(trace, true);
-//         await stage.setForeground(trace, true);
+//         await stage.setReady(true);
+//         await stage.setForeground(true);
 //         verify(store.maybeRefreshLease(any)).called(1);
 //       });
 //     });
 //
 //     test("onCurrentLease", () async {
-//       await withTrace((trace) async {
+//       await withTrace((m) async {
 //         final store = MockPlusRefreshStore();
 //         depend<PlusRefreshStore>(store);
 //
@@ -554,7 +539,7 @@ void main() {
 //
 //         keypair.currentKeypair = PlusKeypair(publicKey: "pk", privateKey: "sk");
 //         gateway.currentGateway = fixtureGatewayEntries.first.toGateway;
-//         env.setDeviceTag(trace, "device tag");
+//         env.setDeviceTag("device tag");
 //         plus.plusEnabled = true;
 //         app.status = AppStatus.activatedCloud;
 //

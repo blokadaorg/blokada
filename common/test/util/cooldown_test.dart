@@ -6,7 +6,7 @@ import '../tools.dart';
 void main() {
   group("cooldown", () {
     test("basicTest", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final subject = _Subject();
 
         // Will track the cooldown wait time

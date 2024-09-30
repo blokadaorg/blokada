@@ -1,47 +1,49 @@
 import 'package:common/common/model.dart';
 import 'package:common/dragon/api/api.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 
-class SupportApi {
+class SupportApi with Logging {
   late final _api = dep<Api>();
   late final _marshal = JsonSupportMarshal();
 
-  Future<JsonSupportSession> createSession(String language) async {
-    final result = await _api.request(ApiEndpoint.postSupport,
+  Future<JsonSupportSession> createSession(Marker m, String language) async {
+    final result = await _api.request(ApiEndpoint.postSupport, m,
         payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
         )));
-    print("create session: $result");
+    log(m).i("create session: $result");
     return _marshal.toSession(result);
   }
 
-  Future<JsonSupportSession> getSession(String sessionId) async {
-    final result = await _api.request(ApiEndpoint.getSupport,
+  Future<JsonSupportSession> getSession(Marker m, String sessionId) async {
+    final result = await _api.request(ApiEndpoint.getSupport, m,
         params: {ApiParam.sessionId: sessionId});
-    print("get session: $result");
+    log(m).i("get session: $result");
     return _marshal.toSession(result);
   }
 
   Future<JsonSupportResponse> sendEvent(
-      String sessionId, SupportEvent event) async {
-    final result = await _api.request(ApiEndpoint.putSupport,
+      Marker m, String sessionId, SupportEvent event) async {
+    final result = await _api.request(ApiEndpoint.putSupport, m,
         payload: _marshal.fromMessage(JsonSupportPayloadMessage(
           sessionId: sessionId,
           event: event,
         )));
-    print("send event: $result");
+    log(m).i("send event: $result");
     return _marshal.toResponse(result);
   }
 
   Future<JsonSupportResponse> sendMessage(
-      String sessionId, String message) async {
+      Marker m, String sessionId, String message) async {
     final payload = _marshal.fromMessage(JsonSupportPayloadMessage(
       sessionId: sessionId,
       message: message,
     ));
 
-    final result = await _api.request(ApiEndpoint.putSupport, payload: payload);
-    print("send msg: $result");
+    final result =
+        await _api.request(ApiEndpoint.putSupport, m, payload: payload);
+    log(m).i("send msg: $result");
     return _marshal.toResponse(result);
   }
 }

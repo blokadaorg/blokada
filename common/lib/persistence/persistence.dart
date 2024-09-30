@@ -1,19 +1,19 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../util/di.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
 abstract class PersistenceService {
-  Future<void> save(Trace trace, String key, Map<String, dynamic> value,
+  Future<void> save(String key, Map<String, dynamic> value, Marker m,
       {bool isBackup});
-  Future<void> saveString(Trace trace, String key, String value,
+  Future<void> saveString(String key, String value, Marker m, {bool isBackup});
+  Future<String?> load(String key, Marker m, {bool isBackup});
+  Future<Map<String, dynamic>> loadOrThrow(String key, Marker m,
       {bool isBackup});
-  Future<String?> load(Trace trace, String key, {bool isBackup});
-  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key,
-      {bool isBackup});
-  Future<void> delete(Trace trace, String key, {bool isBackup});
+  Future<void> delete(String key, Marker m, {bool isBackup});
 }
 
 abstract class SecurePersistenceService extends PersistenceService {}
@@ -29,7 +29,7 @@ abstract class SecurePersistenceService extends PersistenceService {}
 /// - automatically backed up storage (iCloud on iOS, Google Drive on Android)
 /// - encrypted storage also automatically backed up
 class PlatformPersistence extends SecurePersistenceService
-    with Traceable, Dependable {
+    with Dependable, Logging {
   final bool isSecure;
 
   PlatformPersistence({required this.isSecure});
@@ -43,24 +43,24 @@ class PlatformPersistence extends SecurePersistenceService
   late final _ops = dep<PersistenceOps>();
 
   @override
-  Future<Map<String, dynamic>> loadOrThrow(Trace trace, String key,
+  Future<Map<String, dynamic>> loadOrThrow(String key, Marker m,
       {bool isBackup = false}) async {
-    return await traceWith(trace, "loadOrThrow", (trace) async {
-      trace.addAttribute("key", key);
-      trace.addAttribute("isSecure", isSecure);
-      trace.addAttribute("isBackup", isBackup);
-      final result = await _ops.doLoad(key, isSecure, isBackup);
-      final parsed = jsonDecode(result);
-      return parsed;
-    });
+    log(m).log(
+        msg: "loadOrThrow",
+        attr: {"key": key, "isSecure": isSecure, "isBackup": isBackup});
+
+    final result = await _ops.doLoad(key, isSecure, isBackup);
+    final parsed = jsonDecode(result);
+    return parsed;
   }
 
   @override
-  Future<String?> load(Trace trace, String key, {bool isBackup = false}) async {
+  Future<String?> load(String key, Marker m, {bool isBackup = false}) async {
     try {
-      trace.addAttribute("key", key);
-      trace.addAttribute("isSecure", isSecure);
-      trace.addAttribute("isBackup", isBackup);
+      log(m).log(
+          msg: "load",
+          attr: {"key": key, "isSecure": isSecure, "isBackup": isBackup});
+
       return await _ops.doLoad(key, isSecure, isBackup);
     } on Exception {
       // TODO: not all exceptions mean that the key is not found
@@ -69,34 +69,31 @@ class PlatformPersistence extends SecurePersistenceService
   }
 
   @override
-  Future<void> save(Trace trace, String key, Map<String, dynamic> value,
+  Future<void> save(String key, Map<String, dynamic> value, Marker m,
       {bool isBackup = false}) async {
-    return await traceWith(trace, "save", (trace) async {
-      trace.addAttribute("key", key);
-      trace.addAttribute("isSecure", isSecure);
-      trace.addAttribute("isBackup", isBackup);
-      await _ops.doSave(key, jsonEncode(value), isSecure, isBackup);
-    });
+    log(m).log(
+        msg: "save",
+        attr: {"key": key, "isSecure": isSecure, "isBackup": isBackup});
+
+    await _ops.doSave(key, jsonEncode(value), isSecure, isBackup);
   }
 
   @override
-  Future<void> saveString(Trace trace, String key, String value,
+  Future<void> saveString(String key, String value, Marker m,
       {bool isBackup = false}) async {
-    return await traceWith(trace, "saveString", (trace) async {
-      trace.addAttribute("key", key);
-      trace.addAttribute("isSecure", isSecure);
-      trace.addAttribute("isBackup", isBackup);
-      await _ops.doSave(key, value, isSecure, isBackup);
-    });
+    log(m).log(
+        msg: "saveString",
+        attr: {"key": key, "isSecure": isSecure, "isBackup": isBackup});
+
+    await _ops.doSave(key, value, isSecure, isBackup);
   }
 
   @override
-  Future<void> delete(Trace trace, String key, {bool isBackup = false}) async {
-    return await traceWith(trace, "delete", (trace) async {
-      trace.addAttribute("key", key);
-      trace.addAttribute("isSecure", isSecure);
-      trace.addAttribute("isBackup", isBackup);
-      await _ops.doDelete(key, isSecure, isBackup);
-    });
+  Future<void> delete(String key, Marker m, {bool isBackup = false}) async {
+    log(m).log(
+        msg: "delete",
+        attr: {"key": key, "isSecure": isSecure, "isBackup": isBackup});
+
+    await _ops.doDelete(key, isSecure, isBackup);
   }
 }

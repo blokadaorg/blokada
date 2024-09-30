@@ -9,11 +9,11 @@ import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/home/private_dns_sheet_android.dart';
 import 'package:common/dragon/widget/home/private_dns_sheet_ios.dart';
 import 'package:common/lock/lock.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/platform_info.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +32,7 @@ class SmartOnboard extends StatefulWidget {
 }
 
 class SmartOnboardState extends State<SmartOnboard>
-    with TickerProviderStateMixin, Traceable, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   late final _lock = dep<LockStore>();
   late final _stage = dep<StageStore>();
   late final _family = dep<FamilyStore>();
@@ -143,9 +143,8 @@ class SmartOnboardState extends State<SmartOnboard>
                     width: 120,
                     child: MiniCard(
                       onTap: () {
-                        traceAs("tappedLink", (trace) async {
-                          await _stage.showModal(
-                              trace, StageModal.accountChange);
+                        log(Markers.userTap).trace("tappedLink", (m) async {
+                          await _stage.showModal(StageModal.accountChange, m);
                         });
                       },
                       color: context.theme.textPrimary.withOpacity(0.15),
@@ -182,8 +181,8 @@ class SmartOnboardState extends State<SmartOnboard>
     final p = widget.phase;
 
     if (p.requiresActivation()) {
-      traceAs("handleCtaTap", (trace) async {
-        await _family.activateCta(trace);
+      log(Markers.userTap).trace("handleCtaTap", (m) async {
+        await _family.activateCta(m);
       });
     } else if (p.requiresPerms()) {
       final perms = (_act.getPlatform() == Platform.ios)
@@ -192,14 +191,14 @@ class SmartOnboardState extends State<SmartOnboard>
 
       showSheet(context, builder: (context) => perms);
     } else if (p.isLocked2()) {
-      traceAs("handleCtaTap", (trace) async {
-        await _stage.showModal(trace, StageModal.lock);
+      log(Markers.userTap).trace("handleCtaTap", (m) async {
+        await _stage.showModal(StageModal.lock, m);
       });
       // } else if (!_devices.now.hasThisDevice) {
       // await _modal.set(StageModal.onboardingAccountDecided);
     } else if (p == FamilyPhase.linkedExpired) {
-      traceAs("tappedLinkExpired", (trace) async {
-        await _stage.showModal(trace, StageModal.accountChange);
+      log(Markers.userTap).trace("tappedLinkExpired", (m) async {
+        await _stage.showModal(StageModal.accountChange, m);
       });
     } else {
       showSheet(context, builder: (context) => const LinkDeviceSheet());

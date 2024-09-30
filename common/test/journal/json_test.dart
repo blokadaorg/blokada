@@ -20,7 +20,7 @@ import 'json_test.mocks.dart';
 void main() {
   group("jsonJournalEndpoint", () {
     test("willParseJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final subject =
             JsonJournalEndpoint.fromJson(jsonDecode(fixtureJournalEndpoint));
         final entries = subject.activity;
@@ -39,7 +39,7 @@ void main() {
 
   group("getEntries", () {
     test("willFetchEntries", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureJournalEndpoint));
@@ -50,7 +50,7 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = JournalJson();
-        final entries = await subject.getEntries(trace);
+        final entries = await subject.getEntries(m);
 
         expect(entries.isNotEmpty, true);
         expect(entries.first.domainName, "star.c10r.facebook.com");
@@ -60,7 +60,7 @@ void main() {
 
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
@@ -73,12 +73,12 @@ void main() {
         final subject = JournalJson();
 
         await expectLater(
-            subject.getEntries(trace), throwsA(isA<FormatException>()));
+            subject.getEntries(m), throwsA(isA<FormatException>()));
       });
     });
 
     test("fromJsonWillThrowOnInvalidJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         await expectLater(
             () => JsonJournalEndpoint.fromJson({}), throwsA(isA<JsonError>()));
       });

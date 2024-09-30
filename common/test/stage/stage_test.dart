@@ -20,157 +20,157 @@ import 'stage_test.mocks.dart';
 void main() {
   group("store", () {
     test("setBackground", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
-        await subject.setReady(trace, true);
+        await subject.setReady(true, m);
         expect(subject.route.isForeground(), false);
 
-        await subject.setForeground(trace);
+        await subject.setForeground(m);
 
-        await subject.setRoute(trace, "home");
+        await subject.setRoute("home", m);
         expect(subject.route.isForeground(), true);
 
-        await subject.setBackground(trace);
+        await subject.setBackground(m);
         expect(subject.route.isForeground(), false);
       });
     });
 
     test("setRoute", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
-        await subject.setReady(trace, true);
-        await subject.setForeground(trace);
+        await subject.setReady(true, m);
+        await subject.setForeground(m);
 
-        await subject.setRoute(trace, "activity");
+        await subject.setRoute("activity", m);
         expect(subject.route.isBecameTab(StageTab.activity), true);
 
-        await subject.setRoute(trace, "settings");
+        await subject.setRoute("settings", m);
         expect(subject.route.isBecameTab(StageTab.settings), true);
 
-        await subject.setRoute(trace, "settings/test");
+        await subject.setRoute("settings/test", m);
         expect(subject.route.isTab(StageTab.settings), true);
         expect(subject.route.route.payload, "test");
       });
     });
 
     test("showModal", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
-        await subject.setReady(trace, true);
-        await subject.setForeground(trace);
+        await subject.setReady(true, m);
+        await subject.setForeground(m);
         expect(subject.route.modal, null);
 
         _simulateConfirmation(() async {
-          await subject.modalShown(trace, StageModal.plusLocationSelect);
+          await subject.modalShown(StageModal.plusLocationSelect, m);
         });
 
-        await subject.showModal(trace, StageModal.plusLocationSelect);
+        await subject.showModal(StageModal.plusLocationSelect, m);
         expect(subject.route.modal, StageModal.plusLocationSelect);
 
         _simulateConfirmation(() async {
-          await subject.modalDismissed(trace);
+          await subject.modalDismissed(m);
         });
 
-        await subject.dismissModal(trace);
+        await subject.dismissModal(m);
         expect(subject.route.modal, null);
       });
     });
 
     test("backgroundAndModal", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
-        await subject.setReady(trace, true);
+        await subject.setReady(true, m);
         expect(subject.route.isForeground(), false);
         expect(subject.route.modal, null);
 
-        await subject.setForeground(trace);
+        await subject.setForeground(m);
 
-        await subject.setRoute(trace, "home");
+        await subject.setRoute("home", m);
         expect(subject.route.isForeground(), true);
 
         _simulateConfirmation(() async {
-          await subject.modalShown(trace, StageModal.payment);
+          await subject.modalShown(StageModal.payment, m);
         });
 
-        await subject.showModal(trace, StageModal.payment);
+        await subject.showModal(StageModal.payment, m);
         expect(subject.route.modal, StageModal.payment);
 
-        await subject.setBackground(trace);
-        await subject.setBackground(trace); // double event on purpose
+        await subject.setBackground(m);
+        await subject.setBackground(m); // double event on purpose
         expect(subject.route.isForeground(), false);
 
-        await subject.setForeground(trace);
-        await subject.setForeground(trace);
+        await subject.setForeground(m);
+        await subject.setForeground(m);
         expect(subject.route.modal, StageModal.payment);
       });
     });
 
     test("advancedModalManagement", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
-        await subject.setReady(trace, true);
-        await subject.setForeground(trace);
+        await subject.setReady(true, m);
+        await subject.setForeground(m);
         expect(subject.route.modal, null);
 
         // _simulateConfirmation(() async {
-        //   await subject.modalShown(trace, StageModal.help);
+        //   await subject.modalShown(StageModal.help);
         // });
         //
-        // await subject.showModal(trace, StageModal.help);
+        // await subject.showModal(StageModal.help);
         // expect(subject.route.modal, StageModal.help);
 
         // User having one sheet opened and opening another one
         _simulateConfirmation(() async {
-          await subject.modalDismissed(trace);
+          await subject.modalDismissed(m);
           await sleepAsync(const Duration(milliseconds: 600));
           _simulateConfirmation(() async {
-            await subject.modalShown(trace, StageModal.plusLocationSelect);
+            await subject.modalShown(StageModal.plusLocationSelect, m);
           });
         });
-        await subject.showModal(trace, StageModal.plusLocationSelect);
+        await subject.showModal(StageModal.plusLocationSelect, m);
         expect(subject.route.modal, StageModal.plusLocationSelect);
 
         // Same but manual dismiss
         _simulateConfirmation(() async {
-          await subject.modalDismissed(trace);
+          await subject.modalDismissed(m);
         });
-        await subject.dismissModal(trace);
+        await subject.dismissModal(m);
         _simulateConfirmation(() async {
-          await subject.modalShown(trace, StageModal.help);
+          await subject.modalShown(StageModal.help, m);
         });
-        await subject.showModal(trace, StageModal.help);
+        await subject.showModal(StageModal.help, m);
 
         expect(subject.route.modal, StageModal.help);
       });
     });
 
     test("delayedEvents", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
@@ -179,34 +179,34 @@ void main() {
         subject.act = mockedAct;
 
         // Stage is not ready, should save this route for later
-        await subject.setRoute(trace, "activity");
+        await subject.setRoute("activity", m);
         expect(subject.route.isBecameTab(StageTab.activity), false);
 
-        await subject.setReady(trace, true);
-        await subject.setForeground(trace);
+        await subject.setReady(true, m);
+        await subject.setForeground(m);
 
         expect(subject.route.isBecameTab(StageTab.activity), true);
 
         // When going bg, events wait until foreground
-        await subject.setBackground(trace);
+        await subject.setBackground(m);
         expect(subject.route.modal, null);
 
         // This one gets saved
-        await subject.showModal(trace, StageModal.plusLocationSelect);
+        await subject.showModal(StageModal.plusLocationSelect, m);
         expect(subject.route.modal, null);
 
         _simulateConfirmation(() async {
-          await subject.modalShown(trace, StageModal.plusLocationSelect);
+          await subject.modalShown(StageModal.plusLocationSelect, m);
         });
 
         // Now modal will be shown
-        await subject.setForeground(trace);
+        await subject.setForeground(m);
         expect(subject.route.modal, StageModal.plusLocationSelect);
       });
     });
 
     test("routeChanged", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockStageOps();
         depend<StageOps>(ops);
         depend<Scheduler>(MockScheduler());
@@ -216,20 +216,20 @@ void main() {
         subject.act = mockedAct;
 
         int counter = 0;
-        subject.addOnValue(routeChanged, (trace, route) {
+        subject.addOnValue(routeChanged, (route, m) {
           expect(route.isForeground(), counter++ != 1);
         });
 
-        await subject.setReady(trace, true);
-        await subject.setBackground(trace);
-        await subject.setForeground(trace);
+        await subject.setReady(true, m);
+        await subject.setBackground(m);
+        await subject.setForeground(m);
       });
     });
   });
 
   group("stageRouteState", () {
     test("basicTest", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         // Init state (background)
         StageRouteState route = StageRouteState.init();
 

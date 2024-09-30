@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:common/env/env.dart';
+import 'package:common/logger/logger.dart';
 
 import '../../account/account.dart';
 import '../../device/device.dart';
 import '../../http/http.dart';
 import '../../json/json.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import '../keypair/keypair.dart';
 
 class TooManyLeasesException implements Exception {}
@@ -92,14 +91,14 @@ class PlusLeaseJson {
   late final _account = dep<AccountStore>();
   late final _device = dep<DeviceStore>();
 
-  Future<List<JsonLease>> getLeases(Trace trace, {bool noRetry = false}) async {
+  Future<List<JsonLease>> getLeases(Marker m, {bool noRetry = false}) async {
     final result = await _http.get(
-        trace, '$jsonUrl/v2/lease?account_id=${_account.id}',
+        '$jsonUrl/v2/lease?account_id=${_account.id}', m,
         noRetry: noRetry);
     return JsonLeaseEndpoint.fromJson(jsonDecode(result)).leases;
   }
 
-  Future<JsonLease> postLease(Trace trace, String gatewayId) async {
+  Future<JsonLease> postLease(String gatewayId, Marker m) async {
     try {
       final payload = JsonLeasePayload(
         accountId: _account.id,
@@ -108,8 +107,7 @@ class PlusLeaseJson {
         alias: _device.deviceAlias,
       );
 
-      final result = await _http.request(
-          trace, '$jsonUrl/v2/lease', HttpType.post,
+      final result = await _http.request('$jsonUrl/v2/lease', HttpType.post, m,
           payload: jsonEncode(payload.toJson()));
       return JsonLease.fromJson(jsonDecode(result)['lease']);
     } on HttpCodeException catch (e) {
@@ -121,18 +119,18 @@ class PlusLeaseJson {
     }
   }
 
-  Future<void> deleteLeaseByGateway(Trace trace, String gatewayId) async {
+  Future<void> deleteLeaseByGateway(String gatewayId, Marker m) async {
     final payload = JsonLeasePayload(
         accountId: _account.id,
         publicKey: _keypair.currentDevicePublicKey,
         gatewayId: gatewayId);
 
-    await _http.request(trace, '$jsonUrl/v2/lease', HttpType.delete,
+    await _http.request('$jsonUrl/v2/lease', HttpType.delete, m,
         payload: jsonEncode(payload.toJson()));
   }
 
-  Future<void> deleteLease(Trace trace, JsonLeasePayload payload) async {
-    await _http.request(trace, '$jsonUrl/v2/lease', HttpType.delete,
+  Future<void> deleteLease(JsonLeasePayload payload, Marker m) async {
+    await _http.request('$jsonUrl/v2/lease', HttpType.delete, m,
         payload: jsonEncode(payload.toJson()));
   }
 }

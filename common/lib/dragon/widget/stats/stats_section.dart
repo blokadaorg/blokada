@@ -6,6 +6,7 @@ import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/stats/activity_item.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class StatsSectionState extends State<StatsSection> {
 
   _reload() async {
     if (!mounted) return;
-    await _journal.fetch(widget.deviceTag);
+    await _journal.fetch(widget.deviceTag, Markers.stats);
     setState(() {
       _isReady = true;
       _entries = _journal.filteredEntries;

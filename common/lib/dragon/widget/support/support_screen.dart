@@ -4,8 +4,8 @@ import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/support/support_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 
 class SupportScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class SupportScreen extends StatefulWidget {
   State<StatefulWidget> createState() => SupportScreenState();
 }
 
-class SupportScreenState extends State<SupportScreen> with TraceOrigin {
+class SupportScreenState extends State<SupportScreen> with Logging {
   late final _custom = dep<CustomStore>();
   late final _support = dep<SupportController>();
 
@@ -85,7 +85,7 @@ class SupportScreenState extends State<SupportScreen> with TraceOrigin {
 
     return CommonClickable(
         onTap: () {
-          // traceAs("sendLog", (trace) async {
+          // traceAs("sendLog", () async {
           //   await _command.onCommand("log");
           // });
           //showSupportDialog(context);

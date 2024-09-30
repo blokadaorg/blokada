@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:common/logger/logger.dart';
+
 import '../account/account.dart';
 import '../http/http.dart';
 import '../json/json.dart';
 import '../plus/keypair/keypair.dart';
 import '../util/di.dart';
-import '../util/trace.dart';
 
 class JsonAppleNotificationPayload {
   late String accountId;
@@ -32,14 +33,14 @@ class NotificationJson {
   late final _account = dep<AccountStore>();
   late final _keypair = dep<PlusKeypairStore>();
 
-  Future<void> postToken(Trace trace, String appleToken) async {
+  Future<void> postToken(String appleToken, Marker m) async {
     final payload = JsonAppleNotificationPayload(
       accountId: _account.id,
       publicKey: _keypair.currentKeypair!.publicKey,
       appleToken: appleToken,
     );
 
-    await _http.request(trace, "$jsonUrl/v2/apple/device", HttpType.post,
+    await _http.request("$jsonUrl/v2/apple/device", HttpType.post, m,
         payload: jsonEncode(payload.toJson()));
   }
 }

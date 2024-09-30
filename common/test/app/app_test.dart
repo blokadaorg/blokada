@@ -26,7 +26,7 @@ import 'app_test.mocks.dart';
 void main() {
   group("store", () {
     test("willHandleInitProcedure", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<AccountStore>(MockAccountStore());
         depend<DeviceStore>(MockDeviceStore());
@@ -38,16 +38,16 @@ void main() {
 
         expect(subject.status, AppStatus.unknown);
 
-        await subject.initStarted(trace);
+        await subject.initStarted(m);
         expect(subject.status, AppStatus.initializing);
 
-        await subject.initCompleted(trace);
+        await subject.initCompleted(m);
         expect(subject.status, AppStatus.deactivated);
       });
     });
 
     test("willHandleCloudEnabled", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
@@ -67,27 +67,27 @@ void main() {
         final subject = AppStore();
 
         // Initially the app is deactivated
-        await subject.initStarted(trace);
-        await subject.initCompleted(trace);
+        await subject.initStarted(m);
+        await subject.initCompleted(m);
         expect(subject.status, AppStatus.deactivated);
 
         // User got a Cloud account, still deactivated
-        await subject.onAccountChanged(trace);
+        await subject.onAccountChanged(m);
         expect(subject.status, AppStatus.deactivated);
 
         // Granted perms and enabled Cloud in api, now should be active
-        await subject.cloudPermEnabled(trace, true);
-        await subject.onDeviceChanged(trace);
+        await subject.cloudPermEnabled(true, m);
+        await subject.onDeviceChanged(m);
         expect(subject.status, AppStatus.activatedCloud);
 
         // Rejected perms again
-        await subject.cloudPermEnabled(trace, false);
+        await subject.cloudPermEnabled(false, m);
         expect(subject.status, AppStatus.deactivated);
       });
     });
 
     test("willHandlePause", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
@@ -107,27 +107,27 @@ void main() {
         final subject = AppStore();
 
         // Initially the app is deactivated
-        await subject.initStarted(trace);
-        await subject.initCompleted(trace);
+        await subject.initStarted(m);
+        await subject.initCompleted(m);
         expect(subject.status, AppStatus.deactivated);
 
         // User got the onboarding right for device
-        await subject.onAccountChanged(trace);
-        await subject.cloudPermEnabled(trace, true);
-        await subject.onDeviceChanged(trace);
+        await subject.onAccountChanged(m);
+        await subject.cloudPermEnabled(true, m);
+        await subject.onDeviceChanged(m);
         expect(subject.status, AppStatus.activatedCloud);
 
         // Can pause, unpause
-        await subject.appPaused(trace, true);
+        await subject.appPaused(true, m);
         expect(subject.status, AppStatus.deactivated);
-        await subject.appPaused(trace, false);
+        await subject.appPaused(false, m);
         expect(subject.status, AppStatus.activatedCloud);
 
         // When the requirements are not satisfied, wont unpause
-        await subject.cloudPermEnabled(trace, false);
-        await subject.appPaused(trace, true);
+        await subject.cloudPermEnabled(false, m);
+        await subject.appPaused(true, m);
         expect(subject.status, AppStatus.deactivated);
-        await subject.appPaused(trace, false);
+        await subject.appPaused(false, m);
         expect(subject.status, AppStatus.deactivated);
       });
     });
@@ -135,7 +135,7 @@ void main() {
 
   group("storeErrors", () {
     test("initWillFailOnImproperStates", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<AccountStore>(MockAccountStore());
         depend<DeviceStore>(MockDeviceStore());
         depend<StageStore>(MockStageStore());
@@ -146,22 +146,22 @@ void main() {
         final subject = AppStore();
 
         // Can't complete init before starting
-        await expectLater(subject.initCompleted(trace), throwsStateError);
+        await expectLater(subject.initCompleted(m), throwsStateError);
 
         // Can't init twice
-        await subject.initStarted(trace);
-        await expectLater(subject.initStarted(trace), throwsStateError);
+        await subject.initStarted(m);
+        await expectLater(subject.initStarted(m), throwsStateError);
 
         // Can't complete init twice
-        await subject.initCompleted(trace);
-        await expectLater(subject.initCompleted(trace), throwsStateError);
+        await subject.initCompleted(m);
+        await expectLater(subject.initCompleted(m), throwsStateError);
       });
     });
   });
 
   group("binder", () {
     test("onAppStatus", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<AccountStore>(MockAccountStore());
         depend<DeviceStore>(MockDeviceStore());
 
@@ -178,14 +178,14 @@ void main() {
         depend<AppStore>(store);
 
         verifyNever(ops.doAppStatusChanged(any));
-        await store.initStarted(trace);
-        await store.initCompleted(trace);
+        await store.initStarted(m);
+        await store.initCompleted(m);
         verify(ops.doAppStatusChanged(any)).called(2);
       });
     });
 
     test("onCloudPermStatus", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
@@ -206,9 +206,9 @@ void main() {
 
         verifyNever(store.cloudPermEnabled(any, any));
 
-        perm.setPrivateDnsEnabled(trace, "some-tag");
+        perm.setPrivateDnsEnabled("some-tag", m);
 
-        verify(store.cloudPermEnabled(any, true)).called(1);
+        verify(store.cloudPermEnabled(true, m)).called(1);
       });
     });
   });

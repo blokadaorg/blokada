@@ -4,7 +4,6 @@ import 'package:common/dragon/widget/app.dart';
 import 'package:common/entrypoint.dart';
 import 'package:common/util/act.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -27,7 +26,7 @@ void main() async {
   runApp(BlokadaApp(content: null));
 }
 
-class DevWebsocket with TraceOrigin {
+class DevWebsocket {
   var ip = "192.168.1.177";
   //var ip = "192.168.234.104";
 
@@ -40,7 +39,7 @@ class DevWebsocket with TraceOrigin {
       Uri.parse('ws://$ip:8765'),
     );
     channel?.stream.listen((msg) async {
-      traceAs("devwebsocket", (trace) => command.onCommandString(trace, msg));
+      command.onCommandString(msg, 1);
     });
   }
 }

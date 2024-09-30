@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../stage/stage.dart';
@@ -5,7 +6,6 @@ import '../util/config.dart';
 import '../util/cooldown.dart';
 import '../util/di.dart';
 import '../util/mobx.dart';
-import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -14,7 +14,7 @@ part 'custom.g.dart';
 
 class CustomStore = CustomStoreBase with _$CustomStore;
 
-abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
+abstract class CustomStoreBase with Store, Logging, Dependable, Cooldown {
   late final _ops = dep<CustomOps>();
   late final _json = dep<CustomJson>();
   late final _stage = dep<StageStore>();
@@ -48,9 +48,9 @@ abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
   DateTime lastRefresh = DateTime(0);
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
-      final entries = await _json.getEntries(trace);
+  Future<void> fetch(Marker m) async {
+    return await log(m).trace("fetch", (m) async {
+      final entries = await _json.getEntries(m);
       denied = entries
           .where((e) => e.action == "block")
           .map((e) => e.domainName)
@@ -63,35 +63,35 @@ abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
           .toList();
       allowed.sort();
 
-      trace.addAttribute("deniedLength", denied.length);
-      trace.addAttribute("allowedLength", allowed.length);
+      log(m).pair("deniedLength", denied.length);
+      log(m).pair("allowedLength", allowed.length);
     });
   }
 
   @action
-  Future<void> allow(Trace parentTrace, String domainName) async {
-    return await traceWith(parentTrace, "allow", (trace) async {
+  Future<void> allow(String domainName, Marker m) async {
+    return await log(m).trace("allow", (m) async {
       await _json.postEntry(
-          trace, JsonCustomEntry(action: "allow", domainName: domainName));
-      await fetch(trace);
+          JsonCustomEntry(action: "allow", domainName: domainName), m);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> deny(Trace parentTrace, String domainName) async {
-    return await traceWith(parentTrace, "deny", (trace) async {
+  Future<void> deny(String domainName, Marker m) async {
+    return await log(m).trace("deny", (m) async {
       await _json.postEntry(
-          trace, JsonCustomEntry(action: "block", domainName: domainName));
-      await fetch(trace);
+          JsonCustomEntry(action: "block", domainName: domainName), m);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> delete(Trace parentTrace, String domainName) async {
-    return await traceWith(parentTrace, "delete", (trace) async {
-      await _json.deleteEntry(trace,
-          JsonCustomEntry(action: "fallthrough", domainName: domainName));
-      await fetch(trace);
+  Future<void> delete(String domainName, Marker m) async {
+    return await log(m).trace("delete", (m) async {
+      await _json.deleteEntry(
+          JsonCustomEntry(action: "fallthrough", domainName: domainName), m);
+      await fetch(m);
     });
   }
 
@@ -101,37 +101,36 @@ abstract class CustomStoreBase with Store, Traceable, Dependable, Cooldown {
 
   // Will move to allowed it on blocked list, and vice versa.
   // Will do nothing if not existing.
-  toggle(Trace parentTrace, String domainName) async {
+  toggle(String domainName, Marker m) async {
     if (allowed.contains(domainName)) {
       //await delete(parentTrace, domainName);
-      await deny(parentTrace, domainName);
+      await deny(domainName, m);
     } else if (denied.contains(domainName)) {
       //await delete(parentTrace, domainName);
-      await allow(parentTrace, domainName);
+      await allow(domainName, m);
     }
   }
 
   // Will add to allowed, or blocked list if not existing, depending on bool.
   // Will remove if existing.
-  addOrRemove(Trace parentTrace, String domainName,
-      {required bool gotBlocked}) async {
+  addOrRemove(String domainName, Marker m, {required bool gotBlocked}) async {
     if (contains(domainName)) {
-      await delete(parentTrace, domainName);
+      await delete(domainName, m);
     } else if (gotBlocked) {
-      await allow(parentTrace, domainName);
+      await allow(domainName, m);
     } else {
-      await deny(parentTrace, domainName);
+      await deny(domainName, m);
     }
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!route.isForeground()) return;
     if (!route.isBecameTab(StageTab.activity)) return;
     if (!isCooledDown(cfg.customRefreshCooldown)) return;
 
-    return await traceWith(parentTrace, "fetchCustom", (trace) async {
-      await fetch(trace);
+    return await log(m).trace("fetchCustom", (m) async {
+      await fetch(m);
     });
   }
 }

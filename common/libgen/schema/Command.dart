@@ -108,11 +108,11 @@ abstract class CommandOps {
 @FlutterApi()
 abstract class CommandEvents {
   @async
-  void onCommand(String command);
+  void onCommand(String command, int m);
 
   @async
-  void onCommandWithParam(String command, String p1);
+  void onCommandWithParam(String command, String p1, int m);
 
   @async
-  void onCommandWithParams(String command, String p1, String p2);
+  void onCommandWithParams(String command, String p1, String p2, int m);
 }

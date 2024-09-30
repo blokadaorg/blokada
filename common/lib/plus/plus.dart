@@ -1,6 +1,6 @@
+import 'package:common/logger/logger.dart';
 import 'package:common/plus/keypair/keypair.dart';
 import 'package:common/plus/lease/json.dart';
-import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
@@ -29,7 +29,7 @@ const String _keySelected = "plus:active";
 
 class PlusStore = PlusStoreBase with _$PlusStore;
 
-abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
+abstract class PlusStoreBase with Store, Logging, Dependable, Startable {
   late final _ops = dep<PlusOps>();
   late final _keypair = dep<PlusKeypairStore>();
   late final _gateway = dep<PlusGatewayStore>();
@@ -59,66 +59,66 @@ abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
 
   @override
   @action
-  Future<void> start(Trace parentTrace) async {
-    return await traceWith(parentTrace, "start", (trace) async {
+  Future<void> start(Marker m) async {
+    return await log(m).trace("start", (m) async {
       // Assuming keypair already loaded
-      await load(trace);
+      await load(m);
       if (act.isFamily()) return;
 
-      await _gateway.fetch(trace);
-      await _gateway.load(trace);
+      await _gateway.fetch(m);
+      await _gateway.load(m);
 
       if (_account.type == AccountType.plus) {
-        await _lease.fetch(trace);
+        await _lease.fetch(m);
       }
     });
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
-      plusEnabled = await _persistence.load(trace, _keySelected) == "1";
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
+      plusEnabled = await _persistence.load(_keySelected, m) == "1";
     });
   }
 
   @action
-  Future<void> newPlus(Trace parentTrace, GatewayId id) async {
-    return await traceWith(parentTrace, "newPlus", (trace) async {
+  Future<void> newPlus(GatewayId id, Marker m) async {
+    return await log(m).trace("newPlus", (m) async {
       try {
-        await _app.reconfiguring(trace);
+        await _app.reconfiguring(m);
         // No need to clear lease because backend will clear for the same key/acc
-        await _lease.newLease(trace, id);
-        await switchPlus(trace, true);
+        await _lease.newLease(id, m);
+        await switchPlus(true, m);
       } on TooManyLeasesException catch (_) {
-        await _app.plusActivated(trace, false);
-        await _stage.showModal(trace, StageModal.plusTooManyLeases);
+        await _app.plusActivated(false, m);
+        await _stage.showModal(StageModal.plusTooManyLeases, m);
       } catch (e) {
-        await _app.plusActivated(trace, false);
-        await _stage.showModal(trace, StageModal.plusVpnFailure);
+        await _app.plusActivated(false, m);
+        await _stage.showModal(StageModal.plusVpnFailure, m);
         rethrow;
       }
     });
   }
 
   @action
-  Future<void> clearPlus(Trace parentTrace) async {
-    return await traceWith(parentTrace, "clearPlus", (trace) async {
-      await switchPlus(trace, false);
-      _clearLease(trace);
+  Future<void> clearPlus(Marker m) async {
+    return await log(m).trace("clearPlus", (m) async {
+      await switchPlus(false, m);
+      _clearLease(m);
     });
   }
 
   @action
-  Future<void> switchPlus(Trace parentTrace, bool active) async {
-    return await traceWith(parentTrace, "switchPlus", (trace) async {
-      trace.addAttribute("active", active);
+  Future<void> switchPlus(bool active, Marker m) async {
+    return await log(m).trace("switchPlus", (m) async {
+      log(m).pair("active", active);
       try {
         // Save the active flag
         plusEnabled = active;
-        await _saveFlag(trace);
+        await _saveFlag(m);
 
         // Always VPN stop first
-        await _vpn.turnVpnOff(trace);
+        await _vpn.turnVpnOff(m);
 
         if (active) {
           final l = _lease.currentLease;
@@ -129,30 +129,30 @@ abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
             throw Exception("Missing lease, keypair or gateway");
           }
 
-          await _vpn.setVpnConfig(trace, _assembleConfig(k, g, l));
-          await _vpn.turnVpnOn(trace);
+          await _vpn.setVpnConfig(_assembleConfig(k, g, l), m);
+          await _vpn.turnVpnOn(m);
 
           var requestAttempts = 5;
           while (requestAttempts-- > 0) {
             try {
               // A quick lease check to ensure connectivity
-              await _lease.fetch(trace, noRetry: true);
+              await _lease.fetch(m, noRetry: true);
               requestAttempts = 0;
             } catch (_) {
               // Super lame but VPN service seems very brittle
-              trace.addEvent("Retrying switching plus");
-              await _vpn.turnVpnOff(trace);
-              await _vpn.turnVpnOn(trace);
+              log(m).i("Retrying switching plus");
+              await _vpn.turnVpnOff(m);
+              await _vpn.turnVpnOn(m);
             }
           }
         }
       } on Exception catch (e) {
         plusEnabled = false;
-        await _vpn.turnVpnOff(trace);
-        await _saveFlag(trace);
-        _clearLease(trace);
-        await _app.plusActivated(trace, false);
-        await _stage.showModal(trace, StageModal.plusVpnFailure);
+        await _vpn.turnVpnOff(m);
+        await _saveFlag(m);
+        _clearLease(m);
+        await _app.plusActivated(false, m);
+        await _stage.showModal(StageModal.plusVpnFailure, m);
         rethrow;
       }
     });
@@ -172,54 +172,54 @@ abstract class PlusStoreBase with Store, Traceable, Dependable, Startable {
     );
   }
 
-  _clearLease(Trace trace) async {
+  _clearLease(Marker m) async {
     final current = _lease.currentLease;
     if (current != null) {
-      await _lease.deleteLease(trace, current);
+      await _lease.deleteLease(current, m);
     }
   }
 
   @action
-  Future<void> reactToAppPause(Trace parentTrace, bool appActive) async {
-    return await traceWith(parentTrace, "reactToAppPause", (trace) async {
+  Future<void> reactToAppPause(bool appActive, Marker m) async {
+    return await log(m).trace("reactToAppPause", (m) async {
       if (appActive && plusEnabled && !_vpn.actualStatus.isActive()) {
-        await switchPlus(trace, true);
+        await switchPlus(true, m);
       } else if (!appActive && (plusEnabled || _vpn.actualStatus.isActive())) {
-        await _vpn.turnVpnOff(trace);
+        await _vpn.turnVpnOff(m);
       }
     });
   }
 
   @action
-  Future<void> reactToAppStatus(Trace parentTrace) async {
+  Future<void> reactToAppStatus(Marker m) async {
     if (plusEnabled &&
         _app.status == AppStatus.activatedCloud &&
         _vpn.actualStatus == VpnStatus.deactivated) {
       // If VPN was on, but is not (for example after app restart), bring it up.
-      return await traceWith(parentTrace, "reactToAppStatusC1", (trace) async {
-        await switchPlus(trace, true);
+      return await log(m).trace("reactToAppStatusC1", (m) async {
+        await switchPlus(true, m);
       });
     } else if (!plusEnabled && _app.status == AppStatus.activatedPlus) {
       // If the VPN is active (for example after app start), but we did not
       // expect it, try to sync the state.
-      return await traceWith(parentTrace, "reactToAppStatusC2", (trace) async {
-        await switchPlus(trace, true);
+      return await log(m).trace("reactToAppStatusC2", (m) async {
+        await switchPlus(true, m);
       });
     }
   }
 
   @action
-  Future<void> reactToPlusLost(Trace parentTrace) async {
-    return await traceWith(parentTrace, "reactToPlusLost", (trace) async {
+  Future<void> reactToPlusLost(Marker m) async {
+    return await log(m).trace("reactToPlusLost", (m) async {
       if (plusEnabled || _vpn.actualStatus.isActive()) {
         plusEnabled = false;
-        await _vpn.turnVpnOff(trace);
-        _clearLease(trace);
+        await _vpn.turnVpnOff(m);
+        _clearLease(m);
       }
     });
   }
 
-  _saveFlag(Trace trace) async {
-    await _persistence.saveString(trace, _keySelected, plusEnabled ? "1" : "0");
+  _saveFlag(Marker m) async {
+    await _persistence.saveString(_keySelected, plusEnabled ? "1" : "0", m);
   }
 }

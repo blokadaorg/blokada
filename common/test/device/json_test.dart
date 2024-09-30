@@ -26,7 +26,7 @@ const _fixtureJsonEndpoint = '''{
 void main() {
   group("getDevice", () {
     test("willFetchDevice", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         depend<AccountStore>(account);
@@ -37,7 +37,7 @@ void main() {
         depend<HttpService>(http);
 
         final subject = DeviceJson();
-        final device = await subject.getDevice(trace);
+        final device = await subject.getDevice(m);
 
         expect(device.deviceTag, "some-tag");
         expect(device.lists, ["a", "b"]);
@@ -49,13 +49,13 @@ void main() {
 
   group("putDevice", () {
     test("willCreateProperPutRequestForPaused", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         depend<AccountStore>(account);
 
         final http = MockHttpService();
-        when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
+        when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
             .thenAnswer((it) =>
                 // Check if jsonDecode can parse the payload and if it contains "paused": true
                 jsonDecode(it.namedArguments[#payload])["paused"] == true
@@ -65,22 +65,22 @@ void main() {
         depend<HttpService>(http);
 
         final subject = DeviceJson();
-        await subject.putDevice(trace, paused: true);
+        await subject.putDevice(m, paused: true);
 
-        verify(http.request(any, any, HttpType.put,
+        verify(http.request(any, HttpType.put, any,
                 payload: anyNamed("payload")))
             .called(1);
       });
     });
 
     test("willCreateProperPutRequestForRetention", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         depend<AccountStore>(account);
 
         final http = MockHttpService();
-        when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
+        when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
             .thenAnswer((it) =>
                 // Check if jsonDecode can parse the payload and if it contains retention
                 jsonDecode(it.namedArguments[#payload])["retention"] == "1h"
@@ -90,22 +90,22 @@ void main() {
         depend<HttpService>(http);
 
         final subject = DeviceJson();
-        await subject.putDevice(trace, retention: "1h");
+        await subject.putDevice(m, retention: "1h");
 
-        verify(http.request(any, any, HttpType.put,
+        verify(http.request(any, HttpType.put, any,
                 payload: anyNamed("payload")))
             .called(1);
       });
     });
 
     test("willCreateProperPutRequestForLists", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         depend<AccountStore>(account);
 
         final http = MockHttpService();
-        when(http.request(any, any, HttpType.put, payload: anyNamed("payload")))
+        when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
             .thenAnswer((it) =>
                 // Check if jsonDecode can parse the payload and if it contains lists
                 jsonDecode(it.namedArguments[#payload])["lists"][1] == "b"
@@ -115,9 +115,9 @@ void main() {
         depend<HttpService>(http);
 
         final subject = DeviceJson();
-        await subject.putDevice(trace, lists: ["a", "b"]);
+        await subject.putDevice(m, lists: ["a", "b"]);
 
-        verify(http.request(any, any, HttpType.put,
+        verify(http.request(any, HttpType.put, any,
                 payload: anyNamed("payload")))
             .called(1);
       });

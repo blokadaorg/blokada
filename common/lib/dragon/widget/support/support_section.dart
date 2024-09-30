@@ -2,6 +2,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/support/convert.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -30,7 +31,7 @@ class SupportSectionState extends State<SupportSection> {
   void initState() {
     super.initState();
     _controller.onChange = _refresh;
-    _controller.loadOrInit();
+    _controller.loadOrInit(Markers.support);
     _refresh();
   }
 
@@ -77,6 +78,6 @@ class SupportSectionState extends State<SupportSection> {
     // );
     //
     // _addMessage(textMessage);
-    _controller.sendMessage(message.text);
+    _controller.sendMessage(message.text, Markers.support);
   }
 }

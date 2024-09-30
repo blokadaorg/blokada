@@ -5,16 +5,16 @@ import 'package:common/dragon/support/api.dart';
 import 'package:common/dragon/support/chat_history.dart';
 import 'package:common/dragon/support/current_session.dart';
 import 'package:common/dragon/support/support_unread.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/notification/notification.dart';
 import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
 const _keyExpireSession = "supportExpireSession";
 
-class SupportController with TraceOrigin {
+class SupportController with Logging {
   late final _api = dep<SupportApi>();
   late final _command = dep<CommandStore>();
   late final _notification = dep<NotificationStore>();
@@ -30,22 +30,22 @@ class SupportController with TraceOrigin {
 
   Function onChange = () {};
 
-  loadOrInit() async {
+  loadOrInit(Marker m) async {
     await _currentSession.fetch();
     await _unread.fetch();
 
     if (_currentSession.now != null) {
       try {
-        final session = await _api.getSession(_currentSession.now!);
+        final session = await _api.getSession(m, _currentSession.now!);
         _ttl = session.ttl;
         if (_ttl < 0) throw Exception("Session expired");
         await _loadChatHistory(session.history);
-      } catch (e) {
-        print("Error loading session: $e");
-        startSession();
+      } catch (e, s) {
+        log(m).e(msg: "Error loading session", err: e, stack: s);
+        startSession(m);
       }
     } else {
-      startSession();
+      startSession(m);
     }
 
     _unread.now = false;
@@ -84,14 +84,14 @@ class SupportController with TraceOrigin {
     onChange();
   }
 
-  startSession() async {
+  startSession(Marker m) async {
     clearSession();
-    final session = await _api.createSession(language);
+    final session = await _api.createSession(m, language);
     _currentSession.now = session.sessionId;
     _ttl = session.ttl;
     _updateSessionExpiry();
     final hi =
-        await _api.sendEvent(_currentSession.now!, SupportEvent.firstOpen);
+        await _api.sendEvent(m, _currentSession.now!, SupportEvent.firstOpen);
     _handleResponse(hi);
   }
 
@@ -102,21 +102,21 @@ class SupportController with TraceOrigin {
     onChange();
   }
 
-  sendMessage(String? message, {bool retry = false}) async {
+  sendMessage(String? message, Marker m, {bool retry = false}) async {
     if (message?.startsWith("cc ") ?? false) {
       await _addMyMessage(message!);
-      await _handleCommand(message.substring(3));
+      await _handleCommand(message.substring(3), m);
       return;
     }
 
     try {
       if (_currentSession.now == null) {
-        await startSession();
+        await startSession(m);
       }
 
       if (message != null) {
         _addMyMessage(message);
-        final msg = await _api.sendMessage(_currentSession.now!, message);
+        final msg = await _api.sendMessage(m, _currentSession.now!, message);
         _handleResponse(msg);
       }
     } on HttpCodeException catch (e) {
@@ -124,26 +124,25 @@ class SupportController with TraceOrigin {
         // Session bad or expired
         clearSession();
         if (!retry) {
-          print("Invalid session, Retrying...");
-          await sendMessage(message, retry: true);
+          log(m).w("Invalid session, Retrying...");
+          await sendMessage(message, m, retry: true);
         } else {
           throw Exception("Retry failed: $e");
         }
       } else {
         throw Exception("Http error: $e");
       }
-    } catch (e) {
-      print("Error sending chat message");
-      print(e);
+    } catch (e, s) {
+      log(m).e(msg: "Error sending chat message", err: e, stack: s);
       await sleepAsync(const Duration(milliseconds: 500));
       _addErrorMessage();
     }
     _updateSessionExpiry();
   }
 
-  notifyNewMessage(Trace parentTrace) async {
+  notifyNewMessage(Marker m) async {
     await sleepAsync(const Duration(seconds: 5));
-    _notification.show(parentTrace, NotificationId.supportNewMessage);
+    _notification.show(NotificationId.supportNewMessage, m);
     _unread.now = true;
   }
 
@@ -183,10 +182,10 @@ class SupportController with TraceOrigin {
     _addMessage(message);
   }
 
-  _handleCommand(String message) async {
-    await traceAs("supportCommand", (trace) async {
+  _handleCommand(String message, Marker m) async {
+    await log(m).trace("supportCommand", (m) async {
       try {
-        await _command.onCommandString(trace, message);
+        await _command.onCommandString(message, m);
         final msg = SupportMessage("OK", DateTime.now(), isMe: false);
         _addMessage(msg);
       } catch (e) {
@@ -200,8 +199,9 @@ class SupportController with TraceOrigin {
   _updateSessionExpiry() {
     _scheduler.addOrUpdate(Job(
       _keyExpireSession,
+      Markers.support,
       before: DateTime.now().add(Duration(seconds: _ttl)),
-      callback: () async {
+      callback: (m) async {
         clearSession();
         return false; // No reschedule
       },

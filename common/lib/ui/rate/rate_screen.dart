@@ -1,5 +1,6 @@
 import 'package:common/common/i18n.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -9,7 +10,6 @@ import '../../common/widget/theme.dart';
 import '../../rate/rate.dart';
 import '../../stage/stage.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import 'star.dart';
 
 class RateScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class RateScreen extends StatefulWidget {
 }
 
 class _RateScreenState extends State<RateScreen>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _stage = dep<StageStore>();
   final _rate = dep<RateStore>();
 
@@ -90,9 +90,9 @@ class _RateScreenState extends State<RateScreen>
   }
 
   _close() async {
-    traceAs("tappedCloseRateScreen", (trace) async {
-      await _stage.dismissModal(trace);
-      await _rate.rate(trace, _rating, _showPlatformDialog);
+    log(Markers.userTap).trace("tappedCloseRateScreen", (m) async {
+      await _stage.dismissModal(m);
+      await _rate.rate(_rating, _showPlatformDialog, m);
     });
   }
 

@@ -12,6 +12,7 @@ import 'package:common/dragon/widget/section_label.dart';
 import 'package:common/dragon/widget/settings/settings_item.dart';
 import 'package:common/env/env.dart';
 import 'package:common/link/channel.pg.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +21,6 @@ import 'package:pinput/pinput.dart';
 
 import '../../../lock/lock.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 
 class SettingsSection extends StatefulWidget {
   const SettingsSection({super.key});
@@ -29,7 +29,7 @@ class SettingsSection extends StatefulWidget {
   State<StatefulWidget> createState() => SettingsState();
 }
 
-class SettingsState extends State<SettingsSection> with TraceOrigin {
+class SettingsState extends State<SettingsSection> with Logging {
   late final _lock = dep<LockStore>();
   late final _stage = dep<StageStore>();
   late final _env = dep<EnvStore>();
@@ -104,20 +104,22 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                           desc: "family settings lock enter".i18n,
                           inputValue: "",
                           onConfirm: (String value) {
-                            traceAs("tappedChangePin", (parentTrace) async {
+                            log(Markers.userTap).trace("tappedChangePin",
+                                (m) async {
                               Navigator.of(context).pop();
-                              await _lock.lock(parentTrace, value);
+                              await _lock.lock(value, m);
                             });
                           },
                           onRemove: () {
-                            traceAs("tappedRemovePin", (parentTrace) async {
-                              await _lock.removeLock(parentTrace);
+                            log(Markers.userTap).trace("tappedRemovePin",
+                                (m) async {
+                              await _lock.removeLock(m);
                             });
                           },
                         );
                       } else {
-                        traceAs("tappedLock", (trace) async {
-                          await _lock.autoLock(trace);
+                        log(Markers.userTap).trace("tappedLock", (m) async {
+                          await _lock.autoLock(m);
                         });
                       }
                     }),
@@ -138,8 +140,9 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                     icon: CupertinoIcons.person_3,
                     text: "universal action community".i18n,
                     onTap: () {
-                      traceAs("settingsOpenCommunity", (trace) async {
-                        await _stage.openLink(trace, LinkId.knowledgeBase);
+                      log(Markers.userTap).trace("settingsOpenCommunity",
+                          (m) async {
+                        await _stage.openLink(LinkId.knowledgeBase, m);
                       });
                     }),
               ],
@@ -159,8 +162,8 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                     icon: CupertinoIcons.doc_text,
                     text: "universal action share log".i18n,
                     onTap: () {
-                      traceAs("supportSendLog", (trace) async {
-                        await _command.onCommand("log");
+                      log(Markers.userTap).trace("supportSendLog", (m) async {
+                        await _command.onCommand("log", m);
                       });
                     }),
                 const CommonDivider(),
@@ -168,8 +171,9 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
                     icon: CupertinoIcons.person_2,
                     text: "account action about".i18n,
                     onTap: () {
-                      traceAs("settingsOpenAbout", (trace) async {
-                        await _stage.openLink(trace, LinkId.credits);
+                      log(Markers.userTap).trace("settingsOpenAbout",
+                          (m) async {
+                        await _stage.openLink(LinkId.credits, m);
                       });
                     }),
               ],
@@ -189,8 +193,8 @@ class SettingsState extends State<SettingsSection> with TraceOrigin {
         title: "account action logout".i18n,
         desc: "family account restore desc".i18n,
         inputValue: "", onConfirm: (String value) {
-      traceAs("tappedRestore", (trace) async {
-        await _account.restore(trace, value);
+      log(Markers.userTap).trace("tappedRestore", (m) async {
+        await _account.restore(value, m);
       });
     });
   }

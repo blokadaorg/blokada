@@ -1,5 +1,6 @@
 import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/dragon/support/controller.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/main-widgets.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
@@ -21,17 +22,14 @@ import '../plus/vpn/vpn.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../timer/timer.dart';
-import '../tracer/tracer.dart';
 import '../util/config.dart';
 import '../util/di.dart';
 import '../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
-class CommandStore
-    with Traceable, Dependable, TraceOrigin
-    implements CommandEvents {
-  late final _tracer = dep<Tracer>();
+class CommandStore with Logging, Dependable implements CommandEvents {
+  late final _logger = dep<LoggerCommands>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
   late final _accountPayment = dep<AccountPaymentStore>();
@@ -63,196 +61,199 @@ class CommandStore
   }
 
   @override
-  Future<void> onCommand(String command) async {
+  Future<void> onCommand(String command, Marker m) async {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
-    await traceAs(_cmdName(command, null), (trace) async {
-      return await _execute(trace, cmd);
+    await log(m).trace(_cmdName(command, null), (m) async {
+      return await _execute(cmd, m);
     });
     _stopCommandTimeout(cmd);
   }
 
   @override
-  Future<void> onCommandWithParam(String command, String p1) async {
+  Future<void> onCommandWithParam(String command, String p1, Marker m) async {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
-    await traceAs(_cmdName(command, p1), (trace) async {
-      return await _execute(trace, cmd, p1: p1);
+    await log(m).trace(_cmdName(command, p1), (m) async {
+      return await _execute(cmd, m, p1: p1);
     });
     _stopCommandTimeout(cmd);
   }
 
   @override
-  Future<void> onCommandWithParams(String command, String p1, String p2) async {
+  Future<void> onCommandWithParams(
+      String command, String p1, String p2, Marker m) async {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
-    await traceAs(_cmdName(command, p1), (trace) async {
-      return await _execute(trace, cmd, p1: p1, p2: p2);
+    await log(m).trace(_cmdName(command, p1), (m) async {
+      return await _execute(cmd, m, p1: p1, p2: p2);
     });
     _stopCommandTimeout(cmd);
   }
 
-  onCommandString(Trace parentTrace, String command) async {
-    return await traceWith(parentTrace, "onCommandString", (trace) async {
+  onCommandString(String command, Marker m) async {
+    return await log(m).trace("onCommandString", (m) async {
       final commandParts = command.split(" ");
       final cmd = _commandFromString(commandParts.first);
       final p1 = commandParts.elementAtOrNull(1);
       final p2 = commandParts.elementAtOrNull(2);
-      return await _execute(trace, cmd, p1: p1, p2: p2);
+      return await _execute(cmd, m, p1: p1, p2: p2);
     });
   }
 
-  _execute(Trace trace, CommandName cmd, {String? p1, String? p2}) async {
-    trace.addAttribute("command", cmd.name);
+  _execute(CommandName cmd, Marker m, {String? p1, String? p2}) async {
+    log(m).pair("command", cmd.name);
     switch (cmd) {
       case CommandName.url:
         _ensureParam(p1);
-        return await _executeUrl(trace, p1!);
+        return await _executeUrl(p1!, m);
       case CommandName.restore:
         _ensureParam(p1);
-        await _account.restore(trace, p1!);
-        return await _accountRefresh.syncAccount(trace, _account.account);
+        await _account.restore(p1!, m);
+        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.account:
         return _account.account?.id;
       case CommandName.receipt:
         _ensureParam(p1);
-        await _accountPayment.restoreInBackground(trace, p1!);
-        return await _accountRefresh.syncAccount(trace, _account.account);
+        await _accountPayment.restoreInBackground(p1!, m);
+        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.fetchProducts:
-        return await _accountPayment.fetchProducts(trace);
+        return await _accountPayment.fetchProducts(m);
       case CommandName.purchase:
         _ensureParam(p1);
-        await _accountPayment.purchase(trace, p1!);
-        return await _accountRefresh.syncAccount(trace, _account.account);
+        await _accountPayment.purchase(p1!, m);
+        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.changeProduct:
         _ensureParam(p1);
-        await _accountPayment.changeProduct(trace, p1!);
-        return await _accountRefresh.syncAccount(trace, _account.account);
+        await _accountPayment.changeProduct(p1!, m);
+        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.restorePayment:
         // TODO:
         // Only restore implicitly if current account is not active
         // TODO: finish ongoing transaction after any success or fail (stop processing)
-        await _accountPayment.restore(trace);
-        return await _accountRefresh.syncAccount(trace, _account.account);
+        await _accountPayment.restore(m);
+        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.pause:
-        return await _appStart.pauseAppIndefinitely(trace);
+        return await _appStart.pauseAppIndefinitely(m);
       case CommandName.unpause:
-        return await _appStart.unpauseApp(trace);
+        return await _appStart.unpauseApp(m);
       case CommandName.allow:
         _ensureParam(p1);
-        return await _custom.allow(trace, p1!);
+        return await _custom.allow(p1!, m);
       case CommandName.deny:
         _ensureParam(p1);
-        return await _custom.deny(trace, p1!);
+        return await _custom.deny(p1!, m);
       case CommandName.delete:
         _ensureParam(p1);
-        return await _custom.delete(trace, p1!);
+        return await _custom.delete(p1!, m);
       case CommandName.enableDeck:
         _ensureParam(p1);
-        return await _filterLegacy.enableFilter(p1!);
+        return await _filterLegacy.enableFilter(p1!, m);
       case CommandName.disableDeck:
         _ensureParam(p1);
-        return await _filterLegacy.disableFilter(p1!);
+        return await _filterLegacy.disableFilter(p1!, m);
       case CommandName.toggleListByTag:
         _ensureParam(p1);
         _ensureParam(p2);
-        return await _filterLegacy.toggleFilterOption(p1!, p2!);
+        return await _filterLegacy.toggleFilterOption(p1!, p2!, m);
       case CommandName.enableCloud:
-        return await _device.setCloudEnabled(trace, true);
+        return await _device.setCloudEnabled(true, m);
       case CommandName.disableCloud:
-        return await _device.setCloudEnabled(trace, false);
+        return await _device.setCloudEnabled(false, m);
       case CommandName.setRetention:
         _ensureParam(p1);
-        return await _device.setRetention(trace, p1!);
+        return await _device.setRetention(p1!, m);
       case CommandName.setSafeSearch:
         _ensureParam(p1);
-        //return await _device.setSafeSearch(trace, p1 == "1");
+        //return await _device.setSafeSearch(p1 == "1");
         throw Exception("Not implemented WIP");
       case CommandName.deviceAlias:
         _ensureParam(p1);
-        //return await _family.renameThisDevice(trace, p1!);
+        //return await _family.renameThisDevice(p1!);
         throw Exception("Not implemented WIP");
       case CommandName.sortNewest:
-        return await _journal.updateFilter(trace, sortNewestFirst: true);
+        return await _journal.updateFilter(sortNewestFirst: true, m);
       case CommandName.sortCount:
-        return await _journal.updateFilter(trace, sortNewestFirst: false);
+        return await _journal.updateFilter(sortNewestFirst: false, m);
       case CommandName.search:
-        return await _journal.updateFilter(trace, searchQuery: p1);
+        return await _journal.updateFilter(searchQuery: p1, m);
       case CommandName.filter:
         _ensureParam(p1);
-        return await _journal.updateFilter(trace,
-            showOnly: JournalFilterType.values.byName(p1!));
+        return await _journal.updateFilter(
+            showOnly: JournalFilterType.values.byName(p1!), m);
       case CommandName.filterDevice:
-        return await _journal.updateFilter(trace, deviceName: p1);
+        return await _journal.updateFilter(deviceName: p1, m);
       case CommandName.newPlus:
         _ensureParam(p1);
-        return await _plus.newPlus(trace, p1!);
+        return await _plus.newPlus(p1!, m);
       case CommandName.clearPlus:
-        return await _plus.clearPlus(trace);
+        return await _plus.clearPlus(m);
       case CommandName.activatePlus:
-        return await _plus.switchPlus(trace, true);
+        return await _plus.switchPlus(true, m);
       case CommandName.deactivatePlus:
-        return await _plus.switchPlus(trace, false);
+        return await _plus.switchPlus(false, m);
       case CommandName.deleteLease:
         _ensureParam(p1);
-        return await _plusLease.deleteLeaseById(trace, p1!);
+        return await _plusLease.deleteLeaseById(p1!, m);
       case CommandName.vpnStatus:
         _ensureParam(p1);
-        return await _plusVpn.setActualStatus(trace, p1!);
+        return await _plusVpn.setActualStatus(p1!, m);
       case CommandName.foreground:
-        return await _stage.setForeground(trace);
+        return await _stage.setForeground(m);
       case CommandName.background:
-        return await _stage.setBackground(trace);
+        return await _stage.setBackground(m);
       case CommandName.route:
         _ensureParam(p1);
-        return await _stage.setRoute(trace, p1!);
+        return await _stage.setRoute(p1!, m);
       case CommandName.modalShow:
         _ensureParam(p1);
-        return await _stage.showModal(trace, _modalFromString(p1!));
+        return await _stage.showModal(_modalFromString(p1!), m);
       case CommandName.modalShown:
         _ensureParam(p1);
-        return await _stage.modalShown(trace, _modalFromString(p1!));
+        return await _stage.modalShown(_modalFromString(p1!), m);
       case CommandName.modalDismiss:
-        return await _stage.dismissModal(trace);
+        return await _stage.dismissModal(m);
       case CommandName.modalDismissed:
-        return await _stage.modalDismissed(trace);
+        return await _stage.modalDismissed(m);
       case CommandName.setPin:
         _ensureParam(p1);
-        await _lock.lock(trace, p1!);
-        return await _stage.setRoute(trace, "home");
+        await _lock.lock(p1!, m);
+        return await _stage.setRoute("home", m);
       case CommandName.back:
-        return await _stage.back(trace);
+        return await _stage.back();
       case CommandName.unlock:
         _ensureParam(p1);
-        return await _lock.unlock(trace, p1!);
+        return await _lock.unlock(p1!, m);
       case CommandName.remoteNotification:
-        return await _accountRefresh.onRemoteNotification(trace);
+        return await _accountRefresh.onRemoteNotification(m);
       case CommandName.appleNotificationToken:
         _ensureParam(p1);
-        return await _notification.saveAppleToken(trace, p1!);
+        return await _notification.saveAppleToken(p1!, m);
       case CommandName.familyLink:
         _ensureParam(p1);
         // When entering from a camera app qr code scan, this will be called
         // by the OS very early, and since onStartApp is executed async to not
         // block the UI thread, we need to wait for the app to be ready.
         await sleepAsync(const Duration(seconds: 3));
-        return await _family.link(p1!);
+        return await _family.link(p1!, m);
       case CommandName.supportNotify:
-        await _support.notifyNewMessage(trace);
+        await _support.notifyNewMessage(m);
       case CommandName.warning:
         _ensureParam(p1);
-        return await _tracer.platformWarning(trace, p1!);
+        return await _logger.platformWarning(p1!);
       case CommandName.fatal:
-        return await _tracer.fatal(p1!);
+        return await _logger.platformFatal(p1!);
       case CommandName.log:
         if (_lock.isLocked) {
-          return await _stage.showModal(trace, StageModal.faultLocked);
+          return await _stage.showModal(StageModal.faultLocked, m);
         }
-        return await _tracer.shareLog(trace, forCrash: false);
+        return await _logger.shareLog(forCrash: false);
       case CommandName.crashLog:
-        return await _tracer.checkForCrashLog(trace, force: true);
+        //return await _tracer.checkForCrashLog(force: true, m);
+        return;
       case CommandName.canPromptCrashLog:
-        return await _tracer.canPromptCrashLog(trace, p1 == "1");
+        //return await _tracer.canPromptCrashLog(p1 == "1", m);
+        return false;
       case CommandName.debugHttpFail:
         _ensureParam(p1);
         cfg.debugFailingRequests.add(p1!);
@@ -262,9 +263,9 @@ class CommandStore
         cfg.debugFailingRequests.remove(p1!);
         return;
       case CommandName.debugOnboard:
-        // await _account.restore(trace, "mockedmocked");
-        // await _device.setLinkedTag(trace, null);
-        // return await _family.deleteAllDevices(trace);
+        // await _account.restore("mockedmocked");
+        // await _device.setLinkedTag(null);
+        // return await _family.deleteAllDevices;
         throw Exception("Not implemented WIP");
       case CommandName.debugBg:
         cfg.debugBg = !cfg.debugBg;
@@ -293,7 +294,7 @@ class CommandStore
         final scenario = scenarios[p1];
         if (scenario != null) {
           for (var cmd in scenario) {
-            await onCommandString(trace, cmd);
+            await onCommandString(cmd, m);
             await sleepAsync(const Duration(seconds: 1));
           }
         } else {
@@ -307,7 +308,7 @@ class CommandStore
     }
   }
 
-  _executeUrl(Trace trace, String url) async {
+  _executeUrl(String url, Marker m) async {
     try {
       // Family link device
       if (url.startsWith(familyLinkBase)) {
@@ -317,12 +318,12 @@ class CommandStore
           throw Exception("Unknown familyLink token parameters");
         }
 
-        return await _execute(trace, CommandName.familyLink, p1: tag, p2: name);
+        return await _execute(CommandName.familyLink, m, p1: tag, p2: name);
       } else {
         throw Exception("Unsupported url: $url");
       }
     } catch (e) {
-      await _stage.showModal(trace, StageModal.fault);
+      await _stage.showModal(StageModal.fault, m);
       rethrow;
     }
   }
@@ -385,7 +386,7 @@ class CommandStore
 
   _onCommandTimer(String command) {
     try {
-      _timer.addHandler("command:$command", (trace) async {
+      _timer.addHandler("command:$command", (_) async {
         // This will just show up in tracing
         throw Exception("Command '$command' is too slow");
       });

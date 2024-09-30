@@ -10,6 +10,7 @@ import 'package:common/dragon/widget/bottom_sheet.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/profile_button.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
@@ -127,7 +128,7 @@ class ProfileDialogState extends State<ProfileDialog> {
                   widget.onSelected!.invoke(it);
                 } else {
                   Navigator.of(context).pop();
-                  _devices.changeDeviceProfile(device, it);
+                  _devices.changeDeviceProfile(device, it, Markers.userTap);
                 }
               },
               icon: getProfileIcon(it.template),
@@ -137,7 +138,7 @@ class ProfileDialogState extends State<ProfileDialog> {
                 onTap: () {
                   showRenameDialog(context, "profile", it.displayAlias,
                       onConfirm: (newName) {
-                    _profiles.renameProfile(it, newName);
+                    _profiles.renameProfile(Markers.userTap, it, newName);
                   });
                 },
                 padding: const EdgeInsets.all(16),
@@ -169,7 +170,7 @@ class ProfileDialogState extends State<ProfileDialog> {
           SlidableAction(
             onPressed: (c) async {
               try {
-                await device.deleteProfile(it);
+                await device.deleteProfile(Markers.userTap, it);
               } on ProfileInUseException catch (e) {
                 setError("family profile error use".i18n);
               } catch (e) {

@@ -5,9 +5,9 @@ import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/smart_header/smart_header_button.dart';
 import 'package:common/lock/lock.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 
 class SmartHeader extends StatefulWidget {
@@ -20,7 +20,7 @@ class SmartHeader extends StatefulWidget {
 }
 
 class SmartHeaderState extends State<SmartHeader>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   late final _lock = dep<LockStore>();
   late final _stage = dep<StageStore>();
   late final _unread = dep<SupportUnread>();
@@ -87,8 +87,8 @@ class SmartHeaderState extends State<SmartHeader>
       //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
       //     onTap: () {
       //       //_modal.set(StageModal.lock);
-      //       traceAs("tappedLock", (trace) async {
-      //         await _lock.autoLock(trace);
+      //       traceAs("tappedLock", () async {
+      //         await _lock.autoLock;
       //       });
       //     }));
       list.add(SmartHeaderButton(
@@ -104,8 +104,8 @@ class SmartHeaderState extends State<SmartHeader>
     //     icon: CupertinoIcons.question_circle,
     //     onTap: () {
     //       Navigation.open(context, Paths.support);
-    //       // traceAs("tappedHelp", (trace) async {
-    //       //   _stage.showModal(trace, StageModal.help);
+    //       // traceAs("tappedHelp", () async {
+    //       //   _stage.showModal(StageModal.help);
     //       // });
     //       // showCupertinoModalBottomSheet(
     //       //   context: context,

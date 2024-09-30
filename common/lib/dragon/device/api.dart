@@ -1,3 +1,5 @@
+import 'package:common/logger/logger.dart';
+
 import '../../common/model.dart';
 import '../../util/di.dart';
 import '../api/api.dart';
@@ -6,28 +8,31 @@ class DeviceApi {
   late final _api = dep<Api>();
   late final _marshal = JsonDeviceMarshal();
 
-  Future<List<JsonDevice>> fetch() async {
-    final response = await _api.get(ApiEndpoint.getDevices);
+  Future<List<JsonDevice>> fetch(Marker m) async {
+    final response = await _api.get(ApiEndpoint.getDevices, m);
     return _marshal.toDevices(response);
   }
 
-  Future<List<JsonDevice>> fetchByToken(DeviceTag tag, String token) async {
+  Future<List<JsonDevice>> fetchByToken(
+      DeviceTag tag, String token, Marker m) async {
     final response = await _api.request(
       ApiEndpoint.getDevicesByToken,
+      m,
       params: {ApiParam.deviceTag: tag},
       headers: {"Authorization": "Bearer $token"},
     );
     return _marshal.toDevices(response);
   }
 
-  Future<JsonDevice> add(JsonDevicePayload p) async {
-    final result = await _api.request(ApiEndpoint.postDevice,
+  Future<JsonDevice> add(JsonDevicePayload p, Marker m) async {
+    final result = await _api.request(ApiEndpoint.postDevice, m,
         payload: _marshal.fromPayload(p));
     return _marshal.toDevice(result);
   }
 
-  Future<JsonDevice> rename(JsonDevice device, String newName) async {
-    final result = await _api.request(ApiEndpoint.putDevice,
+  Future<JsonDevice> rename(
+      JsonDevice device, String newName, Marker m) async {
+    final result = await _api.request(ApiEndpoint.putDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forUpdateAlias(
           deviceTag: device.deviceTag,
           alias: newName,
@@ -35,15 +40,15 @@ class DeviceApi {
     return _marshal.toDevice(result);
   }
 
-  delete(JsonDevice device) async {
-    await _api.request(ApiEndpoint.deleteDevice,
+  delete(JsonDevice device, Marker m) async {
+    await _api.request(ApiEndpoint.deleteDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forDelete(
           deviceTag: device.deviceTag,
         )));
   }
 
-  Future<JsonDevice> pause(JsonDevice device, bool paused) async {
-    final result = await _api.request(ApiEndpoint.putDevice,
+  Future<JsonDevice> pause(JsonDevice device, bool paused, Marker m) async {
+    final result = await _api.request(ApiEndpoint.putDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forUpdatePaused(
             deviceTag: device.deviceTag,
             paused: paused,
@@ -51,8 +56,9 @@ class DeviceApi {
     return _marshal.toDevice(result);
   }
 
-  Future<JsonDevice> changeProfile(JsonDevice device, String profileId) async {
-    final result = await _api.request(ApiEndpoint.putDevice,
+  Future<JsonDevice> changeProfile(
+      JsonDevice device, String profileId, Marker m) async {
+    final result = await _api.request(ApiEndpoint.putDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forUpdateProfile(
           deviceTag: device.deviceTag,
           profileId: profileId,

@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -16,7 +17,6 @@ import '../../rate/rate.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../../timer/timer.dart';
-import '../../tracer/tracer.dart';
 import '../../util/di.dart';
 import '../../util/trace.dart';
 import '../app.dart';
@@ -34,7 +34,7 @@ class OnboardingException implements Exception {}
 
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
-abstract class AppStartStoreBase with Store, Traceable, Dependable {
+abstract class AppStartStoreBase with Store, Logging, Dependable {
   late final _ops = dep<AppStartOps>();
 
   late final _env = dep<EnvStore>();
@@ -50,7 +50,6 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
   late final _plus = dep<PlusStore>();
   late final _plusKeypair = dep<PlusKeypairStore>();
   late final _rate = dep<RateStore>();
-  late final _tracer = dep<Tracer>();
   late final _family = dep<FamilyStore>();
   late final _link = dep<LinkStore>();
 
@@ -95,7 +94,6 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     _accountRefresh,
     _plus,
     _rate,
-    _tracer,
   ];
 
   late final List<Startable> _startablesFamily = [
@@ -106,106 +104,109 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     _accountRefresh,
     _family,
     _rate,
-    _tracer,
   ];
 
   @action
-  Future<void> startApp(Trace parentTrace) async {
-    await traceWith(parentTrace, "startApp", (trace) async {
-      await _app.initStarted(trace);
+  Future<void> startApp(Marker m) async {
+    return await log(m).trace("startApp", (m) async {
+      await _app.initStarted(m);
       try {
         final startables = act.isFamily() ? _startablesFamily : _startablesV6;
         for (final startable in startables) {
-          trace.addEvent("starting ${startable.runtimeType}");
-          await startable.start(trace);
-          trace.addEvent("started ${startable.runtimeType}");
+          log(m).i("starting ${startable.runtimeType}");
+          await startable.start(m);
+          log(m).i("started ${startable.runtimeType}");
         }
-        await _app.initCompleted(trace);
+        await _app.initCompleted(m);
       } catch (e) {
-        await _app.initFail(trace);
-        await _stage.showModal(trace, StageModal.accountInitFailed);
+        await _app.initFail(m);
+        await _stage.showModal(StageModal.accountInitFailed, m);
         rethrow;
       }
     });
   }
 
   @action
-  Future<void> pauseAppUntil(Trace parentTrace, Duration duration) async {
-    return await traceWith(parentTrace, "pauseAppUntil", (trace) async {
-      await _app.reconfiguring(trace);
-      await _pauseApp(trace);
-      if (!act.isFamily()) await _plus.reactToAppPause(trace, false);
-      paused = true;
-      await _app.appPaused(trace, true);
-      final pausedUntil = DateTime.now().add(duration);
-      _timer.set(_keyTimer, pausedUntil);
-      this.pausedUntil = pausedUntil;
-      trace.addAttribute("pausedUntil", pausedUntil);
-    }, fallback: (trace) async {
-      paused = false;
-      await _app.appPaused(trace, false);
-      _timer.unset(_keyTimer);
-      pausedUntil = null;
-    });
-  }
-
-  @action
-  Future<void> pauseAppIndefinitely(Trace parentTrace) async {
-    return await traceWith(parentTrace, "pauseAppIndefinitely", (trace) async {
-      await _app.reconfiguring(trace);
-      await _pauseApp(trace);
-      if (!act.isFamily()) await _plus.reactToAppPause(trace, false);
-      paused = true;
-      await _app.appPaused(trace, true);
-      _timer.unset(_keyTimer);
-      pausedUntil = null;
-    }, fallback: (trace) async {
-      paused = false;
-      await _app.appPaused(trace, false);
-      _timer.unset(_keyTimer);
-      pausedUntil = null;
-    });
-  }
-
-  @action
-  Future<void> unpauseApp(Trace parentTrace) async {
-    return await traceWith(parentTrace, "unpauseApp", (trace) async {
+  Future<void> pauseAppUntil(Duration duration, Marker m) async {
+    return await log(m).trace("pauseAppUntil", (m) async {
       try {
-        await _app.reconfiguring(trace);
-        await _unpauseApp(trace);
-        if (!act.isFamily()) await _plus.reactToAppPause(trace, true);
+        await _app.reconfiguring(m);
+        await _pauseApp(m);
+        if (!act.isFamily()) await _plus.reactToAppPause(false, m);
+        paused = true;
+        await _app.appPaused(true, m);
+        final pausedUntil = DateTime.now().add(duration);
+        _timer.set(_keyTimer, pausedUntil);
+        this.pausedUntil = pausedUntil;
+        log(m).pair("pausedUntil", pausedUntil);
+      } catch (e) {
         paused = false;
-        await _app.appPaused(trace, false);
+        await _app.appPaused(false, m);
+        _timer.unset(_keyTimer);
+        pausedUntil = null;
+      }
+    });
+  }
+
+  @action
+  Future<void> pauseAppIndefinitely(Marker m) async {
+    return await log(m).trace("pauseAppIndefinitely", (m) async {
+      try {
+        await _app.reconfiguring(m);
+        await _pauseApp(m);
+        if (!act.isFamily()) await _plus.reactToAppPause(false, m);
+        paused = true;
+        await _app.appPaused(true, m);
+        _timer.unset(_keyTimer);
+        pausedUntil = null;
+      } catch (e) {
+        paused = false;
+        await _app.appPaused(false, m);
+        _timer.unset(_keyTimer);
+        pausedUntil = null;
+      }
+    });
+  }
+
+  @action
+  Future<void> unpauseApp(Marker m) async {
+    return await log(m).trace("unpauseApp", (m) async {
+      try {
+        await _app.reconfiguring(m);
+        await _unpauseApp(m);
+        if (!act.isFamily()) await _plus.reactToAppPause(true, m);
+        paused = false;
+        await _app.appPaused(false, m);
         _timer.unset(_keyTimer);
         pausedUntil = null;
       } on AccountTypeException {
-        await _app.appPaused(trace, true);
-        await _stage.showModal(trace, StageModal.payment);
+        await _app.appPaused(true, m);
+        await _stage.showModal(StageModal.payment, m);
       } on OnboardingException {
-        await _app.appPaused(trace, true);
-        await _stage.showModal(trace, StageModal.perms);
+        await _app.appPaused(true, m);
+        await _stage.showModal(StageModal.perms, m);
       }
     });
   }
 
   @action
-  Future<void> toggleApp(Trace parentTrace) async {
-    return await traceWith(parentTrace, "toggleApp", (trace) async {
+  Future<void> toggleApp(Marker m) async {
+    return await log(m).trace("toggleApp", (m) async {
       if (_app.status == AppStatus.initFail) {
-        await startApp(trace);
+        await startApp(m);
       } else if (paused) {
-        await unpauseApp(trace);
+        await unpauseApp(m);
       } else {
-        await pauseAppIndefinitely(trace);
+        await pauseAppIndefinitely(m);
       }
     });
   }
 
-  Future<void> _pauseApp(Trace trace) async {
-    await _device.setCloudEnabled(trace, false);
+  Future<void> _pauseApp(Marker m) async {
+    await _device.setCloudEnabled(false, m);
   }
 
-  Future<void> _unpauseApp(Trace trace) async {
+  Future<void> _unpauseApp(Marker m) async {
     if (_account.type == AccountType.libre) {
       throw AccountTypeException();
     } else if (!_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
@@ -213,6 +214,6 @@ abstract class AppStartStoreBase with Store, Traceable, Dependable {
     } else if (_account.type == AccountType.plus && !_perm.vpnEnabled) {
       throw OnboardingException();
     }
-    await _device.setCloudEnabled(trace, true);
+    await _device.setCloudEnabled(true, m);
   }
 }

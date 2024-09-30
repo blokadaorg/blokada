@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/dragon/device/generator.dart';
 import 'package:common/dragon/profile/controller.dart';
+import 'package:common/logger/logger.dart';
 
 import '../../common/model.dart';
 import '../../util/di.dart';
@@ -15,7 +16,7 @@ class AlreadyLinkedException implements Exception {
   AlreadyLinkedException();
 }
 
-class DeviceController {
+class DeviceController with Logging {
   late final _devices = dep<DeviceApi>();
   late final _thisDevice = dep<ThisDevice>();
   late final _nextAlias = dep<NameGenerator>();
@@ -33,9 +34,9 @@ class DeviceController {
     _profiles.onChange = () => onChange(false);
   }
 
-  reload({bool createIfNeeded = false}) async {
-    devices = await _devices.fetch();
-    await _profiles.reload();
+  reload(Marker m, {bool createIfNeeded = false}) async {
+    devices = await _devices.fetch(m);
+    await _profiles.reload(m);
 
     if (!createIfNeeded) return;
 
@@ -54,19 +55,22 @@ class DeviceController {
     // A new device needs to be created
     if (tag == null || existing == null) {
       // Make sure we always have a child profile too on fresh install
-      await _profiles.addProfile("child", "Child", canReuse: true);
+      await _profiles.addProfile("child", "Child", m, canReuse: true);
 
       // Create a new profile for this device
-      final p = await _profiles.addProfile("parent", "Parent", canReuse: true);
+      final p =
+          await _profiles.addProfile("parent", "Parent", m, canReuse: true);
 
       // Create a new device with that profile
-      final newDevice = await _devices.add(JsonDevicePayload.forCreate(
-        alias: alias,
-        profileId: p.profileId,
-      ));
+      final newDevice = await _devices.add(
+          JsonDevicePayload.forCreate(
+            alias: alias,
+            profileId: p.profileId,
+          ),
+          m);
 
       _thisDevice.now = newDevice;
-      devices = await _devices.fetch();
+      devices = await _devices.fetch(m);
     }
   }
 
@@ -76,8 +80,8 @@ class DeviceController {
     return d;
   }
 
-  setThisDeviceForLinked(DeviceTag tag, String token) async {
-    final devices = await _devices.fetchByToken(tag, token);
+  setThisDeviceForLinked(DeviceTag tag, String token, Marker m) async {
+    final devices = await _devices.fetchByToken(tag, token, m);
     final d = devices.firstWhereOrNull((it) => it.deviceTag == tag);
     if (d == null) throw Exception("Device $tag not found");
 
@@ -93,21 +97,25 @@ class DeviceController {
     _thisDevice.now = d;
   }
 
-  Future<LinkingDevice> addDevice(String alias, JsonProfile? profile) async {
-    final p =
-        profile ?? await _profiles.addProfile("child", "Child", canReuse: true);
+  Future<LinkingDevice> addDevice(
+      String alias, JsonProfile? profile, Marker m) async {
+    final p = profile ??
+        await _profiles.addProfile("child", "Child", m, canReuse: true);
 
-    final d = await _devices.add(JsonDevicePayload.forCreate(
-      alias: alias,
-      profileId: p.profileId,
-    ));
+    final d = await _devices.add(
+        JsonDevicePayload.forCreate(
+          alias: alias,
+          profileId: p.profileId,
+        ),
+        m);
 
     devices.add(d);
     onChange(true);
     return LinkingDevice(device: d, profile: p);
   }
 
-  Future<JsonDevice> renameDevice(JsonDevice device, String alias) async {
+  Future<JsonDevice> renameDevice(
+      JsonDevice device, String alias, Marker m) async {
     if (device.alias == alias) return device;
     if (!devices.any((it) => it.deviceTag == device.deviceTag)) {
       throw Exception("Device ${device.deviceTag} not found");
@@ -123,7 +131,7 @@ class DeviceController {
     final old = _commit(draft, dirty: true);
 
     try {
-      final updated = await _devices.rename(device, alias);
+      final updated = await _devices.rename(device, alias, m);
 
       // Also update thisDevice if it was renamed
       if (_thisDevice.now?.deviceTag == device.deviceTag) {
@@ -138,8 +146,8 @@ class DeviceController {
     }
   }
 
-  changeDeviceProfile(JsonDevice device, JsonProfile profile) async {
-    print("changing profile of ${device.deviceTag} to ${profile.alias}");
+  changeDeviceProfile(JsonDevice device, JsonProfile profile, Marker m) async {
+    log(m).i("changing profile of ${device.deviceTag} to ${profile.alias}");
     final draft = JsonDevice(
       deviceTag: device.deviceTag,
       alias: device.alias,
@@ -150,9 +158,10 @@ class DeviceController {
     final old = _commit(draft, dirty: true);
 
     try {
-      final updated = await _devices.changeProfile(device, profile.profileId);
+      final updated =
+          await _devices.changeProfile(device, profile.profileId, m);
       _commit(updated);
-      _profiles.selectProfile(profile);
+      await _profiles.selectProfile(m, profile);
       return updated;
     } catch (e) {
       _commit(old);
@@ -160,13 +169,13 @@ class DeviceController {
     }
   }
 
-  deleteDevice(JsonDevice device) async {
-    await _devices.delete(device);
+  deleteDevice(JsonDevice device, Marker m) async {
+    await _devices.delete(device, m);
     devices = devices.where((it) => it.deviceTag != device.deviceTag).toList();
     onChange(false);
   }
 
-  pauseDevice(JsonDevice device, bool pause) async {
+  pauseDevice(JsonDevice device, bool pause, Marker m) async {
     final draft = JsonDevice(
       deviceTag: device.deviceTag,
       alias: device.alias,
@@ -177,7 +186,7 @@ class DeviceController {
     final old = _commit(draft, dirty: true);
 
     try {
-      final updated = await _devices.pause(device, pause);
+      final updated = await _devices.pause(device, pause, m);
       _commit(updated);
       return updated;
     } catch (e) {
@@ -186,11 +195,11 @@ class DeviceController {
     }
   }
 
-  deleteProfile(JsonProfile profile) async {
+  deleteProfile(Marker m, JsonProfile profile) async {
     if (devices.any((it) => it.profileId == profile.profileId)) {
       throw ProfileInUseException();
     }
-    await _profiles.deleteProfile(profile);
+    await _profiles.deleteProfile(m, profile);
     //onChange();
   }
 
@@ -209,22 +218,23 @@ class DeviceController {
 
   DeviceTag? _heartbeatTag;
 
-  startHeartbeatMonitoring(DeviceTag tag) {
+  startHeartbeatMonitoring(DeviceTag tag, Marker m) {
     _heartbeatTag = tag;
-    _monitorHeartbeat();
+    _monitorHeartbeat(m);
   }
 
   stopHeartbeatMonitoring() {
     _heartbeatTag = null;
   }
 
-  _monitorHeartbeat() async {
+  _monitorHeartbeat(Marker m) async {
     if (_heartbeatTag == null) return;
-    devices = await _devices.fetch();
+    devices = await _devices.fetch(m);
     final d = devices.firstWhereOrNull((it) => it.deviceTag == _heartbeatTag);
     if (d != null) {
       final last = DateTime.tryParse(d.lastHeartbeat);
-      print("Monitoring heartbeat: found device $_heartbeatTag, last: $last");
+      log(m)
+          .i("Monitoring heartbeat: found device $_heartbeatTag, last: $last");
       if (last != null &&
           last.isAfter(DateTime.now().subtract(const Duration(seconds: 10)))) {
         onHeartbeat(d.deviceTag);
@@ -232,6 +242,7 @@ class DeviceController {
         return;
       }
     }
-    Future.delayed(const Duration(seconds: 10), _monitorHeartbeat);
+    Future.delayed(
+        const Duration(seconds: 10), () => _monitorHeartbeat(Markers.device));
   }
 }

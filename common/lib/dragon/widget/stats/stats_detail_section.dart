@@ -11,8 +11,8 @@ import 'package:common/dragon/widget/action_info.dart';
 import 'package:common/dragon/widget/action_item.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,8 +28,7 @@ class StatsDetailSection extends StatefulWidget {
   State<StatefulWidget> createState() => StatsDetailSectionState();
 }
 
-class StatsDetailSectionState extends State<StatsDetailSection>
-    with TraceOrigin {
+class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
   final _profile = dep<ProfileController>();
   final _filter = dep<FilterController>();
   final _custom = dep<CustomListController>();
@@ -222,8 +221,9 @@ class StatsDetailSectionState extends State<StatsDetailSection>
                           ? "family stats exceptions remove".i18n
                           : "family stats exceptions add".i18n,
                       onTap: () {
-                        traceAs("addCustom", (trace) async {
-                          await _custom.addOrRemove(widget.entry.domainName,
+                        log(Markers.userTap).trace("addCustom", (m) async {
+                          await _custom.addOrRemove(
+                              widget.entry.domainName, Markers.userTap,
                               gotBlocked: widget.entry.isBlocked());
                           setState(() {});
                         });

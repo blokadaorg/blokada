@@ -5,8 +5,8 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/widget/home/header.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 
 class HomeDevice extends StatefulWidget {
@@ -25,12 +25,11 @@ class HomeDevice extends StatefulWidget {
   State<StatefulWidget> createState() => HomeDeviceState();
 }
 
-class HomeDeviceState extends State<HomeDevice>
-    with TickerProviderStateMixin, TraceOrigin {
+class HomeDeviceState extends State<HomeDevice> with TickerProviderStateMixin {
   late final _profiles = dep<ProfileController>();
 
   _onTap() async {
-    _profiles.selectProfile(widget.device.profile);
+    _profiles.selectProfile(Markers.userTap, widget.device.profile);
 
     Navigation.open(context, Paths.device, arguments: widget.device);
   }

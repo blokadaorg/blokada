@@ -1,7 +1,7 @@
 import 'package:pigeon/pigeon.dart';
 
 @HostApi()
-abstract class TracerOps {
+abstract class LoggerOps {
   @async
   void doStartFile(String filename, String template);
 

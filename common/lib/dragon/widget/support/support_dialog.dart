@@ -4,9 +4,9 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/link/channel.pg.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 
 class SupportDialog extends StatefulWidget {
@@ -16,7 +16,7 @@ class SupportDialog extends StatefulWidget {
   State<StatefulWidget> createState() => SupportDialogState();
 }
 
-class SupportDialogState extends State<SupportDialog> with TraceOrigin {
+class SupportDialogState extends State<SupportDialog> with Logging {
   late final _support = dep<SupportController>();
   late final _command = dep<CommandStore>();
   late final _stage = dep<StageStore>();
@@ -33,7 +33,7 @@ class SupportDialogState extends State<SupportDialog> with TraceOrigin {
           CupertinoIcons.chat_bubble_text,
           "New chat",
           onTap: () {
-            _support.startSession();
+            _support.startSession(Markers.userTap);
           },
         ),
         _buildButton(
@@ -41,8 +41,8 @@ class SupportDialogState extends State<SupportDialog> with TraceOrigin {
           CupertinoIcons.doc_text,
           "universal action share log".i18n,
           onTap: () {
-            traceAs("supportSendLog", (trace) async {
-              await _command.onCommand("log");
+            log(Markers.userTap).trace("supportSendLog", (m) async {
+              await _command.onCommand("log", m);
             });
           },
         ),
@@ -51,9 +51,7 @@ class SupportDialogState extends State<SupportDialog> with TraceOrigin {
           CupertinoIcons.person_2,
           "account action about".i18n,
           onTap: () {
-            traceAs("supportOpenAbout", (trace) async {
-              await _stage.openLink(trace, LinkId.credits);
-            });
+            _stage.openLink(LinkId.credits, Markers.userTap);
           },
         ),
       ],

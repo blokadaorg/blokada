@@ -20,7 +20,7 @@ import 'json_test.mocks.dart';
 void main() {
   group("jsonEndpoint", () {
     test("willParseJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final subject =
             JsonGatewayEndpoint.fromJson(jsonDecode(fixtureGatewayEndpoint));
         final entries = subject.gateways;
@@ -37,7 +37,7 @@ void main() {
 
   group("getEntries", () {
     test("willFetchEntries", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureGatewayEndpoint));
@@ -48,7 +48,7 @@ void main() {
         depend<AccountStore>(account);
 
         final subject = PlusGatewayJson();
-        final entries = await subject.get(trace);
+        final entries = await subject.get(m);
 
         expect(entries.isNotEmpty, true);
         expect(entries.first.region, "europe-west1");
@@ -58,7 +58,7 @@ void main() {
 
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
@@ -70,12 +70,12 @@ void main() {
 
         final subject = PlusGatewayJson();
 
-        await expectLater(subject.get(trace), throwsA(isA<FormatException>()));
+        await expectLater(subject.get(m), throwsA(isA<FormatException>()));
       });
     });
 
     test("fromJsonWillThrowOnInvalidJson", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         await expectLater(
             () => JsonGatewayEndpoint.fromJson({}), throwsA(isA<JsonError>()));
       });

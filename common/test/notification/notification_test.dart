@@ -18,7 +18,7 @@ import 'notification_test.mocks.dart';
 void main() {
   group("binder", () {
     test("onNotificationEvent", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<AccountStore>(MockAccountStore());
         depend<StageStore>(MockStageStore());
 
@@ -30,7 +30,7 @@ void main() {
 
         verifyNever(ops.doShow(any, any));
 
-        await store.show(trace, NotificationId.accountExpired);
+        await store.show(NotificationId.accountExpired, m);
         verify(ops.doShow(any, any)).called(1);
       });
     });

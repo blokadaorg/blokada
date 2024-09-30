@@ -34,7 +34,7 @@ import 'start_test.mocks.dart';
 void main() {
   group("store", () {
     test("pauseAppUntil", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final app = MockAppStore();
         depend<AppStore>(app);
 
@@ -52,16 +52,16 @@ void main() {
         final subject = AppStartStore();
         subject.act = mockedAct;
 
-        await subject.pauseAppUntil(trace, const Duration(seconds: 30));
+        await subject.pauseAppUntil(const Duration(seconds: 30), m);
 
-        verify(app.appPaused(any, true)).called(1);
-        verify(device.setCloudEnabled(any, false)).called(1);
+        verify(app.appPaused(true, m)).called(1);
+        verify(device.setCloudEnabled(false, m)).called(1);
         verify(timer.set(any, any)).called(1);
       });
     });
 
     test("pauseAppIndefinitely", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final app = MockAppStore();
         depend<AppStore>(app);
 
@@ -79,16 +79,16 @@ void main() {
         final subject = AppStartStore();
         subject.act = mockedAct;
 
-        await subject.pauseAppIndefinitely(trace);
+        await subject.pauseAppIndefinitely(m);
 
-        verify(app.appPaused(any, true)).called(1);
-        verify(device.setCloudEnabled(any, false)).called(1);
+        verify(app.appPaused(true, m)).called(1);
+        verify(device.setCloudEnabled(false, m)).called(1);
         verify(timer.unset(any)).called(1);
       });
     });
 
     test("unpauseApp", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final app = MockAppStore();
         depend<AppStore>(app);
 
@@ -118,32 +118,32 @@ void main() {
         subject.act = mockedAct;
 
         // No perms
-        await subject.unpauseApp(trace);
+        await subject.unpauseApp(m);
         verifyNever(device.setCloudEnabled(any, any));
 
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => true);
-        await subject.unpauseApp(trace);
+        await subject.unpauseApp(m);
 
-        verify(app.appPaused(any, false)).called(1);
-        verify(device.setCloudEnabled(any, true)).called(1);
+        verify(app.appPaused(false, m)).called(1);
+        verify(device.setCloudEnabled(true, m)).called(1);
         verify(timer.unset(any)).called(1);
       });
     });
 
     // // Can toggle
-    // await subject.toggleApp(trace);
+    // await subject.toggleApp;
     // expect(subject.status, AppStatus.paused);
-    // await subject.toggleApp(trace);
+    // await subject.toggleApp;
     // expect(subject.status, AppStatus.activatedCloud);
     //
     // // Same for toggling
-    // await subject.toggleApp(trace);
+    // await subject.toggleApp;
     // expect(subject.status, AppStatus.deactivated);
   });
 
   group("storeErrors", () {
     test("onUnpauseAppWillShowPaymentModalOnInactiveAccount", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<TimerService>(MockTimerService());
 
         final ops = MockAppStartOps();
@@ -161,14 +161,14 @@ void main() {
 
         final subject = AppStartStore();
 
-        await subject.unpauseApp(trace);
+        await subject.unpauseApp(m);
 
-        verify(stage.showModal(any, StageModal.payment)).called(1);
+        verify(stage.showModal(StageModal.payment, m)).called(1);
       });
     });
 
     test("onUnpauseAppWillShowOnboardingOnMissingPerms", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<TimerService>(MockTimerService());
 
         final ops = MockAppStartOps();
@@ -193,9 +193,9 @@ void main() {
 
         final subject = AppStartStore();
 
-        await subject.unpauseApp(trace);
+        await subject.unpauseApp(m);
 
-        verify(stage.showModal(any, StageModal.perms)).called(1);
+        verify(stage.showModal(StageModal.perms, m)).called(1);
       });
     });
   });

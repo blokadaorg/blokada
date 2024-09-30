@@ -50,7 +50,7 @@ final _fixtureProducts = [
 void main() {
   group("store", () {
     test("willFetchProducts", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doFetchProducts()).thenAnswer((_) async => _fixtureProducts);
@@ -59,7 +59,7 @@ void main() {
         final subject = AccountPaymentStore();
         expect(subject.status, PaymentStatus.unknown);
 
-        await subject.fetchProducts(trace);
+        await subject.fetchProducts(m);
         expect(subject.status, PaymentStatus.ready);
         expect(subject.products?.length, _fixtureProducts.length);
         expect(subject.products?[0].id, "id1");
@@ -67,14 +67,14 @@ void main() {
         verify(ops.doArePaymentsAvailable()).called(1);
 
         // Second call doesn't check availability again
-        await subject.fetchProducts(trace);
+        await subject.fetchProducts(m);
         verify(ops.doFetchProducts()).called(1);
         verifyNever(ops.doArePaymentsAvailable());
       });
     });
 
     test("willPerformPurchase", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
@@ -94,16 +94,16 @@ void main() {
         final subject = AccountPaymentStore();
         mockAct(subject);
 
-        await subject.purchase(trace, "id1");
+        await subject.purchase("id1", m);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipts("id1")).called(1);
-        verify(json.postCheckout(any, "receipt", any)).called(1);
+        verify(json.postCheckout("receipt", any, any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
 
     test("willProcessQueuedReceiptsFirstOnPurchase", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         depend<AccountPaymentOps>(ops);
@@ -121,17 +121,17 @@ void main() {
         subject.receipts = ["receipt1", "receipt2"];
 
         // Will try old receipts from the latest first and succeed without purchase
-        await subject.purchase(trace, "id1");
+        await subject.purchase("id1", m);
         expect(subject.status, PaymentStatus.ready);
         expect(subject.receipts.isEmpty, true);
-        verify(json.postCheckout(any, "receipt2", any)).called(1);
+        verify(json.postCheckout("receipt2", any, any)).called(1);
         verify(account.propose(any, any)).called(1);
         verifyNever(ops.doPurchaseWithReceipts(any));
       });
     });
 
     test("willRestore", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doRestoreWithReceipts()).thenAnswer((_) async => ["receipt"]);
@@ -149,24 +149,24 @@ void main() {
         mockAct(subject);
         expect(subject.status, PaymentStatus.unknown);
 
-        await subject.restore(trace);
+        await subject.restore(m);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doRestoreWithReceipts()).called(1);
-        verify(json.postCheckout(any, "receipt", any)).called(1);
+        verify(json.postCheckout("receipt", any, any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
 
     test("willRestoreInBackground", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         depend<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        when(json.postCheckout(any, "good receipt", any)).thenAnswer(
+        when(json.postCheckout("good receipt", any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        when(json.postCheckout(any, "bad receipt", any))
+        when(json.postCheckout("bad receipt", any, any))
             .thenThrow(Exception("bad receipt"));
         depend<AccountPaymentJson>(json);
 
@@ -180,12 +180,12 @@ void main() {
 
         // Will try the "bad receipt" provided first, then the "good receipt"
         // from the old queued up receipts, and ignore the "old receipt".
-        await subject.restoreInBackground(trace, "bad receipt");
+        await subject.restoreInBackground("bad receipt", m);
 
         expect(subject.status, PaymentStatus.ready);
         expect(subject.receipts.isEmpty, true);
-        verify(json.postCheckout(any, "bad receipt", any)).called(1);
-        verify(json.postCheckout(any, "good receipt", any)).called(1);
+        verify(json.postCheckout("bad receipt", any, any)).called(1);
+        verify(json.postCheckout("good receipt", any, any)).called(1);
         verify(account.propose(any, any)).called(1);
       });
     });
@@ -193,7 +193,7 @@ void main() {
 
   group("storeErrors", () {
     test("willNotFetchProductsIfNotReady", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
@@ -202,7 +202,7 @@ void main() {
 
         final subject = AccountPaymentStore();
 
-        await expectLater(subject.fetchProducts(trace), throwsException);
+        await expectLater(subject.fetchProducts(m), throwsException);
         expect(subject.status, PaymentStatus.fatal);
         expect(subject.products, null);
         verify(ops.doArePaymentsAvailable()).called(1);
@@ -211,7 +211,7 @@ void main() {
     });
 
     test("willNotCallApiOnFailingPurchase", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
@@ -228,7 +228,7 @@ void main() {
 
         final subject = AccountPaymentStore();
 
-        await expectLater(subject.purchase(trace, "id1"), throwsException);
+        await expectLater(subject.purchase("id1", m), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipts("id1")).called(1);
         verifyNever(json.postCheckout(any, any, any));
@@ -237,7 +237,7 @@ void main() {
     });
 
     test("willNotProposeAccountOnFailingApiCall", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
@@ -257,16 +257,16 @@ void main() {
         final subject = AccountPaymentStore();
         mockAct(subject);
 
-        await expectLater(subject.purchase(trace, "id1"), throwsException);
+        await expectLater(subject.purchase("id1", m), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipts("id1")).called(1);
-        verify(json.postCheckout(any, "receipt", any)).called(1);
+        verify(json.postCheckout("receipt", any, any)).called(1);
         verifyNever(account.propose(any, any));
       });
     });
 
     test("willNotProposeAccountOnApiReturningInactiveAccount", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
@@ -286,10 +286,10 @@ void main() {
         final subject = AccountPaymentStore();
         mockAct(subject);
 
-        await expectLater(subject.purchase(trace, "id1"), throwsException);
+        await expectLater(subject.purchase("id1", m), throwsException);
         expect(subject.status, PaymentStatus.ready);
         verify(ops.doPurchaseWithReceipts("id1")).called(1);
-        verify(json.postCheckout(any, "receipt", any)).called(1);
+        verify(json.postCheckout("receipt", any, any)).called(1);
         verifyNever(account.propose(any, any));
       });
     });
@@ -297,7 +297,7 @@ void main() {
 
   group("binder", () {
     test("onStatusChanged", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         depend<AccountPaymentOps>(ops);
@@ -305,7 +305,7 @@ void main() {
         final store = AccountPaymentStore();
         depend<AccountPaymentStore>(store);
 
-        await store.fetchProducts(trace);
+        await store.fetchProducts(m);
         verify(ops.doPaymentStatusChanged(PaymentStatus.fetching)).called(1);
         verify(ops.doPaymentStatusChanged(PaymentStatus.ready)).called(1);
       });

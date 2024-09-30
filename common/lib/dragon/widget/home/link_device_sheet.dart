@@ -12,8 +12,8 @@ import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class LinkDeviceSheet extends StatefulWidget {
   State<StatefulWidget> createState() => LinkDeviceSheetState();
 }
 
-class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
+class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
   late final _family = dep<FamilyStore>();
   late final _generator = dep<NameGenerator>();
 
@@ -51,10 +51,10 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
   }
 
   _setDeviceTemplate({String? name, JsonProfile? profile}) async {
-    await traceAs("setDeviceAdding", (trace) async {
-      await _family.cancelLinkDevice(trace);
-      _payload = await _family.initiateLinkDevice(trace,
-          name ?? _getProbablyUniqueRandomName(), profile, widget.device);
+    await log(Markers.ui).trace("setDeviceAdding", (m) async {
+      await _family.cancelLinkDevice(m);
+      _payload = await _family.initiateLinkDevice(
+          name ?? _getProbablyUniqueRandomName(), profile, widget.device, m);
       setState(() {
         isReady = true;
       });
@@ -80,15 +80,15 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with TraceOrigin {
 
   @override
   void dispose() {
-    traceAs("linkDeviceDismiss", (trace) async {
-      await _family.cancelLinkDevice(trace);
+    log(Markers.ui).trace("linkDeviceDismiss", (m) async {
+      await _family.cancelLinkDevice(m);
     });
     super.dispose();
   }
 
   close() {
-    traceAs("closeLinkDevice", (trace) async {
-      _family.cancelLinkDevice(trace);
+    log(Markers.userTap).trace("closeLinkDevice", (m) async {
+      _family.cancelLinkDevice;
       Navigator.of(context).pop();
     });
   }

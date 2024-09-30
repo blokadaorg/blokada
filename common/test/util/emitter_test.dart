@@ -1,3 +1,4 @@
+import 'package:common/logger/logger.dart';
 import 'package:common/util/emitter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -6,7 +7,7 @@ import '../tools.dart';
 void main() {
   group("emitter", () {
     test("basicTest", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         int listenerCalledTimes = 0;
         listener(_) => listenerCalledTimes++;
 
@@ -19,7 +20,7 @@ void main() {
         } catch (_) {}
 
         try {
-          await subject.emit(_event, trace, true);
+          await subject.emit(_event, true, m);
           throw Exception("Test should throw exception");
         } catch (_) {}
 
@@ -30,9 +31,9 @@ void main() {
 
         // Emitting will trigger listener
         expect(listenerCalledTimes, 0);
-        await subject.emit(_event, trace, true);
+        await subject.emit(_event, true, m);
         expect(listenerCalledTimes, 1);
-        await subject.emit(_event, trace, true);
+        await subject.emit(_event, true, m);
         expect(listenerCalledTimes, 2);
       });
     });
@@ -41,4 +42,4 @@ void main() {
 
 final _event = EmitterEvent("testEvent");
 
-class _Subject with Emitter {}
+class _Subject with Logging, Emitter {}

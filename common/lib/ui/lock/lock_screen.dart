@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/common/i18n.dart';
 import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/ui/overlay/blur_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import '../../../lock/lock.dart';
 import '../../../stage/stage.dart';
 import '../../../util/async.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 import 'circles.dart';
 import 'keypad.dart';
 
@@ -24,7 +24,7 @@ class LockScreen extends StatefulWidget {
 }
 
 class _LockScreenState extends State<LockScreen>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _stage = dep<StageStore>();
   final _lock = dep<LockStore>();
 
@@ -104,7 +104,7 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _checkPin(String pin) async {
-    traceAs("tappedCheckPin", (trace) async {
+    log(Markers.userTap).trace("tappedCheckPin", (m) async {
       setState(() {
         _showHeaderIcon = true;
       });
@@ -117,10 +117,10 @@ class _LockScreenState extends State<LockScreen>
             throw Exception("Too many wrong attempts");
           }
 
-          await _lock.canUnlock(trace, pin);
+          await _lock.canUnlock(pin, m);
           await _unlock(pin);
         } else {
-          await _lock.setLock(trace, pin);
+          await _lock.setLock(pin, m);
           setState(() {
             _digitsEntered = 0;
             _pinEntered = null;
@@ -180,22 +180,22 @@ class _LockScreenState extends State<LockScreen>
   }
 
   _clear() async {
-    traceAs("tappedClearLock", (trace) async {
+    log(Markers.userTap).trace("tappedClearLock", (m) async {
       _animateDismiss();
-      await _lock.removeLock(trace);
+      await _lock.removeLock(m);
     });
   }
 
   _unlock(String pin) async {
-    traceAs("tappedUnlock", (trace) async {
+    log(Markers.userTap).trace("tappedUnlock", (m) async {
       _animateDismiss();
-      await _lock.unlock(trace, pin);
+      await _lock.unlock(pin, m);
     });
   }
 
   _cancel() async {
-    traceAs("tappedCancel", (trace) async {
-      await _stage.dismissModal(trace);
+    log(Markers.userTap).trace("tappedCancel", (m) async {
+      await _stage.dismissModal(m);
     });
   }
 

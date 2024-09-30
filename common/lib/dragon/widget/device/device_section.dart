@@ -20,9 +20,9 @@ import 'package:common/dragon/widget/home/link_device_sheet.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/profile_utils.dart';
 import 'package:common/dragon/widget/stats/radial_segment.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
-import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class DeviceSection extends StatefulWidget {
   State<DeviceSection> createState() => DeviceSectionState();
 }
 
-class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
+class DeviceSectionState extends State<DeviceSection> with Logging {
   late final _family = dep<FamilyStore>();
   late final _device = dep<DeviceController>();
   late final _selectedFilters = dep<SelectedFilters>();
@@ -74,7 +74,7 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
   Widget build(BuildContext context) {
     built = true;
     device = _family.devices.getDevice(widget.tag);
-    _custom.setProfileId(device.profile.profileId);
+    _custom.setProfileId(device.profile.profileId, Markers.ui);
 
     return ListView(
       primary: true,
@@ -139,7 +139,8 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                       onTap: () {
                         showRenameDialog(context, "device", device.device.alias,
                             onConfirm: (name) {
-                          _device.renameDevice(device.device, name);
+                          _device.renameDevice(
+                              device.device, name, Markers.userTap);
                         });
                       },
                       icon: CupertinoIcons.device_phone_portrait,
@@ -193,9 +194,10 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                         activeColor: context.theme.accent,
                         value: device.device.mode == JsonDeviceMode.off,
                         onChanged: (bool? value) {
-                          print(
+                          log(Markers.userTap).i(
                               "changing pause device ${device.device.deviceTag}");
-                          _device.pauseDevice(device.device, value ?? false);
+                          _device.pauseDevice(
+                              device.device, value ?? false, Markers.userTap);
                           //setState(() {});
                         },
                       ),
@@ -237,8 +239,8 @@ class DeviceSectionState extends State<DeviceSection> with TraceOrigin {
                     showConfirmDialog(context, device.displayName,
                         onConfirm: () {
                       Navigator.of(context).pop();
-                      traceAs("deleteDevice", (trace) async {
-                        await _family.deleteDevice(trace, device.device);
+                      log(Markers.userTap).trace("deleteDevice", (m) async {
+                        await _family.deleteDevice(device.device, m);
                       });
                     });
                   },

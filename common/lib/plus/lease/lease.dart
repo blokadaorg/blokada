@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
@@ -8,7 +9,6 @@ import '../../util/config.dart';
 import '../../util/cooldown.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
-import '../../util/trace.dart';
 import '../gateway/gateway.dart';
 import '../keypair/keypair.dart';
 import '../plus.dart';
@@ -34,7 +34,7 @@ class NoCurrentLeaseException implements Exception {}
 
 class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
-abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
+abstract class PlusLeaseStoreBase with Store, Logging, Dependable, Cooldown {
   late final _ops = dep<PlusLeaseOps>();
   late final _json = dep<PlusLeaseJson>();
   late final _gateway = dep<PlusGatewayStore>();
@@ -76,9 +76,9 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   DateTime lastRefresh = DateTime(0);
 
   @action
-  Future<void> fetch(Trace parentTrace, {bool noRetry = false}) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
-      final leases = await _json.getLeases(trace, noRetry: noRetry);
+  Future<void> fetch(Marker m, {bool noRetry = false}) async {
+    return await log(m).trace("fetch", (m) async {
+      final leases = await _json.getLeases(m, noRetry: noRetry);
       this.leases = leases.map((it) => it.toLease).toList();
       leaseChanges++;
 
@@ -87,27 +87,27 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
       currentLease = current;
       if (current != null) {
         try {
-          await _gateway.selectGateway(trace, current.gatewayId);
+          await _gateway.selectGateway(current.gatewayId, m);
         } on Exception catch (_) {
           currentLease = null;
-          trace.addEvent("current lease for unknown gateway, setting to null");
-          await _plus.reactToPlusLost(trace);
+          log(m).i("current lease for unknown gateway, setting to null");
+          await _plus.reactToPlusLost(m);
         }
       } else {
-        await _gateway.selectGateway(trace, null);
-        trace.addEvent("current lease no longer available");
-        await _plus.reactToPlusLost(trace);
+        await _gateway.selectGateway(null, m);
+        log(m).i("current lease no longer available");
+        await _plus.reactToPlusLost(m);
       }
       markCooldown();
     });
   }
 
   @action
-  Future<void> newLease(Trace parentTrace, GatewayId gatewayId) async {
-    return await traceWith(parentTrace, "newLease", (trace) async {
+  Future<void> newLease(GatewayId gatewayId, Marker m) async {
+    return await log(m).trace("newLease", (m) async {
       try {
-        await _json.postLease(trace, gatewayId);
-        await fetch(trace);
+        await _json.postLease(gatewayId, m);
+        await fetch(m);
         if (currentLease == null) {
           throw NoCurrentLeaseException();
         }
@@ -119,19 +119,19 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
               it.alias == _device.deviceAlias &&
               it.publicKey == _keypair.currentDevicePublicKey);
           await _json.deleteLease(
-            trace,
             JsonLeasePayload(
               accountId: lease.accountId,
               publicKey: lease.publicKey,
               gatewayId: lease.gatewayId,
             ),
+            m,
           );
-          await _json.postLease(trace, gatewayId);
-          await fetch(trace);
+          await _json.postLease(gatewayId, m);
+          await fetch(m);
           if (currentLease == null) {
             throw NoCurrentLeaseException();
           }
-          trace.addEvent("deleted existing lease for current device alias");
+          log(m).i("deleted existing lease for current device alias");
         } catch (_) {
           // Rethrow the initial exception for clarity
           throw e;
@@ -141,37 +141,37 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
   }
 
   @action
-  Future<void> deleteLease(Trace parentTrace, Lease lease) async {
-    return await traceWith(parentTrace, "deleteLease", (trace) async {
+  Future<void> deleteLease(Lease lease, Marker m) async {
+    return await log(m).trace("deleteLease", (m) async {
       await _json.deleteLease(
-        trace,
         JsonLeasePayload(
           accountId: lease.accountId,
           publicKey: lease.publicKey,
           gatewayId: lease.gatewayId,
         ),
+        m,
       );
-      await fetch(trace);
+      await fetch(m);
     });
   }
 
   @action
-  Future<void> deleteLeaseById(Trace parentTrace, String leasePublicKey) async {
-    return await traceWith(parentTrace, "deleteLeaseById", (trace) async {
+  Future<void> deleteLeaseById(String leasePublicKey, Marker m) async {
+    return await log(m).trace("deleteLeaseById", (m) async {
       final lease = leases.firstWhere((it) => it.publicKey == leasePublicKey);
-      return deleteLease(trace, lease);
+      return deleteLease(lease, m);
     });
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (_account.type != AccountType.plus) return;
 
     // Case one: refresh when entering the Settings tab (to see devices)
     if (route.isBecameTab(StageTab.settings) &&
         isCooledDown(cfg.plusLeaseRefreshCooldown)) {
-      return await traceWith(parentTrace, "fetchLeasesSettings", (trace) async {
-        await fetch(trace);
+      return await log(m).trace("fetchLeasesSettings", (m) async {
+        await fetch(m);
       });
     }
 
@@ -179,8 +179,8 @@ abstract class PlusLeaseStoreBase with Store, Traceable, Dependable, Cooldown {
     if (!route.isBecameForeground()) return;
     if (!isCooledDown(cfg.plusLeaseRefreshCooldown)) return;
 
-    return await traceWith(parentTrace, "fetchLeases", (trace) async {
-      await fetch(trace);
+    return await log(m).trace("fetchLeases", (m) async {
+      await fetch(m);
     });
   }
 

@@ -1,4 +1,4 @@
-import 'di.dart';
+import 'package:common/logger/logger.dart';
 
 abstract class Trace {
   Trace start(String module, String name, {bool? important});
@@ -31,82 +31,6 @@ abstract class TraceFactory {
   newTrace(String module, String name, {bool? important});
 }
 
-mixin Traceable {
-  // Wrap the function with tracing of a successful or failure execution.
-  // Rethrow on Exception or Error.
-  Future<T> traceWith<T>(
-    Trace parentTrace,
-    String name,
-    Future<T> Function(Trace trace) fn, {
-    Future<T> Function(Trace trace)? fallback,
-    Future Function(Trace trace)? deferred,
-    bool? important,
-  }) async {
-    final trace =
-        parentTrace.start(runtimeType.toString(), name, important: important);
-    try {
-      final result = await fn(trace);
-      await trace.end();
-      return result;
-    } catch (e, s) {
-      if (fallback == null) {
-        await _handleFailure(trace, e, s);
-        rethrow;
-      }
-
-      try {
-        final result = await fallback(trace);
-        await trace.end();
-        return result;
-      } catch (e, s) {
-        await _handleFailure(trace, e, s);
-        rethrow;
-      }
-    }
-  }
-
-  _handleFailure(Trace trace, Object e, StackTrace s) async {
-    if (e is Exception) {
-      await trace.endWithFailure(e, s);
-    } else if (e is Error) {
-      await trace.endWithFatal(e, s);
-    } else {
-      await trace.endWithFatal(StateError("Unknown error: $e"), s);
-    }
-  }
-}
-
-mixin TraceOrigin {
-  late final _trace = dep<TraceFactory>();
-
-  traceAs(
-    String name,
-    Future Function(Trace trace) fn, {
-    Future Function(Trace trace)? deferred,
-    bool important = false,
-  }) async {
-    final trace =
-        _trace.newTrace(runtimeType.toString(), name, important: important);
-    try {
-      await fn(trace);
-      if (deferred != null) {
-        await deferred(trace);
-      }
-      await trace.end();
-    } on Exception catch (e, s) {
-      if (deferred != null) {
-        await deferred(trace);
-      }
-      await trace.endWithFailure(e, s);
-    } on Error catch (e, s) {
-      if (deferred != null) {
-        await deferred(trace);
-      }
-      await trace.endWithFatal(e, s);
-    }
-  }
-}
-
 String shortString(String s, {int length = 64}) {
   if (s.length > length) {
     return "${s.substring(0, length).replaceAll("\n", "").trim()}[...]";
@@ -116,5 +40,5 @@ String shortString(String s, {int length = 64}) {
 }
 
 mixin Startable {
-  Future<void> start(Trace parentTrace);
+  Future<void> start(Marker m);
 }

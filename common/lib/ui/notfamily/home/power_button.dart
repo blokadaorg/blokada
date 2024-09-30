@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:common/logger/logger.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,12 +12,11 @@ import 'package:relative_scale/relative_scale.dart';
 import '../../../app/app.dart';
 import '../../../app/channel.pg.dart';
 import '../../../app/start/start.dart';
+import '../../../common/widget/theme.dart';
 import '../../../common/widget/touch.dart';
 import '../../../stats/stats.dart';
 import '../../../util/di.dart';
-import '../../../util/trace.dart';
 import 'home.dart';
-import '../../../common/widget/theme.dart';
 
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class PowerButton extends StatefulWidget {
 }
 
 class _PowerButtonState extends State<PowerButton>
-    with TickerProviderStateMixin, TraceOrigin {
+    with TickerProviderStateMixin, Logging {
   final _app = dep<AppStore>();
   final _appStart = dep<AppStartStore>();
   final _stats = dep<StatsStore>();
@@ -132,9 +132,10 @@ class _PowerButtonState extends State<PowerButton>
           // Once the loading spinning is stopped, signal it to other parts of the UI
           // This is when the "counter count up" animation should start
           final status = _app.status;
-          //print("loading animation dismissed");
+          //log(m).i("loading animation dismissed");
           if (status.isActive()) {
-            print("loading animation dismissed, power on is ready");
+            log(Markers.root)
+                .i("loading animation dismissed, power on is ready");
             _home.powerOnIsReady();
           }
         }
@@ -144,12 +145,12 @@ class _PowerButtonState extends State<PowerButton>
       final s = _app.status;
       pressed = (s.isActive()) || (s.isWorking());
       // A bit of a hack to make sure the flag is flagged
-      //print("app status changed");
+      //log(m).i("app status changed");
       if (s.isActive() &&
           !_home.powerOnAnimationReady &&
           animLoading.isDismissed) {
         _home.powerOnIsReady();
-        print("app status active, power on is ready");
+        log(Markers.root).i("app status active, power on is ready");
       }
       _scheduleUpdateAnimations();
     });
@@ -159,9 +160,9 @@ class _PowerButtonState extends State<PowerButton>
       final hasStats = _stats.hasStats;
       final stats = _stats.stats;
 
-      //print("another callback triggerred");
+      //log(m).i("another callback triggerred");
       if (_home.powerOnAnimationReady && s.isActive() && hasStats) {
-        //print("moving loading ring on pos to display the active anim");
+        //log(m).i("moving loading ring on pos to display the active anim");
         // Max is 2.0 so that it can display ring overlap
         newCounter = math.min(2.0, stats.dayAllowedRatio / 100);
 
@@ -206,7 +207,7 @@ class _PowerButtonState extends State<PowerButton>
       if (status.isInactive()) {
         animCtrlArcAlpha.reverse();
       } else {
-        //print("not working, but active, change arc alpha");
+        //log(m).i("not working, but active, change arc alpha");
         animCtrlArcAlpha.forward();
       }
     }
@@ -319,8 +320,8 @@ class _PowerButtonState extends State<PowerButton>
               onTap: () {
                 if (!status.isWorking()) {
                   setState(() {
-                    traceAs("tappedPowerButton", (trace) async {
-                      await _appStart.toggleApp(trace);
+                    log(Markers.userTap).trace("tappedPowerButton", (m) async {
+                      await _appStart.toggleApp(m);
                     });
                     _updateAnimations();
                   });

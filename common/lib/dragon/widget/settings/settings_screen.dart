@@ -7,8 +7,8 @@ import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/settings/exceptions_section.dart';
 import 'package:common/dragon/widget/settings/settings_section.dart';
 import 'package:common/dragon/widget/with_top_bar.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class SettingsScreen extends StatefulWidget {
   State<StatefulWidget> createState() => SettingsScreenState();
 }
 
-class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
+class SettingsScreenState extends State<SettingsScreen> with Logging {
   late final _custom = dep<CustomStore>();
 
   Paths _path = Paths.settingsExceptions;
@@ -86,9 +86,7 @@ class SettingsScreenState extends State<SettingsScreen> with TraceOrigin {
     return CommonClickable(
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
-            traceAs("addCustom", (trace) async {
-              await _custom.allow(trace, entry);
-            });
+            _custom.allow(entry, Markers.userTap);
           });
         },
         child: Text(

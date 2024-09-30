@@ -6,7 +6,6 @@ import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
 import '../tools.dart';
 @GenerateNiceMocks([
@@ -21,7 +20,7 @@ import 'perm_test.mocks.dart';
 void main() {
   group("store", () {
     test("permsEnabled", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final app = MockAppStore();
@@ -36,16 +35,16 @@ void main() {
         final subject = PermStore();
         expect(subject.privateDnsEnabledFor, null);
 
-        await subject.setPrivateDnsEnabled(trace, "tag");
+        await subject.setPrivateDnsEnabled("tag", m);
         expect(subject.privateDnsEnabledFor, "tag");
 
-        await subject.setPrivateDnsDisabled(trace);
+        await subject.setPrivateDnsDisabled(m);
         expect(subject.privateDnsEnabledFor, null);
       });
     });
 
     test("incrementTagChangeCounter", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
 
         final app = MockAppStore();
@@ -60,10 +59,10 @@ void main() {
         final subject = PermStore();
         expect(subject.privateDnsTagChangeCounter, 0);
 
-        await subject.incrementPrivateDnsTagChangeCounter(trace);
+        await subject.incrementPrivateDnsTagChangeCounter(m);
         expect(subject.privateDnsTagChangeCounter, 1);
 
-        await subject.incrementPrivateDnsTagChangeCounter(trace);
+        await subject.incrementPrivateDnsTagChangeCounter(m);
         expect(subject.privateDnsTagChangeCounter, 2);
       });
     });

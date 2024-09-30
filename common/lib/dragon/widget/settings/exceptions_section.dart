@@ -3,9 +3,9 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/custom/custom.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/settings/exception_item.dart';
+import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/mobx.dart';
-import 'package:common/util/trace.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class ExceptionsSection extends StatefulWidget {
   State<StatefulWidget> createState() => ExceptionsSectionState();
 }
 
-class ExceptionsSectionState extends State<ExceptionsSection> with TraceOrigin {
+class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
   late final _custom = dep<CustomStore>();
 
   bool _isReady = false;
@@ -41,8 +41,8 @@ class ExceptionsSectionState extends State<ExceptionsSection> with TraceOrigin {
 
   _reload() async {
     if (!mounted) return;
-    traceAs("fetchCustom", (trace) async {
-      await _custom.fetch(trace);
+    log(Markers.ui).trace("fetchCustom", (m) async {
+      await _custom.fetch(m);
       setState(() {
         _isReady = true;
         _allowed = _custom.allowed.toList();
@@ -114,7 +114,7 @@ class ExceptionsSectionState extends State<ExceptionsSection> with TraceOrigin {
   }
 
   _onRemove(String entry) async {
-    traceAs("deleteCustom", (trace) async {
+    log(Markers.userTap).trace("deleteCustom", (m) async {
       setState(() {
         if (_denied.contains(entry)) {
           _denied.remove(entry);
@@ -122,13 +122,13 @@ class ExceptionsSectionState extends State<ExceptionsSection> with TraceOrigin {
           _allowed.remove(entry);
         }
       });
-      await _custom.delete(trace, entry);
+      await _custom.delete(entry, m);
       _reload();
     });
   }
 
   _onChange(String entry) async {
-    traceAs("changeCustom", (trace) async {
+    log(Markers.userTap).trace("changeCustom", (m) async {
       final allow = _denied.contains(entry);
       setState(() {
         if (allow) {
@@ -141,7 +141,7 @@ class ExceptionsSectionState extends State<ExceptionsSection> with TraceOrigin {
         _sort();
       });
 
-      await _custom.toggle(trace, entry);
+      await _custom.toggle(entry, m);
       _reload();
     });
   }

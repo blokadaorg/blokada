@@ -28,7 +28,7 @@ final _fixtureJsonDevice = JsonDevice(
 void main() {
   group("store", () {
     test("willUpdateObservablesOnFetch", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<AccountStore>(MockAccountStore());
 
@@ -44,7 +44,7 @@ void main() {
         mockAct(subject);
 
         subject.deviceTag = "some-tag";
-        await subject.fetch(trace);
+        await subject.fetch(m);
 
         expect(subject.lists, ["a", "b"]);
         expect(subject.retention, "24h");
@@ -53,7 +53,7 @@ void main() {
     });
 
     test("willFetchOnCallsToActions", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<AccountStore>(MockAccountStore());
 
@@ -69,14 +69,14 @@ void main() {
         subject.deviceTag = "some-tag";
         mockAct(subject);
 
-        await subject.setCloudEnabled(trace, true);
-        verify(api.putDevice(any, paused: false)).called(1);
+        await subject.setCloudEnabled(true, m);
+        verify(api.putDevice(m, paused: false)).called(1);
 
-        await subject.setRetention(trace, "1h");
-        verify(api.putDevice(any, retention: "1h")).called(1);
+        await subject.setRetention("1h", m);
+        verify(api.putDevice(m, retention: "1h")).called(1);
 
-        await subject.setLists(trace, ["c", "d"]);
-        verify(api.putDevice(any, lists: ["c", "d"])).called(1);
+        await subject.setLists(["c", "d"], m);
+        verify(api.putDevice(m, lists: ["c", "d"])).called(1);
       });
     });
   });
@@ -85,7 +85,7 @@ void main() {
 
   group("storeErrors", () {
     test("willNotUpdateObservablesOnFetchError", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<AccountStore>(MockAccountStore());
 
@@ -99,7 +99,7 @@ void main() {
         final subject = DeviceStore();
         subject.act = mockedAct;
 
-        await expectLater(subject.fetch(trace), throwsException);
+        await expectLater(subject.fetch(m), throwsException);
 
         expect(subject.deviceTag, null);
         expect(subject.lists, null);
@@ -109,7 +109,7 @@ void main() {
     });
 
     test("willPropagateFetchErrorOnCallsToActions", () async {
-      await withTrace((trace) async {
+      await withTrace((m) async {
         depend<StageStore>(MockStageStore());
         depend<AccountStore>(MockAccountStore());
 
@@ -123,10 +123,9 @@ void main() {
         final subject = DeviceStore();
         subject.act = mockedAct;
 
-        await expectLater(
-            subject.setCloudEnabled(trace, true), throwsException);
-        await expectLater(subject.setRetention(trace, "1h"), throwsException);
-        await expectLater(subject.setLists(trace, ["c", "d"]), throwsException);
+        await expectLater(subject.setCloudEnabled(true, m), throwsException);
+        await expectLater(subject.setRetention("1h", m), throwsException);
+        await expectLater(subject.setLists(["c", "d"], m), throwsException);
       });
     });
   });

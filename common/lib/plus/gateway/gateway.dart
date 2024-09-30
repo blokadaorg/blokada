@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../persistence/persistence.dart';
@@ -8,7 +9,6 @@ import '../../util/config.dart';
 import '../../util/cooldown.dart';
 import '../../util/di.dart';
 import '../../util/mobx.dart';
-import '../../util/trace.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 import 'json.dart';
@@ -42,8 +42,7 @@ typedef GatewayId = String;
 
 class PlusGatewayStore = PlusGatewayStoreBase with _$PlusGatewayStore;
 
-abstract class PlusGatewayStoreBase
-    with Store, Traceable, Dependable, Cooldown {
+abstract class PlusGatewayStoreBase with Store, Logging, Dependable, Cooldown {
   late final _ops = dep<PlusGatewayOps>();
   late final _json = dep<PlusGatewayJson>();
   late final _persistence = dep<PersistenceService>();
@@ -78,10 +77,10 @@ abstract class PlusGatewayStoreBase
   Gateway? currentGateway;
 
   @action
-  Future<void> fetch(Trace parentTrace) async {
-    return await traceWith(parentTrace, "fetch", (trace) async {
+  Future<void> fetch(Marker m) async {
+    return await log(m).trace("fetch", (m) async {
       try {
-        final gateways = await _json.get(trace);
+        final gateways = await _json.get(m);
         this.gateways = gateways.map((it) => it.toGateway).toList();
         gatewayChanges++;
       } catch (e) {
@@ -93,28 +92,28 @@ abstract class PlusGatewayStoreBase
   }
 
   @action
-  Future<void> load(Trace parentTrace) async {
-    return await traceWith(parentTrace, "load", (trace) async {
-      final id = await _persistence.load(trace, _keySelected);
+  Future<void> load(Marker m) async {
+    return await log(m).trace("load", (m) async {
+      final id = await _persistence.load(_keySelected, m);
       currentGateway = gateways.firstWhereOrNull((it) => it.publicKey == id);
-      trace.addAttribute("currentGateway", currentGateway);
+      log(m).pair("currentGateway", currentGateway);
     });
   }
 
   @action
-  Future<void> selectGateway(Trace parentTrace, GatewayId? id) async {
-    return await traceWith(parentTrace, "selectGateway", (trace) async {
+  Future<void> selectGateway(GatewayId? id, Marker m) async {
+    return await log(m).trace("selectGateway", (m) async {
       if (id == null) {
         currentGateway = null;
-        await _persistence.delete(trace, _keySelected);
+        await _persistence.delete(_keySelected, m);
         return;
       }
 
       try {
         final gateway = gateways.firstWhere((it) => it.publicKey == id);
         currentGateway = gateway;
-        await _persistence.saveString(trace, _keySelected, id);
-        trace.addAttribute("selectedGateway", gateway.location);
+        await _persistence.saveString(_keySelected, id, m);
+        log(m).pair("selectedGateway", gateway.location);
       } on StateError catch (_) {
         throw Exception("Unknown gateway: $id");
       }
@@ -122,19 +121,18 @@ abstract class PlusGatewayStoreBase
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (route.isModal(StageModal.plusLocationSelect)) {
-      return await traceWith(parentTrace, "fetchGatewaysOnModal",
-          (trace) async {
-        await fetch(trace);
+      return await log(m).trace("fetchGatewaysOnModal", (m) async {
+        await fetch(m);
       });
     }
 
     if (!route.isBecameForeground()) return;
     if (!isCooledDown(cfg.plusGatewayRefreshCooldown)) return;
 
-    return await traceWith(parentTrace, "fetchGateways", (trace) async {
-      await fetch(trace);
+    return await log(m).trace("fetchGateways", (m) async {
+      await fetch(m);
     });
   }
 }

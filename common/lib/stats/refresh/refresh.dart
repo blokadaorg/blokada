@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/logger/logger.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
@@ -6,7 +7,6 @@ import '../../stage/stage.dart';
 import '../../timer/timer.dart';
 import '../../util/config.dart';
 import '../../util/di.dart';
-import '../../util/trace.dart';
 import '../stats.dart';
 
 part 'refresh.g.dart';
@@ -15,7 +15,7 @@ const String keyTimer = "stats:refresh";
 
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
-abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
+abstract class StatsRefreshStoreBase with Store, Logging, Dependable {
   late final _stats = dep<StatsStore>();
   late final _timer = dep<TimerService>();
   late final _stage = dep<StageStore>();
@@ -42,9 +42,10 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
 
   DateTime _lastRefresh = DateTime(0);
 
-  DateTime? _getNextRefresh() {
+  DateTime? _getNextRefresh(Marker m) {
     if (!_accountIsActive || !_isForeground) {
-      print("stats: skip refresh: acc: $_accountIsActive, fg: $_isForeground");
+      log(m)
+          .i("stats: skip refresh: acc: $_accountIsActive, fg: $_isForeground");
       return null;
     } else if (_isStatsScreenFor != null) {
       return _lastRefresh.add(cfg.refreshVeryFrequent);
@@ -55,44 +56,43 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
     }
   }
 
-  _refresh(Trace trace) async {
+  _refresh(Marker m) async {
     if (act.isFamily()) {
       if (_isStatsScreenFor != null) {
         // Stats screen opened for a device, we need to refresh only that device
-        trace.addAttribute("devices", 1);
-        await _stats.fetchForDevice(trace, _isStatsScreenFor!, toplists: true);
+        log(m).pair("devices", 1);
+        await _stats.fetchForDevice(_isStatsScreenFor!, m, toplists: true);
       } else {
         // Otherwise just refresh all monitored devices (less often)
-        trace.addAttribute("devices", _monitoredDevices.length);
+        log(m).pair("devices", _monitoredDevices.length);
         for (final deviceName in _monitoredDevices) {
-          await _stats.fetchForDevice(trace, deviceName);
+          await _stats.fetchForDevice(deviceName, m);
         }
       }
     } else {
-      await _stats.fetch(trace);
+      await _stats.fetch(m);
     }
 
     _lastRefresh = DateTime.now();
-    _reschedule();
+    _reschedule(m);
   }
 
   @action
-  Future<void> setMonitoredDevices(
-      Trace parentTrace, List<String> devices) async {
+  Future<void> setMonitoredDevices(List<String> devices, Marker m) async {
     if (const DeepCollectionEquality().equals(devices, _monitoredDevices)) {
       return;
     }
 
-    return await traceWith(parentTrace, "setMonitoredDevices", (trace) async {
-      trace.addAttribute("devices", devices);
+    return await log(m).trace("setMonitoredDevices", (m) async {
+      log(m).pair("devices", devices);
       _monitoredDevices = devices;
       _lastRefresh = DateTime(0); // To cause one immediate refresh
-      _reschedule();
+      _reschedule(m);
     });
   }
 
   @action
-  Future<void> onRouteChanged(Trace parentTrace, StageRouteState route) async {
+  Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     _isForeground = route.isForeground();
     _isHomeScreen = route.isTab(StageTab.home);
 
@@ -105,23 +105,23 @@ abstract class StatsRefreshStoreBase with Store, Traceable, Dependable {
         _lastRefresh = DateTime(0); // To cause one immediate refresh
       }
     }
-    _reschedule();
+    _reschedule(m);
   }
 
   @action
-  Future<void> onAccountChanged(Trace parentTrace) async {
+  Future<void> onAccountChanged(Marker m) async {
     final account = _account.account!;
     _accountIsActive = account.type.isActive();
-    _reschedule();
+    _reschedule(m);
   }
 
   @action
-  Future<void> onAccountIdChanged(Trace parentTrace) async {
-    await _stats.drop(parentTrace);
+  Future<void> onAccountIdChanged(Marker m) async {
+    await _stats.drop(m);
   }
 
-  _reschedule() {
-    final newDate = _getNextRefresh();
+  _reschedule(Marker m) {
+    final newDate = _getNextRefresh(m);
     if (newDate != null) {
       _timer.set(keyTimer, newDate);
     } else {
