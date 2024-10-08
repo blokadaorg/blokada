@@ -81,7 +81,7 @@ class Log {
       if (took > 3000) {
         _tracer.end(marker, Level.warning, traceName,
             "⏸️️ 🐌 🐌 $traceName (${took}ms)");
-      } else if (took > 300) {
+      } else if (took > 1000) {
         _tracer.end(
             marker, Level.warning, traceName, "⏸️️ 🐌 $traceName (${took}ms)");
       } else {
@@ -145,8 +145,9 @@ class LoggerCommands with Logging, Dependable {
   void attach(Act act) {
     depend<LoggerOps>(getOps(act));
     depend<Logger>(Logger(
+      filter: ProductionFilter(),
       printer: _printer,
-      output: FileLoggerOutput(),
+      output: FileLoggerOutput(act),
     ));
     LogTracer().attachAndSaveAct(act);
     depend<LoggerCommands>(this);
@@ -161,18 +162,8 @@ class LoggerCommands with Logging, Dependable {
   }
 
   shareLog({bool forCrash = false}) {
-    _ops.doShareFile(getLogFilename());
+    _ops.doShareFile();
   }
 
   // TODO: crash log stuff
-}
-
-String getLogFilename({bool forCrash = false}) {
-  final type = PlatformInfo().getCurrentPlatformType();
-  final platform = type == PlatformType.iOS
-      ? "i"
-      : (type == PlatformType.android ? "a" : "mock");
-  final mode = forCrash ? "crash" : "log";
-
-  return "blokada-${platform}6.$mode";
 }

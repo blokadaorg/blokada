@@ -17,9 +17,7 @@ LoggerOps getOps(Act act) {
 }
 
 _actNormal(MockLoggerOps ops) {
-  when(() => ops.doStartFile(any(), any())).thenAnswer(ignore());
-  when(() => ops.doSaveBatch(any(), any(), any())).thenAnswer(ignore());
-  when(() => ops.doShareFile(any())).thenAnswer(ignore());
-  when(() => ops.doFileExists(any())).thenAnswer((_) async => false);
-  when(() => ops.doDeleteFile(any())).thenAnswer(ignore());
+  when(() => ops.doUseFilename(any())).thenAnswer(ignore());
+  when(() => ops.doSaveBatch(any())).thenAnswer(ignore());
+  when(() => ops.doShareFile()).thenAnswer(ignore());
 }

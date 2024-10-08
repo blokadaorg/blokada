@@ -3,17 +3,11 @@ import 'package:pigeon/pigeon.dart';
 @HostApi()
 abstract class LoggerOps {
   @async
-  void doStartFile(String filename, String template);
+  void doUseFilename(String filename);
 
   @async
-  void doSaveBatch(String filename, String batch, String mark);
+  void doSaveBatch(String batch);
 
   @async
-  void doShareFile(String filename);
-
-  @async
-  bool doFileExists(String filename);
-
-  @async
-  void doDeleteFile(String filename);
+  void doShareFile();
 }
