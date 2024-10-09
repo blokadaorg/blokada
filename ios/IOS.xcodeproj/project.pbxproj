@@ -48,8 +48,7 @@
 		4E1275FE2AE7D0FC00A94994 /* BlokadaText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FB52497A1F700FC4C61 /* BlokadaText.swift */; };
 		4E1275FF2AE7D0FC00A94994 /* SettingsFormNoNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90727B43A7200C98D36 /* SettingsFormNoNavView.swift */; };
 		4E1276002AE7D0FC00A94994 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78E359245EBFD90017B234 /* Sequence+Extensions.swift */; };
-		4E1276012AE7D0FC00A94994 /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
-		4E1276022AE7D0FC00A94994 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
+		4E1276012AE7D0FC00A94994 /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
 		4E1276042AE7D0FC00A94994 /* LoggerSaverMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355924519582005A0779 /* LoggerSaverMock.swift */; };
 		4E1276062AE7D0FC00A94994 /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
 		4E1276072AE7D0FC00A94994 /* GatewayBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E946E5E2A29CDAC0053943D /* GatewayBinding.swift */; };
@@ -282,7 +281,6 @@
 		4E270D0C2A80EB8300D3484B /* PaymentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D52A014233005ECD5F /* PaymentBinding.swift */; };
 		4E270D0E2A80EB8300D3484B /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0029E6999D00A8A60D /* Env.swift */; };
 		4E270D0F2A80EB8300D3484B /* SettingsFormNoNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90727B43A7200C98D36 /* SettingsFormNoNavView.swift */; };
-		4E270D112A80EB8300D3484B /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
 		4E270D132A80EB8300D3484B /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4E270D142A80EB8300D3484B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCF8245AFBCB009040F1 /* SpinnerView.swift */; };
 		4E270D152A80EB8300D3484B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B3240D114D0022CBF6 /* Error.swift */; };
@@ -379,7 +377,7 @@
 		4E270DA62A80EB8300D3484B /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
 		4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */; };
 		4E270DA82A80EB8300D3484B /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49682A543AEE001EF934 /* Command.swift */; };
-		4E270DA92A80EB8300D3484B /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
+		4E270DA92A80EB8300D3484B /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
 		4E270DAA2A80EB8300D3484B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C64EC29EED6EC00ABB65B /* App.swift */; };
 		4E270DAB2A80EB8300D3484B /* PackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCEC245AE4DE009040F1 /* PackView.swift */; };
 		4E270DAE2A80EB8300D3484B /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
@@ -630,6 +628,12 @@
 		4E7FE9C8244DC28900851E9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */; };
 		4E7FE9D1244DC28900851E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
 		4E7FE9D2244DC28900851E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
+		4E82728A2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
+		4E82728B2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
+		4E82728C2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
+		4E82728D2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
+		4E82728E2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
+		4E82728F2CAC30A7007472CA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8272892CAC30A7007472CA /* Logger.swift */; };
 		4E8651012A3C96480060AFB1 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; };
 		4E8651022A3C96480060AFB1 /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9216992966E71700E1C34D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E8651032A3C96490060AFB1 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E92169D2966E72600E1C34D /* Flutter.xcframework */; };
@@ -992,7 +996,6 @@
 		4EBF3B0E2A80E55900F637BB /* PaymentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D52A014233005ECD5F /* PaymentBinding.swift */; };
 		4EBF3B102A80E55900F637BB /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D0029E6999D00A8A60D /* Env.swift */; };
 		4EBF3B112A80E55900F637BB /* SettingsFormNoNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D90727B43A7200C98D36 /* SettingsFormNoNavView.swift */; };
-		4EBF3B132A80E55900F637BB /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
 		4EBF3B152A80E55900F637BB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4EBF3B162A80E55900F637BB /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCF8245AFBCB009040F1 /* SpinnerView.swift */; };
 		4EBF3B172A80E55900F637BB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B3240D114D0022CBF6 /* Error.swift */; };
@@ -1086,7 +1089,7 @@
 		4EBF3BA82A80E55900F637BB /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
 		4EBF3BA92A80E55900F637BB /* CommandsBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */; };
 		4EBF3BAA2A80E55900F637BB /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49682A543AEE001EF934 /* Command.swift */; };
-		4EBF3BAB2A80E55900F637BB /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
+		4EBF3BAB2A80E55900F637BB /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
 		4EBF3BAC2A80E55900F637BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C64EC29EED6EC00ABB65B /* App.swift */; };
 		4EBF3BAD2A80E55900F637BB /* PackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2ECCEC245AE4DE009040F1 /* PackView.swift */; };
 		4EBF3BB02A80E55900F637BB /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4F2248EA5F3002D4DD6 /* LevelView.swift */; };
@@ -1155,12 +1158,9 @@
 		4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE3289D27D225F3003B5D57 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3289C27D225F3003B5D57 /* ModelTests.swift */; };
-		4EEC494D2A4D9822001EF934 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
-		4EEC494E2A4D9822001EF934 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
-		4EEC494F2A4D9822001EF934 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC494C2A4D9822001EF934 /* Tracer.swift */; };
-		4EEC49512A4D983D001EF934 /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
-		4EEC49522A4D983D001EF934 /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
-		4EEC49532A4D983D001EF934 /* TracerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* TracerBinding.swift */; };
+		4EEC49512A4D983D001EF934 /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
+		4EEC49522A4D983D001EF934 /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
+		4EEC49532A4D983D001EF934 /* LoggerBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* LoggerBinding.swift */; };
 		4EEC49552A4E1417001EF934 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49542A4E1417001EF934 /* Stats.swift */; };
 		4EEC49562A4E1417001EF934 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49542A4E1417001EF934 /* Stats.swift */; };
 		4EEC49572A4E1417001EF934 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49542A4E1417001EF934 /* Stats.swift */; };
@@ -1576,6 +1576,7 @@
 		4E78E35C245EC4ED0017B234 /* PackConfigItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackConfigItemView.swift; sourceTree = "<group>"; };
 		4E78E362245ED1D80017B234 /* PackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackDetailViewModel.swift; sourceTree = "<group>"; };
 		4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blokada Mocked.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E8272892CAC30A7007472CA /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = "six-common/libgen/ios/Logger.swift"; sourceTree = SOURCE_ROOT; };
 		4E86520C2A3C968B0060AFB1 /* Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E8800F325C401CD001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E8800F425C401CE001FD4C9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PackTags.strings; sourceTree = "<group>"; };
@@ -1702,8 +1703,7 @@
 		4ED41CC62478458100155C88 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
 		4EE3289C27D225F3003B5D57 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		4EEC494C2A4D9822001EF934 /* Tracer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tracer.swift; path = "six-common/libgen/ios/Tracer.swift"; sourceTree = SOURCE_ROOT; };
-		4EEC49502A4D983D001EF934 /* TracerBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerBinding.swift; sourceTree = "<group>"; };
+		4EEC49502A4D983D001EF934 /* LoggerBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerBinding.swift; sourceTree = "<group>"; };
 		4EEC49542A4E1417001EF934 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stats.swift; path = "six-common/libgen/ios/Stats.swift"; sourceTree = SOURCE_ROOT; };
 		4EEC49582A4E1435001EF934 /* StatsBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBinding.swift; sourceTree = "<group>"; };
 		4EEC495C2A4EFE67001EF934 /* ChangeAccountView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAccountView2.swift; sourceTree = "<group>"; };
@@ -2345,7 +2345,7 @@
 				4E2F2A082760A902005A59F5 /* DeviceBinding.swift */,
 				4ECB8B4D2A08FDFD00048F6A /* JournalBinding.swift */,
 				4ECB8B562A08FFC300048F6A /* CustomBinding.swift */,
-				4EEC49502A4D983D001EF934 /* TracerBinding.swift */,
+				4EEC49502A4D983D001EF934 /* LoggerBinding.swift */,
 				4EEC49582A4E1435001EF934 /* StatsBinding.swift */,
 				4EEC49602A50205D001EF934 /* RateBinding.swift */,
 				4EA37D652B2C67AD00E4EC97 /* LinkBinding.swift */,
@@ -2433,13 +2433,13 @@
 		4EFFBCA429E6984500CEF37A /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				4E8272892CAC30A7007472CA /* Logger.swift */,
 				4EF35CA22C9D7BD800699022 /* Url.swift */,
 				4EEDBBA62B68EA3E004AB456 /* Filter.swift */,
 				4EA37D6C2B2C680200E4EC97 /* Link.swift */,
 				4EEC49682A543AEE001EF934 /* Command.swift */,
 				4EEC49642A503657001EF934 /* Rate.swift */,
 				4EEC49542A4E1417001EF934 /* Stats.swift */,
-				4EEC494C2A4D9822001EF934 /* Tracer.swift */,
 				4E946E4F2A29CD170053943D /* Plus.swift */,
 				4E946E4E2A29CD160053943D /* PlusGateway.swift */,
 				4E946E4D2A29CD160053943D /* PlusKeypair.swift */,
@@ -2831,7 +2831,6 @@
 				4E673D0A29E6999D00A8A60D /* Env.swift in Sources */,
 				4E61D90827B43A7200C98D36 /* SettingsFormNoNavView.swift in Sources */,
 				4E23CFFE293E1F9700613D0A /* TunnelsManager.swift in Sources */,
-				4EEC494D2A4D9822001EF934 /* Tracer.swift in Sources */,
 				4EB496862B233D5200926C85 /* ShieldsViewTwoColumn.swift in Sources */,
 				4E23D01F293E20BC00613D0A /* DNSServer.swift in Sources */,
 				4E423557245192C7005A0779 /* Date+Extensions.swift in Sources */,
@@ -2995,7 +2994,7 @@
 				4EF8B6852C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EEC496D2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4EEC49692A543AEE001EF934 /* Command.swift in Sources */,
-				4EEC49512A4D983D001EF934 /* TracerBinding.swift in Sources */,
+				4EEC49512A4D983D001EF934 /* LoggerBinding.swift in Sources */,
 				4E1C64F229EED6EC00ABB65B /* App.swift in Sources */,
 				4E2ECCED245AE4DE009040F1 /* PackView.swift in Sources */,
 				4E23CFF3293E17D900613D0A /* WgService.swift in Sources */,
@@ -3003,6 +3002,7 @@
 				4EEDBBAE2B68EA59004AB456 /* FilterBinding.swift in Sources */,
 				4E45F4F3248EA5F4002D4DD6 /* LevelView.swift in Sources */,
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,
+				4E82728A2CAC30A7007472CA /* Logger.swift in Sources */,
 				4E23D02B293E20BC00613D0A /* PrivateKey.swift in Sources */,
 				4E227F40243496C5004F4955 /* Thread.swift in Sources */,
 				4E946E5F2A29CDAC0053943D /* GatewayBinding.swift in Sources */,
@@ -3059,8 +3059,7 @@
 				4E1275FF2AE7D0FC00A94994 /* SettingsFormNoNavView.swift in Sources */,
 				4E1276002AE7D0FC00A94994 /* Sequence+Extensions.swift in Sources */,
 				4E92C7002C05CBE400A33170 /* ViewModels.swift in Sources */,
-				4E1276012AE7D0FC00A94994 /* TracerBinding.swift in Sources */,
-				4E1276022AE7D0FC00A94994 /* Tracer.swift in Sources */,
+				4E1276012AE7D0FC00A94994 /* LoggerBinding.swift in Sources */,
 				4E1276042AE7D0FC00A94994 /* LoggerSaverMock.swift in Sources */,
 				4E1276062AE7D0FC00A94994 /* PermBinding.swift in Sources */,
 				4E92C6FC2C05CACD00A33170 /* AccountBindingFlavor.swift in Sources */,
@@ -3088,6 +3087,7 @@
 				4E12761C2AE7D0FC00A94994 /* PacksViewModel.swift in Sources */,
 				4E12761D2AE7D0FC00A94994 /* StatsBinding.swift in Sources */,
 				4E12761F2AE7D0FC00A94994 /* StageBinding.swift in Sources */,
+				4E82728F2CAC30A7007472CA /* Logger.swift in Sources */,
 				4E1276202AE7D0FC00A94994 /* TabItemView.swift in Sources */,
 				4E1276212AE7D0FC00A94994 /* PlaceholderView.swift in Sources */,
 				4E1276222AE7D0FC00A94994 /* Command.swift in Sources */,
@@ -3274,7 +3274,6 @@
 				4E270D0C2A80EB8300D3484B /* PaymentBinding.swift in Sources */,
 				4E270D0E2A80EB8300D3484B /* Env.swift in Sources */,
 				4E270D0F2A80EB8300D3484B /* SettingsFormNoNavView.swift in Sources */,
-				4E270D112A80EB8300D3484B /* Tracer.swift in Sources */,
 				4E270D132A80EB8300D3484B /* Date+Extensions.swift in Sources */,
 				4E270D142A80EB8300D3484B /* SpinnerView.swift in Sources */,
 				4E270D152A80EB8300D3484B /* Error.swift in Sources */,
@@ -3389,7 +3388,7 @@
 				4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */,
 				4E270DA82A80EB8300D3484B /* Command.swift in Sources */,
 				4EF35CA62C9D7BD800699022 /* Url.swift in Sources */,
-				4E270DA92A80EB8300D3484B /* TracerBinding.swift in Sources */,
+				4E270DA92A80EB8300D3484B /* LoggerBinding.swift in Sources */,
 				4E270DAA2A80EB8300D3484B /* App.swift in Sources */,
 				4E270DAB2A80EB8300D3484B /* PackView.swift in Sources */,
 				4EA37D692B2C67AD00E4EC97 /* LinkBinding.swift in Sources */,
@@ -3405,6 +3404,7 @@
 				4E270DB72A80EB8300D3484B /* BlockaLogger.swift in Sources */,
 				4E270DB82A80EB8300D3484B /* SKProduct+Extensions.swift in Sources */,
 				4EF8B6882C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
+				4E82728D2CAC30A7007472CA /* Logger.swift in Sources */,
 				4E270DB92A80EB8300D3484B /* LoggerSaver.swift in Sources */,
 				4E270DBE2A80EB8300D3484B /* SafeArea.swift in Sources */,
 				4E270DC02A80EB8300D3484B /* Tasker.swift in Sources */,
@@ -3440,10 +3440,10 @@
 				4EEDBB9D2B6117A2004AB456 /* AccountChangeView.swift in Sources */,
 				4E28ADEC2AB99DB0007445C8 /* ShieldsNarrowView.swift in Sources */,
 				4E290FB72497A26800FC4C61 /* BlokadaText.swift in Sources */,
+				4E82728C2CAC30A7007472CA /* Logger.swift in Sources */,
 				4E61D90927B43A7200C98D36 /* SettingsFormNoNavView.swift in Sources */,
 				4E78E35B245EBFF90017B234 /* Sequence+Extensions.swift in Sources */,
-				4EEC49532A4D983D001EF934 /* TracerBinding.swift in Sources */,
-				4EEC494F2A4D9822001EF934 /* Tracer.swift in Sources */,
+				4EEC49532A4D983D001EF934 /* LoggerBinding.swift in Sources */,
 				4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */,
 				4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */,
 				4E11D2E727206D810042385B /* NoLogRetentionView.swift in Sources */,
@@ -3639,7 +3639,6 @@
 				4E86510E2A3C968B0060AFB1 /* Env.swift in Sources */,
 				4E8651102A3C968B0060AFB1 /* SettingsFormNoNavView.swift in Sources */,
 				4E8651122A3C968B0060AFB1 /* TunnelsManager.swift in Sources */,
-				4EEC494E2A4D9822001EF934 /* Tracer.swift in Sources */,
 				4EB496872B233D5200926C85 /* ShieldsViewTwoColumn.swift in Sources */,
 				4E8651152A3C968B0060AFB1 /* DNSServer.swift in Sources */,
 				4E8651162A3C968B0060AFB1 /* Date+Extensions.swift in Sources */,
@@ -3803,7 +3802,7 @@
 				4EF8B6862C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EEC496E2A543B0E001EF934 /* CommandsBinding.swift in Sources */,
 				4EEC496A2A543AEE001EF934 /* Command.swift in Sources */,
-				4EEC49522A4D983D001EF934 /* TracerBinding.swift in Sources */,
+				4EEC49522A4D983D001EF934 /* LoggerBinding.swift in Sources */,
 				4E8651C22A3C968B0060AFB1 /* App.swift in Sources */,
 				4E8651C32A3C968B0060AFB1 /* PackView.swift in Sources */,
 				4E8651C52A3C968B0060AFB1 /* WgService.swift in Sources */,
@@ -3811,6 +3810,7 @@
 				4EEDBBAF2B68EA59004AB456 /* FilterBinding.swift in Sources */,
 				4E8651C72A3C968B0060AFB1 /* LevelView.swift in Sources */,
 				4E8651C92A3C968B0060AFB1 /* AppDelegate.swift in Sources */,
+				4E82728B2CAC30A7007472CA /* Logger.swift in Sources */,
 				4E8651CA2A3C968B0060AFB1 /* PrivateKey.swift in Sources */,
 				4E8651CB2A3C968B0060AFB1 /* Thread.swift in Sources */,
 				4E8651CC2A3C968B0060AFB1 /* GatewayBinding.swift in Sources */,
@@ -3866,7 +3866,6 @@
 				4EBF3B0E2A80E55900F637BB /* PaymentBinding.swift in Sources */,
 				4EBF3B102A80E55900F637BB /* Env.swift in Sources */,
 				4EBF3B112A80E55900F637BB /* SettingsFormNoNavView.swift in Sources */,
-				4EBF3B132A80E55900F637BB /* Tracer.swift in Sources */,
 				4EBF3B152A80E55900F637BB /* Date+Extensions.swift in Sources */,
 				4EBF3B162A80E55900F637BB /* SpinnerView.swift in Sources */,
 				4EBF3B172A80E55900F637BB /* Error.swift in Sources */,
@@ -3896,6 +3895,7 @@
 				4EBF3B3A2A80E55900F637BB /* PrivateDnsService.swift in Sources */,
 				4EBF3B3B2A80E55900F637BB /* NavModel.swift in Sources */,
 				4EBF3B3F2A80E55900F637BB /* Localization.swift in Sources */,
+				4E82728E2CAC30A7007472CA /* Logger.swift in Sources */,
 				4EEDBBB22B68EA59004AB456 /* FilterBinding.swift in Sources */,
 				4EBF3B402A80E55900F637BB /* BadgeView.swift in Sources */,
 				4EBF3B422A80E55900F637BB /* PackModel.swift in Sources */,
@@ -3977,7 +3977,7 @@
 				4EBF3BA82A80E55900F637BB /* TopBarBlurView.swift in Sources */,
 				4EBF3BA92A80E55900F637BB /* CommandsBinding.swift in Sources */,
 				4EBF3BAA2A80E55900F637BB /* Command.swift in Sources */,
-				4EBF3BAB2A80E55900F637BB /* TracerBinding.swift in Sources */,
+				4EBF3BAB2A80E55900F637BB /* LoggerBinding.swift in Sources */,
 				4EBF3BAC2A80E55900F637BB /* App.swift in Sources */,
 				4EBF3BAD2A80E55900F637BB /* PackView.swift in Sources */,
 				4EA37D6A2B2C67AD00E4EC97 /* LinkBinding.swift in Sources */,

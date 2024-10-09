@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.commands) private var commands
     
     // Reference it so that it is created
-    @Injected(\.tracer) private var tracer
+    @Injected(\.logger) private var tracer
     @Injected(\.notification) private var notification
     @Injected(\.payment) private var payment
     @Injected(\.http) private var http

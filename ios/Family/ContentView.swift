@@ -21,7 +21,7 @@ struct ContentView: View {
     @ObservedObject var homeVM = ViewModels.home
     @ObservedObject var vm = ViewModels.content
 
-    @Injected(\.tracer) private var tracer
+    @Injected(\.logger) private var tracer
     @Injected(\.stats) private var stats
     @Injected(\.commands) private var commands
     

@@ -67,7 +67,7 @@ class StageBinding: StageOps {
 
     func dismiss() -> AnyPublisher<Void, Error> {
         return Future<Void, Error> { promise in
-            self.commands.cmd.onCommand(command: "\(CommandName.modalDismiss)") { _ in
+            self.commands.cmd.onCommand(command: "\(CommandName.modalDismiss)", m: 2) { _ in
                 return promise(.success(()))
             }
         }

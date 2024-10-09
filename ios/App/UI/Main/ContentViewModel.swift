@@ -16,7 +16,7 @@ import Factory
 
 class ContentViewModel: ObservableObject {
     @Injected(\.stage) var stage
-    @Injected(\.tracer) var tracer
+    @Injected(\.logger) var tracer
 
     private lazy var linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
