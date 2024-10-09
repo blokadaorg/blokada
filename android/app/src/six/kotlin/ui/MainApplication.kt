@@ -35,6 +35,7 @@ import binding.FilterBinding
 import binding.HttpBinding
 import binding.JournalBinding
 import binding.LinkBinding
+import binding.LoggerBinding
 import binding.NotificationBinding
 import binding.PermBinding
 import binding.PersistenceBinding
@@ -46,7 +47,6 @@ import binding.PlusVpnBinding
 import binding.RateBinding
 import binding.StageBinding
 import binding.StatsBinding
-import binding.TracerBinding
 import com.wireguard.android.backend.Backend
 import com.wireguard.android.backend.GoBackend
 import com.wireguard.android.configStore.FileConfigStore
@@ -97,7 +97,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var env: EnvBinding
     private lateinit var persistence: PersistenceBinding
     private lateinit var http: HttpBinding
-    private lateinit var tracer: TracerBinding
+    private lateinit var tracer: LoggerBinding
     private lateinit var app: AppBinding
     private lateinit var notification: NotificationBinding
     private lateinit var account: AccountBinding
@@ -145,7 +145,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         persistence = PersistenceBinding
         http = HttpBinding
         notification = NotificationBinding
-        tracer = TracerBinding
+        tracer = LoggerBinding
         account = AccountBinding
         accountPayment = AccountPaymentBinding
         device = DeviceBinding
