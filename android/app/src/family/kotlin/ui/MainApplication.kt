@@ -35,7 +35,7 @@ import binding.PersistenceBinding
 import binding.RateBinding
 import binding.StageBinding
 import binding.StatsBinding
-import binding.TracerBinding
+import binding.LoggerBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.BlockaRepoConfig
@@ -70,7 +70,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var env: EnvBinding
     private lateinit var persistence: PersistenceBinding
     private lateinit var http: HttpBinding
-    private lateinit var tracer: TracerBinding
+    private lateinit var tracer: LoggerBinding
     private lateinit var app: AppBinding
     private lateinit var notification: NotificationBinding
     private lateinit var account: AccountBinding
@@ -112,7 +112,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         persistence = PersistenceBinding
         http = HttpBinding
         notification = NotificationBinding
-        tracer = TracerBinding
+        tracer = LoggerBinding
         account = AccountBinding
         accountPayment = AccountPaymentBinding
         device = DeviceBinding

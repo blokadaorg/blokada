@@ -52,7 +52,7 @@ object CommandBinding: CommandOps {
     suspend fun execute(command: CommandName) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
             scope.launch(Dispatchers.Main) {
-                cmd.onCommand(command.name) { cont.resume(Unit) }
+                cmd.onCommand(command.name, 2) { cont.resume(Unit) }
             }
         } else {
             queue.add(Triple(command, null, null))
@@ -63,7 +63,7 @@ object CommandBinding: CommandOps {
     suspend fun execute(command: CommandName, p1: String) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
             scope.launch(Dispatchers.Main) {
-                cmd.onCommandWithParam(command.name, p1) { cont.resume(Unit) }
+                cmd.onCommandWithParam(command.name, p1, 2) { cont.resume(Unit) }
             }
         } else {
             queue.add(Triple(command, p1, null))
@@ -74,7 +74,7 @@ object CommandBinding: CommandOps {
     suspend fun execute(command: CommandName, p1: String, p2: String) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
             scope.launch(Dispatchers.Main) {
-                cmd.onCommandWithParams(command.name, p1, p2) { cont.resume(Unit) }
+                cmd.onCommandWithParams(command.name, p1, p2, 2) { cont.resume(Unit) }
             }
         } else {
             queue.add(Triple(command, p1, p2))
