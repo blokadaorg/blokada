@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Clear</string>
     <string name="universal_action_revoke">Revoke</string>
+    <string name="support_action_chat">Chat with us</string>
+    <string name="support_action_end">End</string>
+    <string name="support_placeholder">Ask about anything you want to know!</string>
+    <string name="support_error_generic">Sorry did not understand, can you repeat?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Help</string>
     <string name="universal_label_welcome">Welcome!</string>
     <string name="universal_label_none">None</string>
