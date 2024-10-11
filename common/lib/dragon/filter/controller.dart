@@ -154,7 +154,7 @@ class FilterController with Logging {
 
   _parse(Marker m) async {
     // 1: read filters that we know about (no selections yet)
-    final filters = await _knownFilters.get();
+    final filters = _knownFilters.get();
     final userConfig = _userConfig.now!;
     final selectedFilters = <FilterSelection>[];
 

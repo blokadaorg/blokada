@@ -211,7 +211,7 @@ abstract class JournalStoreBase
             ? cfg.refreshVeryFrequent
             : cfg.refreshOnHome;
         try {
-          await fetch;
+          await fetch(m);
           _rescheduleTimer(cooldown);
         } on Exception catch (_) {
           _rescheduleTimer(cooldown);

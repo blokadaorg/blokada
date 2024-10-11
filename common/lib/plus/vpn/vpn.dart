@@ -173,7 +173,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Dependable {
 
       actualStatus = status;
       if (!actualStatus.isReady()) {
-        await _app.reconfiguring;
+        await _app.reconfiguring(m);
         _startOngoingTimeout();
         return;
       } else {
