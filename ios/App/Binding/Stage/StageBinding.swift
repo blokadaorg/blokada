@@ -26,6 +26,7 @@ class StageBinding: StageOps {
     let enteredForegroundHot = CurrentValueSubject<Bool?, Never>(nil)
     let currentModal = CurrentValueSubject<StageModal?, Never>(nil)
     let showPauseMenu = CurrentValueSubject<Bool, Never>(false)
+    let errorHeader = CurrentValueSubject<String?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     let activeTab = CurrentValueSubject<Tab, Never>(Tab.Home)
@@ -117,6 +118,9 @@ class StageBinding: StageOps {
 //        currentModal.send(nil)
 //        showPauseMenu.send(true)
 //    } else
+
+        errorHeader.send(nil)
+
         if supportedSheets.contains(modal) {
             currentModal.send(modal)
         } else if (modal == .fault) {
@@ -131,6 +135,11 @@ class StageBinding: StageOps {
             error.send(L10n.errorUnknown)
         } else if (modal == .accountRestoreFailed) {
             error.send(L10n.errorPaymentInactiveAfterRestore)
+        } else if (modal == .accountRestoreIdOk) {
+            errorHeader.send(L10n.paymentHeaderActivated)
+            error.send("Your account has been successfully restored. Welcome back!")
+        } else if (modal == .accountRestoreIdFailed) {
+            error.send(L10n.errorAccountInactiveAfterRestore)
         } else if (modal == .accountExpired) {
             //error.send(L10n.errorAccountInactiveGeneric)
         } else if (modal == .plusTooManyLeases) {

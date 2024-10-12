@@ -101,6 +101,7 @@ class HomeViewModel: ObservableObject {
 
     
     init() {
+        onErrorHeader()
         onError()
         onInput()
         onAppStateChanged()
@@ -120,6 +121,15 @@ class HomeViewModel: ObservableObject {
 //        .sink(onValue: { it in self.error = it })
 //        .store(in: &cancellables)
 //    }
+
+    private func onErrorHeader() {
+        stage.errorHeader
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.errorHeader = it
+        })
+        .store(in: &cancellables)
+    }
 
     private func onError() {
         stage.error
