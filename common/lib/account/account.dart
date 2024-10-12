@@ -176,10 +176,10 @@ abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
             isBackup: true);
         await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
         if (jsonAccount.isActive()) {
-          await _stage.setRoute("/", m);
-          await _stage.showModal(StageModal.accountRestoreOk, m);
+          await _stage.setRoute("settings", m);
+          await _stage.showModal(StageModal.accountRestoreIdOk, m);
         } else {
-          await _stage.showModal(StageModal.accountRestoreFailed, m);
+          await _stage.showModal(StageModal.accountRestoreIdFailed, m);
         }
       } catch (_) {
         await _stage.showModal(StageModal.accountInvalid, m);
