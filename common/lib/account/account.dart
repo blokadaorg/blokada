@@ -1,4 +1,5 @@
 import 'package:common/logger/logger.dart';
+import 'package:common/util/async.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
@@ -176,7 +177,10 @@ abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
             isBackup: true);
         await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
         if (jsonAccount.isActive()) {
+          await _stage.setRoute("home", m);
+          await sleepAsync(const Duration(milliseconds: 300));
           await _stage.setRoute("settings", m);
+          await sleepAsync(const Duration(seconds: 1));
           await _stage.showModal(StageModal.accountRestoreIdOk, m);
         } else {
           await _stage.showModal(StageModal.accountRestoreIdFailed, m);
