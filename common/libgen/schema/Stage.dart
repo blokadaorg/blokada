@@ -24,6 +24,7 @@ enum StageModal {
   accountLink,
   accountInitFailed,
   accountRestoreFailed,
+  accountRestoreOk,
   accountExpired,
   accountInvalid,
   plusTooManyLeases,
