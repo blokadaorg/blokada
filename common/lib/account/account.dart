@@ -179,7 +179,7 @@ abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
         if (jsonAccount.isActive()) {
           await sleepAsync(const Duration(milliseconds: 500));
           await _stage.setRoute("home", m);
-          await sleepAsync(const Duration(seconds: 1000));
+          await sleepAsync(const Duration(seconds: 1));
           await _stage.setRoute("settings", m);
           await sleepAsync(const Duration(seconds: 1));
           await _stage.showModal(StageModal.accountRestoreIdOk, m);
