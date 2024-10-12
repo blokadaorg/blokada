@@ -77,6 +77,15 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Cabut izin";
 
+// Action to open chat
+"support action chat" = "Chat bersama kami";
+// Action to end chat. Keep it super short
+"support action end" = "Selesai";
+"support placeholder" = "Tanyakan apa saja yang ingin Anda ketahui!";
+"support error generic" = "Maaf, bisa diulang?";
+// Its ok to leave it as it is
+"support name bot" = "Blocka Bot";
+
 "universal label help" = "Bantuan";
 "universal label welcome" = "Selamat Datang!";
 // Common label when some feature has no setting
@@ -721,3 +730,5 @@
 "family cta action unlock" = "Buka";
 
 "family account restore desc" = "Masukkan ID akun Anda untuk memulihkan pembelian Anda.";
+
+"generic account active" = "Your account has been successfully restored. Welcome back!";

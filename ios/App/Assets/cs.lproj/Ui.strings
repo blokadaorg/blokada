@@ -77,6 +77,15 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Zrušit";
 
+// Action to open chat
+"support action chat" = "Chatujte s námi";
+// Action to end chat. Keep it super short
+"support action end" = "Ukončit";
+"support placeholder" = "Zeptejte se na cokoliv, co chcete vědět!";
+"support error generic" = "Omlouvám se, ale nerozumím, můžete to zopakovat?";
+// Its ok to leave it as it is
+"support name bot" = "Blocka Bot";
+
 "universal label help" = "Nápověda";
 "universal label welcome" = "Vítejte!";
 // Common label when some feature has no setting
@@ -721,3 +730,5 @@
 "family cta action unlock" = "Odemknout";
 
 "family account restore desc" = "Zadejte ID účtu pro obnovení vašich nákupů.";
+
+"generic account active" = "Your account has been successfully restored. Welcome back!";

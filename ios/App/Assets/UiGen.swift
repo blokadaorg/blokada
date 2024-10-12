@@ -594,6 +594,8 @@ internal enum L10n {
   internal static let familyStatusReadyBody = L10n.tr("Ui", "family status ready body")
   /// App is ready!
   internal static let familyStatusReadyHeader = L10n.tr("Ui", "family status ready header")
+  /// Your account has been successfully restored. Welcome back!
+  internal static let genericAccountActive = L10n.tr("Ui", "generic account active")
   /// Tap to activate
   internal static let homeActionTapToActivate = L10n.tr("Ui", "home action tap to activate")
   /// ads and trackers blocked since installation

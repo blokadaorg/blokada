@@ -77,6 +77,15 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Отозвать";
 
+// Action to open chat
+"support action chat" = "Спросите в чате";
+// Action to end chat. Keep it super short
+"support action end" = "Конец";
+"support placeholder" = "Спросите о том, что вы хотите знать!";
+"support error generic" = "Извините, не понятно, не могли бы вы повторить?";
+// Its ok to leave it as it is
+"support name bot" = "Blocka Bot";
+
 "universal label help" = "Помощь";
 "universal label welcome" = "Добро пожаловать!";
 // Common label when some feature has no setting
@@ -721,3 +730,5 @@
 "family cta action unlock" = "Разблокировать";
 
 "family account restore desc" = "Введите ID вашего аккаунта для восстановления покупок.";
+
+"generic account active" = "Your account has been successfully restored. Welcome back!";
