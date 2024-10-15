@@ -210,6 +210,7 @@
     <string name="account_action_inbox">इनबॉक्स</string>
     <string name="account_action_logout">Restore purchase</string>
     <string name="account_action_logout_only">लोग आउट</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Generate new account</string>
     <string name="account_action_about">हमारे बारे में</string>
     <string name="account_action_tap_to_show">Tap to show</string>

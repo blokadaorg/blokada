@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Saapuneet</string>
     <string name="account_action_logout">Palauta ostos</string>
     <string name="account_action_logout_only">Kirjaudu ulos</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Luo uusi tili</string>
     <string name="account_action_about">Tietoa</string>
     <string name="account_action_tap_to_show">Napauta näyttääksesi</string>

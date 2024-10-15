@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Входяща кутия</string>
     <string name="account_action_logout">Възстановяване на покупка</string>
     <string name="account_action_logout_only">Изход от профила</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Създаване на нов профил</string>
     <string name="account_action_about">Относно</string>
     <string name="account_action_tap_to_show">Докоснете, за да се покаже</string>

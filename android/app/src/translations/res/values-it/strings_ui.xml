@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Messaggi</string>
     <string name="account_action_logout">Ripristina acquisto</string>
     <string name="account_action_logout_only">Esci</string>
+    <string name="account_action_logout_new">Ripristina ID Account</string>
     <string name="account_action_create">Genera un nuovo account</string>
     <string name="account_action_about">Info</string>
     <string name="account_action_tap_to_show">Tocca per mostrare</string>
@@ -528,5 +529,5 @@
     <string name="family_cta_action_link">Collega</string>
     <string name="family_cta_action_unlock">Sblocca</string>
     <string name="family_account_restore_desc">Inserisci l\'ID del tuo account per ripristinare gli acquisti.</string>
-    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
+    <string name="generic_account_active">Il tuo account è stato ripristinato correttamente. Bentornato!</string>
 </resources>

@@ -209,6 +209,7 @@
     "account action inbox": "Messagerie",
     "account action logout": "Restaurer mon achat",
     "account action logout only": "Déconnexion",
+    "account action logout new": "Restaurer l'ID du compte",
     "account action create": "Générer un nouveau compte",
     "account action about": "À propos",
     "account action tap to show": "Appuyer pour afficher",
@@ -527,5 +528,5 @@
     "family cta action link": "Lier",
     "family cta action unlock": "Déverrouiller",
     "family account restore desc": "Saisissez votre ID pour restaurer vos achats.",
-    "generic account active": "Your account has been successfully restored. Welcome back!"
+    "generic account active": "Votre compte a été restauré avec succès. Bienvenue!"
 } }

@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Inbox</string>
     <string name="account_action_logout">復原購買</string>
     <string name="account_action_logout_only">登出</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">生成新帳號</string>
     <string name="account_action_about">關於</string>
     <string name="account_action_tap_to_show">點一下顯示</string>

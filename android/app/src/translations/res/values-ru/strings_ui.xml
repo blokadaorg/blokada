@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Входящие</string>
     <string name="account_action_logout">Восстановить покупку</string>
     <string name="account_action_logout_only">Выйти</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Создать новый аккаунт</string>
     <string name="account_action_about">О приложении</string>
     <string name="account_action_tap_to_show">Нажмите, чтобы показать</string>

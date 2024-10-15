@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Odebrane</string>
     <string name="account_action_logout">Przywróć zakup</string>
     <string name="account_action_logout_only">Wyloguj</string>
+    <string name="account_action_logout_new">Przywróć ID konta</string>
     <string name="account_action_create">Wygeneruj nowe konto</string>
     <string name="account_action_about">O aplikacji</string>
     <string name="account_action_tap_to_show">Dotknij aby pokazać</string>
@@ -528,5 +529,5 @@
     <string name="family_cta_action_link">Połącz</string>
     <string name="family_cta_action_unlock">Odblokuj</string>
     <string name="family_account_restore_desc">Wprowadź swój identyfikator konta, aby przywrócić konto.</string>
-    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
+    <string name="generic_account_active">Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!</string>
 </resources>

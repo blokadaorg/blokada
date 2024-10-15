@@ -59,10 +59,10 @@
     "universal action filter": "Filtro",
     "universal action clear": "Limpiar",
     "universal action revoke": "Revocar",
-    "support action chat": "Chat with us",
-    "support action end": "End",
-    "support placeholder": "Ask about anything you want to know!",
-    "support error generic": "Sorry did not understand, can you repeat?",
+    "support action chat": "Chatea con nosotros",
+    "support action end": "Fin",
+    "support placeholder": "Pregunte por cualquier cosa que desee saber!",
+    "support error generic": "Lo sentimos, no entendían, ¿puede repetir?",
     "support name bot": "Blocka Bot",
     "universal label help": "Ayuda",
     "universal label welcome": "¡Bienvenido!",
@@ -209,6 +209,7 @@
     "account action inbox": "Bandeja de entrada",
     "account action logout": "Restaurar compra",
     "account action logout only": "Cerrar sesión",
+    "account action logout new": "Restaurar ID de cuenta",
     "account action create": "Generar nueva cuenta",
     "account action about": "Acerca de",
     "account action tap to show": "Toca para mostrar",
@@ -527,5 +528,5 @@
     "family cta action link": "Enlace",
     "family cta action unlock": "Desbloquear",
     "family account restore desc": "Introduzca su ID de cuenta para restaurar sus compras.",
-    "generic account active": "Your account has been successfully restored. Welcome back!"
+    "generic account active": "Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!"
 } }

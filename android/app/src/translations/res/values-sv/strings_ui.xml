@@ -60,10 +60,10 @@
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Rensa</string>
     <string name="universal_action_revoke">Återkalla</string>
-    <string name="support_action_chat">Chat with us</string>
-    <string name="support_action_end">End</string>
-    <string name="support_placeholder">Ask about anything you want to know!</string>
-    <string name="support_error_generic">Sorry did not understand, can you repeat?</string>
+    <string name="support_action_chat">Chatta med oss</string>
+    <string name="support_action_end">Slut</string>
+    <string name="support_placeholder">Fråga om allt du vill veta!</string>
+    <string name="support_error_generic">Tyvärr förstod inte, kan du upprepa?</string>
     <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Hjälp</string>
     <string name="universal_label_welcome">Välkommen!</string>
@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Inkorg</string>
     <string name="account_action_logout">Återställ köp</string>
     <string name="account_action_logout_only">Logga ut</string>
+    <string name="account_action_logout_new">Återställ konto-ID</string>
     <string name="account_action_create">Skapa nytt konto</string>
     <string name="account_action_about">Om</string>
     <string name="account_action_tap_to_show">Tryck för att visa</string>
@@ -528,5 +529,5 @@
     <string name="family_cta_action_link">Länka</string>
     <string name="family_cta_action_unlock">Lås upp</string>
     <string name="family_account_restore_desc">Ange ditt konto-ID för att återställa ditt köp.</string>
-    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
+    <string name="generic_account_active">Ditt konto har återställts. Välkommen tillbaka!</string>
 </resources>

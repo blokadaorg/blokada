@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Inbox</string>
     <string name="account_action_logout">Herstel aankoop</string>
     <string name="account_action_logout_only">Uitloggen</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Genereer nieuw account</string>
     <string name="account_action_about">Over</string>
     <string name="account_action_tap_to_show">Druk om weer te geven</string>

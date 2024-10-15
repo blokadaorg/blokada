@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Caixa de entrada</string>
     <string name="account_action_logout">Restaurar compras</string>
     <string name="account_action_logout_only">Encerrar sessão</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Gerar nova conta</string>
     <string name="account_action_about">Sobre</string>
     <string name="account_action_tap_to_show">Toque para visualizar</string>

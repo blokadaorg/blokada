@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Messagerie</string>
     <string name="account_action_logout">Restaurer mon achat</string>
     <string name="account_action_logout_only">Déconnexion</string>
+    <string name="account_action_logout_new">Restaurer l\'ID du compte</string>
     <string name="account_action_create">Générer un nouveau compte</string>
     <string name="account_action_about">À propos</string>
     <string name="account_action_tap_to_show">Appuyer pour afficher</string>
@@ -528,5 +529,5 @@
     <string name="family_cta_action_link">Lier</string>
     <string name="family_cta_action_unlock">Déverrouiller</string>
     <string name="family_account_restore_desc">Saisissez votre ID pour restaurer vos achats.</string>
-    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
+    <string name="generic_account_active">Votre compte a été restauré avec succès. Bienvenue!</string>
 </resources>

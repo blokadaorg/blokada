@@ -210,6 +210,7 @@
     <string name="account_action_inbox">Gelen Kutusu</string>
     <string name="account_action_logout">Satın alımı geri yükle</string>
     <string name="account_action_logout_only">Oturumu kapat</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">Yeni hesap oluştur</string>
     <string name="account_action_about">Hakkında</string>
     <string name="account_action_tap_to_show">Göstermek için dokunun</string>

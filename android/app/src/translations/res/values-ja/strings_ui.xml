@@ -210,6 +210,7 @@
     <string name="account_action_inbox">受信トレイ</string>
     <string name="account_action_logout">購入を復元</string>
     <string name="account_action_logout_only">ログアウト</string>
+    <string name="account_action_logout_new">Restore Account ID</string>
     <string name="account_action_create">新しいアカウントを生成</string>
     <string name="account_action_about">アプリについて</string>
     <string name="account_action_tap_to_show">タップして表示</string>
