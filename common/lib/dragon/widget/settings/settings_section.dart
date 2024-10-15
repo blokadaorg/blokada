@@ -155,7 +155,7 @@ class SettingsState extends State<SettingsSection> with Logging {
               children: [
                 SettingsItem(
                     icon: CupertinoIcons.return_icon,
-                    text: "account action logout".i18n,
+                    text: "account action logout new".i18n,
                     onTap: () => _showRestoreDialog(context)),
                 const CommonDivider(),
                 SettingsItem(
@@ -190,7 +190,7 @@ class SettingsState extends State<SettingsSection> with Logging {
 
   _showRestoreDialog(BuildContext context) {
     showInputDialog(context,
-        title: "account action logout".i18n,
+        title: "account action logout new".i18n,
         desc: "family account restore desc".i18n,
         inputValue: "", onConfirm: (String value) {
       log(Markers.userTap).trace("tappedRestore", (m) async {
