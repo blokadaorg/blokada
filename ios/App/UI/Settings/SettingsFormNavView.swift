@@ -79,7 +79,7 @@ struct SettingsFormNavView: View {
                 
                 Section(header: Text(L10n.accountSectionHeaderOther)) {
                     SettingsItemView(
-                        title: L10n.accountActionLogout,
+                        title: L10n.accountActionLogoutNew,
                         image: Image.fLogout,
                         selected: false
                     )
