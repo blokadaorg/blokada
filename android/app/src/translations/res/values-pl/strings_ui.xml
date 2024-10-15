@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filtruj</string>
     <string name="universal_action_clear">Wyczyść</string>
     <string name="universal_action_revoke">Unieważnij</string>
+    <string name="support_action_chat">Czatuj z nami</string>
+    <string name="support_action_end">Zakończ</string>
+    <string name="support_placeholder">Zapytaj o wszystko, co chcesz wiedzieć!</string>
+    <string name="support_error_generic">Przepraszam nie zrozumiałem, czy możesz powtórzyć?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Pomoc</string>
     <string name="universal_label_welcome">Witaj!</string>
     <string name="universal_label_none">Brak</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Połącz</string>
     <string name="family_cta_action_unlock">Odblokuj</string>
     <string name="family_account_restore_desc">Wprowadź swój identyfikator konta, aby przywrócić konto.</string>
+    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
 </resources>

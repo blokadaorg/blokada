@@ -59,6 +59,11 @@
     "universal action filter": "Filtern",
     "universal action clear": "Leeren",
     "universal action revoke": "Widerrufen",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Hilfe",
     "universal label welcome": "Herzlich willkommen!",
     "universal label none": "Keine",
@@ -521,5 +526,6 @@
     "family status active body": "Tippen Sie auf das Gerät für weitere Details.",
     "family cta action link": "Verknüpfen",
     "family cta action unlock": "Entsperren",
-    "family account restore desc": "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen."
+    "family account restore desc": "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 } }

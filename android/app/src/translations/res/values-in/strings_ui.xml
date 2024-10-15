@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Hapus</string>
     <string name="universal_action_revoke">Cabut izin</string>
+    <string name="support_action_chat">Chat bersama kami</string>
+    <string name="support_action_end">Selesai</string>
+    <string name="support_placeholder">Tanyakan apa saja yang ingin Anda ketahui!</string>
+    <string name="support_error_generic">Maaf, bisa diulang?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Bantuan</string>
     <string name="universal_label_welcome">Selamat Datang!</string>
     <string name="universal_label_none">Tidak ada</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Tautkan</string>
     <string name="family_cta_action_unlock">Buka</string>
     <string name="family_account_restore_desc">Masukkan ID akun Anda untuk memulihkan pembelian Anda.</string>
+    <string name="generic_account_active">Akun Anda telah dipulihkan. Selamat datang kembali!</string>
 </resources>

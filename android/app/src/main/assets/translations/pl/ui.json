@@ -59,6 +59,11 @@
     "universal action filter": "Filtruj",
     "universal action clear": "Wyczyść",
     "universal action revoke": "Unieważnij",
+    "support action chat": "Czatuj z nami",
+    "support action end": "Zakończ",
+    "support placeholder": "Zapytaj o wszystko, co chcesz wiedzieć!",
+    "support error generic": "Przepraszam nie zrozumiałem, czy możesz powtórzyć?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Pomoc",
     "universal label welcome": "Witaj!",
     "universal label none": "Brak",
@@ -521,5 +526,6 @@
     "family status active body": "Dotknij urządzenia, aby uzyskać więcej informacji.",
     "family cta action link": "Połącz",
     "family cta action unlock": "Odblokuj",
-    "family account restore desc": "Wprowadź swój identyfikator konta, aby przywrócić konto."
+    "family account restore desc": "Wprowadź swój identyfikator konta, aby przywrócić konto.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 } }

@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Фильтр</string>
     <string name="universal_action_clear">Очистить</string>
     <string name="universal_action_revoke">Отозвать</string>
+    <string name="support_action_chat">Спросите в чате</string>
+    <string name="support_action_end">Конец</string>
+    <string name="support_placeholder">Спросите о том, что вы хотите знать!</string>
+    <string name="support_error_generic">Извините, не понятно, не могли бы вы повторить?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Помощь</string>
     <string name="universal_label_welcome">Добро пожаловать!</string>
     <string name="universal_label_none">Нет</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Связать</string>
     <string name="family_cta_action_unlock">Разблокировать</string>
     <string name="family_account_restore_desc">Введите ID вашего аккаунта для восстановления покупок.</string>
+    <string name="generic_account_active">Ваша учетная запись была успешно восстановлена. С возвращением!</string>
 </resources>

@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filtr</string>
     <string name="universal_action_clear">Vymazat</string>
     <string name="universal_action_revoke">Zrušit</string>
+    <string name="support_action_chat">Chatujte s námi</string>
+    <string name="support_action_end">Ukončit</string>
+    <string name="support_placeholder">Zeptejte se na cokoliv, co chcete vědět!</string>
+    <string name="support_error_generic">Omlouvám se, ale nerozumím, můžete to zopakovat?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Nápověda</string>
     <string name="universal_label_welcome">Vítejte!</string>
     <string name="universal_label_none">Žádné</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Odkaz</string>
     <string name="family_cta_action_unlock">Odemknout</string>
     <string name="family_account_restore_desc">Zadejte ID účtu pro obnovení vašich nákupů.</string>
+    <string name="generic_account_active">Váš účet byl úspěšně obnoven. Vítejte zpět!</string>
 </resources>

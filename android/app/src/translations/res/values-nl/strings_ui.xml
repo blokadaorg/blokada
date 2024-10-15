@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Wissen</string>
     <string name="universal_action_revoke">Intrekken</string>
+    <string name="support_action_chat">Chat with us</string>
+    <string name="support_action_end">End</string>
+    <string name="support_placeholder">Ask about anything you want to know!</string>
+    <string name="support_error_generic">Sorry did not understand, can you repeat?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Hulp</string>
     <string name="universal_label_welcome">Welkom!</string>
     <string name="universal_label_none">Geen</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Koppeling</string>
     <string name="family_cta_action_unlock">Ontgrendelen</string>
     <string name="family_account_restore_desc">Voer uw account-ID in om uw aankopen te herstellen.</string>
+    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
 </resources>

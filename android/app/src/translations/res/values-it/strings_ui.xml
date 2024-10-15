@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filtra</string>
     <string name="universal_action_clear">Cancella</string>
     <string name="universal_action_revoke">Revoca</string>
+    <string name="support_action_chat">Chatta con noi</string>
+    <string name="support_action_end">Fine</string>
+    <string name="support_placeholder">Chiedi ciò che vuoi!</string>
+    <string name="support_error_generic">Scusa, non ho capito, puoi ripetere?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Aiuto</string>
     <string name="universal_label_welcome">Benvenuto!</string>
     <string name="universal_label_none">Nulla</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Collega</string>
     <string name="family_cta_action_unlock">Sblocca</string>
     <string name="family_account_restore_desc">Inserisci l\'ID del tuo account per ripristinare gli acquisti.</string>
+    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
 </resources>

@@ -59,6 +59,11 @@
     "universal action filter": "フィルター",
     "universal action clear": "消去",
     "universal action revoke": "取り消す",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "ヘルプ",
     "universal label welcome": "ようこそ！",
     "universal label none": "未設定",
@@ -521,5 +526,6 @@
     "family status active body": "Tap on the device for more details.",
     "family cta action link": "Link",
     "family cta action unlock": "Unlock",
-    "family account restore desc": "Enter your account ID to restore your purchases."
+    "family account restore desc": "Enter your account ID to restore your purchases.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 } }

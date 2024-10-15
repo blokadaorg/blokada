@@ -59,6 +59,11 @@
     "universal action filter": "Filter",
     "universal action clear": "Rensa",
     "universal action revoke": "Återkalla",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Hjälp",
     "universal label welcome": "Välkommen!",
     "universal label none": "Inget",
@@ -521,5 +526,6 @@
     "family status active body": "Tryck på enheten för mer information.",
     "family cta action link": "Länka",
     "family cta action unlock": "Lås upp",
-    "family account restore desc": "Ange ditt konto-ID för att återställa ditt köp."
+    "family account restore desc": "Ange ditt konto-ID för att återställa ditt köp.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 } }

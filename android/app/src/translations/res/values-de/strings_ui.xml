@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filtern</string>
     <string name="universal_action_clear">Leeren</string>
     <string name="universal_action_revoke">Widerrufen</string>
+    <string name="support_action_chat">Chat with us</string>
+    <string name="support_action_end">End</string>
+    <string name="support_placeholder">Ask about anything you want to know!</string>
+    <string name="support_error_generic">Sorry did not understand, can you repeat?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Hilfe</string>
     <string name="universal_label_welcome">Herzlich willkommen!</string>
     <string name="universal_label_none">Keine</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Verknüpfen</string>
     <string name="family_cta_action_unlock">Entsperren</string>
     <string name="family_account_restore_desc">Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.</string>
+    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
 </resources>

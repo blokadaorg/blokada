@@ -59,6 +59,11 @@
     "universal action filter": "Фильтр",
     "universal action clear": "Очистить",
     "universal action revoke": "Отозвать",
+    "support action chat": "Спросите в чате",
+    "support action end": "Конец",
+    "support placeholder": "Спросите о том, что вы хотите знать!",
+    "support error generic": "Извините, не понятно, не могли бы вы повторить?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Помощь",
     "universal label welcome": "Добро пожаловать!",
     "universal label none": "Нет",
@@ -521,5 +526,6 @@
     "family status active body": "Нажмите на устройство для получения более подробной информации.",
     "family cta action link": "Связать",
     "family cta action unlock": "Разблокировать",
-    "family account restore desc": "Введите ID вашего аккаунта для восстановления покупок."
+    "family account restore desc": "Введите ID вашего аккаунта для восстановления покупок.",
+    "generic account active": "Ваша учетная запись была успешно восстановлена. С возвращением!"
 } }

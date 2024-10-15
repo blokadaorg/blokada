@@ -59,6 +59,11 @@
     "universal action filter": "Filtr",
     "universal action clear": "Vymazat",
     "universal action revoke": "Zrušit",
+    "support action chat": "Chatujte s námi",
+    "support action end": "Ukončit",
+    "support placeholder": "Zeptejte se na cokoliv, co chcete vědět!",
+    "support error generic": "Omlouvám se, ale nerozumím, můžete to zopakovat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Nápověda",
     "universal label welcome": "Vítejte!",
     "universal label none": "Žádné",
@@ -521,5 +526,6 @@
     "family status active body": "Pro více podrobností klepněte na zařízení.",
     "family cta action link": "Odkaz",
     "family cta action unlock": "Odemknout",
-    "family account restore desc": "Zadejte ID účtu pro obnovení vašich nákupů."
+    "family account restore desc": "Zadejte ID účtu pro obnovení vašich nákupů.",
+    "generic account active": "Váš účet byl úspěšně obnoven. Vítejte zpět!"
 } }

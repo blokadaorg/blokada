@@ -60,6 +60,11 @@
     <string name="universal_action_filter">Filtrar</string>
     <string name="universal_action_clear">Limpar</string>
     <string name="universal_action_revoke">Revogar</string>
+    <string name="support_action_chat">Chat with us</string>
+    <string name="support_action_end">End</string>
+    <string name="support_placeholder">Ask about anything you want to know!</string>
+    <string name="support_error_generic">Sorry did not understand, can you repeat?</string>
+    <string name="support_name_bot">Blocka Bot</string>
     <string name="universal_label_help">Ajuda</string>
     <string name="universal_label_welcome">Bem-vindo!</string>
     <string name="universal_label_none">Nenhuma</string>
@@ -523,4 +528,5 @@
     <string name="family_cta_action_link">Link</string>
     <string name="family_cta_action_unlock">Unlock</string>
     <string name="family_account_restore_desc">Enter your account ID to restore your purchases.</string>
+    <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
 </resources>
