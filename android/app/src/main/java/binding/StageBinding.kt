@@ -178,6 +178,8 @@ object StageBinding: StageOps {
             StageModal.FAULT, StageModal.ACCOUNTINITFAILED -> R.string.error_unknown
             StageModal.ACCOUNTEXPIRED -> R.string.error_account_inactive_generic
             StageModal.ACCOUNTRESTOREFAILED -> R.string.error_payment_inactive_after_restore
+            StageModal.ACCOUNTRESTOREIDFAILED -> R.string.error_account_inactive_after_restore
+            StageModal.ACCOUNTRESTOREIDOK -> R.string.pack_category_active // TODO: tmp
             StageModal.ACCOUNTINVALID -> R.string.error_account_invalid
             StageModal.PLUSTOOMANYLEASES -> R.string.error_vpn_too_many_leases
             StageModal.PLUSVPNFAILURE -> R.string.error_vpn
@@ -187,8 +189,24 @@ object StageBinding: StageOps {
             else -> null
         }
 
+        val title = when (modal) {
+            StageModal.ACCOUNTRESTOREIDOK -> R.string.payment_header_activated
+            else -> null
+        }
+
+        val action: Pair<String, () -> Unit>? = when (modal) {
+            StageModal.ACCOUNTRESTOREIDOK -> null
+            else -> {
+                context.requireContext().getString(R.string.universal_action_show_log) to {
+                    GlobalScope.launch {
+                        command.execute(CommandName.LOG)
+                    }
+                }
+            }
+        }
+
         if (name != null) {
-            dialog.showAlert(name, onDismiss = ::modalDismissed)
+            dialog.showAlert(name, title = title, onDismiss = ::modalDismissed, additionalAction = action)
             scope.launch {
                 command.execute(CommandName.MODALSHOWN, modal.name)
             }
