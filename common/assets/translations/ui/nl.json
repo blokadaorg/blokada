@@ -59,6 +59,11 @@
     "universal action filter": "Filter",
     "universal action clear": "Wissen",
     "universal action revoke": "Intrekken",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Hulp",
     "universal label welcome": "Welkom!",
     "universal label none": "Geen",
@@ -328,6 +333,7 @@
     "payment plan current": "(huidig abonnement)",
     "payment cancel footer": "Het abonnement wordt automatisch verlengd voordat de huidige factureringsperiode eindigt. U kunt op elk gewenst moment annuleren in Instellingen.",
     "payment cancel footer trial short": "Annuleren tijdens de komende %s dagen, en er worden geen kosten in rekening gebracht.",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "Overal",
     "location region america": "Amerika",
     "location region europe": "Europa",
@@ -520,5 +526,6 @@
     "family status active body": "Tik op het apparaat voor meer informatie.",
     "family cta action link": "Koppeling",
     "family cta action unlock": "Ontgrendelen",
-    "family account restore desc": "Voer uw account-ID in om uw aankopen te herstellen."
+    "family account restore desc": "Voer uw account-ID in om uw aankopen te herstellen.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 }

@@ -59,6 +59,11 @@
     "universal action filter": "Filter",
     "universal action clear": "Clear",
     "universal action revoke": "Revoke",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "Help",
     "universal label welcome": "Welcome!",
     "universal label none": "None",
@@ -204,6 +209,7 @@
     "account action inbox": "Inbox",
     "account action logout": "Restore purchase",
     "account action logout only": "Log out",
+    "account action logout new": "Restore Account ID",
     "account action create": "Generate new account",
     "account action about": "About",
     "account action tap to show": "Tap to show",
@@ -328,6 +334,7 @@
     "payment plan current": "(current plan)",
     "payment cancel footer": "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.",
     "payment cancel footer trial short": "Cancel during the next %s days, and you won’t be charged.",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "Everywhere",
     "location region america": "America",
     "location region europe": "Europe",
@@ -520,5 +527,6 @@
     "family status active body": "Tap on the device for more details.",
     "family cta action link": "Link",
     "family cta action unlock": "Unlock",
-    "family account restore desc": "Enter your account ID to restore your purchases."
+    "family account restore desc": "Enter your account ID to restore your purchases.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 }

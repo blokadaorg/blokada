@@ -59,6 +59,11 @@
     "universal action filter": "篩選",
     "universal action clear": "清除",
     "universal action revoke": "撤銷",
+    "support action chat": "Chat with us",
+    "support action end": "End",
+    "support placeholder": "Ask about anything you want to know!",
+    "support error generic": "Sorry did not understand, can you repeat?",
+    "support name bot": "Blocka Bot",
     "universal label help": "協助",
     "universal label welcome": "歡迎！",
     "universal label none": "無",
@@ -328,6 +333,7 @@
     "payment plan current": "（目前方案）",
     "payment cancel footer": "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.",
     "payment cancel footer trial short": "Cancel during the next %s days, and you won’t be charged.",
+    "payment trial brief": "Pay after %s days. Subscription auto-renews every year until canceled.",
     "location region worldwide": "到處",
     "location region america": "美洲",
     "location region europe": "歐洲",
@@ -520,5 +526,6 @@
     "family status active body": "Tap on the device for more details.",
     "family cta action link": "Link",
     "family cta action unlock": "Unlock",
-    "family account restore desc": "Enter your account ID to restore your purchases."
+    "family account restore desc": "Enter your account ID to restore your purchases.",
+    "generic account active": "Your account has been successfully restored. Welcome back!"
 }
