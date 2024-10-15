@@ -24,6 +24,8 @@ internal enum L10n {
   internal static let accountActionInbox = L10n.tr("Ui", "account action inbox")
   /// Restore purchase
   internal static let accountActionLogout = L10n.tr("Ui", "account action logout")
+  /// Restore Account ID
+  internal static let accountActionLogoutNew = L10n.tr("Ui", "account action logout new")
   /// Log out
   internal static let accountActionLogoutOnly = L10n.tr("Ui", "account action logout only")
   /// Manage subscription

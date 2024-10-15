@@ -274,6 +274,7 @@
 "account action inbox" = "Inbox";
 "account action logout" = "Restore purchase";
 "account action logout only" = "Log out";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Generate new account";
 "account action about" = "About";
 "account action tap to show" = "Tap to show";
