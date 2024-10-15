@@ -107,7 +107,10 @@ struct ContentView: View {
             // TODO: remove his global alert thing
             .alert(isPresented: self.$homeVM.showError) {
                 Alert(title: Text(self.homeVM.errorHeader ?? L10n.alertErrorHeader), message: Text(self.homeVM.showErrorMessage()),
-                      dismissButton: Alert.Button.default(
+                      primaryButton: Alert.Button.default(Text(L10n.universalActionShowLog), action: {
+                    self.commands.execute(.log)
+                }),
+                      secondaryButton: Alert.Button.cancel(
                         Text(L10n.universalActionClose), action: { self.vm.stage.onDismissed() }
                     )
                 )
