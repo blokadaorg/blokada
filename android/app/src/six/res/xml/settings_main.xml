@@ -46,7 +46,7 @@
             android:fragment="ui.settings.SettingsLogoutFragment"
             android:icon="@drawable/ic_baseline_arrow_back_24"
             app:key="main_logout"
-            app:title="@string/account_action_logout" />
+            app:title="@string/account_action_logout_new" />
 
     </PreferenceCategory>
 
