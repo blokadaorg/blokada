@@ -274,6 +274,7 @@
 "account action inbox" = "受信トレイ";
 "account action logout" = "購入を復元";
 "account action logout only" = "ログアウト";
+"account action logout new" = "Restore Account ID";
 "account action create" = "新しいアカウントを生成";
 "account action about" = "アプリについて";
 "account action tap to show" = "タップして表示";

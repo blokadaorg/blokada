@@ -274,6 +274,7 @@
 "account action inbox" = "Novinky";
 "account action logout" = "Obnovit nákup";
 "account action logout only" = "Odhlásit se";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Vytvořit nový účet";
 "account action about" = "O aplikaci";
 "account action tap to show" = "Klepněte pro zobrazení";

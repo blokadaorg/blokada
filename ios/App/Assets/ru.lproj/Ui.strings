@@ -274,6 +274,7 @@
 "account action inbox" = "Входящие";
 "account action logout" = "Восстановить покупку";
 "account action logout only" = "Выйти";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Создать новый аккаунт";
 "account action about" = "О приложении";
 "account action tap to show" = "Нажмите, чтобы показать";

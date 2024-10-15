@@ -274,6 +274,7 @@
 "account action inbox" = "Mesaje";
 "account action logout" = "Restabilește achiziția";
 "account action logout only" = "Iesire din cont";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Generează un cont nou";
 "account action about" = "Despre";
 "account action tap to show" = "Atingeți pentru a afișa";

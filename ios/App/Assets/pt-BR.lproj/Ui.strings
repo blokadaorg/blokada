@@ -274,6 +274,7 @@
 "account action inbox" = "Caixa de entrada";
 "account action logout" = "Restaurar compras";
 "account action logout only" = "Encerrar sessão";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Gerar nova conta";
 "account action about" = "Sobre";
 "account action tap to show" = "Toque para visualizar";

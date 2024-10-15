@@ -274,6 +274,7 @@
 "account action inbox" = "Kotak Masuk";
 "account action logout" = "Kembalikan pembelian";
 "account action logout only" = "Keluar";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Buat akun baru";
 "account action about" = "Info Aplikasi";
 "account action tap to show" = "Tekan untuk melihat";

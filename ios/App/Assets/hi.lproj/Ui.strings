@@ -274,6 +274,7 @@
 "account action inbox" = "इनबॉक्स";
 "account action logout" = "Restore purchase";
 "account action logout only" = "लोग आउट";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Generate new account";
 "account action about" = "हमारे बारे में";
 "account action tap to show" = "Tap to show";

@@ -274,6 +274,7 @@
 "account action inbox" = "Gelen Kutusu";
 "account action logout" = "Satın alımı geri yükle";
 "account action logout only" = "Oturumu kapat";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Yeni hesap oluştur";
 "account action about" = "Hakkında";
 "account action tap to show" = "Göstermek için dokunun";

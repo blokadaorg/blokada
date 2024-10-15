@@ -78,11 +78,11 @@
 "universal action revoke" = "Återkalla";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Chatta med oss";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Slut";
+"support placeholder" = "Fråga om allt du vill veta!";
+"support error generic" = "Tyvärr förstod inte, kan du upprepa?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -274,6 +274,7 @@
 "account action inbox" = "Inkorg";
 "account action logout" = "Återställ köp";
 "account action logout only" = "Logga ut";
+"account action logout new" = "Återställ konto-ID";
 "account action create" = "Skapa nytt konto";
 "account action about" = "Om";
 "account action tap to show" = "Tryck för att visa";
@@ -731,4 +732,4 @@
 
 "family account restore desc" = "Ange ditt konto-ID för att återställa ditt köp.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Ditt konto har återställts. Välkommen tillbaka!";

@@ -274,6 +274,7 @@
 "account action inbox" = "Saapuneet";
 "account action logout" = "Palauta ostos";
 "account action logout only" = "Kirjaudu ulos";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Luo uusi tili";
 "account action about" = "Tietoa";
 "account action tap to show" = "Napauta näyttääksesi";

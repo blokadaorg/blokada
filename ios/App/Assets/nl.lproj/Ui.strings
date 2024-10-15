@@ -274,6 +274,7 @@
 "account action inbox" = "Inbox";
 "account action logout" = "Herstel aankoop";
 "account action logout only" = "Uitloggen";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Genereer nieuw account";
 "account action about" = "Over";
 "account action tap to show" = "Druk om weer te geven";

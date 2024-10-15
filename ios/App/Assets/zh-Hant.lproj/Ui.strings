@@ -274,6 +274,7 @@
 "account action inbox" = "Inbox";
 "account action logout" = "復原購買";
 "account action logout only" = "登出";
+"account action logout new" = "Restore Account ID";
 "account action create" = "生成新帳號";
 "account action about" = "關於";
 "account action tap to show" = "點一下顯示";

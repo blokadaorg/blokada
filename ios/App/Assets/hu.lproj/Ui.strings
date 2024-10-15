@@ -274,6 +274,7 @@
 "account action inbox" = "Bejövő";
 "account action logout" = "Vásárlás visszaállítása";
 "account action logout only" = "Kijelentkezés";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Új fiók generálása";
 "account action about" = "Névjegy";
 "account action tap to show" = "Érintsd meg a megjelenítéshez";

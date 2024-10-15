@@ -274,6 +274,7 @@
 "account action inbox" = "Odebrane";
 "account action logout" = "Przywróć zakup";
 "account action logout only" = "Wyloguj";
+"account action logout new" = "Przywróć ID konta";
 "account action create" = "Wygeneruj nowe konto";
 "account action about" = "O aplikacji";
 "account action tap to show" = "Dotknij aby pokazać";
@@ -731,4 +732,4 @@
 
 "family account restore desc" = "Wprowadź swój identyfikator konta, aby przywrócić konto.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!";

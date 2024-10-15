@@ -274,6 +274,7 @@
 "account action inbox" = "Messaggi";
 "account action logout" = "Ripristina acquisto";
 "account action logout only" = "Esci";
+"account action logout new" = "Ripristina ID Account";
 "account action create" = "Genera un nuovo account";
 "account action about" = "Info";
 "account action tap to show" = "Tocca per mostrare";
@@ -731,4 +732,4 @@
 
 "family account restore desc" = "Inserisci l'ID del tuo account per ripristinare gli acquisti.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Il tuo account è stato ripristinato correttamente. Bentornato!";

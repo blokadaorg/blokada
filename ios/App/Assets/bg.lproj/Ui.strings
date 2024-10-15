@@ -274,6 +274,7 @@
 "account action inbox" = "Входяща кутия";
 "account action logout" = "Възстановяване на покупка";
 "account action logout only" = "Изход от профила";
+"account action logout new" = "Restore Account ID";
 "account action create" = "Създаване на нов профил";
 "account action about" = "Относно";
 "account action tap to show" = "Докоснете, за да се покаже";

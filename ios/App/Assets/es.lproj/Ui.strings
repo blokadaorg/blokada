@@ -78,11 +78,11 @@
 "universal action revoke" = "Revocar";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Chatea con nosotros";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Fin";
+"support placeholder" = "Pregunte por cualquier cosa que desee saber!";
+"support error generic" = "Lo sentimos, no entendían, ¿puede repetir?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -274,6 +274,7 @@
 "account action inbox" = "Bandeja de entrada";
 "account action logout" = "Restaurar compra";
 "account action logout only" = "Cerrar sesión";
+"account action logout new" = "Restaurar ID de cuenta";
 "account action create" = "Generar nueva cuenta";
 "account action about" = "Acerca de";
 "account action tap to show" = "Toca para mostrar";
@@ -731,4 +732,4 @@
 
 "family account restore desc" = "Introduzca su ID de cuenta para restaurar sus compras.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!";

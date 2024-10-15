@@ -274,6 +274,7 @@
 "account action inbox" = "صندوق الوارد";
 "account action logout" = "استعادة الشراء";
 "account action logout only" = "تسجيل الخروج";
+"account action logout new" = "Restore Account ID";
 "account action create" = "إنشاء حساب جديد";
 "account action about" = "حوْلَ";
 "account action tap to show" = "انقر لإظهار";
