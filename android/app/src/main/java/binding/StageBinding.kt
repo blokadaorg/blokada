@@ -179,7 +179,7 @@ object StageBinding: StageOps {
             StageModal.ACCOUNTEXPIRED -> R.string.error_account_inactive_generic
             StageModal.ACCOUNTRESTOREFAILED -> R.string.error_payment_inactive_after_restore
             StageModal.ACCOUNTRESTOREIDFAILED -> R.string.error_account_inactive_after_restore
-            StageModal.ACCOUNTRESTOREIDOK -> R.string.pack_category_active // TODO: tmp
+            StageModal.ACCOUNTRESTOREIDOK -> R.string.generic_account_active
             StageModal.ACCOUNTINVALID -> R.string.error_account_invalid
             StageModal.PLUSTOOMANYLEASES -> R.string.error_vpn_too_many_leases
             StageModal.PLUSVPNFAILURE -> R.string.error_vpn
