@@ -137,7 +137,7 @@ class StageBinding: StageOps {
             error.send(L10n.errorPaymentInactiveAfterRestore)
         } else if (modal == .accountRestoreIdOk) {
             errorHeader.send(L10n.paymentHeaderActivated)
-            error.send("Your account has been successfully restored. Welcome back!")
+            error.send(L10n.genericAccountActive)
         } else if (modal == .accountRestoreIdFailed) {
             error.send(L10n.errorAccountInactiveAfterRestore)
         } else if (modal == .accountExpired) {
