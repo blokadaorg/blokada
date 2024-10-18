@@ -25,17 +25,17 @@ class FileLoggerOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    if (kReleaseMode) {
-      developer.log(
-        "\n${event.lines.join("\n")}",
-        time: event.origin.time,
-        level: event.level.value,
-      );
-    } else {
-      for (var line in event.lines) {
-        print(line);
-      }
+    // if (kReleaseMode) {
+    //   developer.log(
+    //     "\n${event.lines.join("\n")}",
+    //     time: event.origin.time,
+    //     level: event.level.value,
+    //   );
+    // } else {
+    for (var line in event.lines) {
+      print(line);
     }
+    // }
 
     // Save batch to file
     if (event.level == Level.trace && kReleaseMode) return;
