@@ -17,7 +17,7 @@ import NetworkExtension
 // Allows to check and save our Private DNS profile to be later selected by the user.
 // The UX for user is far from ideal, but the is no other way currently in iOS.
 protocol PrivateDnsServiceIn {
-    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never>
+    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error>
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error>
 }
 
@@ -25,10 +25,11 @@ class PrivateDnsServiceMock: PrivateDnsServiceIn {
 
     private var active = false
 
-    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never> {
+    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error> {
         let a = active
         active = true
-        return Just(a).eraseToAnyPublisher()
+        return Just(a).setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
 
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error> {
@@ -41,7 +42,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
 
     private lazy var manager = NEDNSSettingsManager.shared()
 
-    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Never> {
+    func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error> {
         print("getting manager")
         return getManager()
         .tryMap { it in
@@ -50,9 +51,25 @@ class PrivateDnsService: PrivateDnsServiceIn {
             return it.isEnabled
         }
         .catch { err in
-            Just(false)
+            Just(false).setFailureType(to: Error.self)
         }
         .eraseToAnyPublisher()
+    }
+    
+    func getPrivateDnsServerUrl() -> AnyPublisher<String, Error> {
+        return getManager()
+            .tryMap { it in
+                // Check if the DNS over HTTPS settings are present
+                guard let dnsSettings = it.dnsSettings as? NEDNSOverHTTPSSettings else {
+                    throw "dns setting not found"
+                }
+                // Ensure there is at least one server URL and return it
+                guard let serverURL = dnsSettings.serverURL?.absoluteString else {
+                    return ""
+                }
+                return serverURL
+            }
+            .eraseToAnyPublisher()
     }
 
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error> {

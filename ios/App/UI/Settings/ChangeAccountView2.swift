@@ -95,7 +95,7 @@ struct ChangeAccountView2: View {
             .padding(.bottom, 56)
         }
         .background(colorScheme == .dark ? Color.cBackground : Color.cSecondaryBackground)
-        .navigationBarTitle(L10n.accountHeaderLogout)
+        .navigationBarTitle(L10n.accountActionLogoutNew)
         .accentColor(Color.cAccent)
     }
 }

@@ -45,21 +45,6 @@ class PermBinding: PermOps {
         onVpnPerms()
     }
 
-    func doIsPrivateDnsEnabled(tag: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        privateDns.isPrivateDnsProfileActive()
-        .sink(
-            onValue: { it in
-                self.writeDnsProfileActivated.send(it)
-                completion(Result.success(it))
-            },
-            onFailure: { err in
-                self.writeDnsProfileActivated.send(false)
-                completion(Result.failure(err))
-            }
-        )
-        .store(in: &cancellables)
-    }
-    
     func doSetPrivateDnsEnabled(tag: String, alias: String, completion: @escaping (Result<Void, Error>) -> Void) {
         privateDns.savePrivateDnsProfile(tag: tag, name: alias)
         .sink(
@@ -105,7 +90,20 @@ class PermBinding: PermOps {
     }
 
     func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {
-        completion(.failure("not implemented for ios"))
+        privateDns.isPrivateDnsProfileActive()
+        .combineLatest(privateDns.getPrivateDnsServerUrl())
+        .sink(
+            onValue: { (isActive, value) in
+                if !isActive {
+                    return completion(Result.success(""))
+                }
+                return completion(Result.success(value))
+            },
+            onFailure: { err in
+                completion(Result.failure(err))
+            }
+        )
+        .store(in: &cancellables)
     }
 
     func openSystemSettings() {
