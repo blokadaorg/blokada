@@ -3,7 +3,7 @@
     <string name="error_device_offline">Cihazınız çevrimdışı</string>
     <string name="error_account_inactive">Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.</string>
     <string name="error_account_inactive_generic">Your account is inactive. Please activate your account in order to continue using Blokada.</string>
-    <string name="error_account_inactive_after_restore">Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Bu hesap kimliği geçersiz görünüyor.</string>
     <string name="error_creating_account">Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.</string>
     <string name="error_fetching_data">Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.</string>

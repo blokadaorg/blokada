@@ -3,7 +3,7 @@
     <string name="error_device_offline">Jouw apparaat is offline</string>
     <string name="error_account_inactive">Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.</string>
     <string name="error_account_inactive_generic">Je account is niet actief. Activeer je account om Blokada te blijven gebruiken.</string>
-    <string name="error_account_inactive_after_restore">Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Dit account ID is ongeldig.</string>
     <string name="error_creating_account">Kan geen nieuw account aanmaken. Probeer het later nog eens.</string>
     <string name="error_fetching_data">Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.</string>

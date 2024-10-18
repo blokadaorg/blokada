@@ -3,7 +3,7 @@
     <string name="error_device_offline">Vaše zařízení je offline</string>
     <string name="error_account_inactive">Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.</string>
     <string name="error_account_inactive_generic">Váš účet není aktivní. Chcete-li Blokadu používat i nadále, aktivujte si prosím svůj účet.</string>
-    <string name="error_account_inactive_after_restore">Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Toto ID účtu se zdá být neplatné.</string>
     <string name="error_creating_account">Nelze vytvořit nový účet. Opakujte akci později.</string>
     <string name="error_fetching_data">Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.</string>

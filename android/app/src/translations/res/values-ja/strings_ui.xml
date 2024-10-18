@@ -3,7 +3,7 @@
     <string name="error_device_offline">インターネットに接続されていません</string>
     <string name="error_account_inactive">あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。</string>
     <string name="error_account_inactive_generic">あなたのアカウントはアクティベートされていません。Blokada を使用するにはアカウントをアクティベートしてください。</string>
-    <string name="error_account_inactive_after_restore">有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">アカウント ID を確認してください</string>
     <string name="error_creating_account">新しいアカウントを作成できませんでした。後でもう一度お試しください。</string>
     <string name="error_fetching_data">操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>

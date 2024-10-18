@@ -3,7 +3,7 @@
     <string name="error_device_offline">جهازك غير متّصل بالإنترنت</string>
     <string name="error_account_inactive">حسابك غير نَشِط. الرجاء تنشيط حسابك من أجل الإستمرار في استخدام BLOKADA+.</string>
     <string name="error_account_inactive_generic">حسابك غير نشط. يرجى تنشيط حسابك من أجل الاستمرار في استخدام بلوكادا.</string>
-    <string name="error_account_inactive_after_restore">لا يبدو أن هذا حساب نَشِط صالح. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">يبدو أنّ مُعرِّف الحساب هذا غير صالح.</string>
     <string name="error_creating_account">تَعذَّر إنشاء حساب جديد. الرجاء المحاولة مرّة أُخرى لاحقاً.</string>
     <string name="error_fetching_data">تَعذَّر إكمال هذا الإجراء. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.</string>

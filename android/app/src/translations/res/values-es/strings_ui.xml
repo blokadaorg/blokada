@@ -3,7 +3,7 @@
     <string name="error_device_offline">Tu dispositivo está desconectado</string>
     <string name="error_account_inactive">Tu cuenta está inactiva. Activa tu cuenta para continuar usando BLOKADA+.</string>
     <string name="error_account_inactive_generic">Tu cuenta está inactiva. Por favor, activa tu cuenta para continuar usando Blokada.</string>
-    <string name="error_account_inactive_after_restore">Esta no parece ser una cuenta activa válida. Si crees que se trata de un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Este ID de cuenta parece inválido.</string>
     <string name="error_creating_account">No se ha podido crear la cuenta. Inténtalo de nuevo más tarde.</string>
     <string name="error_fetching_data">No se ha podido completar esta acción. Asegúrate de tener conexión e inténtalo de nuevo más tarde. Si el problema persiste, contacta con nosotros tocando el icono de ayuda en la parte superior.</string>

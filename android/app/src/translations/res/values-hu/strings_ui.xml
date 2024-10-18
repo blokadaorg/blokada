@@ -3,7 +3,7 @@
     <string name="error_device_offline">A készüléked offline állapotban van</string>
     <string name="error_account_inactive">Fiókod inaktív. Kérjük, aktiváld fiókodat a BLOKADA+ használatának folytatása érdekében.</string>
     <string name="error_account_inactive_generic">Your account is inactive. Please activate your account in order to continue using Blokada.</string>
-    <string name="error_account_inactive_after_restore">Nem tűnik érvényes aktív fióknak. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Ez az ID helytelennek tűnik.</string>
     <string name="error_creating_account">Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.</string>
     <string name="error_fetching_data">Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.</string>

@@ -3,7 +3,7 @@
     <string name="error_device_offline">Dispozitivul dumneavoastră este oprit</string>
     <string name="error_account_inactive">Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.</string>
     <string name="error_account_inactive_generic">Contul tău este inactiv. Te rugăm să îți activezi contul pentru a putea continua să folosești Blokada.</string>
-    <string name="error_account_inactive_after_restore">Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">ID-ul acestui cont pare nevalid.</string>
     <string name="error_creating_account">Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.</string>
     <string name="error_fetching_data">Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>

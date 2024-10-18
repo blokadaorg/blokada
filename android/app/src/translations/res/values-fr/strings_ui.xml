@@ -3,7 +3,7 @@
     <string name="error_device_offline">Votre appareil est hors ligne</string>
     <string name="error_account_inactive">Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.</string>
     <string name="error_account_inactive_generic">Votre compte est inactif. Veuillez activer votre compte pour continuer à utiliser Blokada.</string>
-    <string name="error_account_inactive_after_restore">Ce compte ne semble pas être valide ou actif. Si vous pensez qu\'il s\'agit d\'une erreur, contactez-nous en cliquant sur l\'icône d\'aide en haut de l\'écran.</string>
+    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
     <string name="error_account_invalid">Cet ID de compte semble non valide.</string>
     <string name="error_creating_account">Impossible de créer un nouveau compte. Veuillez réessayer plus tard.</string>
     <string name="error_fetching_data">Cette action n\'a pas pu être menée à bien. Assurez-vous d\'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l\'icône d\'aide en haut de l\'écran.</string>

@@ -3,7 +3,7 @@
     <string name="error_device_offline">Perangkat Anda offline/tidak terkoneksi</string>
     <string name="error_account_inactive">Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.</string>
     <string name="error_account_inactive_generic">Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa kembali menggunakan Blokada.</string>
-    <string name="error_account_inactive_after_restore">Akun ini sepertinya tidak valid/aktif. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.</string>
+    <string name="error_account_inactive_after_restore">Tampaknya ini bukan akun aktif yang valid. Jika Anda yakin ini adalah kesalahan, silakan hubungi kami.</string>
     <string name="error_account_invalid">ID akun ini sepertinya tidak valid.</string>
     <string name="error_creating_account">Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.</string>
     <string name="error_fetching_data">Pendaftaran akun tidak bisa dilanjutkan. Harap pastikan perangkat Anda terhubung dengan internet, dan coba kembali. Jika masalah berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
@@ -210,7 +210,7 @@
     <string name="account_action_inbox">Kotak Masuk</string>
     <string name="account_action_logout">Kembalikan pembelian</string>
     <string name="account_action_logout_only">Keluar</string>
-    <string name="account_action_logout_new">Restore Account ID</string>
+    <string name="account_action_logout_new">Pulihkan Account ID</string>
     <string name="account_action_create">Buat akun baru</string>
     <string name="account_action_about">Info Aplikasi</string>
     <string name="account_action_tap_to_show">Tekan untuk melihat</string>

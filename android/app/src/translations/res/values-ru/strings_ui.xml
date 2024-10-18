@@ -3,7 +3,7 @@
     <string name="error_device_offline">Ваше устройство не в сети</string>
     <string name="error_account_inactive">Ваш аккаунт неактивен. Пожалуйста, его, чтобы продолжить использовать BLOKADA+.</string>
     <string name="error_account_inactive_generic">Ваша учетная запись неактивна. Пожалуйста, активируйте ее, чтобы продолжить использование Blokada.</string>
-    <string name="error_account_inactive_after_restore">Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на значок помощи в верхней части.</string>
+    <string name="error_account_inactive_after_restore">Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами.</string>
     <string name="error_account_invalid">Этот ID аккаунта кажется недействительным.</string>
     <string name="error_creating_account">Не удалось создать новый аккаунт. Пожалуйста, попробуйте позже.</string>
     <string name="error_fetching_data">Это действие не могло быть завершено. Убедитесь, что вы в сети, и попробуйте позже. Если проблема сохраняется, пожалуйста, свяжитесь с нами, нажав на значок справки в верхней части.</string>
@@ -210,7 +210,7 @@
     <string name="account_action_inbox">Входящие</string>
     <string name="account_action_logout">Восстановить покупку</string>
     <string name="account_action_logout_only">Выйти</string>
-    <string name="account_action_logout_new">Restore Account ID</string>
+    <string name="account_action_logout_new">Восстановить ID аккаунта</string>
     <string name="account_action_create">Создать новый аккаунт</string>
     <string name="account_action_about">О приложении</string>
     <string name="account_action_tap_to_show">Нажмите, чтобы показать</string>

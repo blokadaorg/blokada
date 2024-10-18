@@ -3,7 +3,7 @@
     <string name="error_device_offline">Din enhet är inte ansluten</string>
     <string name="error_account_inactive">Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.</string>
     <string name="error_account_inactive_generic">Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda Blokada.</string>
-    <string name="error_account_inactive_after_restore">Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_account_inactive_after_restore">Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss.</string>
     <string name="error_account_invalid">Detta konto-ID verkar ogiltigt.</string>
     <string name="error_creating_account">Kunde inte skapa ett nytt konto. Försök igen senare.</string>
     <string name="error_fetching_data">Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
