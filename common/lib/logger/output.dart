@@ -44,7 +44,8 @@ class FileLoggerOutput extends LogOutput {
 }
 
 final _printer = PrefixPrinter(PrettyPrinter(
-  colors: PlatformInfo().getCurrentPlatformType() != PlatformType.iOS,
+  //colors: PlatformInfo().getCurrentPlatformType() != PlatformType.iOS,
+  colors: false,
   printEmojis: false,
   stackTraceBeginIndex: 0,
   methodCount: 2,
