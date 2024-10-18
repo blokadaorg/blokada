@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/oneandhalf"
                 android:layout_marginEnd="@dimen/half"
-                android:text="@string/account_status_text_libre"
+                android:text="@string/account_status_text_inactive"
                 />
 
         </LinearLayout>

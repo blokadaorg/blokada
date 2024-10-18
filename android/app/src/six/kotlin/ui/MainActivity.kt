@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                                     fragment = SettingsAccountFragment()
                                     topNav = false
                                 } else if (id == "logout") {
-                                    translationId = R.string.account_action_logout
+                                    translationId = R.string.account_action_logout_new
                                     fragment = SettingsLogoutFragment()
                                     topNav = false
                                 } else if (id == "leases") {

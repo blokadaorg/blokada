@@ -65,10 +65,6 @@ object PermBinding: PermOps {
         callback(Result.success(connectivity.privateDns ?: ""))
     }
 
-    override fun doIsPrivateDnsEnabled(tag: String, callback: (Result<Boolean>) -> Unit) {
-        callback(Result.success(dnsProfileActivated.value))
-    }
-
     override fun doSetPrivateDnsEnabled(
         tag: String,
         alias: String,

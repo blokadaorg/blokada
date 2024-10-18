@@ -16,7 +16,7 @@
 
     <PreferenceCategory
         app:key="account_logout"
-        app:title="@string/account_header_logout">
+        app:title="@string/account_action_logout_new">
 
         <Preference
             app:enabled="false"
