@@ -34,10 +34,9 @@ class PrivateDnsCheck with Dependable, Logging {
 
   String _getIosPrivateDnsStringFamily(Marker m, DeviceTag tag, String alias) {
     try {
-      final name = _escapeAlias(alias);
-      return "https://cloud.blokada.org/$tag/$name";
+      return "https://cloud.blokada.org/$tag";
     } catch (e) {
-      log(m).e(msg: "getIosPrivatDnsString", err: e);
+      log(m).e(msg: "getIosPrivatDnsStringFamily", err: e);
       return "";
     }
   }
