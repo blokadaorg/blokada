@@ -1,4 +1,5 @@
 import 'package:common/logger/logger.dart';
+import 'package:common/perm/dnscheck.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
@@ -20,6 +21,7 @@ abstract class PermStoreBase with Store, Logging, Dependable {
   late final _device = dep<DeviceStore>();
   late final _plus = dep<PlusStore>();
   late final _stage = dep<StageStore>();
+  late final _check = dep<PrivateDnsCheck>();
 
   PermStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -177,7 +179,10 @@ abstract class PermStoreBase with Store, Logging, Dependable {
   }
 
   _recheckDnsPerm(DeviceTag tag, Marker m) async {
-    final isEnabled = await _ops.doIsPrivateDnsEnabled(tag);
+    final current = await _ops.getPrivateDnsSetting();
+    final isEnabled =
+        _check.isCorrect(m, current, _device.deviceTag!, _device.deviceAlias);
+
     if (isEnabled) {
       await setPrivateDnsEnabled(tag, m);
     } else {

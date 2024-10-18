@@ -18,11 +18,6 @@ PermOps getOps(Act act) {
 
 _actAllPermsEnabled(MockPermOps ops) {
   when(() => ops.doSetPrivateDnsEnabled(any(), any())).thenAnswer(ignore());
-  when(() => ops.doIsPrivateDnsEnabled(
-        any(),
-      )).thenAnswer((_) async {
-    return true;
-  });
   when(() => ops.doNotificationEnabled()).thenAnswer((_) async {
     return true;
   });

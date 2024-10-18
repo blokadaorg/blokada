@@ -71,7 +71,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
     Navigator.of(context).pop();
     await sleepAsync(const Duration(milliseconds: 400));
     Clipboard.setData(
-        ClipboardData(text: _perm.getAndroidPrivateDnsString(Markers.userTap)));
+        ClipboardData(text: _perm.getAndroidDnsStringToCopy(Markers.userTap)));
     _openPerms.open();
   }
 

@@ -6,9 +6,6 @@ abstract class PermOps {
   String getPrivateDnsSetting();
 
   @async
-  bool doIsPrivateDnsEnabled(String tag); // Obsolete
-
-  @async
   void doSetPrivateDnsEnabled(String tag, String alias);
 
   @async

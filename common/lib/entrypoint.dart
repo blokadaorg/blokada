@@ -2,6 +2,7 @@ import 'package:common/dragon/dragon_deps.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/logger/logger.dart';
+import 'package:common/perm/dnscheck.dart';
 
 import 'account/account.dart';
 import 'account/payment/payment.dart';
@@ -82,6 +83,7 @@ class Entrypoint with Dependable, Logging {
 
     AppStore().attachAndSaveAct(act);
     AppStartStore().attachAndSaveAct(act);
+    PrivateDnsCheck().attachAndSaveAct(act);
     PermStore().attachAndSaveAct(act);
     LockStore().attachAndSaveAct(act);
     CustomStore().attachAndSaveAct(act);
