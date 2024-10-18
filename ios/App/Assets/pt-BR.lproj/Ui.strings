@@ -13,7 +13,7 @@
 "error device offline" = "O seu dispositivo está offline";
 "error account inactive" = "Sua conta está inativa. Por favor, ative sua conta para continuar a usar o BLOKADA+.";
 "error account inactive generic" = "Sua conta está inativa. Por favor, ative sua conta para continuar usando o Blokada.";
-"error account inactive after restore" = "Esta não parece ser uma conta ativa válida. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "O ID dessa conta parece inválido.";
 "error creating account" = "Não foi possível criar uma conta nova. Por favor, tente novamente mais tarde.";
 "error fetching data" = "Esta ação não pôde ser concluída. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";

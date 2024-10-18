@@ -13,7 +13,7 @@
 "error device offline" = "Vaše zařízení je offline";
 "error account inactive" = "Váš není aktivní. Aktivujte prosím svůj účet, abyste mohli pokračovat v používání služby BLOKADA+.";
 "error account inactive generic" = "Váš účet není aktivní. Chcete-li Blokadu používat i nadále, aktivujte si prosím svůj účet.";
-"error account inactive after restore" = "Nezdá se, že by se jednalo o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Toto ID účtu se zdá být neplatné.";
 "error creating account" = "Nelze vytvořit nový účet. Opakujte akci později.";
 "error fetching data" = "Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";

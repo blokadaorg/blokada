@@ -13,7 +13,7 @@
 "error device offline" = "Votre appareil est hors ligne";
 "error account inactive" = "Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.";
 "error account inactive generic" = "Votre compte est inactif. Veuillez activer votre compte pour continuer à utiliser Blokada.";
-"error account inactive after restore" = "Ce compte ne semble pas être valide ou actif. Si vous pensez qu'il s'agit d'une erreur, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Cet ID de compte semble non valide.";
 "error creating account" = "Impossible de créer un nouveau compte. Veuillez réessayer plus tard.";
 "error fetching data" = "Cette action n'a pas pu être menée à bien. Assurez-vous d'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.";

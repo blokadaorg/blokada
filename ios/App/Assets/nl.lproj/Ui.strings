@@ -13,7 +13,7 @@
 "error device offline" = "Jouw apparaat is offline";
 "error account inactive" = "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.";
 "error account inactive generic" = "Je account is niet actief. Activeer je account om Blokada te blijven gebruiken.";
-"error account inactive after restore" = "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Dit account ID is ongeldig.";
 "error creating account" = "Kan geen nieuw account aanmaken. Probeer het later nog eens.";
 "error fetching data" = "Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";

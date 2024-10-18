@@ -40,17 +40,17 @@
 "security" = "安全性";
 // Family tags below
 // One of the tags used for searching blocklists
-"malware" = "malware";
+"malware" = "惡意軟體";
 // One of the tags used for searching blocklists
-"spam" = "spam";
+"spam" = "垃圾訊息";
 // One of the tags used for searching blocklists
-"dating" = "dating";
+"dating" = "約會";
 // One of the tags used for searching blocklists
-"piracy" = "piracy";
+"piracy" = "盜版";
 // One of the tags used for searching blocklists
-"torrent" = "torrent";
+"torrent" = "種子站";
 // One of the tags used for searching blocklists
-"streaming" = "streaming";
+"streaming" = "串流";
 // One of the tags used for searching blocklists
 "apps" = "apps";
 // One of the tags used for searching blocklists

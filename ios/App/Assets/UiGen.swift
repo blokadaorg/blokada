@@ -298,7 +298,7 @@ internal enum L10n {
   internal static let dnsprofileNotificationSubtitle = L10n.tr("Ui", "dnsprofile notification subtitle")
   /// Your account is inactive. Please activate your account in order to continue using BLOKADA+.
   internal static let errorAccountInactive = L10n.tr("Ui", "error account inactive")
-  /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.
+  /// This does not seem to be a valid active account. If you believe this is a mistake, please contact us.
   internal static let errorAccountInactiveAfterRestore = L10n.tr("Ui", "error account inactive after restore")
   /// Your account is inactive. Please activate your account in order to continue using Blokada.
   internal static let errorAccountInactiveGeneric = L10n.tr("Ui", "error account inactive generic")

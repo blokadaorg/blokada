@@ -13,7 +13,7 @@
 "error device offline" = "Cihazınız çevrimdışı";
 "error account inactive" = "Hesabınız etkin değil. BLOKADA+ sürümünü kullanmaya devam etmek için lütfen hesabınızı etkinleştirin.";
 "error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "Bu geçerli bir etkin hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Bu hesap kimliği geçersiz görünüyor.";
 "error creating account" = "Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.";
 "error fetching data" = "Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.";

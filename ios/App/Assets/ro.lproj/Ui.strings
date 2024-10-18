@@ -13,7 +13,7 @@
 "error device offline" = "Dispozitivul dumneavoastră este oprit";
 "error account inactive" = "Contul dvs. este inactiv. Vă rugăm să vă activați contul pentru a putea continua să folosiți BLOKADA+.";
 "error account inactive generic" = "Contul tău este inactiv. Te rugăm să îți activezi contul pentru a putea continua să folosești Blokada.";
-"error account inactive after restore" = "Acesta nu pare a fi un cont activ valid. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "ID-ul acestui cont pare nevalid.";
 "error creating account" = "Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.";
 "error fetching data" = "Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";

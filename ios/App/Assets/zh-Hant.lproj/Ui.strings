@@ -13,7 +13,7 @@
 "error device offline" = "您的裝置已離線";
 "error account inactive" = "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。";
 "error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "這似乎不是一個有效的帳號。如果您認為其中有誤，請使用頂部的「輔助說明」來聯絡我們。";
+"error account inactive after restore" = "這似乎不是有效的帳號。如果您認為其中有誤，請聯絡我們。";
 "error account invalid" = "此帳號 ID 似乎無效。";
 "error creating account" = "無法建立新帳號。請稍候再試。";
 "error fetching data" = "無法完成此動作。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";

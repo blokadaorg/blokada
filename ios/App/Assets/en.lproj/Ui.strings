@@ -13,7 +13,7 @@
 "error device offline" = "Your device is offline";
 "error account inactive" = "Your account is inactive. Please activate your account in order to continue using BLOKADA+.";
 "error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us by tapping the help icon at the top.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "This account ID seems invalid.";
 "error creating account" = "Could not create a new account. Please try again later.";
 "error fetching data" = "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.";

@@ -13,7 +13,7 @@
 "error device offline" = "Ваше устройство не в сети";
 "error account inactive" = "Ваш аккаунт неактивен. Пожалуйста, его, чтобы продолжить использовать BLOKADA+.";
 "error account inactive generic" = "Ваша учетная запись неактивна. Пожалуйста, активируйте ее, чтобы продолжить использование Blokada.";
-"error account inactive after restore" = "Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами, нажав на значок помощи в верхней части.";
+"error account inactive after restore" = "Похоже, что это недействительный аккаунт. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами.";
 "error account invalid" = "Этот ID аккаунта кажется недействительным.";
 "error creating account" = "Не удалось создать новый аккаунт. Пожалуйста, попробуйте позже.";
 "error fetching data" = "Это действие не могло быть завершено. Убедитесь, что вы в сети, и попробуйте позже. Если проблема сохраняется, пожалуйста, свяжитесь с нами, нажав на значок справки в верхней части.";
@@ -274,7 +274,7 @@
 "account action inbox" = "Входящие";
 "account action logout" = "Восстановить покупку";
 "account action logout only" = "Выйти";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Восстановить ID аккаунта";
 "account action create" = "Создать новый аккаунт";
 "account action about" = "О приложении";
 "account action tap to show" = "Нажмите, чтобы показать";

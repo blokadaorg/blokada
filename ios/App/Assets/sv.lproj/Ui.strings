@@ -13,7 +13,7 @@
 "error device offline" = "Din enhet är inte ansluten";
 "error account inactive" = "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda BLOKADA+.";
 "error account inactive generic" = "Ditt konto är inaktivt. Vänligen aktivera ditt konto för att fortsätta använda Blokada.";
-"error account inactive after restore" = "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error account inactive after restore" = "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss.";
 "error account invalid" = "Detta konto-ID verkar ogiltigt.";
 "error creating account" = "Kunde inte skapa ett nytt konto. Försök igen senare.";
 "error fetching data" = "Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";

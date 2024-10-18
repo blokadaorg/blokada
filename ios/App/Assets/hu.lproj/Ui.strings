@@ -13,7 +13,7 @@
 "error device offline" = "A készüléked offline állapotban van";
 "error account inactive" = "Fiókod inaktív. Kérjük, aktiváld fiókodat a BLOKADA+ használatának folytatása érdekében.";
 "error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "Nem tűnik érvényes aktív fióknak. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Ez az ID helytelennek tűnik.";
 "error creating account" = "Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.";
 "error fetching data" = "Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.";

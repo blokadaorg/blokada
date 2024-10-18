@@ -13,7 +13,7 @@
 "error device offline" = "आपका उपकरण ऑफ़लाइन है";
 "error account inactive" = "आपका खाता निष्क्रिय है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपने खाते को सक्रिय करें।";
 "error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "यह एक मान्य सक्रिय खाता नहीं लगता है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "This account ID seems invalid.";
 "error creating account" = "नया खाता नहीं बनाया जा सका। बाद में पुन: प्रयास करें।";
 "error fetching data" = "यह कार्रवाई पूरी नहीं हो सकी। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।";

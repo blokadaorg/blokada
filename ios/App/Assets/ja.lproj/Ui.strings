@@ -13,7 +13,7 @@
 "error device offline" = "インターネットに接続されていません";
 "error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。";
 "error account inactive generic" = "あなたのアカウントはアクティベートされていません。Blokada を使用するにはアカウントをアクティベートしてください。";
-"error account inactive after restore" = "有効なアカウントではありません。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "アカウント ID を確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
 "error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";

@@ -13,7 +13,7 @@
 "error device offline" = "جهازك غير متّصل بالإنترنت";
 "error account inactive" = "حسابك غير نَشِط. الرجاء تنشيط حسابك من أجل الإستمرار في استخدام BLOKADA+.";
 "error account inactive generic" = "حسابك غير نشط. يرجى تنشيط حسابك من أجل الاستمرار في استخدام بلوكادا.";
-"error account inactive after restore" = "لا يبدو أن هذا حساب نَشِط صالح. إذا كنت تعتقد أن هذا خطأ، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "يبدو أنّ مُعرِّف الحساب هذا غير صالح.";
 "error creating account" = "تَعذَّر إنشاء حساب جديد. الرجاء المحاولة مرّة أُخرى لاحقاً.";
 "error fetching data" = "تَعذَّر إكمال هذا الإجراء. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";

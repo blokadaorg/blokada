@@ -13,7 +13,7 @@
 "error device offline" = "Perangkat Anda offline/tidak terkoneksi";
 "error account inactive" = "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa menggunakan BLOKADA+.";
 "error account inactive generic" = "Akun Anda tidak aktif. Silakan aktifkan akun Anda supaya Anda bisa kembali menggunakan Blokada.";
-"error account inactive after restore" = "Akun ini sepertinya tidak valid/aktif. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.";
+"error account inactive after restore" = "Tampaknya ini bukan akun aktif yang valid. Jika Anda yakin ini adalah kesalahan, silakan hubungi kami.";
 "error account invalid" = "ID akun ini sepertinya tidak valid.";
 "error creating account" = "Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.";
 "error fetching data" = "Pendaftaran akun tidak bisa dilanjutkan. Harap pastikan perangkat Anda terhubung dengan internet, dan coba kembali. Jika masalah berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.";
@@ -274,7 +274,7 @@
 "account action inbox" = "Kotak Masuk";
 "account action logout" = "Kembalikan pembelian";
 "account action logout only" = "Keluar";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Pulihkan Account ID";
 "account action create" = "Buat akun baru";
 "account action about" = "Info Aplikasi";
 "account action tap to show" = "Tekan untuk melihat";

@@ -13,7 +13,7 @@
 "error device offline" = "Laitteesi on offline-tilassa";
 "error account inactive" = "Tilisi on toimeton. Aktivoi tilisi jatkaaksesi BLOKADA+:n käyttöä.";
 "error account inactive generic" = "Tilisi ei ole aktiivinen. Ole hyvä ja aktivoi tilisi jatkaaksesi Blokadan käyttöä.";
-"error account inactive after restore" = "Tämä ei vaikuta olevan kelvollinen aktiivinen tili. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "Tämä tilitunnus näyttää olevan virheellinen.";
 "error creating account" = "Uutta tiliä ei voitu luoda. Yritä uudelleen myöhemmin.";
 "error fetching data" = "Tätä toimintoa ei voitu suorittaa. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.";

@@ -13,7 +13,7 @@
 "error device offline" = "Устройството ви е офлайн";
 "error account inactive" = "Вашият профил не е активен. Моля, активирайте го, за да продължите да използвате BLOKADA+.";
 "error account inactive generic" = "Вашият профил не е активен. Моля активирайте го, за да продължите да използвате Blokada.";
-"error account inactive after restore" = "Изглежда, че това не е валиден активен профил. Ако смятате това за грешка, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
 "error account invalid" = "ID на този профил изглежда е невалиден.";
 "error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
 "error fetching data" = "Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
