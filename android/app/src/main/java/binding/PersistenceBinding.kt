@@ -48,11 +48,10 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        // TODO: isSecure flag better handling
-        if (isSecure || !isBackup) {
-            localSharedPreferences.save(key, value)
-        } else {
+        if (isBackup) {
             backedUpSharedPreferences.save(key, value)
+        } else {
+            localSharedPreferences.save(key, value)
         }
         callback(Result.success(Unit))
     }
@@ -69,10 +68,10 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<String>) -> Unit
     ) {
-        var result = if (isSecure || !isBackup) {
-            localSharedPreferences.getString(key, null)
-        } else {
+        var result = if (isBackup) {
             backedUpSharedPreferences.getString(key, null)
+        } else {
+            localSharedPreferences.getString(key, null)
         }
 
         if (key == "account:jsonAccount") result = handleLegacyAccount(result)
@@ -86,10 +85,10 @@ object PersistenceBinding: PersistenceOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        if (isSecure || !isBackup) {
-            localSharedPreferences.edit().remove(key).commit()
-        } else {
+        if (isBackup) {
             backedUpSharedPreferences.edit().remove(key).commit()
+        } else {
+            localSharedPreferences.edit().remove(key).commit()
         }
         callback(Result.success(Unit))
     }
