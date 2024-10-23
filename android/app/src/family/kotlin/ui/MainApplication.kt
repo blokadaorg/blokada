@@ -29,13 +29,13 @@ import binding.FilterBinding
 import binding.HttpBinding
 import binding.JournalBinding
 import binding.LinkBinding
+import binding.LoggerBinding
 import binding.NotificationBinding
 import binding.PermBinding
 import binding.PersistenceBinding
 import binding.RateBinding
 import binding.StageBinding
 import binding.StatsBinding
-import binding.LoggerBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.BlockaRepoConfig
@@ -47,7 +47,6 @@ import service.ConnectivityService
 import service.ContextService
 import service.DozeService
 import service.FlutterService
-import service.LogService
 import service.MonitorService
 import service.PersistenceService
 import service.TranslationService
@@ -94,7 +93,6 @@ class MainApplication: Application(), ViewModelStoreOwner {
         ContextService.setApp(this)
         setupCommonModule()
 
-        LogService.setup()
         DozeService.setup(this)
         setupEvents()
         MonitorService.setup(false)
