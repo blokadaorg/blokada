@@ -171,6 +171,8 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
 
         // Try each receipt until one is successful
         final receipts = await _ops.doRestoreWithReceipts();
+        log(m).i("found ${receipts.length} receipts");
+
         bool success = false;
         for (final receipt in receipts) {
           try {
@@ -237,9 +239,16 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
 
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");
+
       if (!type.isActive()) {
         throw AccountInactiveAfterPurchase();
       }
+
+      log(m).log(
+        msg: "restored active account",
+        attr: {"accountId": account.id},
+        sensitive: true,
+      );
     } catch (e) {
       throw AccountInactiveAfterPurchase();
     }
