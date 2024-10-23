@@ -12,15 +12,24 @@
 
 package ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import model.*
-import repository.DnsDataSource
+import model.Defaults
+import model.DnsId
+import model.NetworkDescriptor
+import model.NetworkId
+import model.NetworkSpecificConfig
+import model.NetworkSpecificConfigs
+import model.NetworkType
+import service.ConnectivityService
+import service.PersistenceService
 import utils.Logger
-import org.blokada.R
-import service.*
 
-class NetworksViewModel : ViewModel(), PrintsDebugInfo {
+class NetworksViewModel : ViewModel() {
 
     private val log = Logger("Networks")
     private val persistence = PersistenceService
@@ -33,8 +42,6 @@ class NetworksViewModel : ViewModel(), PrintsDebugInfo {
     val activeConfig: LiveData<NetworkSpecificConfig> = _activeConfig.distinctUntilChanged()
 
     init {
-        LogService.onShareLog("Networks", this)
-
         val configs = persistence.load(NetworkSpecificConfigs::class).configs
         _configs.value = configs
         _activeConfig.decideConfig()
@@ -183,7 +190,4 @@ class NetworksViewModel : ViewModel(), PrintsDebugInfo {
 
     private fun getFallbackNetworkConfig() = _configs.value!!.first { it.network.isFallback() }
 
-    override fun printDebugInfo() {
-        log.v("hasCustomConfigs: ${hasCustomConfigs()}")
-    }
 }

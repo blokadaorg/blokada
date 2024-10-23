@@ -48,7 +48,6 @@ import model.Tab
 import org.blokada.R
 import repository.Repos
 import service.ContextService
-import service.LogService
 import service.NetworkMonitorPermissionService
 import service.Sheet
 import service.SheetService
@@ -96,8 +95,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Logger.v("MainActivity", "onCreate: $this")
-
         settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
         blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
 
@@ -282,11 +279,9 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             processingRepo.connIssuesHot
             .collect { isIssue ->
                 if (isIssue) {
-                    Logger.w("Main", "Showing ConnIssues bar")
                     mainIssuesOverlay.visibility = View.VISIBLE
                     mainIssuesOverlay.animate().translationY(0.0f)
                 } else {
-                    Logger.w("Main", "Hiding ConnIssues bar")
                     mainIssuesOverlay.animate().translationY(200.0f).withEndAction {
                         mainIssuesOverlay.visibility = View.GONE
                     }
@@ -411,7 +406,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         if (lastOnResume + 5 * 1000 > now()) return
         lastOnResume = now()
 
-        Logger.w("MainActivity", "onResume: $this")
 //        tunnelVM.refreshStatus()
         blockaRepoVM.maybeRefreshRepo()
 
@@ -421,14 +415,12 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     override fun onPause() {
-        Logger.w("MainActivity", "onPause: $this")
         stage.setBackground()
 //        tunnelVM.goToBackground()
         super.onPause()
     }
 
     override fun onDestroy() {
-        Logger.w("MainActivity", "onDestroy: $this")
         context.unsetActivityContext()
         super.onDestroy()
     }
@@ -500,9 +492,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                 val fragment = HelpFragment.newInstance()
                 fragment.show(supportFragmentManager, null)
             }
-            R.id.help_logs -> LogService.showLog()
-            R.id.help_sharelog -> LogService.shareLog()
-            R.id.help_marklog -> LogService.markLog()
             R.id.help_settings -> {
 //                val nav = findNavController(R.id.nav_host_fragment)
 //                nav.navigate(R.id.navigation_settings)

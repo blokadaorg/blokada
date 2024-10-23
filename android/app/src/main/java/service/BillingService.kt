@@ -61,7 +61,9 @@ object BillingService: IPaymentService {
     override suspend fun setup() {
         client = BillingClient.newBuilder(context.requireAppContext())
             .setListener(purchaseListener)
+            // Skipping this call causes the client to fail setup
             .enablePendingPurchases()
+            //.enablePendingPurchases(PendingPurchasesParams.newBuilder().enablePrepaidPlans().build())
             .build()
     }
 
@@ -161,9 +163,7 @@ object BillingService: IPaymentService {
                     .firstOrNull { it.products.any { it == productId } }
 
                 if (purchase == null) {
-                    Logger.v("Billing", "No relevant purchase found")
-                    Logger.v("Billing", "Expected product: $productId")
-                    Logger.v("Billing", "Purchases: ${purchases.map { it.products }}")
+                    Logger.w("Billing", "No relevant purchase found. Expected product: $productId, Purchases: ${purchases.map { it.products }}")
 
                     cont.resumeWithException(NoRelevantPurchase())
                 } else {
@@ -258,7 +258,7 @@ object BillingService: IPaymentService {
                     .sortedByDescending { it.purchaseTime }
 
                 if (successfulPurchases.isNotEmpty()) {
-                    Logger.v("Billing", "restore: Restoring ${successfulPurchases.size} purchases")
+                    Logger.w("Billing", "restore: Restoring ${successfulPurchases.size} purchases")
                     ongoingRestore?.resume(successfulPurchases.map {
                         PaymentPayload(
                             purchase_token = it.purchaseToken,
@@ -301,8 +301,7 @@ object BillingService: IPaymentService {
                     .firstOrNull()
 
                 if (existingPurchase != null) {
-                    Logger.v("Billing", "changeProduct: found subscription to use")
-                    Logger.v("Billing", "$existingPurchase")
+                    Logger.w("Billing", "changeProduct: found subscription to use: $existingPurchase")
 
                     ongoingRestore?.resume(listOf(
                         PaymentPayload(

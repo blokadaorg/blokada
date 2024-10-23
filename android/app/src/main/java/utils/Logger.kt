@@ -13,6 +13,10 @@
 package utils
 
 import android.util.Log
+import binding.CommandBinding
+import channel.command.CommandName
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -22,17 +26,23 @@ open class Logger(private val component: String) {
     open fun w(message: String) = Logger.w(component, message)
     open fun v(message: String) = Logger.v(component, message)
 
+    private val commands by lazy { CommandBinding }
+
     companion object {
 
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS")
             .withZone(ZoneId.of("UTC"))
 
         fun e(component: String, message: String) {
-            logcatLine(6, component, message)
+            GlobalScope.launch {
+                CommandBinding.execute(CommandName.FATAL, "[$component] $message")
+            }
         }
 
         fun w(component: String, message: String) {
-            logcatLine(5, component, message)
+            GlobalScope.launch {
+                CommandBinding.execute(CommandName.WARNING, "[$component] $message")
+            }
         }
 
         fun v(component: String, message: String) {

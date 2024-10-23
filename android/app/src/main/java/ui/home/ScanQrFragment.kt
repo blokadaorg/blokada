@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment
-import utils.Logger
 
 class ScanQrFragment : BottomSheetFragment() {
     override val modal: Sheet = Sheet.AccountChange
@@ -67,7 +66,6 @@ class ScanQrFragment : BottomSheetFragment() {
     }
 
     val scanQrCodeLauncher = registerForActivityResult(ScanCustomCode()) { result ->
-        Logger.w("MainActivity", "QR Result: $result")
         if (result is QRResult.QRSuccess && result.content.rawValue != null) {
             GlobalScope.launch {
                 command.execute(CommandName.FAMILYLINK, result.content.rawValue!!)

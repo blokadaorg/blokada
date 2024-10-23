@@ -16,11 +16,13 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.RelativeSizeSpan
 import android.text.style.TextAppearanceSpan
-import androidx.core.text.*
+import androidx.core.text.bold
+import androidx.core.text.color
+import androidx.core.text.inSpans
+import androidx.core.text.scale
+import androidx.core.text.toSpannable
 import org.blokada.R
 import service.ContextService
-import ui.utils.cause
-import ui.utils.getColorFromAttr
 
 fun String.toBlokadaPlusText(): Spannable {
     val text = "BLOKADA+"
@@ -46,7 +48,6 @@ private fun blokadaSpan() = {
         TextAppearanceSpan(context, R.style.Text_Plus_Primary)
     } catch (ex: Exception) {
         // Just Android things, something to do with not using AppCompat themes
-        Logger.w("TextFormat", "Failed formatting text".cause(ex))
         RelativeSizeSpan(1.05f)
     }
 }()

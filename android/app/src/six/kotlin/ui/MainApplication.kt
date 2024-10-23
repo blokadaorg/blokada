@@ -73,7 +73,6 @@ import service.ConnectivityService
 import service.ContextService
 import service.DozeService
 import service.FlutterService
-import service.LogService
 import service.MonitorService
 import service.PersistenceService
 import service.TranslationService
@@ -126,7 +125,6 @@ class MainApplication: Application(), ViewModelStoreOwner {
         ContextService.setApp(this)
         setupCommonModule()
 
-        LogService.setup()
         DozeService.setup(this)
         wgOnCreate()
         setupEvents()
