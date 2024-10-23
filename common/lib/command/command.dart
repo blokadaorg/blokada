@@ -65,7 +65,12 @@ class CommandStore with Logging, Dependable implements CommandEvents {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, null), (m) async {
-      return await _execute(cmd, m);
+      try {
+        return await _execute(cmd, m);
+      } catch (e) {
+        _stopCommandTimeout(cmd);
+        rethrow;
+      }
     });
     _stopCommandTimeout(cmd);
   }
@@ -75,7 +80,12 @@ class CommandStore with Logging, Dependable implements CommandEvents {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, p1), (m) async {
-      return await _execute(cmd, m, p1: p1);
+      try {
+        return await _execute(cmd, m, p1: p1);
+      } catch (e) {
+        _stopCommandTimeout(cmd);
+        rethrow;
+      }
     });
     _stopCommandTimeout(cmd);
   }
@@ -86,7 +96,12 @@ class CommandStore with Logging, Dependable implements CommandEvents {
     final cmd = _commandFromString(command);
     _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, p1), (m) async {
-      return await _execute(cmd, m, p1: p1, p2: p2);
+      try {
+        return await _execute(cmd, m, p1: p1, p2: p2);
+      } catch (e) {
+        _stopCommandTimeout(cmd);
+        rethrow;
+      }
     });
     _stopCommandTimeout(cmd);
   }
