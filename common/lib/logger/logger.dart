@@ -1,8 +1,9 @@
-import 'dart:developer' as developer;
+import 'dart:convert';
 
 import 'package:common/logger/channel.pg.dart';
 import 'package:common/util/di.dart';
 import 'package:common/util/platform_info.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
@@ -50,9 +51,23 @@ class Log {
     if (attr != null) {
       for (var key in attr.keys) {
         if (sensitive && kReleaseMode) {
-          var value = "*****";
-          if (key == "url") {
-            value = "${attr[key].toString().split("?")[0]}?*****";
+          var param = attr[key].toString();
+          var censored = param;
+
+          // For urls, we censor the sensitive params
+          if (key == "url" && param.contains("?")) {
+            final url = param.split("?");
+            param = url[0];
+            censored = url[1];
+          }
+
+          // Use hash so we can see if the param has changed, but not inclued it
+          var bytes = utf8.encode(censored);
+          var digest = md5.convert(bytes);
+
+          var value = digest.toString();
+          if (param != censored) {
+            value = "$param?$digest";
           }
 
           lines.add("💡 $tag 🔍 $key = $value");
