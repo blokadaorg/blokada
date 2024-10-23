@@ -65,9 +65,9 @@ class Log {
           var bytes = utf8.encode(censored);
           var digest = md5.convert(bytes);
 
-          var value = "*${digest.toString()}*";
+          var value = "🔑 ${digest.toString()}";
           if (param != censored) {
-            value = "$param?*$digest*";
+            value = "$param? 🔑 $digest";
           }
 
           lines.add("💡 $tag 🔍 $key = $value");
