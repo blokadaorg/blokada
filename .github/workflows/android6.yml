@@ -65,6 +65,7 @@ jobs:
           status: completed
           changesNotSentForReview: true
           whatsNewDirectory: six-android/whatsnew
+        continue-on-error: true
 
       - name: Upload to Google Play (with review)
         if: always() && steps.upload.outcome == 'failure'
