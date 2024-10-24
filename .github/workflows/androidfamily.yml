@@ -1,4 +1,4 @@
-name: Blokada Family for Android (Publish)
+name: Internal: Blokada Family for Android
 
 on:
   workflow_dispatch:
@@ -23,8 +23,9 @@ jobs:
           submodules: recursive
 
       - name: Set Up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
+          distribution: 'zulu'
           java-version: 17
 
       - name: Change wrapper permissions
@@ -53,7 +54,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload to Google Play
+      - name: Upload to Google Play (no review)
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -63,3 +64,15 @@ jobs:
           status: completed
           changesNotSentForReview: true
           whatsNewDirectory: six-android/whatsnew
+        continue-on-error: true
+
+      - name: Upload to Google Play (with review)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: org.blokada.family
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          track: internal
+          status: completed
+          whatsNewDirectory: six-android/whatsnew
+        if: failure() # Of the previous step
