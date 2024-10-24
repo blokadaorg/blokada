@@ -89,7 +89,7 @@ class SupportController with Logging {
     final session = await _api.createSession(m, language);
     _currentSession.now = session.sessionId;
     _ttl = session.ttl;
-    _updateSessionExpiry();
+    await _updateSessionExpiry();
     final hi =
         await _api.sendEvent(m, _currentSession.now!, SupportEvent.firstOpen);
     _handleResponse(hi);
@@ -137,7 +137,7 @@ class SupportController with Logging {
       await sleepAsync(const Duration(milliseconds: 500));
       _addErrorMessage();
     }
-    _updateSessionExpiry();
+    await _updateSessionExpiry();
   }
 
   notifyNewMessage(Marker m) async {
@@ -196,8 +196,8 @@ class SupportController with Logging {
     });
   }
 
-  _updateSessionExpiry() {
-    _scheduler.addOrUpdate(Job(
+  _updateSessionExpiry() async {
+    await _scheduler.addOrUpdate(Job(
       _keyExpireSession,
       Markers.support,
       before: DateTime.now().add(Duration(seconds: _ttl)),

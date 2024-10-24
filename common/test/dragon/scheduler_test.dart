@@ -34,8 +34,8 @@ void main() {
 
         final now = DateTime(0);
         when(timer.now()).thenReturn(now);
-        subject.addOrUpdate(every2s);
-        subject.addOrUpdate(every3s);
+        await subject.addOrUpdate(every2s);
+        await subject.addOrUpdate(every3s);
         verify(timer.setTimer(const Duration(seconds: 2))).called(1);
 
         // 2 seconds passed, should reschedule next timer
@@ -71,7 +71,7 @@ void main() {
 
         final now = DateTime(0);
         when(timer.now()).thenReturn(now);
-        subject.addOrUpdate(inForeground);
+        await subject.addOrUpdate(inForeground);
         verify(timer.setTimer(const Duration(seconds: 1))).called(1);
 
         // 1 second passed, should reschedule but skip the job
