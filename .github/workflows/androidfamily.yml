@@ -55,6 +55,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload to Google Play (no review)
+        id: upload
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -67,6 +68,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload to Google Play (with review)
+        if: always() && steps.upload.outcome == 'failure'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -75,4 +77,3 @@ jobs:
           track: internal
           status: completed
           whatsNewDirectory: six-android/whatsnew
-        if: failure() # Of the previous step
