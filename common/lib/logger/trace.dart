@@ -104,9 +104,16 @@ class LogTracer with Dependable {
     _timer.addHandler(_timeoutKey, (_) async {
       for (var trace in _traces.entries.toList()) {
         if (trace.value.started.isBefore(DateTime.now().subtract(timeout))) {
+          sink(trace.key, Level.error, ["Tracer: too slow"]);
           _logger.log(Level.error, trace.value.lines.join("\n"),
-              error: Exception("Tracer: too slow: ${trace.value.lines.first}"));
-          _traces.remove(trace.key);
+              error: Exception(
+                  "Tracer: too slow: ${trace.value.lines.skip(1).first}"));
+
+          // Let the trace continue as maybe it will finish
+          // Otherwise we end up with "end without begin" error (above)
+          // But we also mark the existing trace using sink (above)
+          // Since it may merge with a future trace of same marker
+          //_traces.remove(trace.key);
         }
       }
     });
@@ -142,20 +149,7 @@ class TracingEvent {
   String _prefixIndent(int level, String line) {
     if (level < 3) return "➰" * level + line;
     return "${"➰" * level} [$level] $line";
-    // if (level <= 3) return "➰" * level + line;
-    // return "➰" * (level - 1) + _indentToKeyCap(level) + line;
-    // return _indentToKeyCap(level) * (level) + line;
   }
-
-  // String _indentToKeyCap(int level) {
-  //   if (level > 9) return "🔟";
-  //   if (level == 9) return "9️⃣";
-  //   if (level == 8) return "8️⃣";
-  //   if (level == 7) return "7️⃣";
-  //   if (level == 6) return "6️⃣";
-  //   if (level == 5) return "5️⃣";
-  //   return "4️⃣";
-  // }
 
   promoteLevel(Level lvl) {
     if (lvl == Level.error) {

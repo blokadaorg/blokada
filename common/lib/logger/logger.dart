@@ -45,7 +45,7 @@ class Log {
   }) {
     var lines = <String>[];
     if (msg != null) {
-      lines.add("💡 $tag 📝 $msg");
+      lines.add("➰ $tag 📝 $msg");
     }
 
     if (attr != null) {
@@ -70,9 +70,9 @@ class Log {
             value = "$param? 🔑 $digest";
           }
 
-          lines.add("💡 $tag 🔍 $key = $value");
+          lines.add("➰ $tag 🔍 $key = $value");
         } else {
-          lines.add("💡 $tag 🔍 $key = ${attr[key]}");
+          lines.add("➰ $tag 🔍 $key = ${attr[key]}");
         }
       }
     }

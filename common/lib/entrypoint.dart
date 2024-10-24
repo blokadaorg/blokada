@@ -114,6 +114,6 @@ class Entrypoint with Dependable, Logging {
   }
 
   Future<void> onStartApp() async {
-    await _appStart.startApp(1);
+    await _appStart.startApp(Markers.start);
   }
 }

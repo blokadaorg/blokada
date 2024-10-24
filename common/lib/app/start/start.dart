@@ -109,6 +109,8 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
   @action
   Future<void> startApp(Marker m) async {
     return await log(m).trace("startApp", (m) async {
+      log(m).i("Start at: ${DateTime.now()}");
+
       await _app.initStarted(m);
       try {
         final startables = act.isFamily() ? _startablesFamily : _startablesV6;
