@@ -65,10 +65,9 @@ jobs:
           status: completed
           changesNotSentForReview: true
           whatsNewDirectory: six-android/whatsnew
-        continue-on-error: true
 
       - name: Upload to Google Play (with review)
-        if: steps.upload.conclusion == 'failure'
+        if: always() && steps.upload.outcome == 'failure'
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
