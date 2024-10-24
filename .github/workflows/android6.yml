@@ -54,7 +54,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload to Google Play (no review)
+      - name: Upload to Google Play no review
         uses: r0adkll/upload-google-play@v1
 	with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -66,7 +66,7 @@ jobs:
           whatsNewDirectory: six-android/whatsnew
         continue-on-error: true
 
-      - name: Upload to Google Play (with review)
+      - name: Upload to Google Play with review
         uses: r0adkll/upload-google-play@v1
 	with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
