@@ -1,4 +1,4 @@
-name: Internal: Blokada 6 for Android
+name: Internal Blokada 6 for Android
 
 on:
   workflow_dispatch:

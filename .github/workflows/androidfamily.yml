@@ -1,4 +1,4 @@
-name: Internal: Blokada Family for Android
+name: Internal Blokada Family for Android
 
 on:
   workflow_dispatch:
