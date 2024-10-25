@@ -9,7 +9,7 @@ android:
 	flutter build aar --no-profile --no-debug
 
 ios:
-	flutter build ios-framework --output=build/ios-framework --no-profile --no-debug
+	flutter build ios-framework --no-profile --no-debug
 
 get:
 	flutter pub get
