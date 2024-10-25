@@ -1,6 +1,6 @@
-.PHONY: all get gen web android ios test clean
+.PHONY: build get gen web android ios test clean
 
-all: get gen ios android
+build: get gen web
 
 web:
 	flutter build web

@@ -1,4 +1,4 @@
-name: libcommon build and test
+name: libcommon android artifacts
 
 on:
   workflow_dispatch:
@@ -25,10 +25,7 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
 
-      - name: Make all
+      - name: Make get gen android
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make all
-
-      - name: Run tests
-        run: make test
