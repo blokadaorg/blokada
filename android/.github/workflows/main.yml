@@ -27,6 +27,7 @@ jobs:
         id: get_ref
         run: |
           REPO_A_REF=$(git -C six-common rev-parse HEAD)
+          echo "REPO_A_REF=${REPO_A_REF}"
           echo "REPO_A_REF=${REPO_A_REF}" >> $GITHUB_ENV
 
       - name: Get Workflow Run ID for Commit SHA of sixcommon
