@@ -29,3 +29,14 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make get gen android
+
+      - name: Zip Maven Repo
+        run: |
+          mkdir -p build/artifacts  # Create a folder for artifacts if needed
+          zip -r build/artifacts/sixcommon-android.zip build/host/outputs/repo  # Zip the Maven repo directory
+
+      - name: Upload Maven Repo as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sixcommon-android  # Name of the artifact
+          path: build/artifacts/sixcommon-android.zip  # Path to the zipped artifact
