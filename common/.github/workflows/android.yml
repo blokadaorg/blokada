@@ -25,7 +25,7 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
 
-      - name: Make get gen android
+      - name: Make android
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
-          make all
+          make get gen android
