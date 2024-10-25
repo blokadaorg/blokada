@@ -18,11 +18,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Get JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 17
-
       - name: Get sixcommon Commit SHA
         id: get_ref
         run: |
@@ -33,11 +28,12 @@ jobs:
       - name: Get Workflow Run ID for Commit SHA of sixcommon
         id: get_run_id
         run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
           REPO="blokadaorg/six-common"
           REF=${{ env.REPO_A_REF }}
           
           # Find the workflow run ID for the specific commit SHA
-          WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+          WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
             "https://api.github.com/repos/$REPO/actions/runs?status=completed&branch=main" \
             | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\").id" | head -n 1)
           
@@ -46,24 +42,34 @@ jobs:
       - name: Download Artifact from sixcommon
         if: env.WORKFLOW_RUN_ID  # Only proceed if we have a valid workflow run ID
         run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
           REPO="blokadaorg/six-common"
           ARTIFACT_NAME="sixcommon-android"
           WORKFLOW_RUN_ID=${{ env.WORKFLOW_RUN_ID }}
           
           # Get the artifact download URL
-          ARTIFACT_URL=$(curl -s -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+          ARTIFACT_URL=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
             "https://api.github.com/repos/$REPO/actions/runs/$WORKFLOW_RUN_ID/artifacts" \
             | jq -r ".artifacts[] | select(.name == \"$ARTIFACT_NAME\").archive_download_url")
 
           # Download the artifact
-          curl -L -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
-            -o sixcommon-android.zip "$ARTIFACT_URL"
+          curl -L -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            -o artifact.zip "$ARTIFACT_URL"
 
       - name: Unzip sixcommon artifact
         if: env.WORKFLOW_RUN_ID  # Ensure the artifact was successfully downloaded
         run: |
           rm -rf six-common/build
-          unzip sixcommon-android.zip -d six-common
+          unzip artifact.zip -d . # Artifact actually contains the zip again
+          unzip sixcommon-android.zip -d six-common/
+          cp -r six-common/build/host/outputs/ app/six-common
+          echo "Checking extracted paths"
+          ls -la app/six-common
+
+      - name: Get JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
 
       - name: Build app
         run: make apk
