@@ -25,10 +25,10 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
 
-      - name: Make all
+      - name: Make build
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
-          make all
+          make build
 
       - name: Run tests
         run: make test
