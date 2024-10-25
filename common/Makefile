@@ -1,9 +1,15 @@
-.PHONY: all get gen build test clean
+.PHONY: all get gen web android ios test clean
 
-all: get gen build
+all: get gen ios android
 
-build:
+web:
 	flutter build web
+
+android:
+	flutter build aar --no-profile --no-debug
+
+ios:
+	flutter build ios-framework --output=build/ios-framework --no-profile --no-debug
 
 get:
 	flutter pub get
