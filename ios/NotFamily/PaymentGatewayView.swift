@@ -128,6 +128,17 @@ struct PaymentGatewayView: View {
 
                                 Button(action: {
                                     withAnimation {
+                                        self.presentOfferCodeRedeemSheet()
+                                    }
+                                }) {
+                                    Text(L10n.paymentActionOffer)
+                                    .foregroundColor(Color.cAccent)
+                                    .multilineTextAlignment(.center)
+                                }
+                                .padding(.top, 8)
+
+                                Button(action: {
+                                    withAnimation {
                                         self.showPrivacySheet = true
                                     }
                                 }) {
