@@ -23,24 +23,46 @@ jobs:
         with:
           java-version: 17
 
-      - name: Get Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable' # or: 'beta', 'dev' or 'master'
-
-      # Manually install FVM and add it to PATH
-      - name: Install FVM
+      - name: Get sixcommon Commit SHA
+        id: get_ref
         run: |
-          flutter pub global activate fvm
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+          REPO_A_REF=$(git -C six-common rev-parse HEAD)
+          echo "REPO_A_REF=${REPO_A_REF}" >> $GITHUB_ENV
 
-      - name: Verify FVM installation
-        run: fvm --version
-
-      - name: Build common lib
+      - name: Get Workflow Run ID for Commit SHA of sixcommon
+        id: get_run_id
         run: |
-          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
-          make sixcommon
+          REPO="blokadaorg/six-common"
+          REF=${{ env.REPO_A_REF }}
+          
+          # Find the workflow run ID for the specific commit SHA
+          WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs?status=completed&branch=main" \
+            | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\").id" | head -n 1)
+          
+          echo "WORKFLOW_RUN_ID=${WORKFLOW_RUN_ID}" >> $GITHUB_ENV
+
+      - name: Download Artifact from sixcommon
+        if: env.WORKFLOW_RUN_ID  # Only proceed if we have a valid workflow run ID
+        run: |
+          REPO="blokadaorg/six-common"
+          ARTIFACT_NAME="sixcommon-android"
+          WORKFLOW_RUN_ID=${{ env.WORKFLOW_RUN_ID }}
+          
+          # Get the artifact download URL
+          ARTIFACT_URL=$(curl -s -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs/$WORKFLOW_RUN_ID/artifacts" \
+            | jq -r ".artifacts[] | select(.name == \"$ARTIFACT_NAME\").archive_download_url")
+
+          # Download the artifact
+          curl -L -H "Authorization: token ${{ secrets.GIT_TOKEN }}" \
+            -o sixcommon-android.zip "$ARTIFACT_URL"
+
+      - name: Unzip sixcommon artifact
+        if: env.WORKFLOW_RUN_ID  # Ensure the artifact was successfully downloaded
+        run: |
+          rm -rf six-common/build
+          unzip sixcommon-android.zip -d six-common
 
       - name: Build app
         run: make apk
