@@ -95,11 +95,14 @@ class PermBinding: PermOps {
         .sink(
             onValue: { (isActive, value) in
                 if !isActive {
+                    self.writeDnsProfileActivated.send(false)
                     return completion(Result.success(""))
                 }
+                self.writeDnsProfileActivated.send(true)
                 return completion(Result.success(value))
             },
             onFailure: { err in
+                self.writeDnsProfileActivated.send(false)
                 completion(Result.failure(err))
             }
         )
