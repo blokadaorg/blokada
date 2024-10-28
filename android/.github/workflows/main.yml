@@ -72,7 +72,7 @@ jobs:
           java-version: 17
 
       - name: Print versions
-        run |
+        run: |
           java --version
           ./gradlew :app:dependencies
 
