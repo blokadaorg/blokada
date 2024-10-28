@@ -71,6 +71,11 @@ jobs:
         with:
           java-version: 17
 
+      - name: Print versions
+        run |
+          java --version
+          ./gradlew :app:dependencies
+
       - name: Build app
         run: make apk
 
