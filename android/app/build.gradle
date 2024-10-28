@@ -172,9 +172,9 @@ dependencies {
     implementation 'com.google.android.play:review:2.0.2'
 
     // json
-    implementation 'com.squareup.moshi:moshi:1.13.0'
-    implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    implementation 'com.squareup.moshi:moshi:1.15.1'
+    implementation 'com.squareup.moshi:moshi-adapters:1.15.1'
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
