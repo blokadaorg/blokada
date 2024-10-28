@@ -75,10 +75,12 @@ jobs:
       - name: Print versions
         run: |
           java --version
-          ./gradlew :app:dependencies
+          #./gradlew :app:dependencies
 
       - name: Build app
-        run: make apk
+        run: |
+          ./gradlew clean
+          ./gradlew assembleSixRelease --debug --stacktrace --no-parallel
 
       - name: Run tests
         run: make test
