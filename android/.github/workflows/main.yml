@@ -80,7 +80,7 @@ jobs:
       - name: Build app
         run: |
           ./gradlew clean
-          ./gradlew assembleSixRelease --debug --stacktrace --no-parallel
+          ./gradlew assembleSixRelease --stacktrace --no-parallel
 
       - name: Run tests
         run: make test
