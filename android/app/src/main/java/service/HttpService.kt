@@ -13,7 +13,7 @@
 package service
 
 import model.Uri
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -53,7 +53,7 @@ object HttpService {
         val request = Request.Builder()
             .url(url)
             .build()
-        return httpClient.newCall(request).execute().body()!!.string()
+        return httpClient.newCall(request).execute().body!!.string()
     }
 
     fun makeRequest(url: Uri, method: String, body: String?, headers: Map<String, String>? = null): String {
@@ -61,7 +61,7 @@ object HttpService {
 
         request = if (body != null) {
             request.method(method, RequestBody.create(
-                MediaType.get("application/json; charset=utf-8"), body)
+                "application/json; charset=utf-8".toMediaType(), body)
             )
         } else {
             // Retrofit doesn't allow a null body for POST
@@ -75,11 +75,11 @@ object HttpService {
 
         val response = httpClient.newCall(request.build()).execute()
 
-        if (response.code() != 200) {
-            throw Exception("code:${response.code()}")
+        if (response.code != 200) {
+            throw Exception("code:${response.code}")
         }
 
-        return response.body()!!.string()
+        return response.body!!.string()
     }
 
 }
