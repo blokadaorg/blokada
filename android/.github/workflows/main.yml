@@ -64,7 +64,7 @@ jobs:
           unzip sixcommon-android.zip -d six-common/
           cp -r six-common/build/artifacts/repo app/six-common/
           mkdir -p six-common/libgen
-          cp -r six-common/build/android six-common/libgen/
+          cp -r six-common/build/artifacts/android six-common/libgen/
           echo "Checking extracted paths"
           ls -la app/six-common
           ls -la six-common/libgen/android/
