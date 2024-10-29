@@ -62,7 +62,7 @@ jobs:
           rm -rf six-common/build
           unzip artifact.zip -d . # Artifact actually contains the zip again
           unzip sixcommon-android.zip -d six-common/
-          cp -r six-common/build/artifacts/repo app/six-common/
+          cp -r six-common/build/artifacts/* app/six-common/
           mkdir -p six-common/libgen
           cp -r six-common/build/artifacts/android six-common/libgen/
           echo "Checking extracted paths"
