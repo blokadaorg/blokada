@@ -80,9 +80,15 @@ jobs:
           java --version
           #./gradlew :app:dependencies
 
-      - name: Build app
-        run: |
-          make apk
-
       - name: Run tests
         run: make test
+
+      - name: Build app
+        run: |
+          make aab
+
+      - name: Upload aab as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: blokada6.aab  # Name of the artifact
+          path: app/build/outputs/bundle/sixRelease/app-six-release.aab  # Path to the zipped artifact
