@@ -19,19 +19,41 @@ import channel.pluslease.PlusLeaseOps
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import service.FlutterService
 
-fun Lease.niceName(): String {
-    return if (alias?.isNotBlank() == true) alias else publicKey.take(5)
+@Serializable
+data class LegacyLease(
+    val publicKey: String,
+    val gatewayId: String,
+    val alias: String?,
+    val vip4: String,
+    val vip6: String
+) {
+
+    fun niceName(): String {
+        return if (alias?.isNotBlank() == true) alias else publicKey.take(5)
+    }
+
+    companion object {
+        fun fromLease(lease: Lease?): LegacyLease? {
+            if (lease == null) return null
+            return LegacyLease(
+                publicKey = lease.publicKey,
+                gatewayId = lease.gatewayId,
+                alias = lease.alias,
+                vip4 = lease.vip4,
+                vip6 = lease.vip6
+            )
+        }
+    }
 }
 
-//fun Lease.isActive() = expires > Date()
-
 object PlusLeaseBinding: PlusLeaseOps {
-    val leases = MutableStateFlow<List<Lease>>(emptyList())
-    val currentLease = MutableStateFlow<Lease?>(null)
+    val leases = MutableStateFlow<List<LegacyLease>>(emptyList())
+    val currentLease = MutableStateFlow<LegacyLease?>(null)
 
-    val leasesLive = MutableLiveData<List<Lease>>()
+    val leasesLive = MutableLiveData<List<LegacyLease>>()
 
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
@@ -44,19 +66,19 @@ object PlusLeaseBinding: PlusLeaseOps {
         }
     }
 
-    fun deleteLease(lease: Lease) {
+    fun deleteLease(lease: LegacyLease) {
         scope.launch {
             command.execute(CommandName.DELETELEASE, lease.publicKey)
         }
     }
 
     override fun doLeasesChanged(leases: List<Lease>, callback: (Result<Unit>) -> Unit) {
-        this.leases.value = leases
+        this.leases.value = leases.map { LegacyLease.fromLease(it)!! }
         callback(Result.success(Unit))
     }
 
     override fun doCurrentLeaseChanged(lease: Lease?, callback: (Result<Unit>) -> Unit) {
-        this.currentLease.value = lease
+        this.currentLease.value = LegacyLease.fromLease(lease)
         callback(Result.success(Unit))
     }
 }

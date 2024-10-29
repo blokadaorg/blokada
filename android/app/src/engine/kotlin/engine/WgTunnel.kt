@@ -12,8 +12,8 @@
 
 package engine
 
-import channel.plusgateway.Gateway
-import channel.pluslease.Lease
+import binding.LegacyGateway
+import binding.LegacyLease
 import com.wireguard.android.backend.Tunnel
 import com.wireguard.config.Config
 import com.wireguard.config.InetEndpoint
@@ -45,7 +45,7 @@ object WgTunnel {
         "192.192.0.0/10", "193.0.0.0/8", "194.0.0.0/7", "196.0.0.0/6", "200.0.0.0/5", "208.0.0.0/4",
     )
 
-    suspend fun start(privateKey: String, lease: Lease, gateway: Gateway) {
+    suspend fun start(privateKey: String, lease: LegacyLease, gateway: LegacyGateway) {
         log.v("Starting WG tunnel for: ${gateway.country}")
 
         // Remove old tunnel config if any

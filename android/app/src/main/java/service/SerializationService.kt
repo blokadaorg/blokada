@@ -12,8 +12,8 @@
 
 package service
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import model.BlockaAfterUpdate
 import model.BlockaConfig
 import model.BlockaRepo
@@ -29,7 +29,6 @@ import model.NetworkSpecificConfigs
 import model.Packs
 import model.SyncableConfig
 import repository.TranslationPack
-import java.util.Date
 import kotlin.reflect.KClass
 
 interface SerializationService {
@@ -39,67 +38,53 @@ interface SerializationService {
 
 object JsonSerializationService : SerializationService {
 
-    val moshi = Moshi.Builder()
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .build()
+    val json = Json {
+        ignoreUnknownKeys = true
+    }
 
     override fun serialize(obj: Any): String {
         when (obj) {
             is Packs -> {
-                val adapter = moshi.adapter(Packs::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaConfig -> {
-                val adapter = moshi.adapter(BlockaConfig::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is LocalConfig -> {
-                val adapter = moshi.adapter(LocalConfig::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is SyncableConfig -> {
-                val adapter = moshi.adapter(SyncableConfig::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is DnsWrapper -> {
-                val adapter = moshi.adapter(DnsWrapper::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BypassedAppIds -> {
-                val adapter = moshi.adapter(BypassedAppIds::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is TranslationPack -> {
-                val adapter = moshi.adapter(TranslationPack::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaRepo -> {
-                val adapter = moshi.adapter(BlockaRepo::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaRepoConfig -> {
-                val adapter = moshi.adapter(BlockaRepoConfig::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaRepoUpdate -> {
-                val adapter = moshi.adapter(BlockaRepoUpdate::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaRepoPayload -> {
-                val adapter = moshi.adapter(BlockaRepoPayload::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is BlockaAfterUpdate -> {
-                val adapter = moshi.adapter(BlockaAfterUpdate::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is NetworkSpecificConfigs -> {
-                val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             is LegacyAccount -> {
-                val adapter = moshi.adapter(LegacyAccount::class.java)
-                return adapter.toJson(obj)
+                return json.encodeToString(obj);
             }
             else -> throw BlokadaException("Unsupported type for json serialization: ${obj.javaClass}")
         }
@@ -109,64 +94,46 @@ object JsonSerializationService : SerializationService {
         serialized as String
         when (type) {
             Packs::class -> {
-                val adapter = moshi.adapter(Packs::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<Packs>(serialized) as T
             }
             BlockaConfig::class -> {
-                val adapter = moshi.adapter(BlockaConfig::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaConfig>(serialized) as T
             }
             LocalConfig::class -> {
-                val adapter = moshi.adapter(LocalConfig::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<LocalConfig>(serialized) as T
             }
             SyncableConfig::class -> {
-                val adapter = moshi.adapter(SyncableConfig::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<SyncableConfig>(serialized) as T
             }
             DnsWrapper::class -> {
-                val adapter = moshi.adapter(DnsWrapper::class.java)
-                return adapter.fromJson(serialized) as T
-            }
-            Sheet.AdsCounter::class -> {
-                val adapter = moshi.adapter(Sheet.AdsCounter::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<DnsWrapper>(serialized) as T
             }
             BypassedAppIds::class -> {
-                val adapter = moshi.adapter(BypassedAppIds::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BypassedAppIds>(serialized) as T
             }
             TranslationPack::class -> {
-                val adapter = moshi.adapter(TranslationPack::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<TranslationPack>(serialized) as T
             }
             BlockaRepo::class -> {
-                val adapter = moshi.adapter(BlockaRepo::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaRepo>(serialized) as T
             }
             BlockaRepoConfig::class -> {
-                val adapter = moshi.adapter(BlockaRepoConfig::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaRepoConfig>(serialized) as T
             }
             BlockaRepoUpdate::class -> {
-                val adapter = moshi.adapter(BlockaRepoUpdate::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaRepoUpdate>(serialized) as T
             }
             BlockaRepoPayload::class -> {
-                val adapter = moshi.adapter(BlockaRepoPayload::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaRepoPayload>(serialized) as T
             }
             BlockaAfterUpdate::class -> {
-                val adapter = moshi.adapter(BlockaAfterUpdate::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<BlockaAfterUpdate>(serialized) as T
             }
             NetworkSpecificConfigs::class -> {
-                val adapter = moshi.adapter(NetworkSpecificConfigs::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<NetworkSpecificConfigs>(serialized) as T
             }
             LegacyAccount::class -> {
-                val adapter = moshi.adapter(LegacyAccount::class.java)
-                return adapter.fromJson(serialized) as T
+                return json.decodeFromString<LegacyAccount>(serialized) as T
             }
             else -> throw BlokadaException("Unsupported type for json deserialization: $type")
         }

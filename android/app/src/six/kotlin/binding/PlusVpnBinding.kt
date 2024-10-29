@@ -74,7 +74,7 @@ object PlusVpnBinding: PlusVpnOps {
                     publicKey = "",
                     keysGeneratedForAccountId = "",
                     keysGeneratedForDevice = "",
-                    lease = vpn.toLease(),
+                    lease = LegacyLease.fromLease(vpn.toLease()),
                     gateway = gateway,
                     vpnEnabled = active,
                     tunnelEnabled = active

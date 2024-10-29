@@ -12,7 +12,7 @@
 
 package model
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 import service.Localised
 import utils.Logger
 
@@ -39,7 +39,7 @@ typealias Uri = String
 /// from small to big size.
 typealias PackConfig = String
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Pack(
     val id: PackId,
     val tags: List<Tag>,
@@ -70,7 +70,7 @@ data class Pack(
 
 }
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class PackMetadata(
     val title: String,
     val slugline: Localised,
@@ -80,7 +80,7 @@ data class PackMetadata(
     val rating: Int?
 )
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class PackSource(
     val id: PackSourceId,
     val urls: List<Uri>,
@@ -94,7 +94,7 @@ data class PackSource(
     fun urlsForFlavor() = urls.dropLast(1)
 }
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class PackStatus(
     val installed: Boolean,
     val updatable: Boolean,
@@ -104,7 +104,7 @@ data class PackStatus(
     val hits: Int
 )
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Packs(
     val packs: List<Pack>,
     val version : Int?,

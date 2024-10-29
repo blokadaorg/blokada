@@ -18,17 +18,46 @@ import channel.plusgateway.PlusGatewayOps
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import service.FlutterService
 
-fun Gateway.niceName(): String {
-    return location.split('-').map { it.capitalize() }.joinToString(" ")
+@Serializable
+data class LegacyGateway (
+    val publicKey: String,
+    val region: String,
+    val location: String,
+    val resourceUsagePercent: Long,
+    val ipv4: String,
+    val ipv6: String,
+    val port: Long,
+    val country: String? = null
+) {
+    fun niceName(): String {
+        return location.split('-').map { it.capitalize() }.joinToString(" ")
+    }
+
+    companion object {
+        fun fromGateway(gateway: Gateway?): LegacyGateway? {
+            if (gateway == null) return null
+            return LegacyGateway(
+                publicKey = gateway.publicKey,
+                region = gateway.region,
+                location = gateway.location,
+                resourceUsagePercent = gateway.resourceUsagePercent,
+                ipv4 = gateway.ipv4,
+                ipv6 = gateway.ipv6,
+                port = gateway.port,
+                country = gateway.country
+            )
+        }
+    }
 }
 
 object PlusGatewayBinding: PlusGatewayOps {
-    val gateways = MutableStateFlow<List<Gateway>>(emptyList())
+    val gateways = MutableStateFlow<List<LegacyGateway>>(emptyList())
     val selected = MutableStateFlow<String?>(null)
 
-    val gatewaysLive = MutableLiveData<List<Gateway>>()
+    val gatewaysLive = MutableLiveData<List<LegacyGateway>>()
 
     private val flutter by lazy { FlutterService }
     private val scope = GlobalScope
@@ -41,7 +70,7 @@ object PlusGatewayBinding: PlusGatewayOps {
     }
 
     override fun doGatewaysChanged(gateways: List<Gateway>, callback: (Result<Unit>) -> Unit) {
-        this.gateways.value = gateways.sortedBy { it.region + it.location }
+        this.gateways.value = gateways.sortedBy { it.region + it.location }.map { LegacyGateway.fromGateway(it)!! }
         callback(Result.success(Unit))
     }
 

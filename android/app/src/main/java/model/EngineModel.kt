@@ -12,8 +12,7 @@
 
 package model
 
-import binding.niceName
-import channel.plusgateway.Gateway
+import binding.LegacyGateway
 import repository.DnsDataSource
 
 class TunnelStatus private constructor (
@@ -58,7 +57,7 @@ class TunnelStatus private constructor (
             desiredGatewayId = desiredGatewayId
         )
 
-        fun connected(dns: Dns, doh: Boolean, gateway: Gateway) = TunnelStatus(
+        fun connected(dns: Dns, doh: Boolean, gateway: LegacyGateway) = TunnelStatus(
             active = true,
             isUsingDnsOverHttps = doh,
             dns = dns,

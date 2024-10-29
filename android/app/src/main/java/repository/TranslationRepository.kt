@@ -13,14 +13,14 @@
 package repository
 
 import androidx.core.os.LocaleListCompat
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 import service.ContextService
 import service.FileService
 import service.JsonSerializationService
 import ui.utils.cause
 import utils.Logger
 import java.io.FileNotFoundException
-import java.util.*
+import java.util.Locale
 
 val SUPPORTED_LANGUAGES = listOf(
     "en", "pl", "de", "es", "it", "hi", "ru", "bg", "tr", "ja", "id", "cs", "zh-Hant", "ar", "fi",
@@ -133,7 +133,7 @@ private val factories = mapOf(
 private const val ASSETS_TRANSLATIONS_PATH = "translations/%s/%s"
 private val ASSETS_TRANSLATIONS_FILES = listOf("ui.json", "packs.json", "tags.json")
 
-@JsonClass(generateAdapter = true)
+@Serializable
 class TranslationPack(
     val strings: Map<String, String>
 )

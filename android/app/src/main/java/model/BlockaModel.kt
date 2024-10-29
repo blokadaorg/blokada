@@ -12,7 +12,7 @@
 
 package model
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 import java.util.Date
 
 typealias AccountId = String
@@ -22,7 +22,7 @@ typealias PublicKey = String
 typealias ActiveUntil = Date
 typealias DeviceId = String
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class GoogleCheckoutRequest(
     val account_id: AccountId,
     val purchase_token: String,

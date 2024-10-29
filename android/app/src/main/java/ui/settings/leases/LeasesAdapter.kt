@@ -20,12 +20,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import binding.niceName
-import channel.pluslease.Lease
+import binding.LegacyLease
 import org.blokada.R
 
 class LeasesAdapter(private val interaction: Interaction) :
-    ListAdapter<Lease, LeasesAdapter.LeaseViewHolder>(LeaseDC()) {
+    ListAdapter<LegacyLease, LeasesAdapter.LeaseViewHolder>(LeaseDC()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LeaseViewHolder(
         LayoutInflater.from(parent.context)
@@ -35,7 +34,7 @@ class LeasesAdapter(private val interaction: Interaction) :
     override fun onBindViewHolder(holder: LeaseViewHolder, position: Int) =
         holder.bind(getItem(position))
 
-    fun swapData(data: List<Lease>) {
+    fun swapData(data: List<LegacyLease>) {
         submitList(data.toMutableList())
     }
 
@@ -59,7 +58,7 @@ class LeasesAdapter(private val interaction: Interaction) :
             itemView.alpha = 0.5f
         }
 
-        fun bind(item: Lease) = with(itemView) {
+        fun bind(item: LegacyLease) = with(itemView) {
             name.text = item.niceName()
             if (interaction.isThisDevice(item)) {
                 thisDevice.visibility = View.VISIBLE
@@ -72,21 +71,21 @@ class LeasesAdapter(private val interaction: Interaction) :
     }
 
     interface Interaction {
-        fun onDelete(lease: Lease)
-        fun isThisDevice(lease: Lease): Boolean
+        fun onDelete(lease: LegacyLease)
+        fun isThisDevice(lease: LegacyLease): Boolean
     }
 
-    private class LeaseDC : DiffUtil.ItemCallback<Lease>() {
+    private class LeaseDC : DiffUtil.ItemCallback<LegacyLease>() {
         override fun areItemsTheSame(
-            oldItem: Lease,
-            newItem: Lease
+            oldItem: LegacyLease,
+            newItem: LegacyLease
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Lease,
-            newItem: Lease
+            oldItem: LegacyLease,
+            newItem: LegacyLease
         ): Boolean {
             return oldItem == newItem
         }

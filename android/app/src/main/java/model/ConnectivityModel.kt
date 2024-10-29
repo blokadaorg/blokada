@@ -13,12 +13,12 @@
 package model
 
 import android.content.Context
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 import org.blokada.R
 import repository.DnsDataSource
 import ui.utils.now
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class NetworkDescriptor(
     val name: String?,
     val type: NetworkType = NetworkType.FALLBACK
@@ -43,7 +43,7 @@ enum class NetworkType {
     WIFI, CELLULAR, FALLBACK
 }
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class NetworkSpecificConfig(
     val network: NetworkDescriptor,
     val enabled: Boolean,
@@ -110,7 +110,7 @@ data class NetworkSpecificConfig(
 
 typealias NetworkId = String
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class NetworkSpecificConfigs(
     val configs: List<NetworkSpecificConfig>
 )

@@ -12,7 +12,8 @@
 
 package model
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
+
 
 enum class AccountType {
     Libre, Cloud, Plus
@@ -28,7 +29,7 @@ fun String?.toAccountType(): AccountType {
 
 fun AccountType.isActive() = this != AccountType.Libre
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class LegacyAccount(
     val id: AccountId,
     val active: Boolean

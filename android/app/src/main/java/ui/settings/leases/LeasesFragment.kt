@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import binding.AccountBinding
+import binding.LegacyLease
 import binding.PlusKeypairBinding
 import binding.PlusLeaseBinding
 import channel.pluslease.Lease
@@ -43,11 +44,11 @@ class LeasesFragment : Fragment() {
 
         account.live.observe(viewLifecycleOwner) { account ->
             val adapter = LeasesAdapter(interaction = object : LeasesAdapter.Interaction {
-                override fun onDelete(lease: Lease) {
+                override fun onDelete(lease: LegacyLease) {
                     plusLease.deleteLease(lease)
                 }
 
-                override fun isThisDevice(lease: Lease): Boolean {
+                override fun isThisDevice(lease: LegacyLease): Boolean {
                     return plusKeypair.keypair.value?.publicKey == lease.publicKey
                 }
             })

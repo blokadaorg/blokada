@@ -12,12 +12,13 @@
 
 package model
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
+
 
 typealias DnsIp = String
 typealias DnsId = String
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Dns(
     val id: DnsId,
     val ips: List<DnsIp>,
@@ -44,7 +45,7 @@ data class Dns(
 
 }
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class DnsWrapper(
     val value: List<Dns>
 )

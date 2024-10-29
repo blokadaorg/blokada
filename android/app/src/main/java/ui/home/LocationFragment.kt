@@ -19,9 +19,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import binding.LegacyGateway
 import binding.PlusBinding
 import binding.PlusGatewayBinding
-import binding.niceName
 import channel.plusgateway.Gateway
 import org.blokada.R
 import service.Sheet
@@ -101,7 +101,7 @@ class LocationFragment : BottomSheetFragment() {
         return root
     }
 
-    private fun addLocationItemView(inflater: LayoutInflater, container: ViewGroup, location: Gateway) {
+    private fun addLocationItemView(inflater: LayoutInflater, container: ViewGroup, location: LegacyGateway) {
         val item = inflater.inflate(R.layout.item_location, container, false)
         val icon: ImageView = item.findViewById(R.id.location_icon)
         val name: TextView = item.findViewById(R.id.location_name)
@@ -128,7 +128,7 @@ class LocationFragment : BottomSheetFragment() {
         container.animate().alpha(1f)
     }
 
-    private fun getFlag(location: Gateway): Int {
+    private fun getFlag(location: LegacyGateway): Int {
         return when (location.country) {
             "SE" -> R.drawable.flag_se
             "GB" -> R.drawable.flag_gb

@@ -12,7 +12,7 @@
 
 package model
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
 typealias AppId = String
 
@@ -38,7 +38,7 @@ class App(
     }
 }
 
-@JsonClass(generateAdapter = true)
+@Serializable
 class BypassedAppIds(
     val ids: List<AppId>
 )

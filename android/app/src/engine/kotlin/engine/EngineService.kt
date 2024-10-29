@@ -12,9 +12,8 @@
 
 package engine
 
-import binding.niceName
-import channel.plusgateway.Gateway
-import channel.pluslease.Lease
+import binding.LegacyGateway
+import binding.LegacyLease
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -160,8 +159,8 @@ private data class EngineConfiguration(
     val dns: Dns,
     val doh: Boolean,
     val privateKey: PrivateKey,
-    val gateway: Gateway?,
-    val lease: Lease?,
+    val gateway: LegacyGateway?,
+    val lease: LegacyLease?,
     var networkDns: List<InetAddress>,
     val forceLibreMode: Boolean,
 

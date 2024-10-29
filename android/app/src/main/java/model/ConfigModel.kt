@@ -12,18 +12,18 @@
 
 package model
 
-import channel.plusgateway.Gateway
-import channel.pluslease.Lease
-import com.squareup.moshi.JsonClass
+import binding.LegacyGateway
+import binding.LegacyLease
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class BlockaConfig(
     val privateKey: PrivateKey,
     val publicKey: PublicKey,
     val keysGeneratedForAccountId: AccountId,
     val keysGeneratedForDevice: DeviceId,
-    val lease: Lease?,
-    val gateway: Gateway?,
+    val lease: LegacyLease?,
+    val gateway: LegacyGateway?,
     val vpnEnabled: Boolean,
     val tunnelEnabled: Boolean = false
 ) {
@@ -32,7 +32,7 @@ data class BlockaConfig(
 }
 
 // These settings are never backed up to the cloud
-@JsonClass(generateAdapter = true)
+@Serializable
 data class LocalConfig(
     val dnsChoice: DnsId, // Deprecated
     val useChromeTabs: Boolean = false,
@@ -49,7 +49,7 @@ data class LocalConfig(
 )
 
 // These settings are always backed up to the cloud (if possible)
-@JsonClass(generateAdapter = true)
+@Serializable
 data class SyncableConfig(
     val rateAppShown: Boolean,
     val notFirstRun: Boolean,
