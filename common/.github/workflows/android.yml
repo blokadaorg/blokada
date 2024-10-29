@@ -32,8 +32,10 @@ jobs:
 
       - name: Zip Maven Repo
         run: |
-          mkdir -p build/artifacts  # Create a folder for artifacts if needed
-          zip -r build/artifacts/sixcommon-android.zip build/host/outputs/repo  # Zip the Maven repo directory
+          mkdir -p build/artifacts
+          cp -r build/host/outputs/repo build/artifacts/
+          cp -r libgen/android build/artifacts/
+          zip -r build/artifacts/sixcommon-android.zip build/artifacts
 
       - name: Upload Maven Repo as Artifact
         uses: actions/upload-artifact@v3
