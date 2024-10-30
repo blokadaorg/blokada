@@ -1,4 +1,4 @@
-name: libcommon build and test
+name: six-common build and test
 
 on:
   workflow_dispatch:

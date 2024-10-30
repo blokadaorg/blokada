@@ -1,4 +1,4 @@
-name: libcommon android artifacts
+name: six-common android artifacts
 
 on:
   workflow_dispatch:
