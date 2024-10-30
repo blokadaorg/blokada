@@ -83,12 +83,22 @@ jobs:
       - name: Run tests
         run: make test
 
-      - name: Build app
+      - name: Build app v6
         run: |
           make aab
 
-      - name: Upload aab as Artifact
+      - name: Upload aab v6 as Artifact
         uses: actions/upload-artifact@v3
         with:
           name: blokada6.aab  # Name of the artifact
           path: app/build/outputs/bundle/sixRelease/app-six-release.aab  # Path to the zipped artifact
+
+      - name: Build app family
+        run: |
+          make aabfamily
+
+      - name: Upload aab family as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: blokadafamily.aab  # Name of the artifact
+          path: app/build/outputs/bundle/familyRelease/app-family-release.aab  # Path to the zipped artifact
