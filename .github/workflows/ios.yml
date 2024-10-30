@@ -18,7 +18,11 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
         with:
-          submodules: recursive
+          submodules: false
+
+      - name: Initialize and update six-android
+        run: |
+          git submodule update --init --recursive .
 
       - name: Get Flutter
         uses: subosito/flutter-action@v2
