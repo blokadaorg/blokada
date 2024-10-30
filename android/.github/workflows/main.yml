@@ -1,4 +1,4 @@
-name: six-android v6
+name: six-android v6 & family
 
 on:
   workflow_dispatch:
