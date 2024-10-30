@@ -20,35 +20,63 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: recursive
+          submodules: false
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-
-      - name: Get Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Build common lib
+      - name: Initialize and update six-android
         run: |
-          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
-          make sixcommon
+          git submodule update --init --recursive .
 
-      - name: Build aab
-        run: make aabfamily
+      - name: Get six-android Commit SHA
+        id: get_ref
+        run: |
+          REPO_A_REF=$(git -C . rev-parse HEAD)
+          echo "REPO_A_REF=${REPO_A_REF}"
+          echo "REPO_A_REF=${REPO_A_REF}" >> $GITHUB_ENV
+
+      - name: Get Workflow Run ID for Commit SHA of six-android
+        id: get_run_id
+        run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
+          REPO="blokadaorg/six-android"
+          REF=${{ env.REPO_A_REF }}
+
+          # Find the workflow run ID for the specific commit SHA
+          WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs?status=completed&branch=main" \
+            | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\").id" | head -n 1)
+
+          echo "WORKFLOW_RUN_ID=${WORKFLOW_RUN_ID}" >> $GITHUB_ENV
+
+      - name: Download Artifact from six-android
+        if: env.WORKFLOW_RUN_ID  # Only proceed if we have a valid workflow run ID
+        run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
+          REPO="blokadaorg/six-android"
+          ARTIFACT_NAME="blokadafamily.aab"
+          WORKFLOW_RUN_ID=${{ env.WORKFLOW_RUN_ID }}
+
+          # Get the artifact download URL
+          ARTIFACT_URL=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs/$WORKFLOW_RUN_ID/artifacts" \
+            | jq -r ".artifacts[] | select(.name == \"$ARTIFACT_NAME\").archive_download_url")
+
+          # Download the artifact
+          curl -L -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            -o artifact.zip "$ARTIFACT_URL"
+
+      - name: Unzip six-android artifact
+        if: env.WORKFLOW_RUN_ID  # Ensure the artifact was successfully downloaded
+        run: |
+          mkdir -p artifact
+          unzip artifact.zip -d artifact/
+          echo "Checking extracted paths"
+          ls -la artifact/
 
       - name: Sign app AAB
         uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: six-android/app/build/outputs/bundle/familyRelease
+          releaseDirectory: six-android/artifact
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}

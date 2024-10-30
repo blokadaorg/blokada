@@ -1,4 +1,4 @@
-name: Blokada 6 for iOS (Publish)
+name: Internal Blokada 6 for iOS
 
 on:
   workflow_dispatch:
@@ -25,10 +25,24 @@ jobs:
         with:
           channel: 'stable'
 
+      # Manually install FVM and add it to PATH
+      - name: Install FVM
+        run: |
+          flutter pub global activate fvm
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Verify FVM installation
+        run: fvm --version
+
       - name: Build common lib
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make sixcommon
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21' # Replace with the Go version you need
  
       - name: Set up ruby env
         uses: ruby/setup-ruby@v1
@@ -56,11 +70,3 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
           KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
- 
-      - name: Upload app-store ipa and dsyms to artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-store ipa & dsyms
-          path: |
-            ${{ github.workspace }}/example-iOS.ipa
-            ${{ github.workspace }}/*.app.dSYM.zip
