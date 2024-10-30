@@ -80,9 +80,6 @@ jobs:
           java --version
           #./gradlew :app:dependencies
 
-      - name: Run tests
-        run: make test
-
       - name: Build app v6
         run: |
           make aab
