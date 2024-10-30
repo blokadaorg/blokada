@@ -1,4 +1,4 @@
-name: Blokada 6 for Android (CI)
+name: six-android v6
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
           # Find the workflow run ID for the specific commit SHA
           WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
             "https://api.github.com/repos/$REPO/actions/runs?status=completed&branch=main" \
-            | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\" and .name == \"libcommon android artifacts\").id" | head -n 1)
+            | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\" and .name == \"six-common android artifacts\").id" | head -n 1)
           
           echo "WORKFLOW_RUN_ID=${WORKFLOW_RUN_ID}" >> $GITHUB_ENV
 
