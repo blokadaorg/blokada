@@ -1,4 +1,4 @@
-name: Blokada Family for iOS (CI)
+name: six-ios family 
 
 on:
   workflow_dispatch:
