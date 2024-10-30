@@ -16,6 +16,17 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21' # Replace with the Go version you need
+
+      - name: Verify Go installation
+        run: |
+          go version
+          echo $PATH
+
+
       - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -58,7 +69,7 @@ jobs:
         run: security default-keychain -s ~/Library/Keychains/signing_temp.keychain-db
 
       - name: Build iOS binary
-        run: bundle exec fastlane build_blokada
+        run: bundle exec fastlane build_blokada --verbose
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
