@@ -1,9 +1,9 @@
 app_identifier("net.blocka.app")
 
 for_lane :build_family do
-  app_identifier("net.blocka.family")
+  app_identifier("net.blocka.app.family")
 end
 
 for_lane :build_upload_testflight_family do
-  app_identifier("net.blocka.family")
+  app_identifier("net.blocka.app.family")
 end
