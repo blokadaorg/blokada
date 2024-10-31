@@ -168,7 +168,7 @@ desc "Build and upload to TestFlight family"
 lane :build_upload_testflight_family do
      load_asc_api_key
      prepare_signing(
-      profile_name: "blokada-app-ios-dist"
+      profile_name: "blokada-app-ios-dist-family"
      )
      build_family
      upload_release(
