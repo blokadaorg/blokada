@@ -1,0 +1,30 @@
+This app provides a safe and controlled browsing environment for the whole family. While delivering the ad-blocking that Blokada is famous for, it also empowers parents to create a digital space where children can explore the internet safely and securely.
+
+---
+
+Key Features:
+
+- Parental Control: Customize your children’s online access, effectively blocking inappropriate and harmful websites and apps.
+- Safe Browsing: While still providing an ad-blocking feature, the primary focus is on safe browsing, ensuring children are exposed to only appropriate content.
+- Malware Protection: Actively blocks sites known for malicious content, viruses, and fraudulent activities.
+- DNS-based Interception: Offers comprehensive protection across all modern browsers and apps.
+- Enhanced Efficiency: Reduces data usage and improves battery life by loading less data.
+
+Beyond Just Ad-Blocking:
+
+- Comprehensive Content Filtering: Filters out adult content, gambling websites, and aggressive advertising networks to maintain a child-friendly browsing experience.
+- SafeSearch Enforcement: Ensures that search engines filter out explicit content, providing a safer search experience for children.
+- Activity Monitoring: Enables parents to monitor accessed websites, offering insight into online behavior and ensuring a secure browsing experience.
+- Customizable Controls: Gives parents the flexibility to customize what is blocked or allowed, tailoring the internet experience to suit your family's needs.
+- Social Media and Tracker Blocking: Shields against trackers from various networks, protecting your family’s digital footprint.
+- Robust Website Filtering: Advanced protection against digital threats by blocking access to malicious websites.
+
+---
+
+Creating a Safer Internet for Your Family
+
+With Blokada Family, ensure a safe and secure online experience for your children, making the internet a conducive space for learning and fun.
+
+Terms of Use: https://go.blokada.org/terms_family
+Privacy Policy: https://go.blokada.org/privacy_family
+

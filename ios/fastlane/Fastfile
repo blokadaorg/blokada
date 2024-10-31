@@ -26,25 +26,6 @@ lane :load_asc_api_key do
  )
 end
 
-desc "Bump build number based on most recent TestFlight build number"
-lane :fetch_and_increment_build_number do
- #fetch read your app identifier defined in your Appfile
- app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
- api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
- 
- current_version = get_version_number(
-   target: "App"
- )
- latest_build_number = latest_testflight_build_number(
-   api_key: api_key,
-   version: current_version,
-   app_identifier: app_identifier
- )
- increment_build_number(
-   build_number: (latest_build_number + 1),
- )
-end
- 
 desc "Check certs and profiles"
 lane :prepare_signing do |options|
  app_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
@@ -76,12 +57,12 @@ lane :prepare_signing do |options|
  )
 end
  
-desc "Build the iOS app for release"
+desc "Build the app for release"
 lane :build_release do |options|
  app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
  
  profile_name = "blokada-app-ios-dist" # the name of the profile to use for the build
- output_name = "blokada6" # specify the name of the .ipa file to generate
+ output_name = options[:output_name] # specify the name of the .ipa file to generate
  export_method = "app-store" # specify the export method
  compile_bitcode = true # specify whether to enable bitcode
  
@@ -89,45 +70,62 @@ lane :build_release do |options|
  update_code_signing_settings(
    path: './IOS.xcodeproj',
    use_automatic_signing: false,
-   targets: ["Prod"],
+   targets: [options[:target]],
    code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
    bundle_identifier: app_identifier,
-   profile_name: profile_name,
+   profile_name: options[:profile_name],
    build_configurations: ["Release"] # only toggle code signing settings for Release configurations
  )
 
- # same for the network extension
- update_code_signing_settings(
-   path: './IOS.xcodeproj',
-   use_automatic_signing: false,
-   targets: ["WireGuardNetworkExtensioniOS"],
-   code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
-   bundle_identifier: "net.blocka.app.network-extension",
-   profile_name: "blokada-networkextension-ios-dist",
-   build_configurations: ["Release"] # only toggle code signing settings for Release configurations
- )
+ if options[:wireguard]
+  # same for the network extension
+  update_code_signing_settings(
+    path: './IOS.xcodeproj',
+    use_automatic_signing: false,
+    targets: ["WireGuardNetworkExtensioniOS"],
+    code_sign_identity: "Apple Distribution", # replace with name of code signing identity if different
+    bundle_identifier: "net.blocka.app.network-extension",
+    profile_name: "blokada-networkextension-ios-dist",
+    build_configurations: ["Release"] # only toggle code signing settings for Release configurations
+  )
  
- # build the app
- gym(
-   scheme: "Prod",
-   output_name: output_name,
-   configuration: "Release",
-   export_options: {
-     method: export_method,
-     provisioningProfiles: {
-       "net.blocka.app" => "blokada-app-ios-dist",
-       "net.blocka.app.network-extension" => "blokada-networkextension-ios-dist"
-     },
-     compileBitcode: compile_bitcode
-   }
- )
+  # build the app
+  gym(
+    scheme: "Prod",
+    output_name: output_name,
+    configuration: "Release",
+    export_options: {
+      method: export_method,
+      provisioningProfiles: {
+        "net.blocka.app" => "blokada-app-ios-dist",
+        "net.blocka.app.network-extension" => "blokada-networkextension-ios-dist"
+      },
+      compileBitcode: compile_bitcode
+    }
+  )
+  next
+  end
+
+  gym(
+    scheme: "FamilyProd",
+    output_name: output_name,
+    configuration: "Release",
+    export_options: {
+      method: export_method,
+      provisioningProfiles: {
+        "net.blocka.app.family" => "blokada-app-ios-dist-family",
+      },
+      compileBitcode: compile_bitcode
+    }
+  )
 end
  
 desc "Upload to TestFlight / ASC"
-lane :upload_release do
+lane :upload_release do |options|
  api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
  
  deliver(
+     metadata_path: options[:metadata_path],
      api_key: api_key,
      skip_screenshots: true,
      skip_app_version_update: false,
@@ -136,18 +134,43 @@ lane :upload_release do
  )
 end
 
-desc "Build app"
-lane :build_blokada do
-     load_asc_api_key
-     prepare_signing
-     build_release
+# Appfile for_lane should profive proper app id
+
+desc "Build app v6"
+lane :build_v6 do
+     build_release(
+      output_name: "blokada6",
+      target: "Prod",
+      profile_name: "blokada-app-ios-dist",
+      wireguard: true
+     )
 end
 
-desc "Build and upload to TestFlight"
-lane :build_upload_testflight do
-     load_asc_api_key
-     prepare_signing
-     build_release
-     upload_release
+desc "Build family"
+lane :build_family do
+     build_release(
+      output_name: "blokadafamily",
+      target: "FamilyProd",
+      profile_name: "blokada-app-ios-dist-family"
+     )
 end
 
+desc "Build and upload to TestFlight v6"
+lane :build_upload_testflight_v6 do
+     load_asc_api_key
+     prepare_signing
+     build_v6
+     upload_release(
+      metadata_path: "./fastlane/metadata/v6"
+     )
+end
+
+desc "Build and upload to TestFlight family"
+lane :build_upload_testflight_family do
+     load_asc_api_key
+     prepare_signing
+     build_family
+     upload_release(
+      metadata_path: "./fastlane/metadata/family"
+     )
+end

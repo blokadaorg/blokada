@@ -1,0 +1,31 @@
+Ta aplikacja zapewnia bezpieczne i kontrolowane środowisko online dla całej rodziny. Oprócz blokowania reklam, z którego Blokada jest znana, nasza nowa apka umożliwia rodzicom stworzenie cyfrowej przestrzeni, w której dzieci mogą bezpiecznie i pewnie eksplorować internet.
+
+
+---
+
+Główne funkcje:
+
+- Kontrola rodzicielska: Dostosuj dostęp do Internetu swoich dzieci, skutecznie blokując nieodpowiednie i szkodliwe strony internetowe oraz aplikacje.
+- Bezpieczne przeglądanie: Oprócz oferowania funkcji blokowania reklam, główny nacisk kładziemy na bezpieczne przeglądanie Internetu, aby dzieci nie były narażone na nieodpowiednie treści.
+- Ochrona przed złośliwym oprogramowaniem: Aktywnie blokuje strony zawierające złośliwe oprogramowanie, wirusy i scam.
+- Technologia oparta na DNS: Oferuje kompleksową ochronę kompatybilną ze wszystkimi nowoczesnymi przeglądarkami i aplikacjami.
+- Zwiększona wydajność: Zmniejsza zużycie danych i wydłuża czas pracy baterii, ładując mniej niepotrzebnych danych.
+
+Więcej niż tylko blokowanie reklam:
+
+- Kompleksowe filtrowanie: Filtruje treści dla dorosłych, strony hazardowe i agresywne sieci reklamowe, aby zapewnić przyjazne dla dzieci środowisko internetowe.
+- SafeSearch: Wymusza na wyszukiwarkach filtrowanie treści kontrowersyjnych, zapewniając bezpieczniejsze wyszukiwanie dla dzieci.
+- Monitorowanie aktywności: Umożliwia rodzicom monitorowanie odwiedzanych przez ich dzieci stron internetowych, zapewniając wgląd w zachowania online i bezpieczny dostęp do Internetu.
+- Konfiguracja: Daje rodzicom elastyczność w dostosowywaniu co jest blokowane a co dozwolone, zgodnie z do potrzebami rodziny.
+- Blokowanie mediów społecznościowych i trackerów: Chroni przed trackerami z różnych sieci reklamowych, ukrywając cyfrowy ślad Twojej rodziny.
+- Filtrowanie stron internetowych: Zapewnia zaawansowaną ochronę przed zagrożeniami internetowymi, blokując dostęp do złośliwych stron internetowych.
+
+---
+
+Tworzenie bezpieczniejszego Internetu dla Twojej rodziny
+
+Z Blokada Family możesz zapewnić swoim dzieciom bezpieczny i chroniony dostęp do Internetu, czyniąc go przestrzenią sprzyjającą nauce i zabawie.
+
+Warunki użytkowania: https://go.blokada.org/terms_family
+Polityka prywatności: https://go.blokada.org/privacy_family
+

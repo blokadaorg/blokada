@@ -1,0 +1,30 @@
+Denna app ger en säker och kontrollerad internetåtkomst för hela familjen. Samtidigt som den erbjuder den annonsblockering som Blokada är känd för, ger den också föräldrar möjlighet att skapa ett digitalt utrymme där barnen kan utforska internet säkert och tryggt.
+
+---
+
+Huvudfunktioner:
+
+- Föräldrakontroll: Anpassa dina barns internetåtkomst genom att effektivt blockera olämpliga och skadliga webbplatser och appar.
+- Säker surfning: Utöver att erbjuda en annonsblockerande funktion är huvudfokus på säker surfning för att säkerställa att barn endast exponeras för lämpligt innehåll.
+- Skydd mot skadlig programvara: Blockerar aktivt webbplatser som är kända för skadligt innehåll, virus och bedrägliga aktiviteter.
+- DNS-baserad avlyssning: Erbjuder omfattande skydd i alla moderna webbläsare och appar.
+- Förbättrad effektivitet: Minskar dataanvändningen och förbättrar batteritiden genom att ladda mindre data.
+
+Mer än bara annonsblockering:
+
+- Omfattande innehållsfiltrering: Filtrerar bort vuxeninnehåll, spelsajter och aggressiva reklamnätverk för att upprätthålla en barnvänlig webbläsarupplevelse.
+- SafeSearch-genomförande: Säkerställer att sökmotorer filtrerar bort explicit innehåll och ger en säkrare sökupplevelse för barn.
+- Aktivitetsövervakning: Gör det möjligt för föräldrar att övervaka besökta webbplatser, vilket ger insikt i onlinebeteende och säkerställer en säker webbläsarupplevelse.
+- Anpassningsbara kontroller: Ger föräldrar flexibilitet att anpassa vad som blockeras eller tillåts och skräddarsy internetupplevelsen efter familjens behov.
+- Blockering av sociala medier och trackers: Skyddar mot trackers från olika nätverk och skyddar din familjs digitala fotavtryck.
+- Robust webbfiltrering: Ger avancerat skydd mot digitala hot genom att blockera åtkomst till skadliga webbplatser.
+
+---
+
+Skapar ett säkrare internet för din familj
+
+Med Blokada Family kan du säkerställa en säker och trygg onlineupplevelse för dina barn, vilket gör internet till en gynnsam plats för lärande och nöje.
+
+Användarvillkor: https://go.blokada.org/terms_family
+Integritetspolicy: https://go.blokada.org/privacy_family
+
