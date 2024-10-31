@@ -22,7 +22,7 @@ jobs:
 
       - name: Initialize and update six-ios
         run: |
-          git submodule update --init --recursive ./six-ios
+          git submodule update --init --recursive .
 
       - name: Set up Go
         uses: actions/setup-go@v4
