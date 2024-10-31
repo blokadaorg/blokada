@@ -24,6 +24,11 @@ jobs:
         run: |
           git submodule update --init --recursive .
 
+      - name: List repo
+        run: |
+          git submodule status
+          ls -la .
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -34,6 +39,7 @@ jobs:
         with:
           ruby-version: 2.7.7
           bundler-cache: true
+          working-directory: ./six-ios
 
       - name: Install bundler
         run: gem install bundler:2.4.22
