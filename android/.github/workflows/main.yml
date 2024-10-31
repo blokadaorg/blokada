@@ -3,7 +3,8 @@ name: six-android v6 & family
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    tags:
+      - '*'
 
 env:
   main_project_module: app
