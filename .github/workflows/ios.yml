@@ -24,6 +24,20 @@ jobs:
         run: |
           git submodule update --init --recursive ./six-ios
 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21' # Replace with the Go version you need
+ 
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.7
+          bundler-cache: true
+
+      - name: Install bundler
+        run: gem install bundler:2.4.22
+
       - name: Get Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -42,20 +56,6 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
           make sixcommon
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.21' # Replace with the Go version you need
- 
-      - name: Set up ruby env
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.7
-          bundler-cache: true
-
-      - name: Install bundler
-        run: gem install bundler:2.4.22
 
       - name: Install fastlane
         run: bundler install
