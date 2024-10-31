@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - ios.v6.**
+      - ios.family.**
 
 jobs:
   build:

@@ -29,12 +29,14 @@ git submodule update
 
 cd ../
 
-commit="publish Blokada 6 for iOS: $1"
+commit="publish Blokada for iOS: $1"
 tag="ios.v6.$1"
+tagFamily="ios.family.$1"
 
 git add six-ios
 git commit -m "$commit"
 git tag $tag
+git tag $tagFamily
 
 git push
 git push --tags
