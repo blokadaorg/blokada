@@ -1,0 +1,82 @@
+name: Blokada Family for iOS (Push)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - ios.v6.**
+
+jobs:
+  build:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./six-ios
+
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3	
+        with:
+          submodules: false
+
+      - name: Initialize and update six-ios
+        run: |
+          git submodule update --init --recursive .
+
+      - name: List repo
+        run: |
+          git submodule status
+          ls -la .
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21' # Replace with the Go version you need
+ 
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.7
+          bundler-cache: true
+          working-directory: ./six-ios
+
+      - name: Install bundler
+        run: gem install bundler:2.4.22
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # Manually install FVM and add it to PATH
+      - name: Install FVM
+        run: |
+          flutter pub global activate fvm
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Verify FVM installation
+        run: fvm --version
+
+      - name: Build common lib
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make sixcommon
+
+      - name: Install fastlane
+        run: bundler install
+
+      - name: Import Code-Signing Certificates
+        uses: Apple-Actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.IOS_DIST_SIGNING_KEY }}
+          p12-password: ${{ secrets.IOS_DIST_SIGNING_KEY_PASSWORD }}
+          keychain-password: signingtmp
+    
+      - name: Build & upload iOS binary
+        run: bundle exec fastlane build_upload_testflight_family
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+          KEYCHAIN_PATH: ~/Library/Keychains/signing_temp.keychain-db
