@@ -1,4 +1,4 @@
-name: Blokada 6 for Android (Push)
+name: android v6 push
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Blokada Family for iOS (Push)
+name: ios family push 
 
 on:
   workflow_dispatch:

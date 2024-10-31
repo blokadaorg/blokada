@@ -29,7 +29,7 @@ git submodule update
 
 cd ../
 
-commit="publish Blokada 6 for Android: $1"
+commit="android push: $1"
 tag="android.v6.$1"
 tagFamily="android.family.$1"
 

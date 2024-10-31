@@ -29,7 +29,7 @@ git submodule update
 
 cd ../
 
-commit="publish Blokada for iOS: $1"
+commit="iOS push: $1"
 tag="ios.v6.$1"
 tagFamily="ios.family.$1"
 

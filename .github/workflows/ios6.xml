@@ -1,4 +1,4 @@
-name: Blokada 6 for iOS (Push)
+name: ios v6 push
 
 on:
   workflow_dispatch:
