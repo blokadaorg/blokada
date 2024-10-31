@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./six-ios
+
 
     steps:
       - name: Checkout project
@@ -16,11 +20,7 @@ jobs:
         with:
           submodules: false
 
-      - name: Set working directory
-        run: echo "Working directory set to ./six-ios"
-        working-directory: ./six-ios
-
-      - name: Initialize and update six-ios
+      - name: Initialize and update six-android
         run: |
           git submodule update --init --recursive .
 
