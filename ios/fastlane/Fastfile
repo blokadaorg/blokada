@@ -130,7 +130,7 @@ lane :upload_release do
  deliver(
      api_key: api_key,
      skip_screenshots: true,
-     skip_app_version_update: true,
+     skip_app_version_update: false,
      force: true, # skips verification of HTML preview file (since this will be run from a CI machine)
      run_precheck_before_submit: false # not supported through ASC API yet
  )
