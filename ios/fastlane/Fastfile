@@ -31,8 +31,6 @@ lane :prepare_signing do |options|
  app_id = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
  api_key = lane_context[SharedValues::APP_STORE_CONNECT_API_KEY]
  
- profile_name = "blokada-app-ios-dist"
- 
  cert(
      api_key: api_key,
      keychain_path: ENV["KEYCHAIN_PATH"],
@@ -44,7 +42,7 @@ lane :prepare_signing do |options|
  sigh(
    api_key: api_key,
    app_identifier: app_id,
-   provisioning_name: profile_name,
+   provisioning_name: options[:profile_name],
    force: true # always recreate this exact profile to ensure it's valid and not expired
  )
 
@@ -61,7 +59,6 @@ desc "Build the app for release"
 lane :build_release do |options|
  app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
  
- profile_name = "blokada-app-ios-dist" # the name of the profile to use for the build
  output_name = options[:output_name] # specify the name of the .ipa file to generate
  export_method = "app-store" # specify the export method
  compile_bitcode = true # specify whether to enable bitcode
@@ -158,7 +155,9 @@ end
 desc "Build and upload to TestFlight v6"
 lane :build_upload_testflight_v6 do
      load_asc_api_key
-     prepare_signing
+     prepare_signing(
+      profile_name: "blokada-app-ios-dist"
+     ),
      build_v6
      upload_release(
       metadata_path: "./fastlane/metadata/v6"
@@ -168,7 +167,9 @@ end
 desc "Build and upload to TestFlight family"
 lane :build_upload_testflight_family do
      load_asc_api_key
-     prepare_signing
+     prepare_signing(
+      profile_name: "blokada-app-ios-dist"
+     ),
      build_family
      upload_release(
       metadata_path: "./fastlane/metadata/family"
