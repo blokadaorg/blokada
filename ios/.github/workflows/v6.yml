@@ -3,7 +3,8 @@ name: six-ios v6
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    tags:
+      - **
 
 jobs:
   build:
