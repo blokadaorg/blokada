@@ -16,9 +16,11 @@ jobs:
 
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: false
+          sparse-checkout: |
+            six-ios
+          submodules: recursive
 
       - name: Initialize and update six-android
         run: |
