@@ -64,7 +64,7 @@ jobs:
         run: security default-keychain -s ~/Library/Keychains/signing_temp.keychain-db
 
       - name: Build iOS binary
-        run: bundle exec fastlane build_blokada_v6 --verbose
+        run: bundle exec fastlane build_v6 --verbose
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
