@@ -157,7 +157,7 @@ lane :build_upload_testflight_v6 do
      load_asc_api_key
      prepare_signing(
       profile_name: "blokada-app-ios-dist"
-     ),
+     )
      build_v6
      upload_release(
       metadata_path: "./fastlane/metadata/v6"
@@ -169,7 +169,7 @@ lane :build_upload_testflight_family do
      load_asc_api_key
      prepare_signing(
       profile_name: "blokada-app-ios-dist"
-     ),
+     )
      build_family
      upload_release(
       metadata_path: "./fastlane/metadata/family"
