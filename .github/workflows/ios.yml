@@ -16,15 +16,13 @@ jobs:
 
     steps:
       - name: Checkout project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3	
         with:
-          sparse-checkout: |
-            six-ios
-          submodules: recursive
+          submodules: false
 
-      - name: Initialize and update six-android
+      - name: Initialize and update six-ios
         run: |
-          git submodule update --init --recursive .
+          git submodule update --init --recursive ./six-ios
 
       - name: Get Flutter
         uses: subosito/flutter-action@v2
