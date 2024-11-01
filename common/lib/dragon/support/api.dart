@@ -11,6 +11,7 @@ class SupportApi with Logging {
     final result = await _api.request(ApiEndpoint.postSupport, m,
         payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
+          event: SupportEvent.firstOpen,
         )));
     log(m).i("create session: $result");
     return _marshal.toSession(result);

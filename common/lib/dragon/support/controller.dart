@@ -90,9 +90,7 @@ class SupportController with Logging {
     _currentSession.now = session.sessionId;
     _ttl = session.ttl;
     await _updateSessionExpiry();
-    final hi =
-        await _api.sendEvent(m, _currentSession.now!, SupportEvent.firstOpen);
-    _handleResponse(hi);
+    _handleResponse(session.history);
   }
 
   clearSession() async {
@@ -117,7 +115,7 @@ class SupportController with Logging {
       if (message != null) {
         _addMyMessage(message);
         final msg = await _api.sendMessage(m, _currentSession.now!, message);
-        _handleResponse(msg);
+        _handleResponse(msg.messages);
       }
     } on HttpCodeException catch (e) {
       if (e.code >= 400 && e.code < 500) {
@@ -153,8 +151,8 @@ class SupportController with Logging {
     onChange();
   }
 
-  _handleResponse(JsonSupportResponse response) {
-    for (final msg in response.messages) {
+  _handleResponse(List<JsonSupportHistoryItem> messages) {
+    for (final msg in messages) {
       if (msg.text == null) continue; // TODO: support other types of msgs
 
       final message = SupportMessage(
