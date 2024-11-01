@@ -25,6 +25,9 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
 
+      - name: Test
+        run: make test
+
       - name: Make android
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
