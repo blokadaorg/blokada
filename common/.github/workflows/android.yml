@@ -25,13 +25,18 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
 
+      - name: Make generated files
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make get gen
+
       - name: Test
         run: make test
 
       - name: Make android
         run: |
           git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
-          make get gen android
+          make android
 
       - name: Zip Maven Repo
         run: |
