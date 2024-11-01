@@ -153,7 +153,9 @@ class SupportController with Logging {
 
   _handleResponse(List<JsonSupportHistoryItem> messages) {
     for (final msg in messages) {
-      if (msg.text == null) continue; // TODO: support other types of msgs
+      if (msg.text == null || msg.text!.isBlank) {
+        continue; // TODO: support other types of msgs
+      }
 
       final message = SupportMessage(
         msg.text!,
