@@ -29,18 +29,19 @@ import 'package:common/dragon/perm/dns_perm.dart';
 import 'package:common/dragon/persistence/persistence.dart';
 import 'package:common/dragon/profile/api.dart';
 import 'package:common/dragon/profile/controller.dart';
-import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/stats/api.dart';
 import 'package:common/dragon/stats/controller.dart';
 import 'package:common/dragon/support/api.dart';
 import 'package:common/dragon/support/chat_history.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/support/current_session.dart';
+import 'package:common/dragon/support/purchase_timeout.dart';
 import 'package:common/dragon/support/support_unread.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/util/di.dart';
 
 class DragonDeps {
-  register(Act act) {
+  DragonDeps register(Act act) {
     // First, deps that are also used in v6
     // currently only for backwards-migrating the new Filters
     // that replace the old Decks/Packs concept
@@ -106,6 +107,15 @@ class DragonDeps {
       depend<CurrentSession>(CurrentSession());
       depend<ChatHistory>(ChatHistory());
       depend<SupportUnread>(SupportUnread());
+      depend<SupportUnreadController>(SupportUnreadController());
+      depend<PurchaseTimout>(PurchaseTimout());
     }
+
+    return this;
+  }
+
+  load() {
+    dep<SupportUnreadController>().load();
+    dep<PurchaseTimout>().load();
   }
 }

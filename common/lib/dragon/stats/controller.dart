@@ -1,8 +1,8 @@
 import 'package:common/common/model.dart';
 import 'package:common/dragon/device/selected_device.dart';
-import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/stats/api.dart';
 import 'package:common/logger/logger.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/util/di.dart';
 
 const _key = "statsRefresh";

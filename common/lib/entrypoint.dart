@@ -47,7 +47,7 @@ class Entrypoint with Dependable, Logging {
 
     // Newer deps of the new code - temporary, this will eventually
     // replace the legacy code. Hopefully, you know how it goes :D
-    DragonDeps().register(act);
+    final dragonDeps = DragonDeps().register(act);
 
     PlatformPersistence(isSecure: false).attachAndSaveAct(act);
     final secure = PlatformPersistence(isSecure: true);
@@ -111,6 +111,8 @@ class Entrypoint with Dependable, Logging {
 
     depend<TopBarController>(TopBarController());
     depend<Entrypoint>(this);
+
+    dragonDeps.load();
   }
 
   Future<void> onStartApp() async {

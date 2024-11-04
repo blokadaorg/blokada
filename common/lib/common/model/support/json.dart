@@ -88,7 +88,7 @@ class JsonSupportPayloadMessage {
 }
 
 class JsonSupportResponse {
-  late List<JsonSupportHistoryItem> messages;
+  late List<JsonSupportHistoryItem>? messages;
 
   JsonSupportResponse({
     required this.messages,
@@ -96,6 +96,11 @@ class JsonSupportResponse {
 
   JsonSupportResponse.fromJson(Map<String, dynamic> json) {
     try {
+      if (json['messages'] == null) {
+        messages = null;
+        return;
+      }
+
       messages = (json['messages'] as List)
           .map((e) => JsonSupportHistoryItem.fromJson(e))
           .toList();

@@ -50,6 +50,7 @@ class SmartHeaderState extends State<SmartHeader>
     super.initState();
     _unread.fetch();
     _unreadSub = _unread.onChange.listen((it) {
+      if (!mounted) return;
       setState(() {});
     });
   }
@@ -92,6 +93,7 @@ class SmartHeaderState extends State<SmartHeader>
       //       });
       //     }));
       list.add(SmartHeaderButton(
+          unread: _unread.now,
           icon: CupertinoIcons.person_crop_circle,
           onTap: () {
             Navigation.open(context, Paths.settings);

@@ -1,12 +1,11 @@
 import 'package:common/command/command.dart';
 import 'package:common/common/model.dart';
-import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/support/api.dart';
 import 'package:common/dragon/support/chat_history.dart';
 import 'package:common/dragon/support/current_session.dart';
 import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/logger/logger.dart';
-import 'package:common/notification/notification.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 import 'package:dartx/dartx.dart';
@@ -17,13 +16,13 @@ const _keyExpireSession = "supportExpireSession";
 class SupportController with Logging {
   late final _api = dep<SupportApi>();
   late final _command = dep<CommandStore>();
-  late final _notification = dep<NotificationStore>();
   late final _currentSession = dep<CurrentSession>();
   late final _chatHistory = dep<ChatHistory>();
-  late final _unread = dep<SupportUnread>();
+  late final _unread = dep<SupportUnreadController>();
   late final _scheduler = dep<Scheduler>();
   late String language = I18n.localeStr;
 
+  bool initialized = false;
   late int _ttl;
 
   List<SupportMessage> messages = [];
@@ -31,8 +30,10 @@ class SupportController with Logging {
   Function onChange = () {};
 
   loadOrInit(Marker m) async {
+    if (initialized) return;
+    initialized = true;
+
     await _currentSession.fetch();
-    await _unread.fetch();
 
     if (_currentSession.now != null) {
       try {
@@ -47,8 +48,6 @@ class SupportController with Logging {
     } else {
       startSession(m);
     }
-
-    _unread.now = false;
   }
 
   _loadChatHistory(List<JsonSupportHistoryItem> history) async {
@@ -84,13 +83,14 @@ class SupportController with Logging {
     onChange();
   }
 
-  startSession(Marker m) async {
+  startSession(Marker m, {SupportEvent? event}) async {
+    await loadOrInit(m);
     clearSession();
-    final session = await _api.createSession(m, language);
+    final session = await _api.createSession(m, language, event: event);
     _currentSession.now = session.sessionId;
     _ttl = session.ttl;
     await _updateSessionExpiry();
-    _handleResponse(session.history);
+    await _handleResponse(m, session.history);
   }
 
   clearSession() async {
@@ -100,7 +100,8 @@ class SupportController with Logging {
     onChange();
   }
 
-  sendMessage(String? message, Marker m, {bool retry = false}) async {
+  sendMessage(String? message, Marker m, {bool retrying = false}) async {
+    await loadOrInit(m);
     if (message?.startsWith("cc ") ?? false) {
       await _addMyMessage(message!);
       await _handleCommand(message.substring(3), m);
@@ -115,15 +116,15 @@ class SupportController with Logging {
       if (message != null) {
         _addMyMessage(message);
         final msg = await _api.sendMessage(m, _currentSession.now!, message);
-        _handleResponse(msg.messages);
+        if (msg.messages != null) await _handleResponse(m, msg.messages!);
       }
     } on HttpCodeException catch (e) {
       if (e.code >= 400 && e.code < 500) {
         // Session bad or expired
         clearSession();
-        if (!retry) {
+        if (!retrying) {
           log(m).w("Invalid session, Retrying...");
-          await sendMessage(message, m, retry: true);
+          await sendMessage(message, m, retrying: true);
         } else {
           throw Exception("Retry failed: $e");
         }
@@ -133,15 +134,37 @@ class SupportController with Logging {
     } catch (e, s) {
       log(m).e(msg: "Error sending chat message", err: e, stack: s);
       await sleepAsync(const Duration(milliseconds: 500));
-      _addErrorMessage();
+      await _addErrorMessage(m);
     }
     await _updateSessionExpiry();
   }
 
-  notifyNewMessage(Marker m) async {
-    await sleepAsync(const Duration(seconds: 5));
-    _notification.show(NotificationId.supportNewMessage, m);
-    _unread.now = true;
+  sendEvent(SupportEvent event, Marker m, {bool retrying = false}) async {
+    await loadOrInit(m);
+    try {
+      if (_currentSession.now == null) {
+        await startSession(m, event: event);
+      } else {
+        final msg = await _api.sendEvent(m, _currentSession.now!, event);
+        if (msg.messages != null) await _handleResponse(m, msg.messages!);
+      }
+    } on HttpCodeException catch (e) {
+      if (e.code >= 400 && e.code < 500) {
+        // Session bad or expired
+        clearSession();
+        if (!retrying) {
+          log(m).w("Invalid session, Retrying...");
+          await sendEvent(event, m, retrying: true);
+        } else {
+          throw Exception("Retry failed: $e");
+        }
+      } else {
+        throw Exception("Http error: $e");
+      }
+    } catch (e, s) {
+      log(m).e(msg: "Error sending chat event", err: e, stack: s);
+    }
+    await _updateSessionExpiry();
   }
 
   _addMyMessage(String msg) {
@@ -151,7 +174,7 @@ class SupportController with Logging {
     onChange();
   }
 
-  _handleResponse(List<JsonSupportHistoryItem> messages) {
+  _handleResponse(Marker m, List<JsonSupportHistoryItem> messages) async {
     for (final msg in messages) {
       if (msg.text == null || msg.text!.isBlank) {
         continue; // TODO: support other types of msgs
@@ -162,24 +185,25 @@ class SupportController with Logging {
         DateTime.parse(msg.timestamp),
         isMe: !msg.isAgent,
       );
-      _addMessage(message);
+      await _addMessage(m, message);
     }
   }
 
-  _addMessage(SupportMessage message) {
+  _addMessage(m, SupportMessage message) async {
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
     _chatHistory.now = SupportMessages(messages);
     onChange();
+    await _unread.newMessage(m);
   }
 
-  _addErrorMessage({String? error}) {
+  _addErrorMessage(Marker m, {String? error}) async {
     final message = SupportMessage(
       error ?? "Sorry did not understand, can you repeat?", // TODO: localize
       DateTime.now(),
       isMe: false,
     );
-    _addMessage(message);
+    await _addMessage(m, message);
   }
 
   _handleCommand(String message, Marker m) async {
@@ -187,10 +211,10 @@ class SupportController with Logging {
       try {
         await _command.onCommandString(message, m);
         final msg = SupportMessage("OK", DateTime.now(), isMe: false);
-        _addMessage(msg);
+        await _addMessage(m, msg);
       } catch (e) {
         await sleepAsync(const Duration(milliseconds: 500));
-        _addErrorMessage(error: e.toString());
+        await _addErrorMessage(m, error: e.toString());
         rethrow;
       }
     });

@@ -99,7 +99,9 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
   @action
   Future<void> show(NotificationId id, Marker m, {DateTime? when}) async {
     return await log(m).trace("show", (m) async {
-      _addCapped(NotificationEvent.shown(id, when ?? DateTime.now()));
+      // Always add time to current, otherwise iOS skips it
+      _addCapped(NotificationEvent.shown(
+          id, when ?? DateTime.now().add(const Duration(seconds: 3))));
       log(m).pair("notificationId", id);
     });
   }

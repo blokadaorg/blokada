@@ -89,6 +89,8 @@ enum CommandName {
   // Support
   supportNotify,
 
+  schedulerPing,
+
   // Debug
   debugHttpFail,
   debugHttpOk,

@@ -6,24 +6,50 @@ class SettingsItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback onTap;
+  final bool unread;
 
   const SettingsItem(
-      {super.key, required this.icon, required this.text, required this.onTap});
+      {super.key,
+      required this.icon,
+      required this.text,
+      required this.onTap,
+      this.unread = false});
 
   @override
   Widget build(BuildContext context) {
-    return CommonClickable(
-      tapBorderRadius: BorderRadius.zero,
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icon, size: 22, color: context.theme.divider),
-          SizedBox(width: 10),
-          Text(text, style: TextStyle(fontSize: 14)),
-          Spacer(),
-          Icon(Icons.chevron_right, size: 24, color: context.theme.divider),
-        ],
-      ),
+    return Stack(
+      children: [
+        CommonClickable(
+          tapBorderRadius: BorderRadius.zero,
+          onTap: onTap,
+          child: Row(
+            children: [
+              Icon(icon, size: 22, color: context.theme.divider),
+              const SizedBox(width: 10),
+              Text(text, style: const TextStyle(fontSize: 14)),
+              const Spacer(),
+              Icon(Icons.chevron_right, size: 24, color: context.theme.divider),
+            ],
+          ),
+        ),
+        unread
+            ? Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      child: const SizedBox(width: 18, height: 18),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 }

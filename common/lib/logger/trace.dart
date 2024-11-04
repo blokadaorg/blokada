@@ -63,7 +63,12 @@ class LogTracer with Dependable {
     current.addLine(line, mergeBy: name);
     current.promoteLevel(lvl);
 
-    _logger.log(current.level, current.lines.join("\n"));
+    if (current.error == null) {
+      _logger.log(current.level, current.lines.join("\n"));
+    } else {
+      _logger.log(current.level, current.lines.join("\n"),
+          error: current.error, stackTrace: current.stackTrace);
+    }
 
     _traces.remove(m);
   }
@@ -97,6 +102,7 @@ class LogTracer with Dependable {
 
   _startTimeout() {
     if (act.isTest()) return;
+    if (kReleaseMode) return;
     _timer.set(_timeoutKey, DateTime.now().add(timeout));
   }
 

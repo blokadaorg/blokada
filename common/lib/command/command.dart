@@ -1,7 +1,9 @@
+import 'package:common/common/model.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/main-widgets.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
 
@@ -12,7 +14,7 @@ import '../app/start/start.dart';
 import '../custom/custom.dart';
 import '../device/device.dart';
 import '../dragon/family/family.dart';
-import '../journal/channel.pg.dart';
+import '../journal/channel.pg.dart' as jour;
 import '../journal/journal.dart';
 import '../lock/lock.dart';
 import '../notification/notification.dart';
@@ -40,6 +42,7 @@ class CommandStore with Logging, Dependable implements CommandEvents {
   late final _notification = dep<NotificationStore>();
   late final _lock = dep<LockStore>();
   late final _support = dep<SupportController>();
+  late final _scheduler = dep<Scheduler>();
 
   // V6 only commands
   late final _journal = dep<JournalStore>();
@@ -195,7 +198,7 @@ class CommandStore with Logging, Dependable implements CommandEvents {
       case CommandName.filter:
         _ensureParam(p1);
         return await _journal.updateFilter(
-            showOnly: JournalFilterType.values.byName(p1!), m);
+            showOnly: jour.JournalFilterType.values.byName(p1!), m);
       case CommandName.filterDevice:
         return await _journal.updateFilter(deviceName: p1, m);
       case CommandName.newPlus:
@@ -251,8 +254,6 @@ class CommandStore with Logging, Dependable implements CommandEvents {
         // block the UI thread, we need to wait for the app to be ready.
         await sleepAsync(const Duration(seconds: 3));
         return await _family.link(p1!, m);
-      case CommandName.supportNotify:
-        await _support.notifyNewMessage(m);
       case CommandName.warning:
         _ensureParam(p1);
         return await _logger.platformWarning(p1!);
@@ -320,6 +321,15 @@ class CommandStore with Logging, Dependable implements CommandEvents {
         final ws = dep<DevWebsocket>();
         ws.ip = p1!;
         ws.handle();
+        return;
+      case CommandName.supportNotify:
+        await sleepAsync(const Duration(seconds: 5));
+        await _support.sendEvent(SupportEvent.purchaseTimeout, m);
+      case CommandName.schedulerPing:
+        await _scheduler.pingFromBackground();
+        return;
+      default:
+        throw Exception("Unsupported command: $cmd");
     }
   }
 

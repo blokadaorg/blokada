@@ -2,8 +2,8 @@ import 'package:common/common/model.dart';
 import 'package:common/dragon/account/account_id.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/device/current_token.dart';
-import 'package:common/dragon/scheduler.dart';
 import 'package:common/logger/logger.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
 

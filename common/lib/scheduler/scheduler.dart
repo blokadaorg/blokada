@@ -136,6 +136,13 @@ class Scheduler with Logging {
     });
   }
 
+  // Manual ping of a job execution from background task
+  pingFromBackground() async {
+    await log(Markers.timer).trace("pingFromBackground", (m) async {
+      _setTimer(m);
+    });
+  }
+
   _checkAllConditions(Job job) {
     for (final when in job.when) {
       if (when.value == null) continue;
@@ -177,13 +184,18 @@ class Scheduler with Logging {
     final now = timer.now();
     DateTime? next;
 
-    if (job.every != null) {
-      next = now.add(job.every!);
-      if (immediate) next = now;
-    }
+    // If conditions are not met for this job, just ignore it until next check
+    if (_checkAllConditions(job)) {
+      if (job.every != null) {
+        next = now.add(job.every!);
+        if (immediate) next = now;
+      }
 
-    if (job.before != null && (next == null || job.before!.isBefore(next))) {
-      next = job.before!;
+      if (job.before != null && (next == null || job.before!.isBefore(next))) {
+        next = job.before!;
+      }
+    } else {
+      log(job.marker).i("Conditions not met for job ${job.name}, ignoring");
     }
 
     if (retry) {

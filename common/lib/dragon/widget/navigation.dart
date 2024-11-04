@@ -5,6 +5,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/custom/custom.dart';
 import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/route.dart';
+import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/dragon/widget/device/device_screen.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/filters_section.dart';
@@ -58,8 +59,10 @@ class Navigation with Logging {
   late final _custom = dep<CustomStore>();
 
   static Function(Paths, Object?) openInTablet = (_, __) {};
+  static Function(Paths? path) onNavigated = (_) {};
 
   static open(BuildContext context, Paths path, {Object? arguments}) async {
+    onNavigated(path);
     final isTablet = isTabletMode(context);
     if (isTablet && path.openInTablet) {
       openInTablet(path, arguments);
@@ -180,15 +183,23 @@ class Navigation with Logging {
 
 class NavigationPopObserver extends NavigatorObserver {
   late final _journal = dep<JournalController>();
+  late final _unread = dep<SupportUnreadController>();
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    // Resets journal filter when leaving device section
     if (route is StandardRoute && previousRoute is StandardRoute) {
       final r = route.settings;
       final p = previousRoute.settings;
+
+      // Resets journal filter when leaving device section
       if (r.name == Paths.device.path && p.name == Paths.home.path) {
         _journal.resetFilter();
+      }
+
+      // Resets some flag when leaving support section
+      // TODO: this needs rework and merging with StageStore
+      if (r.name == Paths.support.path) {
+        _unread.wentBackFromSupport();
       }
     }
   }

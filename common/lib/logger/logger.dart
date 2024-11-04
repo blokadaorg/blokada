@@ -32,7 +32,8 @@ class Log {
     Object? err,
     StackTrace? stack,
   }) =>
-      _tracer.sink(marker, Level.error, ["$tag: $msg"], err: err, stack: stack);
+      _tracer.sink(marker, Level.error, ["⛔ $tag: $msg"],
+          err: err, stack: stack);
 
   pair(String key, dynamic value) => log(attr: {key: value});
   params(Map<String, dynamic> attr) => log(attr: attr);

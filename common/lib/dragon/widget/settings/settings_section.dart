@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/account/account.dart';
 import 'package:common/command/command.dart';
 import 'package:common/common/i18n.dart';
@@ -5,6 +7,7 @@ import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/dragon/widget/dialog.dart';
 import 'package:common/dragon/widget/home/bg.dart';
 import 'package:common/dragon/widget/navigation.dart';
@@ -35,6 +38,19 @@ class SettingsState extends State<SettingsSection> with Logging {
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
   late final _command = dep<CommandStore>();
+  late final _unread = dep<SupportUnread>();
+
+  late StreamSubscription? _unreadSub;
+
+  @override
+  void initState() {
+    super.initState();
+    _unread.fetch();
+    _unreadSub = _unread.onChange.listen((it) {
+      if (!mounted) return;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +148,9 @@ class SettingsState extends State<SettingsSection> with Logging {
             child: Column(
               children: [
                 SettingsItem(
+                    unread: _unread.now,
                     icon: CupertinoIcons.chat_bubble_text,
-                    text: "Chat with us",
+                    text: "support action chat".i18n,
                     onTap: () => Navigation.open(context, Paths.support)),
                 const CommonDivider(),
                 SettingsItem(

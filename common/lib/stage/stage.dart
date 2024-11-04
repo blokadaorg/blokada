@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:common/dragon/scheduler.dart';
 import 'package:common/dragon/widget/home/top_bar.dart';
 import 'package:common/link/channel.pg.dart';
 import 'package:common/link/link.dart';
 import 'package:common/logger/logger.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:mobx/mobx.dart';
 
 import '../util/async.dart';
@@ -66,14 +66,14 @@ class StageRouteState {
   final StageRoute route;
   final StageRoute _prevRoute;
   final StageModal? modal;
-  final StageModal? _prevModal;
+  final StageModal? prevModal;
   final Map<StageTab, StageRoute> _tabStates;
 
   StageRouteState(
     this.route,
     this._prevRoute,
     this.modal,
-    this._prevModal,
+    this.prevModal,
     this._tabStates,
   );
 
@@ -125,11 +125,11 @@ class StageRouteState {
 
   bool isBecameModal(StageModal modal) {
     if (this.modal != modal) return false;
-    if (this.modal != _prevModal) return true;
+    if (this.modal != prevModal) return true;
     return false;
   }
 
-  bool wasModal(StageModal modal) => _prevModal == modal;
+  bool wasModal(StageModal modal) => prevModal == modal;
 }
 
 /// StageStore

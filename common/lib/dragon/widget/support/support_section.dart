@@ -1,3 +1,4 @@
+import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
@@ -36,6 +37,7 @@ class SupportSectionState extends State<SupportSection> {
   }
 
   _refresh() {
+    if (!mounted) return;
     setState(() {
       _messages.clear();
       _messages
@@ -55,10 +57,10 @@ class SupportSectionState extends State<SupportSection> {
         theme: context.theme.chatTheme,
         showUserAvatars: true,
         showUserNames: true,
-        inputOptions: InputOptions(
+        inputOptions: const InputOptions(
           sendButtonVisibilityMode: SendButtonVisibilityMode.always,
         ),
-        emptyState: Center(child: Text("Ask about anything you want to know!")),
+        emptyState: Center(child: Text("support placeholder".i18n)),
       ),
     );
   }
@@ -70,14 +72,6 @@ class SupportSectionState extends State<SupportSection> {
   }
 
   void _handleSendPressed(types.PartialText message) {
-    // final textMessage = types.TextMessage(
-    //   author: _user,
-    //   createdAt: DateTime.now().millisecondsSinceEpoch,
-    //   id: randomString(),
-    //   text: message.text,
-    // );
-    //
-    // _addMessage(textMessage);
     _controller.sendMessage(message.text, Markers.support);
   }
 }

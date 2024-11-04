@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:common/dragon/scheduler.dart';
+import 'package:common/scheduler/scheduler.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/timer/timer.dart';
