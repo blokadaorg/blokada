@@ -107,17 +107,16 @@ class LoggerBinding: LoggerOps {
             let bufferSize = 4096 // 4 KB
             let buffer = Data(capacity: bufferSize)
 
+            let newlineData = "\n".data(using: .utf8)!
+
             fileHandle.seek(toFileOffset: 0)
             while bytesRead < bytesToRemove {
                 let data = fileHandle.readData(ofLength: bufferSize)
                 if data.isEmpty { break } // End of file
 
-                let newlineData = "\n".data(using: .utf8)!
                 if let range = data.range(of: newlineData) {
                     // Found a newline character
-                    trimOffset += UInt64(range.upperBound)
-                    bytesRead += UInt64(range.upperBound)
-                    break
+                    trimOffset = bytesRead + UInt64(range.upperBound)
                 }
                 bytesRead += UInt64(data.count)
             }
