@@ -40,3 +40,6 @@ devsc2:
 
 family:
 	@xcodebuild build -project IOS.xcodeproj -scheme "FamilyProd" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \
+
+v6:
+	@xcodebuild build -project IOS.xcodeproj -scheme "Prod" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO; \
