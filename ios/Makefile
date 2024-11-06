@@ -25,9 +25,12 @@ clean-sixcommon:
 
 devsc:
 	@echo "Fetch latest six-common"; \
-	cd six-common && git pull --rebase && cd ../ ; \
-	cd six-common && flutter clean && cd ../ ; \
-	cd six-common && ./build.for.ios.sh --onlydebug && cd ../ ; \
+	( \
+		cd six-common && \
+		git pull --rebase origin main && \
+		flutter clean && \
+		./build.for.ios.sh --onlydebug \
+	)
 
 devsc2:
 	@echo "Fetch latest six-common (force)"; \
