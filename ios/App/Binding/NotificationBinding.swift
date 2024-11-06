@@ -26,6 +26,7 @@ let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 
 func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
+    content.badge = NSNumber(value: 0)
 
     if id == NOTIF_ACC_EXP {
         content.title = L10n.notificationAccHeader
@@ -55,6 +56,7 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         content.title = "New message!"
         content.subtitle = "Support has replied"
         content.body = "Tap to see the reply"
+        content.badge = NSNumber(value: 1)
     } else {
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle
@@ -186,6 +188,7 @@ class NotificationBinding: NotificationOps {
     func clearAllNotifications() {
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 }
 
