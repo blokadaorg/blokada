@@ -104,12 +104,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         homeVM.hideContent = true
     }
 
-    func sceneWillEnterForeground(_ scene: UIScene) { 
+    func sceneWillEnterForeground(_ scene: UIScene) {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         foreground.onForeground(false)
+
+        // Whenver leaving bg, schedule the ping from OS after some time
+        // It's designed to help the scheduled tasks to execute, but it's probably
+        // not doing much. iOS background execution is very unpredictable.
+        // However we should not need it as long as the app is running in the bg.
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.scheduleBackgroundPing()
+        }
     }
 
     // Quick action selected by user

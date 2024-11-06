@@ -12,6 +12,7 @@
 
 import UIKit
 import Factory
+import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -67,7 +68,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // A bunch of lazy, noone else refs this (early enough).
         payment.startObservingPayments()
 
+        // Maybe gets the background ping (its unclear when it happens in ios)
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "net.blocka.app.scheduler", using: nil) { task in
+            self.handleBackgroundPing(task: task as! BGAppRefreshTask)
+        }
+
         return true
+    }
+
+    var isTaskScheduled = false
+
+    func handleBackgroundPing(task: BGAppRefreshTask) {
+        print("Got the background ping")
+        isTaskScheduled = false
+        commands.execute(CommandName.schedulerPing)
+        task.setTaskCompleted(success: true)
+    }
+
+    func scheduleBackgroundPing() {
+        let request = BGAppRefreshTaskRequest(identifier: "net.blocka.app.scheduler")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 10 * 60) // in 10 minutes
+
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            isTaskScheduled = true
+            print("Scheduled background ping")
+        } catch {
+            print("Failed to schedule background ping: \(error)")
+        }
     }
 
     func handleException(exception: NSException) {
