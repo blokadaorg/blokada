@@ -95,18 +95,16 @@ object LoggerBinding: LoggerOps {
 
                 raf.seek(0)
                 while (bytesRead < bytesToRemove) {
+                    val startOffset = raf.filePointer
                     val read = raf.read(buffer)
                     if (read == -1) break // End of file
 
                     for (i in 0 until read) {
                         bytesRead++
                         if (buffer[i].toInt() == '\n'.toInt()) {
-                            trimOffset = raf.filePointer
-                            break
+                            trimOffset = startOffset + i + 1
                         }
                     }
-
-                    if (trimOffset > 0) break
                 }
 
                 if (trimOffset > 0) {
@@ -122,7 +120,7 @@ object LoggerBinding: LoggerOps {
                     raf.seek(0)
                     raf.write(remainingBytes)
 
-                    currentSize = remainingBytes.size.toLong()
+                    currentSize = raf.length()
                 }
             }
         } catch (e: IOException) {
