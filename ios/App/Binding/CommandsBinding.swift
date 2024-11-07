@@ -48,6 +48,21 @@ class CommandsBinding: CommandOps {
             queue.append((command, nil, nil))
         }
     }
+    
+    func executeWithCompletion(_ command: CommandName, completion: @escaping (Result<Void, Error>) -> Void) {
+        if canAcceptCommands {
+            cmd.onCommand(command: "\(command)", m: 2) { result in
+                switch result {
+                    case .success:
+                    return completion(.success(()))
+                    case .failure(let error):
+                    return completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure("not accepting commands yet"))
+        }
+    }
 
     func execute(_ command: CommandName, _ p1: String) {
         if canAcceptCommands {

@@ -81,13 +81,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func handleBackgroundPing(task: BGAppRefreshTask) {
         print("Got the background ping")
         isTaskScheduled = false
-        commands.execute(CommandName.schedulerPing)
-        task.setTaskCompleted(success: true)
+        commands.executeWithCompletion(CommandName.schedulerPing, completion: { result in
+            switch result {
+                case .success:
+                return task.setTaskCompleted(success: true)
+                case .failure(let error):
+                return task.setTaskCompleted(success: false)
+            }
+        })
     }
 
     func scheduleBackgroundPing() {
         let request = BGAppRefreshTaskRequest(identifier: "net.blocka.app.scheduler")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 10 * 60 + 30)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 3 * 60)
 
         do {
             try BGTaskScheduler.shared.submit(request)
