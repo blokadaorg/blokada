@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func scheduleBackgroundPing() {
         let request = BGAppRefreshTaskRequest(identifier: "net.blocka.app.scheduler")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 10 * 60) // in 10 minutes
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 10 * 60 + 30)
 
         do {
             try BGTaskScheduler.shared.submit(request)
