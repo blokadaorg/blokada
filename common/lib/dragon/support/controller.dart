@@ -29,7 +29,7 @@ class SupportController with Logging {
 
   Function onChange = () {};
 
-  loadOrInit(Marker m) async {
+  loadOrInit(Marker m, {SupportEvent? event}) async {
     if (initialized) return;
     initialized = true;
 
@@ -43,10 +43,10 @@ class SupportController with Logging {
         await _loadChatHistory(session.history);
       } catch (e, s) {
         log(m).e(msg: "Error loading session", err: e, stack: s);
-        startSession(m);
+        await startSession(m, event: event);
       }
     } else {
-      startSession(m);
+      await startSession(m, event: event);
     }
   }
 
@@ -84,7 +84,7 @@ class SupportController with Logging {
   }
 
   startSession(Marker m, {SupportEvent? event}) async {
-    await loadOrInit(m);
+    await loadOrInit(m, event: event);
     clearSession();
     final session = await _api.createSession(m, language, event: event);
     _currentSession.now = session.sessionId;
@@ -140,7 +140,7 @@ class SupportController with Logging {
   }
 
   sendEvent(SupportEvent event, Marker m, {bool retrying = false}) async {
-    await loadOrInit(m);
+    await loadOrInit(m, event: event);
     try {
       if (_currentSession.now == null) {
         await startSession(m, event: event);

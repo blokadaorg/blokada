@@ -14,14 +14,14 @@ class SupportApi with Logging {
           language: language,
           event: event ?? SupportEvent.firstOpen,
         )));
-    log(m).i("create session: $result");
+    log(m).i("create session response: $result");
     return _marshal.toSession(result);
   }
 
   Future<JsonSupportSession> getSession(Marker m, String sessionId) async {
     final result = await _api.request(ApiEndpoint.getSupport, m,
         params: {ApiParam.sessionId: sessionId});
-    log(m).i("get session: $result");
+    log(m).i("get session response: $result");
     return _marshal.toSession(result);
   }
 
@@ -32,7 +32,7 @@ class SupportApi with Logging {
           sessionId: sessionId,
           event: event,
         )));
-    log(m).i("send event: $result");
+    log(m).i("send event response: $result");
     return _marshal.toResponse(result);
   }
 
@@ -45,7 +45,7 @@ class SupportApi with Logging {
 
     final result =
         await _api.request(ApiEndpoint.putSupport, m, payload: payload);
-    log(m).i("send msg: $result");
+    log(m).i("send msg response: $result");
     return _marshal.toResponse(result);
   }
 }
