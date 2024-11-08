@@ -16,6 +16,8 @@ class PurchaseTimout with Logging {
   late final _scheduler = dep<Scheduler>();
   late final _notified = PurchaseTimeoutNotified();
 
+  bool _userAbandonedPurchase = false;
+
   load() async {
     _stage.addOnValue(routeChanged, onRouteChanged);
     await _notified.fetch();
@@ -24,14 +26,21 @@ class PurchaseTimout with Logging {
   // Send support event when user abandoned purchase
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (_notified.now) return;
-    if (route.modal == null && route.prevModal == StageModal.payment) {
-      log(m).i("User abandoned purchase");
+
+    if (!route.isForeground() && _userAbandonedPurchase) {
+      _userAbandonedPurchase = false;
       await _scheduler.addOrUpdate(Job(
         "sendPurchaseTimeout",
-        before: DateTime.now().add(const Duration(minutes: 1)),
+        before: DateTime.now().add(const Duration(seconds: 27)),
         m,
         callback: sendPurchaseTimeout,
       ));
+      return;
+    }
+
+    if (route.modal == null && route.prevModal == StageModal.payment) {
+      log(m).i("User abandoned purchase");
+      _userAbandonedPurchase = true;
     }
   }
 

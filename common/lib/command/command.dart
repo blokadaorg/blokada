@@ -330,7 +330,7 @@ class CommandStore with Logging, Dependable implements CommandEvents {
       case CommandName.supportAskNotificationPerms:
         return await _permission.askNotificationPermissions(m);
       case CommandName.schedulerPing:
-        await _scheduler.pingFromBackground();
+        await _scheduler.pingFromBackground(m);
         return;
       default:
         throw Exception("Unsupported command: $cmd");

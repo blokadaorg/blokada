@@ -138,8 +138,8 @@ class Scheduler with Logging {
   }
 
   // Manual ping of a job execution from background task
-  pingFromBackground() async {
-    await log(Markers.timer).trace("pingFromBackground", (m) async {
+  pingFromBackground(Marker m) async {
+    await log(m).trace("pingFromBackground", (m) async {
       _setTimer(m);
     });
   }
