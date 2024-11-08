@@ -194,4 +194,8 @@ abstract class PermStoreBase with Store, Logging, Dependable {
     final isEnabled = await _ops.doVpnEnabled();
     await setVpnPermEnabled(isEnabled, m);
   }
+
+  askNotificationPermissions(Marker m) async {
+    await _ops.doAskNotificationPerms();
+  }
 }

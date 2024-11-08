@@ -3,6 +3,7 @@ import 'package:common/dragon/filter/filter_legacy.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/main-widgets.dart';
+import 'package:common/perm/perm.dart';
 import 'package:common/scheduler/scheduler.dart';
 import 'package:common/util/async.dart';
 import 'package:dartx/dartx.dart';
@@ -40,6 +41,7 @@ class CommandStore with Logging, Dependable implements CommandEvents {
   late final _custom = dep<CustomStore>();
   late final _device = dep<DeviceStore>();
   late final _notification = dep<NotificationStore>();
+  late final _permission = dep<PermStore>();
   late final _lock = dep<LockStore>();
   late final _support = dep<SupportController>();
   late final _scheduler = dep<Scheduler>();
@@ -325,6 +327,8 @@ class CommandStore with Logging, Dependable implements CommandEvents {
       case CommandName.supportNotify:
         await sleepAsync(const Duration(seconds: 5));
         await _support.sendEvent(SupportEvent.purchaseTimeout, m);
+      case CommandName.supportAskNotificationPerms:
+        return await _permission.askNotificationPermissions(m);
       case CommandName.schedulerPing:
         await _scheduler.pingFromBackground();
         return;

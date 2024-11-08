@@ -19,4 +19,7 @@ abstract class PermOps {
 
   @async
   void doOpenSettings();
+
+  @async
+  void doAskNotificationPerms();
 }

@@ -88,6 +88,7 @@ enum CommandName {
 
   // Support
   supportNotify,
+  supportAskNotificationPerms,
 
   schedulerPing,
 
