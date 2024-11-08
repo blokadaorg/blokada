@@ -43,7 +43,19 @@ class SettingsItem extends StatelessWidget {
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(32),
                       ),
-                      child: const SizedBox(width: 18, height: 18),
+                      child: const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: Center(
+                          child: Text(
+                            "1",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
