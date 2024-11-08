@@ -101,7 +101,7 @@ class Scheduler with Logging {
       await log(m).pair("immediate", immediate);
       _jobs.removeWhere((j) => j == job);
       _jobs.add(job);
-      _next.removeWhere((o) => o.job == o.job);
+      _next.removeWhere((o) => o.job == job);
       _reschedule(job, immediate: immediate);
       _setTimer(m);
     });
@@ -127,10 +127,11 @@ class Scheduler with Logging {
       for (final job in _jobs.toList()) {
         final when = job.when.indexOf(c);
         if (when == -1) continue;
-        if (!_checkAllConditions(job)) continue;
-        if (!(job.skip?.call() ?? false)) {
-          await _invoke(job); // should await?
-        }
+        _next.removeWhere((o) => o.job == job);
+        _reschedule(job);
+        // if (!(job.skip?.call() ?? false)) {
+        //   await _invoke(job); // should await?
+        // }
       }
       _setTimer(m);
     });
@@ -224,9 +225,10 @@ class Scheduler with Logging {
     final now = timer.now();
     final when = upcoming.when.difference(now);
     if (when.inSeconds < 1) {
-      log(m).i("Next job ${upcoming.job.name} now");
+      log(m).i("Next job is ${upcoming.job.name}, now");
     } else {
-      log(m).i("Next job ${upcoming.job.name} at ${upcoming.when} (in $when)");
+      log(m).i(
+          "Next job is ${upcoming.job.name}, at ${upcoming.when} (in $when)");
     }
 
     try {
@@ -246,7 +248,8 @@ class Scheduler with Logging {
       for (final job in jobs) {
         if (_checkAllConditions(job.job)) {
           if (!(job.job.skip?.call() ?? false)) {
-            await _invoke(job.job); // should await?
+            log(m).i("Invoking job ${job.job.name}");
+            await _invoke(job.job);
             continue;
           }
         }
