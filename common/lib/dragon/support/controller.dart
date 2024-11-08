@@ -50,6 +50,12 @@ class SupportController with Logging {
     }
   }
 
+  maybeStartSession(Marker m) async {
+    if (_currentSession.now == null) {
+      await startSession(m);
+    }
+  }
+
   _loadChatHistory(List<JsonSupportHistoryItem> history) async {
     await _chatHistory.fetch();
     messages = _chatHistory.now?.messages ?? [];

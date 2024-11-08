@@ -1,5 +1,6 @@
 import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/dragon/debounce.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/dragon/widget/support/convert.dart';
@@ -18,6 +19,8 @@ class SupportSection extends StatefulWidget {
 
 class SupportSectionState extends State<SupportSection> {
   late final _controller = dep<SupportController>();
+  late final _sessionInitDebounce =
+      Debounce(const Duration(milliseconds: 1200));
 
   final List<types.Message> _messages = [];
 
@@ -45,8 +48,16 @@ class SupportSectionState extends State<SupportSection> {
     });
   }
 
+  maybeStartSessionDelayed() {
+    _sessionInitDebounce.run(() {
+      if (!mounted) return;
+      _controller.maybeStartSession(Markers.support);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    maybeStartSessionDelayed();
     return Padding(
       padding: EdgeInsets.only(
           left: 16.0, right: 16.0, top: getTopPadding(context), bottom: 32.0),
