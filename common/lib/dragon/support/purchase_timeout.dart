@@ -28,7 +28,7 @@ class PurchaseTimout with Logging {
       log(m).i("User abandoned purchase");
       await _scheduler.addOrUpdate(Job(
         "sendPurchaseTimeout",
-        before: DateTime.now().add(const Duration(minutes: 2)),
+        before: DateTime.now().add(const Duration(minutes: 1)),
         m,
         callback: sendPurchaseTimeout,
       ));
