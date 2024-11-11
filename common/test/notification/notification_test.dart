@@ -28,10 +28,10 @@ void main() {
         final ops = MockNotificationOps();
         depend<NotificationOps>(ops);
 
-        verifyNever(ops.doShow(any, any));
+        verifyNever(ops.doShow(any, any, any));
 
         await store.show(NotificationId.accountExpired, m);
-        verify(ops.doShow(any, any)).called(1);
+        verify(ops.doShow(any, any, any)).called(1);
       });
     });
   });

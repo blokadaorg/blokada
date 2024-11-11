@@ -17,6 +17,6 @@ NotificationOps getOps(Act act) {
 }
 
 _actNormal(MockNotificationOps ops) {
-  when(() => ops.doShow(any(), any())).thenAnswer(ignore());
+  when(() => ops.doShow(any(), any(), any())).thenAnswer(ignore());
   when(() => ops.doDismissAll()).thenAnswer(ignore());
 }

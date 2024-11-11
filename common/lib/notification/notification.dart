@@ -15,19 +15,17 @@ class NotificationEvent {
   final NotificationId id;
   final NotificationEventType type;
   final DateTime? when;
-  final NotificationPayload? payload;
+  final String? body;
 
-  NotificationEvent.shown(this.id, this.when, {this.payload})
+  NotificationEvent.shown(this.id, this.when, {this.body})
       : type = NotificationEventType.show;
 
   NotificationEvent.dismissed()
       : id = NotificationId.all,
         type = NotificationEventType.dismiss,
         when = null,
-        payload = null;
+        body = null;
 }
-
-class NotificationPayload {}
 
 enum NotificationId {
   all,
@@ -64,7 +62,8 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
     reactionOnStore((_) => notificationChanges, (_) async {
       final event = notifications.last;
       if (event.type == NotificationEventType.show) {
-        await _ops.doShow(event.id.name, event.when!.toUtc().toIso8601String());
+        await _ops.doShow(
+            event.id.name, event.when!.toUtc().toIso8601String(), event.body);
       } else if (event.type == NotificationEventType.dismiss) {
         await _ops.doDismissAll();
       }
@@ -86,12 +85,11 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
   int notificationChanges = 0;
 
   @action
-  Future<void> showWithPayload(
-      NotificationId id, NotificationPayload payload, Marker m,
+  Future<void> showWithBody(NotificationId id, Marker m, String body,
       {DateTime? when}) async {
     return await log(m).trace("showWithPayload", (m) async {
-      _addCapped(NotificationEvent.shown(id, when ?? DateTime.now(),
-          payload: payload));
+      _addCapped(
+          NotificationEvent.shown(id, when ?? DateTime.now(), body: body));
       log(m).pair("notificationId", id);
     });
   }
@@ -106,7 +104,7 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
     });
   }
 
-  // TODO: for now we just have one notification so dismiss all
+  // Only dismisses all notifications for now
   @action
   Future<void> dismiss(Marker m,
       {NotificationId id = NotificationId.all}) async {

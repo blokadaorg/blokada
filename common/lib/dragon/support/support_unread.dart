@@ -46,13 +46,14 @@ class SupportUnreadController with Logging {
     }
   }
 
-  newMessage(Marker m) async {
+  newMessage(Marker m, String content) async {
     log(m).t("New chat message");
     if (!isOnSupportScreen) {
       log(m).i("Setting chat unread flag");
       _unread.now = true;
       if (!isForeground) {
-        await _notification.show(NotificationId.supportNewMessage, m);
+        await _notification.showWithBody(
+            NotificationId.supportNewMessage, m, content);
       }
     }
   }

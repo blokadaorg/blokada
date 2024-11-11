@@ -200,7 +200,7 @@ class SupportController with Logging {
     messages.sort((a, b) => a.when.compareTo(b.when));
     _chatHistory.now = SupportMessages(messages);
     onChange();
-    await _unread.newMessage(m);
+    await _unread.newMessage(m, message.text);
   }
 
   _addErrorMessage(Marker m, {String? error}) async {
