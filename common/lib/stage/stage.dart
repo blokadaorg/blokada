@@ -305,12 +305,13 @@ abstract class StageStoreBase
       if (!route.isForeground()) {
         // A dirty hack since I can't figure out why its bg sometimes
         route = StageRouteState.init().newFg(m: route.modal);
-        log(m).i("routeFgHack");
+        log(m).w("routeFgHack");
       }
 
       log(m).i("foreground emitting");
       await emitValue(routeChanged, route, m);
       if (act.isFamily()) {
+        // TODO: this needs to be removed
         await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
       }
     }

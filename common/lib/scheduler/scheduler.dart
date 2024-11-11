@@ -102,7 +102,7 @@ class Scheduler with Logging {
       _jobs.removeWhere((j) => j == job);
       _jobs.add(job);
       _next.removeWhere((o) => o.job == job);
-      _reschedule(job, immediate: immediate);
+      _reschedule(job.marker, job, immediate: immediate);
       _setTimer(m);
     });
   }
@@ -128,7 +128,7 @@ class Scheduler with Logging {
         final when = job.when.indexOf(c);
         if (when == -1) continue;
         _next.removeWhere((o) => o.job == job);
-        _reschedule(job);
+        _reschedule(m, job, immediate: true);
         // if (!(job.skip?.call() ?? false)) {
         //   await _invoke(job); // should await?
         // }
@@ -158,30 +158,30 @@ class Scheduler with Logging {
     await log(job.marker).trace("job::${job.name}", (m) async {
       try {
         //_jobs.remove(job);
-        final reschedule = await job.callback(job.marker);
+        final reschedule = await job.callback(m);
         _failures.remove(job);
-        if (reschedule) _reschedule(job);
+        if (reschedule) _reschedule(m, job);
       } on SchedulerException catch (e, s) {
         final failures = _failures[job] ?? 0;
         if (e.canRetry && failures < 5) {
-          log(job.marker).w("rescheduling failed job");
+          log(m).w("rescheduling failed job");
           _failures[job] = failures + 1;
-          _reschedule(job, retry: true);
+          _reschedule(m, job, retry: true);
         } else {
-          log(job.marker).e(
+          log(m).e(
               msg: "Job ${job.name} failed too many times, wont retry",
               err: e,
               stack: s);
           timer.jobFail();
         }
       } catch (e, s) {
-        log(job.marker).e(msg: "Job ${job.name} failed", err: e, stack: s);
+        log(m).e(msg: "Job ${job.name} failed", err: e, stack: s);
         timer.jobFail();
       }
     });
   }
 
-  _reschedule(Job job, {bool immediate = false, bool retry = false}) {
+  _reschedule(Marker m, Job job, {bool immediate = false, bool retry = false}) {
     final now = timer.now();
     DateTime? next;
 
@@ -189,14 +189,17 @@ class Scheduler with Logging {
     if (_checkAllConditions(job)) {
       if (job.every != null) {
         next = now.add(job.every!);
-        if (immediate) next = now;
+        if (immediate) {
+          log(m).i("Job ${job.name} is immediate");
+          next = now;
+        }
       }
 
       if (job.before != null && (next == null || job.before!.isBefore(next))) {
         next = job.before!;
       }
     } else {
-      log(job.marker).i("Conditions not met for job ${job.name}, ignoring");
+      log(m).i("Conditions not met for job ${job.name}, ignoring");
     }
 
     if (retry) {
@@ -206,8 +209,12 @@ class Scheduler with Logging {
       }
     }
 
-    log(job.marker).i("Rescheduling job ${job.name}, next: $next (now: $now)");
-    if (next == null) return;
+    if (next == null) {
+      log(m).i("Job ${job.name} is skipped for now");
+      return;
+    }
+
+    _getWhen(m, job, next);
 
     final order = JobOrder(next, job);
     _next.remove(order); // remove old one if exists (should be only one)
@@ -222,20 +229,24 @@ class Scheduler with Logging {
       return;
     }
 
-    final now = timer.now();
-    final when = upcoming.when.difference(now);
-    if (when.inSeconds < 1) {
-      log(m).i("Next job is ${upcoming.job.name}, now");
-    } else {
-      log(m).i(
-          "Next job is ${upcoming.job.name}, at ${upcoming.when} (in $when)");
-    }
+    final when = _getWhen(m, upcoming.job, upcoming.when, prefix: "Next");
 
     try {
       timer.setTimer(when);
     } catch (e, s) {
       log(m).e(msg: "Failed to set timer", err: e, stack: s);
     }
+  }
+
+  Duration _getWhen(Marker m, Job job, DateTime time, {prefix = "Job"}) {
+    final now = timer.now();
+    final when = time.difference(now);
+    if (when.inSeconds < 1) {
+      log(m).i("$prefix ${job.name}, now");
+    } else {
+      log(m).i("$prefix ${job.name}, at $time (in $when)");
+    }
+    return when;
   }
 
   _timerCallback() async {
@@ -253,7 +264,7 @@ class Scheduler with Logging {
             continue;
           }
         }
-        _reschedule(job.job);
+        _reschedule(job.job.marker, job.job);
       }
 
       _setTimer(m);
