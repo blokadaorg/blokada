@@ -13,6 +13,7 @@ import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/stats/controller.dart';
 import 'package:common/lock/lock.dart';
 import 'package:common/logger/logger.dart';
+import 'package:common/perm/perm.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
 import 'package:common/util/di.dart';
@@ -39,6 +40,7 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
   late final _thisDevice = dep<ThisDevice>();
   late final _dnsPerm = dep<DnsPerm>();
   late final _perm = dep<PermController>();
+  late final _permStore = dep<PermStore>();
   late final _acc = dep<AccountController>();
   late final _profiles = dep<ProfileController>();
 
@@ -141,6 +143,7 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
         _updatePhase(m, loading: false, reason: "activateCta");
         return;
       }
+      _permStore.askNotificationPermissions(m);
       _stage.showModal(StageModal.payment, m);
     });
   }
