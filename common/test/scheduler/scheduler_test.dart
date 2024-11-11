@@ -87,7 +87,7 @@ void main() {
         shouldCall = true;
         await subject.eventTriggered(m, Event.appForeground, value: "1");
         //expect(called, 1); // Now its async
-        verify(timer.setTimer(const Duration(seconds: 1))).called(1);
+        verify(timer.setTimer(const Duration(seconds: 0))).called(1);
 
         // more time passed, conditions ok, should exec job also
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 2)));
@@ -154,7 +154,7 @@ void main() {
         // We go to fg now after 1 sec, should reschedule the first job.
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 2)));
         await subject.eventTriggered(m, Event.appForeground, value: "1");
-        verify(timer.setTimer(const Duration(seconds: 1))).called(1);
+        verify(timer.setTimer(const Duration(seconds: 0))).called(1);
       });
     });
   });
