@@ -114,8 +114,10 @@ class DragonDeps {
     return this;
   }
 
-  load() {
-    dep<SupportUnreadController>().load();
-    dep<PurchaseTimout>().load();
+  load(Act act) {
+    if (act.isFamily()) {
+      dep<SupportUnreadController>().load();
+      dep<PurchaseTimout>().load();
+    }
   }
 }

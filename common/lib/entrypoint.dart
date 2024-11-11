@@ -112,7 +112,7 @@ class Entrypoint with Dependable, Logging {
     depend<TopBarController>(TopBarController());
     depend<Entrypoint>(this);
 
-    dragonDeps.load();
+    dragonDeps.load(act);
   }
 
   Future<void> onStartApp() async {
