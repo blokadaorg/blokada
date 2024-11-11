@@ -88,8 +88,9 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
   Future<void> showWithBody(NotificationId id, Marker m, String body,
       {DateTime? when}) async {
     return await log(m).trace("showWithPayload", (m) async {
-      _addCapped(
-          NotificationEvent.shown(id, when ?? DateTime.now(), body: body));
+      _addCapped(NotificationEvent.shown(
+          id, when ?? DateTime.now().add(const Duration(seconds: 3)),
+          body: body));
       log(m).pair("notificationId", id);
     });
   }
