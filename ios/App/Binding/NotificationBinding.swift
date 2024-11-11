@@ -24,7 +24,7 @@ let NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
 let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 
-func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
+func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
     content.badge = NSNumber(value: 0)
 
@@ -53,9 +53,12 @@ func mapNotificationToUser(_ id: String) -> UNMutableNotificationContent {
         content.subtitle = L10n.familyNotificationSubtitle
         content.body = L10n.notificationAccBody
     } else if id == NOTIF_SUPPORT_NEWMSG {
-        content.title = "New message!"
-        content.subtitle = "Support has replied"
+        content.title = "New message"
+        //content.subtitle = "You got a message from the support"
         content.body = "Tap to see the reply"
+        if let body = body, !body.isEmpty {
+            content.body = body.count > 32 ? body.prefix(32) + "..." : body
+        }
         content.badge = NSNumber(value: 1)
     } else {
         content.title = L10n.notificationGenericHeader
@@ -100,11 +103,11 @@ class NotificationBinding: NotificationOps {
         commands.execute(.warning, "Failed registering for remote notifications: \(err)")
     }
 
-    func doShow(notificationId: String, atWhen: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func doShow(notificationId: String, atWhen: String, body: String?, completion: @escaping (Result<Void, Error>) -> Void) {
         //let whenDate = Date().addingTimeInterval(40)
         let whenDate = atWhen.toDate
 
-        scheduleNotification(id: notificationId, when: whenDate)
+        scheduleNotification(id: notificationId, when: whenDate, body: body)
         .sink(onFailure: { err in
             completion(.failure(err))
         }, onSuccess: {
@@ -150,7 +153,7 @@ class NotificationBinding: NotificationOps {
         .eraseToAnyPublisher()
     }
 
-    func scheduleNotification(id: String, when: Date) -> AnyPublisher<Ignored, Error> {
+    func scheduleNotification(id: String, when: Date, body: String? = nil) -> AnyPublisher<Ignored, Error> {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         let date = calendar.dateComponents(
@@ -161,7 +164,7 @@ class NotificationBinding: NotificationOps {
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 40, repeats: false)
         let request = UNNotificationRequest(
-            identifier: id, content: mapNotificationToUser(id), trigger: trigger
+            identifier: id, content: mapNotificationToUser(id, body), trigger: trigger
         )
 
         print("Scheduling notification \(id) for: \(when.description(with: .current)), \(request)")
