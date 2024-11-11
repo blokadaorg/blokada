@@ -117,6 +117,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // However we should not need it as long as the app is running in the bg.
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.scheduleBackgroundPing()
+            appDelegate.scheduleDelayedBgExecution()
         }
     }
 

@@ -88,6 +88,14 @@ class PermBinding: PermOps {
             )
             .store(in: &cancellables)
     }
+    
+    func doAskNotificationPerms(completion: @escaping (Result<Void, Error>) -> Void) {
+        self.notification.askForPermissions()
+            .receive(on: RunLoop.main)
+            .sink()
+            .store(in: &cancellables)
+        completion(Result.success(()))
+    }
 
     func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {
         privateDns.isPrivateDnsProfileActive()

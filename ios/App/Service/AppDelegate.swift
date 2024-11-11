@@ -78,22 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var isTaskScheduled = false
 
-    func handleBackgroundPing(task: BGAppRefreshTask) {
-        print("Got the background ping")
-        isTaskScheduled = false
-        commands.executeWithCompletion(CommandName.schedulerPing, completion: { result in
-            switch result {
-                case .success:
-                return task.setTaskCompleted(success: true)
-                case .failure(let error):
-                return task.setTaskCompleted(success: false)
-            }
-        })
-    }
-
     func scheduleBackgroundPing() {
         let request = BGAppRefreshTaskRequest(identifier: "net.blocka.app.scheduler")
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 3 * 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1 * 60)
 
         do {
             try BGTaskScheduler.shared.submit(request)
@@ -101,6 +88,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Scheduled background ping")
         } catch {
             print("Failed to schedule background ping: \(error)")
+        }
+    }
+
+    func handleBackgroundPing(task: BGAppRefreshTask) {
+        print("Got the background ping")
+        isTaskScheduled = false
+
+        // Set an expiration handler to end the task if it takes too long
+        task.expirationHandler = {
+            print("Background task expired")
+            task.setTaskCompleted(success: false)
+        }
+
+        // Use a DispatchGroup to wait for the async job
+        let group = DispatchGroup()
+        group.enter()
+
+        waitSec(howLong: 5) {
+            print("Time ended for the bg ping")
+            group.leave()
+        }
+
+        commands.execute(CommandName.schedulerPing)
+
+        // Wait for the group to finish, then complete the task
+        group.notify(queue: .main) {
+            print("Completing background task")
+            task.setTaskCompleted(success: true)
+        }
+    }
+
+    func waitSec(howLong: Int, completion: @escaping () -> Void) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(howLong)) {
+            completion()
+        }
+    }
+
+    func scheduleDelayedBgExecution() {
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+
+        backgroundTaskID = UIApplication.shared.beginBackgroundTask(withName: "app.blocka.net.delayedbg") {
+            // Cleanup code if the task expires
+            UIApplication.shared.endBackgroundTask(backgroundTaskID)
+            backgroundTaskID = .invalid
+        }
+
+        waitSec(howLong: 28) {
+            print("Executing delayedbg")
+
+            self.commands.executeWithCompletion(CommandName.schedulerPing) { result in
+                // Once done, end the background task
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
+            }
         }
     }
 

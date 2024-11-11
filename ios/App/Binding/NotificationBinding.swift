@@ -151,7 +151,9 @@ class NotificationBinding: NotificationOps {
     }
 
     func scheduleNotification(id: String, when: Date) -> AnyPublisher<Ignored, Error> {
-        let date = Calendar.current.dateComponents(
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        let date = calendar.dateComponents(
             [.year,.month,.day,.hour,.minute,.second,],
             from: when
         )
@@ -162,15 +164,18 @@ class NotificationBinding: NotificationOps {
             identifier: id, content: mapNotificationToUser(id), trigger: trigger
         )
 
-        print("Scheduling notification \(id) for: \(date), \(request)")
+        print("Scheduling notification \(id) for: \(when.description(with: .current)), \(request)")
+        print("Now is: \(Date().description(with: .current))")
         return Future<Ignored, Error> { promise in
             self.center.getNotificationSettings { settings in
                 guard settings.authorizationStatus == .authorized else {
+                    print("Unauthorized for notifications")
                     return promise(.failure("unauthorized for notifications"))
                 }
 
                 self.center.add(request) { error in
                     if let error = error {
+                        print("Scheduling notification failed with error: \(error)")
                         return promise(.failure(error))
                     } else {
                         return promise(.success(true))
@@ -182,6 +187,7 @@ class NotificationBinding: NotificationOps {
             self.writeNotification.first { it in it == id }
             .map { _ in true }
         }
+
         .eraseToAnyPublisher()
     }
 
