@@ -710,6 +710,8 @@ internal enum L10n {
   internal static let notificationGenericSubtitle = L10n.tr("Ui", "notification generic subtitle")
   /// Blokada Plus is off
   internal static let notificationLeaseHeader = L10n.tr("Ui", "notification lease header")
+  /// New message
+  internal static let notificationNewMessageTitle = L10n.tr("Ui", "notification new message title")
   /// Please open the app to resume Blokada.
   internal static let notificationPauseBody = L10n.tr("Ui", "notification pause body")
   /// Blokada is still paused
