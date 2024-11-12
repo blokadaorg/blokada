@@ -249,6 +249,9 @@ class CommandStore with Logging, Dependable implements CommandEvents {
       case CommandName.appleNotificationToken:
         _ensureParam(p1);
         return await _notification.saveAppleToken(p1!, m);
+      case CommandName.notificationTapped:
+        _ensureParam(p1);
+        return await _notification.notificationTapped(p1!, m);
       case CommandName.familyLink:
         _ensureParam(p1);
         // When entering from a camera app qr code scan, this will be called
