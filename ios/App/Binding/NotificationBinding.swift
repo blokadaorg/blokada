@@ -66,6 +66,7 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
         content.body = L10n.notificationGenericBody
     }
 
+    content.userInfo = ["id": id]
     content.sound = .default
     return content
 }
@@ -91,6 +92,8 @@ class NotificationBinding: NotificationOps {
             writeNotification: self.writeNotification
         )
         self.center.delegate = delegate
+        // Keep a strong reference to prevent it from being deallocated
+        self.delegate = delegate
     }
 
     func onAppleTokenReceived(_ appleToken: Data) {
@@ -210,7 +213,7 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
         self.writeNotification = writeNotification
     }
 
-    // Notification arrived (either in foreground or background)
+    // Push notification arrived (either in foreground or background)
     func application(
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
@@ -220,25 +223,34 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
         completionHandler(.newData)
     }
 
-    // Called when push notification received while in foreground
+    // Called when a notification received while in foreground
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        BlockaLogger.w("Notif", "Got foreground system callback for local notification")
+        BlockaLogger.w("Notif", "Got foreground system callback for a notification")
         writeNotification.send(notification.request.identifier)
 
         // No notifications while in front
         completionHandler(UNNotificationPresentationOptions(rawValue: 0))
     }
 
-    // Chuj wie
+    // Callen when notification is clicked by user
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
+        let userInfo = response.notification.request.content.userInfo
+
+        print("Notification tapped with info: \(userInfo)")
+        if let id = userInfo["id"] as? String {
+            commands.execute(.notificationTapped, id)
+        } else {
+            print("No custom data found.")
+        }
+
         completionHandler()
     }
 
