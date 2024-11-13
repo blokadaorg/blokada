@@ -30,8 +30,9 @@ class SupportController with Logging {
   Function onChange = () {};
   Function onReset = () {};
 
-  loadOrInit(Marker m, {SupportEvent? event}) async {
-    if (initialized) return;
+  // Return true if session was just created
+  Future<bool> loadOrInit(Marker m, {SupportEvent? event}) async {
+    if (initialized) return false;
     initialized = true;
 
     await _currentSession.fetch();
@@ -42,12 +43,15 @@ class SupportController with Logging {
         _ttl = session.ttl;
         if (_ttl < 0) throw Exception("Session expired");
         await _loadChatHistory(session.history);
+        return false;
       } catch (e, s) {
         log(m).e(msg: "Error loading session", err: e, stack: s);
         await startSession(m, event: event);
+        return true;
       }
     } else {
       await startSession(m, event: event);
+      return true;
     }
   }
 
@@ -148,11 +152,11 @@ class SupportController with Logging {
   }
 
   sendEvent(SupportEvent event, Marker m, {bool retrying = false}) async {
-    await loadOrInit(m, event: event);
+    final sessionJustStarted = await loadOrInit(m, event: event);
     try {
       if (_currentSession.now == null) {
         await startSession(m, event: event);
-      } else {
+      } else if (!sessionJustStarted) {
         final msg = await _api.sendEvent(m, _currentSession.now!, event);
         if (msg.messages != null) await _handleResponse(m, msg.messages!);
       }
