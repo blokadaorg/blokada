@@ -28,6 +28,7 @@ class SupportController with Logging {
   List<SupportMessage> messages = [];
 
   Function onChange = () {};
+  Function onReset = () {};
 
   loadOrInit(Marker m, {SupportEvent? event}) async {
     if (initialized) return;
@@ -104,6 +105,7 @@ class SupportController with Logging {
     _chatHistory.now = null;
     messages = [];
     onChange();
+    onReset();
   }
 
   sendMessage(String? message, Marker m, {bool retrying = false}) async {

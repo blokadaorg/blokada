@@ -22,6 +22,7 @@ class PurchaseTimout with Logging {
   load() async {
     _stage.addOnValue(routeChanged, onRouteChanged);
     await _notified.fetch();
+    _support.onReset = clearSendPurchaseTimeout;
   }
 
   // Send support event when user abandoned purchase
@@ -49,8 +50,14 @@ class PurchaseTimout with Logging {
   Future<bool> sendPurchaseTimeout(Marker m) async {
     if (_account.type.isActive()) return false;
     await _support.sendEvent(SupportEvent.purchaseTimeout, m);
-    //_notified.now = true;
+    await _stage.dismissModal(m);
+    _notified.now = true;
     return false;
+  }
+
+  clearSendPurchaseTimeout() async {
+    _notified.now = false;
+    await _scheduler.stop("sendPurchaseTimeout");
   }
 }
 

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:common/logger/logger.dart';
-import 'package:common/util/async.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
@@ -149,11 +148,10 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
 
       log(m).pair("id", id);
       if (id == NotificationId.supportNewMessage) {
-        await sleepAsync(const Duration(seconds: 1));
+        // await sleepAsync(const Duration(seconds: 1));
         // await _stage.setRoute(Paths.settings.path, m);
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
-        await _stage.dismissModal(m);
       }
     });
   }
