@@ -44,18 +44,13 @@ devsc: pull-sixcommon clean-sixcommon sixcommon
 devsc-fvm: pull-sixcommon clean-sixcommon sixcommon-fvm
 
 apk:
-	@if test ! -f "app/build/outputs/apk/six/release/app-six-release.apk"; then \
-		./gradlew assembleSixRelease; \
-	fi
+	./gradlew assembleSixRelease;
 
 aab:
-	@if test ! -f "app/build/outputs/bundle/sixRelease/app-six-release.aab"; then \
-		./gradlew bundleSixRelease; \
-	fi
+	./gradlew bundleSixRelease;
+
 aabfamily:
-	@if test ! -f "app/build/outputs/bundle/familyRelease/app-family-release.aab"; then \
-		./gradlew bundleFamilyRelease; \
-	fi
+	./gradlew bundleFamilyRelease;
 
 clean:
 	@rm -rf app/six-common; \
