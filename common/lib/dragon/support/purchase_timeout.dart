@@ -29,6 +29,15 @@ class PurchaseTimout with Logging {
 
   // Send support event when user abandoned purchase
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
+    // Coming back from BG, dismiss the payment modal if it's still there
+    if (route.isBecameForeground() && _justNotified) {
+      _justNotified = false;
+      if (route.modal == StageModal.payment) {
+        await sleepAsync(const Duration(milliseconds: 500));
+        await _stage.dismissModal(m);
+      }
+    }
+
     if (_notified.now) return;
 
     // Leaving to bg
@@ -42,13 +51,6 @@ class PurchaseTimout with Logging {
         callback: sendPurchaseTimeout,
       ));
       return;
-    } else if (route.isBecameForeground() && _justNotified) {
-      // Coming back from BG, dismiss the payment modal if it's still there
-      _justNotified = false;
-      if (route.modal == StageModal.payment) {
-        await sleepAsync(const Duration(milliseconds: 500));
-        await _stage.dismissModal(m);
-      }
     }
 
     if (route.modal == StageModal.payment) {
