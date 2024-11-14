@@ -97,4 +97,10 @@ object PermBinding: PermOps {
         callback(Result.success(Unit))
     }
 
+    override fun doAskNotificationPerms(callback: (Result<Unit>) -> Unit) {
+        GlobalScope.launch {
+            permsRepo.maybeDisplayNotificationPermsDialog()
+        }
+    }
+
 }

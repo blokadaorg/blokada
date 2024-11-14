@@ -320,6 +320,27 @@ class FamilyOnboardingNotification: NotificationPrototype(7, NotificationChannel
     }
 )
 
+class NewMessageNotification(val body: String?): NotificationPrototype(8, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(ctx.getString(R.string.notification_new_message_title))
+
+        var c = "Tap to see the reply"
+        if (!body.isNullOrEmpty()) {
+            c = if (body.length > 32) body.substring(0, 32) + "..." else body
+        }
+
+        b.setContentText(c)
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
 //class AnnouncementNotification(announcement: Announcement): BlokadaNotification(6,
 //    NotificationChannels.ANNOUNCEMENT, autoCancel = true,
 //    create = { ctx ->

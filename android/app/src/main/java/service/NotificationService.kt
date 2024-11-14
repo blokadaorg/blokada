@@ -23,6 +23,7 @@ import android.content.Intent
 import utils.ExpiredFamilyNotification
 import utils.ExpiredNotification
 import utils.FamilyOnboardingNotification
+import utils.NewMessageNotification
 import utils.NotificationChannels
 import utils.NotificationPrototype
 import utils.OnboardingNotification
@@ -36,6 +37,7 @@ val NOTIF_LEASE_EXP = "plusLeaseExpired"
 val NOTIF_PAUSE = "pauseTimeout"
 val NOTIF_ONBOARDING = "onboardingDnsAdvice"
 val NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
+val NOTIF_NEW_MESSAGE = "supportNewMessage"
 
 object NotificationService {
     private val context by lazy { ContextService }
@@ -55,10 +57,11 @@ object NotificationService {
         useChannels = true
     }
 
-    fun show(notificationId: String, atWhen: Date) {
+    fun show(notificationId: String, atWhen: Date, body: String? = null) {
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
         intent.putExtra("id", notificationId)
+        if (body != null) intent.putExtra("body", body)
         val pendingIntent = PendingIntent.getBroadcast(
             ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
@@ -116,6 +119,7 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             NOTIF_ACC_EXP_FAM -> ExpiredFamilyNotification()
             NOTIF_ONBOARDING -> OnboardingNotification()
             NOTIF_ONBOARDING_FAMILY -> FamilyOnboardingNotification()
+            NOTIF_NEW_MESSAGE -> NewMessageNotification(intent.getStringExtra("body"))
             else -> null
         }
 

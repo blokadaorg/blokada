@@ -26,8 +26,13 @@ object NotificationBinding: NotificationOps {
         NotificationOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
-    override fun doShow(notificationId: String, atWhen: String, callback: (Result<Unit>) -> Unit) {
-        notification.show(notificationId, atWhen.toBlockaDate())
+    override fun doShow(
+        notificationId: String,
+        atWhen: String,
+        body: String?,
+        callback: (Result<Unit>) -> Unit
+    ) {
+        notification.show(notificationId, atWhen.toBlockaDate(), body)
         callback(Result.success(Unit))
     }
 
