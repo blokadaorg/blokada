@@ -7,6 +7,7 @@ import 'package:common/logger/logger.dart';
 import 'package:common/scheduler/scheduler.dart';
 import 'package:common/stage/channel.pg.dart';
 import 'package:common/stage/stage.dart';
+import 'package:common/util/async.dart';
 import 'package:common/util/di.dart';
 
 class PurchaseTimout with Logging {
@@ -18,6 +19,7 @@ class PurchaseTimout with Logging {
 
   bool _userEnteredPurchase = false;
   final _timeoutSeconds = 27; // Time after going to bg, to send the event
+  bool _justNotified = false;
 
   load() async {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -40,6 +42,13 @@ class PurchaseTimout with Logging {
         callback: sendPurchaseTimeout,
       ));
       return;
+    } else if (route.isBecameForeground() && _justNotified) {
+      // Coming back from BG, dismiss the payment modal if it's still there
+      _justNotified = false;
+      if (route.modal == StageModal.payment) {
+        await sleepAsync(const Duration(milliseconds: 500));
+        await _stage.dismissModal(m);
+      }
     }
 
     if (route.modal == StageModal.payment) {
@@ -50,8 +59,8 @@ class PurchaseTimout with Logging {
   Future<bool> sendPurchaseTimeout(Marker m) async {
     if (_account.type.isActive()) return false;
     await _support.sendEvent(SupportEvent.purchaseTimeout, m);
-    await _stage.dismissModal(m);
     _notified.now = true;
+    _justNotified = true;
     return false;
   }
 
