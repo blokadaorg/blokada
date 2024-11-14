@@ -16,6 +16,8 @@
     android:sharedUserId="org.blokada.family"
     android:sharedUserMaxSdkVersion="32">
 
+    <meta-data android:name="isMonitoringTool" android:value="child_monitoring" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
