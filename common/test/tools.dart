@@ -1,6 +1,5 @@
-import 'package:common/core/config/act.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
+import 'package:common/platform/logger/logger.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_api/src/backend/invoker.dart';
@@ -18,13 +17,13 @@ withTrace(Future Function(Marker m) fn) async {
 }
 
 mockAct(Dependable subject,
-    {Flavor flavor = Flavor.og, Platform platform = Platform.ios}) {
+    {Flavor flavor = Flavor.og, PlatformType platform = PlatformType.iOS}) {
   final act = ActScreenplay(ActScenario.test, flavor, platform);
   subject.setActForTest(act);
   return act;
 }
 
-final mockedAct = ActScreenplay(ActScenario.test, Flavor.og, Platform.ios);
+final mockedAct = ActScreenplay(ActScenario.test, Flavor.og, PlatformType.iOS);
 
 class TestRunner with Logging {
   run(String name, Function(Marker) fn) {

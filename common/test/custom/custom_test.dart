@@ -1,5 +1,5 @@
 import 'package:common/core/core.dart';
-import 'package:common/custom/channel.pg.dart';
+import 'package:common/platform/custom/channel.pg.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:common/platform/custom/json.dart';
 import 'package:common/platform/stage/stage.dart';

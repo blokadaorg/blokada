@@ -5,7 +5,6 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/plus/vpn/channel.pg.dart';
 import 'package:common/platform/plus/vpn/vpn.dart';
 import 'package:common/timer/timer.dart';
-import 'package:common/util/config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

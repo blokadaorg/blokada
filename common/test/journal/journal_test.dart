@@ -1,7 +1,7 @@
 import 'package:common/core/core.dart';
-import 'package:common/journal/channel.pg.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/env/env.dart';
+import 'package:common/platform/journal/channel.pg.dart';
 import 'package:common/platform/journal/journal.dart';
 import 'package:common/platform/journal/json.dart';
 import 'package:common/platform/stage/stage.dart';

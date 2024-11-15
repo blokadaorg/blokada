@@ -1,5 +1,4 @@
 import 'package:common/core/core.dart';
-import 'package:common/util/emitter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tools.dart';

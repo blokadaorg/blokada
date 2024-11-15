@@ -1,5 +1,5 @@
 import 'package:common/core/core.dart';
-import 'package:common/persistence/persistence.dart';
+import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/platform/plus/gateway/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/gateway/json.dart';

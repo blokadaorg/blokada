@@ -1,6 +1,6 @@
 import 'package:common/core/core.dart';
-import 'package:common/persistence/persistence.dart';
 import 'package:common/platform/account/account.dart';
+import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/platform/plus/keypair/channel.pg.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';
 import 'package:common/platform/plus/plus.dart';

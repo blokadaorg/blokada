@@ -1,8 +1,8 @@
 import 'package:common/core/core.dart';
-import 'package:common/persistence/persistence.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/env/env.dart';
+import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/platform/plus/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:common/account/payment/json.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/json.dart';
 import 'package:common/platform/account/payment/channel.pg.dart';
+import 'package:common/platform/account/payment/json.dart';
 import 'package:common/platform/account/payment/payment.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
