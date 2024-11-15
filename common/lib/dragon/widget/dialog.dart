@@ -3,9 +3,9 @@ import 'dart:io' as io;
 import 'package:common/common/i18n.dart';
 import 'package:common/common/model.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/widget/profile/profile_dialog.dart';
-import 'package:common/dragon/widget/stats/stats_filter.dart';
-import 'package:common/dragon/widget/support/support_dialog.dart';
+import 'package:common/dragon/widget/common/stats/stats_filter.dart';
+import 'package:common/dragon/widget/common/support/support_dialog.dart';
+import 'package:common/dragon/widget/family/profile/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

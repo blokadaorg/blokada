@@ -1,6 +1,7 @@
 import 'package:common/dragon/dragon_deps.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
-import 'package:common/dragon/widget/home/top_bar.dart';
+import 'package:common/dragon/widget/common/top_bar.dart';
+import 'package:common/dragon/widget/v6/home/home.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/perm/dnscheck.dart';
 
@@ -31,7 +32,6 @@ import 'stage/stage.dart';
 import 'stats/refresh/refresh.dart';
 import 'stats/stats.dart';
 import 'timer/timer.dart';
-import 'ui/notfamily/home/home.dart';
 import 'util/config.dart';
 import 'util/di.dart';
 

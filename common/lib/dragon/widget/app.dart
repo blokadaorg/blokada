@@ -1,7 +1,7 @@
 import 'package:common/common/widget/theme.dart';
-import 'package:common/dragon/widget/home/animated_bg.dart';
-import 'package:common/dragon/widget/home/overlay.dart';
-import 'package:common/dragon/widget/home/top_bar.dart';
+import 'package:common/dragon/widget/common/overlay.dart';
+import 'package:common/dragon/widget/common/top_bar.dart';
+import 'package:common/dragon/widget/family/home/animated_bg.dart';
 import 'package:common/dragon/widget/navigation.dart';
 import 'package:common/util/config.dart';
 import 'package:common/util/di.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:common/dragon/widget/home/top_bar.dart';
+import 'package:common/dragon/widget/common/top_bar.dart';
 import 'package:common/link/channel.pg.dart';
 import 'package:common/link/link.dart';
 import 'package:common/logger/logger.dart';

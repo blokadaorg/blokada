@@ -1,6 +1,5 @@
 import 'package:common/dragon/widget/app.dart';
 import 'package:common/logger/logger.dart';
-import 'package:common/mocked-deps.dart';
 import 'package:common/stage/stage.dart';
 import 'package:flutter/material.dart';
 
@@ -18,25 +17,24 @@ void main() async {
 
   await I18nService.loadTranslations();
 
-  const flavor = Flavor.family;
+  const flavor = Flavor.og;
   final entrypoint = Entrypoint();
   entrypoint.attach(
       ActScreenplay(ActScenario.platformIsMocked, flavor, Platform.ios));
   entrypoint.onStartApp();
-  attachMockedDeps();
 
   final CommandStore command = dep<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
   runApp(BlokadaApp(
-    content: (flavor == Flavor.family) ? null : Scaffolding(title: 'Blokada'),
+    content: const Scaffolding(title: 'Blokada'),
   ));
 
   MockedStart().start();
 }
 
 // In mocked, manually trigger the foreground
-class MockedStart {
+class MockedStart with Logging {
   late final StageStore _stage = dep<StageStore>();
 
   Future<void> start() async {
