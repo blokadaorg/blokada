@@ -1,8 +1,8 @@
 import 'package:common/logger/logger.dart';
 
+import '../../common/api/api.dart';
 import '../../common/model.dart';
 import '../../util/di.dart';
-import '../api/api.dart';
 
 class DeviceApi {
   late final _api = dep<Api>();
@@ -30,8 +30,7 @@ class DeviceApi {
     return _marshal.toDevice(result);
   }
 
-  Future<JsonDevice> rename(
-      JsonDevice device, String newName, Marker m) async {
+  Future<JsonDevice> rename(JsonDevice device, String newName, Marker m) async {
     final result = await _api.request(ApiEndpoint.putDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forUpdateAlias(
           deviceTag: device.deviceTag,

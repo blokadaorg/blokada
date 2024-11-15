@@ -1,4 +1,4 @@
-import 'package:common/dragon/api/user_agent.dart';
+import 'package:common/common/api/user_agent.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/util/trace.dart';
 import 'package:mobx/mobx.dart';

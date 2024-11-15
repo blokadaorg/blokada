@@ -1,4 +1,4 @@
-import 'package:common/dragon/value.dart';
+import 'package:common/common/value.dart';
 
 class DnsPerm extends AsyncValue<bool> {
   @override

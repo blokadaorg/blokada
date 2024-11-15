@@ -1,4 +1,4 @@
-import 'package:common/dragon/widget/app.dart';
+import 'package:common/dragon/app.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/stage/stage.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'command/channel.pg.dart';
 import 'command/command.dart';
 import 'common/i18n.dart';
-import 'dragon/widget/v6/scaffolding.dart';
 import 'entrypoint.dart';
 import 'util/act.dart';
 import 'util/di.dart';
+import 'v6/widget/scaffolding.dart';
 
 void main() async {
   // Needed for the MethodChannels

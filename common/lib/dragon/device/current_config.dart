@@ -1,4 +1,4 @@
 import '../../common/model.dart';
-import '../value.dart';
+import '../../common/value.dart';
 
 class CurrentConfig extends NullableValue<UserFilterConfig> {}

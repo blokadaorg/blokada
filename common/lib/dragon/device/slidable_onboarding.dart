@@ -1,5 +1,5 @@
-import 'package:common/dragon/persistence/persistence.dart';
-import 'package:common/dragon/value.dart';
+import 'package:common/common/persistence/persistence.dart';
+import 'package:common/common/value.dart';
 import 'package:common/util/di.dart';
 
 class SlidableOnboarding extends NullableValue<bool?> {

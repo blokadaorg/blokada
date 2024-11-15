@@ -1,6 +1,6 @@
+import 'package:common/common/api/api.dart';
 import 'package:common/common/model.dart';
 import 'package:common/dragon/account/account_id.dart';
-import 'package:common/dragon/api/api.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/util/di.dart';
 

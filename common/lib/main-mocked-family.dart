@@ -1,4 +1,4 @@
-import 'package:common/dragon/widget/app.dart';
+import 'package:common/dragon/app.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/mocked-deps.dart';
 import 'package:common/stage/stage.dart';
@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'command/channel.pg.dart';
 import 'command/command.dart';
 import 'common/i18n.dart';
-import 'dragon/widget/v6/scaffolding.dart';
 import 'entrypoint.dart';
 import 'util/act.dart';
 import 'util/di.dart';
@@ -29,7 +28,7 @@ void main() async {
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
   runApp(BlokadaApp(
-    content: (flavor == Flavor.family) ? null : Scaffolding(title: 'Blokada'),
+    content: null,
   ));
 
   MockedStart().start();

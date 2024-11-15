@@ -1,4 +1,4 @@
-import 'package:common/dragon/widget/common/top_bar.dart';
+import 'package:common/common/widget/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';

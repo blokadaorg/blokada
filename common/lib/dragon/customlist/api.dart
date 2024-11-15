@@ -1,8 +1,8 @@
 import 'package:common/logger/logger.dart';
 
+import '../../common/api/api.dart';
 import '../../common/model.dart';
 import '../../util/di.dart';
-import '../api/api.dart';
 
 class CustomListApi {
   late final _api = dep<Api>();

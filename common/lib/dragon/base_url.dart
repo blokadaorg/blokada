@@ -1,6 +1,6 @@
 import 'package:common/util/di.dart';
 
-import 'value.dart';
+import '../common/value.dart';
 
 class BaseUrl extends Value<String> {
   final Act _act;

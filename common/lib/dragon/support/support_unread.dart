@@ -1,6 +1,6 @@
-import 'package:common/dragon/persistence/persistence.dart';
-import 'package:common/dragon/value.dart';
-import 'package:common/dragon/widget/navigation.dart';
+import 'package:common/common/persistence/persistence.dart';
+import 'package:common/common/value.dart';
+import 'package:common/dragon/navigation.dart';
 import 'package:common/logger/logger.dart';
 import 'package:common/notification/notification.dart';
 import 'package:common/stage/stage.dart';

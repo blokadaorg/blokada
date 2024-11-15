@@ -1,6 +1,6 @@
 import 'package:common/command/command.dart';
 import 'package:common/common/i18n.dart';
-import 'package:common/dragon/widget/app.dart';
+import 'package:common/dragon/app.dart';
 import 'package:common/entrypoint.dart';
 import 'package:common/util/act.dart';
 import 'package:common/util/di.dart';
