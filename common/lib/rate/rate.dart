@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:common/logger/logger.dart';
+import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../app/app.dart';
@@ -71,9 +72,14 @@ abstract class RateStoreBase with Store, Logging, Dependable, Startable {
       if (meta == null) return; // .. but not on first ever app start
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
-      if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
-      if (act.isFamily() && _family.phase != FamilyPhase.parentHasDevices) {
-        return;
+
+      if (!act.isFamily()) {
+        if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
+      } else {
+        // Skip if no devices
+        if (_family.phase != FamilyPhase.parentHasDevices) return;
+        // Skip if not warmed up
+        if (_stats.deviceStats.none((k, v) => v.totalBlocked >= 100)) return;
       }
 
       await show(m);
