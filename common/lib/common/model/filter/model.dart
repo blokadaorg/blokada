@@ -1,4 +1,4 @@
-part of '../../model.dart';
+part of '../model.dart';
 
 typedef FilterName = String;
 typedef OptionName = String;

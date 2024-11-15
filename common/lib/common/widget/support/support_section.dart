@@ -1,11 +1,10 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/support/convert.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/debounce.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/controller.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';

@@ -1,8 +1,7 @@
-import 'package:common/logger/logger.dart';
+import 'package:common/core/core.dart';
 
 import '../../common/api/api.dart';
-import '../../common/model.dart';
-import '../../util/di.dart';
+import '../../common/model/model.dart';
 
 class DeviceApi {
   late final _api = dep<Api>();

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:common/account/account.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/account/controller.dart';
 import 'package:common/dragon/auth/controller.dart';
 import 'package:common/dragon/device/controller.dart';
@@ -12,12 +12,10 @@ import 'package:common/dragon/perm/dns_perm.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/stats/controller.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/perm/perm.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
-import 'package:common/util/trace.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/perm/perm.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 

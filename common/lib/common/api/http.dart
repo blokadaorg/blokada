@@ -1,11 +1,4 @@
-import 'package:common/common/api/user_agent.dart';
-import 'package:common/common/model.dart';
-import 'package:common/dragon/account/account_id.dart';
-import 'package:common/dragon/base_url.dart';
-import 'package:common/http/channel.pg.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
-import 'package:flutter/services.dart';
+part of 'api.dart';
 
 class Http with Logging {
   late final _ops = dep<HttpOps>();

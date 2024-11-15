@@ -1,8 +1,6 @@
-import 'package:common/common/value.dart';
-
-import '../../common/model.dart';
-import '../../common/persistence/persistence.dart';
-import '../../util/di.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 
 class ThisDevice extends NullableValue<JsonDevice> {
   late final _persistence = dep<Persistence>();

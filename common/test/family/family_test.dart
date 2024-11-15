@@ -1,13 +1,13 @@
-import 'package:common/account/account.dart';
-import 'package:common/app/app.dart';
-import 'package:common/device/device.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
-import 'package:common/journal/journal.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/perm/perm.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/stats/stats.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/app/app.dart';
+import 'package:common/platform/device/device.dart';
+import 'package:common/platform/journal/journal.dart';
+import 'package:common/platform/perm/perm.dart';
+import 'package:common/platform/stage/stage.dart';
+import 'package:common/platform/stats/stats.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 

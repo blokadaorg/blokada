@@ -1,19 +1,16 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/family/widget/home/big_icon.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_android.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_ios.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
-import 'package:common/util/platform_info.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -185,7 +182,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(m);
       });
     } else if (p.requiresPerms()) {
-      final perms = (_act.getPlatform() == Platform.ios)
+      final perms = (_act.getPlatform() == PlatformType.iOS)
           ? const PrivateDnsSheetIos()
           : const PrivateDnsSheetAndroid();
 

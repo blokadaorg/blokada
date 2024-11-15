@@ -1,10 +1,9 @@
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/settings/exception_item.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/custom/custom.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/custom/custom.dart';
 import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';

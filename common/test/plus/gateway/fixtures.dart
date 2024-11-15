@@ -1,5 +1,4 @@
-import 'package:common/custom/json.dart';
-import 'package:common/plus/gateway/json.dart';
+import 'package:common/platform/plus/gateway/json.dart';
 
 const fixtureGatewayEndpoint = '''
 {

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/back_edit_header.dart';
 import 'package:common/common/widget/home/header/header.dart';
 import 'package:common/common/widget/theme.dart';

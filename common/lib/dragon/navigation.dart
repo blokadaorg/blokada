@@ -1,5 +1,4 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/settings_screen.dart';
@@ -8,7 +7,7 @@ import 'package:common/common/widget/support/support_screen.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/common/widget/with_top_bar.dart';
-import 'package:common/custom/custom.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/journal/controller.dart';
 import 'package:common/dragon/route.dart';
@@ -17,9 +16,7 @@ import 'package:common/family/widget/device/device_screen.dart';
 import 'package:common/family/widget/filters_section.dart';
 import 'package:common/family/widget/home/home_screen.dart';
 import 'package:common/family/widget/stats_detail_section.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
-import 'package:common/util/platform_info.dart';
+import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

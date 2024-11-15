@@ -1,5 +1,5 @@
-import 'package:common/app/app.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/app/app.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home.g.dart';

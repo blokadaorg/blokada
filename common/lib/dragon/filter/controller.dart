@@ -1,12 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
-import 'package:common/common/i18n.dart';
-import 'package:common/logger/logger.dart';
+import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
 
-import '../../common/model.dart';
-import '../../util/di.dart';
+import '../../common/model/model.dart';
 import '../device/current_config.dart';
 import '../list/api.dart';
 import 'selected_filters.dart';

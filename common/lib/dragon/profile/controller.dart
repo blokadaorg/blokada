@@ -1,12 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/device/current_config.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/profile/api.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
 
 class ProfileController with Logging {
   late final _profiles = dep<ProfileApi>();

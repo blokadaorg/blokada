@@ -1,10 +1,7 @@
-import 'package:common/app/app.dart';
-import 'package:common/app/start/start.dart';
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/anim/sliding.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/async.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/app/app.dart';
+import 'package:common/platform/app/start/start.dart';
 import 'package:common/v6/widget/home/plusbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

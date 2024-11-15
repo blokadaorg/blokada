@@ -1,8 +1,8 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/color.dart';
 import 'package:common/common/widget/filter/filter_option.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 

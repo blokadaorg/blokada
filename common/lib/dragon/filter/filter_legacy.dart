@@ -1,13 +1,12 @@
-import 'package:common/common/model.dart';
-import 'package:common/device/device.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/account/controller.dart';
 import 'package:common/dragon/device/current_config.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
-import 'package:common/filter/channel.act.dart';
-import 'package:common/filter/channel.pg.dart' as channel;
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/device/device.dart';
+import 'package:common/platform/filter/channel.act.dart';
+import 'package:common/platform/filter/channel.pg.dart' as channel;
 import 'package:dartx/dartx.dart';
 
 import '../debounce.dart';

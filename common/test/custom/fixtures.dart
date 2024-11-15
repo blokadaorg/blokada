@@ -1,4 +1,4 @@
-import 'package:common/custom/json.dart';
+import 'package:common/platform/custom/json.dart';
 
 const fixtureCustomEndpoint = '''
 {

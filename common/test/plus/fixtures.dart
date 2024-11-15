@@ -1,4 +1,4 @@
-import 'package:common/plus/keypair/channel.pg.dart';
+import 'package:common/platform/plus/keypair/channel.pg.dart';
 
 class Fixtures {
   static PlusKeypair keypair = PlusKeypair(

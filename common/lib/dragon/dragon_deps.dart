@@ -1,14 +1,11 @@
 import 'package:common/common/api/api.dart';
-import 'package:common/common/api/http.dart';
-import 'package:common/common/api/user_agent.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
-import 'package:common/common/model.dart';
-import 'package:common/common/persistence/persistence.dart';
-import 'package:common/dragon/account/account_id.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/account/controller.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/auth/controller.dart';
-import 'package:common/dragon/base_url.dart';
 import 'package:common/dragon/customlist/api.dart';
 import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/device/api.dart';
@@ -37,8 +34,6 @@ import 'package:common/dragon/support/controller.dart';
 import 'package:common/dragon/support/current_session.dart';
 import 'package:common/dragon/support/purchase_timeout.dart';
 import 'package:common/dragon/support/support_unread.dart';
-import 'package:common/scheduler/scheduler.dart';
-import 'package:common/util/di.dart';
 
 class DragonDeps {
   DragonDeps register(Act act) {
@@ -61,7 +56,7 @@ class DragonDeps {
 
     depend<KnownFilters>(KnownFilters(
       isFamily: act.isFamily(),
-      isIos: act.getPlatform() == Platform.ios,
+      isIos: act.getPlatform() == PlatformType.iOS,
     ));
     depend<DefaultFilters>(DefaultFilters(act.isFamily()));
     depend<SelectedFilters>(SelectedFilters());

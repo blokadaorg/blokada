@@ -1,12 +1,9 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/dragon/perm/controller.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/async.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,10 +1,10 @@
-import 'package:common/account/account.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
-import 'package:common/env/env.dart';
-import 'package:common/link/channel.pg.dart';
-import 'package:common/link/link.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/env/env.dart';
+import 'package:common/platform/link/channel.pg.dart';
+import 'package:common/platform/link/link.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

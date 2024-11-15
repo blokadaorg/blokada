@@ -1,4 +1,4 @@
-import '../model.dart';
+import '../model/model.dart';
 
 final filterDecorDefaults = _v6 + _family;
 

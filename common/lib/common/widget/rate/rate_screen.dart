@@ -1,12 +1,10 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/rate/rate.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/rate/rate.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 

@@ -1,12 +1,11 @@
-import 'package:common/app/app.dart';
-import 'package:common/app/channel.pg.dart';
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/app/app.dart';
+import 'package:common/platform/app/channel.pg.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';

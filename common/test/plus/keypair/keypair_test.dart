@@ -1,9 +1,9 @@
-import 'package:common/account/account.dart';
+import 'package:common/core/core.dart';
 import 'package:common/persistence/persistence.dart';
-import 'package:common/plus/keypair/channel.pg.dart';
-import 'package:common/plus/keypair/keypair.dart';
-import 'package:common/plus/plus.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/plus/keypair/channel.pg.dart';
+import 'package:common/platform/plus/keypair/keypair.dart';
+import 'package:common/platform/plus/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

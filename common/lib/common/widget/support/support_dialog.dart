@@ -1,12 +1,10 @@
-import 'package:common/command/command.dart';
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/support/controller.dart';
-import 'package:common/link/channel.pg.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/command/command.dart';
+import 'package:common/platform/link/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 
 class SupportDialog extends StatefulWidget {

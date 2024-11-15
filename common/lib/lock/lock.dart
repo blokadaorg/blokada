@@ -1,15 +1,10 @@
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/channel.pg.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 import 'package:string_validator/string_validator.dart';
 
-import '../account/account.dart';
-import '../perm/perm.dart';
-import '../persistence/persistence.dart';
-import '../stage/stage.dart';
-import '../util/di.dart';
-import '../util/emitter.dart';
-import '../util/trace.dart';
+import '../platform/persistence/persistence.dart';
+import '../platform/stage/stage.dart';
 
 part 'lock.g.dart';
 
@@ -23,8 +18,6 @@ abstract class LockStoreBase
     with Store, Logging, Dependable, Startable, ValueEmitter<bool> {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
-  late final _perm = dep<PermStore>();
-  late final _account = dep<AccountStore>();
 
   LockStoreBase() {
     willAcceptOnValue(lockChanged);

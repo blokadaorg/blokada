@@ -1,4 +1,4 @@
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

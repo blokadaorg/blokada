@@ -1,7 +1,6 @@
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/home/home_screen.dart';
 import 'package:common/v6/widget/home/stats/stats_screen.dart';
 import 'package:flutter/material.dart';

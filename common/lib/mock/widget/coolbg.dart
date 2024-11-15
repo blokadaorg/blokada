@@ -1,4 +1,4 @@
-import 'package:common/logger/logger.dart';
+import 'package:common/core/core.dart';
 import 'package:common/mock/widget/background.dart';
 import 'package:flutter/material.dart';
 

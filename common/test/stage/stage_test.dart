@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:common/scheduler/scheduler.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
+import 'package:common/core/core.dart';
+import 'package:common/core/scheduler.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:common/timer/timer.dart';
 import 'package:common/util/async.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 

@@ -1,5 +1,4 @@
-import 'package:common/custom/json.dart';
-import 'package:common/plus/lease/json.dart';
+import 'package:common/platform/plus/lease/json.dart';
 
 const fixtureLeaseEndpoint = '''
 {

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:common/account/account.dart';
-import 'package:common/account/json.dart';
-import 'package:common/account/payment/channel.pg.dart';
 import 'package:common/account/payment/json.dart';
-import 'package:common/account/payment/payment.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/account/json.dart';
+import 'package:common/platform/account/payment/channel.pg.dart';
+import 'package:common/platform/account/payment/payment.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

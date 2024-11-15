@@ -1,5 +1,5 @@
-import 'package:common/common/value.dart';
-import 'package:common/device/device.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/platform/device/device.dart';
 
 class SelectedDeviceTag extends NullableValue<DeviceTag> {
   @override

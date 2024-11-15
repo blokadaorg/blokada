@@ -1,10 +1,9 @@
 import 'package:collection/collection.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/device/generator.dart';
 import 'package:common/dragon/profile/controller.dart';
-import 'package:common/logger/logger.dart';
 
-import '../../common/model.dart';
-import '../../util/di.dart';
+import '../../common/model/model.dart';
 import 'api.dart';
 import 'this_device.dart';
 

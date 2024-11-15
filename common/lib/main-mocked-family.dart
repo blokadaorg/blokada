@@ -1,15 +1,12 @@
+import 'package:common/core/core.dart';
 import 'package:common/dragon/app.dart';
-import 'package:common/logger/logger.dart';
 import 'package:common/mocked-deps.dart';
-import 'package:common/stage/stage.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 
-import 'command/channel.pg.dart';
-import 'command/command.dart';
-import 'common/i18n.dart';
 import 'entrypoint.dart';
-import 'util/act.dart';
-import 'util/di.dart';
+import 'platform/command/channel.pg.dart';
+import 'platform/command/command.dart';
 
 void main() async {
   // Needed for the MethodChannels
@@ -20,7 +17,7 @@ void main() async {
   const flavor = Flavor.family;
   final entrypoint = Entrypoint();
   entrypoint.attach(
-      ActScreenplay(ActScenario.platformIsMocked, flavor, Platform.ios));
+      ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
   entrypoint.onStartApp();
   attachMockedDeps();
 

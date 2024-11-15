@@ -1,9 +1,9 @@
-import 'package:common/account/account.dart';
-import 'package:common/device/channel.pg.dart';
-import 'package:common/device/device.dart';
-import 'package:common/device/json.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/device/channel.pg.dart';
+import 'package:common/platform/device/device.dart';
+import 'package:common/platform/device/json.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

@@ -1,6 +1,6 @@
-import 'package:common/logger/logger.dart';
-import 'package:common/util/act.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/config/act.dart';
+import 'package:common/core/core.dart';
+import 'package:common/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_api/src/backend/invoker.dart';

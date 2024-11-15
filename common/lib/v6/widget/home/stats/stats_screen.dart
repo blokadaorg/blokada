@@ -1,10 +1,9 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/stats/stats.dart';
-import 'package:common/util/di.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';

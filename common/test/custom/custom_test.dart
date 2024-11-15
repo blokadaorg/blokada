@@ -1,8 +1,8 @@
+import 'package:common/core/core.dart';
 import 'package:common/custom/channel.pg.dart';
-import 'package:common/custom/custom.dart';
-import 'package:common/custom/json.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/custom/custom.dart';
+import 'package:common/platform/custom/json.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

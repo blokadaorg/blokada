@@ -1,8 +1,11 @@
-import 'package:common/logger/logger.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/http/channel.pg.dart';
+import 'package:flutter/services.dart';
 
-import '../../util/di.dart';
-import '../model.dart';
-import 'http.dart';
+part 'endpoint.dart';
+part 'error.dart';
+part 'http.dart';
 
 class Api {
   late final _http = dep<Http>();

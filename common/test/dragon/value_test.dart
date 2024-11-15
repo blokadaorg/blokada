@@ -1,4 +1,4 @@
-import 'package:common/common/value.dart';
+import 'package:common/common/state/value.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

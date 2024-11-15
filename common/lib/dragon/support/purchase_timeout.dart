@@ -1,14 +1,10 @@
-import 'package:common/account/account.dart';
-import 'package:common/common/model.dart';
-import 'package:common/common/persistence/persistence.dart';
-import 'package:common/common/value.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/support/controller.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/scheduler/scheduler.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/async.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 
 class PurchaseTimout with Logging {
   late final _stage = dep<StageStore>();

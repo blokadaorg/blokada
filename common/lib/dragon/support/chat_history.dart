@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:common/common/model.dart';
-import 'package:common/common/persistence/persistence.dart';
-import 'package:common/common/value.dart';
-import 'package:common/util/di.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 
 class ChatHistory extends NullableValue<SupportMessages?> {
   late final _persistence = dep<Persistence>();

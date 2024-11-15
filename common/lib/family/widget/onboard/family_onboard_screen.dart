@@ -1,13 +1,11 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
-import 'package:common/logger/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
-import '../../../../stage/stage.dart';
-import '../../../../util/di.dart';
+import '../../../platform/stage/stage.dart';
 
 class FamilyOnboardScreen extends StatefulWidget {
   const FamilyOnboardScreen({Key? key}) : super(key: key);

@@ -1,11 +1,10 @@
+import 'package:common/core/core.dart';
 import 'package:common/dragon/device/this_device.dart';
 import 'package:common/dragon/perm/dns_perm.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/perm/channel.pg.dart';
-import 'package:common/perm/dnscheck.dart';
-import 'package:common/stage/channel.pg.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/perm/channel.pg.dart';
+import 'package:common/platform/perm/dnscheck.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 
 class PermController with Logging {
   late final _ops = dep<PermOps>();

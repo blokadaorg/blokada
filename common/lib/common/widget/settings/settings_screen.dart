@@ -1,14 +1,12 @@
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/settings_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
-import 'package:common/custom/custom.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/navigation.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {

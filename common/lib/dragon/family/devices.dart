@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:dartx/dartx.dart';
 
-import '../../common/model.dart';
+import '../../common/model/model.dart';
 
 class FamilyDevices {
   final List<FamilyDevice> entries;

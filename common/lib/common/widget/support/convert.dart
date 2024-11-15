@@ -1,4 +1,4 @@
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 extension SupportMsgExt on SupportMessage {

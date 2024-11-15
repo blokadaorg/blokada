@@ -1,11 +1,10 @@
-import 'package:common/common/model.dart';
-import 'package:common/dragon/account/account_id.dart';
+import 'package:common/common/api/api.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/device/current_token.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/scheduler/scheduler.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/stage/stage.dart';
 
 const _keyRefresh = "authRefreshToken";
 const _keyHeartbeat = "authHeartbeat";

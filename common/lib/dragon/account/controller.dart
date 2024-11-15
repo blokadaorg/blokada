@@ -1,6 +1,6 @@
-import 'package:common/account/account.dart' as acc;
-import 'package:common/dragon/account/account_id.dart';
-import 'package:common/util/di.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart' as acc;
 
 // TODO: drop this legacy sync class eventually
 class AccountController {

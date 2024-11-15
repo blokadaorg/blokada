@@ -1,8 +1,7 @@
 import 'package:common/common/api/api.dart';
-import 'package:common/common/model.dart';
-import 'package:common/dragon/account/account_id.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 
 class StatsApi {
   late final _api = dep<Api>();

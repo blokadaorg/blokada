@@ -1,11 +1,9 @@
 import 'package:common/common/widget/overlay.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/family/widget/home/animated_bg.dart';
-import 'package:common/util/config.dart';
-import 'package:common/util/di.dart';
-import 'package:common/util/platform_info.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';

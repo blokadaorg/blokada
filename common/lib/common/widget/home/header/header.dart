@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/home/header/header_button.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 
 class SmartHeader extends StatefulWidget {

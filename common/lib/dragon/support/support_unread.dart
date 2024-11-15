@@ -1,10 +1,8 @@
-import 'package:common/common/persistence/persistence.dart';
-import 'package:common/common/value.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/notification/notification.dart';
-import 'package:common/stage/stage.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/notification/notification.dart';
+import 'package:common/platform/stage/stage.dart';
 
 class SupportUnread extends AsyncValue<bool> {
   late final _persistence = dep<Persistence>();

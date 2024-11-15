@@ -1,7 +1,6 @@
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/customlist/api.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
 
 class CustomListController {
   late final _customlist = dep<CustomListApi>();

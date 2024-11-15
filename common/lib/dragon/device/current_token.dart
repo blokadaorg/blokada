@@ -1,6 +1,5 @@
-import 'package:common/common/persistence/persistence.dart';
-import 'package:common/common/value.dart';
-import 'package:common/util/di.dart';
+import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 
 class CurrentToken extends NullableValue<String?> {
   late final _persistence = dep<Persistence>();

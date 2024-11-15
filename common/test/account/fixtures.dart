@@ -1,5 +1,3 @@
-import 'package:common/account/json.dart';
-
 const fixtureJsonEndpoint = '''{
   "account": $fixtureJsonAccount
 }''';

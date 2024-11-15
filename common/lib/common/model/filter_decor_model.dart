@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'model.dart';
 
 class FilterDecor {
   final String filterName;

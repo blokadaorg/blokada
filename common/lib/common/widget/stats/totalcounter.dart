@@ -1,15 +1,13 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/channel.pg.dart';
+import 'package:common/core/core.dart';
+import 'package:common/platform/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/model.dart';
 import '../../../../common/widget/minicard/header.dart';
 import '../../../../common/widget/minicard/minicard.dart';
 import '../../../../common/widget/minicard/summary.dart';
-import '../../../../stage/stage.dart';
-import '../../../../stats/stats.dart';
-import '../../../../util/di.dart';
+import '../../../platform/stage/stage.dart';
+import '../../../platform/stats/stats.dart';
+import '../../model/model.dart';
 
 class TotalCounter extends StatefulWidget {
   final UiStats stats;

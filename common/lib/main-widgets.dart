@@ -1,9 +1,7 @@
-import 'package:common/command/command.dart';
-import 'package:common/common/i18n.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/app.dart';
 import 'package:common/entrypoint.dart';
-import 'package:common/util/act.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/command/command.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -15,7 +13,7 @@ void main() async {
 
   final entrypoint = Entrypoint();
   entrypoint
-      .attach(ActScreenplay(ActScenario.prod, Flavor.family, Platform.ios));
+      .attach(ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
 
   entrypoint.onStartApp();
 

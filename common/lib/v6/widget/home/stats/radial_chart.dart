@@ -2,8 +2,8 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 

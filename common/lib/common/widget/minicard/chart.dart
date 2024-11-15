@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:common/common/i18n.dart';
+import 'package:common/core/core.dart';
 import 'package:common/util/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../model.dart';
+import '../../model/model.dart';
 
 class MiniCardChart extends StatelessWidget {
   final UiStats stats;

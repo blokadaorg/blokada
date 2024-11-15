@@ -1,13 +1,11 @@
-import 'package:common/command/command.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/api/api.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/support/api.dart';
 import 'package:common/dragon/support/chat_history.dart';
 import 'package:common/dragon/support/current_session.dart';
 import 'package:common/dragon/support/support_unread.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/scheduler/scheduler.dart';
-import 'package:common/util/async.dart';
-import 'package:common/util/di.dart';
+import 'package:common/platform/command/command.dart';
 import 'package:dartx/dartx.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 

@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
+import 'package:common/core/core.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
@@ -14,8 +15,6 @@ import 'package:common/dragon/navigation.dart';
 import 'package:common/family/widget/device/device_section.dart';
 import 'package:common/family/widget/filters_section.dart';
 import 'package:common/family/widget/stats_detail_section.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/util/di.dart';
 import 'package:flutter/material.dart';
 
 class DeviceScreen extends StatefulWidget {

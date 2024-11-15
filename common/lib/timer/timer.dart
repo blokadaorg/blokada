@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:common/logger/logger.dart';
-
-import '../util/di.dart';
+import 'package:common/core/core.dart';
 
 abstract class TimerService {
   void set(String name, DateTime when);

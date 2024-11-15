@@ -1,6 +1,6 @@
-import 'package:common/common/i18n.dart';
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/v6/widget/home/stats/radial_chart.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:common/stats/json.dart';
+import 'package:common/platform/stats/json.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'fixtures.dart';

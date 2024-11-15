@@ -1,8 +1,8 @@
-import 'package:common/common/model.dart';
+import 'package:common/common/model/model.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/family/devices.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/profile/controller.dart';
-import 'package:common/util/di.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

@@ -1,29 +1,27 @@
 import 'dart:async';
 
-import 'package:common/account/account.dart';
-import 'package:common/command/command.dart';
-import 'package:common/common/i18n.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/section_label.dart';
 import 'package:common/common/widget/settings/settings_item.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/support_unread.dart';
-import 'package:common/env/env.dart';
 import 'package:common/family/widget/home/bg.dart';
-import 'package:common/link/channel.pg.dart';
-import 'package:common/logger/logger.dart';
-import 'package:common/stage/stage.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/platform/command/command.dart';
+import 'package:common/platform/env/env.dart';
+import 'package:common/platform/link/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../lock/lock.dart';
-import '../../../../util/di.dart';
 
 class SettingsSection extends StatefulWidget {
   const SettingsSection({super.key});
