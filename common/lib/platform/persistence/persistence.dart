@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:common/core/core.dart';
 
-import 'channel.act.dart';
-import 'channel.pg.dart' as pg;
+import 'ops.dart';
 
 abstract class PersistenceService {
   Future<void> save(String key, Map<String, dynamic> value, Marker m,
@@ -35,7 +34,7 @@ class PlatformPersistence extends SecurePersistenceService
 
   @override
   attach(Act act) {
-    depend<pg.PersistenceOps>(getOps(act));
+    depend<PersistenceOps>(getOps(act));
     depend<PersistenceService>(this);
   }
 
