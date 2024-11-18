@@ -23,7 +23,7 @@ const String _keyTimer = "rate:checkConditions";
 
 class RateStore = RateStoreBase with _$RateStore;
 
-abstract class RateStoreBase with Store, Logging, Dependable, Startable {
+abstract class RateStoreBase with Store, Logging, Actor {
   late final _ops = dep<RateOps>();
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
@@ -38,7 +38,7 @@ abstract class RateStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<RateOps>(getOps(act));
     depend<RateStore>(this as RateStore);
   }
@@ -47,8 +47,7 @@ abstract class RateStoreBase with Store, Logging, Dependable, Startable {
   JsonRate? rateMetadata;
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       await load(m);
     });
@@ -71,7 +70,7 @@ abstract class RateStoreBase with Store, Logging, Dependable, Startable {
       if (meta.lastSeen != null) return; // ... and not if shown previously
       if (!_stage.route.isMainRoute()) return; // Skip if already showing stuff
 
-      if (!act.isFamily()) {
+      if (!act.isFamily) {
         if (_stats.stats.totalBlocked < 100) return; // Skip if not warmed up
       } else {
         // Skip if no devices

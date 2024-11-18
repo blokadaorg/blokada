@@ -1,44 +1,6 @@
 part of '../core.dart';
 
-mixin Act {
-  bool isProd();
-  bool hasToys();
-  bool isFamily();
-  bool isTest();
-  PlatformType getPlatform();
-  Flavor getFlavor();
-
-  bool isRelease = kReleaseMode;
-}
-
-enum Flavor { og, family }
-
-class ActScreenplay with Act {
-  final ActScenario scenario;
-  final Flavor flavor;
-  final PlatformType platform;
-
-  ActScreenplay(this.scenario, this.flavor, this.platform);
-
-  @override
-  bool isProd() =>
-      scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
-
-  @override
-  bool hasToys() => scenario == ActScenario.prodWithToys;
-
-  @override
-  bool isFamily() => flavor == Flavor.family;
-
-  @override
-  bool isTest() => scenario == ActScenario.test;
-
-  @override
-  PlatformType getPlatform() => platform;
-
-  @override
-  Flavor getFlavor() => flavor;
-}
+enum Flavor { v6, family }
 
 enum ActScenario {
   prod,
@@ -46,4 +8,29 @@ enum ActScenario {
   platformIsMocked,
   test,
   connectivityRandomlyFailing,
+}
+
+mixin Act {
+  late final bool isProd;
+  late final bool isFamily;
+  late final bool isTest;
+  late final bool isRelease;
+  late final bool hasToys;
+  late final PlatformType platform;
+  late final Flavor flavor;
+}
+
+class ActScreenplay with Act {
+  final ActScenario scenario;
+
+  ActScreenplay(this.scenario, Flavor flavor, PlatformType platform) {
+    isProd =
+        scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
+    isFamily = flavor == Flavor.family;
+    isTest = scenario == ActScenario.test;
+    isRelease = kReleaseMode;
+    hasToys = scenario == ActScenario.prodWithToys;
+    this.platform = platform;
+    this.flavor = flavor;
+  }
 }

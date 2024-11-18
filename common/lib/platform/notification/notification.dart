@@ -47,7 +47,7 @@ enum NotificationEventType {
 
 class NotificationStore = NotificationStoreBase with _$NotificationStore;
 
-abstract class NotificationStoreBase with Store, Logging, Dependable {
+abstract class NotificationStoreBase with Store, Logging, Actor {
   late final _ops = dep<NotificationOps>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
@@ -71,7 +71,7 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<NotificationOps>(getOps(act));
     depend<NotificationJson>(NotificationJson());
     depend<NotificationStore>(this as NotificationStore);
@@ -126,7 +126,7 @@ abstract class NotificationStoreBase with Store, Logging, Dependable {
   @action
   Future<void> sendAppleToken(Marker m) async {
     if (appleToken == null) return;
-    if (act.isFamily()) return;
+    if (act.isFamily) return;
     return await log(m).trace("sendAppleToken", (m) async {
       await _json.postToken(appleToken!, m);
       appleToken = null;

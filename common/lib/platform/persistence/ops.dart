@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'channel.pg.dart' as pg;
 
 PersistenceOps getOps(Act act) {
-  if (act.isProd()) return PlatformPersistenceOps();
+  if (act.isProd) return PlatformPersistenceOps();
 
   //final ops = MockPersistenceOps();
   //_actNormal(ops);

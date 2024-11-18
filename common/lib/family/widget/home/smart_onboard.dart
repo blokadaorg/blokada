@@ -182,7 +182,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(m);
       });
     } else if (p.requiresPerms()) {
-      final perms = (_act.getPlatform() == PlatformType.iOS)
+      final perms = (_act.platform == PlatformType.iOS)
           ? const PrivateDnsSheetIos()
           : const PrivateDnsSheetAndroid();
 

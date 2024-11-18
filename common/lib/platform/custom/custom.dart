@@ -12,7 +12,7 @@ part 'custom.g.dart';
 
 class CustomStore = CustomStoreBase with _$CustomStore;
 
-abstract class CustomStoreBase with Store, Logging, Dependable, Cooldown {
+abstract class CustomStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = dep<CustomOps>();
   late final _json = dep<CustomJson>();
   late final _stage = dep<StageStore>();
@@ -30,7 +30,7 @@ abstract class CustomStoreBase with Store, Logging, Dependable, Cooldown {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<CustomOps>(getOps(act));
     depend<CustomJson>(CustomJson());
     depend<CustomStore>(this as CustomStore);

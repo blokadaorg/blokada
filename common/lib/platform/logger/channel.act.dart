@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 class MockLoggerOps extends Mock implements LoggerOps {}
 
 LoggerOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return LoggerOps();
   }
 

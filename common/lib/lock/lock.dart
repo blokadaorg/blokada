@@ -14,8 +14,7 @@ const _keyLock = "lock:pin";
 
 class LockStore = LockStoreBase with _$LockStore;
 
-abstract class LockStoreBase
-    with Store, Logging, Dependable, Startable, ValueEmitter<bool> {
+abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
   late final _persistence = dep<PersistenceService>();
   late final _stage = dep<StageStore>();
 
@@ -25,7 +24,7 @@ abstract class LockStoreBase
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<LockStore>(this as LockStore);
   }
 
@@ -38,10 +37,9 @@ abstract class LockStoreBase
   String? _existingPin;
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      if (!act.isFamily()) await _stage.setShowNavbar(false, m);
+      if (!act.isFamily) await _stage.setShowNavbar(false, m);
       await load(m);
     });
   }
@@ -56,7 +54,7 @@ abstract class LockStoreBase
       if (isLocked) {
         await _stage.showModal(StageModal.lock, m);
       } else {
-        if (!act.isFamily()) await _stage.setShowNavbar(true, m);
+        if (!act.isFamily) await _stage.setShowNavbar(true, m);
       }
     });
   }
@@ -78,7 +76,7 @@ abstract class LockStoreBase
       isLocked = true;
       hasPin = true;
       await emitValue(lockChanged, true, m);
-      if (!act.isFamily()) await _stage.setShowNavbar(false, m);
+      if (!act.isFamily) await _stage.setShowNavbar(false, m);
     });
   }
 
@@ -104,7 +102,7 @@ abstract class LockStoreBase
 
       isLocked = false;
       await emitValue(lockChanged, false, m);
-      if (!act.isFamily()) await _stage.setShowNavbar(true, m);
+      if (!act.isFamily) await _stage.setShowNavbar(true, m);
     });
   }
 

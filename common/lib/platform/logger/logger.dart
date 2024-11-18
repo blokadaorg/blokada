@@ -20,7 +20,7 @@ class FileLoggerOutput extends LogOutput {
     final platform = type == PlatformType.iOS
         ? "i"
         : (type == PlatformType.android ? "a" : "z");
-    final flavor = _act.isFamily() ? "F" : "6";
+    final flavor = _act.isFamily ? "F" : "6";
     final build = _act.isRelease ? "R" : "D";
 
     return "blokada-$platform${flavor}x$build.log";
@@ -46,18 +46,18 @@ class FileLoggerOutput extends LogOutput {
   }
 }
 
-class LoggerCommands with Logging, Dependable {
+class LoggerCommands with Logging, Actor {
   late final _ops = dep<LoggerOps>();
 
   @override
-  void attach(Act act) {
+  void onRegister(Act act) {
     depend<LoggerOps>(getOps(act));
     depend<Logger>(Logger(
       filter: ProductionFilter(),
       printer: defaultLoggerPrinter,
       output: FileLoggerOutput(act),
     ));
-    LogTracer().attachAndSaveAct(act);
+    LogTracer().register(act);
     depend<LoggerCommands>(this);
   }
 

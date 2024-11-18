@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 class MockJournalOps extends Mock implements JournalOps {}
 
 JournalOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return JournalOps();
   }
 

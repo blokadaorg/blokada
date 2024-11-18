@@ -14,9 +14,9 @@ void main() async {
 
   await I18nService.loadTranslations();
 
-  const flavor = Flavor.og;
+  const flavor = Flavor.v6;
   final entrypoint = Entrypoint();
-  entrypoint.attach(
+  entrypoint.onRegister(
       ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
   entrypoint.onStartApp();
 

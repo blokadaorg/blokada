@@ -55,16 +55,16 @@ class DragonDeps {
     depend<ListApi>(ListApi());
 
     depend<KnownFilters>(KnownFilters(
-      isFamily: act.isFamily(),
-      isIos: act.getPlatform() == PlatformType.iOS,
+      isFamily: act.isFamily,
+      isIos: act.platform == PlatformType.iOS,
     ));
-    depend<DefaultFilters>(DefaultFilters(act.isFamily()));
+    depend<DefaultFilters>(DefaultFilters(act.isFamily));
     depend<SelectedFilters>(SelectedFilters());
     depend<CurrentConfig>(CurrentConfig());
     depend<FilterController>(FilterController());
 
     // Then family-only deps (for now at least)
-    if (act.isFamily()) {
+    if (act.isFamily) {
       depend<Persistence>(Persistence(isSecure: false));
 
       depend<DeviceApi>(DeviceApi());
@@ -110,7 +110,7 @@ class DragonDeps {
   }
 
   load(Act act) {
-    if (act.isFamily()) {
+    if (act.isFamily) {
       dep<SupportUnreadController>().load();
       dep<PurchaseTimout>().load();
     }

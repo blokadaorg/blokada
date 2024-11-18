@@ -14,7 +14,7 @@ part 'perm.g.dart';
 
 class PermStore = PermStoreBase with _$PermStore;
 
-abstract class PermStoreBase with Store, Logging, Dependable {
+abstract class PermStoreBase with Store, Logging, Actor {
   late final _ops = dep<PermOps>();
   late final _app = dep<AppStore>();
   late final _device = dep<DeviceStore>();
@@ -27,7 +27,7 @@ abstract class PermStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     _app.addOn(appStatusChanged, onAppStatusChanged);
     _device.addOn(deviceChanged, onDeviceChanged);
 
@@ -102,7 +102,7 @@ abstract class PermStoreBase with Store, Logging, Dependable {
         log(m).pair("enabled", enabled);
         vpnEnabled = enabled;
         if (!enabled) {
-          if (!act.isFamily()) await _plus.reactToPlusLost(m);
+          if (!act.isFamily) await _plus.reactToPlusLost(m);
           await _app.plusActivated(false, m);
         }
       }
@@ -123,7 +123,7 @@ abstract class PermStoreBase with Store, Logging, Dependable {
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
 
-        if (!act.isFamily()) {
+        if (!act.isFamily) {
           await _ops.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
           await _recheckDnsPerm(tag, m);
         }

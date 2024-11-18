@@ -1,9 +1,9 @@
 import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
 
-class PrivateDnsCheck with Dependable, Logging {
+class PrivateDnsCheck with Actor, Logging {
   @override
-  void attach(Act act) {
+  void onRegister(Act act) {
     depend<PrivateDnsCheck>(this);
   }
 
@@ -12,9 +12,9 @@ class PrivateDnsCheck with Dependable, Logging {
 
     var expected = _getIosPrivateDnsStringV6(m, tag, alias);
 
-    if (act.getPlatform() == PlatformType.android) {
+    if (act.platform == PlatformType.android) {
       expected = getAndroidPrivateDnsString(m, tag, alias);
-    } else if (act.getFlavor() == Flavor.family) {
+    } else if (act.flavor == Flavor.family) {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
     }
 

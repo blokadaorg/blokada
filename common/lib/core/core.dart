@@ -15,6 +15,7 @@ import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
 part 'config/act.dart';
+part 'config/actor.dart';
 part 'config/config.dart';
 part 'config/platform_info.dart';
 part 'di.dart';

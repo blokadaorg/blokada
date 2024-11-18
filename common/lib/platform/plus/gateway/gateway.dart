@@ -40,7 +40,7 @@ typedef GatewayId = String;
 
 class PlusGatewayStore = PlusGatewayStoreBase with _$PlusGatewayStore;
 
-abstract class PlusGatewayStoreBase with Store, Logging, Dependable, Cooldown {
+abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = dep<PlusGatewayOps>();
   late final _json = dep<PlusGatewayJson>();
   late final _persistence = dep<PersistenceService>();
@@ -59,7 +59,7 @@ abstract class PlusGatewayStoreBase with Store, Logging, Dependable, Cooldown {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PlusGatewayOps>(getOps(act));
     depend<PlusGatewayJson>(PlusGatewayJson());
     depend<PlusGatewayStore>(this as PlusGatewayStore);

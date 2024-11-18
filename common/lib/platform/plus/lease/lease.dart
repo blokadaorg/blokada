@@ -32,7 +32,7 @@ class NoCurrentLeaseException implements Exception {}
 
 class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
-abstract class PlusLeaseStoreBase with Store, Logging, Dependable, Cooldown {
+abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = dep<PlusLeaseOps>();
   late final _json = dep<PlusLeaseJson>();
   late final _gateway = dep<PlusGatewayStore>();
@@ -55,7 +55,7 @@ abstract class PlusLeaseStoreBase with Store, Logging, Dependable, Cooldown {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PlusLeaseOps>(getOps(act));
     depend<PlusLeaseJson>(PlusLeaseJson());
     depend<PlusLeaseStore>(this as PlusLeaseStore);

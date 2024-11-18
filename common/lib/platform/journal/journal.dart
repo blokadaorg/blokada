@@ -94,8 +94,7 @@ JournalFilter _noFilter = JournalFilter(
 
 class JournalStore = JournalStoreBase with _$JournalStore;
 
-abstract class JournalStoreBase
-    with Store, Logging, Dependable, Startable, Cooldown {
+abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = dep<JournalOps>();
   late final _json = dep<JournalJson>();
   late final _device = dep<DeviceStore>();
@@ -125,7 +124,7 @@ abstract class JournalStoreBase
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<JournalOps>(getOps(act));
     depend<JournalJson>(JournalJson());
     depend<JournalStore>(this as JournalStore);
@@ -157,10 +156,9 @@ abstract class JournalStoreBase
   bool frequentRefresh = false;
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      if (act.isFamily()) return;
+      if (act.isFamily) return;
 
       // Default to show journal only for the current device
       await updateFilter(deviceName: _device.deviceAlias, m);
@@ -193,12 +191,12 @@ abstract class JournalStoreBase
       final isHome = _stage.route.isTab(StageTab.home);
       final isLinkModal = route.modal == StageModal.accountLink;
 
-      if (!act.isFamily() && !isActivity) {
+      if (!act.isFamily && !isActivity) {
         _stopTimer();
         return;
       }
 
-      if (act.isFamily() && !isHome && !isActivity) {
+      if (act.isFamily && !isHome && !isActivity) {
         _stopTimer();
         return;
       }
@@ -227,8 +225,8 @@ abstract class JournalStoreBase
     final isActivity = route.isTab(StageTab.activity);
     final isHome = route.isTab(StageTab.home);
     final isLinkModal = route.modal == StageModal.accountLink;
-    if (!act.isFamily() && !isActivity) return;
-    if (act.isFamily() && !isActivity && !isHome && !isLinkModal) return;
+    if (!act.isFamily && !isActivity) return;
+    if (act.isFamily && !isActivity && !isHome && !isLinkModal) return;
     await updateJournalFreq(m);
   }
 
@@ -266,7 +264,7 @@ abstract class JournalStoreBase
       log(m).pair("retention", on);
       if (on && _stage.route.isTab(StageTab.activity)) {
         await enableRefresh(m);
-      } else if (on && act.isFamily() && _stage.route.isTab(StageTab.home)) {
+      } else if (on && act.isFamily && _stage.route.isTab(StageTab.home)) {
         await enableRefresh(m);
       } else if (!on) {
         await disableRefresh(m);

@@ -16,7 +16,7 @@ void main() async {
 
   const flavor = Flavor.family;
   final entrypoint = Entrypoint();
-  entrypoint.attach(
+  entrypoint.onRegister(
       ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
   entrypoint.onStartApp();
   attachMockedDeps();

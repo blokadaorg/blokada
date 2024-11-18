@@ -7,7 +7,7 @@ part 'home.g.dart';
 class HomeStore = HomeStoreBase with _$HomeStore;
 
 // Quite shit store used to control some flag. Remove eventually. TODO
-abstract class HomeStoreBase with Store, Dependable {
+abstract class HomeStoreBase with Store, Actor {
   late final _app = dep<AppStore>();
 
   HomeStoreBase() {
@@ -20,7 +20,7 @@ abstract class HomeStoreBase with Store, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<HomeStore>(this as HomeStore);
   }
 

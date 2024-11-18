@@ -1,12 +1,12 @@
+import 'package:common/core/core.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:common/core/core.dart';
 import 'channel.pg.dart';
 
 class MockEnvOps extends Mock implements EnvOps {}
 
 EnvOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return EnvOps();
   }
 

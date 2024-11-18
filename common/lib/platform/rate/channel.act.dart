@@ -6,7 +6,7 @@ import 'channel.pg.dart';
 class MockRateOps extends Mock implements RateOps {}
 
 RateOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return RateOps();
   }
 

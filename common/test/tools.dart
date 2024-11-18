@@ -6,7 +6,7 @@ import 'package:test_api/src/backend/invoker.dart';
 
 withTrace(Future Function(Marker m) fn) async {
   await dep.reset();
-  LoggerCommands().attachAndSaveAct(mockedAct);
+  LoggerCommands().register(mockedAct);
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
   final module = m[m.length - 2];
@@ -16,14 +16,14 @@ withTrace(Future Function(Marker m) fn) async {
   await TestRunner().run("$module::$group::$test", fn);
 }
 
-mockAct(Dependable subject,
-    {Flavor flavor = Flavor.og, PlatformType platform = PlatformType.iOS}) {
+mockAct(Actor subject,
+    {Flavor flavor = Flavor.v6, PlatformType platform = PlatformType.iOS}) {
   final act = ActScreenplay(ActScenario.test, flavor, platform);
-  subject.setActForTest(act);
+  subject.act = act;
   return act;
 }
 
-final mockedAct = ActScreenplay(ActScenario.test, Flavor.og, PlatformType.iOS);
+final mockedAct = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.iOS);
 
 class TestRunner with Logging {
   run(String name, Function(Marker) fn) {

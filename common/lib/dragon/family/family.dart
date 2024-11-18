@@ -27,7 +27,7 @@ const linkTemplate = "$familyLinkBase?token=TOKEN";
 
 class FamilyStore = FamilyStoreBase with _$FamilyStore;
 
-abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
+abstract class FamilyStoreBase with Store, Logging, Actor {
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
   late final _lock = dep<LockStore>();
@@ -43,10 +43,10 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
   late final _profiles = dep<ProfileController>();
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<FamilyStore>(this as FamilyStore);
 
-    if (!(act.isFamily() ?? false)) return;
+    if (!(act.isFamily ?? false)) return;
 
     _acc.start();
     _perm.start(Markers.start);
@@ -124,8 +124,8 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  start(Marker m) async {
-    if (!act.isFamily()) return;
+  onStart(Marker m) async {
+    if (!act.isFamily) return;
     return await log(m).trace("start", (m) async {
       await _reload(m);
       _auth.start(m);
@@ -242,7 +242,7 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
   // Locking this device will enable the blocking for "this device"
   @action
   _updatePhaseFromLock(bool isLocked, Marker m) async {
-    if (!act.isFamily()) return;
+    if (!act.isFamily) return;
     _updatePhase(m, loading: true);
     appLocked = isLocked;
 
@@ -291,7 +291,7 @@ abstract class FamilyStoreBase with Store, Logging, Dependable, Startable {
 
   // Show the welcome screen on the first start (family only)
   _maybeShowOnboardOnStart(Marker m) async {
-    if (!act.isFamily()) return;
+    if (!act.isFamily) return;
     if (_account.type.isActive()) return;
     if (devices.hasDevices == true) return;
     if (linkedMode) return;

@@ -31,17 +31,17 @@ final _linkTemplates = {
   // Primary links
   LinkTemplate(LinkId.support, null, null,
       "https://app.blokada.org/support?user-agent=$_keyUA&$_keyAcc"),
-  LinkTemplate(LinkId.knowledgeBase, PlatformType.iOS, Flavor.og,
+  LinkTemplate(LinkId.knowledgeBase, PlatformType.iOS, Flavor.v6,
       "https://go.blokada.org/kb_ios"),
   LinkTemplate(LinkId.knowledgeBase, PlatformType.iOS, Flavor.family,
       "https://go.blokada.org/kb_ios_family"),
   LinkTemplate(LinkId.knowledgeBase, PlatformType.android, null,
       "https://go.blokada.org/kb_android"),
-  LinkTemplate(LinkId.tos, null, Flavor.og, "https://go.blokada.org/terms"),
+  LinkTemplate(LinkId.tos, null, Flavor.v6, "https://go.blokada.org/terms"),
   LinkTemplate(
       LinkId.tos, null, Flavor.family, "https://go.blokada.org/terms_family"),
   LinkTemplate(
-      LinkId.privacy, null, Flavor.og, "https://go.blokada.org/privacy"),
+      LinkId.privacy, null, Flavor.v6, "https://go.blokada.org/privacy"),
   LinkTemplate(LinkId.privacy, null, Flavor.family,
       "https://go.blokada.org/privacy_family"),
   LinkTemplate(
@@ -60,7 +60,7 @@ final _linkTemplates = {
       LinkId.howToRestore, null, null, "https://go.blokada.org/vpnrestore"),
 };
 
-abstract class LinkStoreBase with Store, Logging, Dependable, Startable {
+abstract class LinkStoreBase with Store, Logging, Actor {
   late final _ops = dep<LinkOps>();
   late final _env = dep<EnvStore>();
   late final _account = dep<AccountStore>();
@@ -72,19 +72,18 @@ abstract class LinkStoreBase with Store, Logging, Dependable, Startable {
   Map<LinkId, String> links = {};
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<LinkOps>(getOps(act));
     depend<LinkStore>(this as LinkStore);
     _lock.addOnValue(lockChanged, updateLinksFromLock);
     _account.addOn(accountChanged, updateLinksFromAccount);
-    if (act.isFamily()) {
+    if (act.isFamily) {
       reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
     }
   }
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("startLink", (m) async {
       await _prepareTemplates();
       userAgent = _env.userAgent!;
@@ -110,7 +109,7 @@ abstract class LinkStoreBase with Store, Logging, Dependable, Startable {
   updateFromLinkedMode(bool linked) => _updateLinks();
 
   _updateLinks() async {
-    final linked = act.isFamily() && _family.linkedMode;
+    final linked = act.isFamily && _family.linkedMode;
     for (var id in LinkId.values) {
       links[id] = _getLink(id, _lock.isLocked || linked);
     }
@@ -122,8 +121,8 @@ abstract class LinkStoreBase with Store, Logging, Dependable, Startable {
   }
 
   _prepareTemplates() async {
-    final p = act.getPlatform();
-    final f = act.getFlavor();
+    final p = act.platform;
+    final f = act.flavor;
 
     for (var id in LinkId.values) {
       try {

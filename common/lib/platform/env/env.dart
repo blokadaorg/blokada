@@ -23,7 +23,7 @@ extension on EnvPayload {
   }
 }
 
-abstract class EnvStoreBase with Store, Logging, Dependable, Startable {
+abstract class EnvStoreBase with Store, Logging, Actor {
   late final _ops = dep<EnvOps>();
   late final _agent = dep<UserAgent>();
 
@@ -36,7 +36,7 @@ abstract class EnvStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<EnvOps>(getOps(act));
     depend<EnvStore>(this as EnvStore);
   }
@@ -52,8 +52,7 @@ abstract class EnvStoreBase with Store, Logging, Dependable, Startable {
   String? appVersion;
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("startEnv", (m) async {
       await syncUserAgent(m);
     });
@@ -72,6 +71,6 @@ abstract class EnvStoreBase with Store, Logging, Dependable, Startable {
   }
 
   _getUserAgent(EnvPayload p) {
-    return "blokada/${p.appVersion} (${act.getPlatform().name}-${p.osVersion} ${p.buildFlavor} ${p.buildType} ${p.cpu}) ${p.deviceBrand} ${p.deviceModel})";
+    return "blokada/${p.appVersion} (${act.platform.name}-${p.osVersion} ${p.buildFlavor} ${p.buildType} ${p.cpu}) ${p.deviceBrand} ${p.deviceModel})";
   }
 }

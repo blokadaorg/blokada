@@ -65,7 +65,7 @@ const String _keyOngoingTimer = "vpn:ongoing:timeout";
 
 class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
-abstract class PlusVpnStoreBase with Store, Logging, Dependable {
+abstract class PlusVpnStoreBase with Store, Logging, Actor {
   late final _ops = dep<PlusVpnOps>();
   late final _timer = dep<TimerService>();
   late final _app = dep<AppStore>();
@@ -76,7 +76,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PlusVpnOps>(getOps(act));
     depend<PlusVpnStore>(this as PlusVpnStore);
   }

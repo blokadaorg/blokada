@@ -13,7 +13,7 @@ const String keyTimer = "stats:refresh";
 
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
-abstract class StatsRefreshStoreBase with Store, Logging, Dependable {
+abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   late final _stats = dep<StatsStore>();
   late final _timer = dep<TimerService>();
   late final _stage = dep<StageStore>();
@@ -27,7 +27,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<StatsRefreshStore>(this as StatsRefreshStore);
   }
 
@@ -55,7 +55,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Dependable {
   }
 
   _refresh(Marker m) async {
-    if (act.isFamily()) {
+    if (act.isFamily) {
       if (_isStatsScreenFor != null) {
         // Stats screen opened for a device, we need to refresh only that device
         log(m).pair("devices", 1);

@@ -2,7 +2,7 @@ part of '../core.dart';
 
 // Will group together logs corresponding to one execution chain.
 // Meant to improve log readability and debugging.
-class LogTracer with Dependable {
+class LogTracer with Actor {
   static final Map<Marker, TracingEvent> _traces = {};
 
   late final _logger = dep<Logger>();
@@ -11,9 +11,9 @@ class LogTracer with Dependable {
   final timeout = const Duration(seconds: 15);
 
   @override
-  void attach(Act act) {
+  void onRegister(Act act) {
     depend<LogTracer>(this);
-    if (act.isTest()) return;
+    if (act.isTest) return;
   }
 
   sink(Marker m, Level lvl, List<String> lines,
@@ -100,7 +100,7 @@ class LogTracer with Dependable {
   }
 
   _startTimeout() {
-    if (act.isTest()) return;
+    if (act.isTest) return;
     if (kReleaseMode) return;
     _scheduler.addOrUpdate(Job(
       _timeoutKey,

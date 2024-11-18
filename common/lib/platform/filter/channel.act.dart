@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 class MockFilterOps extends Mock implements FilterOps {}
 
 FilterOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return FilterOps();
   }
 

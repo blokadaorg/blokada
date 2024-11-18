@@ -14,7 +14,7 @@ part 'stats.g.dart';
 
 class StatsStore = StatsStoreBase with _$StatsStore;
 
-abstract class StatsStoreBase with Store, Logging, Dependable {
+abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = dep<json.StatsJson>();
   late final _ops = dep<StatsOps>();
 
@@ -35,7 +35,7 @@ abstract class StatsStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<StatsOps>(getOps(act));
     depend<json.StatsJson>(json.StatsJson());
     depend<StatsSheet>(StatsSheet());

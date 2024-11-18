@@ -91,7 +91,7 @@ class PlatformHttpService with Logging implements HttpService {
 /// RepeatingHttp
 ///
 /// Will repeat the request if it fails with a retry-able error.
-class RepeatingHttpService with Dependable, Logging implements HttpService {
+class RepeatingHttpService with Actor, Logging implements HttpService {
   final HttpService _service;
   final int maxRetries;
   final Duration waitTime;
@@ -103,7 +103,7 @@ class RepeatingHttpService with Dependable, Logging implements HttpService {
   });
 
   @override
-  void attach(Act act) {
+  void onRegister(Act act) {
     depend<HttpOps>(getOps(act));
     depend<HttpService>(this);
   }

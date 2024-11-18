@@ -12,8 +12,8 @@ void main() async {
   await I18nService.loadTranslations();
 
   final entrypoint = Entrypoint();
-  entrypoint
-      .attach(ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
+  entrypoint.onRegister(
+      ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
 
   entrypoint.onStartApp();
 

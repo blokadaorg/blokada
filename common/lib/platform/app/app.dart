@@ -115,7 +115,7 @@ class AppStatusStrategy {
 
 class AppStore = AppStoreBase with _$AppStore;
 
-abstract class AppStoreBase with Store, Logging, Dependable, Emitter {
+abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   late final _ops = dep<AppOps>();
   late final _account = dep<AccountStore>();
   late final _stage = dep<StageStore>();
@@ -133,7 +133,7 @@ abstract class AppStoreBase with Store, Logging, Dependable, Emitter {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<AppOps>(getOps(act));
     depend<AppStore>(this as AppStore);
   }

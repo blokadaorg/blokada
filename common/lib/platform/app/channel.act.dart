@@ -6,7 +6,7 @@ import 'channel.pg.dart';
 class MockAppOps extends Mock implements AppOps {}
 
 AppOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return AppOps();
   }
 

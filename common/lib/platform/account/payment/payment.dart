@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
-
 import '../account.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -21,7 +20,7 @@ class AccountInactiveAfterPurchase implements Exception {}
 
 class PaymentsUnavailable implements Exception {}
 
-abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
+abstract class AccountPaymentStoreBase with Store, Logging, Actor {
   late final _ops = dep<AccountPaymentOps>();
   late final _json = dep<AccountPaymentJson>();
   late final _account = dep<AccountStore>();
@@ -40,7 +39,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<AccountPaymentOps>(getOps(act));
     depend<AccountPaymentJson>(AccountPaymentJson());
     depend<AccountPaymentStore>(this as AccountPaymentStore);
@@ -97,7 +96,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
         final receipts = await _ops.doPurchaseWithReceipts(id);
         await _processReceipt(
             receipts.first!, m); // Only one receipt expected in purchase flow
-        if (!act.isFamily()) await _stage.showModal(StageModal.perms, m);
+        if (!act.isFamily) await _stage.showModal(StageModal.perms, m);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
@@ -192,7 +191,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
           _mapPaymentException(e);
         } on AccountInactiveAfterPurchase catch (_) {
           var modal = StageModal.accountRestoreFailed;
-          //if (act.isFamily()) modal = StageModal.accountChange;
+          //if (act.isFamily) modal = StageModal.accountChange;
 
           await _stage.showModal(modal, m);
           rethrow;
@@ -235,7 +234,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Dependable {
   }
 
   _processReceipt(ReceiptBlob receipt, Marker m) async {
-    final account = await _json.postCheckout(receipt, act.getPlatform(), m);
+    final account = await _json.postCheckout(receipt, act.platform, m);
 
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");

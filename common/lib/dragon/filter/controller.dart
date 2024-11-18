@@ -301,7 +301,7 @@ class FilterController with Logging {
     // Or if already applied during this runtime
     if (_defaultsApplied) return;
 
-    if (!_act.isFamily()) {
+    if (!_act.isFamily) {
       log(m).i("Applying defaults");
       final defaults = _defaultFilters.get();
       _selectedFilters.now = defaults;

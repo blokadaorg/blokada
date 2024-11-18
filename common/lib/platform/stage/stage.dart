@@ -144,7 +144,7 @@ class StageRouteState {
 class StageStore = StageStoreBase with _$StageStore;
 
 abstract class StageStoreBase
-    with Store, Logging, Dependable, ValueEmitter<StageRouteState>, Emitter {
+    with Store, Logging, Actor, ValueEmitter<StageRouteState>, Emitter {
   late final _ops = dep<StageOps>();
   late final _scheduler = dep<Scheduler>();
   late final _links = dep<LinkStore>();
@@ -177,7 +177,7 @@ abstract class StageStoreBase
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<StageOps>(getOps(act));
     depend<StageStore>(this as StageStore);
   }
@@ -215,7 +215,7 @@ abstract class StageStoreBase
         route = route.newBg();
         _isForeground = false;
         await emitValue(routeChanged, route, m);
-        if (act.isFamily()) {
+        if (act.isFamily) {
           await _scheduler.eventTriggered(m, Event.appForeground, value: "0");
         }
       }
@@ -306,7 +306,7 @@ abstract class StageStoreBase
 
       log(m).i("foreground emitting");
       await emitValue(routeChanged, route, m);
-      if (act.isFamily()) {
+      if (act.isFamily) {
         // TODO: this needs to be removed
         await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
       }
@@ -423,7 +423,7 @@ abstract class StageStoreBase
   _actOnModal(StageModal? modal, Marker m) async {
     var show = !noNavbarModals.contains(modal);
     if (!_showNavbar) show = false;
-    if (act.isFamily()) show = false;
+    if (act.isFamily) show = false;
     log(m).log(attr: {"show": show});
     await _ops.doShowNavbar(show);
   }

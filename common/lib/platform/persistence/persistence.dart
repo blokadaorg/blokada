@@ -26,14 +26,13 @@ abstract class SecurePersistenceService extends PersistenceService {}
 /// - local storage
 /// - automatically backed up storage (iCloud on iOS, Google Drive on Android)
 /// - encrypted storage also automatically backed up
-class PlatformPersistence extends SecurePersistenceService
-    with Dependable, Logging {
+class PlatformPersistence extends SecurePersistenceService with Actor, Logging {
   final bool isSecure;
 
   PlatformPersistence({required this.isSecure});
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PersistenceOps>(getOps(act));
     depend<PersistenceService>(this);
   }

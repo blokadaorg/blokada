@@ -34,79 +34,79 @@ import 'platform/stats/refresh/refresh.dart';
 import 'platform/stats/stats.dart';
 import 'timer/timer.dart';
 
-class Entrypoint with Dependable, Logging {
+class Entrypoint with Actor, Logging {
   late final _appStart = dep<AppStartStore>();
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     cfg.act = act;
 
-    DefaultTimer().attachAndSaveAct(act);
-    LoggerCommands().attachAndSaveAct(act);
+    DefaultTimer().register(act);
+    LoggerCommands().register(act);
 
     // Newer deps of the new code - temporary, this will eventually
     // replace the legacy code. Hopefully, you know how it goes :D
     final dragonDeps = DragonDeps().register(act);
 
-    PlatformPersistence(isSecure: false).attachAndSaveAct(act);
+    PlatformPersistence(isSecure: false).register(act);
     final secure = PlatformPersistence(isSecure: true);
     depend<SecurePersistenceService>(secure);
 
-    if (act.hasToys()) {
+    if (act.hasToys) {
       RepeatingHttpService(
         DebugHttpService(PlatformHttpService()),
         maxRetries: cfg.httpMaxRetries,
         waitTime: cfg.httpRetryDelay,
-      ).attachAndSaveAct(act);
+      ).register(act);
     } else {
       RepeatingHttpService(
         PlatformHttpService(),
         maxRetries: cfg.httpMaxRetries,
         waitTime: cfg.httpRetryDelay,
-      ).attachAndSaveAct(act);
+      ).register(act);
     }
 
     // The stores. Order is important
-    EnvStore().attachAndSaveAct(act);
-    StageStore().attachAndSaveAct(act);
-    AccountStore().attachAndSaveAct(act);
-    NotificationStore().attachAndSaveAct(act);
-    AccountPaymentStore().attachAndSaveAct(act);
-    AccountRefreshStore().attachAndSaveAct(act);
-    DeviceStore().attachAndSaveAct(act);
+    EnvStore().register(act);
+    StageStore().register(act);
+    AccountStore().register(act);
+    NotificationStore().register(act);
+    AccountPaymentStore().register(act);
+    AccountRefreshStore().register(act);
+    DeviceStore().register(act);
 
     // Compatibility layer for v6 (temporary
-    if (!act.isFamily()) {
+    if (!act.isFamily) {
       depend<FilterLegacy>(FilterLegacy(act));
     }
 
-    AppStore().attachAndSaveAct(act);
-    AppStartStore().attachAndSaveAct(act);
-    PrivateDnsCheck().attachAndSaveAct(act);
-    PermStore().attachAndSaveAct(act);
-    LockStore().attachAndSaveAct(act);
-    CustomStore().attachAndSaveAct(act);
+    AppStore().register(act);
+    AppStartStore().register(act);
+    PrivateDnsCheck().register(act);
+    PermStore().register(act);
+    LockStore().register(act);
+    CustomStore().register(act);
 
-    if (!act.isFamily()) {
-      JournalStore().attachAndSaveAct(act);
-      PlusStore().attachAndSaveAct(act);
-      PlusKeypairStore().attachAndSaveAct(act);
-      PlusGatewayStore().attachAndSaveAct(act);
-      PlusLeaseStore().attachAndSaveAct(act);
-      PlusVpnStore().attachAndSaveAct(act);
-      HomeStore().attachAndSaveAct(act);
+    if (!act.isFamily) {
+      JournalStore().register(act);
+      PlusStore().register(act);
+      PlusKeypairStore().register(act);
+      PlusGatewayStore().register(act);
+      PlusLeaseStore().register(act);
+      PlusVpnStore().register(act);
+      HomeStore().register(act);
     }
 
-    StatsStore().attachAndSaveAct(act);
-    StatsRefreshStore().attachAndSaveAct(act);
+    StatsStore().register(act);
+    StatsRefreshStore().register(act);
 
-    if (act.isFamily()) {
-      FamilyStore().attachAndSaveAct(act);
+    if (act.isFamily) {
+      FamilyStore().register(act);
     }
 
-    RateStore().attachAndSaveAct(act);
-    CommandStore().attachAndSaveAct(act);
-    LinkStore().attachAndSaveAct(act);
+    RateStore().register(act);
+    CommandStore().register(act);
+    LinkStore().register(act);
 
     depend<TopBarController>(TopBarController());
     depend<Entrypoint>(this);

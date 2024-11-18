@@ -86,7 +86,7 @@ class InvalidAccountId implements Exception {}
 
 class AccountStore = AccountStoreBase with _$AccountStore;
 
-abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
+abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   late final _api = dep<AccountJson>();
   late final _ops = dep<AccountOps>();
   late final _persistence = dep<SecurePersistenceService>();
@@ -103,7 +103,7 @@ abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<AccountOps>(getOps(act));
     depend<AccountJson>(AccountJson());
     depend<AccountStore>(this as AccountStore);
@@ -246,11 +246,11 @@ abstract class AccountStoreBase with Store, Logging, Dependable, Emitter {
 
   void _ensureValidAccountType(JsonAccount acc) {
     final type = accountTypeFromName(acc.type);
-    if (type == AccountType.family && !act.isFamily()) {
+    if (type == AccountType.family && !act.isFamily) {
       throw InvalidAccountId();
-    } else if (type == AccountType.cloud && act.isFamily()) {
+    } else if (type == AccountType.cloud && act.isFamily) {
       throw InvalidAccountId();
-    } else if (type == AccountType.plus && act.isFamily()) {
+    } else if (type == AccountType.plus && act.isFamily) {
       throw InvalidAccountId();
     }
   }

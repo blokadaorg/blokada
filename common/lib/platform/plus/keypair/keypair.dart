@@ -21,7 +21,7 @@ extension PlusKeypairExt on PlusKeypair {
 
 class PlusKeypairStore = PlusKeypairStoreBase with _$PlusKeypairStore;
 
-abstract class PlusKeypairStoreBase with Store, Logging, Dependable, Startable {
+abstract class PlusKeypairStoreBase with Store, Logging, Actor {
   late final _ops = dep<PlusKeypairOps>();
   late final _persistence = dep<SecurePersistenceService>();
   late final _account = dep<AccountStore>();
@@ -37,7 +37,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PlusKeypairOps>(getOps(act));
     depend<PlusKeypairStore>(this as PlusKeypairStore);
   }
@@ -55,8 +55,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       // TODO: needed for family?
       await load(m);

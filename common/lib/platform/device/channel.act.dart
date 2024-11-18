@@ -1,12 +1,12 @@
+import 'package:common/core/core.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:common/core/core.dart';
 import 'channel.pg.dart';
 
 class MockDeviceOps extends Mock implements DeviceOps {}
 
 DeviceOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return DeviceOps();
   }
 

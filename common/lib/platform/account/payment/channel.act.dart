@@ -6,7 +6,7 @@ import 'channel.pg.dart';
 class MockAccountPaymentOps extends Mock implements AccountPaymentOps {}
 
 AccountPaymentOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return AccountPaymentOps();
   }
 

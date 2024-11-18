@@ -32,7 +32,7 @@ class OnboardingException implements Exception {}
 
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
-abstract class AppStartStoreBase with Store, Logging, Dependable {
+abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _ops = dep<AppStartOps>();
 
   late final _env = dep<EnvStore>();
@@ -70,7 +70,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<AppStartOps>(getOps(act));
     depend<AppStartStore>(this as AppStartStore);
   }
@@ -82,7 +82,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
   DateTime? pausedUntil;
 
   // Order matters
-  late final List<Startable> _startablesV6 = [
+  late final List<Actor> _startablesV6 = [
     _env,
     _link,
     _lock,
@@ -94,7 +94,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
     _rate,
   ];
 
-  late final List<Startable> _startablesFamily = [
+  late final List<Actor> _startablesFamily = [
     _env,
     _link,
     _lock,
@@ -111,7 +111,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
 
       await _app.initStarted(m);
       try {
-        final startables = act.isFamily() ? _startablesFamily : _startablesV6;
+        final startables = act.isFamily ? _startablesFamily : _startablesV6;
         for (final startable in startables) {
           log(m).i("starting ${startable.runtimeType}");
           await startable.start(m);
@@ -132,7 +132,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
       try {
         await _app.reconfiguring(m);
         await _pauseApp(m);
-        if (!act.isFamily()) await _plus.reactToAppPause(false, m);
+        if (!act.isFamily) await _plus.reactToAppPause(false, m);
         paused = true;
         await _app.appPaused(true, m);
         final pausedUntil = DateTime.now().add(duration);
@@ -154,7 +154,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
       try {
         await _app.reconfiguring(m);
         await _pauseApp(m);
-        if (!act.isFamily()) await _plus.reactToAppPause(false, m);
+        if (!act.isFamily) await _plus.reactToAppPause(false, m);
         paused = true;
         await _app.appPaused(true, m);
         _timer.unset(_keyTimer);
@@ -174,7 +174,7 @@ abstract class AppStartStoreBase with Store, Logging, Dependable {
       try {
         await _app.reconfiguring(m);
         await _unpauseApp(m);
-        if (!act.isFamily()) await _plus.reactToAppPause(true, m);
+        if (!act.isFamily) await _plus.reactToAppPause(true, m);
         paused = false;
         await _app.appPaused(false, m);
         _timer.unset(_keyTimer);

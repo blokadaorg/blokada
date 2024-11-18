@@ -27,7 +27,7 @@ const String _keySelected = "plus:active";
 
 class PlusStore = PlusStoreBase with _$PlusStore;
 
-abstract class PlusStoreBase with Store, Logging, Dependable, Startable {
+abstract class PlusStoreBase with Store, Logging, Actor {
   late final _ops = dep<PlusOps>();
   late final _keypair = dep<PlusKeypairStore>();
   late final _gateway = dep<PlusGatewayStore>();
@@ -47,7 +47,7 @@ abstract class PlusStoreBase with Store, Logging, Dependable, Startable {
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<PlusOps>(getOps(act));
     depend<PlusStore>(this as PlusStore);
   }
@@ -56,12 +56,11 @@ abstract class PlusStoreBase with Store, Logging, Dependable, Startable {
   bool plusEnabled = false;
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       // Assuming keypair already loaded
       await load(m);
-      if (act.isFamily()) return;
+      if (act.isFamily) return;
 
       await _gateway.fetch(m);
       await _gateway.load(m);

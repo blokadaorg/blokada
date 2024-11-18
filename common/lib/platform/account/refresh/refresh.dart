@@ -93,7 +93,7 @@ enum AccountStatus { init, active, inactive, expiring, expired, fatal }
 class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
-    with Store, Logging, Dependable, Startable, Cooldown, Emitter {
+    with Store, Logging, Actor, Cooldown, Emitter {
   late final _timer = dep<TimerService>();
   late final _account = dep<AccountStore>();
   late final _notification = dep<NotificationStore>();
@@ -108,7 +108,7 @@ abstract class AccountRefreshStoreBase
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<AccountRefreshStore>(this as AccountRefreshStore);
   }
 
@@ -123,8 +123,8 @@ abstract class AccountRefreshStoreBase
   JsonAccRefreshMeta _metadata = JsonAccRefreshMeta();
 
   // Init the account with a retry loop. Can be called multiple times if failed.
-  @action
-  Future<void> start(Marker m) async {
+  @override
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       bool success = false;
       int retries = 2;
@@ -199,7 +199,7 @@ abstract class AccountRefreshStoreBase
           _metadata.seenExpiredDialog = true;
           await _saveMetadata(m);
           await _stage.showModal(StageModal.accountExpired, m);
-          if (!act.isFamily()) await _plus.clearPlus(m);
+          if (!act.isFamily) await _plus.clearPlus(m);
         }
       }
 
@@ -267,11 +267,11 @@ abstract class AccountRefreshStoreBase
   }
 
   void _updateTimer(Marker m) {
-    final id = act.isFamily()
+    final id = act.isFamily
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
 
-    final shouldSkipNotification = act.isFamily() && _family.linkedMode;
+    final shouldSkipNotification = act.isFamily && _family.linkedMode;
 
     DateTime? expDate = expiration.getNextDate();
 

@@ -27,7 +27,7 @@ import '../stage/stage.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
-class CommandStore with Logging, Dependable implements CommandEvents {
+class CommandStore with Logging, Actor implements CommandEvents {
   late final _logger = dep<LoggerCommands>();
   late final _stage = dep<StageStore>();
   late final _account = dep<AccountStore>();
@@ -55,9 +55,9 @@ class CommandStore with Logging, Dependable implements CommandEvents {
   late final _timer = dep<TimerService>();
 
   @override
-  void attach(Act act) {
+  void onRegister(Act act) {
     depend<CommandStore>(this);
-    if (act.isProd()) CommandEvents.setup(this);
+    if (act.isProd) CommandEvents.setup(this);
     getOps(act).doCanAcceptCommands();
   }
 

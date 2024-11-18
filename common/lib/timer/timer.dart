@@ -8,12 +8,12 @@ abstract class TimerService {
   addHandler(String name, Function(Marker) handler);
 }
 
-class DefaultTimer with Logging, Dependable implements TimerService {
+class DefaultTimer with Logging, Actor implements TimerService {
   final Map<String, Timer> _timers = {};
   final Map<String, Function(Marker)> _handlers = {};
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<TimerService>(this);
   }
 
@@ -48,11 +48,11 @@ class DefaultTimer with Logging, Dependable implements TimerService {
 }
 
 // A Timer used in tests that allows for manual trigger of handlers.
-class TestingTimer with Logging, Dependable implements TimerService {
+class TestingTimer with Logging, Actor implements TimerService {
   final Map<String, Function(Marker)> _handlers = {};
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<TimerService>(this);
   }
 

@@ -6,7 +6,7 @@ import 'channel.pg.dart';
 class MockNotificationOps extends Mock implements NotificationOps {}
 
 NotificationOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return NotificationOps();
   }
 

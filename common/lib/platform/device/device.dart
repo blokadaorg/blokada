@@ -30,8 +30,7 @@ const String _keyTag = "device:tag";
 
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
-abstract class DeviceStoreBase
-    with Store, Logging, Dependable, Startable, Cooldown, Emitter {
+abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _ops = dep<DeviceOps>();
   late final _api = dep<DeviceJson>();
   late final _stage = dep<StageStore>();
@@ -83,7 +82,7 @@ abstract class DeviceStoreBase
   }
 
   @override
-  attach(Act act) {
+  onRegister(Act act) {
     depend<DeviceOps>(getOps(act));
     depend<DeviceJson>(DeviceJson());
     depend<DeviceStore>(this as DeviceStore);
@@ -117,8 +116,7 @@ abstract class DeviceStoreBase
   }
 
   @override
-  @action
-  Future<void> start(Marker m) async {
+  Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       await load(m);
       await setDeviceName(_env.deviceName, m);
@@ -134,7 +132,7 @@ abstract class DeviceStoreBase
 
   @action
   Future<void> fetch(Marker m) async {
-    if (act.isFamily()) return;
+    if (act.isFamily) return;
 
     return await log(m).trace("fetch", (m) async {
       log(m).pair("tag", deviceTag);
@@ -179,7 +177,7 @@ abstract class DeviceStoreBase
   Future<void> setDeviceName(String? deviceName, Marker m) async {
     // Simple handling of OG flavor (no generated device names)
     // TODO: refactor
-    if (!act.isFamily()) {
+    if (!act.isFamily) {
       deviceAlias = deviceName!;
       return;
     }

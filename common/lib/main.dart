@@ -18,17 +18,17 @@ void main() async {
 
   final Flavor flavor = await channel.invokeMethod('getFlavor') == "family"
       ? Flavor.family
-      : Flavor.og;
+      : Flavor.v6;
 
   final PlatformType platform =
       io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
 
   final entrypoint = Entrypoint();
   if (kReleaseMode) {
-    entrypoint.attach(ActScreenplay(ActScenario.prod, flavor, platform));
+    entrypoint.onRegister(ActScreenplay(ActScenario.prod, flavor, platform));
   } else {
     entrypoint
-        .attach(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
+        .onRegister(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
   }
 
   if (flavor == Flavor.family) {

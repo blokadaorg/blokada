@@ -1,12 +1,12 @@
+import 'package:common/core/core.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:common/core/core.dart';
 import 'channel.pg.dart';
 
 class MockCustomOps extends Mock implements CustomOps {}
 
 CustomOps getOps(Act act) {
-  if (act.isProd()) {
+  if (act.isProd) {
     return CustomOps();
   }
 
