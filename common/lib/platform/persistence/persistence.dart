@@ -16,16 +16,6 @@ abstract class PersistenceService {
 
 abstract class SecurePersistenceService extends PersistenceService {}
 
-/// PlatformPersistenceImpl
-///
-/// I decided to use native channels for the persistence, since existing
-/// Flutter libraries seem rather immature for what we need, and would bring
-/// potential bugs while the solution is actually reasonably easy.
-///
-/// What we need from the platforms is those types of simple string storage:
-/// - local storage
-/// - automatically backed up storage (iCloud on iOS, Google Drive on Android)
-/// - encrypted storage also automatically backed up
 class PlatformPersistence extends SecurePersistenceService with Actor, Logging {
   final bool isSecure;
 
@@ -33,11 +23,11 @@ class PlatformPersistence extends SecurePersistenceService with Actor, Logging {
 
   @override
   onRegister(Act act) {
-    depend<PersistenceOps>(getOps(act));
+    depend<PersistenceChannel>(getOps(act));
     depend<PersistenceService>(this);
   }
 
-  late final _ops = dep<PersistenceOps>();
+  late final _ops = dep<PersistenceChannel>();
 
   @override
   Future<Map<String, dynamic>> loadOrThrow(String key, Marker m,

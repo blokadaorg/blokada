@@ -17,6 +17,7 @@ class Markers {
   static const filter = 10;
   static const ui = 11; // Triggered by UI rendering code
   static const perm = 12;
+  static const persistence = 13;
 
   static String toName(Marker marker) {
     switch (marker) {
@@ -46,6 +47,8 @@ class Markers {
         return "ui";
       case perm:
         return "perm";
+      case persistence:
+        return "persistence";
       default:
         return "unknown";
     }
