@@ -91,10 +91,10 @@ class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
       //       });
       //     }));
       list.add(SmartHeaderButton.HeaderButton(
-          unread: _unread.now,
+          unread: (_unread.resolved) ? _unread.now : false,
           icon: CupertinoIcons.person_crop_circle,
           onTap: () {
-            Navigation.open(context, Paths.settings);
+            Navigation.open(Paths.settings);
           }));
       list.add(const SizedBox(width: 4));
     }
@@ -103,7 +103,7 @@ class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
     //     unread: _unread.now,
     //     icon: CupertinoIcons.question_circle,
     //     onTap: () {
-    //       Navigation.open(context, Paths.support);
+    //       Navigation.open(Paths.support);
     //       // traceAs("tappedHelp", () async {
     //       //   _stage.showModal(StageModal.help);
     //       // });

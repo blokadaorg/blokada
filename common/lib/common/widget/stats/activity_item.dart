@@ -23,8 +23,7 @@ class ActivityItemState extends State<ActivityItem> {
   Widget build(BuildContext context) {
     return CommonClickable(
       onTap: () {
-        Navigation.open(context, Paths.deviceStatsDetail,
-            arguments: widget.entry);
+        Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
       },
       tapBorderRadius: BorderRadius.zero,
       padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 4),

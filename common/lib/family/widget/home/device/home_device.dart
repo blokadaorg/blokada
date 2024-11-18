@@ -2,7 +2,6 @@ import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/minicard/chart.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/family/widget/home/device/home_device_header.dart';
@@ -30,7 +29,7 @@ class HomeDeviceState extends State<HomeDevice> with TickerProviderStateMixin {
   _onTap() async {
     _profiles.selectProfile(Markers.userTap, widget.device.profile);
 
-    Navigation.open(context, Paths.device, arguments: widget.device);
+    Navigation.open(Paths.device, arguments: widget.device);
   }
 
   @override

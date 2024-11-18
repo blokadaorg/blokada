@@ -11,7 +11,6 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/stats/radial_segment.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/device/controller.dart';
 import 'package:common/dragon/device/selected_device.dart';
@@ -96,7 +95,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: MiniCard(
               onTap: () {
-                Navigation.open(context, Paths.deviceStats, arguments: device);
+                Navigation.open(Paths.deviceStats, arguments: device);
               },
               child: IgnorePointer(
                 ignoring: true,
@@ -168,8 +167,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging {
                     ),
                     CommonItem(
                       onTap: () {
-                        Navigation.open(context, Paths.deviceFilters,
-                            arguments: device);
+                        Navigation.open(Paths.deviceFilters, arguments: device);
                       },
                       icon: CupertinoIcons.shield,
                       text: "family stats label blocklists alt".i18n,

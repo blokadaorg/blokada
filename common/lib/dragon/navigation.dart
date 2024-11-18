@@ -18,7 +18,6 @@ import 'package:common/family/widget/home/home_screen.dart';
 import 'package:common/family/widget/stats_detail_section.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 enum Paths {
   home("/", false),
@@ -55,18 +54,19 @@ class Navigation with Logging {
   late final journal = dep<JournalController>();
   late final _custom = dep<CustomStore>();
 
+  static late bool isTabletMode;
+
   static Function(Paths, Object?) openInTablet = (_, __) {};
   static Function(Paths? path) onNavigated = (_) {};
 
-  static open(BuildContext context, Paths path, {Object? arguments}) async {
+  static open(Paths path, {Object? arguments}) async {
     onNavigated(path);
-    final isTablet = isTabletMode(context);
-    if (isTablet && path.openInTablet) {
+    if (isTabletMode && path.openInTablet) {
       openInTablet(path, arguments);
       return;
     }
 
-    final ctrl = Provider.of<TopBarController>(context, listen: false);
+    final ctrl = dep<TopBarController>();
     ctrl.navigatorKey.currentState!.pushNamed(path.path, arguments: arguments);
   }
 

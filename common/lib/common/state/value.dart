@@ -50,7 +50,8 @@ class NullableValue<T> {
 
 abstract class AsyncValue<T> {
   late T _value;
-  bool _resolved = false;
+  bool _resolving = false;
+  bool resolved = false;
 
   T get now {
     try {
@@ -61,10 +62,11 @@ abstract class AsyncValue<T> {
   }
 
   Future<T> fetch() async {
-    if (!_resolved) {
-      _resolved = true;
+    if (!_resolving) {
+      _resolving = true;
       // Also broadcasts to stream
       now = await doLoad();
+      resolved = true;
     }
     return _value!;
   }

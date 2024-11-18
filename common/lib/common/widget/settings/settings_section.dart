@@ -104,7 +104,7 @@ class SettingsState extends State<SettingsSection> with Logging {
                 //     icon: CupertinoIcons.shield_lefthalf_fill,
                 //     text: "My exceptions",
                 //     onTap: () {
-                //       Navigation.open(context, Paths.settingsExceptions);
+                //       Navigation.open(Paths.settingsExceptions);
                 //     }),
                 // const CommonDivider(),
                 SettingsItem(
@@ -149,7 +149,7 @@ class SettingsState extends State<SettingsSection> with Logging {
                     unread: _unread.now,
                     icon: CupertinoIcons.chat_bubble_text,
                     text: "support action chat".i18n,
-                    onTap: () => Navigation.open(context, Paths.support)),
+                    onTap: () => Navigation.open(Paths.support)),
                 const CommonDivider(),
                 SettingsItem(
                     icon: CupertinoIcons.person_3,

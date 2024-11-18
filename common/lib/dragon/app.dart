@@ -29,6 +29,8 @@ class BlokadaApp extends StatelessWidget {
     const familyColor3 = Color(0xff3c8cff);
     final accentColor = cfg.act.isFamily() ? familyColor : plusColor;
 
+    Navigation.isTabletMode = isTabletMode(context);
+
     return MaterialApp(
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
