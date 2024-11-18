@@ -1,6 +1,6 @@
 import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
-import 'package:common/lock/lock.dart';
+import 'package:common/lock/value.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/env/env.dart';
 import 'package:common/platform/link/channel.pg.dart';
@@ -13,7 +13,7 @@ import '../tools.dart';
 @GenerateNiceMocks([
   MockSpec<LinkOps>(),
   MockSpec<AccountStore>(),
-  MockSpec<LockStore>(),
+  MockSpec<IsLocked>(),
   MockSpec<EnvStore>(),
   MockSpec<FamilyStore>(),
 ])
@@ -24,8 +24,8 @@ void main() {
     test("willUpdateLinksOnLock", () async {
       await withTrace((m) async {
         DI.register<AccountStore>(MockAccountStore());
-        DI.register<LockStore>(MockLockStore());
         DI.register<FamilyStore>(MockFamilyStore());
+        DI.register<IsLocked>(MockIsLocked());
 
         final env = MockEnvStore();
         when(env.userAgent).thenReturn("mocked user agent");
@@ -38,7 +38,7 @@ void main() {
         mockAct(subject);
         subject.start(m);
 
-        await subject.updateLinksFromLock(true, m);
+        await subject.updateLinksFromLock(true);
 
         verify(ops.doLinksChanged(any)).called(1);
       });

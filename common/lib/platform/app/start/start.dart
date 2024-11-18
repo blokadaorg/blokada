@@ -36,7 +36,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _ops = DI.get<AppStartOps>();
 
   late final _env = DI.get<EnvStore>();
-  late final _lock = DI.get<LockStore>();
+  late final _lock = DI.get<Lock>();
   late final _app = DI.get<AppStore>();
   late final _timer = DI.get<TimerService>();
   late final _device = DI.get<DeviceStore>();

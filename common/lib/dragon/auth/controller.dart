@@ -1,6 +1,6 @@
 import 'package:common/common/api/api.dart';
 import 'package:common/common/model/model.dart';
-import 'package:common/common/state/state.dart';
+import 'package:common/common/value/value.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/auth/api.dart';
 import 'package:common/dragon/device/current_token.dart';
@@ -31,7 +31,7 @@ class AuthController with Logging {
   }
 
   _recheckToken(Marker m) async {
-    final token = await _currentToken.fetch();
+    final token = await _currentToken.fetch(m);
     if (token != null) {
       log(Markers.auth).i("current token is $token");
       try {
@@ -43,7 +43,7 @@ class AuthController with Logging {
 
   Future<DeviceTag> useToken(String token, Marker m) async {
     final payload = await _startMonitoringTokenExpiry(token, m);
-    _currentToken.now = token;
+    _currentToken.change(m, token);
     return payload.deviceTag;
   }
 
@@ -85,12 +85,12 @@ class AuthController with Logging {
       final token = _currentToken.now;
       if (token == null) return false;
       final payload = await _api.refresh(token, m);
-      _currentToken.now = payload.token;
+      _currentToken.change(m, payload.token);
       onTokenRefreshed(m);
       return true;
     } catch (e) {
       onTokenExpired(m); // TODO: may be too aggressive
-      _currentToken.now = null;
+      _currentToken.change(m, null);
       throw Exception("Failed to refresh token: $e");
     }
   }
@@ -117,7 +117,7 @@ class AuthController with Logging {
     } on HttpCodeException catch (e) {
       if (e.code == 401) {
         onTokenExpired(m);
-        _currentToken.now = null;
+        _currentToken.change(m, null);
         await _scheduler.stop(_keyHeartbeat);
         log(m).w("token unavailable, stopping heartbeat");
         throw SchedulerException(e);

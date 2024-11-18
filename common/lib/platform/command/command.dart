@@ -38,9 +38,10 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _device = DI.get<DeviceStore>();
   late final _notification = DI.get<NotificationStore>();
   late final _permission = DI.get<PermStore>();
-  late final _lock = DI.get<LockStore>();
   late final _support = DI.get<SupportController>();
   late final _scheduler = DI.get<Scheduler>();
+
+  late final _lock = DI.get<Lock>();
 
   // V6 only commands
   late final _journal = DI.get<JournalStore>();
@@ -233,13 +234,13 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _stage.modalDismissed(m);
       case CommandName.setPin:
         _ensureParam(p1);
-        await _lock.lock(p1!, m);
+        await _lock.lock(m, p1!);
         return await _stage.setRoute("home", m);
       case CommandName.back:
         return await _stage.back();
       case CommandName.unlock:
         _ensureParam(p1);
-        return await _lock.unlock(p1!, m);
+        return await _lock.unlock(m, p1!);
       case CommandName.remoteNotification:
         return await _accountRefresh.onRemoteNotification(m);
       case CommandName.appleNotificationToken:
@@ -261,7 +262,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
       case CommandName.fatal:
         return await _logger.platformFatal(p1!);
       case CommandName.log:
-        if (_lock.isLocked) {
+        if (_lock.isLocked.now) {
           return await _stage.showModal(StageModal.faultLocked, m);
         }
         return await _logger.shareLog(forCrash: false);

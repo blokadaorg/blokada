@@ -10,7 +10,6 @@ class PermController with Logging {
   late final _ops = DI.get<PermOps>();
   late final _perm = DI.get<DnsPerm>();
   late final _deviceTag = DI.get<ThisDevice>();
-  late final _act = DI.get<Act>();
   late final _check = DI.get<PrivateDnsCheck>();
 
   late final _stage = DI.get<StageStore>();
@@ -22,15 +21,16 @@ class PermController with Logging {
   }
 
   _checkDns(Marker m) async {
-    final device = await _deviceTag.fetch();
+    final device = await _deviceTag.fetch(m);
     if (device == null) {
-      _perm.now = false;
+      _perm.change(m, false);
       return;
     }
     await _ops.doSetDns(device.deviceTag);
 
     final current = await _ops.getPrivateDnsSetting();
-    _perm.now = _check.isCorrect(m, current, device.deviceTag, device.alias);
+    _perm.change(
+        m, _check.isCorrect(m, current, device.deviceTag, device.alias));
   }
 
   String getAndroidDnsStringToCopy(Marker m) {

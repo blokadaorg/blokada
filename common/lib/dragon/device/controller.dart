@@ -39,11 +39,11 @@ class DeviceController with Logging {
 
     if (!createIfNeeded) return;
 
-    JsonDevice? d = await _thisDevice.fetch();
+    JsonDevice? d = await _thisDevice.fetch(m);
     if (devices.firstWhereOrNull((it) => it.deviceTag == d?.deviceTag) ==
         null) {
       // The value o _thisDevice is not correct for current account, reset
-      _thisDevice.now = null;
+      _thisDevice.change(m, null);
       d = null;
     }
 
@@ -68,7 +68,7 @@ class DeviceController with Logging {
           ),
           m);
 
-      _thisDevice.now = newDevice;
+      _thisDevice.change(m, newDevice);
       devices = await _devices.fetch(m);
     }
   }
@@ -93,7 +93,7 @@ class DeviceController with Logging {
           .firstWhereOrNull((it) => it.deviceTag == _thisDevice.now!.deviceTag);
       if (confirmedThisDevice != null) throw AlreadyLinkedException();
     }
-    _thisDevice.now = d;
+    _thisDevice.change(m, d);
   }
 
   Future<LinkingDevice> addDevice(
@@ -134,7 +134,7 @@ class DeviceController with Logging {
 
       // Also update thisDevice if it was renamed
       if (_thisDevice.now?.deviceTag == device.deviceTag) {
-        _thisDevice.now = updated;
+        _thisDevice.change(m, updated);
       }
 
       _commit(updated);

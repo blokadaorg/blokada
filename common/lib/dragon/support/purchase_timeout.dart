@@ -1,12 +1,11 @@
 import 'package:common/common/model/model.dart';
-import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/support/controller.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 
-class PurchaseTimout with Logging {
+class PurchaseTimout with Logging, Actor {
   late final _stage = DI.get<StageStore>();
   late final _support = DI.get<SupportController>();
   late final _account = DI.get<AccountStore>();
@@ -17,9 +16,10 @@ class PurchaseTimout with Logging {
   final _timeoutSeconds = 27; // Time after going to bg, to send the event
   bool _justNotified = false;
 
-  load() async {
+  @override
+  onStart(Marker m) async {
     _stage.addOnValue(routeChanged, onRouteChanged);
-    await _notified.fetch();
+    await _notified.fetch(m);
     _support.onReset = clearSendPurchaseTimeout;
   }
 
@@ -57,13 +57,13 @@ class PurchaseTimout with Logging {
   Future<bool> sendPurchaseTimeout(Marker m) async {
     if (_account.type.isActive()) return false;
     await _support.sendEvent(SupportEvent.purchaseTimeout, m);
-    _notified.now = true;
+    _notified.change(m, true);
     _justNotified = true;
     return false;
   }
 
-  clearSendPurchaseTimeout() async {
-    _notified.now = false;
+  clearSendPurchaseTimeout(Marker m) async {
+    _notified.change(m, false);
     await _scheduler.stop("sendPurchaseTimeout");
   }
 }

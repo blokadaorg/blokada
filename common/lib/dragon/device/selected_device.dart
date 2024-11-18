@@ -1,4 +1,4 @@
-import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
 
 class SelectedDeviceTag extends NullableValue<DeviceTag> {

@@ -82,7 +82,7 @@ class ProfileController with Logging {
       final config = UserFilterConfig(profile.lists.toSet(), {
         FilterConfigKey.safeSearch: profile.safeSearch,
       });
-      _userConfig.now = config;
+      _userConfig.change(m, config);
       _selected = profile;
       log(m).i("user config set to ${config.configs}");
       // Setting user config causes FilterController to reload
@@ -93,9 +93,11 @@ class ProfileController with Logging {
     // Immediate UI feedback
     final old = _selectedFilters.now
         .firstWhere((it) => it.filterName == filter.filterName);
-    _selectedFilters.now = _selectedFilters.now
-      ..removeWhere((it) => it.filterName == filter.filterName)
-      ..add(FilterSelection(filter.filterName, options));
+    _selectedFilters.change(
+        m,
+        _selectedFilters.now
+          ..removeWhere((it) => it.filterName == filter.filterName)
+          ..add(FilterSelection(filter.filterName, options)));
 
     try {
       final config = await _filters.getConfig(_selectedFilters.now, m);
@@ -107,12 +109,14 @@ class ProfileController with Logging {
           ));
       profiles =
           profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
-      _userConfig.now = config;
+      _userConfig.change(m, config);
       onChange();
     } catch (e) {
-      _selectedFilters.now = _selectedFilters.now
-        ..removeWhere((it) => it.filterName == filter.filterName)
-        ..add(old);
+      _selectedFilters.change(
+          m,
+          _selectedFilters.now
+            ..removeWhere((it) => it.filterName == filter.filterName)
+            ..add(old));
     }
   }
 }

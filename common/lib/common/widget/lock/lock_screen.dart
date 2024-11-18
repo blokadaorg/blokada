@@ -1,17 +1,16 @@
 import 'dart:async';
 
+import 'package:common/common/widget/lock/circles.dart';
+import 'package:common/common/widget/lock/keypad.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
+import 'package:common/lock/lock.dart';
+import 'package:common/lock/value.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
-
-import '../../../../../lock/lock.dart';
-import '../../../platform/stage/stage.dart';
-import 'circles.dart';
-import 'keypad.dart';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({Key? key}) : super(key: key);
@@ -21,13 +20,14 @@ class LockScreen extends StatefulWidget {
 }
 
 class _LockScreenState extends State<LockScreen>
-    with TickerProviderStateMixin, Logging {
+    with TickerProviderStateMixin, Logging, Disposables {
   final _stage = DI.get<StageStore>();
-  final _lock = DI.get<LockStore>();
+
+  final _lock = DI.get<Lock>();
+  final _isLocked = DI.get<IsLocked>();
+  final _hasPin = DI.get<HasPin>();
 
   int _digitsEntered = 0;
-  bool _isLocked = false;
-  bool _hasPin = false;
   bool _showHeaderIcon = false;
   bool _dismissing = false;
   String? _pinEntered;
@@ -46,12 +46,8 @@ class _LockScreenState extends State<LockScreen>
   void initState() {
     super.initState();
 
-    autorun((_) {
-      setState(() {
-        _isLocked = _lock.isLocked;
-        _hasPin = _lock.hasPin;
-      });
-    });
+    disposeLater(_hasPin.onChange.listen(rebuild));
+    disposeLater(_isLocked.onChange.listen(rebuild));
 
     _ctrlShake = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200))
@@ -60,6 +56,7 @@ class _LockScreenState extends State<LockScreen>
           _ctrlShake.reset();
         }
       });
+    disposeLater(_ctrlShake);
 
     _animShake = TweenSequence(
       <TweenSequenceItem<Offset>>[
@@ -95,8 +92,8 @@ class _LockScreenState extends State<LockScreen>
 
   @override
   void dispose() {
-    _ctrlShake.dispose();
     _iconTimer?.cancel();
+    disposeAll();
     super.dispose();
   }
 
@@ -109,15 +106,15 @@ class _LockScreenState extends State<LockScreen>
       try {
         if (pin != _pinConfirmed) throw Exception("Pin mismatch");
 
-        if (_lock.isLocked) {
+        if (_isLocked.now) {
           if (_wrongAttempts >= 3) {
             throw Exception("Too many wrong attempts");
           }
 
-          await _lock.canUnlock(pin, m);
+          await _lock.canUnlock(m, pin);
           await _unlock(pin);
         } else {
-          await _lock.setLock(pin, m);
+          await _lock.setLock(m, pin);
           setState(() {
             _digitsEntered = 0;
             _pinEntered = null;
@@ -138,7 +135,7 @@ class _LockScreenState extends State<LockScreen>
           });
         });
 
-        if (_isLocked) {
+        if (_isLocked.now) {
           _incrementWrongAttempts();
         }
       }
@@ -150,11 +147,11 @@ class _LockScreenState extends State<LockScreen>
       return "lock status too many attempts".i18n;
     } else if (_showHeaderIcon) {
       return "";
-    } else if (_isLocked) {
+    } else if (_isLocked.now) {
       return "lock status locked".i18n;
     } else if (_pinEntered != null) {
       return "lock status enter to confirm".i18n;
-    } else if (_hasPin) {
+    } else if (_hasPin.now) {
       return "lock status unlocked has pin".i18n;
     } else {
       return "lock status unlocked".i18n;
@@ -186,7 +183,7 @@ class _LockScreenState extends State<LockScreen>
   _unlock(String pin) async {
     log(Markers.userTap).trace("tappedUnlock", (m) async {
       _animateDismiss();
-      await _lock.unlock(pin, m);
+      await _lock.unlock(m, pin);
     });
   }
 
@@ -255,7 +252,7 @@ class _LockScreenState extends State<LockScreen>
                     height: 112,
                     child: Center(
                       child: Icon(
-                        _isLocked
+                        _isLocked.now
                             ? CupertinoIcons.lock_fill
                             : CupertinoIcons.lock_open,
                         color: Colors.white,
@@ -298,7 +295,7 @@ class _LockScreenState extends State<LockScreen>
                     setState(() {
                       if (_pinEntered == null) {
                         _pinEntered = pin;
-                        if (!_isLocked) _handlePinConfirm();
+                        if (!_isLocked.now) _handlePinConfirm();
                       } else {
                         _pinConfirmed = pin;
                         _checkPin(_pinEntered ?? "");
@@ -316,7 +313,7 @@ class _LockScreenState extends State<LockScreen>
               ),
               const Spacer(),
               AnimatedCrossFade(
-                crossFadeState: _pinEntered != null && _isLocked
+                crossFadeState: _pinEntered != null && _isLocked.now
                     ? CrossFadeState.showFirst
                     : CrossFadeState.showSecond,
                 duration: const Duration(milliseconds: 300),
@@ -361,7 +358,7 @@ class _LockScreenState extends State<LockScreen>
                         ? Container()
                         : Row(
                             children: [
-                              if (_hasPin && !_isLocked)
+                              if (_hasPin.now && !_isLocked.now)
                                 GestureDetector(
                                   onTap: _clear,
                                   child: Padding(

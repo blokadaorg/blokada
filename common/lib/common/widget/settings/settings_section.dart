@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/section_label.dart';
@@ -11,6 +9,7 @@ import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/family/widget/home/bg.dart';
+import 'package:common/lock/value.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/env/env.dart';
@@ -30,24 +29,28 @@ class SettingsSection extends StatefulWidget {
   State<StatefulWidget> createState() => SettingsState();
 }
 
-class SettingsState extends State<SettingsSection> with Logging {
-  late final _lock = DI.get<LockStore>();
+class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _stage = DI.get<StageStore>();
   late final _env = DI.get<EnvStore>();
   late final _account = DI.get<AccountStore>();
   late final _command = DI.get<CommandStore>();
   late final _unread = DI.get<SupportUnread>();
 
-  late StreamSubscription? _unreadSub;
+  late final _lock = DI.get<Lock>();
+  late final _hasPin = DI.get<HasPin>();
 
   @override
   void initState() {
     super.initState();
-    _unread.fetch();
-    _unreadSub = _unread.onChange.listen((it) {
-      if (!mounted) return;
-      setState(() {});
-    });
+    disposeLater(_unread.onChange.listen(rebuild));
+    disposeLater(_hasPin.onChange.listen(rebuild));
+    _unread.fetch(Markers.ui);
+  }
+
+  @override
+  void dispose() {
+    disposeAll();
+    super.dispose();
   }
 
   @override
@@ -111,7 +114,7 @@ class SettingsState extends State<SettingsSection> with Logging {
                     icon: CupertinoIcons.ellipsis,
                     text: "family settings lock pin".i18n,
                     onTap: () {
-                      if (_lock.hasPin) {
+                      if (_hasPin.now) {
                         _showPinDialog(
                           context,
                           title: "family settings lock pin".i18n,
@@ -121,7 +124,7 @@ class SettingsState extends State<SettingsSection> with Logging {
                             log(Markers.userTap).trace("tappedChangePin",
                                 (m) async {
                               Navigator.of(context).pop();
-                              await _lock.lock(value, m);
+                              await _lock.lock(m, value);
                             });
                           },
                           onRemove: () {

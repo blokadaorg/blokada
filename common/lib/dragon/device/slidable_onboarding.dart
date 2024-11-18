@@ -1,4 +1,3 @@
-import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 
 class SlidableOnboarding extends NullableValue<bool?> {

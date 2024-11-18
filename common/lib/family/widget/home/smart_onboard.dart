@@ -8,7 +8,6 @@ import 'package:common/family/widget/home/big_icon.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_android.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_ios.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +29,6 @@ class SmartOnboard extends StatefulWidget {
 
 class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
-  late final _lock = DI.get<LockStore>();
   late final _stage = DI.get<StageStore>();
   late final _family = DI.get<FamilyStore>();
   late final _act = DI.get<Act>();

@@ -35,8 +35,8 @@ class FilterLegacy with Logging {
     DI.register<channel.FilterOps>(getOps(act));
     _device.addOn(deviceChanged, onDeviceChanged);
     _selectedFilters.onChange
-        .listen((it) => onSelectedFiltersChanged(it, Markers.filter));
-    _userConfig.onChange.listen((it) => onUserConfigChanged(it));
+        .listen((it) => onSelectedFiltersChanged(it.now, Markers.filter));
+    _userConfig.onChange.listen((it) => onUserConfigChanged(it.now));
     // todo: default value at first start of new account
   }
 
@@ -44,11 +44,11 @@ class FilterLegacy with Logging {
     return await log(m).trace("onDeviceChangedLegacy", (m) async {
       final lists = _device.lists;
       if (lists != null) {
-        await _acc.start();
+        await _acc.start(m);
         // Read user config from device v2 when it is ready
         // Set it and it will reload FilterController
         // That one will update SelectedFilters
-        _userConfig.now = UserFilterConfig(lists.toSet(), {});
+        _userConfig.change(m, UserFilterConfig(lists.toSet(), {}));
       }
     });
   }
@@ -93,17 +93,17 @@ class FilterLegacy with Logging {
     } else {
       selected.add(newFilter);
     }
-    _selectedFilters.now = selected;
+    _selectedFilters.change(m, selected);
 
     try {
       final config = await _controller.getConfig(_selectedFilters.now, m);
       await log(m).trace("enableFilterLegacy", (m) async {
         log(m).pair("lists", config.lists);
-        _userConfig.now = config;
+        _userConfig.change(m, config);
         // v2 api will be updated by the callback below
       });
     } catch (e) {
-      _selectedFilters.now = was;
+      _selectedFilters.change(m, was);
     }
   }
 
@@ -113,17 +113,17 @@ class FilterLegacy with Logging {
     final was = _selectedFilters.now;
     final selected = was.toList();
     selected.removeWhere((it) => it.filterName == filterName);
-    _selectedFilters.now = selected;
+    _selectedFilters.change(m, selected);
 
     try {
       final config = await _controller.getConfig(_selectedFilters.now, m);
       await log(m).trace("disableFilterLegacy", (m) async {
         log(m).pair("lists", config.lists);
-        _userConfig.now = config;
+        _userConfig.change(m, config);
         // v2 api will be updated by the callback below
       });
     } catch (e) {
-      _selectedFilters.now = was;
+      _selectedFilters.change(m, was);
     }
   }
 
@@ -153,17 +153,17 @@ class FilterLegacy with Logging {
     } else {
       selected.add(newFilter);
     }
-    _selectedFilters.now = selected;
+    _selectedFilters.change(m, selected);
 
     try {
       final config = await _controller.getConfig(_selectedFilters.now, m);
       await log(m).trace("toggleFilterOptionLegacy", (m) async {
         log(m).pair("lists", config.lists);
-        _userConfig.now = config;
+        _userConfig.change(m, config);
         // v2 api will be updated by the callback below
       });
     } catch (e) {
-      _selectedFilters.now = was;
+      _selectedFilters.change(m, was);
     }
   }
 

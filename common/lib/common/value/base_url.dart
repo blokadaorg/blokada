@@ -1,4 +1,4 @@
-part of 'state.dart';
+part of 'value.dart';
 
 class BaseUrl extends Value<String> {
   final Act _act;

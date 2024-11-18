@@ -52,7 +52,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging {
     super.initState();
     reactionOnStore((_) => _family.devices, (_) => rebuild());
     _subscription = _selectedFilters.onChange.listen((_) => rebuild());
-    _selectedDevice.now = widget.tag;
+    _selectedDevice.change(Markers.ui, widget.tag);
   }
 
   rebuild() {
@@ -63,7 +63,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging {
 
   @override
   void dispose() {
-    _selectedDevice.now = null;
+    _selectedDevice.change(Markers.ui, null);
     _subscription.cancel();
     super.dispose();
   }

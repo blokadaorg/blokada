@@ -1,4 +1,4 @@
-import 'package:common/common/state/state.dart';
+import 'package:common/common/value/value.dart';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
@@ -65,7 +65,7 @@ abstract class EnvStoreBase with Store, Logging, Actor {
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
       appVersion = payload.appVersion;
-      _agent.now = userAgent!;
+      _agent.change(m, userAgent!);
       log(m).pair("device", payload.toSimpleString());
     });
   }

@@ -1,4 +1,3 @@
-import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/platform/notification/notification.dart';
@@ -20,7 +19,7 @@ class SupportUnread extends AsyncValue<bool> {
   }
 }
 
-class SupportUnreadController with Logging {
+class SupportUnreadController with Logging, Actor {
   late final _unread = DI.get<SupportUnread>();
   late final _notification = DI.get<NotificationStore>();
   late final _stage = DI.get<StageStore>();
@@ -28,12 +27,13 @@ class SupportUnreadController with Logging {
   bool isForeground = true;
   bool isOnSupportScreen = false;
 
-  load() async {
+  @override
+  onStart(Marker m) async {
     Navigation.onNavigated = (path) {
       _update(Markers.support, isOnSupportScreen: path == Paths.support);
     };
     _stage.addOnValue(routeChanged, onRouteChanged);
-    await _unread.fetch();
+    await _unread.fetch(m);
   }
 
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
@@ -48,7 +48,7 @@ class SupportUnreadController with Logging {
     log(m).t("New chat message");
     if (!isOnSupportScreen) {
       log(m).i("Setting chat unread flag");
-      _unread.now = true;
+      _unread.change(m, true);
       if (!isForeground) {
         await _notification.showWithBody(
             NotificationId.supportNewMessage, m, content);
@@ -70,7 +70,7 @@ class SupportUnreadController with Logging {
     });
 
     if (this.isForeground && this.isOnSupportScreen) {
-      _unread.now = false;
+      _unread.change(m, false);
       log(m).i("Clearing chat unread flag");
     }
   }

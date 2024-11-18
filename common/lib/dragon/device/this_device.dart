@@ -1,5 +1,4 @@
 import 'package:common/common/model/model.dart';
-import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 
 class ThisDevice extends NullableValue<JsonDevice> {

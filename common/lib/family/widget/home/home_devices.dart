@@ -234,8 +234,8 @@ class HomeDevicesState extends State<HomeDevices>
   // To show to user, that the slidable options are available
   _showSlidableActionToUser(SlidableController? ctrl) async {
     if (ctrl == null) return;
-    if (await _slidableOnboarding.fetch() == true) return;
-    _slidableOnboarding.now = true;
+    if (await _slidableOnboarding.fetch(Markers.ui) == true) return;
+    _slidableOnboarding.change(Markers.ui, true);
 
     Future.delayed(const Duration(milliseconds: 500), () {
       ctrl.openEndActionPane();

@@ -1,7 +1,6 @@
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/channel.pg.dart';
@@ -25,13 +24,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin, Logging {
+    with TickerProviderStateMixin, Logging, Disposables {
   final _app = DI.get<AppStore>();
   final _stage = DI.get<StageStore>();
-  final _lock = DI.get<LockStore>();
 
   bool showDebug = false;
-  bool hasPin = false;
   bool working = false;
 
   late AnimationController controller;
@@ -65,7 +62,6 @@ class HomeScreenState extends State<HomeScreen>
       }
 
       setState(() {
-        hasPin = _lock.hasPin;
         working = _app.status.isWorking() || !_stage.isReady;
       });
     });
@@ -75,6 +71,7 @@ class HomeScreenState extends State<HomeScreen>
   void dispose() {
     controller.dispose();
     controllerOrange.dispose();
+    disposeAll();
     super.dispose();
   }
 

@@ -33,14 +33,14 @@ class SupportController with Logging {
     if (initialized) return false;
     initialized = true;
 
-    await _currentSession.fetch();
+    await _currentSession.fetch(m);
 
     if (_currentSession.now != null) {
       try {
         final session = await _api.getSession(m, _currentSession.now!);
         _ttl = session.ttl;
         if (_ttl < 0) throw Exception("Session expired");
-        await _loadChatHistory(session.history);
+        await _loadChatHistory(m, session.history);
         return false;
       } catch (e, s) {
         log(m).e(msg: "Error loading session", err: e, stack: s);
@@ -59,8 +59,8 @@ class SupportController with Logging {
     }
   }
 
-  _loadChatHistory(List<JsonSupportHistoryItem> history) async {
-    await _chatHistory.fetch();
+  _loadChatHistory(Marker m, List<JsonSupportHistoryItem> history) async {
+    await _chatHistory.fetch(m);
     messages = _chatHistory.now?.messages ?? [];
 
     final apiHistory = history.filter((e) => e.text?.isBlank == false).map((e) {
@@ -87,24 +87,24 @@ class SupportController with Logging {
     }
 
     // Update local cache
-    _chatHistory.now = SupportMessages(messages);
+    _chatHistory.change(m, SupportMessages(messages));
 
     onChange();
   }
 
   startSession(Marker m, {SupportEvent? event}) async {
     await loadOrInit(m, event: event);
-    clearSession();
+    clearSession(m);
     final session = await _api.createSession(m, language, event: event);
-    _currentSession.now = session.sessionId;
+    _currentSession.change(m, session.sessionId);
     _ttl = session.ttl;
     await _updateSessionExpiry();
     await _handleResponse(m, session.history);
   }
 
-  clearSession() async {
-    _currentSession.now = null;
-    _chatHistory.now = null;
+  clearSession(Marker m) async {
+    _currentSession.change(m, null);
+    _chatHistory.change(m, null);
     messages = [];
     onChange();
     onReset();
@@ -113,7 +113,7 @@ class SupportController with Logging {
   sendMessage(String? message, Marker m, {bool retrying = false}) async {
     await loadOrInit(m);
     if (message?.startsWith("cc ") ?? false) {
-      await _addMyMessage(message!);
+      await _addMyMessage(m, message!);
       await _handleCommand(message.substring(3), m);
       return;
     }
@@ -124,14 +124,14 @@ class SupportController with Logging {
       }
 
       if (message != null) {
-        _addMyMessage(message);
+        _addMyMessage(m, message);
         final msg = await _api.sendMessage(m, _currentSession.now!, message);
         if (msg.messages != null) await _handleResponse(m, msg.messages!);
       }
     } on HttpCodeException catch (e) {
       if (e.code >= 400 && e.code < 500) {
         // Session bad or expired
-        clearSession();
+        clearSession(m);
         if (!retrying) {
           log(m).w("Invalid session, Retrying...");
           await sendMessage(message, m, retrying: true);
@@ -161,7 +161,7 @@ class SupportController with Logging {
     } on HttpCodeException catch (e) {
       if (e.code >= 400 && e.code < 500) {
         // Session bad or expired
-        clearSession();
+        clearSession(m);
         if (!retrying) {
           log(m).w("Invalid session, Retrying...");
           await sendEvent(event, m, retrying: true);
@@ -177,10 +177,10 @@ class SupportController with Logging {
     await _updateSessionExpiry();
   }
 
-  _addMyMessage(String msg) {
+  _addMyMessage(Marker m, String msg) {
     final message = SupportMessage(msg, DateTime.now(), isMe: true);
     messages.add(message);
-    _chatHistory.now = SupportMessages(messages);
+    _chatHistory.change(m, SupportMessages(messages));
     onChange();
   }
 
@@ -202,7 +202,7 @@ class SupportController with Logging {
   _addMessage(m, SupportMessage message) async {
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
-    _chatHistory.now = SupportMessages(messages);
+    _chatHistory.change(m, SupportMessages(messages));
     onChange();
     await _unread.newMessage(m, message.text);
   }
@@ -236,7 +236,7 @@ class SupportController with Logging {
       Markers.support,
       before: DateTime.now().add(Duration(seconds: _ttl)),
       callback: (m) async {
-        clearSession();
+        clearSession(m);
         return false; // No reschedule
       },
     ));

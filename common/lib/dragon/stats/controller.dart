@@ -46,7 +46,7 @@ class StatsController with Logging {
 
   startAutoRefresh(Marker m) async {
     await log(m).trace("startAutoRefresh", (m) async {
-      await _selectedDevice.fetch();
+      await _selectedDevice.fetch(m);
       await _scheduler.addOrUpdate(
           Job(
             _key,

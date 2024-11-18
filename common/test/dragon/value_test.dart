@@ -1,11 +1,11 @@
-import 'package:common/common/state/state.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group("NullableValue", () {
     test("basic", () async {
       final subject = TestValue(onLoad: () => "ok");
-      await subject.fetch();
+      await subject.fetch(Markers.testing);
       expect(subject.now, "ok");
     });
 

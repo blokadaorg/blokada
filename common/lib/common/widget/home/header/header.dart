@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/home/header/header_button.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/support_unread.dart';
-import 'package:common/lock/lock.dart';
-import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 
 class SmartHeader extends StatefulWidget {
@@ -18,44 +14,19 @@ class SmartHeader extends StatefulWidget {
   State<StatefulWidget> createState() => Header();
 }
 
-class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
-  late final _lock = DI.get<LockStore>();
-  late final _stage = DI.get<StageStore>();
+class Header extends State<SmartHeader>
+    with TickerProviderStateMixin, Logging, Disposables {
   late final _unread = DI.get<SupportUnread>();
-
-  // bool _opened = false;
-
-  // late final _ctrl = AnimationController(
-  //   duration: const Duration(milliseconds: 400),
-  //   vsync: this,
-  // );
-  //
-  // late final _anim = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-  //   parent: _ctrl,
-  //   curve: Curves.easeInOut,
-  // ));
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _ctrl.dispose();
-  // }
-
-  late StreamSubscription? _unreadSub;
 
   @override
   void initState() {
     super.initState();
-    _unread.fetch();
-    _unreadSub = _unread.onChange.listen((it) {
-      if (!mounted) return;
-      setState(() {});
-    });
+    disposeLater(_unread.onChange.listen(rebuild));
   }
 
   @override
   void dispose() {
-    _unreadSub?.cancel();
+    disposeAll();
     super.dispose();
   }
 
@@ -70,7 +41,6 @@ class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
             children: _buildButtons(context),
           ),
         ),
-        //SmartHeaderOnboard(key: _containerKey, opened: _opened),
       ],
     );
   }
@@ -82,14 +52,6 @@ class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
 
     if (!widget.phase.isLocked2() &&
         widget.phase != FamilyPhase.linkedExpired) {
-      // list.add(SmartHeaderButton(
-      //     icon: _lock.hasPin ? CupertinoIcons.lock : CupertinoIcons.lock_open,
-      //     onTap: () {
-      //       //_modal.set(StageModal.lock);
-      //       traceAs("tappedLock", () async {
-      //         await _lock.autoLock;
-      //       });
-      //     }));
       list.add(SmartHeaderButton.HeaderButton(
           unread: (_unread.resolved) ? _unread.now : false,
           icon: CupertinoIcons.person_crop_circle,
@@ -99,38 +61,6 @@ class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
       list.add(const SizedBox(width: 4));
     }
 
-    // list.add(SmartHeaderButton(
-    //     unread: _unread.now,
-    //     icon: CupertinoIcons.question_circle,
-    //     onTap: () {
-    //       Navigation.open(Paths.support);
-    //       // traceAs("tappedHelp", () async {
-    //       //   _stage.showModal(StageModal.help);
-    //       // });
-    //       // showCupertinoModalBottomSheet(
-    //       //   context: context,
-    //       //   duration: const Duration(milliseconds: 300),
-    //       //   backgroundColor: context.theme.bgColorCard,
-    //       //   builder: (context) => PaymentSheet(),
-    //       // );
-    //
-    //     }));
-
     return list;
   }
 }
-
-// GestureDetector(
-//   onTap: _playAnim,
-//   child: SmartHeaderButton(
-//       iconWidget: Padding(
-//     padding: const EdgeInsets.all(12),
-//     child: Opacity(
-//       opacity: _opened ? 0 : 1,
-//       child: Image.asset(
-//         "assets/images/family-logo.png",
-//         fit: BoxFit.contain,
-//       ),
-//     ),
-//   )),
-// ),

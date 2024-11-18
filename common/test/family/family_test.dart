@@ -1,6 +1,7 @@
 import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/lock/lock.dart';
+import 'package:common/lock/value.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
@@ -16,7 +17,7 @@ import '../tools.dart';
   MockSpec<FamilyStore>(),
   MockSpec<DeviceStore>(),
   MockSpec<AccountStore>(),
-  MockSpec<LockStore>(),
+  MockSpec<IsLocked>(),
   MockSpec<AppStore>(),
   MockSpec<StageStore>(),
   MockSpec<JournalStore>(),
@@ -30,7 +31,7 @@ void main() {
     test("linkDeviceBasicTest", () async {
       await withTrace((m) async {
         DI.register<AccountStore>(MockAccountStore());
-        DI.register<LockStore>(MockLockStore());
+        DI.register<IsLocked>(MockIsLocked());
         DI.register<AppStore>(MockAppStore());
         DI.register<StageStore>(MockStageStore());
         DI.register<JournalStore>(MockJournalStore());

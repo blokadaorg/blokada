@@ -2,12 +2,13 @@ import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/dragon_deps.dart';
 import 'package:common/dragon/filter/filter_legacy.dart';
+import 'package:common/lock/actor.dart';
 import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/dnscheck.dart';
+import 'package:common/platform/persistence/actor.dart';
 import 'package:common/v6/widget/home/home.dart';
 
 import 'dragon/family/family.dart';
-import 'lock/lock.dart';
 import 'platform/account/account.dart';
 import 'platform/account/payment/payment.dart';
 import 'platform/account/refresh/refresh.dart';
@@ -22,7 +23,6 @@ import 'platform/journal/journal.dart';
 import 'platform/link/link.dart';
 import 'platform/notification/notification.dart';
 import 'platform/perm/perm.dart';
-import 'platform/persistence/persistence.dart';
 import 'platform/plus/gateway/gateway.dart';
 import 'platform/plus/keypair/keypair.dart';
 import 'platform/plus/lease/lease.dart';
@@ -82,7 +82,7 @@ class Entrypoint with Actor, Logging {
     AppStartStore().register(act);
     PrivateDnsCheck().register(act);
     PermStore().register(act);
-    LockStore().register(act);
+    LockActor().register(act);
     CustomStore().register(act);
 
     if (!act.isFamily) {

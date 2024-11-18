@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/family/family.dart';
+import 'package:common/lock/value.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../lock/lock.dart';
 import '../../util/mobx.dart';
 import '../account/account.dart';
 import '../env/env.dart';
@@ -64,8 +64,9 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   late final _ops = DI.get<LinkOps>();
   late final _env = DI.get<EnvStore>();
   late final _account = DI.get<AccountStore>();
-  late final _lock = DI.get<LockStore>();
   late final _family = DI.get<FamilyStore>();
+
+  late final _isLocked = DI.get<IsLocked>();
 
   String userAgent = "";
   Map<LinkId, LinkTemplate> templates = {};
@@ -75,11 +76,12 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   onRegister(Act act) {
     DI.register<LinkOps>(getOps(act));
     DI.register<LinkStore>(this as LinkStore);
-    _lock.addOnValue(lockChanged, updateLinksFromLock);
     _account.addOn(accountChanged, updateLinksFromAccount);
     if (act.isFamily) {
       reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
     }
+
+    _isLocked.onChange.listen(updateLinksFromLock);
   }
 
   @override
@@ -91,9 +93,8 @@ abstract class LinkStoreBase with Store, Logging, Actor {
     });
   }
 
-  @action
-  Future<void> updateLinksFromLock(bool isLocked, Marker m) async {
-    return await log(m).trace("updateLinksFromLock", (m) async {
+  updateLinksFromLock(bool isLocked) async {
+    return await log(Markers.root).trace("updateLinksFromLock", (m) async {
       log(m).pair("isLocked", isLocked);
       await _updateLinks();
     });
@@ -111,7 +112,7 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   _updateLinks() async {
     final linked = act.isFamily && _family.linkedMode;
     for (var id in LinkId.values) {
-      links[id] = _getLink(id, _lock.isLocked || linked);
+      links[id] = _getLink(id, _isLocked.now || linked);
     }
 
     List<Link> converted =

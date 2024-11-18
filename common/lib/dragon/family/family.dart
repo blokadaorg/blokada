@@ -11,7 +11,7 @@ import 'package:common/dragon/perm/controller.dart';
 import 'package:common/dragon/perm/dns_perm.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/dragon/stats/controller.dart';
-import 'package:common/lock/lock.dart';
+import 'package:common/lock/value.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/channel.pg.dart';
@@ -30,7 +30,6 @@ class FamilyStore = FamilyStoreBase with _$FamilyStore;
 abstract class FamilyStoreBase with Store, Logging, Actor {
   late final _stage = DI.get<StageStore>();
   late final _account = DI.get<AccountStore>();
-  late final _lock = DI.get<LockStore>();
 
   late final _device = DI.get<DeviceController>();
   late final _stats = DI.get<StatsController>();
@@ -42,17 +41,20 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
   late final _acc = DI.get<AccountController>();
   late final _profiles = DI.get<ProfileController>();
 
+  late final _isLocked = DI.get<IsLocked>();
+
   @override
   onRegister(Act act) {
     DI.register<FamilyStore>(this as FamilyStore);
 
     if (!(act.isFamily ?? false)) return;
 
-    _acc.start();
+    _acc.start(Markers.root);
     _perm.start(Markers.start);
 
     _account.addOn(accountChanged, _postActivationOnboarding);
-    _lock.addOnValue(lockChanged, _updatePhaseFromLock);
+
+    _isLocked.onChange.listen(_updatePhaseFromLock);
 
     _onStatsChanges();
     _onDnsPermChanges();
@@ -64,7 +66,7 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
       log(m).i("token expired");
       linkedMode = false;
       linkedTokenOk = false;
-      _thisDevice.now = null;
+      _thisDevice.change(m, null);
       _updatePhase(m, reason: "tokenExpired");
     };
     _auth.onTokenRefreshed = (m) {
@@ -117,7 +119,7 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
   _onDnsPermChanges() {
     _dnsPerm.onChange.listen((it) async {
       return await log(Markers.perm).trace("dnsPermChanged", (m) async {
-        permsGranted = it;
+        permsGranted = it.now;
         _updatePhase(m, reason: "dnsPermChanged");
       });
     });
@@ -153,7 +155,7 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
         await _device.reload(m, createIfNeeded: createDeviceIfNeeded);
       }
 
-      final deviceTag = (await _thisDevice.fetch())?.deviceTag;
+      final deviceTag = (await _thisDevice.fetch(m))?.deviceTag;
       log(m).pair("deviceTag", deviceTag);
 
       devices = FamilyDevices([], null)
@@ -240,10 +242,9 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
   }
 
   // Locking this device will enable the blocking for "this device"
-  @action
-  _updatePhaseFromLock(bool isLocked, Marker m) async {
+  _updatePhaseFromLock(bool isLocked) async {
     if (!act.isFamily) return;
-    _updatePhase(m, loading: true);
+    _updatePhase(Markers.root, loading: true);
     appLocked = isLocked;
 
     // if (isLocked) {
@@ -263,7 +264,7 @@ abstract class FamilyStoreBase with Store, Logging, Actor {
     //   //   await _addThisDevice(parentTrace);
     //   // }
     // }
-    _updatePhase(m, reason: "fromLock");
+    _updatePhase(Markers.root, reason: "fromLock");
   }
 
   link(String qrUrl, Marker m) async {

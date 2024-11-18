@@ -1,7 +1,7 @@
 import 'package:common/common/api/api.dart';
 import 'package:common/common/defaults/filter_defaults.dart';
 import 'package:common/common/model/model.dart';
-import 'package:common/common/state/state.dart';
+import 'package:common/common/value/value.dart';
 import 'package:common/core/core.dart';
 import 'package:common/dragon/account/controller.dart';
 import 'package:common/dragon/auth/api.dart';
@@ -109,8 +109,8 @@ class DragonDeps {
 
   load(Act act) {
     if (act.isFamily) {
-      DI.get<SupportUnreadController>().load();
-      DI.get<PurchaseTimout>().load();
+      DI.get<SupportUnreadController>().onStart(Markers.root);
+      DI.get<PurchaseTimout>().onStart(Markers.root);
     }
   }
 }

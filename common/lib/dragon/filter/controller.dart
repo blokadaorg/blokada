@@ -27,7 +27,7 @@ class FilterController with Logging {
 
   FilterController() {
     _userConfig.onChange.listen((_) => reload(Markers.filter));
-    _selectedFilters.now = [];
+    _selectedFilters.change(Markers.filter, []);
   }
 
   maybeGetLists(Marker m) async {
@@ -208,7 +208,7 @@ class FilterController with Logging {
           .add(FilterSelection(filter.filterName, active.distinct().toList()));
     }
 
-    _selectedFilters.now = selectedFilters;
+    _selectedFilters.change(m, selectedFilters);
     _reconfigure(m);
   }
 
@@ -284,7 +284,7 @@ class FilterController with Logging {
     final shouldBeConfig = UserFilterConfig(shouldBeLists, shouldBeConfigs);
     if (userConfig != shouldBeConfig) {
       log(m).i("reloading based on userconfig");
-      _userConfig.now = shouldBeConfig;
+      _userConfig.change(m, shouldBeConfig);
       _needsReload = true;
       return;
     }
@@ -304,7 +304,7 @@ class FilterController with Logging {
     if (!_act.isFamily) {
       log(m).i("Applying defaults");
       final defaults = _defaultFilters.get();
-      _selectedFilters.now = defaults;
+      _selectedFilters.change(m, defaults);
     }
 
     _defaultsApplied = true;

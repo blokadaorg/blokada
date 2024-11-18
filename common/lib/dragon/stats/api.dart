@@ -1,6 +1,6 @@
 import 'package:common/common/api/api.dart';
 import 'package:common/common/model/model.dart';
-import 'package:common/common/state/state.dart';
+import 'package:common/common/value/value.dart';
 import 'package:common/core/core.dart';
 
 class StatsApi {

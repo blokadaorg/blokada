@@ -89,7 +89,7 @@ class SupportScreenState extends State<SupportScreen> with Logging {
           // });
           //showSupportDialog(context);
           Navigator.of(context).pop();
-          _support.clearSession();
+          _support.clearSession(Markers.userTap);
         },
         child: Text("End", style: TextStyle(color: Colors.red, fontSize: 17)));
   }
