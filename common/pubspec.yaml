@@ -76,8 +76,6 @@ dev_dependencies:
   mobx_codegen: ^2.0.7+3
   pigeon: ^12.0.0
   mockito: ^5.3.2
-  via_generator:
-    path: ./via/via_generator/
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
