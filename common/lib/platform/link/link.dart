@@ -61,11 +61,11 @@ final _linkTemplates = {
 };
 
 abstract class LinkStoreBase with Store, Logging, Actor {
-  late final _ops = dep<LinkOps>();
-  late final _env = dep<EnvStore>();
-  late final _account = dep<AccountStore>();
-  late final _lock = dep<LockStore>();
-  late final _family = dep<FamilyStore>();
+  late final _ops = DI.get<LinkOps>();
+  late final _env = DI.get<EnvStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _lock = DI.get<LockStore>();
+  late final _family = DI.get<FamilyStore>();
 
   String userAgent = "";
   Map<LinkId, LinkTemplate> templates = {};
@@ -73,8 +73,8 @@ abstract class LinkStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<LinkOps>(getOps(act));
-    depend<LinkStore>(this as LinkStore);
+    DI.register<LinkOps>(getOps(act));
+    DI.register<LinkStore>(this as LinkStore);
     _lock.addOnValue(lockChanged, updateLinksFromLock);
     _account.addOn(accountChanged, updateLinksFromAccount);
     if (act.isFamily) {

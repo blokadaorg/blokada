@@ -29,16 +29,16 @@ void main() {
   group("store", () {
     test("willUpdateObservablesOnFetch", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<AccountStore>(MockAccountStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        depend<DeviceJson>(api);
+        DI.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        depend<DeviceOps>(ops);
+        DI.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         mockAct(subject);
@@ -54,16 +54,16 @@ void main() {
 
     test("willFetchOnCallsToActions", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<AccountStore>(MockAccountStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        depend<DeviceJson>(api);
+        DI.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        depend<DeviceOps>(ops);
+        DI.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         subject.deviceTag = "some-tag";
@@ -86,15 +86,15 @@ void main() {
   group("storeErrors", () {
     test("willNotUpdateObservablesOnFetchError", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<AccountStore>(MockAccountStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        depend<DeviceJson>(api);
+        DI.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        depend<DeviceOps>(ops);
+        DI.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         subject.act = mockedAct;
@@ -110,15 +110,15 @@ void main() {
 
     test("willPropagateFetchErrorOnCallsToActions", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<AccountStore>(MockAccountStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        depend<DeviceJson>(api);
+        DI.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        depend<DeviceOps>(ops);
+        DI.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         subject.act = mockedAct;

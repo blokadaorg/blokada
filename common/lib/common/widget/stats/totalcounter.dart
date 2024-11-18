@@ -19,7 +19,7 @@ class TotalCounter extends StatefulWidget {
 }
 
 class TotalCounterState extends State<TotalCounter> with Logging {
-  late final _stage = dep<StageStore>();
+  late final _stage = DI.get<StageStore>();
 
   var allowed = 0.0;
   var blocked = 0;

@@ -6,7 +6,6 @@ import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/family/family.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
@@ -27,9 +26,9 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class DeviceScreenState extends State<DeviceScreen> {
-  late final _family = dep<FamilyStore>();
-  late final _journal = dep<JournalController>();
-  late final _selectedFilters = dep<SelectedFilters>();
+  late final _family = DI.get<FamilyStore>();
+  late final _journal = DI.get<JournalController>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
 
   Paths _path = Paths.deviceStats;
   Object? _arguments;

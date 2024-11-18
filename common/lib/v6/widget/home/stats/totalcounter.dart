@@ -27,8 +27,8 @@ class TotalCounterState extends State<TotalCounter> with Logging {
 
   final bool autoRefresh;
 
-  final _stats = dep<StatsStore>();
-  final _stage = dep<StageStore>();
+  final _stats = DI.get<StatsStore>();
+  final _stage = DI.get<StageStore>();
 
   var allowed = 0.0;
   var blocked = 0;

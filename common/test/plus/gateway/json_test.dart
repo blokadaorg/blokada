@@ -40,11 +40,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureGatewayEndpoint));
-        depend<HttpService>(http);
+        DI.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final subject = PlusGatewayJson();
         final entries = await subject.get(m);
@@ -61,11 +61,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        depend<HttpService>(http);
+        DI.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final subject = PlusGatewayJson();
 

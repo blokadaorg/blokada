@@ -21,18 +21,18 @@ import '../debounce.dart';
 // However, we wanted the new Filters faster since the old concept
 // was problematic and buggy. So this class exposes it to for old code.
 class FilterLegacy with Logging {
-  late final _controller = dep<FilterController>();
-  late final _device = dep<DeviceStore>();
-  late final _userConfig = dep<CurrentConfig>();
-  late final _selectedFilters = dep<SelectedFilters>();
-  late final _knownFilters = dep<KnownFilters>();
-  late final _ops = dep<channel.FilterOps>();
-  late final _acc = dep<AccountController>();
+  late final _controller = DI.get<FilterController>();
+  late final _device = DI.get<DeviceStore>();
+  late final _userConfig = DI.get<CurrentConfig>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
+  late final _knownFilters = DI.get<KnownFilters>();
+  late final _ops = DI.get<channel.FilterOps>();
+  late final _acc = DI.get<AccountController>();
 
   final _debounce = Debounce(const Duration(seconds: 1));
 
   FilterLegacy(Act act) {
-    depend<channel.FilterOps>(getOps(act));
+    DI.register<channel.FilterOps>(getOps(act));
     _device.addOn(deviceChanged, onDeviceChanged);
     _selectedFilters.onChange
         .listen((it) => onSelectedFiltersChanged(it, Markers.filter));

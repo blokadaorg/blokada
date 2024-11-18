@@ -6,7 +6,6 @@ import '../../util/cooldown.dart';
 import '../../util/mobx.dart';
 import '../account/account.dart';
 import '../env/env.dart';
-import '../persistence/persistence.dart';
 import '../stage/stage.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -31,12 +30,12 @@ const String _keyTag = "device:tag";
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
-  late final _ops = dep<DeviceOps>();
-  late final _api = dep<DeviceJson>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
-  late final _persistence = dep<PersistenceService>();
-  late final _env = dep<EnvStore>();
+  late final _ops = DI.get<DeviceOps>();
+  late final _api = DI.get<DeviceJson>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _persistence = DI.get<Persistence>();
+  late final _env = DI.get<EnvStore>();
 
   late final _names = names.UniqueNamesGenerator(
     config: names.Config(
@@ -83,9 +82,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   @override
   onRegister(Act act) {
-    depend<DeviceOps>(getOps(act));
-    depend<DeviceJson>(DeviceJson());
-    depend<DeviceStore>(this as DeviceStore);
+    DI.register<DeviceOps>(getOps(act));
+    DI.register<DeviceJson>(DeviceJson());
+    DI.register<DeviceStore>(this as DeviceStore);
   }
 
   @observable
@@ -126,7 +125,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      deviceAlias = await _persistence.load(_keyAlias, m) ?? "";
+      deviceAlias = await _persistence.load(_keyAlias) ?? "";
     });
   }
 

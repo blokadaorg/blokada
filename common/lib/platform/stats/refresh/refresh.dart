@@ -14,10 +14,10 @@ const String keyTimer = "stats:refresh";
 class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
 abstract class StatsRefreshStoreBase with Store, Logging, Actor {
-  late final _stats = dep<StatsStore>();
-  late final _timer = dep<TimerService>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
+  late final _stats = DI.get<StatsStore>();
+  late final _timer = DI.get<TimerService>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
 
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -28,7 +28,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<StatsRefreshStore>(this as StatsRefreshStore);
+    DI.register<StatsRefreshStore>(this as StatsRefreshStore);
   }
 
   List<String> _monitoredDevices = [];

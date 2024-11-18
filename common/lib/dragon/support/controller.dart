@@ -12,12 +12,12 @@ import 'package:i18n_extension/i18n_extension.dart';
 const _keyExpireSession = "supportExpireSession";
 
 class SupportController with Logging {
-  late final _api = dep<SupportApi>();
-  late final _command = dep<CommandStore>();
-  late final _currentSession = dep<CurrentSession>();
-  late final _chatHistory = dep<ChatHistory>();
-  late final _unread = dep<SupportUnreadController>();
-  late final _scheduler = dep<Scheduler>();
+  late final _api = DI.get<SupportApi>();
+  late final _command = DI.get<CommandStore>();
+  late final _currentSession = DI.get<CurrentSession>();
+  late final _chatHistory = DI.get<ChatHistory>();
+  late final _unread = DI.get<SupportUnreadController>();
+  late final _scheduler = DI.get<Scheduler>();
   late String language = I18n.localeStr;
 
   bool initialized = false;

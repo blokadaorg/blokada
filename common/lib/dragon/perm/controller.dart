@@ -7,13 +7,13 @@ import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 
 class PermController with Logging {
-  late final _ops = dep<PermOps>();
-  late final _perm = dep<DnsPerm>();
-  late final _deviceTag = dep<ThisDevice>();
-  late final _act = dep<Act>();
-  late final _check = dep<PrivateDnsCheck>();
+  late final _ops = DI.get<PermOps>();
+  late final _perm = DI.get<DnsPerm>();
+  late final _deviceTag = DI.get<ThisDevice>();
+  late final _act = DI.get<Act>();
+  late final _check = DI.get<PrivateDnsCheck>();
 
-  late final _stage = dep<StageStore>();
+  late final _stage = DI.get<StageStore>();
 
   start(Marker m) async {
     _checkDns(m);

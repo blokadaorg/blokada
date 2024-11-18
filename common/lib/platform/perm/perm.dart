@@ -15,12 +15,12 @@ part 'perm.g.dart';
 class PermStore = PermStoreBase with _$PermStore;
 
 abstract class PermStoreBase with Store, Logging, Actor {
-  late final _ops = dep<PermOps>();
-  late final _app = dep<AppStore>();
-  late final _device = dep<DeviceStore>();
-  late final _plus = dep<PlusStore>();
-  late final _stage = dep<StageStore>();
-  late final _check = dep<PrivateDnsCheck>();
+  late final _ops = DI.get<PermOps>();
+  late final _app = DI.get<AppStore>();
+  late final _device = DI.get<DeviceStore>();
+  late final _plus = DI.get<PlusStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _check = DI.get<PrivateDnsCheck>();
 
   PermStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -31,8 +31,8 @@ abstract class PermStoreBase with Store, Logging, Actor {
     _app.addOn(appStatusChanged, onAppStatusChanged);
     _device.addOn(deviceChanged, onDeviceChanged);
 
-    depend<PermOps>(getOps(act));
-    depend<PermStore>(this as PermStore);
+    DI.register<PermOps>(getOps(act));
+    DI.register<PermStore>(this as PermStore);
   }
 
   @observable

@@ -8,11 +8,11 @@ import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/profile/api.dart';
 
 class ProfileController with Logging {
-  late final _profiles = dep<ProfileApi>();
-  late final _defaultFilters = dep<DefaultFilters>();
-  late final _filters = dep<FilterController>();
-  late final _userConfig = dep<CurrentConfig>();
-  late final _selectedFilters = dep<SelectedFilters>();
+  late final _profiles = DI.get<ProfileApi>();
+  late final _defaultFilters = DI.get<DefaultFilters>();
+  late final _filters = DI.get<FilterController>();
+  late final _userConfig = DI.get<CurrentConfig>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
 
   List<JsonProfile> profiles = [];
 

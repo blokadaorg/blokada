@@ -14,7 +14,7 @@ class DefaultTimer with Logging, Actor implements TimerService {
 
   @override
   onRegister(Act act) {
-    depend<TimerService>(this);
+    DI.register<TimerService>(this);
   }
 
   @override
@@ -53,7 +53,7 @@ class TestingTimer with Logging, Actor implements TimerService {
 
   @override
   onRegister(Act act) {
-    depend<TimerService>(this);
+    DI.register<TimerService>(this);
   }
 
   @override

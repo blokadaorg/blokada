@@ -8,7 +8,6 @@ import '../account/account.dart';
 import '../app/app.dart';
 import '../app/channel.pg.dart';
 import '../device/device.dart';
-import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import 'channel.act.dart';
@@ -28,16 +27,16 @@ const String _keySelected = "plus:active";
 class PlusStore = PlusStoreBase with _$PlusStore;
 
 abstract class PlusStoreBase with Store, Logging, Actor {
-  late final _ops = dep<PlusOps>();
-  late final _keypair = dep<PlusKeypairStore>();
-  late final _gateway = dep<PlusGatewayStore>();
-  late final _lease = dep<PlusLeaseStore>();
-  late final _vpn = dep<PlusVpnStore>();
-  late final _persistence = dep<PersistenceService>();
-  late final _app = dep<AppStore>();
-  late final _device = dep<DeviceStore>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
+  late final _ops = DI.get<PlusOps>();
+  late final _keypair = DI.get<PlusKeypairStore>();
+  late final _gateway = DI.get<PlusGatewayStore>();
+  late final _lease = DI.get<PlusLeaseStore>();
+  late final _vpn = DI.get<PlusVpnStore>();
+  late final _persistence = DI.get<Persistence>();
+  late final _app = DI.get<AppStore>();
+  late final _device = DI.get<DeviceStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
 
   PlusStoreBase() {
     _app.addOn(appStatusChanged, reactToAppStatus);
@@ -48,8 +47,8 @@ abstract class PlusStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<PlusOps>(getOps(act));
-    depend<PlusStore>(this as PlusStore);
+    DI.register<PlusOps>(getOps(act));
+    DI.register<PlusStore>(this as PlusStore);
   }
 
   @observable
@@ -74,7 +73,7 @@ abstract class PlusStoreBase with Store, Logging, Actor {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      plusEnabled = await _persistence.load(_keySelected, m) == "1";
+      plusEnabled = await _persistence.load(_keySelected) == "1";
     });
   }
 
@@ -217,6 +216,6 @@ abstract class PlusStoreBase with Store, Logging, Actor {
   }
 
   _saveFlag(Marker m) async {
-    await _persistence.saveString(_keySelected, plusEnabled ? "1" : "0", m);
+    await _persistence.save(_keySelected, plusEnabled ? "1" : "0");
   }
 }

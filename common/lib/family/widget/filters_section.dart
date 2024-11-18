@@ -5,7 +5,6 @@ import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/filter/filter.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/filter/selected_filters.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/profile/controller.dart';
@@ -24,9 +23,9 @@ class FiltersSection extends StatefulWidget {
 }
 
 class FiltersSectionState extends State<FiltersSection> with Logging {
-  late final _knownFilters = dep<KnownFilters>();
-  late final _profiles = dep<ProfileController>();
-  late final _selectedFilters = dep<SelectedFilters>();
+  late final _knownFilters = DI.get<KnownFilters>();
+  late final _profiles = DI.get<ProfileController>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
 
   late JsonProfile profile;
 

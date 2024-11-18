@@ -11,8 +11,8 @@ final _noFilter = JournalFilter(
 );
 
 class JournalController with Logging {
-  late final _api = dep<JournalApi>();
-  late final _custom = dep<CustomStore>();
+  late final _api = DI.get<JournalApi>();
+  late final _custom = DI.get<CustomStore>();
 
   JournalFilter filter = _noFilter;
   List<UiJournalEntry> allEntries = [];

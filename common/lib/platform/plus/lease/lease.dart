@@ -33,14 +33,14 @@ class NoCurrentLeaseException implements Exception {}
 class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
 abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = dep<PlusLeaseOps>();
-  late final _json = dep<PlusLeaseJson>();
-  late final _gateway = dep<PlusGatewayStore>();
-  late final _keypair = dep<PlusKeypairStore>();
-  late final _plus = dep<PlusStore>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
-  late final _device = dep<DeviceStore>();
+  late final _ops = DI.get<PlusLeaseOps>();
+  late final _json = DI.get<PlusLeaseJson>();
+  late final _gateway = DI.get<PlusGatewayStore>();
+  late final _keypair = DI.get<PlusKeypairStore>();
+  late final _plus = DI.get<PlusStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _device = DI.get<DeviceStore>();
 
   PlusLeaseStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -56,9 +56,9 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
-    depend<PlusLeaseOps>(getOps(act));
-    depend<PlusLeaseJson>(PlusLeaseJson());
-    depend<PlusLeaseStore>(this as PlusLeaseStore);
+    DI.register<PlusLeaseOps>(getOps(act));
+    DI.register<PlusLeaseJson>(PlusLeaseJson());
+    DI.register<PlusLeaseStore>(this as PlusLeaseStore);
   }
 
   @observable

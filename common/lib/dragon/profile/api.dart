@@ -4,7 +4,7 @@ import '../../common/api/api.dart';
 import '../../common/model/model.dart';
 
 class ProfileApi {
-  late final _api = dep<Api>();
+  late final _api = DI.get<Api>();
   late final _marshal = JsonProfileMarshal();
 
   Future<List<JsonProfile>> fetch(Marker m) async {

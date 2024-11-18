@@ -19,14 +19,14 @@ void main() {
   group("binder", () {
     test("onNotificationEvent", () async {
       await withTrace((m) async {
-        depend<AccountStore>(MockAccountStore());
-        depend<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<StageStore>(MockStageStore());
 
         final store = NotificationStore();
-        depend<NotificationStore>(store);
+        DI.register<NotificationStore>(store);
 
         final ops = MockNotificationOps();
-        depend<NotificationOps>(ops);
+        DI.register<NotificationOps>(ops);
 
         verifyNever(ops.doShow(any, any, any));
 

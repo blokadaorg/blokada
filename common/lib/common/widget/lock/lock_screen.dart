@@ -22,8 +22,8 @@ class LockScreen extends StatefulWidget {
 
 class _LockScreenState extends State<LockScreen>
     with TickerProviderStateMixin, Logging {
-  final _stage = dep<StageStore>();
-  final _lock = dep<LockStore>();
+  final _stage = DI.get<StageStore>();
+  final _lock = DI.get<LockStore>();
 
   int _digitsEntered = 0;
   bool _isLocked = false;

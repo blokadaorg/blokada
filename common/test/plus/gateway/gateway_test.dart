@@ -1,5 +1,4 @@
 import 'package:common/core/core.dart';
-import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/platform/plus/gateway/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/gateway/json.dart';
@@ -14,7 +13,7 @@ import 'fixtures.dart';
   MockSpec<PlusGatewayStore>(),
   MockSpec<PlusGatewayOps>(),
   MockSpec<PlusGatewayJson>(),
-  MockSpec<PersistenceService>(),
+  MockSpec<Persistence>(),
   MockSpec<StageStore>(),
 ])
 import 'gateway_test.mocks.dart';
@@ -23,15 +22,15 @@ void main() {
   group("store", () {
     test("fetch", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        depend<PlusGatewayOps>(ops);
+        DI.register<PlusGatewayOps>(ops);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        depend<PlusGatewayJson>(json);
+        DI.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         expect(subject.gateways.isEmpty, true);
@@ -46,20 +45,20 @@ void main() {
 
     test("load", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        depend<PlusGatewayOps>(ops);
+        DI.register<PlusGatewayOps>(ops);
 
-        final persistence = MockPersistenceService();
-        when(persistence.load(any, any)).thenAnswer((_) =>
+        final persistence = MockPersistence();
+        when(persistence.load(any)).thenAnswer((_) =>
             Future.value("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="));
-        depend<PersistenceService>(persistence);
+        DI.register<Persistence>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        depend<PlusGatewayJson>(json);
+        DI.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);
@@ -74,18 +73,18 @@ void main() {
 
     test("selectGateway", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        depend<PlusGatewayOps>(ops);
+        DI.register<PlusGatewayOps>(ops);
 
-        final persistence = MockPersistenceService();
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        DI.register<Persistence>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        depend<PlusGatewayJson>(json);
+        DI.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);
@@ -96,7 +95,7 @@ void main() {
             "H1TTLm88Zm+fLF3drKPO+wPHG8/d5FkuuOOt+PHVJ3g=", m);
         expect(subject.currentGateway, isNotNull);
         expect(subject.currentGateway!.country, "DE");
-        verify(persistence.saveString(any, any, any)).called(1);
+        verify(persistence.save(any, any)).called(1);
 
         // Throw on select non-existing gateway, old selection still set
         await expectLater(
@@ -106,7 +105,7 @@ void main() {
         // Unselect gateway
         await subject.selectGateway(null, m);
         expect(subject.currentGateway, null);
-        verify(persistence.delete(any, any)).called(1);
+        verify(persistence.delete(any)).called(1);
       });
     });
   });

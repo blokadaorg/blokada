@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../util/mobx.dart';
 import '../../account/account.dart';
-import '../../persistence/persistence.dart';
 import '../plus.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -22,10 +21,10 @@ extension PlusKeypairExt on PlusKeypair {
 class PlusKeypairStore = PlusKeypairStoreBase with _$PlusKeypairStore;
 
 abstract class PlusKeypairStoreBase with Store, Logging, Actor {
-  late final _ops = dep<PlusKeypairOps>();
-  late final _persistence = dep<SecurePersistenceService>();
-  late final _account = dep<AccountStore>();
-  late final _plus = dep<PlusStore>();
+  late final _ops = DI.get<PlusKeypairOps>();
+  late final _persistence = DI.get<Persistence>(tag: Persistence.secure);
+  late final _account = DI.get<AccountStore>();
+  late final _plus = DI.get<PlusStore>();
 
   PlusKeypairStoreBase() {
     _account.addOn(accountIdChanged, generate);
@@ -38,8 +37,8 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<PlusKeypairOps>(getOps(act));
-    depend<PlusKeypairStore>(this as PlusKeypairStore);
+    DI.register<PlusKeypairOps>(getOps(act));
+    DI.register<PlusKeypairStore>(this as PlusKeypairStore);
   }
 
   @observable
@@ -67,7 +66,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
     return await log(m).trace("load", (m) async {
       try {
         // throw Exception("test");
-        final json = await _persistence.loadOrThrow(_keyKeypair, m);
+        final json = await _persistence.loadJson(_keyKeypair);
         final keypair = PlusKeypair(
           publicKey: json['publicKey'],
           privateKey: json['privateKey'],
@@ -86,7 +85,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
       // throw Exception("test");
       final keypair = await _ops.doGenerateKeypair();
       _ensureValidKeypair(keypair);
-      await _persistence.save(_keyKeypair, keypair.toJson(), m);
+      await _persistence.saveJson(_keyKeypair, keypair.toJson());
       currentKeypair = keypair;
       await _plus.clearPlus(m);
     });

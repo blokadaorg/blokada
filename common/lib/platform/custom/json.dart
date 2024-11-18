@@ -61,8 +61,8 @@ class JsonCustomPayload {
 }
 
 class CustomJson {
-  late final _http = dep<HttpService>();
-  late final _account = dep<AccountStore>();
+  late final _http = DI.get<HttpService>();
+  late final _account = DI.get<AccountStore>();
 
   Future<List<JsonCustomEntry>> getEntries(Marker m) async {
     final result =

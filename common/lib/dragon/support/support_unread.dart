@@ -5,7 +5,7 @@ import 'package:common/platform/notification/notification.dart';
 import 'package:common/platform/stage/stage.dart';
 
 class SupportUnread extends AsyncValue<bool> {
-  late final _persistence = dep<Persistence>();
+  late final _persistence = DI.get<Persistence>();
 
   static const key = "support_unread";
 
@@ -21,9 +21,9 @@ class SupportUnread extends AsyncValue<bool> {
 }
 
 class SupportUnreadController with Logging {
-  late final _unread = dep<SupportUnread>();
-  late final _notification = dep<NotificationStore>();
-  late final _stage = dep<StageStore>();
+  late final _unread = DI.get<SupportUnread>();
+  late final _notification = DI.get<NotificationStore>();
+  late final _stage = DI.get<StageStore>();
 
   bool isForeground = true;
   bool isOnSupportScreen = false;

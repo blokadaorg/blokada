@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:test_api/src/backend/invoker.dart';
 
 withTrace(Future Function(Marker m) fn) async {
-  await dep.reset();
+  await DI.di.reset();
   LoggerCommands().register(mockedAct);
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class BlokadaApp extends StatelessWidget {
   final Widget? content;
-  late final ctrl = dep<TopBarController>();
+  late final ctrl = DI.get<TopBarController>();
 
   late final nav = NavigationPopObserver();
 

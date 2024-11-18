@@ -4,7 +4,7 @@ import 'package:common/core/core.dart';
 class PrivateDnsCheck with Actor, Logging {
   @override
   void onRegister(Act act) {
-    depend<PrivateDnsCheck>(this);
+    DI.register<PrivateDnsCheck>(this);
   }
 
   bool isCorrect(Marker m, String line, DeviceTag tag, String alias) {

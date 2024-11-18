@@ -18,7 +18,7 @@ class Scaffolding extends StatefulWidget {
 const pathHomeStats = "home/stats";
 
 class _ScaffoldingState extends State<Scaffolding> with Logging {
-  final _stage = dep<StageStore>();
+  final _stage = DI.get<StageStore>();
 
   final _pageCtrl = PageController(initialPage: 0);
   final _duration = const Duration(milliseconds: 800);

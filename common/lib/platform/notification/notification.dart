@@ -48,10 +48,10 @@ enum NotificationEventType {
 class NotificationStore = NotificationStoreBase with _$NotificationStore;
 
 abstract class NotificationStoreBase with Store, Logging, Actor {
-  late final _ops = dep<NotificationOps>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
-  late final _json = dep<NotificationJson>();
+  late final _ops = DI.get<NotificationOps>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _json = DI.get<NotificationJson>();
 
   String? appleToken;
 
@@ -72,9 +72,9 @@ abstract class NotificationStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<NotificationOps>(getOps(act));
-    depend<NotificationJson>(NotificationJson());
-    depend<NotificationStore>(this as NotificationStore);
+    DI.register<NotificationOps>(getOps(act));
+    DI.register<NotificationJson>(NotificationJson());
+    DI.register<NotificationStore>(this as NotificationStore);
   }
 
   @observable

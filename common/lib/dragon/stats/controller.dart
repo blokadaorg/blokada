@@ -6,9 +6,9 @@ import 'package:common/dragon/stats/api.dart';
 const _key = "statsRefresh";
 
 class StatsController with Logging {
-  late final _api = dep<StatsApi>();
-  late final _scheduler = dep<Scheduler>();
-  late final _selectedDevice = dep<SelectedDeviceTag>();
+  late final _api = DI.get<StatsApi>();
+  late final _scheduler = DI.get<Scheduler>();
+  late final _selectedDevice = DI.get<SelectedDeviceTag>();
 
   List<DeviceTag> monitorDeviceTags = [];
 

@@ -140,8 +140,8 @@ class JsonToplistEndpoint {
 }
 
 class StatsJson {
-  late final _http = dep<HttpService>();
-  late final _account = dep<AccountStore>();
+  late final _http = DI.get<HttpService>();
+  late final _account = DI.get<AccountStore>();
 
   Future<JsonStatsEndpoint> getStats(
       String since, String downsample, Marker m) async {

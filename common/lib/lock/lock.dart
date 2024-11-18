@@ -3,7 +3,6 @@ import 'package:common/platform/stage/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 import 'package:string_validator/string_validator.dart';
 
-import '../platform/persistence/persistence.dart';
 import '../platform/stage/stage.dart';
 
 part 'lock.g.dart';
@@ -15,8 +14,8 @@ const _keyLock = "lock:pin";
 class LockStore = LockStoreBase with _$LockStore;
 
 abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
-  late final _persistence = dep<PersistenceService>();
-  late final _stage = dep<StageStore>();
+  late final _persistence = DI.get<Persistence>();
+  late final _stage = DI.get<StageStore>();
 
   LockStoreBase() {
     willAcceptOnValue(lockChanged);
@@ -25,7 +24,7 @@ abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
 
   @override
   onRegister(Act act) {
-    depend<LockStore>(this as LockStore);
+    DI.register<LockStore>(this as LockStore);
   }
 
   @observable
@@ -47,7 +46,7 @@ abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      _existingPin = await _persistence.load(_keyLock, m);
+      _existingPin = await _persistence.load(_keyLock);
       hasPin = _existingPin != null;
       isLocked = hasPin;
       await emitValue(lockChanged, isLocked, m);
@@ -71,7 +70,7 @@ abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
         throw Exception("Invalid pin format: $pin");
       }
 
-      await _persistence.saveString(_keyLock, pin, m);
+      await _persistence.save(_keyLock, pin);
       _existingPin = pin;
       isLocked = true;
       hasPin = true;
@@ -119,7 +118,7 @@ abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
         throw Exception("Invalid pin format: $pin");
       }
 
-      await _persistence.saveString(_keyLock, pin, m);
+      await _persistence.save(_keyLock, pin);
       _existingPin = pin;
       hasPin = true;
     });
@@ -133,7 +132,7 @@ abstract class LockStoreBase with Store, Logging, Actor, ValueEmitter<bool> {
       await unlock(pin, m);
       _existingPin = null;
       hasPin = false;
-      await _persistence.delete(_keyLock, m);
+      await _persistence.delete(_keyLock);
     });
   }
 

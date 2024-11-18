@@ -4,7 +4,7 @@ import 'package:common/platform/logger/channel.pg.dart';
 import 'package:logger/logger.dart';
 
 class FileLoggerOutput extends LogOutput {
-  late final _ops = dep<LoggerOps>();
+  late final _ops = DI.get<LoggerOps>();
   late Act _act;
 
   FileLoggerOutput(Act act) {
@@ -47,18 +47,18 @@ class FileLoggerOutput extends LogOutput {
 }
 
 class LoggerCommands with Logging, Actor {
-  late final _ops = dep<LoggerOps>();
+  late final _ops = DI.get<LoggerOps>();
 
   @override
   void onRegister(Act act) {
-    depend<LoggerOps>(getOps(act));
-    depend<Logger>(Logger(
+    DI.register<LoggerOps>(getOps(act));
+    DI.register<Logger>(Logger(
       filter: ProductionFilter(),
       printer: defaultLoggerPrinter,
       output: FileLoggerOutput(act),
     ));
     LogTracer().register(act);
-    depend<LoggerCommands>(this);
+    DI.register<LoggerCommands>(this);
   }
 
   platformWarning(String msg) {

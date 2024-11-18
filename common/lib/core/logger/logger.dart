@@ -1,7 +1,7 @@
 part of '../core.dart';
 
 class Log {
-  late final LogTracer _tracer = dep<LogTracer>();
+  late final LogTracer _tracer = DI.get<LogTracer>();
 
   late Marker marker;
   late String tag = "$runtimeType";
@@ -22,6 +22,13 @@ class Log {
 
   pair(String key, dynamic value) => log(attr: {key: value});
   params(Map<String, dynamic> attr) => log(attr: attr);
+
+  logt({
+    String? msg,
+    Map<String, dynamic>? attr,
+    bool sensitive = false,
+  }) =>
+      log(msg: msg, attr: attr, lvl: Level.trace, sensitive: sensitive);
 
   log({
     String? msg,

@@ -21,7 +21,7 @@ void main() async {
   entrypoint.onStartApp();
   attachMockedDeps();
 
-  final CommandStore command = dep<CommandStore>();
+  final CommandStore command = DI.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
   runApp(BlokadaApp(
@@ -33,7 +33,7 @@ void main() async {
 
 // In mocked, manually trigger the foreground
 class MockedStart {
-  late final StageStore _stage = dep<StageStore>();
+  late final StageStore _stage = DI.get<StageStore>();
 
   Future<void> start() async {
     await _stage.setForeground(Markers.start);

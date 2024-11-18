@@ -18,7 +18,7 @@ class ExceptionsSection extends StatefulWidget {
 }
 
 class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
-  late final _custom = dep<CustomStore>();
+  late final _custom = DI.get<CustomStore>();
 
   bool _isReady = false;
   late List<String> _allowed;

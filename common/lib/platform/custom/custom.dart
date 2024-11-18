@@ -13,9 +13,9 @@ part 'custom.g.dart';
 class CustomStore = CustomStoreBase with _$CustomStore;
 
 abstract class CustomStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = dep<CustomOps>();
-  late final _json = dep<CustomJson>();
-  late final _stage = dep<StageStore>();
+  late final _ops = DI.get<CustomOps>();
+  late final _json = DI.get<CustomJson>();
+  late final _stage = DI.get<StageStore>();
 
   CustomStoreBase() {
     reactionOnStore((_) => allowed, (allowed) async {
@@ -31,9 +31,9 @@ abstract class CustomStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
-    depend<CustomOps>(getOps(act));
-    depend<CustomJson>(CustomJson());
-    depend<CustomStore>(this as CustomStore);
+    DI.register<CustomOps>(getOps(act));
+    DI.register<CustomJson>(CustomJson());
+    DI.register<CustomStore>(this as CustomStore);
   }
 
   @observable

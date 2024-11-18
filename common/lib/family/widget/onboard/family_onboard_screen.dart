@@ -15,7 +15,7 @@ class FamilyOnboardScreen extends StatefulWidget {
 }
 
 class FamilyOnboardScreenState extends State<FamilyOnboardScreen> with Logging {
-  final _stage = dep<StageStore>();
+  final _stage = DI.get<StageStore>();
 
   final GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
   final GlobalKey<SlideActionState> _slideUnlockKey = GlobalKey();

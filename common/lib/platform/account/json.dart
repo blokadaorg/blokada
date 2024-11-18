@@ -46,7 +46,7 @@ class JsonAccount {
 }
 
 class AccountJson {
-  late final _http = dep<HttpService>();
+  late final _http = DI.get<HttpService>();
 
   Future<JsonAccount> getAccount(String accountId, Marker m) async {
     final result =

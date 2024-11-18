@@ -19,8 +19,8 @@ class RateScreen extends StatefulWidget {
 
 class _RateScreenState extends State<RateScreen>
     with TickerProviderStateMixin, Logging {
-  final _stage = dep<StageStore>();
-  final _rate = dep<RateStore>();
+  final _stage = DI.get<StageStore>();
+  final _rate = DI.get<RateStore>();
 
   int _rating = 0;
   bool _showPlatformDialog = false;

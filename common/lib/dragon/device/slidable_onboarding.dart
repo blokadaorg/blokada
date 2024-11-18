@@ -2,7 +2,7 @@ import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 
 class SlidableOnboarding extends NullableValue<bool?> {
-  late final _persistence = dep<Persistence>();
+  late final _persistence = DI.get<Persistence>();
 
   static const key = "slidable_onboarding";
 

@@ -29,16 +29,16 @@ void main() {
   group("store", () {
     test("linkDeviceBasicTest", () async {
       await withTrace((m) async {
-        depend<AccountStore>(MockAccountStore());
-        depend<LockStore>(MockLockStore());
-        depend<AppStore>(MockAppStore());
-        depend<StageStore>(MockStageStore());
-        depend<JournalStore>(MockJournalStore());
-        depend<StatsStore>(MockStatsStore());
-        depend<PermStore>(MockPermStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<LockStore>(MockLockStore());
+        DI.register<AppStore>(MockAppStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<JournalStore>(MockJournalStore());
+        DI.register<StatsStore>(MockStatsStore());
+        DI.register<PermStore>(MockPermStore());
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final subject = FamilyStore();
         mockAct(subject, flavor: Flavor.family);

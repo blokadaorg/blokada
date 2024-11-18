@@ -27,12 +27,12 @@ void main() {
   group("store", () {
     test("willHandleInitProcedure", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<AccountStore>(MockAccountStore());
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final subject = AppStore();
 
@@ -48,21 +48,21 @@ void main() {
 
     test("willHandleCloudEnabled", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final device = MockDeviceStore();
         when(device.cloudEnabled).thenReturn(true);
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final account = MockAccountStore();
         when(account.account).thenReturn(AccountState(
           "mockedmocked",
           JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)),
         ));
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final subject = AppStore();
 
@@ -88,21 +88,21 @@ void main() {
 
     test("willHandlePause", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final device = MockDeviceStore();
         when(device.cloudEnabled).thenReturn(true);
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final account = MockAccountStore();
         when(account.account).thenReturn(AccountState(
           "mockedmocked",
           JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)),
         ));
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final subject = AppStore();
 
@@ -136,12 +136,12 @@ void main() {
   group("storeErrors", () {
     test("initWillFailOnImproperStates", () async {
       await withTrace((m) async {
-        depend<AccountStore>(MockAccountStore());
-        depend<DeviceStore>(MockDeviceStore());
-        depend<StageStore>(MockStageStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<DeviceStore>(MockDeviceStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final subject = AppStore();
 
@@ -162,20 +162,20 @@ void main() {
   group("binder", () {
     test("onAppStatus", () async {
       await withTrace((m) async {
-        depend<AccountStore>(MockAccountStore());
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final stage = MockStageStore();
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final perm = PermStore();
-        depend<PermStore>(perm);
+        DI.register<PermStore>(perm);
 
         final store = AppStore();
-        depend<AppStore>(store);
+        DI.register<AppStore>(store);
 
         verifyNever(ops.doAppStatusChanged(any));
         await store.initStarted(m);
@@ -186,23 +186,23 @@ void main() {
 
     test("onCloudPermStatus", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockAppOps();
-        depend<AppOps>(ops);
+        DI.register<AppOps>(ops);
 
         final store = MockAppStore();
-        depend<AppStore>(store);
+        DI.register<AppStore>(store);
 
         final perm = PermStore();
-        depend<PermStore>(perm);
+        DI.register<PermStore>(perm);
 
         final device = MockDeviceStore();
         when(device.deviceTag).thenReturn("some-tag");
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final account = MockAccountStore();
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         verifyNever(store.cloudPermEnabled(any, any));
 

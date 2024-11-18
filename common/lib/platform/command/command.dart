@@ -28,35 +28,35 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 class CommandStore with Logging, Actor implements CommandEvents {
-  late final _logger = dep<LoggerCommands>();
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
-  late final _accountPayment = dep<AccountPaymentStore>();
-  late final _accountRefresh = dep<AccountRefreshStore>();
-  late final _appStart = dep<AppStartStore>();
-  late final _custom = dep<CustomStore>();
-  late final _device = dep<DeviceStore>();
-  late final _notification = dep<NotificationStore>();
-  late final _permission = dep<PermStore>();
-  late final _lock = dep<LockStore>();
-  late final _support = dep<SupportController>();
-  late final _scheduler = dep<Scheduler>();
+  late final _logger = DI.get<LoggerCommands>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _accountPayment = DI.get<AccountPaymentStore>();
+  late final _accountRefresh = DI.get<AccountRefreshStore>();
+  late final _appStart = DI.get<AppStartStore>();
+  late final _custom = DI.get<CustomStore>();
+  late final _device = DI.get<DeviceStore>();
+  late final _notification = DI.get<NotificationStore>();
+  late final _permission = DI.get<PermStore>();
+  late final _lock = DI.get<LockStore>();
+  late final _support = DI.get<SupportController>();
+  late final _scheduler = DI.get<Scheduler>();
 
   // V6 only commands
-  late final _journal = dep<JournalStore>();
-  late final _plus = dep<PlusStore>();
-  late final _plusLease = dep<PlusLeaseStore>();
-  late final _plusVpn = dep<PlusVpnStore>();
-  late final _filterLegacy = dep<FilterLegacy>();
+  late final _journal = DI.get<JournalStore>();
+  late final _plus = DI.get<PlusStore>();
+  late final _plusLease = DI.get<PlusLeaseStore>();
+  late final _plusVpn = DI.get<PlusVpnStore>();
+  late final _filterLegacy = DI.get<FilterLegacy>();
 
   // Family only commands
-  late final _family = dep<FamilyStore>();
+  late final _family = DI.get<FamilyStore>();
 
-  late final _timer = dep<TimerService>();
+  late final _timer = DI.get<TimerService>();
 
   @override
   void onRegister(Act act) {
-    depend<CommandStore>(this);
+    DI.register<CommandStore>(this);
     if (act.isProd) CommandEvents.setup(this);
     getOps(act).doCanAcceptCommands();
   }
@@ -319,7 +319,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
         }
       case CommandName.ws:
         _ensureParam(p1);
-        final ws = dep<DevWebsocket>();
+        final ws = DI.get<DevWebsocket>();
         ws.ip = p1!;
         ws.handle();
         return;

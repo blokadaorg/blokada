@@ -8,7 +8,7 @@ part 'error.dart';
 part 'http.dart';
 
 class Api {
-  late final _http = dep<Http>();
+  late final _http = DI.get<Http>();
 
   Future<JsonString> get(
     ApiEndpoint endpoint,

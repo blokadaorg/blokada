@@ -1,8 +1,13 @@
 part of 'core.dart';
 
-final di = GetIt.instance;
-final dep = di;
+class DI {
+  static final di = GetIt.instance;
 
-void depend<T extends Object>(T instance, {String? tag}) {
-  dep.registerSingleton<T>(instance, instanceName: tag);
+  static void register<T extends Object>(T instance, {String? tag}) {
+    di.registerSingleton<T>(instance, instanceName: tag ?? "default");
+  }
+
+  static T get<T extends Object>({String? tag}) {
+    return di<T>(instanceName: tag ?? "default");
+  }
 }

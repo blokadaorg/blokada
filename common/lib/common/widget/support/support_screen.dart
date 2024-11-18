@@ -15,8 +15,8 @@ class SupportScreen extends StatefulWidget {
 }
 
 class SupportScreenState extends State<SupportScreen> with Logging {
-  late final _custom = dep<CustomStore>();
-  late final _support = dep<SupportController>();
+  late final _custom = DI.get<CustomStore>();
+  late final _support = DI.get<SupportController>();
 
   Paths _path = Paths.support;
   Object? _arguments;

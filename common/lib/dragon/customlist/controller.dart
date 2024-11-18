@@ -3,7 +3,7 @@ import 'package:common/core/core.dart';
 import 'package:common/dragon/customlist/api.dart';
 
 class CustomListController {
-  late final _customlist = dep<CustomListApi>();
+  late final _customlist = DI.get<CustomListApi>();
 
   String? profileId;
 

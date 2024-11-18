@@ -8,7 +8,6 @@ import '../../common/model/model.dart';
 import '../../dragon/family/family.dart';
 import '../../timer/timer.dart';
 import '../app/app.dart';
-import '../persistence/persistence.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import '../stats/stats.dart';
@@ -24,13 +23,13 @@ const String _keyTimer = "rate:checkConditions";
 class RateStore = RateStoreBase with _$RateStore;
 
 abstract class RateStoreBase with Store, Logging, Actor {
-  late final _ops = dep<RateOps>();
-  late final _persistence = dep<PersistenceService>();
-  late final _stage = dep<StageStore>();
-  late final _app = dep<AppStore>();
-  late final _stats = dep<StatsStore>();
-  late final _family = dep<FamilyStore>();
-  late final _timer = dep<TimerService>();
+  late final _ops = DI.get<RateOps>();
+  late final _persistence = DI.get<Persistence>();
+  late final _stage = DI.get<StageStore>();
+  late final _app = DI.get<AppStore>();
+  late final _stats = DI.get<StatsStore>();
+  late final _family = DI.get<FamilyStore>();
+  late final _timer = DI.get<TimerService>();
 
   RateStoreBase() {
     _timer.addHandler(_keyTimer, onTimerFired);
@@ -39,8 +38,8 @@ abstract class RateStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<RateOps>(getOps(act));
-    depend<RateStore>(this as RateStore);
+    DI.register<RateOps>(getOps(act));
+    DI.register<RateStore>(this as RateStore);
   }
 
   @observable
@@ -86,12 +85,12 @@ abstract class RateStoreBase with Store, Logging, Actor {
   @action
   load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      final json = await _persistence.load(_key, m);
+      final json = await _persistence.load(_key);
       if (json != null) {
         rateMetadata = JsonRate.fromJson(jsonDecode(json));
       } else {
         // Save the default metadata for the next app start
-        await _persistence.save(_key, JsonRate().toJson(), m);
+        await _persistence.saveJson(_key, JsonRate().toJson());
       }
     });
   }
@@ -106,7 +105,7 @@ abstract class RateStoreBase with Store, Logging, Actor {
       } else {
         meta = JsonRate(lastSeen: lastSeen, lastRate: meta.lastRate);
       }
-      await _persistence.save(_key, meta.toJson(), m);
+      await _persistence.saveJson(_key, meta.toJson());
       await _stage.showModal(StageModal.rate, m);
     });
   }
@@ -117,7 +116,7 @@ abstract class RateStoreBase with Store, Logging, Actor {
       JsonRate? meta = rateMetadata;
       meta =
           JsonRate(lastSeen: meta?.lastSeen ?? DateTime.now(), lastRate: rate);
-      await _persistence.save(_key, meta.toJson(), m);
+      await _persistence.saveJson(_key, meta.toJson());
       rateMetadata = meta;
 
       if (rate >= 4 && showPlatformDialog) {

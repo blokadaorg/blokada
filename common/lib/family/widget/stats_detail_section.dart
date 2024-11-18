@@ -6,7 +6,6 @@ import 'package:common/common/widget/stats/action_info.dart';
 import 'package:common/common/widget/stats/action_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/customlist/controller.dart';
 import 'package:common/dragon/filter/controller.dart';
 import 'package:common/dragon/navigation.dart';
@@ -28,9 +27,9 @@ class StatsDetailSection extends StatefulWidget {
 }
 
 class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
-  final _profile = dep<ProfileController>();
-  final _filter = dep<FilterController>();
-  final _custom = dep<CustomListController>();
+  final _profile = DI.get<ProfileController>();
+  final _filter = DI.get<FilterController>();
+  final _custom = DI.get<CustomListController>();
 
   late JsonProfile? profile;
 

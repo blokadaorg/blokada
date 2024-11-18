@@ -27,10 +27,10 @@ class HomeCounter2 extends StatefulWidget {
 
 class _HomeCounterState extends State<HomeCounter2>
     with TickerProviderStateMixin, Logging {
-  final _stage = dep<StageStore>();
-  final _app = dep<AppStore>();
-  final _stats = dep<StatsStore>();
-  final _home = dep<HomeStore>();
+  final _stage = DI.get<StageStore>();
+  final _app = DI.get<AppStore>();
+  final _stats = DI.get<StatsStore>();
+  final _home = DI.get<HomeStore>();
 
   bool powerReady = false;
   double blockedCounter = 0.0;

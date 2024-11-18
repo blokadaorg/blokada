@@ -17,7 +17,7 @@ StageOps getOps(Act act) {
   return ops;
 }
 
-final _command = dep<CommandStore>();
+final _command = DI.get<CommandStore>();
 
 _actNormal(MockStageOps ops) {
   registerFallbackValue(StageModal.debug);

@@ -19,9 +19,9 @@ class SmartHeader extends StatefulWidget {
 }
 
 class Header extends State<SmartHeader> with TickerProviderStateMixin, Logging {
-  late final _lock = dep<LockStore>();
-  late final _stage = dep<StageStore>();
-  late final _unread = dep<SupportUnread>();
+  late final _lock = DI.get<LockStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _unread = DI.get<SupportUnread>();
 
   // bool _opened = false;
 

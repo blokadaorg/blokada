@@ -30,10 +30,10 @@ class SmartOnboard extends StatefulWidget {
 
 class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
-  late final _lock = dep<LockStore>();
-  late final _stage = dep<StageStore>();
-  late final _family = dep<FamilyStore>();
-  late final _act = dep<Act>();
+  late final _lock = DI.get<LockStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _family = DI.get<FamilyStore>();
+  late final _act = DI.get<Act>();
 
   @override
   Widget build(BuildContext context) {

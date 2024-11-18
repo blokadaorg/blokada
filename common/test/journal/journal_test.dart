@@ -27,23 +27,23 @@ void main() {
   group("store", () {
     test("willGroupEntriesByRequests", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        depend<JournalOps>(ops);
+        DI.register<JournalOps>(ops);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        depend<JournalJson>(json);
+        DI.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -58,23 +58,23 @@ void main() {
 
     test("willFilterEntries", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        depend<JournalOps>(ops);
+        DI.register<JournalOps>(ops);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        depend<JournalJson>(json);
+        DI.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -122,23 +122,23 @@ void main() {
 
     test("willSortEntries", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        depend<JournalOps>(ops);
+        DI.register<JournalOps>(ops);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        depend<JournalJson>(json);
+        DI.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -160,21 +160,21 @@ void main() {
 
     test("willRefreshWhenNeeded", () async {
       await withTrace((m) async {
-        depend<DeviceStore>(MockDeviceStore());
+        DI.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        depend<JournalOps>(ops);
+        DI.register<JournalOps>(ops);
 
         final json = MockJournalJson();
-        depend<JournalJson>(json);
+        DI.register<JournalJson>(json);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final stage = MockStageStore();
         when(stage.route)
             .thenReturn(StageRouteState.init().newTab(StageTab.activity));
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final subject = JournalStore();
         mockAct(subject);

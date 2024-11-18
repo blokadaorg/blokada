@@ -3,7 +3,7 @@ import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 
 class ThisDevice extends NullableValue<JsonDevice> {
-  late final _persistence = dep<Persistence>();
+  late final _persistence = DI.get<Persistence>();
   late final _marshal = JsonDeviceMarshal();
 
   static const key = "this_device";

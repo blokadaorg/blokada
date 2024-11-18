@@ -24,12 +24,12 @@ class PlusButton extends StatefulWidget {
 
 class _PlusButtonState extends State<PlusButton>
     with TickerProviderStateMixin, Logging {
-  final _app = dep<AppStore>();
-  final _account = dep<AccountStore>();
-  final _gateway = dep<PlusGatewayStore>();
-  final _stage = dep<StageStore>();
-  final _plus = dep<PlusStore>();
-  final _perm = dep<PermStore>();
+  final _app = DI.get<AppStore>();
+  final _account = DI.get<AccountStore>();
+  final _gateway = DI.get<PlusGatewayStore>();
+  final _stage = DI.get<StageStore>();
+  final _plus = DI.get<PlusStore>();
+  final _perm = DI.get<PermStore>();
 
   var activated = false;
   var location = "";

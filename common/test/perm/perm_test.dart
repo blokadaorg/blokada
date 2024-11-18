@@ -21,16 +21,16 @@ void main() {
   group("store", () {
     test("permsEnabled", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final ops = MockPermOps();
-        depend<PermOps>(ops);
+        DI.register<PermOps>(ops);
 
         final subject = PermStore();
         expect(subject.privateDnsEnabledFor, null);
@@ -45,16 +45,16 @@ void main() {
 
     test("incrementTagChangeCounter", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final ops = MockPermOps();
-        depend<PermOps>(ops);
+        DI.register<PermOps>(ops);
 
         final subject = PermStore();
         expect(subject.privateDnsTagChangeCounter, 0);

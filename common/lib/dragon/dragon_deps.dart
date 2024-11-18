@@ -41,69 +41,67 @@ class DragonDeps {
     // currently only for backwards-migrating the new Filters
     // that replace the old Decks/Packs concept
 
-    depend<Act>(act);
+    DI.register<Act>(act);
 
-    depend<BaseUrl>(BaseUrl(act));
-    depend<UserAgent>(UserAgent());
-    depend<ApiRetryDuration>(ApiRetryDuration(act));
+    DI.register<BaseUrl>(BaseUrl(act));
+    DI.register<UserAgent>(UserAgent());
+    DI.register<ApiRetryDuration>(ApiRetryDuration(act));
 
-    depend<AccountId>(AccountId());
-    depend<AccountController>(AccountController());
-    depend<Http>(Http());
+    DI.register<AccountId>(AccountId());
+    DI.register<AccountController>(AccountController());
+    DI.register<Http>(Http());
 
-    depend<Api>(Api());
-    depend<ListApi>(ListApi());
+    DI.register<Api>(Api());
+    DI.register<ListApi>(ListApi());
 
-    depend<KnownFilters>(KnownFilters(
+    DI.register<KnownFilters>(KnownFilters(
       isFamily: act.isFamily,
       isIos: act.platform == PlatformType.iOS,
     ));
-    depend<DefaultFilters>(DefaultFilters(act.isFamily));
-    depend<SelectedFilters>(SelectedFilters());
-    depend<CurrentConfig>(CurrentConfig());
-    depend<FilterController>(FilterController());
+    DI.register<DefaultFilters>(DefaultFilters(act.isFamily));
+    DI.register<SelectedFilters>(SelectedFilters());
+    DI.register<CurrentConfig>(CurrentConfig());
+    DI.register<FilterController>(FilterController());
 
     // Then family-only deps (for now at least)
     if (act.isFamily) {
-      depend<Persistence>(Persistence(isSecure: false));
+      DI.register<DeviceApi>(DeviceApi());
 
-      depend<DeviceApi>(DeviceApi());
+      DI.register<ProfileApi>(ProfileApi());
+      DI.register<ProfileController>(ProfileController());
 
-      depend<ProfileApi>(ProfileApi());
-      depend<ProfileController>(ProfileController());
+      DI.register<CustomListApi>(CustomListApi());
+      DI.register<CustomListController>(CustomListController());
 
-      depend<CustomListApi>(CustomListApi());
-      depend<CustomListController>(CustomListController());
+      DI.register<NameGenerator>(NameGenerator());
+      DI.register<OpenPerms>(OpenPerms());
+      DI.register<ThisDevice>(ThisDevice());
+      DI.register<SelectedDeviceTag>(SelectedDeviceTag());
+      DI.register<SlidableOnboarding>(SlidableOnboarding());
 
-      depend<NameGenerator>(NameGenerator());
-      depend<OpenPerms>(OpenPerms());
-      depend<ThisDevice>(ThisDevice());
-      depend<SelectedDeviceTag>(SelectedDeviceTag());
-      depend<SlidableOnboarding>(SlidableOnboarding());
+      DI.register<AuthApi>(AuthApi());
+      DI.register<CurrentToken>(CurrentToken());
+      DI.register<DeviceController>(DeviceController());
+      DI.register<AuthController>(AuthController());
 
-      depend<AuthApi>(AuthApi());
-      depend<CurrentToken>(CurrentToken());
-      depend<DeviceController>(DeviceController());
-      depend<AuthController>(AuthController());
+      DI.register<StatsApi>(StatsApi());
+      DI.register<StatsController>(StatsController());
 
-      depend<StatsApi>(StatsApi());
-      depend<StatsController>(StatsController());
+      DI.register<JournalApi>(JournalApi());
+      DI.register<JournalController>(JournalController());
 
-      depend<JournalApi>(JournalApi());
-      depend<JournalController>(JournalController());
+      DI.register<DnsPerm>(DnsPerm());
+      DI.register<PermController>(PermController());
 
-      depend<DnsPerm>(DnsPerm());
-      depend<PermController>(PermController());
+      DI.register<Scheduler>(Scheduler(timer: SchedulerTimer()));
 
-      depend<Scheduler>(Scheduler(timer: SchedulerTimer()));
-
-      depend<SupportApi>(SupportApi());
-      depend<SupportController>(SupportController());
-      depend<CurrentSession>(CurrentSession());
-      depend<ChatHistory>(ChatHistory());
-      depend<SupportUnread>(SupportUnread());
-      depend<SupportUnreadController>(SupportUnreadController());
-      depend<PurchaseTimout>(PurchaseTimout());
+      DI.register<SupportApi>(SupportApi());
+      DI.register<SupportController>(SupportController());
+      DI.register<CurrentSession>(CurrentSession());
+      DI.register<ChatHistory>(ChatHistory());
+      DI.register<SupportUnread>(SupportUnread());
+      DI.register<SupportUnreadController>(SupportUnreadController());
+      DI.register<PurchaseTimout>(PurchaseTimout());
     }
 
     return this;
@@ -111,8 +109,8 @@ class DragonDeps {
 
   load(Act act) {
     if (act.isFamily) {
-      dep<SupportUnreadController>().load();
-      dep<PurchaseTimout>().load();
+      DI.get<SupportUnreadController>().load();
+      DI.get<PurchaseTimout>().load();
     }
   }
 }

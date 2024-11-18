@@ -2,7 +2,6 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/profile/controller.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
@@ -19,7 +18,7 @@ class AddProfileSheet extends StatefulWidget {
 }
 
 class AddProfileSheetState extends State<AddProfileSheet> {
-  late final _profile = dep<ProfileController>();
+  late final _profile = DI.get<ProfileController>();
 
   final _topBarController = TopBarController();
   final _scrollController = ScrollController();

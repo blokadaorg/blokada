@@ -35,11 +35,11 @@ class DeviceSection extends StatefulWidget {
 }
 
 class DeviceSectionState extends State<DeviceSection> with Logging {
-  late final _family = dep<FamilyStore>();
-  late final _device = dep<DeviceController>();
-  late final _selectedFilters = dep<SelectedFilters>();
-  late final _selectedDevice = dep<SelectedDeviceTag>();
-  late final _custom = dep<CustomListController>();
+  late final _family = DI.get<FamilyStore>();
+  late final _device = DI.get<DeviceController>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
+  late final _selectedDevice = DI.get<SelectedDeviceTag>();
+  late final _custom = DI.get<CustomListController>();
 
   late FamilyDevice device;
 

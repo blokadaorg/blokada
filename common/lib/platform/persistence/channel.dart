@@ -4,18 +4,18 @@ import 'package:mocktail/mocktail.dart';
 import 'channel.pg.dart' as pg;
 
 PersistenceChannel getOps(Act act) {
-  if (act.isProd) return PlatformPersistenceOps();
+  if (act.isProd) return PlatformPersistenceChannel();
 
   //final ops = MockPersistenceOps();
   //_actNormal(ops);
   //return ops;
 
-  return RuntimePersistenceOps();
+  return RuntimePersistenceChannel();
 }
 
-class MockPersistenceOps extends Mock implements PersistenceChannel {}
+class MockPersistenceChannel extends Mock implements PersistenceChannel {}
 
-class RuntimePersistenceOps implements PersistenceChannel {
+class RuntimePersistenceChannel implements PersistenceChannel {
   final Map<String, String> _map = {};
 
   @override
@@ -36,7 +36,7 @@ class RuntimePersistenceOps implements PersistenceChannel {
   }
 }
 
-class PlatformPersistenceOps with PersistenceChannel {
+class PlatformPersistenceChannel with PersistenceChannel {
   late final pg.PersistenceOps _platform = pg.PersistenceOps();
 
   @override

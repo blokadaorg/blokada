@@ -8,7 +8,7 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 
 // Quite shit store used to control some flag. Remove eventually. TODO
 abstract class HomeStoreBase with Store, Actor {
-  late final _app = dep<AppStore>();
+  late final _app = DI.get<AppStore>();
 
   HomeStoreBase() {
     autorun((_) {
@@ -21,7 +21,7 @@ abstract class HomeStoreBase with Store, Actor {
 
   @override
   onRegister(Act act) {
-    depend<HomeStore>(this as HomeStore);
+    DI.register<HomeStore>(this as HomeStore);
   }
 
   @observable

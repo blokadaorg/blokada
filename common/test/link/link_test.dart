@@ -23,16 +23,16 @@ void main() {
   group("store", () {
     test("willUpdateLinksOnLock", () async {
       await withTrace((m) async {
-        depend<AccountStore>(MockAccountStore());
-        depend<LockStore>(MockLockStore());
-        depend<FamilyStore>(MockFamilyStore());
+        DI.register<AccountStore>(MockAccountStore());
+        DI.register<LockStore>(MockLockStore());
+        DI.register<FamilyStore>(MockFamilyStore());
 
         final env = MockEnvStore();
         when(env.userAgent).thenReturn("mocked user agent");
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final ops = MockLinkOps();
-        depend<LinkOps>(ops);
+        DI.register<LinkOps>(ops);
 
         final subject = LinkStore();
         mockAct(subject);

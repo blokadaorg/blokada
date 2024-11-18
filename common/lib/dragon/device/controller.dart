@@ -16,10 +16,10 @@ class AlreadyLinkedException implements Exception {
 }
 
 class DeviceController with Logging {
-  late final _devices = dep<DeviceApi>();
-  late final _thisDevice = dep<ThisDevice>();
-  late final _nextAlias = dep<NameGenerator>();
-  late final _profiles = dep<ProfileController>();
+  late final _devices = DI.get<DeviceApi>();
+  late final _thisDevice = DI.get<ThisDevice>();
+  late final _nextAlias = DI.get<NameGenerator>();
+  late final _profiles = DI.get<ProfileController>();
 
   List<JsonDevice> devices = [];
 

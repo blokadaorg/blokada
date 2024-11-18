@@ -16,8 +16,8 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
 }
 
 class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
-  late final _openPerms = dep<OpenPerms>();
-  late final _perm = dep<PermController>();
+  late final _openPerms = DI.get<OpenPerms>();
+  late final _perm = DI.get<PermController>();
 
   final _scrollController = ScrollController();
   bool _isFullyVisible = false;

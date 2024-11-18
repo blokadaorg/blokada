@@ -20,7 +20,7 @@ void main() async {
       ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
   entrypoint.onStartApp();
 
-  final CommandStore command = dep<CommandStore>();
+  final CommandStore command = DI.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
   runApp(BlokadaApp(
@@ -32,7 +32,7 @@ void main() async {
 
 // In mocked, manually trigger the foreground
 class MockedStart with Logging {
-  late final StageStore _stage = dep<StageStore>();
+  late final StageStore _stage = DI.get<StageStore>();
 
   Future<void> start() async {
     await _stage.setForeground(Markers.start);

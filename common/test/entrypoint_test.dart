@@ -5,7 +5,7 @@ void main() {
     //   test("onNavPathChanged", () async {
     //     await withTrace((m) async {
     //       final store = MockStageStore();
-    //       depend<StageStore>(store);
+    //       DI.register<StageStore>(store);
     //
     //       final subject = Entrypoint.forTesting();
     //
@@ -21,7 +21,7 @@ void main() {
     //   test("onForeground", () async {
     //     await withTrace((m) async {
     //       final store = MockStageStore();
-    //       depend<StageStore>(store);
+    //       DI.register<StageStore>(store);
     //
     //       final subject = Entrypoint.forTesting();
     //
@@ -36,7 +36,7 @@ void main() {
     //   test("onModalDismissed", () async {
     //     await withTrace((m) async {
     //       final store = MockStageStore();
-    //       depend<StageStore>(store);
+    //       DI.register<StageStore>(store);
     //
     //       final subject = Entrypoint.forTesting();
     //
@@ -48,10 +48,10 @@ void main() {
     //   test("onModal", () async {
     //     await withTrace((m) async {
     //       final store = StageStore();
-    //       depend<StageStore>(store);
+    //       DI.register<StageStore>(store);
     //
     //       final ops = MockStageOps();
-    //       depend<StageOps>(ops);
+    //       DI.register<StageOps>(ops);
     //
     //       final subject = StageBinder();
     //
@@ -68,19 +68,19 @@ void main() {
 // group("binder", () {
 // test("onStartApp", () async {
 //   await withTrace((m) async {
-//     depend<TimerService>(MockTimerService());
+//     DI.register<TimerService>(MockTimerService());
 //
 //     final app = MockAppStore();
-//     depend<AppStore>(app);
+//     DI.register<AppStore>(app);
 //
 //     final accountRefreshStore = MockAccountRefreshStore();
-//     depend<AccountRefreshStore>(accountRefreshStore);
+//     DI.register<AccountRefreshStore>(accountRefreshStore);
 //
 //     final stage = StageStore();
-//     depend<StageStore>(stage);
+//     DI.register<StageStore>(stage);
 //
 //     final store = MockAppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
 //     final subject = AppPauseBinder.forTesting();
 //
@@ -94,17 +94,17 @@ void main() {
 
 // test("onRetryInit", () async {
 //   await withTrace((m) async {
-//     depend<StageStore>(StageStore());
-//     depend<TimerService>(MockTimerService());
+//     DI.register<StageStore>(StageStore());
+//     DI.register<TimerService>(MockTimerService());
 //
 //     final app = MockAppStore();
-//     depend<AppStore>(app);
+//     DI.register<AppStore>(app);
 //
 //     final store = MockAppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
 //     final ops = MockAppPauseOps();
-//     depend<AppPauseOps>(ops);
+//     DI.register<AppPauseOps>(ops);
 //
 //     final refresh = MockAccountRefreshStore();
 //     int callCounter = 0;
@@ -113,7 +113,7 @@ void main() {
 //         throw Exception("Failed to init");
 //       }
 //     });
-//     depend<AccountRefreshStore>(refresh);
+//     DI.register<AccountRefreshStore>(refresh);
 //
 //     // Initial state
 //     final subject = AppPauseBinder.forTesting();
@@ -126,15 +126,15 @@ void main() {
 
 // test("onPauseApp", () async {
 //   await withTrace((m) async {
-//     depend<TimerService>(MockTimerService());
+//     DI.register<TimerService>(MockTimerService());
 //
 //     final store = MockAppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
 //     final ops = MockAppPauseOps();
-//     depend<AppPauseOps>(ops);
+//     DI.register<AppPauseOps>(ops);
 //
-//     depend<AppStore>(MockAppStore());
+//     DI.register<AppStore>(MockAppStore());
 //
 //     final subject = AppPauseBinder.forTesting();
 //
@@ -150,15 +150,15 @@ void main() {
 //
 // test("onUnpauseApp", () async {
 //   await withTrace((m) async {
-//     depend<TimerService>(MockTimerService());
+//     DI.register<TimerService>(MockTimerService());
 //
 //     final store = MockAppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
 //     final ops = MockAppPauseOps();
-//     depend<AppPauseOps>(ops);
+//     DI.register<AppPauseOps>(ops);
 //
-//     depend<AppStore>(MockAppStore());
+//     DI.register<AppStore>(MockAppStore());
 //
 //     final subject = AppPauseBinder.forTesting();
 //
@@ -171,15 +171,15 @@ void main() {
 // test("onTimerFired", () async {
 //   await withTrace((m) async {
 //     final timer = TestingTimer();
-//     depend<TimerService>(timer);
+//     DI.register<TimerService>(timer);
 //
 //     final store = MockAppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
-//     depend<AppStore>(MockAppStore());
+//     DI.register<AppStore>(MockAppStore());
 //
 //     final ops = MockAppPauseOps();
-//     depend<AppPauseOps>(ops);
+//     DI.register<AppPauseOps>(ops);
 //
 //     final subject = AppPauseBinder.forTesting();
 //
@@ -191,16 +191,16 @@ void main() {
 //
 // test("onPausedUntilChange", () async {
 //   await withTrace((m) async {
-//     depend<TimerService>(MockTimerService());
-//     depend<AppStore>(MockAppStore());
-//     depend<DeviceStore>(MockDeviceStore());
-//     depend<PermStore>(MockPermStore());
+//     DI.register<TimerService>(MockTimerService());
+//     DI.register<AppStore>(MockAppStore());
+//     DI.register<DeviceStore>(MockDeviceStore());
+//     DI.register<PermStore>(MockPermStore());
 //
 //     final store = AppPauseStore();
-//     depend<AppPauseStore>(store);
+//     DI.register<AppPauseStore>(store);
 //
 //     final ops = MockAppPauseOps();
-//     depend<AppPauseOps>(ops);
+//     DI.register<AppPauseOps>(ops);
 //
 //     final subject = AppPauseBinder.forTesting();
 //
@@ -218,7 +218,7 @@ void main() {
 //   test("onSearch", () async {
 //     await withTrace((m) async {
 //       final store = MockJournalStore();
-//       depend<JournalStore>(store);
+//       DI.register<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
@@ -234,7 +234,7 @@ void main() {
 //   test("onShowForDevice", () async {
 //     await withTrace((m) async {
 //       final store = MockJournalStore();
-//       depend<JournalStore>(store);
+//       DI.register<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
@@ -250,7 +250,7 @@ void main() {
 //   test("onShowOnly", () async {
 //     await withTrace((m) async {
 //       final store = MockJournalStore();
-//       depend<JournalStore>(store);
+//       DI.register<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //
@@ -286,18 +286,18 @@ void main() {
 //     await withTrace((m) async {
 //       final env = EnvStore();
 //       env.setDeviceTag("deviceName");
-//       depend<EnvStore>(env);
+//       DI.register<EnvStore>(env);
 //
 //       final json = MockJournalJson();
 //       when(json.getEntries(any))
 //           .thenAnswer((_) => Future.value(fixtureJournalEntries));
-//       depend<JournalJson>(json);
+//       DI.register<JournalJson>(json);
 //
 //       final store = JournalStore();
-//       depend<JournalStore>(store);
+//       DI.register<JournalStore>(store);
 //
 //       final ops = MockJournalOps();
-//       depend<JournalOps>(ops);
+//       DI.register<JournalOps>(ops);
 //
 //       final subject = JournalBinder.forTesting();
 //
@@ -322,18 +322,18 @@ void main() {
 //     await withTrace((m) async {
 //       final env = EnvStore();
 //       env.setDeviceTag("deviceName");
-//       depend<EnvStore>(env);
+//       DI.register<EnvStore>(env);
 //
 //       final json = MockJournalJson();
 //       when(json.getEntries(any))
 //           .thenAnswer((_) => Future.value(fixtureJournalEntries));
-//       depend<JournalJson>(json);
+//       DI.register<JournalJson>(json);
 //
 //       final ops = MockJournalOps();
-//       depend<JournalOps>(ops);
+//       DI.register<JournalOps>(ops);
 //
 //       final store = JournalStore();
-//       depend<JournalStore>(store);
+//       DI.register<JournalStore>(store);
 //
 //       final subject = JournalBinder.forTesting();
 //       verifyNever(ops.doFilterChanged(any));
@@ -367,13 +367,13 @@ void main() {
 //   test("onJournalTab", () async {
 //     await withTrace((m) async {
 //       final stage = StageStore();
-//       depend<StageStore>(stage);
+//       DI.register<StageStore>(stage);
 //
 //       final timer = MockTimerService();
-//       depend<TimerService>(timer);
+//       DI.register<TimerService>(timer);
 //
 //       final store = MockJournalRefreshStore();
-//       depend<JournalRefreshStore>(store);
+//       DI.register<JournalRefreshStore>(store);
 //
 //       final subject = JournalRefreshBinder();
 //       verifyNever(store.maybeRefresh(any));
@@ -393,13 +393,13 @@ void main() {
 //   test("onBackground", () async {
 //     await withTrace((m) async {
 //       final stage = StageStore();
-//       depend<StageStore>(stage);
+//       DI.register<StageStore>(stage);
 //
 //       final timer = MockTimerService();
-//       depend<TimerService>(timer);
+//       DI.register<TimerService>(timer);
 //
 //       final store = MockJournalRefreshStore();
-//       depend<JournalRefreshStore>(store);
+//       DI.register<JournalRefreshStore>(store);
 //
 //       final subject = JournalRefreshBinder();
 //       verifyNever(store.maybeRefresh(any));
@@ -418,10 +418,10 @@ void main() {
 //       dynamic callback;
 //       when(timer.addHandler(any, any))
 //           .thenAnswer((p) => callback = p.positionalArguments[1]);
-//       depend<TimerService>(timer);
+//       DI.register<TimerService>(timer);
 //
 //       final store = MockJournalRefreshStore();
-//       depend<JournalRefreshStore>(store);
+//       DI.register<JournalRefreshStore>(store);
 //
 //       final subject = JournalRefreshBinder();
 //
@@ -437,13 +437,13 @@ void main() {
 //   test("onRetentionChanged", () async {
 //     await withTrace((m) async {
 //       final device = DeviceStore();
-//       depend<DeviceStore>(device);
+//       DI.register<DeviceStore>(device);
 //
 //       final store = MockJournalRefreshStore();
-//       depend<JournalRefreshStore>(store);
+//       DI.register<JournalRefreshStore>(store);
 //
 //       final timer = MockTimerService();
-//       depend<TimerService>(timer);
+//       DI.register<TimerService>(timer);
 //
 //       final subject = JournalRefreshBinder();
 //
@@ -465,31 +465,31 @@ void main() {
 //     test("onForeground", () async {
 //       await withTrace((m) async {
 //         final store = MockPlusRefreshStore();
-//         depend<PlusRefreshStore>(store);
+//         DI.register<PlusRefreshStore>(store);
 //
 //         final plus = MockPlusStore();
-//         depend<PlusStore>(plus);
+//         DI.register<PlusStore>(plus);
 //
 //         final gateway = MockPlusGatewayStore();
-//         depend<PlusGatewayStore>(gateway);
+//         DI.register<PlusGatewayStore>(gateway);
 //
 //         final lease = PlusLeaseStore();
-//         depend<PlusLeaseStore>(lease);
+//         DI.register<PlusLeaseStore>(lease);
 //
 //         final vpn = MockPlusVpnStore();
-//         depend<PlusVpnStore>(vpn);
+//         DI.register<PlusVpnStore>(vpn);
 //
 //         final keypair = PlusKeypairStore();
-//         depend<PlusKeypairStore>(keypair);
+//         DI.register<PlusKeypairStore>(keypair);
 //
 //         final app = MockAppStore();
-//         depend<AppStore>(app);
+//         DI.register<AppStore>(app);
 //
 //         final stage = StageStore();
-//         depend<StageStore>(stage);
+//         DI.register<StageStore>(stage);
 //
 //         final env = EnvStore();
-//         depend<EnvStore>(env);
+//         DI.register<EnvStore>(env);
 //
 //         final subject = PlusRefreshBinder();
 //         verifyNever(store.maybeRefreshLease(any));
@@ -504,31 +504,31 @@ void main() {
 //     test("onCurrentLease", () async {
 //       await withTrace((m) async {
 //         final store = MockPlusRefreshStore();
-//         depend<PlusRefreshStore>(store);
+//         DI.register<PlusRefreshStore>(store);
 //
 //         final plus = PlusStore();
-//         depend<PlusStore>(plus);
+//         DI.register<PlusStore>(plus);
 //
 //         final gateway = PlusGatewayStore();
-//         depend<PlusGatewayStore>(gateway);
+//         DI.register<PlusGatewayStore>(gateway);
 //
 //         final lease = PlusLeaseStore();
-//         depend<PlusLeaseStore>(lease);
+//         DI.register<PlusLeaseStore>(lease);
 //
 //         final vpn = MockPlusVpnStore();
-//         depend<PlusVpnStore>(vpn);
+//         DI.register<PlusVpnStore>(vpn);
 //
 //         final keypair = PlusKeypairStore();
-//         depend<PlusKeypairStore>(keypair);
+//         DI.register<PlusKeypairStore>(keypair);
 //
 //         final app = AppStore();
-//         depend<AppStore>(app);
+//         DI.register<AppStore>(app);
 //
 //         final stage = StageStore();
-//         depend<StageStore>(stage);
+//         DI.register<StageStore>(stage);
 //
 //         final env = EnvStore();
-//         depend<EnvStore>(env);
+//         DI.register<EnvStore>(env);
 //
 //         final subject = PlusRefreshBinder();
 //         verifyNever(vpn.setConfig(any, any));

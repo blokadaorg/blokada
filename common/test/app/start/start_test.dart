@@ -36,18 +36,18 @@ void main() {
     test("pauseAppUntil", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
-        depend<PlusStore>(MockPlusStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final ops = MockAppStartOps();
-        depend<AppStartOps>(ops);
+        DI.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
         subject.act = mockedAct;
@@ -63,18 +63,18 @@ void main() {
     test("pauseAppIndefinitely", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
-        depend<PlusStore>(MockPlusStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final ops = MockAppStartOps();
-        depend<AppStartOps>(ops);
+        DI.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
         subject.act = mockedAct;
@@ -90,29 +90,29 @@ void main() {
     test("unpauseApp", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
-        depend<PlusStore>(MockPlusStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final perm = MockPermStore();
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
-        depend<PermStore>(perm);
+        DI.register<PermStore>(perm);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.cloud);
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final stage = MockStageStore();
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final ops = MockAppStartOps();
-        depend<AppStartOps>(ops);
+        DI.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
         subject.act = mockedAct;
@@ -144,20 +144,20 @@ void main() {
   group("storeErrors", () {
     test("onUnpauseAppWillShowPaymentModalOnInactiveAccount", () async {
       await withTrace((m) async {
-        depend<TimerService>(MockTimerService());
+        DI.register<TimerService>(MockTimerService());
 
         final ops = MockAppStartOps();
-        depend<AppStartOps>(ops);
+        DI.register<AppStartOps>(ops);
 
         final stage = MockStageStore();
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.libre);
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final subject = AppStartStore();
 
@@ -169,27 +169,27 @@ void main() {
 
     test("onUnpauseAppWillShowOnboardingOnMissingPerms", () async {
       await withTrace((m) async {
-        depend<TimerService>(MockTimerService());
+        DI.register<TimerService>(MockTimerService());
 
         final ops = MockAppStartOps();
-        depend<AppStartOps>(ops);
+        DI.register<AppStartOps>(ops);
 
         final stage = MockStageStore();
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.cloud);
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final device = DeviceStore();
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final perm = MockPermStore();
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
-        depend<PermStore>(perm);
+        DI.register<PermStore>(perm);
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final subject = AppStartStore();
 

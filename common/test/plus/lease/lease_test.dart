@@ -31,24 +31,24 @@ void main() {
   group("store", () {
     test("fetch", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<PlusStore>(MockPlusStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("no lease for this key");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
         expect(subject.leases.isEmpty, true);
@@ -66,23 +66,23 @@ void main() {
 
     test("fetchWithCurrentLease", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
         expect(subject.leases.isEmpty, true);
@@ -101,23 +101,23 @@ void main() {
 
     test("newLease", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         // No leases at first
         final subject = PlusLeaseStore();
@@ -134,23 +134,23 @@ void main() {
 
     test("deleteLease", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
         await subject.deleteLease(fixtureLeaseEntries.first.toLease, m);
@@ -162,22 +162,22 @@ void main() {
   group("storeErrors", () {
     test("newLeasePostFailing", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.postLease(any, any)).thenThrow(Exception("post failing"));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
 
@@ -190,24 +190,24 @@ void main() {
 
     test("newLeaseButNoMatchingLeaseReturned", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<PlusStore>(MockPlusStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("no lease for this key");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
 
@@ -220,28 +220,28 @@ void main() {
 
     test("newLeaseButTooManyLeases", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.postLease(any, any)).thenThrow(TooManyLeasesException());
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("Solar quokka");
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
             .thenReturn("6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
         await subject.fetch(m);
@@ -258,21 +258,21 @@ void main() {
 
     test("deleteLeasePostFailing", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<PlusStore>(MockPlusStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<PlusStore>(MockPlusStore());
 
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
+        DI.register<PlusLeaseOps>(ops);
 
         final json = MockPlusLeaseJson();
         when(json.deleteLease(any, any)).thenThrow(Exception("delete failing"));
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final env = MockEnvStore();
-        depend<EnvStore>(env);
+        DI.register<EnvStore>(env);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final subject = PlusLeaseStore();
         await subject.fetch(m);
@@ -289,23 +289,23 @@ void main() {
     test("willRefreshWhenNeeded", () async {
       await withTrace((m) async {
         final ops = MockPlusLeaseOps();
-        depend<PlusLeaseOps>(ops);
-        depend<PlusStore>(MockPlusStore());
+        DI.register<PlusLeaseOps>(ops);
+        DI.register<PlusStore>(MockPlusStore());
 
         final json = MockPlusLeaseJson();
-        depend<PlusLeaseJson>(json);
+        DI.register<PlusLeaseJson>(json);
 
         final gateway = MockPlusGatewayStore();
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final account = MockAccountStore();
         when(account.type).thenReturn(AccountType.plus);
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         final route = StageRouteState.init().newTab(StageTab.home);
         final stage = MockStageStore();
         when(stage.route).thenReturn(route);
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final subject = PlusLeaseStore();
         verifyNever(json.getLeases(any));

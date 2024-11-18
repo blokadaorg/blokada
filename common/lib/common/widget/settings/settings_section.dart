@@ -31,12 +31,12 @@ class SettingsSection extends StatefulWidget {
 }
 
 class SettingsState extends State<SettingsSection> with Logging {
-  late final _lock = dep<LockStore>();
-  late final _stage = dep<StageStore>();
-  late final _env = dep<EnvStore>();
-  late final _account = dep<AccountStore>();
-  late final _command = dep<CommandStore>();
-  late final _unread = dep<SupportUnread>();
+  late final _lock = DI.get<LockStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _env = DI.get<EnvStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _command = DI.get<CommandStore>();
+  late final _unread = DI.get<SupportUnread>();
 
   late StreamSubscription? _unreadSub;
 

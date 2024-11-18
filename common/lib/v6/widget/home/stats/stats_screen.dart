@@ -27,7 +27,7 @@ class StatsScreen extends StatefulWidget {
 }
 
 class StatsScreenState extends State<StatsScreen> {
-  final _store = dep<StatsStore>();
+  final _store = DI.get<StatsStore>();
 
   var stats = UiStats.empty();
 

@@ -95,11 +95,11 @@ JournalFilter _noFilter = JournalFilter(
 class JournalStore = JournalStoreBase with _$JournalStore;
 
 abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = dep<JournalOps>();
-  late final _json = dep<JournalJson>();
-  late final _device = dep<DeviceStore>();
-  late final _stage = dep<StageStore>();
-  late final _timer = dep<TimerService>();
+  late final _ops = DI.get<JournalOps>();
+  late final _json = DI.get<JournalJson>();
+  late final _device = DI.get<DeviceStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _timer = DI.get<TimerService>();
 
   JournalStoreBase() {
     _device.addOn(deviceChanged, updateJournalFreq);
@@ -125,9 +125,9 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
-    depend<JournalOps>(getOps(act));
-    depend<JournalJson>(JournalJson());
-    depend<JournalStore>(this as JournalStore);
+    DI.register<JournalOps>(getOps(act));
+    DI.register<JournalJson>(JournalJson());
+    DI.register<JournalStore>(this as JournalStore);
   }
 
   @observable

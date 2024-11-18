@@ -2,7 +2,6 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/env/env.dart';
-import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/platform/plus/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';
@@ -24,7 +23,7 @@ import 'lease/fixtures.dart';
   MockSpec<PlusKeypairStore>(),
   MockSpec<PlusGatewayStore>(),
   MockSpec<PlusStore>(),
-  MockSpec<PersistenceService>(),
+  MockSpec<Persistence>(),
   MockSpec<PlusOps>(),
   MockSpec<AppStore>(),
   MockSpec<EnvStore>(),
@@ -38,13 +37,13 @@ void main() {
     test("load", () async {
       await withTrace((m) async {
         final ops = MockPlusOps();
-        depend<PlusOps>(ops);
+        DI.register<PlusOps>(ops);
 
-        depend<AppStore>(MockAppStore());
+        DI.register<AppStore>(MockAppStore());
 
-        final persistence = MockPersistenceService();
-        when(persistence.load(any, any)).thenAnswer((_) => Future.value("1"));
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        when(persistence.load(any)).thenAnswer((_) => Future.value("1"));
+        DI.register<Persistence>(persistence);
 
         final subject = PlusStore();
         expect(subject.plusEnabled, false);
@@ -58,32 +57,32 @@ void main() {
       await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final ops = MockPlusOps();
-        depend<PlusOps>(ops);
+        DI.register<PlusOps>(ops);
 
         final gateway = MockPlusGatewayStore();
         when(gateway.currentGateway)
             .thenReturn(fixtureGatewayEntries.first.toGateway);
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        depend<PlusLeaseStore>(lease);
+        DI.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        depend<PlusVpnStore>(vpn);
+        DI.register<PlusVpnStore>(vpn);
 
-        final persistence = MockPersistenceService();
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        DI.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
@@ -92,34 +91,34 @@ void main() {
         verify(lease.newLease("some gateway id", m)).called(1);
         verify(vpn.turnVpnOn(any)).called(1);
         verify(lease.fetch(any, noRetry: true)).called(1);
-        verify(persistence.saveString(any, any, any));
+        verify(persistence.save(any, any));
       });
     });
 
     test('clearPlus', () async {
       await withTrace((m) async {
         final ops = MockPlusOps();
-        depend<PlusOps>(ops);
+        DI.register<PlusOps>(ops);
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        depend<PlusLeaseStore>(lease);
+        DI.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        depend<PlusVpnStore>(vpn);
+        DI.register<PlusVpnStore>(vpn);
 
-        final persistence = MockPersistenceService();
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        DI.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
         await subject.clearPlus(m);
         verify(lease.deleteLease(any, any)).called(1);
         verify(vpn.turnVpnOff(any)).called(1);
-        verify(persistence.saveString(any, any, any));
+        verify(persistence.save(any, any));
       });
     });
 
@@ -127,32 +126,32 @@ void main() {
       await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
-        depend<DeviceStore>(device);
+        DI.register<DeviceStore>(device);
 
         final gateway = MockPlusGatewayStore();
         when(gateway.currentGateway)
             .thenReturn(fixtureGatewayEntries.first.toGateway);
-        depend<PlusGatewayStore>(gateway);
+        DI.register<PlusGatewayStore>(gateway);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        depend<PlusKeypairStore>(keypair);
+        DI.register<PlusKeypairStore>(keypair);
 
         final ops = MockPlusOps();
-        depend<PlusOps>(ops);
+        DI.register<PlusOps>(ops);
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        depend<PlusLeaseStore>(lease);
+        DI.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        depend<PlusVpnStore>(vpn);
+        DI.register<PlusVpnStore>(vpn);
 
-        final persistence = MockPersistenceService();
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        DI.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
@@ -165,19 +164,19 @@ void main() {
     // test("reactToAppStatus", () async {
     //   await withTrace((m) async {
     //     final ops = MockPlusOps();
-    //     depend<PlusOps>(ops);
+    //     DI.register<PlusOps>(ops);
     //
     //     final app = MockAppStore();
-    //     depend<AppStore>(app);
+    //     DI.register<AppStore>(app);
     //
     //     final lease = MockPlusLeaseStore();
-    //     depend<PlusLeaseStore>(lease);
+    //     DI.register<PlusLeaseStore>(lease);
     //
     //     final vpn = MockPlusVpnStore();
-    //     depend<PlusVpnStore>(vpn);
+    //     DI.register<PlusVpnStore>(vpn);
     //
-    //     final persistence = MockPersistenceService();
-    //     depend<PersistenceService>(persistence);
+    //     final persistence = MockPersistence();
+    //     DI.register<Persistence>(persistence);
     //
     //     final subject = PlusStore();
     //
@@ -202,25 +201,25 @@ void main() {
   group("storeErrors", () {
     test("switchPlusFailing", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final ops = MockPlusOps();
-        depend<PlusOps>(ops);
+        DI.register<PlusOps>(ops);
 
-        depend<PlusKeypairStore>(MockPlusKeypairStore());
-        depend<PlusGatewayStore>(MockPlusGatewayStore());
+        DI.register<PlusKeypairStore>(MockPlusKeypairStore());
+        DI.register<PlusGatewayStore>(MockPlusGatewayStore());
 
         final app = MockAppStore();
-        depend<AppStore>(app);
+        DI.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
-        depend<PlusLeaseStore>(lease);
+        DI.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        depend<PlusVpnStore>(vpn);
+        DI.register<PlusVpnStore>(vpn);
 
-        final persistence = MockPersistenceService();
-        depend<PersistenceService>(persistence);
+        final persistence = MockPersistence();
+        DI.register<Persistence>(persistence);
 
         final subject = PlusStore();
 

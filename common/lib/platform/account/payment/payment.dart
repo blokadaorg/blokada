@@ -21,10 +21,10 @@ class AccountInactiveAfterPurchase implements Exception {}
 class PaymentsUnavailable implements Exception {}
 
 abstract class AccountPaymentStoreBase with Store, Logging, Actor {
-  late final _ops = dep<AccountPaymentOps>();
-  late final _json = dep<AccountPaymentJson>();
-  late final _account = dep<AccountStore>();
-  late final _stage = dep<StageStore>();
+  late final _ops = DI.get<AccountPaymentOps>();
+  late final _json = DI.get<AccountPaymentJson>();
+  late final _account = DI.get<AccountStore>();
+  late final _stage = DI.get<StageStore>();
 
   AccountPaymentStoreBase() {
     reactionOnStore((_) => status, (status) async {
@@ -40,9 +40,9 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<AccountPaymentOps>(getOps(act));
-    depend<AccountPaymentJson>(AccountPaymentJson());
-    depend<AccountPaymentStore>(this as AccountPaymentStore);
+    DI.register<AccountPaymentOps>(getOps(act));
+    DI.register<AccountPaymentJson>(AccountPaymentJson());
+    DI.register<AccountPaymentStore>(this as AccountPaymentStore);
   }
 
   @observable

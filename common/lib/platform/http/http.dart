@@ -37,7 +37,7 @@ abstract class HttpService {
 ///
 /// It also adds the User-Agent header to every request.
 class PlatformHttpService with Logging implements HttpService {
-  late final _ops = dep<HttpOps>();
+  late final _ops = DI.get<HttpOps>();
 
   @override
   Future<String> get(String url, Marker m, {bool noRetry = false}) async {
@@ -104,8 +104,8 @@ class RepeatingHttpService with Actor, Logging implements HttpService {
 
   @override
   void onRegister(Act act) {
-    depend<HttpOps>(getOps(act));
-    depend<HttpService>(this);
+    DI.register<HttpOps>(getOps(act));
+    DI.register<HttpService>(this);
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/device/open_perms.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +14,7 @@ class PrivateDnsSheetIos extends StatefulWidget {
 }
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
-  late final _openPerms = dep<OpenPerms>();
+  late final _openPerms = DI.get<OpenPerms>();
 
   @override
   void initState() {

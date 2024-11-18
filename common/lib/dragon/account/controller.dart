@@ -4,8 +4,8 @@ import 'package:common/platform/account/account.dart' as acc;
 
 // TODO: drop this legacy sync class eventually
 class AccountController {
-  late final _store = dep<acc.AccountStore>();
-  late final _accountId = dep<AccountId>();
+  late final _store = DI.get<acc.AccountStore>();
+  late final _accountId = DI.get<AccountId>();
   bool _started = false;
 
   start() async {

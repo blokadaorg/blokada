@@ -10,12 +10,12 @@ import '../list/api.dart';
 import 'selected_filters.dart';
 
 class FilterController with Logging {
-  late final _apiLists = dep<ListApi>();
-  late final _knownFilters = dep<KnownFilters>();
-  late final _defaultFilters = dep<DefaultFilters>();
-  late final _selectedFilters = dep<SelectedFilters>();
-  late final _userConfig = dep<CurrentConfig>();
-  late final _act = dep<Act>();
+  late final _apiLists = DI.get<ListApi>();
+  late final _knownFilters = DI.get<KnownFilters>();
+  late final _defaultFilters = DI.get<DefaultFilters>();
+  late final _selectedFilters = DI.get<SelectedFilters>();
+  late final _userConfig = DI.get<CurrentConfig>();
+  late final _act = DI.get<Act>();
 
   var _listsToTags = <ListHashId, ListTag>{};
   DateTime lastListsFetch = DateTime(0);

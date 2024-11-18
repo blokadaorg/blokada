@@ -35,7 +35,7 @@ import 'platform/stats/stats.dart';
 import 'timer/timer.dart';
 
 class Entrypoint with Actor, Logging {
-  late final _appStart = dep<AppStartStore>();
+  late final _appStart = DI.get<AppStartStore>();
 
   @override
   onRegister(Act act) {
@@ -48,9 +48,7 @@ class Entrypoint with Actor, Logging {
     // replace the legacy code. Hopefully, you know how it goes :D
     final dragonDeps = DragonDeps().register(act);
 
-    PlatformPersistence(isSecure: false).register(act);
-    final secure = PlatformPersistence(isSecure: true);
-    depend<SecurePersistenceService>(secure);
+    PersistenceActor().register(act);
 
     if (act.hasToys) {
       RepeatingHttpService(
@@ -77,7 +75,7 @@ class Entrypoint with Actor, Logging {
 
     // Compatibility layer for v6 (temporary
     if (!act.isFamily) {
-      depend<FilterLegacy>(FilterLegacy(act));
+      DI.register<FilterLegacy>(FilterLegacy(act));
     }
 
     AppStore().register(act);
@@ -108,8 +106,8 @@ class Entrypoint with Actor, Logging {
     CommandStore().register(act);
     LinkStore().register(act);
 
-    depend<TopBarController>(TopBarController());
-    depend<Entrypoint>(this);
+    DI.register<TopBarController>(TopBarController());
+    DI.register<Entrypoint>(this);
 
     dragonDeps.load(act);
   }

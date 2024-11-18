@@ -24,7 +24,7 @@ class HomeDevice extends StatefulWidget {
 }
 
 class HomeDeviceState extends State<HomeDevice> with TickerProviderStateMixin {
-  late final _profiles = dep<ProfileController>();
+  late final _profiles = DI.get<ProfileController>();
 
   _onTap() async {
     _profiles.selectProfile(Markers.userTap, widget.device.profile);

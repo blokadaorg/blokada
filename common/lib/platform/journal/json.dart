@@ -52,8 +52,8 @@ class JsonJournalEntry {
 }
 
 class JournalJson {
-  late final _http = dep<HttpService>();
-  late final _account = dep<AccountStore>();
+  late final _http = DI.get<HttpService>();
+  late final _account = DI.get<AccountStore>();
 
   Future<List<JsonJournalEntry>> getEntries(Marker m) async {
     final result =

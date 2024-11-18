@@ -11,11 +11,11 @@ const _keyHeartbeat = "authHeartbeat";
 const _frequencyHeartbeat = Duration(minutes: 30);
 
 class AuthController with Logging {
-  late final _api = dep<AuthApi>();
-  late final _accountId = dep<AccountId>();
-  late final _currentToken = dep<CurrentToken>();
-  late final _scheduler = dep<Scheduler>();
-  late final _stage = dep<StageStore>();
+  late final _api = DI.get<AuthApi>();
+  late final _accountId = DI.get<AccountId>();
+  late final _currentToken = DI.get<CurrentToken>();
+  late final _scheduler = DI.get<Scheduler>();
+  late final _stage = DI.get<StageStore>();
 
   Function(Marker) onTokenRefreshed = (m) {};
   Function(Marker) onTokenExpired = (m) {};

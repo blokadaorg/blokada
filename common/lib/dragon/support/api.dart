@@ -3,7 +3,7 @@ import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
 
 class SupportApi with Logging {
-  late final _api = dep<Api>();
+  late final _api = DI.get<Api>();
   late final _marshal = JsonSupportMarshal();
 
   Future<JsonSupportSession> createSession(Marker m, String language,

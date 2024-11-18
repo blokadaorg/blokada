@@ -5,14 +5,14 @@ part of '../core.dart';
 class LogTracer with Actor {
   static final Map<Marker, TracingEvent> _traces = {};
 
-  late final _logger = dep<Logger>();
-  late final _scheduler = dep<Scheduler>();
+  late final _logger = DI.get<Logger>();
+  late final _scheduler = DI.get<Scheduler>();
 
   final timeout = const Duration(seconds: 15);
 
   @override
   void onRegister(Act act) {
-    depend<LogTracer>(this);
+    DI.register<LogTracer>(this);
     if (act.isTest) return;
   }
 

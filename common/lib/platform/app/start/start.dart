@@ -33,23 +33,23 @@ class OnboardingException implements Exception {}
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
 abstract class AppStartStoreBase with Store, Logging, Actor {
-  late final _ops = dep<AppStartOps>();
+  late final _ops = DI.get<AppStartOps>();
 
-  late final _env = dep<EnvStore>();
-  late final _lock = dep<LockStore>();
-  late final _app = dep<AppStore>();
-  late final _timer = dep<TimerService>();
-  late final _device = dep<DeviceStore>();
-  late final _perm = dep<PermStore>();
-  late final _account = dep<AccountStore>();
-  late final _accountRefresh = dep<AccountRefreshStore>();
-  late final _stage = dep<StageStore>();
-  late final _journal = dep<JournalStore>();
-  late final _plus = dep<PlusStore>();
-  late final _plusKeypair = dep<PlusKeypairStore>();
-  late final _rate = dep<RateStore>();
-  late final _family = dep<FamilyStore>();
-  late final _link = dep<LinkStore>();
+  late final _env = DI.get<EnvStore>();
+  late final _lock = DI.get<LockStore>();
+  late final _app = DI.get<AppStore>();
+  late final _timer = DI.get<TimerService>();
+  late final _device = DI.get<DeviceStore>();
+  late final _perm = DI.get<PermStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _accountRefresh = DI.get<AccountRefreshStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _journal = DI.get<JournalStore>();
+  late final _plus = DI.get<PlusStore>();
+  late final _plusKeypair = DI.get<PlusKeypairStore>();
+  late final _rate = DI.get<RateStore>();
+  late final _family = DI.get<FamilyStore>();
+  late final _link = DI.get<LinkStore>();
 
   AppStartStoreBase() {
     _timer.addHandler(_keyTimer, unpauseApp);
@@ -71,8 +71,8 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<AppStartOps>(getOps(act));
-    depend<AppStartStore>(this as AppStartStore);
+    DI.register<AppStartOps>(getOps(act));
+    DI.register<AppStartStore>(this as AppStartStore);
   }
 
   @observable

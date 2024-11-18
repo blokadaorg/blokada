@@ -8,7 +8,6 @@ import '../../../dragon/family/family.dart';
 import '../../../timer/timer.dart';
 import '../../../util/cooldown.dart';
 import '../../notification/notification.dart';
-import '../../persistence/persistence.dart';
 import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
@@ -94,13 +93,13 @@ class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
     with Store, Logging, Actor, Cooldown, Emitter {
-  late final _timer = dep<TimerService>();
-  late final _account = dep<AccountStore>();
-  late final _notification = dep<NotificationStore>();
-  late final _stage = dep<StageStore>();
-  late final _persistence = dep<PersistenceService>();
-  late final _plus = dep<PlusStore>();
-  late final _family = dep<FamilyStore>();
+  late final _timer = DI.get<TimerService>();
+  late final _account = DI.get<AccountStore>();
+  late final _notification = DI.get<NotificationStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _persistence = DI.get<Persistence>();
+  late final _plus = DI.get<PlusStore>();
+  late final _family = DI.get<FamilyStore>();
 
   AccountRefreshStoreBase() {
     _timer.addHandler(_keyTimer, onTimerFired);
@@ -109,7 +108,7 @@ abstract class AccountRefreshStoreBase
 
   @override
   onRegister(Act act) {
-    depend<AccountRefreshStore>(this as AccountRefreshStore);
+    DI.register<AccountRefreshStore>(this as AccountRefreshStore);
   }
 
   @observable
@@ -156,7 +155,7 @@ abstract class AccountRefreshStoreBase
         if (_initSuccessful) throw StateError("already initialized");
         await _account.load(m);
         await _account.fetch(m);
-        final metadataJson = await _persistence.load(_keyRefresh, m);
+        final metadataJson = await _persistence.load(_keyRefresh);
         if (metadataJson != null) {
           _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
         }
@@ -295,7 +294,6 @@ abstract class AccountRefreshStoreBase
   }
 
   _saveMetadata(Marker m) async {
-    await _persistence.saveString(
-        _keyRefresh, jsonEncode(_metadata.toJson()), m);
+    await _persistence.save(_keyRefresh, jsonEncode(_metadata.toJson()));
   }
 }

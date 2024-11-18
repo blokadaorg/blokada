@@ -24,8 +24,8 @@ extension on EnvPayload {
 }
 
 abstract class EnvStoreBase with Store, Logging, Actor {
-  late final _ops = dep<EnvOps>();
-  late final _agent = dep<UserAgent>();
+  late final _ops = DI.get<EnvOps>();
+  late final _agent = DI.get<UserAgent>();
 
   EnvStoreBase() {
     reactionOnStore((_) => userAgent, (_) async {
@@ -37,8 +37,8 @@ abstract class EnvStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
-    depend<EnvOps>(getOps(act));
-    depend<EnvStore>(this as EnvStore);
+    DI.register<EnvOps>(getOps(act));
+    DI.register<EnvStore>(this as EnvStore);
   }
 
   @observable

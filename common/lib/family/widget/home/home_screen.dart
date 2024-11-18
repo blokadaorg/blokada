@@ -22,9 +22,9 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen>
     with TickerProviderStateMixin, Logging, WidgetsBindingObserver {
-  late final _app = dep<AppStore>();
-  late final _family = dep<FamilyStore>();
-  late final _stage = dep<StageStore>();
+  late final _app = DI.get<AppStore>();
+  late final _family = DI.get<FamilyStore>();
+  late final _stage = DI.get<StageStore>();
 
   var _working = true;
 

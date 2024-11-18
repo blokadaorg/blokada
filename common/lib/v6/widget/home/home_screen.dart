@@ -26,9 +26,9 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen>
     with TickerProviderStateMixin, Logging {
-  final _app = dep<AppStore>();
-  final _stage = dep<StageStore>();
-  final _lock = dep<LockStore>();
+  final _app = DI.get<AppStore>();
+  final _stage = DI.get<StageStore>();
+  final _lock = DI.get<LockStore>();
 
   bool showDebug = false;
   bool hasPin = false;

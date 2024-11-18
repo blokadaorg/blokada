@@ -20,8 +20,8 @@ class HomeActions extends StatefulWidget {
 
 class _HomeActionsState extends State<HomeActions>
     with TickerProviderStateMixin, Logging {
-  final _app = dep<AppStore>();
-  final _appStart = dep<AppStartStore>();
+  final _app = DI.get<AppStore>();
+  final _appStart = DI.get<AppStartStore>();
 
   late final AnimationController _ctrlCounter = AnimationController(
     duration: const Duration(seconds: 1),

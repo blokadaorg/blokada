@@ -20,8 +20,8 @@ void main() {
     test("setBackground", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -41,8 +41,8 @@ void main() {
     test("setRoute", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -64,8 +64,8 @@ void main() {
     test("showModal", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -92,8 +92,8 @@ void main() {
     test("backgroundAndModal", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -126,8 +126,8 @@ void main() {
     test("advancedModalManagement", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -170,8 +170,8 @@ void main() {
     test("delayedEvents", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
         subject.act = mockedAct;
@@ -206,9 +206,9 @@ void main() {
     test("routeChanged", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        depend<StageOps>(ops);
-        depend<Scheduler>(MockScheduler());
-        depend<TimerService>(MockTimerService());
+        DI.register<StageOps>(ops);
+        DI.register<Scheduler>(MockScheduler());
+        DI.register<TimerService>(MockTimerService());
 
         final subject = StageStore();
         subject.act = mockedAct;

@@ -7,10 +7,10 @@ import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 
 class PurchaseTimout with Logging {
-  late final _stage = dep<StageStore>();
-  late final _support = dep<SupportController>();
-  late final _account = dep<AccountStore>();
-  late final _scheduler = dep<Scheduler>();
+  late final _stage = DI.get<StageStore>();
+  late final _support = DI.get<SupportController>();
+  late final _account = DI.get<AccountStore>();
+  late final _scheduler = DI.get<Scheduler>();
   late final _notified = PurchaseTimeoutNotified();
 
   bool _userEnteredPurchase = false;
@@ -69,7 +69,7 @@ class PurchaseTimout with Logging {
 }
 
 class PurchaseTimeoutNotified extends AsyncValue<bool> {
-  late final _persistence = dep<Persistence>();
+  late final _persistence = DI.get<Persistence>();
 
   static const key = "purchase_timeout_notified";
 

@@ -18,7 +18,7 @@ void main() async {
   entrypoint.onStartApp();
 
   final ws = DevWebsocket();
-  depend(ws);
+  DI.register(ws);
   ws.handle();
 
   runApp(BlokadaApp(content: null));
@@ -28,7 +28,7 @@ class DevWebsocket {
   var ip = "192.168.1.177";
   //var ip = "192.168.234.104";
 
-  late final command = dep<CommandStore>();
+  late final command = DI.get<CommandStore>();
   WebSocketChannel? channel;
 
   handle() async {

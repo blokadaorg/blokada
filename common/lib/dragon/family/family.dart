@@ -28,23 +28,23 @@ const linkTemplate = "$familyLinkBase?token=TOKEN";
 class FamilyStore = FamilyStoreBase with _$FamilyStore;
 
 abstract class FamilyStoreBase with Store, Logging, Actor {
-  late final _stage = dep<StageStore>();
-  late final _account = dep<AccountStore>();
-  late final _lock = dep<LockStore>();
+  late final _stage = DI.get<StageStore>();
+  late final _account = DI.get<AccountStore>();
+  late final _lock = DI.get<LockStore>();
 
-  late final _device = dep<DeviceController>();
-  late final _stats = dep<StatsController>();
-  late final _auth = dep<AuthController>();
-  late final _thisDevice = dep<ThisDevice>();
-  late final _dnsPerm = dep<DnsPerm>();
-  late final _perm = dep<PermController>();
-  late final _permStore = dep<PermStore>();
-  late final _acc = dep<AccountController>();
-  late final _profiles = dep<ProfileController>();
+  late final _device = DI.get<DeviceController>();
+  late final _stats = DI.get<StatsController>();
+  late final _auth = DI.get<AuthController>();
+  late final _thisDevice = DI.get<ThisDevice>();
+  late final _dnsPerm = DI.get<DnsPerm>();
+  late final _perm = DI.get<PermController>();
+  late final _permStore = DI.get<PermStore>();
+  late final _acc = DI.get<AccountController>();
+  late final _profiles = DI.get<ProfileController>();
 
   @override
   onRegister(Act act) {
-    depend<FamilyStore>(this as FamilyStore);
+    DI.register<FamilyStore>(this as FamilyStore);
 
     if (!(act.isFamily ?? false)) return;
 

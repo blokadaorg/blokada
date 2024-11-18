@@ -19,7 +19,7 @@ import '../../tools.dart';
   MockSpec<AccountRefreshStore>(),
   MockSpec<NotificationStore>(),
   MockSpec<StageStore>(),
-  MockSpec<PersistenceService>(),
+  MockSpec<Persistence>(),
   MockSpec<PlusStore>(),
 ])
 import 'refresh_test.mocks.dart';
@@ -28,12 +28,12 @@ void main() {
   group("store", () {
     test("willExpireAccountProperly", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
-        depend<TimerService>(MockTimerService());
-        depend<AccountStore>(AccountStore());
-        depend<NotificationStore>(MockNotificationStore());
-        depend<PersistenceService>(MockPersistenceService());
-        depend<PlusStore>(MockPlusStore());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<TimerService>(MockTimerService());
+        DI.register<AccountStore>(AccountStore());
+        DI.register<NotificationStore>(MockNotificationStore());
+        DI.register<Persistence>(MockPersistence());
+        DI.register<PlusStore>(MockPlusStore());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -73,12 +73,12 @@ void main() {
     test("willFetchAccountOnAppStartAndTimerFired", () async {
       await withTrace((m) async {
         final account = MockAccountStore();
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
-        depend<StageStore>(MockStageStore());
-        depend<TimerService>(MockTimerService());
-        depend<NotificationStore>(NotificationStore());
-        depend<PersistenceService>(MockPersistenceService());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<TimerService>(MockTimerService());
+        DI.register<NotificationStore>(NotificationStore());
+        DI.register<Persistence>(MockPersistence());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -99,12 +99,12 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.load(any)).thenThrow(Exception("No existing account"));
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
-        depend<StageStore>(MockStageStore());
-        depend<TimerService>(MockTimerService());
-        depend<NotificationStore>(NotificationStore());
-        depend<PersistenceService>(MockPersistenceService());
+        DI.register<StageStore>(MockStageStore());
+        DI.register<TimerService>(MockTimerService());
+        DI.register<NotificationStore>(NotificationStore());
+        DI.register<Persistence>(MockPersistence());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -121,17 +121,17 @@ void main() {
 
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
-        depend<TimerService>(MockTimerService());
-        depend<NotificationStore>(MockNotificationStore());
-        depend<PersistenceService>(MockPersistenceService());
+        DI.register<TimerService>(MockTimerService());
+        DI.register<NotificationStore>(MockNotificationStore());
+        DI.register<Persistence>(MockPersistence());
 
         final route = StageRouteState.init().newTab(StageTab.home);
         final stage = MockStageStore();
         when(stage.route).thenReturn(route);
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final account = MockAccountStore();
-        depend<AccountStore>(account);
+        DI.register<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();

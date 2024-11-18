@@ -35,10 +35,10 @@ void main() {
     test("setVpnConfigWillQueueIfNotReady", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        depend<PlusVpnOps>(ops);
+        DI.register<PlusVpnOps>(ops);
 
-        depend<AppStore>(MockAppStore());
-        depend<TimerService>(MockTimerService());
+        DI.register<AppStore>(MockAppStore());
+        DI.register<TimerService>(MockTimerService());
 
         // First call will queue up because the status is not ready
         final subject = PlusVpnStore();
@@ -66,12 +66,12 @@ void main() {
     test("setVpnActiveWillQueueWhenNotReady", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        depend<PlusVpnOps>(ops);
+        DI.register<PlusVpnOps>(ops);
 
-        depend<AppStore>(MockAppStore());
+        DI.register<AppStore>(MockAppStore());
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final subject = PlusVpnStore();
         await subject.turnVpnOff(m);
@@ -97,12 +97,12 @@ void main() {
     test("setVpnActiveWillMeasureTime", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        depend<PlusVpnOps>(ops);
+        DI.register<PlusVpnOps>(ops);
 
-        depend<AppStore>(MockAppStore());
+        DI.register<AppStore>(MockAppStore());
 
         final timer = MockTimerService();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final subject = PlusVpnStore();
         await subject.setActualStatus("deactivated", m);
@@ -138,10 +138,10 @@ void main() {
     test("setActiveWillErrorIfStatusIsNotReported", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        depend<PlusVpnOps>(ops);
+        DI.register<PlusVpnOps>(ops);
 
         final timer = DefaultTimer();
-        depend<TimerService>(timer);
+        DI.register<TimerService>(timer);
 
         final subject = PlusVpnStore();
         subject.actualStatus = VpnStatus.deactivated;

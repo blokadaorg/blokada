@@ -3,7 +3,7 @@ import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
 
 class JournalApi {
-  late final _api = dep<Api>();
+  late final _api = DI.get<Api>();
   late final _marshal = JsonJournalMarshal();
 
   Future<List<JsonJournalEntry>> fetch(Marker m, DeviceTag tag) async {

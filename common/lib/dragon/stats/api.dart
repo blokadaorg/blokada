@@ -4,8 +4,8 @@ import 'package:common/common/state/state.dart';
 import 'package:common/core/core.dart';
 
 class StatsApi {
-  late final _api = dep<Api>();
-  late final _accountId = dep<AccountId>();
+  late final _api = DI.get<Api>();
+  late final _accountId = DI.get<AccountId>();
   late final _marshal = JsonStatsMarshall();
 
   Future<JsonStatsEndpoint> fetch(

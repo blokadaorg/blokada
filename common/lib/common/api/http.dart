@@ -1,11 +1,11 @@
 part of 'api.dart';
 
 class Http with Logging {
-  late final _ops = dep<HttpOps>();
-  late final _baseUrl = dep<BaseUrl>();
-  late final _accountId = dep<AccountId>();
-  late final _userAgent = dep<UserAgent>();
-  late final _retry = dep<ApiRetryDuration>();
+  late final _ops = DI.get<HttpOps>();
+  late final _baseUrl = DI.get<BaseUrl>();
+  late final _accountId = DI.get<AccountId>();
+  late final _userAgent = DI.get<UserAgent>();
+  late final _retry = DI.get<ApiRetryDuration>();
 
   Future<String> call(
     HttpRequest payload,

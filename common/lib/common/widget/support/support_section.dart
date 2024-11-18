@@ -1,7 +1,6 @@
 import 'package:common/common/widget/support/convert.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/debounce.dart';
 import 'package:common/dragon/navigation.dart';
 import 'package:common/dragon/support/controller.dart';
@@ -17,7 +16,7 @@ class SupportSection extends StatefulWidget {
 }
 
 class SupportSectionState extends State<SupportSection> {
-  late final _controller = dep<SupportController>();
+  late final _controller = DI.get<SupportController>();
   late final _sessionInitDebounce =
       Debounce(const Duration(milliseconds: 1200));
 

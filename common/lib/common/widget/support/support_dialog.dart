@@ -15,9 +15,9 @@ class SupportDialog extends StatefulWidget {
 }
 
 class SupportDialogState extends State<SupportDialog> with Logging {
-  late final _support = dep<SupportController>();
-  late final _command = dep<CommandStore>();
-  late final _stage = dep<StageStore>();
+  late final _support = DI.get<SupportController>();
+  late final _command = DI.get<CommandStore>();
+  late final _stage = DI.get<StageStore>();
 
   @override
   Widget build(BuildContext context) {

@@ -21,15 +21,15 @@ void main() {
   group("store", () {
     test("willSplitEntriesByType", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final json = MockCustomJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
-        depend<CustomJson>(json);
+        DI.register<CustomJson>(json);
 
         final ops = MockCustomOps();
-        depend<CustomOps>(ops);
+        DI.register<CustomOps>(ops);
 
         final subject = CustomStore();
         await subject.fetch(m);
@@ -43,15 +43,15 @@ void main() {
 
     test("allowAndOthers", () async {
       await withTrace((m) async {
-        depend<StageStore>(MockStageStore());
+        DI.register<StageStore>(MockStageStore());
 
         final json = MockCustomJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
-        depend<CustomJson>(json);
+        DI.register<CustomJson>(json);
 
         final ops = MockCustomOps();
-        depend<CustomOps>(ops);
+        DI.register<CustomOps>(ops);
 
         final subject = CustomStore();
 
@@ -73,14 +73,14 @@ void main() {
     test("willRefreshWhenNeeded", () async {
       await withTrace((m) async {
         final json = MockCustomJson();
-        depend<CustomJson>(json);
+        DI.register<CustomJson>(json);
 
         final route = StageRouteState.init().newTab(StageTab.activity);
         final stage = MockStageStore();
-        depend<StageStore>(stage);
+        DI.register<StageStore>(stage);
 
         final ops = MockCustomOps();
-        depend<CustomOps>(ops);
+        DI.register<CustomOps>(ops);
 
         final subject = CustomStore();
         verifyNever(json.getEntries(any));

@@ -3,7 +3,6 @@ import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/device/controller.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/family/family.dart';
@@ -29,9 +28,9 @@ class ProfileDialog extends StatefulWidget {
 }
 
 class ProfileDialogState extends State<ProfileDialog> {
-  late final _family = dep<FamilyStore>();
-  late final _devices = dep<DeviceController>();
-  late final _profiles = dep<ProfileController>();
+  late final _family = DI.get<FamilyStore>();
+  late final _devices = DI.get<DeviceController>();
+  late final _profiles = DI.get<ProfileController>();
 
   late JsonDevice device;
   String? error;
@@ -159,7 +158,7 @@ class ProfileDialogState extends State<ProfileDialog> {
 
   Widget _wrapInDismissible(
       BuildContext context, JsonProfile it, Widget child) {
-    late final device = dep<DeviceController>();
+    late final device = DI.get<DeviceController>();
     return Slidable(
       key: Key(it.alias),
       endActionPane: ActionPane(

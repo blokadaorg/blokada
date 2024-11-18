@@ -4,7 +4,7 @@ import '../../common/api/api.dart';
 import '../../common/model/model.dart';
 
 class DeviceApi {
-  late final _api = dep<Api>();
+  late final _api = DI.get<Api>();
   late final _marshal = JsonDeviceMarshal();
 
   Future<List<JsonDevice>> fetch(Marker m) async {

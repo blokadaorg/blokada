@@ -145,9 +145,9 @@ class StageStore = StageStoreBase with _$StageStore;
 
 abstract class StageStoreBase
     with Store, Logging, Actor, ValueEmitter<StageRouteState>, Emitter {
-  late final _ops = dep<StageOps>();
-  late final _scheduler = dep<Scheduler>();
-  late final _links = dep<LinkStore>();
+  late final _ops = DI.get<StageOps>();
+  late final _scheduler = DI.get<Scheduler>();
+  late final _links = DI.get<LinkStore>();
 
   @observable
   StageRouteState route = StageRouteState.init();
@@ -178,8 +178,8 @@ abstract class StageStoreBase
 
   @override
   onRegister(Act act) {
-    depend<StageOps>(getOps(act));
-    depend<StageStore>(this as StageStore);
+    DI.register<StageOps>(getOps(act));
+    DI.register<StageStore>(this as StageStore);
   }
 
   @action
@@ -265,7 +265,7 @@ abstract class StageStoreBase
     });
   }
 
-  late final ctrl = dep<TopBarController>();
+  late final ctrl = DI.get<TopBarController>();
 
   @action
   Future<void> back() async {

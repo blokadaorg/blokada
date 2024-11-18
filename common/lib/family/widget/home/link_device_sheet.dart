@@ -8,7 +8,6 @@ import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/core/core.dart';
 import 'package:common/dragon/device/generator.dart';
 import 'package:common/dragon/dialog.dart';
 import 'package:common/dragon/family/family.dart';
@@ -28,8 +27,8 @@ class LinkDeviceSheet extends StatefulWidget {
 }
 
 class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
-  late final _family = dep<FamilyStore>();
-  late final _generator = dep<NameGenerator>();
+  late final _family = DI.get<FamilyStore>();
+  late final _generator = DI.get<NameGenerator>();
 
   bool _showQr = false; // The widget would stutter animation, show async
 

@@ -51,8 +51,8 @@ double getTopPadding(BuildContext context) {
 }
 
 class Navigation with Logging {
-  late final journal = dep<JournalController>();
-  late final _custom = dep<CustomStore>();
+  late final journal = DI.get<JournalController>();
+  late final _custom = DI.get<CustomStore>();
 
   static late bool isTabletMode;
 
@@ -66,7 +66,7 @@ class Navigation with Logging {
       return;
     }
 
-    final ctrl = dep<TopBarController>();
+    final ctrl = DI.get<TopBarController>();
     ctrl.navigatorKey.currentState!.pushNamed(path.path, arguments: arguments);
   }
 
@@ -179,8 +179,8 @@ class Navigation with Logging {
 }
 
 class NavigationPopObserver extends NavigatorObserver {
-  late final _journal = dep<JournalController>();
-  late final _unread = dep<SupportUnreadController>();
+  late final _journal = DI.get<JournalController>();
+  late final _unread = DI.get<SupportUnreadController>();
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
