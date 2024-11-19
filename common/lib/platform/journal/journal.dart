@@ -125,6 +125,7 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<JournalOps>(getOps(act));
     DI.register<JournalJson>(JournalJson());
     DI.register<JournalStore>(this as JournalStore);

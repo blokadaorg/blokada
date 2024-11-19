@@ -1,8 +1,8 @@
 import 'dart:io' as io;
 
+import 'package:common/common/widget/app.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/app.dart';
-import 'package:common/entrypoint.dart';
+import 'package:common/modules.dart';
 import 'package:common/v6/widget/scaffolding.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,19 +23,19 @@ void main() async {
   final PlatformType platform =
       io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
 
-  final entrypoint = Entrypoint();
+  final modules = Modules();
   if (kReleaseMode) {
-    entrypoint.onRegister(ActScreenplay(ActScenario.prod, flavor, platform));
+    await modules.create(ActScreenplay(ActScenario.prod, flavor, platform));
   } else {
-    entrypoint
-        .onRegister(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
+    await modules
+        .create(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
   }
 
   if (flavor == Flavor.family) {
     jsonUrl = "https://family.api.blocka.net";
   }
 
-  entrypoint.onStartApp();
+  modules.start(Markers.start);
 
   // final ws = DevWebsocket();
   // depend(ws);

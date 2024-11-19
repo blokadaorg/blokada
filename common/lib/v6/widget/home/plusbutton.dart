@@ -29,7 +29,7 @@ class _PlusButtonState extends State<PlusButton>
   final _gateway = DI.get<PlusGatewayStore>();
   final _stage = DI.get<StageStore>();
   final _plus = DI.get<PlusStore>();
-  final _perm = DI.get<PermStore>();
+  final _permVpnEnabled = DI.get<VpnEnabled>();
 
   var activated = false;
   var location = "";
@@ -142,7 +142,7 @@ class _PlusButtonState extends State<PlusButton>
 
   _displayLocations() {
     log(Markers.userTap).trace("tappedDisplayLocations", (m) async {
-      if (_perm.vpnEnabled) {
+      if (_permVpnEnabled.present == true) {
         await _stage.showModal(StageModal.plusLocationSelect, m);
       } else {
         await _stage.showModal(StageModal.perms, m);

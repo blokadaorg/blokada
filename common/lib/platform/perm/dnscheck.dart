@@ -4,6 +4,7 @@ import 'package:common/core/core.dart';
 class PrivateDnsCheck with Actor, Logging {
   @override
   void onRegister(Act act) {
+    this.act = act;
     DI.register<PrivateDnsCheck>(this);
   }
 

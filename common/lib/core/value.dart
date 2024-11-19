@@ -1,140 +1,221 @@
 part of 'core.dart';
 
-class NullableValue<T> {
-  late T? _value;
-  bool _resolved = false;
+// A simple holder that has a default value at start and then
+// can be updated, with an optional save action and a stream
+// to listen to changes (by many listeners).
+abstract class Value<T> with Logging {
+  final T Function() load;
+  final Function(T)? save;
 
-  T? get now {
-    try {
-      return _value;
-    } catch (_) {
-      throw Exception("NullableValue $runtimeType is not resolved yet.");
-    }
-  }
-
-  Future<T?> fetch(Marker m) async {
-    try {
-      if (!_resolved) {
-        // Also broadcasts to stream
-        change(m, await doLoad());
-      }
-      return _value;
-    } catch (e) {
-      throw Exception("NullableValue $runtimeType failed to load: $e.");
-    }
-  }
-
-  Future<T?> doLoad() => throw Exception("Value $runtimeType does not resolve");
-  doSave(T? value) async => {};
-
-  // Value changes can be observed by many
-  final _stream = StreamController<NullableValueUpdate<T>>.broadcast();
-  Stream<NullableValueUpdate<T>> get onChange => _stream.stream;
-
-  change(Marker m, T? newValue) {
-    if (!_resolved || _value != newValue) {
-      try {
-        final update =
-            NullableValueUpdate(_resolved ? _value : null, newValue, m);
-        _resolved = true;
-        _value = newValue;
-        _stream.sink.add(update);
-        doSave(newValue);
-      } catch (e) {
-        throw Exception("NullableValue $runtimeType failed to save: $e.");
-      }
-    }
-  }
-
-  void dispose() {
-    _stream.close();
-  }
-}
-
-abstract class AsyncValue<T> {
-  late T _value;
-  bool _resolving = false;
-  bool resolved = false;
-
-  T get now {
-    try {
-      return _value;
-    } catch (_) {
-      throw Exception("Value $runtimeType is not resolved yet.");
-    }
-  }
-
-  Future<T> fetch(Marker m) async {
-    if (!_resolving) {
-      _resolving = true;
-      // Also broadcasts to stream
-      change(m, await doLoad());
-      resolved = true;
-    }
-    return _value!;
-  }
-
-  Future<T> doLoad() => throw Exception("Value $runtimeType does not resolve");
-  doSave(T value) async => {};
-
-  final _stream = StreamController<ValueUpdate<T>>.broadcast();
   Stream<ValueUpdate<T>> get onChange => _stream.stream;
+  final _stream = StreamController<ValueUpdate<T>>.broadcast();
 
-  change(Marker m, T newValue) {
-    try {
-      if (_value != newValue) {
-        final update = ValueUpdate(resolved ? _value : null, newValue, m);
-        resolved = true;
-        _value = newValue;
-        _stream.sink.add(update);
-        doSave(newValue);
-      }
-    } catch (_) {
-      final update = ValueUpdate(resolved ? _value : null, newValue, m);
-      resolved = true;
-      _value = newValue;
-      _stream.sink.add(update);
-      doSave(newValue);
-    }
-  }
-
-  void dispose() {
-    _stream.close();
-  }
-}
-
-abstract class Value<T> {
-  late T _value;
   bool _resolved = false;
+  late T _value;
+
+  Value({required this.load, this.save});
 
   T get now {
     if (!_resolved) {
+      now = load();
       _resolved = true;
-      // Also broadcasts to stream
-      now = doLoad();
     }
     return _value!;
   }
 
-  T doLoad() => throw Exception("Value $runtimeType does not resolve");
-  doSave(T value) async => {};
-
-  final _stream = StreamController<T>.broadcast();
-  Stream<T> get onChange => _stream.stream;
-
+  // Also broadcasts to stream
   set now(T newValue) {
+    if (_resolved && newValue == _value) return;
+
+    final update =
+        ValueUpdate(Markers.root, _resolved ? _value : null, newValue);
+    _value = newValue;
+    save?.call(newValue);
+
+    log(Markers.root).logt(
+      attr: {
+        "old": _resolved ? update.old : "(undefined value)",
+        "now": update.now
+      },
+      sensitive: true,
+    );
+
     _resolved = true;
-    try {
-      if (_value != newValue) {
-        _value = newValue;
-        _stream.sink.add(newValue);
-        doSave(newValue);
-      }
-    } catch (_) {
-      _value = newValue;
-      _stream.sink.add(newValue);
-      doSave(newValue);
+    _stream.sink.add(update);
+  }
+
+  void dispose() {
+    _stream.close();
+  }
+}
+
+// Similar to Value but operates asynchronously.
+// Will block on read if it's not resolved yet.
+abstract class AsyncValue<T> with Logging {
+  Future<T> Function(Marker m)? load;
+  Future<void> Function(Marker m, T)? save;
+
+  Stream<ValueUpdate<T>> get onChange => _stream.stream;
+  final _stream = StreamController<ValueUpdate<T>>.broadcast();
+
+  bool _resolved = false;
+  bool _resolving = false;
+  late T _value;
+
+  final _debounce = Debounce(const Duration(seconds: 15));
+
+  Future<T> now() async {
+    if (_resolved) {
+      return _value;
     }
+
+    return await _waitForResolve();
+  }
+
+  T? get present {
+    if (_resolved) return _value;
+    return null;
+  }
+
+  Future<T> fetch(Marker m) async {
+    if (_resolving) return await _waitForResolve();
+
+    if (!_resolved && load != null) {
+      _resolving = true;
+      final newValue = await load!.call(m);
+      await change(m, newValue);
+      _resolving = false;
+      return newValue;
+    }
+
+    if (!_resolved) return await _waitForResolve();
+
+    return _value;
+  }
+
+  Future<T> _waitForResolve() async {
+    _debounce.run(() => log(Markers.root).e(
+          msg: "Too slow to resolve",
+          err: Exception("Too slow to resolve"),
+          stack: StackTrace.current,
+        ));
+
+    final completer = Completer<T>();
+    late StreamSubscription subscription;
+    subscription = onChange.listen((it) {
+      _debounce.cancel();
+      completer.complete(it.now);
+      subscription.cancel();
+    });
+    return completer.future;
+  }
+
+  // Also broadcasts to stream
+  change(Marker m, T newValue) async {
+    if (_resolved && newValue == _value) return;
+
+    final update = ValueUpdate(m, _resolved ? _value : null, newValue);
+    _value = newValue;
+    await save?.call(m, newValue);
+
+    log(m).logt(
+      attr: {
+        "old": _resolved ? update.old : "(undefined async value)",
+        "now": update.now
+      },
+      sensitive: true,
+    );
+
+    _resolved = true;
+    _stream.sink.add(update);
+  }
+
+  void dispose() {
+    _stream.close();
+  }
+}
+
+// Similar to AsyncValue but operates asynchronously.
+// Will block on read if it's not resolved yet.
+abstract class NullableAsyncValue<T> with Logging {
+  Future<T?> Function(Marker m)? load;
+  Future<void> Function(Marker m, T?)? save;
+
+  Stream<NullableValueUpdate<T>> get onChange => _stream.stream;
+  final _stream = StreamController<NullableValueUpdate<T>>.broadcast();
+
+  bool _resolved = false;
+  bool _resolving = false;
+  late T? _value;
+
+  final _debounce = Debounce(const Duration(seconds: 15));
+
+  NullableAsyncValue({this.load, this.save});
+
+  Future<T?> now() async {
+    if (_resolved) {
+      return _value;
+    }
+
+    return await _waitForResolve();
+  }
+
+  T? get present {
+    if (_resolved) return _value;
+    return null;
+  }
+
+  Future<T?> fetch(Marker m) async {
+    if (_resolving) return await _waitForResolve();
+
+    if (!_resolved && load != null) {
+      _resolving = true;
+      final newValue = await load!.call(m);
+      await change(m, newValue);
+      _resolving = false;
+      return newValue;
+    }
+
+    if (!_resolved) return await _waitForResolve();
+
+    return _value;
+  }
+
+  Future<T> _waitForResolve() async {
+    _debounce.run(() => log(Markers.root).e(
+          msg: "Too slow to resolve",
+          err: Exception("Too slow to resolve"),
+          stack: StackTrace.current,
+        ));
+
+    final completer = Completer<T>();
+    late StreamSubscription subscription;
+    subscription = onChange.listen((it) {
+      _debounce.cancel();
+      completer.complete(it.now);
+      subscription.cancel();
+    });
+    return completer.future;
+  }
+
+  // Also broadcasts to stream
+  change(Marker m, T? newValue) async {
+    if (_resolved && newValue == _value) return;
+
+    final update = NullableValueUpdate(m, _resolved ? _value : null, newValue);
+    _value = newValue;
+    await save?.call(m, newValue);
+
+    log(m).logt(
+      attr: {
+        "old": _resolved ? update.old : "(undefined nullable async value)",
+        "now": update.now
+      },
+      sensitive: true,
+    );
+
+    _resolved = true;
+    _stream.sink.add(update);
   }
 
   void dispose() {
@@ -143,17 +224,17 @@ abstract class Value<T> {
 }
 
 class NullableValueUpdate<T> {
+  final Marker m;
   final T? old;
   final T? now;
-  final Marker m;
 
-  NullableValueUpdate(this.old, this.now, this.m);
+  NullableValueUpdate(this.m, this.old, this.now);
 }
 
 class ValueUpdate<T> {
+  final Marker m;
   final T? old;
   final T now;
-  final Marker m;
 
-  ValueUpdate(this.old, this.now, this.m);
+  ValueUpdate(this.m, this.old, this.now);
 }

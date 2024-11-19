@@ -1,8 +1,7 @@
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/device/open_perms.dart';
-import 'package:common/dragon/perm/controller.dart';
+import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,8 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
 }
 
 class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
-  late final _openPerms = DI.get<OpenPerms>();
-  late final _perm = DI.get<PermController>();
+  late final _channel = DI.get<PermChannel>();
+  late final _perm = DI.get<PermActor>();
 
   final _scrollController = ScrollController();
   bool _isFullyVisible = false;
@@ -69,7 +68,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
     await sleepAsync(const Duration(milliseconds: 400));
     Clipboard.setData(
         ClipboardData(text: _perm.getAndroidDnsStringToCopy(Markers.userTap)));
-    _openPerms.open();
+    _channel.doOpenPermSettings();
   }
 
   @override

@@ -1,8 +1,8 @@
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/support/support.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/home/header/header_button.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/navigation.dart';
-import 'package:common/dragon/support/support_unread.dart';
 import 'package:flutter/cupertino.dart';
 
 class SmartHeader extends StatefulWidget {
@@ -53,7 +53,7 @@ class Header extends State<SmartHeader>
     if (!widget.phase.isLocked2() &&
         widget.phase != FamilyPhase.linkedExpired) {
       list.add(SmartHeaderButton.HeaderButton(
-          unread: (_unread.resolved) ? _unread.now : false,
+          unread: _unread.present ?? false,
           icon: CupertinoIcons.person_crop_circle,
           onTap: () {
             Navigation.open(Paths.settings);

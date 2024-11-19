@@ -47,6 +47,7 @@ abstract class PlusStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<PlusOps>(getOps(act));
     DI.register<PlusStore>(this as PlusStore);
   }
@@ -73,7 +74,7 @@ abstract class PlusStoreBase with Store, Logging, Actor {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      plusEnabled = await _persistence.load(_keySelected) == "1";
+      plusEnabled = await _persistence.load(m, _keySelected) == "1";
     });
   }
 
@@ -216,6 +217,6 @@ abstract class PlusStoreBase with Store, Logging, Actor {
   }
 
   _saveFlag(Marker m) async {
-    await _persistence.save(_keySelected, plusEnabled ? "1" : "0");
+    await _persistence.save(m, _keySelected, plusEnabled ? "1" : "0");
   }
 }

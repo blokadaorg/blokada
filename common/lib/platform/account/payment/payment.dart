@@ -40,6 +40,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<AccountPaymentOps>(getOps(act));
     DI.register<AccountPaymentJson>(AccountPaymentJson());
     DI.register<AccountPaymentStore>(this as AccountPaymentStore);

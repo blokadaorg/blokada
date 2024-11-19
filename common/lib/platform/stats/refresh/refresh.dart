@@ -28,6 +28,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<StatsRefreshStore>(this as StatsRefreshStore);
   }
 

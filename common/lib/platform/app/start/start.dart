@@ -2,8 +2,6 @@ import 'package:common/core/core.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../dragon/family/family.dart';
-import '../../../lock/lock.dart';
 import '../../../timer/timer.dart';
 import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
@@ -14,7 +12,6 @@ import '../../link/link.dart';
 import '../../perm/perm.dart';
 import '../../plus/keypair/keypair.dart';
 import '../../plus/plus.dart';
-import '../../rate/rate.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../app.dart';
@@ -36,19 +33,17 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _ops = DI.get<AppStartOps>();
 
   late final _env = DI.get<EnvStore>();
-  late final _lock = DI.get<Lock>();
   late final _app = DI.get<AppStore>();
   late final _timer = DI.get<TimerService>();
   late final _device = DI.get<DeviceStore>();
-  late final _perm = DI.get<PermStore>();
+  late final _perm = DI.get<PlatformPermActor>();
+  late final _permVpn = DI.get<VpnEnabled>();
   late final _account = DI.get<AccountStore>();
   late final _accountRefresh = DI.get<AccountRefreshStore>();
   late final _stage = DI.get<StageStore>();
   late final _journal = DI.get<JournalStore>();
   late final _plus = DI.get<PlusStore>();
   late final _plusKeypair = DI.get<PlusKeypairStore>();
-  late final _rate = DI.get<RateStore>();
-  late final _family = DI.get<FamilyStore>();
   late final _link = DI.get<LinkStore>();
 
   AppStartStoreBase() {
@@ -71,6 +66,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<AppStartOps>(getOps(act));
     DI.register<AppStartStore>(this as AppStartStore);
   }
@@ -85,23 +81,18 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final List<Actor> _startablesV6 = [
     _env,
     _link,
-    _lock,
     _device,
     _journal,
     _plusKeypair,
     _accountRefresh,
     _plus,
-    _rate,
   ];
 
   late final List<Actor> _startablesFamily = [
     _env,
     _link,
-    _lock,
     _device,
     _accountRefresh,
-    _family,
-    _rate,
   ];
 
   @action
@@ -211,7 +202,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       throw AccountTypeException();
     } else if (!_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
       throw OnboardingException();
-    } else if (_account.type == AccountType.plus && !_perm.vpnEnabled) {
+    } else if (_account.type == AccountType.plus && _permVpn.present != true) {
       throw OnboardingException();
     }
     await _device.setCloudEnabled(true, m);

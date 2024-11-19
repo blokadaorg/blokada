@@ -2,16 +2,25 @@ part of 'core.dart';
 
 mixin Emitter on Logging {
   final Map<EmitterEvent, List<Function(Marker)>> _valueListeners = {};
+  final Map<EmitterEvent, dynamic> _latestValue = {};
 
   willAcceptOn(List<EmitterEvent> events) {
     _valueListeners.clear();
     _valueListeners.addEntries(events.map((it) => MapEntry(it, [])));
   }
 
-  addOn(EmitterEvent on, Function(Marker) listener) {
+  addOn<T>(EmitterEvent<T> on, Function(Marker) listener) {
     final listeners = _valueListeners[on];
     if (listeners == null) throw Exception("Unknown event");
     listeners.add(listener);
+
+    final latest = _latestValue[on];
+    if (latest != null) {
+      log(Markers.start).trace("emitter", (m) async {
+        log(m).i("Instant emit for $on");
+        await listener(m);
+      });
+    }
   }
 
   removeOn(EmitterEvent on, dynamic listener) {
@@ -23,6 +32,7 @@ mixin Emitter on Logging {
 
     final listeners = _valueListeners[on];
     if (listeners == null) throw Exception("Unknown event");
+    _latestValue[on] = value;
     for (final listener in listeners.toList()) {
       // Ignore any listener errors
       try {

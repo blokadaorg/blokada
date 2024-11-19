@@ -1,16 +1,16 @@
 import 'dart:async';
 
+import 'package:common/common/dialog.dart';
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/filter/selected_filters.dart';
-import 'package:common/dragon/journal/controller.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/family/module/family/family.dart';
+import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/widget/device/device_section.dart';
 import 'package:common/family/widget/filters_section.dart';
 import 'package:common/family/widget/stats_detail_section.dart';
@@ -26,8 +26,8 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class DeviceScreenState extends State<DeviceScreen> {
-  late final _family = DI.get<FamilyStore>();
-  late final _journal = DI.get<JournalController>();
+  late final _family = DI.get<FamilyDevicesValue>();
+  late final _journal = DI.get<JournalActor>();
   late final _selectedFilters = DI.get<SelectedFilters>();
 
   Paths _path = Paths.deviceStats;
@@ -64,7 +64,7 @@ class DeviceScreenState extends State<DeviceScreen> {
   @override
   Widget build(BuildContext context) {
     built = true;
-    final device = _family.devices.getDevice(widget.tag);
+    final device = _family.now.getDevice(widget.tag);
     final isTablet = isTabletMode(context);
 
     if (isTablet) return _buildForTablet(context, device);

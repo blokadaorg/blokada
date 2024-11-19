@@ -5,8 +5,11 @@ final defaultLoggerPrinter = PrefixPrinter(PrettyPrinter(
   colors: false,
   printEmojis: false,
   stackTraceBeginIndex: 0,
-  methodCount: 2,
+  methodCount: kReleaseMode ? 2 : 6,
   errorMethodCount: 16,
   dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
-  excludePaths: ["package:common/logger"],
+  excludePaths: [
+    "package:common/core/logger",
+    "<asynchronous suspension>",
+  ],
 ));

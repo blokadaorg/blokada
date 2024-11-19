@@ -72,6 +72,7 @@ abstract class NotificationStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<NotificationOps>(getOps(act));
     DI.register<NotificationJson>(NotificationJson());
     DI.register<NotificationStore>(this as NotificationStore);

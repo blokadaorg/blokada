@@ -1,11 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/lock/value.dart';
+import 'package:common/family/module/family/family.dart';
+import 'package:common/lock/lock.dart';
 import 'package:dartx/dartx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../util/mobx.dart';
 import '../account/account.dart';
 import '../env/env.dart';
 import 'channel.act.dart';
@@ -64,7 +63,7 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   late final _ops = DI.get<LinkOps>();
   late final _env = DI.get<EnvStore>();
   late final _account = DI.get<AccountStore>();
-  late final _family = DI.get<FamilyStore>();
+  late final _linkedMode = DI.get<FamilyLinkedMode>();
 
   late final _isLocked = DI.get<IsLocked>();
 
@@ -74,11 +73,12 @@ abstract class LinkStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<LinkOps>(getOps(act));
     DI.register<LinkStore>(this as LinkStore);
     _account.addOn(accountChanged, updateLinksFromAccount);
     if (act.isFamily) {
-      reactionOnStore((_) => _family.linkedMode, updateFromLinkedMode);
+      _linkedMode.onChange.listen(updateFromLinkedMode);
     }
 
     _isLocked.onChange.listen(updateLinksFromLock);
@@ -93,9 +93,9 @@ abstract class LinkStoreBase with Store, Logging, Actor {
     });
   }
 
-  updateLinksFromLock(bool isLocked) async {
+  updateLinksFromLock(ValueUpdate<bool> isLocked) async {
     return await log(Markers.root).trace("updateLinksFromLock", (m) async {
-      log(m).pair("isLocked", isLocked);
+      log(m).pair("isLocked", isLocked.now);
       await _updateLinks();
     });
   }
@@ -107,10 +107,10 @@ abstract class LinkStoreBase with Store, Logging, Actor {
     });
   }
 
-  updateFromLinkedMode(bool linked) => _updateLinks();
+  updateFromLinkedMode(ValueUpdate<bool> linked) => _updateLinks();
 
   _updateLinks() async {
-    final linked = act.isFamily && _family.linkedMode;
+    final linked = act.isFamily && _linkedMode.now;
     for (var id in LinkId.values) {
       links[id] = _getLink(id, _isLocked.now || linked);
     }

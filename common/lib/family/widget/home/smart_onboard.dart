@@ -3,11 +3,9 @@ import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/family/family.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/big_icon.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
-import 'package:common/family/widget/home/private_dns/private_dns_sheet_android.dart';
-import 'package:common/family/widget/home/private_dns/private_dns_sheet_ios.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,8 +28,8 @@ class SmartOnboard extends StatefulWidget {
 class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
   late final _stage = DI.get<StageStore>();
-  late final _family = DI.get<FamilyStore>();
-  late final _act = DI.get<Act>();
+  late final _family = DI.get<FamilyActor>();
+  late final _permsSheet = DI.get<StatefulWidget>(tag: "privateDnsSheet");
 
   @override
   Widget build(BuildContext context) {
@@ -180,11 +178,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(m);
       });
     } else if (p.requiresPerms()) {
-      final perms = (_act.platform == PlatformType.iOS)
-          ? const PrivateDnsSheetIos()
-          : const PrivateDnsSheetAndroid();
-
-      showSheet(context, builder: (context) => perms);
+      showSheet(context, builder: (context) => _permsSheet);
     } else if (p.isLocked2()) {
       log(Markers.userTap).trace("handleCtaTap", (m) async {
         await _stage.showModal(StageModal.lock, m);

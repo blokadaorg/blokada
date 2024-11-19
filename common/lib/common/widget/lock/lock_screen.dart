@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/lock/circles.dart';
 import 'package:common/common/widget/lock/keypad.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/navigation.dart';
 import 'package:common/lock/lock.dart';
-import 'package:common/lock/value.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class _LockScreenState extends State<LockScreen>
     with TickerProviderStateMixin, Logging, Disposables {
   final _stage = DI.get<StageStore>();
 
-  final _lock = DI.get<Lock>();
+  final _lock = DI.get<LockActor>();
   final _isLocked = DI.get<IsLocked>();
   final _hasPin = DI.get<HasPin>();
 

@@ -4,7 +4,7 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/account/refresh/json.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../dragon/family/family.dart';
+import '../../../family/module/family/family.dart';
 import '../../../timer/timer.dart';
 import '../../../util/cooldown.dart';
 import '../../notification/notification.dart';
@@ -99,7 +99,7 @@ abstract class AccountRefreshStoreBase
   late final _stage = DI.get<StageStore>();
   late final _persistence = DI.get<Persistence>();
   late final _plus = DI.get<PlusStore>();
-  late final _family = DI.get<FamilyStore>();
+  late final _linkedMode = DI.get<FamilyLinkedMode>();
 
   AccountRefreshStoreBase() {
     _timer.addHandler(_keyTimer, onTimerFired);
@@ -108,6 +108,7 @@ abstract class AccountRefreshStoreBase
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<AccountRefreshStore>(this as AccountRefreshStore);
   }
 
@@ -155,7 +156,7 @@ abstract class AccountRefreshStoreBase
         if (_initSuccessful) throw StateError("already initialized");
         await _account.load(m);
         await _account.fetch(m);
-        final metadataJson = await _persistence.load(_keyRefresh);
+        final metadataJson = await _persistence.load(m, _keyRefresh);
         if (metadataJson != null) {
           _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
         }
@@ -270,7 +271,7 @@ abstract class AccountRefreshStoreBase
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
 
-    final shouldSkipNotification = act.isFamily && _family.linkedMode;
+    final shouldSkipNotification = act.isFamily && _linkedMode.now;
 
     DateTime? expDate = expiration.getNextDate();
 
@@ -294,6 +295,6 @@ abstract class AccountRefreshStoreBase
   }
 
   _saveMetadata(Marker m) async {
-    await _persistence.save(_keyRefresh, jsonEncode(_metadata.toJson()));
+    await _persistence.save(m, _keyRefresh, jsonEncode(_metadata.toJson()));
   }
 }

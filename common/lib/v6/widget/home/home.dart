@@ -21,6 +21,7 @@ abstract class HomeStoreBase with Store, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<HomeStore>(this as HomeStore);
   }
 

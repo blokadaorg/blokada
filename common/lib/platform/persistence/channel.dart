@@ -1,19 +1,4 @@
-import 'package:common/core/core.dart';
-import 'package:mocktail/mocktail.dart';
-
-import 'channel.pg.dart' as pg;
-
-PersistenceChannel getOps(Act act) {
-  if (act.isProd) return PlatformPersistenceChannel();
-
-  //final ops = MockPersistenceOps();
-  //_actNormal(ops);
-  //return ops;
-
-  return RuntimePersistenceChannel();
-}
-
-class MockPersistenceChannel extends Mock implements PersistenceChannel {}
+part of 'persistence.dart';
 
 class RuntimePersistenceChannel implements PersistenceChannel {
   final Map<String, String> _map = {};
@@ -37,7 +22,7 @@ class RuntimePersistenceChannel implements PersistenceChannel {
 }
 
 class PlatformPersistenceChannel with PersistenceChannel {
-  late final pg.PersistenceOps _platform = pg.PersistenceOps();
+  late final _platform = PersistenceOps();
 
   @override
   Future<JsonString> doLoad(String key, bool isSecure, bool isBackup) {

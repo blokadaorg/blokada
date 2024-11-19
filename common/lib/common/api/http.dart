@@ -14,8 +14,8 @@ class Http with Logging {
     Headers headers = const {},
   }) async {
     return await log(m).trace("call", (m) async {
-      final h = _headers()..addAll(headers);
-      final p = _params()..addAll(params ?? {});
+      final h = (await _headers())..addAll(headers);
+      final p = (await _params())..addAll(params ?? {});
       await _prepare(payload, p, h);
       try {
         log(m).i("Api call: ${payload.endpoint}");
@@ -108,14 +108,14 @@ class Http with Logging {
     }
   }
 
-  Map<ApiParam, String> _params() => {
-        ApiParam.accountId: _accountId.now,
-        ApiParam.userAgent: _userAgent.now,
+  Future<Map<ApiParam, String>> _params() async => {
+        ApiParam.accountId: await _accountId.now(),
+        ApiParam.userAgent: await _userAgent.now(),
       };
 
-  Map<String, String> _headers() => {
+  Future<Map<String, String>> _headers() async => {
         //"Authorization": "Bearer ${_token.value}",
-        "User-Agent": _userAgent.now,
+        "User-Agent": await _userAgent.now(),
       };
 
   _sleep() => Future.delayed(_retry.now);

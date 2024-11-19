@@ -56,6 +56,7 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<PlusLeaseOps>(getOps(act));
     DI.register<PlusLeaseJson>(PlusLeaseJson());
     DI.register<PlusLeaseStore>(this as PlusLeaseStore);

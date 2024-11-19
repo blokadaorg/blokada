@@ -1,10 +1,10 @@
 import 'package:common/common/model/model.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/home/header/header.dart';
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/home_devices.dart';
 import 'package:common/family/widget/home/smart_onboard.dart';
 import 'package:common/platform/app/app.dart';
@@ -21,10 +21,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin, Logging, WidgetsBindingObserver {
+    with
+        TickerProviderStateMixin,
+        Logging,
+        WidgetsBindingObserver,
+        Disposables {
   late final _app = DI.get<AppStore>();
-  late final _family = DI.get<FamilyStore>();
   late final _stage = DI.get<StageStore>();
+  late final _phase = DI.get<FamilyPhaseValue>();
+  late final _devices = DI.get<FamilyDevicesValue>();
 
   var _working = true;
 
@@ -46,22 +51,23 @@ class HomeScreenState extends State<HomeScreen>
       }
     });
 
-    _app.addOn(appStatusChanged, (_) => rebuild());
-    reactionOnStore((_) => _family.phase, (_) => rebuild());
-    reactionOnStore((_) => _family.devices, (_) => rebuild());
-    reactionOnStore((_) => _stage.route, (_) => rebuild());
-    reactionOnStore((_) => _stage.isReady, (_) => rebuild());
+    _app.addOn(appStatusChanged, rebuild);
+    disposeLater(_phase.onChange.listen(rebuild));
+    disposeLater(_devices.onChange.listen(rebuild));
+    reactionOnStore((_) => _stage.route, rebuild);
+    reactionOnStore((_) => _stage.isReady, rebuild);
   }
 
-  rebuild() {
+  @override
+  rebuild(dynamic it) {
     if (!mounted) return;
     setState(() => _working = _app.status.isWorking() || !_stage.isReady);
   }
 
   @override
   Widget build(BuildContext context) {
-    final phase = _family.phase;
-    final deviceCount = _family.devices.entries.length;
+    final phase = _phase.now;
+    final deviceCount = _devices.now.entries.length;
 
     return Stack(
       children: [
@@ -81,7 +87,7 @@ class HomeScreenState extends State<HomeScreen>
             ? Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 120),
-                  child: HomeDevices(devices: _family.devices),
+                  child: HomeDevices(devices: _devices.now),
                 ),
               )
             : Container(),
@@ -180,7 +186,7 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   _buildLoadingSpinner(BuildContext context) {
-    if (_working || _family.phase == FamilyPhase.starting) {
+    if (_working || _phase.now == FamilyPhase.starting) {
       return Column(children: [
         const Spacer(),
         Padding(

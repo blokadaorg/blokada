@@ -37,6 +37,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<PlusKeypairOps>(getOps(act));
     DI.register<PlusKeypairStore>(this as PlusKeypairStore);
   }
@@ -66,7 +67,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
     return await log(m).trace("load", (m) async {
       try {
         // throw Exception("test");
-        final json = await _persistence.loadJson(_keyKeypair);
+        final json = await _persistence.loadJson(m, _keyKeypair);
         final keypair = PlusKeypair(
           publicKey: json['publicKey'],
           privateKey: json['privateKey'],
@@ -85,7 +86,7 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
       // throw Exception("test");
       final keypair = await _ops.doGenerateKeypair();
       _ensureValidKeypair(keypair);
-      await _persistence.saveJson(_keyKeypair, keypair.toJson());
+      await _persistence.saveJson(m, _keyKeypair, keypair.toJson());
       currentKeypair = keypair;
       await _plus.clearPlus(m);
     });

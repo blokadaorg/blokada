@@ -2,19 +2,13 @@ part of '../core.dart';
 
 // Will group together logs corresponding to one execution chain.
 // Meant to improve log readability and debugging.
-class LogTracer with Actor {
+class LogTracerActor with Actor {
   static final Map<Marker, TracingEvent> _traces = {};
 
   late final _logger = DI.get<Logger>();
-  late final _scheduler = DI.get<Scheduler>();
 
   final timeout = const Duration(seconds: 15);
-
-  @override
-  void onRegister(Act act) {
-    DI.register<LogTracer>(this);
-    if (act.isTest) return;
-  }
+  late final _debounce = Debounce(timeout);
 
   sink(Marker m, Level lvl, List<String> lines,
       {Object? err, StackTrace? stack}) {
@@ -102,15 +96,10 @@ class LogTracer with Actor {
   _startTimeout() {
     if (act.isTest) return;
     if (kReleaseMode) return;
-    _scheduler.addOrUpdate(Job(
-      _timeoutKey,
-      Markers.timer,
-      before: DateTime.now().add(timeout),
-      callback: _hangTraceCheck,
-    ));
+    _debounce.run(_hangTraceCheck);
   }
 
-  Future<bool> _hangTraceCheck(Marker m) async {
+  Future<bool> _hangTraceCheck() async {
     for (var trace in _traces.entries.toList()) {
       if (trace.value.started.isBefore(DateTime.now().subtract(timeout))) {
         sink(trace.key, Level.error, ["Tracer: too slow"]);

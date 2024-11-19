@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:common/common/dialog.dart';
 import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
@@ -8,9 +9,8 @@ import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/device/generator.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/family/family.dart';
+import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,8 @@ class LinkDeviceSheet extends StatefulWidget {
 }
 
 class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
-  late final _family = DI.get<FamilyStore>();
+  late final _family = DI.get<FamilyActor>();
+  late final _familyLink = DI.get<LinkActor>();
   late final _generator = DI.get<NameGenerator>();
 
   bool _showQr = false; // The widget would stutter animation, show async
@@ -41,7 +42,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
   void initState() {
     super.initState();
 
-    _family.linkDeviceHeartbeatReceived = () {
+    _familyLink.linkDeviceHeartbeatReceived = () {
       close();
     };
 
@@ -50,8 +51,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
 
   _setDeviceTemplate({String? name, JsonProfile? profile}) async {
     await log(Markers.ui).trace("setDeviceAdding", (m) async {
-      await _family.cancelLinkDevice(m);
-      _payload = await _family.initiateLinkDevice(
+      await _familyLink.cancelLinkDevice(m);
+      _payload = await _familyLink.initiateLinkDevice(
           name ?? _getProbablyUniqueRandomName(), profile, widget.device, m);
       setState(() {
         isReady = true;
@@ -60,7 +61,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
   }
 
   String _getProbablyUniqueRandomName() {
-    final existing = _family.devices.entries.map((e) => e.device.alias).toSet();
+    final existing =
+        _family.devices.now.entries.map((e) => e.device.alias).toSet();
     int attempts = 5;
     String name = _generator.get();
     while (attempts-- > 0) {
@@ -79,14 +81,14 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
   @override
   void dispose() {
     log(Markers.ui).trace("linkDeviceDismiss", (m) async {
-      await _family.cancelLinkDevice(m);
+      await _familyLink.cancelLinkDevice(m);
     });
     super.dispose();
   }
 
   close() {
     log(Markers.userTap).trace("closeLinkDevice", (m) async {
-      _family.cancelLinkDevice;
+      _familyLink.cancelLinkDevice;
       Navigator.of(context).pop();
     });
   }

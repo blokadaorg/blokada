@@ -1,41 +1,57 @@
 part of '../core.dart';
 
-abstract class BoolPersistedValue extends NullableValue<bool?> {
+abstract class BoolPersistedValue extends NullableAsyncValue<bool?> {
   late final _persistence = DI.get<Persistence>();
 
-  abstract final String key;
-
-  @override
-  Future<bool> doLoad() async {
-    return await _persistence.load(key) == "1";
-  }
-
-  @override
-  doSave(bool? value) async {
-    if (value == null) {
-      await _persistence.delete(key);
-      return;
-    }
-    await _persistence.save(key, value ? "1" : "0");
+  BoolPersistedValue(String key) {
+    load = (Marker m) async {
+      return await _persistence.load(m, key) == "1";
+    };
+    save = (Marker m, bool? value) async {
+      if (value == null) {
+        await _persistence.delete(m, key);
+        return;
+      }
+      await _persistence.save(m, key, value ? "1" : "");
+    };
   }
 }
 
-abstract class StringPersistedValue extends NullableValue<String?> {
+abstract class StringPersistedValue extends NullableAsyncValue<String?> {
   late final _persistence = DI.get<Persistence>();
 
-  abstract final String key;
+  StringPersistedValue(String key) {
+    load = (Marker m) async {
+      return await _persistence.load(m, key);
+    };
+    save = (Marker m, String? value) async {
+      if (value == null) {
+        await _persistence.delete(m, key);
+        return;
+      }
+      await _persistence.save(m, key, value);
+    };
+  }
+}
 
-  @override
-  Future<String?> doLoad() async {
-    return await _persistence.load(key);
+abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
+  late final _persistence = DI.get<Persistence>();
+
+  JsonPersistedValue(String key) {
+    load = (Marker m) async {
+      final json = await _persistence.load(m, key);
+      if (json == null) return null;
+      return fromJson(jsonDecode(json));
+    };
+    save = (Marker m, T? value) async {
+      if (value == null) {
+        await _persistence.delete(m, key);
+        return;
+      }
+      await _persistence.save(m, key, jsonEncode(toJson(value)));
+    };
   }
 
-  @override
-  doSave(String? value) async {
-    if (value == null) {
-      await _persistence.delete(key);
-      return;
-    }
-    await _persistence.save(key, value);
-  }
+  Map<String, dynamic> toJson(T value);
+  T fromJson(Map<String, dynamic> json);
 }

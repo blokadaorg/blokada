@@ -1,6 +1,6 @@
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/common/navigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';

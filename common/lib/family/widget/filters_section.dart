@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:common/common/defaults/filter_decor_defaults.dart';
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/filter/filter.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/filter/selected_filters.dart';
-import 'package:common/dragon/navigation.dart';
-import 'package:common/dragon/profile/controller.dart';
+import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class FiltersSection extends StatefulWidget {
 
 class FiltersSectionState extends State<FiltersSection> with Logging {
   late final _knownFilters = DI.get<KnownFilters>();
-  late final _profiles = DI.get<ProfileController>();
+  late final _profiles = DI.get<ProfileActor>();
   late final _selectedFilters = DI.get<SelectedFilters>();
 
   late JsonProfile profile;
@@ -88,8 +88,8 @@ class FiltersSectionState extends State<FiltersSection> with Logging {
     int i = 0;
     for (final filter in _knownFilters.get()) {
       final color = _cardColors.elementAtOrNull(i++);
-      final selected = _selectedFilters.now
-              .firstWhereOrNull((it) => it.filterName == filter.filterName)
+      final selected = _selectedFilters.present
+              ?.firstWhereOrNull((it) => it.filterName == filter.filterName)
               ?.options ??
           [];
       filters.add(_buildFilter(context, filter, selected, color: color));

@@ -2,7 +2,7 @@ import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/journal/controller.dart';
+import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +160,7 @@ class StatsFilterState extends State<StatsFilter> {
 }
 
 class StatsFilterController {
-  final _journal = DI.get<JournalController>();
+  final _journal = DI.get<JournalActor>();
 
   late JournalFilter filter;
 

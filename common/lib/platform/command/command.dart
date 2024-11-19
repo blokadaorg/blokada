@@ -1,15 +1,10 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/filter/filter_legacy.dart';
-import 'package:common/dragon/support/controller.dart';
 import 'package:common/main-widgets.dart';
-import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:dartx/dartx.dart';
 
-import '../../dragon/family/family.dart';
+import '../../family/module/family/family.dart';
 import '../../lock/lock.dart';
-import '../../timer/timer.dart';
 import '../account/account.dart';
 import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';
@@ -28,7 +23,6 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 class CommandStore with Logging, Actor implements CommandEvents {
-  late final _logger = DI.get<LoggerCommands>();
   late final _stage = DI.get<StageStore>();
   late final _account = DI.get<AccountStore>();
   late final _accountPayment = DI.get<AccountPaymentStore>();
@@ -37,75 +31,80 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _custom = DI.get<CustomStore>();
   late final _device = DI.get<DeviceStore>();
   late final _notification = DI.get<NotificationStore>();
-  late final _permission = DI.get<PermStore>();
-  late final _support = DI.get<SupportController>();
+  late final _permission = DI.get<PlatformPermActor>();
   late final _scheduler = DI.get<Scheduler>();
 
-  late final _lock = DI.get<Lock>();
+  late final _lock = DI.get<LockActor>();
 
   // V6 only commands
   late final _journal = DI.get<JournalStore>();
   late final _plus = DI.get<PlusStore>();
   late final _plusLease = DI.get<PlusLeaseStore>();
   late final _plusVpn = DI.get<PlusVpnStore>();
-  late final _filterLegacy = DI.get<FilterLegacy>();
-
-  // Family only commands
-  late final _family = DI.get<FamilyStore>();
-
-  late final _timer = DI.get<TimerService>();
 
   @override
   void onRegister(Act act) {
+    this.act = act;
     DI.register<CommandStore>(this);
     if (act.isProd) CommandEvents.setup(this);
     getOps(act).doCanAcceptCommands();
   }
 
+  final newCommands = ["WARNING", "FATAL"];
+
   @override
   Future<void> onCommand(String command, Marker m) async {
+    for (var cmd in newCommands) {
+      if (command.startsWith(cmd)) {
+        return await commands.execute(m, command, null);
+      }
+    }
+
     final cmd = _commandFromString(command);
-    _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, null), (m) async {
       try {
         return await _execute(cmd, m);
       } catch (e) {
-        _stopCommandTimeout(cmd);
-        rethrow;
+        await commands.execute(m, command, null);
       }
     });
-    _stopCommandTimeout(cmd);
   }
 
   @override
   Future<void> onCommandWithParam(String command, String p1, Marker m) async {
+    for (var cmd in newCommands) {
+      if (command.startsWith(cmd)) {
+        return await commands.execute(m, command, null);
+      }
+    }
+
     final cmd = _commandFromString(command);
-    _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, p1), (m) async {
       try {
         return await _execute(cmd, m, p1: p1);
       } catch (e) {
-        _stopCommandTimeout(cmd);
-        rethrow;
+        await commands.execute(m, command, [p1]);
       }
     });
-    _stopCommandTimeout(cmd);
   }
 
   @override
   Future<void> onCommandWithParams(
       String command, String p1, String p2, Marker m) async {
+    for (var cmd in newCommands) {
+      if (command.startsWith(cmd)) {
+        return await commands.execute(m, command, null);
+      }
+    }
+
     final cmd = _commandFromString(command);
-    _startCommandTimeout(cmd);
     await log(m).trace(_cmdName(command, p1), (m) async {
       try {
         return await _execute(cmd, m, p1: p1, p2: p2);
       } catch (e) {
-        _stopCommandTimeout(cmd);
-        rethrow;
+        await commands.execute(m, command, [p1, p2]);
       }
     });
-    _stopCommandTimeout(cmd);
   }
 
   onCommandString(String command, Marker m) async {
@@ -119,7 +118,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
   }
 
   _execute(CommandName cmd, Marker m, {String? p1, String? p2}) async {
-    log(m).pair("command", cmd.name);
     switch (cmd) {
       case CommandName.url:
         _ensureParam(p1);
@@ -163,16 +161,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
       case CommandName.delete:
         _ensureParam(p1);
         return await _custom.delete(p1!, m);
-      case CommandName.enableDeck:
-        _ensureParam(p1);
-        return await _filterLegacy.enableFilter(p1!, m);
-      case CommandName.disableDeck:
-        _ensureParam(p1);
-        return await _filterLegacy.disableFilter(p1!, m);
-      case CommandName.toggleListByTag:
-        _ensureParam(p1);
-        _ensureParam(p2);
-        return await _filterLegacy.toggleFilterOption(p1!, p2!, m);
       case CommandName.enableCloud:
         return await _device.setCloudEnabled(true, m);
       case CommandName.disableCloud:
@@ -249,23 +237,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
       case CommandName.notificationTapped:
         _ensureParam(p1);
         return await _notification.notificationTapped(p1!, m);
-      case CommandName.familyLink:
-        _ensureParam(p1);
-        // When entering from a camera app qr code scan, this will be called
-        // by the OS very early, and since onStartApp is executed async to not
-        // block the UI thread, we need to wait for the app to be ready.
-        await sleepAsync(const Duration(seconds: 3));
-        return await _family.link(p1!, m);
-      case CommandName.warning:
-        _ensureParam(p1);
-        return await _logger.platformWarning(p1!);
-      case CommandName.fatal:
-        return await _logger.platformFatal(p1!);
-      case CommandName.log:
-        if (_lock.isLocked.now) {
-          return await _stage.showModal(StageModal.faultLocked, m);
-        }
-        return await _logger.shareLog(forCrash: false);
       case CommandName.crashLog:
         //return await _tracer.checkForCrashLog(force: true, m);
         return;
@@ -324,9 +295,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
         ws.ip = p1!;
         ws.handle();
         return;
-      case CommandName.supportNotify:
-        await sleepAsync(const Duration(seconds: 5));
-        await _support.sendEvent(SupportEvent.purchaseTimeout, m);
       case CommandName.supportAskNotificationPerms:
         return await _permission.askNotificationPermissions(m);
       case CommandName.schedulerPing:
@@ -419,36 +387,5 @@ class CommandStore with Logging, Actor implements CommandEvents {
         throw ArgumentError("Unknown modal: $command");
       }
     }
-  }
-
-  _onCommandTimer(String command) {
-    try {
-      _timer.addHandler("command:$command", (_) async {
-        // This will just show up in tracing
-        throw Exception("Command '$command' is too slow");
-      });
-    } catch (e) {}
-  }
-
-  _startCommandTimeout(CommandName cmd) {
-    final command = cmd.name;
-
-    // These commands are just super slow because of StoreKit etc
-    if (_noTimeLimitCommands.contains(command)) return;
-
-    _onCommandTimer(command);
-    _timer.set(
-      "command:$command",
-      DateTime.now().add(cfg.plusVpnCommandTimeout),
-    );
-  }
-
-  _stopCommandTimeout(CommandName cmd) {
-    final command = cmd.name;
-
-    // This command is just super slow because of StoreKit
-    if (command == "purchase") return;
-
-    _timer.unset("command:$command");
   }
 }

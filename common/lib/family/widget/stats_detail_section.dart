@@ -1,4 +1,6 @@
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/minicard/header.dart';
@@ -6,10 +8,8 @@ import 'package:common/common/widget/stats/action_info.dart';
 import 'package:common/common/widget/stats/action_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/customlist/controller.dart';
-import 'package:common/dragon/filter/controller.dart';
-import 'package:common/dragon/navigation.dart';
-import 'package:common/dragon/profile/controller.dart';
+import 'package:common/family/module/customlist_v3/customlist.dart';
+import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,9 @@ class StatsDetailSection extends StatefulWidget {
 }
 
 class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
-  final _profile = DI.get<ProfileController>();
-  final _filter = DI.get<FilterController>();
-  final _custom = DI.get<CustomListController>();
+  final _profile = DI.get<ProfileActor>();
+  final _filter = DI.get<FilterActor>();
+  final _custom = DI.get<CustomlistActor>();
 
   late JsonProfile? profile;
 

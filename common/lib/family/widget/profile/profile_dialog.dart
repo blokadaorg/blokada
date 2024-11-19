@@ -1,16 +1,15 @@
+import 'package:common/common/dialog.dart';
 import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/device/controller.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/profile/controller.dart';
+import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/family/module/family/family.dart';
+import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/add_profile_sheet.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
-import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +26,10 @@ class ProfileDialog extends StatefulWidget {
   State<StatefulWidget> createState() => ProfileDialogState();
 }
 
-class ProfileDialogState extends State<ProfileDialog> {
-  late final _family = DI.get<FamilyStore>();
-  late final _devices = DI.get<DeviceController>();
-  late final _profiles = DI.get<ProfileController>();
+class ProfileDialogState extends State<ProfileDialog> with Disposables {
+  late final _devices = DI.get<DeviceActor>();
+  late final _profiles = DI.get<ProfileActor>();
+  late final _familyDevices = DI.get<FamilyDevicesValue>();
 
   late JsonDevice device;
   String? error;
@@ -38,12 +37,13 @@ class ProfileDialogState extends State<ProfileDialog> {
   @override
   void initState() {
     super.initState();
-    reactionOnStore((_) => _family.devices, (_) => rebuild());
+    disposeLater(_familyDevices.onChange.listen(rebuild));
   }
 
-  rebuild() {
-    if (!mounted) return;
-    setState(() {});
+  @override
+  void dispose() {
+    disposeAll();
+    super.dispose();
   }
 
   setError(String error) {
@@ -62,7 +62,8 @@ class ProfileDialogState extends State<ProfileDialog> {
   @override
   Widget build(BuildContext context) {
     device = _devices.getDevice(widget.deviceTag);
-    final thisDevice = _family.devices.getDevice(widget.deviceTag).thisDevice;
+    final thisDevice =
+        _familyDevices.now.getDevice(widget.deviceTag).thisDevice;
 
     return Column(
         mainAxisSize: MainAxisSize.min,
@@ -158,7 +159,7 @@ class ProfileDialogState extends State<ProfileDialog> {
 
   Widget _wrapInDismissible(
       BuildContext context, JsonProfile it, Widget child) {
-    late final device = DI.get<DeviceController>();
+    late final device = DI.get<DeviceActor>();
     return Slidable(
       key: Key(it.alias),
       endActionPane: ActionPane(

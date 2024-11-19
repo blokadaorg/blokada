@@ -1,7 +1,7 @@
+import 'package:common/common/module/support/support.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/support/controller.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/link/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -15,7 +15,7 @@ class SupportDialog extends StatefulWidget {
 }
 
 class SupportDialogState extends State<SupportDialog> with Logging {
-  late final _support = DI.get<SupportController>();
+  late final _support = DI.get<SupportActor>();
   late final _command = DI.get<CommandStore>();
   late final _stage = DI.get<StageStore>();
 

@@ -1,10 +1,13 @@
-import 'package:common/core/core.dart';
+part of 'lock.dart';
 
-class IsLocked extends Value<bool> {}
+class IsLocked extends Value<bool> {
+  IsLocked() : super(load: () => false);
+}
 
-class HasPin extends Value<bool> {}
+class HasPin extends Value<bool> {
+  HasPin() : super(load: () => false);
+}
 
 class ExistingPin extends StringPersistedValue {
-  @override
-  String get key => "lock:pin";
+  ExistingPin() : super("lock:pin");
 }

@@ -1,6 +1,6 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/common/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

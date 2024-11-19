@@ -1,6 +1,7 @@
-import 'dart:async';
-
+import 'package:common/common/dialog.dart';
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
@@ -11,16 +12,11 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/stats/radial_segment.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/customlist/controller.dart';
-import 'package:common/dragon/device/controller.dart';
-import 'package:common/dragon/device/selected_device.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/filter/selected_filters.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/family/module/customlist_v3/customlist.dart';
+import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
-import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,44 +30,44 @@ class DeviceSection extends StatefulWidget {
   State<DeviceSection> createState() => DeviceSectionState();
 }
 
-class DeviceSectionState extends State<DeviceSection> with Logging {
-  late final _family = DI.get<FamilyStore>();
-  late final _device = DI.get<DeviceController>();
+class DeviceSectionState extends State<DeviceSection>
+    with Logging, Disposables {
+  late final _family = DI.get<FamilyActor>();
+  late final _device = DI.get<DeviceActor>();
   late final _selectedFilters = DI.get<SelectedFilters>();
   late final _selectedDevice = DI.get<SelectedDeviceTag>();
-  late final _custom = DI.get<CustomListController>();
+  late final _custom = DI.get<CustomlistActor>();
 
   late FamilyDevice device;
-
-  late StreamSubscription _subscription;
 
   bool built = false;
 
   @override
   void initState() {
     super.initState();
-    reactionOnStore((_) => _family.devices, (_) => rebuild());
-    _subscription = _selectedFilters.onChange.listen((_) => rebuild());
+    disposeLater(_family.devices.onChange.listen(rebuild));
+    disposeLater(_selectedFilters.onChange.listen(rebuild));
+
     _selectedDevice.change(Markers.ui, widget.tag);
   }
 
-  rebuild() {
-    if (!mounted) return;
+  @override
+  rebuild(dynamic it) {
     if (!built) return;
-    setState(() {});
+    super.rebuild(it);
   }
 
   @override
   void dispose() {
     _selectedDevice.change(Markers.ui, null);
-    _subscription.cancel();
+    disposeAll();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     built = true;
-    device = _family.devices.getDevice(widget.tag);
+    device = _family.devices.now.getDevice(widget.tag);
     _custom.setProfileId(device.profile.profileId, Markers.ui);
 
     return ListView(
@@ -173,9 +169,10 @@ class DeviceSectionState extends State<DeviceSection> with Logging {
                       text: "family stats label blocklists alt".i18n,
                       trailing: Text(
                           "family stats label blocklists count".i18n.withParams(
-                              _selectedFilters.now
-                                  .map((e) => e.options.length)
-                                  .sum()),
+                              _selectedFilters.present
+                                      ?.map((e) => e.options.length)
+                                      .sum() ??
+                                  0),
                           style: TextStyle(
                             color: context.theme.textSecondary,
                           )),

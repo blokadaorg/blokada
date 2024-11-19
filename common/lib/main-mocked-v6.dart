@@ -1,9 +1,9 @@
+import 'package:common/common/widget/app.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/app.dart';
+import 'package:common/modules.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 
-import 'entrypoint.dart';
 import 'platform/command/channel.pg.dart';
 import 'platform/command/command.dart';
 import 'v6/widget/scaffolding.dart';
@@ -15,10 +15,10 @@ void main() async {
   await I18nService.loadTranslations();
 
   const flavor = Flavor.v6;
-  final entrypoint = Entrypoint();
-  entrypoint.onRegister(
+  final modules = Modules();
+  await modules.create(
       ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
-  entrypoint.onStartApp();
+  modules.start(Markers.start);
 
   final CommandStore command = DI.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);

@@ -31,6 +31,7 @@ abstract class CustomStoreBase with Store, Logging, Actor, Cooldown {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<CustomOps>(getOps(act));
     DI.register<CustomJson>(CustomJson());
     DI.register<CustomStore>(this as CustomStore);

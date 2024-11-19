@@ -95,7 +95,9 @@ class Scheduler with Logging {
 
   addOrUpdate(Job job, {bool immediate = false}) async {
     await log(job.marker).trace("addOrUpdate", (m) async {
-      await log(m).pair("immediate", immediate);
+      log(m).pair("job", job.name);
+      log(m).pair("immediate", immediate);
+
       _jobs.removeWhere((j) => j == job);
       _jobs.add(job);
       _next.removeWhere((o) => o.job == job);
@@ -107,6 +109,8 @@ class Scheduler with Logging {
   // think about if its necessary, the return bool from callback may be enough
   stop(String jobName) async {
     await log(Markers.timer).trace("stop", (m) async {
+      log(m).pair("job", jobName);
+
       _jobs.removeWhere((j) => j.name == jobName);
       _next.removeWhere((o) => o.job.name == jobName);
       _setTimer(m);

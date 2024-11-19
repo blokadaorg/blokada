@@ -134,6 +134,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<AppOps>(getOps(act));
     DI.register<AppStore>(this as AppStore);
   }

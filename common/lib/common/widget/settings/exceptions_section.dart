@@ -2,7 +2,7 @@ import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/settings/exception_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';

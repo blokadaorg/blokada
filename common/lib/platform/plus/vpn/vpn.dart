@@ -77,6 +77,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<PlusVpnOps>(getOps(act));
     DI.register<PlusVpnStore>(this as PlusVpnStore);
   }

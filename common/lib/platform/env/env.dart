@@ -1,4 +1,4 @@
-import 'package:common/common/value/value.dart';
+import 'package:common/common/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
@@ -37,6 +37,7 @@ abstract class EnvStoreBase with Store, Logging, Actor {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<EnvOps>(getOps(act));
     DI.register<EnvStore>(this as EnvStore);
   }

@@ -6,7 +6,7 @@ import 'package:test_api/src/backend/invoker.dart';
 
 withTrace(Future Function(Marker m) fn) async {
   await DI.di.reset();
-  LoggerCommands().register(mockedAct);
+  await PlatformLoggerModule().create(mockedAct);
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
   final module = m[m.length - 2];

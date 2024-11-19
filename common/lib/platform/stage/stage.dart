@@ -178,6 +178,7 @@ abstract class StageStoreBase
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<StageOps>(getOps(act));
     DI.register<StageStore>(this as StageStore);
   }

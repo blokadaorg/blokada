@@ -5,7 +5,6 @@ import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
 
-part 'auth/json.dart';
 part 'customlist/json.dart';
 part 'device/json.dart';
 part 'device/model.dart';

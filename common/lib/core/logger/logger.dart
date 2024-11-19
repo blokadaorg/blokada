@@ -1,7 +1,7 @@
 part of '../core.dart';
 
 class Log {
-  late final LogTracer _tracer = DI.get<LogTracer>();
+  late final LogTracerActor _tracer = DI.get<LogTracerActor>();
 
   late Marker marker;
   late String tag = "$runtimeType";
@@ -65,7 +65,16 @@ class Log {
 
           lines.add("➰ $tag 🔍 $key = $value");
         } else {
-          lines.add("➰ $tag 🔍 $key = ${attr[key]}");
+          var value = attr[key];
+
+          if (value == null) {
+            value = "(null)";
+          } else if (value is String) {
+            if (value.isEmpty) value = "(empty)";
+            if (value.isBlank) value = "(blank)";
+          }
+
+          lines.add("➰ $tag 🔍 $key = $value");
         }
       }
     }

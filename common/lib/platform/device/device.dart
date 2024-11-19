@@ -82,6 +82,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<DeviceOps>(getOps(act));
     DI.register<DeviceJson>(DeviceJson());
     DI.register<DeviceStore>(this as DeviceStore);
@@ -125,7 +126,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      deviceAlias = await _persistence.load(_keyAlias) ?? "";
+      deviceAlias = await _persistence.load(m, _keyAlias) ?? "";
     });
   }
 

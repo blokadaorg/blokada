@@ -104,6 +104,7 @@ class RepeatingHttpService with Actor, Logging implements HttpService {
 
   @override
   void onRegister(Act act) {
+    this.act = act;
     DI.register<HttpOps>(getOps(act));
     DI.register<HttpService>(this);
   }

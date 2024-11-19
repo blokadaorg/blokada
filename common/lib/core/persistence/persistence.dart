@@ -24,54 +24,53 @@ class Persistence with Logging {
 
   late final _channel = DI.get<PersistenceChannel>();
 
-  final Marker _m = Markers.persistence;
-
   final bool isSecure;
 
   Persistence({required this.isSecure});
 
-  Future<String?> load(String key, {bool isBackup = false}) async {
+  Future<String?> load(Marker m, String key, {bool isBackup = false}) async {
     try {
       final result = await _channel.doLoad(key, isSecure, isBackup);
 
-      log(_m).t("load s/b $isSecure/$isBackup $key");
-      log(_m).logt(attr: {"key": key, "value": result}, sensitive: true);
+      log(m).t("load ($isSecure/$isBackup)");
+      log(m).logt(msg: "key: $key", attr: {"value": result}, sensitive: true);
 
       return result;
     } on Exception catch (e, s) {
       // TODO: not all exceptions mean that the key is not found
-      log(_m).e(msg: "load", err: e, stack: s);
+      log(m).t("error load '$key': ${e.toString().short()}...");
       return null;
     }
   }
 
-  Future<Map<String, dynamic>> loadJson(String key,
+  Future<Map<String, dynamic>> loadJson(Marker m, String key,
       {bool isBackup = false}) async {
     final result = await _channel.doLoad(key, isSecure, isBackup);
 
-    log(_m).t("loadJson s/b $isSecure/$isBackup $key");
-    log(_m).logt(attr: {"key": key, "value": result}, sensitive: true);
+    log(m).t("loadJson ($isSecure/$isBackup)");
+    log(m).logt(msg: "key: $key", attr: {"value": result}, sensitive: true);
 
     return jsonDecode(result);
   }
 
-  Future<void> save(String key, String value, {bool isBackup = false}) async {
-    log(_m).t("save s/b $isSecure/$isBackup $key");
-    log(_m).logt(attr: {"key": key, "value": value}, sensitive: true);
+  Future<void> save(Marker m, String key, String value,
+      {bool isBackup = false}) async {
+    log(m).t("save ($isSecure/$isBackup)");
+    log(m).logt(msg: "key: $key", attr: {"value": value}, sensitive: true);
 
     await _channel.doSave(key, value, isSecure, isBackup);
   }
 
-  Future<void> saveJson(String key, Map<String, dynamic> json,
+  Future<void> saveJson(Marker m, String key, Map<String, dynamic> json,
       {bool isBackup = false}) async {
-    log(_m).t("save s/b $isSecure/$isBackup $key");
-    log(_m).logt(attr: {"key": key, "value": json}, sensitive: true);
+    log(m).t("save ($isSecure/$isBackup)");
+    log(m).logt(msg: "key: $key", attr: {"value": json}, sensitive: true);
 
     await _channel.doSave(key, jsonEncode(json), isSecure, isBackup);
   }
 
-  Future<void> delete(String key, {bool isBackup = false}) async {
-    log(_m).t("delete s/b $isSecure/$isBackup $key");
+  Future<void> delete(Marker m, String key, {bool isBackup = false}) async {
+    log(m).t("delete ($isSecure/$isBackup)");
 
     await _channel.doDelete(key, isSecure, isBackup);
   }

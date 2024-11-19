@@ -1,7 +1,7 @@
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/device/open_perms.dart';
+import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class PrivateDnsSheetIos extends StatefulWidget {
 }
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
-  late final _openPerms = DI.get<OpenPerms>();
+  late final _channel = DI.get<PermChannel>();
 
   @override
   void initState() {
@@ -127,7 +127,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                       child: MiniCard(
                         onTap: () {
                           Navigator.of(context).pop();
-                          _openPerms.open();
+                          _channel.doOpenPermSettings();
                         },
                         color: context.theme.accent,
                         child: SizedBox(

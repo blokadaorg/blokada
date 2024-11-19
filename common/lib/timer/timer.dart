@@ -14,6 +14,7 @@ class DefaultTimer with Logging, Actor implements TimerService {
 
   @override
   onRegister(Act act) {
+    this.act = act;
     DI.register<TimerService>(this);
   }
 

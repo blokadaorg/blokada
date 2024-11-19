@@ -1,13 +1,12 @@
+import 'package:common/common/dialog.dart';
 import 'package:common/common/model/model.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/device/slidable_onboarding.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/family/devices.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/navigation.dart';
+import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/device/home_device.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:dartx/dartx.dart';
@@ -26,7 +25,6 @@ class HomeDevices extends StatefulWidget {
 
 class HomeDevicesState extends State<HomeDevices>
     with TickerProviderStateMixin, Logging {
-  late final _family = DI.get<FamilyStore>();
   late final _slidableOnboarding = DI.get<SlidableOnboarding>();
 
   late final AnimationController _ctrl = AnimationController(

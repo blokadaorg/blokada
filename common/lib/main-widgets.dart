@@ -1,6 +1,6 @@
+import 'package:common/common/widget/app.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/app.dart';
-import 'package:common/entrypoint.dart';
+import 'package:common/modules.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -11,11 +11,10 @@ void main() async {
 
   await I18nService.loadTranslations();
 
-  final entrypoint = Entrypoint();
-  entrypoint.onRegister(
-      ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
-
-  entrypoint.onStartApp();
+  final modules = Modules();
+  await modules
+      .create(ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
+  modules.start(Markers.start);
 
   final ws = DevWebsocket();
   DI.register(ws);

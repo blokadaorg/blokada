@@ -1,22 +1,26 @@
 import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/family/devices.dart';
-import 'package:common/dragon/family/family.dart';
-import 'package:common/dragon/profile/controller.dart';
+import 'package:common/family/module/family/family.dart';
+import 'package:common/family/module/profile/profile.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 @GenerateNiceMocks([
-  MockSpec<FamilyStore>(),
-  MockSpec<ProfileController>(),
+  MockSpec<FamilyActor>(),
+  MockSpec<ProfileActor>(),
 ])
 import 'mocked-deps.mocks.dart';
 
 attachMockedDeps() {
   DI.di.allowReassignment = true;
-  final family = MockFamilyStore();
-  when(family.phase).thenReturn(FamilyPhase.parentHasDevices);
-  when(family.devices).thenReturn(FamilyDevices([
+  final family = MockFamilyActor();
+
+  final phase = FamilyPhaseValue();
+  phase.now = FamilyPhase.parentHasDevices;
+  when(family.phase).thenReturn(phase);
+
+  final devices = FamilyDevicesValue();
+  devices.now = FamilyDevices([
     FamilyDevice(
       device: JsonDevice(
         deviceTag: "abc",
@@ -53,13 +57,14 @@ attachMockedDeps() {
       thisDevice: false,
       linked: true,
     ),
-  ], false));
-  DI.register<FamilyStore>(family);
+  ], false);
+  when(family.devices).thenReturn(devices);
+  DI.register<FamilyActor>(family);
 
-  final profile = MockProfileController();
+  final profile = MockProfileActor();
   when(profile.get(any)).thenReturn(JsonProfile(
       profileId: "1", alias: "Profile X", lists: [], safeSearch: false));
-  DI.register<ProfileController>(profile);
+  DI.register<ProfileActor>(profile);
 }
 
 UiStats _mockStats = UiStats(

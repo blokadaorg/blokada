@@ -1,3 +1,6 @@
+import 'package:common/common/dialog.dart';
+import 'package:common/common/module/support/support.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/section_label.dart';
@@ -5,11 +8,7 @@ import 'package:common/common/widget/settings/settings_item.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/dragon/dialog.dart';
-import 'package:common/dragon/navigation.dart';
-import 'package:common/dragon/support/support_unread.dart';
 import 'package:common/family/widget/home/bg.dart';
-import 'package:common/lock/value.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/env/env.dart';
@@ -36,7 +35,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _command = DI.get<CommandStore>();
   late final _unread = DI.get<SupportUnread>();
 
-  late final _lock = DI.get<Lock>();
+  late final _lock = DI.get<LockActor>();
   late final _hasPin = DI.get<HasPin>();
 
   @override
@@ -149,7 +148,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             child: Column(
               children: [
                 SettingsItem(
-                    unread: _unread.now,
+                    unread: _unread.present ?? false,
                     icon: CupertinoIcons.chat_bubble_text,
                     text: "support action chat".i18n,
                     onTap: () => Navigation.open(Paths.support)),

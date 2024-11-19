@@ -14,22 +14,31 @@ import 'package:i18n_extension_importer/i18n_extension_importer.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
-part 'config/act.dart';
-part 'config/actor.dart';
-part 'config/config.dart';
-part 'config/platform_info.dart';
+part 'act.dart';
+part 'actor.dart';
+part 'async.dart';
+part 'command.dart';
+part 'config.dart';
 part 'di.dart';
 part 'emitter.dart';
 part 'i18n.dart';
+part 'json.dart';
+part 'list_extensions.dart';
 part 'logger/logger.dart';
 part 'logger/marker.dart';
 part 'logger/output.dart';
 part 'logger/trace.dart';
+part 'module.dart';
 part 'persistence/persistence.dart';
 part 'persistence/value.dart';
+part 'platform_info.dart';
 part 'scheduler.dart';
-part 'util/async.dart';
-part 'util/json.dart';
-part 'util/list_extensions.dart';
 part 'value.dart';
 part 'widget.dart';
+
+class CoreModule with Module {
+  @override
+  onCreateModule(Act act) async {
+    await register(Scheduler(timer: SchedulerTimer()));
+  }
+}
