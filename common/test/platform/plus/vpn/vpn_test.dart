@@ -4,14 +4,13 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/plus/vpn/channel.pg.dart';
 import 'package:common/platform/plus/vpn/vpn.dart';
-import 'package:common/timer/timer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<TimerService>(),
+  MockSpec<Scheduler>(),
   MockSpec<PlusVpnOps>(),
   MockSpec<PlusVpnStore>(),
   MockSpec<AppStore>(),
@@ -38,7 +37,7 @@ void main() {
         DI.register<PlusVpnOps>(ops);
 
         DI.register<AppStore>(MockAppStore());
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
 
         // First call will queue up because the status is not ready
         final subject = PlusVpnStore();
@@ -70,8 +69,8 @@ void main() {
 
         DI.register<AppStore>(MockAppStore());
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         await subject.turnVpnOff(m);
@@ -101,8 +100,8 @@ void main() {
 
         DI.register<AppStore>(MockAppStore());
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         await subject.setActualStatus("deactivated", m);
@@ -114,22 +113,22 @@ void main() {
 
         await subject.turnVpnOn(m);
         verify(ops.doSetVpnActive(any)).called(1);
-        verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
+        verify(timer.addOrUpdate(any)).called(1);
+        verify(timer.stop(any, any)).called(greaterThanOrEqualTo(1));
 
         // Simulate the status coming after a while
         Timer(const Duration(milliseconds: 1), () async {
           await subject.setActualStatus("deactivated", m);
         });
         await subject.turnVpnOff(m);
-        verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
+        verify(timer.addOrUpdate(any)).called(1);
+        verify(timer.stop(any, any)).called(greaterThanOrEqualTo(1));
 
         // Will unset timer even on fail
         when(ops.doSetVpnActive(any)).thenThrow(Exception());
         await expectLater(subject.turnVpnOn(m), throwsException);
-        verify(timer.set(any, any)).called(1);
-        verify(timer.unset(any)).called(greaterThanOrEqualTo(1));
+        verify(timer.addOrUpdate(any)).called(1);
+        verify(timer.stop(any, any)).called(greaterThanOrEqualTo(1));
       });
     });
   });
@@ -140,8 +139,8 @@ void main() {
         final ops = MockPlusVpnOps();
         DI.register<PlusVpnOps>(ops);
 
-        final timer = DefaultTimer();
-        DI.register<TimerService>(timer);
+        final timer = Scheduler(timer: SchedulerTimer());
+        DI.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         subject.actualStatus = VpnStatus.deactivated;

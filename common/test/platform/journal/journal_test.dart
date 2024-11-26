@@ -5,7 +5,6 @@ import 'package:common/platform/journal/channel.pg.dart';
 import 'package:common/platform/journal/journal.dart';
 import 'package:common/platform/journal/json.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/timer/timer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +15,7 @@ import 'fixtures.dart';
   MockSpec<JournalStore>(),
   MockSpec<JournalOps>(),
   MockSpec<JournalJson>(),
-  MockSpec<TimerService>(),
+  MockSpec<Scheduler>(),
   MockSpec<StageStore>(),
   MockSpec<EnvStore>(),
   MockSpec<DeviceStore>(),
@@ -33,8 +32,8 @@ void main() {
         final ops = MockJournalOps();
         DI.register<JournalOps>(ops);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
@@ -64,8 +63,8 @@ void main() {
         final ops = MockJournalOps();
         DI.register<JournalOps>(ops);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
@@ -128,8 +127,8 @@ void main() {
         final ops = MockJournalOps();
         DI.register<JournalOps>(ops);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
@@ -168,8 +167,8 @@ void main() {
         final json = MockJournalJson();
         DI.register<JournalJson>(json);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final stage = MockStageStore();
         when(stage.route)

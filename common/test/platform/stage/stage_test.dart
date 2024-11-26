@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/timer/timer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
@@ -11,7 +10,6 @@ import '../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<StageOps>(),
   MockSpec<Scheduler>(),
-  MockSpec<TimerService>(),
 ])
 import 'stage_test.mocks.dart';
 
@@ -208,7 +206,6 @@ void main() {
         final ops = MockStageOps();
         DI.register<StageOps>(ops);
         DI.register<Scheduler>(MockScheduler());
-        DI.register<TimerService>(MockTimerService());
 
         final subject = StageStore();
         subject.act = mockedAct;

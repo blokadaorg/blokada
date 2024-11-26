@@ -59,7 +59,7 @@ class PurchaseTimeoutActor with Logging, Actor {
 
   clearSendPurchaseTimeout(Marker m) async {
     _notified.change(m, false);
-    await _scheduler.stop("sendPurchaseTimeout");
+    await _scheduler.stop(m, "sendPurchaseTimeout");
   }
 }
 

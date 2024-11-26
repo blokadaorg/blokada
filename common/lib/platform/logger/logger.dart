@@ -1,5 +1,5 @@
+import 'package:common/common/module/lock/lock.dart';
 import 'package:common/core/core.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/logger/channel.pg.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';

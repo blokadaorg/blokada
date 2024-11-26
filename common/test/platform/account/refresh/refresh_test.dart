@@ -5,7 +5,6 @@ import 'package:common/platform/account/refresh/refresh.dart';
 import 'package:common/platform/notification/notification.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/timer/timer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,7 +12,7 @@ import 'package:mockito/mockito.dart';
 import '../../../fixtures.dart';
 import '../../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<TimerService>(),
+  MockSpec<Scheduler>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountRefreshStore>(),
   MockSpec<NotificationStore>(),
@@ -28,7 +27,7 @@ void main() {
     test("willExpireAccountProperly", () async {
       await withTrace((m) async {
         DI.register<StageStore>(MockStageStore());
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
         DI.register<AccountStore>(AccountStore());
         DI.register<NotificationStore>(MockNotificationStore());
         DI.register<Persistence>(MockPersistence());
@@ -75,7 +74,7 @@ void main() {
         DI.register<AccountStore>(account);
 
         DI.register<StageStore>(MockStageStore());
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
         DI.register<NotificationStore>(NotificationStore());
         DI.register<Persistence>(MockPersistence());
 
@@ -101,7 +100,7 @@ void main() {
         DI.register<AccountStore>(account);
 
         DI.register<StageStore>(MockStageStore());
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
         DI.register<NotificationStore>(NotificationStore());
         DI.register<Persistence>(MockPersistence());
 
@@ -120,7 +119,7 @@ void main() {
 
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
         DI.register<NotificationStore>(MockNotificationStore());
         DI.register<Persistence>(MockPersistence());
 

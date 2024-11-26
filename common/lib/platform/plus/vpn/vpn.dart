@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../timer/timer.dart';
 import '../../app/app.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
@@ -67,13 +66,8 @@ class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
 abstract class PlusVpnStoreBase with Store, Logging, Actor {
   late final _ops = DI.get<PlusVpnOps>();
-  late final _timer = DI.get<TimerService>();
+  late final _scheduler = DI.get<Scheduler>();
   late final _app = DI.get<AppStore>();
-
-  PlusVpnStoreBase() {
-    _onTimerFired();
-    _onOngoingTimerFired();
-  }
 
   @override
   onRegister(Act act) {
@@ -144,7 +138,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
         return;
       }
 
-      await _setActive(true);
+      await _setActive(m, true);
     });
   }
 
@@ -159,7 +153,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
         return;
       }
 
-      await _setActive(false);
+      await _setActive(m, false);
     });
   }
 
@@ -172,10 +166,10 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
       actualStatus = status;
       if (!actualStatus.isReady()) {
         await _app.reconfiguring(m);
-        _startOngoingTimeout();
+        await _startOngoingTimeout(m);
         return;
       } else {
-        _stopOngoingTimeout();
+        await _stopOngoingTimeout(m);
       }
 
       // Done working, fire up any queued events.
@@ -214,49 +208,54 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     });
   }
 
-  _setActive(bool active) async {
-    _startCommandTimeout();
+  _setActive(Marker m, bool active) async {
+    await _startCommandTimeout(m);
     _statusCompleter = Completer();
     try {
       await _ops.doSetVpnActive(active);
       await _statusCompleter?.future;
       _statusCompleter = null;
-      _stopCommandTimeout();
+      await _stopCommandTimeout(m);
     } catch (_) {
-      _stopCommandTimeout();
+      await _stopCommandTimeout(m);
       rethrow;
     }
   }
 
-  _startCommandTimeout() {
-    _timer.set(_keyTimer, DateTime.now().add(cfg.plusVpnCommandTimeout));
+  _startCommandTimeout(Marker m) async {
+    await _scheduler.addOrUpdate(Job(
+      _keyTimer,
+      m,
+      before: DateTime.now().add(cfg.plusVpnCommandTimeout),
+      callback: _onTimerFired,
+    ));
   }
 
-  _stopCommandTimeout() {
-    _timer.unset(_keyTimer);
+  _stopCommandTimeout(Marker m) async => await _scheduler.stop(m, _keyTimer);
+
+  Future<bool> _onTimerFired(Marker m) async {
+    // doSetVpnActive command never finished
+    log(m).i("setting statusCompleter to fail");
+    _statusCompleter?.completeError(Exception("VPN command timed out"));
+    _statusCompleter = null;
+    return false;
   }
 
-  _onTimerFired() {
-    _timer.addHandler(_keyTimer, (m) async {
-      // doSetVpnActive command never finished
-      log(m).i("setting statusCompleter to fail");
-      _statusCompleter?.completeError(Exception("VPN command timed out"));
-      _statusCompleter = null;
-    });
+  Future<bool> _onOngoingTimerFired(Marker m) async {
+    log(m).i("VPN ongoing status too long");
+    await setActualStatus("deactivated", m);
+    return false;
   }
 
-  _onOngoingTimerFired() {
-    _timer.addHandler(_keyOngoingTimer, (m) async {
-      log(m).i("VPN ongoing status too long");
-      await setActualStatus("deactivated", m);
-    });
+  _startOngoingTimeout(Marker m) async {
+    await _scheduler.addOrUpdate(Job(
+      _keyOngoingTimer,
+      m,
+      before: DateTime.now().add(cfg.plusVpnCommandTimeout),
+      callback: _onOngoingTimerFired,
+    ));
   }
 
-  _startOngoingTimeout() {
-    _timer.set(_keyOngoingTimer, DateTime.now().add(cfg.plusVpnCommandTimeout));
-  }
-
-  _stopOngoingTimeout() {
-    _timer.unset(_keyOngoingTimer);
-  }
+  _stopOngoingTimeout(Marker m) async =>
+      await _scheduler.stop(m, _keyOngoingTimer);
 }

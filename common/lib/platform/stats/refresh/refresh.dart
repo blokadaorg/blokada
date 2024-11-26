@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../timer/timer.dart';
 import '../../account/account.dart';
 import '../../stage/stage.dart';
 import '../stats.dart';
@@ -15,15 +14,14 @@ class StatsRefreshStore = StatsRefreshStoreBase with _$StatsRefreshStore;
 
 abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   late final _stats = DI.get<StatsStore>();
-  late final _timer = DI.get<TimerService>();
   late final _stage = DI.get<StageStore>();
+  late final _scheduler = DI.get<Scheduler>();
   late final _account = DI.get<AccountStore>();
 
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, onAccountIdChanged);
-    _timer.addHandler(keyTimer, _refresh);
   }
 
   @override
@@ -35,16 +33,14 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   List<String> _monitoredDevices = [];
 
   bool _accountIsActive = false;
-  bool _isForeground = false;
   bool _isHomeScreen = false;
   String? _isStatsScreenFor;
 
   DateTime _lastRefresh = DateTime(0);
 
   DateTime? _getNextRefresh(Marker m) {
-    if (!_accountIsActive || !_isForeground) {
-      log(m)
-          .i("stats: skip refresh: acc: $_accountIsActive, fg: $_isForeground");
+    if (!_accountIsActive) {
+      log(m).i("stats: skip refresh: acc: $_accountIsActive");
       return null;
     } else if (_isStatsScreenFor != null) {
       return _lastRefresh.add(cfg.refreshVeryFrequent);
@@ -55,7 +51,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
     }
   }
 
-  _refresh(Marker m) async {
+  Future<bool> _refresh(Marker m) async {
     if (act.isFamily) {
       if (_isStatsScreenFor != null) {
         // Stats screen opened for a device, we need to refresh only that device
@@ -74,6 +70,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
 
     _lastRefresh = DateTime.now();
     _reschedule(m);
+    return false;
   }
 
   @action
@@ -92,7 +89,6 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
 
   @action
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
-    _isForeground = route.isForeground();
     _isHomeScreen = route.isTab(StageTab.home);
 
     if (route.isTab(StageTab.home) && route.isSection("stats")) {
@@ -111,6 +107,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   Future<void> onAccountChanged(Marker m) async {
     final account = _account.account!;
     _accountIsActive = account.type.isActive();
+    log(m).t("statsRefresh, account is active: $_accountIsActive");
     _reschedule(m);
   }
 
@@ -121,10 +118,16 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
 
   _reschedule(Marker m) {
     final newDate = _getNextRefresh(m);
-    if (newDate != null) {
-      _timer.set(keyTimer, newDate);
+    if (newDate == null) {
+      _scheduler.stop(m, keyTimer);
     } else {
-      _timer.unset(keyTimer);
+      _scheduler.addOrUpdate(Job(
+        keyTimer,
+        m,
+        before: newDate,
+        when: [Conditions.foreground],
+        callback: _refresh,
+      ));
     }
   }
 }

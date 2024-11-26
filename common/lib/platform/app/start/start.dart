@@ -2,7 +2,6 @@ import 'package:common/core/core.dart';
 import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../timer/timer.dart';
 import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
@@ -34,7 +33,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   late final _env = DI.get<EnvStore>();
   late final _app = DI.get<AppStore>();
-  late final _timer = DI.get<TimerService>();
+  late final _scheduler = DI.get<Scheduler>();
   late final _device = DI.get<DeviceStore>();
   late final _perm = DI.get<PlatformPermActor>();
   late final _permVpn = DI.get<VpnEnabled>();
@@ -47,8 +46,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _link = DI.get<LinkStore>();
 
   AppStartStoreBase() {
-    _timer.addHandler(_keyTimer, unpauseApp);
-
     reactionOnStore((_) => pausedUntil, (pausedUntil) async {
       final seconds = pausedUntil?.difference(DateTime.now()).inSeconds ?? 0;
       await _ops.doAppPauseDurationChanged(seconds);
@@ -127,13 +124,14 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         paused = true;
         await _app.appPaused(true, m);
         final pausedUntil = DateTime.now().add(duration);
-        _timer.set(_keyTimer, pausedUntil);
+        await _scheduler.addOrUpdate(
+            Job(_keyTimer, m, before: pausedUntil, callback: unpauseApp));
         this.pausedUntil = pausedUntil;
         log(m).pair("pausedUntil", pausedUntil);
       } catch (e) {
         paused = false;
         await _app.appPaused(false, m);
-        _timer.unset(_keyTimer);
+        await _scheduler.stop(m, _keyTimer);
         pausedUntil = null;
       }
     });
@@ -148,27 +146,27 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         if (!act.isFamily) await _plus.reactToAppPause(false, m);
         paused = true;
         await _app.appPaused(true, m);
-        _timer.unset(_keyTimer);
+        await _scheduler.stop(m, _keyTimer);
         pausedUntil = null;
       } catch (e) {
         paused = false;
         await _app.appPaused(false, m);
-        _timer.unset(_keyTimer);
+        await _scheduler.stop(m, _keyTimer);
         pausedUntil = null;
       }
     });
   }
 
   @action
-  Future<void> unpauseApp(Marker m) async {
-    return await log(m).trace("unpauseApp", (m) async {
+  Future<bool> unpauseApp(Marker m) async {
+    await log(m).trace("unpauseApp", (m) async {
       try {
         await _app.reconfiguring(m);
         await _unpauseApp(m);
         if (!act.isFamily) await _plus.reactToAppPause(true, m);
         paused = false;
         await _app.appPaused(false, m);
-        _timer.unset(_keyTimer);
+        await _scheduler.stop(m, _keyTimer);
         pausedUntil = null;
       } on AccountTypeException {
         await _app.appPaused(true, m);
@@ -178,6 +176,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         await _stage.showModal(StageModal.perms, m);
       }
     });
+    return false;
   }
 
   @action

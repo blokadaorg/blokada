@@ -19,7 +19,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../../lock/lock.dart';
+import '../../module/lock/lock.dart';
 
 class SettingsSection extends StatefulWidget {
   const SettingsSection({super.key});

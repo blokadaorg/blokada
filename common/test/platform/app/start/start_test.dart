@@ -10,7 +10,6 @@ import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/plus/vpn/vpn.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/timer/timer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -18,7 +17,7 @@ import 'package:mockito/mockito.dart';
 import '../../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<AppStore>(),
-  MockSpec<TimerService>(),
+  MockSpec<Scheduler>(),
   MockSpec<AppStartOps>(),
   MockSpec<AppStartStore>(),
   MockSpec<DeviceStore>(),
@@ -43,8 +42,8 @@ void main() {
         final device = MockDeviceStore();
         DI.register<DeviceStore>(device);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final ops = MockAppStartOps();
         DI.register<AppStartOps>(ops);
@@ -56,7 +55,7 @@ void main() {
 
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(false, m)).called(1);
-        verify(timer.set(any, any)).called(1);
+        verify(timer.addOrUpdate(any)).called(1);
       });
     });
 
@@ -70,8 +69,8 @@ void main() {
         final device = MockDeviceStore();
         DI.register<DeviceStore>(device);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final ops = MockAppStartOps();
         DI.register<AppStartOps>(ops);
@@ -83,7 +82,7 @@ void main() {
 
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(false, m)).called(1);
-        verify(timer.unset(any)).called(1);
+        verify(timer.stop(any, any)).called(1);
       });
     });
 
@@ -105,8 +104,8 @@ void main() {
         when(account.type).thenAnswer((_) => AccountType.cloud);
         DI.register<AccountStore>(account);
 
-        final timer = MockTimerService();
-        DI.register<TimerService>(timer);
+        final timer = MockScheduler();
+        DI.register<Scheduler>(timer);
 
         final stage = MockStageStore();
         DI.register<StageStore>(stage);
@@ -126,7 +125,7 @@ void main() {
 
         verify(app.appPaused(false, m)).called(1);
         verify(device.setCloudEnabled(true, m)).called(1);
-        verify(timer.unset(any)).called(1);
+        verify(timer.stop(any, any)).called(1);
       });
     });
 
@@ -144,7 +143,7 @@ void main() {
   group("storeErrors", () {
     test("onUnpauseAppWillShowPaymentModalOnInactiveAccount", () async {
       await withTrace((m) async {
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
 
         final ops = MockAppStartOps();
         DI.register<AppStartOps>(ops);
@@ -169,7 +168,7 @@ void main() {
 
     test("onUnpauseAppWillShowOnboardingOnMissingPerms", () async {
       await withTrace((m) async {
-        DI.register<TimerService>(MockTimerService());
+        DI.register<Scheduler>(MockScheduler());
 
         final ops = MockAppStartOps();
         DI.register<AppStartOps>(ops);

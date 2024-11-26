@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/lock/circles.dart';
 import 'package:common/common/widget/lock/keypad.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/core/core.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

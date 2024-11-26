@@ -2,6 +2,7 @@ import 'package:common/common/api/api.dart';
 import 'package:common/common/module/account/account.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/list/list.dart';
+import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/widget/top_bar.dart';
@@ -14,7 +15,6 @@ import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/module/stats/stats.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/filter/filter.dart';
 import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/dnscheck.dart';
@@ -44,7 +44,6 @@ import 'platform/rate/rate.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/refresh/refresh.dart';
 import 'platform/stats/stats.dart';
-import 'timer/timer.dart';
 
 class Modules with Logging {
   late final _appStart = DI.get<AppStartStore>();
@@ -54,8 +53,6 @@ class Modules with Logging {
     this.act = act;
 
     // TODO: All onRegister calls here have to be replaced with modules
-
-    DefaultTimer().onRegister(act);
 
     await _registerModule(PlatformLoggerModule());
     await _registerModule(CoreModule());

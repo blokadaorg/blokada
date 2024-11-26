@@ -49,6 +49,11 @@ class Condition {
   int get hashCode => event.hashCode;
 }
 
+class Conditions {
+  // App must be in foreground to execute this job
+  static final foreground = Condition(Event.appForeground, value: "1");
+}
+
 class JobOrder implements Comparable<JobOrder> {
   final DateTime when;
   final Job job;
@@ -107,8 +112,8 @@ class Scheduler with Logging {
   }
 
   // think about if its necessary, the return bool from callback may be enough
-  stop(String jobName) async {
-    await log(Markers.timer).trace("stop", (m) async {
+  stop(Marker m, String jobName) async {
+    await log(m).trace("stop", (m) async {
       log(m).pair("job", jobName);
 
       _jobs.removeWhere((j) => j.name == jobName);
@@ -127,12 +132,10 @@ class Scheduler with Logging {
 
       for (final job in _jobs.toList()) {
         final when = job.when.indexOf(c);
+        log(m).t("Analyze job: ${job.name}, when: $when");
         if (when == -1) continue;
         _next.removeWhere((o) => o.job == job);
         _reschedule(m, job, immediate: true);
-        // if (!(job.skip?.call() ?? false)) {
-        //   await _invoke(job); // should await?
-        // }
       }
       _setTimer(m);
     });
@@ -183,6 +186,8 @@ class Scheduler with Logging {
   }
 
   _reschedule(Marker m, Job job, {bool immediate = false, bool retry = false}) {
+    log(m).t("Reschedule ${job.name}");
+
     final now = timer.now();
     DateTime? next;
 
@@ -242,7 +247,7 @@ class Scheduler with Logging {
   Duration _getWhen(Marker m, Job job, DateTime time, {prefix = "Job"}) {
     final now = timer.now();
     final when = time.difference(now);
-    if (when.inSeconds < 1) {
+    if (time.isBefore(now) || when.inSeconds < 1) {
       log(m).i("$prefix ${job.name}, now");
     } else {
       log(m).i("$prefix ${job.name}, at $time (in $when)");

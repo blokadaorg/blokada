@@ -25,11 +25,11 @@ class RateActor with Logging, Actor {
   _scheduleAfterAppStatus(Marker m) async {
     return await log(m).trace("scheduleAfterAppStatus", (m) async {
       // Let the things settle a bit
-      _scheduler.addOrUpdate(Job(
+      await _scheduler.addOrUpdate(Job(
         "rate:checkConditions",
         m,
         before: DateTime.now().add(const Duration(seconds: 3)),
-        when: [Condition(Event.appForeground, value: "1")],
+        when: [Conditions.foreground],
         callback: checkRateConditions,
       ));
     });

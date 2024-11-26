@@ -51,15 +51,15 @@ class StatsActor with Logging, Actor {
             _key,
             Markers.stats,
             every: _decideFrequency(),
-            when: [Condition(Event.appForeground, value: "1")],
+            when: [Conditions.foreground],
             callback: _autoRefresh,
           ),
           immediate: true);
     });
   }
 
-  stopAutoRefresh() {
-    _scheduler.stop(_key);
+  stopAutoRefresh(Marker m) {
+    _scheduler.stop(m, _key);
   }
 
   Future<bool> _autoRefresh(Marker m) async {

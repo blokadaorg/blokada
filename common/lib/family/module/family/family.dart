@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:common/common/model/model.dart';
+import 'package:common/common/module/lock/lock.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/auth/auth.dart';
 import 'package:common/family/module/device_v3/device.dart';
@@ -10,7 +11,6 @@ import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_android.dart';
 import 'package:common/family/widget/home/private_dns/private_dns_sheet_ios.dart';
-import 'package:common/lock/lock.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/channel.pg.dart';

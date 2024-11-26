@@ -5,7 +5,6 @@ import 'package:common/platform/account/refresh/json.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../family/module/family/family.dart';
-import '../../../timer/timer.dart';
 import '../../../util/cooldown.dart';
 import '../../notification/notification.dart';
 import '../../plus/plus.dart';
@@ -93,7 +92,7 @@ class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
     with Store, Logging, Actor, Cooldown, Emitter {
-  late final _timer = DI.get<TimerService>();
+  late final _scheduler = DI.get<Scheduler>();
   late final _account = DI.get<AccountStore>();
   late final _notification = DI.get<NotificationStore>();
   late final _stage = DI.get<StageStore>();
@@ -102,7 +101,6 @@ abstract class AccountRefreshStoreBase
   late final _linkedMode = DI.get<FamilyLinkedMode>();
 
   AccountRefreshStoreBase() {
-    _timer.addHandler(_keyTimer, onTimerFired);
     _stage.addOnValue(routeChanged, onRouteChanged);
   }
 
@@ -217,10 +215,10 @@ abstract class AccountRefreshStoreBase
   }
 
   @action
-  Future<void> onTimerFired(Marker m) async {
+  Future<bool> onTimerFired(Marker m) async {
     return await log(m).trace("onTimerFired", (m) async {
       try {
-        if (!_initSuccessful) return;
+        if (!_initSuccessful) return false;
         log(m).i("timer fired, init successful");
         expiration = expiration.update();
         // Maybe account got extended externally, so try to refresh
@@ -234,6 +232,8 @@ abstract class AccountRefreshStoreBase
         await _account.expireOffline(m);
         await syncAccount(_account.account, m);
       }
+
+      return false;
     });
   }
 
@@ -266,7 +266,7 @@ abstract class AccountRefreshStoreBase
     });
   }
 
-  void _updateTimer(Marker m) {
+  void _updateTimer(Marker m) async {
     final id = act.isFamily
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
@@ -276,14 +276,18 @@ abstract class AccountRefreshStoreBase
     DateTime? expDate = expiration.getNextDate();
 
     if (expDate != null && !shouldSkipNotification) {
-      _timer.set(_keyTimer, expDate);
-      log(m).pair("timer", expDate);
+      await _scheduler.addOrUpdate(Job(
+        _keyTimer,
+        m,
+        before: expDate,
+        callback: onTimerFired,
+      ));
 
       _notification.show(id, when: expiration.expiration, m);
       log(m).pair("notificationId", id);
       log(m).pair("notificationDate", expiration.expiration);
     } else {
-      _timer.unset(_keyTimer);
+      await _scheduler.stop(m, _keyTimer);
       log(m).pair("timer", null);
 
       if (expiration.status == AccountStatus.active) {

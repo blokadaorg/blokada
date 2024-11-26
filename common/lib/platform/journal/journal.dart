@@ -3,7 +3,6 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/journal/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../timer/timer.dart';
 import '../../util/cooldown.dart';
 import '../../util/mobx.dart';
 import '../device/device.dart';
@@ -99,12 +98,11 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   late final _json = DI.get<JournalJson>();
   late final _device = DI.get<DeviceStore>();
   late final _stage = DI.get<StageStore>();
-  late final _timer = DI.get<TimerService>();
+  late final _scheduler = DI.get<Scheduler>();
 
   JournalStoreBase() {
     _device.addOn(deviceChanged, updateJournalFreq);
     _stage.addOnValue(routeChanged, onRouteChanged);
-    _timer.addHandler(_timerKey, onTimerFired);
 
     reactionOnStore((_) => filteredEntries, (entries) async {
       _ops.doReplaceEntries(entries);
@@ -180,40 +178,39 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   }
 
   @action
-  Future<void> onTimerFired(Marker m) async {
-    return await log(m).trace("onTimerFired", (m) async {
-      final route = _stage.route;
-      if (!route.isForeground()) {
-        _stopTimer();
-        return;
-      }
+  Future<bool> onTimerFired(Marker m) async {
+    final route = _stage.route;
+    if (!route.isForeground()) {
+      _stopTimer(m);
+      return false;
+    }
 
-      final isActivity = _stage.route.isTab(StageTab.activity);
-      final isHome = _stage.route.isTab(StageTab.home);
-      final isLinkModal = route.modal == StageModal.accountLink;
+    final isActivity = _stage.route.isTab(StageTab.activity);
+    final isHome = _stage.route.isTab(StageTab.home);
+    final isLinkModal = route.modal == StageModal.accountLink;
 
-      if (!act.isFamily && !isActivity) {
-        _stopTimer();
-        return;
-      }
+    if (!act.isFamily && !isActivity) {
+      _stopTimer(m);
+      return false;
+    }
 
-      if (act.isFamily && !isHome && !isActivity) {
-        _stopTimer();
-        return;
-      }
+    if (act.isFamily && !isHome && !isActivity) {
+      _stopTimer(m);
+      return false;
+    }
 
-      if (refreshEnabled) {
-        final cooldown = (isActivity || isLinkModal || frequentRefresh)
-            ? cfg.refreshVeryFrequent
-            : cfg.refreshOnHome;
-        try {
-          await fetch(m);
-          _rescheduleTimer(cooldown);
-        } on Exception catch (_) {
-          _rescheduleTimer(cooldown);
-        }
+    if (refreshEnabled) {
+      final cooldown = (isActivity || isLinkModal || frequentRefresh)
+          ? cfg.refreshVeryFrequent
+          : cfg.refreshOnHome;
+      try {
+        await fetch(m);
+        _rescheduleTimer(m, cooldown);
+      } on Exception catch (_) {
+        _rescheduleTimer(m, cooldown);
       }
-    });
+    }
+    return false;
   }
 
   @action
@@ -243,7 +240,7 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   Future<void> disableRefresh(Marker m) async {
     return await log(m).trace("disableRefresh", (m) async {
       refreshEnabled = false;
-      _stopTimer();
+      _stopTimer(m);
     });
   }
 
@@ -273,13 +270,16 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
     });
   }
 
-  _rescheduleTimer(Duration cooldown) {
-    _timer.set(_timerKey, DateTime.now().add(cooldown));
+  _rescheduleTimer(Marker m, Duration cooldown) {
+    _scheduler.addOrUpdate(Job(
+      _timerKey,
+      m,
+      before: DateTime.now().add(cooldown),
+      callback: onTimerFired,
+    ));
   }
 
-  _stopTimer() {
-    _timer.unset(_timerKey);
-  }
+  _stopTimer(Marker m) => _scheduler.stop(m, _timerKey);
 
   @action
   Future<void> updateFilter(

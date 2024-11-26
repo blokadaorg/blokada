@@ -3,8 +3,8 @@ import 'package:common/main-widgets.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:dartx/dartx.dart';
 
+import '../../common/module/lock/lock.dart';
 import '../../family/module/family/family.dart';
-import '../../lock/lock.dart';
 import '../account/account.dart';
 import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';

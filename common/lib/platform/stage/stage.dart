@@ -216,9 +216,8 @@ abstract class StageStoreBase
         route = route.newBg();
         _isForeground = false;
         await emitValue(routeChanged, route, m);
-        if (act.isFamily) {
-          await _scheduler.eventTriggered(m, Event.appForeground, value: "0");
-        }
+
+        await _scheduler.eventTriggered(m, Event.appForeground, value: "0");
       }
 
       _foregroundCompleter?.complete();
@@ -307,10 +306,9 @@ abstract class StageStoreBase
 
       log(m).i("foreground emitting");
       await emitValue(routeChanged, route, m);
-      if (act.isFamily) {
-        // TODO: this needs to be removed
-        await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
-      }
+
+      // TODO: this needs to be removed
+      await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
     }
 
     final path = _pathToShow;

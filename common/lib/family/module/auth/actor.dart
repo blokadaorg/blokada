@@ -64,7 +64,7 @@ class AuthActor with Logging, Actor {
           _keyRefresh,
           Markers.auth,
           before: payload.expiry.subtract(const Duration(minutes: 5)),
-          when: [Condition(Event.appForeground, value: "1")],
+          when: [Conditions.foreground],
           callback: _refreshToken,
         ));
         return payload;
@@ -98,7 +98,7 @@ class AuthActor with Logging, Actor {
           _keyHeartbeat,
           Markers.auth,
           every: _frequencyHeartbeat,
-          when: [Condition(Event.appForeground, value: "1")],
+          when: [Conditions.foreground],
           callback: (m) async => await _doHeartbeat(token, m),
         ),
         immediate: true);
@@ -113,7 +113,7 @@ class AuthActor with Logging, Actor {
       if (e.code == 401) {
         onTokenExpired(m);
         _currentToken.change(m, null);
-        await _scheduler.stop(_keyHeartbeat);
+        await _scheduler.stop(m, _keyHeartbeat);
         log(m).w("token unavailable, stopping heartbeat");
         throw SchedulerException(e);
       } else {
