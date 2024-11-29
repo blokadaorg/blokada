@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';

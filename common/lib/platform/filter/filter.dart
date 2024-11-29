@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/module/account/account.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/core/core.dart';

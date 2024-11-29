@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'profile.dart';
 
 RegExp _templateInAlias = RegExp(r' \((\w+)\)');
 

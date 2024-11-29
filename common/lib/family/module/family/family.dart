@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:common/common/model/model.dart';
 import 'package:common/common/module/lock/lock.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/auth/auth.dart';
@@ -22,6 +21,7 @@ part 'actor.dart';
 part 'command.dart';
 part 'devices.dart';
 part 'link_actor.dart';
+part 'model.dart';
 part 'value.dart';
 
 class FamilyModule with Module {

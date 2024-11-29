@@ -1,5 +1,5 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/device/device.dart';
 
 class PrivateDnsCheck with Actor, Logging {
   @override

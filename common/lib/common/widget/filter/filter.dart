@@ -1,4 +1,4 @@
-import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/widget/color.dart';
 import 'package:common/common/widget/filter/filter_option.dart';
 import 'package:common/common/widget/theme.dart';

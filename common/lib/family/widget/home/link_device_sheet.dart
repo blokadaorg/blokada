@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:common/common/dialog.dart';
-import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -11,6 +10,7 @@ import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
+import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

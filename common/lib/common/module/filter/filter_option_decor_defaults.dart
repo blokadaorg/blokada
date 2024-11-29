@@ -1,3 +1,5 @@
+part of 'filter.dart';
+
 final filterOptionDecorDefaults = {
   "disney plus": "Disney+",
   "hbo max": "HBO Max",

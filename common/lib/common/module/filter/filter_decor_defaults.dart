@@ -1,6 +1,6 @@
-import '../model/model.dart';
+part of 'filter.dart';
 
-final filterDecorDefaults = _v6 + _family;
+final filterDecorDefaults = _v6 + _familyDecor;
 
 final _v6 = [
   FilterDecor(
@@ -209,7 +209,7 @@ final _v6 = [
   ),
 ];
 
-final _family = [
+final _familyDecor = [
   FilterDecor(
     filterName: "meta_safe_search",
     tags: ["recommended"],

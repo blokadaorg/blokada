@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/module/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:relative_scale/relative_scale.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

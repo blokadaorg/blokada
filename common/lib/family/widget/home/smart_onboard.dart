@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';

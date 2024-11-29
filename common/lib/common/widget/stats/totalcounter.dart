@@ -1,4 +1,5 @@
 import 'package:common/core/core.dart';
+import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,6 @@ import '../../../../common/widget/minicard/minicard.dart';
 import '../../../../common/widget/minicard/summary.dart';
 import '../../../platform/stage/stage.dart';
 import '../../../platform/stats/stats.dart';
-import '../../model/model.dart';
 
 class TotalCounter extends StatefulWidget {
   final UiStats stats;

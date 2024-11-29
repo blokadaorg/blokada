@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:common/common/defaults/filter_decor_defaults.dart';
-import 'package:common/common/model/model.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/filter/filter.dart';

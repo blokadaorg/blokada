@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'support.dart';
 
 class JsonSupportPayloadCreateSession {
   late String? message;

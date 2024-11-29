@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'journal.dart';
 
 class JsonJournalEndpoint {
   late List<JsonJournalEntry> activity;

@@ -1,8 +1,8 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/chart.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/home/device/home_device_header.dart';
 import 'package:flutter/material.dart';

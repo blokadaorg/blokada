@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'filter.dart';
 
 /// Defines a mapping between Filters used by the app, and the blocklists used
 /// by the api. This layer of abstraction is needed for the app to be able to

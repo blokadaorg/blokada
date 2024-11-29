@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:common/core/core.dart';
+import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../common/model/model.dart';
 import '../../util/mobx.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';

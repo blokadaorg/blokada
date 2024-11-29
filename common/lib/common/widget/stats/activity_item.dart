@@ -1,8 +1,8 @@
-import 'package:common/common/model/model.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/common/navigation.dart';
+import 'package:common/family/module/journal/journal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

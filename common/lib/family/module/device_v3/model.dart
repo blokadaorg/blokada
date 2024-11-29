@@ -1,3 +1,3 @@
-part of '../model.dart';
+part of 'device.dart';
 
 typedef DeviceTag = String;

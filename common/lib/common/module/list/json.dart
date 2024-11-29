@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'list.dart';
 
 class JsonListEndpoint {
   late List<JsonListItem> lists;

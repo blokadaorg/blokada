@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/home/header/header.dart';
 import 'package:common/common/widget/icon.dart';

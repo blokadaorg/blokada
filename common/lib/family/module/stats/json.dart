@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'stats.dart';
 
 class JsonStatsEndpoint {
   late String totalAllowed;

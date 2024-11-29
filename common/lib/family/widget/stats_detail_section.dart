@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -9,6 +8,7 @@ import 'package:common/common/widget/stats/action_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/customlist_v3/customlist.dart';
+import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'support.dart';
 
 enum SupportEvent {
   firstOpen("FIRST_OPEN"),

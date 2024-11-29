@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'customlist.dart';
 
 enum JsonCustomListAction { allow, block }
 

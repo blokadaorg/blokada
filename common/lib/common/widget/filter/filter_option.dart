@@ -1,5 +1,4 @@
-import 'package:common/common/defaults/filter_option_decor_defaults.dart';
-import 'package:common/common/model/model.dart';
+import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/two_letter_icon.dart';

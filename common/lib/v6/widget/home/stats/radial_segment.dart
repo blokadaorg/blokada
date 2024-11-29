@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:common/common/model/model.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:common/util/color_extensions.dart';
 import 'package:common/util/mobx.dart';

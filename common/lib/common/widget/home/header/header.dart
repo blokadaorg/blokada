@@ -1,8 +1,8 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/home/header/header_button.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/module/family/family.dart';
 import 'package:flutter/cupertino.dart';
 
 class SmartHeader extends StatefulWidget {

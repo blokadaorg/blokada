@@ -1,10 +1,10 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/stats/activity_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/customlist_v3/customlist.dart';
+import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/journal/journal.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-part of '../model.dart';
+part of 'device.dart';
 
 enum JsonDeviceMode { off, on, blocked }
 

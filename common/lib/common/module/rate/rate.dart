@@ -1,4 +1,3 @@
-import 'package:common/common/model/model.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/platform/app/app.dart';

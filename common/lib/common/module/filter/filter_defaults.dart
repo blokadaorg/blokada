@@ -1,4 +1,4 @@
-import '../model/model.dart';
+part of 'filter.dart';
 
 class DefaultFilters {
   final bool isFamily;
