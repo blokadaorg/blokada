@@ -147,7 +147,7 @@ class PackDataSource {
             description: "protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try pro instead.",
             creditName: "badmojr",
             creditUrl: "https://go.blokada.org/1hosts",
-            configs: ["lite (wildcards)", "pro (wildcards)", "xtra (wildcards)"]
+            configs: ["lite (wildcards)", "pro (wildcards)"]
         ),
 
         Pack.mocked(id: "d3host", tags: [Pack.official, "adblocking", "tracking"],
