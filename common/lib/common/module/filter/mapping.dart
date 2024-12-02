@@ -90,7 +90,6 @@ final _v6iOS = [
   Filter("1hosts", [
     Option("lite", FilterAction.list, ["1hosts/lite (wildcards)"]),
     Option("pro", FilterAction.list, ["1hosts/pro (wildcards)"]),
-    Option("xtra", FilterAction.list, ["1hosts/xtra (wildcards)"]),
   ]),
   Filter("d3host", [
     Option("standard", FilterAction.list, ["d3host/standard"]),
@@ -165,7 +164,6 @@ final _v6Android = [
   Filter("1hosts", [
     Option("lite", FilterAction.list, ["1hosts/lite (wildcards)"]),
     Option("pro", FilterAction.list, ["1hosts/pro (wildcards)"]),
-    Option("xtra", FilterAction.list, ["1hosts/xtra (wildcards)"]),
   ]),
   Filter("d3host", [
     Option("standard", FilterAction.list, ["d3host/standard"]),
@@ -196,7 +194,6 @@ final _family = [
       "1hosts/lite (wildcards)",
       "oisd/big",
       "ddgtrackerradar/standard",
-      "1hosts/xtra (wildcards)",
       // Those below I'm not sure how to treat
       "cpbl/standard",
       "blacklist/adservers",
