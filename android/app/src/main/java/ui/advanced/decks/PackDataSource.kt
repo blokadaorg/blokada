@@ -161,7 +161,7 @@ object PackDataSource: FlavorSpecific {
             description = "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead.",
             creditName = "badmojr",
             creditUrl = "https://go.blokada.org/1hosts",
-            configs = listOf("lite", "pro", "xtra")
+            configs = listOf("lite", "pro")
         ),
 
         Pack.mocked(id = "d3host", tags = listOf(Pack.official, "adblocking", "tracking"),
