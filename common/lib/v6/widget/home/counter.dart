@@ -10,11 +10,10 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/platform/stats/stats.dart';
+import 'package:common/v6/widget/home/home.dart';
+import 'package:common/v6/widget/home/home_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
-
-import 'home.dart';
-import 'home_screen.dart';
 
 class HomeCounter2 extends StatefulWidget {
   HomeCounter2({Key? key}) : super(key: key);
@@ -27,10 +26,10 @@ class HomeCounter2 extends StatefulWidget {
 
 class _HomeCounterState extends State<HomeCounter2>
     with TickerProviderStateMixin, Logging {
-  final _stage = DI.get<StageStore>();
-  final _app = DI.get<AppStore>();
-  final _stats = DI.get<StatsStore>();
-  final _home = DI.get<HomeStore>();
+  final _stage = Core.get<StageStore>();
+  final _app = Core.get<AppStore>();
+  final _stats = Core.get<StatsStore>();
+  final _home = Core.get<HomeStore>();
 
   bool powerReady = false;
   double blockedCounter = 0.0;

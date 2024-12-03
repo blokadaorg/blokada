@@ -26,7 +26,7 @@ part 'value.dart';
 
 class FamilyModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(FamilyPhaseValue());
     await register(FamilyDevicesValue());
     await register(FamilyActor());
@@ -34,7 +34,7 @@ class FamilyModule with Module {
     await register(LinkActor());
     await register(FamilyCommand());
 
-    if (act.platform == PlatformType.iOS) {
+    if (Core.act.platform == PlatformType.iOS) {
       await register<StatefulWidget>(const PrivateDnsSheetIos(),
           tag: "privateDnsSheet");
     } else {

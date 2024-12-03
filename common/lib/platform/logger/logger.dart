@@ -11,8 +11,8 @@ part 'output.dart';
 
 class PlatformLoggerModule with Logging, Module {
   @override
-  onCreateModule(Act act) async {
-    if (act.isProd) {
+  onCreateModule() async {
+    if (Core.act.isProd) {
       await register<LoggerChannel>(PlatformLoggerChannel());
     } else {
       await register<LoggerChannel>(NoOpLoggerChannel());
@@ -21,7 +21,7 @@ class PlatformLoggerModule with Logging, Module {
     await register(Logger(
       filter: ProductionFilter(),
       printer: defaultLoggerPrinter,
-      output: FileLoggerOutput(act),
+      output: FileLoggerOutput(),
     ));
 
     await register(LogTracerActor());

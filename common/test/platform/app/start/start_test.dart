@@ -35,21 +35,20 @@ void main() {
     test("pauseAppUntil", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
-        DI.register<PlusStore>(MockPlusStore());
+        Core.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final ops = MockAppStartOps();
-        DI.register<AppStartOps>(ops);
+        Core.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
-        subject.act = mockedAct;
 
         await subject.pauseAppUntil(const Duration(seconds: 30), m);
 
@@ -62,21 +61,20 @@ void main() {
     test("pauseAppIndefinitely", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
-        DI.register<PlusStore>(MockPlusStore());
+        Core.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final ops = MockAppStartOps();
-        DI.register<AppStartOps>(ops);
+        Core.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
-        subject.act = mockedAct;
 
         await subject.pauseAppIndefinitely(m);
 
@@ -89,32 +87,31 @@ void main() {
     test("unpauseApp", () async {
       await withTrace((m) async {
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
-        DI.register<PlusStore>(MockPlusStore());
+        Core.register<PlusStore>(MockPlusStore());
 
         final device = MockDeviceStore();
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final perm = MockPlatformPermActor();
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
-        DI.register<PlatformPermActor>(perm);
+        Core.register<PlatformPermActor>(perm);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.cloud);
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final stage = MockStageStore();
-        DI.register<StageStore>(stage);
+        Core.register<StageStore>(stage);
 
         final ops = MockAppStartOps();
-        DI.register<AppStartOps>(ops);
+        Core.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
-        subject.act = mockedAct;
 
         // No perms
         await subject.unpauseApp(m);
@@ -143,20 +140,20 @@ void main() {
   group("storeErrors", () {
     test("onUnpauseAppWillShowPaymentModalOnInactiveAccount", () async {
       await withTrace((m) async {
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<Scheduler>(MockScheduler());
 
         final ops = MockAppStartOps();
-        DI.register<AppStartOps>(ops);
+        Core.register<AppStartOps>(ops);
 
         final stage = MockStageStore();
-        DI.register<StageStore>(stage);
+        Core.register<StageStore>(stage);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.libre);
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final subject = AppStartStore();
 
@@ -168,27 +165,27 @@ void main() {
 
     test("onUnpauseAppWillShowOnboardingOnMissingPerms", () async {
       await withTrace((m) async {
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<Scheduler>(MockScheduler());
 
         final ops = MockAppStartOps();
-        DI.register<AppStartOps>(ops);
+        Core.register<AppStartOps>(ops);
 
         final stage = MockStageStore();
-        DI.register<StageStore>(stage);
+        Core.register<StageStore>(stage);
 
         final account = MockAccountStore();
         when(account.type).thenAnswer((_) => AccountType.cloud);
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final device = DeviceStore();
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final perm = MockPlatformPermActor();
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
-        DI.register<PlatformPermActor>(perm);
+        Core.register<PlatformPermActor>(perm);
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final subject = AppStartStore();
 

@@ -10,13 +10,13 @@ part of 'filter.dart';
 // However, we wanted the new Filters faster since the old concept
 // was problematic and buggy. So this class exposes it to for old code.
 class PlatformFilterActor with Logging, Actor {
-  late final _controller = DI.get<FilterActor>();
-  late final _device = DI.get<DeviceStore>();
-  late final _userConfig = DI.get<CurrentConfig>();
-  late final _selectedFilters = DI.get<SelectedFilters>();
-  late final _knownFilters = DI.get<KnownFilters>();
-  late final _channel = DI.get<FilterChannel>();
-  late final _acc = DI.get<AccountActor>();
+  late final _controller = Core.get<FilterActor>();
+  late final _device = Core.get<DeviceStore>();
+  late final _userConfig = Core.get<CurrentConfig>();
+  late final _selectedFilters = Core.get<SelectedFilters>();
+  late final _knownFilters = Core.get<KnownFilters>();
+  late final _channel = Core.get<FilterChannel>();
+  late final _acc = Core.get<AccountActor>();
 
   final _debounce = Debounce(const Duration(seconds: 1));
 

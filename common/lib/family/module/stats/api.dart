@@ -1,8 +1,8 @@
 part of 'stats.dart';
 
 class StatsApi {
-  late final _api = DI.get<Api>();
-  late final _accountId = DI.get<AccountId>();
+  late final _api = Core.get<Api>();
+  late final _accountId = Core.get<AccountId>();
   late final _marshal = JsonStatsMarshall();
 
   Future<JsonStatsEndpoint> fetch(

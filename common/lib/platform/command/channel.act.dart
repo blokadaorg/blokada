@@ -5,8 +5,8 @@ import 'channel.pg.dart';
 
 class MockCommandOps extends Mock implements CommandOps {}
 
-CommandOps getOps(Act act) {
-  if (act.isProd) {
+CommandOps getOps() {
+  if (Core.act.isProd) {
     return CommandOps();
   }
 

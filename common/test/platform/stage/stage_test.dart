@@ -18,11 +18,10 @@ void main() {
     test("setBackground", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
         await subject.setReady(true, m);
         expect(subject.route.isForeground(), false);
 
@@ -39,11 +38,10 @@ void main() {
     test("setRoute", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
         await subject.setReady(true, m);
         await subject.setForeground(m);
 
@@ -62,11 +60,10 @@ void main() {
     test("showModal", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
         await subject.setReady(true, m);
         await subject.setForeground(m);
         expect(subject.route.modal, null);
@@ -124,11 +121,10 @@ void main() {
     test("advancedModalManagement", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
         await subject.setReady(true, m);
         await subject.setForeground(m);
         expect(subject.route.modal, null);
@@ -168,11 +164,10 @@ void main() {
     test("delayedEvents", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
 
         // Stage is not ready, should save this route for later
         await subject.setRoute("activity", m);
@@ -204,11 +199,10 @@ void main() {
     test("routeChanged", () async {
       await withTrace((m) async {
         final ops = MockStageOps();
-        DI.register<StageOps>(ops);
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<StageOps>(ops);
+        Core.register<Scheduler>(MockScheduler());
 
         final subject = StageStore();
-        subject.act = mockedAct;
 
         int counter = 0;
         subject.addOnValue(routeChanged, (route, m) {

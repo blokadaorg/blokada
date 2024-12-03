@@ -51,7 +51,7 @@ class AccountExpiration {
     AccountStatus newStatus = AccountStatus.inactive;
     // Account wasn't active, and now is
     if (status == AccountStatus.inactive || status == AccountStatus.init) {
-      if (exp.isAfter(now.add(cfg.accountExpiringTimeSpan))) {
+      if (exp.isAfter(now.add(Core.config.accountExpiringTimeSpan))) {
         newStatus = AccountStatus.active;
       } else if (exp.isAfter(now)) {
         newStatus = AccountStatus.expiring;
@@ -62,7 +62,7 @@ class AccountExpiration {
       newStatus = AccountStatus.active;
       if (exp.isBefore(now)) {
         newStatus = AccountStatus.expired;
-      } else if (exp.isBefore(now.add(cfg.accountExpiringTimeSpan))) {
+      } else if (exp.isBefore(now.add(Core.config.accountExpiringTimeSpan))) {
         newStatus = AccountStatus.expiring;
       }
     }
@@ -77,7 +77,7 @@ class AccountExpiration {
 
   DateTime? getNextDate() {
     if (status == AccountStatus.active) {
-      return expiration.subtract(cfg.accountExpiringTimeSpan);
+      return expiration.subtract(Core.config.accountExpiringTimeSpan);
     } else if (status == AccountStatus.expiring) {
       return expiration;
     } else {
@@ -92,22 +92,21 @@ class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
 abstract class AccountRefreshStoreBase
     with Store, Logging, Actor, Cooldown, Emitter {
-  late final _scheduler = DI.get<Scheduler>();
-  late final _account = DI.get<AccountStore>();
-  late final _notification = DI.get<NotificationStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _persistence = DI.get<Persistence>();
-  late final _plus = DI.get<PlusStore>();
-  late final _linkedMode = DI.get<FamilyLinkedMode>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _account = Core.get<AccountStore>();
+  late final _notification = Core.get<NotificationStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _persistence = Core.get<Persistence>();
+  late final _plus = Core.get<PlusStore>();
+  late final _linkedMode = Core.get<FamilyLinkedMode>();
 
   AccountRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<AccountRefreshStore>(this as AccountRefreshStore);
+  onRegister() {
+    Core.register<AccountRefreshStore>(this as AccountRefreshStore);
   }
 
   @observable
@@ -134,7 +133,7 @@ abstract class AccountRefreshStoreBase
         } on Exception catch (e) {
           lastException = e;
           log(m).i("init failed, retrying");
-          await sleepAsync(cfg.appStartFailWait);
+          await sleepAsync(Core.config.appStartFailWait);
         }
       }
 
@@ -197,7 +196,7 @@ abstract class AccountRefreshStoreBase
           _metadata.seenExpiredDialog = true;
           await _saveMetadata(m);
           await _stage.showModal(StageModal.accountExpired, m);
-          if (!act.isFamily) await _plus.clearPlus(m);
+          if (!Core.act.isFamily) await _plus.clearPlus(m);
         }
       }
 
@@ -245,7 +244,7 @@ abstract class AccountRefreshStoreBase
     return await log(m).trace("refreshExpiration", (m) async {
       // Refresh when entering the Settings tab, or foreground after enough time
       if (route.isBecameTab(StageTab.settings) ||
-          isCooledDown(cfg.accountRefreshCooldown)) {
+          isCooledDown(Core.config.accountRefreshCooldown)) {
         await _account.fetch(m);
         await syncAccount(_account.account, m);
       } else {
@@ -267,11 +266,11 @@ abstract class AccountRefreshStoreBase
   }
 
   void _updateTimer(Marker m) async {
-    final id = act.isFamily
+    final id = Core.act.isFamily
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
 
-    final shouldSkipNotification = act.isFamily && _linkedMode.now;
+    final shouldSkipNotification = Core.act.isFamily && _linkedMode.now;
 
     DateTime? expDate = expiration.getNextDate();
 

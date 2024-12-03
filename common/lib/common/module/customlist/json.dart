@@ -66,13 +66,13 @@ class JsonCustomListPayload {
     required this.profileId,
     required this.domainName,
     required this.action,
-  }) : assert(profileId != null && domainName != null && action != null);
+  }) : assert(domainName != null && action != null);
 
   JsonCustomListPayload.forDelete({
     required this.profileId,
     required this.domainName,
   })  : action = null,
-        assert(profileId != null && domainName != null);
+        assert(domainName != null);
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

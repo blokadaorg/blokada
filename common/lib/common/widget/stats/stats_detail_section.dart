@@ -1,4 +1,6 @@
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -7,10 +9,9 @@ import 'package:common/common/widget/stats/action_info.dart';
 import 'package:common/common/widget/stats/action_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/module/customlist_v3/customlist.dart';
-import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
+import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,19 +28,22 @@ class StatsDetailSection extends StatefulWidget {
 }
 
 class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
-  final _profile = DI.get<ProfileActor>();
-  final _filter = DI.get<FilterActor>();
-  final _custom = DI.get<CustomlistActor>();
+  late final _profile = Core.get<ProfileActor>();
+  late final _filter = Core.get<FilterActor>();
+  late final _custom = Core.get<CustomlistActor>();
 
-  late JsonProfile? profile;
+  JsonProfile? profile;
 
   @override
   void initState() {
     super.initState();
-    try {
-      profile = _profile.get(widget.entry.profileId);
-    } catch (e) {
-      profile = null;
+
+    if (widget.entry.profileId != null) {
+      try {
+        profile = _profile.get(widget.entry.profileId!);
+      } catch (e) {
+        profile = null;
+      }
     }
   }
 
@@ -112,90 +116,19 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                   const SizedBox(height: 24),
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("family stats label blocklist".i18n,
-                              style: TextStyle(
-                                  color: context.theme.textSecondary,
-                                  fontSize: 12)),
-                          Row(
-                            children: [
-                              // Icon(CupertinoIcons.eye_slash_fill,
-                              //     color: context.theme.textSecondary,
-                              //     size: 20),
-                              // const SizedBox(width: 4),
-                              Text(
-                                _filter.getFilterContainingList(
-                                    widget.entry.listId),
-                                style: TextStyle(
-                                  color: context.theme.textSecondary,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                      _buildFilterInfo(context),
+                      (Core.act.isFamily)
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Container(
+                                color: context.theme.divider.withOpacity(0.1),
+                                width: 1,
+                                height: 40,
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Container(
-                          color: context.theme.divider.withOpacity(0.1),
-                          width: 1,
-                          height: 40,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("family stats label profile".i18n,
-                              style: TextStyle(
-                                  color: context.theme.textSecondary,
-                                  fontSize: 12)),
-                          profile != null
-                              ? Row(
-                                  children: [
-                                    Icon(getProfileIcon(profile!.template),
-                                        color:
-                                            getProfileColor(profile!.template),
-                                        size: 20),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      profile!.displayAlias.i18n,
-                                      style: TextStyle(
-                                        color:
-                                            getProfileColor(profile!.template),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Icon(CupertinoIcons.question_circle,
-                                        color: context.theme.textSecondary,
-                                        size: 20),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      "family stats label profile unknown".i18n,
-                                      style: TextStyle(
-                                        color: context.theme.textSecondary,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ],
-                                ),
-                        ],
-                      ),
+                            )
+                          : Container(),
+                      _buildProfileInfo(context),
                     ],
                   ),
                 ],
@@ -264,8 +197,85 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
             ),
           ),
           const SizedBox(height: 40),
+          TapBarCompensation(),
         ],
       ),
+    );
+  }
+
+  Widget _buildFilterInfo(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("family stats label blocklist".i18n,
+            style: TextStyle(color: context.theme.textSecondary, fontSize: 12)),
+        Row(
+          children: [
+            // Icon(CupertinoIcons.eye_slash_fill,
+            //     color: context.theme.textSecondary,
+            //     size: 20),
+            // const SizedBox(width: 4),
+            Text(
+              _filter.getFilterContainingList(widget.entry.listId,
+                  full: !Core.act.isFamily),
+              style: TextStyle(
+                color: context.theme.textSecondary,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProfileInfo(BuildContext context) {
+    if (!Core.act.isFamily) return Container();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("family stats label profile".i18n,
+            style: TextStyle(color: context.theme.textSecondary, fontSize: 12)),
+        profile != null
+            ? Row(
+                children: [
+                  Icon(getProfileIcon(profile!.template),
+                      color: getProfileColor(profile!.template), size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    profile!.displayAlias.i18n,
+                    style: TextStyle(
+                      color: getProfileColor(profile!.template),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Icon(CupertinoIcons.question_circle,
+                      color: context.theme.textSecondary, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    "family stats label profile unknown".i18n,
+                    style: TextStyle(
+                      color: context.theme.textSecondary,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+      ],
     );
   }
 }

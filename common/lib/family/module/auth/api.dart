@@ -1,7 +1,7 @@
 part of 'auth.dart';
 
 class AuthApi {
-  late final _api = DI.get<Api>();
+  late final _api = Core.get<Api>();
   late final _marshal = JsonAuthMarshal();
 
   Future<JsonAuthEndpoint> auth(

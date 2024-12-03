@@ -29,21 +29,21 @@ class OnboardingException implements Exception {}
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
 abstract class AppStartStoreBase with Store, Logging, Actor {
-  late final _ops = DI.get<AppStartOps>();
+  late final _ops = Core.get<AppStartOps>();
 
-  late final _env = DI.get<EnvStore>();
-  late final _app = DI.get<AppStore>();
-  late final _scheduler = DI.get<Scheduler>();
-  late final _device = DI.get<DeviceStore>();
-  late final _perm = DI.get<PlatformPermActor>();
-  late final _permVpn = DI.get<VpnEnabled>();
-  late final _account = DI.get<AccountStore>();
-  late final _accountRefresh = DI.get<AccountRefreshStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _journal = DI.get<JournalStore>();
-  late final _plus = DI.get<PlusStore>();
-  late final _plusKeypair = DI.get<PlusKeypairStore>();
-  late final _link = DI.get<LinkStore>();
+  late final _env = Core.get<EnvStore>();
+  late final _app = Core.get<AppStore>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _device = Core.get<DeviceStore>();
+  late final _perm = Core.get<PlatformPermActor>();
+  late final _permVpn = Core.get<VpnEnabled>();
+  late final _account = Core.get<AccountStore>();
+  late final _accountRefresh = Core.get<AccountRefreshStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _journal = Core.get<JournalStore>();
+  late final _plus = Core.get<PlusStore>();
+  late final _plusKeypair = Core.get<PlusKeypairStore>();
+  late final _link = Core.get<LinkStore>();
 
   AppStartStoreBase() {
     reactionOnStore((_) => pausedUntil, (pausedUntil) async {
@@ -62,10 +62,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<AppStartOps>(getOps(act));
-    DI.register<AppStartStore>(this as AppStartStore);
+  onRegister() {
+    Core.register<AppStartOps>(getOps());
+    Core.register<AppStartStore>(this as AppStartStore);
   }
 
   @observable
@@ -99,7 +98,8 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
       await _app.initStarted(m);
       try {
-        final startables = act.isFamily ? _startablesFamily : _startablesV6;
+        final startables =
+            Core.act.isFamily ? _startablesFamily : _startablesV6;
         for (final startable in startables) {
           log(m).i("starting ${startable.runtimeType}");
           await startable.start(m);
@@ -120,7 +120,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       try {
         await _app.reconfiguring(m);
         await _pauseApp(m);
-        if (!act.isFamily) await _plus.reactToAppPause(false, m);
+        if (!Core.act.isFamily) await _plus.reactToAppPause(false, m);
         paused = true;
         await _app.appPaused(true, m);
         final pausedUntil = DateTime.now().add(duration);
@@ -143,7 +143,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       try {
         await _app.reconfiguring(m);
         await _pauseApp(m);
-        if (!act.isFamily) await _plus.reactToAppPause(false, m);
+        if (!Core.act.isFamily) await _plus.reactToAppPause(false, m);
         paused = true;
         await _app.appPaused(true, m);
         await _scheduler.stop(m, _keyTimer);
@@ -163,7 +163,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       try {
         await _app.reconfiguring(m);
         await _unpauseApp(m);
-        if (!act.isFamily) await _plus.reactToAppPause(true, m);
+        if (!Core.act.isFamily) await _plus.reactToAppPause(true, m);
         paused = false;
         await _app.appPaused(false, m);
         await _scheduler.stop(m, _keyTimer);

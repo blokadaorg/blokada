@@ -42,11 +42,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureJournalEndpoint));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = JournalJson();
         final entries = await subject.getEntries(m);
@@ -63,11 +63,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = JournalJson();
 

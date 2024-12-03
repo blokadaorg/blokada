@@ -31,7 +31,7 @@ class MockScaffoldingWidget extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          AnimatedBg(),
+          FamilyAnimatedBg(),
           Container(
             //color: context.theme.bgColor,
             child: PageView(

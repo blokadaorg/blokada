@@ -1,11 +1,11 @@
 part of 'profile.dart';
 
 class ProfileActor with Logging, Actor {
-  late final _profiles = DI.get<ProfileApi>();
-  late final _defaultFilters = DI.get<DefaultFilters>();
-  late final _filters = DI.get<FilterActor>();
-  late final _userConfig = DI.get<CurrentConfig>();
-  late final _selectedFilters = DI.get<SelectedFilters>();
+  late final _profiles = Core.get<ProfileApi>();
+  late final _defaultFilters = Core.get<DefaultFilters>();
+  late final _filters = Core.get<FilterActor>();
+  late final _userConfig = Core.get<CurrentConfig>();
+  late final _selectedFilters = Core.get<SelectedFilters>();
 
   List<JsonProfile> profiles = [];
 

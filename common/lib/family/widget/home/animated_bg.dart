@@ -1,14 +1,15 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:flutter/material.dart';
 
-class AnimatedBg extends StatefulWidget {
-  const AnimatedBg({Key? key}) : super(key: key);
+class FamilyAnimatedBg extends StatefulWidget {
+  const FamilyAnimatedBg({Key? key}) : super(key: key);
 
   @override
-  State<AnimatedBg> createState() => AnimatedBgState();
+  State<FamilyAnimatedBg> createState() => FamilyAnimatedBgState();
 }
 
-class AnimatedBgState extends State<AnimatedBg> with TickerProviderStateMixin {
+class FamilyAnimatedBgState extends State<FamilyAnimatedBg>
+    with TickerProviderStateMixin {
   late final _ctrl = AnimationController(
     duration: const Duration(seconds: 15),
     vsync: this,

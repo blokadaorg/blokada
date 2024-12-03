@@ -1,11 +1,11 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/settings_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/common/navigation.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> with Logging {
-  late final _custom = DI.get<CustomStore>();
+  late final _custom = Core.get<CustomStore>();
 
   Paths _path = Paths.settingsExceptions;
   Object? _arguments;
@@ -45,7 +45,7 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
   Widget _buildForPhone(BuildContext context) {
     return WithTopBar(
       title: "account action my account".i18n,
-      child: const SettingsSection(),
+      child: const SettingsSection(isHeader: false),
     );
   }
 
@@ -58,7 +58,7 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
         children: [
           const Expanded(
             flex: 1,
-            child: SettingsSection(),
+            child: SettingsSection(isHeader: false),
           ),
           Expanded(
             flex: 1,

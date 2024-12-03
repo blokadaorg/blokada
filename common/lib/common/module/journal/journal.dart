@@ -10,10 +10,13 @@ part 'actor.dart';
 part 'api.dart';
 part 'json.dart';
 part 'model.dart';
+part 'value.dart';
 
 class JournalModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
+    await register(JournalEntriesValue());
+    await register(JournalFilterValue());
     await register(JournalApi());
     await register(JournalActor());
   }

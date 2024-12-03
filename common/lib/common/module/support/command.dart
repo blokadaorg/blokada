@@ -1,7 +1,7 @@
 part of 'support.dart';
 
 class SupportCommand with Command, Logging {
-  late final _actor = DI.get<SupportActor>();
+  late final _actor = Core.get<SupportActor>();
 
   @override
   List<CommandSpec> onRegisterCommands() {

@@ -26,23 +26,23 @@ void main() {
   group("store", () {
     test("willGroupEntriesByRequests", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<DeviceStore>(MockDeviceStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        DI.register<JournalOps>(ops);
+        Core.register<JournalOps>(ops);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        DI.register<EnvStore>(env);
+        Core.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        DI.register<JournalJson>(json);
+        Core.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -57,23 +57,23 @@ void main() {
 
     test("willFilterEntries", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<DeviceStore>(MockDeviceStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        DI.register<JournalOps>(ops);
+        Core.register<JournalOps>(ops);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        DI.register<EnvStore>(env);
+        Core.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        DI.register<JournalJson>(json);
+        Core.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -121,23 +121,23 @@ void main() {
 
     test("willSortEntries", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<DeviceStore>(MockDeviceStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        DI.register<JournalOps>(ops);
+        Core.register<JournalOps>(ops);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final env = MockEnvStore();
         when(env.deviceName).thenReturn("deviceName");
-        DI.register<EnvStore>(env);
+        Core.register<EnvStore>(env);
 
         final json = MockJournalJson();
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureJournalEntries));
-        DI.register<JournalJson>(json);
+        Core.register<JournalJson>(json);
 
         final subject = JournalStore();
         await subject.fetch(m);
@@ -159,21 +159,21 @@ void main() {
 
     test("willRefreshWhenNeeded", () async {
       await withTrace((m) async {
-        DI.register<DeviceStore>(MockDeviceStore());
+        Core.register<DeviceStore>(MockDeviceStore());
 
         final ops = MockJournalOps();
-        DI.register<JournalOps>(ops);
+        Core.register<JournalOps>(ops);
 
         final json = MockJournalJson();
-        DI.register<JournalJson>(json);
+        Core.register<JournalJson>(json);
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final stage = MockStageStore();
         when(stage.route)
             .thenReturn(StageRouteState.init().newTab(StageTab.activity));
-        DI.register<StageStore>(stage);
+        Core.register<StageStore>(stage);
 
         final subject = JournalStore();
         mockAct(subject);

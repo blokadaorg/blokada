@@ -5,11 +5,11 @@ const _keyHeartbeat = "authHeartbeat";
 const _frequencyHeartbeat = Duration(minutes: 30);
 
 class AuthActor with Logging, Actor {
-  late final _api = DI.get<AuthApi>();
-  late final _accountId = DI.get<AccountId>();
-  late final _currentToken = DI.get<CurrentToken>();
-  late final _scheduler = DI.get<Scheduler>();
-  late final _stage = DI.get<StageStore>();
+  late final _api = Core.get<AuthApi>();
+  late final _accountId = Core.get<AccountId>();
+  late final _currentToken = Core.get<CurrentToken>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _stage = Core.get<StageStore>();
 
   Function(Marker) onTokenRefreshed = (m) {};
   Function(Marker) onTokenExpired = (m) {};

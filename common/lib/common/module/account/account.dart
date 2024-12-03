@@ -6,7 +6,7 @@ part 'actor.dart';
 
 class AccountModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(AccountActor());
   }
 }

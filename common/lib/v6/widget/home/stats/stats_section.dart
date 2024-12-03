@@ -12,8 +12,8 @@ import 'column_chart.dart';
 import 'radial_segment.dart';
 import 'totalcounter.dart';
 
-class StatsScreen extends StatefulWidget {
-  StatsScreen(
+class V6StatsSection extends StatefulWidget {
+  V6StatsSection(
       {Key? key,
       required bool this.autoRefresh,
       required ScrollController this.controller})
@@ -23,11 +23,11 @@ class StatsScreen extends StatefulWidget {
   final ScrollController controller;
 
   @override
-  State<StatefulWidget> createState() => StatsScreenState();
+  State<StatefulWidget> createState() => V6StatsSectionState();
 }
 
-class StatsScreenState extends State<StatsScreen> {
-  final _store = DI.get<StatsStore>();
+class V6StatsSectionState extends State<V6StatsSection> {
+  final _store = Core.get<StatsStore>();
 
   var stats = UiStats.empty();
 

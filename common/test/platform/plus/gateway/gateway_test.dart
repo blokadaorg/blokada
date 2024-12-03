@@ -22,15 +22,15 @@ void main() {
   group("store", () {
     test("fetch", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        DI.register<PlusGatewayOps>(ops);
+        Core.register<PlusGatewayOps>(ops);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        DI.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         expect(subject.gateways.isEmpty, true);
@@ -45,20 +45,20 @@ void main() {
 
     test("load", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        DI.register<PlusGatewayOps>(ops);
+        Core.register<PlusGatewayOps>(ops);
 
         final persistence = MockPersistence();
         when(persistence.load(any, any)).thenAnswer((_) =>
             Future.value("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="));
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        DI.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);
@@ -73,18 +73,18 @@ void main() {
 
     test("selectGateway", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockPlusGatewayOps();
-        DI.register<PlusGatewayOps>(ops);
+        Core.register<PlusGatewayOps>(ops);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final json = MockPlusGatewayJson();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        DI.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayJson>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);

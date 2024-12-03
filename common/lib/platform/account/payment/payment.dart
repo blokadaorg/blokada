@@ -21,10 +21,10 @@ class AccountInactiveAfterPurchase implements Exception {}
 class PaymentsUnavailable implements Exception {}
 
 abstract class AccountPaymentStoreBase with Store, Logging, Actor {
-  late final _ops = DI.get<AccountPaymentOps>();
-  late final _json = DI.get<AccountPaymentJson>();
-  late final _account = DI.get<AccountStore>();
-  late final _stage = DI.get<StageStore>();
+  late final _ops = Core.get<AccountPaymentOps>();
+  late final _json = Core.get<AccountPaymentJson>();
+  late final _account = Core.get<AccountStore>();
+  late final _stage = Core.get<StageStore>();
 
   AccountPaymentStoreBase() {
     reactionOnStore((_) => status, (status) async {
@@ -39,11 +39,10 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<AccountPaymentOps>(getOps(act));
-    DI.register<AccountPaymentJson>(AccountPaymentJson());
-    DI.register<AccountPaymentStore>(this as AccountPaymentStore);
+  onRegister() {
+    Core.register<AccountPaymentOps>(getOps());
+    Core.register<AccountPaymentJson>(AccountPaymentJson());
+    Core.register<AccountPaymentStore>(this as AccountPaymentStore);
   }
 
   @observable
@@ -97,7 +96,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
         final receipts = await _ops.doPurchaseWithReceipts(id);
         await _processReceipt(
             receipts.first!, m); // Only one receipt expected in purchase flow
-        if (!act.isFamily) await _stage.showModal(StageModal.perms, m);
+        if (!Core.act.isFamily) await _stage.showModal(StageModal.perms, m);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();
@@ -192,7 +191,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
           _mapPaymentException(e);
         } on AccountInactiveAfterPurchase catch (_) {
           var modal = StageModal.accountRestoreFailed;
-          //if (act.isFamily) modal = StageModal.accountChange;
+          //if (DI.act.isFamily) modal = StageModal.accountChange;
 
           await _stage.showModal(modal, m);
           rethrow;
@@ -235,7 +234,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
   }
 
   _processReceipt(ReceiptBlob receipt, Marker m) async {
-    final account = await _json.postCheckout(receipt, act.platform, m);
+    final account = await _json.postCheckout(receipt, Core.act.platform, m);
 
     try {
       final type = AccountType.values.byName(account.type ?? "unknown");

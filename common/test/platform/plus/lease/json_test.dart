@@ -40,11 +40,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureLeaseEndpoint));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = PlusLeaseJson();
         final entries = await subject.getLeases(m);
@@ -61,11 +61,11 @@ void main() {
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = PlusLeaseJson();
 

@@ -1,7 +1,7 @@
 part of '../core.dart';
 
 class Log {
-  late final LogTracerActor _tracer = DI.get<LogTracerActor>();
+  late final LogTracerActor _tracer = Core.get<LogTracerActor>();
 
   late Marker marker;
   late String tag = "$runtimeType";

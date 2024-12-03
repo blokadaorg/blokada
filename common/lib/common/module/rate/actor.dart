@@ -5,12 +5,12 @@ mixin RateChannel {
 }
 
 class RateActor with Logging, Actor {
-  late final _channel = DI.get<RateChannel>();
-  late final _stage = DI.get<StageStore>();
-  late final _app = DI.get<AppStore>();
-  late final _stats = DI.get<StatsStore>();
-  late final _familyPhase = DI.get<FamilyPhaseValue>();
-  late final _scheduler = DI.get<Scheduler>();
+  late final _channel = Core.get<RateChannel>();
+  late final _stage = Core.get<StageStore>();
+  late final _app = Core.get<AppStore>();
+  late final _stats = Core.get<StatsStore>();
+  late final _familyPhase = Core.get<FamilyPhaseValue>();
+  late final _scheduler = Core.get<Scheduler>();
 
   late final _rateMetadata = RateMetadataValue();
 
@@ -50,7 +50,7 @@ class RateActor with Logging, Actor {
     // Skip if already showing stuff
     if (!_stage.route.isMainRoute()) return false;
 
-    if (!act.isFamily) {
+    if (!Core.act.isFamily) {
       // Skip if not warmed up
       if (_stats.stats.totalBlocked < 100) return false;
     } else {

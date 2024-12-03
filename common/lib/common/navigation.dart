@@ -1,9 +1,12 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/route.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/settings_screen.dart';
+import 'package:common/common/widget/stats/stats_detail_section.dart';
+import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/support/support_screen.dart';
 import 'package:common/common/widget/theme.dart';
@@ -12,11 +15,8 @@ import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
-import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/widget/device/device_screen.dart';
 import 'package:common/family/widget/filters_section.dart';
-import 'package:common/family/widget/home/home_screen.dart';
-import 'package:common/family/widget/stats_detail_section.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +28,8 @@ enum Paths {
   deviceStatsDetail("/device/stats/detail", true),
   settings("/settings", false),
   settingsExceptions("/settings/exceptions", true),
+  settingsAccount("/settings/account", true),
+  settingsRetention("/settings/retention", true),
   support("/support", false);
 
   final String path;
@@ -52,8 +54,8 @@ double getTopPadding(BuildContext context) {
 }
 
 class Navigation with Logging {
-  late final journal = DI.get<JournalActor>();
-  late final _custom = DI.get<CustomStore>();
+  late final _filter = Core.get<JournalFilterValue>();
+  late final _custom = Core.get<CustomStore>();
 
   static late bool isTabletMode;
 
@@ -67,12 +69,12 @@ class Navigation with Logging {
       return;
     }
 
-    final ctrl = DI.get<TopBarController>();
+    final ctrl = Core.get<TopBarController>();
     ctrl.navigatorKey.currentState!.pushNamed(path.path, arguments: arguments);
   }
 
   StandardRoute generateRoute(BuildContext context, RouteSettings settings,
-      {Widget? homeContent}) {
+      {required Widget homeContent}) {
     if (settings.name == Paths.device.path) {
       final device = settings.arguments as FamilyDevice;
       return StandardRoute(
@@ -88,7 +90,8 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "activity section header".i18n,
           topBarTrailing: _getStatsAction(context, device.device.deviceTag),
-          child: StatsSection(deviceTag: device.device.deviceTag),
+          child:
+              StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
         ),
       );
     }
@@ -100,7 +103,8 @@ class Navigation with Logging {
         settings: settings,
         builder: (context) => WithTopBar(
           title: "family stats label blocklists".i18n,
-          child: FiltersSection(profileId: device.profile.profileId),
+          child: FiltersSection(
+              profileId: device.profile.profileId, isHeader: true),
         ),
       );
     }
@@ -138,17 +142,14 @@ class Navigation with Logging {
           settings: settings, builder: (context) => const SupportScreen());
     }
 
-    return StandardRoute(
-        settings: settings,
-        builder: (context) => homeContent ?? const HomeScreen());
+    return StandardRoute(settings: settings, builder: (context) => homeContent);
   }
 
   Widget? _getStatsAction(BuildContext context, DeviceTag tag) {
     return CommonClickable(
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {
-            journal.filter = filter;
-            journal.fetch(tag, Markers.userTap);
+            _filter.now = filter;
           });
         },
         child: Text(
@@ -180,8 +181,8 @@ class Navigation with Logging {
 }
 
 class NavigationPopObserver extends NavigatorObserver {
-  late final _journal = DI.get<JournalActor>();
-  late final _unread = DI.get<SupportUnreadActor>();
+  late final _filter = Core.get<JournalFilterValue>();
+  late final _unread = Core.get<SupportUnreadActor>();
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
@@ -191,7 +192,7 @@ class NavigationPopObserver extends NavigatorObserver {
 
       // Resets journal filter when leaving device section
       if (r.name == Paths.device.path && p.name == Paths.home.path) {
-        _journal.resetFilter();
+        _filter.reset();
       }
 
       // Resets some flag when leaving support section

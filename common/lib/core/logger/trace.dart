@@ -5,7 +5,7 @@ part of '../core.dart';
 class LogTracerActor with Actor {
   static final Map<Marker, TracingEvent> _traces = {};
 
-  late final _logger = DI.get<Logger>();
+  late final _logger = Core.get<Logger>();
 
   final timeout = const Duration(seconds: 15);
   late final _debounce = Debounce(timeout);
@@ -94,7 +94,7 @@ class LogTracerActor with Actor {
   }
 
   _startTimeout() {
-    if (act.isTest) return;
+    if (Core.act.isTest) return;
     if (kReleaseMode) return;
     _debounce.run(_hangTraceCheck);
   }

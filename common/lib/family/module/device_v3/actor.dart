@@ -9,10 +9,10 @@ class AlreadyLinkedException implements Exception {
 }
 
 class DeviceActor with Logging, Actor {
-  late final _devices = DI.get<DeviceApi>();
-  late final _thisDevice = DI.get<ThisDevice>();
-  late final _nextAlias = DI.get<NameGenerator>();
-  late final _profiles = DI.get<ProfileActor>();
+  late final _devices = Core.get<DeviceApi>();
+  late final _thisDevice = Core.get<ThisDevice>();
+  late final _nextAlias = Core.get<NameGenerator>();
+  late final _profiles = Core.get<ProfileActor>();
 
   List<JsonDevice> devices = [];
 

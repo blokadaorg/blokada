@@ -20,19 +20,19 @@ void main() {
   group("store", () {
     test("permsEnabled", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final device = MockDeviceStore();
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final ops = MockPermOps();
-        DI.register<PermOps>(ops);
+        Core.register<PermOps>(ops);
 
         final dnsEnabledFor = PrivateDnsEnabledFor();
-        DI.register(dnsEnabledFor);
+        Core.register(dnsEnabledFor);
 
         final subject = PlatformPermActor();
         expect(dnsEnabledFor.present, null);

@@ -1,11 +1,9 @@
 import 'dart:io' as io;
 
-import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/support/support_dialog.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
-import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -215,37 +213,6 @@ void showAddExceptionDialog(
         onPressed: () {
           Navigator.of(context).pop();
           onConfirm(_ctrl.text);
-        },
-        child: Text("universal action save".i18n),
-      ),
-    ],
-  );
-}
-
-void showStatsFilterDialog(
-  BuildContext context, {
-  required Function(JournalFilter) onConfirm,
-}) {
-  final ctrl = StatsFilterController();
-  showDefaultDialog(
-    context,
-    title: Text("universal action search".i18n),
-    content: (context) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(height: 16),
-        StatsFilter(ctrl: ctrl),
-      ],
-    ),
-    actions: (context) => [
-      TextButton(
-        onPressed: () => Navigator.of(context).pop(),
-        child: Text("universal action cancel".i18n),
-      ),
-      TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-          onConfirm(ctrl.filter);
         },
         child: Text("universal action save".i18n),
       ),

@@ -26,12 +26,12 @@ void main() {
   group("store", () {
     test("willExpireAccountProperly", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<Scheduler>(MockScheduler());
-        DI.register<AccountStore>(AccountStore());
-        DI.register<NotificationStore>(MockNotificationStore());
-        DI.register<Persistence>(MockPersistence());
-        DI.register<PlusStore>(MockPlusStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<AccountStore>(AccountStore());
+        Core.register<NotificationStore>(MockNotificationStore());
+        Core.register<Persistence>(MockPersistence());
+        Core.register<PlusStore>(MockPlusStore());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -71,12 +71,12 @@ void main() {
     test("willFetchAccountOnAppStartAndTimerFired", () async {
       await withTrace((m) async {
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
-        DI.register<StageStore>(MockStageStore());
-        DI.register<Scheduler>(MockScheduler());
-        DI.register<NotificationStore>(NotificationStore());
-        DI.register<Persistence>(MockPersistence());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationStore>(NotificationStore());
+        Core.register<Persistence>(MockPersistence());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -97,12 +97,12 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.load(any)).thenThrow(Exception("No existing account"));
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
-        DI.register<StageStore>(MockStageStore());
-        DI.register<Scheduler>(MockScheduler());
-        DI.register<NotificationStore>(NotificationStore());
-        DI.register<Persistence>(MockPersistence());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationStore>(NotificationStore());
+        Core.register<Persistence>(MockPersistence());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -119,17 +119,17 @@ void main() {
 
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
-        DI.register<Scheduler>(MockScheduler());
-        DI.register<NotificationStore>(MockNotificationStore());
-        DI.register<Persistence>(MockPersistence());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationStore>(MockNotificationStore());
+        Core.register<Persistence>(MockPersistence());
 
         final route = StageRouteState.init().newTab(StageTab.home);
         final stage = MockStageStore();
         when(stage.route).thenReturn(route);
-        DI.register<StageStore>(stage);
+        Core.register<StageStore>(stage);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         // Initial state
         final subject = AccountRefreshStore();

@@ -1,7 +1,7 @@
 part of 'filter.dart';
 
 class FilterCommand with Command, Logging {
-  late final _actor = DI.get<PlatformFilterActor>();
+  late final _actor = Core.get<PlatformFilterActor>();
 
   @override
   List<CommandSpec> onRegisterCommands() {

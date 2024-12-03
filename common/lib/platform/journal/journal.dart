@@ -94,11 +94,11 @@ JournalFilter _noFilter = JournalFilter(
 class JournalStore = JournalStoreBase with _$JournalStore;
 
 abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = DI.get<JournalOps>();
-  late final _json = DI.get<JournalJson>();
-  late final _device = DI.get<DeviceStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _scheduler = DI.get<Scheduler>();
+  late final _ops = Core.get<JournalOps>();
+  late final _json = Core.get<JournalJson>();
+  late final _device = Core.get<DeviceStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _scheduler = Core.get<Scheduler>();
 
   JournalStoreBase() {
     _device.addOn(deviceChanged, updateJournalFreq);
@@ -122,11 +122,10 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<JournalOps>(getOps(act));
-    DI.register<JournalJson>(JournalJson());
-    DI.register<JournalStore>(this as JournalStore);
+  onRegister() {
+    Core.register<JournalOps>(getOps());
+    Core.register<JournalJson>(JournalJson());
+    Core.register<JournalStore>(this as JournalStore);
   }
 
   @observable
@@ -157,7 +156,7 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   @override
   Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      if (act.isFamily) return;
+      if (Core.act.isFamily) return;
 
       // Default to show journal only for the current device
       await updateFilter(deviceName: _device.deviceAlias, m);
@@ -189,20 +188,20 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
     final isHome = _stage.route.isTab(StageTab.home);
     final isLinkModal = route.modal == StageModal.accountLink;
 
-    if (!act.isFamily && !isActivity) {
+    if (!Core.act.isFamily && !isActivity) {
       _stopTimer(m);
       return false;
     }
 
-    if (act.isFamily && !isHome && !isActivity) {
+    if (Core.act.isFamily && !isHome && !isActivity) {
       _stopTimer(m);
       return false;
     }
 
     if (refreshEnabled) {
       final cooldown = (isActivity || isLinkModal || frequentRefresh)
-          ? cfg.refreshVeryFrequent
-          : cfg.refreshOnHome;
+          ? Core.config.refreshVeryFrequent
+          : Core.config.refreshOnHome;
       try {
         await fetch(m);
         _rescheduleTimer(m, cooldown);
@@ -223,8 +222,8 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
     final isActivity = route.isTab(StageTab.activity);
     final isHome = route.isTab(StageTab.home);
     final isLinkModal = route.modal == StageModal.accountLink;
-    if (!act.isFamily && !isActivity) return;
-    if (act.isFamily && !isActivity && !isHome && !isLinkModal) return;
+    if (!Core.act.isFamily && !isActivity) return;
+    if (Core.act.isFamily && !isActivity && !isHome && !isLinkModal) return;
     await updateJournalFreq(m);
   }
 
@@ -262,7 +261,7 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
       log(m).pair("retention", on);
       if (on && _stage.route.isTab(StageTab.activity)) {
         await enableRefresh(m);
-      } else if (on && act.isFamily && _stage.route.isTab(StageTab.home)) {
+      } else if (on && Core.act.isFamily && _stage.route.isTab(StageTab.home)) {
         await enableRefresh(m);
       } else if (!on) {
         await disableRefresh(m);

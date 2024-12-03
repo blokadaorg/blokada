@@ -1,11 +1,11 @@
 part of 'filter.dart';
 
 class FilterActor with Logging, Actor {
-  late final _apiLists = DI.get<ListApi>();
-  late final _knownFilters = DI.get<KnownFilters>();
-  late final _defaultFilters = DI.get<DefaultFilters>();
-  late final _selectedFilters = DI.get<SelectedFilters>();
-  late final _userConfig = DI.get<CurrentConfig>();
+  late final _apiLists = Core.get<ListApi>();
+  late final _knownFilters = Core.get<KnownFilters>();
+  late final _defaultFilters = Core.get<DefaultFilters>();
+  late final _selectedFilters = Core.get<SelectedFilters>();
+  late final _userConfig = Core.get<CurrentConfig>();
 
   var _listsToTags = <ListHashId, ListTag>{};
   DateTime lastListsFetch = DateTime(0);
@@ -47,17 +47,26 @@ class FilterActor with Logging, Actor {
     });
   }
 
-  String getFilterContainingList(ListHashId id) {
+  String getFilterContainingList(ListHashId id, {bool full = false}) {
+    log(Markers.root).t("getFilterContainingList: $id");
+
     final list = _lists.firstWhereOrNull((it) => it.id == id);
-    if (list == null) return "family stats label none".i18n;
+    if (list == null) {
+      if (id.isBlank) return "family stats label none".i18n;
+      if (id.length < 16) return "family stats title".i18n; // My exceptions
+      return "family stats label none".i18n;
+    }
 
     String? filterName;
+    String? optionName;
+
     outer:
     for (var filter in _knownFilters.get()) {
       for (var option in filter.options) {
         if (option.action == FilterAction.list &&
             option.actionParams.contains("${list.vendor}/${list.variant}")) {
           filterName = filter.filterName;
+          optionName = option.optionName;
           break outer;
         }
 
@@ -65,6 +74,7 @@ class FilterActor with Logging, Actor {
         if (option.action2 == FilterAction.list &&
             option.action2Params!.contains("${list.vendor}/${list.variant}")) {
           filterName = filter.filterName;
+          optionName = option.optionName;
           break outer;
         }
       }
@@ -75,6 +85,10 @@ class FilterActor with Logging, Actor {
         ?.title;
 
     if (filterName == null) return "family stats label none".i18n;
+
+    if (full && optionName != null) {
+      return "$filterName (${optionName.firstLetterUppercase()})";
+    }
 
     return filterName;
   }
@@ -205,7 +219,7 @@ class FilterActor with Logging, Actor {
   _reconfigure(Marker m) async {
     final filters = _knownFilters.get();
     final selectedFilters = await _selectedFilters.now();
-    final userConfig = _userConfig.now;
+    final userConfig = _userConfig.present;
 
     // 1. figure out how to activate each filter
     Set<ListHashId> shouldBeLists = {};
@@ -291,7 +305,7 @@ class FilterActor with Logging, Actor {
     // Or if already applied during this runtime
     if (_defaultsApplied) return;
 
-    if (!act.isFamily) {
+    if (!Core.act.isFamily) {
       log(m).i("Applying defaults");
       final defaults = _defaultFilters.get();
       _selectedFilters.change(m, defaults);

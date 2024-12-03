@@ -4,13 +4,13 @@ const familyLinkBase = "https://go.blokada.org/family/link_device";
 const linkTemplate = "$familyLinkBase?token=TOKEN";
 
 class LinkActor with Logging, Actor {
-  late final _stage = DI.get<StageStore>();
+  late final _stage = Core.get<StageStore>();
 
-  late final _device = DI.get<DeviceActor>();
-  late final _auth = DI.get<AuthActor>();
-  late final _thisDevice = DI.get<ThisDevice>();
+  late final _device = Core.get<DeviceActor>();
+  late final _auth = Core.get<AuthActor>();
+  late final _thisDevice = Core.get<ThisDevice>();
 
-  late final linkedMode = DI.get<FamilyLinkedMode>();
+  late final linkedMode = Core.get<FamilyLinkedMode>();
 
   bool linkedTokenOk = false;
   String onboardLinkTemplate = linkTemplate;

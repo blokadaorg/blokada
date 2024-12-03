@@ -1,5 +1,8 @@
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/app.dart';
+import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +20,21 @@ void main() async {
   modules.start(Markers.start);
 
   final ws = DevWebsocket();
-  DI.register(ws);
+  Core.register(ws);
   ws.handle();
 
-  runApp(BlokadaApp(content: null));
+  final ctrl = Core.get<TopBarController>();
+  final nav = NavigationPopObserver();
+
+  runApp(BlokadaApp(
+      content: FamilyMainScreen(ctrl: ctrl, nav: nav), isFamily: true));
 }
 
 class DevWebsocket {
   var ip = "192.168.1.177";
   //var ip = "192.168.234.104";
 
-  late final command = DI.get<CommandStore>();
+  late final command = Core.get<CommandStore>();
   WebSocketChannel? channel;
 
   handle() async {

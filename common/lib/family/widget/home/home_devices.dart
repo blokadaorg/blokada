@@ -24,7 +24,7 @@ class HomeDevices extends StatefulWidget {
 
 class HomeDevicesState extends State<HomeDevices>
     with TickerProviderStateMixin, Logging {
-  late final _slidableOnboarding = DI.get<SlidableOnboarding>();
+  late final _slidableOnboarding = Core.get<SlidableOnboarding>();
 
   late final AnimationController _ctrl = AnimationController(
     duration: const Duration(seconds: 1),

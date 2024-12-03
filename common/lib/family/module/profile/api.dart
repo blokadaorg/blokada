@@ -1,7 +1,7 @@
 part of 'profile.dart';
 
 class ProfileApi {
-  late final _api = DI.get<Api>();
+  late final _api = Core.get<Api>();
   late final _marshal = JsonProfileMarshal();
 
   Future<List<JsonProfile>> fetch(Marker m) async {

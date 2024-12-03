@@ -3,7 +3,6 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
-import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -14,19 +13,19 @@ import 'power_button.dart';
 
 const pathHomeStats = "home/stats";
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class V6HomeSection extends StatefulWidget {
+  V6HomeSection({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return HomeScreenState();
+    return V6HomeSectionState();
   }
 }
 
-class HomeScreenState extends State<HomeScreen>
+class V6HomeSectionState extends State<V6HomeSection>
     with TickerProviderStateMixin, Logging, Disposables {
-  final _app = DI.get<AppStore>();
-  final _stage = DI.get<StageStore>();
+  final _app = Core.get<AppStore>();
+  final _stage = Core.get<StageStore>();
 
   bool showDebug = false;
   bool working = false;
@@ -110,8 +109,8 @@ class HomeScreenState extends State<HomeScreen>
                           HomeIcon(
                             icon: Icons.help_outline,
                             onTap: () {
-                              _stage.showModal(
-                                  StageModal.help, Markers.userTap);
+                              _stage.setRoute(
+                                  StageTab.settings.name, Markers.userTap);
                             },
                           ),
                         ],

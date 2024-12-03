@@ -27,9 +27,9 @@ class LinkDeviceSheet extends StatefulWidget {
 }
 
 class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
-  late final _family = DI.get<FamilyActor>();
-  late final _familyLink = DI.get<LinkActor>();
-  late final _generator = DI.get<NameGenerator>();
+  late final _family = Core.get<FamilyActor>();
+  late final _familyLink = Core.get<LinkActor>();
+  late final _generator = Core.get<NameGenerator>();
 
   bool _showQr = false; // The widget would stutter animation, show async
 

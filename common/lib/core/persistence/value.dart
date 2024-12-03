@@ -1,7 +1,7 @@
 part of '../core.dart';
 
 abstract class BoolPersistedValue extends NullableAsyncValue<bool?> {
-  late final _persistence = DI.get<Persistence>();
+  late final _persistence = Core.get<Persistence>();
 
   BoolPersistedValue(String key) {
     load = (Marker m) async {
@@ -18,7 +18,7 @@ abstract class BoolPersistedValue extends NullableAsyncValue<bool?> {
 }
 
 abstract class StringPersistedValue extends NullableAsyncValue<String?> {
-  late final _persistence = DI.get<Persistence>();
+  late final _persistence = Core.get<Persistence>();
 
   StringPersistedValue(String key) {
     load = (Marker m) async {
@@ -35,7 +35,7 @@ abstract class StringPersistedValue extends NullableAsyncValue<String?> {
 }
 
 abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
-  late final _persistence = DI.get<Persistence>();
+  late final _persistence = Core.get<Persistence>();
 
   JsonPersistedValue(String key) {
     load = (Marker m) async {

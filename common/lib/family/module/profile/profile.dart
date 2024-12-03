@@ -12,7 +12,7 @@ part 'json.dart';
 
 class ProfileModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(ProfileApi());
     await register(ProfileActor());
   }

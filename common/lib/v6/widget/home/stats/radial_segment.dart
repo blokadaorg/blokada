@@ -21,7 +21,7 @@ class RadialSegment extends StatefulWidget {
 }
 
 class RadialSegmentState extends State<RadialSegment> {
-  final _store = DI.get<StatsStore>();
+  final _store = Core.get<StatsStore>();
 
   //var stats = MockUiStats().defaults();
   var stats = UiStats.empty();

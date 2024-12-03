@@ -1,7 +1,7 @@
 part of 'support.dart';
 
 class SupportApi with Logging {
-  late final _api = DI.get<Api>();
+  late final _api = Core.get<Api>();
   late final _marshal = JsonSupportMarshal();
 
   Future<JsonSupportSession> createSession(Marker m, String language,

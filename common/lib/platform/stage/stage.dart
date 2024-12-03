@@ -145,9 +145,9 @@ class StageStore = StageStoreBase with _$StageStore;
 
 abstract class StageStoreBase
     with Store, Logging, Actor, ValueEmitter<StageRouteState>, Emitter {
-  late final _ops = DI.get<StageOps>();
-  late final _scheduler = DI.get<Scheduler>();
-  late final _links = DI.get<LinkStore>();
+  late final _ops = Core.get<StageOps>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _links = Core.get<LinkStore>();
 
   @observable
   StageRouteState route = StageRouteState.init();
@@ -177,10 +177,9 @@ abstract class StageStoreBase
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<StageOps>(getOps(act));
-    DI.register<StageStore>(this as StageStore);
+  onRegister() {
+    Core.register<StageOps>(getOps());
+    Core.register<StageStore>(this as StageStore);
   }
 
   @action
@@ -265,7 +264,7 @@ abstract class StageStoreBase
     });
   }
 
-  late final ctrl = DI.get<TopBarController>();
+  late final ctrl = Core.get<TopBarController>();
 
   @action
   Future<void> back() async {
@@ -422,7 +421,7 @@ abstract class StageStoreBase
   _actOnModal(StageModal? modal, Marker m) async {
     var show = !noNavbarModals.contains(modal);
     if (!_showNavbar) show = false;
-    if (act.isFamily) show = false;
+    if (Core.act.isFamily) show = false;
     log(m).log(attr: {"show": show});
     await _ops.doShowNavbar(show);
   }

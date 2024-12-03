@@ -84,10 +84,10 @@ class JsonLeasePayload {
 }
 
 class PlusLeaseJson {
-  late final _http = DI.get<HttpService>();
-  late final _keypair = DI.get<PlusKeypairStore>();
-  late final _account = DI.get<AccountStore>();
-  late final _device = DI.get<DeviceStore>();
+  late final _http = Core.get<HttpService>();
+  late final _keypair = Core.get<PlusKeypairStore>();
+  late final _account = Core.get<AccountStore>();
+  late final _device = Core.get<DeviceStore>();
 
   Future<List<JsonLease>> getLeases(Marker m, {bool noRetry = false}) async {
     final result = await _http.get(

@@ -29,12 +29,12 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(_fixtureJsonEndpoint));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final subject = DeviceJson();
         final device = await subject.getDevice(m);
@@ -52,7 +52,7 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
@@ -62,7 +62,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(m, paused: true);
@@ -77,7 +77,7 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
@@ -87,7 +87,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(m, retention: "1h");
@@ -102,7 +102,7 @@ void main() {
       await withTrace((m) async {
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final http = MockHttpService();
         when(http.request(any, HttpType.put, any, payload: anyNamed("payload")))
@@ -112,7 +112,7 @@ void main() {
                     ? Future.value("")
                     : throw Exception(
                         "Bad payload: ${it.namedArguments[#payload]}"));
-        DI.register<HttpService>(http);
+        Core.register<HttpService>(http);
 
         final subject = DeviceJson();
         await subject.putDevice(m, lists: ["a", "b"]);

@@ -3,12 +3,12 @@ part of 'support.dart';
 const _keyExpireSession = "supportExpireSession";
 
 class SupportActor with Logging, Actor {
-  late final _api = DI.get<SupportApi>();
-  late final _command = DI.get<CommandStore>();
-  late final _currentSession = DI.get<CurrentSession>();
-  late final _chatHistory = DI.get<ChatHistory>();
-  late final _unread = DI.get<SupportUnreadActor>();
-  late final _scheduler = DI.get<Scheduler>();
+  late final _api = Core.get<SupportApi>();
+  late final _command = Core.get<CommandStore>();
+  late final _currentSession = Core.get<CurrentSession>();
+  late final _chatHistory = Core.get<ChatHistory>();
+  late final _unread = Core.get<SupportUnreadActor>();
+  late final _scheduler = Core.get<Scheduler>();
   late String language = I18n.localeStr;
 
   bool initialized = false;

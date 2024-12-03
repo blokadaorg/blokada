@@ -1,21 +1,21 @@
 part of 'family.dart';
 
 class FamilyActor with Logging, Actor {
-  late final _stage = DI.get<StageStore>();
-  late final _account = DI.get<AccountStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _account = Core.get<AccountStore>();
 
-  late final _device = DI.get<DeviceActor>();
-  late final _stats = DI.get<StatsActor>();
-  late final _thisDevice = DI.get<ThisDevice>();
-  late final _dnsPerm = DI.get<DnsPerm>();
-  late final _permStore = DI.get<PlatformPermActor>();
-  late final _profiles = DI.get<ProfileActor>();
-  late final _link = DI.get<LinkActor>();
+  late final _device = Core.get<DeviceActor>();
+  late final _stats = Core.get<StatsActor>();
+  late final _thisDevice = Core.get<ThisDevice>();
+  late final _dnsPerm = Core.get<DnsPerm>();
+  late final _permStore = Core.get<PlatformPermActor>();
+  late final _profiles = Core.get<ProfileActor>();
+  late final _link = Core.get<LinkActor>();
 
-  late final _isLocked = DI.get<IsLocked>();
+  late final _isLocked = Core.get<IsLocked>();
 
-  late final phase = DI.get<FamilyPhaseValue>();
-  late final devices = DI.get<FamilyDevicesValue>();
+  late final phase = Core.get<FamilyPhaseValue>();
+  late final devices = Core.get<FamilyDevicesValue>();
 
   // TODO: make them values or private
   bool? accountActive;
@@ -121,7 +121,7 @@ class FamilyActor with Logging, Actor {
 
   // Locking this device will enable the blocking for "this device"
   _updatePhaseFromLock(ValueUpdate<bool> isLocked) async {
-    if (!act.isFamily) return;
+    if (!Core.act.isFamily) return;
     _updatePhase(Markers.root, loading: true);
     appLocked = isLocked.now;
 
@@ -149,7 +149,7 @@ class FamilyActor with Logging, Actor {
 
   // Show the welcome screen on the first start (family only)
   _maybeShowOnboardOnStart(Marker m) async {
-    if (!act.isFamily) return;
+    if (!Core.act.isFamily) return;
     if (_account.type.isActive()) return;
     if (devices.now.hasDevices == true) return;
     if (_link.linkedMode.now) return;

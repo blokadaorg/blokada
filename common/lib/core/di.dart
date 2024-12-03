@@ -1,6 +1,6 @@
 part of 'core.dart';
 
-class DI {
+class Core {
   static final di = GetIt.instance;
 
   static void register<T extends Object>(T instance, {String? tag}) {
@@ -10,4 +10,7 @@ class DI {
   static T get<T extends Object>({String? tag}) {
     return di<T>(instanceName: tag ?? "default");
   }
+
+  static late Act act;
+  static late Config config;
 }

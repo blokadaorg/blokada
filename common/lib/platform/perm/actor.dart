@@ -1,16 +1,16 @@
 part of 'perm.dart';
 
 class PlatformPermActor with Logging, Actor {
-  late final _channel = DI.get<PermChannel>();
-  late final _dnsEnabledFor = DI.get<PrivateDnsEnabledFor>();
-  late final _notificationEnabled = DI.get<NotificationEnabled>();
-  late final _vpnEnabled = DI.get<VpnEnabled>();
+  late final _channel = Core.get<PermChannel>();
+  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledFor>();
+  late final _notificationEnabled = Core.get<NotificationEnabled>();
+  late final _vpnEnabled = Core.get<VpnEnabled>();
 
-  late final _app = DI.get<AppStore>();
-  late final _device = DI.get<DeviceStore>();
-  late final _plus = DI.get<PlusStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _check = DI.get<PrivateDnsCheck>();
+  late final _app = Core.get<AppStore>();
+  late final _device = Core.get<DeviceStore>();
+  late final _plus = Core.get<PlusStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _check = Core.get<PrivateDnsCheck>();
 
   @override
   onCreate(Marker m) async {
@@ -68,7 +68,7 @@ class PlatformPermActor with Logging, Actor {
       if (enabled != _vpnEnabled.present) {
         _vpnEnabled.change(m, enabled);
         if (!enabled) {
-          if (!act.isFamily) await _plus.reactToPlusLost(m);
+          if (!Core.act.isFamily) await _plus.reactToPlusLost(m);
           await _app.plusActivated(false, m);
         }
       }
@@ -88,7 +88,7 @@ class PlatformPermActor with Logging, Actor {
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
 
-        if (!act.isFamily) {
+        if (!Core.act.isFamily) {
           await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
           await _recheckDnsPerm(tag, m);
         }

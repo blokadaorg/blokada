@@ -18,7 +18,7 @@ class AddProfileSheet extends StatefulWidget {
 }
 
 class AddProfileSheetState extends State<AddProfileSheet> {
-  late final _profile = DI.get<ProfileActor>();
+  late final _profile = Core.get<ProfileActor>();
 
   final _topBarController = TopBarController();
   final _scrollController = ScrollController();

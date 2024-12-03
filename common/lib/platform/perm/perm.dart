@@ -14,13 +14,13 @@ part 'value.dart';
 
 class PlatformPermModule with Module {
   @override
-  Future<void> onCreateModule(Act act) async {
+  Future<void> onCreateModule() async {
     await register(PrivateDnsEnabledFor());
     await register(NotificationEnabled());
     await register(VpnEnabled());
     await register(PlatformPermActor());
 
-    if (act.isProd) {
+    if (Core.act.isProd) {
       await register<PermChannel>(PlatformPermChannel());
     } else {
       await register<PermChannel>(NoOpPermChannel());

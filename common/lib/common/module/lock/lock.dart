@@ -8,7 +8,7 @@ part 'value.dart';
 
 class LockModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(IsLocked());
     await register(HasPin());
     await register(ExistingPin());

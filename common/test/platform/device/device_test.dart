@@ -29,16 +29,16 @@ void main() {
   group("store", () {
     test("willUpdateObservablesOnFetch", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<AccountStore>(MockAccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        DI.register<DeviceJson>(api);
+        Core.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        DI.register<DeviceOps>(ops);
+        Core.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         mockAct(subject);
@@ -54,16 +54,16 @@ void main() {
 
     test("willFetchOnCallsToActions", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<AccountStore>(MockAccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        DI.register<DeviceJson>(api);
+        Core.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        DI.register<DeviceOps>(ops);
+        Core.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
         subject.deviceTag = "some-tag";
@@ -86,18 +86,17 @@ void main() {
   group("storeErrors", () {
     test("willNotUpdateObservablesOnFetchError", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<AccountStore>(MockAccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        DI.register<DeviceJson>(api);
+        Core.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        DI.register<DeviceOps>(ops);
+        Core.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
-        subject.act = mockedAct;
 
         await expectLater(subject.fetch(m), throwsException);
 
@@ -110,18 +109,17 @@ void main() {
 
     test("willPropagateFetchErrorOnCallsToActions", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
-        DI.register<AccountStore>(MockAccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
 
         final api = MockDeviceJson();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        DI.register<DeviceJson>(api);
+        Core.register<DeviceJson>(api);
 
         final ops = MockDeviceOps();
-        DI.register<DeviceOps>(ops);
+        Core.register<DeviceOps>(ops);
 
         final subject = DeviceStore();
-        subject.act = mockedAct;
 
         await expectLater(subject.setCloudEnabled(true, m), throwsException);
         await expectLater(subject.setRetention("1h", m), throwsException);

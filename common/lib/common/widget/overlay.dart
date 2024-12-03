@@ -16,7 +16,7 @@ class OverlaySheet extends StatefulWidget {
 
 class OverlaySheetState extends State<OverlaySheet>
     with WidgetsBindingObserver {
-  late final _stage = DI.get<StageStore>();
+  late final _stage = Core.get<StageStore>();
 
   OverlayEntry? _overlayEntry;
   StageModal? _overlayForModal;

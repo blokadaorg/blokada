@@ -23,31 +23,30 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 class CommandStore with Logging, Actor implements CommandEvents {
-  late final _stage = DI.get<StageStore>();
-  late final _account = DI.get<AccountStore>();
-  late final _accountPayment = DI.get<AccountPaymentStore>();
-  late final _accountRefresh = DI.get<AccountRefreshStore>();
-  late final _appStart = DI.get<AppStartStore>();
-  late final _custom = DI.get<CustomStore>();
-  late final _device = DI.get<DeviceStore>();
-  late final _notification = DI.get<NotificationStore>();
-  late final _permission = DI.get<PlatformPermActor>();
-  late final _scheduler = DI.get<Scheduler>();
+  late final _stage = Core.get<StageStore>();
+  late final _account = Core.get<AccountStore>();
+  late final _accountPayment = Core.get<AccountPaymentStore>();
+  late final _accountRefresh = Core.get<AccountRefreshStore>();
+  late final _appStart = Core.get<AppStartStore>();
+  late final _custom = Core.get<CustomStore>();
+  late final _device = Core.get<DeviceStore>();
+  late final _notification = Core.get<NotificationStore>();
+  late final _permission = Core.get<PlatformPermActor>();
+  late final _scheduler = Core.get<Scheduler>();
 
-  late final _lock = DI.get<LockActor>();
+  late final _lock = Core.get<LockActor>();
 
   // V6 only commands
-  late final _journal = DI.get<JournalStore>();
-  late final _plus = DI.get<PlusStore>();
-  late final _plusLease = DI.get<PlusLeaseStore>();
-  late final _plusVpn = DI.get<PlusVpnStore>();
+  late final _journal = Core.get<JournalStore>();
+  late final _plus = Core.get<PlusStore>();
+  late final _plusLease = Core.get<PlusLeaseStore>();
+  late final _plusVpn = Core.get<PlusVpnStore>();
 
   @override
-  void onRegister(Act act) {
-    this.act = act;
-    DI.register<CommandStore>(this);
-    if (act.isProd) CommandEvents.setup(this);
-    getOps(act).doCanAcceptCommands();
+  void onRegister() {
+    Core.register<CommandStore>(this);
+    if (Core.act.isProd) CommandEvents.setup(this);
+    getOps().doCanAcceptCommands();
   }
 
   final newCommands = ["WARNING", "FATAL"];
@@ -245,11 +244,11 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return false;
       case CommandName.debugHttpFail:
         _ensureParam(p1);
-        cfg.debugFailingRequests.add(p1!);
+        Core.config.debugFailingRequests.add(p1!);
         return;
       case CommandName.debugHttpOk:
         _ensureParam(p1);
-        cfg.debugFailingRequests.remove(p1!);
+        Core.config.debugFailingRequests.remove(p1!);
         return;
       case CommandName.debugOnboard:
         // await _account.restore("mockedmocked");
@@ -257,7 +256,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
         // return await _family.deleteAllDevices;
         throw Exception("Not implemented WIP");
       case CommandName.debugBg:
-        cfg.debugBg = !cfg.debugBg;
+        Core.config.debugBg = !Core.config.debugBg;
         return;
       case CommandName.setFlavor:
         return;
@@ -291,7 +290,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
         }
       case CommandName.ws:
         _ensureParam(p1);
-        final ws = DI.get<DevWebsocket>();
+        final ws = Core.get<DevWebsocket>();
         ws.ip = p1!;
         ws.handle();
         return;

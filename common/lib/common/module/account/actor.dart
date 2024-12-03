@@ -2,8 +2,8 @@ part of 'account.dart';
 
 // TODO: drop this legacy sync class eventually
 class AccountActor with Actor {
-  late final _store = DI.get<acc.AccountStore>();
-  late final _accountId = DI.get<AccountId>();
+  late final _store = Core.get<acc.AccountStore>();
+  late final _accountId = Core.get<AccountId>();
 
   @override
   onStart(Marker m) async {

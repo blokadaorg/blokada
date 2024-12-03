@@ -13,7 +13,7 @@ import 'package:mockito/mockito.dart';
 import 'mocked-deps.mocks.dart';
 
 attachMockedDeps() {
-  DI.di.allowReassignment = true;
+  Core.di.allowReassignment = true;
   final family = MockFamilyActor();
 
   final phase = FamilyPhaseValue();
@@ -60,12 +60,12 @@ attachMockedDeps() {
     ),
   ], false);
   when(family.devices).thenReturn(devices);
-  DI.register<FamilyActor>(family);
+  Core.register<FamilyActor>(family);
 
   final profile = MockProfileActor();
   when(profile.get(any)).thenReturn(JsonProfile(
       profileId: "1", alias: "Profile X", lists: [], safeSearch: false));
-  DI.register<ProfileActor>(profile);
+  Core.register<ProfileActor>(profile);
 }
 
 UiStats _mockStats = UiStats(

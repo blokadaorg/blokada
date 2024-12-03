@@ -40,8 +40,8 @@ class JsonPaymentCheckoutPayload {
 }
 
 class AccountPaymentJson {
-  late final _http = DI.get<HttpService>();
-  late final _account = DI.get<AccountStore>();
+  late final _http = Core.get<HttpService>();
+  late final _account = Core.get<AccountStore>();
 
   Future<JsonAccount> postCheckout(
       String blob, PlatformType p, Marker m) async {

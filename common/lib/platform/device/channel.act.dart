@@ -5,8 +5,8 @@ import 'channel.pg.dart';
 
 class MockDeviceOps extends Mock implements DeviceOps {}
 
-DeviceOps getOps(Act act) {
-  if (act.isProd) {
+DeviceOps getOps() {
+  if (Core.act.isProd) {
     return DeviceOps();
   }
 

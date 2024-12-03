@@ -16,7 +16,7 @@ part 'value.dart';
 
 class DeviceModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(CurrentToken());
     await register(SelectedDeviceTag());
     await register(SlidableOnboarding());

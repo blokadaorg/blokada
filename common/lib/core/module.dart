@@ -3,28 +3,25 @@ part of 'core.dart';
 final commands = CommandCoordinator();
 
 mixin Module {
-  late final Act act;
   final _actorStarter = ActorStarter();
 
   bool _created = false;
   bool _started = false;
 
   @nonVirtual
-  create(Act act) async {
+  create() async {
     if (_created) throw Exception("Module already created");
     _created = true;
 
-    this.act = act;
-    await onCreateModule(act);
+    await onCreateModule();
   }
 
-  Future<void> onCreateModule(Act act);
+  Future<void> onCreateModule();
 
   register<T extends Object>(T instance, {String? tag}) async {
-    DI.register(instance, tag: tag);
+    Core.register(instance, tag: tag);
     if (instance is Actor) {
       _actorStarter.add(instance);
-      instance.act = act;
       instance.onCreate(Markers.root);
     } else if (instance is Command) {
       await commands.registerCommands(

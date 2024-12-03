@@ -15,8 +15,8 @@ part 'stats.g.dart';
 class StatsStore = StatsStoreBase with _$StatsStore;
 
 abstract class StatsStoreBase with Store, Logging, Actor {
-  late final _api = DI.get<json.StatsJson>();
-  late final _ops = DI.get<StatsOps>();
+  late final _api = Core.get<json.StatsJson>();
+  late final _ops = Core.get<StatsOps>();
 
   StatsStoreBase() {
     reactionOnStore((_) => stats, (stats) async {
@@ -35,12 +35,11 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<StatsOps>(getOps(act));
-    DI.register<json.StatsJson>(json.StatsJson());
-    DI.register<StatsSheet>(StatsSheet());
-    DI.register<StatsStore>(this as StatsStore);
+  onRegister() {
+    Core.register<StatsOps>(getOps());
+    Core.register<json.StatsJson>(json.StatsJson());
+    Core.register<StatsSheet>(StatsSheet());
+    Core.register<StatsStore>(this as StatsStore);
   }
 
   @observable

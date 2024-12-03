@@ -27,16 +27,16 @@ const String _keySelected = "plus:active";
 class PlusStore = PlusStoreBase with _$PlusStore;
 
 abstract class PlusStoreBase with Store, Logging, Actor {
-  late final _ops = DI.get<PlusOps>();
-  late final _keypair = DI.get<PlusKeypairStore>();
-  late final _gateway = DI.get<PlusGatewayStore>();
-  late final _lease = DI.get<PlusLeaseStore>();
-  late final _vpn = DI.get<PlusVpnStore>();
-  late final _persistence = DI.get<Persistence>();
-  late final _app = DI.get<AppStore>();
-  late final _device = DI.get<DeviceStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _account = DI.get<AccountStore>();
+  late final _ops = Core.get<PlusOps>();
+  late final _keypair = Core.get<PlusKeypairStore>();
+  late final _gateway = Core.get<PlusGatewayStore>();
+  late final _lease = Core.get<PlusLeaseStore>();
+  late final _vpn = Core.get<PlusVpnStore>();
+  late final _persistence = Core.get<Persistence>();
+  late final _app = Core.get<AppStore>();
+  late final _device = Core.get<DeviceStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _account = Core.get<AccountStore>();
 
   PlusStoreBase() {
     _app.addOn(appStatusChanged, reactToAppStatus);
@@ -46,10 +46,9 @@ abstract class PlusStoreBase with Store, Logging, Actor {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<PlusOps>(getOps(act));
-    DI.register<PlusStore>(this as PlusStore);
+  onRegister() {
+    Core.register<PlusOps>(getOps());
+    Core.register<PlusStore>(this as PlusStore);
   }
 
   @observable
@@ -60,7 +59,7 @@ abstract class PlusStoreBase with Store, Logging, Actor {
     return await log(m).trace("start", (m) async {
       // Assuming keypair already loaded
       await load(m);
-      if (act.isFamily) return;
+      if (Core.act.isFamily) return;
 
       await _gateway.fetch(m);
       await _gateway.load(m);

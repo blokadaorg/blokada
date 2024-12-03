@@ -26,9 +26,9 @@ class SmartOnboard extends StatefulWidget {
 
 class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
-  late final _stage = DI.get<StageStore>();
-  late final _family = DI.get<FamilyActor>();
-  late final _permsSheet = DI.get<StatefulWidget>(tag: "privateDnsSheet");
+  late final _stage = Core.get<StageStore>();
+  late final _family = Core.get<FamilyActor>();
+  late final _permsSheet = Core.get<StatefulWidget>(tag: "privateDnsSheet");
 
   @override
   Widget build(BuildContext context) {

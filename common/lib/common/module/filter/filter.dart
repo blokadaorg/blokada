@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/module/list/list.dart';
+import 'package:common/common/widget/string.dart';
 import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
@@ -15,12 +16,12 @@ part 'value.dart';
 
 class FilterModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(KnownFilters(
-      isFamily: act.isFamily,
-      isIos: act.platform == PlatformType.iOS,
+      isFamily: Core.act.isFamily,
+      isIos: Core.act.platform == PlatformType.iOS,
     ));
-    await register(DefaultFilters(act.isFamily));
+    await register(DefaultFilters(Core.act.isFamily));
 
     await register(CurrentConfig());
     await register(SelectedFilters());

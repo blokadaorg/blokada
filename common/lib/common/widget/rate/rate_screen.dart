@@ -1,9 +1,9 @@
 import 'package:common/common/module/rate/rate.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/common/navigation.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -19,8 +19,8 @@ class RateScreen extends StatefulWidget {
 
 class _RateScreenState extends State<RateScreen>
     with TickerProviderStateMixin, Logging {
-  final _stage = DI.get<StageStore>();
-  final _rate = DI.get<RateActor>();
+  final _stage = Core.get<StageStore>();
+  final _rate = Core.get<RateActor>();
 
   int _rating = 0;
   bool _showPlatformDialog = false;

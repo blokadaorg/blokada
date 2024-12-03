@@ -27,9 +27,9 @@ class JsonAppleNotificationPayload {
 }
 
 class NotificationJson {
-  late final _http = DI.get<HttpService>();
-  late final _account = DI.get<AccountStore>();
-  late final _keypair = DI.get<PlusKeypairStore>();
+  late final _http = Core.get<HttpService>();
+  late final _account = Core.get<AccountStore>();
+  late final _keypair = Core.get<PlusKeypairStore>();
 
   Future<void> postToken(String appleToken, Marker m) async {
     final payload = JsonAppleNotificationPayload(

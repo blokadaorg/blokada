@@ -28,10 +28,10 @@ class PowerButton extends StatefulWidget {
 
 class _PowerButtonState extends State<PowerButton>
     with TickerProviderStateMixin, Logging {
-  final _app = DI.get<AppStore>();
-  final _appStart = DI.get<AppStartStore>();
-  final _stats = DI.get<StatsStore>();
-  final _home = DI.get<HomeStore>();
+  final _app = Core.get<AppStore>();
+  final _appStart = Core.get<AppStartStore>();
+  final _stats = Core.get<StatsStore>();
+  final _home = Core.get<HomeStore>();
 
   late Future<List<ui.Image>> loadIcons;
 

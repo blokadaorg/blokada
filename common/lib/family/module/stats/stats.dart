@@ -11,7 +11,7 @@ part 'model.dart';
 
 class StatsModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(StatsApi());
     await register(StatsActor());
   }

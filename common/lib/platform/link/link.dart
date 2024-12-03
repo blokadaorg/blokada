@@ -60,24 +60,23 @@ final _linkTemplates = {
 };
 
 abstract class LinkStoreBase with Store, Logging, Actor {
-  late final _ops = DI.get<LinkOps>();
-  late final _env = DI.get<EnvStore>();
-  late final _account = DI.get<AccountStore>();
-  late final _linkedMode = DI.get<FamilyLinkedMode>();
+  late final _ops = Core.get<LinkOps>();
+  late final _env = Core.get<EnvStore>();
+  late final _account = Core.get<AccountStore>();
+  late final _linkedMode = Core.get<FamilyLinkedMode>();
 
-  late final _isLocked = DI.get<IsLocked>();
+  late final _isLocked = Core.get<IsLocked>();
 
   String userAgent = "";
   Map<LinkId, LinkTemplate> templates = {};
   Map<LinkId, String> links = {};
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<LinkOps>(getOps(act));
-    DI.register<LinkStore>(this as LinkStore);
+  onRegister() {
+    Core.register<LinkOps>(getOps());
+    Core.register<LinkStore>(this as LinkStore);
     _account.addOn(accountChanged, updateLinksFromAccount);
-    if (act.isFamily) {
+    if (Core.act.isFamily) {
       _linkedMode.onChange.listen(updateFromLinkedMode);
     }
 
@@ -110,7 +109,7 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   updateFromLinkedMode(ValueUpdate<bool> linked) => _updateLinks();
 
   _updateLinks() async {
-    final linked = act.isFamily && _linkedMode.now;
+    final linked = Core.act.isFamily && _linkedMode.now;
     for (var id in LinkId.values) {
       links[id] = _getLink(id, _isLocked.now || linked);
     }
@@ -122,8 +121,8 @@ abstract class LinkStoreBase with Store, Logging, Actor {
   }
 
   _prepareTemplates() async {
-    final p = act.platform;
-    final f = act.flavor;
+    final p = Core.act.platform;
+    final f = Core.act.flavor;
 
     for (var id in LinkId.values) {
       try {

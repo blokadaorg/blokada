@@ -40,10 +40,10 @@ typedef GatewayId = String;
 class PlusGatewayStore = PlusGatewayStoreBase with _$PlusGatewayStore;
 
 abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = DI.get<PlusGatewayOps>();
-  late final _json = DI.get<PlusGatewayJson>();
-  late final _persistence = DI.get<Persistence>();
-  late final _stage = DI.get<StageStore>();
+  late final _ops = Core.get<PlusGatewayOps>();
+  late final _json = Core.get<PlusGatewayJson>();
+  late final _persistence = Core.get<Persistence>();
+  late final _stage = Core.get<StageStore>();
 
   PlusGatewayStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -58,11 +58,10 @@ abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<PlusGatewayOps>(getOps(act));
-    DI.register<PlusGatewayJson>(PlusGatewayJson());
-    DI.register<PlusGatewayStore>(this as PlusGatewayStore);
+  onRegister() {
+    Core.register<PlusGatewayOps>(getOps());
+    Core.register<PlusGatewayJson>(PlusGatewayJson());
+    Core.register<PlusGatewayStore>(this as PlusGatewayStore);
   }
 
   @observable
@@ -127,7 +126,7 @@ abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
     }
 
     if (!route.isBecameForeground()) return;
-    if (!isCooledDown(cfg.plusGatewayRefreshCooldown)) return;
+    if (!isCooledDown(Core.config.plusGatewayRefreshCooldown)) return;
 
     return await log(m).trace("fetchGateways", (m) async {
       await fetch(m);

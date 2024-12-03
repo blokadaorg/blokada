@@ -22,7 +22,7 @@ part 'value.dart';
 
 class SupportModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(CurrentSession());
     await register(ChatHistory());
     await register(SupportUnread());

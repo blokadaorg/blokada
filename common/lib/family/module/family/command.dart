@@ -1,7 +1,7 @@
 part of 'family.dart';
 
 class FamilyCommand with Command {
-  late final _actor = DI.get<LinkActor>();
+  late final _actor = Core.get<LinkActor>();
 
   @override
   List<CommandSpec> onRegisterCommands() {

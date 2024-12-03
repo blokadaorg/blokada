@@ -20,11 +20,11 @@ class LockScreen extends StatefulWidget {
 
 class _LockScreenState extends State<LockScreen>
     with TickerProviderStateMixin, Logging, Disposables {
-  final _stage = DI.get<StageStore>();
+  final _stage = Core.get<StageStore>();
 
-  final _lock = DI.get<LockActor>();
-  final _isLocked = DI.get<IsLocked>();
-  final _hasPin = DI.get<HasPin>();
+  final _lock = Core.get<LockActor>();
+  final _isLocked = Core.get<IsLocked>();
+  final _hasPin = Core.get<HasPin>();
 
   int _digitsEntered = 0;
   bool _showHeaderIcon = false;

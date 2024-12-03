@@ -1,10 +1,10 @@
 part of 'support.dart';
 
 class PurchaseTimeoutActor with Logging, Actor {
-  late final _stage = DI.get<StageStore>();
-  late final _support = DI.get<SupportActor>();
-  late final _account = DI.get<AccountStore>();
-  late final _scheduler = DI.get<Scheduler>();
+  late final _stage = Core.get<StageStore>();
+  late final _support = Core.get<SupportActor>();
+  late final _account = Core.get<AccountStore>();
+  late final _scheduler = Core.get<Scheduler>();
   late final _notified = PurchaseTimeoutNotified();
 
   bool _userEnteredPurchase = false;

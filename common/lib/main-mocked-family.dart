@@ -1,5 +1,8 @@
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/app.dart';
+import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/widget/main_screen.dart';
 import 'package:common/mocked-deps.dart';
 import 'package:common/modules.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -21,11 +24,15 @@ void main() async {
   attachMockedDeps();
   modules.start(Markers.start);
 
-  final CommandStore command = DI.get<CommandStore>();
+  final CommandStore command = Core.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
 
+  final ctrl = Core.get<TopBarController>();
+  final nav = NavigationPopObserver();
+
   runApp(BlokadaApp(
-    content: null,
+    content: FamilyMainScreen(ctrl: ctrl, nav: nav),
+    isFamily: true,
   ));
 
   MockedStart().start();
@@ -33,7 +40,7 @@ void main() async {
 
 // In mocked, manually trigger the foreground
 class MockedStart {
-  late final StageStore _stage = DI.get<StageStore>();
+  late final StageStore _stage = Core.get<StageStore>();
 
   Future<void> start() async {
     await _stage.setForeground(Markers.start);

@@ -34,10 +34,10 @@ void main() {
     test("setVpnConfigWillQueueIfNotReady", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        DI.register<PlusVpnOps>(ops);
+        Core.register<PlusVpnOps>(ops);
 
-        DI.register<AppStore>(MockAppStore());
-        DI.register<Scheduler>(MockScheduler());
+        Core.register<AppStore>(MockAppStore());
+        Core.register<Scheduler>(MockScheduler());
 
         // First call will queue up because the status is not ready
         final subject = PlusVpnStore();
@@ -65,12 +65,12 @@ void main() {
     test("setVpnActiveWillQueueWhenNotReady", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        DI.register<PlusVpnOps>(ops);
+        Core.register<PlusVpnOps>(ops);
 
-        DI.register<AppStore>(MockAppStore());
+        Core.register<AppStore>(MockAppStore());
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         await subject.turnVpnOff(m);
@@ -96,12 +96,12 @@ void main() {
     test("setVpnActiveWillMeasureTime", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        DI.register<PlusVpnOps>(ops);
+        Core.register<PlusVpnOps>(ops);
 
-        DI.register<AppStore>(MockAppStore());
+        Core.register<AppStore>(MockAppStore());
 
         final timer = MockScheduler();
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         await subject.setActualStatus("deactivated", m);
@@ -137,14 +137,14 @@ void main() {
     test("setActiveWillErrorIfStatusIsNotReported", () async {
       await withTrace((m) async {
         final ops = MockPlusVpnOps();
-        DI.register<PlusVpnOps>(ops);
+        Core.register<PlusVpnOps>(ops);
 
         final timer = Scheduler(timer: SchedulerTimer());
-        DI.register<Scheduler>(timer);
+        Core.register<Scheduler>(timer);
 
         final subject = PlusVpnStore();
         subject.actualStatus = VpnStatus.deactivated;
-        cfg.plusVpnCommandTimeout = const Duration(seconds: 0);
+        Core.config.plusVpnCommandTimeout = const Duration(seconds: 0);
 
         await expectLater(subject.turnVpnOn(m), throwsException);
       });

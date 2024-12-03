@@ -25,18 +25,18 @@ void main() {
     test("generate", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockPlusKeypairOps();
         when(ops.doGenerateKeypair())
             .thenAnswer((_) => Future.value(_fixtureKeypair));
-        DI.register<PlusKeypairOps>(ops);
+        Core.register<PlusKeypairOps>(ops);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final plus = MockPlusStore();
-        DI.register<PlusStore>(plus);
+        Core.register<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
         verifyNever(ops.doGenerateKeypair());
@@ -51,18 +51,18 @@ void main() {
     test("load", () async {
       await withTrace((m) async {
         final ops = MockPlusKeypairOps();
-        DI.register<PlusKeypairOps>(ops);
+        Core.register<PlusKeypairOps>(ops);
 
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any)).thenAnswer((_) => Future.value(
             {"publicKey": "publicKey", "privateKey": "privateKey"}));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final plus = MockPlusStore();
-        DI.register<PlusStore>(plus);
+        Core.register<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
         expect(subject.currentKeypair, null);
@@ -76,18 +76,18 @@ void main() {
       await withTrace((m) async {
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any)).thenThrow(Exception("not found"));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockPlusKeypairOps();
         when(ops.doGenerateKeypair())
             .thenAnswer((_) => Future.value(_fixtureKeypair));
-        DI.register<PlusKeypairOps>(ops);
+        Core.register<PlusKeypairOps>(ops);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final plus = MockPlusStore();
-        DI.register<PlusStore>(plus);
+        Core.register<PlusStore>(plus);
 
         final subject = PlusKeypairStore();
 

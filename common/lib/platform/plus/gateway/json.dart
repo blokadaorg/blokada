@@ -82,7 +82,7 @@ class JsonGateway {
 }
 
 class PlusGatewayJson {
-  late final _http = DI.get<HttpService>();
+  late final _http = Core.get<HttpService>();
 
   Future<List<JsonGateway>> get(Marker m) async {
     final result = await _http.get("$jsonUrl/v2/gateway", m);

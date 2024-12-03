@@ -11,7 +11,7 @@ part 'json.dart';
 
 class AuthModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(AuthApi());
     await register(AuthActor());
   }

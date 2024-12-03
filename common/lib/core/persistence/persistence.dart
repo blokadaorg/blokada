@@ -22,7 +22,7 @@ class Persistence with Logging {
   static const secure = "persistence:secure";
   static const standard = "persistence:standard";
 
-  late final _channel = DI.get<PersistenceChannel>();
+  late final _channel = Core.get<PersistenceChannel>();
 
   final bool isSecure;
 

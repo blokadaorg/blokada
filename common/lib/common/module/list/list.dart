@@ -9,7 +9,7 @@ part 'model.dart';
 
 class ListModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(ListApi());
   }
 }

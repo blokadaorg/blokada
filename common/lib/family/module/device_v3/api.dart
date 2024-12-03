@@ -1,7 +1,7 @@
 part of 'device.dart';
 
 class DeviceApi {
-  late final _api = DI.get<Api>();
+  late final _api = Core.get<Api>();
   late final _marshal = JsonDeviceMarshal();
 
   Future<List<JsonDevice>> fetch(Marker m) async {

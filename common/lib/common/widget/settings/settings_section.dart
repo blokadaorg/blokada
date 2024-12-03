@@ -14,6 +14,7 @@ import 'package:common/platform/command/command.dart';
 import 'package:common/platform/env/env.dart';
 import 'package:common/platform/link/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,21 +23,23 @@ import 'package:pinput/pinput.dart';
 import '../../module/lock/lock.dart';
 
 class SettingsSection extends StatefulWidget {
-  const SettingsSection({super.key});
+  final bool isHeader;
+
+  const SettingsSection({super.key, required this.isHeader});
 
   @override
   State<StatefulWidget> createState() => SettingsState();
 }
 
 class SettingsState extends State<SettingsSection> with Logging, Disposables {
-  late final _stage = DI.get<StageStore>();
-  late final _env = DI.get<EnvStore>();
-  late final _account = DI.get<AccountStore>();
-  late final _command = DI.get<CommandStore>();
-  late final _unread = DI.get<SupportUnread>();
+  late final _stage = Core.get<StageStore>();
+  late final _env = Core.get<EnvStore>();
+  late final _account = Core.get<AccountStore>();
+  late final _command = Core.get<CommandStore>();
+  late final _unread = Core.get<SupportUnread>();
 
-  late final _lock = DI.get<LockActor>();
-  late final _hasPin = DI.get<HasPin>();
+  late final _lock = Core.get<LockActor>();
+  late final _hasPin = Core.get<HasPin>();
 
   @override
   void initState() {
@@ -59,7 +62,23 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
       child: ListView(
         primary: true,
         children: [
-          SizedBox(height: getTopPadding(context)),
+          // Header for v6 or padding for Family
+          (widget.isHeader)
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "main tab settings".i18n,
+                      style: const TextStyle(
+                        fontSize: 34.0, // Mimic large iOS-style header
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                  ],
+                )
+              : SizedBox(height: getTopPadding(context)),
+          // The rest of the screen
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: SizedBox(
@@ -67,7 +86,12 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
               height: 96,
               child: Stack(
                 children: [
-                  const FamilyBgWidget(),
+                  Container(
+                    color: context.theme.bgColorCard,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                  Core.act.isFamily ? const FamilyBgWidget() : Container(),
                   Row(
                     children: [
                       Padding(
@@ -76,7 +100,9 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                           width: 64,
                           height: 64,
                           child: Image.asset(
-                            "assets/images/family-logo.png",
+                            Core.act.isFamily
+                                ? "assets/images/family-logo.png"
+                                : "assets/images/blokada_logo.png",
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -87,7 +113,10 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
-                                .copyWith(color: Colors.white)),
+                                .copyWith(
+                                    color: Core.act.isFamily
+                                        ? Colors.white
+                                        : context.theme.textPrimary)),
                       ),
                       const SizedBox(width: 16),
                     ],
@@ -102,13 +131,33 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           CommonCard(
             child: Column(
               children: [
-                // SettingsItem(
-                //     icon: CupertinoIcons.shield_lefthalf_fill,
-                //     text: "My exceptions",
-                //     onTap: () {
-                //       Navigation.open(Paths.settingsExceptions);
-                //     }),
-                // const CommonDivider(),
+                (!Core.act.isFamily)
+                    ? Column(
+                        children: [
+                          SettingsItem(
+                              icon: CupertinoIcons.person_crop_circle,
+                              text: "account action my account".i18n,
+                              onTap: () {
+                                Navigation.open(Paths.settingsAccount);
+                              }),
+                          const CommonDivider(),
+                          SettingsItem(
+                              icon: CupertinoIcons.shield_lefthalf_fill,
+                              text: "family stats title".i18n, // My exceptions
+                              onTap: () {
+                                Navigation.open(Paths.settingsExceptions);
+                              }),
+                          const CommonDivider(),
+                          SettingsItem(
+                              icon: CupertinoIcons.chart_bar,
+                              text: "activity section header".i18n,
+                              onTap: () {
+                                Navigation.open(Paths.settingsRetention);
+                              }),
+                          const CommonDivider(),
+                        ],
+                      )
+                    : Container(),
                 SettingsItem(
                     icon: CupertinoIcons.ellipsis,
                     text: "family settings lock pin".i18n,
@@ -200,6 +249,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           Center(
               child: Text(_getAppVersion(),
                   style: TextStyle(color: context.theme.divider))),
+          TapBarCompensation(),
         ],
       ),
     );

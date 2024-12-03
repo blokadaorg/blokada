@@ -33,14 +33,14 @@ class NoCurrentLeaseException implements Exception {}
 class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
 abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = DI.get<PlusLeaseOps>();
-  late final _json = DI.get<PlusLeaseJson>();
-  late final _gateway = DI.get<PlusGatewayStore>();
-  late final _keypair = DI.get<PlusKeypairStore>();
-  late final _plus = DI.get<PlusStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _account = DI.get<AccountStore>();
-  late final _device = DI.get<DeviceStore>();
+  late final _ops = Core.get<PlusLeaseOps>();
+  late final _json = Core.get<PlusLeaseJson>();
+  late final _gateway = Core.get<PlusGatewayStore>();
+  late final _keypair = Core.get<PlusKeypairStore>();
+  late final _plus = Core.get<PlusStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _account = Core.get<AccountStore>();
+  late final _device = Core.get<DeviceStore>();
 
   PlusLeaseStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -55,11 +55,10 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<PlusLeaseOps>(getOps(act));
-    DI.register<PlusLeaseJson>(PlusLeaseJson());
-    DI.register<PlusLeaseStore>(this as PlusLeaseStore);
+  onRegister() {
+    Core.register<PlusLeaseOps>(getOps());
+    Core.register<PlusLeaseJson>(PlusLeaseJson());
+    Core.register<PlusLeaseStore>(this as PlusLeaseStore);
   }
 
   @observable
@@ -168,7 +167,7 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
 
     // Case one: refresh when entering the Settings tab (to see devices)
     if (route.isBecameTab(StageTab.settings) &&
-        isCooledDown(cfg.plusLeaseRefreshCooldown)) {
+        isCooledDown(Core.config.plusLeaseRefreshCooldown)) {
       return await log(m).trace("fetchLeasesSettings", (m) async {
         await fetch(m);
       });
@@ -176,7 +175,7 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
 
     // Case two: refresh when entering foreground but not too often
     if (!route.isBecameForeground()) return;
-    if (!isCooledDown(cfg.plusLeaseRefreshCooldown)) return;
+    if (!isCooledDown(Core.config.plusLeaseRefreshCooldown)) return;
 
     return await log(m).trace("fetchLeases", (m) async {
       await fetch(m);

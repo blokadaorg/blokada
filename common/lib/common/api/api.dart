@@ -8,7 +8,7 @@ part 'http.dart';
 part 'value.dart';
 
 class Api {
-  late final _http = DI.get<Http>();
+  late final _http = Core.get<Http>();
 
   Future<JsonString> get(
     ApiEndpoint endpoint,
@@ -36,10 +36,10 @@ class Api {
 
 class ApiModule with Module {
   @override
-  onCreateModule(Act act) async {
-    await register(BaseUrl(act));
+  onCreateModule() async {
+    await register(BaseUrl());
     await register(UserAgent());
-    await register(ApiRetryDuration(act));
+    await register(ApiRetryDuration());
 
     await register(AccountId());
     await register(Http());

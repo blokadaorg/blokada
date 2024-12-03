@@ -27,10 +27,10 @@ void main() {
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final subject = AccountStore();
         mockAct(subject);
@@ -47,15 +47,15 @@ void main() {
     test("createWillPostAccountAndWriteToPersistence", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final json = MockAccountJson();
         when(json.postAccount(m)).thenAnswer((_) =>
             Future.value(JsonAccount.fromJson(jsonDecode(fixtureJsonAccount))));
-        DI.register<AccountJson>(json);
+        Core.register<AccountJson>(json);
 
         final subject = AccountStore();
         mockAct(subject);
@@ -74,15 +74,15 @@ void main() {
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final json = MockAccountJson();
         when(json.getAccount(any, any)).thenAnswer((_) =>
             Future.value(JsonAccount.fromJson(jsonDecode(fixtureJsonAccount))));
-        DI.register<AccountJson>(json);
+        Core.register<AccountJson>(json);
 
         final subject = AccountStore();
         mockAct(subject);
@@ -96,20 +96,20 @@ void main() {
 
     test("restoreWillGetAccountWithProvidedId", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final json = MockAccountJson();
         when(json.getAccount(any, any)).thenAnswer((_) => Future.value(
             JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2))));
-        DI.register<AccountJson>(json);
+        Core.register<AccountJson>(json);
 
         final subject = AccountStore();
         mockAct(subject);
@@ -135,13 +135,13 @@ void main() {
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any, isBackup: true))
             .thenAnswer((_) => Future.value(jsonDecode(fixtureJsonAccount)));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final json = MockAccountJson();
-        DI.register<AccountJson>(json);
+        Core.register<AccountJson>(json);
 
         final subject = AccountStore();
         mockAct(subject);
@@ -164,10 +164,10 @@ void main() {
     test("proposeWillUpdateAccountAndWriteToPersistence", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final subject = AccountStore();
 
@@ -186,12 +186,12 @@ void main() {
         final persistence = MockPersistence();
         when(persistence.loadJson(any, any, isBackup: true))
             .thenThrow(Exception("no account in cache"));
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
-        DI.register<AccountJson>(MockAccountJson());
+        Core.register<AccountJson>(MockAccountJson());
 
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final subject = AccountStore();
 
@@ -250,13 +250,13 @@ void main() {
     test("onAccount", () async {
       await withTrace((m) async {
         final ops = MockAccountOps();
-        DI.register<AccountOps>(ops);
+        Core.register<AccountOps>(ops);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
 
         final store = AccountStore();
-        DI.register<AccountStore>(store);
+        Core.register<AccountStore>(store);
 
         await store.propose(
             JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)), m);

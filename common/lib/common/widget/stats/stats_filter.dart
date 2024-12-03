@@ -1,33 +1,31 @@
+import 'package:common/common/dialog.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/widget/common_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StatsFilter extends StatefulWidget {
-  final StatsFilterController ctrl;
+  final StatsFilterController filter;
 
-  const StatsFilter({super.key, required this.ctrl});
+  const StatsFilter({super.key, required this.filter});
 
   @override
   StatsFilterState createState() => StatsFilterState();
 }
 
 class StatsFilterState extends State<StatsFilter> {
-  late JournalFilter filter;
-
   final TextEditingController _ctrl = TextEditingController(text: "");
 
   @override
   void initState() {
     super.initState();
-    filter = widget.ctrl.filter;
-    _ctrl.text = filter.searchQuery;
+    _ctrl.text = widget.filter.draft.searchQuery;
     _ctrl.addListener(() {
-      filter = filter.updateOnly(searchQuery: _ctrl.text.toLowerCase());
-      widget.ctrl.filter = filter;
+      widget.filter.draft =
+          widget.filter.draft.updateOnly(searchQuery: _ctrl.text.toLowerCase());
     });
   }
 
@@ -65,16 +63,16 @@ class StatsFilterState extends State<StatsFilter> {
           child: ProfileButton(
             onTap: () {
               setState(() {
-                filter = filter.updateOnly(showOnly: JournalFilterType.all);
-                widget.ctrl.filter = filter;
+                widget.filter.draft = widget.filter.draft
+                    .updateOnly(showOnly: JournalFilterType.all);
               });
             },
             icon: CupertinoIcons.shield,
-            iconColor: filter.showOnly == JournalFilterType.all
+            iconColor: widget.filter.draft.showOnly == JournalFilterType.all
                 ? context.theme.textSecondary
                 : context.theme.divider,
             name: "activity filter show all".i18n,
-            borderColor: filter.showOnly == JournalFilterType.all
+            borderColor: widget.filter.draft.showOnly == JournalFilterType.all
                 ? context.theme.divider.withOpacity(0.20)
                 : null,
             tapBgColor: context.theme.divider.withOpacity(0.1),
@@ -87,18 +85,19 @@ class StatsFilterState extends State<StatsFilter> {
           child: ProfileButton(
             onTap: () {
               setState(() {
-                filter = filter.updateOnly(showOnly: JournalFilterType.blocked);
-                widget.ctrl.filter = filter;
+                widget.filter.draft = widget.filter.draft
+                    .updateOnly(showOnly: JournalFilterType.blocked);
               });
             },
             icon: CupertinoIcons.shield,
-            iconColor: filter.showOnly == JournalFilterType.blocked
+            iconColor: widget.filter.draft.showOnly == JournalFilterType.blocked
                 ? Colors.red
                 : context.theme.divider,
             name: "activity filter show blocked".i18n,
-            borderColor: filter.showOnly == JournalFilterType.blocked
-                ? Colors.red.withOpacity(0.30)
-                : null,
+            borderColor:
+                widget.filter.draft.showOnly == JournalFilterType.blocked
+                    ? Colors.red.withOpacity(0.30)
+                    : null,
             tapBgColor: context.theme.divider.withOpacity(0.1),
             padding: const EdgeInsets.only(left: 12),
             trailing: const SizedBox(height: 48),
@@ -107,16 +106,16 @@ class StatsFilterState extends State<StatsFilter> {
         ProfileButton(
           onTap: () {
             setState(() {
-              filter = filter.updateOnly(showOnly: JournalFilterType.passed);
-              widget.ctrl.filter = filter;
+              widget.filter.draft = widget.filter.draft
+                  .updateOnly(showOnly: JournalFilterType.passed);
             });
           },
           icon: CupertinoIcons.shield,
-          iconColor: filter.showOnly == JournalFilterType.passed
+          iconColor: widget.filter.draft.showOnly == JournalFilterType.passed
               ? Colors.green
               : context.theme.divider,
           name: "activity filter show allowed".i18n,
-          borderColor: filter.showOnly == JournalFilterType.passed
+          borderColor: widget.filter.draft.showOnly == JournalFilterType.passed
               ? Colors.green.withOpacity(0.30)
               : null,
           tapBgColor: context.theme.divider.withOpacity(0.1),
@@ -132,9 +131,8 @@ class StatsFilterState extends State<StatsFilter> {
           child: CommonItem(
             onTap: () {
               setState(() {
-                filter =
-                    filter.updateOnly(sortNewestFirst: !filter.sortNewestFirst);
-                widget.ctrl.filter = filter;
+                widget.filter.draft = widget.filter.draft.updateOnly(
+                    sortNewestFirst: !widget.filter.draft.sortNewestFirst);
               });
             },
             icon: Icons.sort,
@@ -142,12 +140,11 @@ class StatsFilterState extends State<StatsFilter> {
             chevron: false,
             trailing: CupertinoSwitch(
               activeColor: context.theme.accent,
-              value: !filter.sortNewestFirst,
+              value: !widget.filter.draft.sortNewestFirst,
               onChanged: (bool? value) {
                 setState(() {
-                  filter = filter.updateOnly(
-                      sortNewestFirst: !filter.sortNewestFirst);
-                  widget.ctrl.filter = filter;
+                  widget.filter.draft = widget.filter.draft.updateOnly(
+                      sortNewestFirst: !widget.filter.draft.sortNewestFirst);
                 });
               },
             ),
@@ -159,11 +156,43 @@ class StatsFilterState extends State<StatsFilter> {
 }
 
 class StatsFilterController {
-  final _journal = DI.get<JournalActor>();
+  late final _filter = Core.get<JournalFilterValue>();
 
-  late JournalFilter filter;
+  late JournalFilter draft;
 
   StatsFilterController() {
-    filter = _journal.filter;
+    draft = _filter.now;
   }
+}
+
+void showStatsFilterDialog(
+  BuildContext context, {
+  required Function(JournalFilter) onConfirm,
+}) {
+  final ctrl = StatsFilterController();
+
+  showDefaultDialog(
+    context,
+    title: Text("universal action search".i18n),
+    content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 16),
+        StatsFilter(filter: ctrl),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text("universal action cancel".i18n),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+          onConfirm(ctrl.draft);
+        },
+        child: Text("universal action save".i18n),
+      ),
+    ],
+  );
 }

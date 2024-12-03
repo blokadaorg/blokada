@@ -12,7 +12,7 @@ part 'value.dart';
 
 class RateModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(RateActor());
   }
 }

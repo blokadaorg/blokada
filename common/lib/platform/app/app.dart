@@ -116,10 +116,10 @@ class AppStatusStrategy {
 class AppStore = AppStoreBase with _$AppStore;
 
 abstract class AppStoreBase with Store, Logging, Actor, Emitter {
-  late final _ops = DI.get<AppOps>();
-  late final _account = DI.get<AccountStore>();
-  late final _stage = DI.get<StageStore>();
-  late final _device = DI.get<DeviceStore>();
+  late final _ops = Core.get<AppOps>();
+  late final _account = Core.get<AccountStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _device = Core.get<DeviceStore>();
 
   AppStoreBase() {
     willAcceptOn([appStatusChanged]);
@@ -133,10 +133,9 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   }
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<AppOps>(getOps(act));
-    DI.register<AppStore>(this as AppStore);
+  onRegister() {
+    Core.register<AppOps>(getOps());
+    Core.register<AppStore>(this as AppStore);
   }
 
   @observable

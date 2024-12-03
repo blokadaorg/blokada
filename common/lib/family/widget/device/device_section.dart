@@ -1,4 +1,5 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
@@ -11,7 +12,6 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/stats/radial_segment.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/module/customlist_v3/customlist.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/link_device_sheet.dart';
@@ -31,11 +31,11 @@ class DeviceSection extends StatefulWidget {
 
 class DeviceSectionState extends State<DeviceSection>
     with Logging, Disposables {
-  late final _family = DI.get<FamilyActor>();
-  late final _device = DI.get<DeviceActor>();
-  late final _selectedFilters = DI.get<SelectedFilters>();
-  late final _selectedDevice = DI.get<SelectedDeviceTag>();
-  late final _custom = DI.get<CustomlistActor>();
+  late final _family = Core.get<FamilyActor>();
+  late final _device = Core.get<DeviceActor>();
+  late final _selectedFilters = Core.get<SelectedFilters>();
+  late final _selectedDevice = Core.get<SelectedDeviceTag>();
+  late final _custom = Core.get<CustomlistActor>();
 
   late FamilyDevice device;
 

@@ -65,15 +65,14 @@ const String _keyOngoingTimer = "vpn:ongoing:timeout";
 class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
 
 abstract class PlusVpnStoreBase with Store, Logging, Actor {
-  late final _ops = DI.get<PlusVpnOps>();
-  late final _scheduler = DI.get<Scheduler>();
-  late final _app = DI.get<AppStore>();
+  late final _ops = Core.get<PlusVpnOps>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _app = Core.get<AppStore>();
 
   @override
-  onRegister(Act act) {
-    this.act = act;
-    DI.register<PlusVpnOps>(getOps(act));
-    DI.register<PlusVpnStore>(this as PlusVpnStore);
+  onRegister() {
+    Core.register<PlusVpnOps>(getOps());
+    Core.register<PlusVpnStore>(this as PlusVpnStore);
   }
 
   @observable
@@ -226,7 +225,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     await _scheduler.addOrUpdate(Job(
       _keyTimer,
       m,
-      before: DateTime.now().add(cfg.plusVpnCommandTimeout),
+      before: DateTime.now().add(Core.config.plusVpnCommandTimeout),
       callback: _onTimerFired,
     ));
   }
@@ -251,7 +250,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     await _scheduler.addOrUpdate(Job(
       _keyOngoingTimer,
       m,
-      before: DateTime.now().add(cfg.plusVpnCommandTimeout),
+      before: DateTime.now().add(Core.config.plusVpnCommandTimeout),
       callback: _onOngoingTimerFired,
     ));
   }

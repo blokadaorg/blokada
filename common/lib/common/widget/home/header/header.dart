@@ -16,7 +16,7 @@ class SmartHeader extends StatefulWidget {
 
 class Header extends State<SmartHeader>
     with TickerProviderStateMixin, Logging, Disposables {
-  late final _unread = DI.get<SupportUnread>();
+  late final _unread = Core.get<SupportUnread>();
 
   @override
   void initState() {

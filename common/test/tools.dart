@@ -5,8 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:test_api/src/backend/invoker.dart';
 
 withTrace(Future Function(Marker m) fn) async {
-  await DI.di.reset();
-  await PlatformLoggerModule().create(mockedAct);
+  await Core.di.reset();
+  Core.act = mockedAct;
+  Core.config = Config();
+
+  await PlatformLoggerModule().create();
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
   final module = m[m.length - 2];
@@ -19,7 +22,6 @@ withTrace(Future Function(Marker m) fn) async {
 mockAct(Actor subject,
     {Flavor flavor = Flavor.v6, PlatformType platform = PlatformType.iOS}) {
   final act = ActScreenplay(ActScenario.test, flavor, platform);
-  subject.act = act;
   return act;
 }
 

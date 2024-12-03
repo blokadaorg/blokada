@@ -5,7 +5,7 @@ class UiJournalEntry {
   final String domainName;
   final UiJournalAction action;
   final String listId;
-  final String profileId;
+  final String? profileId;
   final DateTime timestamp;
   final int requests;
 

@@ -3,9 +3,8 @@ import 'package:common/platform/device/device.dart';
 
 class PrivateDnsCheck with Actor, Logging {
   @override
-  void onRegister(Act act) {
-    this.act = act;
-    DI.register<PrivateDnsCheck>(this);
+  void onRegister() {
+    Core.register<PrivateDnsCheck>(this);
   }
 
   bool isCorrect(Marker m, String line, DeviceTag tag, String alias) {
@@ -13,9 +12,9 @@ class PrivateDnsCheck with Actor, Logging {
 
     var expected = _getIosPrivateDnsStringV6(m, tag, alias);
 
-    if (act.platform == PlatformType.android) {
+    if (Core.act.platform == PlatformType.android) {
       expected = getAndroidPrivateDnsString(m, tag, alias);
-    } else if (act.flavor == Flavor.family) {
+    } else if (Core.act.flavor == Flavor.family) {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
     }
 

@@ -24,7 +24,7 @@ class JsonJournalEntry {
   late String domainName;
   late String action;
   late String list;
-  late String profile;
+  late String? profile;
   late String timestamp;
 
   JsonJournalEntry({
@@ -42,7 +42,7 @@ class JsonJournalEntry {
       domainName = json['domain_name'];
       action = json['action'];
       list = json['list'];
-      profile = json['profile'];
+      profile = (json.containsKey("profile")) ? json['profile'] : null;
       timestamp = json['timestamp'];
     } on TypeError catch (e) {
       throw JsonError(json, e);

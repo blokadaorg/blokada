@@ -24,12 +24,12 @@ class PlusButton extends StatefulWidget {
 
 class _PlusButtonState extends State<PlusButton>
     with TickerProviderStateMixin, Logging {
-  final _app = DI.get<AppStore>();
-  final _account = DI.get<AccountStore>();
-  final _gateway = DI.get<PlusGatewayStore>();
-  final _stage = DI.get<StageStore>();
-  final _plus = DI.get<PlusStore>();
-  final _permVpnEnabled = DI.get<VpnEnabled>();
+  final _app = Core.get<AppStore>();
+  final _account = Core.get<AccountStore>();
+  final _gateway = Core.get<PlusGatewayStore>();
+  final _stage = Core.get<StageStore>();
+  final _plus = Core.get<PlusStore>();
+  final _permVpnEnabled = Core.get<VpnEnabled>();
 
   var activated = false;
   var location = "";

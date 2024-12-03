@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:common/common/dialog.dart';
 import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
+import 'package:common/common/widget/stats/stats_detail_section.dart';
+import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
-import 'package:common/family/module/journal/journal.dart';
 import 'package:common/family/widget/device/device_section.dart';
 import 'package:common/family/widget/filters_section.dart';
-import 'package:common/family/widget/stats_detail_section.dart';
 import 'package:flutter/material.dart';
 
 class DeviceScreen extends StatefulWidget {
@@ -26,9 +26,9 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class DeviceScreenState extends State<DeviceScreen> {
-  late final _family = DI.get<FamilyDevicesValue>();
-  late final _journal = DI.get<JournalActor>();
-  late final _selectedFilters = DI.get<SelectedFilters>();
+  late final _family = Core.get<FamilyDevicesValue>();
+  late final _filter = Core.get<JournalFilterValue>();
+  late final _selectedFilters = Core.get<SelectedFilters>();
 
   Paths _path = Paths.deviceStats;
   Object? _arguments;
@@ -101,13 +101,16 @@ class DeviceScreenState extends State<DeviceScreen> {
   Widget _buildForPath(Paths path, FamilyDevice device, Object? arguments) {
     switch (path) {
       case Paths.deviceStats:
-        return StatsSection(deviceTag: widget.tag, primary: false);
+        return StatsSection(
+            deviceTag: widget.tag, primary: false, isHeader: false);
       case Paths.deviceStatsDetail:
         final entry = arguments as UiJournalEntry;
         return StatsDetailSection(entry: entry, primary: false);
       case Paths.deviceFilters:
         return FiltersSection(
-            profileId: device.profile.profileId, primary: false);
+            profileId: device.profile.profileId,
+            primary: false,
+            isHeader: true);
       default:
         return Container();
     }
@@ -119,8 +122,7 @@ class DeviceScreenState extends State<DeviceScreen> {
     return CommonClickable(
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {
-            _journal.filter = filter;
-            _journal.fetch(widget.tag, Markers.userTap);
+            _filter.now = filter;
           });
         },
         child: Text(

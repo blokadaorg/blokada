@@ -3,9 +3,9 @@ part of 'stats.dart';
 const _key = "statsRefresh";
 
 class StatsActor with Logging, Actor {
-  late final _api = DI.get<StatsApi>();
-  late final _scheduler = DI.get<Scheduler>();
-  late final _selectedDevice = DI.get<SelectedDeviceTag>();
+  late final _api = Core.get<StatsApi>();
+  late final _scheduler = Core.get<Scheduler>();
+  late final _selectedDevice = Core.get<SelectedDeviceTag>();
 
   List<DeviceTag> monitorDeviceTags = [];
 

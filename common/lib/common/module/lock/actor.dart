@@ -1,17 +1,17 @@
 part of 'lock.dart';
 
 class LockActor with Logging, Actor {
-  late final _stage = DI.get<StageStore>();
+  late final _stage = Core.get<StageStore>();
 
-  late final isLocked = DI.get<IsLocked>();
-  late final _hasPin = DI.get<HasPin>();
-  late final _existingPin = DI.get<ExistingPin>();
+  late final isLocked = Core.get<IsLocked>();
+  late final _hasPin = Core.get<HasPin>();
+  late final _existingPin = Core.get<ExistingPin>();
 
   @override
   onStart(Marker m) async {
     return await log(m).trace("onStart", (m) async {
       _stage.addOn(willEnterBackground, _autoLockOnBackground);
-      if (!act.isFamily) await _stage.setShowNavbar(false, m);
+      if (!Core.act.isFamily) await _stage.setShowNavbar(false, m);
       await _load(m);
     });
   }
@@ -24,7 +24,7 @@ class LockActor with Logging, Actor {
       if (isLocked.now) {
         await _stage.showModal(StageModal.lock, m);
       } else {
-        if (!act.isFamily) await _stage.setShowNavbar(true, m);
+        if (!Core.act.isFamily) await _stage.setShowNavbar(true, m);
       }
     });
   }
@@ -43,7 +43,7 @@ class LockActor with Logging, Actor {
       _existingPin.change(m, pin);
       isLocked.now = true;
       _hasPin.now = true;
-      if (!act.isFamily) await _stage.setShowNavbar(false, m);
+      if (!Core.act.isFamily) await _stage.setShowNavbar(false, m);
     });
   }
 
@@ -66,7 +66,7 @@ class LockActor with Logging, Actor {
       await canUnlock(m, pin);
 
       isLocked.now = false;
-      if (!act.isFamily) await _stage.setShowNavbar(true, m);
+      if (!Core.act.isFamily) await _stage.setShowNavbar(true, m);
     });
   }
 

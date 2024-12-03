@@ -11,12 +11,12 @@ mixin PermChannel {
 }
 
 class PermActor with Logging, Actor {
-  late final _channel = DI.get<PermChannel>();
-  late final _perm = DI.get<DnsPerm>();
-  late final _deviceTag = DI.get<ThisDevice>();
-  late final _check = DI.get<PrivateDnsCheck>();
+  late final _channel = Core.get<PermChannel>();
+  late final _perm = Core.get<DnsPerm>();
+  late final _deviceTag = Core.get<ThisDevice>();
+  late final _check = Core.get<PrivateDnsCheck>();
 
-  late final _stage = DI.get<StageStore>();
+  late final _stage = Core.get<StageStore>();
 
   @override
   onStart(Marker m) async {

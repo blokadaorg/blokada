@@ -54,7 +54,7 @@ void main() {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doFetchProducts()).thenAnswer((_) async => _fixtureProducts);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final subject = AccountPaymentStore();
         expect(subject.status, PaymentStatus.unknown);
@@ -75,21 +75,21 @@ void main() {
 
     test("willPerformPurchase", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -106,15 +106,15 @@ void main() {
       await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -135,15 +135,15 @@ void main() {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doRestoreWithReceipts()).thenAnswer((_) async => ["receipt"]);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -161,17 +161,17 @@ void main() {
       await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout("good receipt", any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         when(json.postCheckout("bad receipt", any, any))
             .thenThrow(Exception("bad receipt"));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -194,11 +194,11 @@ void main() {
   group("storeErrors", () {
     test("willNotFetchProductsIfNotReady", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => false);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final subject = AccountPaymentStore();
 
@@ -212,19 +212,19 @@ void main() {
 
     test("willNotCallApiOnFailingPurchase", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenThrow(Exception("Channel failing"));
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
 
@@ -238,21 +238,21 @@ void main() {
 
     test("willNotProposeAccountOnFailingApiCall", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any, any))
             .thenThrow(Exception("Api failing"));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -267,21 +267,21 @@ void main() {
 
     test("willNotProposeAccountOnApiReturningInactiveAccount", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final json = MockAccountPaymentJson();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
-        DI.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentJson>(json);
 
         final account = MockAccountStore();
-        DI.register<AccountStore>(account);
+        Core.register<AccountStore>(account);
 
         final subject = AccountPaymentStore();
         mockAct(subject);
@@ -300,10 +300,10 @@ void main() {
       await withTrace((m) async {
         final ops = MockAccountPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        DI.register<AccountPaymentOps>(ops);
+        Core.register<AccountPaymentOps>(ops);
 
         final store = AccountPaymentStore();
-        DI.register<AccountPaymentStore>(store);
+        Core.register<AccountPaymentStore>(store);
 
         await store.fetchProducts(m);
         verify(ops.doPaymentStatusChanged(PaymentStatus.fetching)).called(1);

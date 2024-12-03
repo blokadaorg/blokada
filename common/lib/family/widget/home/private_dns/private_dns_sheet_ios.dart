@@ -14,7 +14,7 @@ class PrivateDnsSheetIos extends StatefulWidget {
 }
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
-  late final _channel = DI.get<PermChannel>();
+  late final _channel = Core.get<PermChannel>();
 
   @override
   void initState() {

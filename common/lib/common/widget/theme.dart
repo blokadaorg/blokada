@@ -57,6 +57,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     Color? textSecondary,
     Color? divider,
     ChatTheme? chatTheme,
+    bool? isFamily,
   }) =>
       BlokadaTheme(
         bgColor: bgColor ?? this.bgColor,

@@ -1,32 +1,32 @@
+import 'package:common/common/widget/settings/settings_section.dart';
+import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/family/widget/filters_section.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/v6/widget/home/home_screen.dart';
-import 'package:common/v6/widget/home/stats/stats_screen.dart';
+import 'package:common/v6/widget/home/home_section.dart';
+import 'package:common/v6/widget/home/stats/stats_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-class Scaffolding extends StatefulWidget {
-  const Scaffolding({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class V6HomeScreen extends StatefulWidget {
+  const V6HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Scaffolding> createState() => _ScaffoldingState();
+  State<V6HomeScreen> createState() => _V6HomeScreenState();
 }
 
 const pathHomeStats = "home/stats";
 
-class _ScaffoldingState extends State<Scaffolding> with Logging {
-  final _stage = DI.get<StageStore>();
+class _V6HomeScreenState extends State<V6HomeScreen> with Logging {
+  final _stage = Core.get<StageStore>();
 
   final _pageCtrl = PageController(initialPage: 0);
   final _duration = const Duration(milliseconds: 800);
   final _curve = Curves.easeInOut;
 
+  final _screenCtrl = PageController(initialPage: 0);
+
   var _path = "home";
-  String? _knownRoute;
-  StageModal? _modal;
 
   @override
   void initState() {
@@ -58,29 +58,16 @@ class _ScaffoldingState extends State<Scaffolding> with Logging {
           _animateToPage(1);
         } else if (_stage.route.isTab(StageTab.home) &&
             _stage.route.isMainRoute()) {
+          _screenCtrl.jumpToPage(0);
           _animateToPage(0);
+        } else if (_stage.route.isTab(StageTab.activity)) {
+          _screenCtrl.jumpToPage(1);
+        } else if (_stage.route.isTab(StageTab.advanced)) {
+          _screenCtrl.jumpToPage(2);
+        } else if (_stage.route.isTab(StageTab.settings)) {
+          _screenCtrl.jumpToPage(3);
         }
       });
-    });
-
-    autorun((_) {
-      final modal = _stage.route.modal;
-      setState(() {
-        _modal = modal;
-      });
-      // } else if (path == StageKnownRoute.homeOverlayLock.path) {
-      //   _knownRoute = StageKnownRoute.homeOverlayLock;
-      //   _animateToPage(0);
-      // } else if (path == StageKnownRoute.homeOverlayRate.path) {
-      // _knownRoute = StageKnownRoute.homeOverlayRate;
-      // _animateToPage(0);
-      // } else if (path == StageKnownRoute.homeOverlayCrash.path) {
-      // _knownRoute = StageKnownRoute.homeOverlayCrash;
-      // _animateToPage(0);
-      // } else if (path == StageKnownRoute.homeCloseOverlay.path) {
-      // _knownRoute = null;
-      // _animateToPage(0);
-      // }
     });
   }
 
@@ -94,12 +81,21 @@ class _ScaffoldingState extends State<Scaffolding> with Logging {
       body: Stack(
         children: [
           PageView(
-            physics: _knownRoute != null
-                ? const NeverScrollableScrollPhysics()
-                : null,
-            controller: _pageCtrl,
-            scrollDirection: Axis.vertical,
-            children: _getPages(),
+            physics: const NeverScrollableScrollPhysics(),
+            controller: _screenCtrl,
+            scrollDirection: Axis.horizontal,
+            children: [
+              // Home screen
+              PageView(
+                controller: _pageCtrl,
+                scrollDirection: Axis.vertical,
+                children: _getPages(),
+              ),
+              // Journal screen
+              const StatsSection(deviceTag: null, isHeader: true),
+              const FiltersSection(profileId: null, isHeader: true),
+              const SettingsSection(isHeader: true),
+            ],
           ),
         ],
       ),
@@ -108,9 +104,8 @@ class _ScaffoldingState extends State<Scaffolding> with Logging {
 
   _getPages() {
     return <Widget>[
-      // const Coolbg(),
-      HomeScreen(),
-      StatsScreen(
+      V6HomeSection(),
+      V6StatsSection(
           key: UniqueKey(), autoRefresh: true, controller: ScrollController()),
     ];
   }

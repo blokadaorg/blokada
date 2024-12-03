@@ -5,14 +5,19 @@ final filterDecorDefaults = _v6 + _familyDecor;
 final _v6 = [
   FilterDecor(
     filterName: "oisd",
+    // tags: [
+    //   "recommended",
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "phishing",
+    //   "security"
+    // ],
     tags: [
       "recommended",
-      "official",
       "adblocking",
       "tracking",
-      "privacy",
-      "phishing",
-      "security"
     ],
     title: "OISD",
     slug: "A good general purpose blocklist",
@@ -23,15 +28,21 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "stevenblack",
+    // tags: [
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "porn",
+    //   "social",
+    //   "fake news",
+    //   "gambling"
+    // ],
     tags: [
-      "official",
       "adblocking",
-      "tracking",
       "privacy",
       "porn",
-      "social",
       "fake news",
-      "gambling"
     ],
     title: "Steven Black",
     slug: "Popular for adblocking",
@@ -42,14 +53,15 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "goodbyeads",
-    tags: [
-      "recommended",
-      "official",
-      "adblocking",
-      "tracking",
-      "privacy",
-      "youtube"
-    ],
+    // tags: [
+    //   "recommended",
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "youtube"
+    // ],
+    tags: ["tracking", "privacy", "youtube"],
     title: "Goodbye ads",
     slug: "Alternative blocklist with advanced features",
     description:
@@ -59,7 +71,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "adaway",
-    tags: ["official", "adblocking"],
+    // tags: ["official", "adblocking"],
+    tags: ["adblocking"],
     title: "AdAway",
     slug: "Adblocking for your mobile device",
     description: "A special blocklist containing mobile ad providers.",
@@ -68,7 +81,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "phishingarmy",
-    tags: ["recommended", "official", "phishing", "security"],
+    // tags: ["recommended", "official", "phishing", "security"],
+    tags: ["phishing", "security"],
     title: "Phishing Army",
     slug: "protects against cyber attacks",
     description:
@@ -78,7 +92,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "ddgtrackerradar",
-    tags: ["recommended", "official", "tracking", "privacy"],
+    // tags: ["recommended", "official", "tracking", "privacy"],
+    tags: ["tracking", "privacy"],
     title: "DuckDuckGo Tracker Radar",
     slug: "A new and upcoming tracker database",
     description:
@@ -88,7 +103,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "blacklist",
-    tags: ["official", "adblocking", "tracking", "privacy"],
+    // tags: ["official", "adblocking", "tracking", "privacy"],
+    tags: ["adblocking", "tracking", "privacy"],
     title: "Blacklist",
     slug: "Curated blocklist to block trackers and advertisements",
     description:
@@ -98,7 +114,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "developerdan",
-    tags: ["official", "adblocking", "tracking", "privacy", "social"],
+    // tags: ["official", "adblocking", "tracking", "privacy", "social"],
+    tags: ["tracking", "privacy", "social"],
     title: "Developer Dan's Hosts",
     slug: "A blocklist for ads and tracking, updated regularly",
     description:
@@ -108,14 +125,15 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "blocklist",
-    tags: [
-      "official",
-      "adblocking",
-      "tracking",
-      "privacy",
-      "social",
-      "youtube"
-    ],
+    // tags: [
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "social",
+    //   "youtube"
+    // ],
+    tags: ["privacy", "social", "youtube"],
     title: "The Block List project",
     slug: "A collection of blocklists for various use cases.",
     description:
@@ -125,7 +143,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "spam404",
-    tags: ["recommended", "official", "privacy", "phishing", "security"],
+    // tags: ["recommended", "official", "privacy", "phishing", "security"],
+    tags: ["phishing", "security"],
     title: "Spam404",
     slug: "A blocklist based on spam reports",
     description:
@@ -135,14 +154,15 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "hblock",
-    tags: [
-      "official",
-      "adblocking",
-      "tracking",
-      "privacy",
-      "phishing",
-      "security"
-    ],
+    // tags: [
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "phishing",
+    //   "security"
+    // ],
+    tags: ["privacy", "phishing", "security"],
     title: "hBlock",
     slug: "A comprehensive lists to block ads and tracking",
     description:
@@ -152,14 +172,15 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "cpbl",
-    tags: [
-      "official",
-      "adblocking",
-      "tracking",
-      "privacy",
-      "phishing",
-      "security"
-    ],
+    // tags: [
+    //   "official",
+    //   "adblocking",
+    //   "tracking",
+    //   "privacy",
+    //   "phishing",
+    //   "security"
+    // ],
+    tags: ["adblocking", "phishing", "security"],
     title: "Combined Privacy Block Lists",
     slug: "A general purpose, medium weight list",
     description:
@@ -169,7 +190,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "danpollock",
-    tags: ["official", "adblocking", "tracking"],
+    // tags: ["official", "adblocking", "tracking"],
+    tags: ["adblocking"],
     title: "Dan Pollock's Hosts",
     slug: "A reasonably balanced ad blocking hosts file",
     description:
@@ -179,7 +201,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "urlhaus",
-    tags: ["recommended", "official", "security"],
+    // tags: ["recommended", "official", "security"],
+    tags: ["security"],
     title: "URLhaus",
     slug: "A blocklist based on malware database",
     description:
@@ -188,8 +211,9 @@ final _v6 = [
     creditUrl: "https://go.blokada.org/urlhaus",
   ),
   FilterDecor(
-    filterName: "1Hosts",
-    tags: ["official", "adblocking", "tracking"],
+    filterName: "1hosts",
+    // tags: ["official", "adblocking", "tracking"],
+    tags: ["adblocking"],
     title: "1Hosts",
     slug: "A blocklist for ads and tracking, updated regularly",
     description:
@@ -199,7 +223,8 @@ final _v6 = [
   ),
   FilterDecor(
     filterName: "d3host",
-    tags: ["official", "adblocking", "tracking"],
+    // tags: ["official", "adblocking", "tracking"],
+    tags: ["tracking"],
     title: "d3Host",
     slug: "A blocklist from the maker of the adblocker test",
     description:

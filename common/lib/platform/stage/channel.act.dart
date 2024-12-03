@@ -7,8 +7,8 @@ import 'channel.pg.dart';
 
 class MockStageOps extends Mock implements StageOps {}
 
-StageOps getOps(Act act) {
-  if (act.isProd) {
+StageOps getOps() {
+  if (Core.act.isProd) {
     return StageOps();
   }
 
@@ -17,7 +17,7 @@ StageOps getOps(Act act) {
   return ops;
 }
 
-final _command = DI.get<CommandStore>();
+final _command = Core.get<CommandStore>();
 
 _actNormal(MockStageOps ops) {
   registerFallbackValue(StageModal.debug);

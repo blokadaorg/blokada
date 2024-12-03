@@ -1,8 +1,6 @@
 part of 'core.dart';
 
 mixin Actor {
-  late final Act act;
-
   bool _created = false;
   bool _started = false;
 

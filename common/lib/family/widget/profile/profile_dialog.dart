@@ -26,9 +26,9 @@ class ProfileDialog extends StatefulWidget {
 }
 
 class ProfileDialogState extends State<ProfileDialog> with Disposables {
-  late final _devices = DI.get<DeviceActor>();
-  late final _profiles = DI.get<ProfileActor>();
-  late final _familyDevices = DI.get<FamilyDevicesValue>();
+  late final _devices = Core.get<DeviceActor>();
+  late final _profiles = Core.get<ProfileActor>();
+  late final _familyDevices = Core.get<FamilyDevicesValue>();
 
   late JsonDevice device;
   String? error;
@@ -158,7 +158,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
 
   Widget _wrapInDismissible(
       BuildContext context, JsonProfile it, Widget child) {
-    late final device = DI.get<DeviceActor>();
+    late final device = Core.get<DeviceActor>();
     return Slidable(
       key: Key(it.alias),
       endActionPane: ActionPane(

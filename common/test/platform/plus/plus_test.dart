@@ -37,13 +37,13 @@ void main() {
     test("load", () async {
       await withTrace((m) async {
         final ops = MockPlusOps();
-        DI.register<PlusOps>(ops);
+        Core.register<PlusOps>(ops);
 
-        DI.register<AppStore>(MockAppStore());
+        Core.register<AppStore>(MockAppStore());
 
         final persistence = MockPersistence();
         when(persistence.load(any, any)).thenAnswer((_) => Future.value("1"));
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final subject = PlusStore();
         expect(subject.plusEnabled, false);
@@ -57,32 +57,32 @@ void main() {
       await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final ops = MockPlusOps();
-        DI.register<PlusOps>(ops);
+        Core.register<PlusOps>(ops);
 
         final gateway = MockPlusGatewayStore();
         when(gateway.currentGateway)
             .thenReturn(fixtureGatewayEntries.first.toGateway);
-        DI.register<PlusGatewayStore>(gateway);
+        Core.register<PlusGatewayStore>(gateway);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        DI.register<PlusKeypairStore>(keypair);
+        Core.register<PlusKeypairStore>(keypair);
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        DI.register<PlusLeaseStore>(lease);
+        Core.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        DI.register<PlusVpnStore>(vpn);
+        Core.register<PlusVpnStore>(vpn);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
@@ -98,20 +98,20 @@ void main() {
     test('clearPlus', () async {
       await withTrace((m) async {
         final ops = MockPlusOps();
-        DI.register<PlusOps>(ops);
+        Core.register<PlusOps>(ops);
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        DI.register<PlusLeaseStore>(lease);
+        Core.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        DI.register<PlusVpnStore>(vpn);
+        Core.register<PlusVpnStore>(vpn);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
@@ -126,32 +126,32 @@ void main() {
       await withTrace((m) async {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
-        DI.register<DeviceStore>(device);
+        Core.register<DeviceStore>(device);
 
         final gateway = MockPlusGatewayStore();
         when(gateway.currentGateway)
             .thenReturn(fixtureGatewayEntries.first.toGateway);
-        DI.register<PlusGatewayStore>(gateway);
+        Core.register<PlusGatewayStore>(gateway);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        DI.register<PlusKeypairStore>(keypair);
+        Core.register<PlusKeypairStore>(keypair);
 
         final ops = MockPlusOps();
-        DI.register<PlusOps>(ops);
+        Core.register<PlusOps>(ops);
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
         when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        DI.register<PlusLeaseStore>(lease);
+        Core.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        DI.register<PlusVpnStore>(vpn);
+        Core.register<PlusVpnStore>(vpn);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final subject = PlusStore();
 
@@ -201,25 +201,25 @@ void main() {
   group("storeErrors", () {
     test("switchPlusFailing", () async {
       await withTrace((m) async {
-        DI.register<StageStore>(MockStageStore());
+        Core.register<StageStore>(MockStageStore());
 
         final ops = MockPlusOps();
-        DI.register<PlusOps>(ops);
+        Core.register<PlusOps>(ops);
 
-        DI.register<PlusKeypairStore>(MockPlusKeypairStore());
-        DI.register<PlusGatewayStore>(MockPlusGatewayStore());
+        Core.register<PlusKeypairStore>(MockPlusKeypairStore());
+        Core.register<PlusGatewayStore>(MockPlusGatewayStore());
 
         final app = MockAppStore();
-        DI.register<AppStore>(app);
+        Core.register<AppStore>(app);
 
         final lease = MockPlusLeaseStore();
-        DI.register<PlusLeaseStore>(lease);
+        Core.register<PlusLeaseStore>(lease);
 
         final vpn = MockPlusVpnStore();
-        DI.register<PlusVpnStore>(vpn);
+        Core.register<PlusVpnStore>(vpn);
 
         final persistence = MockPersistence();
-        DI.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence);
 
         final subject = PlusStore();
 

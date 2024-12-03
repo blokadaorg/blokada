@@ -38,7 +38,7 @@ part 'widget.dart';
 
 class CoreModule with Module {
   @override
-  onCreateModule(Act act) async {
+  onCreateModule() async {
     await register(Scheduler(timer: SchedulerTimer()));
   }
 }
