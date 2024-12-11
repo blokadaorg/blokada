@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:common/common/widget/back_edit_header.dart';
 import 'package:common/common/widget/home/header/header.dart';
+import 'package:common/common/widget/private_dns/private_dns_setting_guide.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/common/widget/two_letter_icon.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/animated_bg.dart';
-import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:common/family/widget/home/smart_onboard.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';

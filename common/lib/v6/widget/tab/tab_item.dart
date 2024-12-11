@@ -5,14 +5,14 @@ class TabItem extends StatefulWidget {
   final IconData icon;
   final String title;
   final bool active;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const TabItem({
     Key? key,
     required this.icon,
     required this.title,
     required this.active,
-    required this.onTap,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class TabItemState extends State<TabItem> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(0),
         child: SizedBox(
           height: 48,
           child: Column(

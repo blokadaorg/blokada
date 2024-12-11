@@ -112,7 +112,14 @@ abstract class AsyncValue<T> with Logging {
 
   // Also broadcasts to stream
   change(Marker m, T newValue) async {
-    if (_resolved && newValue == _value) return;
+    if (_resolved && newValue == _value) {
+      log(m).logt(msg: "Skipping change in async value.", attr: {
+        "hashOld": _value.hashCode,
+        "hashNew": newValue.hashCode,
+        "resolved": _resolved,
+      });
+      return;
+    }
 
     final update = ValueUpdate(m, _resolved ? _value : null, newValue);
     _value = newValue;

@@ -78,7 +78,7 @@ class SupportActor with Logging, Actor {
     }
 
     // Update local cache
-    _chatHistory.change(m, SupportMessages(messages));
+    await _chatHistory.change(m, SupportMessages(messages));
 
     onChange();
   }
@@ -87,15 +87,15 @@ class SupportActor with Logging, Actor {
     await loadOrInit(m, event: event);
     clearSession(m);
     final session = await _api.createSession(m, language, event: event);
-    _currentSession.change(m, session.sessionId);
+    await _currentSession.change(m, session.sessionId);
     _ttl = session.ttl;
     await _updateSessionExpiry();
     await _handleResponse(m, session.history);
   }
 
   clearSession(Marker m) async {
-    _currentSession.change(m, null);
-    _chatHistory.change(m, null);
+    await _currentSession.change(m, null);
+    await _chatHistory.change(m, null);
     messages = [];
     onChange();
     onReset(m);
@@ -194,7 +194,7 @@ class SupportActor with Logging, Actor {
   _addMessage(m, SupportMessage message) async {
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
-    _chatHistory.change(m, SupportMessages(messages));
+    await _chatHistory.change(m, SupportMessages(messages));
     onChange();
     await _unread.newMessage(m, message.text);
   }

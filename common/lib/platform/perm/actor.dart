@@ -29,12 +29,18 @@ class PlatformPermActor with Logging, Actor {
   DeviceTag? _previousTag;
   String? _previousAlias;
 
+  authenticate(Marker m, VoidCallback fn) async {
+    if (await _channel.doAuthenticate()) {
+      fn();
+    }
+  }
+
   Future<void> setPrivateDnsEnabled(DeviceTag tag, Marker m) async {
     return await log(m).trace("privateDnsEnabled", (m) async {
       log(m).pair("tag", tag);
 
       if (tag != _dnsEnabledFor.present) {
-        _dnsEnabledFor.change(m, tag);
+        await _dnsEnabledFor.change(m, tag);
         await _app.cloudPermEnabled(tag == _device.deviceTag, m);
       }
     });
@@ -43,7 +49,7 @@ class PlatformPermActor with Logging, Actor {
   Future<void> setPrivateDnsDisabled(Marker m) async {
     return await log(m).trace("privateDnsDisabled", (m) async {
       if (_dnsEnabledFor.present != null) {
-        _dnsEnabledFor.change(m, null);
+        await _dnsEnabledFor.change(m, null);
         await _app.cloudPermEnabled(false, m);
       }
     });
@@ -58,7 +64,7 @@ class PlatformPermActor with Logging, Actor {
   Future<void> setNotificationEnabled(bool enabled, Marker m) async {
     return await log(m).trace("notificationEnabled", (m) async {
       if (enabled != _notificationEnabled.present) {
-        _notificationEnabled.change(m, enabled);
+        await _notificationEnabled.change(m, enabled);
       }
     });
   }
@@ -66,7 +72,7 @@ class PlatformPermActor with Logging, Actor {
   Future<void> setVpnPermEnabled(bool enabled, Marker m) async {
     return await log(m).trace("setVpnPermEnabled", (m) async {
       if (enabled != _vpnEnabled.present) {
-        _vpnEnabled.change(m, enabled);
+        await _vpnEnabled.change(m, enabled);
         if (!enabled) {
           if (!Core.act.isFamily) await _plus.reactToPlusLost(m);
           await _app.plusActivated(false, m);

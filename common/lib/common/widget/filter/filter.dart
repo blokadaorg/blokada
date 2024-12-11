@@ -10,7 +10,7 @@ class FilterWidget extends StatefulWidget {
   final Filter filter;
   final FilterDecor texts;
   final List<String> selections;
-  final Function(List<String>) onSelect;
+  final Function(List<String>, String) onSelect;
   final Color? bgColor;
 
   const FilterWidget({
@@ -145,6 +145,6 @@ class FilterWidgetState extends State<FilterWidget> {
     } else {
       widget.selections.remove(option);
     }
-    widget.onSelect(widget.selections);
+    widget.onSelect(widget.selections, option);
   }
 }

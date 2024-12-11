@@ -52,13 +52,13 @@ class PurchaseTimeoutActor with Logging, Actor {
   Future<bool> sendPurchaseTimeout(Marker m) async {
     if (_account.type.isActive()) return false;
     await _support.sendEvent(SupportEvent.purchaseTimeout, m);
-    _notified.change(m, true);
+    await _notified.change(m, true);
     _justNotified = true;
     return false;
   }
 
   clearSendPurchaseTimeout(Marker m) async {
-    _notified.change(m, false);
+    await _notified.change(m, false);
     await _scheduler.stop(m, "sendPurchaseTimeout");
   }
 }

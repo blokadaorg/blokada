@@ -212,7 +212,7 @@ class FilterActor with Logging, Actor {
           .add(FilterSelection(filter.filterName, active.distinct().toList()));
     }
 
-    _selectedFilters.change(m, selectedFilters);
+    await _selectedFilters.change(m, selectedFilters);
     _reconfigure(m);
   }
 
@@ -288,7 +288,7 @@ class FilterActor with Logging, Actor {
     final shouldBeConfig = UserFilterConfig(shouldBeLists, shouldBeConfigs);
     if (userConfig != shouldBeConfig) {
       log(m).i("reloading based on userconfig");
-      _userConfig.change(m, shouldBeConfig);
+      await _userConfig.change(m, shouldBeConfig);
       _needsReload = true;
       return;
     }
@@ -308,7 +308,7 @@ class FilterActor with Logging, Actor {
     if (!Core.act.isFamily) {
       log(m).i("Applying defaults");
       final defaults = _defaultFilters.get();
-      _selectedFilters.change(m, defaults);
+      await _selectedFilters.change(m, defaults);
     }
 
     _defaultsApplied = true;

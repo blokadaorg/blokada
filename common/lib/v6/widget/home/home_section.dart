@@ -1,9 +1,12 @@
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/v6/widget/tab/tab_buttons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:relative_scale/relative_scale.dart';
@@ -107,10 +110,9 @@ class V6HomeSectionState extends State<V6HomeSection>
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           HomeIcon(
-                            icon: Icons.help_outline,
+                            icon: CupertinoIcons.settings,
                             onTap: () {
-                              _stage.setRoute(
-                                  StageTab.settings.name, Markers.userTap);
+                              Navigation.open(Paths.settings);
                             },
                           ),
                         ],
@@ -132,8 +134,8 @@ class V6HomeSectionState extends State<V6HomeSection>
                   const Spacer(),
                   const Spacer(),
                   const HomeActions(),
-                  const Spacer(),
-                  SizedBox(height: sy(60)),
+                  const TabButtonsWidget(),
+                  const SizedBox(height: 24),
                 ],
               );
             }),

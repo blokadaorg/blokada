@@ -1,6 +1,7 @@
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
+import 'package:common/family/module/perm/perm.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
@@ -30,6 +31,7 @@ class _PlusButtonState extends State<PlusButton>
   final _stage = Core.get<StageStore>();
   final _plus = Core.get<PlusStore>();
   final _permVpnEnabled = Core.get<VpnEnabled>();
+  final _permChannnel = Core.get<PermChannel>();
 
   var activated = false;
   var location = "";
@@ -145,7 +147,7 @@ class _PlusButtonState extends State<PlusButton>
       if (_permVpnEnabled.present == true) {
         await _stage.showModal(StageModal.plusLocationSelect, m);
       } else {
-        await _stage.showModal(StageModal.perms, m);
+        await _permChannnel.doAskVpnPerms();
       }
     });
   }

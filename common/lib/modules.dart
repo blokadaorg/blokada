@@ -5,6 +5,7 @@ import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
+import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/widget/top_bar.dart';
@@ -108,6 +109,7 @@ class Modules with Logging {
     AppStore().onRegister();
     AppStartStore().onRegister();
     PrivateDnsCheck().onRegister();
+    await _registerModule(CommonPermModule());
     await _registerModule(PlatformPermModule());
     await _registerModule(LockModule());
     CustomStore().onRegister();

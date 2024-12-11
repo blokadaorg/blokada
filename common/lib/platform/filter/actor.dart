@@ -15,7 +15,6 @@ class PlatformFilterActor with Logging, Actor {
   late final _userConfig = Core.get<CurrentConfig>();
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _knownFilters = Core.get<KnownFilters>();
-  late final _channel = Core.get<FilterChannel>();
   late final _acc = Core.get<AccountActor>();
 
   final _debounce = Debounce(const Duration(seconds: 1));
@@ -23,8 +22,6 @@ class PlatformFilterActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     _device.addOn(deviceChanged, onDeviceChanged);
-    _selectedFilters.onChange
-        .listen((it) => onSelectedFiltersChanged(it.now, Markers.filter));
     _userConfig.onChange.listen((it) => onUserConfigChanged(it.now));
     // todo: default value at first start of new account
   }
@@ -37,22 +34,9 @@ class PlatformFilterActor with Logging, Actor {
         // Read user config from device v2 when it is ready
         // Set it and it will reload FilterController
         // That one will update SelectedFilters
-        _userConfig.change(m, UserFilterConfig(lists.toSet(), {}));
+        await _userConfig.change(m, UserFilterConfig(lists.toSet(), {}));
       }
     });
-  }
-
-  // Push it to pigeon, together with KnownFilters converted and the tags
-  onSelectedFiltersChanged(List<FilterSelection> selected, Marker m) {
-    log(m).i("updating filters legacy, selected: ${selected.length}");
-
-    _channel.doFiltersChanged(_knownFilters.get());
-
-    _channel.doFilterSelectionChanged(selected);
-
-    _channel.doListToTagChanged(_controller.getListsToTags().map((key, value) {
-      return MapEntry(key, value);
-    }));
   }
 
   enableFilter(String filterName, Marker m) async {
@@ -72,18 +56,18 @@ class PlatformFilterActor with Logging, Actor {
     } else {
       selected.add(newFilter);
     }
-    _selectedFilters.change(m, selected);
+    await _selectedFilters.change(m, selected);
 
     try {
       final config =
           await _controller.getConfig(await _selectedFilters.now(), m);
       await log(m).trace("enableFilterLegacy", (m) async {
         log(m).pair("lists", config.lists);
-        _userConfig.change(m, config);
+        await _userConfig.change(m, config);
         // v2 api will be updated by the callback below
       });
     } catch (e) {
-      _selectedFilters.change(m, was);
+      await _selectedFilters.change(m, was);
     }
   }
 
@@ -93,60 +77,62 @@ class PlatformFilterActor with Logging, Actor {
     final was = await _selectedFilters.now();
     final selected = was.toList();
     selected.removeWhere((it) => it.filterName == filterName);
-    _selectedFilters.change(m, selected);
+    await _selectedFilters.change(m, selected);
 
     try {
       final config =
           await _controller.getConfig(await _selectedFilters.now(), m);
       await log(m).trace("disableFilterLegacy", (m) async {
         log(m).pair("lists", config.lists);
-        _userConfig.change(m, config);
+        await _userConfig.change(m, config);
         // v2 api will be updated by the callback below
       });
     } catch (e) {
-      _selectedFilters.change(m, was);
+      await _selectedFilters.change(m, was);
     }
   }
 
   toggleFilterOption(String filterName, String option, Marker m) async {
-    log(m).i("toggling filter $filterName option $option");
-
-    final known = _knownFilters
-        .get()
-        .firstOrNullWhere((it) => it.filterName == filterName);
-    if (known == null) {
-      log(m).i("filter $filterName not found");
-      return;
-    }
-
-    final newFilter = FilterSelection(filterName, [option]);
-
-    final was = await _selectedFilters.now();
-    final selected = was.toList();
-    final index = selected.indexWhere((it) => it.filterName == filterName);
-    if (index != -1) {
-      final old = selected[index];
-      if (old.options.contains(option)) {
-        selected[index] = FilterSelection(filterName, old.options - [option]);
-      } else {
-        selected[index] = FilterSelection(filterName, old.options + [option]);
+    return await log(m).trace("toggleFilterOption", (m) async {
+      final known = _knownFilters
+          .get()
+          .firstOrNullWhere((it) => it.filterName == filterName);
+      if (known == null) {
+        log(m).i("filter $filterName not found");
+        return;
       }
-    } else {
-      selected.add(newFilter);
-    }
-    _selectedFilters.change(m, selected);
 
-    try {
-      final config =
-          await _controller.getConfig(await _selectedFilters.now(), m);
-      await log(m).trace("toggleFilterOptionLegacy", (m) async {
-        log(m).pair("lists", config.lists);
-        _userConfig.change(m, config);
-        // v2 api will be updated by the callback below
-      });
-    } catch (e) {
-      _selectedFilters.change(m, was);
-    }
+      final newFilter = FilterSelection(filterName, [option]);
+
+      // Copy to ensure another object
+      final selected = (await _selectedFilters.now()).toList();
+
+      final index = selected.indexWhere((it) => it.filterName == filterName);
+      if (index != -1) {
+        final old = selected[index];
+        if (old.options.contains(option)) {
+          selected[index] = FilterSelection(filterName, old.options - [option]);
+        } else {
+          selected[index] = FilterSelection(filterName, old.options + [option]);
+        }
+      } else {
+        selected.add(newFilter);
+      }
+      await _selectedFilters.change(m, selected);
+
+      try {
+        final config =
+            await _controller.getConfig(await _selectedFilters.now(), m);
+        await log(m).trace("toggleFilterOptionLegacy", (m) async {
+          log(m).pair("lists", config.lists);
+          await _userConfig.change(m, config);
+          // v2 api will be updated by the callback below
+        });
+      } catch (e, s) {
+        log(m).e(msg: "Error toggling filter option", err: e, stack: s);
+        await _selectedFilters.change(m, selected);
+      }
+    });
   }
 
   onUserConfigChanged(UserFilterConfig? config) {

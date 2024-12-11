@@ -40,7 +40,7 @@ class LockActor with Logging, Actor {
         throw Exception("Invalid pin format: $pin");
       }
 
-      _existingPin.change(m, pin);
+      await _existingPin.change(m, pin);
       isLocked.now = true;
       _hasPin.now = true;
       if (!Core.act.isFamily) await _stage.setShowNavbar(false, m);
@@ -82,7 +82,7 @@ class LockActor with Logging, Actor {
         throw Exception("Invalid pin format: $pin");
       }
 
-      _existingPin.change(m, pin);
+      await _existingPin.change(m, pin);
       _hasPin.now = true;
     });
   }
@@ -92,7 +92,7 @@ class LockActor with Logging, Actor {
       if (_existingPin.present == null) return;
       final pin = _existingPin.present!;
       await unlock(m, pin);
-      _existingPin.change(m, null);
+      await _existingPin.change(m, null);
       _hasPin.now = false;
     });
   }

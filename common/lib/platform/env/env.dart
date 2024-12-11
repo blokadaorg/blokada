@@ -65,7 +65,7 @@ abstract class EnvStoreBase with Store, Logging, Actor {
       deviceName = payload.deviceName;
       userAgent = _getUserAgent(payload);
       appVersion = payload.appVersion;
-      _agent.change(m, userAgent!);
+      await _agent.change(m, userAgent!);
       log(m).pair("device", payload.toSimpleString());
     });
   }

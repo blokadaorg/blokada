@@ -8,6 +8,8 @@ mixin PermChannel {
   Future<bool> doVpnEnabled();
   Future<void> doOpenPermSettings();
   Future<void> doAskNotificationPerms();
+  Future<void> doAskVpnPerms();
+  Future<bool> doAuthenticate();
 }
 
 class PermActor with Logging, Actor {
@@ -28,13 +30,13 @@ class PermActor with Logging, Actor {
   _checkDns(Marker m) async {
     final device = await _deviceTag.fetch(m);
     if (device == null) {
-      _perm.change(m, false);
+      await _perm.change(m, false);
       return;
     }
     await _channel.doSetDns(device.deviceTag);
 
     final current = await _channel.getPrivateDnsSetting();
-    _perm.change(
+    await _perm.change(
         m, _check.isCorrect(m, current, device.deviceTag, device.alias));
   }
 

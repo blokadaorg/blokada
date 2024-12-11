@@ -3,22 +3,26 @@ import 'package:flutter/material.dart';
 
 const _tabBarHeight = 80.0;
 
-class TapBarCompensation extends StatefulWidget {
-  const TapBarCompensation({Key? key}) : super(key: key);
+class TabBarCompensation extends StatefulWidget {
+  const TabBarCompensation({Key? key}) : super(key: key);
 
   @override
-  State<TapBarCompensation> createState() => _TapBarCompensationState();
+  State<TabBarCompensation> createState() => _TabBarCompensationState();
 }
 
-class _TapBarCompensationState extends State<TapBarCompensation> {
+class _TabBarCompensationState extends State<TabBarCompensation> with Logging {
   @override
   Widget build(BuildContext context) {
+    log(Markers.root).t(
+        "rebuild TapBarCompensation, isKeyboardOpened: ${context.isKeyboardOpened}");
     if (Core.act.isFamily) return const SizedBox.shrink();
     return SizedBox(height: context.isKeyboardOpened ? 0 : _tabBarHeight);
   }
 }
 
 extension BuildContextExt on BuildContext {
-  double get tabBarHeight => Core.act.isFamily ? 0 : _tabBarHeight;
-  bool get isKeyboardOpened => MediaQuery.of(this).viewInsets.bottom > 0;
+  double get tabBarHeightKbDependent =>
+      Core.act.isFamily ? 0 : (isKeyboardOpened ? 0 : _tabBarHeight);
+  //bool get isKeyboardOpened => MediaQuery.of(this).viewInsets.bottom > 0;
+  bool get isKeyboardOpened => false; // TODO: make sure it works
 }

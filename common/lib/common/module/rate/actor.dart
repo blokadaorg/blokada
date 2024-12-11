@@ -86,7 +86,7 @@ class RateActor with Logging, Actor {
       } else {
         meta = JsonRate(lastSeen: lastSeen, lastRate: meta.lastRate);
       }
-      _rateMetadata.change(m, meta);
+      await _rateMetadata.change(m, meta);
       await _stage.showModal(StageModal.rate, m);
     });
   }
@@ -96,7 +96,7 @@ class RateActor with Logging, Actor {
       JsonRate? meta = await _rateMetadata.now();
       meta =
           JsonRate(lastSeen: meta?.lastSeen ?? DateTime.now(), lastRate: rate);
-      _rateMetadata.change(m, meta);
+      await _rateMetadata.change(m, meta);
 
       if (rate >= 4 && showPlatformDialog) {
         await _channel.doShowRateDialog();

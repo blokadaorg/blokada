@@ -107,10 +107,10 @@ class DeviceScreenState extends State<DeviceScreen> {
         final entry = arguments as UiJournalEntry;
         return StatsDetailSection(entry: entry, primary: false);
       case Paths.deviceFilters:
-        return FiltersSection(
-            profileId: device.profile.profileId,
-            primary: false,
-            isHeader: true);
+        return FamilyFiltersSection(
+          profileId: device.profile.profileId,
+          primary: false,
+        );
       default:
         return Container();
     }

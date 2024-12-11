@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:common/common/navigation.dart';
 import 'package:common/common/route.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
@@ -243,24 +244,35 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
       final s = route.settings;
       String title;
 
-      switch (s.name) {
-        case "/device":
-          final device = s.arguments as FamilyDevice;
-          title = device.displayName;
-        case "/device/filters":
-          title = "family stats label blocklists".i18n;
-        case "/device/stats":
-          title = "activity section header".i18n;
-        case "/device/stats/detail":
-          title = "family device title details".i18n;
-        case "/settings":
+      if (s.name == Paths.device.path) {
+        final device = s.arguments as FamilyDevice;
+        title = device.displayName;
+      } else if (s.name == Paths.deviceFilters.path) {
+        title = "family stats label blocklists".i18n;
+      } else if (s.name == Paths.deviceStats.path) {
+        title = "activity section header".i18n;
+      } else if (s.name == Paths.deviceStatsDetail.path) {
+        title = "family device title details".i18n;
+      } else if (s.name == Paths.settings.path) {
+        if (Core.act.isFamily) {
           title = "account action my account".i18n;
-        case "/settings/exceptions":
-          title = "family stats title".i18n;
-        case "/support":
-          title = "Chat with us";
-        default:
-          title = "main tab home".i18n;
+        } else {
+          title = "main tab settings".i18n;
+        }
+      } else if (s.name == Paths.settingsExceptions.path) {
+        title = "family stats title".i18n;
+      } else if (s.name == Paths.settingsRetention.path) {
+        title = "activity section header".i18n;
+      } else if (s.name == Paths.settingsVpnDevices.path) {
+        title = "web vpn devices header".i18n;
+      } else if (s.name == Paths.support.path) {
+        title = "support action chat".i18n;
+      } else if (s.name == Paths.activity.path) {
+        title = "main tab activity".i18n;
+      } else if (s.name == Paths.advanced.path) {
+        title = "main tab advanced".i18n;
+      } else {
+        title = "main tab home".i18n;
       }
 
       if (userGesture) {
@@ -303,6 +315,14 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
   manualPush(String title) {
     _push(title);
     notifyListeners();
+  }
+
+  hackyManualPopToFirst() {
+    if (nav.length == 1) return;
+    _pop();
+    ignoreRoutes = 1;
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    // will call didPop now
   }
 
   _push(String title) {

@@ -4,26 +4,23 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/filter/filter.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/profile/profile.dart';
-import 'package:common/family/widget/profile/profile_utils.dart';
+import 'package:common/platform/filter/filter.dart';
 import 'package:flutter/material.dart';
 
-class FamilyFiltersSection extends StatefulWidget {
-  final String? profileId;
-  final bool primary;
+class V6FiltersSection extends StatefulWidget {
+  final bool twoColumns;
 
-  const FamilyFiltersSection(
-      {Key? key, required this.profileId, this.primary = true})
-      : super(key: key);
+  const V6FiltersSection({Key? key, this.twoColumns = false}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => FamilyFiltersSectionState();
+  State<StatefulWidget> createState() => V6FiltersSectionState();
 }
 
-class FamilyFiltersSectionState extends State<FamilyFiltersSection>
+class V6FiltersSectionState extends State<V6FiltersSection>
     with Logging, Disposables {
   late final _knownFilters = Core.get<KnownFilters>();
-  late final _profiles = Core.get<ProfileActor>();
   late final _selectedFilters = Core.get<SelectedFilters>();
+  late final _legacy = Core.get<PlatformFilterActor>();
 
   late JsonProfile profile;
 
@@ -41,38 +38,29 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> header = [];
-    profile = _profiles.get(widget.profileId!);
-    header = _buildFamilyHeader(context);
+    final padding = SizedBox(height: getTopPadding(context)) as Widget;
+    final filters = widget.twoColumns
+        ? _buildFiltersPerRow(context)
+        : _buildFilters(context);
 
-    return ListView(
-        primary: widget.primary, children: header + _buildFilters(context)
+    return ListView(primary: true, children: [padding] + filters
         //_buildFooter(context),
         );
   }
 
-  List<Widget> _buildFamilyHeader(BuildContext context) {
-    return [
-      SizedBox(height: getTopPadding(context)),
-      Column(
-        children: [
-          const SizedBox(height: 12),
-          Icon(
-            getProfileIcon(profile.template),
-            size: 48,
-            color: getProfileColor(profile.template),
-          ),
-          const SizedBox(height: 8),
-          Text(
-              "family profile template name"
-                  .i18n
-                  .withParams(profile.displayAlias.i18n),
-              style:
-                  const TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
-        ],
-      ),
-      const SizedBox(height: 16),
-    ];
+  List<Widget> _buildFiltersPerRow(BuildContext context) {
+    final filters = _buildFilters(context);
+    final rows = <Widget>[];
+    for (var i = 0; i < filters.length; i += 2) {
+      final row = <Widget>[];
+      if (i < filters.length) row.add(Expanded(child: filters[i]));
+      if (i + 1 < filters.length) row.add(Expanded(child: filters[i + 1]));
+      rows.add(Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: row,
+      ));
+    }
+    return rows;
   }
 
   List<Widget> _buildFilters(BuildContext context) {
@@ -117,26 +105,15 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
       return FilterWidget(
           filter: filter,
           texts: texts,
-          selections: selections,
-          onSelect: (sel, option) =>
-              _profiles.updateUserChoice(filter, sel, Markers.userTap),
+          selections: selections.toList(), // To not edit in place
+          onSelect: (sel, option) {
+            _legacy.toggleFilterOption(
+                filter.filterName, option, Markers.userTap);
+          },
           bgColor: color);
     } catch (e) {
       throw Exception(
           "Error getting filter decor, filter: ${filter.filterName}: $e");
     }
-  }
-
-  List<Widget> _buildFooter(BuildContext context) {
-    return [
-      const SizedBox(height: 8),
-      Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text("family profile action delete".i18n,
-            style: const TextStyle(
-                color: Colors.red, fontSize: 16, fontWeight: FontWeight.w500)),
-      ),
-      const SizedBox(height: 48),
-    ];
   }
 }

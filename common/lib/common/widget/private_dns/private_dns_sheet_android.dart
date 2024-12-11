@@ -1,8 +1,8 @@
 import 'package:common/common/widget/minicard/minicard.dart';
+import 'package:common/common/widget/private_dns/private_dns_setting_guide.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/perm/perm.dart';
-import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

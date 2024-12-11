@@ -8,6 +8,7 @@ import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void showSupportDialog(BuildContext context) {
   showDefaultDialog(context,
@@ -276,6 +277,34 @@ void showInputDialog(
           onConfirm(_ctrl.text);
         },
         child: Text("universal action save".i18n),
+      ),
+    ],
+  );
+}
+
+void showAccountIdDialog(BuildContext context, String accountId) {
+  showDefaultDialog(
+    context,
+    title: Text("account label id".i18n),
+    content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(accountId),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () {
+          Clipboard.setData(ClipboardData(text: accountId));
+          Navigator.of(context).pop();
+        },
+        child: Text("universal action copy".i18n),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Text("universal action close".i18n),
       ),
     ],
   );

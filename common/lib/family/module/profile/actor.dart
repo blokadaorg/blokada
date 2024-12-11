@@ -75,7 +75,7 @@ class ProfileActor with Logging, Actor {
       final config = UserFilterConfig(profile.lists.toSet(), {
         FilterConfigKey.safeSearch: profile.safeSearch,
       });
-      _userConfig.change(m, config);
+      await _userConfig.change(m, config);
       _selected = profile;
       log(m).i("user config set to ${config.configs}");
       // Setting user config causes FilterController to reload
@@ -86,7 +86,7 @@ class ProfileActor with Logging, Actor {
     final selected = await _selectedFilters.now();
     // Immediate UI feedback
     final old = selected.firstWhere((it) => it.filterName == filter.filterName);
-    _selectedFilters.change(
+    await _selectedFilters.change(
         m,
         selected
           ..removeWhere((it) => it.filterName == filter.filterName)
@@ -102,10 +102,10 @@ class ProfileActor with Logging, Actor {
           ));
       profiles =
           profiles.map((it) => it.profileId == p.profileId ? p : it).toList();
-      _userConfig.change(m, config);
+      await _userConfig.change(m, config);
       onChange();
     } catch (e) {
-      _selectedFilters.change(
+      await _selectedFilters.change(
           m,
           await _selectedFilters.now()
             ..removeWhere((it) => it.filterName == filter.filterName)

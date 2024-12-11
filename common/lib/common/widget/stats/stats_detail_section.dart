@@ -11,7 +11,6 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
-import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -197,7 +196,6 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
             ),
           ),
           const SizedBox(height: 40),
-          TapBarCompensation(),
         ],
       ),
     );

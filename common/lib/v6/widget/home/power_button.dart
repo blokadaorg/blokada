@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/core/core.dart';
@@ -32,6 +33,7 @@ class _PowerButtonState extends State<PowerButton>
   final _appStart = Core.get<AppStartStore>();
   final _stats = Core.get<StatsStore>();
   final _home = Core.get<HomeStore>();
+  late final _permsSheet = Core.get<StatefulWidget>(tag: "privateDnsSheet");
 
   late Future<List<ui.Image>> loadIcons;
 
@@ -320,7 +322,11 @@ class _PowerButtonState extends State<PowerButton>
                 if (!status.isWorking()) {
                   setState(() {
                     log(Markers.userTap).trace("tappedPowerButton", (m) async {
-                      await _appStart.toggleApp(m);
+                      try {
+                        await _appStart.toggleApp(m);
+                      } on OnboardingException catch (e) {
+                        showSheet(context, builder: (context) => _permsSheet);
+                      }
                     });
                     _updateAnimations();
                   });

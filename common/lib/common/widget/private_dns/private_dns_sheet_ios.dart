@@ -1,8 +1,8 @@
 import 'package:common/common/widget/minicard/minicard.dart';
+import 'package:common/common/widget/private_dns/private_dns_setting_guide.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/perm/perm.dart';
-import 'package:common/family/widget/home/private_dns/private_dns_setting_guide.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +15,7 @@ class PrivateDnsSheetIos extends StatefulWidget {
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
   late final _channel = Core.get<PermChannel>();
+  late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
   @override
   void initState() {
@@ -52,9 +53,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "family perms brief alt"
-                              .i18n
-                              .withParams("Blokada Family"),
+                          "family perms brief alt".i18n.withParams(_appName),
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),
@@ -102,11 +101,13 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                               style:
                                   TextStyle(color: context.theme.textSecondary),
                             ),
-                            const PrivateDnsSettingGuideWidget(
-                              title: "Blokada Family",
-                              subtitle: "Blokada Family",
+                            PrivateDnsSettingGuideWidget(
+                              title: _appName,
+                              subtitle: _appName,
                               iconReplacement: Image(
-                                image: AssetImage('assets/images/appicon.png'),
+                                image: AssetImage(Core.act.isFamily
+                                    ? 'assets/images/family-appicon.png'
+                                    : 'assets/images/v6-appicon.png'),
                                 width: 24,
                               ),
                               chevron: false,
@@ -125,7 +126,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: MiniCard(
-                        onTap: () {
+                        onTap: () async {
                           Navigator.of(context).pop();
                           _channel.doOpenPermSettings();
                         },

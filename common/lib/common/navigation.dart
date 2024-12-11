@@ -4,11 +4,13 @@ import 'package:common/common/module/support/support.dart';
 import 'package:common/common/route.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
+import 'package:common/common/widget/settings/retention_section.dart';
 import 'package:common/common/widget/settings/settings_screen.dart';
+import 'package:common/common/widget/settings/vpn_devices_section.dart';
 import 'package:common/common/widget/stats/stats_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
-import 'package:common/common/widget/support/support_screen.dart';
+import 'package:common/common/widget/support/support_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/common/widget/with_top_bar.dart';
@@ -18,6 +20,9 @@ import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/device/device_screen.dart';
 import 'package:common/family/widget/filters_section.dart';
 import 'package:common/platform/custom/custom.dart';
+import 'package:common/platform/stage/stage.dart';
+import 'package:common/v6/widget/activity_screen.dart';
+import 'package:common/v6/widget/advanced_screen.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {
@@ -30,7 +35,11 @@ enum Paths {
   settingsExceptions("/settings/exceptions", true),
   settingsAccount("/settings/account", true),
   settingsRetention("/settings/retention", true),
-  support("/support", false);
+  settingsVpnDevices("/settings/vpn", true),
+  support("/support", true), // Doesn't work in pane
+  // V6 tabs
+  activity("/activity", false),
+  advanced("/advanced", false);
 
   final String path;
   final bool openInTablet;
@@ -56,6 +65,7 @@ double getTopPadding(BuildContext context) {
 class Navigation with Logging {
   late final _filter = Core.get<JournalFilterValue>();
   late final _custom = Core.get<CustomStore>();
+  late final _support = Core.get<SupportActor>();
 
   static late bool isTabletMode;
 
@@ -103,8 +113,7 @@ class Navigation with Logging {
         settings: settings,
         builder: (context) => WithTopBar(
           title: "family stats label blocklists".i18n,
-          child: FiltersSection(
-              profileId: device.profile.profileId, isHeader: true),
+          child: FamilyFiltersSection(profileId: device.profile.profileId),
         ),
       );
     }
@@ -137,9 +146,45 @@ class Navigation with Logging {
       );
     }
 
+    if (settings.name == Paths.settingsRetention.path) {
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: "activity section header".i18n,
+          child: const RetentionSection(),
+        ),
+      );
+    }
+
+    if (settings.name == Paths.settingsVpnDevices.path) {
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: "web vpn devices header".i18n,
+          child: const VpnDevicesSection(),
+        ),
+      );
+    }
+
     if (settings.name == Paths.support.path) {
       return StandardRoute(
-          settings: settings, builder: (context) => const SupportScreen());
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: "support action chat".i18n,
+          topBarTrailing: _getSupportAction(context),
+          child: const SupportSection(),
+        ),
+      );
+    }
+
+    if (settings.name == Paths.activity.path) {
+      return StandardRoute(
+          settings: settings, builder: (context) => const ActivityScreen());
+    }
+
+    if (settings.name == Paths.advanced.path) {
+      return StandardRoute(
+          settings: settings, builder: (context) => const AdvancedScreen());
     }
 
     return StandardRoute(settings: settings, builder: (context) => homeContent);
@@ -178,11 +223,22 @@ class Navigation with Logging {
           ),
         ));
   }
+
+  Widget? _getSupportAction(BuildContext context) {
+    return CommonClickable(
+        onTap: () {
+          Navigator.of(context).pop();
+          _support.clearSession(Markers.userTap);
+        },
+        child: Text("support action end".i18n,
+            style: const TextStyle(color: Colors.red, fontSize: 17)));
+  }
 }
 
 class NavigationPopObserver extends NavigatorObserver {
   late final _filter = Core.get<JournalFilterValue>();
   late final _unread = Core.get<SupportUnreadActor>();
+  late final _stage = Core.get<StageStore>();
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
@@ -199,6 +255,11 @@ class NavigationPopObserver extends NavigatorObserver {
       // TODO: this needs rework and merging with StageStore
       if (r.name == Paths.support.path) {
         _unread.wentBackFromSupport();
+      }
+
+      // V6 hacky tab management, handle going back to home
+      if (!Core.act.isFamily && p.name == Paths.home.path) {
+        _stage.setRoute(Paths.home.path, Markers.root);
       }
     }
   }

@@ -13,8 +13,8 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/env/env.dart';
 import 'package:common/platform/link/channel.pg.dart';
+import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +35,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _stage = Core.get<StageStore>();
   late final _env = Core.get<EnvStore>();
   late final _account = Core.get<AccountStore>();
+  late final _perm = Core.get<PlatformPermActor>();
   late final _command = Core.get<CommandStore>();
   late final _unread = Core.get<SupportUnread>();
 
@@ -138,7 +139,9 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                               icon: CupertinoIcons.person_crop_circle,
                               text: "account action my account".i18n,
                               onTap: () {
-                                Navigation.open(Paths.settingsAccount);
+                                _perm.authenticate(Markers.userTap, () {
+                                  showAccountIdDialog(context, _account.id);
+                                });
                               }),
                           const CommonDivider(),
                           SettingsItem(
@@ -155,6 +158,20 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                 Navigation.open(Paths.settingsRetention);
                               }),
                           const CommonDivider(),
+                          (_account.type == AccountType.plus)
+                              ? Column(
+                                  children: [
+                                    SettingsItem(
+                                        icon: CupertinoIcons.device_desktop,
+                                        text: "web vpn devices header".i18n,
+                                        onTap: () {
+                                          Navigation.open(
+                                              Paths.settingsVpnDevices);
+                                        }),
+                                    const CommonDivider(),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       )
                     : Container(),
@@ -249,7 +266,6 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           Center(
               child: Text(_getAppVersion(),
                   style: TextStyle(color: context.theme.divider))),
-          TapBarCompensation(),
         ],
       ),
     );

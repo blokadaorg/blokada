@@ -1,5 +1,6 @@
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -99,7 +100,7 @@ class ExceptionItemState extends State<ExceptionItem> {
             backgroundColor: Colors.red.withOpacity(0.95),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.delete,
-            label: "Remove",
+            label: "universal action delete".i18n,
             //borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
         ],

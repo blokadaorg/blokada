@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
@@ -24,7 +25,7 @@ class _TabState extends State<TabWidget> with Disposables {
   @override
   void initState() {
     super.initState();
-    _stage.addOnValue(routeChanged, _updateRoute);
+    //_stage.addOnValue(routeChanged, _updateRoute);
   }
 
   _updateRoute(StageRouteState route, Marker m) async {
@@ -41,14 +42,27 @@ class _TabState extends State<TabWidget> with Disposables {
     });
   }
 
-  _tap(StageTab tab) {
+  _tap(StageTab tab) async {
     // Instant UI feedback
     setState(() {
       _active = tab;
     });
 
-    _nav.navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    _stage.setRoute(tab.name, Markers.userTap);
+    _nav.hackyManualPopToFirst();
+
+    if (tab == StageTab.home) {
+      // Already popped above
+      _stage.setRoute(StageTab.home.name, Markers.userTap);
+    } else if (tab == StageTab.activity) {
+      Navigation.open(Paths.activity);
+      _stage.setRoute(StageTab.activity.name, Markers.userTap);
+    } else if (tab == StageTab.advanced) {
+      Navigation.open(Paths.advanced);
+      _stage.setRoute(StageTab.advanced.name, Markers.userTap);
+    } else {
+      Navigation.open(Paths.settings);
+      _stage.setRoute(StageTab.settings.name, Markers.userTap);
+    }
   }
 
   @override
@@ -97,9 +111,7 @@ class _TabState extends State<TabWidget> with Disposables {
                     icon: CupertinoIcons.cube_box,
                     title: "main tab advanced".i18n,
                     active: _active == StageTab.advanced,
-                    onTap: () {
-                      _stage.setRoute("advanced", Markers.userTap);
-                    }),
+                    onTap: () => _tap(StageTab.advanced)),
                 TabItem(
                     icon: CupertinoIcons.settings,
                     title: "main tab settings".i18n,

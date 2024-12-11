@@ -29,7 +29,7 @@ class SupportUnreadActor with Logging, Actor {
     log(m).t("New chat message");
     if (!isOnSupportScreen) {
       log(m).i("Setting chat unread flag");
-      _unread.change(m, true);
+      await _unread.change(m, true);
       if (!isForeground) {
         await _notification.showWithBody(
             NotificationId.supportNewMessage, m, content);

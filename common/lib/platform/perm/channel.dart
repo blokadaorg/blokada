@@ -7,6 +7,9 @@ class PlatformPermChannel with PermChannel {
   Future<void> doAskNotificationPerms() => _platform.doAskNotificationPerms();
 
   @override
+  Future<void> doAskVpnPerms() => _platform.doAskVpnPerms();
+
+  @override
   Future<bool> doNotificationEnabled() => _platform.doNotificationEnabled();
 
   @override
@@ -24,9 +27,15 @@ class PlatformPermChannel with PermChannel {
 
   @override
   Future<String> getPrivateDnsSetting() => _platform.getPrivateDnsSetting();
+
+  @override
+  Future<bool> doAuthenticate() => _platform.doAuthenticate();
 }
 
 class NoOpPermChannel with PermChannel {
+  @override
+  Future<void> doAskVpnPerms() => Future.value();
+
   @override
   Future<void> doAskNotificationPerms() => Future.value();
 
@@ -48,4 +57,7 @@ class NoOpPermChannel with PermChannel {
 
   @override
   Future<String> getPrivateDnsSetting() => Future.value("");
+
+  @override
+  Future<bool> doAuthenticate() => Future.value(true);
 }

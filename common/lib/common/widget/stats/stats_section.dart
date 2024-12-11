@@ -8,7 +8,6 @@ import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
-import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
@@ -64,39 +63,37 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListView(
-        primary: widget.primary,
-        children: [
-              // Header for v6 or padding for Family
-              (widget.isHeader)
-                  ? _buildHeaderForV6(context)
-                  : SizedBox(height: getTopPadding(context)),
-              // The rest of the screen
-              Container(
-                decoration: BoxDecoration(
-                  color: context.theme.bgMiniCard,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12)),
+          primary: widget.primary,
+          children: [
+                // Header for v6 or padding for Family
+                (widget.isHeader)
+                    ? _buildHeaderForV6(context)
+                    : SizedBox(height: getTopPadding(context)),
+                // The rest of the screen
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.theme.bgMiniCard,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12)),
+                  ),
+                  height: 12,
                 ),
-                height: 12,
-              ),
-            ] +
-            (!_isReady || _entries.now.isEmpty
-                ? _buildEmpty(context)
-                : _buildItems(context)) +
-            [
-              Container(
-                decoration: BoxDecoration(
-                  color: context.theme.bgMiniCard,
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12)),
+              ] +
+              (!_isReady || _entries.now.isEmpty
+                  ? _buildEmpty(context)
+                  : _buildItems(context)) +
+              [
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.theme.bgMiniCard,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12)),
+                  ),
+                  height: 12,
                 ),
-                height: 12,
-              ),
-            ] +
-            [TapBarCompensation()],
-      ),
+              ]),
     );
   }
 

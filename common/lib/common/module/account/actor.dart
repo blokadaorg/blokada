@@ -8,7 +8,7 @@ class AccountActor with Actor {
   @override
   onStart(Marker m) async {
     if (_store.account != null) {
-      _accountId.change(m, _store.account!.id);
+      await _accountId.change(m, _store.account!.id);
     }
 
     _store.addOn(acc.accountChanged, (m) {

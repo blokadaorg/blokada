@@ -38,7 +38,7 @@ class AuthActor with Logging, Actor {
 
   Future<DeviceTag> useToken(String token, Marker m) async {
     final payload = await _startMonitoringTokenExpiry(token, m);
-    _currentToken.change(m, token);
+    await _currentToken.change(m, token);
     return payload.deviceTag;
   }
 
@@ -80,12 +80,12 @@ class AuthActor with Logging, Actor {
       final token = await _currentToken.now();
       if (token == null) return false;
       final payload = await _api.refresh(token, m);
-      _currentToken.change(m, payload.token);
+      await _currentToken.change(m, payload.token);
       onTokenRefreshed(m);
       return true;
     } catch (e) {
       onTokenExpired(m); // TODO: may be too aggressive
-      _currentToken.change(m, null);
+      await _currentToken.change(m, null);
       throw Exception("Failed to refresh token: $e");
     }
   }
@@ -112,7 +112,7 @@ class AuthActor with Logging, Actor {
     } on HttpCodeException catch (e) {
       if (e.code == 401) {
         onTokenExpired(m);
-        _currentToken.change(m, null);
+        await _currentToken.change(m, null);
         await _scheduler.stop(m, _keyHeartbeat);
         log(m).w("token unavailable, stopping heartbeat");
         throw SchedulerException(e);

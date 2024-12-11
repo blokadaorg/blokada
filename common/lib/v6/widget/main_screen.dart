@@ -2,10 +2,7 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/overlay.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/widget/home/animated_bg.dart';
 import 'package:common/v6/widget/home_screen.dart';
-import 'package:common/v6/widget/tab/tab.dart';
-import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +28,6 @@ class V6MainScreenState extends State<V6MainScreen> {
         create: (context) => widget.ctrl,
         child: Stack(
           children: [
-            const FamilyAnimatedBg(),
             Padding(
               padding: EdgeInsets.only(
                   bottom: PlatformInfo().isSmallAndroid(context) ? 44 : 0),
@@ -44,14 +40,6 @@ class V6MainScreenState extends State<V6MainScreen> {
                 },
               ),
             ),
-            (context.isKeyboardOpened)
-                ? Container()
-                : const Column(
-                    children: [
-                      Spacer(),
-                      TabWidget(),
-                    ],
-                  ),
             const Positioned(
               top: 0,
               left: 0,

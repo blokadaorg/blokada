@@ -3,7 +3,6 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/support/convert.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/v6/widget/tab/tab_bar_compensation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -58,10 +57,7 @@ class SupportSectionState extends State<SupportSection> {
     maybeStartSessionDelayed();
     return Padding(
       padding: EdgeInsets.only(
-          left: 16.0,
-          right: 16.0,
-          top: getTopPadding(context),
-          bottom: 32.0 + context.tabBarHeight),
+          left: 16.0, right: 16.0, top: getTopPadding(context), bottom: 32.0),
       child: Chat(
         messages: _messages.reversed.toList(),
         onSendPressed: _handleSendPressed,

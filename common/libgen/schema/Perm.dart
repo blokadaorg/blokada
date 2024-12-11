@@ -22,4 +22,10 @@ abstract class PermOps {
 
   @async
   void doAskNotificationPerms();
+
+  @async
+  void doAskVpnPerms();
+
+  @async
+  bool doAuthenticate();
 }

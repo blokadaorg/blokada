@@ -44,6 +44,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _plus = Core.get<PlusStore>();
   late final _plusKeypair = Core.get<PlusKeypairStore>();
   late final _link = Core.get<LinkStore>();
+  late final _permStore = Core.get<PlatformPermActor>();
 
   AppStartStoreBase() {
     reactionOnStore((_) => pausedUntil, (pausedUntil) async {
@@ -170,10 +171,15 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         pausedUntil = null;
       } on AccountTypeException {
         await _app.appPaused(true, m);
+        _permStore.askNotificationPermissions(m);
         await _stage.showModal(StageModal.payment, m);
       } on OnboardingException {
         await _app.appPaused(true, m);
-        await _stage.showModal(StageModal.perms, m);
+        _permStore.askNotificationPermissions(m);
+        rethrow;
+      } catch (e) {
+        await _permStore.syncPerms(m);
+        rethrow;
       }
     });
     return false;
@@ -201,8 +207,8 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       throw AccountTypeException();
     } else if (!_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
       throw OnboardingException();
-    } else if (_account.type == AccountType.plus && _permVpn.present != true) {
-      throw OnboardingException();
+      // } else if (_account.type == AccountType.plus && _permVpn.present != true) {
+      //   throw OnboardingException();
     }
     await _device.setCloudEnabled(true, m);
   }

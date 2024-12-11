@@ -34,7 +34,7 @@ class DeviceActor with Logging, Actor {
     if (devices.firstWhereOrNull((it) => it.deviceTag == d?.deviceTag) ==
         null) {
       // The value o _thisDevice is not correct for current account, reset
-      _thisDevice.change(m, null);
+      await _thisDevice.change(m, null);
       d = null;
     }
 
@@ -59,7 +59,7 @@ class DeviceActor with Logging, Actor {
           ),
           m);
 
-      _thisDevice.change(m, newDevice);
+      await _thisDevice.change(m, newDevice);
       devices = await _devices.fetch(m);
     }
   }
@@ -85,7 +85,7 @@ class DeviceActor with Logging, Actor {
           .firstWhereOrNull((it) => it.deviceTag == thisDevice.deviceTag);
       if (confirmedThisDevice != null) throw AlreadyLinkedException();
     }
-    _thisDevice.change(m, d);
+    await _thisDevice.change(m, d);
   }
 
   Future<LinkingDevice> addDevice(
@@ -126,7 +126,7 @@ class DeviceActor with Logging, Actor {
 
       // Also update thisDevice if it was renamed
       if (_thisDevice.present?.deviceTag == device.deviceTag) {
-        _thisDevice.change(m, updated);
+        await _thisDevice.change(m, updated);
       }
 
       _commit(updated);
