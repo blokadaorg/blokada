@@ -1,6 +1,6 @@
 part of 'list.dart';
 
-class JsonListEndpoint {
+class JsonListEndpoint with Logging {
   late List<JsonListItem> lists;
 
   JsonListEndpoint({required this.lists});
@@ -9,7 +9,14 @@ class JsonListEndpoint {
     try {
       lists = <JsonListItem>[];
       json['lists'].forEach((v) {
-        lists.add(JsonListItem.fromJson(v));
+        try {
+          lists.add(JsonListItem.fromJson(v));
+        } catch (e, s) {
+          log(Markers.root).e(
+              msg: "Failed to parse blocklist list item, ignoring: $v",
+              err: e,
+              stack: s);
+        }
       });
     } on TypeError catch (e) {
       throw JsonError(json, e);

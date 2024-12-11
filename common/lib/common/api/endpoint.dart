@@ -19,7 +19,8 @@ class HttpRequest {
 
 enum ApiEndpoint {
   getGateways("v2/gateway"),
-  getLists("v2/list", params: [ApiParam.accountId]),
+  getListsV2("v2/list", params: [ApiParam.accountId]),
+  getLists("v3/list", params: [ApiParam.accountId]),
   getProfiles("v3/profile", params: [ApiParam.accountId]),
   postProfile("v3/profile", type: "POST", params: [ApiParam.accountId]),
   putProfile("v3/profile", type: "PUT", params: [ApiParam.accountId]),
