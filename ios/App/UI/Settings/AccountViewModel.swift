@@ -78,7 +78,7 @@ class AccountViewModel: ObservableObject {
         self.working = false
     }
 
-    func authenticate(ok: @escaping Ok<String>) {
+    func authenticate(ok: @escaping Ok<Void>, fail: @escaping Ok<Void>) {
         let context = LAContext()
         var error: NSError?
 
@@ -92,15 +92,16 @@ class AccountViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     if success {
                         // authenticated successfully
-                        ok(self.id)
+                        ok(())
                     } else {
                         // there was a problem
+                        fail(())
                     }
                 }
             }
         } else {
             // no biometrics
-            ok(self.id)
+            ok(())
         }
     }
 

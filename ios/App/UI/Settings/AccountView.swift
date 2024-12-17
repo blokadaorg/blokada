@@ -27,11 +27,6 @@ struct AccountView: View {
             if (self.vm.type != .Family) {
                 Section(header: Text(L10n.accountSectionHeaderGeneral)) {
                     Button(action: {
-                        if self.id == "••••••" {
-                            self.vm.authenticate { id in
-                                self.id = id
-                            }
-                        }
                     }) {
                         HStack {
                             Text(L10n.accountLabelId)
@@ -43,9 +38,7 @@ struct AccountView: View {
                     }
                     .contextMenu {
                         Button(action: {
-                            self.vm.authenticate { id in
-                                self.vm.copyAccountIdToClipboard()
-                            }
+                            self.vm.copyAccountIdToClipboard()
                         }) {
                             Text(L10n.universalActionCopy)
                             Image(systemName: Image.fCopy)

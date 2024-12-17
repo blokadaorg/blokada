@@ -33,6 +33,7 @@ class PermBinding: PermOps {
     private lazy var netx = Services.netx
     private lazy var permsRepo = Repos.permsRepo
     private lazy var systemNav = Services.systemNav
+    private lazy var account = ViewModels.account
 
     fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
 
@@ -43,6 +44,14 @@ class PermBinding: PermOps {
     init() {
         PermOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
         onVpnPerms()
+    }
+    
+    func doAuthenticate(completion: @escaping (Result<Bool, any Error>) -> Void) {
+        account.authenticate(ok: { _ in
+            completion(.success(true))
+        }, fail: { _ in
+            completion(.success(false))
+        })
     }
 
     func doSetPrivateDnsEnabled(tag: String, alias: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -95,6 +104,20 @@ class PermBinding: PermOps {
             .sink()
             .store(in: &cancellables)
         completion(Result.success(()))
+    }
+    
+    func doAskVpnPerms(completion: @escaping (Result<Void, Error>) -> Void) {
+        self.permsRepo.maybeAskVpnProfilePerms()
+            .receive(on: RunLoop.main)
+            .sink(
+                onFailure: { err in
+                    completion(Result.failure(err))
+                },
+                onSuccess: {
+                    completion(Result.success(()))
+                }
+            )
+            .store(in: &cancellables)
     }
 
     func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {

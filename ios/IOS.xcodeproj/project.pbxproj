@@ -18,6 +18,9 @@
 		4E08B9D7247EAD8100AED8F0 /* ContentHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */; };
 		4E08B9D9247FF4BE00AED8F0 /* JournalDetailV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D8247FF4BE00AED8F0 /* JournalDetailV.swift */; };
 		4E08B9DA247FF4BE00AED8F0 /* JournalDetailV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9D8247FF4BE00AED8F0 /* JournalDetailV.swift */; };
+		4E08FEBF2CFF19CA006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
+		4E08FEC02CFF19DB006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
+		4E08FEC12CFF19E4006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
 		4E0B7E50278DB6DA0032259C /* LinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */; };
 		4E0B7E51278DB6DA0032259C /* LinkRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B7E4F278DB6DA0032259C /* LinkRepo.swift */; };
 		4E0BF79B27BE849B0015D01E /* TopBarBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF79A27BE849B0015D01E /* TopBarBlurView.swift */; };
@@ -1183,9 +1186,6 @@
 		4EEC496E2A543B0E001EF934 /* CommandsBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */; };
 		4EEC496F2A543B0E001EF934 /* CommandsBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */; };
 		4EECA5032418D142003A2541 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECA5022418D142003A2541 /* AccountView.swift */; };
-		4EEDBB9A2B610E5B004AB456 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBB992B610E5B004AB456 /* MainView.swift */; };
-		4EEDBB9B2B610E5B004AB456 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBB992B610E5B004AB456 /* MainView.swift */; };
-		4EEDBB9C2B610E5B004AB456 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEDBB992B610E5B004AB456 /* MainView.swift */; };
 		4EEDBB9D2B6117A2004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
 		4EEDBB9F2B6117AC004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
 		4EEDBBA12B6117B5004AB456 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
@@ -1712,7 +1712,6 @@
 		4EEC49682A543AEE001EF934 /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Command.swift; path = "six-common/libgen/ios/Command.swift"; sourceTree = SOURCE_ROOT; };
 		4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsBinding.swift; sourceTree = "<group>"; };
 		4EECA5022418D142003A2541 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		4EEDBB992B610E5B004AB456 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4EEDBBA62B68EA3E004AB456 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = "six-common/libgen/ios/Filter.swift"; sourceTree = SOURCE_ROOT; };
 		4EEDBBAD2B68EA59004AB456 /* FilterBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBinding.swift; sourceTree = "<group>"; };
 		4EF35C942C9D77DE00699022 /* UrlBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBinding.swift; sourceTree = "<group>"; };
@@ -2148,7 +2147,6 @@
 			isa = PBXGroup;
 			children = (
 				4EA029322B346FA400B689B4 /* Flavor.xcconfig */,
-				4E61D8E627B2DA7F00C98D36 /* MainView.swift */,
 				4E356A8724376B3A0094EE27 /* SplashView.swift */,
 				4E88AA152B2B1B28006B16E7 /* BlokadaView.swift */,
 				4E3E1FB62A7B8F24005A2550 /* Flavor.swift */,
@@ -2174,7 +2172,6 @@
 		4E270D002A80EAF100D3484B /* NotFamily */ = {
 			isa = PBXGroup;
 			children = (
-				4EEDBB992B610E5B004AB456 /* MainView.swift */,
 				4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */,
 				4E270D012A80EB1100D3484B /* Flavor.swift */,
 				4E1275ED2AE7CF0D00A94994 /* FlavorResources.swift */,
@@ -2249,6 +2246,7 @@
 		4E423540244F480F005A0779 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				4E61D8E627B2DA7F00C98D36 /* MainView.swift */,
 				4E955DC42771D780008DE06F /* ContentViewModel.swift */,
 				4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */,
 				4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */,
@@ -2824,6 +2822,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E08FEBF2CFF19CA006433EE /* MainView.swift in Sources */,
 				4EEDBBA12B6117B5004AB456 /* AccountChangeView.swift in Sources */,
 				4EB4967F2B233CBE00926C85 /* ShieldsWideView.swift in Sources */,
 				4E59B8D62A014233005ECD5F /* PaymentBinding.swift in Sources */,
@@ -2931,7 +2930,6 @@
 				4E23D01D293E20BC00613D0A /* PeerConfiguration.swift in Sources */,
 				4EF7EDF5240E9E95001FA02E /* Resources.swift in Sources */,
 				4E90BA3F27BC09260051FD0C /* QuickActionsService.swift in Sources */,
-				4EEDBB9A2B610E5B004AB456 /* MainView.swift in Sources */,
 				4E88AA1A2B2B1B62006B16E7 /* SplashView.swift in Sources */,
 				4E8AE1F9275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E02E30E2A56DA620014E884 /* NetworkCommand.swift in Sources */,
@@ -3436,6 +3434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E08FEC12CFF19E4006433EE /* MainView.swift in Sources */,
 				4EEDBBA52B6118EB004AB456 /* Flavor.swift in Sources */,
 				4EEDBB9D2B6117A2004AB456 /* AccountChangeView.swift in Sources */,
 				4E28ADEC2AB99DB0007445C8 /* ShieldsNarrowView.swift in Sources */,
@@ -3500,7 +3499,6 @@
 				4E7FE997244DC28900851E9F /* LocationView.swift in Sources */,
 				4E7FE99C244DC28900851E9F /* KeychainSwiftDistrib.swift in Sources */,
 				4E7FE99D244DC28900851E9F /* AccountView.swift in Sources */,
-				4EEDBB9C2B610E5B004AB456 /* MainView.swift in Sources */,
 				4E42354C244F9198005A0779 /* LeaseViewModel.swift in Sources */,
 				4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E78E364245ED1D80017B234 /* PackDetailViewModel.swift in Sources */,
@@ -3632,6 +3630,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E08FEC02CFF19DB006433EE /* MainView.swift in Sources */,
 				4EEDBB9F2B6117AC004AB456 /* AccountChangeView.swift in Sources */,
 				4EB496802B233CBE00926C85 /* ShieldsWideView.swift in Sources */,
 				4E86510C2A3C968B0060AFB1 /* PaymentBinding.swift in Sources */,
@@ -3739,7 +3738,6 @@
 				4E86517A2A3C968B0060AFB1 /* PeerConfiguration.swift in Sources */,
 				4E86517B2A3C968B0060AFB1 /* Resources.swift in Sources */,
 				4E86517C2A3C968B0060AFB1 /* QuickActionsService.swift in Sources */,
-				4EEDBB9B2B610E5B004AB456 /* MainView.swift in Sources */,
 				4E88AA1B2B2B1B62006B16E7 /* SplashView.swift in Sources */,
 				4E86517D2A3C968B0060AFB1 /* CombineUtil.swift in Sources */,
 				4E02E30F2A56DA620014E884 /* NetworkCommand.swift in Sources */,
