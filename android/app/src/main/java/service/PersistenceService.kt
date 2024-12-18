@@ -24,9 +24,7 @@ import model.DnsWrapper
 import model.LegacyAccount
 import model.LocalConfig
 import model.NetworkSpecificConfigs
-import model.Packs
 import model.SyncableConfig
-import repository.PackMigration
 import ui.utils.cause
 import utils.Logger
 import kotlin.reflect.KClass
@@ -60,11 +58,6 @@ object PersistenceService {
             if (string != null) {
                 val deserialized = deserializer.deserialize(string, type)
                 return when (type) {
-                    Packs::class -> {
-                        val (packs, migrated) = PackMigration.migrate(deserialized as Packs)
-                        if (migrated) save(packs)
-                        packs as T
-                    }
                     else -> deserialized
                 }
             }
@@ -78,7 +71,6 @@ object PersistenceService {
     }
 
     private fun getPrefsKey(type: KClass<*>) = when (type) {
-        Packs::class -> "packs"
         BlockaConfig::class -> "blockaConfig"
         LocalConfig::class -> "localConfig"
         SyncableConfig::class -> "syncableConfig"
@@ -94,7 +86,6 @@ object PersistenceService {
     }
 
     private fun <T: Any> getDefault(type: KClass<T>) = when (type) {
-        Packs::class -> Defaults.packs() as T
         BlockaConfig::class -> Defaults.blockaConfig() as T
         LocalConfig::class -> Defaults.localConfig() as T
         SyncableConfig::class -> Defaults.syncableConfig() as T

@@ -36,7 +36,6 @@ import service.NotificationService
 import service.SystemNavService
 import service.VpnPermissionService
 import ui.utils.AndroidUtils
-import utils.Ignored
 
 open class PermsRepo {
 
@@ -143,7 +142,7 @@ open class PermsRepo {
 //            .eraseToAnyPublisher()
     }
 
-    suspend fun displayNotificationPermsInstructions(): Flow<Ignored> {
+    suspend fun displayNotificationPermsInstructions(): Flow<Boolean> {
         val ctx = context.requireContext()
         return dialog.showAlert(
             message = ctx.getString(R.string.notification_perms_denied),
@@ -155,7 +154,7 @@ open class PermsRepo {
         )
     }
 
-    suspend fun displayDnsProfilePermsInstructions(): Flow<Ignored> {
+    suspend fun displayDnsProfilePermsInstructions(): Flow<Boolean> {
         val ctx = context.requireContext()
         return dialog.showAlert(
             message = "Copy your Blokada Cloud hostname to paste it in Settings.",

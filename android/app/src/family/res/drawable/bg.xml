@@ -13,15 +13,23 @@
   -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/bg" />
-    <item
-        android:gravity="center"
-        android:width="@dimen/icon_huge"
-        android:height="@dimen/icon_huge">
-        <bitmap
-            android:src="@drawable/blokada_logo"
-            android:gravity="fill"
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#4AE5F6"
+                android:centerColor="#3C8CFF"
+                android:endColor="#3C8CFF"
+                android:angle="280"
             />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#00000000"
+                android:endColor="#E450CD"
+                android:angle="225"
+                />
+        </shape>
     </item>
 </layer-list>

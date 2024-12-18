@@ -47,7 +47,6 @@ class CommandActivity : AppCompatActivity() {
 
     private val log = Logger("Command")
 
-    private lateinit var settingsVM: SettingsViewModel
 
     private val env by lazy { EnvironmentService }
     private val app by lazy { AppBinding }
@@ -55,7 +54,6 @@ class CommandActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
 
         interpretCommand(intent.data.toString())?.let {
             val (cmd, param) = it
@@ -91,18 +89,6 @@ class CommandActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 } else throw BlokadaException("Unknown param for command ACC: $param, ignoring")
-            }
-            Command.ESCAPE -> {
-                if (param == null) {
-                    settingsVM.setEscaped(true)
-                } else {
-                    val versionCode = param.toInt()
-                    if (EnvironmentService.getVersionCode() <= versionCode) {
-                        settingsVM.setEscaped(true)
-                    } else {
-                        log.v("Ignoring escape command, too new version code")
-                    }
-                }
             }
             Command.TOAST -> {
                 Toast.makeText(this, param, Toast.LENGTH_LONG).show()

@@ -16,20 +16,15 @@ import androidx.fragment.app.DialogFragment
 import binding.StageBinding
 import model.BlokadaException
 import ui.home.CloudPaymentFragment
-import ui.home.ConnIssuesFragment
 import ui.home.FamilyPaymentFragment
-import ui.home.HelpFragment
 import ui.home.LocationFragment
-import ui.home.OnboardingFragment
 import ui.home.ScanQrFragment
-import ui.journal.custom.UserDeniedFragment
 
 enum class Sheet {
     Help, // Help Screen (contact us)
     Payment, // Main payment screen with plans
     Location, // Location selection screen for Blokada Plus
     Activated, // A welcome showing right after purchase
-    AdsCounter, // A big total ads blocked display with option no share
     ConnIssues, // A detail view when tapping the connection issues overlay
     Custom, // Displays user defined custom exceptions lists
     AccountChange, // Displays the scan QR code screen
@@ -48,11 +43,7 @@ object SheetService {
                 else
                     CloudPaymentFragment.newInstance()
             }
-            Sheet.Activated -> OnboardingFragment.newInstance()
-            Sheet.ConnIssues -> ConnIssuesFragment.newInstance()
             Sheet.Location -> LocationFragment.newInstance()
-            Sheet.Help -> HelpFragment.newInstance()
-            Sheet.Custom -> UserDeniedFragment.newInstance()
             Sheet.AccountChange -> ScanQrFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }
