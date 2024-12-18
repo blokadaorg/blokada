@@ -16,9 +16,12 @@ import android.content.Context
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.android.RenderMode
+import service.ContextService
 import utils.Logger
 
 class FlutterHomeFragment: FlutterFragment() {
+
+    private val context by lazy { ContextService }
 
     private var argumentsSet = false
 
@@ -28,7 +31,13 @@ class FlutterHomeFragment: FlutterFragment() {
             arguments = HackyCachedEngineFragmentBuilder("common").getBundle()
             argumentsSet = true
         }
+        this.context.setFragment(this)
         super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        this.context.unsetFragment()
+        super.onDetach()
     }
 }
 

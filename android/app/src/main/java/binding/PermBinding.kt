@@ -13,10 +13,12 @@
 package binding
 
 import channel.perm.PermOps
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import repository.Repos
+import service.BiometricService
 import service.ConnectivityService
 import service.ContextService
 import service.Flavor
@@ -24,7 +26,9 @@ import service.FlutterService
 import service.NotificationService
 import service.SystemNavService
 import service.VpnPermissionService
+import ui.utils.cause
 import utils.FamilyOnboardingNotification
+import utils.Logger
 import utils.OnboardingNotification
 
 
@@ -42,6 +46,7 @@ object PermBinding: PermOps {
     private val context by lazy { ContextService }
     private val systemNav by lazy { SystemNavService }
     private val scope = GlobalScope
+    private val biometric by lazy { BiometricService }
 
     init {
         PermOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -100,6 +105,27 @@ object PermBinding: PermOps {
     override fun doAskNotificationPerms(callback: (Result<Unit>) -> Unit) {
         GlobalScope.launch {
             permsRepo.maybeDisplayNotificationPermsDialog()
+        }
+    }
+
+    override fun doAskVpnPerms(callback: (Result<Unit>) -> Unit) {
+        vpnPerms.askPermission()
+        callback(Result.success(Unit))
+    }
+
+    override fun doAuthenticate(callback: (Result<Boolean>) -> Unit) {
+        scope.launch(Dispatchers.Main) {
+            if (biometric.isBiometricReady(context.requireContext())) {
+                try {
+                    biometric.auth(context.requireFragment()) // Will throw on bad auth
+                } catch (ex: Exception) {
+                    Logger.e("SettingsAccount", "Could not authenticate".cause(ex));
+                    callback(Result.success(false))
+                    return@launch
+                }
+            }
+
+            callback(Result.success(true))
         }
     }
 

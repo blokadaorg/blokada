@@ -16,6 +16,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -27,7 +28,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
@@ -38,36 +38,24 @@ import binding.CommandBinding
 import binding.RateBinding
 import binding.StageBinding
 import channel.command.CommandName
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.play.core.review.ReviewManagerFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import model.Tab
 import org.blokada.R
 import repository.Repos
 import service.ContextService
+import service.FlutterService
 import service.NetworkMonitorPermissionService
 import service.Sheet
 import service.SheetService
 import service.TranslationService
 import service.VpnPermissionService
-import ui.advanced.decks.PackDetailFragment
 import ui.advanced.decks.PacksFragment
 import ui.home.FlutterHomeFragment
 import ui.home.HelpFragment
-import ui.journal.JournalDetailFragment
 import ui.journal.JournalFragment
-import ui.journal.RetentionFragment
-import ui.settings.SettingsAccountFragment
-import ui.settings.SettingsAppFragment
 import ui.settings.SettingsFragment
-import ui.settings.SettingsLogoutFragment
-import ui.settings.leases.LeasesFragment
-import ui.utils.cause
 import ui.utils.now
-import ui.web.WebFragment
 import ui.web.WebService
 import utils.Links
 import utils.Logger
@@ -87,6 +75,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
+    private val flutter by lazy { FlutterService }
 
     private val tabHome by lazy { FlutterHomeFragment() }
     private val tabActivity by lazy { JournalFragment() }
@@ -95,6 +84,19 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Didnt work for me
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.decorView.systemGestureExclusionRects = emptyList() // Disable system gesture interception
+        }
+
+//        // Intercept the back press
+//        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                flutter.engine.navigationChannel.popRoute()
+//            }
+//        })
+
         settingsVM = ViewModelProvider(app()).get(SettingsViewModel::class.java)
         blockaRepoVM = ViewModelProvider(app()).get(BlockaRepoViewModel::class.java)
 
@@ -111,162 +113,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         settingsVM.getTheme()?.let { setTheme(it) }
 
         setContentView(R.layout.activity_main)
-
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        val fragmentContainer: ViewGroup = findViewById(R.id.container_fragment)
-
-        stage.onShowNavBar = { show ->
-            navView.visibility = if (show) View.VISIBLE else View.GONE
-        }
-
-        GlobalScope.launch {
-            stage.route.collect { route ->
-                lifecycleScope.launch {
-                    if (route.isEmpty()) return@launch
-
-                    try {
-                        Logger.v("Main", "Route: $route")
-
-                        // Needed for dynamic translation of the top bar
-                        val translationId: Int?
-                        val fragment: Fragment?
-                        var topNav = true
-                        setFragmentInset(fragmentContainer, true)
-
-//                R.id.activityDetailFragment -> R.string.main_tab_activity
-//                R.id.navigation_settings_account -> R.string.account_action_my_account
-//                R.id.settingsLogoutFragment -> R.string.account_header_logout
-//                R.id.settingsAppFragment -> R.string.app_settings_section_header
-//                R.id.leasesFragment -> R.string.account_action_devices
-//                R.id.retentionFragment -> R.string.activity_section_header
-
-                        when {
-                            route.startsWith("activity") -> {
-                                val id = route.substringAfter("/", missingDelimiterValue = "")
-                                if (id.isEmpty()) {
-                                    translationId = R.string.main_tab_activity
-                                    fragment = tabActivity
-                                } else {
-                                    translationId = R.string.main_tab_activity
-                                    fragment = JournalDetailFragment()
-                                    fragment.arguments = Bundle().apply {
-                                        putString("id", id)
-                                    }
-                                    topNav = false
-                                }
-                                navView.selectedItemId = R.id.navigation_activity
-                            }
-
-                            route.startsWith("advanced") -> {
-                                val id = route.substringAfter("/", missingDelimiterValue = "")
-                                if (id.isEmpty()) {
-                                    translationId = R.string.advanced_section_header_packs
-                                    fragment = tabAdvanced
-                                } else {
-                                    translationId = R.string.advanced_section_header_packs
-                                    fragment = PackDetailFragment()
-                                    fragment.arguments = Bundle().apply {
-                                        putString("id", id)
-                                    }
-                                    topNav = false
-                                }
-                                navView.selectedItemId = R.id.navigation_packs
-                            }
-
-                            route.startsWith("settings") -> {
-                                val id = route.substringAfter("/", missingDelimiterValue = "")
-                                if (id.isEmpty()) {
-                                    translationId = R.string.account_section_header_settings
-                                    fragment = tabSettings
-                                } else if (id == "account") {
-                                    translationId = R.string.account_action_my_account
-                                    fragment = SettingsAccountFragment()
-                                    topNav = false
-                                } else if (id == "logout") {
-                                    translationId = R.string.account_action_logout_new
-                                    fragment = SettingsLogoutFragment()
-                                    topNav = false
-                                } else if (id == "leases") {
-                                    translationId = R.string.account_action_devices
-                                    fragment = LeasesFragment()
-                                    topNav = false
-                                } else if (id == "retention") {
-                                    translationId = R.string.account_section_header_settings
-                                    fragment = RetentionFragment()
-                                    topNav = false
-                                } else { // app
-                                    translationId = R.string.app_settings_section_header
-                                    fragment = SettingsAppFragment()
-                                    topNav = false
-                                }
-                                navView.selectedItemId = R.id.navigation_settings
-                            }
-
-                            route.startsWith("http") -> {
-                                translationId = R.string.universal_action_learn_more
-                                fragment = WebFragment()
-                                fragment.arguments = Bundle().apply {
-                                    putString("url", route)
-                                }
-                                topNav = false
-                            }
-
-                            else -> {
-                                translationId = null
-                                fragment = tabHome
-                                setFragmentInset(fragmentContainer, false)
-
-                                // Needed if flutter brings up full screen views while being in another tab
-                                navView.selectedItemId = R.id.navigation_flutterhome
-                            }
-                        }
-
-                        // Set the navbar title
-                        translationId?.let {
-                            toolbar.visibility = View.VISIBLE
-                            if (it is Int) toolbar.title = getString(it)
-                            else it.toString()
-                        } ?: run {
-                            toolbar.visibility = View.GONE
-                        }
-
-                        // Change actual fragment
-                        supportActionBar?.setDisplayHomeAsUpEnabled(!topNav)
-                        supportActionBar?.setDisplayShowHomeEnabled(!topNav)
-
-                        val tag = when {
-                            fragment is FlutterHomeFragment -> "flutterhome"
-                            fragment is JournalFragment -> "journal"
-                            fragment is PacksFragment -> "packs"
-                            fragment is SettingsFragment -> "settings"
-                            else -> null
-                        }
-
-                        if (tag != null) {
-                            val f = supportFragmentManager.findFragmentByTag(tag) ?: fragment
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container_fragment, f, tag)
-                                //.addToBackStack(null)
-                                .commit()
-                        } else {
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.container_fragment, fragment)
-                                .commit()
-                        }
-
-                        // An ugly hack to hide jumping fragments when switching tabs
-                        fragmentContainer.visibility = View.INVISIBLE
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            delay(100)
-                            fragmentContainer.visibility = View.VISIBLE
-                        }
-                    } catch (ex: Exception) {
-                        commands.execute(CommandName.FATAL, "Error while routing".cause(ex))
-                    }
-                }
-            }
-        }
 
         rate.onShowRateDialog = { askForReview(this) }
 
@@ -289,39 +135,13 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             }
         }
 
-        setSupportActionBar(toolbar)
-        setInsets(toolbar)
-
-        navView.setOnItemSelectedListener { it ->
-            // Needed for dynamic translation of the bottom bar
-            val title = when (it.itemId) {
-                R.id.navigation_activity -> getString(R.string.main_tab_activity)
-                R.id.navigation_packs -> getString(R.string.main_tab_advanced)
-                R.id.navigation_settings -> getString(R.string.main_tab_settings)
-                else -> getString(R.string.main_tab_home)
-            }
-            it.title = title
-
-            // Emit tab change
-            val tab = when(it.itemId) {
-                R.id.navigation_activity -> Tab.Activity
-                R.id.navigation_packs -> Tab.Advanced
-                R.id.navigation_settings -> Tab.Settings
-                else -> Tab.Home
-            }
-            if (stage.tab.value != tab) {
-                lifecycleScope.launch {
-                    stage.setActiveTab(tab)
-                }
-                false
-            } else true // Confirmed tab change
-        }
-
         intent?.let {
             handleIntent(it)
         }
 
-        toolbar.visibility = View.GONE
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_fragment, FlutterHomeFragment())
+            .commit()
     }
 
 //    private fun setupEvents() {
@@ -433,6 +253,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     override fun onBackPressed() {
         if (WebService.goBack()) return
         if (stage.goBack()) return
+        lifecycleScope.launch {
+            commands.execute(CommandName.BACK)
+        }
+        return
         super.onBackPressed()
     }
 
