@@ -93,7 +93,12 @@ object AppRepository {
         // Android Auto
         "com.google.android.projection.gearhead",
         // RCS
-        "com.google.android.apps.messaging"
+        "com.google.android.apps.messaging",
+        // Additions from #3
+        "com.google.android.apps.chromecast.app",
+        "com.sonos.acr",
+        "com.sonos.acr2",
+        "com.gopro.smarty"
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
