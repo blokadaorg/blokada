@@ -14,19 +14,13 @@ package service
 
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import model.BlockaAfterUpdate
 import model.BlockaConfig
-import model.BlockaRepo
-import model.BlockaRepoConfig
-import model.BlockaRepoPayload
-import model.BlockaRepoUpdate
 import model.BlokadaException
 import model.BypassedAppIds
 import model.DnsWrapper
 import model.LegacyAccount
 import model.LocalConfig
 import model.NetworkSpecificConfigs
-import model.Packs
 import model.SyncableConfig
 import repository.TranslationPack
 import kotlin.reflect.KClass
@@ -44,9 +38,6 @@ object JsonSerializationService : SerializationService {
 
     override fun serialize(obj: Any): String {
         when (obj) {
-            is Packs -> {
-                return json.encodeToString(obj);
-            }
             is BlockaConfig -> {
                 return json.encodeToString(obj);
             }
@@ -65,21 +56,6 @@ object JsonSerializationService : SerializationService {
             is TranslationPack -> {
                 return json.encodeToString(obj);
             }
-            is BlockaRepo -> {
-                return json.encodeToString(obj);
-            }
-            is BlockaRepoConfig -> {
-                return json.encodeToString(obj);
-            }
-            is BlockaRepoUpdate -> {
-                return json.encodeToString(obj);
-            }
-            is BlockaRepoPayload -> {
-                return json.encodeToString(obj);
-            }
-            is BlockaAfterUpdate -> {
-                return json.encodeToString(obj);
-            }
             is NetworkSpecificConfigs -> {
                 return json.encodeToString(obj);
             }
@@ -93,9 +69,6 @@ object JsonSerializationService : SerializationService {
     override fun <T: Any> deserialize(serialized: Any, type: KClass<T>): T {
         serialized as String
         when (type) {
-            Packs::class -> {
-                return json.decodeFromString<Packs>(serialized) as T
-            }
             BlockaConfig::class -> {
                 return json.decodeFromString<BlockaConfig>(serialized) as T
             }
@@ -113,21 +86,6 @@ object JsonSerializationService : SerializationService {
             }
             TranslationPack::class -> {
                 return json.decodeFromString<TranslationPack>(serialized) as T
-            }
-            BlockaRepo::class -> {
-                return json.decodeFromString<BlockaRepo>(serialized) as T
-            }
-            BlockaRepoConfig::class -> {
-                return json.decodeFromString<BlockaRepoConfig>(serialized) as T
-            }
-            BlockaRepoUpdate::class -> {
-                return json.decodeFromString<BlockaRepoUpdate>(serialized) as T
-            }
-            BlockaRepoPayload::class -> {
-                return json.decodeFromString<BlockaRepoPayload>(serialized) as T
-            }
-            BlockaAfterUpdate::class -> {
-                return json.decodeFromString<BlockaAfterUpdate>(serialized) as T
             }
             NetworkSpecificConfigs::class -> {
                 return json.decodeFromString<NetworkSpecificConfigs>(serialized) as T

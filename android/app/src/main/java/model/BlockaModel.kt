@@ -12,25 +12,16 @@
 
 package model
 
-import kotlinx.serialization.Serializable
-import java.util.Date
-
 typealias AccountId = String
 typealias GatewayId = String
 typealias PrivateKey = String
 typealias PublicKey = String
-typealias ActiveUntil = Date
 typealias DeviceId = String
-
-@Serializable
-data class GoogleCheckoutRequest(
-    val account_id: AccountId,
-    val purchase_token: String,
-    val subscription_id: String
-)
 
 data class PaymentPayload(
     val purchase_token: String,
     val subscription_id: String,
     val user_initiated: Boolean
 )
+
+typealias Uri = String

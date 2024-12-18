@@ -13,4 +13,3 @@
 package model
 
 typealias ProductId = String
-typealias UserInitiated = Boolean

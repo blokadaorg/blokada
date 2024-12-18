@@ -26,9 +26,7 @@ import service.FlutterService
 import utils.toBlockaDate
 import java.util.Date
 
-fun Account.isActive() = active ?: false
 fun Account?.getType() = this?.type.toAccountType()
-fun Account.getSource() = paymentSource
 fun Account.activeUntil(): Date = activeUntil?.toBlockaDate() ?: Date(0)
 
 object AccountBinding: AccountOps {

@@ -12,11 +12,7 @@
 
 package service
 
-import model.BlockaAfterUpdate
 import model.BlockaConfig
-import model.BlockaRepoConfig
-import model.BlockaRepoPayload
-import model.BlockaRepoUpdate
 import model.BlokadaException
 import model.BypassedAppIds
 import model.Defaults
@@ -76,10 +72,6 @@ object PersistenceService {
         SyncableConfig::class -> "syncableConfig"
         DnsWrapper::class -> "dns"
         BypassedAppIds::class -> "bypassedApps"
-        BlockaRepoConfig::class -> "blockaRepoConfig"
-        BlockaRepoUpdate::class -> "blockaRepoUpdate"
-        BlockaRepoPayload::class -> "blockaRepoPayload"
-        BlockaAfterUpdate::class -> "blockaAfterUpdate"
         NetworkSpecificConfigs::class -> "networkSpecificConfigs"
         LegacyAccount::class -> "account"
         else -> throw BlokadaException("Unsupported type for persistence: $type")
@@ -91,10 +83,6 @@ object PersistenceService {
         SyncableConfig::class -> Defaults.syncableConfig() as T
         DnsWrapper::class -> Defaults.dnsWrapper() as T
         BypassedAppIds::class -> Defaults.bypassedAppIds() as T
-        BlockaRepoConfig::class -> Defaults.blockaRepoConfig() as T
-        BlockaRepoUpdate::class -> Defaults.noSeenUpdate() as T
-        BlockaRepoPayload::class -> Defaults.noPayload() as T
-        BlockaAfterUpdate::class -> Defaults.noAfterUpdate() as T
         NetworkSpecificConfigs::class -> Defaults.noNetworkSpecificConfigs() as T
         else -> throw BlokadaException("No default for persisted type: $type")
     }

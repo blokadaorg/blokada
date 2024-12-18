@@ -36,23 +36,6 @@ object Defaults {
 
     fun bypassedAppIds() = BypassedAppIds(emptyList()) // Also check AppRepository
 
-    fun blockaRepoConfig() = BlockaRepoConfig(
-        name = "default",
-        forBuild = "*"
-    )
-
-    fun noSeenUpdate() = BlockaRepoUpdate(
-        mirrors = emptyList(),
-        infoUrl = "",
-        newest = ""
-    )
-
-    fun noPayload() = BlockaRepoPayload(
-        cmd = ""
-    )
-
-    fun noAfterUpdate() = BlockaAfterUpdate()
-
     fun noNetworkSpecificConfigs() = NetworkSpecificConfigs(configs = listOf(
         defaultNetworkConfig(),
         defaultNetworkConfig().copy(network = NetworkDescriptor.cell(null)),

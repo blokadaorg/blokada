@@ -27,8 +27,6 @@ fun String?.toAccountType(): AccountType {
     }
 }
 
-fun AccountType.isActive() = this != AccountType.Libre
-
 @Serializable
 data class LegacyAccount(
     val id: AccountId,

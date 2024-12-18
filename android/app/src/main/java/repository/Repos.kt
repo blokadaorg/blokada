@@ -14,7 +14,6 @@ package repository
 
 object Repos {
 
-    val processing by lazy { DebugProcessingRepo() }
     val perms by lazy { PermsRepo() }
 
     private var started = false
@@ -22,7 +21,6 @@ object Repos {
     fun start() {
         if (started) return
         started = true
-        processing.start()
         perms.start()
     }
 

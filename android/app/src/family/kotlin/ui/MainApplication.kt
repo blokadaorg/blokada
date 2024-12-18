@@ -22,12 +22,9 @@ import binding.AccountBinding
 import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
-import binding.CustomBinding
 import binding.DeviceBinding
 import binding.EnvBinding
 import binding.HttpBinding
-import binding.JournalBinding
-import binding.LinkBinding
 import binding.LoggerBinding
 import binding.NotificationBinding
 import binding.PermBinding
@@ -43,7 +40,6 @@ import service.ConnectivityService
 import service.ContextService
 import service.DozeService
 import service.FlutterService
-import service.MonitorService
 
 class MainApplication: Application(), ViewModelStoreOwner {
 
@@ -61,12 +57,9 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var account: AccountBinding
     private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var device: DeviceBinding
-    private lateinit var journal: JournalBinding
-    private lateinit var custom: CustomBinding
     private lateinit var perm: PermBinding
     private lateinit var rate: RateBinding
     private lateinit var stats: StatsBinding
-    private lateinit var link: LinkBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -78,7 +71,6 @@ class MainApplication: Application(), ViewModelStoreOwner {
 
         DozeService.setup(this)
         setupEvents()
-        MonitorService.setup(false)
         Repos.start()
     }
 
@@ -97,12 +89,9 @@ class MainApplication: Application(), ViewModelStoreOwner {
         account = AccountBinding
         accountPayment = AccountPaymentBinding
         device = DeviceBinding
-        journal = JournalBinding
-        custom = CustomBinding
         perm = PermBinding
         rate = RateBinding
         stats = StatsBinding
-        link = LinkBinding
     }
 
     private fun setupEvents() {
@@ -115,23 +104,8 @@ class MainApplication: Application(), ViewModelStoreOwner {
             BlocklistService.setup()
         }
 
-        GlobalScope.launch { onAppStateChanged_updateMonitorService() }
-        GlobalScope.launch { onAppStateWorking_updateMonitorService() }
     }
 
-    private suspend fun onAppStateChanged_updateMonitorService() {
-        app.appStatus.collect {
-            MonitorService.setAppState(it)
-        }
-    }
-
-    private suspend fun onAppStateWorking_updateMonitorService() {
-        app.working.collect {
-            it?.let {
-                MonitorService.setWorking(it)
-            }
-        }
-    }
     companion object {
         /**
          * Not sure if doing it right, but some ViewModel in our app should be scoped to the
