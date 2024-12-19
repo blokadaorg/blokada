@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 import '../../util/mobx.dart';
 import '../account/account.dart';
 import '../app/app.dart';
-import '../app/channel.pg.dart';
 import '../device/device.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';

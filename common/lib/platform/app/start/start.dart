@@ -14,7 +14,6 @@ import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../app.dart';
-import '../channel.pg.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 

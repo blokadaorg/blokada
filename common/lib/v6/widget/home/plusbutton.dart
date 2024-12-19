@@ -4,7 +4,6 @@ import 'package:common/core/core.dart';
 import 'package:common/family/module/perm/perm.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
-import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/plus.dart';

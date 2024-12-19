@@ -59,28 +59,3 @@ abstract class StageOps {
   @async
   void doHomeReached();
 }
-
-@FlutterApi()
-abstract class StageEvents {
-  @async
-  void onForeground();
-
-  @async
-  void onBackground();
-
-  @async
-  void onRoute(String path);
-
-  // TODO: Change to enum once supported
-  @async
-  void onModalShow(String modal);
-
-  @async
-  void onModalShown(String modal);
-
-  @async
-  void onModalDismiss();
-
-  @async
-  void onModalDismissed();
-}

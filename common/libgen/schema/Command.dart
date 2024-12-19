@@ -22,43 +22,10 @@ enum CommandName {
   pause,
   unpause,
 
-  // Custom
-  allow,
-  deny,
-  delete,
-
-  // Deck
-  enableDeck,
-  disableDeck,
-  toggleListByTag,
-
-  // Device
-  enableCloud,
-  disableCloud,
-  setRetention,
-  deviceAlias,
-  setSafeSearch,
-
-  // Journal
-  sortNewest,
-  sortCount,
-  search,
-  filter,
-  filterDevice,
-
   // Notification,
   remoteNotification,
   appleNotificationToken,
   notificationTapped,
-
-  // Plus
-  newPlus,
-  clearPlus,
-  activatePlus,
-  deactivatePlus,
-
-  // PlusLease
-  deleteLease,
 
   // PlusVpn
   vpnStatus,
@@ -73,16 +40,11 @@ enum CommandName {
   modalDismissed,
   back,
 
-  // Lock
-  setPin,
-  unlock,
-
   // Tracer
   fatal,
   warning,
   log,
   crashLog,
-  canPromptCrashLog,
 
   // Family commands
   familyLink,
@@ -91,16 +53,8 @@ enum CommandName {
   supportNotify,
   supportAskNotificationPerms,
 
+  // Scheduler
   schedulerPing,
-
-  // Debug
-  debugHttpFail,
-  debugHttpOk,
-  debugOnboard,
-  debugBg,
-  mock,
-  s, // scenario
-  ws // websocket
 }
 
 @HostApi()

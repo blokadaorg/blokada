@@ -114,7 +114,7 @@ void main() {
         final subject = AppStartStore();
 
         // No perms
-        await subject.unpauseApp(m);
+        await expectLater(subject.unpauseApp(m), throwsException);
         verifyNever(device.setCloudEnabled(any, any));
 
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => true);
@@ -155,6 +155,10 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
+        final perm = MockPlatformPermActor();
+        when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
+        Core.register<PlatformPermActor>(perm);
+
         final subject = AppStartStore();
 
         await subject.unpauseApp(m);
@@ -189,9 +193,7 @@ void main() {
 
         final subject = AppStartStore();
 
-        await subject.unpauseApp(m);
-
-        verify(stage.showModal(StageModal.perms, m)).called(1);
+        await expectLater(subject.unpauseApp(m), throwsException);
       });
     });
   });
