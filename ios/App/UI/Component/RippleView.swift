@@ -18,7 +18,6 @@ struct RippleView: View {
     let multiplier: CGFloat
 
     @ObservedObject var vm = ViewModels.home
-    @ObservedObject var tabVM = ViewModels.tab
 
     let ripples = 7
 

@@ -19,11 +19,7 @@ var ViewModels = ViewModelsSingleton()
 class ViewModelsSingleton {
     lazy var content = ContentViewModel()
     lazy var home = HomeViewModel()
-    lazy var tab = TabViewModel()
-    lazy var account = AccountViewModel()
-    lazy var packs = PacksViewModel()
-    lazy var journal = JournalViewModel()
-    lazy var custom = CustomViewModel()
     lazy var lease = LeaseListViewModel()
     lazy var payment = PaymentGatewayViewModel()
+    lazy var account = AccountViewModel()
 }

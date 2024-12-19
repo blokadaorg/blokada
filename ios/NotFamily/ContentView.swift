@@ -22,11 +22,8 @@ struct ContentView: View {
     @ObservedObject var vm = ViewModels.content
 
     @Injected(\.logger) private var tracer
-    @Injected(\.stats) private var stats
     @Injected(\.commands) private var commands
     
-    var onboarding = AfterActivatedView()
-    //var accountChange = AccountChangeView()
     var accountChange = ScanQrCodeView()
     var onboardingAccountDecided = OnboardingAccountDecidedView()
 
@@ -52,18 +49,10 @@ struct ContentView: View {
                         PaymentGatewayView()
                     case .plusLocationSelect:
                         LocationListView()
-                    case .perms:
-                        onboarding
                     case .onboardingAccountDecided:
                         onboardingAccountDecided
                     case .accountChange:
                         accountChange
-                    case .adsCounterShare:
-                        ShareSheet(activityItems: [L10n.mainShareMessage(stats.blockedCounter.value)])
-                    case .help:
-                        SupportView()
-                    case .custom:
-                        CustomV()
                     default:
                         // Will never be displayed
                         EmptyView()

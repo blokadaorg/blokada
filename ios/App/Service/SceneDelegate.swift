@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     private let homeVM = ViewModels.home
-    private let tabVM = ViewModels.tab
 
     @Injected(\.stage) private var foreground
     @Injected(\.commands) private var commands

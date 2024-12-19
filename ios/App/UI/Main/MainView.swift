@@ -15,7 +15,6 @@ import SwiftUI
 struct MainView: View {
 
     @ObservedObject var vm = ViewModels.content
-    @ObservedObject var tabVM = ViewModels.tab
     @ObservedObject var homeVM = ViewModels.home
 
     var body: some View {
@@ -23,8 +22,6 @@ struct MainView: View {
     }
 
     private func handleTappedTab(_ tab: Tab, scroll: ScrollViewProxy) {
-        self.tabVM.setActiveTab(tab)
-
         // Scroll to top on second tap of the same tab
         if lastTappedTab == tab {
             if tab == .Activity || tab == .Advanced {
