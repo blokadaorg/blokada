@@ -20,6 +20,7 @@ import 'package:common/platform/filter/filter.dart';
 import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/persistence/persistence.dart';
+import 'package:common/v6/module/perm/perm.dart';
 import 'package:common/v6/widget/home/home.dart';
 
 import 'platform/account/account.dart';
@@ -115,6 +116,7 @@ class Modules with Logging {
     CustomStore().onRegister();
 
     if (!Core.act.isFamily) {
+      await _registerModule(V6PermModule());
       JournalStore().onRegister();
       PlusStore().onRegister();
       PlusKeypairStore().onRegister();

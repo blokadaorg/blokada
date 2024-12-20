@@ -3,6 +3,7 @@ import 'package:common/common/widget/private_dns/private_dns_setting_guide.dart'
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/perm/perm.dart';
+import 'package:common/platform/perm/perm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,7 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
 class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
     with Logging {
   late final _channel = Core.get<PermChannel>();
-  late final _perm = Core.get<PermActor>();
+  late final _privateDnsProvider = Core.get<PrivateDnsStringProvider>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
   final _scrollController = ScrollController();
@@ -70,7 +71,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
     Navigator.of(context).pop();
     await sleepAsync(const Duration(milliseconds: 400));
     Clipboard.setData(
-        ClipboardData(text: _perm.getAndroidDnsStringToCopy(Markers.userTap)));
+        ClipboardData(text: _privateDnsProvider.getAndroidDnsString()));
     _channel.doOpenPermSettings();
   }
 

@@ -28,3 +28,10 @@ class PlatformPermModule with Module {
     }
   }
 }
+
+// A temporary interface until family Perm module is included into v6
+// and perm modules are merged
+
+abstract class PrivateDnsStringProvider {
+  String getAndroidDnsString();
+}
