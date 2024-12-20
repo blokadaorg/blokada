@@ -2,10 +2,7 @@ import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../util/cooldown.dart';
-import '../../util/mobx.dart';
 import '../stage/stage.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
 import 'json.dart';
 
 part 'custom.g.dart';
@@ -13,25 +10,15 @@ part 'custom.g.dart';
 class CustomStore = CustomStoreBase with _$CustomStore;
 
 abstract class CustomStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = Core.get<CustomOps>();
   late final _json = Core.get<CustomJson>();
   late final _stage = Core.get<StageStore>();
 
   CustomStoreBase() {
-    reactionOnStore((_) => allowed, (allowed) async {
-      await _ops.doCustomAllowedChanged(allowed);
-    });
-
-    reactionOnStore((_) => denied, (denied) async {
-      await _ops.doCustomDeniedChanged(denied);
-    });
-
     _stage.addOnValue(routeChanged, onRouteChanged);
   }
 
   @override
   onRegister() {
-    Core.register<CustomOps>(getOps());
     Core.register<CustomJson>(CustomJson());
     Core.register<CustomStore>(this as CustomStore);
   }

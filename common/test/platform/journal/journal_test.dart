@@ -1,7 +1,6 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/env/env.dart';
-import 'package:common/platform/journal/channel.pg.dart';
 import 'package:common/platform/journal/journal.dart';
 import 'package:common/platform/journal/json.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -13,7 +12,6 @@ import '../../tools.dart';
 import 'fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<JournalStore>(),
-  MockSpec<JournalOps>(),
   MockSpec<JournalJson>(),
   MockSpec<Scheduler>(),
   MockSpec<StageStore>(),
@@ -28,9 +26,6 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<DeviceStore>(MockDeviceStore());
-
-        final ops = MockJournalOps();
-        Core.register<JournalOps>(ops);
 
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
@@ -59,9 +54,6 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<DeviceStore>(MockDeviceStore());
-
-        final ops = MockJournalOps();
-        Core.register<JournalOps>(ops);
 
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
@@ -124,9 +116,6 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<DeviceStore>(MockDeviceStore());
 
-        final ops = MockJournalOps();
-        Core.register<JournalOps>(ops);
-
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
 
@@ -160,9 +149,6 @@ void main() {
     test("willRefreshWhenNeeded", () async {
       await withTrace((m) async {
         Core.register<DeviceStore>(MockDeviceStore());
-
-        final ops = MockJournalOps();
-        Core.register<JournalOps>(ops);
 
         final json = MockJournalJson();
         Core.register<JournalJson>(json);

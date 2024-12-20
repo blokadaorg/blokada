@@ -1,5 +1,4 @@
 import 'package:common/core/core.dart';
-import 'package:common/platform/custom/channel.pg.dart';
 import 'package:common/platform/custom/custom.dart';
 import 'package:common/platform/custom/json.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -10,7 +9,6 @@ import 'package:mockito/mockito.dart';
 import '../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<CustomStore>(),
-  MockSpec<CustomOps>(),
   MockSpec<CustomJson>(),
   MockSpec<StageStore>(),
 ])
@@ -27,9 +25,6 @@ void main() {
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
         Core.register<CustomJson>(json);
-
-        final ops = MockCustomOps();
-        Core.register<CustomOps>(ops);
 
         final subject = CustomStore();
         await subject.fetch(m);
@@ -49,9 +44,6 @@ void main() {
         when(json.getEntries(any))
             .thenAnswer((_) => Future.value(fixtureCustomEntries));
         Core.register<CustomJson>(json);
-
-        final ops = MockCustomOps();
-        Core.register<CustomOps>(ops);
 
         final subject = CustomStore();
 
@@ -78,9 +70,6 @@ void main() {
         final route = StageRouteState.init().newTab(StageTab.activity);
         final stage = MockStageStore();
         Core.register<StageStore>(stage);
-
-        final ops = MockCustomOps();
-        Core.register<CustomOps>(ops);
 
         final subject = CustomStore();
         verifyNever(json.getEntries(any));

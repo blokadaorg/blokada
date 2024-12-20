@@ -1,19 +1,57 @@
 import 'package:collection/collection.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/journal/channel.pg.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../util/cooldown.dart';
-import '../../util/mobx.dart';
 import '../device/device.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
-import 'channel.act.dart';
 import 'json.dart';
 
 part 'journal.g.dart';
 
 const _timerKey = "journalRefresh";
+
+class JournalEntry {
+  final String domainName;
+  final JournalEntryType type;
+  final String time;
+  final int requests;
+  final String deviceName;
+  final String? list;
+
+  JournalEntry({
+    required this.domainName,
+    required this.type,
+    required this.time,
+    required this.requests,
+    required this.deviceName,
+    required this.list,
+  });
+}
+
+enum JournalEntryType {
+  passed, // Just ordinary case of allowing the request
+  blocked, // Blocked because it's on any of our lists
+  blockedDenied, // Blocked because it's on user's personal Denied list
+  passedAllowed, // Passed because it's on user's personal Allowed list
+}
+
+enum JournalFilterType { all, blocked, passed }
+
+class JournalFilter {
+  final JournalFilterType showOnly;
+  final String searchQuery; // Empty string means "no query"
+  final String deviceName; // Empty string means "all devices"
+  final bool sortNewestFirst;
+
+  JournalFilter({
+    required this.showOnly,
+    required this.searchQuery,
+    required this.deviceName,
+    required this.sortNewestFirst,
+  });
+}
 
 extension JournalEntryExtension on JournalEntry {
   bool isBlocked() {
@@ -94,7 +132,6 @@ JournalFilter _noFilter = JournalFilter(
 class JournalStore = JournalStoreBase with _$JournalStore;
 
 abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
-  late final _ops = Core.get<JournalOps>();
   late final _json = Core.get<JournalJson>();
   late final _device = Core.get<DeviceStore>();
   late final _stage = Core.get<StageStore>();
@@ -103,27 +140,10 @@ abstract class JournalStoreBase with Store, Logging, Actor, Cooldown {
   JournalStoreBase() {
     _device.addOn(deviceChanged, updateJournalFreq);
     _stage.addOnValue(routeChanged, onRouteChanged);
-
-    reactionOnStore((_) => filteredEntries, (entries) async {
-      _ops.doReplaceEntries(entries);
-    });
-
-    reactionOnStore((_) => filter, (filter) async {
-      _ops.doFilterChanged(filter);
-    });
-
-    reactionOnStore((_) => filterSorting, (filter) async {
-      _ops.doReplaceEntries(filteredEntries);
-    });
-
-    reactionOnStore((_) => devices, (devices) async {
-      _ops.doDevicesChanged(devices);
-    });
   }
 
   @override
   onRegister() {
-    Core.register<JournalOps>(getOps());
     Core.register<JournalJson>(JournalJson());
     Core.register<JournalStore>(this as JournalStore);
   }
