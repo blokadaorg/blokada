@@ -1,10 +1,9 @@
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
+import 'package:common/util/cooldown.dart';
+import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:unique_names_generator/unique_names_generator.dart' as names;
 
-import '../../util/cooldown.dart';
-import '../../util/mobx.dart';
-import '../account/account.dart';
 import '../env/env.dart';
 import '../stage/stage.dart';
 import 'channel.act.dart';
@@ -37,15 +36,6 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _persistence = Core.get<Persistence>();
   late final _env = Core.get<EnvStore>();
 
-  late final _names = names.UniqueNamesGenerator(
-    config: names.Config(
-      length: 1,
-      seperator: " ",
-      style: names.Style.capital,
-      dictionaries: [names.animals],
-    ),
-  );
-
   DeviceStoreBase() {
     willAcceptOn([deviceChanged]);
 
@@ -53,29 +43,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, fetch);
 
-    reactionOnStore((_) => cloudEnabled, (enabled) async {
-      _ops.doCloudEnabled(enabled!);
-    });
-
-    reactionOnStore((_) => retention, (retention) async {
-      if (retention != null) {
-        _ops.doRetentionChanged(retention);
-      }
-    });
-
     reactionOnStore((_) => deviceTag, (tag) async {
       if (tag != null) {
         _ops.doDeviceTagChanged(tag);
-      }
-    });
-
-    reactionOnStore((_) => deviceAlias, (alias) async {
-      // Lazy way to provide UI with generated names to use
-      final names = List.generate(10, (_) => _names.generate());
-      await _ops.doNameProposalsChanged(names);
-
-      if (alias.isNotEmpty) {
-        _ops.doDeviceAliasChanged(alias);
       }
     });
   }
