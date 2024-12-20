@@ -28,20 +28,6 @@ class PlusBinding: PlusOps {
         commands.execute(.newPlus, gatewayPublicKey)
     }
 
-    func clearPlus() {
-        commands.execute(.clearPlus)
-    }
-
-    func switchPlus(active: Bool) {
-        if active {
-            commands.execute(.activatePlus)
-        } else {
-            commands.execute(.deactivatePlus)
-        }
-    }
-    
-    // Plus pause?
-
     func doPlusEnabledChanged(plusEnabled: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         self.plusEnabled.send(plusEnabled)
         completion(.success(()))

@@ -51,7 +51,7 @@ enum AppState {
 }
 
 // Contains "main app state" mostly used in Home screen.
-class AppBinding: AppOps, AppStartOps {
+class AppBinding: AppOps {
     var appStateHot: AnyPublisher<AppState, Never> {
         self.writeAppState.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
@@ -73,7 +73,6 @@ class AppBinding: AppOps, AppStartOps {
 
     init() {
         AppOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
-        AppStartOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
     func pauseApp(until: Int?) -> AnyPublisher<Ignored, Error> {

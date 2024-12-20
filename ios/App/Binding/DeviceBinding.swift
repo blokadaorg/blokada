@@ -78,20 +78,6 @@ class DeviceBinding: DeviceOps {
         DeviceOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
-    func setActivityRetention(_ retention: CloudActivityRetention) -> AnyPublisher<Ignored, Error> {
-        commands.execute(.setRetention, retention)
-        return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
-    }
-
-    func setPaused(_ paused: Bool) -> AnyPublisher<Ignored, Error> {
-        if (paused) {
-            commands.execute(.disableCloud)
-        } else {
-            commands.execute(.enableCloud)
-        }
-        return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
-    }
-
     func setBlocklists(_ lists: CloudBlocklists) -> AnyPublisher<Ignored, Error> {
         return Fail(error: "not imple").eraseToAnyPublisher();
     }

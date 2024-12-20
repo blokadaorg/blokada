@@ -74,10 +74,6 @@ class PlusLeaseBinding: PlusLeaseOps {
         PlusLeaseOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
 
-    func deleteLease(_ lease: Lease) {
-        commands.execute(.deleteLease, lease.publicKey)
-    }
-
     func doLeasesChanged(leases: [Lease], completion: @escaping (Result<Void, Error>) -> Void) {
         self.leases.send(leases)
         completion(.success(()))

@@ -299,14 +299,6 @@ class HomeViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 
-    func switchVpn(activate: Bool) {
-        if activate {
-            plus.switchPlus(active: true)
-        } else {
-            plus.switchPlus(active: false)
-        }
-    }
-
     /**
         Private methods used by those public entrypoints
     */
