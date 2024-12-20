@@ -1,5 +1,6 @@
+import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/icon.dart';
+import 'package:common/common/widget/home/header/header_button.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
@@ -29,6 +30,7 @@ class V6HomeSectionState extends State<V6HomeSection>
     with TickerProviderStateMixin, Logging, Disposables {
   final _app = Core.get<AppStore>();
   final _stage = Core.get<StageStore>();
+  late final _unread = Core.get<SupportUnread>();
 
   bool showDebug = false;
   bool working = false;
@@ -41,6 +43,7 @@ class V6HomeSectionState extends State<V6HomeSection>
   @override
   void initState() {
     super.initState();
+    disposeLater(_unread.onChange.listen(rebuild));
 
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 4));
@@ -109,12 +112,12 @@ class V6HomeSectionState extends State<V6HomeSection>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          HomeIcon(
-                            icon: CupertinoIcons.settings,
-                            onTap: () {
-                              Navigation.open(Paths.settings);
-                            },
-                          ),
+                          SmartHeaderButton.HeaderButton(
+                              unread: _unread.present ?? false,
+                              icon: CupertinoIcons.settings,
+                              onTap: () {
+                                Navigation.open(Paths.settings);
+                              }),
                         ],
                       ),
                     ),

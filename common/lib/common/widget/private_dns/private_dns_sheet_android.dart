@@ -14,7 +14,8 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
   State<StatefulWidget> createState() => PrivateDnsSheetAndroidState();
 }
 
-class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
+class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
+    with Logging {
   late final _channel = Core.get<PermChannel>();
   late final _perm = Core.get<PermActor>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
@@ -51,6 +52,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
 
   void _onButtonTap() async {
     if (!_isFullyVisible) {
+      log(Markers.userTap).t("Scrolling the sheet to the bottom");
       // Scroll to the bottom if content is not fully visible
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
