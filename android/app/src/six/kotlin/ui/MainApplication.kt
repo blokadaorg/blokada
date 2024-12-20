@@ -28,6 +28,7 @@ import binding.AccountBinding
 import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
+import binding.DeviceBinding
 import binding.EnvBinding
 import binding.HttpBinding
 import binding.LoggerBinding
@@ -87,6 +88,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var plusGateway: PlusGatewayBinding
     private lateinit var plusLease: PlusLeaseBinding
     private lateinit var plusVpn: PlusVpnBinding
+    private lateinit var device: DeviceBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -121,6 +123,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         plusGateway = PlusGatewayBinding
         plusLease = PlusLeaseBinding
         plusVpn = PlusVpnBinding
+        device = DeviceBinding
     }
 
     private fun setupEvents() {

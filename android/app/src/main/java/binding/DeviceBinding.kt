@@ -12,5 +12,20 @@
 
 package binding
 
-typealias CloudActivityRetention = String
+import channel.device.DeviceOps
+import service.EnvironmentService
+import service.FlutterService
 
+
+object DeviceBinding: DeviceOps {
+    private val flutter by lazy { FlutterService }
+
+    init {
+        DeviceOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
+    }
+
+    override fun doDeviceTagChanged(deviceTag: String, callback: (Result<Unit>) -> Unit) {
+        EnvironmentService.deviceTag = deviceTag
+        callback(Result.success(Unit))
+    }
+}
