@@ -15,8 +15,6 @@ import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../app.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
 
 part 'start.g.dart';
 
@@ -29,14 +27,11 @@ class OnboardingException implements Exception {}
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
 abstract class AppStartStoreBase with Store, Logging, Actor {
-  late final _ops = Core.get<AppStartOps>();
-
   late final _env = Core.get<EnvStore>();
   late final _app = Core.get<AppStore>();
   late final _scheduler = Core.get<Scheduler>();
   late final _device = Core.get<DeviceStore>();
   late final _perm = Core.get<PlatformPermActor>();
-  late final _permVpn = Core.get<VpnEnabled>();
   late final _account = Core.get<AccountStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _stage = Core.get<StageStore>();
@@ -47,11 +42,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _permStore = Core.get<PlatformPermActor>();
 
   AppStartStoreBase() {
-    reactionOnStore((_) => pausedUntil, (pausedUntil) async {
-      final seconds = pausedUntil?.difference(DateTime.now()).inSeconds ?? 0;
-      await _ops.doAppPauseDurationChanged(seconds);
-    });
-
     reactionOnStore((_) => _app.status, (status) async {
       // XXX: a bit sleazy
       if (status.isActive() && paused) {
@@ -64,7 +54,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   @override
   onRegister() {
-    Core.register<AppStartOps>(getOps());
     Core.register<AppStartStore>(this as AppStartStore);
   }
 

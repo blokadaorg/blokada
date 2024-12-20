@@ -2,7 +2,6 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/refresh/refresh.dart';
 import 'package:common/platform/app/app.dart';
-import 'package:common/platform/app/start/channel.pg.dart';
 import 'package:common/platform/app/start/start.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/perm/perm.dart';
@@ -18,7 +17,6 @@ import '../../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<AppStore>(),
   MockSpec<Scheduler>(),
-  MockSpec<AppStartOps>(),
   MockSpec<AppStartStore>(),
   MockSpec<DeviceStore>(),
   MockSpec<PlatformPermActor>(),
@@ -45,9 +43,6 @@ void main() {
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
 
-        final ops = MockAppStartOps();
-        Core.register<AppStartOps>(ops);
-
         final subject = AppStartStore();
 
         await subject.pauseAppUntil(const Duration(seconds: 30), m);
@@ -70,9 +65,6 @@ void main() {
 
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
-
-        final ops = MockAppStartOps();
-        Core.register<AppStartOps>(ops);
 
         final subject = AppStartStore();
 
@@ -108,9 +100,6 @@ void main() {
         final stage = MockStageStore();
         Core.register<StageStore>(stage);
 
-        final ops = MockAppStartOps();
-        Core.register<AppStartOps>(ops);
-
         final subject = AppStartStore();
 
         // No perms
@@ -142,9 +131,6 @@ void main() {
       await withTrace((m) async {
         Core.register<Scheduler>(MockScheduler());
 
-        final ops = MockAppStartOps();
-        Core.register<AppStartOps>(ops);
-
         final stage = MockStageStore();
         Core.register<StageStore>(stage);
 
@@ -170,9 +156,6 @@ void main() {
     test("onUnpauseAppWillShowOnboardingOnMissingPerms", () async {
       await withTrace((m) async {
         Core.register<Scheduler>(MockScheduler());
-
-        final ops = MockAppStartOps();
-        Core.register<AppStartOps>(ops);
 
         final stage = MockStageStore();
         Core.register<StageStore>(stage);
