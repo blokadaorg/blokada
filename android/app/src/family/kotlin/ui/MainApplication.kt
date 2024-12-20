@@ -22,16 +22,13 @@ import binding.AccountBinding
 import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
-import binding.DeviceBinding
 import binding.EnvBinding
 import binding.HttpBinding
 import binding.LoggerBinding
 import binding.NotificationBinding
 import binding.PermBinding
 import binding.PersistenceBinding
-import binding.RateBinding
 import binding.StageBinding
-import binding.StatsBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import repository.Repos
@@ -56,10 +53,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var notification: NotificationBinding
     private lateinit var account: AccountBinding
     private lateinit var accountPayment: AccountPaymentBinding
-    private lateinit var device: DeviceBinding
     private lateinit var perm: PermBinding
-    private lateinit var rate: RateBinding
-    private lateinit var stats: StatsBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -88,10 +82,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         tracer = LoggerBinding
         account = AccountBinding
         accountPayment = AccountPaymentBinding
-        device = DeviceBinding
         perm = PermBinding
-        rate = RateBinding
-        stats = StatsBinding
     }
 
     private fun setupEvents() {

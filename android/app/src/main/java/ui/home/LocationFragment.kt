@@ -22,7 +22,6 @@ import android.widget.TextView
 import binding.LegacyGateway
 import binding.PlusBinding
 import binding.PlusGatewayBinding
-import channel.plusgateway.Gateway
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment

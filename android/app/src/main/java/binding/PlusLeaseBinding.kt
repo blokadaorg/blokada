@@ -13,7 +13,6 @@
 package binding
 
 import androidx.lifecycle.MutableLiveData
-import channel.command.CommandName
 import channel.pluslease.Lease
 import channel.pluslease.PlusLeaseOps
 import kotlinx.coroutines.GlobalScope
@@ -30,10 +29,6 @@ data class LegacyLease(
     val vip4: String,
     val vip6: String
 ) {
-
-    fun niceName(): String {
-        return if (alias?.isNotBlank() == true) alias else publicKey.take(5)
-    }
 
     companion object {
         fun fromLease(lease: Lease?): LegacyLease? {
@@ -63,12 +58,6 @@ object PlusLeaseBinding: PlusLeaseOps {
         PlusLeaseOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
         scope.launch {
             leases.collect { leasesLive.postValue(it) }
-        }
-    }
-
-    fun deleteLease(lease: LegacyLease) {
-        scope.launch {
-            command.execute(CommandName.DELETELEASE, lease.publicKey)
         }
     }
 

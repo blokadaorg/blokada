@@ -34,10 +34,6 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
         GlobalScope.launch {
             app.appStatus.collect { syncStatus() }
         }
-
-        GlobalScope.launch {
-            app.working.collect { syncStatus() }
-        }
     }
 
     override fun onStartListening() {
@@ -69,15 +65,10 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
     private suspend fun syncStatus(): IsActive? {
         val state = app.appStatus.first()
-        val working = app.working.first()
         val tile = qsTile
 
         return when {
             tile == null -> null
-            working == true -> {
-                showActivating(tile)
-                null
-            }
             state.isActive() -> {
                 showOn(tile)
                 true
@@ -87,12 +78,6 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
                 false
             }
         }
-    }
-
-    private fun showActivating(qsTile: Tile) {
-        qsTile.state = Tile.STATE_ACTIVE
-        qsTile.label = "..."
-        updateTile(qsTile)
     }
 
     private fun showOff(qsTile: Tile) {

@@ -21,7 +21,6 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import binding.AccountPaymentBinding
 import binding.CommandBinding
-import binding.RateBinding
 import binding.StageBinding
 import channel.command.CommandName
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -41,7 +40,6 @@ import utils.Logger
 class MainActivity : AppCompatActivity() {
 
     private val stage by lazy { StageBinding }
-    private val rate by lazy { RateBinding }
     private val payment by lazy { AccountPaymentBinding }
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
@@ -64,8 +62,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_main)
-
-        rate.onShowRateDialog = { askForReview(this) }
 
         intent?.let {
             handleIntent(it)

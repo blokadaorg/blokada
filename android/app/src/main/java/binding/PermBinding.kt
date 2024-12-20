@@ -33,16 +33,13 @@ import utils.OnboardingNotification
 
 
 object PermBinding: PermOps {
-    val dnsProfileActivated = MutableStateFlow(false)
     val vpnProfileActivated = MutableStateFlow(false)
 
     private val flutter by lazy { FlutterService }
-    private val command by lazy { CommandBinding }
     private val notification by lazy { NotificationService }
     private val permsRepo by lazy { Repos.perms }
     private val vpnPerms by lazy { VpnPermissionService }
     private val connectivity by lazy { ConnectivityService }
-    private val device by lazy { DeviceBinding }
     private val context by lazy { ContextService }
     private val systemNav by lazy { SystemNavService }
     private val scope = GlobalScope
@@ -50,20 +47,6 @@ object PermBinding: PermOps {
 
     init {
         PermOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
-        onPrivateDnsChanged()
-    }
-
-    private fun onPrivateDnsChanged() {
-        connectivity.onPrivateDnsChanged = { privateDns ->
-            val expected = device.getExpectedDnsString()
-            dnsProfileActivated.value = privateDns == expected && expected != null
-        }
-        scope.launch {
-            device.deviceTag.collect {
-                val expected = device.getExpectedDnsString()
-                dnsProfileActivated.value = connectivity.privateDns == expected && expected != null
-            }
-        }
     }
 
     override fun getPrivateDnsSetting(callback: (Result<String>) -> Unit) {

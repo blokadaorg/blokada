@@ -12,8 +12,6 @@
 
 package binding
 
-import android.app.Activity
-import android.content.Intent
 import channel.command.CommandName
 import channel.stage.StageModal
 import channel.stage.StageOps
@@ -42,7 +40,6 @@ object StageBinding: StageOps {
     private val context by lazy { ContextService }
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
-    private val stats by lazy { StatsBinding }
     private val sheet by lazy { SheetService }
     private val dialog by lazy { AlertDialogService }
     private val scope = GlobalScope
@@ -55,11 +52,6 @@ object StageBinding: StageOps {
 
     init {
         StageOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
-    }
-
-    fun setActiveTab(tab: Tab) {
-        val route = tab.name.lowercase()
-        setRoute(route)
     }
 
     fun setRoute(route: String) {
@@ -95,12 +87,6 @@ object StageBinding: StageOps {
     fun setBackground() {
         scope.launch {
             command.execute(CommandName.BACKGROUND)
-        }
-    }
-
-    fun showModal(modal: StageModal) {
-        scope.launch {
-            command.execute(CommandName.MODALSHOW, modal.name)
         }
     }
 
@@ -155,17 +141,9 @@ object StageBinding: StageOps {
         if (name != null) {
             sheet.showSheet(name)
         } else {
-            // Special case handling
-            if (modal == StageModal.ADSCOUNTERSHARE) {
-                scope.launch {
-                    showShareText()
-                    command.execute(CommandName.MODALSHOWN, modal.name)
-                }
-            } else {
-                // Confirm modal was shown for unknown modals, so the common lib can display it
-                scope.launch {
-                    command.execute(CommandName.MODALSHOWN, modal.name)
-                }
+            // Confirm modal was shown for unknown modals, so the common lib can display it
+            scope.launch {
+                command.execute(CommandName.MODALSHOWN, modal.name)
             }
         }
 
@@ -254,20 +232,5 @@ object StageBinding: StageOps {
     override fun doHomeReached(callback: (Result<Unit>) -> Unit) {
         context.requireActivity().finish();
         callback(Result.success(Unit))
-    }
-
-    private fun showShareText() {
-        val ctx = context.requireContext()
-        val activity = ctx as? Activity
-        if (activity != null) {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, ctx.getString(R.string.main_share_message, stats.blocked))
-                type = "text/plain"
-            }
-
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            activity.startActivity(shareIntent)
-        }
     }
 }
