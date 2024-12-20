@@ -1,5 +1,6 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/perm/perm.dart';
+import 'package:common/platform/plus/plus.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../family/module/family/family.dart';
@@ -25,6 +26,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _scheduler = Core.get<Scheduler>();
 
   // V6 only commands
+  late final _plus = Core.get<PlusStore>();
   late final _plusVpn = Core.get<PlusVpnStore>();
 
   @override
@@ -174,6 +176,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
       case CommandName.schedulerPing:
         await _scheduler.pingFromBackground(m);
         return;
+      case CommandName.newPlus:
+        _ensureParam(p1);
+        return await _plus.newPlus(p1!, m);
       default:
         throw Exception("Unsupported command: $cmd");
     }
@@ -210,6 +215,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   ];
 
   final _noTimeLimitCommands = [
+    CommandName.newPlus.name,
     CommandName.receipt.name,
     CommandName.restorePayment.name,
     CommandName.purchase.name,

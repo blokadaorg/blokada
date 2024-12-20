@@ -17,6 +17,7 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
 class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
   late final _channel = Core.get<PermChannel>();
   late final _perm = Core.get<PermActor>();
+  late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
   final _scrollController = ScrollController();
   bool _isFullyVisible = false;
@@ -105,9 +106,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "family perms brief alt"
-                              .i18n
-                              .withParams("Blokada Family"),
+                          "family perms brief alt".i18n.withParams(_appName),
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),

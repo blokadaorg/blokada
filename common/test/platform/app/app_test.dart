@@ -4,6 +4,7 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/json.dart';
 import 'package:common/platform/app/app.dart';
+import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -15,6 +16,7 @@ import '../../tools.dart';
 import '../account/fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<AppStore>(),
+  MockSpec<AppOps>(),
   MockSpec<DeviceStore>(),
   MockSpec<AccountStore>(),
   MockSpec<StageStore>(),
@@ -28,6 +30,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<DeviceStore>(MockDeviceStore());
+        Core.register<AppOps>(MockAppOps());
 
         final subject = AppStore();
 
@@ -44,6 +47,7 @@ void main() {
     test("willHandleCloudEnabled", () async {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
+        Core.register<AppOps>(MockAppOps());
 
         final device = MockDeviceStore();
         when(device.cloudEnabled).thenReturn(true);
@@ -81,6 +85,7 @@ void main() {
     test("willHandlePause", () async {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
+        Core.register<AppOps>(MockAppOps());
 
         final device = MockDeviceStore();
         when(device.cloudEnabled).thenReturn(true);
@@ -128,6 +133,7 @@ void main() {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<DeviceStore>(MockDeviceStore());
         Core.register<StageStore>(MockStageStore());
+        Core.register<AppOps>(MockAppOps());
 
         final subject = AppStore();
 

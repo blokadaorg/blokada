@@ -28,6 +28,7 @@ enum CommandName {
   notificationTapped,
 
   // PlusVpn
+  newPlus,
   vpnStatus,
 
   // Stage

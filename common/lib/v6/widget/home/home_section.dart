@@ -3,6 +3,7 @@ import 'package:common/common/widget/icon.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
+import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/tab/tab_buttons.dart';
 import 'package:flutter/cupertino.dart';

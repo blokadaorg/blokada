@@ -7,6 +7,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
+import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/app/start/start.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';

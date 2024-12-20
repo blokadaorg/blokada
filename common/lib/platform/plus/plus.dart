@@ -1,4 +1,5 @@
 import 'package:common/core/core.dart';
+import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';
 import 'package:common/platform/plus/lease/json.dart';
 import 'package:mobx/mobx.dart';

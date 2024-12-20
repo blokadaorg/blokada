@@ -1,24 +1,16 @@
 import 'package:common/core/core.dart';
+import 'package:common/platform/app/channel.pg.dart';
+import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
 import '../device/device.dart';
 import '../stage/stage.dart';
+import 'channel.act.dart';
 
 part 'app.g.dart';
 
 final appStatusChanged = EmitterEvent<AppStatus>("appStatusChanged");
-
-enum AppStatus {
-  unknown,
-  initializing,
-  initFail,
-  reconfiguring,
-  deactivated,
-  paused,
-  activatedCloud,
-  activatedPlus
-}
 
 extension AppStatusExt on AppStatus {
   bool isWorking() {
@@ -124,6 +116,7 @@ class AppStatusStrategy {
 class AppStore = AppStoreBase with _$AppStore;
 
 abstract class AppStoreBase with Store, Logging, Actor, Emitter {
+  late final _ops = Core.get<AppOps>();
   late final _account = Core.get<AccountStore>();
   late final _stage = Core.get<StageStore>();
   late final _device = Core.get<DeviceStore>();
@@ -133,10 +126,15 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
 
     _account.addOn(accountChanged, onAccountChanged);
     _device.addOn(deviceChanged, onDeviceChanged);
+
+    reactionOnStore((_) => status, (status) async {
+      await _ops.doAppStatusChanged(status);
+    });
   }
 
   @override
   onRegister() {
+    Core.register<AppOps>(getOps());
     Core.register<AppStore>(this as AppStore);
   }
 
