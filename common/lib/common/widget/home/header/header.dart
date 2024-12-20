@@ -52,7 +52,7 @@ class Header extends State<SmartHeader>
 
     if (!widget.phase.isLocked2() &&
         widget.phase != FamilyPhase.linkedExpired) {
-      list.add(SmartHeaderButton.HeaderButton(
+      list.add(SmartHeaderButton(
           unread: _unread.present ?? false,
           icon: CupertinoIcons.person_crop_circle,
           onTap: () {

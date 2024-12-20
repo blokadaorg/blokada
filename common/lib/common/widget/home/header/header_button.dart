@@ -7,9 +7,15 @@ class SmartHeaderButton extends StatefulWidget {
   final IconData? icon;
   final Widget? iconWidget;
   final bool unread;
+  final Color? bgColor;
 
-  const SmartHeaderButton.HeaderButton(
-      {super.key, this.onTap, this.icon, this.iconWidget, this.unread = false});
+  const SmartHeaderButton(
+      {super.key,
+      this.onTap,
+      this.icon,
+      this.iconWidget,
+      this.unread = false,
+      this.bgColor});
 
   @override
   State<StatefulWidget> createState() => SmartHeaderButtonState();
@@ -25,10 +31,8 @@ class SmartHeaderButtonState extends State<SmartHeaderButton> {
           padding: const EdgeInsets.only(right: 6.0, top: 6.0),
           child: Container(
             decoration: BoxDecoration(
-              color: context.theme.textPrimary.withOpacity(0.15),
-              // color: widget.icon == CupertinoIcons.settings
-              //     ? Colors.transparent
-              //     : context.theme.textPrimary.withOpacity(0.15),
+              color:
+                  widget.bgColor ?? context.theme.textPrimary.withOpacity(0.15),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SizedBox(
@@ -48,7 +52,9 @@ class SmartHeaderButtonState extends State<SmartHeaderButton> {
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
                         widget.icon,
-                        color: Colors.white,
+                        color: widget.bgColor == null
+                            ? Colors.white
+                            : context.theme.textPrimary,
                       ),
                     ),
                   ),

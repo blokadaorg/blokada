@@ -112,7 +112,8 @@ class V6HomeSectionState extends State<V6HomeSection>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SmartHeaderButton.HeaderButton(
+                          SmartHeaderButton(
+                              bgColor: Colors.transparent,
                               unread: _unread.present ?? false,
                               icon: CupertinoIcons.settings,
                               onTap: () {
