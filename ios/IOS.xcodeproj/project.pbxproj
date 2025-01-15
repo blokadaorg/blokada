@@ -764,6 +764,18 @@
 		4EBF3BE72A80E55900F637BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		4EBF3BEB2A80E55900F637BB /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E946E462A2483EC0053943D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4EBF3BEC2A80E55900F637BB /* App.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E946E452A2483EB0053943D /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4EC686132D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC686142D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC686152D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC686162D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC686172D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC686182D382CE20044DB84 /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686122D382CE20044DB84 /* Rate.swift */; };
+		4EC6861A2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
+		4EC6861B2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
+		4EC6861C2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
+		4EC6861D2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
+		4EC6861E2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
+		4EC6861F2D382D660044DB84 /* RateBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC686192D382D660044DB84 /* RateBinding.swift */; };
 		4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4EDB13C22D143197000E2AD3 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB13C12D143197000E2AD3 /* AccountViewModel.swift */; };
 		4EDB13C32D143197000E2AD3 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB13C12D143197000E2AD3 /* AccountViewModel.swift */; };
@@ -1228,6 +1240,8 @@
 		4EC0A24D24D29D18004C1EFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Packs.strings; sourceTree = "<group>"; };
 		4EC0A24E24D29D19004C1EFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PackTags.strings; sourceTree = "<group>"; };
 		4EC0A24F24D29D1A004C1EFF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Ui.strings; sourceTree = "<group>"; };
+		4EC686122D382CE20044DB84 /* Rate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rate.swift; path = "six-common/libgen/ios/Rate.swift"; sourceTree = SOURCE_ROOT; };
+		4EC686192D382D660044DB84 /* RateBinding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateBinding.swift; sourceTree = "<group>"; };
 		4ED3443E23E190910075B796 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		4ED3445323E1B0A60075B796 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4ED3445523E1B0D90075B796 /* IOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOS.entitlements; sourceTree = "<group>"; };
@@ -1757,6 +1771,7 @@
 		4E673D2229E6AC1300A8A60D /* Binding */ = {
 			isa = PBXGroup;
 			children = (
+				4EC686192D382D660044DB84 /* RateBinding.swift */,
 				4EDB13D62D143407000E2AD3 /* DeviceBinding.swift */,
 				4EDB13CF2D143258000E2AD3 /* LinkBinding.swift */,
 				4E02E3112A56DBC30014E884 /* Vpn */,
@@ -1818,6 +1833,7 @@
 		4EFFBCA429E6984500CEF37A /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				4EC686122D382CE20044DB84 /* Rate.swift */,
 				4E8272892CAC30A7007472CA /* Logger.swift */,
 				4EF35CA22C9D7BD800699022 /* Url.swift */,
 				4EA37D6C2B2C680200E4EC97 /* Link.swift */,
@@ -2246,6 +2262,7 @@
 				4E8AE1FC27591F8E00BD2E5B /* Services.swift in Sources */,
 				4E23D03D293E20BC00613D0A /* String+ArrayConversion.swift in Sources */,
 				4E23D04A293E215F00613D0A /* LocalizationHelper.swift in Sources */,
+				4EC6861A2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4E290FC02498A57000FC4C61 /* Localization.swift in Sources */,
 				4E23D025293E20BC00613D0A /* Array+ConcurrentMap.swift in Sources */,
 				4EF8ED7E2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
@@ -2332,6 +2349,7 @@
 				4E42355C2451959F005A0779 /* LoggerSaver.swift in Sources */,
 				4E42353D244F3D21005A0779 /* LocationListViewModel.swift in Sources */,
 				4E61D8F627B3DB2E00C98D36 /* SafeArea.swift in Sources */,
+				4EC686132D382CE20044DB84 /* Rate.swift in Sources */,
 				4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */,
 				4E970C092769FE6F00ABD896 /* Tasker.swift in Sources */,
 				4E267F5A243C8D4300D3160F /* ButtonChoiceView.swift in Sources */,
@@ -2373,6 +2391,7 @@
 				4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E1276092AE7D0FC00A94994 /* ShowTime.swift in Sources */,
 				4E92C7102C05D00E00A33170 /* ContentView.swift in Sources */,
+				4EC6861F2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4E12760B2AE7D0FC00A94994 /* SpinnerView.swift in Sources */,
 				4E12760C2AE7D0FC00A94994 /* PaymentListView.swift in Sources */,
 				4E12760D2AE7D0FC00A94994 /* Stage.swift in Sources */,
@@ -2416,6 +2435,7 @@
 				4E1276542AE7D0FC00A94994 /* PersistenceBinding.swift in Sources */,
 				4E92C70C2C05CF9700A33170 /* HomeViewModel.swift in Sources */,
 				4E1276562AE7D0FC00A94994 /* Mocks.swift in Sources */,
+				4EC686182D382CE20044DB84 /* Rate.swift in Sources */,
 				4E1276572AE7D0FC00A94994 /* PaymentView.swift in Sources */,
 				4E12765D2AE7D0FC00A94994 /* Http.swift in Sources */,
 				4EF8B68A2C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
@@ -2545,6 +2565,7 @@
 				4E270D422A80EB8300D3484B /* KeychainSwiftDistrib.swift in Sources */,
 				4E270D462A80EB8300D3484B /* PlusLease.swift in Sources */,
 				4E270D472A80EB8300D3484B /* Strings.swift in Sources */,
+				4EC6861D2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4E270D492A80EB8300D3484B /* PaymentViewModel.swift in Sources */,
 				4E270D4B2A80EB8300D3484B /* PaymentView.swift in Sources */,
 				4E270D4C2A80EB8300D3484B /* ContentViewModel.swift in Sources */,
@@ -2597,6 +2618,7 @@
 				4E270DAF2A80EB8300D3484B /* AppDelegate.swift in Sources */,
 				4E270DB12A80EB8300D3484B /* Thread.swift in Sources */,
 				4E270DB22A80EB8300D3484B /* GatewayBinding.swift in Sources */,
+				4EC686162D382CE20044DB84 /* Rate.swift in Sources */,
 				4E88AA162B2B1B28006B16E7 /* BlokadaView.swift in Sources */,
 				4E270DB62A80EB8300D3484B /* PlusKeypair.swift in Sources */,
 				4E270DB72A80EB8300D3484B /* BlockaLogger.swift in Sources */,
@@ -2687,6 +2709,7 @@
 				4E955DC92771DC12008DE06F /* ViewModels.swift in Sources */,
 				4E971F80246BCEA300809EA6 /* PaymentFeaturesView.swift in Sources */,
 				4E1C64E329E81F8B00ABB65B /* PersistenceBinding.swift in Sources */,
+				4EC686152D382CE20044DB84 /* Rate.swift in Sources */,
 				4E2F2A01275F7AB3005A59F5 /* Mocks.swift in Sources */,
 				4E7FE9A4244DC28900851E9F /* PaymentView.swift in Sources */,
 				4E673D1329E6999D00A8A60D /* Http.swift in Sources */,
@@ -2716,6 +2739,7 @@
 				4EBDD3512A0A6B550039C101 /* HomeViewModel.swift in Sources */,
 				4EB355592A45BF090096FD66 /* KeypairBindingMock.swift in Sources */,
 				4EF35C972C9D77DE00699022 /* UrlBinding.swift in Sources */,
+				4EC6861C2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4E42353B244F3ADE005A0779 /* LocationViewModel.swift in Sources */,
 				4E2F2A27276371C6005A59F5 /* AppBinding.swift in Sources */,
 				4E7FE9C0244DC28900851E9F /* AppDelegate.swift in Sources */,
@@ -2793,6 +2817,7 @@
 				4E8651412A3C968B0060AFB1 /* Services.swift in Sources */,
 				4E8651432A3C968B0060AFB1 /* String+ArrayConversion.swift in Sources */,
 				4E8651442A3C968B0060AFB1 /* LocalizationHelper.swift in Sources */,
+				4EC6861B2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4E8651452A3C968B0060AFB1 /* Localization.swift in Sources */,
 				4E8651472A3C968B0060AFB1 /* Array+ConcurrentMap.swift in Sources */,
 				4EF8ED7F2B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
@@ -2879,6 +2904,7 @@
 				4E8651D32A3C968B0060AFB1 /* LoggerSaver.swift in Sources */,
 				4E8651D42A3C968B0060AFB1 /* LocationListViewModel.swift in Sources */,
 				4E8651D82A3C968B0060AFB1 /* SafeArea.swift in Sources */,
+				4EC686142D382CE20044DB84 /* Rate.swift in Sources */,
 				4E8651D92A3C968B0060AFB1 /* LocationListView.swift in Sources */,
 				4E8651DA2A3C968B0060AFB1 /* Tasker.swift in Sources */,
 				4E8651DE2A3C968B0060AFB1 /* ButtonChoiceView.swift in Sources */,
@@ -2935,6 +2961,7 @@
 				4EBF3B482A80E55900F637BB /* Strings.swift in Sources */,
 				4EBF3B4A2A80E55900F637BB /* PaymentViewModel.swift in Sources */,
 				4EBF3B4C2A80E55900F637BB /* PaymentView.swift in Sources */,
+				4EC6861E2D382D660044DB84 /* RateBinding.swift in Sources */,
 				4EBF3B4D2A80E55900F637BB /* ContentViewModel.swift in Sources */,
 				4EBF3B522A80E55900F637BB /* Device.swift in Sources */,
 				4EBF3B562A80E55900F637BB /* EnvBinding.swift in Sources */,
@@ -3000,6 +3027,7 @@
 				4EA37D712B2C680200E4EC97 /* Link.swift in Sources */,
 				4EBF3BD22A80E55900F637BB /* Swift+Extensions.swift in Sources */,
 				4E58C1342AC1B196002CA1A3 /* AccountChangeView.swift in Sources */,
+				4EC686172D382CE20044DB84 /* Rate.swift in Sources */,
 				4EBF3BD62A80E55900F637BB /* HttpBinding.swift in Sources */,
 				4EF35C992C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E92C70B2C05CF9700A33170 /* HomeViewModel.swift in Sources */,
