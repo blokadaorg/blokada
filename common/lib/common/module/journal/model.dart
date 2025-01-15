@@ -56,12 +56,13 @@ enum JournalFilterType { all, blocked, passed }
 class JournalFilter {
   final JournalFilterType showOnly;
   final String searchQuery; // Empty string means "no query"
-  //final String deviceName; // Empty string means "all devices"
+  final String deviceName; // Empty string means "all devices"
   final bool sortNewestFirst;
 
   JournalFilter({
     required this.showOnly,
     required this.searchQuery,
+    required this.deviceName,
     required this.sortNewestFirst,
   });
 
@@ -70,11 +71,13 @@ class JournalFilter {
   JournalFilter updateOnly({
     JournalFilterType? showOnly,
     String? searchQuery,
+    String? deviceName,
     bool? sortNewestFirst,
   }) {
     return JournalFilter(
       showOnly: showOnly ?? this.showOnly,
       searchQuery: searchQuery ?? this.searchQuery,
+      deviceName: deviceName ?? this.deviceName,
       sortNewestFirst: sortNewestFirst ?? this.sortNewestFirst,
     );
   }
@@ -88,11 +91,11 @@ class JournalFilter {
       filtered = filtered.where((e) => e.domainName.contains(q)).toList();
     }
 
-    // // Apply device
-    // final d = deviceName;
-    // if (d.isNotEmpty) {
-    //   filtered = filtered.where((e) => e.deviceName == deviceName).toList();
-    // }
+    // Apply device
+    final d = deviceName;
+    if (!Core.act.isFamily && d.isNotEmpty) {
+      filtered = filtered.where((e) => e.deviceName == deviceName).toList();
+    }
 
     // Apply filtering
     if (showOnly == JournalFilterType.blocked) {

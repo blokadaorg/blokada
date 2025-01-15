@@ -30,3 +30,13 @@ mixin Disposables<T extends StatefulWidget> on State<T> {
     _animationControllers = [];
   }
 }
+
+extension StringExt on String {
+  String orIfBlank(String fallback) {
+    return isBlank ? fallback : this;
+  }
+
+  String upTo(int length) {
+    return length >= this.length ? this : '${substring(0, length)}…';
+  }
+}

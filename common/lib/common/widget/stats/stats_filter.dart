@@ -1,16 +1,20 @@
 import 'package:common/common/dialog.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/widget/common_item.dart';
+import 'package:common/common/widget/stats/stats_filter_device.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/common/widget/two_letter_icon.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// A dialog displayed from the activity list, that allows to set filtering criteria
 class StatsFilter extends StatefulWidget {
   final StatsFilterController filter;
+  final Function(JournalFilter) onConfirm;
 
-  const StatsFilter({super.key, required this.filter});
+  const StatsFilter({super.key, required this.filter, required this.onConfirm});
 
   @override
   StatsFilterState createState() => StatsFilterState();
@@ -150,7 +154,41 @@ class StatsFilterState extends State<StatsFilter> {
             ),
           ),
         ),
+        const SizedBox(height: 16),
+        (Core.act.isFamily)
+            ? Container()
+            : _buildDeviceSelector(context, widget.filter.draft, onTap: () {
+                Navigator.of(context).pop();
+                showStatsFilterDeviceDialog(context,
+                    onConfirm: widget.onConfirm, ctrl: widget.filter);
+              }),
       ],
+    );
+  }
+}
+
+Widget _buildDeviceSelector(BuildContext context, JournalFilter filter,
+    {required VoidCallback onTap}) {
+  if (filter.deviceName.isEmpty) {
+    return ProfileButton(
+      onTap: onTap,
+      icon: CupertinoIcons.device_phone_portrait,
+      iconColor: context.theme.divider,
+      name: "activity device filter show all".i18n,
+      borderColor: null,
+      tapBgColor: context.theme.divider.withOpacity(0.1),
+      padding: const EdgeInsets.only(left: 12),
+      trailing: const SizedBox(height: 48),
+    );
+  } else {
+    return ProfileButton(
+      onTap: onTap,
+      leading: TwoLetterIconWidget(name: filter.deviceName),
+      name: filter.deviceName,
+      borderColor: null,
+      tapBgColor: context.theme.divider.withOpacity(0.1),
+      padding: const EdgeInsets.only(left: 12),
+      trailing: const SizedBox(height: 48),
     );
   }
 }
@@ -178,7 +216,7 @@ void showStatsFilterDialog(
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
-        StatsFilter(filter: ctrl),
+        StatsFilter(filter: ctrl, onConfirm: onConfirm),
       ],
     ),
     actions: (context) => [

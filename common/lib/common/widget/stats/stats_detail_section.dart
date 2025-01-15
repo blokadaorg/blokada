@@ -187,6 +187,15 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                     text: widget.entry.domainName,
                   ),
                   const CommonDivider(indent: 0),
+                  (Core.act.isFamily)
+                      ? Container()
+                      : ActionInfo(
+                          label: "universal label device".i18n,
+                          text: widget.entry.deviceName,
+                        ),
+                  (Core.act.isFamily)
+                      ? Container()
+                      : const CommonDivider(indent: 0),
                   ActionInfo(
                     label: "activity time of occurrence".i18n,
                     text: widget.entry.timestamp.toString(),

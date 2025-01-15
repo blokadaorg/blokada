@@ -2,6 +2,7 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/common/widget/two_letter_icon.dart';
 import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class ActivityItemState extends State<ActivityItem> {
         Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
       },
       tapBorderRadius: BorderRadius.zero,
-      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 4),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 8),
       child: Row(
         children: [
           widget.entry.isBlocked()
@@ -76,11 +77,7 @@ class ActivityItemState extends State<ActivityItem> {
               ],
             ),
           ),
-          Icon(
-            Icons.chevron_right,
-            size: 24,
-            color: context.theme.divider,
-          )
+          TwoLetterIconWidget(name: widget.entry.deviceName),
         ],
       ),
     );

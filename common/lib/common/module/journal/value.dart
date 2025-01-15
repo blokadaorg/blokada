@@ -9,3 +9,7 @@ class JournalFilterValue extends Value<JournalFilter> {
 
   reset() => now = _noFilter;
 }
+
+class JournalDevicesValue extends Value<Set<String>> {
+  JournalDevicesValue() : super(load: () => {});
+}

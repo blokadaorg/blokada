@@ -1,3 +1,4 @@
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/util/cooldown.dart';
@@ -35,6 +36,8 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _account = Core.get<AccountStore>();
   late final _persistence = Core.get<Persistence>();
   late final _env = Core.get<EnvStore>();
+
+  late final _journalFilter = Core.get<JournalFilterValue>();
 
   DeviceStoreBase() {
     willAcceptOn([deviceChanged]);
@@ -89,6 +92,10 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     return await log(m).trace("start", (m) async {
       await load(m);
       await setDeviceName(_env.deviceName, m);
+
+      // Only show current device journal by default
+      _journalFilter.now =
+          _journalFilter.now.updateOnly(deviceName: deviceAlias);
     });
   }
 

@@ -3,6 +3,7 @@ part of 'journal.dart';
 final _noFilter = JournalFilter(
   showOnly: JournalFilterType.all,
   searchQuery: "", // Empty string means "no query"
+  deviceName: "", // Empty string means "all devices"
   sortNewestFirst: true,
 );
 
@@ -12,6 +13,8 @@ class JournalActor with Logging, Actor {
 
   late final filteredEntries = Core.get<JournalEntriesValue>();
   late final filter = Core.get<JournalFilterValue>();
+
+  late final devices = Core.get<JournalDevicesValue>();
 
   List<UiJournalEntry> allEntries = [];
 
@@ -59,9 +62,16 @@ class JournalActor with Logging, Actor {
       grouped.sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
       // Parse timestampText for every entry
+      // Also add device names
+      Set<String> deviceNames = {};
       for (var entry in grouped) {
         entry.timestampText = timeago.format(entry.timestamp);
+
+        if (entry.deviceName.isNotBlank) {
+          deviceNames.add(entry.deviceName);
+        }
       }
+      devices.now = deviceNames;
 
       allEntries = grouped;
       filteredEntries.now = filter.now.apply(allEntries);
