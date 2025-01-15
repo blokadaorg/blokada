@@ -39,6 +39,7 @@ import binding.PlusGatewayBinding
 import binding.PlusKeypairBinding
 import binding.PlusLeaseBinding
 import binding.PlusVpnBinding
+import binding.RateBinding
 import binding.StageBinding
 import com.wireguard.android.backend.Backend
 import com.wireguard.android.backend.GoBackend
@@ -89,6 +90,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var plusLease: PlusLeaseBinding
     private lateinit var plusVpn: PlusVpnBinding
     private lateinit var device: DeviceBinding
+    private lateinit var rate: RateBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -124,6 +126,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         plusLease = PlusLeaseBinding
         plusVpn = PlusVpnBinding
         device = DeviceBinding
+        rate = RateBinding
     }
 
     private fun setupEvents() {

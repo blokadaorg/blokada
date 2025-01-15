@@ -28,6 +28,7 @@ import binding.LoggerBinding
 import binding.NotificationBinding
 import binding.PermBinding
 import binding.PersistenceBinding
+import binding.RateBinding
 import binding.StageBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -54,6 +55,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var account: AccountBinding
     private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var perm: PermBinding
+    private lateinit var rate: RateBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -83,6 +85,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         account = AccountBinding
         accountPayment = AccountPaymentBinding
         perm = PermBinding
+        rate = RateBinding
     }
 
     private fun setupEvents() {

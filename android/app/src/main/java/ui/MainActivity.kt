@@ -21,6 +21,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import binding.AccountPaymentBinding
 import binding.CommandBinding
+import binding.RateBinding
 import binding.StageBinding
 import channel.command.CommandName
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
+    private val rate by lazy { RateBinding }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,8 @@ class MainActivity : AppCompatActivity() {
         sheet.onHideFragment = { fragment ->
             fragment.dismiss()
         }
+
+        rate.onShowRateDialog = { askForReview(this) }
 
         setContentView(R.layout.activity_main)
 
