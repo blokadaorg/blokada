@@ -67,8 +67,8 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: RefreshIndicator.adaptive(
-        displacement: 20.0,
+      child: RefreshIndicator(
+        displacement: 100.0,
         onRefresh: () async {
           rebuild(null);
         },
