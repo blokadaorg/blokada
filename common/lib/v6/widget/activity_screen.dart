@@ -2,6 +2,7 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
+import 'package:common/common/widget/stats/stats_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
@@ -24,9 +25,20 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
 
   var _showStats = false;
 
+  Paths _path = Paths.activity;
+  Object? _arguments;
+
   @override
   void initState() {
     super.initState();
+
+    Navigation.openInTablet = (path, arguments) {
+      if (!mounted) return;
+      setState(() {
+        _path = path;
+        _arguments = arguments;
+      });
+    };
 
     autorun((_) {
       final retention = _device.retention;
@@ -48,31 +60,59 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
     return WithTopBar(
       title: "main tab activity".i18n,
       topBarTrailing: _getStatsAction(context),
-      child: _buildStatsScreen(context),
-    );
-  }
-
-  Widget _buildForTablet(BuildContext context) {
-    return WithTopBar(
-      title: "main tab activity".i18n,
-      maxWidth: maxContentWidth,
-      topBarTrailing: _getStatsAction(context),
-      child: Row(
+      child: const Row(
         children: [
           Expanded(
             flex: 1,
-            child: _buildStatsScreen(context),
+            child: StatsSection(deviceTag: null, isHeader: false),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildForTablet(BuildContext context) {
+    return WithTopBar(
+      title: "main tab activity".i18n,
+      maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
+      topBarTrailing: _getStatsAction(context),
+      child: _buildStatsScreen(context),
+    );
+  }
+
   Widget _buildStatsScreen(BuildContext context) {
     if (_showStats) {
-      return const StatsSection(deviceTag: null, isHeader: false);
+      return Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const Expanded(
+            flex: 1,
+            child: StatsSection(deviceTag: null, isHeader: false),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildForPath(_path, _arguments),
+          ),
+        ],
+      );
     } else {
-      return const RetentionSection();
+      return const Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: RetentionSection(),
+          ),
+        ],
+      );
+    }
+  }
+
+  Widget _buildForPath(Paths path, Object? arguments) {
+    switch (path) {
+      case Paths.deviceStatsDetail:
+        return StatsDetailSection(entry: _arguments as UiJournalEntry);
+      default:
+        return Container();
     }
   }
 

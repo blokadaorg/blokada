@@ -79,27 +79,37 @@ class TopBarState extends State<TopBar> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: widget.bottomPadding),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Transform.translate(
-                    offset: Offset(50 - 50 * transition, 0),
-                    //offset: Offset(0, 0),
-                    child: Opacity(
-                      opacity: xpow(transition, 8),
-                      //opacity: 1.0,
-                      child: Text(widget.title,
-                          style: TextStyle(
-                            color: context.theme.textPrimary,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                          )),
+            GestureDetector(
+              onTap: () {
+                // Access the primary ScrollController and scroll to the top
+                PrimaryScrollController.of(context).animateTo(
+                  0.0,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.only(bottom: widget.bottomPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.translate(
+                      offset: Offset(50 - 50 * transition, 0),
+                      //offset: Offset(0, 0),
+                      child: Opacity(
+                        opacity: xpow(transition, 8),
+                        //opacity: 1.0,
+                        child: Text(widget.title,
+                            style: TextStyle(
+                              color: context.theme.textPrimary,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            )),
+                      ),
                     ),
-                  ),
-                  // Other elements...
-                ],
+                    // Other elements...
+                  ],
+                ),
               ),
             ),
             Padding(
