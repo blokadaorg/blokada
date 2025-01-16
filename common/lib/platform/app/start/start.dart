@@ -7,7 +7,6 @@ import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
 import '../../env/env.dart';
-import '../../journal/journal.dart';
 import '../../link/link.dart';
 import '../../perm/perm.dart';
 import '../../plus/keypair/keypair.dart';
@@ -35,7 +34,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _account = Core.get<AccountStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _stage = Core.get<StageStore>();
-  late final _journal = Core.get<JournalStore>();
   late final _plus = Core.get<PlusStore>();
   late final _plusKeypair = Core.get<PlusKeypairStore>();
   late final _link = Core.get<LinkStore>();
@@ -68,7 +66,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     _env,
     _link,
     _device,
-    _journal,
     _plusKeypair,
     _accountRefresh,
     _plus,

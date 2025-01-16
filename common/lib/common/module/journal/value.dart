@@ -13,3 +13,7 @@ class JournalFilterValue extends Value<JournalFilter> {
 class JournalDevicesValue extends Value<Set<String>> {
   JournalDevicesValue() : super(load: () => {});
 }
+
+class JournalRefreshValue extends Value<int> {
+  JournalRefreshValue() : super(load: () => 0);
+}

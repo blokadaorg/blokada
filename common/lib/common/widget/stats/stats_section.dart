@@ -38,11 +38,16 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   @override
   void initState() {
     super.initState();
-    disposeLater(_filter.onChange.listen(rebuild));
     disposeLater(_entries.onChange.listen(rebuildEntries));
-
-    _customlist.onChange.listen(rebuild);
+    disposeLater(_filter.onChange.listen(rebuild));
+    disposeLater(_customlist.onChange.listen(rebuild));
     rebuild(null);
+  }
+
+  @override
+  void dispose() {
+    disposeAll();
+    super.dispose();
   }
 
   @override
@@ -62,38 +67,44 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: ListView(
-          primary: widget.primary,
-          children: [
-                // Header for v6 or padding for Family
-                (widget.isHeader)
-                    ? _buildHeaderForV6(context)
-                    : SizedBox(height: getTopPadding(context)),
-                // The rest of the screen
-                Container(
-                  decoration: BoxDecoration(
-                    color: context.theme.bgMiniCard,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12)),
+      child: RefreshIndicator.adaptive(
+        displacement: 20.0,
+        onRefresh: () async {
+          rebuild(null);
+        },
+        child: ListView(
+            primary: widget.primary,
+            children: [
+                  // Header for v6 or padding for Family
+                  (widget.isHeader)
+                      ? _buildHeaderForV6(context)
+                      : SizedBox(height: getTopPadding(context)),
+                  // The rest of the screen
+                  Container(
+                    decoration: BoxDecoration(
+                      color: context.theme.bgMiniCard,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12)),
+                    ),
+                    height: 12,
                   ),
-                  height: 12,
-                ),
-              ] +
-              (!_isReady || _entries.now.isEmpty
-                  ? _buildEmpty(context)
-                  : _buildItems(context)) +
-              [
-                Container(
-                  decoration: BoxDecoration(
-                    color: context.theme.bgMiniCard,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12)),
+                ] +
+                (!_isReady || _entries.now.isEmpty
+                    ? _buildEmpty(context)
+                    : _buildItems(context)) +
+                [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: context.theme.bgMiniCard,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12)),
+                    ),
+                    height: 12,
                   ),
-                  height: 12,
-                ),
-              ]),
+                ]),
+      ),
     );
   }
 

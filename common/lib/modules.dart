@@ -33,7 +33,6 @@ import 'platform/custom/custom.dart';
 import 'platform/device/device.dart';
 import 'platform/env/env.dart';
 import 'platform/http/http.dart';
-import 'platform/journal/journal.dart';
 import 'platform/link/link.dart';
 import 'platform/notification/notification.dart';
 import 'platform/perm/perm.dart';
@@ -117,7 +116,6 @@ class Modules with Logging {
 
     if (!Core.act.isFamily) {
       await _registerModule(V6PermModule());
-      JournalStore().onRegister();
       PlusStore().onRegister();
       PlusKeypairStore().onRegister();
       PlusGatewayStore().onRegister();
