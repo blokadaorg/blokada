@@ -36,7 +36,15 @@ class CommandStore with Logging, Actor implements CommandEvents {
     getOps().doCanAcceptCommands();
   }
 
-  final newCommands = ["WARNING", "FATAL"];
+  final newCommands = [
+    "WARNING",
+    "FATAL",
+    "SUPPORTNOTIFY",
+    "FAMILYLINK",
+    "ENABLEDECK",
+    "DISABLEDECK",
+    "TOGGLELISTBYTAG",
+  ];
 
   @override
   Future<void> onCommand(String command, Marker m) async {
