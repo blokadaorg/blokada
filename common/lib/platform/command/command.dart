@@ -64,7 +64,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   Future<void> onCommandWithParam(String command, String p1, Marker m) async {
     for (var cmd in newCommands) {
       if (command.startsWith(cmd)) {
-        return await commands.execute(m, command, null);
+        return await commands.execute(m, command, [p1]);
       }
     }
 
@@ -79,7 +79,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
       String command, String p1, String p2, Marker m) async {
     for (var cmd in newCommands) {
       if (command.startsWith(cmd)) {
-        return await commands.execute(m, command, null);
+        return await commands.execute(m, command, [p1, p2]);
       }
     }
 
