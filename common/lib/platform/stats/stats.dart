@@ -5,9 +5,6 @@ import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/stats_sheet.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../util/mobx.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
 import 'json.dart' as json;
 
 part 'stats.g.dart';
@@ -16,13 +13,8 @@ class StatsStore = StatsStoreBase with _$StatsStore;
 
 abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<json.StatsJson>();
-  late final _ops = Core.get<StatsOps>();
 
-  StatsStoreBase() {
-    reactionOnStore((_) => stats, (stats) async {
-      await _ops.doBlockedCounterChanged(formatCounter(stats.totalBlocked));
-    });
-  }
+  StatsStoreBase() {}
 
   static String formatCounter(int counter) {
     if (counter >= 1000000) {
@@ -36,7 +28,6 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   @override
   onRegister() {
-    Core.register<StatsOps>(getOps());
     Core.register<json.StatsJson>(json.StatsJson());
     Core.register<StatsSheet>(StatsSheet());
     Core.register<StatsStore>(this as StatsStore);
