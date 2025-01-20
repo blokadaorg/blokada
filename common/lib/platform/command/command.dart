@@ -190,7 +190,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
           throw Exception("Unknown familyLink token parameters");
         }
 
-        return await _execute(CommandName.familyLink, m, p1: tag, p2: name);
+        return await onCommandWithParam("FAMILYLINK", tag, m);
       } else {
         throw Exception("Unsupported url: $url");
       }
@@ -208,13 +208,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
     CommandName.restore.name,
     CommandName.receipt.name,
     CommandName.appleNotificationToken.name,
-  ];
-
-  final _noTimeLimitCommands = [
-    CommandName.newPlus.name,
-    CommandName.receipt.name,
-    CommandName.restorePayment.name,
-    CommandName.purchase.name,
   ];
 
   String _cmdName(String cmd, String? p1) {
