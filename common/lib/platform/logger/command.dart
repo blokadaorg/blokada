@@ -9,7 +9,7 @@ class LoggerCommand with Command, Logging {
   List<CommandSpec> onRegisterCommands() {
     return [
       registerCommand("warning", argsNum: 1, fn: cmdPlatformWarning),
-      registerCommand("fatal", argsNum: 1, fn: cmdPlatformWarning),
+      registerCommand("fatal", argsNum: 1, fn: cmdPlatformFatal),
       registerCommand("log", argsNum: 0, fn: cmdShareLog),
     ];
   }

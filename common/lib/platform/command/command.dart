@@ -48,11 +48,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
     final cmd = _commandFromString(command);
     await log(m).trace(_cmdName(command, null), (m) async {
-      try {
-        return await _execute(cmd, m);
-      } catch (e) {
-        await commands.execute(m, command, null);
-      }
+      return await _execute(cmd, m);
     });
   }
 
@@ -66,11 +62,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
     final cmd = _commandFromString(command);
     await log(m).trace(_cmdName(command, p1), (m) async {
-      try {
-        return await _execute(cmd, m, p1: p1);
-      } catch (e) {
-        await commands.execute(m, command, [p1]);
-      }
+      return await _execute(cmd, m, p1: p1);
     });
   }
 
@@ -85,11 +77,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
     final cmd = _commandFromString(command);
     await log(m).trace(_cmdName(command, p1), (m) async {
-      try {
-        return await _execute(cmd, m, p1: p1, p2: p2);
-      } catch (e) {
-        await commands.execute(m, command, [p1, p2]);
-      }
+      return await _execute(cmd, m, p1: p1, p2: p2);
     });
   }
 
