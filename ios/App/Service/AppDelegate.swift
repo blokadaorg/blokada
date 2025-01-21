@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.persistence) private var persistence
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
+    @Injected(\.rate) private var rate
 
     private var deps = FlavorDeps()
 
