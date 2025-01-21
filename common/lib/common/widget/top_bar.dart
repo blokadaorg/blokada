@@ -52,33 +52,6 @@ class TopBarState extends State<TopBar> {
             Container(
               color: widget.animateBg ? Colors.transparent : widget.bgColor,
             ),
-            Opacity(
-              opacity: widget.animateBg
-                  ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0)
-                  : 1.0,
-              child: Column(
-                children: [
-                  ClipRect(
-                    child: SizedBox(
-                      height: widget.height - 1,
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(
-                          sigmaX: 25,
-                          sigmaY: 25,
-                        ),
-                        child: Container(
-                          color: context.theme.shadow.withOpacity(0.2),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 1,
-                    color: context.theme.divider.withOpacity(0.08),
-                  ),
-                ],
-              ),
-            ),
             GestureDetector(
               onTap: () {
                 // Access the primary ScrollController and scroll to the top
@@ -88,28 +61,55 @@ class TopBarState extends State<TopBar> {
                   curve: Curves.easeInOut,
                 );
               },
-              child: Padding(
-                padding: EdgeInsets.only(bottom: widget.bottomPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              child: Opacity(
+                opacity: widget.animateBg
+                    ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0)
+                    : 1.0,
+                child: Column(
                   children: [
-                    Transform.translate(
-                      offset: Offset(50 - 50 * transition, 0),
-                      //offset: Offset(0, 0),
-                      child: Opacity(
-                        opacity: xpow(transition, 8),
-                        //opacity: 1.0,
-                        child: Text(widget.title,
-                            style: TextStyle(
-                              color: context.theme.textPrimary,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            )),
+                    ClipRect(
+                      child: SizedBox(
+                        height: widget.height - 1,
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 25,
+                            sigmaY: 25,
+                          ),
+                          child: Container(
+                            color: context.theme.shadow.withOpacity(0.2),
+                          ),
+                        ),
                       ),
                     ),
-                    // Other elements...
+                    Container(
+                      height: 1,
+                      color: context.theme.divider.withOpacity(0.08),
+                    ),
                   ],
                 ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: widget.bottomPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Transform.translate(
+                    offset: Offset(50 - 50 * transition, 0),
+                    //offset: Offset(0, 0),
+                    child: Opacity(
+                      opacity: xpow(transition, 8),
+                      //opacity: 1.0,
+                      child: Text(widget.title,
+                          style: TextStyle(
+                            color: context.theme.textPrimary,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ),
+                  ),
+                  // Other elements...
+                ],
               ),
             ),
             Padding(
@@ -122,7 +122,7 @@ class TopBarState extends State<TopBar> {
                       opacity: 1.0,
                       child: widget.trailing,
                     ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                 ],
               ),
             ),
