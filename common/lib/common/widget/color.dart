@@ -3,17 +3,12 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-Color genColor(String id) {
+Color genColor(String id, {bool isDarkMode = false}) {
   final bytes = utf8.encode(id);
   final hash = sha256.convert(bytes);
   final hashBytes = hash.bytes;
 
-  double red = hashBytes[0] / 255.0;
-  double green = hashBytes[1] / 255.0;
-  double blue = hashBytes[2] / 255.0;
-
   // Suppose we combine a few bytes for the hue:
-  //int hueValue = (hashBytes[0] << 8) + hashBytes[1];
   int hueValue = (hashBytes[0] << 24) |
       (hashBytes[1] << 16) |
       (hashBytes[2] << 8) |

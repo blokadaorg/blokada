@@ -12,15 +12,20 @@ class TwoLetterIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    Color beginColor = isDarkMode ? Colors.grey[800]! : Colors.grey[300]!;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: ColorFiltered(
-        colorFilter:
-            ColorFilter.mode(colorOverride ?? genColor(name), BlendMode.color),
+        colorFilter: ColorFilter.mode(
+            colorOverride ?? genColor(name, isDarkMode: isDarkMode),
+            BlendMode.color),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.grey[300]!, Colors.grey[600]!],
+              colors: [beginColor, Colors.grey[600]!],
               begin: Alignment.bottomRight,
               end: Alignment.topLeft,
             ),
