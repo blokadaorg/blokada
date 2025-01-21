@@ -136,15 +136,6 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     ? Column(
                         children: [
                           SettingsItem(
-                              icon: CupertinoIcons.person_crop_circle,
-                              text: "account action my account".i18n,
-                              onTap: () {
-                                _perm.authenticate(Markers.userTap, () {
-                                  showAccountIdDialog(context, _account.id);
-                                });
-                              }),
-                          const CommonDivider(),
-                          SettingsItem(
                               icon: CupertinoIcons.shield_lefthalf_fill,
                               text: "family stats title".i18n, // My exceptions
                               onTap: () {
@@ -236,6 +227,21 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           CommonCard(
             child: Column(
               children: [
+                (!Core.act.isFamily)
+                    ? Column(
+                        children: [
+                          SettingsItem(
+                              icon: CupertinoIcons.person_crop_circle,
+                              text: "account action my account".i18n,
+                              onTap: () {
+                                _perm.authenticate(Markers.userTap, () {
+                                  showAccountIdDialog(context, _account.id);
+                                });
+                              }),
+                          const CommonDivider(),
+                        ],
+                      )
+                    : Container(),
                 SettingsItem(
                     icon: CupertinoIcons.return_icon,
                     text: "account action logout new".i18n,
