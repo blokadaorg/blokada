@@ -200,30 +200,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             ),
           ),
           const SizedBox(height: 40),
-          SectionLabel(text: "universal action help".i18n.capitalize()),
-          CommonCard(
-            child: Column(
-              children: [
-                SettingsItem(
-                    unread: _unread.present ?? false,
-                    icon: CupertinoIcons.chat_bubble_text,
-                    text: "support action chat".i18n,
-                    onTap: () => Navigation.open(Paths.support)),
-                const CommonDivider(),
-                SettingsItem(
-                    icon: CupertinoIcons.person_3,
-                    text: "universal action community".i18n,
-                    onTap: () {
-                      log(Markers.userTap).trace("settingsOpenCommunity",
-                          (m) async {
-                        await _stage.openLink(LinkId.knowledgeBase, m);
-                      });
-                    }),
-              ],
-            ),
-          ),
-          const SizedBox(height: 40),
-          SectionLabel(text: "account section header other".i18n.capitalize()),
+          SectionLabel(text: "account action my account".i18n.capitalize()),
           CommonCard(
             child: Column(
               children: [
@@ -246,6 +223,29 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     icon: CupertinoIcons.return_icon,
                     text: "account action logout new".i18n,
                     onTap: () => _showRestoreDialog(context)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 40),
+          SectionLabel(text: "universal action help".i18n.capitalize()),
+          CommonCard(
+            child: Column(
+              children: [
+                SettingsItem(
+                    unread: _unread.present ?? false,
+                    icon: CupertinoIcons.chat_bubble_text,
+                    text: "support action chat".i18n,
+                    onTap: () => Navigation.open(Paths.support)),
+                const CommonDivider(),
+                SettingsItem(
+                    icon: CupertinoIcons.person_3,
+                    text: "universal action community".i18n,
+                    onTap: () {
+                      log(Markers.userTap).trace("settingsOpenCommunity",
+                          (m) async {
+                        await _stage.openLink(LinkId.knowledgeBase, m);
+                      });
+                    }),
                 const CommonDivider(),
                 SettingsItem(
                     icon: CupertinoIcons.doc_text,
