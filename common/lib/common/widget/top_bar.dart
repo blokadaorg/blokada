@@ -34,6 +34,15 @@ class TopBar extends StatefulWidget {
 class TopBarState extends State<TopBar> {
   double transition = 1.0;
 
+  _scrollToTop(BuildContext context) {
+    // Access the primary ScrollController and scroll to the top
+    PrimaryScrollController.of(context).animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TopBarController>(builder: (context, ctrl, child) {
@@ -53,14 +62,7 @@ class TopBarState extends State<TopBar> {
               color: widget.animateBg ? Colors.transparent : widget.bgColor,
             ),
             GestureDetector(
-              onTap: () {
-                // Access the primary ScrollController and scroll to the top
-                PrimaryScrollController.of(context).animateTo(
-                  0.0,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              },
+              onTap: () => _scrollToTop(context),
               child: Opacity(
                 opacity: widget.animateBg
                     ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0)
@@ -91,25 +93,28 @@ class TopBarState extends State<TopBar> {
             ),
             Padding(
               padding: EdgeInsets.only(bottom: widget.bottomPadding),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Transform.translate(
-                    offset: Offset(50 - 50 * transition, 0),
-                    //offset: Offset(0, 0),
-                    child: Opacity(
-                      opacity: xpow(transition, 8),
-                      //opacity: 1.0,
-                      child: Text(widget.title,
-                          style: TextStyle(
-                            color: context.theme.textPrimary,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                          )),
+              child: GestureDetector(
+                onTap: () => _scrollToTop(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.translate(
+                      offset: Offset(50 - 50 * transition, 0),
+                      //offset: Offset(0, 0),
+                      child: Opacity(
+                        opacity: xpow(transition, 8),
+                        //opacity: 1.0,
+                        child: Text(widget.title,
+                            style: TextStyle(
+                              color: context.theme.textPrimary,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            )),
+                      ),
                     ),
-                  ),
-                  // Other elements...
-                ],
+                    // Other elements...
+                  ],
+                ),
               ),
             ),
             Padding(

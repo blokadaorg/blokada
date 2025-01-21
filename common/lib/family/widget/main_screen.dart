@@ -25,6 +25,7 @@ class FamilyMainScreenState extends State<FamilyMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: ChangeNotifierProvider(
         create: (context) => widget.ctrl,
         child: Stack(
