@@ -200,7 +200,8 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             ),
           ),
           const SizedBox(height: 40),
-          SectionLabel(text: "account action my account".i18n.capitalize()),
+          SectionLabel(
+              text: "account section header my subscription".i18n.capitalize()),
           CommonCard(
             child: Column(
               children: [
