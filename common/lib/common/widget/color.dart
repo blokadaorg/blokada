@@ -9,10 +9,10 @@ Color genColor(String id, {bool isDarkMode = false}) {
   final hashBytes = hash.bytes;
 
   // Suppose we combine a few bytes for the hue:
-  int hueValue = (hashBytes[0] << 24) |
-      (hashBytes[1] << 16) |
-      (hashBytes[2] << 8) |
-      hashBytes[3];
+  int hueValue = (hashBytes[0] ^ hashBytes[5]) +
+      (hashBytes[1] ^ hashBytes[6]) +
+      (hashBytes[2] ^ hashBytes[7]) +
+      (hashBytes[3] ^ hashBytes[8]);
   double hue = (hueValue % 360).toDouble();
 
   // Maybe saturate and lighten them a bit
