@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
     @Injected(\.rate) private var rate
+    @Injected(\.family) private var family
 
     private var deps = FlavorDeps()
 

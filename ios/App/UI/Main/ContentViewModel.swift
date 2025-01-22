@@ -16,7 +16,8 @@ import Factory
 
 class ContentViewModel: ObservableObject {
     @Injected(\.stage) var stage
-    @Injected(\.logger) var tracer
+    @Injected(\.logger) var logger
+    @Injected(\.family) var family
 
     private lazy var linkRepo = Repos.linkRepo
     private var cancellables = Set<AnyCancellable>()
@@ -34,6 +35,7 @@ class ContentViewModel: ObservableObject {
         onSheetChanged()
         onShowPauseMenuChanged()
         onShareLog()
+        onShareUrl()
     }
 
     func openLink(_ link: LinkId) {
@@ -63,7 +65,16 @@ class ContentViewModel: ObservableObject {
     }
 
     private func onShareLog() {
-        tracer.shareLog
+        logger.shareLog
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.shareLog = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onShareUrl() {
+        family.shareUrl
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.shareLog = it
