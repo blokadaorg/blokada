@@ -16,6 +16,7 @@ import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/family/family.dart';
 import 'package:common/platform/filter/filter.dart';
 import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/dnscheck.dart';
@@ -129,6 +130,7 @@ class Modules with Logging {
 
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
+      await _registerModule(PlatformFamilyModule());
     }
 
     await _registerModule(RateModule());

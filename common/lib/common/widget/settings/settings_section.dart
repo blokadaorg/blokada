@@ -205,7 +205,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           CommonCard(
             child: Column(
               children: [
-                (!Core.act.isFamily)
+                (!Core.act.isFamily || !Core.act.isRelease)
                     ? Column(
                         children: [
                           SettingsItem(

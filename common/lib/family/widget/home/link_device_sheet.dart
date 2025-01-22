@@ -12,6 +12,7 @@ import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
+import 'package:common/platform/family/family.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
   late final _family = Core.get<FamilyActor>();
   late final _familyLink = Core.get<LinkActor>();
   late final _generator = Core.get<NameGenerator>();
+  late final _channel = Core.get<FamilyChannel>();
 
   bool _showQr = false; // The widget would stutter animation, show async
 
@@ -223,6 +225,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                const SizedBox(width: 48),
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Colors.white,
@@ -238,6 +241,19 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                                     size: 200.0,
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: CommonClickable(
+                                    onTap: () async {
+                                      // To prevent UI freeze when the share screen opens
+                                      await sleepAsync(
+                                          const Duration(milliseconds: 500));
+                                      _channel.doShareUrl(_payload.qrUrl);
+                                    },
+                                    child: const Icon(CupertinoIcons.share,
+                                        size: 24),
+                                  ),
+                                )
                               ],
                             ),
                           ],
