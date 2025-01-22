@@ -23,6 +23,7 @@ import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
 import binding.EnvBinding
+import binding.FamilyBinding
 import binding.HttpBinding
 import binding.LoggerBinding
 import binding.NotificationBinding
@@ -56,6 +57,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var perm: PermBinding
     private lateinit var rate: RateBinding
+    private lateinit var family: FamilyBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -86,6 +88,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         accountPayment = AccountPaymentBinding
         perm = PermBinding
         rate = RateBinding
+        family = FamilyBinding
     }
 
     private fun setupEvents() {
