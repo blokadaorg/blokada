@@ -1,15 +1,15 @@
 part of 'customlist.dart';
 
-class CustomlistPayload {
+class CustomLists {
   final List<String> denied;
   final List<String> allowed;
 
-  CustomlistPayload({required this.denied, required this.allowed});
+  CustomLists({required this.denied, required this.allowed});
 }
 
 class CustomlistActor with Actor, Logging {
   late final _customlist = Core.get<CustomlistApi>();
-  late final _payload = Core.get<CustomlistPayloadValue>();
+  late final _payload = Core.get<CustomListsValue>();
 
   String? profileId;
 
@@ -37,11 +37,11 @@ class CustomlistActor with Actor, Logging {
         .toList();
     allowed.sort();
 
-    _payload.now = CustomlistPayload(denied: denied, allowed: allowed);
+    _payload.now = CustomLists(denied: denied, allowed: allowed);
   }
 
   _allow(String domain, Marker m) async {
-    _payload.now = CustomlistPayload(
+    _payload.now = CustomLists(
       denied: _payload.now.denied,
       allowed: _payload.now.allowed..add(domain),
     );
@@ -57,7 +57,7 @@ class CustomlistActor with Actor, Logging {
   }
 
   _deny(String domain, Marker m) async {
-    _payload.now = CustomlistPayload(
+    _payload.now = CustomLists(
       denied: _payload.now.denied..add(domain),
       allowed: _payload.now.allowed,
     );
@@ -74,7 +74,7 @@ class CustomlistActor with Actor, Logging {
   }
 
   _delete(String domain, Marker m) async {
-    _payload.now = CustomlistPayload(
+    _payload.now = CustomLists(
       denied: _payload.now.denied..remove(domain),
       allowed: _payload.now.allowed..remove(domain),
     );

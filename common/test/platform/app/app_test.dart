@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/json.dart';
+import 'package:common/platform/account/api.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/device/device.dart';

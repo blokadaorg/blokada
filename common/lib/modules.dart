@@ -1,10 +1,13 @@
-import 'package:common/common/api/api.dart';
 import 'package:common/common/module/account/account.dart';
+import 'package:common/common/module/api/api.dart';
 import 'package:common/common/module/customlist/customlist.dart';
+import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/journal/journal.dart';
+import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
@@ -16,11 +19,11 @@ import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/common/common.dart';
+import 'package:common/platform/core/core.dart';
 import 'package:common/platform/family/family.dart';
 import 'package:common/platform/filter/filter.dart';
-import 'package:common/platform/logger/logger.dart';
 import 'package:common/platform/perm/dnscheck.dart';
-import 'package:common/platform/persistence/persistence.dart';
 import 'package:common/v6/module/perm/perm.dart';
 import 'package:common/v6/widget/home/home.dart';
 
@@ -30,19 +33,13 @@ import 'platform/account/refresh/refresh.dart';
 import 'platform/app/app.dart';
 import 'platform/app/start/start.dart';
 import 'platform/command/command.dart';
-import 'platform/custom/custom.dart';
 import 'platform/device/device.dart';
-import 'platform/env/env.dart';
-import 'platform/http/http.dart';
-import 'platform/link/link.dart';
-import 'platform/notification/notification.dart';
 import 'platform/perm/perm.dart';
 import 'platform/plus/gateway/gateway.dart';
 import 'platform/plus/keypair/keypair.dart';
 import 'platform/plus/lease/lease.dart';
 import 'platform/plus/plus.dart';
 import 'platform/plus/vpn/vpn.dart';
-import 'platform/rate/rate.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/refresh/refresh.dart';
 import 'platform/stats/stats.dart';
@@ -56,8 +53,10 @@ class Modules with Logging {
 
     // TODO: All onRegister calls here have to be replaced with modules
 
-    await _registerModule(PlatformLoggerModule());
     await _registerModule(CoreModule());
+    await _registerModule(PlatformCoreModule());
+    await _registerModule(EnvModule());
+    await _registerModule(NotificationModule());
 
     await _registerModule(ApiModule());
     await _registerModule(ListModule());
@@ -75,27 +74,11 @@ class Modules with Logging {
       await _registerModule(PermModule());
     }
 
-    await _registerModule(PlatformPersistenceModule());
-
-    if (Core.act.hasToys) {
-      RepeatingHttpService(
-        DebugHttpService(PlatformHttpService()),
-        maxRetries: Core.config.httpMaxRetries,
-        waitTime: Core.config.httpRetryDelay,
-      ).onRegister();
-    } else {
-      RepeatingHttpService(
-        PlatformHttpService(),
-        maxRetries: Core.config.httpMaxRetries,
-        waitTime: Core.config.httpRetryDelay,
-      ).onRegister();
-    }
+    await _registerModule(PlatformCommonModule());
 
     // The stores. Order is important
-    EnvStore().onRegister();
     StageStore().onRegister();
     AccountStore().onRegister();
-    NotificationStore().onRegister();
     AccountPaymentStore().onRegister();
     AccountRefreshStore().onRegister();
     DeviceStore().onRegister();
@@ -113,7 +96,6 @@ class Modules with Logging {
     await _registerModule(CommonPermModule());
     await _registerModule(PlatformPermModule());
     await _registerModule(LockModule());
-    CustomStore().onRegister();
 
     if (!Core.act.isFamily) {
       await _registerModule(V6PermModule());
@@ -134,15 +116,14 @@ class Modules with Logging {
     }
 
     await _registerModule(RateModule());
-    await _registerModule(PlatformRateModule());
+    await _registerModule(LinkModule());
     CommandStore().onRegister();
-    LinkStore().onRegister();
 
     Core.register<TopBarController>(TopBarController());
   }
 
   start(Marker m) async {
-    await _appStart.startApp(m);
+    _appStart.startApp(m); // TODO: refactor this
 
     await log(m).trace("startModules", (m) async {
       for (var mod in _modules) {

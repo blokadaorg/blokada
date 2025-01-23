@@ -1,7 +1,6 @@
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/notification/channel.pg.dart';
-import 'package:common/platform/notification/notification.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -9,7 +8,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<NotificationOps>(),
+  MockSpec<NotificationChannel>(),
   MockSpec<StageStore>(),
   MockSpec<AccountStore>(),
 ])
@@ -22,11 +21,13 @@ void main() {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<StageStore>(MockStageStore());
 
-        final store = NotificationStore();
-        Core.register<NotificationStore>(store);
+        Core.register(NotificationsValue());
 
-        final ops = MockNotificationOps();
-        Core.register<NotificationOps>(ops);
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
 
         verifyNever(ops.doShow(any, any, any));
 

@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/json.dart';
+import 'package:common/platform/account/api.dart';
+import 'package:common/platform/account/payment/api.dart';
 import 'package:common/platform/account/payment/channel.pg.dart';
-import 'package:common/platform/account/payment/json.dart';
 import 'package:common/platform/account/payment/payment.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +15,7 @@ import '../../../tools.dart';
 import '../fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<AccountPaymentOps>(),
-  MockSpec<AccountPaymentJson>(),
+  MockSpec<AccountPaymentApi>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountPaymentStore>(),
   MockSpec<StageStore>(),
@@ -83,10 +83,10 @@ void main() {
             .thenAnswer((_) async => ["receipt"]);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -108,10 +108,10 @@ void main() {
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -137,10 +137,10 @@ void main() {
         when(ops.doRestoreWithReceipts()).thenAnswer((_) async => ["receipt"]);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -163,12 +163,12 @@ void main() {
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout("good receipt", any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)));
         when(json.postCheckout("bad receipt", any, any))
             .thenThrow(Exception("bad receipt"));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -220,8 +220,8 @@ void main() {
             .thenThrow(Exception("Channel failing"));
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
-        Core.register<AccountPaymentJson>(json);
+        final json = MockAccountPaymentApi();
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -246,10 +246,10 @@ void main() {
             .thenAnswer((_) async => ["receipt"]);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any))
             .thenThrow(Exception("Api failing"));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
@@ -275,10 +275,10 @@ void main() {
             .thenAnswer((_) async => ["receipt"]);
         Core.register<AccountPaymentOps>(ops);
 
-        final json = MockAccountPaymentJson();
+        final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
             (_) async => JsonAccount.fromJson(jsonDecode(fixtureJsonAccount2)));
-        Core.register<AccountPaymentJson>(json);
+        Core.register<AccountPaymentApi>(json);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);

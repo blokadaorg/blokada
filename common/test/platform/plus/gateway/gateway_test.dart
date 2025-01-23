@@ -1,7 +1,7 @@
 import 'package:common/core/core.dart';
+import 'package:common/platform/plus/gateway/api.dart';
 import 'package:common/platform/plus/gateway/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
-import 'package:common/platform/plus/gateway/json.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -12,7 +12,7 @@ import 'fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<PlusGatewayStore>(),
   MockSpec<PlusGatewayOps>(),
-  MockSpec<PlusGatewayJson>(),
+  MockSpec<PlusGatewayApi>(),
   MockSpec<Persistence>(),
   MockSpec<StageStore>(),
 ])
@@ -27,10 +27,10 @@ void main() {
         final ops = MockPlusGatewayOps();
         Core.register<PlusGatewayOps>(ops);
 
-        final json = MockPlusGatewayJson();
+        final json = MockPlusGatewayApi();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        Core.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayApi>(json);
 
         final subject = PlusGatewayStore();
         expect(subject.gateways.isEmpty, true);
@@ -55,10 +55,10 @@ void main() {
             Future.value("sSYTK8M4BOzuFpEPo2QXEzTZ+TDT5XMOzhN2Xk7A5B4="));
         Core.register<Persistence>(persistence);
 
-        final json = MockPlusGatewayJson();
+        final json = MockPlusGatewayApi();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        Core.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayApi>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);
@@ -81,10 +81,10 @@ void main() {
         final persistence = MockPersistence();
         Core.register<Persistence>(persistence);
 
-        final json = MockPlusGatewayJson();
+        final json = MockPlusGatewayApi();
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
-        Core.register<PlusGatewayJson>(json);
+        Core.register<PlusGatewayApi>(json);
 
         final subject = PlusGatewayStore();
         await subject.fetch(m);

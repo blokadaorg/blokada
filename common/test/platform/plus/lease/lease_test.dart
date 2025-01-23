@@ -1,10 +1,10 @@
+import 'package:common/common/module/env/env.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/env/env.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';
+import 'package:common/platform/plus/lease/api.dart';
 import 'package:common/platform/plus/lease/channel.pg.dart';
-import 'package:common/platform/plus/lease/json.dart';
 import 'package:common/platform/plus/lease/lease.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -17,12 +17,12 @@ import 'fixtures.dart';
 @GenerateNiceMocks([
   MockSpec<PlusLeaseStore>(),
   MockSpec<PlusLeaseOps>(),
-  MockSpec<PlusLeaseJson>(),
+  MockSpec<PlusLeaseApi>(),
   MockSpec<PlusGatewayStore>(),
   MockSpec<PlusKeypairStore>(),
   MockSpec<PlusStore>(),
   MockSpec<StageStore>(),
-  MockSpec<EnvStore>(),
+  MockSpec<EnvActor>(),
   MockSpec<AccountStore>(),
 ])
 import 'lease_test.mocks.dart';
@@ -37,10 +37,10 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -71,10 +71,10 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -106,10 +106,10 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -139,10 +139,10 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -167,9 +167,9 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.postLease(any, any)).thenThrow(Exception("post failing"));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -196,10 +196,10 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -225,15 +225,15 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.postLease(any, any)).thenThrow(TooManyLeasesException());
         when(json.getLeases(any))
             .thenAnswer((_) => Future.value(fixtureLeaseEntries));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
-        final env = MockEnvStore();
+        final env = MockEnvActor();
         when(env.deviceName).thenReturn("Solar quokka");
-        Core.register<EnvStore>(env);
+        Core.register<EnvActor>(env);
 
         final keypair = MockPlusKeypairStore();
         when(keypair.currentDevicePublicKey)
@@ -264,12 +264,12 @@ void main() {
         final ops = MockPlusLeaseOps();
         Core.register<PlusLeaseOps>(ops);
 
-        final json = MockPlusLeaseJson();
+        final json = MockPlusLeaseApi();
         when(json.deleteLease(any, any)).thenThrow(Exception("delete failing"));
-        Core.register<PlusLeaseJson>(json);
+        Core.register<PlusLeaseApi>(json);
 
-        final env = MockEnvStore();
-        Core.register<EnvStore>(env);
+        final env = MockEnvActor();
+        Core.register<EnvActor>(env);
 
         final gateway = MockPlusGatewayStore();
         Core.register<PlusGatewayStore>(gateway);
@@ -292,8 +292,8 @@ void main() {
         Core.register<PlusLeaseOps>(ops);
         Core.register<PlusStore>(MockPlusStore());
 
-        final json = MockPlusLeaseJson();
-        Core.register<PlusLeaseJson>(json);
+        final json = MockPlusLeaseApi();
+        Core.register<PlusLeaseApi>(json);
 
         final gateway = MockPlusGatewayStore();
         Core.register<PlusGatewayStore>(gateway);

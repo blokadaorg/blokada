@@ -1,5 +1,5 @@
 import 'package:common/core/core.dart';
-import 'package:common/platform/logger/logger.dart';
+import 'package:common/platform/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:test_api/src/backend/invoker.dart';
@@ -9,7 +9,7 @@ withTrace(Future Function(Marker m) fn) async {
   Core.act = mockedAct;
   Core.config = Config();
 
-  await PlatformLoggerModule().create();
+  await PlatformCoreModule().create();
 
   final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
   final module = m[m.length - 2];

@@ -1,7 +1,7 @@
+import 'package:common/common/module/env/env.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
-import 'package:common/platform/env/env.dart';
 import 'package:common/platform/plus/channel.pg.dart';
 import 'package:common/platform/plus/gateway/gateway.dart';
 import 'package:common/platform/plus/keypair/keypair.dart';
@@ -26,7 +26,7 @@ import 'lease/fixtures.dart';
   MockSpec<Persistence>(),
   MockSpec<PlusOps>(),
   MockSpec<AppStore>(),
-  MockSpec<EnvStore>(),
+  MockSpec<EnvActor>(),
   MockSpec<DeviceStore>(),
   MockSpec<StageStore>(),
 ])

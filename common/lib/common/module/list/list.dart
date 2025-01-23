@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:common/common/api/api.dart';
+import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 
 part 'api.dart';
-part 'json.dart';
 part 'model.dart';
 
 class ListModule with Module {

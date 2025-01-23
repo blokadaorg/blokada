@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:common/common/api/api.dart';
+import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/command/command.dart';
-import 'package:common/platform/notification/notification.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
@@ -18,7 +18,25 @@ part 'json.dart';
 part 'model.dart';
 part 'purchase_timeout_actor.dart';
 part 'unread_actor.dart';
-part 'value.dart';
+
+class CurrentSession extends StringPersistedValue {
+  CurrentSession() : super("support_session_id");
+}
+
+class ChatHistory extends JsonPersistedValue<SupportMessages> {
+  ChatHistory() : super("support_chat_history");
+
+  @override
+  SupportMessages fromJson(Map<String, dynamic> json) =>
+      SupportMessages.fromJson(json);
+
+  @override
+  Map<String, dynamic> toJson(SupportMessages value) => value.toJson();
+}
+
+class SupportUnread extends BoolPersistedValue {
+  SupportUnread() : super("support_unread");
+}
 
 class SupportModule with Module {
   @override

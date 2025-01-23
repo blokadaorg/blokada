@@ -1,7 +1,6 @@
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../util/mobx.dart';
 import '../../account/account.dart';
 import '../plus.dart';
 import 'channel.act.dart';
@@ -28,11 +27,6 @@ abstract class PlusKeypairStoreBase with Store, Logging, Actor {
 
   PlusKeypairStoreBase() {
     _account.addOn(accountIdChanged, generate);
-
-    reactionOnStore((_) => currentKeypair, (currentKeypair) async {
-      if (currentKeypair == null) return;
-      await _ops.doCurrentKeypair(currentKeypair);
-    });
   }
 
   @override

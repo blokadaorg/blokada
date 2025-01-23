@@ -1,8 +1,7 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/device/channel.pg.dart';
+import 'package:common/platform/device/api.dart';
 import 'package:common/platform/device/device.dart';
-import 'package:common/platform/device/json.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,8 +9,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<DeviceJson>(),
-  MockSpec<DeviceOps>(),
+  MockSpec<DeviceApi>(),
   MockSpec<StageStore>(),
   MockSpec<AccountStore>(),
 ])
@@ -32,13 +30,10 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
 
-        final api = MockDeviceJson();
+        final api = MockDeviceApi();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        Core.register<DeviceJson>(api);
-
-        final ops = MockDeviceOps();
-        Core.register<DeviceOps>(ops);
+        Core.register<DeviceApi>(api);
 
         final subject = DeviceStore();
         mockAct(subject);
@@ -57,13 +52,10 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
 
-        final api = MockDeviceJson();
+        final api = MockDeviceApi();
         when(api.getDevice(any))
             .thenAnswer((_) => Future.value(_fixtureJsonDevice));
-        Core.register<DeviceJson>(api);
-
-        final ops = MockDeviceOps();
-        Core.register<DeviceOps>(ops);
+        Core.register<DeviceApi>(api);
 
         final subject = DeviceStore();
         subject.deviceTag = "some-tag";
@@ -89,12 +81,9 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
 
-        final api = MockDeviceJson();
+        final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        Core.register<DeviceJson>(api);
-
-        final ops = MockDeviceOps();
-        Core.register<DeviceOps>(ops);
+        Core.register<DeviceApi>(api);
 
         final subject = DeviceStore();
 
@@ -112,12 +101,9 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
 
-        final api = MockDeviceJson();
+        final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
-        Core.register<DeviceJson>(api);
-
-        final ops = MockDeviceOps();
-        Core.register<DeviceOps>(ops);
+        Core.register<DeviceApi>(api);
 
         final subject = DeviceStore();
 

@@ -1,15 +1,12 @@
+import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/util/cooldown.dart';
-import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
-import '../env/env.dart';
 import '../stage/stage.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
-import 'json.dart';
+import 'api.dart';
 
 part 'device.g.dart';
 
@@ -30,12 +27,11 @@ const String _keyTag = "device:tag";
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
-  late final _ops = Core.get<DeviceOps>();
-  late final _api = Core.get<DeviceJson>();
+  late final _api = Core.get<DeviceApi>();
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _persistence = Core.get<Persistence>();
-  late final _env = Core.get<EnvStore>();
+  late final _env = Core.get<EnvActor>();
 
   late final _journalFilter = Core.get<JournalFilterValue>();
 
@@ -45,18 +41,11 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
     _account.addOn(accountIdChanged, fetch);
-
-    reactionOnStore((_) => deviceTag, (tag) async {
-      if (tag != null) {
-        _ops.doDeviceTagChanged(tag);
-      }
-    });
   }
 
   @override
   onRegister() {
-    Core.register<DeviceOps>(getOps());
-    Core.register<DeviceJson>(DeviceJson());
+    Core.register<DeviceApi>(DeviceApi());
     Core.register<DeviceStore>(this as DeviceStore);
   }
 

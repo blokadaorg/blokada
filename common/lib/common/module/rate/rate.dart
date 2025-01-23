@@ -8,7 +8,10 @@ import 'package:dartx/dartx.dart';
 
 part 'actor.dart';
 part 'json.dart';
-part 'value.dart';
+
+mixin RateChannel {
+  Future<void> doShowRateDialog();
+}
 
 class RateModule with Module {
   @override

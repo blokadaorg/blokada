@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/refresh/json.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../family/module/family/family.dart';
 import '../../../util/cooldown.dart';
-import '../../notification/notification.dart';
 import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
@@ -94,7 +94,7 @@ abstract class AccountRefreshStoreBase
     with Store, Logging, Actor, Cooldown, Emitter {
   late final _scheduler = Core.get<Scheduler>();
   late final _account = Core.get<AccountStore>();
-  late final _notification = Core.get<NotificationStore>();
+  late final _notification = Core.get<NotificationActor>();
   late final _stage = Core.get<StageStore>();
   late final _persistence = Core.get<Persistence>();
   late final _plus = Core.get<PlusStore>();

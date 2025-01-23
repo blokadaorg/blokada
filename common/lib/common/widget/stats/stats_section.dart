@@ -31,7 +31,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   late final _journal = Core.get<JournalActor>();
   late final _filter = Core.get<JournalFilterValue>();
   late final _entries = Core.get<JournalEntriesValue>();
-  late final _customlist = Core.get<CustomlistPayloadValue>();
+  late final _customlist = Core.get<CustomListsValue>();
 
   bool _isReady = false;
 

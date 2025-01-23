@@ -1,4 +1,6 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/env/env.dart';
+import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -11,8 +13,6 @@ import 'package:common/core/core.dart';
 import 'package:common/family/widget/home/bg.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/command/command.dart';
-import 'package:common/platform/env/env.dart';
-import 'package:common/platform/link/channel.pg.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
@@ -33,7 +33,7 @@ class SettingsSection extends StatefulWidget {
 
 class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _stage = Core.get<StageStore>();
-  late final _env = Core.get<EnvStore>();
+  late final _env = Core.get<EnvActor>();
   late final _account = Core.get<AccountStore>();
   late final _perm = Core.get<PlatformPermActor>();
   late final _command = Core.get<CommandStore>();

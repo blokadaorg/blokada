@@ -36,9 +36,18 @@ part 'scheduler.dart';
 part 'value.dart';
 part 'widget.dart';
 
+// A simple annotation to mark what interfaces are not fulfilled by the module
+// but has to be provided by the platform modules.
+class PlatformProvided {
+  const PlatformProvided();
+}
+
 class CoreModule with Module {
   @override
   onCreateModule() async {
     await register(Scheduler(timer: SchedulerTimer()));
+
+    await register(Persistence(isSecure: false));
+    await register(Persistence(isSecure: true), tag: Persistence.secure);
   }
 }

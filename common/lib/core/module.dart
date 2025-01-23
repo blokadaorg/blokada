@@ -22,7 +22,7 @@ mixin Module {
     Core.register(instance, tag: tag);
     if (instance is Actor) {
       _actorStarter.add(instance);
-      instance.onCreate(Markers.root);
+      instance.create(Markers.root);
     } else if (instance is Command) {
       await commands.registerCommands(
           Markers.start, instance.onRegisterCommands());
@@ -47,7 +47,7 @@ class ActorStarter with Logging {
   Future<void> start(Marker m) async {
     for (final actor in actors) {
       await log(m).trace("${actor.runtimeType}", (m) async {
-        await actor.onStart(m);
+        await actor.start(m);
       });
     }
   }

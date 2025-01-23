@@ -1,12 +1,9 @@
 import 'package:common/core/core.dart';
-import 'package:common/util/mobx.dart';
+import 'package:common/platform/account/api.dart';
 import 'package:mobx/mobx.dart';
 
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
-import 'json.dart';
 
 part 'account.g.dart';
 
@@ -20,6 +17,22 @@ part 'account.g.dart';
 /// - storing account in cache on any change
 ///
 /// It does not handle the account expiration by itself, see AccountRefreshStore.
+
+class Account {
+  final String id;
+  final String? activeUntil;
+  final bool? active;
+  final String? type;
+  final String? paymentSource;
+
+  Account({
+    required this.id,
+    required this.activeUntil,
+    required this.active,
+    required this.type,
+    required this.paymentSource,
+  });
+}
 
 final accountChanged = EmitterEvent<Account>("accountChanged");
 final accountIdChanged = EmitterEvent<AccountId>("accountIdChanged");
@@ -86,25 +99,17 @@ class InvalidAccountId implements Exception {}
 class AccountStore = AccountStoreBase with _$AccountStore;
 
 abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
-  late final _api = Core.get<AccountJson>();
-  late final _ops = Core.get<AccountOps>();
+  late final _api = Core.get<AccountApi>();
   late final _persistence = Core.get<Persistence>(tag: Persistence.secure);
   late final _stage = Core.get<StageStore>();
 
   AccountStoreBase() {
     willAcceptOn([accountChanged, accountIdChanged]);
-
-    reactionOnStore((_) => account, (account) async {
-      if (account != null) {
-        await _ops.doAccountChanged(account.toAccount());
-      }
-    });
   }
 
   @override
   onRegister() {
-    Core.register<AccountOps>(getOps());
-    Core.register<AccountJson>(AccountJson());
+    Core.register<AccountApi>(AccountApi());
     Core.register<AccountStore>(this as AccountStore);
   }
 

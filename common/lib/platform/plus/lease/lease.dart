@@ -10,9 +10,9 @@ import '../../stage/stage.dart';
 import '../gateway/gateway.dart';
 import '../keypair/keypair.dart';
 import '../plus.dart';
+import 'api.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
-import 'json.dart';
 
 part 'lease.g.dart';
 
@@ -34,7 +34,7 @@ class PlusLeaseStore = PlusLeaseStoreBase with _$PlusLeaseStore;
 
 abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = Core.get<PlusLeaseOps>();
-  late final _json = Core.get<PlusLeaseJson>();
+  late final _json = Core.get<PlusLeaseApi>();
   late final _gateway = Core.get<PlusGatewayStore>();
   late final _keypair = Core.get<PlusKeypairStore>();
   late final _plus = Core.get<PlusStore>();
@@ -57,7 +57,7 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
   @override
   onRegister() {
     Core.register<PlusLeaseOps>(getOps());
-    Core.register<PlusLeaseJson>(PlusLeaseJson());
+    Core.register<PlusLeaseApi>(PlusLeaseApi());
     Core.register<PlusLeaseStore>(this as PlusLeaseStore);
   }
 
@@ -118,7 +118,6 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
               it.publicKey == _keypair.currentDevicePublicKey);
           await _json.deleteLease(
             JsonLeasePayload(
-              accountId: lease.accountId,
               publicKey: lease.publicKey,
               gatewayId: lease.gatewayId,
             ),
@@ -143,7 +142,6 @@ abstract class PlusLeaseStoreBase with Store, Logging, Actor, Cooldown {
     return await log(m).trace("deleteLease", (m) async {
       await _json.deleteLease(
         JsonLeasePayload(
-          accountId: lease.accountId,
           publicKey: lease.publicKey,
           gatewayId: lease.gatewayId,
         ),

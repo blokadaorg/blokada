@@ -2,7 +2,7 @@ part of 'support.dart';
 
 class SupportUnreadActor with Logging, Actor {
   late final _unread = Core.get<SupportUnread>();
-  late final _notification = Core.get<NotificationStore>();
+  late final _notification = Core.get<NotificationActor>();
   late final _stage = Core.get<StageStore>();
 
   bool isForeground = true;

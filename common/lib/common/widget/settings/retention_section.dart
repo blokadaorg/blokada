@@ -1,9 +1,9 @@
+import 'package:common/common/module/link/link.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
-import 'package:common/platform/link/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/util/mobx.dart';
 import 'package:flutter/cupertino.dart';

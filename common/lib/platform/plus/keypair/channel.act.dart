@@ -21,5 +21,4 @@ _actNormal(MockPlusKeypairOps ops) {
   when(() => ops.doGenerateKeypair()).thenAnswer((_) async {
     return PlusKeypair(publicKey: "mock-pk", privateKey: "mock-sk");
   });
-  when(() => ops.doCurrentKeypair(any())).thenAnswer(ignore());
 }

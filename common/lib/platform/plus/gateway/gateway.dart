@@ -6,9 +6,9 @@ import '../../../util/cooldown.dart';
 import '../../../util/mobx.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
+import 'api.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
-import 'json.dart';
 
 part 'gateway.g.dart';
 
@@ -41,7 +41,7 @@ class PlusGatewayStore = PlusGatewayStoreBase with _$PlusGatewayStore;
 
 abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
   late final _ops = Core.get<PlusGatewayOps>();
-  late final _json = Core.get<PlusGatewayJson>();
+  late final _json = Core.get<PlusGatewayApi>();
   late final _persistence = Core.get<Persistence>();
   late final _stage = Core.get<StageStore>();
 
@@ -60,7 +60,7 @@ abstract class PlusGatewayStoreBase with Store, Logging, Actor, Cooldown {
   @override
   onRegister() {
     Core.register<PlusGatewayOps>(getOps());
-    Core.register<PlusGatewayJson>(PlusGatewayJson());
+    Core.register<PlusGatewayApi>(PlusGatewayApi());
     Core.register<PlusGatewayStore>(this as PlusGatewayStore);
   }
 

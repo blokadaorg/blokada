@@ -12,7 +12,14 @@ part 'filter_defaults.dart';
 part 'filter_option_decor_defaults.dart';
 part 'mapping.dart';
 part 'model.dart';
-part 'value.dart';
+
+class CurrentConfig extends NullableAsyncValue<UserFilterConfig> {}
+
+class SelectedFilters extends AsyncValue<List<FilterSelection>> {
+  SelectedFilters() {
+    load = (Marker m) async => <FilterSelection>[];
+  }
+}
 
 class FilterModule with Module {
   @override

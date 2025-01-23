@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/account/json.dart';
-import 'package:common/platform/http/http.dart';
+import 'package:common/platform/account/api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 import '../../tools.dart';
 import 'fixtures.dart';
 @GenerateNiceMocks([
-  MockSpec<HttpService>(),
+  MockSpec<Api>(),
 ])
 import 'json_test.mocks.dart';
 
@@ -18,12 +18,12 @@ void main() {
   group("getAccount", () {
     test("willFetchAccount", () async {
       await withTrace((m) async {
-        final http = MockHttpService();
-        when(http.get(any, any))
+        final http = MockApi();
+        when(http.get(any, any, params: anyNamed("params")))
             .thenAnswer((_) => Future.value(fixtureJsonEndpoint));
-        Core.register<HttpService>(http);
+        Core.register<Api>(http);
 
-        final subject = AccountJson();
+        final subject = AccountApi();
         final account = await subject.getAccount("some-id", m);
 
         expect(account.type, "cloud");
@@ -36,15 +36,15 @@ void main() {
   group("postAccount", () {
     test("willCallPostMethod", () async {
       await withTrace((m) async {
-        final http = MockHttpService();
-        when(http.request(any, any, any))
+        final http = MockApi();
+        when(http.request(any, any))
             .thenAnswer((_) => Future.value(fixtureJsonEndpoint));
-        Core.register<HttpService>(http);
+        Core.register<Api>(http);
 
-        final subject = AccountJson();
+        final subject = AccountApi();
         final account = await subject.postAccount(m);
 
-        verify(http.request(any, any, any)).called(1);
+        verify(http.request(any, any)).called(1);
         expect(account.id, "mockedmocked");
       });
     });
@@ -76,12 +76,12 @@ void main() {
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
       await withTrace((m) async {
-        final http = MockHttpService();
+        final http = MockApi();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        Core.register<HttpService>(http);
+        Core.register<Api>(http);
 
-        final subject = AccountJson();
+        final subject = AccountApi();
 
         await expectLater(
             subject.getAccount("some-id", m), throwsA(isA<FormatException>()));

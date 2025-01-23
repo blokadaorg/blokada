@@ -48,12 +48,6 @@ abstract class StageOps {
   void doDismissModal();
 
   @async
-  void doRouteChanged(String path);
-
-  @async
-  void doShowNavbar(bool show);
-
-  @async
   void doOpenLink(String url);
 
   @async

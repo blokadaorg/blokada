@@ -1,8 +1,8 @@
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/json.dart';
+import 'package:common/platform/account/api.dart';
 import 'package:common/platform/account/refresh/refresh.dart';
-import 'package:common/platform/notification/notification.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,7 +15,7 @@ import '../../../tools.dart';
   MockSpec<Scheduler>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountRefreshStore>(),
-  MockSpec<NotificationStore>(),
+  MockSpec<NotificationActor>(),
   MockSpec<StageStore>(),
   MockSpec<Persistence>(),
   MockSpec<PlusStore>(),
@@ -29,7 +29,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<Scheduler>(MockScheduler());
         Core.register<AccountStore>(AccountStore());
-        Core.register<NotificationStore>(MockNotificationStore());
+        Core.register<NotificationActor>(MockNotificationActor());
         Core.register<Persistence>(MockPersistence());
         Core.register<PlusStore>(MockPlusStore());
 
@@ -75,7 +75,7 @@ void main() {
 
         Core.register<StageStore>(MockStageStore());
         Core.register<Scheduler>(MockScheduler());
-        Core.register<NotificationStore>(NotificationStore());
+        Core.register<NotificationActor>(MockNotificationActor());
         Core.register<Persistence>(MockPersistence());
 
         // Initial state
@@ -101,7 +101,7 @@ void main() {
 
         Core.register<StageStore>(MockStageStore());
         Core.register<Scheduler>(MockScheduler());
-        Core.register<NotificationStore>(NotificationStore());
+        Core.register<NotificationActor>(MockNotificationActor());
         Core.register<Persistence>(MockPersistence());
 
         // Initial state
@@ -120,7 +120,7 @@ void main() {
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
         Core.register<Scheduler>(MockScheduler());
-        Core.register<NotificationStore>(MockNotificationStore());
+        Core.register<NotificationActor>(MockNotificationActor());
         Core.register<Persistence>(MockPersistence());
 
         final route = StageRouteState.init().newTab(StageTab.home);

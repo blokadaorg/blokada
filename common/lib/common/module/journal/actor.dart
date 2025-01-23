@@ -9,7 +9,7 @@ final _noFilter = JournalFilter(
 
 class JournalActor with Logging, Actor {
   late final _api = Core.get<JournalApi>();
-  late final _custom = Core.get<CustomStore>();
+  late final _custom = Core.get<CustomlistActor>();
 
   late final filteredEntries = Core.get<JournalEntriesValue>();
   late final filter = Core.get<JournalFilterValue>();

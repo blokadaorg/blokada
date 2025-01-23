@@ -1,4 +1,5 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
@@ -10,7 +11,6 @@ import 'package:common/common/widget/support/support_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/custom/custom.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class SettingsScreen extends StatefulWidget {
 
 class SettingsScreenState extends State<SettingsScreen> with Logging {
   late final _support = Core.get<SupportActor>();
-  late final _custom = Core.get<CustomStore>();
+  late final _custom = Core.get<CustomlistActor>();
 
   Paths _path = Paths.settingsExceptions;
   Object? _arguments;
@@ -114,7 +114,7 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.allow(entry, m);
+              await _custom.addOrRemove(entry, m, gotBlocked: true);
             });
           });
         },

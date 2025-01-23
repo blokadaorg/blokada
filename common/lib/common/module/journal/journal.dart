@@ -1,17 +1,29 @@
 import 'dart:convert';
 
-import 'package:common/common/api/api.dart';
+import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
-import 'package:common/platform/custom/custom.dart';
 import 'package:dartx/dartx.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 part 'actor.dart';
 part 'api.dart';
-part 'json.dart';
 part 'model.dart';
-part 'value.dart';
+
+class JournalEntriesValue extends Value<List<UiJournalEntry>> {
+  JournalEntriesValue() : super(load: () => []);
+}
+
+class JournalFilterValue extends Value<JournalFilter> {
+  JournalFilterValue() : super(load: () => _noFilter);
+
+  reset() => now = _noFilter;
+}
+
+class JournalDevicesValue extends Value<Set<String>> {
+  JournalDevicesValue() : super(load: () => {});
+}
 
 class JournalModule with Module {
   @override

@@ -8,7 +8,6 @@ import '../account/account.dart';
 import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';
 import '../app/start/start.dart';
-import '../notification/notification.dart';
 import '../plus/vpn/vpn.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
@@ -21,7 +20,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _accountPayment = Core.get<AccountPaymentStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _appStart = Core.get<AppStartStore>();
-  late final _notification = Core.get<NotificationStore>();
   late final _permission = Core.get<PlatformPermActor>();
   late final _scheduler = Core.get<Scheduler>();
 
@@ -158,12 +156,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _stage.back();
       case CommandName.remoteNotification:
         return await _accountRefresh.onRemoteNotification(m);
-      case CommandName.appleNotificationToken:
-        _ensureParam(p1);
-        return await _notification.saveAppleToken(p1!, m);
-      case CommandName.notificationTapped:
-        _ensureParam(p1);
-        return await _notification.notificationTapped(p1!, m);
       case CommandName.crashLog:
         //return await _tracer.checkForCrashLog(force: true, m);
         return;

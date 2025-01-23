@@ -35,7 +35,5 @@ _actNormal(MockStageOps ops) {
     _command.onCommand(CommandName.modalDismissed.name, Markers.root);
   });
 
-  when(() => ops.doRouteChanged(any())).thenAnswer(ignore());
-  when(() => ops.doShowNavbar(any())).thenAnswer(ignore());
   when(() => ops.doHomeReached()).thenAnswer(ignore());
 }

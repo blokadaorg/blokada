@@ -1,4 +1,5 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/route.dart';
@@ -19,7 +20,6 @@ import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/device/device_screen.dart';
 import 'package:common/family/widget/filters_section.dart';
-import 'package:common/platform/custom/custom.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/activity_screen.dart';
 import 'package:common/v6/widget/advanced_screen.dart';
@@ -64,7 +64,7 @@ double getTopPadding(BuildContext context) {
 
 class Navigation with Logging {
   late final _filter = Core.get<JournalFilterValue>();
-  late final _custom = Core.get<CustomStore>();
+  late final _custom = Core.get<CustomlistActor>();
   late final _support = Core.get<SupportActor>();
 
   static late bool isTabletMode;
@@ -211,7 +211,7 @@ class Navigation with Logging {
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.allow(entry, m);
+              await _custom.addOrRemove(entry, m, gotBlocked: true);
             });
           });
         },

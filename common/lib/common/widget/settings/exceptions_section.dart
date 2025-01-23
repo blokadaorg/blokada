@@ -1,10 +1,9 @@
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/settings/exception_item.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/custom/custom.dart';
-import 'package:common/util/mobx.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +16,10 @@ class ExceptionsSection extends StatefulWidget {
   State<StatefulWidget> createState() => ExceptionsSectionState();
 }
 
-class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
-  late final _custom = Core.get<CustomStore>();
+class ExceptionsSectionState extends State<ExceptionsSection>
+    with Logging, Disposables {
+  late final _custom = Core.get<CustomlistActor>();
+  late final _lists = Core.get<CustomListsValue>();
 
   bool _isReady = false;
   late List<String> _allowed;
@@ -27,15 +28,14 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
   @override
   void initState() {
     super.initState();
-    reactionOnStore((_) => _custom.allowed, (allowed) {
-      setState(() {
-        _isReady = true;
-        _allowed = _custom.allowed.toList();
-        _denied = _custom.denied.toList();
-        _sort();
-      });
-    });
+    disposeLater(_lists.onChange.listen((_) => _reload()));
     _reload();
+  }
+
+  @override
+  void dispose() {
+    disposeAll();
+    super.dispose();
   }
 
   _reload() async {
@@ -44,8 +44,8 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
       await _custom.fetch(m);
       setState(() {
         _isReady = true;
-        _allowed = _custom.allowed.toList();
-        _denied = _custom.denied.toList();
+        _allowed = _lists.now.allowed;
+        _denied = _lists.now.denied;
         _sort();
       });
     });
@@ -121,7 +121,7 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
           _allowed.remove(entry);
         }
       });
-      await _custom.delete(entry, m);
+      await _custom.addOrRemove(entry, m, gotBlocked: true);
       _reload();
     });
   }
@@ -140,7 +140,7 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging {
         _sort();
       });
 
-      await _custom.toggle(entry, m);
+      await _custom.addOrRemove(entry, m, gotBlocked: allow);
       _reload();
     });
   }

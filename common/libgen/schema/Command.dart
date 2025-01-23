@@ -4,9 +4,6 @@ enum CommandName {
   // Universal links / deep links
   url,
 
-  // Config
-  setFlavor,
-
   // Account
   restore,
   account,

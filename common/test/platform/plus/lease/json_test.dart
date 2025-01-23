@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/http/http.dart';
-import 'package:common/platform/plus/lease/json.dart';
+import 'package:common/platform/plus/lease/api.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -11,7 +11,7 @@ import 'package:mockito/mockito.dart';
 import '../../../tools.dart';
 import 'fixtures.dart';
 @GenerateNiceMocks([
-  MockSpec<HttpService>(),
+  MockSpec<Api>(),
   MockSpec<AccountStore>(),
 ])
 import 'json_test.mocks.dart';
@@ -37,16 +37,16 @@ void main() {
   group("getEntries", () {
     test("willFetchEntries", () async {
       await withTrace((m) async {
-        final http = MockHttpService();
+        final http = MockApi();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value(fixtureLeaseEndpoint));
-        Core.register<HttpService>(http);
+        Core.register<Api>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         Core.register<AccountStore>(account);
 
-        final subject = PlusLeaseJson();
+        final subject = PlusLeaseApi();
         final entries = await subject.getLeases(m);
 
         expect(entries.isNotEmpty, true);
@@ -58,16 +58,16 @@ void main() {
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
       await withTrace((m) async {
-        final http = MockHttpService();
+        final http = MockApi();
         when(http.get(any, any))
             .thenAnswer((_) => Future.value("invalid json"));
-        Core.register<HttpService>(http);
+        Core.register<Api>(http);
 
         final account = MockAccountStore();
         when(account.id).thenReturn("some-id");
         Core.register<AccountStore>(account);
 
-        final subject = PlusLeaseJson();
+        final subject = PlusLeaseApi();
 
         await expectLater(
             subject.getLeases(m), throwsA(isA<FormatException>()));

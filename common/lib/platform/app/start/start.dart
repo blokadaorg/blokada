@@ -6,8 +6,6 @@ import 'package:mobx/mobx.dart';
 import '../../account/account.dart';
 import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
-import '../../env/env.dart';
-import '../../link/link.dart';
 import '../../perm/perm.dart';
 import '../../plus/keypair/keypair.dart';
 import '../../plus/plus.dart';
@@ -26,7 +24,6 @@ class OnboardingException implements Exception {}
 class AppStartStore = AppStartStoreBase with _$AppStartStore;
 
 abstract class AppStartStoreBase with Store, Logging, Actor {
-  late final _env = Core.get<EnvStore>();
   late final _app = Core.get<AppStore>();
   late final _scheduler = Core.get<Scheduler>();
   late final _device = Core.get<DeviceStore>();
@@ -36,7 +33,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _plus = Core.get<PlusStore>();
   late final _plusKeypair = Core.get<PlusKeypairStore>();
-  late final _link = Core.get<LinkStore>();
   late final _permStore = Core.get<PlatformPermActor>();
 
   AppStartStoreBase() {
@@ -63,8 +59,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   // Order matters
   late final List<Actor> _startablesV6 = [
-    _env,
-    _link,
     _device,
     _plusKeypair,
     _accountRefresh,
@@ -72,8 +66,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   ];
 
   late final List<Actor> _startablesFamily = [
-    _env,
-    _link,
     _device,
     _accountRefresh,
   ];
