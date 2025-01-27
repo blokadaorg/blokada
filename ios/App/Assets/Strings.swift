@@ -18,31 +18,6 @@ class Strings {
     static let account_type_plus = "Plus"
     static let account_type_family = "Family"
 
-    static func activeUntil(_ account: JsonAccount?) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: userDateFormatSimple, options: 0, locale: Locale.current)!
-
-        if let account = account, account.isActive() {
-            return dateFormatter.string(for: account.activeUntil()) ?? ""
-        } else {
-            return ""
-        }
-    }
-
-    static func accountType(_ account: JsonAccount?) -> String {
-        if account?.isActive() ?? false {
-            if account?.type == "cloud" {
-                return account_type_cloud
-            } else if (account?.type == "family") {
-                return account_type_family
-            } else {
-                return account_type_plus
-            }
-        } else {
-            return account_type_free
-        }
-    }
-
     static func formatDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: userDateFormatSimple, options: 0, locale: Locale.current)!

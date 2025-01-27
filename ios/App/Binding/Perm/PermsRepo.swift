@@ -28,10 +28,8 @@ class PermsRepo: Startable {
     
     @Injected(\.flutter) private var flutter
     @Injected(\.stage) private var stage
-    @Injected(\.account) private var account
-    @Injected(\.cloud) private var cloud
     @Injected(\.perm) private var perm
-    @Injected(\.notification) private var notification
+    @Injected(\.common) private var notification
 
     private lazy var dialog = Services.dialog
     private lazy var systemNav = Services.systemNav
@@ -39,9 +37,7 @@ class PermsRepo: Startable {
 
     private lazy var sheetRepo = stage
 
-    private lazy var dnsProfileActivatedHot = perm.dnsProfileActivatedHot
     private lazy var enteredForegroundHot = stage.enteredForegroundHot
-    private lazy var accountTypeHot = account.accountTypeHot
 
     fileprivate let writeDnsProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
     fileprivate let writeNotificationPerms = CurrentValueSubject<Granted?, Never>(nil)
@@ -51,7 +47,6 @@ class PermsRepo: Startable {
     private var cancellables = Set<AnyCancellable>()
 
     func start() {
-        onDnsProfileActivated()
         onForeground_checkNotificationPermsAndClearNotifications()
         onPurchaseSuccessful_showActivatedSheet()
         //onAccountTypeUpgraded_showActivatedSheet()
@@ -73,27 +68,11 @@ class PermsRepo: Startable {
         .eraseToAnyPublisher()
     }
 
-    func maybeAskVpnProfilePerms() -> AnyPublisher<Granted, Error> {
-        return accountTypeHot.first()
-        .flatMap { it -> AnyPublisher<Granted, Error> in
-            if it == .Plus {
-                return self.perm.vpnProfilePerms.first()
-                .tryMap { granted -> Ignored in
-                    if !granted {
-                        throw "ask for vpn profile"
-                    } else {
-                        return true
-                    }
-                }
-                .eraseToAnyPublisher()
-            } else {
-                return Just(true)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-            }
-        }
-        .tryCatch { _ in
+    func askVpnProfilePerms() -> AnyPublisher<Granted, Error> {
+        return Just(true)
+        .tryMap { _ in
             self.netx.createVpnProfile()
+            return true
         }
         .eraseToAnyPublisher()
     }
@@ -107,31 +86,6 @@ class PermsRepo: Startable {
                 okText: L10n.dnsprofileActionOpenSettings,
                 okAction: { self.systemNav.openAppSettings() }
             )
-        }
-        .eraseToAnyPublisher()
-    }
-
-    func askForAllMissingPermissions() -> AnyPublisher<Ignored, Error> {
-        return sheetRepo.dismiss()
-        .delay(for: 1.0, scheduler: self.bgQueue)
-        .flatMap { _ in self.notification.askForPermissions() }
-        .tryCatch { err in
-            // Notification perm is optional, ask for others
-            return Just(true)
-        }
-        .flatMap { _ in self.maybeDisplayDnsProfilePermsDialog() }
-        .delay(for: 0.3, scheduler: self.bgQueue)
-        .flatMap { _ in self.maybeAskVpnProfilePerms() }
-
-        // Show the activation sheet again to confirm user choices, and propagate error
-        .tryCatch { err -> AnyPublisher<Ignored, Error> in
-            return Just(true)
-            .delay(for: 0.3, scheduler: self.bgQueue)
-            .tryMap { _ -> Ignored in
-                self.sheetRepo.showModal(.perms)
-                throw err
-            }
-            .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
     }
@@ -156,15 +110,6 @@ class PermsRepo: Startable {
                 self.systemNav.openSystemSettings()
             }
         )
-    }
-
-    private func onDnsProfileActivated() {
-        dnsProfileActivatedHot
-        .sink(onValue: { it in
-            self.writeDnsProfilePerms.send(it)
-            
-        })
-        .store(in: &cancellables)
     }
 
     private func onForeground_checkNotificationPermsAndClearNotifications() {

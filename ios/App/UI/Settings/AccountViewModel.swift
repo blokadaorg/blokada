@@ -18,7 +18,6 @@ import Factory
 
 class AccountViewModel: ObservableObject {
 
-    @Published var account: JsonAccount?
     @Published var working: Bool = true
     @Published var showError: Bool = false
     @Published var selectedSettingsTab: String? = nil
@@ -31,46 +30,10 @@ class AccountViewModel: ObservableObject {
         }
     }
 
-    var active: Bool {
-        return account?.isActive() ?? false
-    }
-
-    var id: String {
-        return account?.id ?? ""
-    }
-
-    var type: AccountType {
-        return mapAccountType(account?.type)
-    }
-
-    var activeUntil: String {
-        return Strings.activeUntil(account)
-    }
-
     private let log = BlockaLogger("Account")
 
-    @Injected(\.account) private var accountRepo
     private var cancellables = Set<AnyCancellable>()
 
-    init() {
-        onAccountUpdated()
-    }
-
-    private func onAccountUpdated() {
-        accountRepo.accountHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in self.account = it.account })
-        .store(in: &cancellables)
-    }
-
-    func restoreAccount(_ newId: String, success: @escaping () -> Void) {
-        accountRepo.restoreAccount(newId, completion: success)
-    }
-
-    func copyAccountIdToClipboard() {
-        UIPasteboard.general.string = self.id
-    }
-   
     private func onError(_ error: CommonError, _ cause: Error? = nil) {
         self.log.e("\(error)".cause(cause))
 

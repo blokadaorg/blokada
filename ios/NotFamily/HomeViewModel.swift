@@ -23,15 +23,12 @@ class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     @Injected(\.app) private var app
-    @Injected(\.account) private var account
     @Injected(\.plus) private var plus
-    @Injected(\.plusLease) private var plusLease
-    @Injected(\.plusGateway) private var plusGateway
     @Injected(\.perm) private var perm
     @Injected(\.stage) private var stage
 
-    private lazy var selectedGatewayHot = plusGateway.selected
-    private lazy var selectedLeaseHot = plusLease.currentLease
+    private lazy var selectedGatewayHot = plus.selected
+    private lazy var selectedLeaseHot = plus.currentLease
 
     @Published var showSplash = true
     @Published var hideContent = false
@@ -70,8 +67,8 @@ class HomeViewModel: ObservableObject {
 
     @Published var timerSeconds: Int = 0
 
-    @Published var selectedGateway: Gateway? = nil
-    @Published var selectedLease: Lease? = nil
+    @Published var selectedGateway: OpsGateway? = nil
+    @Published var selectedLease: OpsLease? = nil
 
     var hasSelectedLocation : Bool {
         return accountActive && selectedGateway != nil
@@ -106,7 +103,6 @@ class HomeViewModel: ObservableObject {
         onInput()
         onAppStateChanged()
         onWorking()
-        onAccountTypeChanged()
         onPermsRepoChanged()
         onSelectedGateway()
         onSelectedLease()
@@ -163,16 +159,6 @@ class HomeViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.working = it
-        })
-        .store(in: &cancellables)
-    }
-
-    private func onAccountTypeChanged() {
-        account.accountTypeHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.accountType = it
-            self.accountActive = it.isActive()
         })
         .store(in: &cancellables)
     }
@@ -285,12 +271,6 @@ class HomeViewModel: ObservableObject {
         } else {
             self.timerSeconds = 0
         }
-    }
-
-    func finishSetup() {
-        self.permsRepo.askForAllMissingPermissions()
-        .sink()
-        .store(in: &cancellables)
     }
 
     func displayNotificationPermsInstructions() {

@@ -23,7 +23,6 @@ class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     @Injected(\.app) private var app
-    @Injected(\.account) private var account
     @Injected(\.perm) private var perm
     @Injected(\.stage) private var stage
 
@@ -64,8 +63,8 @@ class HomeViewModel: ObservableObject {
 
     @Published var timerSeconds: Int = 0
 
-    @Published var selectedGateway: Gateway? = nil
-    @Published var selectedLease: Lease? = nil
+    @Published var selectedGateway: OpsGateway? = nil
+    @Published var selectedLease: OpsLease? = nil
 
     var hasSelectedLocation : Bool {
         return accountActive && selectedGateway != nil
@@ -99,7 +98,6 @@ class HomeViewModel: ObservableObject {
         onInput()
         onAppStateChanged()
         onWorking()
-        onAccountTypeChanged()
         onPermsRepoChanged()
         onPauseUpdateTimer()
     }
@@ -144,16 +142,6 @@ class HomeViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.working = it
-        })
-        .store(in: &cancellables)
-    }
-
-    private func onAccountTypeChanged() {
-        account.accountTypeHot
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.accountType = it
-            self.accountActive = it.isActive()
         })
         .store(in: &cancellables)
     }
@@ -243,12 +231,6 @@ class HomeViewModel: ObservableObject {
         } else {
             self.timerSeconds = 0
         }
-    }
-
-    func finishSetup() {
-        self.permsRepo.askForAllMissingPermissions()
-        .sink()
-        .store(in: &cancellables)
     }
 
     func displayNotificationPermsInstructions() {

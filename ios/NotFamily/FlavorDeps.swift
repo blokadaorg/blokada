@@ -14,6 +14,5 @@ import Foundation
 import Factory
 
 class FlavorDeps {
-    @Injected(\.plusKeypair) private var plusKeypair
-    @Injected(\.plusVpn) private var plusVpn
+    @Injected(\.plus) private var plus
 }

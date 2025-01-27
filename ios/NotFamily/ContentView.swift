@@ -21,7 +21,6 @@ struct ContentView: View {
     @ObservedObject var homeVM = ViewModels.home
     @ObservedObject var vm = ViewModels.content
 
-    @Injected(\.logger) private var tracer
     @Injected(\.commands) private var commands
     
     var accountChange = ScanQrCodeView()

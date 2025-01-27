@@ -17,7 +17,7 @@ protocol NetxServiceIn: Startable {
 
     func getStatePublisher() -> AnyPublisher<VpnStatus, Never>
     func getPermsPublisher() -> AnyPublisher<Granted, Never>
-    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error>
+    func setConfig(_ config: OpsVpnConfig) -> AnyPublisher<Ignored, Error>
     func startVpn() -> AnyPublisher<Ignored, Error>
     func stopVpn() -> AnyPublisher<Ignored, Error>
     func changePause(until: Date?) -> AnyPublisher<Ignored, Error>
@@ -41,7 +41,7 @@ class NetxServiceMock: NetxServiceIn {
     fileprivate let writeNetxState = CurrentValueSubject<VpnStatus?, Never>(nil)
     fileprivate let writePerms = CurrentValueSubject<Granted?, Never>(nil)
 
-    private var config: VpnConfig? = nil
+    private var config: OpsVpnConfig? = nil
     private var perms = false
 
     private var cancellables = Set<AnyCancellable>()
@@ -51,7 +51,7 @@ class NetxServiceMock: NetxServiceIn {
         emitNoPermsOnStart()
     }
 
-    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error> {
+    func setConfig(_ config: OpsVpnConfig) -> AnyPublisher<Ignored, Error> {
         return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
     

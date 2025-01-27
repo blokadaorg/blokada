@@ -16,7 +16,6 @@ import Factory
 
 class LocationListViewModel: ObservableObject {
 
-    @Injected(\.plusGateway) private var gateway
     @Injected(\.plus) private var plus
 
     private var cancellables = Set<AnyCancellable>()
@@ -29,8 +28,8 @@ class LocationListViewModel: ObservableObject {
 
     private func onGatewaysChanged() {
         Publishers.CombineLatest(
-            gateway.gateways,
-            gateway.selected
+            plus.gateways,
+            plus.selected
         )
         .receive(on: RunLoop.main)
         .sink(onValue: { it in

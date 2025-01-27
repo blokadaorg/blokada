@@ -149,13 +149,13 @@ struct PaymentGatewayView: View {
                                     .actionSheet(isPresented: self.$showPrivacySheet) {
                                         ActionSheet(title: Text(L10n.paymentActionTermsAndPrivacy), buttons: [
                                             .default(Text(L10n.paymentActionTerms)) {
-                                                self.contentVM.openLink(LinkId.tos)
+                                                self.contentVM.openLink("tos")
                                             },
                                             .default(Text(L10n.paymentActionPolicy)) {
-                                                self.contentVM.openLink(LinkId.privacy)
+                                                self.contentVM.openLink("privacy")
                                             },
                                             .default(Text(L10n.universalActionSupport)) {
-                                                self.contentVM.openLink(LinkId.support)
+                                                self.contentVM.openLink("support")
                                             },
                                             .cancel()
                                         ])

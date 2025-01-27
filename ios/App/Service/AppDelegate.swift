@@ -17,19 +17,15 @@ import BackgroundTasks
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    @Injected(\.env) private var env
     @Injected(\.flutter) private var flutter
     @Injected(\.commands) private var commands
+    @Injected(\.core) private var core
     
     // Reference it so that it is created
-    @Injected(\.logger) private var tracer
-    @Injected(\.notification) private var notification
+    @Injected(\.common) private var common
     @Injected(\.payment) private var payment
-    @Injected(\.http) private var http
-    @Injected(\.persistence) private var persistence
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
-    @Injected(\.rate) private var rate
     @Injected(\.family) private var family
 
     private var deps = FlavorDeps()
@@ -51,14 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             (UIApplication.shared.delegate as? AppDelegate)?.handleException(exception: exception)
         }
 
-        if self.env.isRunningTests() {
+        if self.common.isRunningTests() {
             resetReposForDebug()
         } else {
             resetReposForDebug()
             startAllRepos()
         }
 
-        notification.attach(application)
+        common.attach(application)
 
         if !flutter.isFlavorFamily {
             Services.quickActions.start()
@@ -154,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
-        notification.onAppleTokenReceived(deviceToken)
+        common.onAppleTokenReceived(deviceToken)
     }
 
     // Notification registration callback: failure
@@ -162,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-        notification.onAppleTokenFailed(error)
+        common.onAppleTokenFailed(error)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -16,14 +16,14 @@ import Factory
 
 class LinkRepo {
     
-    @Injected(\.link) private var links
+    @Injected(\.common) private var links
 
     private lazy var systemNav = Services.systemNav
 
     private var cancellables = Set<AnyCancellable>()
 
     // Opens one of well known links, replacing any placeholders (like account id).
-    func openLink(_ linkId: LinkId) {
+    func openLink(_ linkId: String) {
         guard let link = self.links.links.value[linkId] else {
             return BlockaLogger.e("LinkRepo", "Unknown link: \(linkId)")
         }
@@ -33,18 +33,6 @@ class LinkRepo {
         } catch {
             BlockaLogger.e("LinkRepo", "Failed opening link: \(link)")
         }
-    }
-
-    // Opens custom link, does not replace any placeholders.
-    func openLink(_ link: String) {
-        Just(link)
-        .tryMap { it in URL(string: it)! }
-        .tryMap { it in URLComponents(url: it, resolvingAgainstBaseURL: false)! }
-        .sink(
-            onValue: { it in self.systemNav.openInBrowser(it) },
-            onFailure: { err in BlockaLogger.e("LinkRepo", "Could not parse link: \(link)") }
-        )
-        .store(in: &cancellables)
     }
 
     private func linkToUrlComponents(

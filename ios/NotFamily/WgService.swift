@@ -104,7 +104,7 @@ class WgService: NetxServiceIn {
         }
     }
 
-    func setConfig(_ config: VpnConfig) -> AnyPublisher<Ignored, Error> {
+    func setConfig(_ config: OpsVpnConfig) -> AnyPublisher<Ignored, Error> {
         return getManager()
         // Skip if anything is missing
         .tryMap { manager in

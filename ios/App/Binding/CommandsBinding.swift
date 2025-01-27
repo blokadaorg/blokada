@@ -27,7 +27,6 @@ class CommandsBinding: CommandOps {
 
     func doCanAcceptCommands(completion: @escaping (Result<Void, Error>) -> Void) {
         canAcceptCommands = true
-        execute(.setFlavor) // TODO: tmp
         for item in queue {
             let (cmd, p1, p2) = item
             if p1 == nil {

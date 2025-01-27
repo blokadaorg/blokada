@@ -15,16 +15,16 @@ import SwiftUI
 
 struct LocationViewModel {
 
-    let gateway: Gateway
-    let selectedGateway: Gateway?
+    let gateway: OpsGateway
+    let selectedGateway: OpsGateway?
 
-    init(gateway: Gateway, selectedGateway: Gateway?) {
+    init(gateway: OpsGateway, selectedGateway: OpsGateway?) {
         self.gateway = gateway
         self.selectedGateway = selectedGateway
     }
 
     init(mocked: String) {
-        gateway = Gateway(publicKey: mocked, region: "", location: mocked,
+        gateway = OpsGateway(publicKey: mocked, region: "", location: mocked,
                           resourceUsagePercent: 0, ipv4: "", ipv6: "",
                           port: 0, country: "DE")
         selectedGateway = nil

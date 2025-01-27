@@ -16,7 +16,7 @@ import Factory
 
 class ContentViewModel: ObservableObject {
     @Injected(\.stage) var stage
-    @Injected(\.logger) var logger
+    @Injected(\.core) var logger
     @Injected(\.family) var family
 
     private lazy var linkRepo = Repos.linkRepo
@@ -36,10 +36,6 @@ class ContentViewModel: ObservableObject {
         onShowPauseMenuChanged()
         onShareLog()
         onShareUrl()
-    }
-
-    func openLink(_ link: LinkId) {
-        linkRepo.openLink(link)
     }
 
     func openLink(_ link: String) {

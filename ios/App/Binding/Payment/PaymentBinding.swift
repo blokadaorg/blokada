@@ -15,7 +15,7 @@ import Factory
 import Combine
 import StoreKit
 
-class AccountPaymentBinding: AccountPaymentOps {
+class AccountPaymentBinding: PaymentOps {
     
     var products = CurrentValueSubject<[Product], Never>([])
     var status = CurrentValueSubject<PaymentStatus, Never>(.unknown)
@@ -26,7 +26,7 @@ class AccountPaymentBinding: AccountPaymentOps {
     private lazy var storeKit = StoreKitWrapper.shared
 
     init() {
-        AccountPaymentOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
+        PaymentOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
         _onStoreKitOngoingTransaction()
     }
 

@@ -29,10 +29,6 @@ class StageBinding: StageOps {
     let errorHeader = CurrentValueSubject<String?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
 
-    let activeTab = CurrentValueSubject<Tab, Never>(Tab.Home)
-    let tabPayload = CurrentValueSubject<String?, Never>(nil)
-
-    let showNavbar = CurrentValueSubject<Bool, Never>(false)
     let showInput = CurrentValueSubject<Bool, Never>(false)
     
     let netx = Services.netx
@@ -46,10 +42,6 @@ class StageBinding: StageOps {
 
     func setRoute(_ path: String) {
         commands.execute(.route, path)
-    }
-
-    func setTabPayload(_ payload: String) {
-        commands.execute(.route, "\(activeTab.value.rawValue.lowercased())/\(payload)")
     }
 
     func onForeground(_ foreground: Bool) {
@@ -89,22 +81,6 @@ class StageBinding: StageOps {
 
     init() {
         StageOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
-    }
-
-    func doRouteChanged(path: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        if path.isEmpty {
-            // Just background, ignore
-            return;
-        }
-
-        let parts = path.components(separatedBy: "/")
-        activeTab.send(mapTabIdToTab(parts[0]))
-        if parts.count > 1 && !parts[1].isEmpty {
-            tabPayload.send(parts[1])
-        } else {
-            tabPayload.send(nil)
-        }
-        completion(.success(()))
     }
 
     var supportedSheets: [StageModal] = [
@@ -182,11 +158,6 @@ class StageBinding: StageOps {
             completion(.success(()))
             commands.execute(.modalDismissed)
         }
-    }
-
-    func doShowNavbar(show: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
-        showNavbar.send(show)
-        completion(.success(()))
     }
 
     func doOpenLink(url: String, completion: @escaping (Result<Void, Error>) -> Void) {

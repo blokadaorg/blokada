@@ -16,26 +16,18 @@ import Combine
 
 class PermBinding: PermOps {
 
-    // Whether DNS profile is currently selected or not, refreshed on foreground
-    var dnsProfileActivatedHot: AnyPublisher<CloudDnsProfileActivated, Never> {
-        self.writeDnsProfileActivated.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
-    }
-
     var vpnProfilePerms: AnyPublisher<Granted, Never> {
         writeVpnProfilePerms.compactMap { $0 }.removeDuplicates().eraseToAnyPublisher()
     }
 
     @Injected(\.flutter) private var flutter
-    @Injected(\.env) private var env
-    @Injected(\.notification) private var notification
+    @Injected(\.common) private var notification
     
     private lazy var privateDns = PrivateDnsService()
     private lazy var netx = Services.netx
     private lazy var permsRepo = Repos.permsRepo
     private lazy var systemNav = Services.systemNav
     private lazy var account = ViewModels.account
-
-    fileprivate let writeDnsProfileActivated = CurrentValueSubject<CloudDnsProfileActivated?, Never>(nil)
 
     fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted, Never>(false)
 
@@ -107,7 +99,7 @@ class PermBinding: PermOps {
     }
     
     func doAskVpnPerms(completion: @escaping (Result<Void, Error>) -> Void) {
-        self.permsRepo.maybeAskVpnProfilePerms()
+        self.permsRepo.askVpnProfilePerms()
             .receive(on: RunLoop.main)
             .sink(
                 onFailure: { err in
@@ -126,14 +118,11 @@ class PermBinding: PermOps {
         .sink(
             onValue: { (isActive, value) in
                 if !isActive {
-                    self.writeDnsProfileActivated.send(false)
                     return completion(Result.success(""))
                 }
-                self.writeDnsProfileActivated.send(true)
                 return completion(Result.success(value))
             },
             onFailure: { err in
-                self.writeDnsProfileActivated.send(false)
                 completion(Result.failure(err))
             }
         )
