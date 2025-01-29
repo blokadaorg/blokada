@@ -1,17 +1,13 @@
 part of '../core.dart';
 
-abstract class BoolPersistedValue extends NullableAsyncValue<bool?> {
+abstract class BoolPersistedValue extends AsyncValue<bool> {
   late final _persistence = Core.get<Persistence>();
 
   BoolPersistedValue(String key) {
     load = (Marker m) async {
       return await _persistence.load(m, key) == "1";
     };
-    save = (Marker m, bool? value) async {
-      if (value == null) {
-        await _persistence.delete(m, key);
-        return;
-      }
+    save = (Marker m, bool value) async {
       await _persistence.save(m, key, value ? "1" : "");
     };
   }
@@ -35,9 +31,12 @@ abstract class StringPersistedValue extends NullableAsyncValue<String?> {
 }
 
 abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
-  late final _persistence = Core.get<Persistence>();
+  final bool secure;
 
-  JsonPersistedValue(String key) {
+  late final _persistence =
+      Core.get<Persistence>(tag: secure ? Persistence.secure : null);
+
+  JsonPersistedValue(String key, {this.secure = false}) {
     load = (Marker m) async {
       final json = await _persistence.load(m, key);
       if (json == null) return null;

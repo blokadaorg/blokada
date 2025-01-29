@@ -62,7 +62,8 @@ class AccountApi {
   }
 
   Future<JsonAccount> postAccount(Marker m) async {
-    final result = await _api.request(ApiEndpoint.postAccountV2, m);
+    final result = await _api.request(ApiEndpoint.postAccountV2, m,
+        skipResolvingParams: true);
     return _marshal.toAccount(result);
   }
 }

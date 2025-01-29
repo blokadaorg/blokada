@@ -1,14 +1,15 @@
 import 'package:common/common/module/env/env.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/plus/channel.pg.dart';
-import 'package:common/platform/plus/gateway/gateway.dart';
-import 'package:common/platform/plus/keypair/keypair.dart';
-import 'package:common/platform/plus/lease/lease.dart';
-import 'package:common/platform/plus/plus.dart';
-import 'package:common/platform/plus/vpn/vpn.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/gateway/gateway.dart';
+import 'package:common/plus/module/keypair/keypair.dart';
+import 'package:common/plus/module/lease/lease.dart';
+import 'package:common/plus/module/vpn/vpn.dart';
+import 'package:common/plus/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -18,17 +19,19 @@ import 'fixtures.dart';
 import 'gateway/fixtures.dart';
 import 'lease/fixtures.dart';
 @GenerateNiceMocks([
-  MockSpec<PlusLeaseStore>(),
-  MockSpec<PlusVpnStore>(),
-  MockSpec<PlusKeypairStore>(),
-  MockSpec<PlusGatewayStore>(),
-  MockSpec<PlusStore>(),
+  MockSpec<LeaseActor>(),
+  MockSpec<VpnActor>(),
+  MockSpec<KeypairActor>(),
+  MockSpec<GatewayActor>(),
+  MockSpec<PlusActor>(),
   MockSpec<Persistence>(),
   MockSpec<PlusOps>(),
   MockSpec<AppStore>(),
   MockSpec<EnvActor>(),
   MockSpec<DeviceStore>(),
   MockSpec<StageStore>(),
+  MockSpec<PlusChannel>(),
+  MockSpec<AccountStore>(),
 ])
 import 'plus_test.mocks.dart';
 
@@ -45,16 +48,33 @@ void main() {
         when(persistence.load(any, any)).thenAnswer((_) => Future.value("1"));
         Core.register<Persistence>(persistence);
 
-        final subject = PlusStore();
-        expect(subject.plusEnabled, false);
+        Core.register<GatewayActor>(MockGatewayActor());
+        Core.register<PlusChannel>(MockPlusChannel());
+        Core.register<AccountStore>(MockAccountStore());
 
-        await subject.load(m);
-        expect(subject.plusEnabled, true);
+        Core.register(CurrentKeypairValue());
+        Core.register(CurrentLeaseValue());
+        Core.register(CurrentGatewayValue());
+
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
+        expect(plusEnabled.present, null);
+
+        await subject.onStart(m);
+        expect(plusEnabled.present, true);
       });
     });
 
     test("newPlus", () async {
       await withTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence);
+
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
         Core.register<DeviceStore>(device);
@@ -62,29 +82,37 @@ void main() {
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
 
-        final gateway = MockPlusGatewayStore();
-        when(gateway.currentGateway)
-            .thenReturn(fixtureGatewayEntries.first.toGateway);
-        Core.register<PlusGatewayStore>(gateway);
+        final currentGateway = CurrentGatewayValue();
+        await currentGateway.change(m, fixtureGatewayEntries.first.toGateway);
+        Core.register(currentGateway);
 
-        final keypair = MockPlusKeypairStore();
-        when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        Core.register<PlusKeypairStore>(keypair);
+        final gateway = MockGatewayActor();
+        Core.register<GatewayActor>(gateway);
+
+        final currentKeypair = CurrentKeypairValue();
+        await currentKeypair.change(m, Fixtures.keypair);
+        Core.register(currentKeypair);
+
+        final keypair = MockKeypairActor();
+        Core.register<KeypairActor>(keypair);
 
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        final lease = MockPlusLeaseStore();
-        when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        Core.register<PlusLeaseStore>(lease);
+        final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, fixtureLeaseEntries.first.toLease);
+        Core.register(currentLease);
 
-        final vpn = MockPlusVpnStore();
-        Core.register<PlusVpnStore>(vpn);
+        final lease = MockLeaseActor();
+        Core.register<LeaseActor>(lease);
 
-        final persistence = MockPersistence();
-        Core.register<Persistence>(persistence);
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
 
-        final subject = PlusStore();
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
 
         await subject.newPlus("some gateway id", m);
         verify(app.reconfiguring(any)).called(1);
@@ -103,17 +131,23 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        final lease = MockPlusLeaseStore();
-        when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        Core.register<PlusLeaseStore>(lease);
+        final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, fixtureLeaseEntries.first.toLease);
+        Core.register(currentLease);
 
-        final vpn = MockPlusVpnStore();
-        Core.register<PlusVpnStore>(vpn);
+        final lease = MockLeaseActor();
+        Core.register<LeaseActor>(lease);
+
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
 
         final persistence = MockPersistence();
         Core.register<Persistence>(persistence);
 
-        final subject = PlusStore();
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
 
         await subject.clearPlus(m);
         verify(lease.deleteLease(any, any)).called(1);
@@ -124,18 +158,27 @@ void main() {
 
     test("switchPlus", () async {
       await withTrace((m) async {
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence);
+
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
         Core.register<DeviceStore>(device);
 
-        final gateway = MockPlusGatewayStore();
-        when(gateway.currentGateway)
-            .thenReturn(fixtureGatewayEntries.first.toGateway);
-        Core.register<PlusGatewayStore>(gateway);
+        final currentGateway = CurrentGatewayValue();
+        await currentGateway.change(m, fixtureGatewayEntries.first.toGateway);
+        Core.register(currentGateway);
 
-        final keypair = MockPlusKeypairStore();
-        when(keypair.currentKeypair).thenReturn(Fixtures.keypair);
-        Core.register<PlusKeypairStore>(keypair);
+        final gateway = MockGatewayActor();
+        Core.register<GatewayActor>(gateway);
+
+        final currentKeypair = CurrentKeypairValue();
+        await currentKeypair.change(m, Fixtures.keypair);
+        Core.register(currentKeypair);
+
+        final keypair = MockKeypairActor();
+        Core.register<KeypairActor>(keypair);
 
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
@@ -143,59 +186,26 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        final lease = MockPlusLeaseStore();
-        when(lease.currentLease).thenReturn(fixtureLeaseEntries.first.toLease);
-        Core.register<PlusLeaseStore>(lease);
+        final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, fixtureLeaseEntries.first.toLease);
+        Core.register(currentLease);
 
-        final vpn = MockPlusVpnStore();
-        Core.register<PlusVpnStore>(vpn);
+        final lease = MockLeaseActor();
+        Core.register<LeaseActor>(lease);
 
-        final persistence = MockPersistence();
-        Core.register<Persistence>(persistence);
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
 
-        final subject = PlusStore();
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
 
         await subject.switchPlus(true, m);
         verify(vpn.turnVpnOn(any)).called(1);
         verify(lease.fetch(any, noRetry: true));
       });
     });
-
-    // test("reactToAppStatus", () async {
-    //   await withTrace((m) async {
-    //     final ops = MockPlusOps();
-    //     DI.register<PlusOps>(ops);
-    //
-    //     final app = MockAppStore();
-    //     DI.register<AppStore>(app);
-    //
-    //     final lease = MockPlusLeaseStore();
-    //     DI.register<PlusLeaseStore>(lease);
-    //
-    //     final vpn = MockPlusVpnStore();
-    //     DI.register<PlusVpnStore>(vpn);
-    //
-    //     final persistence = MockPersistence();
-    //     DI.register<Persistence>(persistence);
-    //
-    //     final subject = PlusStore();
-    //
-    //     // Plus should autostart after app started and VPN was active before
-    //     subject.plusEnabled = true;
-    //     when(vpn.getStatus()).thenReturn(VpnStatus.deactivated);
-    //     await subject.reactToAppStatus(true);
-    //     verify(app.reconfiguring(any)).called(1);
-    //     verify(vpn.setVpnActive(any, true)).called(1);
-    //     verify(app.plusActivated(any, true));
-    //
-    //     // Plus should pause when app got paused
-    //     when(vpn.getStatus()).thenReturn(VpnStatus.activated);
-    //     await subject.reactToAppStatus(false);
-    //     verify(app.reconfiguring(any)).called(1);
-    //     verify(vpn.setVpnActive(any, false)).called(1);
-    //     verify(app.plusActivated(any, false));
-    //   });
-    // });
   });
 
   group("storeErrors", () {
@@ -206,34 +216,40 @@ void main() {
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
 
-        Core.register<PlusKeypairStore>(MockPlusKeypairStore());
-        Core.register<PlusGatewayStore>(MockPlusGatewayStore());
+        Core.register<KeypairActor>(MockKeypairActor());
+        Core.register<GatewayActor>(MockGatewayActor());
+
+        final currentLease = CurrentLeaseValue();
+        Core.register(currentLease);
+
+        final currentKeypair = CurrentKeypairValue();
+        Core.register(currentKeypair);
+
+        final currentGateway = CurrentGatewayValue();
+        Core.register(currentGateway);
 
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        final lease = MockPlusLeaseStore();
-        Core.register<PlusLeaseStore>(lease);
+        final lease = MockLeaseActor();
+        Core.register<LeaseActor>(lease);
 
-        final vpn = MockPlusVpnStore();
-        Core.register<PlusVpnStore>(vpn);
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
 
         final persistence = MockPersistence();
         Core.register<Persistence>(persistence);
 
-        final subject = PlusStore();
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
 
         // Flags reverted when wont turn on
         when(vpn.turnVpnOn(any)).thenThrow(Exception("some error"));
         await expectLater(subject.switchPlus(true, m), throwsException);
         verifyNever(lease.fetch(any));
-        expect(subject.plusEnabled, false);
-
-        // Flags reverted when is on, and wont turn off
-        // subject.plusEnabled = true;
-        // when(vpn.turnVpnOff(any)).thenThrow(Exception("some error"));
-        // await expectLater(subject.switchPlus(false), throwsException);
-        // expect(subject.plusEnabled, true);
+        expect(plusEnabled.present, false);
       });
     });
   });

@@ -52,7 +52,7 @@ void main() {
         final subject = AccountStore();
         mockAct(subject);
 
-        await subject.create(m);
+        await subject.createAccount(m);
 
         verify(persistence.saveJson(any, any, any, isBackup: true)).called(1);
         expect(subject.account!.id, "mockedmocked");

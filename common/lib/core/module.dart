@@ -19,13 +19,17 @@ mixin Module {
   Future<void> onCreateModule();
 
   register<T extends Object>(T instance, {String? tag}) async {
-    Core.register(instance, tag: tag);
     if (instance is Actor) {
+      Core.register(instance, tag: tag);
       _actorStarter.add(instance);
       instance.create(Markers.root);
     } else if (instance is Command) {
       await commands.registerCommands(
           Markers.start, instance.onRegisterCommands());
+    } else if (instance is Module) {
+      await instance.create();
+    } else {
+      Core.register(instance, tag: tag);
     }
   }
 

@@ -145,7 +145,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   }
 
   @action
-  Future<void> create(Marker m) async {
+  Future<void> createAccount(Marker m) async {
     return await log(m).trace("create", (m) async {
       final jsonAccount = await _api.postAccount(m);
       await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),

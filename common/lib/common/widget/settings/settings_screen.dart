@@ -6,11 +6,11 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
 import 'package:common/common/widget/settings/settings_section.dart';
-import 'package:common/common/widget/settings/vpn_devices_section.dart';
 import 'package:common/common/widget/support/support_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
+import 'package:common/plus/widget/vpn_devices_section.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {

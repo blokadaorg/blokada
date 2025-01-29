@@ -21,12 +21,6 @@ enum CommandName {
 
   // Notification,
   remoteNotification,
-  appleNotificationToken,
-  notificationTapped,
-
-  // PlusVpn
-  newPlus,
-  vpnStatus,
 
   // Stage
   foreground,
@@ -53,6 +47,14 @@ enum CommandName {
 
   // Scheduler
   schedulerPing,
+
+  // Plus
+  newPlus,
+  vpnStatus,
+
+  // Notification
+  notificationTapped,
+  appleNotificationToken,
 }
 
 @HostApi()

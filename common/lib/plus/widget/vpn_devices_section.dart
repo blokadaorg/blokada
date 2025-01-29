@@ -2,9 +2,7 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/plus/lease/channel.pg.dart';
-import 'package:common/platform/plus/lease/lease.dart';
-import 'package:common/util/mobx.dart';
+import 'package:common/plus/module/lease/lease.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -18,8 +16,10 @@ class VpnDevicesSection extends StatefulWidget {
   State<StatefulWidget> createState() => VpnDevicesSectionState();
 }
 
-class VpnDevicesSectionState extends State<VpnDevicesSection> with Logging {
-  late final _plusLease = Core.get<PlusLeaseStore>();
+class VpnDevicesSectionState extends State<VpnDevicesSection>
+    with Logging, Disposables {
+  late final _currentLeaseValue = Core.get<CurrentLeaseValue>();
+  late final _leaseActor = Core.get<LeaseActor>();
 
   List<Lease> _leases = [];
   Lease? _currentLease;
@@ -27,19 +27,20 @@ class VpnDevicesSectionState extends State<VpnDevicesSection> with Logging {
   @override
   void initState() {
     super.initState();
-    reactionOnStore((_) => _plusLease.leaseChanges, (_) {
-      _reload();
-    });
-    reactionOnStore((_) => _plusLease.currentLease, (_) {
-      _reload();
-    });
-    _reload();
+    disposeLater(_currentLeaseValue.onChange.listen(_reload));
+    _reload(null);
   }
 
-  _reload() {
+  @override
+  void dispose() {
+    super.dispose();
+    disposeAll();
+  }
+
+  _reload(_) {
     setState(() {
-      _leases = _plusLease.leases;
-      _currentLease = _plusLease.currentLease;
+      _leases = _leaseActor.leases;
+      _currentLease = _currentLeaseValue.present;
     });
   }
 
@@ -160,6 +161,6 @@ class VpnDevicesSectionState extends State<VpnDevicesSection> with Logging {
   }
 
   deleteLease(BuildContext context, String publicKey) {
-    _plusLease.deleteLeaseById(publicKey, Markers.userTap);
+    _leaseActor.deleteLeaseById(publicKey, Markers.userTap);
   }
 }

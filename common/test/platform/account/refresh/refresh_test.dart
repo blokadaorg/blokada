@@ -3,8 +3,8 @@ import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/api.dart';
 import 'package:common/platform/account/refresh/refresh.dart';
-import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -18,7 +18,7 @@ import '../../../tools.dart';
   MockSpec<NotificationActor>(),
   MockSpec<StageStore>(),
   MockSpec<Persistence>(),
-  MockSpec<PlusStore>(),
+  MockSpec<PlusActor>(),
 ])
 import 'refresh_test.mocks.dart';
 
@@ -31,7 +31,7 @@ void main() {
         Core.register<AccountStore>(AccountStore());
         Core.register<NotificationActor>(MockNotificationActor());
         Core.register<Persistence>(MockPersistence());
-        Core.register<PlusStore>(MockPlusStore());
+        Core.register<PlusActor>(MockPlusActor());
 
         // Initial state
         final subject = AccountRefreshStore();
@@ -113,7 +113,7 @@ void main() {
 
         verify(account.load(any)).called(1);
         verifyNever(account.fetch(any));
-        verify(account.create(any)).called(1);
+        verify(account.createAccount(any)).called(1);
       });
     });
 

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:common/common/module/api/api.dart';
-import 'package:common/core/core.dart';
+part of 'gateway.dart';
 
 class JsonGatewayEndpoint {
   late List<JsonGateway> gateways;
@@ -78,6 +75,17 @@ class JsonGateway {
     data['country'] = country;
     return data;
   }
+
+  Gateway get toGateway => Gateway(
+        publicKey,
+        region,
+        location,
+        resourceUsagePercent,
+        ipv4,
+        ipv6,
+        port,
+        country,
+      );
 }
 
 class PlusGatewayMarshal {
@@ -86,7 +94,7 @@ class PlusGatewayMarshal {
   }
 }
 
-class PlusGatewayApi {
+class GatewayApi {
   late final _api = Core.get<Api>();
   late final _marshal = PlusGatewayMarshal();
 

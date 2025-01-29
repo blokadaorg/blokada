@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
-import 'package:common/platform/plus/vpn/channel.pg.dart';
-import 'package:common/platform/plus/vpn/vpn.dart';
+import 'package:common/plus/module/vpn/vpn.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -11,15 +10,15 @@ import 'package:mockito/mockito.dart';
 import '../../../tools.dart';
 @GenerateNiceMocks([
   MockSpec<Scheduler>(),
-  MockSpec<PlusVpnOps>(),
-  MockSpec<PlusVpnStore>(),
+  MockSpec<VpnChannel>(),
+  MockSpec<VpnActor>(),
   MockSpec<AppStore>(),
 ])
 import 'vpn_test.mocks.dart';
 
-_createFixtureConfig({String gw = "gw"}) => VpnConfig(
+_createFixtureConfig({String gw = "gw", String tag = "tag"}) => VpnConfig(
       devicePrivateKey: "pk",
-      deviceTag: "tag",
+      deviceTag: tag,
       gatewayPublicKey: gw,
       gatewayNiceName: "gateway",
       gatewayIpv4: "ipv4",
@@ -33,20 +32,21 @@ void main() {
   group("store", () {
     test("setVpnConfigWillQueueIfNotReady", () async {
       await withTrace((m) async {
-        final ops = MockPlusVpnOps();
-        Core.register<PlusVpnOps>(ops);
+        final ops = MockVpnChannel();
+        Core.register<VpnChannel>(ops);
+
+        Core.register(CurrentVpnStatusValue());
 
         Core.register<AppStore>(MockAppStore());
         Core.register<Scheduler>(MockScheduler());
 
         // First call will queue up because the status is not ready
-        final subject = PlusVpnStore();
+        final subject = VpnActor();
         await subject.setVpnConfig(_createFixtureConfig(), m);
         verifyNever(ops.doSetVpnConfig(any));
 
         // Several calls should keep only the latest config
-        final newConfig = _createFixtureConfig();
-        newConfig.deviceTag = "newTag";
+        final newConfig = _createFixtureConfig(tag: "newTag");
         await subject.setVpnConfig(newConfig, m);
         verifyNever(ops.doSetVpnConfig(any));
 
@@ -64,15 +64,16 @@ void main() {
 
     test("setVpnActiveWillQueueWhenNotReady", () async {
       await withTrace((m) async {
-        final ops = MockPlusVpnOps();
-        Core.register<PlusVpnOps>(ops);
+        final ops = MockVpnChannel();
+        Core.register<VpnChannel>(ops);
 
         Core.register<AppStore>(MockAppStore());
+        Core.register(CurrentVpnStatusValue());
 
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
 
-        final subject = PlusVpnStore();
+        final subject = VpnActor();
         await subject.turnVpnOff(m);
         verifyNever(ops.doSetVpnActive(any));
 
@@ -95,15 +96,16 @@ void main() {
 
     test("setVpnActiveWillMeasureTime", () async {
       await withTrace((m) async {
-        final ops = MockPlusVpnOps();
-        Core.register<PlusVpnOps>(ops);
+        final ops = MockVpnChannel();
+        Core.register<VpnChannel>(ops);
+        Core.register(CurrentVpnStatusValue());
 
         Core.register<AppStore>(MockAppStore());
 
         final timer = MockScheduler();
         Core.register<Scheduler>(timer);
 
-        final subject = PlusVpnStore();
+        final subject = VpnActor();
         await subject.setActualStatus("deactivated", m);
 
         // Simulate the status coming after a while
@@ -136,14 +138,17 @@ void main() {
   group("storeErrors", () {
     test("setActiveWillErrorIfStatusIsNotReported", () async {
       await withTrace((m) async {
-        final ops = MockPlusVpnOps();
-        Core.register<PlusVpnOps>(ops);
+        final ops = MockVpnChannel();
+        Core.register<VpnChannel>(ops);
 
         final timer = Scheduler(timer: SchedulerTimer());
         Core.register<Scheduler>(timer);
 
-        final subject = PlusVpnStore();
-        subject.actualStatus = VpnStatus.deactivated;
+        final currentStatus = CurrentVpnStatusValue();
+        Core.register(currentStatus);
+
+        final subject = VpnActor();
+        currentStatus.now = VpnStatus.deactivated;
         Core.config.plusVpnCommandTimeout = const Duration(seconds: 0);
 
         await expectLater(subject.turnVpnOn(m), throwsException);

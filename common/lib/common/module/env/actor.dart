@@ -14,7 +14,7 @@ class EnvActor with Logging, Actor {
     info = await _channel.doGetEnvInfo();
     deviceName = info.deviceName;
     userAgent = _getUserAgent(info);
-    _userAgent.change(m, userAgent);
+    await _userAgent.change(m, userAgent);
     appVersion = info.appVersion;
   }
 

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/refresh/json.dart';
+import 'package:common/plus/plus.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../family/module/family/family.dart';
 import '../../../util/cooldown.dart';
-import '../../plus/plus.dart';
 import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../account.dart';
@@ -97,7 +97,7 @@ abstract class AccountRefreshStoreBase
   late final _notification = Core.get<NotificationActor>();
   late final _stage = Core.get<StageStore>();
   late final _persistence = Core.get<Persistence>();
-  late final _plus = Core.get<PlusStore>();
+  late final _plus = Core.get<PlusActor>();
   late final _linkedMode = Core.get<FamilyLinkedMode>();
 
   AccountRefreshStoreBase() {
@@ -162,7 +162,7 @@ abstract class AccountRefreshStoreBase
         _initSuccessful = true;
       } catch (e) {
         log(m).i("creating new account");
-        await _account.create(m);
+        await _account.createAccount(m);
         await syncAccount(_account.account, m);
         lastRefresh = DateTime.now();
         _initSuccessful = true;

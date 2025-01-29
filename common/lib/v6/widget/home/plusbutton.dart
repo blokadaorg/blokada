@@ -6,10 +6,10 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/perm/perm.dart';
-import 'package:common/platform/plus/gateway/gateway.dart';
-import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/gateway/gateway.dart';
+import 'package:common/plus/plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -27,9 +27,10 @@ class _PlusButtonState extends State<PlusButton>
     with TickerProviderStateMixin, Logging {
   final _app = Core.get<AppStore>();
   final _account = Core.get<AccountStore>();
-  final _gateway = Core.get<PlusGatewayStore>();
+  final _gateway = Core.get<CurrentGatewayValue>();
   final _stage = Core.get<StageStore>();
-  final _plus = Core.get<PlusStore>();
+  final _plus = Core.get<PlusActor>();
+  final _plusEnabled = Core.get<PlusEnabledValue>();
   final _permVpnEnabled = Core.get<VpnEnabled>();
   final _permChannnel = Core.get<PermChannel>();
 
@@ -43,9 +44,9 @@ class _PlusButtonState extends State<PlusButton>
 
     mobx.autorun((_) {
       final status = _app.status;
-      final gateway = _gateway.currentGateway;
+      final gateway = _gateway.present;
       final plusEnabled =
-          _plus.plusEnabled && status == AppStatus.activatedPlus;
+          _plusEnabled.present == true && status == AppStatus.activatedPlus;
 
       setState(() {
         location = gateway?.niceName ?? "";

@@ -24,22 +24,19 @@ import 'package:common/platform/core/core.dart';
 import 'package:common/platform/family/family.dart';
 import 'package:common/platform/filter/filter.dart';
 import 'package:common/platform/perm/dnscheck.dart';
+import 'package:common/platform/plus/plus.dart';
+import 'package:common/plus/plus.dart';
 import 'package:common/v6/module/perm/perm.dart';
 import 'package:common/v6/widget/home/home.dart';
 
 import 'platform/account/account.dart';
-import 'platform/account/payment/payment.dart';
 import 'platform/account/refresh/refresh.dart';
 import 'platform/app/app.dart';
 import 'platform/app/start/start.dart';
 import 'platform/command/command.dart';
 import 'platform/device/device.dart';
+import 'platform/payment/payment.dart';
 import 'platform/perm/perm.dart';
-import 'platform/plus/gateway/gateway.dart';
-import 'platform/plus/keypair/keypair.dart';
-import 'platform/plus/lease/lease.dart';
-import 'platform/plus/plus.dart';
-import 'platform/plus/vpn/vpn.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/refresh/refresh.dart';
 import 'platform/stats/stats.dart';
@@ -76,14 +73,14 @@ class Modules with Logging {
 
     await _registerModule(PlatformCommonModule());
 
+    await _registerModule(AccountModule());
+
     // The stores. Order is important
     StageStore().onRegister();
     AccountStore().onRegister();
     AccountPaymentStore().onRegister();
     AccountRefreshStore().onRegister();
     DeviceStore().onRegister();
-
-    await _registerModule(AccountModule());
 
     // Compatibility layer for v6 (temporary)
     if (!Core.act.isFamily) {
@@ -99,11 +96,8 @@ class Modules with Logging {
 
     if (!Core.act.isFamily) {
       await _registerModule(V6PermModule());
-      PlusStore().onRegister();
-      PlusKeypairStore().onRegister();
-      PlusGatewayStore().onRegister();
-      PlusLeaseStore().onRegister();
-      PlusVpnStore().onRegister();
+      await _registerModule(PlusModule());
+      await _registerModule(PlatformPlusModule());
       HomeStore().onRegister();
     }
 

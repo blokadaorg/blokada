@@ -50,12 +50,14 @@ class Api {
     QueryParams? params,
     JsonString? payload,
     Headers headers = const {},
+    bool skipResolvingParams = false,
   }) {
     return _http.call(
       HttpRequest(endpoint, payload: payload),
       m,
       params: params,
       headers: headers,
+      skipResolvingParams: skipResolvingParams,
     );
   }
 }

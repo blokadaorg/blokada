@@ -142,7 +142,7 @@ abstract class AsyncValue<T> with Logging {
   }
 }
 
-// Similar to AsyncValue but operates asynchronously.
+// Similar to AsyncValue but allows null.
 // Will block on read if it's not resolved yet.
 abstract class NullableAsyncValue<T> with Logging {
   Future<T?> Function(Marker m)? load;

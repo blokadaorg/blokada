@@ -1,10 +1,4 @@
-import 'dart:convert';
-
-import 'package:common/common/module/api/api.dart';
-import 'package:common/core/core.dart';
-
-import '../../device/device.dart';
-import '../keypair/keypair.dart';
+part of 'lease.dart';
 
 class TooManyLeasesException implements Exception {}
 
@@ -59,6 +53,16 @@ class JsonLease {
       throw JsonError(json, e);
     }
   }
+
+  Lease get toLease => Lease(
+        accountId: accountId,
+        publicKey: publicKey,
+        gatewayId: gatewayId,
+        expires: expires,
+        alias: alias,
+        vip4: vip4,
+        vip6: vip6,
+      );
 }
 
 class JsonLeasePayload {
@@ -94,10 +98,8 @@ class PlusLeaseMarshal {
   }
 }
 
-class PlusLeaseApi {
+class LeaseApi {
   late final _api = Core.get<Api>();
-  late final _keypair = Core.get<PlusKeypairStore>();
-  late final _device = Core.get<DeviceStore>();
   late final _marshal = PlusLeaseMarshal();
 
   Future<List<JsonLease>> getLeases(Marker m, {bool noRetry = false}) async {
@@ -107,12 +109,13 @@ class PlusLeaseApi {
     return _marshal.toLeases(result);
   }
 
-  Future<JsonLease> postLease(String gatewayId, Marker m) async {
+  Future<JsonLease> postLease(Marker m, String deviceAlias,
+      String keypairPublicKey, String gatewayId) async {
     try {
       final payload = JsonLeasePayload(
-        publicKey: _keypair.currentDevicePublicKey,
+        publicKey: keypairPublicKey,
         gatewayId: gatewayId,
-        alias: _device.deviceAlias,
+        alias: deviceAlias,
       );
 
       final result = await _api.request(ApiEndpoint.postLeaseV2, m,
@@ -128,9 +131,10 @@ class PlusLeaseApi {
     }
   }
 
-  Future<void> deleteLeaseByGateway(String gatewayId, Marker m) async {
-    final payload = JsonLeasePayload(
-        publicKey: _keypair.currentDevicePublicKey, gatewayId: gatewayId);
+  Future<void> deleteLeaseByGateway(
+      String keypairPublicKey, String gatewayId, Marker m) async {
+    final payload =
+        JsonLeasePayload(publicKey: keypairPublicKey, gatewayId: gatewayId);
 
     await _api.request(ApiEndpoint.deleteLeaseV2, m,
         payload: _marshal.fromPayload(payload));

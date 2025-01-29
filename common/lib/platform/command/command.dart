@@ -1,14 +1,12 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/perm/perm.dart';
-import 'package:common/platform/plus/plus.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../family/module/family/family.dart';
 import '../account/account.dart';
-import '../account/payment/payment.dart';
 import '../account/refresh/refresh.dart';
 import '../app/start/start.dart';
-import '../plus/vpn/vpn.dart';
+import '../payment/payment.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import 'channel.act.dart';
@@ -22,10 +20,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _appStart = Core.get<AppStartStore>();
   late final _permission = Core.get<PlatformPermActor>();
   late final _scheduler = Core.get<Scheduler>();
-
-  // V6 only commands
-  late final _plus = Core.get<PlusStore>();
-  late final _plusVpn = Core.get<PlusVpnStore>();
 
   @override
   void onRegister() {
@@ -42,6 +36,10 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "ENABLEDECK",
     "DISABLEDECK",
     "TOGGLELISTBYTAG",
+    "NOTIFICATIONTAPPED",
+    "APPLENOTIFICATIONTOKEN",
+    "NEWPLUS",
+    "VPNSTATUS",
   ];
 
   @override
@@ -61,7 +59,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   @override
   Future<void> onCommandWithParam(String command, String p1, Marker m) async {
     for (var cmd in newCommands) {
-      if (command.startsWith(cmd)) {
+      if (command.toUpperCase().startsWith(cmd)) {
         return await commands.execute(m, command, [p1]);
       }
     }
@@ -76,7 +74,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   Future<void> onCommandWithParams(
       String command, String p1, String p2, Marker m) async {
     for (var cmd in newCommands) {
-      if (command.startsWith(cmd)) {
+      if (command.toUpperCase().startsWith(cmd)) {
         return await commands.execute(m, command, [p1, p2]);
       }
     }
@@ -132,9 +130,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _appStart.pauseAppIndefinitely(m);
       case CommandName.unpause:
         return await _appStart.unpauseApp(m);
-      case CommandName.vpnStatus:
-        _ensureParam(p1);
-        return await _plusVpn.setActualStatus(p1!, m);
       case CommandName.foreground:
         return await _stage.setForeground(m);
       case CommandName.background:
@@ -164,9 +159,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
       case CommandName.schedulerPing:
         await _scheduler.pingFromBackground(m);
         return;
-      case CommandName.newPlus:
-        _ensureParam(p1);
-        return await _plus.newPlus(p1!, m);
       default:
         throw Exception("Unsupported command: $cmd");
     }
@@ -199,7 +191,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
   final _censoredCommands = [
     CommandName.restore.name,
     CommandName.receipt.name,
-    CommandName.appleNotificationToken.name,
   ];
 
   String _cmdName(String cmd, String? p1) {

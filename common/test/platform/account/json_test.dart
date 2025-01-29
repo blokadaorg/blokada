@@ -37,14 +37,15 @@ void main() {
     test("willCallPostMethod", () async {
       await withTrace((m) async {
         final http = MockApi();
-        when(http.request(any, any))
+        when(http.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams")))
             .thenAnswer((_) => Future.value(fixtureJsonEndpoint));
         Core.register<Api>(http);
 
         final subject = AccountApi();
         final account = await subject.postAccount(m);
 
-        verify(http.request(any, any)).called(1);
+        verify(http.request(any, any, skipResolvingParams: true)).called(1);
         expect(account.id, "mockedmocked");
       });
     });

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/plus/lease/api.dart';
+import 'package:common/plus/module/lease/lease.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -46,7 +46,7 @@ void main() {
         when(account.id).thenReturn("some-id");
         Core.register<AccountStore>(account);
 
-        final subject = PlusLeaseApi();
+        final subject = LeaseApi();
         final entries = await subject.getLeases(m);
 
         expect(entries.isNotEmpty, true);
@@ -67,7 +67,7 @@ void main() {
         when(account.id).thenReturn("some-id");
         Core.register<AccountStore>(account);
 
-        final subject = PlusLeaseApi();
+        final subject = LeaseApi();
 
         await expectLater(
             subject.getLeases(m), throwsA(isA<FormatException>()));

@@ -5,10 +5,10 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/start/start.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/perm/perm.dart';
-import 'package:common/platform/plus/plus.dart';
-import 'package:common/platform/plus/vpn/vpn.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/vpn/vpn.dart';
+import 'package:common/plus/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -23,8 +23,8 @@ import '../../../tools.dart';
   MockSpec<AccountStore>(),
   MockSpec<StageStore>(),
   MockSpec<AccountRefreshStore>(),
-  MockSpec<PlusVpnStore>(),
-  MockSpec<PlusStore>(),
+  MockSpec<VpnActor>(),
+  MockSpec<PlusActor>(),
 ])
 import 'start_test.mocks.dart';
 
@@ -35,7 +35,7 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        Core.register<PlusStore>(MockPlusStore());
+        Core.register<PlusActor>(MockPlusActor());
 
         final device = MockDeviceStore();
         Core.register<DeviceStore>(device);
@@ -58,7 +58,7 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        Core.register<PlusStore>(MockPlusStore());
+        Core.register<PlusActor>(MockPlusActor());
 
         final device = MockDeviceStore();
         Core.register<DeviceStore>(device);
@@ -81,7 +81,7 @@ void main() {
         final app = MockAppStore();
         Core.register<AppStore>(app);
 
-        Core.register<PlusStore>(MockPlusStore());
+        Core.register<PlusActor>(MockPlusActor());
 
         final device = MockDeviceStore();
         Core.register<DeviceStore>(device);

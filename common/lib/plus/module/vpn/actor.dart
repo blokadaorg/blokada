@@ -1,105 +1,33 @@
-import 'dart:async';
-
-import 'package:common/core/core.dart';
-import 'package:mobx/mobx.dart';
-
-import '../../app/app.dart';
-import 'channel.act.dart';
-import 'channel.pg.dart';
-
-part 'vpn.g.dart';
-
-enum VpnStatus {
-  unknown,
-  initializing,
-  reconfiguring,
-  deactivated,
-  paused,
-  activated
-}
-
-extension VpnStatusExt on VpnStatus {
-  isReady() =>
-      this == VpnStatus.activated ||
-      this == VpnStatus.paused ||
-      this == VpnStatus.deactivated;
-  isActive() => this == VpnStatus.activated;
-}
-
-extension on String {
-  VpnStatus toVpnStatus() {
-    switch (this) {
-      case "initializing":
-        return VpnStatus.initializing;
-      case "reconfiguring":
-        return VpnStatus.reconfiguring;
-      case "deactivated":
-        return VpnStatus.deactivated;
-      case "paused":
-        return VpnStatus.paused;
-      case "activated":
-        return VpnStatus.activated;
-      default:
-        return VpnStatus.unknown;
-    }
-  }
-}
-
-extension on VpnConfig {
-  bool isSame(VpnConfig other) {
-    return devicePrivateKey == other.devicePrivateKey &&
-        deviceTag == other.deviceTag &&
-        gatewayPublicKey == other.gatewayPublicKey &&
-        gatewayNiceName == other.gatewayNiceName &&
-        gatewayIpv4 == other.gatewayIpv4 &&
-        gatewayIpv6 == other.gatewayIpv6 &&
-        gatewayPort == other.gatewayPort &&
-        leaseVip4 == other.leaseVip4 &&
-        leaseVip6 == other.leaseVip6;
-  }
-}
+part of 'vpn.dart';
 
 const String _keyTimer = "vpn:timeout";
 const String _keyOngoingTimer = "vpn:ongoing:timeout";
 
-class PlusVpnStore = PlusVpnStoreBase with _$PlusVpnStore;
-
-abstract class PlusVpnStoreBase with Store, Logging, Actor {
-  late final _ops = Core.get<PlusVpnOps>();
+class VpnActor with Logging, Actor {
+  late final _channel = Core.get<VpnChannel>();
   late final _scheduler = Core.get<Scheduler>();
+  late final _actualStatus = Core.get<CurrentVpnStatusValue>();
+
   late final _app = Core.get<AppStore>();
 
-  @override
-  onRegister() {
-    Core.register<PlusVpnOps>(getOps());
-    Core.register<PlusVpnStore>(this as PlusVpnStore);
-  }
-
-  @observable
-  VpnStatus actualStatus = VpnStatus.unknown;
-
-  @observable
   VpnStatus targetStatus = VpnStatus.unknown;
 
-  @observable
   VpnConfig? actualConfig;
 
-  @observable
   VpnConfig? targetConfig;
 
   Completer? _statusCompleter;
 
   bool _settingConfig = false;
 
-  @action
-  Future<void> setVpnConfig(VpnConfig config, Marker m) async {
+  setVpnConfig(VpnConfig config, Marker m) async {
     return await log(m).trace("setVpnConfig", (m) async {
       if (actualConfig != null && config.isSame(actualConfig!)) {
         return;
       }
 
       targetConfig = config;
-      if (!actualStatus.isReady() || _settingConfig) {
+      if (!_actualStatus.now.isReady() || _settingConfig) {
         log(m).i("event queued");
         return;
       }
@@ -108,7 +36,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
       var attempts = 3;
       while (attempts-- > 0) {
         try {
-          await _ops.doSetVpnConfig(config);
+          await _channel.doSetVpnConfig(config);
           attempts = 0;
           _settingConfig = false;
         } catch (e) {
@@ -126,14 +54,13 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     });
   }
 
-  @action
-  Future<void> turnVpnOn(Marker m) async {
+  turnVpnOn(Marker m) async {
     return await log(m).trace("turnVpnOn", (m) async {
       targetStatus = VpnStatus.activated;
-      if (!actualStatus.isReady()) {
+      if (!_actualStatus.now.isReady()) {
         log(m).i("event queued");
         return;
-      } else if (actualStatus == targetStatus) {
+      } else if (_actualStatus.now == targetStatus) {
         return;
       }
 
@@ -141,14 +68,13 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     });
   }
 
-  @action
-  Future<void> turnVpnOff(Marker m) async {
+  turnVpnOff(Marker m) async {
     return await log(m).trace("turnVpnOff", (m) async {
       targetStatus = VpnStatus.deactivated;
-      if (!actualStatus.isReady()) {
+      if (!_actualStatus.now.isReady()) {
         log(m).i("event queued");
         return;
-      } else if (actualStatus == targetStatus) {
+      } else if (_actualStatus.now == targetStatus) {
         return;
       }
 
@@ -156,14 +82,13 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     });
   }
 
-  @action
-  Future<void> setActualStatus(String statusString, Marker m) async {
+  setActualStatus(String statusString, Marker m) async {
     return await log(m).trace("setActualStatus", (m) async {
       final status = statusString.toVpnStatus();
       log(m).pair("status", status.name);
 
-      actualStatus = status;
-      if (!actualStatus.isReady()) {
+      _actualStatus.now = status;
+      if (!_actualStatus.now.isReady()) {
         await _app.reconfiguring(m);
         await _startOngoingTimeout(m);
         return;
@@ -181,7 +106,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
       }
 
       // Finish the ongoing completer or keep trying
-      if (targetStatus == actualStatus) {
+      if (targetStatus == _actualStatus.now) {
         _statusCompleter?.complete();
         _statusCompleter = null;
         await _app.plusActivated(status.isActive(), m);
@@ -211,7 +136,7 @@ abstract class PlusVpnStoreBase with Store, Logging, Actor {
     await _startCommandTimeout(m);
     _statusCompleter = Completer();
     try {
-      await _ops.doSetVpnActive(active);
+      await _channel.doSetVpnActive(active);
       await _statusCompleter?.future;
       _statusCompleter = null;
       await _stopCommandTimeout(m);

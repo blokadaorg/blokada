@@ -1,4 +1,4 @@
-import 'package:common/platform/plus/gateway/api.dart';
+import 'package:common/plus/module/gateway/gateway.dart';
 
 const fixtureGatewayEndpoint = '''
 {

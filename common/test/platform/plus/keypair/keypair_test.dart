@@ -1,24 +1,23 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/plus/keypair/channel.pg.dart';
-import 'package:common/platform/plus/keypair/keypair.dart';
-import 'package:common/platform/plus/plus.dart';
+import 'package:common/plus/module/keypair/keypair.dart';
+import 'package:common/plus/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../tools.dart';
 @GenerateNiceMocks([
-  MockSpec<PlusKeypairStore>(),
-  MockSpec<PlusKeypairOps>(),
+  MockSpec<KeypairActor>(),
+  MockSpec<KeypairChannel>(),
   MockSpec<Persistence>(),
   MockSpec<AccountStore>(),
-  MockSpec<PlusStore>(),
+  MockSpec<PlusActor>(),
 ])
 import 'keypair_test.mocks.dart';
 
 final _fixtureKeypair =
-    PlusKeypair(publicKey: "publicKey", privateKey: "privateKey");
+    Keypair(publicKey: "publicKey", privateKey: "privateKey");
 
 void main() {
   group("store", () {
@@ -27,69 +26,78 @@ void main() {
         final persistence = MockPersistence();
         Core.register<Persistence>(persistence, tag: Persistence.secure);
 
-        final ops = MockPlusKeypairOps();
+        final currentKeypair = CurrentKeypairValue();
+        Core.register(currentKeypair);
+
+        final ops = MockKeypairChannel();
         when(ops.doGenerateKeypair())
             .thenAnswer((_) => Future.value(_fixtureKeypair));
-        Core.register<PlusKeypairOps>(ops);
+        Core.register<KeypairChannel>(ops);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
 
-        final plus = MockPlusStore();
-        Core.register<PlusStore>(plus);
+        final plus = MockPlusActor();
+        Core.register<PlusActor>(plus);
 
-        final subject = PlusKeypairStore();
+        final subject = KeypairActor();
         verifyNever(ops.doGenerateKeypair());
 
         await subject.generate(m);
         verify(ops.doGenerateKeypair()).called(1);
-        verify(persistence.saveJson(any, any, any)).called(1);
-        expect(subject.currentKeypair, isNotNull);
+        verify(persistence.save(any, any, any)).called(1);
+        expect(currentKeypair.present, isNotNull);
       });
     });
 
     test("load", () async {
       await withTrace((m) async {
-        final ops = MockPlusKeypairOps();
-        Core.register<PlusKeypairOps>(ops);
+        final ops = MockKeypairChannel();
+        Core.register<KeypairChannel>(ops);
 
         final persistence = MockPersistence();
-        when(persistence.loadJson(any, any)).thenAnswer((_) => Future.value(
-            {"publicKey": "publicKey", "privateKey": "privateKey"}));
+        when(persistence.load(any, any)).thenAnswer((_) => Future.value(
+            '{"publicKey": "publicKey", "privateKey": "privateKey"}'));
         Core.register<Persistence>(persistence, tag: Persistence.secure);
+
+        final currentKeypair = CurrentKeypairValue();
+        Core.register(currentKeypair);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
 
-        final plus = MockPlusStore();
-        Core.register<PlusStore>(plus);
+        final plus = MockPlusActor();
+        Core.register<PlusActor>(plus);
 
-        final subject = PlusKeypairStore();
-        expect(subject.currentKeypair, null);
+        final subject = KeypairActor();
+        expect(currentKeypair.present, null);
 
         await subject.load(m);
-        expect(subject.currentDevicePublicKey, "publicKey");
+        expect(currentKeypair.present!.publicKey, "publicKey");
       });
     });
 
     test("loadWhenNoPersistence", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();
-        when(persistence.loadJson(any, any)).thenThrow(Exception("not found"));
+        when(persistence.load(any, any)).thenThrow(Exception("not found"));
         Core.register<Persistence>(persistence, tag: Persistence.secure);
 
-        final ops = MockPlusKeypairOps();
+        final ops = MockKeypairChannel();
         when(ops.doGenerateKeypair())
             .thenAnswer((_) => Future.value(_fixtureKeypair));
-        Core.register<PlusKeypairOps>(ops);
+        Core.register<KeypairChannel>(ops);
+
+        final currentKeypair = CurrentKeypairValue();
+        Core.register(currentKeypair);
 
         final account = MockAccountStore();
         Core.register<AccountStore>(account);
 
-        final plus = MockPlusStore();
-        Core.register<PlusStore>(plus);
+        final plus = MockPlusActor();
+        Core.register<PlusActor>(plus);
 
-        final subject = PlusKeypairStore();
+        final subject = KeypairActor();
 
         await subject.load(m);
         verify(ops.doGenerateKeypair()).called(1);

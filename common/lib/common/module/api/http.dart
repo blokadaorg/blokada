@@ -12,10 +12,13 @@ class Http with Logging {
     Marker m, {
     QueryParams? params,
     Headers headers = const {},
+    bool skipResolvingParams = false,
   }) async {
     return await log(m).trace("call", (m) async {
       final h = (await _headers())..addAll(headers);
-      final p = (await _params())..addAll(params ?? {});
+      final p = (await _params(skipAccount: skipResolvingParams))
+        ..addAll(params ?? {});
+
       await _prepare(payload, p, h);
       try {
         log(m).i("Api call: ${payload.endpoint}");
@@ -108,10 +111,18 @@ class Http with Logging {
     }
   }
 
-  Future<Map<ApiParam, String>> _params() async => {
+  Future<Map<ApiParam, String>> _params({bool skipAccount = false}) async {
+    if (skipAccount) {
+      return {
+        ApiParam.userAgent: await _userAgent.now(),
+      };
+    } else {
+      return {
         ApiParam.accountId: await _accountId.now(),
         ApiParam.userAgent: await _userAgent.now(),
       };
+    }
+  }
 
   Future<Map<String, String>> _headers() async => {
         //"Authorization": "Bearer ${_token.value}",

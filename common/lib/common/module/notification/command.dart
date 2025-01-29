@@ -1,13 +1,15 @@
 part of 'notification.dart';
 
-class SupportCommand with Command, Logging {
+class NotificationCommand with Command, Logging {
   late final _actor = Core.get<NotificationActor>();
 
   @override
   List<CommandSpec> onRegisterCommands() {
     return [
-      registerCommand("notificationTapped", fn: cmdNotificationTapped),
-      registerCommand("appleNotificationToken", fn: cmdAppleNotificationToken),
+      registerCommand("notificationTapped",
+          fn: cmdNotificationTapped, argsNum: 1),
+      registerCommand("appleNotificationToken",
+          fn: cmdAppleNotificationToken, argsNum: 1),
     ];
   }
 

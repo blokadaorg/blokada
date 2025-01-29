@@ -8,7 +8,7 @@ class PlatformPermActor with Logging, Actor {
 
   late final _app = Core.get<AppStore>();
   late final _device = Core.get<DeviceStore>();
-  late final _plus = Core.get<PlusStore>();
+  late final _plus = Core.get<PlusActor>();
   late final _stage = Core.get<StageStore>();
   late final _check = Core.get<PrivateDnsCheck>();
 

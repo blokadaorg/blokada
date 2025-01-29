@@ -34,7 +34,7 @@ class Product {
 }
 
 @HostApi()
-abstract class AccountPaymentOps {
+abstract class PaymentOps {
   @async
   bool doArePaymentsAvailable();
 
@@ -58,4 +58,7 @@ abstract class AccountPaymentOps {
 
   @async
   void doProductsChanged(List<Product> products);
+
+  @async
+  void doAccountTypeChanged(String accountType);
 }

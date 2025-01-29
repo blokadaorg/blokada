@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/api.dart';
-import 'package:common/platform/account/payment/api.dart';
-import 'package:common/platform/account/payment/channel.pg.dart';
-import 'package:common/platform/account/payment/payment.dart';
+import 'package:common/platform/payment/api.dart';
+import 'package:common/platform/payment/channel.pg.dart';
+import 'package:common/platform/payment/payment.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart';
 import '../../../tools.dart';
 import '../fixtures.dart';
 @GenerateNiceMocks([
-  MockSpec<AccountPaymentOps>(),
+  MockSpec<PaymentOps>(),
   MockSpec<AccountPaymentApi>(),
   MockSpec<AccountStore>(),
   MockSpec<AccountPaymentStore>(),
@@ -51,10 +51,12 @@ void main() {
   group("store", () {
     test("willFetchProducts", () async {
       await withTrace((m) async {
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doFetchProducts()).thenAnswer((_) async => _fixtureProducts);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
+
+        Core.register<AccountStore>(MockAccountStore());
 
         final subject = AccountPaymentStore();
         expect(subject.status, PaymentStatus.unknown);
@@ -77,11 +79,11 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
 
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
@@ -104,9 +106,9 @@ void main() {
 
     test("willProcessQueuedReceiptsFirstOnPurchase", () async {
       await withTrace((m) async {
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
@@ -132,10 +134,10 @@ void main() {
 
     test("willRestore", () async {
       await withTrace((m) async {
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doRestoreWithReceipts()).thenAnswer((_) async => ["receipt"]);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
@@ -159,9 +161,9 @@ void main() {
 
     test("willRestoreInBackground", () async {
       await withTrace((m) async {
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout("good receipt", any, any)).thenAnswer(
@@ -196,9 +198,11 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
 
-        final ops = MockAccountPaymentOps();
+        Core.register<AccountStore>(MockAccountStore());
+
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => false);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final subject = AccountPaymentStore();
 
@@ -214,11 +218,11 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
 
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenThrow(Exception("Channel failing"));
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         Core.register<AccountPaymentApi>(json);
@@ -240,11 +244,11 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
 
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any))
@@ -269,11 +273,11 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
 
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
         when(ops.doPurchaseWithReceipts(any))
             .thenAnswer((_) async => ["receipt"]);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
 
         final json = MockAccountPaymentApi();
         when(json.postCheckout(any, any, any)).thenAnswer(
@@ -298,9 +302,11 @@ void main() {
   group("binder", () {
     test("onStatusChanged", () async {
       await withTrace((m) async {
-        final ops = MockAccountPaymentOps();
+        final ops = MockPaymentOps();
         when(ops.doArePaymentsAvailable()).thenAnswer((_) async => true);
-        Core.register<AccountPaymentOps>(ops);
+        Core.register<PaymentOps>(ops);
+
+        Core.register<AccountStore>(MockAccountStore());
 
         final store = AccountPaymentStore();
         Core.register<AccountPaymentStore>(store);

@@ -3,11 +3,11 @@ import 'package:mocktail/mocktail.dart';
 
 import 'channel.pg.dart';
 
-class MockAccountPaymentOps extends Mock implements AccountPaymentOps {}
+class MockAccountPaymentOps extends Mock implements PaymentOps {}
 
-AccountPaymentOps getOps() {
+PaymentOps getOps() {
   if (Core.act.isProd) {
-    return AccountPaymentOps();
+    return PaymentOps();
   }
 
   final ops = MockAccountPaymentOps();

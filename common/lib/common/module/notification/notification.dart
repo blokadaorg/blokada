@@ -4,8 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
-import 'package:common/platform/plus/keypair/keypair.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/keypair/keypair.dart';
 
 part 'actor.dart';
 part 'api.dart';
@@ -27,5 +27,6 @@ class NotificationModule with Module {
   onCreateModule() async {
     await register(NotificationsValue());
     await register(NotificationActor());
+    await register(NotificationCommand());
   }
 }

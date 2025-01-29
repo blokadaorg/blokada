@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 
-import '../api.dart';
+import '../account/api.dart';
 
 class JsonPaymentCheckoutPayload {
   String? receipt;
