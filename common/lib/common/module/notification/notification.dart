@@ -25,6 +25,7 @@ class NotificationsValue extends Value<List<NotificationEvent>> {
 class NotificationModule with Module {
   @override
   onCreateModule() async {
+    await register(NotificationApi());
     await register(NotificationsValue());
     await register(NotificationActor());
     await register(NotificationCommand());
