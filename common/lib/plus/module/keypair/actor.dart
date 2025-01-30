@@ -6,6 +6,9 @@ class KeypairActor with Logging, Actor {
   late final _channel = Core.get<KeypairChannel>();
   late final _currentKeypair = Core.get<CurrentKeypairValue>();
 
+  // Satisfy notification module
+  late final _publicKey = Core.get<PublicKeyProvidedValue>();
+
   @override
   onStart(Marker m) async {
     _account.addOn(accountIdChanged, generate);
@@ -18,6 +21,7 @@ class KeypairActor with Logging, Actor {
       try {
         final keypair = await _currentKeypair.fetch(m);
         _ensureValidKeypair(keypair);
+        await _publicKey.change(m, keypair!.publicKey);
       } on Exception catch (_) {
         await generate(m);
       }
@@ -30,6 +34,7 @@ class KeypairActor with Logging, Actor {
       final keypair = await _channel.doGenerateKeypair();
       _ensureValidKeypair(keypair);
       await _currentKeypair.change(m, keypair);
+      await _publicKey.change(m, keypair.publicKey);
     });
   }
 

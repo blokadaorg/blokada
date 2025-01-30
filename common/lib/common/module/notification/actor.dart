@@ -10,7 +10,7 @@ class NotificationActor with Logging, Actor {
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
-  late final _keypair = Core.get<CurrentKeypairValue>();
+  late final _publicKey = Core.get<PublicKeyProvidedValue>();
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -65,7 +65,8 @@ class NotificationActor with Logging, Actor {
     if (_appleToken == null) return;
     if (Core.act.isFamily) return;
     return await log(m).trace("sendAppleToken", (m) async {
-      await _json.postToken(_keypair.present!.publicKey, _appleToken!, m);
+      final publicKey = await _publicKey.fetch(m);
+      await _json.postToken(publicKey, _appleToken!, m);
       _appleToken = null;
     });
   }

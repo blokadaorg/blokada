@@ -1,3 +1,4 @@
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 
