@@ -12,7 +12,6 @@
 
 package model
 
-import binding.LegacyGateway
 import repository.DnsDataSource
 
 class TunnelStatus private constructor (

@@ -19,9 +19,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import binding.LegacyGateway
 import binding.PlusBinding
-import binding.PlusGatewayBinding
+import model.LegacyGateway
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment
@@ -39,7 +38,6 @@ class LocationFragment : BottomSheetFragment() {
     var clickable = true
     var cloud = false
 
-    private val plusGateway by lazy { PlusGatewayBinding }
     private val plus by lazy { PlusBinding }
 
     override fun onCreateView(
@@ -68,7 +66,7 @@ class LocationFragment : BottomSheetFragment() {
         val container3: LinearLayout = root.findViewById(R.id.location_container3)
         val container4: LinearLayout = root.findViewById(R.id.location_container4)
 
-        plusGateway.gatewaysLive.observe(viewLifecycleOwner) { it ->
+        plus.gatewaysLive.observe(viewLifecycleOwner) { it ->
             val spinner: View = root.findViewById(R.id.spinner)
             spinner.visibility = View.GONE
 
@@ -109,7 +107,7 @@ class LocationFragment : BottomSheetFragment() {
         name.text = location.niceName()
         icon.setImageResource(getFlag(location))
 
-        if (clickable && plusGateway.selected.value == location.publicKey) {
+        if (clickable && plus.selected.value == location.publicKey) {
             name.setTextColor(requireContext().getColorFromAttr(android.R.attr.colorAccent))
         } else {
             checkmark.visibility = View.GONE

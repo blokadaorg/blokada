@@ -18,18 +18,13 @@ import android.app.Service
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import binding.AccountBinding
 import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
-import binding.EnvBinding
+import binding.CommonBinding
+import binding.CoreBinding
 import binding.FamilyBinding
-import binding.HttpBinding
-import binding.LoggerBinding
-import binding.NotificationBinding
 import binding.PermBinding
-import binding.PersistenceBinding
-import binding.RateBinding
 import binding.StageBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,16 +42,11 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private val flutter by lazy { FlutterService }
     private lateinit var commands: CommandBinding
     private lateinit var stage: StageBinding
-    private lateinit var env: EnvBinding
-    private lateinit var persistence: PersistenceBinding
-    private lateinit var http: HttpBinding
-    private lateinit var tracer: LoggerBinding
+    private lateinit var http: CommonBinding
+    private lateinit var tracer: CoreBinding
     private lateinit var app: AppBinding
-    private lateinit var notification: NotificationBinding
-    private lateinit var account: AccountBinding
     private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var perm: PermBinding
-    private lateinit var rate: RateBinding
     private lateinit var family: FamilyBinding
 
     override val viewModelStore: ViewModelStore
@@ -79,15 +69,10 @@ class MainApplication: Application(), ViewModelStoreOwner {
         commands = CommandBinding
         stage = StageBinding
         app = AppBinding
-        env = EnvBinding
-        persistence = PersistenceBinding
-        http = HttpBinding
-        notification = NotificationBinding
-        tracer = LoggerBinding
-        account = AccountBinding
+        http = CommonBinding
+        tracer = CoreBinding
         accountPayment = AccountPaymentBinding
         perm = PermBinding
-        rate = RateBinding
         family = FamilyBinding
     }
 

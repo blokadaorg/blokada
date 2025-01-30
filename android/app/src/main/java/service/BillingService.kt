@@ -12,7 +12,7 @@
 
 package service
 
-import channel.accountpayment.Product
+import channel.payment.Product
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams

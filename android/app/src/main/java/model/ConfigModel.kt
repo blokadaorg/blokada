@@ -12,9 +12,32 @@
 
 package model
 
-import binding.LegacyGateway
-import binding.LegacyLease
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class LegacyGateway (
+    val publicKey: String,
+    val region: String,
+    val location: String,
+    val resourceUsagePercent: Long,
+    val ipv4: String,
+    val ipv6: String,
+    val port: Long,
+    val country: String? = null
+) {
+    fun niceName(): String {
+        return location.split('-').map { it.capitalize() }.joinToString(" ")
+    }
+}
+
+@Serializable
+data class LegacyLease(
+    val publicKey: String,
+    val gatewayId: String,
+    val alias: String?,
+    val vip4: String,
+    val vip6: String
+)
 
 @Serializable
 data class BlockaConfig(

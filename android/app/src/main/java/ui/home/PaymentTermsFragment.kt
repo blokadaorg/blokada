@@ -16,16 +16,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import binding.AccountBinding
+import binding.CommonBinding
 import binding.StageBinding
 import org.blokada.R
 import service.Flavor
 import ui.BottomSheetFragment
-import utils.Links
 
 class PaymentTermsFragment : BottomSheetFragment() {
-    private val account by lazy { AccountBinding }
     private val stage by lazy { StageBinding }
+    private val common by lazy { CommonBinding }
 
     companion object {
         fun newInstance() = PaymentTermsFragment()
@@ -47,25 +46,23 @@ class PaymentTermsFragment : BottomSheetFragment() {
             dismiss()
         }
 
-        account.live.observe(viewLifecycleOwner) { account ->
-            val contact: View = root.findViewById(R.id.payment_support)
-            contact.setOnClickListener {
-                stage.setRoute(Links.support(account.id))
-                dismiss()
-            }
+        val contact: View = root.findViewById(R.id.payment_support)
+        contact.setOnClickListener {
+            stage.setRoute(common.links["support"]!!)
+            dismiss()
         }
 
         val isFamily = Flavor.isFamily();
 
         val terms: View = root.findViewById(R.id.payment_terms)
         terms.setOnClickListener {
-            stage.setRoute(Links.terms(isFamily))
+            stage.setRoute(common.links["tos"]!!)
             dismiss()
         }
 
         val privacy: View = root.findViewById(R.id.payment_privacy)
         privacy.setOnClickListener {
-            stage.setRoute(Links.privacy(isFamily))
+            stage.setRoute(common.links["privacy"]!!)
             dismiss()
         }
 

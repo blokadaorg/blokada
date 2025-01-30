@@ -12,7 +12,7 @@
 
 package service
 
-import channel.accountpayment.Product
+import channel.payment.Product
 import kotlinx.coroutines.delay
 import model.PaymentPayload
 import model.ProductId

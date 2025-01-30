@@ -204,26 +204,6 @@ object StageBinding: StageOps {
         callback(Result.success(Unit))
     }
 
-    override fun doRouteChanged(path: String, callback: (Result<Unit>) -> Unit) {
-        route.value = path
-        tab.value = Tab.fromRoute(path)
-
-        if (path.contains("/")) {
-            payload.value = path.substringAfter("/")
-        } else {
-            payload.value = ""
-        }
-
-        onShowNavBar(showingNavBar)
-        callback(Result.success(Unit))
-    }
-
-    override fun doShowNavbar(show: Boolean, callback: (Result<Unit>) -> Unit) {
-        showingNavBar = show
-        onShowNavBar(show)
-        callback(Result.success(Unit))
-    }
-
     override fun doOpenLink(url: String, callback: (Result<Unit>) -> Unit) {
         openInBrowser(url)
         callback(Result.success(Unit))

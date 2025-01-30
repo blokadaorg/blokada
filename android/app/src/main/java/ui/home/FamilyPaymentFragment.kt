@@ -18,10 +18,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.lifecycleScope
-import binding.AccountBinding
 import binding.AccountPaymentBinding
-import binding.getType
-import channel.accountpayment.Product
+import channel.payment.Product
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -35,7 +33,6 @@ class FamilyPaymentFragment : BottomSheetFragment() {
     override val modal: Sheet = Sheet.Payment
 
     private val payment by lazy { AccountPaymentBinding }
-    private val account by lazy { AccountBinding }
 
     private val dialog by lazy { DialogService }
 
@@ -91,7 +88,7 @@ class FamilyPaymentFragment : BottomSheetFragment() {
 
                 val cloudProducts = products.filter { it.type == "family" }
 
-                val accountType = account.account.value.getType()
+                val accountType = payment.accountType
 //                when (accountType) {
                     // Standard case
                     cloudProducts.forEach { p ->

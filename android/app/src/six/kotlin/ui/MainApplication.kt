@@ -24,22 +24,13 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import binding.AccountBinding
 import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
-import binding.DeviceBinding
-import binding.EnvBinding
-import binding.HttpBinding
-import binding.LoggerBinding
-import binding.NotificationBinding
+import binding.CommonBinding
+import binding.CoreBinding
 import binding.PermBinding
-import binding.PersistenceBinding
-import binding.PlusGatewayBinding
-import binding.PlusKeypairBinding
-import binding.PlusLeaseBinding
-import binding.PlusVpnBinding
-import binding.RateBinding
+import binding.PlusBinding
 import binding.StageBinding
 import com.wireguard.android.backend.Backend
 import com.wireguard.android.backend.GoBackend
@@ -76,21 +67,13 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private val flutter by lazy { FlutterService }
     private lateinit var commands: CommandBinding
     private lateinit var stage: StageBinding
-    private lateinit var env: EnvBinding
-    private lateinit var persistence: PersistenceBinding
-    private lateinit var http: HttpBinding
-    private lateinit var tracer: LoggerBinding
+    private lateinit var env: CommonBinding
+    private lateinit var tracer: CoreBinding
     private lateinit var app: AppBinding
-    private lateinit var notification: NotificationBinding
-    private lateinit var account: AccountBinding
+    private lateinit var common: CommonBinding
     private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var perm: PermBinding
-    private lateinit var plusKeypair: PlusKeypairBinding
-    private lateinit var plusGateway: PlusGatewayBinding
-    private lateinit var plusLease: PlusLeaseBinding
-    private lateinit var plusVpn: PlusVpnBinding
-    private lateinit var device: DeviceBinding
-    private lateinit var rate: RateBinding
+    private lateinit var plus: PlusBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -113,20 +96,12 @@ class MainApplication: Application(), ViewModelStoreOwner {
         commands = CommandBinding
         stage = StageBinding
         app = AppBinding
-        env = EnvBinding
-        persistence = PersistenceBinding
-        http = HttpBinding
-        notification = NotificationBinding
-        tracer = LoggerBinding
-        account = AccountBinding
+        env = CommonBinding
+        common = CommonBinding
+        tracer = CoreBinding
         accountPayment = AccountPaymentBinding
         perm = PermBinding
-        plusKeypair = PlusKeypairBinding
-        plusGateway = PlusGatewayBinding
-        plusLease = PlusLeaseBinding
-        plusVpn = PlusVpnBinding
-        device = DeviceBinding
-        rate = RateBinding
+        plus = PlusBinding
     }
 
     private fun setupEvents() {

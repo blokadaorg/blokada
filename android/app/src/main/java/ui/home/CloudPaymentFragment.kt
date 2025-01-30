@@ -18,14 +18,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.lifecycleScope
-import binding.AccountBinding
 import binding.AccountPaymentBinding
-import binding.getType
-import channel.accountpayment.Product
+import channel.payment.Product
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import model.AccountType
 import model.NoPayments
 import org.blokada.R
 import service.DialogService
@@ -36,7 +33,6 @@ class CloudPaymentFragment : BottomSheetFragment() {
     override val modal: Sheet = Sheet.Payment
 
     private val payment by lazy { AccountPaymentBinding }
-    private val account by lazy { AccountBinding }
 
     private val dialog by lazy { DialogService }
 
@@ -96,10 +92,10 @@ class CloudPaymentFragment : BottomSheetFragment() {
                 val cloudProducts = products.filter { it.type == "cloud" }
                 val plusProducts = products.filter { it.type == "plus" }
 
-                val accountType = account.account.value.getType()
+                val accountType = payment.accountType
                 when (accountType) {
                     // Standard case, user is purchasing Cloud or Plus
-                    AccountType.Libre -> {
+                    "libre" -> {
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
@@ -115,7 +111,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                         }
                     }
                     // User is upgrading to Plus
-                    AccountType.Cloud -> {
+                    "cloud" -> {
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())
                             cloudGroup.addView(v)
@@ -131,7 +127,7 @@ class CloudPaymentFragment : BottomSheetFragment() {
                         }
                     }
                     // User is downgrading to Cloud or changing sub period
-                    AccountType.Plus -> {
+                    "plus" -> {
                         val activeSub = payment.activeSub.value
                         cloudProducts.forEach { p ->
                             val v = PaymentItemView(requireContext())

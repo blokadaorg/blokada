@@ -12,8 +12,6 @@
 
 package engine
 
-import binding.LegacyGateway
-import binding.LegacyLease
 import com.wireguard.android.backend.Tunnel
 import com.wireguard.config.Config
 import com.wireguard.config.InetEndpoint
@@ -24,6 +22,8 @@ import com.wireguard.crypto.Key
 import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.delay
 import model.BlokadaException
+import model.LegacyGateway
+import model.LegacyLease
 import repository.AppRepository
 import service.EnvironmentService
 import ui.MainApplication

@@ -12,14 +12,14 @@
 
 package engine
 
-import binding.LegacyGateway
-import binding.LegacyLease
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import model.BlockaConfig
 import model.BlokadaException
 import model.Dns
+import model.LegacyGateway
+import model.LegacyLease
 import model.NetworkSpecificConfig
 import model.PrivateKey
 import model.TunnelFailure

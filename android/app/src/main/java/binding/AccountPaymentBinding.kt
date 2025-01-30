@@ -12,10 +12,10 @@
 
 package binding
 
-import channel.accountpayment.AccountPaymentOps
-import channel.accountpayment.PaymentStatus
-import channel.accountpayment.Product
 import channel.command.CommandName
+import channel.payment.PaymentOps
+import channel.payment.PaymentStatus
+import channel.payment.Product
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -29,7 +29,7 @@ import service.BillingService
 import service.FlutterService
 import utils.Logger
 
-object AccountPaymentBinding: AccountPaymentOps {
+object AccountPaymentBinding: PaymentOps {
     val products = MutableStateFlow<List<Product>?>(null)
     val status = MutableStateFlow(PaymentStatus.UNKNOWN)
     val activeSub = MutableStateFlow<ProductId?>(null)
@@ -43,7 +43,7 @@ object AccountPaymentBinding: AccountPaymentOps {
     private val scope = GlobalScope
 
     init {
-        AccountPaymentOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
+        PaymentOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
         scope.async {
             billing.setup()
         }
@@ -160,6 +160,13 @@ object AccountPaymentBinding: AccountPaymentOps {
 
     override fun doProductsChanged(products: List<Product>, callback: (Result<Unit>) -> Unit) {
         this.products.value = products
+        callback(Result.success(Unit))
+    }
+
+    var accountType: String = "libre"
+
+    override fun doAccountTypeChanged(accountType: String, callback: (Result<Unit>) -> Unit) {
+        this.accountType = accountType
         callback(Result.success(Unit))
     }
 
