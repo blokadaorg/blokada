@@ -18,6 +18,7 @@ class Markers {
   static const ui = 11; // Triggered by UI rendering code
   static const perm = 12;
   static const persistence = 13;
+  static const valueChange = 14;
 
   static String toName(Marker marker) {
     switch (marker) {

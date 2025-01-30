@@ -121,7 +121,8 @@ abstract class AsyncValue<T> with Logging {
       return;
     }
 
-    final update = ValueUpdate(m, _resolved ? _value : null, newValue);
+    final update =
+        ValueUpdate(Markers.valueChange, _resolved ? _value : null, newValue);
     _value = newValue;
     await save?.call(m, newValue);
 
@@ -209,7 +210,8 @@ abstract class NullableAsyncValue<T> with Logging {
   change(Marker m, T? newValue) async {
     if (_resolved && newValue == _value) return;
 
-    final update = NullableValueUpdate(m, _resolved ? _value : null, newValue);
+    final update = NullableValueUpdate(
+        Markers.valueChange, _resolved ? _value : null, newValue);
     _value = newValue;
     await save?.call(m, newValue);
 
