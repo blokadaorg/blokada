@@ -42,6 +42,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
     if (!mounted) return;
     log(Markers.ui).trace("fetchCustom", (m) async {
       await _custom.fetch(m);
+      if (!mounted) return;
       setState(() {
         _isReady = true;
         _allowed = _lists.now.allowed;
