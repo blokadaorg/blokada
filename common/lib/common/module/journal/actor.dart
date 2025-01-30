@@ -37,8 +37,10 @@ class JournalActor with Logging, Actor {
 
       final mapped = entries.map((e) {
         final entry = UiJournalEntry.fromJsonEntry(e, false);
-        return UiJournalEntry.fromJsonEntry(e,
-            _decideModified(entry.domainName, entry.action, allowed, denied));
+        return UiJournalEntry.fromJsonEntry(
+            e,
+            _decideModified(entry.domainName, entry.action, allowed, denied,
+                _wasException(entry.listId)));
       }).toList();
 
       // Sort from the oldest
@@ -59,8 +61,7 @@ class JournalActor with Logging, Actor {
             profileId: entry.profileId,
             timestamp: entry.timestamp, // Most recent occurrence
             requests: grouped.last.requests + 1,
-            modified: _decideModified(
-                entry.domainName, entry.action, allowed, denied),
+            modified: entry.modified,
           );
         } else {
           grouped.add(entry);
@@ -89,22 +90,26 @@ class JournalActor with Logging, Actor {
   }
 
   bool _decideModified(String domainName, UiJournalAction action,
-      List<String> allowed, List<String> denied) {
+      List<String> allowed, List<String> denied, bool wasException) {
     final isOnAllowed = allowed.contains(domainName);
     final isOnDenied = denied.contains(domainName);
+    final wasAllowed = action == UiJournalAction.allow;
+    final wasDenied = action == UiJournalAction.block;
 
-    if (!isOnAllowed && !isOnDenied) {
-      return false;
-    }
-
-    if (action == UiJournalAction.allow && isOnDenied) {
+    if ((isOnAllowed && wasDenied) || (isOnDenied && wasAllowed)) {
       return true;
     }
 
-    if (action == UiJournalAction.block && isOnAllowed) {
+    if (wasException && !isOnAllowed && !isOnDenied) {
       return true;
     }
 
     return false;
+  }
+
+  bool _wasException(String listId) {
+    // Actual lists are 32 chars
+    // When list is user custom exceptions, its device id, which is shorter
+    return listId.isNotEmpty && listId.length < 32;
   }
 }

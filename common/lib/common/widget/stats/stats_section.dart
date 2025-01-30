@@ -70,6 +70,9 @@ class StatsSectionState extends State<StatsSection> with Disposables {
       child: RefreshIndicator(
         displacement: 100.0,
         onRefresh: () async {
+          // To make it more obvious visually
+          _entries.now = [];
+
           rebuild(null);
         },
         child: ListView(
