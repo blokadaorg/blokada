@@ -64,7 +64,9 @@ class NotificationActor with Logging, Actor {
   sendAppleToken(Marker m) async {
     if (_appleToken == null) return;
     if (Core.act.isFamily) return;
-    return await log(m).trace("sendAppleToken", (m) async {
+
+    // Do not wait for this, since we can deadlock by waiting for the key
+    return log(m).trace("sendAppleToken", (m) async {
       final publicKey = await _publicKey.fetch(m);
       await _json.postToken(publicKey, _appleToken!, m);
       _appleToken = null;
