@@ -57,12 +57,10 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   // Order matters
   late final List<Actor> _startablesV6 = [
-    _accountRefresh,
     _device,
   ];
 
   late final List<Actor> _startablesFamily = [
-    _accountRefresh,
     _device,
   ];
 
