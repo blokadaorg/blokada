@@ -16,12 +16,14 @@ class NotificationActor with Logging, Actor {
   late final _json = Core.get<NotificationApi>();
   late final _notifications = Core.get<NotificationsValue>();
 
+  late final _scheduler = Core.get<Scheduler>();
+
   String? _appleToken;
 
   @override
   onStart(Marker m) async {
     _stage.addOnValue(routeChanged, onRouteChanged);
-    _account.addOn(accountChanged, sendAppleToken);
+    _account.addOn(accountChanged, sendAppleTokenAsync);
   }
 
   showWithBody(NotificationId id, Marker m, String body,
@@ -61,16 +63,25 @@ class NotificationActor with Logging, Actor {
     });
   }
 
-  sendAppleToken(Marker m) async {
-    if (_appleToken == null) return;
+  sendAppleTokenAsync(Marker m) async {
     if (Core.act.isFamily) return;
+    if (_appleToken == null) return;
 
-    // Do not wait for this, since we can deadlock by waiting for the key
-    return log(m).trace("sendAppleToken", (m) async {
-      final publicKey = await _publicKey.fetch(m);
-      await _json.postToken(publicKey, _appleToken!, m);
-      _appleToken = null;
-    });
+    // Use scheduler to make sure this does not deadlock
+    // (we are in accountChanged callback)
+    _scheduler.addOrUpdate(Job(
+      "sendAppleToken",
+      m,
+      before: DateTime.now(),
+      callback: sendAppleToken,
+    ));
+  }
+
+  Future<bool> sendAppleToken(Marker m) async {
+    final publicKey = await _publicKey.fetch(m);
+    await _json.postToken(publicKey, _appleToken!, m);
+    _appleToken = null;
+    return false;
   }
 
   saveAppleToken(String appleToken) async {
