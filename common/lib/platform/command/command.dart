@@ -46,7 +46,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   @override
   Future<void> onCommand(String command, Marker m) async {
     for (var cmd in newCommands) {
-      if (command.startsWith(cmd)) {
+      if (command.toUpperCase().startsWith(cmd)) {
         return await commands.execute(m, command, null);
       }
     }
