@@ -56,8 +56,6 @@ class Modules with Logging {
     await _registerModule(NotificationModule());
     await _registerModule(ApiModule());
 
-    await _registerModule(AccountModule());
-
     await _registerModule(ListModule());
     await _registerModule(FilterModule());
     await _registerModule(JournalModule());
@@ -78,6 +76,7 @@ class Modules with Logging {
     // The stores. Order is important
     StageStore().onRegister();
     AccountStore().onRegister();
+    await _registerModule(AccountModule());
     AccountPaymentStore().onRegister();
     AccountRefreshStore().onRegister();
     DeviceStore().onRegister();
