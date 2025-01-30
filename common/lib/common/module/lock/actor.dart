@@ -10,7 +10,7 @@ class LockActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     return await log(m).trace("onStart", (m) async {
-      await _stage.addOn(willEnterBackground, _autoLockOnBackground);
+      _stage.addOn(willEnterBackground, _autoLockOnBackground);
       if (!Core.act.isFamily) await _stage.setShowNavbar(false, m);
       await _load(m);
     });

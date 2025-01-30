@@ -11,7 +11,7 @@ class KeypairActor with Logging, Actor {
 
   @override
   onStart(Marker m) async {
-    await _account.addOn(accountIdChanged, generate);
+    _account.addOn(accountIdChanged, generate);
 
     await load(m);
   }

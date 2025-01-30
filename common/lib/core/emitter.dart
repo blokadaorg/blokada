@@ -16,7 +16,7 @@ mixin Emitter on Logging {
 
     final latest = _latestValue[on];
     if (latest != null) {
-      log(Markers.start).trace("emitter", (m) async {
+      log(Markers.valueChange).trace("emitter", (m) async {
         log(m).i("Instant emit for $on");
         await listener(m);
       });

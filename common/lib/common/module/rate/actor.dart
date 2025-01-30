@@ -23,7 +23,7 @@ class RateActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      await _app.addOn(appStatusChanged, _scheduleAfterAppStatus);
+      _app.addOn(appStatusChanged, _scheduleAfterAppStatus);
       await _load(m);
     });
   }

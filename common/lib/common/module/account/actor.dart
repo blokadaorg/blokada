@@ -7,7 +7,7 @@ class AccountActor with Actor, Logging {
 
   @override
   onCreate(Marker m) async {
-    await _store.addOn(acc.accountChanged, onAccountChanged);
+    _store.addOn(acc.accountChanged, onAccountChanged);
   }
 
   @override

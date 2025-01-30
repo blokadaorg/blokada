@@ -24,7 +24,7 @@ class PlusActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      await _app.addOn(appStatusChanged, reactToAppStatus);
+      _app.addOn(appStatusChanged, reactToAppStatus);
 
       _plusEnabled.onChange.listen((change) async {
         await _channel.doPlusEnabledChanged(change.now);
