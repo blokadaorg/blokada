@@ -148,7 +148,7 @@ class PlusActor with Logging, Actor {
 
   reactToAppPause(bool appActive, Marker m) async {
     return await log(m).trace("reactToAppPause", (m) async {
-      final plusEnabled = await _plusEnabled.now();
+      final plusEnabled = _plusEnabled.present ?? false;
       if (appActive && plusEnabled && !_vpnStatus.now.isActive()) {
         await switchPlus(true, m);
       } else if (!appActive && (plusEnabled || _vpnStatus.now.isActive())) {
@@ -158,7 +158,7 @@ class PlusActor with Logging, Actor {
   }
 
   reactToAppStatus(Marker m) async {
-    final plusEnabled = await _plusEnabled.now();
+    final plusEnabled = _plusEnabled.present ?? false;
     if (plusEnabled &&
         _app.status == AppStatus.activatedCloud &&
         _vpnStatus.now == VpnStatus.deactivated) {
