@@ -23,7 +23,7 @@ class NotificationActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     _stage.addOnValue(routeChanged, onRouteChanged);
-    _account.addOn(accountChanged, sendAppleTokenAsync);
+    await _account.addOn(accountChanged, sendAppleTokenAsync);
   }
 
   showWithBody(NotificationId id, Marker m, String body,

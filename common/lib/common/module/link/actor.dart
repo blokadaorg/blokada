@@ -51,7 +51,8 @@ class LinkActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     await _prepareTemplates();
-    _account.addOn(accountChanged, updateLinksFromAccount);
+    await _account.addOn(accountChanged, updateLinksFromAccount);
+
     if (Core.act.isFamily) {
       _linkedMode.onChange.listen(updateFromLinkedMode);
     }

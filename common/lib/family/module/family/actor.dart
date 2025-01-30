@@ -27,7 +27,7 @@ class FamilyActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      _account.addOn(accountChanged, _postActivationOnboarding);
+      await _account.addOn(accountChanged, _postActivationOnboarding);
       _isLocked.onChange.listen(_updatePhaseFromLock);
       _link.linkedMode.onChange.listen(
           (_) => _updatePhase(Markers.root, reason: "linkedModeChanged"));

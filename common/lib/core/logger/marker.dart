@@ -50,6 +50,8 @@ class Markers {
         return "perm";
       case persistence:
         return "persistence";
+      case valueChange:
+        return "valueChange";
       default:
         return "unknown";
     }
