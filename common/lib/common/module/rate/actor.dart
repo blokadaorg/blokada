@@ -1,7 +1,7 @@
 part of 'rate.dart';
 
 class RateMetadataValue extends JsonPersistedValue<JsonRate> {
-  RateMetadataValue() : super("rate:metadata");
+  RateMetadataValue() : super("rate:metadata:2025");
 
   @override
   JsonRate fromJson(Map<String, dynamic> json) => JsonRate.fromJson(json);
