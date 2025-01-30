@@ -29,6 +29,7 @@ import model.BlockaConfig
 import model.LegacyGateway
 import model.LegacyLease
 import model.TunnelStatus
+import service.EnvironmentService
 import service.FlutterService
 
 fun OpsVpnConfig.toLease(): OpsLease {
@@ -105,6 +106,7 @@ object PlusBinding: PlusOps {
         try {
             this.config.value =
                 Pair(config, this.config.value?.second ?: false)
+            EnvironmentService.deviceTag = config.deviceTag
             callback(Result.success(Unit))
         } catch (e: Exception) {
             callback(Result.failure(e))
