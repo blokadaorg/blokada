@@ -67,10 +67,10 @@ class StatsSectionState extends State<StatsSection> with Disposables {
 
   Future<void> _pullToRefresh() async {
     // To make it more obvious visually
+    _journal.clear();
     setState(() {
       _isReady = false;
     });
-    _entries.now = [];
     await sleepAsync(const Duration(milliseconds: 200));
 
     rebuild(null);

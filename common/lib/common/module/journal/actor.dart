@@ -87,6 +87,11 @@ class JournalActor with Logging, Actor {
     });
   }
 
+  clear() {
+    allEntries = [];
+    filteredEntries.now = [];
+  }
+
   bool _decideModified(String domainName, UiJournalAction action,
       List<String> allowed, List<String> denied, bool wasException) {
     final isOnAllowed = allowed.contains(domainName);
