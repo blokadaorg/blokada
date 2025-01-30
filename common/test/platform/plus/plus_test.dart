@@ -62,7 +62,7 @@ void main() {
         final subject = PlusActor();
         expect(plusEnabled.present, null);
 
-        await subject.onStart(m);
+        await subject.onCreate(m);
         expect(plusEnabled.present, true);
       });
     });

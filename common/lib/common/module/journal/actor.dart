@@ -10,6 +10,7 @@ final _noFilter = JournalFilter(
 class JournalActor with Logging, Actor {
   late final _api = Core.get<JournalApi>();
   late final _custom = Core.get<CustomlistActor>();
+  late final _customlist = Core.get<CustomListsValue>();
 
   late final filteredEntries = Core.get<JournalEntriesValue>();
   late final filter = Core.get<JournalFilterValue>();
@@ -52,6 +53,7 @@ class JournalActor with Logging, Actor {
             profileId: entry.profileId,
             timestamp: entry.timestamp, // Most recent occurrence
             requests: grouped.last.requests + 1,
+            modified: _decideModified(entry.domainName, entry.action),
           );
         } else {
           grouped.add(entry);
@@ -77,5 +79,24 @@ class JournalActor with Logging, Actor {
       filteredEntries.now = filter.now.apply(allEntries);
       await _custom.fetch(m);
     });
+  }
+
+  bool _decideModified(String domainName, UiJournalAction action) {
+    final isOnAllowed = _customlist.now.allowed.contains(domainName);
+    final isOnDenied = _customlist.now.denied.contains(domainName);
+
+    if (!isOnAllowed && !isOnDenied) {
+      return false;
+    }
+
+    if (action == UiJournalAction.allow && isOnDenied) {
+      return true;
+    }
+
+    if (action == UiJournalAction.block && isOnAllowed) {
+      return true;
+    }
+
+    return false;
   }
 }

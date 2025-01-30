@@ -8,6 +8,7 @@ class UiJournalEntry {
   final String? profileId;
   final DateTime timestamp;
   final int requests;
+  final bool modified;
 
   late String timestampText;
 
@@ -19,6 +20,7 @@ class UiJournalEntry {
     required this.profileId,
     required this.timestamp,
     this.requests = 1,
+    this.modified = false,
   });
 
   static UiJournalEntry fromJsonEntry(JsonJournalEntry entry) {

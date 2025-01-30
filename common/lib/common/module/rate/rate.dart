@@ -9,6 +9,7 @@ import 'package:dartx/dartx.dart';
 part 'actor.dart';
 part 'json.dart';
 
+@PlatformProvided()
 mixin RateChannel {
   Future<void> doShowRateDialog();
 }

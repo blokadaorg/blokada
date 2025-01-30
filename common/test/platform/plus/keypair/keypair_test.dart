@@ -1,3 +1,4 @@
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/plus/module/keypair/keypair.dart';
@@ -29,6 +30,8 @@ void main() {
         final currentKeypair = CurrentKeypairValue();
         Core.register(currentKeypair);
 
+        Core.register(PublicKeyProvidedValue());
+
         final ops = MockKeypairChannel();
         when(ops.doGenerateKeypair())
             .thenAnswer((_) => Future.value(_fixtureKeypair));
@@ -54,6 +57,8 @@ void main() {
       await withTrace((m) async {
         final ops = MockKeypairChannel();
         Core.register<KeypairChannel>(ops);
+
+        Core.register(PublicKeyProvidedValue());
 
         final persistence = MockPersistence();
         when(persistence.load(any, any)).thenAnswer((_) => Future.value(
@@ -82,6 +87,8 @@ void main() {
         final persistence = MockPersistence();
         when(persistence.load(any, any)).thenThrow(Exception("not found"));
         Core.register<Persistence>(persistence, tag: Persistence.secure);
+
+        Core.register(PublicKeyProvidedValue());
 
         final ops = MockKeypairChannel();
         when(ops.doGenerateKeypair())
