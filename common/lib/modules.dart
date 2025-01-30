@@ -141,6 +141,11 @@ class Modules with Logging {
   }
 
   _registerModule(Module module) async {
+    final submodules = await module.onRegisterSubmodules();
+    for (var sub in submodules) {
+      await _registerModule(sub);
+    }
+
     await module.create();
     _add(module);
   }

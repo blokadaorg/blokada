@@ -2,6 +2,8 @@ part of 'core.dart';
 
 final commands = CommandCoordinator();
 
+typedef Submodules = Future<List<Module>>;
+
 mixin Module {
   final _actorStarter = ActorStarter();
 
@@ -13,10 +15,12 @@ mixin Module {
     if (_created) throw Exception("Module already created");
     _created = true;
 
-    await onCreateModule();
+    return await onCreateModule();
   }
 
-  Future<void> onCreateModule();
+  onCreateModule();
+
+  Submodules onRegisterSubmodules() async => [];
 
   register<T extends Object>(T instance, {String? tag}) async {
     if (instance is Actor) {
@@ -26,8 +30,6 @@ mixin Module {
     } else if (instance is Command) {
       await commands.registerCommands(
           Markers.start, instance.onRegisterCommands());
-    } else if (instance is Module) {
-      await instance.create();
     } else {
       Core.register(instance, tag: tag);
     }

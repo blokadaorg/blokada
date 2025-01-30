@@ -25,12 +25,15 @@ abstract class PlusChannel
 
 class PlusModule with Module {
   @override
-  onCreateModule() async {
-    await register(GatewayModule());
-    await register(KeypairModule());
-    await register(LeaseModule());
-    await register(VpnModule());
+  Submodules onRegisterSubmodules() async => [
+        GatewayModule(),
+        KeypairModule(),
+        LeaseModule(),
+        VpnModule(),
+      ];
 
+  @override
+  onCreateModule() async {
     await register(PlusEnabledValue());
     await register(PlusActor());
     await register(PlusCommand());
