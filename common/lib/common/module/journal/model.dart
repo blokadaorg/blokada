@@ -23,7 +23,7 @@ class UiJournalEntry {
     this.modified = false,
   });
 
-  static UiJournalEntry fromJsonEntry(JsonJournalEntry entry) {
+  static UiJournalEntry fromJsonEntry(JsonJournalEntry entry, bool modified) {
     return UiJournalEntry(
       deviceName: entry.deviceName,
       domainName: entry.domainName,
@@ -31,6 +31,7 @@ class UiJournalEntry {
       listId: entry.list,
       profileId: entry.profile,
       timestamp: DateTime.parse(entry.timestamp),
+      modified: modified,
     );
   }
 

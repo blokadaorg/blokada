@@ -32,8 +32,14 @@ class JournalActor with Logging, Actor {
         entries = await _api.fetchForV6(m);
       }
 
-      final mapped =
-          entries.map((e) => UiJournalEntry.fromJsonEntry(e)).toList();
+      final allowed = _customlist.now.allowed;
+      final denied = _customlist.now.denied;
+
+      final mapped = entries.map((e) {
+        final entry = UiJournalEntry.fromJsonEntry(e, false);
+        return UiJournalEntry.fromJsonEntry(e,
+            _decideModified(entry.domainName, entry.action, allowed, denied));
+      }).toList();
 
       // Sort from the oldest
       mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
@@ -53,7 +59,8 @@ class JournalActor with Logging, Actor {
             profileId: entry.profileId,
             timestamp: entry.timestamp, // Most recent occurrence
             requests: grouped.last.requests + 1,
-            modified: _decideModified(entry.domainName, entry.action),
+            modified: _decideModified(
+                entry.domainName, entry.action, allowed, denied),
           );
         } else {
           grouped.add(entry);
@@ -81,9 +88,10 @@ class JournalActor with Logging, Actor {
     });
   }
 
-  bool _decideModified(String domainName, UiJournalAction action) {
-    final isOnAllowed = _customlist.now.allowed.contains(domainName);
-    final isOnDenied = _customlist.now.denied.contains(domainName);
+  bool _decideModified(String domainName, UiJournalAction action,
+      List<String> allowed, List<String> denied) {
+    final isOnAllowed = allowed.contains(domainName);
+    final isOnDenied = denied.contains(domainName);
 
     if (!isOnAllowed && !isOnDenied) {
       return false;
