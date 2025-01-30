@@ -9,7 +9,6 @@ final _noFilter = JournalFilter(
 
 class JournalActor with Logging, Actor {
   late final _api = Core.get<JournalApi>();
-  late final _custom = Core.get<CustomlistActor>();
   late final _customlist = Core.get<CustomListsValue>();
 
   late final filteredEntries = Core.get<JournalEntriesValue>();
@@ -85,7 +84,6 @@ class JournalActor with Logging, Actor {
 
       allEntries = grouped;
       filteredEntries.now = filter.now.apply(allEntries);
-      await _custom.fetch(m);
     });
   }
 

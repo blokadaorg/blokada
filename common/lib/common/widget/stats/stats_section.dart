@@ -29,6 +29,7 @@ class StatsSection extends StatefulWidget {
 
 class StatsSectionState extends State<StatsSection> with Disposables {
   late final _journal = Core.get<JournalActor>();
+  late final _custom = Core.get<CustomlistActor>();
   late final _filter = Core.get<JournalFilterValue>();
   late final _entries = Core.get<JournalEntriesValue>();
   late final _customlist = Core.get<CustomListsValue>();
@@ -42,6 +43,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     disposeLater(_filter.onChange.listen(rebuild));
     disposeLater(_customlist.onChange.listen(rebuild));
     rebuild(null);
+    _custom.fetch(Markers.stats);
   }
 
   @override
@@ -63,18 +65,25 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     });
   }
 
+  Future<void> _pullToRefresh() async {
+    // To make it more obvious visually
+    setState(() {
+      _isReady = false;
+    });
+    _entries.now = [];
+    await sleepAsync(const Duration(milliseconds: 200));
+
+    rebuild(null);
+    rebuildEntries(null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: RefreshIndicator(
         displacement: 100.0,
-        onRefresh: () async {
-          // To make it more obvious visually
-          _entries.now = [];
-
-          rebuild(null);
-        },
+        onRefresh: _pullToRefresh,
         child: ListView(
             primary: widget.primary,
             children: [
