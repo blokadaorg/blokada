@@ -83,21 +83,6 @@ struct CurrentLease {
     let lease: OpsLease?
 }
 
-enum VpnStatus {
-    case unknown
-    case initializing
-    case reconfiguring
-    case deactivated
-    case paused
-    case activated
-}
-
-extension VpnStatus {
-    func isReady() -> Bool {
-        return self == .activated || self == .deactivated || self == .paused || self == .unknown
-    }
-}
-
 class PlusBinding: PlusOps {
     let plusEnabled = CurrentValueSubject<Bool, Never>(false)
 
