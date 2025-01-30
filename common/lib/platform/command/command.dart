@@ -31,6 +31,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   final newCommands = [
     "WARNING",
     "FATAL",
+    "LOG",
     "SUPPORTNOTIFY",
     "FAMILYLINK",
     "ENABLEDECK",
