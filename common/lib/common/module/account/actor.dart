@@ -6,13 +6,16 @@ class AccountActor with Actor {
   late final _accountId = Core.get<AccountId>();
 
   @override
+  onCreate(Marker m) async {
+    _store.addOn(acc.accountChanged, (m) {
+      _accountId.change(m, _store.account!.id);
+    });
+  }
+
+  @override
   onStart(Marker m) async {
     if (_store.account != null) {
       await _accountId.change(m, _store.account!.id);
     }
-
-    _store.addOn(acc.accountChanged, (m) {
-      _accountId.change(m, _store.account!.id);
-    });
   }
 }
