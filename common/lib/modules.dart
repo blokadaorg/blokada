@@ -117,8 +117,6 @@ class Modules with Logging {
   }
 
   start(Marker m) async {
-    _appStart.startApp(m); // TODO: refactor this
-
     await log(m).trace("startModules", (m) async {
       for (var mod in _modules) {
         await log(m).trace("${mod.runtimeType}", (m) async {
@@ -127,10 +125,7 @@ class Modules with Logging {
       }
     });
 
-    if (Core.act.isFamily) {
-      await Core.get<SupportUnreadActor>().onStart(m);
-      await Core.get<PurchaseTimeoutActor>().onStart(m);
-    }
+    await _appStart.startApp(m); // TODO: refactor this
 
     log(m).t("All modules started");
   }
