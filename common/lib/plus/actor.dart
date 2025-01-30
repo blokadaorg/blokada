@@ -17,6 +17,11 @@ class PlusActor with Logging, Actor {
   late final _account = Core.get<AccountStore>();
 
   @override
+  onCreate(Marker m) async {
+    await _plusEnabled.fetch(m);
+  }
+
+  @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       _app.addOn(appStatusChanged, reactToAppStatus);
@@ -31,18 +36,19 @@ class PlusActor with Logging, Actor {
 
       _currentLease.onChange.listen((change) async {
         if (change.now == null) {
-          await reactToPlusLost(change.m);
+          await log(change.m).trace("currentLeaseDropped", (m) async {
+            await reactToPlusLost(m);
+          });
         }
       });
 
       _currentGateway.onChange.listen((change) async {
         if (change.now == null) {
-          await reactToPlusLost(change.m);
+          await log(change.m).trace("currentGatewayDropped", (m) async {
+            await reactToPlusLost(m);
+          });
         }
       });
-
-      // Assuming keypair already loaded
-      await _plusEnabled.fetch(m);
 
       await _gateway.fetch(m);
       await _gateway.load(m);
@@ -74,7 +80,7 @@ class PlusActor with Logging, Actor {
   clearPlus(Marker m) async {
     return await log(m).trace("clearPlus", (m) async {
       await switchPlus(false, m);
-      _clearLease(m);
+      await _clearLease(m);
     });
   }
 
@@ -117,7 +123,7 @@ class PlusActor with Logging, Actor {
       } on Exception catch (e) {
         await _plusEnabled.change(m, false);
         await _vpn.turnVpnOff(m);
-        _clearLease(m);
+        await _clearLease(m);
         await _app.plusActivated(false, m);
         await _stage.showModal(StageModal.plusVpnFailure, m);
         rethrow;
@@ -148,7 +154,7 @@ class PlusActor with Logging, Actor {
 
   reactToAppPause(bool appActive, Marker m) async {
     return await log(m).trace("reactToAppPause", (m) async {
-      final plusEnabled = _plusEnabled.present ?? false;
+      final plusEnabled = await _plusEnabled.now();
       if (appActive && plusEnabled && !_vpnStatus.now.isActive()) {
         await switchPlus(true, m);
       } else if (!appActive && (plusEnabled || _vpnStatus.now.isActive())) {
@@ -158,7 +164,7 @@ class PlusActor with Logging, Actor {
   }
 
   reactToAppStatus(Marker m) async {
-    final plusEnabled = _plusEnabled.present ?? false;
+    final plusEnabled = await _plusEnabled.now();
     if (plusEnabled &&
         _app.status == AppStatus.activatedCloud &&
         _vpnStatus.now == VpnStatus.deactivated) {
@@ -177,11 +183,11 @@ class PlusActor with Logging, Actor {
 
   reactToPlusLost(Marker m) async {
     return await log(m).trace("reactToPlusLost", (m) async {
-      final plusEnabled = _plusEnabled.present ?? false;
+      final plusEnabled = await _plusEnabled.now();
       if (plusEnabled || _vpnStatus.now.isActive()) {
         await _plusEnabled.change(m, false);
         await _vpn.turnVpnOff(m);
-        _clearLease(m);
+        await _clearLease(m);
       }
     });
   }
