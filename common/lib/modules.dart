@@ -54,8 +54,10 @@ class Modules with Logging {
     await _registerModule(PlatformCoreModule());
     await _registerModule(EnvModule());
     await _registerModule(NotificationModule());
-
     await _registerModule(ApiModule());
+
+    await _registerModule(AccountModule());
+
     await _registerModule(ListModule());
     await _registerModule(FilterModule());
     await _registerModule(JournalModule());
@@ -72,8 +74,6 @@ class Modules with Logging {
     }
 
     await _registerModule(PlatformCommonModule());
-
-    await _registerModule(AccountModule());
 
     // The stores. Order is important
     StageStore().onRegister();
