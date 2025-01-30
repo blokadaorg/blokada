@@ -177,7 +177,7 @@ class PlusActor with Logging, Actor {
 
   reactToPlusLost(Marker m) async {
     return await log(m).trace("reactToPlusLost", (m) async {
-      final plusEnabled = await _plusEnabled.now();
+      final plusEnabled = _plusEnabled.present ?? false;
       if (plusEnabled || _vpnStatus.now.isActive()) {
         await _plusEnabled.change(m, false);
         await _vpn.turnVpnOff(m);
