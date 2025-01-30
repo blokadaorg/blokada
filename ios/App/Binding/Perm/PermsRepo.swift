@@ -70,9 +70,8 @@ class PermsRepo: Startable {
 
     func askVpnProfilePerms() -> AnyPublisher<Granted, Error> {
         return Just(true)
-        .tryMap { _ in
+        .flatMap { _ in
             self.netx.createVpnProfile()
-            return true
         }
         .eraseToAnyPublisher()
     }

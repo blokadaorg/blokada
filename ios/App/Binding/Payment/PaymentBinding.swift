@@ -118,6 +118,11 @@ class AccountPaymentBinding: PaymentOps {
         completion(.success(()))
     }
 
+    func doAccountTypeChanged(accountType: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+        completion(.success(()))
+    }
+    
+
     // A purchase can be initiated in one of many ways (explicit buy action from user,
     // a pending transaction from StoreKit, a restore purchase action from user etc).
     // We need a receipt for it to be processed by the backend.
