@@ -189,18 +189,14 @@ final _family = [
       "d3host/standard",
     ]),
     Option("extended", FilterAction.list, [
-      "goodbyeads/standard",
       "adaway/standard",
       "1hosts/lite (wildcards)",
       "oisd/big",
-      "ddgtrackerradar/standard",
       // Those below I'm not sure how to treat
-      "cpbl/standard",
       "blacklist/adservers",
       "developerdan/ads and tracking",
       "blocklist/ads",
       "blocklist/tracking",
-      "hblock/standard",
       "danpollock/standard",
     ]),
   ]),
