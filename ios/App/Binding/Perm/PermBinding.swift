@@ -29,7 +29,7 @@ class PermBinding: PermOps {
     private lazy var systemNav = Services.systemNav
     private lazy var account = ViewModels.account
 
-    fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted, Never>(false)
+    fileprivate let writeVpnProfilePerms = CurrentValueSubject<Granted?, Never>(nil)
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -68,9 +68,29 @@ class PermBinding: PermOps {
         // TODO: actual perms?
         completion(.success(false))
     }
-    
-    func doVpnEnabled(completion: @escaping (Result<Bool, Error>) -> Void) {
-        completion(.success(writeVpnProfilePerms.value))
+
+    func doVpnEnabled(completion: @escaping (Result<Granted, Error>) -> Void) {
+        // If current value is non-nil, return immediately
+        if let currentValue = writeVpnProfilePerms.value {
+            completion(.success(currentValue))
+            return
+        }
+        
+        // Otherwise, wait for the next non-nil value
+        writeVpnProfilePerms
+            .compactMap { $0 } // Filter out nil values
+            .first()           // Take the first non-nil value
+            .sink(
+                receiveCompletion: { result in
+                    if case let .failure(error) = result {
+                        completion(.failure(error))
+                    }
+                },
+                receiveValue: { value in
+                    completion(.success(value))
+                }
+            )
+            .store(in: &cancellables)
     }
 
     func doOpenSettings(completion: @escaping (Result<Void, Error>) -> Void) {
