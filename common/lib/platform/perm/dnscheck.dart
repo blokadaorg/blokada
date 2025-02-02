@@ -18,6 +18,8 @@ class PrivateDnsCheck with Actor, Logging {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
     }
 
+    log(m).pair("expected dns", expected);
+
     return line == expected;
   }
 

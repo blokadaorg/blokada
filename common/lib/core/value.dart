@@ -58,6 +58,19 @@ abstract class AsyncValue<T> with Logging {
   Stream<ValueUpdate<T>> get onChange => _stream.stream;
   final _stream = StreamController<ValueUpdate<T>>.broadcast();
 
+  // Will emit changes like onChange, and also emit current value instantly
+  StreamSubscription<ValueUpdate<T>> onChangeInstant(
+      Function(ValueUpdate<T>) fn) {
+    final stream = onChange.listen(fn);
+    if (_resolved) {
+      // No await, call asynchronously
+      log(Markers.valueChange).trace("$runtimeType", (m) async {
+        await fn(ValueUpdate(m, present, present!));
+      });
+    }
+    return stream;
+  }
+
   bool _resolved = false;
   bool _resolving = false;
   late T _value;

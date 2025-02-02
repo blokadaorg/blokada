@@ -15,6 +15,7 @@ class RateActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _app = Core.get<AppStore>();
   late final _stats = Core.get<StatsStore>();
+  late final _familyStats = Core.get<StatsActor>();
   late final _familyPhase = Core.get<FamilyPhaseValue>();
   late final _scheduler = Core.get<Scheduler>();
 
@@ -34,7 +35,7 @@ class RateActor with Logging, Actor {
       await _scheduler.addOrUpdate(Job(
         "rate:checkConditions",
         m,
-        before: DateTime.now().add(const Duration(seconds: 3)),
+        before: DateTime.now().add(const Duration(seconds: 5)),
         when: [Conditions.foreground],
         callback: checkRateConditions,
       ));
@@ -42,12 +43,9 @@ class RateActor with Logging, Actor {
   }
 
   Future<bool> checkRateConditions(Marker m) async {
-    // When app got active ...
-    if (!_app.status.isActive()) return false;
-
     final meta = await _rateMetadata.now();
 
-    // .. but not on first ever app start
+    // Not on first ever app start
     if (meta == null) return false;
 
     // ... and not if shown previously
@@ -57,20 +55,27 @@ class RateActor with Logging, Actor {
     if (!_stage.route.isMainRoute()) return false;
 
     if (!Core.act.isFamily) {
+      // Only when app got active ...
+      if (!_app.status.isActive()) return false;
+
       // Skip if not warmed up
       if (_stats.stats.totalBlocked < 100) return false;
     } else {
       // Skip if no devices
-      if (_familyPhase.now != FamilyPhase.parentHasDevices) return false;
+      if (_familyPhase.now != FamilyPhase.parentHasDevices) {
+        log(m).t("Skipped because no devices");
+        return false;
+      }
 
       // Skip if not warmed up
-      if (_stats.deviceStats.none((k, v) => v.totalBlocked >= 100)) {
+      if (_familyStats.stats.values.none((it) => it.totalBlocked >= 100)) {
+        log(m).t("Skipped because no device has 100+ blocked");
         return false;
       }
     }
 
     await _show(m);
-    return true;
+    return false;
   }
 
   _load(Marker m) async {

@@ -54,7 +54,7 @@ class FamilyActor with Logging, Actor {
   }
 
   _onDnsPermChanges() {
-    _dnsPerm.onChange.listen((it) async {
+    _dnsPerm.onChangeInstant((it) async {
       return await log(Markers.perm).trace("dnsPermChanged", (m) async {
         permsGranted = it.now;
         _updatePhase(m, reason: "dnsPermChanged");
