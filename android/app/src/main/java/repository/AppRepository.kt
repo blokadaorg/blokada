@@ -46,7 +46,7 @@ object AppRepository {
         )
     }
 
-    private val bypassedForFakeVpn = listOf(
+    private val commonBypassList = listOf(
         "com.android.vending",
         "com.android.providers.downloads",
         "com.google.android.apps.fireball",
@@ -102,8 +102,7 @@ object AppRepository {
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
-        return if (forRealTunnel) alwaysBypassed + bypassedAppIds
-        else alwaysBypassed + bypassedForFakeVpn + bypassedAppIds
+        return alwaysBypassed + commonBypassList + bypassedAppIds
     }
 
     suspend fun getApps(): List<App> {
