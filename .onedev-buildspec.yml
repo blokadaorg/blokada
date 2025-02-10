@@ -9,13 +9,17 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: docker buildbox
+    name: docker buildbox build aab
     image: docker-apps-build-box
-    args: make build-ci
+    args: make build-android-family
     envVars:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishArtifactStep
+    name: publish artifacts
+    artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
