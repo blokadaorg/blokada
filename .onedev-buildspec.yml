@@ -33,6 +33,12 @@ jobs:
   timeout: 14400
 - name: publish-android-family
   steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
     name: docker buildbox publish
     image: docker-apps-build-box
