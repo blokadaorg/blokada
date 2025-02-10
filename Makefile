@@ -2,6 +2,7 @@
 FASTLANE := fastlane
 PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
 PUBLISH_PKG := org.blokada.family
+CI_BUILD_DIR := /tmp/build
  
 # Default target 
 .DEFAULT_GOAL := build
@@ -74,6 +75,17 @@ dq-ifam:
 dq-isix:
 	$(MAKE) -C android/ d-install-six
 
+
+# CI-specific targets
+ci-copy-source:
+	@echo "Copying source files to $(BUILD_DIR)..."
+	@rm -rf $(BUILD_DIR)
+	@mkdir -p $(BUILD_DIR)
+	@cp -r . $(BUILD_DIR)
+
+ci-build-android-family: ci-copy-source
+	@echo "Building in $(BUILD_DIR)..."
+	@cd $(BUILD_DIR) && $(MAKE) build-android-family
 
 
 # OLD to be removed
