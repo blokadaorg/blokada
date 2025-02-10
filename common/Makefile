@@ -53,8 +53,7 @@ build-android-lib: get-deps gen-build-runner gen-pigeon-android lib-android-rele
 build-ios-lib: get-deps gen-build-runner gen-pigeon-ios lib-ios-release
 
 # Build everything in CI
-build-ci: get-deps gen-pigeon-android gen-pigeon-ios gen-build-runner test \
-lib-android-release lib-ios-release
+build-ci: get-deps gen-pigeon-android gen-build-runner test lib-android-release
 
 
 # Web build (not used yet)
