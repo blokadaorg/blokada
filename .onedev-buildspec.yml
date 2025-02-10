@@ -11,7 +11,7 @@ jobs:
   - !RunContainerStep
     name: docker buildbox build aab
     image: docker-apps-build-box
-    args: make build-android-family
+    args: make ci-build-android-family
     envVars:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
