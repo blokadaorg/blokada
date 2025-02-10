@@ -1,31 +1,50 @@
-all: sixcommon wireguard aab
+# Define common variables
+GRADLE := ./gradlew
 
-apk-family-debug:
-	./gradlew assembleFamilyDebug
+# Default target
+.DEFAULT_GOAL := build
 
-sixcommon:
-	@if test -d "six-common"; then \
-		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
-			echo "Building six-common..."; \
-			cd six-common && make get gen && cd ../ ; \
-			cd six-common && flutter build aar --no-profile && cd ../ ; \
-			mkdir -p app/six-common; \
-			cp -r six-common/build/host/outputs/repo app/six-common; \
-			touch app/six-common/marker; \
-		fi \
-	fi
+.PHONY: clean build d-apk-family apk-family d-apk-six apk-six \
+	aab-family aab-six wireguard \
+	d-install-family d-install-six
 
-sixcommon-fvm:
-	@if test -d "six-common"; then \
-		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
-			echo "Building six-common..."; \
-			cd six-common && make get gen && cd ../ ; \
-			cd six-common && fvm flutter build aar --no-profile && cd ../ ; \
-			mkdir -p app/six-common; \
-			cp -r six-common/build/host/outputs/repo app/six-common; \
-			touch app/six-common/marker; \
-		fi \
-	fi
+clean:
+	rm -rf app/wireguard-android/lib; \
+	$(GRADLE) clean; \
+	cd wireguard-android && ./gradlew clean && cd ../
+
+
+# Build everything from scratch for release and publish
+build: aab-family aab-six
+
+
+# Various build targets (assume prerequisites to be compiled)
+aab-family:
+	$(GRADLE) bundleFamilyRelease
+
+aab-six:
+	$(GRADLE) bundleSixRelease
+
+apk-family:
+	$(GRADLE) assembleFamilyRelease
+
+apk-six:
+	$(GRADLE) assembleSixRelease
+
+
+# Development targets
+d-apk-family:
+	$(GRADLE) assembleFamilyDebug
+
+d-apk-six:
+	$(GRADLE) assembleSixDebug
+
+d-install-family:
+	$(GRADLE) installFamilyDebug
+
+d-install-six:
+	$(GRADLE) installSixDebug
+
 
 wireguard:
 	@if test -d "wireguard-android"; then \
@@ -37,37 +56,3 @@ wireguard:
 			touch app/wireguard-android/lib/marker; \
 		fi \
 	fi
-
-pull-sixcommon:
-	@cd six-common; \
-	git pull; \
-	cd ../
-
-devsc: pull-sixcommon clean-sixcommon sixcommon
-devsc-fvm: pull-sixcommon clean-sixcommon sixcommon-fvm
-
-apk:
-	./gradlew assembleSixRelease;
-
-aab:
-	./gradlew bundleSixRelease;
-
-aabfamily:
-	./gradlew bundleFamilyRelease;
-
-clean:
-	@rm -rf app/six-common; \
-	rm -rf app/wireguard-android/lib; \
-	./gradlew clean; \
-	cd six-common && flutter clean; \
-	cd ..; \
-	cd wireguard-android && ./gradlew clean; \
-
-clean-sixcommon:
-	@rm -rf app/six-common; \
-
-install:
-	./gradlew installSixRelease
-
-test:
-	./gradlew testSixRelease
