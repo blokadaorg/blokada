@@ -12,6 +12,9 @@ jobs:
     name: docker buildbox
     image: docker-apps-build-box
     args: make build-ci
+    envVars:
+    - name: GRADLE_OPTS
+      value: -Dorg.gradle.unsafe.disable.watch-fs=true
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
