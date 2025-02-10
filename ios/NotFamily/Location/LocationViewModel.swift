@@ -1,0 +1,89 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+import Foundation
+import SwiftUI
+
+struct LocationViewModel {
+
+    let gateway: OpsGateway
+    let selectedGateway: OpsGateway?
+
+    init(gateway: OpsGateway, selectedGateway: OpsGateway?) {
+        self.gateway = gateway
+        self.selectedGateway = selectedGateway
+    }
+
+    init(mocked: String) {
+        gateway = OpsGateway(publicKey: mocked, region: "", location: mocked,
+                          resourceUsagePercent: 0, ipv4: "", ipv6: "",
+                          port: 0, country: "DE")
+        selectedGateway = nil
+    }
+
+    var isActive: Bool {
+        return gateway.publicKey == selectedGateway?.publicKey
+    }
+
+    var name: String {
+        return gateway.niceName()
+    }
+
+    func getFlag() -> String {
+        switch (gateway.country) {
+        case "AE":
+            return "flag_ae"
+        case "CA":
+            return "flag_ca"
+        case "DE":
+            return "flag_de"
+        case "FR":
+            return "flag_fr"
+        case "GB":
+            return "flag_gb"
+        case "JP":
+            return "flag_jp"
+        case "NL":
+            return "flag_nl"
+        case "SE":
+            return "flag_se"
+        case "CH":
+            return "flag_ch"
+        case "AU":
+            return "flag_au"
+        case "SG":
+            return "flag_sg"
+        case "ES":
+            return "flag_es"
+        case "IT":
+            return "flag_it"
+        case "BG":
+            return "flag_bg"
+        case "US":
+            return "flag_us"
+        default:
+            return "flag_un"
+        }
+    }
+}
+
+extension LocationViewModel: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(gateway.publicKey)
+    }
+}
+
+extension LocationViewModel: Equatable {
+    static func == (lhs: LocationViewModel, rhs: LocationViewModel) -> Bool {
+        lhs.gateway.publicKey == rhs.gateway.publicKey
+    }
+}

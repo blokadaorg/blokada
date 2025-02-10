@@ -1,0 +1,65 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+// One of the tags used for searching blocklists
+
+"recommended" = "aanbevolen";
+// One of the tags used for searching blocklists
+"official" = "officieel";
+// One of the tags used for searching blocklists
+"adblocking" = "adblocking";
+// One of the tags used for searching blocklists
+"tracking" = "volgen";
+// One of the tags used for searching blocklists
+"privacy" = "privacy";
+// One of the tags used for searching blocklists
+"adult" = "volwassen";
+// One of the tags used for searching blocklists
+"porn" = "porno";
+// One of the tags used for searching blocklists
+"social" = "sociaal";
+// One of the tags used for searching blocklists
+"regional" = "regionaal";
+// One of the tags used for searching blocklists
+"fake news" = "nep nieuws";
+// One of the tags used for searching blocklists
+"gambling" = "kansspelen";
+// One of the tags used for searching blocklists
+"youtube" = "youtube";
+// One of the tags used for searching blocklists
+"phishing" = "phishing";
+// One of the tags used for searching blocklists
+"security" = "beveiliging";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "spam";
+// One of the tags used for searching blocklists
+"dating" = "Bijwerken";
+// One of the tags used for searching blocklists
+"piracy" = "piraterij";
+// One of the tags used for searching blocklists
+"torrent" = "torrent";
+// One of the tags used for searching blocklists
+"streaming" = "streamen";
+// One of the tags used for searching blocklists
+"apps" = "apps";
+// One of the tags used for searching blocklists
+"chat" = "chat";
+// One of the tags used for searching blocklists
+"gaming" = "Gaming";
+// One of the tags used for searching blocklists
+"games" = "spellen";
+// One of the tags used for searching blocklists
+"e-commerce" = "e-commerce";
+// One of the tags used for searching blocklists
+"other" = "Anders";

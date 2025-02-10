@@ -1,0 +1,6 @@
+strings:
+  inputs: App/Assets/en.lproj
+  filter: Ui\.strings$
+  outputs:
+    - templateName: structured-swift4
+      output: App/Assets/UiGen.swift

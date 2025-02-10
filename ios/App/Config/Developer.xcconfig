@@ -1,0 +1,12 @@
+// Developer.xcconfig
+
+// You Apple developer account's Team ID
+DEVELOPMENT_TEAM = HQH5AFGB68
+
+// The bundle identifier of the apps.
+// Should be an app id created at developer.apple.com
+// with Network Extensions capabilty.
+APP_ID_IOS = net.blocka.app
+APP_ID_MACOS = <app_id>
+
+PATH = ${PATH}:/opt/homebrew/bin

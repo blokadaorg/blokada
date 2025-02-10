@@ -1,0 +1,118 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+
+"Ads and trackers blocking list" = "Lista de bloqueos de anuncios y rastreadores";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "Energized System está diseñado para sistemas basados en Unix, obtiene una lista de dominios que sirven anuncios, scripts de rastreo y malware de múltiples fuentes conocidas y crea un archivo de hosts que evita que tu sistema se conecte a ellos. Ten en cuenta que la configuración \"Social\" puede hacer que tus redes sociales, como Messenger, se comporten incorrectamente.";
+"Popular for adblocking" = "Popular para el bloqueo de anuncios";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "Consolidar y extender los archivos de hosts de varias fuentes bien acreditadas. Puedes elegir extensiones para bloquear pornografía, los medios sociales y otras categorías.";
+"Alternative blocklist with advanced features" = "Lista de bloqueos alternativa con características avanzadas";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "Una lista con extensiones únicas a elegir. Ten en cuenta que es más agresiva y puede alterar el funcionamiento de aplicaciones o sitios. Bloquea graph.facebook.com y mqtt-mini.facebook.com. Puedes considerar incluirlos en la sección de Actividades, en caso de que experimentes problemas con las aplicaciones de Facebook.";
+"Adblocking for your mobile device" = "Bloqueo de anuncios para tu dispositivo móvil";
+"A special blocklist containing mobile ad providers." = "Una lista de bloqueos especial que contiene proveedores de anuncios móviles.";
+"Protects against cyber attacks" = "Protege contra ataques cibernéticos";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "Una lista para filtrar sitios de phishing. El phishing es una mala práctica basada en la redirección a sitios web falsos que se parecen a los originales con el fin de engañar a los visitantes y robar información confidencial. Instalar esta lista de bloqueo te ayudará a prevenir tales situaciones.";
+"A new and expanding tracker database" = "Una nueva base de datos en expansión de rastreadores";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar es un conjunto de datos que se genera automáticamente y se mantiene a través de un rastreo y análisis continuos. Consulta la información de su autor para obtener más detalles.";
+"Curated blocklist to block trackers and advertisements" = "Lista de bloqueos supervisada para bloquear rastreadores y anuncios";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "Esta es una lista de bloqueo supervisada y bien mantenida para bloquear anuncios, rastreadores y más. Actualizada regularmente.";
+"Analyzes privacy concerns in Android applications" = "Analiza los problemas de privacidad en las aplicaciones de Android";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "Esta lista de bloqueo se basa en el proyecto The Exodus Privacy, que analiza las aplicaciones de Android y busca rastreadores integrados. Un rastreador es un software destinado a recopilar datos sobre usted o lo que hace. Esta es una lista muy pequeña, por lo que también debería activar una de las listas más populares (como Energized).";
+"A good general purpose blocklist" = "Una buena lista de bloqueo de propósito general";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "Bloquea anuncios, phishing, malware, spyware, ransomware, estafas, telemetría, analíticas y seguimiento (donde no es necesario para una funcionalidad adecuada). No debería interferir con aplicaciones y servicios normales.";
+"A blocklist for ads and tracking, updated regularly" = "Una lista de bloqueo para anuncios y seguimientos, actualizada regularmente";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "Esta es una buena opción como la lista negra primaria. Está bien equilibrada, tiene un tamaño medio y se actualiza con frecuencia.";
+"A collection of blocklists for various use cases." = "Una colección de listas de bloqueo para varios casos de uso.";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "Estas listas fueron creadas porque el fundador del proyecto quería algo con un poco más de control sobre lo que está siendo bloqueado.";
+"A blocklist based on spam reports" = "Una lista de bloqueo basada en informes de spam";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 es un servicio que ayuda a las empresas en línea con monitorización de contenidos, pruebas de penetración y protección de marca. Esta lista se basa en los informes recibidos de las empresas.";
+"A comprehensive lists to block ads and tracking" = "Una lista completa para bloquear anuncios y rastreo";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock es una lista con dominios que atiende anuncios, scripts de seguimiento y malware. Evita que el dispositivo se conecte a ellos.";
+"A general purpose, medium weight list" = "Una lista de uso general de peso medio";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "Esta lista bloquea contenidos maliciosos y perjudiciales, como servidores de publicidad, seguimiento, telemetría, estafa y malware. Esta lista no bloquea dominios de pornografía, redes sociales o de noticias falsas. El objetivo de CPBL es proporcionar listas de bloqueo que ofrezcan una protección completa, sin dejar de ser razonables en cuanto a tamaño y alcance.";
+"A reasonably balanced ad blocking hosts file" = "Un archivo de hosts de bloqueo de anuncios razonablemente equilibrado";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "Esta es una lista de bloqueo muy conocida, de propósito general, de tamaño pequeño, que se actualiza periódicamente.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Protege tus datos y ojos de ser subastados al mejor postor. Por favor, elige primero la configuración Light. Si no es suficiente para ti, prueba la configuración Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Esta lista universal bloquea principalmente los anuncios y los anuncios de aplicaciones móviles. No debería interferir con las aplicaciones y servicios normales.";
+"A blocklist based on malware database" = "Una lista de bloqueo basada en bases de datos de malware";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Una lista de bloqueo de sitios web maliciosos utilizados para distribuir malware basada en urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "Una lista de bloqueo del creador de la prueba del bloqueador de anuncios";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Esta es la lista de bloqueo oficial de d3ward, el fabricante del popular sitio web de pruebas de bloqueadores de anuncios. Está pensada para conseguir una puntuación del 100% en la prueba. Ten en cuenta que es una lista básica. Es posible que quieras utilizarla junto con otra lista de bloqueo activada. Si deseas realizar la prueba, puedes visitar go.blokada.org/test";
+// Family packs (shields) below
+// Name of the Ads shield
+"Ads" = "Anuncios";
+"Blocks advertisements and tracking" = "Bloquea anuncios y seguimiento";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Elimina la publicidad intrusiva y el seguimiento de la web. Mejora la velocidad de navegación y protege la privacidad del usuario.";
+// Name of the Malware shield
+"Malware" = "Malware";
+"Protects against malicious software" = "Protectos contra software malicioso";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Defiende contra el software malicioso y los sitios web perjudiciales. Proporciona un escudo seguro contra un espectro de amenazas cibernéticas.";
+// Name of the Porn shield
+"Adult Content" = "Contenido adulto";
+"Blocks adult and pornographic content" = "Bloques de contenido pornográfico y adulto";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Este filtro apunta al contenido para adultos para una experiencia en línea más segura. Protege a los usuarios de materiales explícitos y riesgos potenciales.";
+// Name of the Dating shield
+"Dating" = "Citas";
+"Blocks dating and relationship-seeking websites" = "Bloques de citas y sitios web de búsqueda de relaciones";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Diseñado para restringir las plataformas de citas en línea. Ofrece protección contra posibles distracciones e interacciones no deseadas.";
+// Name of the Gambling shield
+"Gambling" = "Jugando";
+"Blocks gambling-related content and websites" = "Bloquea contenidos y sitios web relacionados con juegos";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Se niega el acceso a plataformas y contenidos de apuestas. Ayuda a prevenir la adicción y a garantizar la seguridad financiera.";
+// Name of the Piracy shield
+"Piracy" = "Piracia";
+"Blocks piracy websites and related content" = "Bloquea sitios web piratas y contenido relacionado";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Bloquea sitios de piratería no autorizados y plataformas relacionadas. Protege la propiedad intelectual y reduce los riesgos de descarga dañinos.";
+// Name of the Video streaming shield
+"Video streaming" = "Transmisión de vídeo";
+"Blocks popular video streaming platforms" = "Bloquea plataformas populares de streaming de vídeo";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Reduce el acceso a los mejores servicios de streaming de vídeo. Fabricado para usuarios que deseen gestionar los hábitos de visualización y ahorrar ancho de banda.";
+// Name of the Streaming apps shield
+"Streaming" = "Streaming";
+"Blocks streaming apps and related content" = "Bloquear aplicaciones de streaming y contenido relacionado";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Características de una selección supervisada de aplicaciones populares de streaming. Permite el control granular sobre el consumo de medios.";
+// Name of the Social media shield
+"Social media" = "Medios sociales";
+"Restricts access to social networking platforms" = "Restringe el acceso a las plataformas de redes sociales";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limita el acceso a varias plataformas de medios de comunicación social, ideal para mejorar el enfoque del trabajo y moderar el uso de los niños.";
+// Name of the Chat apps shield
+"Chat apps" = "Apps de chat";
+"Restricts popular messaging and chat applications" = "Restringe las aplicaciones populares de mensajería y chat";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Este escudo está diseñado para bloquear las aplicaciones de mensajería y chat ampliamente usadas. Perfecto para aquellos que desean controlar sus canales de comunicación.";
+// Name of the Gaming shield
+"Gaming" = "Juego";
+"Blocks gaming platforms and related content" = "Bloquea plataformas de juego y contenido relacionado";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restringe los sitios de juego en línea y las distracciones relacionadas. Diseñado para usuarios que desean un estilo de vida digital equilibrado.";
+// Name of the Games shield
+"Games" = "Juegos";
+"Restricts access to popular games" = "Restringe el acceso a juegos populares";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Muestra las mejores aplicaciones de juegos. Ideal para usuarios que tengan un control preciso de acceso al juego.";
+// Name of the Online shopping apps shield
+"Online shopping" = "Compras en línea";
+"Blocks leading e-commerce and shopping applications" = "Bloques principales aplicaciones de comercio electrónico y compras";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Este escudo impide el acceso a las aplicaciones de compras comunes. Ayuda a los usuarios a frenar las compras o distracciones de impulsos.";
+// Name of the Miscellaneous apps shield
+"Other apps" = "Otras aplicaciones";
+"A selection of various popular applications" = "Una selección de varias aplicaciones populares";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Este escudo proporciona una lista de aplicaciones populares de varios tipos. Está creado para usuarios que apuntan a un control de aplicaciones más completo.";
+// Name of the Safe Search shield (for search engines safe search feature)
+"Safe search" = "Búsqueda segura";
+"Enable safe search to filter out inappropriate search results in search engines." = "Habilitar búsqueda segura para filtrar resultados de búsqueda inapropiados en los motores de búsqueda.";
+// Filter name, the basic choice
+"Primary" = "Principal";
+// Filter name, additional choice
+"Extended" = "Extendido";
+// Filter name, blocks file hosting sites
+"File hosting" = "Hosting de archivos";
+// Filter name, blocks torrent sites
+"Torrent" = "Torrente";
+// Filter name, blocks online gaming
+"Online gaming" = "Juego en línea";

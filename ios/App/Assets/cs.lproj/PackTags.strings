@@ -1,0 +1,65 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+// One of the tags used for searching blocklists
+
+"recommended" = "doporučeno";
+// One of the tags used for searching blocklists
+"official" = "oficiální";
+// One of the tags used for searching blocklists
+"adblocking" = "blokování reklam";
+// One of the tags used for searching blocklists
+"tracking" = "sledování";
+// One of the tags used for searching blocklists
+"privacy" = "soukromí";
+// One of the tags used for searching blocklists
+"adult" = "dospělý";
+// One of the tags used for searching blocklists
+"porn" = "porno";
+// One of the tags used for searching blocklists
+"social" = "sociální";
+// One of the tags used for searching blocklists
+"regional" = "regionální";
+// One of the tags used for searching blocklists
+"fake news" = "falešné zprávy";
+// One of the tags used for searching blocklists
+"gambling" = "hazardní hry";
+// One of the tags used for searching blocklists
+"youtube" = "youtube";
+// One of the tags used for searching blocklists
+"phishing" = "phishing";
+// One of the tags used for searching blocklists
+"security" = "zabezpečení";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "malware";
+// One of the tags used for searching blocklists
+"spam" = "spam";
+// One of the tags used for searching blocklists
+"dating" = "seznamka";
+// One of the tags used for searching blocklists
+"piracy" = "pirátství";
+// One of the tags used for searching blocklists
+"torrent" = "torrent";
+// One of the tags used for searching blocklists
+"streaming" = "streamování";
+// One of the tags used for searching blocklists
+"apps" = "aplikace";
+// One of the tags used for searching blocklists
+"chat" = "chat";
+// One of the tags used for searching blocklists
+"gaming" = "hraní";
+// One of the tags used for searching blocklists
+"games" = "hry";
+// One of the tags used for searching blocklists
+"e-commerce" = "elektronické obchodování";
+// One of the tags used for searching blocklists
+"other" = "ostatní";

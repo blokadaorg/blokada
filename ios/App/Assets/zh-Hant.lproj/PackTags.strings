@@ -1,0 +1,65 @@
+//
+//  This file is part of Blokada.
+//
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+//
+//  Copyright © 2020 Blocka AB. All rights reserved.
+//
+//  @author Karol Gusak
+//
+// One of the tags used for searching blocklists
+
+"recommended" = "建議";
+// One of the tags used for searching blocklists
+"official" = "官方";
+// One of the tags used for searching blocklists
+"adblocking" = "廣告過濾";
+// One of the tags used for searching blocklists
+"tracking" = "追蹤";
+// One of the tags used for searching blocklists
+"privacy" = "隱私權";
+// One of the tags used for searching blocklists
+"adult" = "成人內容";
+// One of the tags used for searching blocklists
+"porn" = "色情內容";
+// One of the tags used for searching blocklists
+"social" = "社群網站";
+// One of the tags used for searching blocklists
+"regional" = "區域性";
+// One of the tags used for searching blocklists
+"fake news" = "假新聞";
+// One of the tags used for searching blocklists
+"gambling" = "賭博";
+// One of the tags used for searching blocklists
+"youtube" = "youtube";
+// One of the tags used for searching blocklists
+"phishing" = "網路釣魚";
+// One of the tags used for searching blocklists
+"security" = "安全性";
+// Family tags below
+// One of the tags used for searching blocklists
+"malware" = "惡意軟體";
+// One of the tags used for searching blocklists
+"spam" = "垃圾訊息";
+// One of the tags used for searching blocklists
+"dating" = "約會";
+// One of the tags used for searching blocklists
+"piracy" = "盜版";
+// One of the tags used for searching blocklists
+"torrent" = "種子站";
+// One of the tags used for searching blocklists
+"streaming" = "串流";
+// One of the tags used for searching blocklists
+"apps" = "apps";
+// One of the tags used for searching blocklists
+"chat" = "chat";
+// One of the tags used for searching blocklists
+"gaming" = "gaming";
+// One of the tags used for searching blocklists
+"games" = "games";
+// One of the tags used for searching blocklists
+"e-commerce" = "e-commerce";
+// One of the tags used for searching blocklists
+"other" = "other";

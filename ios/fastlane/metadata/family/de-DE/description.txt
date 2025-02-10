@@ -1,0 +1,30 @@
+Diese App bietet eine sichere und kontrollierte Browserumgebung für die ganze Familie. Während sie die für Blokada bekannte Werbeblockierung liefert, ermöglicht sie es Eltern, einen digitalen Raum zu schaffen, in dem Kinder das Internet sicher und geschützt erkunden können.
+
+---
+
+Hauptfunktionen:
+
+- Kindersicherung: Passen Sie den Internetzugang Ihrer Kinder an, indem Sie unangemessene und schädliche Websites und Apps effektiv blockieren.
+- Sicheres Surfen: Neben der Bereitstellung einer Werbeblocker-Funktion liegt der Hauptfokus auf sicherem Surfen, um sicherzustellen, dass Kinder nur geeigneten Inhalten ausgesetzt werden.
+- Malware-Schutz: Blockiert aktiv Websites, die für schädliche Inhalte, Viren und betrügerische Aktivitäten bekannt sind.
+- DNS-basierte Abfangung: Bietet umfassenden Schutz in allen modernen Browsern und Apps.
+- Verbesserte Effizienz: Reduziert den Datenverbrauch und verbessert die Akkulaufzeit, indem weniger Daten geladen werden.
+
+Mehr als nur Werbeblocker:
+
+- Umfassende Inhaltsfilterung: Filtert Erwachseneninhalte, Glücksspielseiten und aggressive Werbenetzwerke heraus, um ein kinderfreundliches Browsererlebnis zu gewährleisten.
+- SafeSearch-Durchsetzung: Stellt sicher, dass Suchmaschinen explizite Inhalte herausfiltern und bietet eine sicherere Sucherfahrung für Kinder.
+- Aktivitätsüberwachung: Ermöglicht es Eltern, besuchte Websites zu überwachen, bietet Einblicke in das Online-Verhalten und gewährleistet ein sicheres Browsererlebnis.
+- Anpassbare Kontrollen: Gibt Eltern die Flexibilität, anzupassen, was blockiert oder erlaubt wird, und das Interneterlebnis an die Bedürfnisse Ihrer Familie anzupassen.
+- Blockierung von sozialen Medien und Trackern: Schützt vor Trackern aus verschiedenen Netzwerken und schützt den digitalen Fußabdruck Ihrer Familie.
+- Robuste Website-Filterung: Bietet fortschrittlichen Schutz vor digitalen Bedrohungen, indem der Zugriff auf schädliche Websites blockiert wird.
+
+---
+
+Ein sicheres Internet für Ihre Familie schaffen
+
+Mit Blokada Family können Sie eine sichere und geschützte Online-Erfahrung für Ihre Kinder gewährleisten und das Internet zu einem förderlichen Raum für Lernen und Spaß machen.
+
+Nutzungsbedingungen: https://go.blokada.org/terms_family
+Datenschutzrichtlinie: https://go.blokada.org/privacy_family
+
