@@ -1,5 +1,8 @@
 all: sixcommon wireguard aab
 
+apk-family-debug:
+	./gradlew assembleFamilyDebug
+
 sixcommon:
 	@if test -d "six-common"; then \
 		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \

@@ -35,10 +35,10 @@ gen-build-runner:
 
 # Android and iOS builds
 lib-android-debug:
-	$(FLUTTER) build aar --no-profile --no-release
+	$(FLUTTER) build aar --no-profile --no-release --verbose
 
 lib-ios-debug:
-	$(FLUTTER) build ios-framework --no-profile --no-release
+	$(FLUTTER) build ios-framework --no-profile --no-release --verbose
 
 lib-android-release:
 	$(FLUTTER) build aar --no-profile --no-debug
@@ -53,7 +53,7 @@ build-android-lib: get-deps gen-build-runner gen-pigeon-android lib-android-rele
 build-ios-lib: get-deps gen-build-runner gen-pigeon-ios lib-ios-release
 
 # Build everything in CI
-build-ci: get-deps gen-pigeon-android gen-build-runner test lib-android-release
+build-ci: get-deps gen-pigeon-android gen-build-runner test lib-android-debug
 
 
 # Web build (not used yet)
