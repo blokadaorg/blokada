@@ -2,7 +2,7 @@ all: sixcommon wireguard aab
 
 build-ci:
 	$(MAKE) -C common/ build-ci
-	$(MAKE) -c android/ apk-family-debug
+	$(MAKE) -C android/ apk-family-debug
 
 
 common-android:

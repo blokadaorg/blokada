@@ -10,3 +10,5 @@ brew install --cask temurin@21
 
 flutter doctor
 
+flutter config --jdk-dir
+
