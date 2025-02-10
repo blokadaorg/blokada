@@ -1,6 +1,6 @@
 version: 38
 jobs:
-- name: Build Apps
+- name: build-android-family
   steps:
   - !CheckoutStep
     name: checkout
@@ -21,6 +21,22 @@ jobs:
     name: publish artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: publish-android-family
+  steps:
+  - !RunContainerStep
+    name: docker buildbox publish
+    image: docker-apps-build-box
+    args: make publish-android-family
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  jobDependencies:
+  - jobName: build-android-family
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
