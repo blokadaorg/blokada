@@ -9,9 +9,9 @@ GRADLE := ./gradlew
 	d-install-family d-install-six
 
 clean:
-	rm -rf app/wireguard-android/lib; \
-	$(GRADLE) clean; \
-	cd wireguard-android && ./gradlew clean && cd ../
+	$(GRADLE) clean
+#	rm -rf app/wireguard-android/lib; \
+#	cd wireguard-android && ./gradlew clean && cd ../
 
 
 # Build everything from scratch for release and publish
