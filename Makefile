@@ -1,5 +1,7 @@
 # Define common variables 
 FASTLANE := fastlane
+PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
+PUBLISH_PKG := org.blokada.family
  
 # Default target 
 .DEFAULT_GOAL := build
@@ -38,10 +40,10 @@ d-build-android-family:
 
 
 # Publish targets
-publish-android-family:
+publish-android:
 	$(MAKE) unpack-gplay-key
-	$(FASTLANE) supply --aab android/app/build/outputs/bundle/familyRelease/app-family-release.aab \
-	--package_name "org.blokada.family" \
+	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
+	--package_name "$(PUBLISH_PKG)" \
 	--json_key blokada-gplay.json \
 	--track internal
 
