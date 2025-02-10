@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="set_excluded_applications">
+        <item quantity="one">බැහැර කළ යෙදුම් %d යි</item>
+        <item quantity="other">බැහැර කළ යෙදුම් %d යි</item>
+    </plurals>
+    <plurals name="set_included_applications">
+        <item quantity="one">ඇතුළත් කළ යෙදුම් %d යි</item>
+        <item quantity="other">ඇතුළත් කළ යෙදුම් %d යි</item>
+    </plurals>
+    <plurals name="n_excluded_applications">
+        <item quantity="one">%d බැහැරයි</item>
+        <item quantity="other">%dක් බැහැරයි</item>
+    </plurals>
+    <plurals name="n_included_applications">
+        <item quantity="one">%dක් ඇතුළත්</item>
+        <item quantity="other">%dක් ඇතුළත්</item>
+    </plurals>
+    <string name="all_applications">සියලුම යෙදුම්</string>
+    <string name="exclude_from_tunnel">බැහැර</string>
+    <string name="include_in_tunnel">ඇතුළත් දෑ පමණි</string>
+    <plurals name="include_n_applications">
+        <item quantity="one">යෙදුම් %dක් ඇතුළත්</item>
+        <item quantity="other">යෙදුම් %dක් ඇතුළත්</item>
+    </plurals>
+    <plurals name="exclude_n_applications">
+        <item quantity="one">යෙදුම් %dක් බැහැර</item>
+        <item quantity="other">යෙදුම් %dක් බැහැර</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="one">සෑම තත්පරයකට</item>
+        <item quantity="other">සෑම තත්පර %d කට</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="one">තත්පරය</item>
+        <item quantity="other">තත්පර</item>
+    </plurals>
+    <string name="use_all_applications">සියලුම යෙදුම් භාවිතාකරන්න</string>
+    <string name="addresses">ලිපින</string>
+    <string name="applications">යෙදුම්</string>
+    <string name="allow_remote_control_intents_title">දුරස්ථ පාලක යෙදුම්වලට ඉඩදෙන්න</string>
+    <string name="allowed_ips">ඉඩදුන් අ.ජා.කෙ.:</string>
+    <string name="bad_config_context_top_level">%s</string>
+    <string name="bad_config_reason_invalid_key">වලංගු නොවන යතුරකි</string>
+    <string name="bad_config_reason_invalid_number">වලංගු නොවන අංකයකි</string>
+    <string name="bad_config_reason_invalid_value">වලංගු නොවන අගයකි</string>
+    <string name="bad_extension_error">ගොනුව .conf හෝ .zip විය යුතුය</string>
+    <string name="cancel">අවලංගු</string>
+    <string name="config_exists_error">“%s” සඳහා වින්‍යාසය දැනටමත් පවතී</string>
+    <string name="config_file_exists_error">“%s” සඳහා වින්‍යාස ගොනුව දැනටමත් පවතී</string>
+    <string name="config_rename_error">“%s” වින්‍යාස ගොනුව නැවත නම් කළ නොහැකිය</string>
+    <string name="config_save_error">“%1$s”: %2$s සඳහා වින්‍යාසය සුරැකීමට නොහැකිය</string>
+    <string name="config_save_success">“%s” සඳහා සාර්ථකව වින්‍යාසය සුරැකිණි</string>
+    <string name="create_downloads_file_error">බාගැනීම් නාමාවලියෙහි ගොනුව සෑදීමට නොහැකිය</string>
+    <string name="create_from_file">ගොනුවකින් හෝ සංරක්‍ෂිතයකින් ආයාතකරන්න</string>
+    <string name="create_output_dir_error">ප්‍රතිදාන නාමාවලිය සෑදිය නොහැකිය</string>
+    <string name="create_temp_dir_error">තාවකාලික ස්ථානීය නාමාවලිය සෑදිය නොහැකිය</string>
+    <string name="copied_to_clipboard">%s පසුරුපුවරුවට පිටපත්විය</string>
+    <string name="dark_theme_summary_off">දැනට දීප්ත (දිවා) තේමාව භාවිතා කරයි</string>
+    <string name="dark_theme_summary_on">දැනට අඳුරු (රාත්‍රී) තේමාව භාවිතා කරයි</string>
+    <string name="dark_theme_title">අඳුරු තේමාව භාවිතා කරන්න</string>
+    <string name="dns_servers">ව.නා.ප. සේවාදායක</string>
+    <string name="edit">සංස්කරණය</string>
+    <string name="exclude_private_ips">පුද්ගලික යතුරු බැහැර කරන්න</string>
+    <string name="generate_new_private_key">නව පුද්ගලික යතුර ජනනයකරන්න</string>
+    <string name="hint_automatic">(ස්වයං)</string>
+    <string name="hint_generated">(ජනනය විය)</string>
+    <string name="hint_random">(අහඹු)</string>
+    <string name="illegal_filename_error">“%s” නීතිවිරෝධී ගොනු නාමයකි</string>
+    <string name="import_success">“%s” අයාත කළා</string>
+    <string name="interface_title">අතුරුමුහුණත</string>
+    <string name="key_length_error">යතුරේ ආයාමය සාවද්‍යයි</string>
+    <string name="key_length_explanation_binary">: වයර්ගාඩ් යතුරු බයිට 32 ක් විය යුතුය</string>
+    <string name="listen_port">සවන්දීමේ කෙවෙනිය</string>
+    <string name="log_export_success">“%s” ට සුරැකිණි</string>
+    <string name="module_installer_working">බාගතවෙමින් සහ ස්ථාපනය වෙමින්…</string>
+    <string name="name">නම</string>
+    <string name="parse_error_inet_address">අ.ජා.කෙ. ලිපිනය</string>
+    <string name="parse_error_inet_network">අ.ජා.කෙ. ජාලය</string>
+    <string name="parse_error_integer">අංකය</string>
+    <string name="pre_shared_key_enabled">සබල කර ඇත</string>
+    <string name="private_key">පුද්ගලික යතුර</string>
+    <string name="save">සුරකින්න</string>
+    <string name="settings">සැකසුම්</string>
+    <string name="success_application_will_restart">සාර්ථකයි. යෙදුම දැන් නැවත ආරම්භ කෙරේ…</string>
+    <string name="transfer_bytes">බ. %d</string>
+    <string name="transfer_gibibytes">ගි.බ. %.2f</string>
+    <string name="transfer_kibibytes">කි.බ. %.2f</string>
+    <string name="transfer_mibibytes">මෙ.බ. %.2f</string>
+    <string name="transfer_tibibytes">ටෙ.බ. %.2f</string>
+    <string name="tunnel_error_invalid_name">වලංගු නොවන නමකි</string>
+    <string name="unknown_error">නොදන්නා දෝෂයකි</string>
+    <string name="version_title">ඇන්ඩ්‍රොයිඩ් සඳහා වයර්ගාඩ් අනු.%s</string>
+    <string name="zip_export_success">“%s” ට සුරැකිණි</string>
+</resources>

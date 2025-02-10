@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<resources>
+    <color name="light_background">@color/white</color>
+    <color name="light_backgroundSecondary">@color/gray_100</color>
+    <color name="light_text">@color/black</color>
+    <color name="light_textSecondary">@color/gray_600</color>
+    <color name="light_inactive">@color/gray_400</color>
+    <color name="light_accent">@color/splash_1</color>
+    <color name="light_shadow">@color/gray_200</color>
+
+    <color name="dark_background">@color/black</color>
+    <color name="dark_backgroundSecondary">@color/gray_999</color>
+    <color name="dark_text">@color/white</color>
+    <color name="dark_textSecondary">@color/gray_600</color>
+    <color name="dark_inactive">@color/gray_800</color>
+    <color name="dark_accent">@color/splash_1</color>
+    <color name="dark_shadow">@color/gray_900</color>
+</resources>

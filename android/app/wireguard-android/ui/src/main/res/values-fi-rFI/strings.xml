@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="one">joka sekunti</item>
+        <item quantity="other">%d sekunnin välein</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="one">sekunti</item>
+        <item quantity="other">sekuntia</item>
+    </plurals>
+    <string name="use_all_applications">Käytä kaikkia sovelluksia</string>
+    <string name="add_peer">Lisää toinen osapuoli</string>
+    <string name="addresses">Osoitteet</string>
+    <string name="applications">Sovellukset</string>
+    <string name="allowed_ips">Sallitut IP-osoitteet</string>
+    <string name="bad_config_context_top_level">%s</string>
+    <string name="bad_config_reason_invalid_key">Virheellinen avain</string>
+    <string name="bad_config_reason_invalid_number">Virheellinen luku</string>
+    <string name="bad_config_reason_invalid_value">Virheellinen arvo</string>
+    <string name="bad_config_reason_missing_attribute">Attribuutti puuttuu</string>
+    <string name="bad_config_reason_missing_section">Osio puuttuu</string>
+    <string name="bad_config_reason_syntax_error">Syntaksivirhe</string>
+    <string name="bad_config_reason_unknown_attribute">Tuntematon määrite</string>
+    <string name="bad_config_reason_unknown_section">Tuntematon osio</string>
+    <string name="bad_config_reason_value_out_of_range">Arvo alueen ulkopuolella</string>
+    <string name="bad_extension_error">Tiedoston on oltava .conf tai .zip</string>
+    <string name="cancel">Peruuta</string>
+    <string name="config_not_found_error">Asetustiedostoa “%s” ei löydy</string>
+    <string name="config_rename_error">Asetustiedostoa \"%s\" ei voi nimetä uudelleen</string>
+    <string name="config_save_success">Asetustiedosto \"%s\" tallennettu onnistuneesti</string>
+    <string name="create_activity_title">Luo WireGuard Tunnel</string>
+    <string name="exclude_private_ips">Jätä pois yksityiset IP-osoitteet</string>
+    <string name="generate_new_private_key">Luo uusi yksityinen avain</string>
+    <string name="generic_error">Tuntematon ”%s” virhe</string>
+    <string name="hint_automatic">(oletus)</string>
+    <string name="hint_generated">(generoitu)</string>
+    <string name="hint_optional">(valinnainen)</string>
+    <string name="hint_optional_discouraged">(valinnainen, ei suositeltava)</string>
+    <string name="hint_random">(satunnainen)</string>
+    <string name="illegal_filename_error">Virheellinen tiedostonimi “%s”</string>
+    <string name="import_error">Tunnelia \"%s\" ei voitu tuoda</string>
+    <string name="import_from_qr_code">Tuo tunneli QR-koodista</string>
+    <string name="import_success">Tuotu ”%s”</string>
+    <string name="key_contents_error">Virheellinen merkki avaimessa</string>
+    <string name="key_length_error">Virheellinen avaimen pituus</string>
+    <string name="key_length_explanation_base64">: WireGuardin base64-avainten pituus on oltava 44 merkkiä (32 tavua)</string>
+    <string name="key_length_explanation_binary">: WireGuard-avainten on oltava 32 tavua</string>
+    <string name="key_length_explanation_hex">: WireGuardin base64-avainten pituus on oltava 64 merkkiä (32 tavua)</string>
+    <string name="listen_port">Kuuntele porttia</string>
+    <string name="mtu">MTU</string>
+    <string name="no_configs_error">Asetuksia ei löydy</string>
+    <string name="no_tunnels_error">Tunneleita ei ole</string>
+    <string name="parse_error_generic">merkkijono</string>
+    <string name="parse_error_inet_address">IP-osoite</string>
+    <string name="parse_error_inet_network">IP-verkko</string>
+    <string name="transfer_bytes">%d B</string>
+    <string name="transfer_gibibytes">%.2f GiB</string>
+    <string name="transfer_kibibytes">%.2f KiB</string>
+    <string name="transfer_mibibytes">%.2f MiB</string>
+    <string name="transfer_rx_tx">rx: %1$s, tx: %2$s</string>
+    <string name="transfer_tibibytes">%.2f TiB</string>
+    <string name="tunnel_name">Tunnelin nimi</string>
+</resources>

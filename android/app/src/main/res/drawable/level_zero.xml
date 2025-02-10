@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is part of Blokada.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  ~
+  ~ Copyright © 2021 Blocka AB. All rights reserved.
+  ~
+  ~ @author Karol Gusak (karol@blocka.net)
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="24dp"
+        android:top="48dp"
+        android:height="24dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:colorPrimary" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item
+        android:minLevel="1"
+        android:width="24dp"
+        android:height="48dp"
+        android:left="32dp"
+        android:top="24dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:shadowColor" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item
+        android:minLevel="2"
+        android:width="24dp"
+        android:height="72dp"
+        android:left="64dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:shadowColor" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</layer-list>

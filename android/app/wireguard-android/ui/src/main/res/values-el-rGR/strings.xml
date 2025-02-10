@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="one">Δεν είναι δυνατή η διαγραφή του %d tunnel: %s</item>
+        <item quantity="other">Δεν είναι δυνατή η διαγραφή %d tunnels: %s</item>
+    </plurals>
+    <plurals name="delete_success">
+        <item quantity="one">Το %d tunnel διαγράφηκε με επιτυχία</item>
+        <item quantity="other">Διαγράφηκαν επιτυχώς τα %d tunnels</item>
+    </plurals>
+    <plurals name="delete_title">
+        <item quantity="one">%d επιλεγμένο tunnel</item>
+        <item quantity="other">%d επιλεγμένα tunnels</item>
+    </plurals>
+    <plurals name="import_partial_success">
+        <item quantity="one">Έγινε εισαγωγή %1$d από %2$d tunnels</item>
+        <item quantity="other">Έγινε εισαγωγή %1$d από %2$d tunnels</item>
+    </plurals>
+    <plurals name="import_total_success">
+        <item quantity="one">Εισαγωγή tunnel %d</item>
+        <item quantity="other">Εισαγωγή tunnels %d</item>
+    </plurals>
+    <plurals name="set_excluded_applications">
+        <item quantity="one">%d Εξαιρούμενη εφαρμογή</item>
+        <item quantity="other">%d Εξαιρούμενες εφαρμογές</item>
+    </plurals>
+    <plurals name="set_included_applications">
+        <item quantity="one">%d Συμπεριλαμβανόμενη εφαρμογή</item>
+        <item quantity="other">%d Συμπεριλαμβανόμενες εφαρμογές</item>
+    </plurals>
+    <plurals name="n_excluded_applications">
+        <item quantity="one">εξαιρέθηκε %d</item>
+        <item quantity="other">εξαιρέθηκε %d</item>
+    </plurals>
+    <plurals name="n_included_applications">
+        <item quantity="one">περιλαμβάνεται %d</item>
+        <item quantity="other">περιλαμβάνεται %d</item>
+    </plurals>
+    <string name="all_applications">Όλες οι εφαρμογές</string>
+    <string name="exclude_from_tunnel">Εξαίρεση</string>
+    <string name="include_in_tunnel">Συμπεριλάβετε μόνο</string>
+    <plurals name="include_n_applications">
+        <item quantity="one">Συμπερίληψη %d app</item>
+        <item quantity="other">Συμπερίληψη %d apps</item>
+    </plurals>
+    <plurals name="exclude_n_applications">
+        <item quantity="one">Εξαίρεση %d app</item>
+        <item quantity="other">Εξαίρεση %d apps</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="one">κάθε δευτερόλεπτο</item>
+        <item quantity="other">κάθε %d δευτερόλεπτα</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="one">δευτερόλεπτο</item>
+        <item quantity="other">δευτερόλεπτα</item>
+    </plurals>
+    <string name="use_all_applications">Χρησιμοποίησε όλες τις εφαρμογές</string>
+    <string name="add_peer">Προσθήκη peer</string>
+    <string name="addresses">Διευθύνσεις</string>
+    <string name="applications">Εφαρμογές</string>
+</resources>

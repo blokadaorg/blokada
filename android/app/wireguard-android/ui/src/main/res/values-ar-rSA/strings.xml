@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_success">
+        <item quantity="zero">تم حذف نفق %d بنجاح</item>
+        <item quantity="one">تم حذف %d نفق بنجاح</item>
+        <item quantity="two">تم حذف %d نفق بنجاح</item>
+        <item quantity="few">تم حذف %d نفق بنجاح</item>
+        <item quantity="many">تم حذف %d نفق بنجاح</item>
+        <item quantity="other">تم حذف %d انفاق بنجاح</item>
+    </plurals>
+    <plurals name="delete_title">
+        <item quantity="zero">%d نفق محدد</item>
+        <item quantity="one">%d نفق محدد</item>
+        <item quantity="two">%d نفق محدد</item>
+        <item quantity="few">%d عنصر محدد</item>
+        <item quantity="many">%d عنصر محدد</item>
+        <item quantity="other">%d عنصر محدد</item>
+    </plurals>
+</resources>

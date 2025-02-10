@@ -1,0 +1,215 @@
+/*
+ * This file is part of Blokada.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright © 2021 Blocka AB. All rights reserved.
+ *
+ * @author Karol Gusak (karol@blocka.net)
+ */
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.google.devtools.ksp'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+}
+
+kotlin {
+    jvmToolchain 17
+}
+
+android {
+    namespace "org.blokada"
+    compileSdk 34
+
+    kotlin {
+        jvmToolchain 17
+    }
+
+    buildFeatures {
+        buildConfig = true
+        dataBinding = true
+        viewBinding = true
+    }
+
+    androidResources {
+        // For app-specific language select
+        generateLocaleConfig = true
+    }
+
+    defaultConfig {
+        applicationId "org.blokada" // Not a real name, see flavors below
+        minSdkVersion 28
+        targetSdkVersion 34
+        versionCode 666250115
+        versionName "25.1.15"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            // By default it is a 'debuggable' build, signed with a debug key.
+        }
+
+        release {
+            def f = rootProject.file('keystore.properties')
+            if (f.exists()) {
+                println "Release build will use Blokada keystore"
+                Properties props = new Properties()
+                InputStream inputStream = new FileInputStream(f)
+                props.load(inputStream)
+                inputStream.close()
+
+                signingConfigs {
+                    release {
+                        storeFile rootProject.file(props['BLOKADA_KEY_PATH'])
+                        storePassword props['BLOKADA_STORE_PASSWORD']
+                        keyAlias 'blokada'
+                        keyPassword props['BLOKADA_KEY_PASSWORD']
+                    }
+                }
+                signingConfig signingConfigs.release
+            }
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
+
+        beta {
+            // 'Beta' are builds used for internal and external beta testing.
+            initWith(release)
+            matchingFallbacks = ['release']
+            debuggable = true
+            minifyEnabled false
+        }
+    }
+
+    // It needs to be defined in order for the flavor setup to work.
+    flavorDimensions("model")
+
+    productFlavors {
+        six {
+            // Blokada 6 that lands on Google Play (Cloud/Plus only).
+            applicationId "org.blokada.sex"
+        }
+
+        family {
+            // Blokada Family that lands on Google Play.
+            applicationId "org.blokada.family"
+        }
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        debug.java.srcDirs += 'src/mock/kotlin'
+
+        six.java.srcDirs += 'src/six/kotlin'
+        six.manifest.srcFile 'src/six/AndroidManifest.xml'
+        six.res.srcDirs += 'src/six/res'
+
+        six.java.srcDirs += 'src/engine/kotlin'
+        six.jniLibs.srcDirs += 'src/engine/jniLibs'
+
+        six.java.srcDirs += 'wireguard-android/ui/src/main/java'
+        six.res.srcDirs += 'wireguard-android/ui/src/main/res'
+
+        family.java.srcDirs += 'src/family/kotlin'
+        family.manifest.srcFile 'src/family/AndroidManifest.xml'
+        family.res.srcDirs += 'src/family/res'
+
+        // Do not include translations in debug builds (does not clutter search during development)
+        release.res.srcDirs += 'src/translations/res'
+        beta.res.srcDirs += 'src/translations/res'
+    }
+}
+
+String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+repositories {
+    maven {
+        url 'six-common/repo'
+    }
+    maven {
+        url "$storageUrl/download.flutter.io"
+    }
+}
+
+dependencies {
+    // forgot what is it for
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
+    // androidx and kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.6'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.browser:browser:1.8.0'
+    implementation 'androidx.webkit:webkit:1.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // gplay rate prompt
+    implementation 'com.google.android.play:review:2.0.2'
+
+    // json serialisation
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+
+    // http and rest
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // Google in app billing
+    implementation 'com.android.billingclient:billing:7.1.1'
+    implementation 'com.android.billingclient:billing-ktx:7.1.1'
+
+    // Hopefully normal date api?
+    implementation 'net.danlew:android.joda:2.10.14'
+
+    // Biometric api to protect account id
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
+
+    // Include our Flutter "common" module that is shared for both android and ios
+    debugImplementation 'org.blokada.flutter.common:flutter_debug:1.0'
+    releaseImplementation 'org.blokada.flutter.common:flutter_release:1.0'
+
+    // engine deps
+    implementation 'org.pcap4j:pcap4j-core:1.7.7'
+    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
+    implementation 'dnsjava:dnsjava:2.1.9'
+    implementation 'org.slf4j:slf4j-nop:1.6.1'
+
+    // wireguard deps
+    sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
+    sixImplementation "androidx.datastore:datastore-preferences:1.1.1"
+    sixImplementation "androidx.annotation:annotation:1.8.0"
+    sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.6"
+    sixImplementation "androidx.activity:activity-ktx:1.9.3"
+    sixImplementation "androidx.fragment:fragment-ktx:1.8.4"
+
+    // QR code scanning lib (could be family only)
+    implementation "io.github.g00fy2.quickie:quickie-bundled:1.10.0"
+
+    // test deps
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

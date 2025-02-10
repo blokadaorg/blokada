@@ -1,0 +1,102 @@
+name: six-android v6 & family
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+env:
+  main_project_module: app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Get sixcommon Commit SHA
+        id: get_ref
+        run: |
+          REPO_A_REF=$(git -C six-common rev-parse HEAD)
+          echo "REPO_A_REF=${REPO_A_REF}"
+          echo "REPO_A_REF=${REPO_A_REF}" >> $GITHUB_ENV
+
+      - name: Get Workflow Run ID for Commit SHA of sixcommon
+        id: get_run_id
+        run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
+          REPO="blokadaorg/six-common"
+          REF=${{ env.REPO_A_REF }}
+          
+          # Find the workflow run ID for the specific commit SHA
+          WORKFLOW_RUN_ID=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs?status=completed&branch=main" \
+            | jq -r ".workflow_runs[] | select(.head_sha == \"$REF\" and .name == \"six-common android artifacts\").id" | head -n 1)
+          
+          echo "WORKFLOW_RUN_ID=${WORKFLOW_RUN_ID}" >> $GITHUB_ENV
+
+      - name: Download Artifact from sixcommon
+        if: env.WORKFLOW_RUN_ID  # Only proceed if we have a valid workflow run ID
+        run: |
+          set -o pipefail  # Ensure any command failure in the pipeline fails the step
+          REPO="blokadaorg/six-common"
+          ARTIFACT_NAME="sixcommon-android"
+          WORKFLOW_RUN_ID=${{ env.WORKFLOW_RUN_ID }}
+          
+          # Get the artifact download URL
+          ARTIFACT_URL=$(curl -s -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/actions/runs/$WORKFLOW_RUN_ID/artifacts" \
+            | jq -r ".artifacts[] | select(.name == \"$ARTIFACT_NAME\").archive_download_url")
+
+          # Download the artifact
+          curl -L -H "Authorization: token ${{ secrets.SIXCOMMON_TOKEN }}" \
+            -o artifact.zip "$ARTIFACT_URL"
+
+      - name: Unzip sixcommon artifact
+        if: env.WORKFLOW_RUN_ID  # Ensure the artifact was successfully downloaded
+        run: |
+          rm -rf six-common/build
+          unzip artifact.zip -d . # Artifact actually contains the zip again
+          unzip sixcommon-android.zip -d six-common/
+          cp -r six-common/build/artifacts app/six-common
+          mkdir -p six-common/libgen
+          cp -r six-common/build/artifacts/android six-common/libgen/
+          echo "Checking extracted paths"
+          ls -la app/six-common/
+          ls -la six-common/libgen/android/
+
+      - name: Get JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17.0.9'
+
+      - name: Print versions
+        run: |
+          java --version
+          #./gradlew :app:dependencies
+
+      - name: Build app v6
+        run: |
+          make aab
+
+      - name: Upload aab v6 as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: blokada6.aab  # Name of the artifact
+          path: app/build/outputs/bundle/sixRelease/app-six-release.aab  # Path to the zipped artifact
+
+      - name: Build app family
+        run: |
+          make aabfamily
+
+      - name: Upload aab family as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: blokadafamily.aab  # Name of the artifact
+          path: app/build/outputs/bundle/familyRelease/app-family-release.aab  # Path to the zipped artifact

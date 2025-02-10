@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="delete_error">
+        <item quantity="other">無法刪除 %d 個通道: %s</item>
+    </plurals>
+    <plurals name="delete_success">
+        <item quantity="other">成功刪除了 %d 個通道</item>
+    </plurals>
+    <plurals name="delete_title">
+        <item quantity="other">選擇了 %d 個通道</item>
+    </plurals>
+    <plurals name="import_partial_success">
+        <item quantity="other">已匯入 %1$d 個隧道（共 %2$d 個）</item>
+    </plurals>
+    <plurals name="import_total_success">
+        <item quantity="other">匯入了 %d 個通道</item>
+    </plurals>
+    <plurals name="set_excluded_applications">
+        <item quantity="other">排除了 %d 個應用程式</item>
+    </plurals>
+    <plurals name="set_included_applications">
+        <item quantity="other">套用到 %d 個應用程式</item>
+    </plurals>
+    <plurals name="n_excluded_applications">
+        <item quantity="other">已排除 %d</item>
+    </plurals>
+    <plurals name="n_included_applications">
+        <item quantity="other">已套用 %d</item>
+    </plurals>
+    <string name="all_applications">套用到所有應用程式</string>
+    <string name="exclude_from_tunnel">排除</string>
+    <string name="include_in_tunnel">只套用到</string>
+    <plurals name="include_n_applications">
+        <item quantity="other">套用到 %d 個應用程式</item>
+    </plurals>
+    <plurals name="exclude_n_applications">
+        <item quantity="other">排除了 %d 個應用程式</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_unit">
+        <item quantity="other">每隔 %d 秒</item>
+    </plurals>
+    <plurals name="persistent_keepalive_seconds_suffix">
+        <item quantity="other">秒</item>
+    </plurals>
+    <string name="use_all_applications">套用到所有應用程式</string>
+    <string name="add_peer">新增端點</string>
+    <string name="addresses">位址</string>
+    <string name="applications">應用程式</string>
+    <string name="allow_remote_control_intents_summary_off">外部程式無法控制通道 (推薦)</string>
+    <string name="allow_remote_control_intents_summary_on">外部程式可以控制通道 (進階)</string>
+    <string name="allow_remote_control_intents_title">允許遠端控制應用程式</string>
+    <string name="allowed_ips">允許的 IPs</string>
+    <string name="bad_config_context">錯誤設定: %1$s 的 %2$s</string>
+    <string name="bad_config_context_top_level">頂層錯誤設定: %s</string>
+    <string name="bad_config_error">設定有誤: %1$s 在 %2$s</string>
+    <string name="bad_config_explanation_pka">: 必須是不大於 65535 的正整數</string>
+    <string name="bad_config_explanation_positive_number">: 必須是正整數</string>
+    <string name="bad_config_explanation_udp_port">: 必須是一個有效的 UDP 埠號</string>
+    <string name="bad_config_reason_invalid_key">無效的密鑰</string>
+    <string name="bad_config_reason_invalid_number">無效的號碼</string>
+    <string name="bad_config_reason_invalid_value">無效值</string>
+    <string name="bad_config_reason_missing_attribute">缺少屬性</string>
+    <string name="bad_config_reason_missing_section">缺少章節</string>
+    <string name="bad_config_reason_syntax_error">語法錯誤</string>
+    <string name="bad_config_reason_unknown_attribute">未知屬性</string>
+    <string name="bad_config_reason_unknown_section">未知章節</string>
+    <string name="bad_config_reason_value_out_of_range">內容值超出範圍</string>
+    <string name="bad_extension_error">必須是 .conf 或 .zip 的檔案</string>
+    <string name="cancel">取消</string>
+    <string name="config_delete_error">無法刪除設定檔 %s</string>
+    <string name="config_exists_error">設定「%s」已經存在</string>
+    <string name="config_file_exists_error">設定檔「%s」已經存在</string>
+    <string name="config_not_found_error">設定檔「%s」找不到</string>
+    <string name="config_rename_error">無法改名設定檔「%s」</string>
+    <string name="config_save_error">無法儲存設定「%1$s」: %2$s</string>
+    <string name="config_save_success">成功儲存設定「%s」</string>
+    <string name="create_activity_title">新建 WireGuard 通道</string>
+    <string name="create_bin_dir_error">無法建立本地二進位目錄</string>
+    <string name="create_downloads_file_error">無法在下載目錄建立檔案</string>
+    <string name="create_empty">從空白開始建立</string>
+    <string name="create_from_file">從檔案或壓縮檔匯入</string>
+    <string name="create_from_qr_code">掃描 QR code</string>
+    <string name="create_output_dir_error">無法建立輸出目錄</string>
+    <string name="create_temp_dir_error">無法建立本地暫存目錄</string>
+    <string name="create_tunnel">新建通道</string>
+    <string name="copied_to_clipboard">%s 已複製到剪貼簿</string>
+    <string name="dark_theme_summary_off">目前使用明亮(白晝)主題</string>
+    <string name="dark_theme_summary_on">目前使用暗黑(夜晚)主題</string>
+    <string name="dark_theme_title">使用暗黑主題</string>
+    <string name="delete">刪除</string>
+    <string name="tv_delete">選擇要刪除的通道</string>
+    <string name="tv_select_a_storage_drive">選擇一個儲存裝置</string>
+    <string name="tv_no_file_picker">請安裝一個檔案管理程式以便瀏覽檔案</string>
+    <string name="tv_add_tunnel_get_started">新增第一個通道</string>
+    <string name="disable_config_export_title">禁止匯出設定檔</string>
+    <string name="disable_config_export_description">禁止匯出設定檔可以讓私鑰比較難存取到</string>
+    <string name="dns_servers">DNS 伺服器</string>
+    <string name="edit">編輯</string>
+    <string name="endpoint">終端點</string>
+    <string name="error_down">徹下通道錯誤: %s</string>
+    <string name="error_fetching_apps">汲取應用程式清單錯誤: %s</string>
+    <string name="error_root">請取得 root 存取權再試一次</string>
+    <string name="error_up">起用通道錯誤: %s</string>
+    <string name="exclude_private_ips">排除私有 IPs</string>
+    <string name="generate_new_private_key">產生新的私鑰</string>
+    <string name="generic_error">不明的「%s」錯誤</string>
+    <string name="hint_automatic">(自動)</string>
+    <string name="hint_generated">(產生的)</string>
+    <string name="hint_optional">(可選的)</string>
+    <string name="hint_optional_discouraged">(選填，但不建議設定)</string>
+    <string name="hint_random">(隨機)</string>
+    <string name="illegal_filename_error">不合規定的檔名「%s」</string>
+    <string name="import_error">沒辦法匯入通道: %s</string>
+    <string name="import_from_qr_code">從 QR Code 匯入通道</string>
+    <string name="import_success">匯入了「%s」</string>
+    <string name="interface_title">界面</string>
+    <string name="key_contents_error">金鑰中有錯誤的字元</string>
+    <string name="key_length_error">金鑰的長度錯誤</string>
+    <string name="key_length_explanation_base64">: WireGuard 的 base64 密鑰必須是 44 個字元 (32 個位元組)</string>
+    <string name="key_length_explanation_binary">: WireGuard 密鑰必須是 32 個位元組</string>
+    <string name="key_length_explanation_hex">: WireGuard 的16進位密鑰必須是 64 個字元 (32 個位元組)</string>
+    <string name="listen_port">監聽連接埠</string>
+    <string name="log_export_error">沒辦法匯出日誌: %s</string>
+    <string name="log_export_subject">WireGuard Android 日誌檔</string>
+    <string name="log_export_success">儲存到「%s」</string>
+    <string name="log_export_title">匯出日誌檔</string>
+    <string name="log_saver_activity_label">儲存日誌</string>
+    <string name="log_viewer_pref_summary">程式的日誌對除錯有幫助</string>
+    <string name="log_viewer_pref_title">檢視應用程式日誌</string>
+    <string name="log_viewer_title">日誌</string>
+    <string name="logcat_error">無法執行 logcat: </string>
+    <string name="module_enabler_disabled_summary">使用還在實驗階段的 kernel module 以便改善效能</string>
+    <string name="module_enabler_disabled_title">啟用 kernel module</string>
+    <string name="save">儲存</string>
+    <string name="select_all">全選</string>
+    <string name="toggle_all">切換全部</string>
+</resources>
