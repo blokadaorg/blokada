@@ -79,13 +79,14 @@ dq-isix:
 # CI-specific targets
 ci-copy-source:
 	@echo "Copying source files to $(CI_BUILD_DIR)..."
-	@rm -rf $(CI_BUILD_DIR)
-	@mkdir -p $(CI_BUILD_DIR)
-	@cp -r . $(CI_BUILD_DIR)
+	rm -rf $(CI_BUILD_DIR)
+	mkdir -p $(CI_BUILD_DIR)
+	cp -r . $(CI_BUILD_DIR)
 
 ci-build-android-family: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
-	@cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
+	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
+	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
 
 # OLD to be removed

@@ -44,19 +44,19 @@ gen-build-runner:
 
 # Android and iOS builds
 lib-android:
-	$(FLUTTER) build aar --no-profile --no-debug
+	$(FLUTTER) build aar --no-profile --no-debug --no-pub
 
 lib-ios:
-	$(FLUTTER) build ios-framework --no-profile --no-debug
+	$(FLUTTER) build ios-framework --no-profile --no-debug --no-pub
 
 
 # Development targets
 
 d-lib-android:
-	$(FLUTTER) build aar --no-profile --no-release --verbose
+	$(FLUTTER) build aar --no-profile --no-release --verbose --no-pub
 
 d-lib-ios:
-	$(FLUTTER) build ios-framework --no-profile --no-release --verbose
+	$(FLUTTER) build ios-framework --no-profile --no-release --verbose --no-pub
 
 
 # Web build (not used yet)
