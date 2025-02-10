@@ -22,9 +22,9 @@ clean:
 build: get-deps gen-pigeon-android gen-pigeon-ios gen-build-runner test lib-android lib-ios
 
 # Build Android and iOS library with dependencies
-build-android: get-deps gen-build-runner gen-pigeon-android lib-android
+build-android: get-deps gen-pigeon-android gen-build-runner lib-android
 
-build-ios: get-deps gen-build-runner gen-pigeon-ios lib-ios
+build-ios: get-deps gen-pigeon-ios gen-build-runner lib-ios
 
 
 # Dependency installation
