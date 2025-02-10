@@ -15,6 +15,12 @@ jobs:
     envVars:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
+    - name: BLOKADA_KEY_PWD
+      value: '@secret:BLOKADA_KEY_PWD@'
+    - name: BLOKADA_KEYSTORE_PWD
+      value: '@secret:BLOKADA_KEYSTORE_PWD@'
+    - name: BLOKADA_KEYSTORE_BASE64
+      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
@@ -30,7 +36,10 @@ jobs:
   - !RunContainerStep
     name: docker buildbox publish
     image: docker-apps-build-box
-    args: make publish-android-family
+    args: make publish-android
+    envVars:
+    - name: BLOKADA_GPLAY_KEY_BASE64
+      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   jobDependencies:
