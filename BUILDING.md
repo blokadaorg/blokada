@@ -12,3 +12,6 @@ flutter doctor
 
 flutter config --jdk-dir
 
+fastlane
+
+env vars

@@ -1,5 +1,5 @@
 # Define common variables 
-# none for now
+FASTLANE := fastlane
  
 # Default target 
 .DEFAULT_GOAL := build
@@ -7,6 +7,7 @@
 .PHONY: clean build
  
 clean: 
+	$(MAKE) clean-gplay-key
 	$(MAKE) -C common/ clean
 	$(MAKE) -C android/ clean
 
@@ -34,6 +35,25 @@ d-build-android-family:
 	$(MAKE) -C common/ gen-build-runner
 	$(MAKE) -C common/ d-lib-android
 	$(MAKE) -C android/ aab-family
+
+
+# Publish targets
+publish-android-family:
+	$(MAKE) unpack-gplay-key
+	$(FASTLANE) supply --aab android/app/build/outputs/bundle/familyRelease/app-family-release.aab \
+	--package_name "org.blokada.family" \
+	--json_key blokada-gplay.json \
+	--track internal
+
+unpack-gplay-key:
+	@if [ -z "$$BLOKADA_GPLAY_KEY_BASE64" ]; then \
+	    echo "Error: BLOKADA_GPLAY_KEY_BASE64 is not set. Please export it before running this command."; \
+	    exit 1; \
+	fi
+	@echo "$$BLOKADA_GPLAY_KEY_BASE64" | base64 --decode > blokada-gplay.json
+
+clean-gplay-key:
+	rm -rf blokada-gplay.json
 
 
 # Quick targeted recompilation targets for development
