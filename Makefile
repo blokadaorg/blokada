@@ -1,5 +1,8 @@
 all: sixcommon wireguard aab
 
+build-ci:
+	$(MAKE) -C common/ build-ci
+
 common-android:
 	@cd six-common; \
 	make common-android; \
