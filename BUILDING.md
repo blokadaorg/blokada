@@ -1,13 +1,12 @@
 # Installing
 
-Make sure you have flutter installed. Recommended way:
+python3
+brew install --cask flutter
 
-> brew install --cask flutter
+android sdk (installed android studio)
 
-Do once:
+#java
+brew install --cask temurin@21
 
-> flutter pub get
+flutter doctor
 
-You should be able to run the project on simulators after this (mocked). Use Android Studio.
-
-To run the full apps (with this lib), go to the appropriate app repo on our Github and see the building instructions there.

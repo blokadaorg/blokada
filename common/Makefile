@@ -2,7 +2,7 @@
 FLUTTER := flutter
 PIGEON := ./scripts/pigeon.py
 DART := dart
-OUTPUT_DIR := build/
+OUTPUT_DIR := build/pigeon/
 
 # Default target
 .DEFAULT_GOAL := build-ci

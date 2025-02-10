@@ -56,8 +56,8 @@ def main():
     parser.add_argument(
         "--output", "-o",
         type=str,
-        default="./build",
-        help="Base output path for generated native files (iOS/Android). Default: ./build"
+        default="./build/pigeon",
+        help="Base output path for generated native files (iOS/Android). Default: ./build/pigeon"
     )
     parser.add_argument(
         "--android",
