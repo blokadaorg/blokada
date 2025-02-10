@@ -1,0 +1,52 @@
+name: six-common android artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Get JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta', 'dev' or 'master'
+
+      - name: Make generated files
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make get gen
+
+      - name: Test
+        run: make test
+
+      - name: Make android
+        run: |
+          git config --global url."https://${{ secrets.GIT_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          make android
+
+      - name: Zip Maven Repo
+        run: |
+          mkdir -p build/artifacts
+          cp -r build/host/outputs/repo build/artifacts/
+          cp -r libgen/android build/artifacts/
+          zip -r build/artifacts/sixcommon-android.zip build/artifacts
+
+      - name: Upload Maven Repo as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sixcommon-android  # Name of the artifact
+          path: build/artifacts/sixcommon-android.zip  # Path to the zipped artifact
