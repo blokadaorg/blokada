@@ -14,7 +14,7 @@ jobs:
     args: make build-ci
     envVars:
     - name: GRADLE_OPTS
-      value: -Dorg.gradle.unsafe.disable.watch-fs=true
+      value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
