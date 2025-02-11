@@ -2,6 +2,7 @@
 FASTLANE := fastlane
 PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
 PUBLISH_PKG := org.blokada.family
+PUBLISH_META := metadata/android-family/
 CI_BUILD_DIR := /tmp/build
  
 # Default target 
@@ -68,6 +69,7 @@ publish-android:
 	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
 	--package_name "$(PUBLISH_PKG)" \
 	--json_key blokada-gplay.json \
+	--metadata_path $(PUBLISH_META) \
 	--track internal
 
 unpack-gplay-key:
