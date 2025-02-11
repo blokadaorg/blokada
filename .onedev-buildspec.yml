@@ -29,9 +29,6 @@ jobs:
     name: publish artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  triggers:
-  - !TagCreateTrigger
-    branches: main
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -53,10 +50,31 @@ jobs:
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger
+    branches: main
   jobDependencies:
   - jobName: build-android-family
     requireSuccessful: true
     artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: test
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: docker test
+    image: docker-apps-build-box
+    args: make test
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
