@@ -21,12 +21,17 @@ jobs:
       value: '@secret:BLOKADA_KEYSTORE_PWD@'
     - name: BLOKADA_KEYSTORE_BASE64
       value: '@secret:BLOKADA_KEYSTORE_BASE64@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@tag@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
     name: publish artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger
+    branches: main
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
