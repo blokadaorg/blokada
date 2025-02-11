@@ -243,8 +243,7 @@ def getGitTag() {
     try {
         def tag = "git describe --tags --abbrev=0".execute().text.trim()
         return tag.startsWith("v") ? tag.substring(1) : tag
-    } catch (Exception e) {
-        e.printStackTrace()
-        throw new GradleException("Error: Failed to get Git commit count: ${e.message}")
+    } catch (ignored) {
+        return null
     }
 }
