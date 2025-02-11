@@ -75,6 +75,9 @@ jobs:
     args: make test
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: main
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
