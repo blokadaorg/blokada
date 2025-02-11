@@ -10,8 +10,6 @@ GRADLE := ./gradlew
 
 clean:
 	$(GRADLE) clean
-#	rm -rf app/wireguard-android/lib; \
-#	cd wireguard-android && ./gradlew clean && cd ../
 
 
 # Build everything from scratch for release and publish
@@ -44,15 +42,3 @@ d-install-family:
 
 d-install-six:
 	$(GRADLE) installSixDebug
-
-
-wireguard:
-	@if test -d "wireguard-android"; then \
-		if test ! -d "app/wireguard-android/lib" || test "wireguard-android" -nt "app/wireguard-android/lib/marker"; then \
-			echo "Building wireguard-android..."; \
-			cd wireguard-android && ./gradlew tunnel:build && cd ../ ; \
-			mkdir -p app/wireguard-android/lib; \
-			cp wireguard-android/tunnel/build/outputs/aar/tunnel-release.aar app/wireguard-android/lib/wg-tunnel.aar; \
-			touch app/wireguard-android/lib/marker; \
-		fi \
-	fi

@@ -1,9 +1,3 @@
-[submodule "android/wireguard-android"]
-	path = android/wireguard-android
-	url = https://github.com/blokadaorg/wireguard-android
-[submodule "ios/wireguard-apple"]
-	path = ios/wireguard-apple
-	url = https://github.com/blokadaorg/wireguard-apple
 [submodule "translate"]
 	path = translate
 	url = https://github.com/blokadaorg/translate

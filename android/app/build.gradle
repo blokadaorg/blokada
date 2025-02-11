@@ -115,7 +115,7 @@ android {
     }
 
     compileOptions {
-        // Flag to enable support for the new language APIs
+        // Flag to enable support for the new language APIs (for wireguard)
         coreLibraryDesugaringEnabled true
 
         sourceCompatibility JavaVersion.VERSION_17
@@ -156,9 +156,6 @@ repositories {
 }
 
 dependencies {
-    // forgot what is it for
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
-
     // androidx and kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
     implementation 'androidx.core:core-ktx:1.13.1'
@@ -204,6 +201,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-nop:1.6.1'
 
     // wireguard deps
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
     sixImplementation "androidx.datastore:datastore-preferences:1.1.1"
     sixImplementation "androidx.annotation:annotation:1.8.0"
