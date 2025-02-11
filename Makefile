@@ -7,12 +7,23 @@ CI_BUILD_DIR := /tmp/build
 # Default target 
 .DEFAULT_GOAL := build
  
-.PHONY: clean build
+.PHONY: clean test build build-android-family build-android-v6 \
+	publish-android unpack-gplay-key clean-gplay-key \
+	d-build-android-family dq-deps dq-android \
+	dq-ifam qd-isix \
+	ci-copy-source ci-build-android-family
+
  
 clean: 
 	$(MAKE) clean-gplay-key
 	$(MAKE) -C common/ clean
 	$(MAKE) -C android/ clean
+
+test:
+	$(MAKE) -C common/ get-deps
+	$(MAKE) -C common/ gen-pigeon-android
+	$(MAKE) -C common/ gen-build-runner
+	$(MAKE) -C common/ test
 
 
 # Build everything from scratch for release and publish
@@ -87,19 +98,4 @@ ci-build-android-family: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
-
-
-# OLD to be removed
-
-sixcommon:
-	@if test -d "six-common"; then \
-		if test ! -d "app/six-common" || test "six-common" -nt "app/six-common/marker"; then \
-			echo "Building six-common..."; \
-			cd six-common && make get gen && cd ../ ; \
-			cd six-common && flutter build aar --no-profile && cd ../ ; \
-			mkdir -p app/six-common; \
-			cp -r six-common/build/host/outputs/repo app/six-common; \
-			touch app/six-common/marker; \
-		fi \
-	fi
 
