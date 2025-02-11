@@ -1,6 +1,6 @@
 version: 38
 jobs:
-- name: build-android-family
+- name: build-android
   steps:
   - !CheckoutStep
     name: checkout
@@ -9,9 +9,9 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: docker buildbox build aab
+    name: build aab's
     image: docker-apps-build-box
-    args: make ci-build-android-family
+    args: make ci-build-android
     envVars:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
@@ -26,14 +26,14 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
-    name: publish artifacts
+    name: export artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish-android-family
+- name: publish-android
   steps:
   - !CheckoutStep
     name: checkout
@@ -42,7 +42,7 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: docker buildbox publish
+    name: publish android family
     image: docker-apps-build-box
     args: make publish-android
     envVars:
@@ -50,11 +50,17 @@ jobs:
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: publish android v6
+    image: docker-apps-build-box
+    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !TagCreateTrigger
     branches: main
   jobDependencies:
-  - jobName: build-android-family
+  - jobName: build-android
     requireSuccessful: true
     artifacts: '**'
   retryCondition: never
