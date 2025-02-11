@@ -53,7 +53,7 @@ jobs:
   - !RunContainerStep
     name: publish android v6
     image: docker-apps-build-box
-    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
+    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_META=metadata/android-six/ PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
