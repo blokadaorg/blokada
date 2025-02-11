@@ -85,7 +85,6 @@ ci-copy-source:
 
 ci-build-android-family: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
-	git fetch --tags
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
