@@ -8,7 +8,7 @@ CI_BUILD_DIR := /tmp/build
 # Default target 
 .DEFAULT_GOAL := build
  
-.PHONY: clean test build build-android-family build-android-v6 \
+.PHONY: clean test build build-android-family build-android-six \
 	publish-android unpack-gplay-key clean-gplay-key \
 	d-build-android-family dq-deps dq-android \
 	dq-ifam qd-isix \
@@ -42,9 +42,9 @@ build-android-family:
 	$(MAKE) -C common/ build-android
 	$(MAKE) -C android/ aab-family
 
-build-android-v6:
+build-android-six:
 	$(MAKE) -C common/ build-android
-	$(MAKE) -C android/ aab-v6
+	$(MAKE) -C android/ aab-six
 
 
 # Debug build targets for development

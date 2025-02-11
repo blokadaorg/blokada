@@ -31,5 +31,8 @@ sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 sudo xcodebuild -runFirstLaunch
 
 (cocoapods - flutter)
+# Newer ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 brew install ruby
-gem install cocoapods
+gem install cocoapods --user-install
