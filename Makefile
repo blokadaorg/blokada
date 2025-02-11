@@ -33,6 +33,10 @@ build:
 
 
 # Various build targets (release)
+build-android:
+	$(MAKE) -C common/ build-android
+	$(MAKE) -C android/ build
+
 build-android-family:
 	$(MAKE) -C common/ build-android
 	$(MAKE) -C android/ aab-family
@@ -49,6 +53,13 @@ d-build-android-family:
 	$(MAKE) -C common/ gen-build-runner
 	$(MAKE) -C common/ d-lib-android
 	$(MAKE) -C android/ aab-family
+
+d-build-android-six:
+	$(MAKE) -C common/ get-deps
+	$(MAKE) -C common/ gen-pigeon-android
+	$(MAKE) -C common/ gen-build-runner
+	$(MAKE) -C common/ d-lib-android
+	$(MAKE) -C android/ aab-six
 
 
 # Publish targets
@@ -94,8 +105,8 @@ ci-copy-source:
 	mkdir -p $(CI_BUILD_DIR)
 	cp -r . $(CI_BUILD_DIR)
 
-ci-build-android-family: ci-copy-source
+ci-build-android: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
-	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
+	cd $(CI_BUILD_DIR) && $(MAKE) build-android
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
