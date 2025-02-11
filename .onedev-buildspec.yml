@@ -10,7 +10,8 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: checkout tags
-    runInContainer: false
+    runInContainer: true
+    image: docker-apps-build-box
     interpreter: !DefaultInterpreter
       commands: |
         git fetch --tags
