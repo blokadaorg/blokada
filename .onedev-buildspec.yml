@@ -8,6 +8,14 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: checkout tags
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        git fetch --tags
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
     name: docker buildbox build aab
     image: docker-apps-build-box
