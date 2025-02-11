@@ -1,0 +1,6 @@
+[submodule "deps/translate"]
+	path = deps/translate
+	url = https://github.com/blokadaorg/translate
+[submodule "deps/wireguard-apple"]
+	path = deps/wireguard-apple
+	url = https://github.com/blokadaorg/wireguard-apple
