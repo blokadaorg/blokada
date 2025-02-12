@@ -1,0 +1,13 @@
+git_url("git@github.com:blokadaorg/apple-signing.git")
+
+storage_mode("git")
+
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier(["net.blocka.app", "net.blocka.app.network-extension", "net.blocka.app.family"])
+username("apple-signing@blocka.net")
+
+# For all available options run `fastlane match --help`
+# Remove the # in the beginning of the line to enable the other options
+
+# The docs are available on https://docs.fastlane.tools/actions/match

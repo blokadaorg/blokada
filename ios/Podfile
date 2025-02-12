@@ -1,0 +1,66 @@
+project 'IOS.xcodeproj'
+
+platform :ios, '16.0'
+
+flutter_application_path = '../common'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+post_install do |installer|
+  flutter_post_install(installer) if defined?(flutter_post_install)
+end
+
+target 'Dev' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Dev
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'Prod' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Prod
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'Mocked' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Mocked
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'FamilyDev' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FamilyDev
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'FamilyProd' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FamilyProd
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'FamilyMocked' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FamilyMocked
+  install_all_flutter_pods(flutter_application_path)
+end
+
+target 'WireGuardNetworkExtensioniOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for WireGuardNetworkExtensioniOS
+
+end

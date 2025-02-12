@@ -13,69 +13,23 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### load_asc_api_key
+## iOS
+
+### ios six_beta
 
 ```sh
-[bundle exec] fastlane load_asc_api_key
+[bundle exec] fastlane ios six_beta
 ```
 
-Load ASC API Key information to use in subsequent lanes
+Six: Push a new beta build to TestFlight
 
-### prepare_signing
+### ios family_beta
 
 ```sh
-[bundle exec] fastlane prepare_signing
+[bundle exec] fastlane ios family_beta
 ```
 
-Check certs and profiles
-
-### build_release
-
-```sh
-[bundle exec] fastlane build_release
-```
-
-Build the app for release
-
-### upload_release
-
-```sh
-[bundle exec] fastlane upload_release
-```
-
-Upload to TestFlight / ASC
-
-### build_v6
-
-```sh
-[bundle exec] fastlane build_v6
-```
-
-Build app v6
-
-### build_family
-
-```sh
-[bundle exec] fastlane build_family
-```
-
-Build family
-
-### build_upload_testflight_v6
-
-```sh
-[bundle exec] fastlane build_upload_testflight_v6
-```
-
-Build and upload to TestFlight v6
-
-### build_upload_testflight_family
-
-```sh
-[bundle exec] fastlane build_upload_testflight_family
-```
-
-Build and upload to TestFlight family
+Family: Push a new beta build to TestFlight
 
 ----
 

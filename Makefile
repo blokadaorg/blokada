@@ -104,6 +104,9 @@ dq-ifam:
 dq-isix:
 	$(MAKE) -C android/ d-install-six
 
+qd-u: 
+	$(MAKE) -C android/ d-uninstall
+
 
 # CI-specific targets
 ci-copy-source:

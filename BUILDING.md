@@ -36,3 +36,10 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 brew install ruby
 gem install cocoapods --user-install
+
+(go - wireguard-apple)
+brew install swiftlint go@1.22
+export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
+
+fastlane:
+gem install bundler

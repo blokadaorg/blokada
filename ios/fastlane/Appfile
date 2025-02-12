@@ -1,9 +1,13 @@
 app_identifier("net.blocka.app")
+apple_id("apple-signing@blocka.net")
 
-for_lane :build_family do
+itc_team_id("121001310") # App Store Connect Team ID
+team_id("HQH5AFGB68") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
+
+for_lane :family_beta do
   app_identifier("net.blocka.app.family")
 end
 
-for_lane :build_upload_testflight_family do
-  app_identifier("net.blocka.app.family")
-end

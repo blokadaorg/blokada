@@ -42,3 +42,6 @@ d-install-family:
 
 d-install-six:
 	$(GRADLE) installSixDebug
+
+d-uninstall:
+	$(GRADLE) uninstallSixDebug uninstallFamilyDebug
