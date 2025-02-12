@@ -23,6 +23,8 @@ jobs:
       value: '@secret:BLOKADA_KEYSTORE_BASE64@'
     - name: BLOKADA_VERSION_NAME
       value: '@tag@'
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
