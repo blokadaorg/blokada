@@ -3,21 +3,28 @@ FASTLANE := fastlane
 PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
 PUBLISH_PKG := org.blokada.family
 PUBLISH_META := metadata/android-family/
+
+VERSION_SCRIPT := ./scripts/version.py
+ANDROID_PROJECT_FILE := android/app/build.gradle
+IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
+
 CI_BUILD_DIR := /tmp/build
  
 # Default target 
 .DEFAULT_GOAL := build
  
 .PHONY: clean test build build-android-family build-android-six \
-	publish-android unpack-gplay-key clean-gplay-key \
+	publish-android gplay-key-unpack gplay-key-clean \
+	publish-ios appstore-key-unpack appstore-key-clean \
 	d-build-android-family dq-deps dq-android \
+	version version-increment version-clean \
 	dq-ifam qd-isix \
 	ci-copy-source ci-build-android-family
 
  
 clean: 
-	$(MAKE) clean-gplay-key
-	$(MAKE) clean-appstore-key
+	$(MAKE) gplay-key-clean
+	$(MAKE) appstore-key-clean
 	$(MAKE) -C common/ clean
 	$(MAKE) -C android/ clean
 
@@ -64,43 +71,55 @@ d-build-android-six:
 	$(MAKE) -C android/ aab-six
 
 
+# Version management targets
+version:
+	$(VERSION_SCRIPT) --android-file $(ANDROID_PROJECT_FILE) \
+	--xcodeproj-file $(IOS_PROJECT_FILE) \
+	--version-name $(BLOKADA_VERSION_NAME) \
+	--version-code $(BLOKADA_VERSION_CODE) \
+
+version-clean:
+	git restore $(ANDROID_PROJECT_FILE)
+	git restore $(IOS_PROJECT_FILE)
+
+
 # Publish targets
 publish-android:
-	$(MAKE) unpack-gplay-key
+	$(MAKE) gplay-key-unpack
 	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
 	--package_name "$(PUBLISH_PKG)" \
 	--json_key blokada-gplay.json \
 	--metadata_path $(PUBLISH_META) \
 	--track internal
-	$(MAKE) clean-gplay-key
+	$(MAKE) gplay-key-clean
 
-unpack-gplay-key:
+gplay-key-unpack:
 	@if [ -z "$$BLOKADA_GPLAY_KEY_BASE64" ]; then \
 	    echo "Error: BLOKADA_GPLAY_KEY_BASE64 is not set. Please export it before running this command."; \
 	    exit 1; \
 	fi
 	@echo "$$BLOKADA_GPLAY_KEY_BASE64" | base64 --decode > blokada-gplay.json
 
-clean-gplay-key:
+gplay-key-clean:
 	rm -rf blokada-gplay.json
 
 publish-ios:
-	$(MAKE) unpack-appstore-key
+	$(MAKE) appstore-key-unpack
 	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
 	--package_name "$(PUBLISH_PKG)" \
-	--json_key blokada-gplay.json \
+	--json_key blokada-appstore.json \
 	--metadata_path $(PUBLISH_META) \
 	--track internal
-	$(MAKE) clean-appstore-key
+	$(MAKE) appstore-key-clean
 
-unpack-appstore-key:
+appstore-key-unpack:
 	@if [ -z "$$BLOKADA_APPSTORE_KEY_BASE64" ]; then \
 	    echo "Error: BLOKADA_APPSTORE_KEY_BASE64 is not set. Please export it before running this command."; \
 	    exit 1; \
 	fi
 	@echo "$$BLOKADA_APPSTORE_KEY_BASE64" | base64 --decode > blokada-appstore.json
 
-clean-appstore-key:
+appstore-key-clean:
 	rm -rf blokada-appstore.json
 
 
