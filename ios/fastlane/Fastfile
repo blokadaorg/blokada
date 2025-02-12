@@ -20,12 +20,12 @@ platform :ios do
   lane :six_beta do
     # increment_build_number(build_number: number_of_commits)
     build_app(workspace: "IOS.xcworkspace", scheme: "Prod")
-    upload_to_testflight
+    upload_to_testflight(api_key_path: "./blokada-appstore.json")
   end
 
   desc "Family: Push a new beta build to TestFlight"
   lane :family_beta do
     build_app(workspace: "IOS.xcworkspace", scheme: "FamilyProd")
-    upload_to_testflight
+    upload_to_testflight(api_key_path: "./blokada-appstore.json")
   end
 end

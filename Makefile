@@ -17,6 +17,7 @@ CI_BUILD_DIR := /tmp/build
  
 clean: 
 	$(MAKE) clean-gplay-key
+	$(MAKE) clean-appstore-key
 	$(MAKE) -C common/ clean
 	$(MAKE) -C android/ clean
 
@@ -71,6 +72,7 @@ publish-android:
 	--json_key blokada-gplay.json \
 	--metadata_path $(PUBLISH_META) \
 	--track internal
+	$(MAKE) clean-gplay-key
 
 unpack-gplay-key:
 	@if [ -z "$$BLOKADA_GPLAY_KEY_BASE64" ]; then \
@@ -81,6 +83,25 @@ unpack-gplay-key:
 
 clean-gplay-key:
 	rm -rf blokada-gplay.json
+
+publish-ios:
+	$(MAKE) unpack-appstore-key
+	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
+	--package_name "$(PUBLISH_PKG)" \
+	--json_key blokada-gplay.json \
+	--metadata_path $(PUBLISH_META) \
+	--track internal
+	$(MAKE) clean-appstore-key
+
+unpack-appstore-key:
+	@if [ -z "$$BLOKADA_APPSTORE_KEY_BASE64" ]; then \
+	    echo "Error: BLOKADA_APPSTORE_KEY_BASE64 is not set. Please export it before running this command."; \
+	    exit 1; \
+	fi
+	@echo "$$BLOKADA_APPSTORE_KEY_BASE64" | base64 --decode > blokada-appstore.json
+
+clean-appstore-key:
+	rm -rf blokada-appstore.json
 
 
 # Quick targeted recompilation targets for development
