@@ -97,8 +97,11 @@ def main():
 
     args = parser.parse_args()
 
-    update_android_version(args.android_file, args.version_name, args.version_code)
-    update_ios_project_version(args.xcodeproj_file, args.version_name, args.version_code)
+    # Add constant to our version code to be above legacy builds
+    code = 668000000 + args.version_code
+
+    update_android_version(args.android_file, args.version_name, code)
+    update_ios_project_version(args.xcodeproj_file, args.version_name, code)
 
 if __name__ == "__main__":
     main()
