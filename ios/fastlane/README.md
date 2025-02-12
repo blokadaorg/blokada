@@ -15,21 +15,37 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios six_beta
+### ios build_ios_six
 
 ```sh
-[bundle exec] fastlane ios six_beta
+[bundle exec] fastlane ios build_ios_six
 ```
 
-Six: Push a new beta build to TestFlight
+Six: build release
 
-### ios family_beta
+### ios build_ios_family
 
 ```sh
-[bundle exec] fastlane ios family_beta
+[bundle exec] fastlane ios build_ios_family
 ```
 
-Family: Push a new beta build to TestFlight
+Family: build release
+
+### ios publish_ios_six
+
+```sh
+[bundle exec] fastlane ios publish_ios_six
+```
+
+
+
+### ios publish_ios_family
+
+```sh
+[bundle exec] fastlane ios publish_ios_family
+```
+
+
 
 ----
 

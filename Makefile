@@ -3,6 +3,7 @@ FASTLANE := fastlane
 PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
 PUBLISH_PKG := org.blokada.family
 PUBLISH_META := metadata/android-family/
+PUBLISH_IOS := publish_ios_six
 
 VERSION_SCRIPT := ./scripts/version.py
 ANDROID_PROJECT_FILE := android/app/build.gradle
@@ -54,6 +55,15 @@ build-android-six:
 	$(MAKE) -C common/ build-android
 	$(MAKE) -C android/ aab-six
 
+build-ios:
+	cd ios/ && $(FASTLANE) build_ios_family
+	cd ios/ && $(FASTLANE) build_ios_six
+
+build-ios-family:
+	cd ios/ && $(FASTLANE) build_ios_family
+
+build-ios-six:
+	cd ios/ && $(FASTLANE) build_ios_six
 
 # Debug build targets for development
 d-build-android-family:
@@ -105,11 +115,7 @@ gplay-key-clean:
 
 publish-ios:
 	$(MAKE) appstore-key-unpack
-	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
-	--package_name "$(PUBLISH_PKG)" \
-	--json_key blokada-appstore.json \
-	--metadata_path $(PUBLISH_META) \
-	--track internal
+	cd ios/ && $(FASTLANE) $(PUBLISH_IOS)
 	$(MAKE) appstore-key-clean
 
 appstore-key-unpack:
@@ -157,6 +163,7 @@ ci-copy-source:
 
 ci-build-android: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
+	$(MAKE) version
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 

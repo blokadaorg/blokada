@@ -16,16 +16,37 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Six: Push a new beta build to TestFlight"
-  lane :six_beta do
-    # increment_build_number(build_number: number_of_commits)
+  desc "Six: build release"
+  lane :build_ios_six do
     build_app(workspace: "IOS.xcworkspace", scheme: "Prod")
-    upload_to_testflight(api_key_path: "./blokada-appstore.json")
   end
 
-  desc "Family: Push a new beta build to TestFlight"
-  lane :family_beta do
+  desc "Family: build release"
+  lane :build_ios_family do
     build_app(workspace: "IOS.xcworkspace", scheme: "FamilyProd")
-    upload_to_testflight(api_key_path: "./blokada-appstore.json")
+  end
+
+  lane :publish_ios_six do
+   deliver(
+      app_identifier: "net.blocka.app",
+      metadata_path: "../metadata/ios-six/",
+      api_key_path: "./blokada-appstore.json",
+      skip_screenshots: true,
+      skip_app_version_update: false,
+      force: true, # skips verification of HTML preview file
+      run_precheck_before_submit: false # not supported through ASC API yet
+   )
+  end
+
+  lane :publish_ios_family do
+   deliver(
+      app_identifier: "net.blocka.app.family",
+      metadata_path: "../metadata/ios-family/",
+      api_key_path: "./blokada-appstore.json",
+      skip_screenshots: true,
+      skip_app_version_update: false,
+      force: true, # skips verification of HTML preview file
+      run_precheck_before_submit: false # not supported through ASC API yet
+   )
   end
 end
