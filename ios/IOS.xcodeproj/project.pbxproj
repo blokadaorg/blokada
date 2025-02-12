@@ -3337,7 +3337,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
@@ -3356,7 +3356,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -3388,7 +3388,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
@@ -3407,7 +3407,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app";
@@ -3453,7 +3453,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 6;
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -3495,7 +3495,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 6;
+				MARKETING_VERSION = dev;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3566,7 +3566,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
@@ -3585,7 +3585,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/wireguard-apple/Sources/WireGuardKitGo/out",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.network-extension";
 				PRODUCT_NAME = WireGuardNetworkExtension;
@@ -3612,7 +3612,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
@@ -3631,7 +3631,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/wireguard-apple/Sources/WireGuardKitGo/out",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.network-extension";
 				PRODUCT_NAME = WireGuardNetworkExtension;
@@ -3659,7 +3659,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
@@ -3678,7 +3678,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
@@ -3707,7 +3707,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 250114;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HQH5AFGB68;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
 				ENABLE_BITCODE = NO;
@@ -3726,7 +3726,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 25.1.14;
+				MARKETING_VERSION = dev;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
 				PRODUCT_NAME = "Blokada Family";
@@ -3771,7 +3771,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 6;
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -3813,7 +3813,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 6;
+				MARKETING_VERSION = dev;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada $(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app";
@@ -3854,7 +3854,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = "6-dev";
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
@@ -3905,7 +3905,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = "6-dev";
+				MARKETING_VERSION = dev;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app";
@@ -3951,7 +3951,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = "6-dev";
+				MARKETING_VERSION = dev;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
@@ -3997,7 +3997,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = "6-dev";
+				MARKETING_VERSION = dev;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
 				PRODUCT_NAME = "$(TARGET_NAME)";
