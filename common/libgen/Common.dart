@@ -34,7 +34,7 @@ abstract class CommonOps {
 
   // -- Config
   @async
-  void doConfigChanged(bool useBypassList);
+  void doConfigChanged(bool skipBypassList);
 }
 
 class OpsEnvInfo {

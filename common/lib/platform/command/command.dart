@@ -41,7 +41,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "APPLENOTIFICATIONTOKEN",
     "NEWPLUS",
     "VPNSTATUS",
-    "USEBYPASSLIST",
+    "SKIPBYPASSLIST",
   ];
 
   @override

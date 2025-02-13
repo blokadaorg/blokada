@@ -3,6 +3,7 @@ part of '../core.dart';
 abstract class BoolPersistedValue extends AsyncValue<bool> {
   late final _persistence = Core.get<Persistence>();
 
+  // Always assumes that default value is false!
   BoolPersistedValue(String key) {
     load = (Marker m) async {
       return await _persistence.load(m, key) == "1";

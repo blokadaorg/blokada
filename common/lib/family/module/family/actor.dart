@@ -107,7 +107,7 @@ class FamilyActor with Logging, Actor {
     log(m).i("postActivationOnboarding");
     accountActive = _account.type.isActive();
     if (accountActive == true) {
-      await _reload(m, createDeviceIfNeeded: true);
+      await _reload(m, createDeviceIfNeeded: false);
     }
     _updatePhase(m, reason: "postActivationOnboarding");
 

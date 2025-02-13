@@ -21,16 +21,12 @@ extension DeviceRetentionExt on DeviceRetention {
   }
 }
 
-const String _keyAlias = "device:alias";
-const String _keyTag = "device:tag";
-
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _api = Core.get<DeviceApi>();
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
-  late final _persistence = Core.get<Persistence>();
   late final _env = Core.get<EnvActor>();
 
   late final _journalFilter = Core.get<JournalFilterValue>();
@@ -79,19 +75,11 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @override
   Future<void> onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      await load(m);
       await setDeviceName(_env.deviceName, m);
 
       // Only show current device journal by default
       _journalFilter.now =
           _journalFilter.now.updateOnly(deviceName: deviceAlias);
-    });
-  }
-
-  @action
-  Future<void> load(Marker m) async {
-    return await log(m).trace("load", (m) async {
-      deviceAlias = await _persistence.load(m, _keyAlias) ?? "";
     });
   }
 

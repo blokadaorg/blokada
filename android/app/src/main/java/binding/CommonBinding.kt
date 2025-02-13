@@ -141,10 +141,10 @@ object CommonBinding: CommonOps {
 
     // Config
 
-    var useBypassList = true
+    var skipBypassList = false
 
-    override fun doConfigChanged(useBypassList: Boolean, callback: (Result<Unit>) -> Unit) {
-        this.useBypassList = useBypassList
+    override fun doConfigChanged(skipBypassList: Boolean, callback: (Result<Unit>) -> Unit) {
+        this.skipBypassList = skipBypassList
         callback(Result.success(Unit))
     }
 }

@@ -104,10 +104,10 @@ object AppRepository {
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
-        if (common.useBypassList) {
-            return alwaysBypassed + commonBypassList + bypassedAppIds
-        } else {
+        if (common.skipBypassList) {
             return alwaysBypassed + bypassedAppIds
+        } else {
+            return alwaysBypassed + commonBypassList + bypassedAppIds
         }
     }
 

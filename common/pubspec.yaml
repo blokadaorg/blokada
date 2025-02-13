@@ -41,7 +41,7 @@ dependencies:
   mocktail: ^1.0.1
   slide_to_act_reborn: ^3.0.0
   unique_names_generator: ^1.0.0
-  flutter_slidable: ^3.0.1
+  flutter_slidable: ^4.0.0
   string_validator: ^1.0.2
   crypto: ^3.0.3
   modal_bottom_sheet: ^3.0.0-pre

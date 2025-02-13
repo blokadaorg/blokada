@@ -429,7 +429,7 @@ class CommonBinding: CommonOps {
     }
 
     // -- Config
-    func doConfigChanged(useBypassList: Bool, completion: @escaping (Result<Void, any Error>) -> Void) {
+    func doConfigChanged(skipBypassList: Bool, completion: @escaping (Result<Void, any Error>) -> Void) {
         // Not relevant to iOS as of yet
         completion(.success(()))
     }
