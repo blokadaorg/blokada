@@ -1,6 +1,6 @@
 version: 38
 jobs:
-- name: build-android
+- name: build android on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -13,8 +13,6 @@ jobs:
     image: docker-apps-build-box
     args: make ci-build-android
     envVars:
-    - name: GRADLE_OPTS
-      value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     - name: BLOKADA_KEY_PWD
       value: '@secret:BLOKADA_KEY_PWD@'
     - name: BLOKADA_KEYSTORE_PWD
@@ -35,7 +33,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish-android
+- name: publish android on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -65,14 +63,14 @@ jobs:
   - !TagCreateTrigger
     branches: main
   jobDependencies:
-  - jobName: build-android
+  - jobName: build android on tag
     requireSuccessful: true
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: test
+- name: run tests
   steps:
   - !CheckoutStep
     name: checkout
@@ -89,6 +87,90 @@ jobs:
   triggers:
   - !BranchUpdateTrigger
     branches: main
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: build android manually
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: build aab's
+    image: docker-apps-build-box
+    args: make ci-build-android
+    envVars:
+    - name: BLOKADA_KEY_PWD
+      value: '@secret:BLOKADA_KEY_PWD@'
+    - name: BLOKADA_KEYSTORE_PWD
+      value: '@secret:BLOKADA_KEYSTORE_PWD@'
+    - name: BLOKADA_KEYSTORE_BASE64
+      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@param:version-name@'
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishArtifactStep
+    name: export artifacts
+    artifacts: android/app/build/outputs/bundle/**
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  paramSpecs:
+  - !TextParam
+    name: version-name
+    allowEmpty: false
+    multiline: false
+    pattern: \b\d+\.\d+\.\d+\b
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: publish android manually
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: publish android family
+    image: docker-apps-build-box
+    args: make publish-android
+    envVars:
+    - name: BLOKADA_GPLAY_KEY_BASE64
+      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: publish android v6
+    image: docker-apps-build-box
+    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_META=metadata/android-six/ PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
+    envVars:
+    - name: BLOKADA_GPLAY_KEY_BASE64
+      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  paramSpecs:
+  - !TextParam
+    name: version-name
+    allowEmpty: false
+    multiline: false
+    pattern: \b\d+\.\d+\.\d+\b
+  jobDependencies:
+  - jobName: build android manually
+    requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !PassthroughValues
+        paramName: version-name
+      name: version-name
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
