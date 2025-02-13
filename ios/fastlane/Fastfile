@@ -28,6 +28,7 @@ platform :ios do
 
   lane :publish_ios_six do
    deliver(
+      ipa: "Blokada 6.ipa",
       app_identifier: "net.blocka.app",
       metadata_path: "../metadata/ios-six/",
       api_key_path: "./blokada-appstore.json",
@@ -40,6 +41,7 @@ platform :ios do
 
   lane :publish_ios_family do
    deliver(
+      ipa: "Blokada Family.ipa",
       app_identifier: "net.blocka.app.family",
       metadata_path: "../metadata/ios-family/",
       api_key_path: "./blokada-appstore.json",

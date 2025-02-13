@@ -3,7 +3,7 @@ FASTLANE := fastlane
 PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
 PUBLISH_PKG := org.blokada.family
 PUBLISH_META := metadata/android-family/
-PUBLISH_IOS := publish_ios_six
+FLAVOR := family
 
 VERSION_SCRIPT := ./scripts/version.py
 ANDROID_PROJECT_FILE := android/app/build.gradle
@@ -117,7 +117,8 @@ gplay-key-clean:
 
 publish-ios:
 	$(MAKE) appstore-key-unpack
-	cd ios/ && $(FASTLANE) $(PUBLISH_IOS)
+	@FLAVOR_ARG=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
+	cd ios/ && $(FASTLANE) $$FLAVOR_ARG
 	$(MAKE) appstore-key-clean
 
 appstore-key-unpack:
