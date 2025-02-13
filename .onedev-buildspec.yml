@@ -1,6 +1,6 @@
 version: 38
 jobs:
-- name: build android on tag
+- name: run tests
   steps:
   - !CheckoutStep
     name: checkout
@@ -9,9 +9,30 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: build aab's
+    name: docker test
     image: docker-apps-build-box
-    args: make ci-build-android
+    args: make test
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: main
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: build android-six on tag
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: build aab six
+    image: docker-apps-build-box
+    args: make ci-build-android-six
     envVars:
     - name: BLOKADA_KEY_PWD
       value: '@secret:BLOKADA_KEY_PWD@'
@@ -33,7 +54,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android on tag
+- name: publish android-six on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -42,35 +63,25 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: publish android family
+    name: publish android six
     image: docker-apps-build-box
-    args: make publish-android
-    envVars:
-    - name: BLOKADA_GPLAY_KEY_BASE64
-      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
-    useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: publish android v6
-    image: docker-apps-build-box
-    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_META=metadata/android-six/ PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
+    args: make publish-android FLAVOR=six
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
-  - !TagCreateTrigger
-    branches: main
+  - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build android on tag
+  - jobName: build android-six on tag
     requireSuccessful: true
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: run tests
+- name: build android-family on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -79,14 +90,26 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: docker test
+    name: build aab family
     image: docker-apps-build-box
-    args: make test
+    args: make ci-build-android-family
+    envVars:
+    - name: BLOKADA_KEY_PWD
+      value: '@secret:BLOKADA_KEY_PWD@'
+    - name: BLOKADA_KEYSTORE_PWD
+      value: '@secret:BLOKADA_KEYSTORE_PWD@'
+    - name: BLOKADA_KEYSTORE_BASE64
+      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@tag@'
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  triggers:
-  - !BranchUpdateTrigger
-    branches: main
+  - !PublishArtifactStep
+    name: export artifacts
+    artifacts: android/app/build/outputs/bundle/**
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -126,6 +149,38 @@ jobs:
     allowEmpty: false
     multiline: false
     pattern: \b\d+\.\d+\.\d+\b
+  - !TextParam
+    name: flavor
+    allowEmpty: false
+    multiline: false
+    pattern: (family|six)
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: publish android-family on tag
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: publish android family
+    image: docker-apps-build-box
+    args: make publish-android FLAVOR=family
+    envVars:
+    - name: BLOKADA_GPLAY_KEY_BASE64
+      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: build android-family on tag
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -139,18 +194,9 @@ jobs:
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: publish android family
+    name: publish android
     image: docker-apps-build-box
-    args: make publish-android
-    envVars:
-    - name: BLOKADA_GPLAY_KEY_BASE64
-      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
-    useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: publish android v6
-    image: docker-apps-build-box
-    args: make publish-android PUBLISH_PKG=org.blokada.sex PUBLISH_META=metadata/android-six/ PUBLISH_AAB=android/app/build/outputs/bundle/sixRelease/app-six-release.aab
+    args: make publish-android FLAVOR=@param:flavor@
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
@@ -162,6 +208,11 @@ jobs:
     allowEmpty: false
     multiline: false
     pattern: \b\d+\.\d+\.\d+\b
+  - !TextParam
+    name: flavor
+    allowEmpty: false
+    multiline: false
+    pattern: (family|six)
   jobDependencies:
   - jobName: build android manually
     requireSuccessful: true
@@ -170,6 +221,46 @@ jobs:
       valuesProvider: !PassthroughValues
         paramName: version-name
       name: version-name
+    - secret: false
+      valuesProvider: !PassthroughValues
+        paramName: flavor
+      name: flavor
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: build ios-family on tag
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: build ipa
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make ci-build-ios-family
+    envVars:
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@tag@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: publish ios-family on tag
+  triggers:
+  - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: build ios-family on tag
+    requireSuccessful: true
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
