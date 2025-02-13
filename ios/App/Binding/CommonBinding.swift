@@ -18,6 +18,7 @@ import StoreKit
 import UserNotifications
 
 class CommonBinding: CommonOps {
+
     let links = CurrentValueSubject<[String : String], Never>([:])
 
     // Http
@@ -425,6 +426,12 @@ class CommonBinding: CommonOps {
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+
+    // -- Config
+    func doConfigChanged(useBypassList: Bool, completion: @escaping (Result<Void, any Error>) -> Void) {
+        // Not relevant to iOS as of yet
+        completion(.success(()))
     }
 }
 

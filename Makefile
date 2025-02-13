@@ -149,7 +149,6 @@ dq-android:
 dq-ios:
 	$(MAKE) -C common/ gen-pigeon-ios
 	$(MAKE) -C common/ gen-build-runner
-	$(MAKE) -C common/ d-lib-ios
 
 dq-ifam:
 	$(MAKE) -C android/ d-install-family

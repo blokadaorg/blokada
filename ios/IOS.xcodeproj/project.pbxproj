@@ -81,7 +81,6 @@
 		4E12766B2AE7D0FC00A94994 /* PrivateDnsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A0E2760AB9D005A59F5 /* PrivateDnsService.swift */; };
 		4E12766D2AE7D0FC00A94994 /* ServicesForMocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */; };
 		4E12766E2AE7D0FC00A94994 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
-		4E12766F2AE7D0FC00A94994 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
 		4E1276702AE7D0FC00A94994 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB63F3B24364D5D009CBAC1 /* StreamReader.swift */; };
 		4E1276712AE7D0FC00A94994 /* StoreKitWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8D243B230D0094EE27 /* StoreKitWrapper.swift */; };
 		4E1276732AE7D0FC00A94994 /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
@@ -312,11 +311,6 @@
 		4E58C1392AC1B8FB002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C1382AC1B8FB002CA1A3 /* CodeScanner */; };
 		4E58C13B2AC1B905002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C13A2AC1B905002CA1A3 /* CodeScanner */; };
 		4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 4E58C13C2AC1B90D002CA1A3 /* CodeScanner */; };
-		4E58C14B2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
-		4E58C14C2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
-		4E58C14D2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
-		4E58C14E2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
-		4E58C14F2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */; };
 		4E59B8D229EEDBEF005ECD5F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D129EEDBEF005ECD5F /* Notification.swift */; };
 		4E59B8D329EEDBEF005ECD5F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D129EEDBEF005ECD5F /* Notification.swift */; };
 		4E59B8D62A014233005ECD5F /* PaymentBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D52A014233005ECD5F /* PaymentBinding.swift */; };
@@ -924,7 +918,6 @@
 		4E53CCC5244E34A9009B3CF0 /* PaymentGatewayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGatewayViewModel.swift; sourceTree = "<group>"; };
 		4E53CCC8244E39F5009B3CF0 /* PaymentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListView.swift; sourceTree = "<group>"; };
 		4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChangeView.swift; sourceTree = "<group>"; };
-		4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountDecidedView.swift; sourceTree = "<group>"; };
 		4E59B8D129EEDBEF005ECD5F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4E59B8D52A014233005ECD5F /* PaymentBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBinding.swift; sourceTree = "<group>"; };
 		4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
@@ -1493,7 +1486,6 @@
 				4E61D8E627B2DA7F00C98D36 /* MainView.swift */,
 				4E955DC42771D780008DE06F /* ContentViewModel.swift */,
 				4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */,
-				4E58C14A2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift */,
 				4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */,
 			);
 			path = Main;
@@ -2422,7 +2414,6 @@
 				4E290FB62497A1F700FC4C61 /* BlokadaText.swift in Sources */,
 				4E23CFFC293E1F9700613D0A /* TunnelErrors.swift in Sources */,
 				4E23D039293E20BC00613D0A /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
-				4E58C14B2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E23D055293F3DD800613D0A /* key.c in Sources */,
 				4EA6DF042D5BA9CE006BAA10 /* Url.swift in Sources */,
 				4E23D037293E20BC00613D0A /* NotificationToken.swift in Sources */,
@@ -2599,7 +2590,6 @@
 				4E12766B2AE7D0FC00A94994 /* PrivateDnsService.swift in Sources */,
 				4E12766D2AE7D0FC00A94994 /* ServicesForMocked.swift in Sources */,
 				4E12766E2AE7D0FC00A94994 /* AccountChangeView.swift in Sources */,
-				4E12766F2AE7D0FC00A94994 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E1276702AE7D0FC00A94994 /* StreamReader.swift in Sources */,
 				4E1276712AE7D0FC00A94994 /* StoreKitWrapper.swift in Sources */,
 				4E1276732AE7D0FC00A94994 /* NetxServiceIn.swift in Sources */,
@@ -2732,7 +2722,6 @@
 				4E270D962A80EB8300D3484B /* NetxServiceIn.swift in Sources */,
 				4E270D9A2A80EB8300D3484B /* PermsRepo.swift in Sources */,
 				4E92C70E2C05D00E00A33170 /* ContentView.swift in Sources */,
-				4E58C14E2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E270DA42A80EB8300D3484B /* PermBinding.swift in Sources */,
 				4E270DA72A80EB8300D3484B /* CommandsBinding.swift in Sources */,
 				4E270DA92A80EB8300D3484B /* CoreBinding.swift in Sources */,
@@ -2834,7 +2823,6 @@
 				4E946E5D2A29CD430053943D /* PlusBinding.swift in Sources */,
 				4E2F2A102760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
 				4EA9A2A32785B927009764F1 /* ServicesForMocked.swift in Sources */,
-				4E58C14D2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E7FE9A8244DC28900851E9F /* StreamReader.swift in Sources */,
 				4E7FE9AA244DC28900851E9F /* StoreKitWrapper.swift in Sources */,
 				4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */,
@@ -2896,7 +2884,6 @@
 				4E8651242A3C968B0060AFB1 /* BlokadaText.swift in Sources */,
 				4E8651262A3C968B0060AFB1 /* TunnelErrors.swift in Sources */,
 				4E8651272A3C968B0060AFB1 /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
-				4E58C14C2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4E86512C2A3C968B0060AFB1 /* key.c in Sources */,
 				4EA6DF032D5BA9CE006BAA10 /* Url.swift in Sources */,
 				4E86512D2A3C968B0060AFB1 /* NotificationToken.swift in Sources */,
@@ -3064,7 +3051,6 @@
 				4EBF3B9C2A80E55900F637BB /* PermsRepo.swift in Sources */,
 				4EF8B6892C22D0E800744CA4 /* OfferCodes+Extensions.swift in Sources */,
 				4EDB13CD2D14321D000E2AD3 /* LinkRepo.swift in Sources */,
-				4E58C14F2AC3025D002CA1A3 /* OnboardingAccountDecidedView.swift in Sources */,
 				4EBF3BA62A80E55900F637BB /* PermBinding.swift in Sources */,
 				4EBF3BA92A80E55900F637BB /* CommandsBinding.swift in Sources */,
 				4EBF3BAB2A80E55900F637BB /* CoreBinding.swift in Sources */,

@@ -24,7 +24,6 @@ struct ContentView: View {
     @Injected(\.commands) private var commands
     
     var accountChange = ScanQrCodeView()
-    var onboardingAccountDecided = OnboardingAccountDecidedView()
 
     @State private var userInput = ""
 
@@ -46,8 +45,6 @@ struct ContentView: View {
                     switch item {
                     case .payment:
                         PaymentGatewayView()
-                    case .onboardingAccountDecided:
-                        onboardingAccountDecided
                     case .accountChange:
                         accountChange
                     default:
