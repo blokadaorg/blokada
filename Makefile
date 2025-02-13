@@ -54,16 +54,15 @@ build-android-six:
 
 build-ios:
 	$(MAKE) -C common/ build-ios
-	cd ios/ && $(FASTLANE) build_ios_family
-	cd ios/ && $(FASTLANE) build_ios_six
+	$(MAKE) -C ios/ build
 
 build-ios-family:
 	$(MAKE) -C common/ build-ios
-	cd ios/ && $(FASTLANE) build_ios_family
+	$(MAKE) -C ios/ build-family
 
 build-ios-six:
 	$(MAKE) -C common/ build-ios
-	cd ios/ && $(FASTLANE) build_ios_six
+	$(MAKE) -C ios/ build-six
 
 
 # Version management targets
@@ -188,7 +187,7 @@ ci-build-ios:
 
 ci-build-ios-family:
 	$(MAKE) version
-	build-ios-family
+	$(MAKE) build-ios-family
 
 ci-build-ios-six:
 	$(MAKE) version
