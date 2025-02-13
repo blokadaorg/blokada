@@ -166,7 +166,7 @@ ci-copy-source:
 
 ci-build-android: ci-copy-source
 	@echo "Building in $(CI_BUILD_DIR)..."
-	$(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) version
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
