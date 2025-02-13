@@ -70,10 +70,17 @@ jobs:
     withLfs: false
     withSubmodules: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
+  - !CommandStep
     name: build aab
+    runInContainer: true
     image: docker-apps-build-box
-    args: make ci-build-android
+    interpreter: !DefaultInterpreter
+      commands: |
+        if [ "@param:flavor@" = "family" ]; then
+            make ci-build-android-family
+        else
+            make ci-build-android-six
+        fi
     envVars:
     - name: BLOKADA_KEY_PWD
       value: '@secret:BLOKADA_KEY_PWD@'
@@ -81,10 +88,10 @@ jobs:
       value: '@secret:BLOKADA_KEYSTORE_PWD@'
     - name: BLOKADA_KEYSTORE_BASE64
       value: '@secret:BLOKADA_KEYSTORE_BASE64@'
-    - name: BLOKADA_VERSION_NAME
-      value: '@param:version-name@'
     - name: BLOKADA_VERSION_CODE
       value: '@build_number@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@param:version-name@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
