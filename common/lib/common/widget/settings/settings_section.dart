@@ -1,4 +1,5 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/support/support.dart';

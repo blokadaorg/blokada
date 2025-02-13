@@ -31,6 +31,10 @@ abstract class CommonOps {
 
   @async
   void doDismissAll();
+
+  // -- Config
+  @async
+  void doConfigChanged(bool useBypassList);
 }
 
 class OpsEnvInfo {

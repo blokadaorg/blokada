@@ -15,6 +15,7 @@ package repository
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import binding.CommonBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -32,6 +33,7 @@ object AppRepository {
     private val context = ContextService
     private val persistence = PersistenceService
     private val scope = GlobalScope
+    private val common = CommonBinding
 
     private var bypassedAppIds = persistence.load(BypassedAppIds::class).ids
         set(value) {
@@ -102,7 +104,11 @@ object AppRepository {
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
-        return alwaysBypassed + commonBypassList + bypassedAppIds
+        if (common.useBypassList) {
+            return alwaysBypassed + commonBypassList + bypassedAppIds
+        } else {
+            return alwaysBypassed + bypassedAppIds
+        }
     }
 
     suspend fun getApps(): List<App> {

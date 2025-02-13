@@ -124,26 +124,28 @@ d-build-android-family:
 	$(MAKE) -C common/ gen-pigeon-android
 	$(MAKE) -C common/ gen-build-runner
 	$(MAKE) -C common/ d-lib-android
-	$(MAKE) -C android/ aab-family
+	$(MAKE) -C android/ d-apk-family
 
 d-build-android-six:
 	$(MAKE) -C common/ get-deps
 	$(MAKE) -C common/ gen-pigeon-android
 	$(MAKE) -C common/ gen-build-runner
 	$(MAKE) -C common/ d-lib-android
-	$(MAKE) -C android/ aab-six
+	$(MAKE) -C android/ d-apk-six
 
 
-# Quick targeted recompilation targets for development
+# Clean and get flutter common deps
 dq-deps:
 	$(MAKE) clean
 	$(MAKE) -C common/ get-deps
 
+# Generate flutter common files for Android
 dq-android:
 	$(MAKE) -C common/ gen-pigeon-android
 	$(MAKE) -C common/ gen-build-runner
 	$(MAKE) -C common/ d-lib-android
 
+# Generate flutter common files for iOS
 dq-ios:
 	$(MAKE) -C common/ gen-pigeon-ios
 	$(MAKE) -C common/ gen-build-runner
@@ -155,7 +157,8 @@ dq-ifam:
 dq-isix:
 	$(MAKE) -C android/ d-install-six
 
-qd-u: 
+# Uninstall all Android apps
+dq-u: 
 	$(MAKE) -C android/ d-uninstall
 
 

@@ -6,7 +6,7 @@ abstract class CommonChannel
         EnvChannel,
         LinkChannel,
         HttpChannel,
-        NotificationChannel {}
+        NotificationChannel, ConfigChannel {}
 
 class PlatformCommonChannel extends CommonChannel {
   late final _ops = CommonOps();
@@ -65,6 +65,9 @@ class PlatformCommonChannel extends CommonChannel {
   @override
   Future<void> doShow(String notificationId, String atWhen, String? body) =>
       _ops.doShow(notificationId, atWhen, body);
+
+  @override
+  Future<void> doConfigChanged(bool useBypassList) => _ops.doConfigChanged(useBypassList);
 }
 
 class NoOpCommonChannel extends CommonChannel {
@@ -115,4 +118,7 @@ class NoOpCommonChannel extends CommonChannel {
   @override
   Future<void> doShow(String notificationId, String atWhen, String? body) =>
       Future.value();
+
+  @override
+  Future<void> doConfigChanged(bool useBypassList) => Future.value();
 }

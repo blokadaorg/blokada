@@ -138,4 +138,13 @@ object CommonBinding: CommonOps {
         links.forEach { link -> this.links[link.id] = link.url }
         callback(Result.success(Unit))
     }
+
+    // Config
+
+    var useBypassList = true
+
+    override fun doConfigChanged(useBypassList: Boolean, callback: (Result<Unit>) -> Unit) {
+        this.useBypassList = useBypassList
+        callback(Result.success(Unit))
+    }
 }

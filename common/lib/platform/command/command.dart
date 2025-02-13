@@ -41,6 +41,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "APPLENOTIFICATIONTOKEN",
     "NEWPLUS",
     "VPNSTATUS",
+    "USEBYPASSLIST",
   ];
 
   @override
@@ -89,6 +90,13 @@ class CommandStore with Logging, Actor implements CommandEvents {
   onCommandString(String command, Marker m) async {
     return await log(m).trace("onCommandString", (m) async {
       final commandParts = command.split(" ");
+
+      for (var cmd in newCommands) {
+        if (command.toUpperCase().startsWith(cmd)) {
+          return await commands.execute(m, commandParts[0], commandParts.sublist(1));
+        }
+      }
+
       final cmd = _commandFromString(commandParts.first);
       final p1 = commandParts.elementAtOrNull(1);
       final p2 = commandParts.elementAtOrNull(2);

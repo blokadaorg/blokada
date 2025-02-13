@@ -12,5 +12,5 @@ class Core {
   }
 
   static late Act act;
-  static late Config config;
+  static late CoreConfig config;
 }

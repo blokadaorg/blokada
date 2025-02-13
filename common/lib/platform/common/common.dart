@@ -1,4 +1,5 @@
 import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/notification/notification.dart';
@@ -24,5 +25,6 @@ class PlatformCommonModule with Logging, Module {
     await register<LinkChannel>(channel);
     await register<HttpChannel>(channel);
     await register<NotificationChannel>(channel);
+    await register<ConfigChannel>(channel);
   }
 }

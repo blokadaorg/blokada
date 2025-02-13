@@ -1,5 +1,6 @@
 import 'package:common/common/module/account/account.dart';
 import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/filter/filter.dart';
@@ -46,12 +47,13 @@ class Modules with Logging {
 
   create(Act act) async {
     Core.act = act;
-    Core.config = Config();
+    Core.config = CoreConfig();
 
     // TODO: All onRegister calls here have to be replaced with modules
 
     await _registerModule(CoreModule());
     await _registerModule(PlatformCoreModule());
+    await _registerModule(ConfigModule());
     await _registerModule(EnvModule());
     await _registerModule(NotificationModule());
     await _registerModule(ApiModule());

@@ -7,7 +7,7 @@ import 'package:test_api/src/backend/invoker.dart';
 withTrace(Future Function(Marker m) fn) async {
   await Core.di.reset();
   Core.act = mockedAct;
-  Core.config = Config();
+  Core.config = CoreConfig();
 
   await PlatformCoreModule().create();
 
