@@ -256,6 +256,24 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish ios-family on tag
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: publish ipa family
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make publish-ios FLAVOR=family
+    envVars:
+    - name: BLOKADA_APPSTORE_KEY_BASE64
+      value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
