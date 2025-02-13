@@ -231,6 +231,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: build ios-family on tag
+  jobExecutor: agent
   steps:
   - !CheckoutStep
     name: checkout
@@ -256,6 +257,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish ios-family on tag
+  jobExecutor: agent
   steps:
   - !CheckoutStep
     name: checkout
