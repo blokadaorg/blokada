@@ -24,7 +24,7 @@ build: get-deps gen-pigeon-android gen-pigeon-ios gen-build-runner test lib-andr
 # Build Android and iOS library with dependencies
 build-android: get-deps gen-pigeon-android gen-build-runner lib-android
 
-build-ios: get-deps gen-pigeon-ios gen-build-runner lib-ios
+build-ios: get-deps gen-pigeon-ios gen-build-runner
 
 
 # Dependency installation

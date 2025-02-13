@@ -53,13 +53,16 @@ build-android-six:
 	$(MAKE) -C android/ aab-six
 
 build-ios:
+	$(MAKE) -C common/ build-ios
 	cd ios/ && $(FASTLANE) build_ios_family
 	cd ios/ && $(FASTLANE) build_ios_six
 
 build-ios-family:
+	$(MAKE) -C common/ build-ios
 	cd ios/ && $(FASTLANE) build_ios_family
 
 build-ios-six:
+	$(MAKE) -C common/ build-ios
 	cd ios/ && $(FASTLANE) build_ios_six
 
 
