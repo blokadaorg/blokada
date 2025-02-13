@@ -1,60 +1,6 @@
 version: 38
 jobs:
-- name: run tests
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: docker test
-    image: docker-apps-build-box
-    args: make test
-    useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  triggers:
-  - !BranchUpdateTrigger
-    branches: main
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
-- name: build android-six on tag
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: build aab six
-    image: docker-apps-build-box
-    args: make ci-build-android-six
-    envVars:
-    - name: BLOKADA_KEY_PWD
-      value: '@secret:BLOKADA_KEY_PWD@'
-    - name: BLOKADA_KEYSTORE_PWD
-      value: '@secret:BLOKADA_KEYSTORE_PWD@'
-    - name: BLOKADA_KEYSTORE_BASE64
-      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
-    - name: BLOKADA_VERSION_NAME
-      value: '@tag@'
-    - name: BLOKADA_VERSION_CODE
-      value: '@build_number@'
-    useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !PublishArtifactStep
-    name: export artifacts
-    artifacts: android/app/build/outputs/bundle/**
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
-- name: publish android-six on tag
+- name: publish android-six on tag (docker)
   steps:
   - !CheckoutStep
     name: checkout
@@ -74,14 +20,25 @@ jobs:
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build android-six on tag
+  - jobName: build android (docker)
     requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - '@tag@'
+      name: version-name
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - six
+      name: flavor
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: build android-family on tag
+- name: run tests
   steps:
   - !CheckoutStep
     name: checkout
@@ -89,41 +46,31 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: build aab family
-    image: docker-apps-build-box
-    args: make ci-build-android-family
-    envVars:
-    - name: BLOKADA_KEY_PWD
-      value: '@secret:BLOKADA_KEY_PWD@'
-    - name: BLOKADA_KEYSTORE_PWD
-      value: '@secret:BLOKADA_KEYSTORE_PWD@'
-    - name: BLOKADA_KEYSTORE_BASE64
-      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
-    - name: BLOKADA_VERSION_NAME
-      value: '@tag@'
-    - name: BLOKADA_VERSION_CODE
-      value: '@build_number@'
+  - !CommandStep
+    name: tests
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make test
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !PublishArtifactStep
-    name: export artifacts
-    artifacts: android/app/build/outputs/bundle/**
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: main
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: build android manually
+- name: build android (docker)
   steps:
   - !CheckoutStep
     name: checkout
     cloneCredential: !DefaultCredential {}
     withLfs: false
-    withSubmodules: false
+    withSubmodules: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !RunContainerStep
-    name: build aab's
+    name: build aab
     image: docker-apps-build-box
     args: make ci-build-android
     envVars:
@@ -143,22 +90,44 @@ jobs:
     name: export artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: build aab
+    runInContainer: true
+    image: docker-apps-build-box
+    interpreter: !DefaultInterpreter
+      commands: |
+        if [ "@param:flavor@" = "family" ]; then
+            make ci-build-android-family
+        else
+            make ci-build-android-six
+        fi
+    envVars:
+    - name: BLOKADA_KEY_PWD
+      value: '@secret:BLOKADA_KEY_PWD@'
+    - name: BLOKADA_KEYSTORE_PWD
+      value: '@secret:BLOKADA_KEYSTORE_PWD@'
+    - name: BLOKADA_KEYSTORE_BASE64
+      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@param:version-name@'
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   paramSpecs:
   - !TextParam
     name: version-name
     allowEmpty: false
     multiline: false
-    pattern: \b\d+\.\d+\.\d+\b
   - !TextParam
     name: flavor
     allowEmpty: false
     multiline: false
-    pattern: (family|six)
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android-family on tag
+- name: publish android-family on tag (docker)
   steps:
   - !CheckoutStep
     name: checkout
@@ -178,14 +147,25 @@ jobs:
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build android-family on tag
+  - jobName: build android (docker)
     requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - '@tag@'
+      name: version-name
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - family
+      name: flavor
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android manually
+- name: publish android manually (docker)
   steps:
   - !CheckoutStep
     name: checkout
@@ -214,7 +194,7 @@ jobs:
     multiline: false
     pattern: (family|six)
   jobDependencies:
-  - jobName: build android manually
+  - jobName: build android (docker)
     requireSuccessful: true
     paramMatrix:
     - secret: false
