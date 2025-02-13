@@ -2,26 +2,16 @@ import 'package:pigeon/pigeon.dart';
 
 enum StageModal {
   help,
-  perms,
   onboardingFamily,
-  onboardingAccountDecided,
-  // pause,
   payment,
-  //paymentDetails,
   plusLocationSelect,
   debug,
-  debugSharing,
   adsCounterShare,
-  custom,
-  // updatePrompt,
-  // updateOngoing,
-  // updateComplete,
   fault,
   faultLocked,
   faultLockInvalid,
   faultLinkAlready,
   accountChange,
-  accountLink,
   accountInitFailed,
   accountRestoreFailed,
   accountRestoreIdOk,
@@ -36,7 +26,6 @@ enum StageModal {
   deviceAlias,
   lock,
   rate,
-  crash
 }
 
 @HostApi()

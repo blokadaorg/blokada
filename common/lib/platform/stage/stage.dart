@@ -409,7 +409,6 @@ abstract class StageStoreBase
   final noNavbarModals = [
     StageModal.lock,
     StageModal.rate,
-    StageModal.crash,
     StageModal.onboardingFamily,
   ];
 

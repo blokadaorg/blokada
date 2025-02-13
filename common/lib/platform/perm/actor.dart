@@ -116,7 +116,7 @@ class PlatformPermActor with Logging, Actor {
   }
 
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
-    if (!(route.isBecameForeground() || route.modal == StageModal.perms)) {
+    if (!(route.isBecameForeground()/* || route.modal == StageModal.perms*/)) {
       return;
     }
 

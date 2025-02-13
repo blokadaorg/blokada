@@ -47,7 +47,7 @@ class PermActor with Logging, Actor {
   }
 
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
-    if (!(route.isBecameForeground() || route.modal == StageModal.perms)) {
+    if (!route.isBecameForeground()) {
       log(m).pair("permIsBecameForeground", route.isBecameForeground());
       log(m).pair("permIsForeground", route.isForeground());
       return;
