@@ -230,7 +230,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: build ios-family on tag
+- name: build ios-family
   jobExecutor: agent
   steps:
   - !CheckoutStep
@@ -244,14 +244,32 @@ jobs:
     runInContainer: false
     interpreter: !DefaultInterpreter
       commands: |
-        make ci-build-ios-family
+        if [ "@param:flavor@" = "family" ]; then
+            make ci-build-ios-family
+        else
+            make ci-build-ios-six
+        fi
     envVars:
     - name: BLOKADA_VERSION_CODE
       value: '@build_number@'
     - name: BLOKADA_VERSION_NAME
-      value: '@tag@'
+      value: '@param:version-name@'
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishArtifactStep
+    name: export artifacts
+    artifacts: ios/*.ipa
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  paramSpecs:
+  - !TextParam
+    name: version-name
+    allowEmpty: false
+    multiline: false
+  - !TextParam
+    name: flavor
+    allowEmpty: false
+    multiline: false
+    pattern: (family|six)
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -279,8 +297,60 @@ jobs:
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build ios-family on tag
+  - jobName: build ios-family
     requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - '@tag@'
+      name: version-name
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - family
+      name: flavor
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
+- name: publish ios-six on tag
+  jobExecutor: agent
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: publish ipa six
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make publish-ios FLAVOR=six
+    envVars:
+    - name: BLOKADA_APPSTORE_KEY_BASE64
+      value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: build ios-family
+    requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - '@tag@'
+      name: version-name
+    - secret: false
+      valuesProvider: !SpecifiedValues
+        values:
+        - - six
+      name: flavor
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
