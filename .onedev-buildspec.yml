@@ -237,7 +237,7 @@ jobs:
     name: checkout
     cloneCredential: !DefaultCredential {}
     withLfs: false
-    withSubmodules: false
+    withSubmodules: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: build ipa
