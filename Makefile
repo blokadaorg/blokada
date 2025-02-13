@@ -83,10 +83,12 @@ d-build-android-six:
 
 # Version management targets
 version:
+	@VERSION_NAME_ARG=$(if $(NAME),$(NAME),$(BLOKADA_VERSION_NAME)); \
+	VERSION_CODE_ARG=$(if $(CODE),$(CODE),$(BLOKADA_VERSION_CODE)); \
 	$(VERSION_SCRIPT) --android-file $(ANDROID_PROJECT_FILE) \
-	--xcodeproj-file $(IOS_PROJECT_FILE) \
-	--version-name $(BLOKADA_VERSION_NAME) \
-	--version-code $(BLOKADA_VERSION_CODE) \
+		--xcodeproj-file $(IOS_PROJECT_FILE) \
+		--version-name $$VERSION_NAME_ARG \
+		--version-code $$VERSION_CODE_ARG
 
 version-clean:
 	git restore $(ANDROID_PROJECT_FILE)
