@@ -1,9 +1,6 @@
 # Define common variables 
-FASTLANE := fastlane
-PUBLISH_AAB := android/app/build/outputs/bundle/familyRelease/app-family-release.aab
-PUBLISH_PKG := org.blokada.family
-PUBLISH_META := metadata/android-family/
 FLAVOR := family
+FASTLANE := fastlane
 
 VERSION_SCRIPT := ./scripts/version.py
 ANDROID_PROJECT_FILE := android/app/build.gradle
@@ -65,21 +62,6 @@ build-ios-family:
 build-ios-six:
 	cd ios/ && $(FASTLANE) build_ios_six
 
-# Debug build targets for development
-d-build-android-family:
-	$(MAKE) -C common/ get-deps
-	$(MAKE) -C common/ gen-pigeon-android
-	$(MAKE) -C common/ gen-build-runner
-	$(MAKE) -C common/ d-lib-android
-	$(MAKE) -C android/ aab-family
-
-d-build-android-six:
-	$(MAKE) -C common/ get-deps
-	$(MAKE) -C common/ gen-pigeon-android
-	$(MAKE) -C common/ gen-build-runner
-	$(MAKE) -C common/ d-lib-android
-	$(MAKE) -C android/ aab-six
-
 
 # Version management targets
 version:
@@ -98,10 +80,12 @@ version-clean:
 # Publish targets
 publish-android:
 	$(MAKE) gplay-key-unpack
-	$(FASTLANE) supply --aab $(PUBLISH_AAB) \
-	--package_name "$(PUBLISH_PKG)" \
+	@AAB=$(if $(filter family,$(FLAVOR)),familyRelease/app-family-release.aab,sixRelease/app-six-release.aab); \
+	PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	$(FASTLANE) supply --aab android/app/build/outputs/bundle/$$AAB \
+	--package_name "$$PKG" \
 	--json_key blokada-gplay.json \
-	--metadata_path $(PUBLISH_META) \
+	--metadata_path metadata/android-$(FLAVOR) \
 	--track internal
 	$(MAKE) gplay-key-clean
 
@@ -117,8 +101,8 @@ gplay-key-clean:
 
 publish-ios:
 	$(MAKE) appstore-key-unpack
-	@FLAVOR_ARG=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
-	cd ios/ && $(FASTLANE) $$FLAVOR_ARG
+	@LANE=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
+	cd ios/ && $(FASTLANE) $$LANE
 	$(MAKE) appstore-key-clean
 
 appstore-key-unpack:
@@ -130,6 +114,22 @@ appstore-key-unpack:
 
 appstore-key-clean:
 	rm -rf blokada-appstore.json
+
+
+# Debug build targets for development
+d-build-android-family:
+	$(MAKE) -C common/ get-deps
+	$(MAKE) -C common/ gen-pigeon-android
+	$(MAKE) -C common/ gen-build-runner
+	$(MAKE) -C common/ d-lib-android
+	$(MAKE) -C android/ aab-family
+
+d-build-android-six:
+	$(MAKE) -C common/ get-deps
+	$(MAKE) -C common/ gen-pigeon-android
+	$(MAKE) -C common/ gen-build-runner
+	$(MAKE) -C common/ d-lib-android
+	$(MAKE) -C android/ aab-six
 
 
 # Quick targeted recompilation targets for development
