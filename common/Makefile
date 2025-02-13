@@ -7,9 +7,10 @@ OUTPUT_DIR := build/pigeon/
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: test clean get-deps gen-pigeon-android gen-pigeon-ios gen-build-runner \
-	d-lib-android d-lib-ios lib-android lib-ios \
-        build-android build-ios build build-web
+.PHONY: test clean pub gen-android gen-ios runner \
+	lib lib-debug \
+        build-android build-ios build \
+	other-lib-ios-debug other-build-web
 
 test:
 	$(FLUTTER) test
@@ -17,48 +18,46 @@ test:
 clean:
 	$(FLUTTER) clean
 
+# Build everything from scratch (release)
+build: pub gen-android gen-ios runner lib
 
-# Build everything from scratch for release and publish
-build: get-deps gen-pigeon-android gen-pigeon-ios gen-build-runner test lib-android lib-ios
+# Build the Android library from scratch (release)
+build-android: pub gen-android runner lib
 
-# Build Android and iOS library with dependencies
-build-android: get-deps gen-pigeon-android gen-build-runner lib-android
+# Build iOS dependencies (library itself is built by xcode)
+build-ios: pub gen-ios runner
 
-build-ios: get-deps gen-pigeon-ios gen-build-runner
-
-
-# Dependency installation
-get-deps:
+# Fetch dependencies from pubspec.yaml (flutter pub get)
+pub:
 	$(FLUTTER) pub get
 
-# Code generation
-gen-pigeon-android:
+# Generate all necessary files for both platforms
+gen: gen-android gen-ios runner
+
+# Generate platform interface files for Android
+gen-android:
 	$(PIGEON) --android --output=$(OUTPUT_DIR) --cmd=$(DART)
 
-gen-pigeon-ios:
+# Generate platform interface files for iOS
+gen-ios:
 	$(PIGEON) --output=$(OUTPUT_DIR) --cmd=$(DART)
 
-gen-build-runner:
+# Generate files from build_runner (mocks etc)
+runner:
 	$(DART) run build_runner build --delete-conflicting-outputs
 
-
-# Android and iOS builds
-lib-android:
+# Build the Android library (release)
+lib:
 	$(FLUTTER) build aar --no-profile --no-debug --no-pub
 
-lib-ios:
-	$(FLUTTER) build ios-framework --no-profile --no-debug --no-pub
-
-
-# Development targets
-
-d-lib-android:
+# Build the Android library (debug)
+lib-debug:
 	$(FLUTTER) build aar --no-profile --no-release --verbose --no-pub
 
-d-lib-ios:
+# Build the iOS library (debug) - only for special cases
+other-lib-ios-debug:
 	$(FLUTTER) build ios-framework --no-profile --no-release --verbose --no-pub
 
-
-# Web build (not used yet)
-build-web:
+# Build web (not used yet)
+other-build-web:
 	$(FLUTTER) build web
