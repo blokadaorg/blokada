@@ -91,30 +91,6 @@ jobs:
     name: export artifacts
     artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !CommandStep
-    name: build aab
-    runInContainer: true
-    image: docker-apps-build-box
-    interpreter: !DefaultInterpreter
-      commands: |
-        if [ "@param:flavor@" = "family" ]; then
-            make ci-build-android-family
-        else
-            make ci-build-android-six
-        fi
-    envVars:
-    - name: BLOKADA_KEY_PWD
-      value: '@secret:BLOKADA_KEY_PWD@'
-    - name: BLOKADA_KEYSTORE_PWD
-      value: '@secret:BLOKADA_KEYSTORE_PWD@'
-    - name: BLOKADA_KEYSTORE_BASE64
-      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
-    - name: BLOKADA_VERSION_NAME
-      value: '@param:version-name@'
-    - name: BLOKADA_VERSION_CODE
-      value: '@build_number@'
-    useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   paramSpecs:
   - !TextParam
     name: version-name
