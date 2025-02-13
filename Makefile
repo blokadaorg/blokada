@@ -170,3 +170,32 @@ ci-build-android: ci-copy-source
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
+ci-build-android-family: ci-copy-source
+	@echo "Building in $(CI_BUILD_DIR)..."
+	cd $(CI_BUILD_DIR) && $(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
+	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
+
+ci-build-android-six: ci-copy-source
+	@echo "Building in $(CI_BUILD_DIR)..."
+	cd $(CI_BUILD_DIR) && $(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) build-android-six
+	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
+
+ci-build-ios: ci-copy-source
+	@echo "Building in $(CI_BUILD_DIR)..."
+	cd $(CI_BUILD_DIR) && $(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) build-ios
+	cp -r $(CI_BUILD_DIR)/ios/*.ipa ./ios/
+
+ci-build-ios-family: ci-copy-source
+	@echo "Building in $(CI_BUILD_DIR)..."
+	cd $(CI_BUILD_DIR) && $(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) build-ios-family
+	cp -r $(CI_BUILD_DIR)/ios/*.ipa ./ios/
+
+ci-build-ios-six: ci-copy-source
+	@echo "Building in $(CI_BUILD_DIR)..."
+	cd $(CI_BUILD_DIR) && $(MAKE) version
+	cd $(CI_BUILD_DIR) && $(MAKE) build-ios-six
+	cp -r $(CI_BUILD_DIR)/ios/*.ipa ./ios/
