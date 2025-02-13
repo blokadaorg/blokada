@@ -39,6 +39,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: run tests
+  jobExecutor: agent
   steps:
   - !CheckoutStep
     name: checkout
