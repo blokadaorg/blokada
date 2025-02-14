@@ -92,6 +92,8 @@ jobs:
       value: '@build_number@'
     - name: BLOKADA_VERSION_NAME
       value: '@param:version-name@'
+    - name: GRADLE_OPTS
+      value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PublishArtifactStep
