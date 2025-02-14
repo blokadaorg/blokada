@@ -101,7 +101,7 @@ abstract class AccountPaymentStoreBase with Store, Logging, Actor {
         final receipts = await _ops.doPurchaseWithReceipts(id);
         await _processReceipt(
             receipts.first!, m); // Only one receipt expected in purchase flow
-        //if (!Core.act.isFamily) await _stage.showModal(StageModal.perms, m);
+        if (!Core.act.isFamily) await _stage.dismissModal(m);
         status = PaymentStatus.ready;
       } on Exception catch (e) {
         _ops.doFinishOngoingTransaction();

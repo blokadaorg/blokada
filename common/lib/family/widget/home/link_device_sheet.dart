@@ -225,7 +225,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(width: 48),
+                                const SizedBox(width: 66),
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Colors.white,
@@ -242,7 +242,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding: const EdgeInsets.all(11.0),
                                   child: CommonClickable(
                                     onTap: () async {
                                       // To prevent UI freeze when the share screen opens
