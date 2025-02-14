@@ -46,8 +46,11 @@ class SupportModule with Module {
     await register(SupportUnread());
     await register(SupportApi());
     await register(SupportActor());
-    await register(PurchaseTimeoutActor());
     await register(SupportUnreadActor());
     await register(SupportCommand());
+
+    if (Core.act.isFamily) {
+      await register(PurchaseTimeoutActor());
+    }
   }
 }
