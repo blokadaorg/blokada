@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E23CF97293DF7D100613D0A"
                BuildableName = "WireGuardNetworkExtension.appex"
-               BlueprintName = "WireGuardNetworkExtensioniOS"
+               BlueprintName = "WireGuardNetExt"
                ReferencedContainer = "container:IOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

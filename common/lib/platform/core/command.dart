@@ -30,8 +30,11 @@ class LoggerCommand with Command, Logging {
     if (_isLocked.now) {
       return await _stage.showModal(StageModal.faultLocked, m);
     }
-    _channel.doShareFile();
-  }
 
-  // TODO: crash log stuff
+    // Non-await delay to try to make sure the latest log batch is saved
+    Future.delayed(const Duration(seconds: 1), () {
+      print("Sharing log...");
+      _channel.doShareFile();
+    });
+  }
 }

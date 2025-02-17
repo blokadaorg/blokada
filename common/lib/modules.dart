@@ -120,16 +120,21 @@ class Modules with Logging {
   start(Marker m) async {
     await log(m).trace("startModules", (m) async {
       for (var mod in _modules) {
-        await log(m).trace("${mod.runtimeType}", (m) async {
-          await mod.start(m);
+        try {
+          await log(m).trace("${mod.runtimeType}", (m) async {
+            await mod.start(m);
 
-          // Hack to be refactored
-          if (mod.runtimeType == AccountModule) {
-            log(m).i("Starting legacy account refresh store");
-            final legacyAccount = Core.get<AccountRefreshStore>();
-            await legacyAccount.start(m);
-          }
-        });
+            // Hack to be refactored
+            if (mod.runtimeType == AccountModule) {
+              log(m).i("Starting legacy account refresh store");
+              final legacyAccount = Core.get<AccountRefreshStore>();
+              await legacyAccount.start(m);
+            }
+          });
+        } catch (e) {
+          // The error will be logged in trace, we want to continue
+          // starting other modules
+        }
       }
     });
 

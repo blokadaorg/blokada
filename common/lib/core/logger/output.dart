@@ -7,12 +7,18 @@ final defaultLoggerPrinter = PrefixPrinter(PrettyPrinter(
   stackTraceBeginIndex: 0,
   methodCount: kReleaseMode ? 2 : 6,
   errorMethodCount: 16,
-  dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
+  dateTimeFormat: _dateAndTimeAndSinceStart,
   excludePaths: [
     "package:common/core/logger",
     "<asynchronous suspension>",
   ],
 ));
+
+String _dateAndTimeAndSinceStart(DateTime t) {
+  String isoDate = t.toIso8601String().replaceFirst("T", " ");
+  var timeSinceStart = t.difference(PrettyPrinter.startTime!).toString();
+  return "$isoDate (+$timeSinceStart) ${t.timeZoneName}";
+}
 
 mixin LoggerChannel {
   Future<void> doUseFilename(String filename);
@@ -24,9 +30,6 @@ class FileLoggerOutput extends LogOutput {
   late final _channel = Core.get<LoggerChannel>();
 
   FileLoggerOutput() {
-    const template = '''
-\t\t\t
-''';
     _channel.doUseFilename(getLogFilename());
   }
 
@@ -43,17 +46,10 @@ class FileLoggerOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    // if (kReleaseMode) {
-    //   developer.log(
-    //     "\n${event.lines.join("\n")}",
-    //     time: event.origin.time,
-    //     level: event.level.value,
-    //   );
-    // } else {
+    // Debug-only printout to stdout
     for (var line in event.lines) {
       print(line);
     }
-    // }
 
     // Save batch to file
     if (event.level == Level.trace && Core.act.isRelease) return;
