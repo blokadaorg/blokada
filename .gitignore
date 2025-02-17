@@ -6,5 +6,6 @@ ios/Pods
 local.properties
 keystore.properties
 blokada-gplay.json
+blokada-appstore.json
 *.jks
 *.keystore
