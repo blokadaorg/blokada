@@ -2,6 +2,7 @@ import 'package:common/common/dialog.dart';
 import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/link/link.dart';
+import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -39,6 +40,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _perm = Core.get<PlatformPermActor>();
   late final _command = Core.get<CommandStore>();
   late final _unread = Core.get<SupportUnread>();
+  late final _rate = Core.get<RateActor>();
 
   late final _lock = Core.get<LockActor>();
   late final _hasPin = Core.get<HasPin>();
@@ -266,6 +268,16 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                           (m) async {
                         await _stage.openLink(LinkId.credits, m);
                       });
+                    }),
+                const CommonDivider(),
+                SettingsItem(
+                    icon: CupertinoIcons.star_fill,
+                    text: "main rate us header".i18n,
+                    onTap: () {
+                      log(Markers.userTap).trace("settingsOpenRate",
+                              (m) async {
+                            await _rate.show(m);
+                          });
                     }),
               ],
             ),

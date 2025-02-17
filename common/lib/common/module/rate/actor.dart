@@ -74,7 +74,7 @@ class RateActor with Logging, Actor {
       }
     }
 
-    await _show(m);
+    await show(m);
     return false;
   }
 
@@ -88,7 +88,7 @@ class RateActor with Logging, Actor {
     });
   }
 
-  _show(Marker m) async {
+  show(Marker m) async {
     return await log(m).trace("show", (m) async {
       final lastSeen = DateTime.now();
       JsonRate? meta = await _rateMetadata.now();
