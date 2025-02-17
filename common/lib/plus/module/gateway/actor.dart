@@ -31,7 +31,9 @@ class GatewayActor with Logging, Actor, Cooldown {
 
   load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      final id = await _currentGatewayId.fetch(m);
+      var id = await _currentGatewayId.fetch(m);
+      if (id?.isBlank ?? false) id = null; // Not sure why, but it happened
+
       await fetch(m);
       await selectGateway(id, m);
     });

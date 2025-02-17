@@ -100,7 +100,7 @@ class PlusActor with Logging, Actor {
           final g = _currentGateway.present;
 
           if (l == null || k == null || g == null) {
-            throw Exception("Missing lease, keypair or gateway");
+            throw Exception("Missing lease (${l?.publicKey}), keypair (${k?.publicKey}) or gateway (${g?.publicKey})");
           }
 
           await _vpn.setVpnConfig(_assembleConfig(k, g, l), m);

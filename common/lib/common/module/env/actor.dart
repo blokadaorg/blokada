@@ -15,6 +15,7 @@ class EnvActor with Logging, Actor {
     deviceName = info.deviceName;
     userAgent = _getUserAgent(info);
     await _userAgent.change(m, userAgent);
+    log(m).i("UserAgent: $userAgent");
     appVersion = info.appVersion;
   }
 
