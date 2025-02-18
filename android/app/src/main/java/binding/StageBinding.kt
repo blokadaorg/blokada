@@ -76,11 +76,6 @@ object StageBinding: StageOps {
     fun setForeground() {
         scope.launch {
             command.execute(CommandName.FOREGROUND)
-
-            // Special case handling: android wont give us a call when the share sheet is dismissed
-            if (displayingModal == StageModal.ADSCOUNTERSHARE) {
-                modalDismissed()
-            }
         }
     }
 
@@ -190,13 +185,9 @@ object StageBinding: StageOps {
     }
 
     override fun doDismissModal(callback: (Result<Unit>) -> Unit) {
-        if (displayingModal == StageModal.ADSCOUNTERSHARE) {
-            modalDismissed()
-        } else {
-            displayingModal = null
-            sheet.dismiss()
-            dialog.dismiss()
-        }
+        displayingModal = null
+        sheet.dismiss()
+        dialog.dismiss()
         callback(Result.success(Unit))
     }
 

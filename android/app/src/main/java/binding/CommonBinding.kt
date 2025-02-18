@@ -19,6 +19,7 @@ import channel.common.OpsLink
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.blokada.BuildConfig
 import service.EnvironmentService
 import service.FlutterService
@@ -29,6 +30,7 @@ import utils.toBlockaDate
 object CommonBinding: CommonOps {
     private val flutter by lazy { FlutterService }
     private val env by lazy { EnvironmentService }
+    private val share by lazy { ShareUtil }
 
     init {
         CommonOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -146,5 +148,21 @@ object CommonBinding: CommonOps {
     override fun doConfigChanged(skipBypassList: Boolean, callback: (Result<Unit>) -> Unit) {
         this.skipBypassList = skipBypassList
         callback(Result.success(Unit))
+    }
+
+    override fun doShareText(text: String, callback: (Result<Unit>) -> Unit) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                share.shareText(text)
+                callback(Result.success(Unit))
+            } catch (e: Exception) {
+                try {
+                    share.shareTextLegacy(text)
+                    callback(Result.success(Unit))
+                } catch (ex: Exception) {
+                    callback(Result.failure(e))
+                }
+            }
+        }
     }
 }
