@@ -101,6 +101,21 @@ class CustomlistActor with Actor, Logging {
     await fetch(m);
   }
 
+  remove(Marker m, String domain) async {
+    await _delete(domain, m);
+    await fetch(m);
+  }
+
+  toggle(Marker m, String domain) async {
+    final allow =_payload.now.denied.contains(domain);
+    if (allow) {
+      await _allow(domain, m);
+    } else {
+      await _deny(domain, m);
+    }
+    await fetch(m);
+  }
+
   bool contains(String domain) {
     // todo: wildcard?
     return _payload.now.allowed.contains(domain) ||

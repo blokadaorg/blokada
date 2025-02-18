@@ -28,7 +28,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
   @override
   void initState() {
     super.initState();
-    disposeLater(_lists.onChange.listen((_) => _reload()));
+    disposeLater(_lists.onChange.listen((_) => _reload(fetch: false)));
     _reload();
   }
 
@@ -38,10 +38,10 @@ class ExceptionsSectionState extends State<ExceptionsSection>
     super.dispose();
   }
 
-  _reload() async {
+  _reload({bool fetch = true}) async {
     if (!mounted) return;
-    log(Markers.ui).trace("fetchCustom", (m) async {
-      await _custom.fetch(m);
+    await log(Markers.ui).trace("fetchCustom", (m) async {
+      if (fetch) await _custom.fetch(m);
       if (!mounted) return;
       setState(() {
         _isReady = true;
@@ -115,34 +115,13 @@ class ExceptionsSectionState extends State<ExceptionsSection>
 
   _onRemove(String entry) async {
     log(Markers.userTap).trace("deleteCustom", (m) async {
-      setState(() {
-        if (_denied.contains(entry)) {
-          _denied.remove(entry);
-        } else {
-          _allowed.remove(entry);
-        }
-      });
-      await _custom.addOrRemove(entry, m, gotBlocked: true);
-      _reload();
+      await _custom.remove(m, entry);
     });
   }
 
   _onChange(String entry) async {
     log(Markers.userTap).trace("changeCustom", (m) async {
-      final allow = _denied.contains(entry);
-      setState(() {
-        if (allow) {
-          _denied.remove(entry);
-          _allowed.add(entry);
-        } else {
-          _allowed.remove(entry);
-          _denied.add(entry);
-        }
-        _sort();
-      });
-
-      await _custom.addOrRemove(entry, m, gotBlocked: allow);
-      _reload();
+      await _custom.toggle(m, entry);
     });
   }
 }
