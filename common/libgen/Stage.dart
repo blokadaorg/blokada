@@ -6,7 +6,6 @@ enum StageModal {
   payment,
   plusLocationSelect,
   debug,
-  adsCounterShare,
   fault,
   faultLocked,
   faultLockInvalid,

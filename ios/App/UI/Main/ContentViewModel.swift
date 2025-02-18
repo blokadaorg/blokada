@@ -14,9 +14,28 @@ import Foundation
 import Combine
 import Factory
 
+enum ShareContent: Identifiable {
+    case text(String)
+    case url(URL)
+    
+    // Using a UUID ensures uniqueness
+    var id: UUID { UUID() }
+    
+    /// Extracts the underlying value to use in the share sheet.
+    var item: Any {
+        switch self {
+        case .text(let string):
+            return string
+        case .url(let url):
+            return url
+        }
+    }
+}
+
 class ContentViewModel: ObservableObject {
     @Injected(\.stage) var stage
-    @Injected(\.core) var logger
+    @Injected(\.core) var core
+    @Injected(\.common) var common
     @Injected(\.family) var family
 
     private lazy var linkRepo = Repos.linkRepo
@@ -29,13 +48,14 @@ class ContentViewModel: ObservableObject {
         }
     }
 
-    @Published var shareLog: URL? = nil
+    @Published var shareContent: ShareContent? = nil
 
     init() {
         onSheetChanged()
         onShowPauseMenuChanged()
         onShareLog()
         onShareUrl()
+        onShareText()
     }
 
     func openLink(_ link: String) {
@@ -61,19 +81,31 @@ class ContentViewModel: ObservableObject {
     }
 
     private func onShareLog() {
-        logger.shareLog
+        core.shareLog
+        .compactMap { $0 }
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
-            self.shareLog = it
+            self.shareContent = .url(it)
         })
         .store(in: &cancellables)
     }
 
     private func onShareUrl() {
         family.shareUrl
+        .compactMap { $0 }
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
-            self.shareLog = it
+            self.shareContent = .url(it)
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onShareText() {
+        common.shareText
+        .compactMap { $0 }
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.shareContent = .text(it)
         })
         .store(in: &cancellables)
     }

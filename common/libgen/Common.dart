@@ -35,6 +35,9 @@ abstract class CommonOps {
   // -- Config
   @async
   void doConfigChanged(bool skipBypassList);
+
+  @async
+  void doShareText(String text);
 }
 
 class OpsEnvInfo {

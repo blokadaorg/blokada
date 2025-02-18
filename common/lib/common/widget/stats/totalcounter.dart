@@ -1,3 +1,4 @@
+import 'package:common/common/module/config/config.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stage/channel.pg.dart';
@@ -19,7 +20,7 @@ class TotalCounter extends StatefulWidget {
 }
 
 class TotalCounterState extends State<TotalCounter> with Logging {
-  late final _stage = Core.get<StageStore>();
+  late final _channel = Core.get<ConfigChannel>();
 
   var allowed = 0.0;
   var blocked = 0;
@@ -36,7 +37,9 @@ class TotalCounterState extends State<TotalCounter> with Logging {
   }
 
   Future<void> _shareCounter() async {
-    await _stage.showModal(StageModal.adsCounterShare, Markers.userTap);
+    log(Markers.userTap).trace("tappedShareAdsCounter", (m) async {
+      await _channel.doShareText("main share message".i18n.withParams(blocked));
+    });
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:common/common/module/config/config.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/minicard/summary.dart';
@@ -27,8 +28,8 @@ class TotalCounterState extends State<TotalCounter> with Logging {
 
   final bool autoRefresh;
 
-  final _stats = Core.get<StatsStore>();
-  final _stage = Core.get<StageStore>();
+  late final _stats = Core.get<StatsStore>();
+  late final _channel = Core.get<ConfigChannel>();
 
   var allowed = 0.0;
   var blocked = 0;
@@ -62,7 +63,7 @@ class TotalCounterState extends State<TotalCounter> with Logging {
 
   Future<void> _shareCounter() async {
     log(Markers.userTap).trace("tappedShareAdsCounter", (m) async {
-      await _stage.showModal(StageModal.adsCounterShare, m);
+      await _channel.doShareText("main share message".i18n.withParams(blocked));
     });
   }
 

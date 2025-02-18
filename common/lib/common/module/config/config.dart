@@ -27,6 +27,7 @@ class ConfigCommand with Command, Logging {
 @PlatformProvided()
 mixin ConfigChannel {
   Future<void> doConfigChanged(bool skipBypassList);
+  Future<void> doShareText(String text);
 }
 
 class ConfigActor with Actor {

@@ -68,6 +68,9 @@ class PlatformCommonChannel extends CommonChannel {
 
   @override
   Future<void> doConfigChanged(bool skipBypassList) => _ops.doConfigChanged(skipBypassList);
+
+  @override
+  Future<void> doShareText(String text) => _ops.doShareText(text);
 }
 
 class NoOpCommonChannel extends CommonChannel {
@@ -121,4 +124,7 @@ class NoOpCommonChannel extends CommonChannel {
 
   @override
   Future<void> doConfigChanged(bool skipBypassList) => Future.value();
+
+  @override
+  Future<void> doShareText(String text) => Future.value();
 }

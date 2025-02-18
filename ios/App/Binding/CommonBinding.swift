@@ -19,6 +19,8 @@ import UserNotifications
 
 class CommonBinding: CommonOps {
 
+    let shareText = CurrentValueSubject<String?, Never>(nil)
+
     let links = CurrentValueSubject<[String : String], Never>([:])
 
     // Http
@@ -432,6 +434,12 @@ class CommonBinding: CommonOps {
     func doConfigChanged(skipBypassList: Bool, completion: @escaping (Result<Void, any Error>) -> Void) {
         // Not relevant to iOS as of yet
         completion(.success(()))
+    }
+
+    // -- Share
+    func doShareText(text: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        shareText.send(text)
+        return completion(.success(()))
     }
 }
 
