@@ -1,5 +1,50 @@
 version: 38
 jobs:
+- name: publish android manually (docker)
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !RunContainerStep
+    name: publish android
+    image: docker-apps-build-box
+    args: make publish-android FLAVOR=@param:flavor@
+    envVars:
+    - name: BLOKADA_GPLAY_KEY_BASE64
+      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  paramSpecs:
+  - !TextParam
+    name: version-name
+    allowEmpty: false
+    multiline: false
+    pattern: \b\d+\.\d+\.\d+\b
+  - !TextParam
+    name: flavor
+    allowEmpty: false
+    multiline: false
+    pattern: (family|six)
+  jobDependencies:
+  - jobName: build android (docker)
+    requireSuccessful: true
+    paramMatrix:
+    - secret: false
+      valuesProvider: !PassthroughValues
+        paramName: version-name
+      name: version-name
+    - secret: false
+      valuesProvider: !PassthroughValues
+        paramName: flavor
+      name: flavor
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
 - name: publish android-six on tag (docker)
   steps:
   - !CheckoutStep
@@ -20,7 +65,7 @@ jobs:
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build android (docker)
+  - jobName: build all android (docker)
     requireSuccessful: true
     paramMatrix:
     - secret: false
@@ -28,11 +73,6 @@ jobs:
         values:
         - - '@tag@'
       name: version-name
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - six
-      name: flavor
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
@@ -133,7 +173,7 @@ jobs:
   triggers:
   - !TagCreateTrigger {}
   jobDependencies:
-  - jobName: build android (docker)
+  - jobName: build all android (docker)
     requireSuccessful: true
     paramMatrix:
     - secret: false
@@ -141,57 +181,50 @@ jobs:
         values:
         - - '@tag@'
       name: version-name
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - family
-      name: flavor
     artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android manually (docker)
+- name: build all android (docker)
   steps:
   - !CheckoutStep
     name: checkout
     cloneCredential: !DefaultCredential {}
     withLfs: false
-    withSubmodules: false
+    withSubmodules: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: publish android
+  - !CommandStep
+    name: build aab
+    runInContainer: true
     image: docker-apps-build-box
-    args: make publish-android FLAVOR=@param:flavor@
+    interpreter: !DefaultInterpreter
+      commands: |
+        make ci-build-android-family ci-build-android-six
     envVars:
-    - name: BLOKADA_GPLAY_KEY_BASE64
-      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
+    - name: BLOKADA_KEY_PWD
+      value: '@secret:BLOKADA_KEY_PWD@'
+    - name: BLOKADA_KEYSTORE_PWD
+      value: '@secret:BLOKADA_KEYSTORE_PWD@'
+    - name: BLOKADA_KEYSTORE_BASE64
+      value: '@secret:BLOKADA_KEYSTORE_BASE64@'
+    - name: BLOKADA_VERSION_CODE
+      value: '@build_number@'
+    - name: BLOKADA_VERSION_NAME
+      value: '@param:version-name@'
+    - name: GRADLE_OPTS
+      value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishArtifactStep
+    name: export artifacts
+    artifacts: android/app/build/outputs/bundle/**
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   paramSpecs:
   - !TextParam
     name: version-name
     allowEmpty: false
     multiline: false
-    pattern: \b\d+\.\d+\.\d+\b
-  - !TextParam
-    name: flavor
-    allowEmpty: false
-    multiline: false
-    pattern: (family|six)
-  jobDependencies:
-  - jobName: build android (docker)
-    requireSuccessful: true
-    paramMatrix:
-    - secret: false
-      valuesProvider: !PassthroughValues
-        paramName: version-name
-      name: version-name
-    - secret: false
-      valuesProvider: !PassthroughValues
-        paramName: flavor
-      name: flavor
-    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
