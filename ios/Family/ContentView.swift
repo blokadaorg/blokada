@@ -96,8 +96,8 @@ struct ContentView: View {
                 )
             }
         }
-        .sheet(item: self.$vm.shareLog, onDismiss: { self.vm.stage.onDismissed() }) { item in
-            ShareSheet(activityItems: [item])
+        .sheet(item: self.$vm.shareContent, onDismiss: { self.vm.stage.onDismissed() }) { item in
+            ShareSheet(activityItems: [item.item])
         }
 
         // Draw under status bar and bottom bar (we manage it ourselves)
