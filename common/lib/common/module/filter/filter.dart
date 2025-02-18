@@ -13,10 +13,12 @@ part 'filter_option_decor_defaults.dart';
 part 'mapping.dart';
 part 'model.dart';
 
-class CurrentConfig extends NullableAsyncValue<UserFilterConfig> {}
+class CurrentConfig extends NullableAsyncValue<UserFilterConfig> {
+  CurrentConfig() : super(sensitive: true);
+}
 
 class SelectedFilters extends AsyncValue<List<FilterSelection>> {
-  SelectedFilters() {
+  SelectedFilters() : super (sensitive: true) {
     load = (Marker m) async => <FilterSelection>[];
   }
 }

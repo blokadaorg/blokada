@@ -31,7 +31,7 @@ void main() {
         final ops = MockPermOps();
         Core.register<PermOps>(ops);
 
-        final dnsEnabledFor = PrivateDnsEnabledFor();
+        final dnsEnabledFor = PrivateDnsEnabledForValue();
         Core.register(dnsEnabledFor);
 
         final subject = PlatformPermActor();

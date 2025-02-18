@@ -7,7 +7,7 @@ part 'actor.dart';
 part 'api.dart';
 
 class CustomListsValue extends Value<CustomLists> {
-  CustomListsValue() : super(load: () => CustomLists(denied: [], allowed: []));
+  CustomListsValue() : super(load: () => CustomLists(denied: [], allowed: []), sensitive: true);
 
   reset() => now = CustomLists(denied: [], allowed: []);
 }

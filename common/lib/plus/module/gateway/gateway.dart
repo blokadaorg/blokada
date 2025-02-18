@@ -36,7 +36,9 @@ class CurrentGatewayIdValue extends StringPersistedValue {
   CurrentGatewayIdValue() : super("gateway:jsonSelectedGateway");
 }
 
-class CurrentGatewayValue extends NullableAsyncValue<Gateway> {}
+class CurrentGatewayValue extends NullableAsyncValue<Gateway> {
+  CurrentGatewayValue() : super (sensitive: true);
+}
 
 @PlatformProvided()
 mixin GatewayChannel {

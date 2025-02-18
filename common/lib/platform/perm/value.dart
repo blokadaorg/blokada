@@ -1,19 +1,19 @@
 part of 'perm.dart';
 
-class PrivateDnsEnabledFor extends NullableAsyncValue<DeviceTag> {
-  PrivateDnsEnabledFor() {
+class PrivateDnsEnabledForValue extends NullableAsyncValue<DeviceTag> {
+  PrivateDnsEnabledForValue() {
     load = (Marker m) async => null;
   }
 }
 
-class NotificationEnabled extends NullableAsyncValue<bool> {
-  NotificationEnabled() {
+class NotificationEnabledValue extends NullableAsyncValue<bool> {
+  NotificationEnabledValue() {
     load = (Marker m) async => false;
   }
 }
 
-class VpnEnabled extends NullableAsyncValue<bool> {
-  VpnEnabled() {
+class VpnEnabledValue extends NullableAsyncValue<bool> {
+  VpnEnabledValue() {
     load = (Marker m) async => false;
   }
 }

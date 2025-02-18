@@ -40,7 +40,9 @@ mixin LeaseChannel {
   Future<void> doCurrentLeaseChanged(Lease? lease);
 }
 
-class CurrentLeaseValue extends NullableAsyncValue<Lease> {}
+class CurrentLeaseValue extends NullableAsyncValue<Lease> {
+  CurrentLeaseValue() : super(sensitive: true);
+}
 
 class LeaseModule with Module {
   @override

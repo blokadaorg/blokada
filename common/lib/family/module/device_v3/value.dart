@@ -5,7 +5,7 @@ class CurrentToken extends StringPersistedValue {
 }
 
 class SelectedDeviceTag extends NullableAsyncValue<DeviceTag> {
-  SelectedDeviceTag() {
+  SelectedDeviceTag() : super(sensitive: true) {
     load = (Marker m) async => null;
   }
 }

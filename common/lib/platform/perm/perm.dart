@@ -16,9 +16,9 @@ part 'value.dart';
 class PlatformPermModule with Module {
   @override
   Future<void> onCreateModule() async {
-    await register(PrivateDnsEnabledFor());
-    await register(NotificationEnabled());
-    await register(VpnEnabled());
+    await register(PrivateDnsEnabledForValue());
+    await register(NotificationEnabledValue());
+    await register(VpnEnabledValue());
     await register(PlatformPermActor());
 
     if (Core.act.isProd) {

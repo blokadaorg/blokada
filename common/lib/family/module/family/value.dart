@@ -13,7 +13,7 @@ class FamilyPhaseValue extends Value<FamilyPhase> {
 }
 
 class FamilyDevicesValue extends Value<FamilyDevices> {
-  FamilyDevicesValue() : super(load: () => FamilyDevices([], null));
+  FamilyDevicesValue() : super(load: () => FamilyDevices([], null), sensitive: true);
 }
 
 class FamilyLinkedMode extends Value<bool> {

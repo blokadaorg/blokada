@@ -12,7 +12,7 @@ part 'api.dart';
 part 'model.dart';
 
 class JournalEntriesValue extends Value<List<UiJournalEntry>> {
-  JournalEntriesValue() : super(load: () => []);
+  JournalEntriesValue() : super(load: () => [], sensitive: true);
 }
 
 class JournalFilterValue extends Value<JournalFilter> {
@@ -22,7 +22,7 @@ class JournalFilterValue extends Value<JournalFilter> {
 }
 
 class JournalDevicesValue extends Value<Set<String>> {
-  JournalDevicesValue() : super(load: () => {});
+  JournalDevicesValue() : super(load: () => {}, sensitive: true);
 }
 
 class JournalModule with Module {

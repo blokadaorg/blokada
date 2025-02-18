@@ -5,7 +5,9 @@ part 'endpoint.dart';
 part 'error.dart';
 part 'http.dart';
 
-class AccountId extends AsyncValue<String> {}
+class AccountId extends AsyncValue<String> {
+  AccountId(): super(sensitive: true);
+}
 
 class BaseUrl extends Value<String> {
   BaseUrl()

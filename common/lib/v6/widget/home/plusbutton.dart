@@ -31,7 +31,7 @@ class _PlusButtonState extends State<PlusButton>
   final _stage = Core.get<StageStore>();
   final _plus = Core.get<PlusActor>();
   final _plusEnabled = Core.get<PlusEnabledValue>();
-  final _permVpnEnabled = Core.get<VpnEnabled>();
+  final _permVpnEnabled = Core.get<VpnEnabledValue>();
   final _permChannnel = Core.get<PermChannel>();
 
   var activated = false;

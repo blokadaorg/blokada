@@ -17,7 +17,7 @@ abstract class BoolPersistedValue extends AsyncValue<bool> {
 abstract class StringPersistedValue extends NullableAsyncValue<String?> {
   late final _persistence = Core.get<Persistence>();
 
-  StringPersistedValue(String key) {
+  StringPersistedValue(String key) : super(sensitive: true) {
     load = (Marker m) async {
       return await _persistence.load(m, key);
     };
@@ -37,7 +37,7 @@ abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
   late final _persistence =
       Core.get<Persistence>(tag: secure ? Persistence.secure : null);
 
-  JsonPersistedValue(String key, {this.secure = false}) {
+  JsonPersistedValue(String key, {this.secure = false}) : super(sensitive: true) {
     load = (Marker m) async {
       final json = await _persistence.load(m, key);
       if (json == null) return null;

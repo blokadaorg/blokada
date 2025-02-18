@@ -2,9 +2,9 @@ part of 'perm.dart';
 
 class PlatformPermActor with Logging, Actor {
   late final _channel = Core.get<PermChannel>();
-  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledFor>();
-  late final _notificationEnabled = Core.get<NotificationEnabled>();
-  late final _vpnEnabled = Core.get<VpnEnabled>();
+  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
+  late final _notificationEnabled = Core.get<NotificationEnabledValue>();
+  late final _vpnEnabled = Core.get<VpnEnabledValue>();
 
   late final _app = Core.get<AppStore>();
   late final _device = Core.get<DeviceStore>();

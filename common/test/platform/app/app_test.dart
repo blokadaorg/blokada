@@ -159,7 +159,7 @@ void main() {
         final store = MockAppStore();
         Core.register<AppStore>(store);
 
-        Core.register(PrivateDnsEnabledFor());
+        Core.register(PrivateDnsEnabledForValue());
 
         final perm = PlatformPermActor();
         Core.register<PlatformPermActor>(perm);

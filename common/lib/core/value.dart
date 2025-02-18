@@ -6,6 +6,7 @@ part of 'core.dart';
 abstract class Value<T> with Logging {
   final T Function() load;
   final Function(T)? save;
+  bool sensitive;
 
   Stream<ValueUpdate<T>> get onChange => _stream.stream;
   final _stream = StreamController<ValueUpdate<T>>.broadcast();
@@ -13,7 +14,7 @@ abstract class Value<T> with Logging {
   bool _resolved = false;
   late T _value;
 
-  Value({required this.load, this.save});
+  Value({required this.load, this.save, this.sensitive = false});
 
   T get now {
     if (!_resolved) {
@@ -37,7 +38,7 @@ abstract class Value<T> with Logging {
         "old": _resolved ? update.old : "(undefined value)",
         "now": update.now
       },
-      sensitive: true,
+      sensitive: sensitive,
     );
 
     _resolved = true;
@@ -54,6 +55,9 @@ abstract class Value<T> with Logging {
 abstract class AsyncValue<T> with Logging {
   Future<T> Function(Marker m)? load;
   Future<void> Function(Marker m, T)? save;
+  bool sensitive;
+
+  AsyncValue({this.sensitive = false});
 
   Stream<ValueUpdate<T>> get onChange => _stream.stream;
   final _stream = StreamController<ValueUpdate<T>>.broadcast();
@@ -144,7 +148,7 @@ abstract class AsyncValue<T> with Logging {
         "old": _resolved ? update.old : "(undefined async value)",
         "now": update.now
       },
-      sensitive: true,
+      sensitive: sensitive,
     );
 
     _resolved = true;
@@ -161,6 +165,7 @@ abstract class AsyncValue<T> with Logging {
 abstract class NullableAsyncValue<T> with Logging {
   Future<T?> Function(Marker m)? load;
   Future<void> Function(Marker m, T?)? save;
+  bool sensitive;
 
   Stream<NullableValueUpdate<T>> get onChange => _stream.stream;
   final _stream = StreamController<NullableValueUpdate<T>>.broadcast();
@@ -171,7 +176,7 @@ abstract class NullableAsyncValue<T> with Logging {
 
   final _debounce = Debounce(const Duration(seconds: 15));
 
-  NullableAsyncValue({this.load, this.save});
+  NullableAsyncValue({this.load, this.save, this.sensitive = false});
 
   Future<T?> now() async {
     if (_resolved) {
@@ -233,7 +238,7 @@ abstract class NullableAsyncValue<T> with Logging {
         "old": _resolved ? update.old : "(undefined nullable async value)",
         "now": update.now
       },
-      sensitive: true,
+      sensitive: sensitive,
     );
 
     _resolved = true;
