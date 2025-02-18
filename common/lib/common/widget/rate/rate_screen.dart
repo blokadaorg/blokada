@@ -108,6 +108,7 @@ class _RateScreenState extends State<RateScreen>
                 const Spacer(),
                 const SizedBox(height: 50),
                 Image.asset(
+                  Core.act.isFamily ? "assets/images/family_logo.png" :
                   "assets/images/blokada_logo.png",
                   fit: BoxFit.cover,
                   width: 128,
