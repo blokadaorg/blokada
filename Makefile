@@ -124,11 +124,11 @@ appstore-key-unpack:
 	    echo "Error: BLOKADA_APPSTORE_KEY_BASE64 is not set. Please export it before running this command."; \
 	    exit 1; \
 	fi
-	@echo "$$BLOKADA_APPSTORE_KEY_BASE64" | base64 --decode > blokada-appstore.json
+	@echo "$$BLOKADA_APPSTORE_KEY_BASE64" | base64 --decode > ios/blokada-appstore.json
 
 # Clean up after unpacking AppStore key
 appstore-key-clean:
-	rm -rf blokada-appstore.json
+	rm -rf ios/blokada-appstore.json
 
 
 # Build android family .apk from scratch (debug)
