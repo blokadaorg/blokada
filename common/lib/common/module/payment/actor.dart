@@ -22,8 +22,8 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
         ..withLogLevel(
             Core.act.isRelease ? AdaptyLogLevel.warn : AdaptyLogLevel.debug)
         ..withObserverMode(false)
-        ..withIpAddressCollectionDisabled(false)
-        ..withIdfaCollectionDisabled(false),
+        ..withIpAddressCollectionDisabled(true)
+        ..withIdfaCollectionDisabled(true),
     );
 
     // Set Adapty fallback for any connection problems situations
