@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -28,6 +29,7 @@ class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
   late final _stage = Core.get<StageStore>();
   late final _family = Core.get<FamilyActor>();
+  late final _payment = Core.get<PaymentActor>();
   late final _permsSheet = Core.get<StatefulWidget>(tag: "privateDnsSheet");
 
   @override
@@ -177,6 +179,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(m);
       });
     } else if (p.requiresPerms()) {
+      _payment.reportOnboarding(OnboardingStep.permsPrompted);
       showSheet(context, builder: (context) => _permsSheet);
     } else if (p.isLocked2()) {
       log(Markers.userTap).trace("handleCtaTap", (m) async {

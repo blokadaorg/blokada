@@ -37,7 +37,8 @@ abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
   late final _persistence =
       Core.get<Persistence>(tag: secure ? Persistence.secure : null);
 
-  JsonPersistedValue(String key, {this.secure = false}) : super(sensitive: true) {
+  JsonPersistedValue(String key, {this.secure = false})
+      : super(sensitive: true) {
     load = (Marker m) async {
       final json = await _persistence.load(m, key);
       if (json == null) return null;
@@ -54,4 +55,27 @@ abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
 
   Map<String, dynamic> toJson(T value);
   T fromJson(Map<String, dynamic> json);
+}
+
+abstract class StringifiedPersistedValue<T> extends NullableAsyncValue<T?>
+    with Logging {
+  late final _persistence = Core.get<Persistence>();
+
+  StringifiedPersistedValue(String key, {super.sensitive = false}) : super() {
+    load = (Marker m) async {
+      final value = await _persistence.load(m, key);
+      if (value == null) return null;
+      return fromStringified(value);
+    };
+    save = (Marker m, T? value) async {
+      if (value == null) {
+        await _persistence.delete(m, key);
+        return;
+      }
+      await _persistence.save(m, key, toStringified(value));
+    };
+  }
+
+  String toStringified(T value);
+  T fromStringified(String value);
 }

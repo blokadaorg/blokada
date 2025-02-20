@@ -1191,14 +1191,14 @@
 				4E23D001293E20BC00613D0A /* WireGuardKit */,
 				4E23CFE9293DFEE200613D0A /* WireGuardKitC */,
 				4E23CFDF293DFAB300613D0A /* WireGuardNetworkExtension */,
-				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				4E1DC4C927564F3100A4CAB1 /* AppTests */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
+				976CF20AFE2D9EC991A20222 /* Pods */,
+				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				4E270CFA2A80E85E00D3484B /* WGNetx copy-Info.plist */,
 				4E1276C62AE7D0FC00A94994 /* Mocked copy-Info.plist */,
 				4E4F320F2B1736900087ECA1 /* FamilyProdRelease.entitlements */,
-				976CF20AFE2D9EC991A20222 /* Pods */,
 				4ED7517E2D635F2F00CEE82E /* WireGuardNetworkExtensioniOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";

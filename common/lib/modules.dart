@@ -9,6 +9,7 @@ import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/module/notification/notification.dart';
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
@@ -108,6 +109,7 @@ class Modules with Logging {
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
       await _registerModule(PlatformFamilyModule());
+      await _registerModule(PaymentModule());
     }
 
     await _registerModule(RateModule());
@@ -138,9 +140,13 @@ class Modules with Logging {
               await legacyAccount.start(m);
             }
           });
-        } catch (e) {
-          // The error will be logged in trace, we want to continue
-          // starting other modules
+        } catch (e, s) {
+          // Log error details and continue starting other modules
+          log(m).e(
+            msg: "Failed starting module: ${mod.runtimeType}",
+            err: e,
+            stack: s,
+          );
         }
       }
     });

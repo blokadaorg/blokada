@@ -5,7 +5,6 @@ import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../util/mobx.dart';
 import 'channel.act.dart';
 import 'channel.pg.dart';
 
@@ -428,6 +427,13 @@ abstract class StageStoreBase
       } else {
         throw Exception("Link not found: $link");
       }
+    });
+  }
+
+  @action
+  Future<void> openUrl(String url, Marker m) async {
+    return await log(m).trace("openUrl", (m) async {
+      await _ops.doOpenLink(url);
     });
   }
 }
