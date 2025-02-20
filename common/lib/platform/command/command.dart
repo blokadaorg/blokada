@@ -93,7 +93,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
       for (var cmd in newCommands) {
         if (command.toUpperCase().startsWith(cmd)) {
-          return await commands.execute(m, commandParts[0], commandParts.sublist(1));
+          return await commands.execute(
+              m, commandParts[0], commandParts.sublist(1));
         }
       }
 
@@ -111,25 +112,31 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _executeUrl(p1!, m);
       case CommandName.restore:
         _ensureParam(p1);
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         await _account.restore(p1!, m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.account:
         return _account.account?.id;
       case CommandName.receipt:
         _ensureParam(p1);
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         await _accountPayment.restoreInBackground(p1!, m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.fetchProducts:
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         return await _accountPayment.fetchProducts(m);
       case CommandName.purchase:
         _ensureParam(p1);
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         await _accountPayment.purchase(p1!, m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.changeProduct:
         _ensureParam(p1);
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         await _accountPayment.changeProduct(p1!, m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.restorePayment:
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         // TODO:
         // Only restore implicitly if current account is not active
         // TODO: finish ongoing transaction after any success or fail (stop processing)
