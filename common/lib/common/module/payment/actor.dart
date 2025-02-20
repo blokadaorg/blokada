@@ -39,13 +39,20 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       log(it.m).i("Adapty: Identifying account ID");
       _adapty.identify(it.now);
 
-      if (_account.type.isActive()) {
-        reportOnboarding(OnboardingStep.accountActivated);
-      } else {
+      if (!_account.type.isActive()) {
         // Inactive account: changed manually, or new load
         reportOnboarding(OnboardingStep.appStarting, reset: true);
       }
     });
+
+    // TODO: change to new Value type
+    _account.addOn(accountChanged, _onAccountChanged);
+  }
+
+  _onAccountChanged(Marker m) async {
+    if (_account.type.isActive()) {
+      reportOnboarding(OnboardingStep.accountActivated);
+    }
   }
 
   reportOnboarding(OnboardingStep step, {bool reset = false}) async {
