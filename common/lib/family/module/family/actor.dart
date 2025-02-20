@@ -11,6 +11,7 @@ class FamilyActor with Logging, Actor {
   late final _permStore = Core.get<PlatformPermActor>();
   late final _profiles = Core.get<ProfileActor>();
   late final _link = Core.get<LinkActor>();
+  late final _payment = Core.get<PaymentActor>();
 
   late final _isLocked = Core.get<IsLocked>();
 
@@ -69,10 +70,10 @@ class FamilyActor with Logging, Actor {
         _updatePhase(m, loading: true);
         await _reload(m, createDeviceIfNeeded: true);
         _updatePhase(m, loading: false, reason: "activateCta");
-        return;
+      } else {
+        _permStore.askNotificationPermissions(m);
+        await _payment.showPaywall(m);
       }
-      _permStore.askNotificationPermissions(m);
-      _stage.showModal(StageModal.payment, m);
     });
   }
 
@@ -182,6 +183,7 @@ class FamilyActor with Logging, Actor {
     } else if (accountActive == null || permsGranted == null) {
       phase = FamilyPhase.starting;
     } else if (linkedMode && permsGranted == true && linkedTokenOk) {
+      _payment.reportOnboarding(OnboardingStep.permsGranted);
       phase = FamilyPhase.linkedActive;
     } else if (linkedMode && permsGranted == true) {
       phase = FamilyPhase.linkedExpired;
@@ -205,9 +207,11 @@ class FamilyActor with Logging, Actor {
         _thisDevice.present == null ||
         !devices.now.hasThisDevice) {
       phase = FamilyPhase.fresh;
+      _payment.reportOnboarding(OnboardingStep.freshHomeReached);
     } else if (/*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;
     } else if (devices.now.hasDevices == true) {
+      _payment.reportOnboarding(OnboardingStep.permsGranted);
       phase = FamilyPhase.parentHasDevices;
     } else if (devices.now.hasDevices == false) {
       phase = FamilyPhase.parentNoDevices;
