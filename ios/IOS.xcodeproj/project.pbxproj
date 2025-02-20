@@ -11,7 +11,6 @@
 		1AD1BA7496D8C335F2E6678D /* Pods_FamilyDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */; };
 		2BAF43F98AE7367532A1363E /* Pods_Mocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */; };
 		32C1008A7577A4987B004E84 /* Pods_Prod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */; };
-		39E2693C6FDF28A6B60B7C42 /* Pods_WireGuardNetworkExtensioniOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F1CC6D071CA068879542CB6 /* Pods_WireGuardNetworkExtensioniOS.framework */; };
 		47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47729E0522F447C800B9B36B /* AppDelegate.swift */; };
 		47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
@@ -682,7 +681,6 @@
 		4ED751742D635F2F00CEE82E /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23D00A293E20BC00613D0A /* PrivateKey.swift */; };
 		4ED751762D635F2F00CEE82E /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED3445323E1B0A60075B796 /* NetworkExtension.framework */; };
 		4ED751772D635F2F00CEE82E /* libwg-go.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E23CFA5293DF89100613D0A /* libwg-go.a */; };
-		4ED751782D635F2F00CEE82E /* Pods_WireGuardNetworkExtensioniOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F1CC6D071CA068879542CB6 /* Pods_WireGuardNetworkExtensioniOS.framework */; };
 		4ED7517F2D635F5800CEE82E /* WireGuardNetExtDev.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4ED7517D2D635F2F00CEE82E /* WireGuardNetExtDev.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4EDB13C22D143197000E2AD3 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB13C12D143197000E2AD3 /* AccountViewModel.swift */; };
 		4EDB13C32D143197000E2AD3 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB13C12D143197000E2AD3 /* AccountViewModel.swift */; };
@@ -1071,13 +1069,11 @@
 		4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeView.swift; sourceTree = "<group>"; };
 		548F3BBF5E3AA6F2587A522A /* Pods-FamilyProd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyProd.release.xcconfig"; path = "Target Support Files/Pods-FamilyProd/Pods-FamilyProd.release.xcconfig"; sourceTree = "<group>"; };
 		54C558C85715162C0728B745 /* Pods-FamilyMocked.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyMocked.debug.xcconfig"; path = "Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked.debug.xcconfig"; sourceTree = "<group>"; };
-		5B03BAAD070BB3793C4DEE7A /* Pods-WireGuardNetworkExtensioniOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WireGuardNetworkExtensioniOS.debug.xcconfig"; path = "Target Support Files/Pods-WireGuardNetworkExtensioniOS/Pods-WireGuardNetworkExtensioniOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1CC6D071CA068879542CB6 /* Pods_WireGuardNetworkExtensioniOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WireGuardNetworkExtensioniOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6077D4402E4F70C7F9F66BBE /* Pods-FamilyDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyDev.release.xcconfig"; path = "Target Support Files/Pods-FamilyDev/Pods-FamilyDev.release.xcconfig"; sourceTree = "<group>"; };
 		6B39155040C383190BD210AF /* Pods-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dev.release.xcconfig"; path = "Target Support Files/Pods-Dev/Pods-Dev.release.xcconfig"; sourceTree = "<group>"; };
 		8C1897DE1A6919F849F7C67D /* Pods-Prod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prod.debug.xcconfig"; path = "Target Support Files/Pods-Prod/Pods-Prod.debug.xcconfig"; sourceTree = "<group>"; };
 		8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9938B8B393719807E27FA518 /* Pods-WireGuardNetworkExtensioniOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WireGuardNetworkExtensioniOS.release.xcconfig"; path = "Target Support Files/Pods-WireGuardNetworkExtensioniOS/Pods-WireGuardNetworkExtensioniOS.release.xcconfig"; sourceTree = "<group>"; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
 		B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mocked.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1121,7 +1117,6 @@
 			files = (
 				4E23CF99293DF7D100613D0A /* NetworkExtension.framework in Frameworks */,
 				4E23CFAA293DFA0A00613D0A /* libwg-go.a in Frameworks */,
-				39E2693C6FDF28A6B60B7C42 /* Pods_WireGuardNetworkExtensioniOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1174,7 +1169,6 @@
 			files = (
 				4ED751762D635F2F00CEE82E /* NetworkExtension.framework in Frameworks */,
 				4ED751772D635F2F00CEE82E /* libwg-go.a in Frameworks */,
-				4ED751782D635F2F00CEE82E /* Pods_WireGuardNetworkExtensioniOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1197,14 +1191,14 @@
 				4E23D001293E20BC00613D0A /* WireGuardKit */,
 				4E23CFE9293DFEE200613D0A /* WireGuardKitC */,
 				4E23CFDF293DFAB300613D0A /* WireGuardNetworkExtension */,
-				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				4E1DC4C927564F3100A4CAB1 /* AppTests */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
+				976CF20AFE2D9EC991A20222 /* Pods */,
+				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				4E270CFA2A80E85E00D3484B /* WGNetx copy-Info.plist */,
 				4E1276C62AE7D0FC00A94994 /* Mocked copy-Info.plist */,
 				4E4F320F2B1736900087ECA1 /* FamilyProdRelease.entitlements */,
-				976CF20AFE2D9EC991A20222 /* Pods */,
 				4ED7517E2D635F2F00CEE82E /* WireGuardNetworkExtensioniOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -1677,8 +1671,6 @@
 				0F70130A542AB5FF3C0E7D08 /* Pods-Mocked.release.xcconfig */,
 				8C1897DE1A6919F849F7C67D /* Pods-Prod.debug.xcconfig */,
 				FC0CE56C29D8A2B13170BD63 /* Pods-Prod.release.xcconfig */,
-				5B03BAAD070BB3793C4DEE7A /* Pods-WireGuardNetworkExtensioniOS.debug.xcconfig */,
-				9938B8B393719807E27FA518 /* Pods-WireGuardNetworkExtensioniOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1777,7 +1769,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E23CFA2293DF7D100613D0A /* Build configuration list for PBXNativeTarget "WireGuardNetExt" */;
 			buildPhases = (
-				9A66F86AF23013174B7D7293 /* [CP] Check Pods Manifest.lock */,
 				4E23CF94293DF7D100613D0A /* Sources */,
 				4E23CF95293DF7D100613D0A /* Frameworks */,
 				4E23CF96293DF7D100613D0A /* Resources */,
@@ -1900,7 +1891,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ED7517A2D635F2F00CEE82E /* Build configuration list for PBXNativeTarget "WireGuardNetExtDev" */;
 			buildPhases = (
-				4ED751592D635F2F00CEE82E /* [CP] Check Pods Manifest.lock */,
 				4ED7515A2D635F2F00CEE82E /* Sources */,
 				4ED751752D635F2F00CEE82E /* Frameworks */,
 				4ED751792D635F2F00CEE82E /* Resources */,
@@ -2190,28 +2180,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4ED751592D635F2F00CEE82E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WireGuardNetworkExtensioniOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		72E7218A413BF752F840DFA9 /* [CP-User] Embed Flutter Build common Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2257,28 +2225,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A66F86AF23013174B7D7293 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WireGuardNetworkExtensioniOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9DFF5FB51773F535178A6216 /* [CP] Embed Pods Frameworks */ = {
@@ -3682,7 +3628,6 @@
 		};
 		4E23CFA3293DF7D100613D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B03BAAD070BB3793C4DEE7A /* Pods-WireGuardNetworkExtensioniOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
@@ -3728,7 +3673,6 @@
 		};
 		4E23CFA4293DF7D100613D0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9938B8B393719807E27FA518 /* Pods-WireGuardNetworkExtensioniOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
@@ -4138,7 +4082,6 @@
 		};
 		4ED7517B2D635F2F00CEE82E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B03BAAD070BB3793C4DEE7A /* Pods-WireGuardNetworkExtensioniOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
@@ -4184,7 +4127,6 @@
 		};
 		4ED7517C2D635F2F00CEE82E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9938B8B393719807E27FA518 /* Pods-WireGuardNetworkExtensioniOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CODE_SIGN_ENTITLEMENTS = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension_iOS.entitlements";
