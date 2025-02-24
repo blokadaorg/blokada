@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import model.PaymentPayload
 import model.ProductId
 import service.BillingService
+import service.Flavor
 import service.FlutterService
 import utils.Logger
 
@@ -44,8 +45,10 @@ object AccountPaymentBinding: PaymentOps {
 
     init {
         PaymentOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
-        scope.async {
-            billing.setup()
+        if (!Flavor.isFamily()) {
+            scope.async {
+                billing.setup()
+            }
         }
     }
 
