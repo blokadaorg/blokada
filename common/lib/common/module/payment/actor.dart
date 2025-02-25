@@ -135,6 +135,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
       try {
         final type = AccountType.values.byName(account.type ?? "unknown");
+        await _account.propose(account, m);
         if (!type.isActive()) throw Exception("Account inactive after restore");
 
         log(m).log(
@@ -143,7 +144,6 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
           sensitive: true,
         );
 
-        await _account.propose(account, m);
         await _family.activateCta(m);
       } catch (e, s) {
         await _handleFailure(m, "Failed checkout", e, s: s, restore: restore);
