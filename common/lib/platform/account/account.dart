@@ -52,6 +52,8 @@ class AccountState {
   AccountState update(JsonAccount apiAccount) {
     return AccountState(id, apiAccount);
   }
+
+  bool hasBeenActiveBefore() => jsonAccount.hasBeenActiveBefore();
 }
 
 AccountType accountTypeFromName(String? name) {
