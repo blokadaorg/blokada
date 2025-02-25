@@ -78,13 +78,12 @@ class CoreBinding: CoreOps {
                     return completion(.failure("Error initializing log: \(error)"))
                 }
             }
-        }
 
-        completion(.success(()))
+            return completion(.success(()))
+        }
     }
 
     func doSaveBatch(batch: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        
         queue.async {
             guard let data = (batch).data(using: .utf8) else { return }
             do {
@@ -96,13 +95,12 @@ class CoreBinding: CoreOps {
                 try fileHandle.write(contentsOf: data)
                 self.currentSize += UInt64(data.count)
                 self.trimLogFileIfNeeded()
+                return completion(.success(()))
             } catch {
                 print("Error writing log: \(error)")
                 return completion(.failure("Error writing log: \(error)"))
             }
         }
-
-        return completion(.success(()))
     }
     
     func trimLogFileIfNeeded() {

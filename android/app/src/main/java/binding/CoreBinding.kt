@@ -71,8 +71,10 @@ object CoreBinding: CoreOps {
                 this.fileName = filename
                 logFile = File(context.requireAppContext().filesDir, filename)
                 currentSize = logFile.length()
+                callback(Result.success(Unit))
             } catch (e: IOException) {
                 e.printStackTrace()
+                callback(Result.failure(e))
             }
         }
     }
@@ -81,7 +83,7 @@ object CoreBinding: CoreOps {
         batch: String,
         callback: (Result<Unit>) -> Unit
     ) {
-        scope.launch {
+        scope.launch(Dispatchers.IO) {
             synchronized(this@CoreBinding) {
                 try {
                     RandomAccessFile(logFile, "rw").use { raf ->
@@ -91,8 +93,10 @@ object CoreBinding: CoreOps {
                         currentSize += bytes.size
                     }
                     trimLogFileIfNeeded()
+                    callback(Result.success(Unit))
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    callback(Result.failure(e))
                 }
             }
         }
