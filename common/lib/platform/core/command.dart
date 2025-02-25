@@ -32,7 +32,7 @@ class LoggerCommand with Command, Logging {
     }
 
     // Non-await delay to try to make sure the latest log batch is saved
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 2), () {
       print("Sharing log...");
       _channel.doShareFile();
     });

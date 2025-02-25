@@ -53,6 +53,8 @@ class FileLoggerOutput extends LogOutput {
 
     // Save batch to file
     if (event.level == Level.trace && Core.act.isRelease) return;
+    // Ideally this should be called with await, but the LogOutput interface
+    // does not support it
     _channel.doSaveBatch("${event.lines.join("\n")}\n");
   }
 }
