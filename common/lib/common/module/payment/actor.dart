@@ -131,9 +131,9 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   _checkoutSuccessfulPayment(AdaptyProfile profile,
       {bool restore = false}) async {
     await log(Markers.ui).trace("checkoutSuccessfulPayment", (m) async {
-      final account = await _api.postCheckout(m, profile.profileId);
-
       try {
+        final account = await _api.postCheckout(m, profile.profileId);
+
         final type = AccountType.values.byName(account.type ?? "unknown");
         await _account.propose(account, m);
         if (!type.isActive()) throw Exception("Account inactive after restore");
