@@ -19,7 +19,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     _accountId.onChangeInstant((it) async {
       if (_account.type.isActive()) {
         if (!_adaptyInitialized) {
-          // Only initialise Adapty if account is active
+          // Initialise Adapty with account ID, if if account is active
           log(it.m).log(msg: "Adapty: initialising",
               attr: {"accountId": it.now}, sensitive: true);
           await _initAdapty(it.m, it.now);
@@ -31,7 +31,12 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
           await _adapty.identify(it.now);
         }
       } else {
-        if (_adaptyInitialized) {
+        if (!_adaptyInitialized) {
+          // Initialise Adapty with no account ID provided
+          log(it.m).log(msg: "Adapty: initialising without accountId");
+          await _initAdapty(it.m, null);
+          _adaptyInitialized = true;
+        } else {
           // Inactive account: changed manually, or new load
           await reportOnboarding(OnboardingStep.appStarting, reset: true);
         }
@@ -47,7 +52,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   /// - if this account is active, initialize Adapty SDK with this account id set from start
   /// - if there's no active account, initialize Adapty with no account id (like we do now)
   /// - after initialized, pass account id to Adapty. Identify whenever it changes and is active
-  _initAdapty(Marker m, String accountId) async {
+  _initAdapty(Marker m, String? accountId) async {
     _adaptyUi.setObserver(this);
     await _adapty.activate(
       configuration: AdaptyConfiguration(
