@@ -10,15 +10,49 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   late final _adapty = Adapty();
   late final _adaptyUi = AdaptyUI();
+  bool _adaptyInitialized = false;
 
   @override
   onStart(Marker m) async {
     await _onboard.fetch(m);
 
+    _accountId.onChangeInstant((it) async {
+      if (_account.type.isActive()) {
+        if (!_adaptyInitialized) {
+          // Only initialise Adapty if account is active
+          log(it.m).log(msg: "Adapty: initialising",
+              attr: {"accountId": it.now}, sensitive: true);
+          await _initAdapty(it.m, it.now);
+          _adaptyInitialized = true;
+        } else {
+          // After initialised, pass account ID to Adapty whenever active
+          log(it.m).log(msg: "Adapty: identifying",
+              attr: {"accountId": it.now}, sensitive: true);
+          await _adapty.identify(it.now);
+        }
+      } else {
+        if (_adaptyInitialized) {
+          // Inactive account: changed manually, or new load
+          await reportOnboarding(OnboardingStep.appStarting, reset: true);
+        }
+      }
+    });
+
+    // TODO: change to new Value type
+    _account.addOn(accountChanged, _onAccountChanged);
+  }
+
+  /// New requirements because Adapty is weird with creating profiles.
+  /// - fetch existing account id from cloud storage, or create a new one
+  /// - if this account is active, initialize Adapty SDK with this account id set from start
+  /// - if there's no active account, initialize Adapty with no account id (like we do now)
+  /// - after initialized, pass account id to Adapty. Identify whenever it changes and is active
+  _initAdapty(Marker m, String accountId) async {
     _adaptyUi.setObserver(this);
     await _adapty.activate(
       configuration: AdaptyConfiguration(
           apiKey: "public_live_6b1uSAaQ.EVLlSnbFDIarK82Qkqiv")
+        ..withCustomerUserId(accountId)
         ..withLogLevel(
             Core.act.isRelease ? AdaptyLogLevel.warn : AdaptyLogLevel.debug)
         ..withObserverMode(false)
@@ -34,19 +68,6 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       log(m)
           .e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
     }
-
-    _accountId.onChangeInstant((it) {
-      if (!_account.type.isActive()) {
-        // Inactive account: changed manually, or new load
-        reportOnboarding(OnboardingStep.appStarting, reset: true);
-      } else {
-        log(it.m).i("Adapty: Identifying account ID");
-        _adapty.identify(it.now);
-      }
-    });
-
-    // TODO: change to new Value type
-    _account.addOn(accountChanged, _onAccountChanged);
   }
 
   _onAccountChanged(Marker m) async {
