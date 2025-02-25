@@ -21,6 +21,10 @@ class JsonAccount {
     return active ?? false;
   }
 
+  bool hasBeenActiveBefore() {
+    return paymentSource?.isNotEmpty ?? false;
+  }
+
   JsonAccount.fromJson(Map<String, dynamic> json) {
     try {
       id = json['id'];
