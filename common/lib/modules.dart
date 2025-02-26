@@ -37,7 +37,6 @@ import 'platform/app/app.dart';
 import 'platform/app/start/start.dart';
 import 'platform/command/command.dart';
 import 'platform/device/device.dart';
-import 'platform/payment/payment.dart';
 import 'platform/perm/perm.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/refresh/refresh.dart';
@@ -66,6 +65,8 @@ class Modules with Logging {
     await _registerModule(CustomlistModule());
     await _registerModule(SupportModule());
 
+    await _registerModule(PaymentModule());
+
     // Then family-only deps (for now at least)
     if (Core.act.isFamily) {
       await _registerModule(ProfileModule());
@@ -81,7 +82,6 @@ class Modules with Logging {
     StageStore().onRegister();
     AccountStore().onRegister();
     await _registerModule(AccountModule());
-    AccountPaymentStore().onRegister();
     AccountRefreshStore().onRegister();
     DeviceStore().onRegister();
 
@@ -109,8 +109,8 @@ class Modules with Logging {
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
       await _registerModule(PlatformFamilyModule());
-      await _registerModule(PaymentModule());
     }
+
 
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
