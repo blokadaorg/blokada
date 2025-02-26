@@ -10,7 +10,11 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   late final _adapty = Adapty();
   late final _adaptyUi = AdaptyUI();
+
   bool _adaptyInitialized = false;
+  AdaptyUIView? _adaptyUiView;
+
+  Function onPaymentScreenOpened = () => {};
 
   @override
   onStart(Marker m) async {
@@ -58,9 +62,15 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   _initAdapty(Marker m, String? accountId) async {
     _adaptyUi.setObserver(this);
+
+    // TODO: move to assets or somewhere
+    var apiKey = "public_live_jIrWAAbd.q43qsMhj7rTLOpF3zGBd";
+    if (Core.act.isFamily) {
+      apiKey = "public_live_6b1uSAaQ.EVLlSnbFDIarK82Qkqiv";
+    }
+
     await _adapty.activate(
-      configuration: AdaptyConfiguration(
-          apiKey: "public_live_6b1uSAaQ.EVLlSnbFDIarK82Qkqiv")
+      configuration: AdaptyConfiguration(apiKey: apiKey)
         ..withCustomerUserId(accountId)
         ..withLogLevel(
             Core.act.isRelease ? AdaptyLogLevel.warn : AdaptyLogLevel.debug)
@@ -100,15 +110,25 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     }
   }
 
-  showPaywall(Marker m) async {
-    await reportOnboarding(OnboardingStep.ctaTapped);
-    try {
-      final view = await _createAdaptyPaywall();
-      await view.present();
-    } catch (e, s) {
-      await _handleFailure(m, "Failed creating paywall", e,
-          s: s, temporary: true);
-    }
+  openPaymentScreen(Marker m) async {
+    return await log(m).trace("openPaymentScreen", (m) async {
+      await reportOnboarding(OnboardingStep.ctaTapped);
+      try {
+        final view = await _createAdaptyPaywall();
+        await view.present();
+        _adaptyUiView = view;
+        onPaymentScreenOpened();
+      } catch (e, s) {
+        await _handleFailure(m, "Failed creating paywall", e,
+            s: s, temporary: true);
+      }
+    });
+  }
+
+  closePaymentScreen({AdaptyUIView? view}) {
+    view?.dismiss();
+    if (view == null) _adaptyUiView?.dismiss();
+    _adaptyUiView = null;
   }
 
   Future<AdaptyUIView> _createAdaptyPaywall() async {
@@ -144,7 +164,10 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
           sensitive: true,
         );
 
-        await _family.activateCta(m);
+        // TODO: make it for both not only family
+        if (Core.act.isFamily) {
+          await _family.activateCta(m);
+        }
       } catch (e, s) {
         await _handleFailure(m, "Failed checkout", e, s: s, restore: restore);
       }
@@ -162,13 +185,14 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       sheet = StageModal.paymentTempUnavailable;
     }
 
+    await sleepAsync(const Duration(seconds: 1));
     await _stage.showModal(sheet, m);
   }
 
   @override
   void paywallViewDidFinishPurchase(AdaptyUIView view,
       AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
-    view.dismiss();
+    closePaymentScreen(view: view);
 
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
@@ -188,7 +212,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   @override
   void paywallViewDidFinishRestore(AdaptyUIView view, AdaptyProfile profile) {
-    view.dismiss();
+    closePaymentScreen(view: view);
     _checkoutSuccessfulPayment(profile, restore: true);
   }
 
@@ -197,7 +221,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     switch (action) {
       case const CloseAction():
       case const AndroidSystemBackAction():
-        view.dismiss();
+        closePaymentScreen(view: view);
         break;
       case OpenUrlAction(url: final url):
         _stage.openUrl(url, Markers.ui);
@@ -209,7 +233,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   @override
   void paywallViewDidFailLoadingProducts(AdaptyUIView view, AdaptyError error) {
-    view.dismiss();
+    closePaymentScreen(view: view);
     _handleFailure(Markers.ui, "Failed loading products", error,
         temporary: true);
   }
@@ -217,19 +241,19 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   @override
   void paywallViewDidFailPurchase(
       AdaptyUIView view, AdaptyPaywallProduct product, AdaptyError error) {
-    view.dismiss();
+    closePaymentScreen(view: view);
     _handleFailure(Markers.ui, "Failed purchase", error);
   }
 
   @override
   void paywallViewDidFailRendering(AdaptyUIView view, AdaptyError error) {
-    view.dismiss();
+    closePaymentScreen(view: view);
     _handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
   }
 
   @override
   void paywallViewDidFailRestore(AdaptyUIView view, AdaptyError error) {
-    view.dismiss();
+    closePaymentScreen(view: view);
     _handleFailure(Markers.ui, "Failed restore", error, restore: true);
   }
 

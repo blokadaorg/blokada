@@ -176,10 +176,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
-    // Google in app billing
-    implementation 'com.android.billingclient:billing:7.1.1'
-    implementation 'com.android.billingclient:billing-ktx:7.1.1'
-
     // Hopefully normal date api?
     implementation 'net.danlew:android.joda:2.10.14'
 
