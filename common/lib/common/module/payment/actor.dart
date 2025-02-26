@@ -207,11 +207,11 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   @override
   void paywallViewDidFinishPurchase(AdaptyUIView view,
       AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
-    closePaymentScreen(view: view);
 
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
         // successful purchase
+        closePaymentScreen(view: view);
         _checkoutSuccessfulPayment(profile);
         break;
       case AdaptyPurchaseResultPending():
