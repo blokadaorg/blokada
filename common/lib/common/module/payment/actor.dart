@@ -12,7 +12,9 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   late final _adaptyUi = AdaptyUI();
 
   bool _adaptyInitialized = false;
-  AdaptyUIView? _adaptyUiView;
+  AdaptyUIView? _paymentView;
+  AdaptyPaywall? _paywall;
+  DateTime _paywallFetchedAt = DateTime(0);
 
   Function onPaymentScreenOpened = () => {};
 
@@ -81,12 +83,17 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
     // Set Adapty fallback for any connection problems situations
     try {
-      final assetId = Core.act.platform == PlatformType.iOS ? "ios" : "android";
+      final assetPlatform = Core.act.platform == PlatformType.iOS ? "ios" : "android";
+      final assetFlavor = Core.act.isFamily ? "family" : "six";
+      final assetId = "$assetFlavor-$assetPlatform";
       await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
     } catch (e, s) {
       log(m)
           .e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
     }
+
+    // Paywall prefetch
+    await _fetchPaywall(m);
   }
 
   _onAccountChanged(Marker m) async {
@@ -116,7 +123,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       try {
         final view = await _createAdaptyPaywall();
         await view.present();
-        _adaptyUiView = view;
+        _paymentView = view;
         onPaymentScreenOpened();
       } catch (e, s) {
         await _handleFailure(m, "Failed creating paywall", e,
@@ -127,25 +134,33 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   closePaymentScreen({AdaptyUIView? view}) {
     view?.dismiss();
-    if (view == null) _adaptyUiView?.dismiss();
-    _adaptyUiView = null;
+    if (view == null) _paymentView?.dismiss();
+    _paymentView = null;
   }
 
   Future<AdaptyUIView> _createAdaptyPaywall() async {
-    final paywall = await _adapty.getPaywall(
-      placementId: "primary",
-      locale: I18n.localeStr,
-    );
-
+    final paywall = await _fetchPaywall(Markers.ui);
     return await _adaptyUi.createPaywallView(
       paywall: paywall,
-      // customTimers: {
-      //   'CUSTOM_TIMER_6H':
-      //       DateTime.now().add(const Duration(seconds: 3600 * 6)),
-      //   'CUSTOM_TIMER_NY': DateTime(2025, 1, 1), // New Year 2025
-      // },
       preloadProducts: false,
     );
+  }
+
+  Future<AdaptyPaywall> _fetchPaywall(Marker m) async {
+    if (_paywall == null ||
+        DateTime.now().difference(_paywallFetchedAt) > const Duration(minutes: 3)) {
+      return await log(m).trace("fetchPaywall", (m) async {
+        final paywall = await _adapty.getPaywall(
+          placementId: "primary",
+          locale: I18n.localeStr,
+        );
+        _paywallFetchedAt = DateTime.now();
+        _paywall = paywall;
+        return paywall;
+      });
+    } else {
+      return _paywall!;
+    }
   }
 
   _checkoutSuccessfulPayment(AdaptyProfile profile,
