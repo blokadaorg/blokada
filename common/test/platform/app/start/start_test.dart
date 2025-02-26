@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/refresh/refresh.dart';
@@ -25,6 +26,7 @@ import '../../../tools.dart';
   MockSpec<AccountRefreshStore>(),
   MockSpec<VpnActor>(),
   MockSpec<PlusActor>(),
+  MockSpec<PaymentActor>(),
 ])
 import 'start_test.mocks.dart';
 
@@ -145,11 +147,14 @@ void main() {
         when(perm.isPrivateDnsEnabledFor(any)).thenAnswer((_) => false);
         Core.register<PlatformPermActor>(perm);
 
+        final payment = MockPaymentActor();
+        Core.register<PaymentActor>(payment);
+
         final subject = AppStartStore();
 
         await subject.unpauseApp(m);
 
-        verify(stage.showModal(StageModal.payment, m)).called(1);
+        verify(payment.openPaymentScreen((any))).called(1);
       });
     });
 

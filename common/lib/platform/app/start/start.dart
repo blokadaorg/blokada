@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/plus/plus.dart';
@@ -30,6 +31,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _plus = Core.get<PlusActor>();
   late final _permStore = Core.get<PlatformPermActor>();
+  late final _payment = Core.get<PaymentActor>();
 
   AppStartStoreBase() {
     reactionOnStore((_) => _app.status, (status) async {
@@ -121,7 +123,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       } on AccountTypeException {
         await _app.appPaused(true, m);
         _permStore.askNotificationPermissions(m);
-        await _stage.showModal(StageModal.payment, m);
+        await _payment.openPaymentScreen(m);
       } on OnboardingException {
         await _app.appPaused(true, m);
         _permStore.askNotificationPermissions(m);

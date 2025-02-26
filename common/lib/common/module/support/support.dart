@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:common/common/module/api/api.dart';
 import 'package:common/common/module/notification/notification.dart';
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';

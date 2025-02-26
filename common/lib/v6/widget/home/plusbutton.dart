@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
@@ -33,6 +34,7 @@ class _PlusButtonState extends State<PlusButton>
   final _plusEnabled = Core.get<PlusEnabledValue>();
   final _permVpnEnabled = Core.get<VpnEnabledValue>();
   final _permChannnel = Core.get<PermChannel>();
+  final _payment = Core.get<PaymentActor>();
 
   var activated = false;
   var location = "";
@@ -155,7 +157,7 @@ class _PlusButtonState extends State<PlusButton>
 
   _displayPayments() {
     log(Markers.userTap).trace("tappedDisplayPayments", (m) async {
-      await _stage.showModal(StageModal.payment, m);
+      await _payment.openPaymentScreen(m);
     });
   }
 }

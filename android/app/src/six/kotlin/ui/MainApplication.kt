@@ -24,7 +24,6 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import binding.AccountPaymentBinding
 import binding.AppBinding
 import binding.CommandBinding
 import binding.CommonBinding
@@ -71,7 +70,6 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var tracer: CoreBinding
     private lateinit var app: AppBinding
     private lateinit var common: CommonBinding
-    private lateinit var accountPayment: AccountPaymentBinding
     private lateinit var perm: PermBinding
     private lateinit var plus: PlusBinding
 
@@ -99,7 +97,6 @@ class MainApplication: Application(), ViewModelStoreOwner {
         env = CommonBinding
         common = CommonBinding
         tracer = CoreBinding
-        accountPayment = AccountPaymentBinding
         perm = PermBinding
         plus = PlusBinding
     }

@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Reference it so that it is created
     @Injected(\.common) private var common
-    @Injected(\.payment) private var payment
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
     @Injected(\.family) private var family
@@ -59,9 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !flutter.isFlavorFamily {
             Services.quickActions.start()
         }
-
-        // A bunch of lazy, noone else refs this (early enough).
-        payment.startObservingPayments()
 
         // Maybe gets the background ping (its unclear when it happens in ios)
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "net.blocka.app.scheduler", using: nil) { task in
@@ -179,7 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         BlockaLogger.v("Main", "Application will terminate")
-        payment.stopObservingPayments()
     }
 
     // Handle universal links TODO: Also in SceneDelegate

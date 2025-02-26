@@ -93,7 +93,6 @@ object StageBinding: StageOps {
 
     fun sheetShown(sheet: Sheet) {
         val name = when (sheet) {
-            Sheet.Payment -> StageModal.PAYMENT
             Sheet.Location -> StageModal.PLUSLOCATIONSELECT
             Sheet.Help -> StageModal.HELP
             Sheet.AccountChange -> StageModal.ACCOUNTCHANGE
@@ -122,7 +121,6 @@ object StageBinding: StageOps {
         }
 
         val name = when (modal) {
-            StageModal.PAYMENT -> Sheet.Payment
             StageModal.PLUSLOCATIONSELECT -> Sheet.Location
             StageModal.HELP -> Sheet.Help
             StageModal.ACCOUNTCHANGE -> Sheet.AccountChange
