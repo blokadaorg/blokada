@@ -43,8 +43,6 @@ struct ContentView: View {
                 }
                 .sheet(item: self.$vm.activeSheet, onDismiss: { self.vm.stage.onDismissed() }) { item in
                     switch item {
-                    case .payment:
-                        PaymentGatewayView()
                     case .accountChange:
                         accountChange
                     default:

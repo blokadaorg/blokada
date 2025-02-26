@@ -19,7 +19,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import binding.AccountPaymentBinding
 import binding.CommandBinding
 import binding.CommonBinding
 import binding.StageBinding
@@ -41,7 +40,6 @@ import utils.Logger
 class MainActivity : AppCompatActivity() {
 
     private val stage by lazy { StageBinding }
-    private val payment by lazy { AccountPaymentBinding }
     private val commands by lazy { CommandBinding }
     private val sheet by lazy { SheetService }
     private val context by lazy { ContextService }
@@ -104,10 +102,6 @@ class MainActivity : AppCompatActivity() {
         // Avoid multiple consecutive quick onResume events
         if (lastOnResume + 5 * 1000 > now()) return
         lastOnResume = now()
-
-        lifecycleScope.launch {
-            payment.verifyWaitingPurchases()
-        }
     }
 
     override fun onPause() {

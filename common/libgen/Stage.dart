@@ -3,7 +3,6 @@ import 'package:pigeon/pigeon.dart';
 enum StageModal {
   help,
   onboardingFamily,
-  payment,
   plusLocationSelect,
   debug,
   fault,

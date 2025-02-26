@@ -72,7 +72,7 @@ class FamilyActor with Logging, Actor {
         _updatePhase(m, loading: false, reason: "activateCta");
       } else {
         _permStore.askNotificationPermissions(m);
-        await _payment.showPaywall(m);
+        await _payment.openPaymentScreen(m);
       }
     });
   }
@@ -113,11 +113,7 @@ class FamilyActor with Logging, Actor {
     _updatePhase(m, reason: "postActivationOnboarding");
 
     log(m).pair("modal", _stage.route.modal);
-    if (_stage.route.modal == StageModal.payment) {
-      return await log(m).trace("dismissModalAfterAccountIdChange", (m) async {
-        await _stage.dismissModal(m);
-      });
-    }
+    _payment.closePaymentScreen();
   }
 
   // Locking this device will enable the blocking for "this device"

@@ -8,13 +8,6 @@ enum CommandName {
   restore,
   account,
 
-  // AccountPayment
-  receipt,
-  fetchProducts,
-  purchase,
-  changeProduct,
-  restorePayment,
-
   // AppStart
   pause,
   unpause,
