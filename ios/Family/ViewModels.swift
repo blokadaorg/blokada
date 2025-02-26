@@ -20,5 +20,4 @@ class ViewModelsSingleton {
     lazy var content = ContentViewModel()
     lazy var home = HomeViewModel()
     lazy var account = AccountViewModel()
-    lazy var payment = PaymentGatewayViewModel()
 }

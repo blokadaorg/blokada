@@ -84,7 +84,7 @@ class StageBinding: StageOps {
     }
 
     var supportedSheets: [StageModal] = [
-        .payment, .plusLocationSelect, .accountChange
+        .plusLocationSelect, .accountChange
     ]
 
     func doShowModal(modal: StageModal, completion: @escaping (Result<Void, Error>) -> Void) {
