@@ -1,5 +1,13 @@
 part of 'payment.dart';
 
+enum Placement {
+  primary("primary"), plusUpgrade("home_plus_upgrade");
+
+  final String id;
+
+  const Placement(this.id);
+}
+
 class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   late final _accountId = Core.get<api.AccountId>();
   late final _account = Core.get<AccountStore>();
@@ -13,8 +21,8 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   bool _adaptyInitialized = false;
   AdaptyUIView? _paymentView;
-  AdaptyPaywall? _paywall;
-  DateTime _paywallFetchedAt = DateTime(0);
+
+  Map<Placement, _Prefetch> _prefetch = {};
 
   Function onPaymentScreenOpened = () => {};
 
@@ -93,7 +101,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     }
 
     // Paywall prefetch
-    await _fetchPaywall(m);
+    await _fetchPaywall(m, Placement.primary);
   }
 
   _onAccountChanged(Marker m) async {
@@ -117,11 +125,11 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     }
   }
 
-  openPaymentScreen(Marker m) async {
+  openPaymentScreen(Marker m, {Placement placement = Placement.primary}) async {
     return await log(m).trace("openPaymentScreen", (m) async {
       await reportOnboarding(OnboardingStep.ctaTapped);
       try {
-        final view = await _createAdaptyPaywall();
+        final view = await _createAdaptyPaywall(placement);
         await view.present();
         _paymentView = view;
         onPaymentScreenOpened();
@@ -138,28 +146,27 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     _paymentView = null;
   }
 
-  Future<AdaptyUIView> _createAdaptyPaywall() async {
-    final paywall = await _fetchPaywall(Markers.ui);
+  Future<AdaptyUIView> _createAdaptyPaywall(Placement placement) async {
+    final paywall = await _fetchPaywall(Markers.ui, placement);
     return await _adaptyUi.createPaywallView(
       paywall: paywall,
       preloadProducts: false,
     );
   }
 
-  Future<AdaptyPaywall> _fetchPaywall(Marker m) async {
-    if (_paywall == null ||
-        DateTime.now().difference(_paywallFetchedAt) > const Duration(minutes: 3)) {
+  Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
+    final paywall = _prefetch[placement];
+    if (paywall == null || paywall.isExpired()) {
       return await log(m).trace("fetchPaywall", (m) async {
         final paywall = await _adapty.getPaywall(
-          placementId: "primary",
+          placementId: placement.id,
           locale: I18n.localeStr,
         );
-        _paywallFetchedAt = DateTime.now();
-        _paywall = paywall;
+        _prefetch[placement] = _Prefetch(paywall);
         return paywall;
       });
     } else {
-      return _paywall!;
+      return paywall.paywall!;
     }
   }
 
@@ -282,3 +289,15 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   @override
   void paywallViewDidStartRestore(AdaptyUIView view) {}
 }
+
+class _Prefetch {
+  final DateTime _fetchedAt = DateTime.now();
+  final AdaptyPaywall? paywall;
+
+  _Prefetch(this.paywall);
+
+  bool isExpired() {
+    return DateTime.now().difference(_fetchedAt) > const Duration(minutes: 3);
+  }
+}
+

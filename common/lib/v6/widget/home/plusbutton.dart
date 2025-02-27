@@ -157,7 +157,7 @@ class _PlusButtonState extends State<PlusButton>
 
   _displayPayments() {
     log(Markers.userTap).trace("tappedDisplayPayments", (m) async {
-      await _payment.openPaymentScreen(m);
+      await _payment.openPaymentScreen(m, placement: Placement.plusUpgrade);
     });
   }
 }
