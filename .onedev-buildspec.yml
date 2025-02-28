@@ -63,7 +63,10 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
-  - !TagCreateTrigger {}
+  - !TagCreateTrigger
+    tags: '*/six/android'
+  - !TagCreateTrigger
+    tags: '*/six'
   jobDependencies:
   - jobName: build all android (docker)
     requireSuccessful: true
@@ -171,7 +174,10 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
-  - !TagCreateTrigger {}
+  - !TagCreateTrigger
+    tags: '*/family/android'
+  - !TagCreateTrigger
+    tags: '*/family'
   jobDependencies:
   - jobName: build all android (docker)
     requireSuccessful: true
@@ -293,7 +299,10 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
-  - !TagCreateTrigger {}
+  - !TagCreateTrigger
+    tags: '*/family/ios'
+  - !TagCreateTrigger
+    tags: '*/family'
   jobDependencies:
   - jobName: build ios
     requireSuccessful: true
@@ -334,7 +343,10 @@ jobs:
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
-  - !TagCreateTrigger {}
+  - !TagCreateTrigger
+    tags: '*/six/ios'
+  - !TagCreateTrigger
+    tags: '*/six'
   jobDependencies:
   - jobName: build ios
     requireSuccessful: true
