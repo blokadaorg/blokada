@@ -86,7 +86,7 @@ def main():
     parser.add_argument(
         "--version-name",
         required=True,
-        help="Version name (e.g., 1.2.3)."
+        help="Version name (e.g., 1.2.3 or 1.2.3/debug, where only the part before '/' will be used)."
     )
     parser.add_argument(
         "--version-code",
@@ -97,11 +97,14 @@ def main():
 
     args = parser.parse_args()
 
+    # Remove any suffix after a "/" from the version name (e.g., "1.2.3/debug" becomes "1.2.3")
+    clean_version_name = re.sub(r'/.*', '', args.version_name)
+
     # Add constant to our version code to be above legacy builds
     code = 668000000 + args.version_code
 
-    update_android_version(args.android_file, args.version_name, code)
-    update_ios_project_version(args.xcodeproj_file, args.version_name, code)
+    update_android_version(args.android_file, clean_version_name, code)
+    update_ios_project_version(args.xcodeproj_file, clean_version_name, code)
 
 if __name__ == "__main__":
     main()
