@@ -122,6 +122,13 @@ class Modules with Logging {
       for (var mod in _modules) {
         try {
           await log(m).trace("${mod.runtimeType}", (m) async {
+            // Hack to be refactored
+            if (mod.runtimeType == AccountModule) {
+              log(m).i("Starting legacy device store");
+              final legacyDevice = Core.get<DeviceStore>();
+              await legacyDevice.start(m);
+            }
+
             await mod.start(m);
 
             // Hack to be refactored

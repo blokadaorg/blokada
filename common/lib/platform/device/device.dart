@@ -88,7 +88,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     if (Core.act.isFamily) return;
 
     return await log(m).trace("fetch", (m) async {
-      log(m).pair("tag", deviceTag);
+      log(m).pair("tagBeforeFetch", deviceTag);
 
       final device = await _api.getDevice(m);
       cloudEnabled = !device.paused;
@@ -96,6 +96,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       retention = device.retention;
       deviceTag = device.deviceTag;
 
+      log(m).pair("tagAfterFetch", deviceTag);
       await emit(deviceChanged, deviceTag!, m);
     });
   }

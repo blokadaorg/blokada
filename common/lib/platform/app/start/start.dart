@@ -5,7 +5,6 @@ import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
-import '../../account/refresh/refresh.dart';
 import '../../device/device.dart';
 import '../../perm/perm.dart';
 import '../../stage/channel.pg.dart';
@@ -28,7 +27,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _device = Core.get<DeviceStore>();
   late final _perm = Core.get<PlatformPermActor>();
   late final _account = Core.get<AccountStore>();
-  late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _stage = Core.get<StageStore>();
   late final _plus = Core.get<PlusActor>();
   late final _permStore = Core.get<PlatformPermActor>();
@@ -55,35 +53,14 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   @observable
   DateTime? pausedUntil;
 
-  // Order matters
-  late final List<Actor> _startablesV6 = [
-    _device,
-  ];
-
-  late final List<Actor> _startablesFamily = [
-    _device,
-  ];
-
   @action
   Future<void> startApp(Marker m) async {
     return await log(m).trace("startApp", (m) async {
       log(m).i("Start at: ${DateTime.now()}");
 
+      // TODO: get rid of this start procedure, we start in modules.dart now
       await _app.initStarted(m);
-      try {
-        final startables =
-            Core.act.isFamily ? _startablesFamily : _startablesV6;
-        for (final startable in startables) {
-          log(m).i("starting ${startable.runtimeType}");
-          await startable.start(m);
-          log(m).i("started ${startable.runtimeType}");
-        }
-        await _app.initCompleted(m);
-      } catch (e) {
-        await _app.initFail(m);
-        await _stage.showModal(StageModal.accountInitFailed, m);
-        rethrow;
-      }
+      await _app.initCompleted(m);
     });
   }
 
