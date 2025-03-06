@@ -1,4 +1,5 @@
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:flutter/services.dart';
 
 part 'endpoint.dart';
@@ -6,7 +7,11 @@ part 'error.dart';
 part 'http.dart';
 
 class AccountId extends AsyncValue<String> {
-  AccountId(): super(sensitive: true);
+  AccountId() : super(sensitive: true);
+}
+
+class AccountEphemeral extends AsyncValue<AccountState> {
+  AccountEphemeral() : super(sensitive: true);
 }
 
 class BaseUrl extends Value<String> {
