@@ -1,7 +1,8 @@
 part of 'payment.dart';
 
 enum Placement {
-  primary("primary"), plusUpgrade("home_plus_upgrade");
+  primary("primary"),
+  plusUpgrade("home_plus_upgrade");
 
   final String id;
 
@@ -43,14 +44,20 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       if (_account.account?.hasBeenActiveBefore() ?? false) {
         if (!_adaptyInitialized) {
           // Initialise Adapty with account ID, if account has been active before
-          log(it.m).log(msg: "Adapty: initialising",
-              attr: {"accountId": it.now}, sensitive: true);
+          log(it.m).log(
+            msg: "Adapty: initialising",
+            attr: {"accountId": it.now},
+            sensitive: true,
+          );
           _adaptyInitialized = true;
           await _initAdapty(it.m, it.now);
         } else {
           // Pass account ID to Adapty on change, whenever active
-          log(it.m).log(msg: "Adapty: identifying",
-              attr: {"accountId": it.now}, sensitive: true);
+          log(it.m).log(
+            msg: "Adapty: identifying",
+            attr: {"accountId": it.now},
+            sensitive: true,
+          );
           await _adapty.identify(it.now);
         }
       } else {
@@ -86,12 +93,14 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
             Core.act.isRelease ? AdaptyLogLevel.warn : AdaptyLogLevel.debug)
         ..withObserverMode(false)
         ..withIpAddressCollectionDisabled(true)
-        ..withIdfaCollectionDisabled(true),
+        ..withGoogleAdvertisingIdCollectionDisabled(true)
+        ..withAppleIdfaCollectionDisabled(true),
     );
 
     // Set Adapty fallback for any connection problems situations
     try {
-      final assetPlatform = Core.act.platform == PlatformType.iOS ? "ios" : "android";
+      final assetPlatform =
+          Core.act.platform == PlatformType.iOS ? "ios" : "android";
       final assetFlavor = Core.act.isFamily ? "family" : "six";
       final assetId = "$assetFlavor-$assetPlatform";
       await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
@@ -214,7 +223,6 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   @override
   void paywallViewDidFinishPurchase(AdaptyUIView view,
       AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
-
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
         // successful purchase
@@ -300,4 +308,3 @@ class _Prefetch {
     return DateTime.now().difference(_fetchedAt) > const Duration(minutes: 3);
   }
 }
-
