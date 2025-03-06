@@ -10,7 +10,7 @@ enum Placement {
 }
 
 class PaymentActor with Actor, Logging implements AdaptyUIObserver {
-  late final _accountId = Core.get<api.AccountId>();
+  late final _accountEphemeral = Core.get<api.AccountEphemeral>();
   late final _account = Core.get<AccountStore>();
   late final _api = Core.get<PaymentApi>();
   late final _family = Core.get<FamilyActor>();
@@ -40,25 +40,25 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     ///
     /// After init:
     /// - pass account id to Adapty if it changes, and has been active before
-    _accountId.onChangeInstant((it) async {
-      if (_account.account?.hasBeenActiveBefore() ?? false) {
+    _accountEphemeral.onChangeInstant((it) async {
+      if (it.now.hasBeenActiveBefore()) {
         if (!_adaptyInitialized) {
           // Initialise Adapty with account ID, if account has been active before
           log(it.m).log(
             msg: "Adapty: initialising",
-            attr: {"accountId": it.now},
+            attr: {"accountId": it.now.id},
             sensitive: true,
           );
           _adaptyInitialized = true;
-          await _initAdapty(it.m, it.now);
+          await _initAdapty(it.m, it.now.id);
         } else {
           // Pass account ID to Adapty on change, whenever active
           log(it.m).log(
             msg: "Adapty: identifying",
-            attr: {"accountId": it.now},
+            attr: {"accountId": it.now.id},
             sensitive: true,
           );
-          await _adapty.identify(it.now);
+          await _adapty.identify(it.now.id);
         }
       } else {
         if (!_adaptyInitialized) {
