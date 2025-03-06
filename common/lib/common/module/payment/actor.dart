@@ -23,7 +23,8 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   bool _adaptyInitialized = false;
   AdaptyUIView? _paymentView;
 
-  Map<Placement, _Prefetch> _prefetch = {};
+  bool _enablePrefetch = false;
+  final Map<Placement, _Prefetch> _prefetch = {};
 
   Function onPaymentScreenOpened = () => {};
 
@@ -110,7 +111,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     }
 
     // Paywall prefetch
-    await _fetchPaywall(m, Placement.primary);
+    if (_enablePrefetch) await _fetchPaywall(m, Placement.primary);
   }
 
   _onAccountChanged(Marker m) async {
@@ -165,7 +166,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
     final paywall = _prefetch[placement];
-    if (paywall == null || paywall.isExpired()) {
+    if (paywall == null || paywall.isExpired() || !_enablePrefetch) {
       return await log(m).trace("fetchPaywall", (m) async {
         final paywall = await _adapty.getPaywall(
           placementId: placement.id,
