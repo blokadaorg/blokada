@@ -77,6 +77,7 @@ class ApiModule with Module {
     await register(ApiRetryDuration());
 
     await register(AccountId());
+    await register(AccountEphemeral());
     await register(Http());
 
     await register(Api());
