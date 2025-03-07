@@ -278,8 +278,9 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   @override
   void paywallViewDidFailRendering(AdaptyUIView view, AdaptyError error) {
-    closePaymentScreen(view: view);
-    _handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
+    //closePaymentScreen(view: view);
+    //_handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
+    log(Markers.ui).e(msg: "Failed rendering adapty", err: error);
   }
 
   @override
