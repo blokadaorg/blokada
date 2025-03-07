@@ -12,6 +12,8 @@ class CoreConfig {
   Duration refreshVeryFrequent = const Duration(seconds: 10);
   Duration refreshOnHome = const Duration(seconds: 120);
 
+  bool obfuscateSensitiveParams = false;
+
   CoreConfig();
 
   testing() {

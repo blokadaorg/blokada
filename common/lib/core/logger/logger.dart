@@ -43,7 +43,7 @@ class Log {
 
     if (attr != null) {
       for (var key in attr.keys) {
-        if (sensitive && kReleaseMode) {
+        if (sensitive && Core.config.obfuscateSensitiveParams) {
           var param = attr[key].toString();
           var censored = param;
 
