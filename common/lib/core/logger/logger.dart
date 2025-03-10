@@ -43,8 +43,13 @@ class Log {
 
     if (attr != null) {
       for (var key in attr.keys) {
-        if (sensitive && Core.config.obfuscateSensitiveParams) {
-          var param = attr[key].toString();
+        var value = attr[key];
+
+        if (value != null &&
+            !value.isBlank &&
+            sensitive &&
+            Core.config.obfuscateSensitiveParams) {
+          var param = value.toString();
           var censored = param;
 
           // For urls, we censor the sensitive params
@@ -58,15 +63,13 @@ class Log {
           var bytes = utf8.encode(censored);
           var digest = md5.convert(bytes);
 
-          var value = "🔑 ${digest.toString()}";
+          value = "🔑 ${digest.toString()}";
           if (param != censored) {
             value = "$param? 🔑 $digest";
           }
 
           lines.add("➰ $tag 🔍 $key = $value");
         } else {
-          var value = attr[key];
-
           if (value == null) {
             value = "(null)";
           } else if (value is String) {
