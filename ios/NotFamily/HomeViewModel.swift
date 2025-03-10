@@ -110,14 +110,6 @@ class HomeViewModel: ObservableObject {
         onPauseUpdateTimer()
     }
 
-//    private func onMajorErrorDisplayDialog() {
-//        errorsHot.filter { it in it.major }
-//        .map { it in "Error:  \(it)" }
-//        .receive(on: RunLoop.main)
-//        .sink(onValue: { it in self.error = it })
-//        .store(in: &cancellables)
-//    }
-
     private func onErrorHeader() {
         stage.errorHeader
         .receive(on: RunLoop.main)
