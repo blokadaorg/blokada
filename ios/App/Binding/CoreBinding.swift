@@ -170,7 +170,7 @@ class CoreBinding: CoreOps {
             self.iCloud.synchronize()
             completion(.success(()))
         } else if (isSecure) {
-            self.keychain.set(value, forKey: key)
+            self.keychain.set(value, forKey: key, withAccess: .accessibleAfterFirstUnlock)
             completion(.success(()))
         } else {
             self.localStorage.set(value, forKey: key)
