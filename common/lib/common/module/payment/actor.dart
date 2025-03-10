@@ -42,7 +42,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     /// After init:
     /// - pass account id to Adapty if it changes, and has been active before
     _accountEphemeral.onChangeInstant((it) async {
-      if (it.now.hasBeenActiveBefore()) {
+      if (it.now.hasBeenActiveBefore() || it.now.type.isActive()) {
         if (!_adaptyInitialized) {
           // Initialise Adapty with account ID, if account has been active before
           log(it.m).log(
