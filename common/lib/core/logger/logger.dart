@@ -46,7 +46,7 @@ class Log {
         var value = attr[key];
 
         if (value != null &&
-            !value.isBlank &&
+            !value.toString().isBlank &&
             sensitive &&
             Core.config.obfuscateSensitiveParams) {
           var param = value.toString();
