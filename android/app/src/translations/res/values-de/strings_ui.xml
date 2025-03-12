@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Entsperren</string>
     <string name="family_account_restore_desc">Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.</string>
     <string name="generic_account_active">Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!</string>
+    <string name="notification_new_message_title">New message</string>
 </resources>

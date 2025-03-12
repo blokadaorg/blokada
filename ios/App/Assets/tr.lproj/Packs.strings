@@ -42,77 +42,77 @@
 "This is a well known, general purpose blocklist of small size, updated regularly." = "Bu, düzenli olarak güncellenen, iyi bilinen, küçük boyutlu genel amaçlı bir bloklama listesidir.";
 "Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "Verilerinizin en yüksek teklif verene satılmasını engelleyin. Lütfen öncelikle Light yapılandırmasını seçin. Sizin için yeterince iyi değilse, bunun yerine Pro'yu deneyin.";
 "This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "Bu evrensel liste, öncelikli olarak reklamları ve mobil uygulama reklamlarını engeller. Normal uygulamalara ve hizmetlere müdahale etmez.";
-"A blocklist based on malware database" = "A blocklist based on a malware database";
+"A blocklist based on malware database" = "Kötü amaçlı yazılım veritabanına dayalı bir engelleme listesi";
 "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "Kötü amaçlı yazılım dağıtımı için kullanılan kötü amaçlı web sitelerinin urlhaus.abuse.ch tabanlı bir engelleme listesi.";
 "A blocklist from the maker of the adblocker test" = "Reklam engelleyici testinin yapımcısı tarafından sağlanan bir engelleme listesi";
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Popüler reklam engelleyici test web sitesinin yapımcısı d3ward'ın resmi engelleme listesi. Testte %100 başarı elde etmek içindir. Unutmayın, bu bir minimum listedir. Etkinleştirilmiş başka bir engelleme listesiyle birlikte kullanmak isteyebilirsiniz. Testi yapmak istiyorsanız, hemen go.blokada.org/test adresini ziyaret edin";
 // Family packs (shields) below
 // Name of the Ads shield
-"Ads" = "Ads";
-"Blocks advertisements and tracking" = "Blocks advertisements and tracking";
-"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy.";
+"Ads" = "Reklamlar";
+"Blocks advertisements and tracking" = "Reklamları ve izlemeyi engeller";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Müdahaleci reklamları ve web izlemeyi ortadan kaldırır. Tarama hızını artırır ve kullanıcı gizliliğini korur.";
 // Name of the Malware shield
-"Malware" = "Malware";
-"Protects against malicious software" = "Protects against malicious software";
-"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.";
+"Malware" = "Kötü amaçlı yazılım";
+"Protects against malicious software" = "Kötü amaçlı yazılımlara karşı korur";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Kötü amaçlı yazılımlara ve zararlı web sitelerine karşı korur. Bir dizi siber tehdide karşı güvenli bir kalkan sağlar.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
-"Blocks adult and pornographic content" = "Blocks adult and pornographic content";
-"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.";
+"Adult Content" = "Yetişkinlere Yönelik İçerik";
+"Blocks adult and pornographic content" = "Yetişkinlere yönelik ve pornografik içeriği engeller";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Bu filtre, daha güvenli bir çevrimiçi deneyim için yetişkinlere yönelik içeriği hedefler. Kullanıcıları müstehcen materyallerden ve potansiyel risklerden korur.";
 // Name of the Dating shield
-"Dating" = "Dating";
-"Blocks dating and relationship-seeking websites" = "Blocks dating and relationship-seeking websites";
-"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions.";
+"Dating" = "Tanışma";
+"Blocks dating and relationship-seeking websites" = "Tanışma ve ilişki sitelerini engeller";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Çevrimiçi tanışma platformlarını kısıtlamak için tasarlanmıştır. Potansiyel dikkat dağıtıcı unsurlara ve istenmeyen etkileşimlere karşı koruma sağlar.";
 // Name of the Gambling shield
-"Gambling" = "Gambling";
-"Blocks gambling-related content and websites" = "Blocks gambling-related content and websites";
-"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety.";
+"Gambling" = "Kumar";
+"Blocks gambling-related content and websites" = "Kumarla ilgili içerik ve internet sitelerini engeller";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Kumar platformlarına ve içeriğine erişimi engeller. Bağımlılığın önlenmesine ve finansal güvenliğin sağlanmasına yardımcı olur.";
 // Name of the Piracy shield
-"Piracy" = "Piracy";
-"Blocks piracy websites and related content" = "Blocks piracy websites and related content";
-"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks.";
+"Piracy" = "Korsan";
+"Blocks piracy websites and related content" = "Korsan siteleri ve ilgili içerikleri engeller";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "İzinsiz korsan siteleri ve ilgili platformları engeller. Fikri mülkiyeti korur ve zararlı indirme risklerini azaltır.";
 // Name of the Video streaming shield
-"Video streaming" = "Video streaming";
-"Blocks popular video streaming platforms" = "Blocks popular video streaming platforms";
-"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth.";
+"Video streaming" = "Video canlı yayını";
+"Blocks popular video streaming platforms" = "Popüler video canlı yayın platformlarını engeller";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "En iyi video canlı yayın hizmetlerine erişimi engeller. İzleme alışkanlıklarını yönetmek ve bant genişliğinden tasarruf etmek isteyen kullanıcılar için hazırlanmıştır.";
 // Name of the Streaming apps shield
-"Streaming" = "Streaming";
-"Blocks streaming apps and related content" = "Blocks streaming apps and related content";
-"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Features a curated selection of popular streaming apps. Allows granular control over media consumption.";
+"Streaming" = "Yayın";
+"Blocks streaming apps and related content" = "Yayın uygulamalarını ve ilgili içeriği engeller";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Popüler yayın uygulamalarının seçilmiş bir seçkisini içerir. Medya tüketimi üzerinde ayrıntılı kontrol sağlar.";
 // Name of the Social media shield
-"Social media" = "Social media";
-"Restricts access to social networking platforms" = "Restricts access to social networking platforms";
-"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage.";
+"Social media" = "Sosyal medya";
+"Restricts access to social networking platforms" = "Sosyal ağ platformlarına erişimi kısıtlar";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Çeşitli sosyal medya platformlarına erişimi sınırlar. İşe odaklanmayı artırmak ve çocukların kullanımını denetlemek için idealdir.";
 // Name of the Chat apps shield
-"Chat apps" = "Chat apps";
-"Restricts popular messaging and chat applications" = "Restricts popular messaging and chat applications";
-"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels.";
+"Chat apps" = "Sohbet uygulamaları";
+"Restricts popular messaging and chat applications" = "Popüler mesajlaşma ve sohbet uygulamalarını kısıtlar";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Bu kalkan, yaygın olarak kullanılan mesajlaşma ve sohbet uygulamalarını engellemek için tasarlanmıştır. İletişim kanallarını kontrol etmek isteyenler için mükemmeldir.";
 // Name of the Gaming shield
-"Gaming" = "Gaming";
-"Blocks gaming platforms and related content" = "Blocks gaming platforms and related content";
-"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle.";
+"Gaming" = "Oyun";
+"Blocks gaming platforms and related content" = "Oyun platformlarını ve ilgili içeriği engeller";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Çevrimiçi oyun sitelerini ve ilgili dikkat dağıtıcı unsurları kısıtlar. Dengeli bir dijital yaşam tarzı isteyen kullanıcılar için tasarlanmıştır.";
 // Name of the Games shield
-"Games" = "Games";
-"Restricts access to popular games" = "Restricts access to popular games";
-"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Showcases top gaming applications. Ideal for users desiring precise game access control.";
+"Games" = "Oyunlar";
+"Restricts access to popular games" = "Popüler oyunlara erişimi kısıtlar";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "En iyi oyun uygulamalarını sergiler. Hassas oyun erişim kontrolü isteyen kullanıcılar için idealdir.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
-"Blocks leading e-commerce and shopping applications" = "Blocks leading e-commerce and shopping applications";
-"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.";
+"Online shopping" = "Çevrimiçi alışveriş";
+"Blocks leading e-commerce and shopping applications" = "Önde gelen e-ticaret ve alışveriş uygulamalarını engeller";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Bu kalkan, yaygın alışveriş uygulamalarına erişimi engeller. Kullanıcıların ani satın alımları veya dikkat dağınıklıklarını engellemelerine yardımcı olur.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
-"A selection of various popular applications" = "A selection of various popular applications";
-"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.";
+"Other apps" = "Diğer uygulamalar";
+"A selection of various popular applications" = "Çeşitli popüler uygulamalardan bir seçim";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Bu kalkan, çeşitli türlerdeki popüler uygulamaların bir listesini sağlar. Daha kapsamlı bir uygulama kontrolü hedefleyen kullanıcılar için oluşturulmuştur.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Safe search" = "Güvenli arama";
+"Enable safe search to filter out inappropriate search results in search engines." = "Arama motorlarında uygunsuz arama sonuçlarını filtrelemek için güvenli aramayı etkinleştirin.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "Birincil";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Genişletilmiş";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "Dosya barındırma";
 // Filter name, blocks torrent sites
 "Torrent" = "Torrent";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "Çevrimiçi oyun";

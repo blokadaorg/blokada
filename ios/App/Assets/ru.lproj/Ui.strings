@@ -733,3 +733,5 @@
 "family account restore desc" = "Введите ID вашего аккаунта для восстановления покупок.";
 
 "generic account active" = "Ваша учетная запись была успешно восстановлена. С возвращением!";
+
+"notification new message title" = "Новое сообщение";

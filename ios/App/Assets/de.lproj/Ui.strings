@@ -733,3 +733,5 @@
 "family account restore desc" = "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.";
 
 "generic account active" = "Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!";
+
+"notification new message title" = "New message";

@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Buka</string>
     <string name="family_account_restore_desc">Masukkan ID akun Anda untuk memulihkan pembelian Anda.</string>
     <string name="generic_account_active">Akun Anda telah dipulihkan. Selamat datang kembali!</string>
+    <string name="notification_new_message_title">Pesan baru</string>
 </resources>

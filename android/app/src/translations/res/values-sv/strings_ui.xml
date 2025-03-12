@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Lås upp</string>
     <string name="family_account_restore_desc">Ange ditt konto-ID för att återställa ditt köp.</string>
     <string name="generic_account_active">Ditt konto har återställts. Välkommen tillbaka!</string>
+    <string name="notification_new_message_title">New message</string>
 </resources>

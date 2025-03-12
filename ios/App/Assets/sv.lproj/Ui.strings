@@ -733,3 +733,5 @@
 "family account restore desc" = "Ange ditt konto-ID för att återställa ditt köp.";
 
 "generic account active" = "Ditt konto har återställts. Välkommen tillbaka!";
+
+"notification new message title" = "New message";

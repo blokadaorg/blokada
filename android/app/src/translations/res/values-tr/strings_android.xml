@@ -88,5 +88,5 @@
     <string name="app_settings_section_use_foreground">Sürekli çalış</string>
     <string name="intro_header">Blokada etkin!</string>
     <string name="intro_text">Mavi halka, Blokada\'nın çalıştığı anlamına gelir.\n\nUnutmayın, YouTube\'daki reklamlar gibi bazı reklamlar engellenemez. Ancak, diğer birçok uygulamada farkı göreceksiniz.\n\nSistem ayarlarınızdan Her zaman VPN/Talep üzerine bağlan seçeneğini etkinleştirmenizi öneririz.</string>
-    <string name="intro_text_not_libre">A blue or orange ring means that Blokada is working.\n\nWe recommend you activate Always on VPN in your system settings.</string>
+    <string name="intro_text_not_libre">Mavi veya turuncu bir halka Blokada \'nın çalıştığı anlamına gelir.\n\nSistem ayarlarınızda Always on VPN\'i etkinleştirmenizi öneririz.</string>
 </resources>

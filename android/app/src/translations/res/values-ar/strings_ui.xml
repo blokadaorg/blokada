@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Unlock</string>
     <string name="family_account_restore_desc">Enter your account ID to restore your purchases.</string>
     <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
+    <string name="notification_new_message_title">New message</string>
 </resources>

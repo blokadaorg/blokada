@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Desbloquear</string>
     <string name="family_account_restore_desc">Introduzca su ID de cuenta para restaurar sus compras.</string>
     <string name="generic_account_active">Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!</string>
+    <string name="notification_new_message_title">New message</string>
 </resources>

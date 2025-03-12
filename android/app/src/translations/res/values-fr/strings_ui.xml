@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Déverrouiller</string>
     <string name="family_account_restore_desc">Saisissez votre ID pour restaurer vos achats.</string>
     <string name="generic_account_active">Votre compte a été restauré avec succès. Bienvenue!</string>
+    <string name="notification_new_message_title">Nouveau message</string>
 </resources>

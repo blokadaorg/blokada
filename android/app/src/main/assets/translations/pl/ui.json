@@ -528,5 +528,6 @@
     "family cta action link": "Połącz",
     "family cta action unlock": "Odblokuj",
     "family account restore desc": "Wprowadź swój identyfikator konta, aby przywrócić konto.",
-    "generic account active": "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!"
+    "generic account active": "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!",
+    "notification new message title": "New message"
 } }

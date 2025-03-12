@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Sblocca</string>
     <string name="family_account_restore_desc">Inserisci l\'ID del tuo account per ripristinare gli acquisti.</string>
     <string name="generic_account_active">Il tuo account è stato ripristinato correttamente. Bentornato!</string>
+    <string name="notification_new_message_title">New message</string>
 </resources>

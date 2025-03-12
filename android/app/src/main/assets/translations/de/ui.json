@@ -528,5 +528,6 @@
     "family cta action link": "Verknüpfen",
     "family cta action unlock": "Entsperren",
     "family account restore desc": "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.",
-    "generic account active": "Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!"
+    "generic account active": "Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!",
+    "notification new message title": "New message"
 } }

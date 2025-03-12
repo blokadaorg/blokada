@@ -2,7 +2,7 @@
     "error device offline": "Jouw apparaat is offline",
     "error account inactive": "Je account is inactief. Gelieve je account te activeren om BLOKADA+ te kunnen blijven gebruiken.",
     "error account inactive generic": "Je account is niet actief. Activeer je account om Blokada te blijven gebruiken.",
-    "error account inactive after restore": "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit niet klopt, neem dan contact met ons op door op het hulp icoon bovenaan te klikken.",
+    "error account inactive after restore": "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.",
     "error account invalid": "Dit account ID is ongeldig.",
     "error creating account": "Kan geen nieuw account aanmaken. Probeer het later nog eens.",
     "error fetching data": "Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.",
@@ -209,6 +209,7 @@
     "account action inbox": "Inbox",
     "account action logout": "Herstel aankoop",
     "account action logout only": "Uitloggen",
+    "account action logout new": "Restore Account ID",
     "account action create": "Genereer nieuw account",
     "account action about": "Over",
     "account action tap to show": "Druk om weer te geven",
@@ -527,5 +528,6 @@
     "family cta action link": "Koppeling",
     "family cta action unlock": "Ontgrendelen",
     "family account restore desc": "Voer uw account-ID in om uw aankopen te herstellen.",
-    "generic account active": "Your account has been successfully restored. Welcome back!"
+    "generic account active": "Your account has been successfully restored. Welcome back!",
+    "notification new message title": "New message"
 }

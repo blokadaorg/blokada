@@ -528,5 +528,6 @@
     "family cta action link": "Tautkan",
     "family cta action unlock": "Buka",
     "family account restore desc": "Masukkan ID akun Anda untuk memulihkan pembelian Anda.",
-    "generic account active": "Akun Anda telah dipulihkan. Selamat datang kembali!"
+    "generic account active": "Akun Anda telah dipulihkan. Selamat datang kembali!",
+    "notification new message title": "Pesan baru"
 } }

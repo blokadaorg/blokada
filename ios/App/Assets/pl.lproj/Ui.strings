@@ -733,3 +733,5 @@
 "family account restore desc" = "Wprowadź swój identyfikator konta, aby przywrócić konto.";
 
 "generic account active" = "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!";
+
+"notification new message title" = "New message";

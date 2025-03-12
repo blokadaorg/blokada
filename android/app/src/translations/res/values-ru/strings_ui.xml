@@ -530,4 +530,5 @@
     <string name="family_cta_action_unlock">Разблокировать</string>
     <string name="family_account_restore_desc">Введите ID вашего аккаунта для восстановления покупок.</string>
     <string name="generic_account_active">Ваша учетная запись была успешно восстановлена. С возвращением!</string>
+    <string name="notification_new_message_title">Новое сообщение</string>
 </resources>

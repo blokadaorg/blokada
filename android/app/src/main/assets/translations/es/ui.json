@@ -528,5 +528,6 @@
     "family cta action link": "Enlace",
     "family cta action unlock": "Desbloquear",
     "family account restore desc": "Introduzca su ID de cuenta para restaurar sus compras.",
-    "generic account active": "Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!"
+    "generic account active": "Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!",
+    "notification new message title": "New message"
 } }

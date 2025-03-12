@@ -2,7 +2,7 @@
     "error device offline": "Twoje urządzenie jest offline",
     "error account inactive": "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z BLOKADA+.",
     "error account inactive generic": "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z Blokady.",
-    "error account inactive after restore": "To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.",
+    "error account inactive after restore": "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.",
     "error account invalid": "Ten identyfikator konta wygląda na niepoprawny.",
     "error creating account": "Nie można stworzyć nowego konta. Spróbuj ponownie później.",
     "error fetching data": "Coś poszło nie tak. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.",
@@ -209,6 +209,7 @@
     "account action inbox": "Odebrane",
     "account action logout": "Przywróć zakup",
     "account action logout only": "Wyloguj",
+    "account action logout new": "Przywróć ID konta",
     "account action create": "Wygeneruj nowe konto",
     "account action about": "O aplikacji",
     "account action tap to show": "Dotknij aby pokazać",
@@ -527,5 +528,6 @@
     "family cta action link": "Połącz",
     "family cta action unlock": "Odblokuj",
     "family account restore desc": "Wprowadź swój identyfikator konta, aby przywrócić konto.",
-    "generic account active": "Your account has been successfully restored. Welcome back!"
+    "generic account active": "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!",
+    "notification new message title": "New message"
 }

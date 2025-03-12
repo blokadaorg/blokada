@@ -40,26 +40,26 @@
 "security" = "güvenlik";
 // Family tags below
 // One of the tags used for searching blocklists
-"malware" = "malware";
+"malware" = "zararlı yazılım";
 // One of the tags used for searching blocklists
 "spam" = "spam";
 // One of the tags used for searching blocklists
-"dating" = "dating";
+"dating" = "tanışma";
 // One of the tags used for searching blocklists
-"piracy" = "piracy";
+"piracy" = "korsan";
 // One of the tags used for searching blocklists
 "torrent" = "torrent";
 // One of the tags used for searching blocklists
-"streaming" = "streaming";
+"streaming" = "yayın";
 // One of the tags used for searching blocklists
-"apps" = "apps";
+"apps" = "uygulamalar";
 // One of the tags used for searching blocklists
-"chat" = "chat";
+"chat" = "sohbet";
 // One of the tags used for searching blocklists
-"gaming" = "gaming";
+"gaming" = "oyun";
 // One of the tags used for searching blocklists
-"games" = "games";
+"games" = "oyunlar";
 // One of the tags used for searching blocklists
-"e-commerce" = "e-commerce";
+"e-commerce" = "e-ticaret";
 // One of the tags used for searching blocklists
-"other" = "other";
+"other" = "diğer";
