@@ -89,10 +89,10 @@ class Http with Logging {
       );
     } on PlatformException catch (e, s) {
       final ex = _mapException(e);
-      log(m).e(msg: "Http: ${request.url}; Failed", err: ex, stack: s);
+      log(m).e(msg: "doOps: failed", err: ex, stack: s);
       throw ex;
     } catch (e, s) {
-      log(m).e(msg: "Http: ${request.url}; Failed", err: e, stack: s);
+      log(m).e(msg: "doOps: failed", err: e, stack: s);
       rethrow;
     }
   }
