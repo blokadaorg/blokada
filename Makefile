@@ -6,12 +6,15 @@ VERSION_SCRIPT := ./scripts/version.py
 ANDROID_PROJECT_FILE := android/app/build.gradle
 IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
 
+TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
+
 CI_BUILD_DIR := /tmp/build
  
 # Default target 
 .DEFAULT_GOAL := build
  
 .PHONY: clean test build \
+	translate \
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six \
 	version version-clean \
@@ -24,6 +27,9 @@ CI_BUILD_DIR := /tmp/build
 	ci-copy-source \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
+
+translate:
+	$(TRANSLATE_SCRIPT)
 
 clean: 
 	$(MAKE) gplay-key-clean
