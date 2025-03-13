@@ -1,0 +1,35 @@
+Esta es la aplicación oficial en la App Store del proyecto de código abierto Blokada.
+
+Blokada para iOS utiliza DNS (Sistema de Nombres de Dominio) para ofrecerte una experiencia sin anuncios, permitiéndote ver solo el contenido que deseas.
+
+Usa Blokada Cloud para bloquear anuncios y rastreadores mientras mantienes tu tráfico DNS confidencial.
+
+Actualiza a Blokada Plus para cifrar todo tu tráfico con nuestra red global de VPN. Mejora tu privacidad y protege tu conexión contra ataques cibernéticos y hackers.
+
+----
+
+Características principales:
+
+- Compatible con el bloqueo de anuncios en cualquier navegador web y otras aplicaciones instaladas.
+- Bloquea sitios que distribuyen contenido malicioso, virus y páginas fraudulentas.
+- Intercepción basada en DNS para todos los navegadores y aplicaciones modernas.
+- VPN rápida y confiable que protege tu privacidad y cifra tus datos.
+
+¡El bloqueador de anuncios más compatible del mercado!
+
+• Bloquea anuncios
+• Ahorra tu plan de datos
+• Navega MÁS RÁPIDO al cargar menos datos
+• Aumenta la duración de tu batería
+
+¿Qué se puede bloquear?
+• Bloqueo de anuncios molestos: Google AdWords, Google Invite Media, DoubleClick Bid Manager, Liftoff, Bing Ads, Amazon, etc.
+• Bloqueo de sitios web para adultos
+• Bloqueo de sitios de apuestas
+• Bloqueo de rastreadores de redes sociales: Google Analytics, Facebook Connect, DoubleClick, Google Publisher Tags, Google AdSense, Twitter Button, Yandex.Metrix, Comscore
+• Bloqueo de sitios web maliciosos: descargas de virus, contenido peligroso, sitios fraudulentos y aplicaciones manipuladas
+
+----
+
+Términos de uso: https://go.blokada.org/terms
+Política de privacidad: https://go.blokada.org/privacy
