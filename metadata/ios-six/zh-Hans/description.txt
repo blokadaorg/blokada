@@ -1,0 +1,35 @@
+这是 Blokada 开源项目在 App Store 上的官方应用。
+
+Blokada iOS 版利用 DNS（域名系统）技术为您提供无广告的纯净上网体验，让您只看想要的内容。
+
+使用 Blokada Cloud 阻止广告和跟踪器，同时保护您的 DNS 流量隐私。
+
+升级到 Blokada Plus，利用我们的全球 VPN 网络加密您的所有流量。增强隐私保护，防范网络攻击和黑客入侵。
+
+----
+
+主要功能：
+
+- 支持所有浏览器及已安装应用程序的广告拦截。
+- 阻止包含恶意内容、病毒和诈骗网站。
+- 基于 DNS 拦截技术，适用于所有现代浏览器和应用程序。
+- 快速可靠的 VPN 服务，全面保护您的网络安全。
+
+市场上兼容性最佳的广告拦截器！
+
+• 拦截广告
+• 节省数据流量
+• 加载更少数据，浏览速度更快
+• 延长电池续航时间
+
+您可以屏蔽哪些内容？
+• 拦截烦人的广告：Google AdWords、Google Invite Media、DoubleClick Bid Manager、Liftoff、Bing Ads、Amazon 等
+• 屏蔽成人网站
+• 屏蔽赌博网站
+• 屏蔽社交媒体跟踪器：Google Analytics、Facebook Connect、DoubleClick、Google Publisher Tags、Google AdSense、Twitter 按钮、Yandex.Metrix、Comscore
+• 屏蔽恶意网站：病毒下载、危险内容、诈骗网站及篡改应用程序
+
+----
+
+使用条款：https://go.blokada.org/terms
+隐私政策：https://go.blokada.org/privacy
