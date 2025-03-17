@@ -48,6 +48,10 @@ enum CommandName {
   // Notification
   notificationTapped,
   appleNotificationToken,
+
+  // Payment (temporary)
+  paymentHandleSuccess,
+  paymentHandleFailure,
 }
 
 @HostApi()

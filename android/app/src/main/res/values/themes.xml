@@ -39,6 +39,7 @@
         <item name="colorRingPlus2">@color/orange_2</item>
         <item name="colorBgCloud">@color/blue_home_light</item>
         <item name="colorBgPlus">@color/orange_home_light</item>
+        <item name="adapty_progressIndicatorColor">@color/orange</item>
     </style>
 
     <style name="Theme.Blokada.Dark" parent="Theme.MaterialComponents.NoActionBar">
@@ -69,6 +70,7 @@
         <item name="colorRingPlus2">@color/orange_2</item>
         <item name="colorBgCloud">@color/blue_home</item>
         <item name="colorBgPlus">@color/orange_home</item>
+        <item name="adapty_progressIndicatorColor">@color/orange</item>
     </style>
 
     <style name="Theme.Blokada.Default" parent="Theme.Blokada.Light" />

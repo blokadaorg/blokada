@@ -28,6 +28,7 @@ import binding.AppBinding
 import binding.CommandBinding
 import binding.CommonBinding
 import binding.CoreBinding
+import binding.PaymentBinding
 import binding.PermBinding
 import binding.PlusBinding
 import binding.StageBinding
@@ -72,6 +73,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private lateinit var common: CommonBinding
     private lateinit var perm: PermBinding
     private lateinit var plus: PlusBinding
+    private lateinit var payment: PaymentBinding
 
     override val viewModelStore: ViewModelStore
         get() = MainApplication.viewModelStore
@@ -99,6 +101,7 @@ class MainApplication: Application(), ViewModelStoreOwner {
         tracer = CoreBinding
         perm = PermBinding
         plus = PlusBinding
+        payment = PaymentBinding
     }
 
     private fun setupEvents() {
