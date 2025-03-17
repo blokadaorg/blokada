@@ -23,9 +23,6 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   bool _adaptyInitialized = false;
   AdaptyUIView? _paymentView;
 
-  bool _enablePrefetch = false;
-  final Map<Placement, _Prefetch> _prefetch = {};
-
   Function onPaymentScreenOpened = () => {};
 
   @override
@@ -109,9 +106,6 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
       log(m)
           .e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
     }
-
-    // Paywall prefetch
-    if (_enablePrefetch) await _fetchPaywall(m, Placement.primary);
   }
 
   _onAccountChanged(Marker m) async {
@@ -165,19 +159,13 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
   }
 
   Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
-    final paywall = _prefetch[placement];
-    if (paywall == null || paywall.isExpired() || !_enablePrefetch) {
-      return await log(m).trace("fetchPaywall", (m) async {
-        final paywall = await _adapty.getPaywall(
-          placementId: placement.id,
-          locale: I18n.localeStr,
-        );
-        _prefetch[placement] = _Prefetch(paywall);
-        return paywall;
-      });
-    } else {
-      return paywall.paywall!;
-    }
+    return await log(m).trace("fetchPaywall", (m) async {
+      final paywall = await _adapty.getPaywall(
+        placementId: placement.id,
+        locale: I18n.localeStr,
+      );
+      return paywall;
+    });
   }
 
   _checkoutSuccessfulPayment(AdaptyProfile profile,
@@ -298,15 +286,4 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
 
   @override
   void paywallViewDidStartRestore(AdaptyUIView view) {}
-}
-
-class _Prefetch {
-  final DateTime _fetchedAt = DateTime.now();
-  final AdaptyPaywall? paywall;
-
-  _Prefetch(this.paywall);
-
-  bool isExpired() {
-    return DateTime.now().difference(_fetchedAt) > const Duration(minutes: 3);
-  }
 }
