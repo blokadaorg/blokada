@@ -8,11 +8,13 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/api.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
-import 'package:dartx/dartx.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
 part 'actor.dart';
+part 'adapty.dart';
+part 'adapty_key.dart';
 part 'api.dart';
+part 'channel.dart';
 
 enum OnboardingStep {
   appStarting(1),
@@ -47,5 +49,7 @@ class PaymentModule with Module {
     await register(CurrentOnboardingStepValue());
     await register(PaymentActor());
     await register(PaymentApi());
+    await register(PaymentCommand());
+    await register(AdaptyApiKey());
   }
 }

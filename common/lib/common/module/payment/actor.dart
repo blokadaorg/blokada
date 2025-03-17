@@ -9,19 +9,18 @@ enum Placement {
   const Placement(this.id);
 }
 
-class PaymentActor with Actor, Logging implements AdaptyUIObserver {
+class PaymentActor with Actor, Logging {
   late final _accountEphemeral = Core.get<api.AccountEphemeral>();
   late final _account = Core.get<AccountStore>();
   late final _api = Core.get<PaymentApi>();
   late final _family = Core.get<FamilyActor>();
   late final _onboard = Core.get<CurrentOnboardingStepValue>();
   late final _stage = Core.get<StageStore>();
-
-  late final _adapty = Adapty();
-  late final _adaptyUi = AdaptyUI();
+  late final _channel = Core.get<PaymentChannel>();
+  late final _key = Core.get<AdaptyApiKey>();
 
   bool _adaptyInitialized = false;
-  AdaptyUIView? _paymentView;
+  bool _preloaded = false;
 
   Function onPaymentScreenOpened = () => {};
 
@@ -48,7 +47,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
             sensitive: true,
           );
           _adaptyInitialized = true;
-          await _initAdapty(it.m, it.now.id);
+          await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
         } else {
           // Pass account ID to Adapty on change, whenever active
           log(it.m).log(
@@ -56,56 +55,33 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
             attr: {"accountId": it.now.id},
             sensitive: true,
           );
-          await _adapty.identify(it.now.id);
+          await _channel.identify(it.now.id);
         }
       } else {
         if (!_adaptyInitialized) {
           // Initialise Adapty with no account ID provided (never active)
           log(it.m).log(msg: "Adapty: initialising without accountId");
           _adaptyInitialized = true;
-          await _initAdapty(it.m, null);
+          await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
         } else {
           // Inactive account: changed manually, or new load
           await reportOnboarding(OnboardingStep.appStarting, reset: true);
         }
       }
+
+      // Basic preload to avoid lag when tapping CTA
+      // Only if Adapty is initialised and account is inactive
+      // No expiration check, we assume user will open the paywall soon
+      // And that adapty is ok with preloading
+      if (!_preloaded && _adaptyInitialized && !it.now.type.isActive()) {
+        _preloaded = true;
+        await _channel.preload(it.m, Placement.primary);
+        log(it.m).i("Adapty: preloaded paywall");
+      }
     });
 
     // TODO: change to new Value type
     _account.addOn(accountChanged, _onAccountChanged);
-  }
-
-  _initAdapty(Marker m, String? accountId) async {
-    _adaptyUi.setObserver(this);
-
-    // TODO: move to assets or somewhere
-    var apiKey = "public_live_jIrWAAbd.q43qsMhj7rTLOpF3zGBd";
-    if (Core.act.isFamily) {
-      apiKey = "public_live_6b1uSAaQ.EVLlSnbFDIarK82Qkqiv";
-    }
-
-    await _adapty.activate(
-      configuration: AdaptyConfiguration(apiKey: apiKey)
-        ..withCustomerUserId(accountId)
-        ..withLogLevel(
-            Core.act.isRelease ? AdaptyLogLevel.warn : AdaptyLogLevel.debug)
-        ..withObserverMode(false)
-        ..withIpAddressCollectionDisabled(true)
-        ..withGoogleAdvertisingIdCollectionDisabled(true)
-        ..withAppleIdfaCollectionDisabled(true),
-    );
-
-    // Set Adapty fallback for any connection problems situations
-    try {
-      final assetPlatform =
-          Core.act.platform == PlatformType.iOS ? "ios" : "android";
-      final assetFlavor = Core.act.isFamily ? "family" : "six";
-      final assetId = "$assetFlavor-$assetPlatform";
-      await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
-    } catch (e, s) {
-      log(m)
-          .e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
-    }
   }
 
   _onAccountChanged(Marker m) async {
@@ -119,11 +95,7 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     if (current == null || current.order < step.order || reset) {
       // Next step reached, report it
       await log(Markers.ui).trace("reportOnboarding", (m) async {
-        await _adapty.logShowOnboarding(
-          name: "primaryOnboard",
-          screenName: step.name,
-          screenOrder: step.order,
-        );
+        await _channel.logOnboardingStep("primaryOnboard", step);
         await _onboard.change(m, step);
       });
     }
@@ -133,46 +105,23 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     return await log(m).trace("openPaymentScreen", (m) async {
       await reportOnboarding(OnboardingStep.ctaTapped);
       try {
-        final view = await _createAdaptyPaywall(placement);
-        await view.present();
-        _paymentView = view;
+        await _channel.showPaymentScreen(m, placement, forceReload: false);
         onPaymentScreenOpened();
       } catch (e, s) {
-        await _handleFailure(m, "Failed creating paywall", e,
+        await handleFailure(m, "Failed creating paywall", e,
             s: s, temporary: true);
       }
     });
   }
 
-  closePaymentScreen({AdaptyUIView? view}) {
-    view?.dismiss();
-    if (view == null) _paymentView?.dismiss();
-    _paymentView = null;
+  closePaymentScreen() async {
+    await _channel.closePaymentScreen();
   }
 
-  Future<AdaptyUIView> _createAdaptyPaywall(Placement placement) async {
-    final paywall = await _fetchPaywall(Markers.ui, placement);
-    return await _adaptyUi.createPaywallView(
-      paywall: paywall,
-      preloadProducts: false,
-    );
-  }
-
-  Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
-    return await log(m).trace("fetchPaywall", (m) async {
-      final paywall = await _adapty.getPaywall(
-        placementId: placement.id,
-        locale: I18n.localeStr,
-      );
-      return paywall;
-    });
-  }
-
-  _checkoutSuccessfulPayment(AdaptyProfile profile,
-      {bool restore = false}) async {
+  checkoutSuccessfulPayment(String profileId, {bool restore = false}) async {
     await log(Markers.ui).trace("checkoutSuccessfulPayment", (m) async {
       try {
-        final account = await _api.postCheckout(m, profile.profileId);
+        final account = await _api.postCheckout(m, profileId);
 
         final type = AccountType.values.byName(account.type ?? "unknown");
         await _account.propose(account, m);
@@ -189,12 +138,12 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
           await _family.activateCta(m);
         }
       } catch (e, s) {
-        await _handleFailure(m, "Failed checkout", e, s: s, restore: restore);
+        await handleFailure(m, "Failed checkout", e, s: s, restore: restore);
       }
     });
   }
 
-  _handleFailure(Marker m, String msg, Object e,
+  handleFailure(Marker m, String msg, Object e,
       {StackTrace? s, bool restore = false, bool temporary = false}) async {
     log(m).e(msg: "Adapty: $msg", err: e, stack: s);
 
@@ -208,82 +157,4 @@ class PaymentActor with Actor, Logging implements AdaptyUIObserver {
     await sleepAsync(const Duration(seconds: 1));
     await _stage.showModal(sheet, m);
   }
-
-  @override
-  void paywallViewDidFinishPurchase(AdaptyUIView view,
-      AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
-    switch (purchaseResult) {
-      case AdaptyPurchaseResultSuccess(profile: final profile):
-        // successful purchase
-        closePaymentScreen(view: view);
-        _checkoutSuccessfulPayment(profile);
-        break;
-      case AdaptyPurchaseResultPending():
-        // purchase is pending
-        log(Markers.ui).t("Adapty: purchase result pending");
-        break;
-      case AdaptyPurchaseResultUserCancelled():
-        // user cancelled the purchase
-        log(Markers.ui).t("Adapty: user canceled");
-        break;
-    }
-  }
-
-  @override
-  void paywallViewDidFinishRestore(AdaptyUIView view, AdaptyProfile profile) {
-    closePaymentScreen(view: view);
-    _checkoutSuccessfulPayment(profile, restore: true);
-  }
-
-  @override
-  void paywallViewDidPerformAction(AdaptyUIView view, AdaptyUIAction action) {
-    switch (action) {
-      case const CloseAction():
-      case const AndroidSystemBackAction():
-        closePaymentScreen(view: view);
-        break;
-      case OpenUrlAction(url: final url):
-        _stage.openUrl(url, Markers.ui);
-        break;
-      default:
-        break;
-    }
-  }
-
-  @override
-  void paywallViewDidFailLoadingProducts(AdaptyUIView view, AdaptyError error) {
-    closePaymentScreen(view: view);
-    _handleFailure(Markers.ui, "Failed loading products", error,
-        temporary: true);
-  }
-
-  @override
-  void paywallViewDidFailPurchase(
-      AdaptyUIView view, AdaptyPaywallProduct product, AdaptyError error) {
-    closePaymentScreen(view: view);
-    _handleFailure(Markers.ui, "Failed purchase", error);
-  }
-
-  @override
-  void paywallViewDidFailRendering(AdaptyUIView view, AdaptyError error) {
-    //closePaymentScreen(view: view);
-    //_handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
-    log(Markers.ui).e(msg: "Failed rendering adapty", err: error);
-  }
-
-  @override
-  void paywallViewDidFailRestore(AdaptyUIView view, AdaptyError error) {
-    closePaymentScreen(view: view);
-    _handleFailure(Markers.ui, "Failed restore", error, restore: true);
-  }
-
-  @override
-  void paywallViewDidSelectProduct(AdaptyUIView view, String productId) {}
-
-  @override
-  void paywallViewDidStartPurchase(
-      AdaptyUIView view, AdaptyPaywallProduct product) {}
-
-  @override
-  void paywallViewDidStartRestore(AdaptyUIView view) {}
 }
