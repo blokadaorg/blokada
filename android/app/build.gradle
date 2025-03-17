@@ -204,6 +204,11 @@ dependencies {
     // QR code scanning lib (could be family only)
     implementation "io.github.g00fy2.quickie:quickie-bundled:1.10.0"
 
+    // Adapty SDK
+    sixImplementation platform('io.adapty:adapty-bom:3.3.0')
+    sixImplementation 'io.adapty:android-sdk'
+    sixImplementation 'io.adapty:android-ui'
+
     // test deps
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

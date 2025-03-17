@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:dartx/dartx.dart';
@@ -40,6 +41,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "NEWPLUS",
     "VPNSTATUS",
     "SKIPBYPASSLIST",
+    cmdPaymentHandleSuccess.toUpperCase(),
+    cmdPaymentHandleFailure.toUpperCase(),
   ];
 
   @override

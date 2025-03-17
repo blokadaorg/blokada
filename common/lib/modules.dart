@@ -25,6 +25,7 @@ import 'package:common/platform/common/common.dart';
 import 'package:common/platform/core/core.dart';
 import 'package:common/platform/family/family.dart';
 import 'package:common/platform/filter/filter.dart';
+import 'package:common/platform/payment/payment.dart';
 import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/plus/plus.dart';
@@ -89,6 +90,8 @@ class Modules with Logging {
       await _registerModule(PlatformFilterModule());
     }
 
+    await _registerModule(PlatformPaymentModule());
+
     AppStore().onRegister();
     AppStartStore().onRegister();
     PrivateDnsCheck().onRegister();
@@ -110,7 +113,6 @@ class Modules with Logging {
       await _registerModule(FamilyModule());
       await _registerModule(PlatformFamilyModule());
     }
-
 
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
