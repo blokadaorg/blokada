@@ -1,36 +1,38 @@
-This is the official app on App Store from the Blokada open source project.
+هذا هو التطبيق الرسمي على App Store من مشروع Blokada مفتوح المصدر.
 
-Blokada for iOS uses DNS (Domain Name System) to enable you to have an ad free experience to see only the content you want.
+يستخدم Blokada لنظام iOS نظام أسماء النطاقات (DNS) لتمكينك من الحصول على تجربة خالية من الإعلانات ورؤية المحتوى الذي تريده فقط.
 
-Use Blokada Cloud to block ads and trackers, while keeping your DNS traffic confidential.
+استخدم Blokada Cloud لحظر الإعلانات والمتعقبين مع الحفاظ على سرية حركة بيانات DNS الخاصة بك.
 
-Upgrade to Blokada Plus for encrypting all traffic with our global VPN network. Improve your privacy and secure your Internet against cyber attacks and hackers.
-
-----
-
-Top features:
-
-- Supports ad-blocking for every web browser and other app installed.
-- Blocks sites that distribute malicious content, viruses and fraudulent websites.
-- DNS based interception for all modern browsers and apps.
-- Fast and reliable VPN that protects your privacy and encrypts your data.
-
-The most compatible ad blocker on the market!
-
-• Blocks ads
-• Saves your data plan
-• Browse FASTER by loading less data
-• Increase your battery life
-
-What can be blocked?
-• Block annoying ads: Google AdWords, Google Invite Media, DoubleClick Bid Manager, Liftoff, Bing Ads, Amazon, etc
-• Block adult websites
-• Block gambling websites
-• Block social media trackers: Google Analytics, Facebook Connect, DoubleClick, Google Publisher Tags, Google AdSense, Twitter Button, Yandex.Metrix, Comscore
-• Block malicious websites: Virus downloads, malicious content, fraudulent websites and manipulated apps
+قم بالترقية إلى Blokada Plus لتشفير كل حركة المرور عبر شبكتنا العالمية لـ VPN. عزز خصوصيتك وقم بتأمين اتصالك بالإنترنت ضد الهجمات الإلكترونية والمتسللين.
 
 ----
 
-Terms of Use: https://go.blokada.org/terms
-Privacy Policy: https://go.blokada.org/privacy
+### **أهم الميزات:**
+- يدعم حظر الإعلانات في جميع متصفحات الويب والتطبيقات المثبتة الأخرى.
+- يحظر المواقع التي توزع المحتوى الضار والفيروسات والمواقع الاحتيالية.
+- يعتمد على نظام DNS لاعتراض الإعلانات في جميع المتصفحات والتطبيقات الحديثة.
+- VPN سريع وموثوق يحمي خصوصيتك ويشفر بياناتك.
 
+### **أكثر أداة حظر إعلانات توافقًا في السوق!**
+• يحظر الإعلانات
+• يوفر استهلاك بيانات الهاتف
+• تصفح أسرع عبر تحميل بيانات أقل
+• يزيد من عمر البطارية
+
+### **ما الذي يمكن حظره؟**
+• حظر الإعلانات المزعجة: Google AdWords، Google Invite Media، DoubleClick Bid Manager، Liftoff، Bing Ads، Amazon، إلخ.
+• حظر المواقع الإباحية
+• حظر مواقع المقامرة
+• حظر أدوات التتبع في وسائل التواصل الاجتماعي: Google Analytics، Facebook Connect، DoubleClick، Google Publisher Tags، Google AdSense، Twitter Button، Yandex.Metrix، Comscore
+• حظر المواقع الضارة: تنزيلات الفيروسات، المحتوى الضار، المواقع الاحتيالية والتطبيقات المشبوهة
+
+----
+
+### **شروط الاستخدام:**
+[https://go.blokada.org/terms](https://go.blokada.org/terms)
+
+### **سياسة الخصوصية:**
+[https://go.blokada.org/privacy](https://go.blokada.org/privacy)
+
+🚀
