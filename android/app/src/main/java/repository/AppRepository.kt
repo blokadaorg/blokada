@@ -48,59 +48,15 @@ object AppRepository {
         )
     }
 
+    // List decided by #133
     private val commonBypassList = listOf(
-        "com.android.vending",
-        "com.android.providers.downloads",
-        "com.google.android.apps.fireball",
-        "com.google.android.apps.authenticator2",
-        "com.google.android.apps.docs",
-        "com.google.android.apps.tachyon",
-        "com.google.android.gm",
-        "com.google.android.apps.photos",
-        "com.google.android.play.games",
-        "org.thoughtcrime.securesms",
-        "com.plexapp.android",
-        "org.kde.kdeconnect_tp",
-        "com.samsung.android.email.provider",
-        "com.xda.labs",
-        "com.android.incallui",
-        "com.android.phone",
-        "com.android.providers.telephony",
-        "com.huawei.systemmanager",
-        "com.android.service.ims.RcsServiceApp",
-        "com.google.android.carriersetup",
-        "com.google.android.ims",
-        "com.codeaurora.ims",
-        "com.android.carrierconfig",
-        "ch.threema.app",
-        "ch.threema.app.work",
-        "ch.threema.app.hms",
-        "ch.threema.app.work.hms",
-        "com.xiaomi.discover",
-        "eu.siacs.conversations",
-        "org.jitsi.meet",
-        "com.tomtom.speedcams.android.map",
-        "com.tomtom.amigo.huawei",
-        // RCS: https://github.com/blokadaorg/blokadaorg.github.io/pull/31
-        "com.android.service.ims.RcsServiceApp",
-        "com.google.android.carriersetup",
-        "com.google.android.ims",
-        "com.codeaurora.ims",
-        "com.android.carrierconfig",
-        // MaaiiConnect #885
-        "com.m800.liveconnect.mobile.agent.prod",
-        "com.m800.liveconnect.mobile.agent.tb",
-        // TomTom Go #878
-        "com.tomtom.gplay.navapp",
-        // Android Auto
-        "com.google.android.projection.gearhead",
-        // RCS
-        "com.google.android.apps.messaging",
-        // Additions from #3
-        "com.google.android.apps.chromecast.app",
-        "com.sonos.acr",
-        "com.sonos.acr2",
-        "com.gopro.smarty"
+        "com.google.android.projection.gearhead", // Android Auto
+        "com.google.android.apps.chromecast.app", // Google Chromecast
+        "com.gopro.smarty", // GoPro
+        "com.google.android.apps.messaging", // RCS/Jibe messaging services
+        "com.sonos.acr", // Sonos
+        "com.sonos.acr2", // Sonos
+        "com.google.stadia.android", // Stadia
     )
 
     fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
