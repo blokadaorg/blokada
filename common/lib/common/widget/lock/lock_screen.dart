@@ -234,7 +234,7 @@ class _LockScreenState extends State<LockScreen>
       type: MaterialType.transparency,
       child: BlurBackground(
         key: bgStateKey,
-        //canClose: () => !_isLocked,
+        canClose: () => !_isLocked.now,
         onClosed: _cancel,
         child: Container(
           constraints: const BoxConstraints(maxWidth: maxContentWidth),

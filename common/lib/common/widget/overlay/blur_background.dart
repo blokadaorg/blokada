@@ -61,8 +61,8 @@ class BlurBackgroundState extends State<BlurBackground>
     super.dispose();
   }
 
-  animateToClose() {
-    if (widget.canClose?.call() ?? true) {
+  animateToClose({bool? canClose}) {
+    if (canClose ?? true) {
       // End of this animation will call the route change
       _ctrlBlur.reverse();
       setState(() {
@@ -76,7 +76,7 @@ class BlurBackgroundState extends State<BlurBackground>
     return GestureDetector(
       onVerticalDragEnd: (dragEndDetails) {
         if (dragEndDetails.primaryVelocity! < 0) {
-          animateToClose();
+          animateToClose(canClose: widget.canClose?.call());
         }
       },
       child: AnimatedBuilder(
