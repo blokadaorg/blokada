@@ -110,7 +110,7 @@ class _RateScreenState extends State<RateScreen>
                 Image.asset(
                   Core.act.isFamily ? "assets/images/family-logo.png" :
                   "assets/images/blokada_logo.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   width: 128,
                   height: 128,
                   // color: Colors.white.withOpacity(0.8),

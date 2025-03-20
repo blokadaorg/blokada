@@ -55,6 +55,7 @@ class Modules with Logging {
     await _registerModule(PlatformCoreModule());
     await _registerModule(ConfigModule());
     await _registerModule(EnvModule());
+    await _registerModule(LockModule());
     await _registerModule(NotificationModule());
     await _registerModule(ApiModule());
 
@@ -93,7 +94,6 @@ class Modules with Logging {
     PrivateDnsCheck().onRegister();
     await _registerModule(CommonPermModule());
     await _registerModule(PlatformPermModule());
-    await _registerModule(LockModule());
 
     if (!Core.act.isFamily) {
       await _registerModule(V6PermModule());
