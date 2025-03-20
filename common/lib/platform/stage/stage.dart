@@ -324,7 +324,7 @@ abstract class StageStoreBase
     return await log(m).trace("showModal", (m) async {
       log(m).i("modal: $modal");
       if (route.modal != modal) {
-        if (!isReady || !_isForeground) {
+        if (!isReady || (!_isForeground && !_modalIsException(modal))) {
           _modalToShow = modal;
           log(m).i("not ready, modal saved: $modal");
           return;
@@ -408,7 +408,7 @@ abstract class StageStoreBase
   final noNavbarModals = [
     StageModal.lock,
     StageModal.rate,
-    StageModal.onboardingFamily,
+    StageModal.onboarding,
   ];
 
   _actOnModal(StageModal? modal, Marker m) async {
@@ -435,5 +435,11 @@ abstract class StageStoreBase
     return await log(m).trace("openUrl", (m) async {
       await _ops.doOpenLink(url);
     });
+  }
+
+  bool _modalIsException(StageModal modal) {
+    // Only on android we can invoke sheets before Foreground
+    if (Core.act.platform != PlatformType.android) return false;
+    return modal == StageModal.onboarding;
   }
 }

@@ -144,21 +144,6 @@ class FamilyActor with Logging, Actor {
 
   // case: device deleted, show start of the flow, maybe some dialog
 
-  // Show the welcome screen on the first start (family only)
-  _maybeShowOnboardOnStart(Marker m) async {
-    if (!Core.act.isFamily) return;
-    if (_account.type.isActive()) return;
-    if (devices.now.hasDevices == true) return;
-    if (_link.linkedMode.now) return;
-
-    if (_onboardingShown) return;
-    _onboardingShown = true;
-
-    return await log(m).trace("showOnboard", (m) async {
-      await _stage.showModal(StageModal.onboardingFamily, m);
-    });
-  }
-
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer

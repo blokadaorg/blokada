@@ -10,6 +10,7 @@ import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
@@ -59,6 +60,10 @@ class Modules with Logging {
     await _registerModule(LockModule());
     await _registerModule(NotificationModule());
     await _registerModule(ApiModule());
+
+    if (!Core.act.isFamily) {
+      await _registerModule(OnboardModule());
+    }
 
     await _registerModule(ListModule());
     await _registerModule(FilterModule());

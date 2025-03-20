@@ -67,7 +67,6 @@ class PaymentActor with Actor, Logging {
           await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
         } else {
           // Inactive account: changed manually, or new load
-          await reportOnboarding(OnboardingStep.appStarting, reset: true);
         }
       }
 

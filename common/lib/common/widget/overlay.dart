@@ -1,7 +1,7 @@
 import 'package:common/common/widget/lock/lock_screen.dart';
 import 'package:common/common/widget/rate/rate_screen.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/widget/onboard/family_onboard_screen.dart';
+import 'package:common/common/widget/onboard/onboard_screen.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/util/mobx.dart';
@@ -69,8 +69,8 @@ class OverlaySheetState extends State<OverlaySheet>
         return const LockScreen();
       case StageModal.rate:
         return const RateScreen();
-      case StageModal.onboardingFamily:
-        return const FamilyOnboardScreen();
+      case StageModal.onboarding:
+        return const OnboardingScreen();
       default:
         return null;
     }

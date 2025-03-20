@@ -18,7 +18,7 @@ part 'api.dart';
 part 'channel.dart';
 
 enum OnboardingStep {
-  appStarting(1),
+  onboardScreenReached(1),
   freshHomeReached(2),
   ctaTapped(3),
   accountActivated(4),
