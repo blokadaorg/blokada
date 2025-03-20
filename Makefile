@@ -21,7 +21,8 @@ CI_BUILD_DIR := /tmp/build
 	publish-android gplay-key-unpack gplay-key-clean \
 	publish-ios appstore-key-unpack appstore-key-clean \
 	build-android-family-debug build-android-six-debug \
-	rebuild android rebuild-android rebuild-ios \
+	rebuild-android-family-debug rebuild-android-six-debug \
+	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
 	ci-copy-source \
@@ -138,20 +139,28 @@ appstore-key-clean:
 
 
 # Build android family .apk from scratch (debug)
-build-android-family-debug: rebuild-android
+build-android-family-debug: regen-android
 	$(MAKE) -C android/ apk-family-debug
 
 # Build android six .apk from scratch (debug)
-build-android-six-debug: rebuild-android
+build-android-six-debug: regen-android
+	$(MAKE) -C android/ apk-six-debug
+
+# Quick rebuild android family .apk (assumes flutter is built)
+rebuild-android-family-debug:
+	$(MAKE) -C android/ apk-family-debug
+
+# Quick rebuild android six .apk (assumes flutter is built)
+rebuild-android-six-debug:
 	$(MAKE) -C android/ apk-six-debug
 
 
 # Prepare flutter gen files
-regen:
+gen:
 	$(MAKE) -C common/ gen
 
 # Clean everything and rebuild flutter gen files
-rebuild:
+regen:
 	$(MAKE) clean
 	$(MAKE) -C common/ pub gen
 
@@ -160,11 +169,11 @@ android:
 	$(MAKE) -C common/ lib-debug
 
 # Clean everything and rebuild flutter android common lib (debug)
-rebuild-android:
+regen-android:
 	$(MAKE) -C common/ pub gen-android runner lib-debug
 
 # Clean everything and rebuild flutter ios dependencies
-rebuild-ios:
+regen-ios:
 	$(MAKE) -C common/ build-ios
 
 
