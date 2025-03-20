@@ -75,6 +75,7 @@ class AdaptyPaymentChannel
     view?.dismiss();
     if (view == null) _paymentView?.dismiss();
     _paymentView = null;
+    _actor.handleScreenClosed();
   }
 
   Future<AdaptyUIView> _createPaywall(

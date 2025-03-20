@@ -21,6 +21,8 @@ class PaymentActor with Actor, Logging {
 
   bool _adaptyInitialized = false;
   bool _preloaded = false;
+  Completer? _preloadCompleter;
+  bool _isOpened = false;
 
   Function onPaymentScreenOpened = () => {};
 
@@ -69,15 +71,7 @@ class PaymentActor with Actor, Logging {
         }
       }
 
-      // Basic preload to avoid lag when tapping CTA
-      // Only if Adapty is initialised and account is inactive
-      // No expiration check, we assume user will open the paywall soon
-      // And that adapty is ok with preloading
-      if (!_preloaded && _adaptyInitialized && !it.now.type.isActive()) {
-        _preloaded = true;
-        await _channel.preload(it.m, Placement.primary);
-        log(it.m).i("Adapty: preloaded paywall");
-      }
+      await _maybePreload(it);
     });
 
     // TODO: change to new Value type
@@ -87,6 +81,27 @@ class PaymentActor with Actor, Logging {
   _onAccountChanged(Marker m) async {
     if (_account.type.isActive()) {
       reportOnboarding(OnboardingStep.accountActivated);
+    }
+  }
+
+  // Basic preload to avoid lag when tapping CTA
+  // Only if Adapty is initialised and account is inactive
+  // No expiration check, we assume user will open the paywall soon
+  // And that adapty is ok with preloading
+  _maybePreload(ValueUpdate<AccountState> it) async {
+    if (!_preloaded && _preloadCompleter == null && _adaptyInitialized && !it.now.type.isActive()) {
+      _preloadCompleter = Completer();
+      try {
+        await _channel.preload(it.m, Placement.primary);
+        log(it.m).i("Adapty: preloaded paywall");
+      } catch (e, s) {
+        log(it.m).e(msg: "Adapty: failed preloading", err: e, stack: s);
+      } finally {
+        // No matter what we mark it as done
+        _preloaded = true;
+        _preloadCompleter?.complete();
+        _preloadCompleter = null;
+      }
     }
   }
 
@@ -103,11 +118,15 @@ class PaymentActor with Actor, Logging {
 
   openPaymentScreen(Marker m, {Placement placement = Placement.primary}) async {
     return await log(m).trace("openPaymentScreen", (m) async {
-      await reportOnboarding(OnboardingStep.ctaTapped);
+      if (_isOpened) return;
+      _isOpened = true;
+      await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
         onPaymentScreenOpened();
+        await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
+        _isOpened = false;
         await handleFailure(m, "Failed creating paywall", e,
             s: s, temporary: true);
       }
@@ -116,6 +135,7 @@ class PaymentActor with Actor, Logging {
 
   closePaymentScreen() async {
     await _channel.closePaymentScreen();
+    handleScreenClosed();
   }
 
   checkoutSuccessfulPayment(String profileId, {bool restore = false}) async {
@@ -156,5 +176,10 @@ class PaymentActor with Actor, Logging {
 
     await sleepAsync(const Duration(seconds: 1));
     await _stage.showModal(sheet, m);
+  }
+
+  handleScreenClosed() {
+    log(Markers.ui).i("Payment screen closed");
+    _isOpened = false;
   }
 }

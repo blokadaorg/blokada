@@ -16,9 +16,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import binding.PaymentBinding
 import com.adapty.ui.AdaptyPaywallView
 
-class AdaptyPaymentFragment: BottomSheetFragment() {
+class AdaptyPaymentFragment : BottomSheetFragment() {
+
+    private val payment by lazy { PaymentBinding }
 
     lateinit var view: AdaptyPaywallView
 
@@ -35,5 +38,10 @@ class AdaptyPaymentFragment: BottomSheetFragment() {
         savedInstanceState: Bundle?
     ): View {
         return view
+    }
+
+    override fun onDestroy() {
+        payment.handleScreenClosed()
+        super.onDestroy()
     }
 }

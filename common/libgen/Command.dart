@@ -52,6 +52,7 @@ enum CommandName {
   // Payment (temporary)
   paymentHandleSuccess,
   paymentHandleFailure,
+  paymentHandleScreenClosed,
 }
 
 @HostApi()

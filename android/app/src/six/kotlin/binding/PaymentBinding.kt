@@ -38,6 +38,7 @@ import service.ContextService
 import service.FlutterService
 import ui.AdaptyPaymentFragment
 import ui.MainActivity
+import ui.utils.openInBrowser
 import kotlin.coroutines.suspendCoroutine
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {
@@ -238,7 +239,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             }
 
             is AdaptyUI.Action.OpenUrl -> {
-                TODO("Not yet implemented")
+                openInBrowser(action.url)
             }
 
             is AdaptyUI.Action.Custom -> {
@@ -300,6 +301,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private fun closePaymentScreen() {
         _fragment?.dismiss()
         _fragment = null
+        handleScreenClosed()
     }
 
     private fun handleSuccess(profileId: String, restore: Boolean) {
@@ -314,6 +316,12 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             val restoreString = if (restore) "1" else "0"
             val temporaryString = if (temporary) "1" else "0"
             commands.execute(CommandName.PAYMENTHANDLEFAILURE, restoreString, temporaryString)
+        }
+    }
+
+    fun handleScreenClosed() {
+        _scope.launch {
+            commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED)
         }
     }
 

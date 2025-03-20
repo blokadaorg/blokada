@@ -12,6 +12,7 @@ mixin PaymentChannel {
 
 const cmdPaymentHandleSuccess = "paymentHandleSuccess";
 const cmdPaymentHandleFailure = "paymentHandleFailure";
+const cmdPaymentHandleScreenClosed = "paymentHandleScreenClosed";
 
 class PaymentCommand with Command, Logging {
   late final _actor = Core.get<PaymentActor>();
@@ -21,6 +22,7 @@ class PaymentCommand with Command, Logging {
     return [
       registerCommand(cmdPaymentHandleSuccess, argsNum: 2, fn: cmdCheckout),
       registerCommand(cmdPaymentHandleFailure, argsNum: 2, fn: cmdFailure),
+      registerCommand(cmdPaymentHandleScreenClosed, argsNum: 0, fn: cmdScreenClosed),
     ];
   }
 
@@ -36,5 +38,9 @@ class PaymentCommand with Command, Logging {
     await _actor.handleFailure(
         m, "Adapty: failure from channel", Exception("Failure from channel"),
         restore: restore, temporary: temporary);
+  }
+
+  Future<void> cmdScreenClosed(Marker m, dynamic args) async {
+    await _actor.handleScreenClosed();
   }
 }

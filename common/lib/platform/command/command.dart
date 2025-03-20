@@ -43,6 +43,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "SKIPBYPASSLIST",
     cmdPaymentHandleSuccess.toUpperCase(),
     cmdPaymentHandleFailure.toUpperCase(),
+    cmdPaymentHandleScreenClosed.toUpperCase()
   ];
 
   @override
