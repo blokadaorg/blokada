@@ -5,6 +5,7 @@ import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/common/navigation.dart';
+import 'package:common/family/widget/home/big_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -75,14 +76,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
         children: [
           const SizedBox(height: 40),
           const Spacer(),
-          Image.asset(
-            Core.act.isFamily ? "assets/images/family-logo.png" :
-            "assets/images/blokada_logo.png",
-            fit: BoxFit.contain,
-            width: 128,
-            height: 128,
-            // color: Colors.white.withOpacity(0.8),
-          ),
+          BigIcon(icon: null, canShowLogo: true),
           const Spacer(),
           Text("No more ads.\nSeriously.",
               textAlign: TextAlign.center,
