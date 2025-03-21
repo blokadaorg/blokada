@@ -45,3 +45,12 @@ $ export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
 
 $ flutter doctor
 ```
+
+Also don't forget the following:
+```
+git submodule update --init --recursive
+
+// for iOS signing (from ios dir):
+fastlane match development
+...
+```

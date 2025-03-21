@@ -148,10 +148,12 @@ build-android-six-debug: regen-android
 
 # Quick rebuild android family .apk (assumes flutter is built)
 rebuild-android-family-debug:
+	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
 	$(MAKE) -C android/ apk-family-debug
 
 # Quick rebuild android six .apk (assumes flutter is built)
 rebuild-android-six-debug:
+	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
 	$(MAKE) -C android/ apk-six-debug
 
 
