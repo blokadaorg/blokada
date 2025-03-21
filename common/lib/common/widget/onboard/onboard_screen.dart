@@ -52,19 +52,13 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
       child: Stack(
         children: [
           ColorfulBackground(),
-          Padding(
-            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 48),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: BlurBackground(
-                key: bgStateKey,
-                canClose: () => false,
-                onClosed: _close,
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                  child: _getFirstTimeScreen(context),
-                ),
-              ),
+          BlurBackground(
+            key: bgStateKey,
+            canClose: () => false,
+            onClosed: _close,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: maxContentWidth),
+              child: _getFirstTimeScreen(context),
             ),
           ),
         ],
@@ -74,7 +68,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
 
   Widget _getFirstTimeScreen(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 48.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,20 +91,20 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
               )),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
           Text("Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.",
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 // fontWeight: FontWeight.w500,
               )),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           Row(
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: MiniCard(
                     onTap: _close,
                     color: context.theme.accent,
@@ -131,12 +125,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 24.0),
-            child: _buildTosPrivacyText(context,
-                "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy."),
-          ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 60),
         ],
       ),
     );
