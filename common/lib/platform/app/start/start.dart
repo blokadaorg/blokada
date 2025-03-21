@@ -121,9 +121,17 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         await _scheduler.stop(m, _keyTimer);
         pausedUntil = null;
       } on AccountTypeException {
-        await _app.appPaused(true, m);
-        _permStore.askNotificationPermissions(m);
-        await _payment.openPaymentScreen(m);
+        try {
+          _permStore.askNotificationPermissions(m);
+          await _payment.openPaymentScreen(m);
+
+          // Delay to show in-progress until payment sheet loads
+          await sleepAsync(const Duration(seconds: 3));
+          await _app.appPaused(true, m);
+        } catch (e) {
+          await _app.appPaused(true, m);
+          rethrow;
+        }
       } on OnboardingException {
         await _app.appPaused(true, m);
         _permStore.askNotificationPermissions(m);
