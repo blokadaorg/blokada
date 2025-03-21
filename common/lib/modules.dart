@@ -9,6 +9,8 @@ import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/module/notification/notification.dart';
+import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
@@ -24,6 +26,7 @@ import 'package:common/platform/common/common.dart';
 import 'package:common/platform/core/core.dart';
 import 'package:common/platform/family/family.dart';
 import 'package:common/platform/filter/filter.dart';
+import 'package:common/platform/payment/payment.dart';
 import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/plus/plus.dart';
@@ -36,7 +39,6 @@ import 'platform/app/app.dart';
 import 'platform/app/start/start.dart';
 import 'platform/command/command.dart';
 import 'platform/device/device.dart';
-import 'platform/payment/payment.dart';
 import 'platform/perm/perm.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/refresh/refresh.dart';
@@ -59,11 +61,17 @@ class Modules with Logging {
     await _registerModule(NotificationModule());
     await _registerModule(ApiModule());
 
+    if (!Core.act.isFamily) {
+      await _registerModule(OnboardModule());
+    }
+
     await _registerModule(ListModule());
     await _registerModule(FilterModule());
     await _registerModule(JournalModule());
     await _registerModule(CustomlistModule());
     await _registerModule(SupportModule());
+
+    await _registerModule(PaymentModule());
 
     // Then family-only deps (for now at least)
     if (Core.act.isFamily) {
@@ -80,7 +88,6 @@ class Modules with Logging {
     StageStore().onRegister();
     AccountStore().onRegister();
     await _registerModule(AccountModule());
-    AccountPaymentStore().onRegister();
     AccountRefreshStore().onRegister();
     DeviceStore().onRegister();
 
@@ -88,6 +95,8 @@ class Modules with Logging {
     if (!Core.act.isFamily) {
       await _registerModule(PlatformFilterModule());
     }
+
+    await _registerModule(PlatformPaymentModule());
 
     AppStore().onRegister();
     AppStartStore().onRegister();
@@ -138,9 +147,13 @@ class Modules with Logging {
               await legacyAccount.start(m);
             }
           });
-        } catch (e) {
-          // The error will be logged in trace, we want to continue
-          // starting other modules
+        } catch (e, s) {
+          // Log error details and continue starting other modules
+          log(m).e(
+            msg: "Failed starting module: ${mod.runtimeType}",
+            err: e,
+            stack: s,
+          );
         }
       }
     });

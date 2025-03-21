@@ -23,7 +23,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import service.Sheet
 import service.SheetService
 
-abstract class BottomSheetFragment(val skipCollapsed: Boolean = true) : BottomSheetDialogFragment() {
+abstract class BottomSheetFragment(
+    val skipCollapsed: Boolean = true,
+    val skipSwipeable: Boolean = false
+) : BottomSheetDialogFragment() {
     private val stage by lazy { StageBinding }
     private val sheet by lazy { SheetService }
 
@@ -34,8 +37,22 @@ abstract class BottomSheetFragment(val skipCollapsed: Boolean = true) : BottomSh
             super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.setOnShowListener { dialog ->
             val d = dialog as BottomSheetDialog
-            val bottomSheet = d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+            val bottomSheet =
+                d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
+
+            if (skipSwipeable) {
+                // Disable dragging/swiping to close
+                behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                })
+            }
 
             if (skipCollapsed) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED

@@ -1,3 +1,4 @@
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:dartx/dartx.dart';
@@ -6,7 +7,6 @@ import '../../family/module/family/family.dart';
 import '../account/account.dart';
 import '../account/refresh/refresh.dart';
 import '../app/start/start.dart';
-import '../payment/payment.dart';
 import '../stage/channel.pg.dart';
 import '../stage/stage.dart';
 import 'channel.act.dart';
@@ -15,7 +15,6 @@ import 'channel.pg.dart';
 class CommandStore with Logging, Actor implements CommandEvents {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
-  late final _accountPayment = Core.get<AccountPaymentStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _appStart = Core.get<AppStartStore>();
   late final _permission = Core.get<PlatformPermActor>();
@@ -42,6 +41,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "NEWPLUS",
     "VPNSTATUS",
     "SKIPBYPASSLIST",
+    cmdPaymentHandleSuccess.toUpperCase(),
+    cmdPaymentHandleFailure.toUpperCase(),
+    cmdPaymentHandleScreenClosed.toUpperCase()
   ];
 
   @override
@@ -93,7 +95,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
       for (var cmd in newCommands) {
         if (command.toUpperCase().startsWith(cmd)) {
-          return await commands.execute(m, commandParts[0], commandParts.sublist(1));
+          return await commands.execute(
+              m, commandParts[0], commandParts.sublist(1));
         }
       }
 
@@ -111,30 +114,11 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _executeUrl(p1!, m);
       case CommandName.restore:
         _ensureParam(p1);
+        if (Core.act.isFamily) throw Exception("Moving to Adapty");
         await _account.restore(p1!, m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.account:
         return _account.account?.id;
-      case CommandName.receipt:
-        _ensureParam(p1);
-        await _accountPayment.restoreInBackground(p1!, m);
-        return await _accountRefresh.syncAccount(_account.account, m);
-      case CommandName.fetchProducts:
-        return await _accountPayment.fetchProducts(m);
-      case CommandName.purchase:
-        _ensureParam(p1);
-        await _accountPayment.purchase(p1!, m);
-        return await _accountRefresh.syncAccount(_account.account, m);
-      case CommandName.changeProduct:
-        _ensureParam(p1);
-        await _accountPayment.changeProduct(p1!, m);
-        return await _accountRefresh.syncAccount(_account.account, m);
-      case CommandName.restorePayment:
-        // TODO:
-        // Only restore implicitly if current account is not active
-        // TODO: finish ongoing transaction after any success or fail (stop processing)
-        await _accountPayment.restore(m);
-        return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.pause:
         return await _appStart.pauseAppIndefinitely(m);
       case CommandName.unpause:
@@ -197,15 +181,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     if (p1 == null) throw Exception("Missing parameter");
   }
 
-  final _censoredCommands = [
-    CommandName.restore.name,
-    CommandName.receipt.name,
-  ];
-
   String _cmdName(String cmd, String? p1) {
-    if (_censoredCommands.contains(cmd)) {
-      p1 = "***";
-    }
     return cmd + (p1 != null ? "(${shortString(p1, length: 16)})" : "()");
   }
 

@@ -38,7 +38,7 @@ class CommonBinding: CommonOps {
         session = URLSession(configuration: configuration)
 
         CommonOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
-        
+
         onVpnStatus()
     }
     

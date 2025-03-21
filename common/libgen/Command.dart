@@ -8,13 +8,6 @@ enum CommandName {
   restore,
   account,
 
-  // AccountPayment
-  receipt,
-  fetchProducts,
-  purchase,
-  changeProduct,
-  restorePayment,
-
   // AppStart
   pause,
   unpause,
@@ -55,6 +48,11 @@ enum CommandName {
   // Notification
   notificationTapped,
   appleNotificationToken,
+
+  // Payment (temporary)
+  paymentHandleSuccess,
+  paymentHandleFailure,
+  paymentHandleScreenClosed,
 }
 
 @HostApi()

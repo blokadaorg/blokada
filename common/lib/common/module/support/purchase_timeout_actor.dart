@@ -5,6 +5,7 @@ class PurchaseTimeoutActor with Logging, Actor {
   late final _support = Core.get<SupportActor>();
   late final _account = Core.get<AccountStore>();
   late final _scheduler = Core.get<Scheduler>();
+  late final _payment = Core.get<PaymentActor>();
   late final _notified = PurchaseTimeoutNotified();
 
   bool _userEnteredPurchase = false;
@@ -16,6 +17,10 @@ class PurchaseTimeoutActor with Logging, Actor {
     _stage.addOnValue(routeChanged, onRouteChanged);
     await _notified.fetch(m);
     _support.onReset = clearSendPurchaseTimeout;
+
+    _payment.onPaymentScreenOpened = () {
+      _userEnteredPurchase = true;
+    };
   }
 
   // Send support event when user abandoned purchase
@@ -23,10 +28,7 @@ class PurchaseTimeoutActor with Logging, Actor {
     // Coming back from BG, dismiss the payment modal if it's still there
     if (route.isBecameForeground() && _justNotified) {
       _justNotified = false;
-      if (route.modal == StageModal.payment) {
-        await sleepAsync(const Duration(milliseconds: 500));
-        await _stage.dismissModal(m);
-      }
+      _payment.closePaymentScreen();
     }
 
     if ((await _notified.now()) == true) return;
@@ -42,10 +44,6 @@ class PurchaseTimeoutActor with Logging, Actor {
         callback: sendPurchaseTimeout,
       ));
       return;
-    }
-
-    if (route.modal == StageModal.payment) {
-      _userEnteredPurchase = true;
     }
   }
 

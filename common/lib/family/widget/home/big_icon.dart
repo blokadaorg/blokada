@@ -173,12 +173,14 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
   }
 
   Widget _buildLogo(BuildContext context) {
+    final logo = Core.act.isFamily ? "assets/images/family-logo.png" : "assets/images/blokada_logo.png";
+
     return Stack(
       children: [
         Transform.translate(
           offset: Offset(8 + _scaleIdle.value * 4, 8 + _scaleIdle.value * 4),
           child: Image.asset(
-            "assets/images/family-logo.png",
+            logo,
             fit: BoxFit.contain,
             //filterQuality: FilterQuality.high,
             color: context.theme.textPrimary.withOpacity(0.2),
@@ -187,7 +189,7 @@ class BigIconState extends State<BigIcon> with TickerProviderStateMixin {
         Transform.translate(
           offset: Offset(_scaleIdle.value * -4, _scaleIdle.value * -4),
           child: Image.asset(
-            "assets/images/family-logo.png",
+            logo,
             fit: BoxFit.contain,
             //filterQuality: FilterQuality.high,
             //color: Colors.white,

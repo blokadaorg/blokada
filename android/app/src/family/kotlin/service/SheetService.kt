@@ -15,8 +15,6 @@ package service
 import androidx.fragment.app.DialogFragment
 import binding.StageBinding
 import model.BlokadaException
-import ui.home.CloudPaymentFragment
-import ui.home.FamilyPaymentFragment
 import ui.home.ScanQrFragment
 
 enum class Sheet {
@@ -36,12 +34,6 @@ object SheetService {
 
     fun showSheet(sheet: Sheet) {
         val fragment = when (sheet) {
-            Sheet.Payment -> {
-                if (Flavor.isFamily())
-                    FamilyPaymentFragment.newInstance()
-                else
-                    CloudPaymentFragment.newInstance()
-            }
             Sheet.AccountChange -> ScanQrFragment.newInstance()
             else -> throw BlokadaException("unsupported sheet")
         }

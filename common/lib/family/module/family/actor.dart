@@ -11,6 +11,7 @@ class FamilyActor with Logging, Actor {
   late final _permStore = Core.get<PlatformPermActor>();
   late final _profiles = Core.get<ProfileActor>();
   late final _link = Core.get<LinkActor>();
+  late final _payment = Core.get<PaymentActor>();
 
   late final _isLocked = Core.get<IsLocked>();
 
@@ -69,10 +70,10 @@ class FamilyActor with Logging, Actor {
         _updatePhase(m, loading: true);
         await _reload(m, createDeviceIfNeeded: true);
         _updatePhase(m, loading: false, reason: "activateCta");
-        return;
+      } else {
+        _permStore.askNotificationPermissions(m);
+        await _payment.openPaymentScreen(m);
       }
-      _permStore.askNotificationPermissions(m);
-      _stage.showModal(StageModal.payment, m);
     });
   }
 
@@ -112,11 +113,7 @@ class FamilyActor with Logging, Actor {
     _updatePhase(m, reason: "postActivationOnboarding");
 
     log(m).pair("modal", _stage.route.modal);
-    if (_stage.route.modal == StageModal.payment) {
-      return await log(m).trace("dismissModalAfterAccountIdChange", (m) async {
-        await _stage.dismissModal(m);
-      });
-    }
+    _payment.closePaymentScreen();
   }
 
   // Locking this device will enable the blocking for "this device"
@@ -147,21 +144,6 @@ class FamilyActor with Logging, Actor {
 
   // case: device deleted, show start of the flow, maybe some dialog
 
-  // Show the welcome screen on the first start (family only)
-  _maybeShowOnboardOnStart(Marker m) async {
-    if (!Core.act.isFamily) return;
-    if (_account.type.isActive()) return;
-    if (devices.now.hasDevices == true) return;
-    if (_link.linkedMode.now) return;
-
-    if (_onboardingShown) return;
-    _onboardingShown = true;
-
-    return await log(m).trace("showOnboard", (m) async {
-      await _stage.showModal(StageModal.onboardingFamily, m);
-    });
-  }
-
   Timer? timer;
 
   // To avoid UI jumping on the state changing quickly with timer
@@ -182,6 +164,7 @@ class FamilyActor with Logging, Actor {
     } else if (accountActive == null || permsGranted == null) {
       phase = FamilyPhase.starting;
     } else if (linkedMode && permsGranted == true && linkedTokenOk) {
+      _payment.reportOnboarding(OnboardingStep.permsGranted);
       phase = FamilyPhase.linkedActive;
     } else if (linkedMode && permsGranted == true) {
       phase = FamilyPhase.linkedExpired;
@@ -205,9 +188,11 @@ class FamilyActor with Logging, Actor {
         _thisDevice.present == null ||
         !devices.now.hasThisDevice) {
       phase = FamilyPhase.fresh;
+      _payment.reportOnboarding(OnboardingStep.freshHomeReached);
     } else if (/*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;
     } else if (devices.now.hasDevices == true) {
+      _payment.reportOnboarding(OnboardingStep.permsGranted);
       phase = FamilyPhase.parentHasDevices;
     } else if (devices.now.hasDevices == false) {
       phase = FamilyPhase.parentNoDevices;

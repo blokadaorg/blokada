@@ -1,64 +1,22 @@
 import 'package:pigeon/pigeon.dart';
 
-enum PaymentStatus {
-  unknown,
-  fetching,
-  ready,
-  purchasing,
-  restoring,
-  fatal,
-}
-
-class Product {
-  String id;
-  String title;
-  String description;
-  String price;
-  String pricePerMonth;
-  int periodMonths;
-  String type;
-  int? trial;
-  bool owned;
-
-  Product(
-    this.id,
-    this.title,
-    this.description,
-    this.price,
-    this.pricePerMonth,
-    this.periodMonths,
-    this.type,
-    this.trial,
-    this.owned,
-  );
-}
-
 @HostApi()
 abstract class PaymentOps {
   @async
-  bool doArePaymentsAvailable();
+  void doInit(String apiKey, String? accountId, bool verboseLogs);
 
   @async
-  List<Product> doFetchProducts();
+  void doIdentify(String accountId);
 
   @async
-  List<String> doPurchaseWithReceipts(String productId);
+  void doLogOnboardingStep(String name, String stepName, int stepOrder);
 
   @async
-  List<String> doRestoreWithReceipts();
+  void doPreload(String placementId);
 
   @async
-  String doChangeProductWithReceipt(String productId);
+  void doShowPaymentScreen(String placementId, bool forceReload);
 
   @async
-  void doFinishOngoingTransaction();
-
-  @async
-  void doPaymentStatusChanged(PaymentStatus status);
-
-  @async
-  void doProductsChanged(List<Product> products);
-
-  @async
-  void doAccountTypeChanged(String accountType);
+  void doClosePaymentScreen();
 }

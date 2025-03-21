@@ -1,5 +1,6 @@
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/app.dart';
+import 'package:common/common/widget/onboard/onboard_screen.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/widget/main_screen.dart';
@@ -14,9 +15,10 @@ void main() async {
 
   await I18nService.loadTranslations();
 
+  final flavor = Flavor.v6;
   final modules = Modules();
   await modules
-      .create(ActScreenplay(ActScenario.prod, Flavor.family, PlatformType.iOS));
+      .create(ActScreenplay(ActScenario.prod, flavor, PlatformType.iOS));
   modules.start(Markers.start);
 
   final ws = DevWebsocket();
@@ -27,7 +29,7 @@ void main() async {
   final nav = NavigationPopObserver();
 
   runApp(BlokadaApp(
-      content: FamilyMainScreen(ctrl: ctrl, nav: nav), isFamily: true));
+      content: OnboardingScreen(), isFamily: flavor == Flavor.family));
 }
 
 class DevWebsocket {
