@@ -19,7 +19,7 @@ import android.view.ViewGroup
 import binding.PaymentBinding
 import com.adapty.ui.AdaptyPaywallView
 
-class AdaptyPaymentFragment : BottomSheetFragment() {
+class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
 
     private val payment by lazy { PaymentBinding }
 
