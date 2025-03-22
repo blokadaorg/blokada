@@ -18,12 +18,13 @@ part 'api.dart';
 part 'channel.dart';
 
 enum OnboardingStep {
-  onboardScreenReached(1),
-  freshHomeReached(2),
-  ctaTapped(3),
-  accountActivated(4),
-  permsPrompted(5),
-  permsGranted(6);
+  appStarting(1),
+  onboardScreenReached(2),
+  freshHomeReached(3),
+  ctaTapped(4),
+  accountActivated(5),
+  permsPrompted(6),
+  permsGranted(7);
 
   final int order;
 
@@ -35,10 +36,15 @@ class CurrentOnboardingStepValue
   CurrentOnboardingStepValue() : super("payment:current_onboarding_step");
 
   @override
-  OnboardingStep fromStringified(String value) =>
-      OnboardingStep.values.firstWhere(
-        (e) => e.name == value,
+  OnboardingStep fromStringified(String value) {
+    try {
+      return OnboardingStep.values.firstWhere(
+            (e) => e.name == value,
       );
+    } catch (e) {
+      return OnboardingStep.appStarting;
+    }
+  }
 
   @override
   String toStringified(OnboardingStep value) => value.name;

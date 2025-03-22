@@ -1,4 +1,5 @@
 import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/module/rate/rate.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -6,7 +7,7 @@ import 'package:common/platform/stage/stage.dart';
 part 'actor.dart';
 
 class OnboardingStepValue extends StringPersistedValue {
-  OnboardingStepValue() : super("onboarding:step");
+  OnboardingStepValue() : super("onboarding:step", sensitive: false);
 }
 
 class OnboardModule with Module {

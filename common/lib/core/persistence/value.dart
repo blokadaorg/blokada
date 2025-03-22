@@ -17,7 +17,7 @@ abstract class BoolPersistedValue extends AsyncValue<bool> {
 abstract class StringPersistedValue extends NullableAsyncValue<String?> {
   late final _persistence = Core.get<Persistence>();
 
-  StringPersistedValue(String key) : super(sensitive: true) {
+  StringPersistedValue(String key, {super.sensitive = true}) : super() {
     load = (Marker m) async {
       return await _persistence.load(m, key);
     };
@@ -57,6 +57,7 @@ abstract class JsonPersistedValue<T> extends NullableAsyncValue<T?> {
   T fromJson(Map<String, dynamic> json);
 }
 
+// Persists any object by "stringifying" it using overridden methods.
 abstract class StringifiedPersistedValue<T> extends NullableAsyncValue<T?>
     with Logging {
   late final _persistence = Core.get<Persistence>();

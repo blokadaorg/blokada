@@ -53,7 +53,7 @@ class Persistence with Logging {
     return jsonDecode(result);
   }
 
-  Future<void> save(Marker m, String key, String value,
+  save(Marker m, String key, String value,
       {bool isBackup = false}) async {
     log(m).t("save ($isSecure/$isBackup)");
     log(m).logt(msg: "key: $key", attr: {"value": value}, sensitive: true);
@@ -61,7 +61,7 @@ class Persistence with Logging {
     await _channel.doSave(key, value, isSecure, isBackup);
   }
 
-  Future<void> saveJson(Marker m, String key, Map<String, dynamic> json,
+  saveJson(Marker m, String key, Map<String, dynamic> json,
       {bool isBackup = false}) async {
     log(m).t("save ($isSecure/$isBackup)");
     log(m).logt(msg: "key: $key", attr: {"value": json}, sensitive: true);
@@ -69,7 +69,7 @@ class Persistence with Logging {
     await _channel.doSave(key, jsonEncode(json), isSecure, isBackup);
   }
 
-  Future<void> delete(Marker m, String key, {bool isBackup = false}) async {
+  delete(Marker m, String key, {bool isBackup = false}) async {
     log(m).t("delete ($isSecure/$isBackup)");
 
     await _channel.doDelete(key, isSecure, isBackup);

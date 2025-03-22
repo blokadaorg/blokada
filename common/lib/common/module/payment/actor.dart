@@ -23,6 +23,7 @@ class PaymentActor with Actor, Logging {
   bool _preloaded = false;
   Completer? _preloadCompleter;
   bool _isOpened = false;
+  OnboardingStep? _pendingOnboard;
 
   Function onPaymentScreenOpened = () => {};
 
@@ -50,6 +51,7 @@ class PaymentActor with Actor, Logging {
           );
           _adaptyInitialized = true;
           await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
+          await reportOnboarding(_pendingOnboard);
         } else {
           // Pass account ID to Adapty on change, whenever active
           log(it.m).log(
@@ -65,6 +67,7 @@ class PaymentActor with Actor, Logging {
           log(it.m).log(msg: "Adapty: initialising without accountId");
           _adaptyInitialized = true;
           await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
+          await reportOnboarding(_pendingOnboard);
         } else {
           // Inactive account: changed manually, or new load
         }
@@ -104,11 +107,19 @@ class PaymentActor with Actor, Logging {
     }
   }
 
-  reportOnboarding(OnboardingStep step, {bool reset = false}) async {
+  reportOnboarding(OnboardingStep? step, {bool reset = false}) async {
+    if (step == null) return;
     final current = await _onboard.now();
     if (current == null || current.order < step.order || reset) {
       // Next step reached, report it
       await log(Markers.ui).trace("reportOnboarding", (m) async {
+        if (!_adaptyInitialized) {
+          log(m).w("Adapty not initialised, queuing onboarding step");
+          _pendingOnboard = step;
+          return;
+        }
+
+        _pendingOnboard = null;
         await _channel.logOnboardingStep("primaryOnboard", step);
         await _onboard.change(m, step);
       });

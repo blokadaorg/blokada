@@ -1,4 +1,5 @@
 import 'package:common/common/module/link/link.dart';
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/onboard/background.dart';
 import 'package:common/common/widget/overlay/blur_background.dart';
@@ -21,6 +22,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class OnboardingScreenState extends State<OnboardingScreen> with Logging {
   final _stage = Core.get<StageStore>();
+  final _onboard = Core.get<OnboardActor>();
 
   final GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
 
@@ -32,6 +34,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
   _close() async {
     log(Markers.userTap).trace("tappedCloseOverlay", (m) async {
       await _stage.dismissModal(m);
+      await _onboard.markOnboardSeen(m);
     });
   }
 
