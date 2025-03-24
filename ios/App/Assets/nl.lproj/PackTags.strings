@@ -9,57 +9,57 @@
 //
 //  @author Karol Gusak
 //
+// One of the tags used for searching blocklists
 
+"recommended" = "aanbevolen";
 // One of the tags used for searching blocklists
-"recommended" = "recommended";
-// One of the tags used for searching blocklists
-"official" = "official";
+"official" = "officieel";
 // One of the tags used for searching blocklists
 "adblocking" = "adblocking";
 // One of the tags used for searching blocklists
-"tracking" = "tracking";
+"tracking" = "volgen";
 // One of the tags used for searching blocklists
 "privacy" = "privacy";
 // One of the tags used for searching blocklists
-"adult" = "adult";
+"adult" = "volwassen";
 // One of the tags used for searching blocklists
-"porn" = "porn";
+"porn" = "porno";
 // One of the tags used for searching blocklists
-"social" = "social";
+"social" = "sociaal";
 // One of the tags used for searching blocklists
-"regional" = "regional";
+"regional" = "regionaal";
 // One of the tags used for searching blocklists
-"fake news" = "fake news";
+"fake news" = "nep nieuws";
 // One of the tags used for searching blocklists
-"gambling" = "gambling";
+"gambling" = "kansspelen";
 // One of the tags used for searching blocklists
 "youtube" = "youtube";
 // One of the tags used for searching blocklists
 "phishing" = "phishing";
 // One of the tags used for searching blocklists
-"security" = "security";
+"security" = "beveiliging";
 // Family tags below
 // One of the tags used for searching blocklists
 "malware" = "malware";
 // One of the tags used for searching blocklists
 "spam" = "spam";
 // One of the tags used for searching blocklists
-"dating" = "dating";
+"dating" = "Bijwerken";
 // One of the tags used for searching blocklists
-"piracy" = "piracy";
+"piracy" = "piraterij";
 // One of the tags used for searching blocklists
 "torrent" = "torrent";
 // One of the tags used for searching blocklists
-"streaming" = "streaming";
+"streaming" = "streamen";
 // One of the tags used for searching blocklists
 "apps" = "apps";
 // One of the tags used for searching blocklists
 "chat" = "chat";
 // One of the tags used for searching blocklists
-"gaming" = "gaming";
+"gaming" = "Gaming";
 // One of the tags used for searching blocklists
-"games" = "games";
+"games" = "spellen";
 // One of the tags used for searching blocklists
 "e-commerce" = "e-commerce";
 // One of the tags used for searching blocklists
-"other" = "other";
+"other" = "Anders";

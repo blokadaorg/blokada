@@ -9,57 +9,57 @@
 //
 //  @author Karol Gusak
 //
+// One of the tags used for searching blocklists
 
+"recommended" = "recommandé";
 // One of the tags used for searching blocklists
-"recommended" = "recommended";
+"official" = "officiel";
 // One of the tags used for searching blocklists
-"official" = "official";
+"adblocking" = "blocage de pubs";
 // One of the tags used for searching blocklists
-"adblocking" = "adblocking";
+"tracking" = "suivi";
 // One of the tags used for searching blocklists
-"tracking" = "tracking";
+"privacy" = "vie privée";
 // One of the tags used for searching blocklists
-"privacy" = "privacy";
+"adult" = "adulte";
 // One of the tags used for searching blocklists
-"adult" = "adult";
-// One of the tags used for searching blocklists
-"porn" = "porn";
+"porn" = "pornographie";
 // One of the tags used for searching blocklists
 "social" = "social";
 // One of the tags used for searching blocklists
-"regional" = "regional";
+"regional" = "régional";
 // One of the tags used for searching blocklists
-"fake news" = "fake news";
+"fake news" = "\"fake news\"";
 // One of the tags used for searching blocklists
-"gambling" = "gambling";
+"gambling" = "jeux d'argent";
 // One of the tags used for searching blocklists
 "youtube" = "youtube";
 // One of the tags used for searching blocklists
-"phishing" = "phishing";
+"phishing" = "phising";
 // One of the tags used for searching blocklists
-"security" = "security";
+"security" = "sécurité";
 // Family tags below
 // One of the tags used for searching blocklists
 "malware" = "malware";
 // One of the tags used for searching blocklists
-"spam" = "spam";
+"spam" = "Spam";
 // One of the tags used for searching blocklists
-"dating" = "dating";
+"dating" = "Rencontre";
 // One of the tags used for searching blocklists
-"piracy" = "piracy";
+"piracy" = "piratage";
 // One of the tags used for searching blocklists
 "torrent" = "torrent";
 // One of the tags used for searching blocklists
 "streaming" = "streaming";
 // One of the tags used for searching blocklists
-"apps" = "apps";
+"apps" = "applications";
 // One of the tags used for searching blocklists
-"chat" = "chat";
+"chat" = "tchat";
 // One of the tags used for searching blocklists
-"gaming" = "gaming";
+"gaming" = "Jeu";
 // One of the tags used for searching blocklists
-"games" = "games";
+"games" = "jeux";
 // One of the tags used for searching blocklists
 "e-commerce" = "e-commerce";
 // One of the tags used for searching blocklists
-"other" = "other";
+"other" = "autres";
