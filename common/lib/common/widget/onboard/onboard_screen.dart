@@ -81,7 +81,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
           const Spacer(),
           BigIcon(icon: null, canShowLogo: true),
           const Spacer(),
-          Text("No more ads.\nSeriously.",
+          Text("onboard header".i18n,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
@@ -89,7 +89,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
                 fontWeight: FontWeight.w700,
               )),
           const SizedBox(height: 24),
-          Text("Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.",
+          Text("onboard desc".i18n,
               textAlign: TextAlign.left,
               style: const TextStyle(
                 color: Colors.white,
