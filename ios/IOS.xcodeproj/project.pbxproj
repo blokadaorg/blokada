@@ -957,6 +957,12 @@
 		4EEC49502A4D983D001EF934 /* CoreBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBinding.swift; sourceTree = "<group>"; };
 		4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsBinding.swift; sourceTree = "<group>"; };
 		4EF35C942C9D77DE00699022 /* UrlBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBinding.swift; sourceTree = "<group>"; };
+		4EF4174F2D91D4F300399290 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Packs.strings; sourceTree = "<group>"; };
+		4EF417502D91D4F300399290 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PackTags.strings; sourceTree = "<group>"; };
+		4EF417512D91D4F300399290 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Ui.strings; sourceTree = "<group>"; };
+		4EF417522D91D4F900399290 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Packs.strings; sourceTree = "<group>"; };
+		4EF417532D91D4F900399290 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/PackTags.strings; sourceTree = "<group>"; };
+		4EF417542D91D4F900399290 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Ui.strings; sourceTree = "<group>"; };
 		4EF5E4782A39D1AE001D1FF7 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeView.swift; sourceTree = "<group>"; };
@@ -1813,6 +1819,8 @@
 				ro,
 				sv,
 				es,
+				fr,
+				nl,
 			);
 			mainGroup = 47729DF922F447C800B9B36B;
 			packageReferences = (
@@ -2992,6 +3000,8 @@
 				4E99A3BA2514986C0054BF69 /* ro */,
 				4E8800F325C401CD001FD4C9 /* sv */,
 				4E46EBE12BF352E50000EFC1 /* es */,
+				4EF4174F2D91D4F300399290 /* fr */,
+				4EF417522D91D4F900399290 /* nl */,
 			);
 			name = Packs.strings;
 			sourceTree = "<group>";
@@ -3014,6 +3024,8 @@
 				4E99A3BB2514986C0054BF69 /* ro */,
 				4E8800F425C401CE001FD4C9 /* sv */,
 				4E46EBE22BF352E50000EFC1 /* es */,
+				4EF417502D91D4F300399290 /* fr */,
+				4EF417532D91D4F900399290 /* nl */,
 			);
 			name = PackTags.strings;
 			sourceTree = "<group>";
@@ -3036,6 +3048,8 @@
 				4E99A3BC2514986C0054BF69 /* ro */,
 				4E8800F525C401CE001FD4C9 /* sv */,
 				4E46EBE32BF352E50000EFC1 /* es */,
+				4EF417512D91D4F300399290 /* fr */,
+				4EF417542D91D4F900399290 /* nl */,
 			);
 			name = Ui.strings;
 			sourceTree = "<group>";
