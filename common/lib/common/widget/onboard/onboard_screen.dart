@@ -72,7 +72,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
 
   Widget _getFirstTimeScreen(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,19 +89,22 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
                 fontWeight: FontWeight.w700,
               )),
           const SizedBox(height: 24),
-          Text("onboard desc".i18n,
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                // fontWeight: FontWeight.w500,
-              )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36.0),
+            child: Text("onboard desc".i18n,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  // fontWeight: FontWeight.w500,
+                )),
+          ),
           const SizedBox(height: 32),
           Row(
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
                   child: MiniCard(
                     onTap: _close,
                     color: context.theme.accent,
