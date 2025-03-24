@@ -529,5 +529,8 @@
     "family cta action unlock": "Entsperren",
     "family account restore desc": "Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.",
     "generic account active": "Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!",
-    "notification new message title": "New message"
+    "notification new message title": "New message",
+    "onboard header": "Keine Werbung mehr.\nWirklich.",
+    "onboard desc": "Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.",
+    "onboard terms": "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy."
 }

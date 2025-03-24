@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Zadejte ID účtu pro obnovení vašich nákupů.</string>
     <string name="generic_account_active">Váš účet byl úspěšně obnoven. Vítejte zpět!</string>
     <string name="notification_new_message_title">Nová zpráva</string>
+    <string name="onboard_header">No more ads.\nSeriously.</string>
+    <string name="onboard_desc">Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

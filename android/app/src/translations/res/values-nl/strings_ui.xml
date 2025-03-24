@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Voer uw account-ID in om uw aankopen te herstellen.</string>
     <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
     <string name="notification_new_message_title">New message</string>
+    <string name="onboard_header">Geen advertenties meer.\nEcht waar.</string>
+    <string name="onboard_desc">Blokkeer advertenties en trackers overal met onze premium app. Geniet van sneller browsen, betere privacy en minder dataverbruik.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

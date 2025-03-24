@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Saisissez votre ID pour restaurer vos achats.</string>
     <string name="generic_account_active">Votre compte a été restauré avec succès. Bienvenue!</string>
     <string name="notification_new_message_title">Nouveau message</string>
+    <string name="onboard_header">Plus de pubs.\nSérieusement.</string>
+    <string name="onboard_desc">Bloquez les pubs et les traqueurs partout avec notre app premium. Profitez d’une navigation plus rapide, d’une meilleure confidentialité et d’une utilisation de données réduite.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

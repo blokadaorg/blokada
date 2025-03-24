@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.</string>
     <string name="generic_account_active">Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!</string>
     <string name="notification_new_message_title">New message</string>
+    <string name="onboard_header">Keine Werbung mehr.\nWirklich.</string>
+    <string name="onboard_desc">Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

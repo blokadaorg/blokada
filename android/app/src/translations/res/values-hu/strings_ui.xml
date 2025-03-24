@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Enter your account ID to restore your purchases.</string>
     <string name="generic_account_active">Your account has been successfully restored. Welcome back!</string>
     <string name="notification_new_message_title">New message</string>
+    <string name="onboard_header">No more ads.\nSeriously.</string>
+    <string name="onboard_desc">Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

@@ -2,7 +2,7 @@
     "error device offline": "Twoje urządzenie jest offline",
     "error account inactive": "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z BLOKADA+.",
     "error account inactive generic": "Twoje konto jest nieaktywne. Aktywuj swoje konto, jeśli chcesz nadal korzystać z Blokady.",
-    "error account inactive after restore": "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.",
+    "error account inactive after restore": "To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.",
     "error account invalid": "Ten identyfikator konta wygląda na niepoprawny.",
     "error creating account": "Nie można stworzyć nowego konta. Spróbuj ponownie później.",
     "error fetching data": "Coś poszło nie tak. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.",
@@ -529,5 +529,8 @@
     "family cta action unlock": "Odblokuj",
     "family account restore desc": "Wprowadź swój identyfikator konta, aby przywrócić konto.",
     "generic account active": "Twoje konto zostało pomyślnie przywrócone. Witamy ponownie!",
-    "notification new message title": "New message"
+    "notification new message title": "Nowa wiadomość",
+    "onboard header": "Nigdy więcej reklam.\nSerio.",
+    "onboard desc": "Blokuj reklamy i trackery za pomocą naszej aplikacji premium. Ciesz się szybszym przeglądaniem Internetu, lepszą prywatnością i mniejszym zużyciem danych.",
+    "onboard terms": "Kontynuując, akceptujesz nasze warunki korzystania z usługi i potwierdzasz otrzymanie naszej polityki prywatności."
 } }

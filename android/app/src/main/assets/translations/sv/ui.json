@@ -529,5 +529,8 @@
     "family cta action unlock": "Lås upp",
     "family account restore desc": "Ange ditt konto-ID för att återställa ditt köp.",
     "generic account active": "Ditt konto har återställts. Välkommen tillbaka!",
-    "notification new message title": "New message"
+    "notification new message title": "Nytt meddelande",
+    "onboard header": "Inga fler annonser.\nPå riktigt.",
+    "onboard desc": "Blockera annonser och trackers överallt med vår premiumapp. Surfa snabbare, få bättre integritet och använd mindre data.",
+    "onboard terms": "Genom att fortsätta godkänner du våra användarvillkor och bekräftar mottagandet av vår sekretesspolicy."
 } }

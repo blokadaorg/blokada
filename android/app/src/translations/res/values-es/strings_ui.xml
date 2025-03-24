@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Introduzca su ID de cuenta para restaurar sus compras.</string>
     <string name="generic_account_active">Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!</string>
     <string name="notification_new_message_title">New message</string>
+    <string name="onboard_header">No más anuncios.\nEn serio.</string>
+    <string name="onboard_desc">Bloquea anuncios y rastreadores en todas partes con nuestra app premium. Disfruta de una navegación más rápida, mayor privacidad y menor uso de datos.</string>
+    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
 </resources>

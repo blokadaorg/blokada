@@ -529,5 +529,8 @@
     "family cta action unlock": "Unlock",
     "family account restore desc": "Enter your account ID to restore your purchases.",
     "generic account active": "Your account has been successfully restored. Welcome back!",
-    "notification new message title": "New message"
+    "notification new message title": "New message",
+    "onboard header": "لا مزيد من الإعلانات.\nبجدية.",
+    "onboard desc": "احظر الإعلانات وأدوات التتبع في كل مكان مع تطبيقنا المميز. استمتع بتصفح أسرع، وخصوصية أفضل، واستهلاك بيانات أقل.",
+    "onboard terms": "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy."
 } }

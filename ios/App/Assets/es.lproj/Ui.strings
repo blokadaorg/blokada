@@ -735,3 +735,8 @@
 "generic account active" = "Tu cuenta se ha restaurado correctamente. ¡Bienvenido de nuevo!";
 
 "notification new message title" = "New message";
+
+
+"onboard header" = "No más anuncios.\nEn serio.";
+"onboard desc" = "Bloquea anuncios y rastreadores en todas partes con nuestra app premium. Disfruta de una navegación más rápida, mayor privacidad y menor uso de datos.";
+"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";

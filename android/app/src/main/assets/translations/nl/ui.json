@@ -529,5 +529,8 @@
     "family cta action unlock": "Ontgrendelen",
     "family account restore desc": "Voer uw account-ID in om uw aankopen te herstellen.",
     "generic account active": "Your account has been successfully restored. Welcome back!",
-    "notification new message title": "New message"
+    "notification new message title": "New message",
+    "onboard header": "Geen advertenties meer.\nEcht waar.",
+    "onboard desc": "Blokkeer advertenties en trackers overal met onze premium app. Geniet van sneller browsen, betere privacy en minder dataverbruik.",
+    "onboard terms": "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy."
 } }

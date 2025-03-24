@@ -530,5 +530,8 @@
     <string name="family_cta_action_unlock">Lås upp</string>
     <string name="family_account_restore_desc">Ange ditt konto-ID för att återställa ditt köp.</string>
     <string name="generic_account_active">Ditt konto har återställts. Välkommen tillbaka!</string>
-    <string name="notification_new_message_title">New message</string>
+    <string name="notification_new_message_title">Nytt meddelande</string>
+    <string name="onboard_header">Inga fler annonser.\nPå riktigt.</string>
+    <string name="onboard_desc">Blockera annonser och trackers överallt med vår premiumapp. Surfa snabbare, få bättre integritet och använd mindre data.</string>
+    <string name="onboard_terms">Genom att fortsätta godkänner du våra användarvillkor och bekräftar mottagandet av vår sekretesspolicy.</string>
 </resources>

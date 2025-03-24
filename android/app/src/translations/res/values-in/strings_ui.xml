@@ -531,4 +531,7 @@
     <string name="family_account_restore_desc">Masukkan ID akun Anda untuk memulihkan pembelian Anda.</string>
     <string name="generic_account_active">Akun Anda telah dipulihkan. Selamat datang kembali!</string>
     <string name="notification_new_message_title">Pesan baru</string>
+    <string name="onboard_header">Tak ada lagi iklan.\nSerius.</string>
+    <string name="onboard_desc">Blokir iklan dan tracker di manapun dengan aplikasi premium kami. Nikmati pengalaman browsing yang lebih cepat, dengan keamanan privasi yang lebih baik, dan konsumsi data yang lebih hemat.</string>
+    <string name="onboard_terms">Dengan melanjutkan berarti Anda menerima Ketentuan Layanan dan menyatakan menerima tanda bukti Kebijakan Privasi kami.</string>
 </resources>
