@@ -37,7 +37,7 @@ class TabItemState extends State<TabItem> {
                 widget.icon,
                 color: color,
               ),
-              Text(widget.title, style: TextStyle(color: color))
+              Text(widget.title, style: TextStyle(color: color), textAlign: TextAlign.center),
             ],
           ),
         ),
