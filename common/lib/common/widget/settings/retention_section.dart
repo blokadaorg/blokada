@@ -10,9 +10,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RetentionSection extends StatefulWidget {
+  // If should automatically pop back if user enables retention.
+  // Used when opened from activity instead of from settings.
+  final bool popBack;
   final bool primary;
 
-  const RetentionSection({Key? key, this.primary = true}) : super(key: key);
+  const RetentionSection({Key? key, this.popBack = false, this.primary = true})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RetentionSectionState();
@@ -37,6 +41,20 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
     setState(() {
       selected = _device.retention == "24h";
     });
+  }
+
+  _setRetention(BuildContext context, bool enabled) async {
+    await _device.setRetention(enabled ? "24h" : "", Markers.userTap);
+    if (enabled && widget.popBack) {
+      await sleepAsync(const Duration(milliseconds: 400));
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        await sleepAsync(const Duration(milliseconds: 400));
+        Navigation.open(Paths.activity);
+        await sleepAsync(const Duration(milliseconds: 600));
+        _stage.setRoute(StageTab.activity.name, Markers.userTap);
+      }
+    }
   }
 
   @override
@@ -67,20 +85,19 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
                   children: [
                     Expanded(
                         child: Text(
-                      selected
-                          ? "activity retention option 24h".i18n
-                          : "activity retention option none".i18n,
+                      "activity retention option 24h".i18n,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
                     CupertinoSwitch(
                       activeColor: context.theme.accent,
                       value: selected,
-                      onChanged: (bool? value) {
+                      onChanged: (bool? value) async {
                         setState(() {
                           selected = value!;
-                          _device.setRetention(
-                              value == true ? "24h" : "", Markers.userTap);
                         });
+
+                        // No async to not lag, but lags anyway
+                        _setRetention(context, value!);
                       },
                     ),
                   ],

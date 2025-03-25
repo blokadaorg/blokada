@@ -35,6 +35,7 @@ enum Paths {
   settingsExceptions("/settings/exceptions", true),
   settingsAccount("/settings/account", true),
   settingsRetention("/settings/retention", true),
+  settingsRetentionPopBack("/settings/retention/popBack", true),
   settingsVpnDevices("/settings/vpn", true),
   support("/support", true), // Doesn't work in pane
   // V6 tabs
@@ -152,6 +153,16 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "activity section header".i18n,
           child: const RetentionSection(),
+        ),
+      );
+    }
+
+    if (settings.name == Paths.settingsRetentionPopBack.path) {
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: "activity section header".i18n,
+          child: const RetentionSection(popBack: true),
         ),
       );
     }
