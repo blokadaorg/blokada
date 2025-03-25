@@ -13,7 +13,7 @@
 "error device offline" = "Das Gerät ist nicht verbunden";
 "error account inactive" = "Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ verwenden kannst.";
 "error account inactive generic" = "Ihr Konto ist inaktiv. Bitte aktivieren Sie Ihr Konto, um Blokada weiter zu nutzen.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "Dies scheint kein gültiger Account zu sein. Wenn Sie glauben, dass dies ein Fehler ist, kontaktieren Sie uns bitte.";
 "error account invalid" = "Diese Kontokennung scheint ungültig zu sein.";
 "error creating account" = "Konnte kein neues Konto erstellen. Bitte probiere es später erneut.";
 "error fetching data" = "Diese Aktion konnte nicht korrekt abgeschlossen werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte mit einem Tippen auf das Hilfe-Symbol oben.";
@@ -734,9 +734,9 @@
 
 "generic account active" = "Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!";
 
-"notification new message title" = "New message";
+"notification new message title" = "Neue Nachricht";
 
 
 "onboard header" = "Keine Werbung mehr.\nWirklich.";
 "onboard desc" = "Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard terms" = "Indem Sie fortfahren, akzeptieren Sie unsere Nutzungsbedingungen und erkennen den Erhalt unserer Datenschutzerklärung.";

@@ -3,7 +3,7 @@
     <string name="error_device_offline">Das Gerät ist nicht verbunden</string>
     <string name="error_account_inactive">Dein Konto ist inaktiv. Bitte aktiviere dein Konto, damit du weiterhin BLOKADA+ verwenden kannst.</string>
     <string name="error_account_inactive_generic">Ihr Konto ist inaktiv. Bitte aktivieren Sie Ihr Konto, um Blokada weiter zu nutzen.</string>
-    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
+    <string name="error_account_inactive_after_restore">Dies scheint kein gültiger Account zu sein. Wenn Sie glauben, dass dies ein Fehler ist, kontaktieren Sie uns bitte.</string>
     <string name="error_account_invalid">Diese Kontokennung scheint ungültig zu sein.</string>
     <string name="error_creating_account">Konnte kein neues Konto erstellen. Bitte probiere es später erneut.</string>
     <string name="error_fetching_data">Diese Aktion konnte nicht korrekt abgeschlossen werden. Stelle sicher, dass du online bist und versuche es später nochmal. Wenn das Problem weiterhin besteht, kontaktiere uns bitte mit einem Tippen auf das Hilfe-Symbol oben.</string>
@@ -530,8 +530,8 @@
     <string name="family_cta_action_unlock">Entsperren</string>
     <string name="family_account_restore_desc">Geben Sie Ihre Konto-ID ein, um Ihre Einkäufe wiederherzustellen.</string>
     <string name="generic_account_active">Ihr Konto wurde erfolgreich wiederhergestellt. Willkommen zurück!</string>
-    <string name="notification_new_message_title">New message</string>
+    <string name="notification_new_message_title">Neue Nachricht</string>
     <string name="onboard_header">Keine Werbung mehr.\nWirklich.</string>
     <string name="onboard_desc">Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.</string>
-    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
+    <string name="onboard_terms">Indem Sie fortfahren, akzeptieren Sie unsere Nutzungsbedingungen und erkennen den Erhalt unserer Datenschutzerklärung.</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="error_device_offline">Votre appareil est hors ligne</string>
     <string name="error_account_inactive">Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.</string>
     <string name="error_account_inactive_generic">Votre compte est inactif. Veuillez activer votre compte pour continuer à utiliser Blokada.</string>
-    <string name="error_account_inactive_after_restore">This does not seem to be a valid active account. If you believe this is a mistake, please contact us.</string>
+    <string name="error_account_inactive_after_restore">Cela ne semble pas être un compte actif valide. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez nous contacter.</string>
     <string name="error_account_invalid">Cet ID de compte semble non valide.</string>
     <string name="error_creating_account">Impossible de créer un nouveau compte. Veuillez réessayer plus tard.</string>
     <string name="error_fetching_data">Cette action n\'a pas pu être menée à bien. Assurez-vous d\'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l\'icône d\'aide en haut de l\'écran.</string>
@@ -111,7 +111,7 @@
     <string name="main_rate_us_action_sure">Bien sûr !</string>
     <string name="main_tab_home">Accueil</string>
     <string name="main_tab_activity">Activité</string>
-    <string name="main_tab_advanced">Paramètres Avancés</string>
+    <string name="main_tab_advanced">Avancé</string>
     <string name="main_tab_settings">Paramètres</string>
     <string name="home_ads_counter_footnote">pubs et trackers bloqués depuis l\'installation</string>
     <string name="home_power_off_menu_header">Que souhaitez-vous faire ?</string>
@@ -531,7 +531,7 @@
     <string name="family_account_restore_desc">Saisissez votre ID pour restaurer vos achats.</string>
     <string name="generic_account_active">Votre compte a été restauré avec succès. Bienvenue!</string>
     <string name="notification_new_message_title">Nouveau message</string>
-    <string name="onboard_header">Plus de pubs.\nSérieusement.</string>
+    <string name="onboard_header">Pas de pubs.\nSérieusement.</string>
     <string name="onboard_desc">Bloquez les pubs et les traqueurs partout avec notre app premium. Profitez d’une navigation plus rapide, d’une meilleure confidentialité et d’une utilisation de données réduite.</string>
-    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
+    <string name="onboard_terms">En continuant, vous acceptez nos conditions d\'utilisation et reconnaissez la réception de notre politique de confidentialité.</string>
 </resources>

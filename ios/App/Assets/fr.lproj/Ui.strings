@@ -13,7 +13,7 @@
 "error device offline" = "Votre appareil est hors ligne";
 "error account inactive" = "Votre compte est inactif. Veuillez activer votre compte pour continuer avec BLOKADA+.";
 "error account inactive generic" = "Votre compte est inactif. Veuillez activer votre compte pour continuer à utiliser Blokada.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "Cela ne semble pas être un compte actif valide. Si vous pensez qu'il s'agit d'une erreur, veuillez nous contacter.";
 "error account invalid" = "Cet ID de compte semble non valide.";
 "error creating account" = "Impossible de créer un nouveau compte. Veuillez réessayer plus tard.";
 "error fetching data" = "Cette action n'a pas pu être menée à bien. Assurez-vous d'être en ligne, et réessayez plus tard. Si le problème persiste, contactez-nous en cliquant sur l'icône d'aide en haut de l'écran.";
@@ -154,7 +154,7 @@
 // Make sure each tab name has a similar length
 "main tab activity" = "Activité";
 // Make sure each tab name has a similar length
-"main tab advanced" = "Paramètres Avancés";
+"main tab advanced" = "Avancé";
 // Make sure each tab name has a similar length
 "main tab settings" = "Paramètres";
 
@@ -737,6 +737,6 @@
 "notification new message title" = "Nouveau message";
 
 
-"onboard header" = "Plus de pubs.\nSérieusement.";
+"onboard header" = "Pas de pubs.\nSérieusement.";
 "onboard desc" = "Bloquez les pubs et les traqueurs partout avec notre app premium. Profitez d’une navigation plus rapide, d’une meilleure confidentialité et d’une utilisation de données réduite.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard terms" = "En continuant, vous acceptez nos conditions d'utilisation et reconnaissez la réception de notre politique de confidentialité.";
