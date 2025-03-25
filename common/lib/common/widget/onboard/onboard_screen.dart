@@ -71,6 +71,13 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
   }
 
   Widget _getFirstTimeScreen(BuildContext context) {
+    // Make header font size smaller for long strings
+    // Count only until the first line break
+    final header = "onboard header".i18n;
+    int lenUntilBreak = header.indexOf("\n");
+    if (lenUntilBreak < 0) lenUntilBreak = header.length;
+    final headerFontSize = (lenUntilBreak > 18) ? 24.0 : 32.0;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Column(
@@ -81,11 +88,11 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
           const Spacer(),
           BigIcon(icon: null, canShowLogo: true),
           const Spacer(),
-          Text("onboard header".i18n,
+          Text(header,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 32,
+                fontSize: headerFontSize,
                 fontWeight: FontWeight.w700,
               )),
           const SizedBox(height: 24),
