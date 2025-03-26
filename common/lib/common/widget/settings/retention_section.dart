@@ -46,8 +46,8 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
   _setRetention(BuildContext context, bool enabled) async {
     await _device.setRetention(enabled ? "24h" : "", Markers.userTap);
     if (enabled && widget.popBack) {
-      await sleepAsync(const Duration(milliseconds: 400));
-      if (context.mounted) {
+      await sleepAsync(const Duration(milliseconds: 200));
+      if (context.mounted && Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
         await sleepAsync(const Duration(milliseconds: 400));
         Navigation.open(Paths.activity);
