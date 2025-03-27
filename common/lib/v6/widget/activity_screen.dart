@@ -43,7 +43,7 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
     autorun((_) {
       final retention = _device.retention;
       setState(() {
-        _showStats = retention != "";
+        _showStats = retention == "24h";
       });
     });
   }
@@ -60,15 +60,30 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
     return WithTopBar(
       title: "main tab activity".i18n,
       topBarTrailing: _getStatsAction(context),
-      child: const Row(
+      child: Row(
         children: [
           Expanded(
             flex: 1,
-            child: StatsSection(deviceTag: null, isHeader: false),
+            child: _buildStatsScreenPhone(context),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildStatsScreenPhone(BuildContext context) {
+    if (_showStats) {
+      return const StatsSection(deviceTag: null, isHeader: false);
+    } else {
+      return const Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: RetentionSection(),
+          ),
+        ],
+      );
+    }
   }
 
   Widget _buildForTablet(BuildContext context) {
@@ -76,11 +91,11 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       title: "main tab activity".i18n,
       maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
       topBarTrailing: _getStatsAction(context),
-      child: _buildStatsScreen(context),
+      child: _buildStatsScreenTablet(context),
     );
   }
 
-  Widget _buildStatsScreen(BuildContext context) {
+  Widget _buildStatsScreenTablet(BuildContext context) {
     if (_showStats) {
       return Row(
         mainAxisSize: MainAxisSize.max,

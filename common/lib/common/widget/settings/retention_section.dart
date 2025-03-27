@@ -10,13 +10,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RetentionSection extends StatefulWidget {
-  // If should automatically pop back if user enables retention.
-  // Used when opened from activity instead of from settings.
-  final bool popBack;
   final bool primary;
 
-  const RetentionSection({Key? key, this.popBack = false, this.primary = true})
-      : super(key: key);
+  const RetentionSection({Key? key, this.primary = true}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RetentionSectionState();
@@ -45,16 +41,6 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
 
   _setRetention(BuildContext context, bool enabled) async {
     await _device.setRetention(enabled ? "24h" : "", Markers.userTap);
-    if (enabled && widget.popBack) {
-      await sleepAsync(const Duration(milliseconds: 200));
-      if (context.mounted && Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-        await sleepAsync(const Duration(milliseconds: 400));
-        Navigation.open(Paths.activity);
-        await sleepAsync(const Duration(milliseconds: 600));
-        _stage.setRoute(StageTab.activity.name, Markers.userTap);
-      }
-    }
   }
 
   @override

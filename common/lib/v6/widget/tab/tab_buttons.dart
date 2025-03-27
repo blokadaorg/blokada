@@ -1,10 +1,8 @@
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/tab/tab_item.dart';
-import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 
 class TabButtonsWidget extends StatefulWidget {
@@ -16,13 +14,9 @@ class TabButtonsWidget extends StatefulWidget {
 
 class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
   final _stage = Core.get<StageStore>();
-  final _device = Core.get<DeviceStore>();
 
   _tap(StageTab tab) async {
-    if (tab == StageTab.activity && (_device.retention?.isBlank ?? true)) {
-      Navigation.open(Paths.settingsRetentionPopBack);
-      _updateStage(StageTab.settings);
-    } else if (tab == StageTab.activity) {
+    if (tab == StageTab.activity) {
       Navigation.open(Paths.activity);
       _updateStage(StageTab.activity);
     } else if (tab == StageTab.advanced) {
