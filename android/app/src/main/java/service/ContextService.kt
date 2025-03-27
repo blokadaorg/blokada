@@ -25,7 +25,7 @@ object ContextService {
     private var app: Application? = null
     private var fragment: Fragment? = null
     private var context: Context? = null
-    private var activityContext = WeakReference<Activity?>(null)
+    private var activityContext: Activity? = null
 
     fun setApp(app: Application) {
         /**
@@ -36,25 +36,21 @@ object ContextService {
         this.context = app.applicationContext
     }
 
-    // Used only for BackupAgent
-    fun setAppContext(appContext: Context) {
-        this.context = appContext
-    }
-
     fun setActivityContext(context: Activity) {
-        this.activityContext = WeakReference(context)
+        this.activityContext = context
     }
 
     fun unsetActivityContext() {
-        this.activityContext = WeakReference(null)
+        this.activityContext = null
     }
 
     fun requireContext(): Context {
-        return activityContext.get() ?: context ?: throw Exception("No context set in ContextService")
+        return activityContext ?: context
+        ?: throw Exception("No context set in ContextService")
     }
 
     fun requireActivity(): Activity {
-        return activityContext.get() ?: throw Exception("No activity context set in ContextService")
+        return activityContext ?: throw Exception("No activity context set in ContextService")
     }
 
     fun requireAppContext(): Context {
@@ -62,7 +58,7 @@ object ContextService {
     }
 
     fun hasActivityContext(): Boolean {
-        return activityContext.get() != null
+        return activityContext != null
     }
 
     fun requireApp(): Application {

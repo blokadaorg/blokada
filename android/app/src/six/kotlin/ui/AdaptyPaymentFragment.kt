@@ -23,13 +23,26 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
 
     private val payment by lazy { PaymentBinding }
 
-    lateinit var view: AdaptyPaywallView
+    var adaptyView: AdaptyPaywallView? = null
 
     companion object {
         fun newInstance(view: AdaptyPaywallView): AdaptyPaymentFragment {
             val fragment = AdaptyPaymentFragment()
-            fragment.view = view
+            fragment.adaptyView = view
             return fragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // We noticed in prod a crash when the fragment is created but the view is null
+        // This is a workaround to prevent the crash
+        // That could probably happen if system was restoring the view from the saved state
+        // But we don't care to show this fragment in such scenario, user can re-open
+        if (adaptyView == null) {
+            parentFragmentManager.beginTransaction().remove(this).commit()
+            return
         }
     }
 
@@ -37,7 +50,7 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return view
+        return adaptyView!!
     }
 
     override fun onDestroy() {

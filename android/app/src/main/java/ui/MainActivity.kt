@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.apply {
-            setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
         }
         context.setActivityContext(this)
         TranslationService.setup()
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                 when (action) {
                     ACC_MANAGE -> {
                     }
+
                     else -> {
                         Logger.w("MainActivity", "Received unknown intent: $action")
                     }
@@ -97,6 +101,7 @@ class MainActivity : AppCompatActivity() {
     private var lastOnResume = 0L
     override fun onResume() {
         super.onResume()
+        context.setActivityContext(this)
         stage.setForeground()
 
         // Avoid multiple consecutive quick onResume events

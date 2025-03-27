@@ -14,6 +14,8 @@ package binding
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import channel.command.CommandName
 import channel.payment.PaymentOps
 import com.adapty.Adapty
@@ -43,7 +45,6 @@ import kotlin.coroutines.suspendCoroutine
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
-    private val _scope = CoroutineScope(Dispatchers.Main)
     private val flutter by lazy { FlutterService }
     private val context by lazy { ContextService }
     private val commands by lazy { CommandBinding }
@@ -107,7 +108,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
-        _scope.launch {
+        getActivityScope().launch {
             try {
                 _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
                 _currentView = fetchPaywall(placementId)
@@ -125,7 +126,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         callback: (Result<Unit>) -> Unit
     ) {
         _retry = true
-        _scope.launch {
+        getActivityScope().launch {
             try {
                 if (forceReload || _currentViewForPlacementId != placementId) {
                     _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
@@ -156,16 +157,29 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                         AdaptyUI.getViewConfiguration(paywall, loadTimeout = 10.seconds) { result ->
                             when (result) {
                                 is AdaptyResult.Success -> {
-                                    val activity = context.requireActivity() as MainActivity
-                                    val viewConfiguration = result.value
-                                    // use loaded configuration
-                                    val view = AdaptyUI.getPaywallView(
-                                        activity,
-                                        viewConfiguration,
-                                        null,
-                                        this,
-                                    )
-                                    continuation.resumeWith(Result.success(view))
+                                    if (!context.hasActivityContext()) {
+                                        continuation.resumeWith(
+                                            Result.failure(
+                                                Exception("Activity context no longer available")
+                                            )
+                                        )
+                                        return@getViewConfiguration
+                                    }
+
+                                    try {
+                                        val activity = context.requireActivity() as MainActivity
+                                        val viewConfiguration = result.value
+                                        // use loaded configuration
+                                        val view = AdaptyUI.getPaywallView(
+                                            activity,
+                                            viewConfiguration,
+                                            null,
+                                            this,
+                                        )
+                                        continuation.resumeWith(Result.success(view))
+                                    } catch (e: Exception) {
+                                        continuation.resumeWith(Result.failure(e))
+                                    }
                                 }
 
                                 is AdaptyResult.Error -> {
@@ -305,14 +319,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     private fun handleSuccess(profileId: String, restore: Boolean) {
-        _scope.launch {
+        getActivityScope().launch {
             val restoreString = if (restore) "1" else "0"
             commands.execute(CommandName.PAYMENTHANDLESUCCESS, profileId, restoreString)
         }
     }
 
     private fun handleFailure(restore: Boolean, temporary: Boolean) {
-        _scope.launch {
+        getActivityScope().launch {
             val restoreString = if (restore) "1" else "0"
             val temporaryString = if (temporary) "1" else "0"
             commands.execute(CommandName.PAYMENTHANDLEFAILURE, restoreString, temporaryString)
@@ -320,16 +334,20 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     fun handleScreenClosed() {
-        _scope.launch {
+        getActivityScope().launch {
             commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED)
         }
     }
 
     private fun log(message: String, error: Throwable) {
-        _scope.launch {
+        getActivityScope().launch {
             val errorString = "$message: ${error.message}"
             commands.execute(CommandName.WARNING, errorString)
         }
+    }
+
+    private fun getActivityScope(): CoroutineScope {
+        return (context.requireActivity() as LifecycleOwner).lifecycleScope
     }
 
     // Unused interface methods below
