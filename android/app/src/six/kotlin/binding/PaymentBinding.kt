@@ -34,8 +34,8 @@ import com.adapty.utils.FileLocation
 import com.adapty.utils.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import service.ConnectivityService
 import service.ContextService
 import service.FlutterService
 import ui.AdaptyPaymentFragment
@@ -55,6 +55,8 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private var _currentSubscriptionProductId: String? = null
     private var _currentView: AdaptyPaywallView? = null
     private var _currentViewForPlacementId: String? = null
+
+    private val _scope = CoroutineScope(Dispatchers.Main)
 
     init {
         PaymentOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -108,7 +110,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
-        getActivityScope().launch {
+        getActivityScope()?.launch {
             try {
                 _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
                 _currentView = fetchPaywall(placementId)
@@ -117,7 +119,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
-        }
+        } ?: callback(Result.failure(Exception("No activity context")))
     }
 
     override fun doShowPaymentScreen(
@@ -126,7 +128,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         callback: (Result<Unit>) -> Unit
     ) {
         _retry = true
-        getActivityScope().launch {
+        getActivityScope()?.launch {
             try {
                 if (forceReload || _currentViewForPlacementId != placementId) {
                     _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
@@ -144,7 +146,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
-        }
+        } ?: callback(Result.failure(Exception("No activity context")))
     }
 
     private suspend fun fetchPaywall(placementId: String): AdaptyPaywallView {
@@ -319,14 +321,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     private fun handleSuccess(profileId: String, restore: Boolean) {
-        getActivityScope().launch {
+        _scope.launch {
             val restoreString = if (restore) "1" else "0"
             commands.execute(CommandName.PAYMENTHANDLESUCCESS, profileId, restoreString)
         }
     }
 
     private fun handleFailure(restore: Boolean, temporary: Boolean) {
-        getActivityScope().launch {
+        _scope.launch {
             val restoreString = if (restore) "1" else "0"
             val temporaryString = if (temporary) "1" else "0"
             commands.execute(CommandName.PAYMENTHANDLEFAILURE, restoreString, temporaryString)
@@ -334,19 +336,23 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     fun handleScreenClosed() {
-        getActivityScope().launch {
+        _scope.launch {
             commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED)
         }
     }
 
     private fun log(message: String, error: Throwable) {
-        getActivityScope().launch {
+        _scope.launch {
             val errorString = "$message: ${error.message}"
             commands.execute(CommandName.WARNING, errorString)
         }
     }
 
-    private fun getActivityScope(): CoroutineScope {
+    // Returns scope to execute coroutines in. We need activity scope for the paywall itself,
+    // but other operations are more lenient. We want to make sure the success checkout is as
+    // certain as possible, so we don't use the activity scope for that.
+    private fun getActivityScope(): CoroutineScope? {
+        if (!context.hasActivityContext()) return null
         return (context.requireActivity() as LifecycleOwner).lifecycleScope
     }
 
