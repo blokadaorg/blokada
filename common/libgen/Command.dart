@@ -28,6 +28,7 @@ enum CommandName {
   // Tracer
   fatal,
   warning,
+  info,
   log,
   crashLog,
 

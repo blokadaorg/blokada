@@ -10,10 +10,16 @@ class LoggerCommand with Command, Logging {
   @override
   List<CommandSpec> onRegisterCommands() {
     return [
+      registerCommand("info", argsNum: 1, fn: cmdPlatformInfo),
       registerCommand("warning", argsNum: 1, fn: cmdPlatformWarning),
       registerCommand("fatal", argsNum: 1, fn: cmdPlatformFatal),
       registerCommand("log", argsNum: 0, fn: cmdShareLog),
     ];
+  }
+
+  Future<void> cmdPlatformInfo(Marker m, dynamic args) async {
+    final msg = args[0] as String;
+    log(m).i(msg);
   }
 
   Future<void> cmdPlatformWarning(Marker m, dynamic args) async {

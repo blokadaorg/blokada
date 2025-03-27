@@ -85,7 +85,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                 if (error != null) throw error
             }
         } catch (e: Exception) {
-            log("Adapty: Failed setting fallback, ignore", e)
+            logError("Adapty: Failed setting fallback, ignore", e)
         }
         callback(Result.success(Unit))
     }
@@ -204,6 +204,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             Adapty.getProfile { result ->
                 when (result) {
                     is AdaptyResult.Success -> {
+                        log("Adapty profileId: ${result.value.profileId}")
                         val subId =
                             result.value.accessLevels.values.firstOrNull { it.isActive }?.vendorProductId?.substringBefore(
                                 ":"
@@ -266,7 +267,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
     override fun onLoadingProductsFailure(error: AdaptyError, context: Context): Boolean {
         closePaymentScreen()
-        log("Failed loading products", error)
+        logError("Failed loading products", error)
         handleFailure(restore = false, temporary = true)
 
         // Just one retry
@@ -281,17 +282,17 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         context: Context
     ) {
         closePaymentScreen()
-        log("Failed purchase", error)
+        logError("Failed purchase", error)
         handleFailure(restore = false, temporary = false)
     }
 
     override fun onRenderingError(error: AdaptyError, context: Context) {
-        log("Failed rendering adapty", error)
+        logError("Failed rendering adapty", error)
     }
 
     override fun onRestoreFailure(error: AdaptyError, context: Context) {
         closePaymentScreen()
-        log("Failed restore", error)
+        logError("Failed restore", error)
         handleFailure(restore = true, temporary = false)
     }
 
@@ -341,10 +342,16 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    private fun log(message: String, error: Throwable) {
+    private fun logError(message: String, error: Throwable) {
         _scope.launch {
             val errorString = "$message: ${error.message}"
             commands.execute(CommandName.WARNING, errorString)
+        }
+    }
+
+    private fun log(message: String) {
+        _scope.launch {
+            commands.execute(CommandName.INFO, message)
         }
     }
 
