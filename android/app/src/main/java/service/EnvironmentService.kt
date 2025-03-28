@@ -16,6 +16,7 @@ import android.os.Build
 import model.DeviceId
 import org.blokada.BuildConfig
 import java.text.Normalizer
+import java.util.Locale
 
 object EnvironmentService {
 
@@ -67,7 +68,7 @@ object EnvironmentService {
     }
 
     fun isCompatible(): Boolean {
-        val device = Build.MANUFACTURER.toLowerCase()
+        val device = Build.MANUFACTURER.lowercase(Locale.getDefault())
         return when {
             device.startsWith("realme") -> false
             device.startsWith("oppo") -> false

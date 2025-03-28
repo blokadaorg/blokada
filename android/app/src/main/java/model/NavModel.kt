@@ -12,13 +12,15 @@
 
 package model
 
+import java.util.Locale
+
 
 enum class Tab {
     Home, Activity, Advanced, Settings, Web;
 
     companion object {
         fun fromRoute(route: String): Tab {
-            return when (route.split("/").first().toLowerCase()) {
+            return when (route.split("/").first().lowercase(Locale.getDefault())) {
                 "home" -> Home
                 "activity" -> Activity
                 "advanced" -> Advanced

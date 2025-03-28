@@ -14,31 +14,31 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.9.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.10"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.8.9'
     }
 }
 
 plugins {
-    id 'com.google.devtools.ksp' version '1.9.21-1.0.16' apply false
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.21'  apply false
+    id 'com.google.devtools.ksp' version '2.1.10-1.0.31' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '2.1.10' apply false
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 

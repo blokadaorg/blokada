@@ -24,7 +24,8 @@ ADAPTY_VER := 3_4.0
 	publish-android gplay-key-unpack gplay-key-clean \
 	publish-ios appstore-key-unpack appstore-key-clean \
 	build-android-family-debug build-android-six-debug \
-	rebuild-android-family-debug rebuild-android-six-debug \
+	build-android-family-quick build-android-six-quick \
+	build-android-family-debug-quick build-android-six-debug-quick \
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
@@ -151,14 +152,24 @@ build-android-six-debug: regen-android
 	$(MAKE) -C android/ apk-six-debug
 
 # Quick rebuild android family .apk (assumes flutter is built)
-rebuild-android-family-debug:
+build-android-family-debug-quick:
 	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
 	$(MAKE) -C android/ apk-family-debug
 
 # Quick rebuild android six .apk (assumes flutter is built)
-rebuild-android-six-debug:
+build-android-six-debug-quick:
 	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
 	$(MAKE) -C android/ apk-six-debug
+
+# Quick rebuild android family .apk (assumes flutter is built)
+build-android-family-quick:
+	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
+	$(MAKE) -C android/ apk-family
+
+# Quick rebuild android six .apk (assumes flutter is built)
+build-android-six-quick:
+	@echo "Warning: use quick rebuild targets only if you haven't modified sixcommon"
+	$(MAKE) -C android/ apk-six
 
 
 # Prepare flutter gen files
