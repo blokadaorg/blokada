@@ -106,6 +106,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: build android
+  jobExecutor: agent
   steps:
   - !CheckoutStep
     name: checkout
