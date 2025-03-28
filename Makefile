@@ -208,13 +208,13 @@ ci-copy-source:
 	@cp -r . $(CI_BUILD_DIR)
 
 # CI: build android family app from scratch
-ci-build-android-family: ci-copy-source
+ci-build-android-family:
 	cd $(CI_BUILD_DIR) && $(MAKE) version
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
 
 # CI: build android six app from scratch
-ci-build-android-six: ci-copy-source
+ci-build-android-six:
 	cd $(CI_BUILD_DIR) && $(MAKE) version
 	cd $(CI_BUILD_DIR) && $(MAKE) build-android-six
 	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
