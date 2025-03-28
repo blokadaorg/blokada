@@ -30,6 +30,7 @@ import service.NotificationService
 import ui.utils.cause
 import utils.ExecutingCommandNotification
 import utils.Logger
+import java.util.Locale
 
 enum class Command {
     OFF, ON, DNS, LOG, ACC, ESCAPE, TOAST, DOH, FAMILY_LINK
@@ -70,9 +71,11 @@ class CommandActivity : AppCompatActivity() {
             Command.OFF -> {
                 GlobalScope.launch { app.pause() }
             }
+
             Command.ON -> {
                 GlobalScope.launch { app.unpause() }
             }
+
             Command.ACC -> {
                 if (param == ACC_MANAGE) {
                     log.v("Starting account management screen")
@@ -123,7 +126,7 @@ class CommandActivity : AppCompatActivity() {
                     .split("/")
                     .let {
                         try {
-                            Command.valueOf(it[0].toUpperCase()) to it.getOrNull(1)
+                            Command.valueOf(it[0].uppercase(Locale.getDefault())) to it.getOrNull(1)
                         } catch (ex: Exception) {
                             null
                         }
@@ -157,6 +160,7 @@ class CommandActivity : AppCompatActivity() {
 
 class CommandService : IntentService("cmd") {
 
+    @Deprecated("Deprecated in Java")
     override fun onHandleIntent(intent: Intent?) {
         intent?.let {
             try {
