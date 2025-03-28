@@ -29,7 +29,7 @@ jobs:
     multiline: false
     pattern: (family|six)
   jobDependencies:
-  - jobName: build android (docker)
+  - jobName: build android
     requireSuccessful: true
     paramMatrix:
     - secret: false
@@ -105,7 +105,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: build android (docker)
+- name: build android
   steps:
   - !CheckoutStep
     name: checkout
@@ -115,7 +115,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: build aab
-    runInContainer: true
+    runInContainer: false
     image: docker-apps-build-box
     interpreter: !DefaultInterpreter
       commands: |
