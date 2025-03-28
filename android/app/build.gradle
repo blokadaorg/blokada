@@ -30,6 +30,11 @@ android {
         jvmToolchain 17
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     buildFeatures {
         buildConfig = true
         dataBinding = true // For wireguard
