@@ -209,15 +209,13 @@ ci-copy-source:
 
 # CI: build android family app from scratch
 ci-build-android-family:
-	cd $(CI_BUILD_DIR) && $(MAKE) version
-	cd $(CI_BUILD_DIR) && $(MAKE) build-android-family
-	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
+	$(MAKE) version
+	$(MAKE) build-android-family
 
 # CI: build android six app from scratch
 ci-build-android-six:
-	cd $(CI_BUILD_DIR) && $(MAKE) version
-	cd $(CI_BUILD_DIR) && $(MAKE) build-android-six
-	cp -r $(CI_BUILD_DIR)/android/app/build ./android/app/
+	$(MAKE) version
+	$(MAKE) build-android-six
 
 # CI: build ios family app from scratch
 ci-build-ios-family:
