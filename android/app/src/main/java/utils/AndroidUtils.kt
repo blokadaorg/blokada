@@ -40,17 +40,13 @@ object AndroidUtils {
         val clipboard = ContextCompat.getSystemService(ctx, ClipboardManager::class.java)
         val clip = ClipData.newPlainText("name", text)
         clipboard?.setPrimaryClip(clip)
-        Toast.makeText(ctx, ctx.getString(R.string.universal_status_copied_to_clipboard), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            ctx,
+            ctx.getString(R.string.universal_status_copied_to_clipboard),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
-}
-
-fun Context.getPendingIntentForService(intent: Intent, flags: Int): PendingIntent {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        PendingIntent.getService(this, 0, intent, flags or PendingIntent.FLAG_IMMUTABLE)
-    } else {
-        PendingIntent.getService(this, 0, intent, flags)
-    }
 }
 
 fun Context.getPendingIntentForActivity(intent: Intent, flags: Int): PendingIntent {
