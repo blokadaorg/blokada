@@ -1,5 +1,4 @@
 import 'package:common/common/dialog.dart';
-import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/env/env.dart';
 import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/rate/rate.dart';
@@ -14,6 +13,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/widget/home/bg.dart';
 import 'package:common/platform/account/account.dart';
+import 'package:common/platform/command/channel.pg.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/perm/perm.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -256,7 +256,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     text: "universal action share log".i18n,
                     onTap: () {
                       log(Markers.userTap).trace("supportSendLog", (m) async {
-                        await _command.onCommand("log", m);
+                        await _command.onCommand(CommandName.shareLog.name, m);
                       });
                     }),
                 const CommonDivider(),
@@ -274,10 +274,9 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     icon: CupertinoIcons.star_fill,
                     text: "main rate us header".i18n,
                     onTap: () {
-                      log(Markers.userTap).trace("settingsOpenRate",
-                              (m) async {
-                            await _rate.show(m);
-                          });
+                      log(Markers.userTap).trace("settingsOpenRate", (m) async {
+                        await _rate.show(m);
+                      });
                     }),
               ],
             ),

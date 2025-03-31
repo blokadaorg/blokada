@@ -83,19 +83,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleIntent(intent: Intent) {
-        lifecycleScope.launch {
-            delay(1000) // So user sees the transition
-            intent.extras?.getString(ACTION)?.let { action ->
-                when (action) {
-                    ACC_MANAGE -> {
-                    }
-
-                    else -> {
-                        Logger.w("MainActivity", "Received unknown intent: $action")
-                    }
-                }
-            }
-        }
     }
 
     private var lastOnResume = 0L

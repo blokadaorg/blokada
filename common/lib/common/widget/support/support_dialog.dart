@@ -3,6 +3,7 @@ import 'package:common/common/module/support/support.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/command/channel.pg.dart';
 import 'package:common/platform/command/command.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +41,7 @@ class SupportDialogState extends State<SupportDialog> with Logging {
           "universal action share log".i18n,
           onTap: () {
             log(Markers.userTap).trace("supportSendLog", (m) async {
-              await _command.onCommand("log", m);
+              await _command.onCommand(CommandName.shareLog.name, m);
             });
           },
         ),

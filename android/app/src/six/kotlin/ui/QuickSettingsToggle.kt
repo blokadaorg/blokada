@@ -16,6 +16,7 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import binding.AppBinding
 import binding.isActive
+import binding.isWorking
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -72,6 +73,11 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
         return when {
             tile == null -> null
+            state.isWorking() -> {
+                showWorking(tile)
+                true
+            }
+
             state.isActive() -> {
                 showOn(tile)
                 true
@@ -93,6 +99,12 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     private fun showOn(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = getString(R.string.home_status_active)
+        updateTile(qsTile)
+    }
+
+    private fun showWorking(qsTile: Tile) {
+        qsTile.state = Tile.STATE_ACTIVE
+        qsTile.label = getString(R.string.home_status_detail_progress)
         updateTile(qsTile)
     }
 

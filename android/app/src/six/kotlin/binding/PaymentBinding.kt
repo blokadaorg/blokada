@@ -39,7 +39,7 @@ import service.ContextService
 import service.FlutterService
 import ui.AdaptyPaymentFragment
 import ui.MainActivity
-import utils.openInBrowser
+import utils.Intents
 import kotlin.coroutines.suspendCoroutine
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {
@@ -47,6 +47,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private val flutter by lazy { FlutterService }
     private val context by lazy { ContextService }
     private val commands by lazy { CommandBinding }
+    private val intents by lazy { Intents }
 
     private var _fragment: AdaptyPaymentFragment? = null
     private var _retry = true
@@ -261,7 +262,8 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             }
 
             is AdaptyUI.Action.OpenUrl -> {
-                openInBrowser(action.url)
+                val intent = intents.createOpenInBrowserIntent(action.url)
+                intents.openIntentActivity(context, intent)
             }
 
             is AdaptyUI.Action.Custom -> {

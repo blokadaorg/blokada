@@ -21,7 +21,11 @@ fun AppStatus.isActive(): Boolean {
     return this == AppStatus.ACTIVATEDCLOUD || this == AppStatus.ACTIVATEDPLUS
 }
 
-object AppBinding: AppOps {
+fun AppStatus.isWorking(): Boolean {
+    return this == AppStatus.RECONFIGURING || this == AppStatus.INITIALIZING
+}
+
+object AppBinding : AppOps {
     val appStatus = MutableStateFlow(AppStatus.UNKNOWN)
 
     private val flutter by lazy { FlutterService }
