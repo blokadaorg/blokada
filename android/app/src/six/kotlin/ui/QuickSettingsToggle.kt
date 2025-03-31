@@ -16,6 +16,8 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import binding.AppBinding
 import binding.isActive
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -27,18 +29,19 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
     private val log = Logger("QSTile")
     private val app by lazy { AppBinding }
+    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
     private var tileActive = false
 
     init {
-        GlobalScope.launch {
+        scope.launch {
             app.appStatus.collect { syncStatus() }
         }
     }
 
     override fun onStartListening() {
         tileActive = true
-        GlobalScope.launch { syncStatus() }
+        scope.launch { syncStatus() }
     }
 
     override fun onStopListening() {
@@ -46,18 +49,18 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     }
 
     override fun onTileAdded() {
-        GlobalScope.launch { syncStatus() }
+        scope.launch { syncStatus() }
     }
 
     override fun onClick() {
-        GlobalScope.launch {
+        scope.launch {
             syncStatus()?.let { isActive ->
                 if (isActive) {
                     log.v("Turning off from QuickSettings")
-                    executeCommand(Command.OFF)
+                    app.pause()
                 } else {
                     log.v("Turning on from QuickSettings")
-                    executeCommand(Command.ON)
+                    app.unpause()
                 }
             }
         }
@@ -73,6 +76,7 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
                 showOn(tile)
                 true
             }
+
             else -> {
                 showOff(tile)
                 false

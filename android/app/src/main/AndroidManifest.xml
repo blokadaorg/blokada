@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ This file is part of Blokada.
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,8 +28,8 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
@@ -86,7 +85,8 @@
 
         <receiver android:name="service.NotificationAlarmReceiver" />
 
-        <receiver android:name="service.BootReceiver"
+        <receiver
+            android:name="service.BootReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -97,12 +97,6 @@
                 <action android:name="org.blokada.sex.DEBUG_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name="service.RestartJob"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <service android:name="ui.CommandService" />
 
         <service
             android:name="ui.QuickSettingsToggle"
@@ -128,10 +122,10 @@
     </application>
 
     <queries>
-        <package android:name="org.blokada.origin.alarm"/>
-        <package android:name="org.blokada.alarm.dnschanger"/>
-        <package android:name="org.blokada.fem.fdroid"/>
-        <package android:name="org.blokada.sex"/>
+        <package android:name="org.blokada.origin.alarm" />
+        <package android:name="org.blokada.alarm.dnschanger" />
+        <package android:name="org.blokada.fem.fdroid" />
+        <package android:name="org.blokada.sex" />
     </queries>
 
 </manifest>
