@@ -61,8 +61,11 @@ class AdaptyPaymentChannel
   }
 
   @override
-  showPaymentScreen(Marker m, Placement placement, {bool forceReload = false}) async {
-    if (forceReload || _paymentViewForPlacementId != placement.id) {
+  showPaymentScreen(Marker m, Placement placement,
+      {bool forceReload = false}) async {
+    if (forceReload ||
+        _paymentViewForPlacementId != placement.id ||
+        _paymentView == null) {
       _paymentView = await _createPaywall(m, placement);
       _paymentViewForPlacementId = placement.id;
     }
@@ -78,8 +81,7 @@ class AdaptyPaymentChannel
     _actor.handleScreenClosed();
   }
 
-  Future<AdaptyUIView> _createPaywall(
-      Marker m, Placement placement) async {
+  Future<AdaptyUIView> _createPaywall(Marker m, Placement placement) async {
     final paywall = await _fetchPaywall(m, placement);
     return await _adaptyUi.createPaywallView(
       paywall: paywall,
