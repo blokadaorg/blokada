@@ -31,15 +31,21 @@ import service.ContextService
 import service.FlutterService
 import service.JsonSerializationService
 import service.PersistenceService
+import utils.Intents
 import utils.Logger
 import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
 import java.nio.charset.Charset
+import androidx.core.content.edit
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
-object CoreBinding: CoreOps {
+object CoreBinding : CoreOps {
     private val flutter by lazy { FlutterService }
     private val context by lazy { ContextService }
+    private val intents by lazy { Intents }
 
     private lateinit var fileName: String
     private val maxFileSize: Long = 5 * 1024 * 1024 // 5 MB
@@ -48,7 +54,8 @@ object CoreBinding: CoreOps {
     @Volatile
     private var currentSize: Long = 0
 
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val scope = CoroutineScope(SupervisorJob())
+    private val mutex = Mutex()
 
     private val backedUpSharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context.requireContext())
@@ -84,7 +91,7 @@ object CoreBinding: CoreOps {
         callback: (Result<Unit>) -> Unit
     ) {
         scope.launch(Dispatchers.IO) {
-            synchronized(this@CoreBinding) {
+            val result = mutex.withLock {
                 try {
                     RandomAccessFile(logFile, "rw").use { raf ->
                         raf.seek(raf.length())
@@ -93,11 +100,14 @@ object CoreBinding: CoreOps {
                         currentSize += bytes.size
                     }
                     trimLogFileIfNeeded()
-                    callback(Result.success(Unit))
+                    Result.success(Unit)
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    callback(Result.failure(e))
+                    Result.failure(e)
                 }
+            }
+            withContext(Dispatchers.Main) {
+                callback(result)
             }
         }
     }
@@ -151,41 +161,18 @@ object CoreBinding: CoreOps {
         }
     }
 
+    // This is for log sharing only
     override fun doShareFile(callback: (Result<Unit>) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch {
             try {
                 val file = File(context.requireAppContext().filesDir, fileName)
-                shareFile(file)
+                val ctx = context.requireContext()
+                val intent = intents.createShareFileIntent(ctx, file)
+                intents.openIntentActivity(ctx, intent)
                 callback(Result.success(Unit))
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
-        }
-    }
-
-    private fun shareFile(file: File) {
-        val ctx = context.requireContext()
-        val actualUri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", file)
-
-        val activity = ctx as? Activity
-        if (activity != null) {
-            val intent = ShareCompat.IntentBuilder.from(activity)
-                .setStream(actualUri)
-                .setType("text/*")
-                .intent
-                .setAction(Intent.ACTION_SEND)
-                .setDataAndType(actualUri, "text/*")
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            ctx.startActivity(intent)
-        } else {
-            val openFileIntent = Intent(Intent.ACTION_SEND)
-            openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            openFileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            openFileIntent.type = "plain/*"
-            openFileIntent.putExtra(Intent.EXTRA_STREAM, actualUri)
-            ctx.startActivity(openFileIntent)
         }
     }
 
@@ -236,9 +223,9 @@ object CoreBinding: CoreOps {
         callback: (Result<Unit>) -> Unit
     ) {
         if (isBackup) {
-            backedUpSharedPreferences.edit().remove(key).commit()
+            backedUpSharedPreferences.edit(commit = true) { remove(key) }
         } else {
-            localSharedPreferences.edit().remove(key).commit()
+            localSharedPreferences.edit(commit = true) { remove(key) }
         }
         callback(Result.success(Unit))
     }
@@ -254,7 +241,8 @@ object CoreBinding: CoreOps {
             try {
                 val acc = deserializer.deserialize(json, LegacyAccount::class)
                 if (!acc.active) tryRecover = true
-            } catch (e: Throwable) { }
+            } catch (e: Throwable) {
+            }
         }
 
         if (tryRecover) {
@@ -267,7 +255,8 @@ object CoreBinding: CoreOps {
                     legacyPersistence.save(acc.copy(active = false))
                     return oldJson
                 }
-            } catch (e: Throwable) {}
+            } catch (e: Throwable) {
+            }
         }
 
         return json

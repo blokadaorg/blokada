@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import model.BlokadaException
 import service.ContextService
 import service.NotificationService
-import ui.utils.cause
+import utils.cause
 import utils.ExecutingCommandNotification
 import utils.Logger
 import java.util.Locale

@@ -21,7 +21,7 @@ import model.LegacyAccount
 import model.LocalConfig
 import model.NetworkSpecificConfigs
 import model.SyncableConfig
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 import kotlin.reflect.KClass
 
@@ -45,7 +45,7 @@ object PersistenceService {
         }
     }
 
-    fun <T: Any> load(type: KClass<T>): T {
+    fun <T : Any> load(type: KClass<T>): T {
         try {
             val (string, deserializer) = when (type) {
                 else -> prefs.load(getPrefsKey(type)) to json
@@ -77,7 +77,7 @@ object PersistenceService {
         else -> throw BlokadaException("Unsupported type for persistence: $type")
     }
 
-    private fun <T: Any> getDefault(type: KClass<T>) = when (type) {
+    private fun <T : Any> getDefault(type: KClass<T>) = when (type) {
         BlockaConfig::class -> Defaults.blockaConfig() as T
         LocalConfig::class -> Defaults.localConfig() as T
         SyncableConfig::class -> Defaults.syncableConfig() as T

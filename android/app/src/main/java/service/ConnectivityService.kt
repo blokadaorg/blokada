@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import model.NetworkDescriptor
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 import java.net.InetAddress
 
@@ -34,7 +34,8 @@ object ConnectivityService {
     private val scope = GlobalScope
 
     private val manager by lazy {
-        context.requireAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        context.requireAppContext()
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
     private val wifiManager by lazy {
@@ -42,7 +43,8 @@ object ConnectivityService {
     }
 
     private val simManager by lazy {
-        context.requireAppContext().getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
+        context.requireAppContext()
+            .getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
     }
 
     var onConnectedBack = {}
@@ -95,7 +97,10 @@ object ConnectivityService {
 
     // Tries to get network name and type. Getting the name is quite unreliable.
     @SuppressLint("MissingPermission")
-    private fun NetworkDescriptor.Companion.fromNetwork(network: Network, cap: NetworkCapabilities): NetworkDescriptor {
+    private fun NetworkDescriptor.Companion.fromNetwork(
+        network: Network,
+        cap: NetworkCapabilities
+    ): NetworkDescriptor {
         return when {
             cap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
                 try {
@@ -107,6 +112,7 @@ object ConnectivityService {
                     cell(null)
                 }
             }
+
             cap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                 // This assumes there is only one active WiFi network at a time
                 var name: String? = wifiManager.connectionInfo.ssid.trim('"')
@@ -123,6 +129,7 @@ object ConnectivityService {
 
                 wifi(name)
             }
+
             else -> fallback()
         }
     }
@@ -170,10 +177,12 @@ object ConnectivityService {
             Build.VERSION.SDK_INT < 28 -> {
                 log.w("privateDNS unsupported on this Android version")
             }
+
             link.isPrivateDnsActive -> {
                 privateDns = link.privateDnsServerName
                 onPrivateDnsChanged(link.privateDnsServerName)
             }
+
             else -> {
                 networkLinks.values.firstOrNull { it.isPrivateDnsActive }?.let {
                     privateDns = it.privateDnsServerName
@@ -213,9 +222,11 @@ object ConnectivityService {
                 onConnectivityChanged(false)
                 onActiveNetworkChanged(fallback)
             }
+
             defaultRouteNetwork == lastSeenRouteNetwork -> {
                 // Ignore, we have already processed this network
             }
+
             defaultRouteNetwork == null -> {
                 val fallback = NetworkDescriptor.fallback()
                 activeNetwork = fallback
@@ -225,9 +236,11 @@ object ConnectivityService {
                 onConnectivityChanged(false)
                 onActiveNetworkChanged(fallback)
             }
+
             descriptor == null -> {
                 // Ignore, we are waiting to receive network capabilities callback
             }
+
             else -> {
                 // This is the normal case of switching networks
                 activeNetwork = descriptor
@@ -254,7 +267,10 @@ object ConnectivityService {
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
             .build()
-        try { manager.unregisterNetworkCallback(systemCallback) } catch (ex: Exception) {}
+        try {
+            manager.unregisterNetworkCallback(systemCallback)
+        } catch (ex: Exception) {
+        }
         manager.registerNetworkCallback(request, systemCallback)
     }
 
@@ -264,7 +280,8 @@ object ConnectivityService {
 
     fun getActiveNetworkDns(): List<InetAddress> {
         return defaultRouteNetwork?.let { active ->
-            networkLinks[active]?.dnsServers?.filterIsInstance<java.net.Inet4Address>() ?: emptyList()
+            networkLinks[active]?.dnsServers?.filterIsInstance<java.net.Inet4Address>()
+                ?: emptyList()
         } ?: emptyList()
     }
 

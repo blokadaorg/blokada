@@ -15,6 +15,8 @@ package binding
 import channel.command.CommandName
 import channel.stage.StageModal
 import channel.stage.StageOps
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
@@ -27,9 +29,9 @@ import service.ContextService
 import service.FlutterService
 import service.Sheet
 import service.SheetService
-import ui.utils.openInBrowser
+import utils.Intents
 
-object StageBinding: StageOps {
+object StageBinding : StageOps {
     private val writeForeground = MutableStateFlow<Boolean?>(null)
     val enteredForegroundHot = writeForeground.filterNotNull().filter { it }
 
@@ -40,9 +42,10 @@ object StageBinding: StageOps {
     private val context by lazy { ContextService }
     private val flutter by lazy { FlutterService }
     private val command by lazy { CommandBinding }
+    private val intents by lazy { Intents }
     private val sheet by lazy { SheetService }
     private val dialog by lazy { AlertDialogService }
-    private val scope = GlobalScope
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     var showingNavBar = true
     var onShowNavBar: (Boolean) -> Unit = { }
@@ -165,15 +168,20 @@ object StageBinding: StageOps {
             StageModal.ACCOUNTRESTOREIDOK -> null
             else -> {
                 context.requireContext().getString(R.string.universal_action_show_log) to {
-                    GlobalScope.launch {
-                        command.execute(CommandName.LOG)
+                    scope.launch {
+                        command.execute(CommandName.SHARELOG)
                     }
                 }
             }
         }
 
         if (name != null) {
-            dialog.showAlert(name, title = title, onDismiss = ::modalDismissed, additionalAction = action)
+            dialog.showAlert(
+                name,
+                title = title,
+                onDismiss = ::modalDismissed,
+                additionalAction = action
+            )
             scope.launch {
                 command.execute(CommandName.MODALSHOWN, modal.name)
             }
@@ -190,7 +198,9 @@ object StageBinding: StageOps {
     }
 
     override fun doOpenLink(url: String, callback: (Result<Unit>) -> Unit) {
-        openInBrowser(url)
+        val ctx = context.requireContext()
+        val intent = intents.createOpenInBrowserIntent(url)
+        intents.openIntentActivity(ctx, intent)
         callback(Result.success(Unit))
     }
 

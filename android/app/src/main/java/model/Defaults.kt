@@ -14,7 +14,7 @@ package model
 
 import repository.DnsDataSource
 import service.EnvironmentService
-import ui.utils.now
+import utils.now
 
 object Defaults {
 
@@ -36,11 +36,13 @@ object Defaults {
 
     fun bypassedAppIds() = BypassedAppIds(emptyList()) // Also check AppRepository
 
-    fun noNetworkSpecificConfigs() = NetworkSpecificConfigs(configs = listOf(
-        defaultNetworkConfig(),
-        defaultNetworkConfig().copy(network = NetworkDescriptor.cell(null)),
-        defaultNetworkConfig().copy(network = NetworkDescriptor.wifi(null))
-    ))
+    fun noNetworkSpecificConfigs() = NetworkSpecificConfigs(
+        configs = listOf(
+            defaultNetworkConfig(),
+            defaultNetworkConfig().copy(network = NetworkDescriptor.cell(null)),
+            defaultNetworkConfig().copy(network = NetworkDescriptor.wifi(null))
+        )
+    )
 
     fun networkConfig(network: NetworkDescriptor) = defaultNetworkConfig().copy(network = network)
 

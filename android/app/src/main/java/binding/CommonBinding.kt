@@ -16,21 +16,27 @@ import android.os.Build
 import channel.common.CommonOps
 import channel.common.OpsEnvInfo
 import channel.common.OpsLink
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.blokada.BuildConfig
+import service.ContextService
 import service.EnvironmentService
 import service.FlutterService
 import service.HttpService
 import service.NotificationService
+import utils.Intents
 import utils.toBlockaDate
 
-object CommonBinding: CommonOps {
+object CommonBinding : CommonOps {
     private val flutter by lazy { FlutterService }
     private val env by lazy { EnvironmentService }
-    private val share by lazy { ShareUtil }
+    private val context by lazy { ContextService }
+    private val intents by lazy { Intents }
+    private val scope = CoroutineScope(Dispatchers.Main)
 
     init {
         CommonOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -39,18 +45,20 @@ object CommonBinding: CommonOps {
     // Env
 
     override fun doGetEnvInfo(callback: (Result<OpsEnvInfo>) -> Unit) {
-        callback(Result.success(
-            OpsEnvInfo(
-                appVersion = BuildConfig.VERSION_NAME,
-                osVersion = Build.VERSION.SDK_INT.toString(),
-                buildFlavor = env.getFlavor(),
-                buildType = BuildConfig.BUILD_TYPE,
-                cpu = Build.SUPPORTED_ABIS[0],
-                deviceBrand = Build.MANUFACTURER,
-                deviceModel = Build.DEVICE,
-                deviceName = env.getDeviceAlias()
+        callback(
+            Result.success(
+                OpsEnvInfo(
+                    appVersion = BuildConfig.VERSION_NAME,
+                    osVersion = Build.VERSION.SDK_INT.toString(),
+                    buildFlavor = env.getFlavor(),
+                    buildType = BuildConfig.BUILD_TYPE,
+                    cpu = Build.SUPPORTED_ABIS[0],
+                    deviceBrand = Build.MANUFACTURER,
+                    deviceModel = Build.DEVICE,
+                    deviceName = env.getDeviceAlias()
+                )
             )
-        ))
+        )
     }
 
     // Notification
@@ -86,12 +94,16 @@ object CommonBinding: CommonOps {
     private val http by lazy { HttpService }
 
     override fun doGet(url: String, callback: (Result<String>) -> Unit) {
-        GlobalScope.async(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val content = http.makeRequest(url)
-                callback(Result.success(content))
+                withContext(Dispatchers.Main) {
+                    callback(Result.success(content))
+                }
             } catch (e: Exception) {
-                callback(Result.failure(e))
+                withContext(Dispatchers.Main) {
+                    callback(Result.failure(e))
+                }
             }
         }
     }
@@ -102,12 +114,16 @@ object CommonBinding: CommonOps {
         type: String,
         callback: (Result<String>) -> Unit
     ) {
-        GlobalScope.async(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val content = http.makeRequest(url, type, payload)
-                callback(Result.success(content))
+                withContext(Dispatchers.Main) {
+                    callback(Result.success(content))
+                }
             } catch (e: Exception) {
-                callback(Result.failure(e))
+                withContext(Dispatchers.Main) {
+                    callback(Result.failure(e))
+                }
             }
         }
     }
@@ -119,14 +135,18 @@ object CommonBinding: CommonOps {
         headers: Map<String?, String?>,
         callback: (Result<String>) -> Unit
     ) {
-        GlobalScope.async(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val h = headers.mapKeys { it.key!! }.mapValues { it.value!! }
 
                 val content = http.makeRequest(url, type, payload, h)
-                callback(Result.success(content))
+                withContext(Dispatchers.Main) {
+                    callback(Result.success(content))
+                }
             } catch (e: Exception) {
-                callback(Result.failure(e))
+                withContext(Dispatchers.Main) {
+                    callback(Result.failure(e))
+                }
             }
         }
     }
@@ -151,13 +171,17 @@ object CommonBinding: CommonOps {
     }
 
     override fun doShareText(text: String, callback: (Result<Unit>) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch {
             try {
-                share.shareText(text)
+                val activity = context.requireActivity()
+                val intent = intents.createShareTextIntent(activity, text)
+                intents.openIntentActivity(activity, intent)
                 callback(Result.success(Unit))
             } catch (e: Exception) {
                 try {
-                    share.shareTextLegacy(text)
+                    val ctx = context.requireContext()
+                    val altIntent = intents.createShareTextIntentAlt(text)
+                    intents.openIntentActivity(ctx, altIntent)
                     callback(Result.success(Unit))
                 } catch (ex: Exception) {
                     callback(Result.failure(e))

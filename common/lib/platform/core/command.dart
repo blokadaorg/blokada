@@ -12,8 +12,8 @@ class LoggerCommand with Command, Logging {
     return [
       registerCommand("info", argsNum: 1, fn: cmdPlatformInfo),
       registerCommand("warning", argsNum: 1, fn: cmdPlatformWarning),
-      registerCommand("fatal", argsNum: 1, fn: cmdPlatformFatal),
-      registerCommand("log", argsNum: 0, fn: cmdShareLog),
+      registerCommand("error", argsNum: 1, fn: cmdPlatformError),
+      registerCommand("shareLog", argsNum: 0, fn: cmdShareLog),
     ];
   }
 
@@ -27,9 +27,9 @@ class LoggerCommand with Command, Logging {
     log(m).w(msg);
   }
 
-  Future<void> cmdPlatformFatal(Marker m, dynamic args) async {
+  Future<void> cmdPlatformError(Marker m, dynamic args) async {
     final msg = args[0] as String;
-    log(m).e(msg: "FATAL: $msg");
+    log(m).e(msg: msg);
   }
 
   Future<void> cmdShareLog(Marker m, dynamic args) async {

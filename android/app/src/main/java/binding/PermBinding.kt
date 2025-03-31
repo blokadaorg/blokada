@@ -13,6 +13,7 @@
 package binding
 
 import channel.perm.PermOps
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,13 +27,14 @@ import service.FlutterService
 import service.NotificationService
 import service.SystemNavService
 import service.VpnPermissionService
-import ui.utils.cause
+import utils.cause
 import utils.FamilyOnboardingNotification
+import utils.Intents
 import utils.Logger
 import utils.OnboardingNotification
 
 
-object PermBinding: PermOps {
+object PermBinding : PermOps {
     val vpnProfileActivated = MutableStateFlow(false)
 
     private val flutter by lazy { FlutterService }
@@ -41,8 +43,8 @@ object PermBinding: PermOps {
     private val vpnPerms by lazy { VpnPermissionService }
     private val connectivity by lazy { ConnectivityService }
     private val context by lazy { ContextService }
-    private val systemNav by lazy { SystemNavService }
-    private val scope = GlobalScope
+    private val intents by lazy { Intents }
+    private val scope = CoroutineScope(Dispatchers.Main)
     private val biometric by lazy { BiometricService }
 
     init {
@@ -80,13 +82,15 @@ object PermBinding: PermOps {
 
     override fun doOpenSettings(callback: (Result<Unit>) -> Unit) {
         val n = if (Flavor.isFamily()) FamilyOnboardingNotification() else OnboardingNotification();
-        notification.show(n);
-        systemNav.openNetworkSettings()
+        notification.show(n)
+        val ctx = context.requireContext()
+        val intent = intents.createNetworkSettingsIntent(ctx)
+        intents.openIntentActivity(ctx, intent)
         callback(Result.success(Unit))
     }
 
     override fun doAskNotificationPerms(callback: (Result<Unit>) -> Unit) {
-        GlobalScope.launch {
+        scope.launch {
             permsRepo.maybeDisplayNotificationPermsDialog()
         }
     }
@@ -97,7 +101,7 @@ object PermBinding: PermOps {
     }
 
     override fun doAuthenticate(callback: (Result<Boolean>) -> Unit) {
-        scope.launch(Dispatchers.Main) {
+        scope.launch {
             if (biometric.isBiometricReady(context.requireContext())) {
                 try {
                     biometric.auth(context.requireFragment()) // Will throw on bad auth

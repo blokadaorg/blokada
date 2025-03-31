@@ -16,7 +16,7 @@ import android.content.Context
 import kotlinx.serialization.Serializable
 import org.blokada.R
 import repository.DnsDataSource
-import ui.utils.now
+import utils.now
 
 @Serializable
 data class NetworkDescriptor(
@@ -71,6 +71,7 @@ data class NetworkSpecificConfig(
                     R.string.networks_action_use_dns,
                     DnsDataSource.byId(it.second as DnsId).label
                 )
+
                 "forceLibreMode" -> ctx.getString(R.string.networks_action_force_libre_mode)
                 else -> null
             }

@@ -17,7 +17,7 @@ import kotlinx.serialization.Serializable
 import service.ContextService
 import service.FileService
 import service.JsonSerializationService
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 import java.io.FileNotFoundException
 import java.util.Locale
@@ -63,7 +63,7 @@ fun LocaleListCompat.getFirstSupportedLocale(): Locale {
      * settings to "system default" will have no effect.
      */
     var index = 0
-    while(index < size()) {
+    while (index < size()) {
         val locale = this[index]
         index++
         if (locale == null) continue
@@ -74,22 +74,22 @@ fun LocaleListCompat.getFirstSupportedLocale(): Locale {
     return Locale.ENGLISH
 }
 
-fun getTranslationRepository(locale: Locale) = factories[locale.toLanguageTag()] ?:
-factories[locale.language] ?: run {
-    Logger.w("Translation", "Falling back to root translation factory")
-    root
-}
+fun getTranslationRepository(locale: Locale) =
+    factories[locale.toLanguageTag()] ?: factories[locale.language] ?: run {
+        Logger.w("Translation", "Falling back to root translation factory")
+        root
+    }
 
 interface TranslationRepository {
     fun getText(key: String): String?
 }
 
-private class FallbackAssetsTranslationRepository(locale: String): TranslationRepository {
+private class FallbackAssetsTranslationRepository(locale: String) : TranslationRepository {
     private val local = AssetsTranslationRepository(locale)
     override fun getText(key: String) = local.getText(key) ?: root.getText(key)
 }
 
-private class AssetsTranslationRepository(locale: String): TranslationRepository {
+private class AssetsTranslationRepository(locale: String) : TranslationRepository {
 
     private val log = Logger("Translation")
     private val context = ContextService

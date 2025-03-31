@@ -33,7 +33,7 @@ import service.SheetService
 import service.TranslationService
 import service.VpnPermissionService
 import ui.home.FlutterHomeFragment
-import ui.utils.now
+import utils.now
 import utils.Logger
 
 

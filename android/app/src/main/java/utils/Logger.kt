@@ -15,6 +15,8 @@ package utils
 import android.util.Log
 import binding.CommandBinding
 import channel.command.CommandName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.ZoneId
@@ -26,22 +28,19 @@ open class Logger(private val component: String) {
     open fun w(message: String) = Logger.w(component, message)
     open fun v(message: String) = Logger.v(component, message)
 
-    private val commands by lazy { CommandBinding }
-
     companion object {
-
-        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS")
-            .withZone(ZoneId.of("UTC"))
+        private val scope = CoroutineScope(Dispatchers.Main)
+        private val commands by lazy { CommandBinding }
 
         fun e(component: String, message: String) {
-            GlobalScope.launch {
-                CommandBinding.execute(CommandName.FATAL, "[$component] $message")
+            scope.launch {
+                commands.execute(CommandName.ERROR, "[$component] $message")
             }
         }
 
         fun w(component: String, message: String) {
-            GlobalScope.launch {
-                CommandBinding.execute(CommandName.WARNING, "[$component] $message")
+            scope.launch {
+                commands.execute(CommandName.WARNING, "[$component] $message")
             }
         }
 
@@ -53,15 +52,5 @@ open class Logger(private val component: String) {
             Log.println(priority, component, message)
         }
     }
-
-}
-
-class LoggerWithThread(val component: String) : Logger(component) {
-
-    override fun e(message: String) = super.e(thread() + message)
-    override fun w(message: String) = super.w(thread() + message)
-    override fun v(message: String) = super.v(thread() + message)
-
-    private fun thread() = "{${Thread.currentThread().id}} "
 
 }

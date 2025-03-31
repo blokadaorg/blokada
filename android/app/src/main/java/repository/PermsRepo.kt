@@ -13,6 +13,8 @@
 package repository
 
 import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,20 +29,20 @@ import service.DialogService
 import service.NotificationService
 import service.SystemNavService
 import service.VpnPermissionService
+import utils.Intents
 
 open class PermsRepo {
 
     private val writeNotificationPerms = MutableStateFlow<Granted?>(null)
 
-    val notificationPermsHot = writeNotificationPerms.filterNotNull().distinctUntilChanged()
+    private val notificationPermsHot = writeNotificationPerms.filterNotNull().distinctUntilChanged()
 
     private val context by lazy { ContextService }
     private val vpnPerms by lazy { VpnPermissionService }
     private val notification by lazy { NotificationService }
-
-    private val dialog = DialogService
-    private val systemNav = SystemNavService
-
+    private val dialog by lazy { DialogService }
+    private val intents by lazy { Intents }
+    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
     private var ongoingVpnPerm: CancellableContinuation<Granted>? = null
         @Synchronized set
@@ -48,7 +50,7 @@ open class PermsRepo {
 
     open fun start() {
         onVpnPermsGranted_Proceed()
-        GlobalScope.launch { writeNotificationPerms.emit(notification.hasPermissions()) }
+        scope.launch { writeNotificationPerms.emit(notification.hasPermissions()) }
     }
 
     private fun onVpnPermsGranted_Proceed() {
@@ -67,20 +69,21 @@ open class PermsRepo {
         val granted = notificationPermsHot.first()
         if (!granted) {
             displayNotificationPermsInstructions()
-            .collect {
+                .collect {
 
-            }
+                }
         }
     }
 
-    suspend fun displayNotificationPermsInstructions(): Flow<Boolean> {
+    private suspend fun displayNotificationPermsInstructions(): Flow<Boolean> {
         val ctx = context.requireContext()
         return dialog.showAlert(
             message = ctx.getString(R.string.notification_perms_denied),
             header = ctx.getString(R.string.notification_perms_header),
             okText = ctx.getString(R.string.dnsprofile_action_open_settings),
             okAction = {
-                systemNav.openNotificationSettings()
+                val intent = intents.createNotificationSettingsIntent(ctx)
+                intents.openIntentActivity(ctx, intent)
             }
         )
     }

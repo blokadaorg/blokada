@@ -24,7 +24,7 @@ import model.LegacyGateway
 import org.blokada.R
 import service.Sheet
 import ui.BottomSheetFragment
-import ui.utils.getColorFromAttr
+import utils.getColorFromAttr
 import utils.Logger
 
 class LocationFragment : BottomSheetFragment() {
@@ -98,7 +98,11 @@ class LocationFragment : BottomSheetFragment() {
         return root
     }
 
-    private fun addLocationItemView(inflater: LayoutInflater, container: ViewGroup, location: LegacyGateway) {
+    private fun addLocationItemView(
+        inflater: LayoutInflater,
+        container: ViewGroup,
+        location: LegacyGateway
+    ) {
         val item = inflater.inflate(R.layout.item_location, container, false)
         val icon: ImageView = item.findViewById(R.id.location_icon)
         val name: TextView = item.findViewById(R.id.location_name)

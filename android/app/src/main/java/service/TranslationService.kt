@@ -16,7 +16,7 @@ import androidx.core.os.LocaleListCompat
 import repository.TranslationRepository
 import repository.getFirstSupportedLocale
 import repository.getTranslationRepository
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 import java.util.Locale
 

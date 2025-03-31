@@ -56,11 +56,11 @@ import service.ContextService
 import service.DozeService
 import service.FlutterService
 import service.PersistenceService
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 import java.lang.ref.WeakReference
 
-class MainApplication: Application(), ViewModelStoreOwner {
+class MainApplication : Application(), ViewModelStoreOwner {
 
     private lateinit var networksVM: NetworksViewModel
 
@@ -113,7 +113,10 @@ class MainApplication: Application(), ViewModelStoreOwner {
 
         networksVM.activeConfig.observeForever {
             GlobalScope.launch {
-                try { EngineService.updateConfig(network = it) } catch (ex: Exception) {}
+                try {
+                    EngineService.updateConfig(network = it)
+                } catch (ex: Exception) {
+                }
             }
         }
         ConnectivityService.setup()
@@ -149,7 +152,13 @@ class MainApplication: Application(), ViewModelStoreOwner {
 //        }
         if (backend == null) {
             backend = GoBackend(applicationContext)
-            GoBackend.setAlwaysOnCallback { get().applicationScope.launch { get().tunnelManager.restoreState(true) } }
+            GoBackend.setAlwaysOnCallback {
+                get().applicationScope.launch {
+                    get().tunnelManager.restoreState(
+                        true
+                    )
+                }
+            }
         }
         return backend
     }
@@ -157,11 +166,13 @@ class MainApplication: Application(), ViewModelStoreOwner {
     private fun wgOnCreate() {
         rootShell = RootShell(applicationContext)
         toolsInstaller = ToolsInstaller(applicationContext, rootShell)
-        preferencesDataStore = PreferenceDataStoreFactory.create { applicationContext.preferencesDataStoreFile("settings") }
+        preferencesDataStore =
+            PreferenceDataStoreFactory.create { applicationContext.preferencesDataStoreFile("settings") }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             coroutineScope.launch {
                 AppCompatDelegate.setDefaultNightMode(
-                    if (UserKnobs.darkTheme.first()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                    if (UserKnobs.darkTheme.first()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                )
             }
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)

@@ -39,7 +39,7 @@ import service.ContextService
 import service.FlutterService
 import ui.AdaptyPaymentFragment
 import ui.MainActivity
-import ui.utils.openInBrowser
+import utils.openInBrowser
 import kotlin.coroutines.suspendCoroutine
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {

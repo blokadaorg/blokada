@@ -24,7 +24,7 @@ import model.AppId
 import model.BypassedAppIds
 import service.ContextService
 import service.PersistenceService
-import ui.utils.cause
+import utils.cause
 import utils.Logger
 
 object AppRepository {

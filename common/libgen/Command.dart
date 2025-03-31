@@ -26,10 +26,10 @@ enum CommandName {
   back,
 
   // Tracer
-  fatal,
+  error,
   warning,
   info,
-  log,
+  shareLog,
   crashLog,
 
   // Family commands
