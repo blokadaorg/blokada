@@ -79,7 +79,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         )
 
         try {
-            val location = FileLocation.fromAsset("fallbacks/six-android.json")
+            val location = FileLocation.fromAsset("fallbacks/android.json")
             Adapty.setFallbackPaywalls(location) { error ->
                 if (error != null) {
                     logError("Adapty: Error when setting fallback, ignore", error)

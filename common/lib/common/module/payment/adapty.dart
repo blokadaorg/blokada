@@ -32,10 +32,7 @@ class AdaptyPaymentChannel
 
     // Set Adapty fallback for any connection problems situations
     try {
-      final assetPlatform =
-          Core.act.platform == PlatformType.iOS ? "ios" : "android";
-      final assetFlavor = Core.act.isFamily ? "family" : "six";
-      final assetId = "$assetFlavor-$assetPlatform";
+      final assetId = Core.act.platform == PlatformType.iOS ? "ios" : "android";
       await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
     } catch (e, s) {
       log(m)

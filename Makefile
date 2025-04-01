@@ -9,6 +9,9 @@ IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
 TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
 
 CI_BUILD_DIR := /tmp/build
+
+ADAPTY_DIR := ~/Downloads
+ADAPTY_VER := 3_4.0
  
 # Default target 
 .DEFAULT_GOAL := build
@@ -28,6 +31,7 @@ CI_BUILD_DIR := /tmp/build
 	ci-copy-source \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
+	adapty-paywalls \
 
 translate:
 	$(TRANSLATE_SCRIPT)
@@ -226,3 +230,11 @@ ci-build-ios-family:
 ci-build-ios-six:
 	$(MAKE) version
 	$(MAKE) build-ios-six
+
+# Put Adapty fallback paywalls in the right places. uses DIR
+adapty-paywalls:
+	rm -rf common/assets/fallbacks/*
+	rm -rf android/app/src/main/assets/fallbacks/*
+	cp $(ADAPTY_DIR)/android_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/android.json
+	cp $(ADAPTY_DIR)/ios_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/ios.json
+	cp $(ADAPTY_DIR)/android_$(ADAPTY_VER)_fallback.json android/app/src/main/assets/fallbacks/android.json
