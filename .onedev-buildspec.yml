@@ -1,6 +1,6 @@
 version: 38
 jobs:
-- name: publish android manually (docker)
+- name: publish android manually
   steps:
   - !CheckoutStep
     name: checkout
@@ -8,10 +8,12 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
+  - !CommandStep
     name: publish android
-    image: docker-apps-build-box
-    args: make publish-android FLAVOR=@param:flavor@
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make publish-android FLAVOR=@param:flavor@
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
@@ -45,7 +47,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android-six on tag (docker)
+- name: publish android-six on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -53,10 +55,12 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
+  - !CommandStep
     name: publish android six
-    image: docker-apps-build-box
-    args: make publish-android FLAVOR=six
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make publish-android FLAVOR=six
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
@@ -68,7 +72,7 @@ jobs:
   - !TagCreateTrigger
     tags: '*/six'
   jobDependencies:
-  - jobName: build all android (docker)
+  - jobName: build all android
     requireSuccessful: true
     paramMatrix:
     - secret: false
@@ -157,7 +161,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android-family on tag (docker)
+- name: publish android-family on tag
   steps:
   - !CheckoutStep
     name: checkout
@@ -165,10 +169,12 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !RunContainerStep
-    name: publish android family
-    image: docker-apps-build-box
-    args: make publish-android FLAVOR=family
+  - !CommandStep
+    name: publish android-family
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make publish-android FLAVOR=family
     envVars:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
@@ -180,7 +186,7 @@ jobs:
   - !TagCreateTrigger
     tags: '*/family'
   jobDependencies:
-  - jobName: build all android (docker)
+  - jobName: build all android
     requireSuccessful: true
     paramMatrix:
     - secret: false
@@ -193,7 +199,7 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: build all android (docker)
+- name: build all android
   steps:
   - !CheckoutStep
     name: checkout
@@ -203,7 +209,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: build aab
-    runInContainer: true
+    runInContainer: false
     image: docker-apps-build-box
     interpreter: !DefaultInterpreter
       commands: |
