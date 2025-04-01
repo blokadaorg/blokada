@@ -79,7 +79,9 @@ class ActivityItemState extends State<ActivityItem> {
                 ],
               ),
             ),
-            TwoLetterIconWidget(name: widget.entry.deviceName),
+            (Core.act.isFamily)
+                ? Container()
+                : TwoLetterIconWidget(name: widget.entry.deviceName),
           ],
         ),
       ),
