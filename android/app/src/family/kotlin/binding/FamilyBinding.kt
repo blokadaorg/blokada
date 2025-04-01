@@ -13,28 +13,36 @@
 package binding
 
 import channel.family.FamilyOps
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import service.ContextService
 import service.FlutterService
+import utils.Intents
 
-// TODO: Include only in Family targets
-object FamilyBinding: FamilyOps {
+object FamilyBinding : FamilyOps {
     private val flutter by lazy { FlutterService }
-    private val share by lazy { ShareUtil }
+    private val context by lazy { ContextService }
+    private val intents by lazy { Intents }
+    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
     init {
         FamilyOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
     override fun doShareUrl(url: String, callback: (Result<Unit>) -> Unit) {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
-                share.shareText(url)
+                val activity = context.requireActivity()
+                val intent = intents.createShareTextIntent(activity, url)
+                intents.openIntentActivity(activity, intent)
                 callback(Result.success(Unit))
             } catch (e: Exception) {
                 try {
-                    share.shareTextLegacy(url)
+                    val context = context.requireContext()
+                    val intent = intents.createShareTextIntentAlt(url)
+                    intents.openIntentActivity(context, intent)
                     callback(Result.success(Unit))
                 } catch (ex: Exception) {
                     callback(Result.failure(e))
