@@ -14,33 +14,33 @@ class TwoLetterIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
-    Color beginColor = isDarkMode ? Colors.grey[800]! : Colors.grey[300]!;
+    final color = colorOverride ?? genColor(name, isDarkMode: isDarkMode);
+    Color baseColor = isDarkMode ? Colors.grey[800]! : Colors.grey[100]!;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: ColorFiltered(
-        colorFilter: ColorFilter.mode(
-            colorOverride ?? genColor(name, isDarkMode: isDarkMode),
-            BlendMode.color),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [beginColor, Colors.grey[600]!],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: baseColor,
+          gradient: LinearGradient(
+            colors: [
+              color.withOpacity(0.5),
+              color,
+            ],
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
           ),
-          child: SizedBox(
-            width: big ? 60 : 32,
-            height: big ? 60 : 32,
-            child: Center(
-              child: Text(
-                name.isBlank ? name : name.substring(0, 2).toUpperCase().trim(),
-                style: TextStyle(
-                  fontSize: big ? 24 : 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+        ),
+        child: SizedBox(
+          width: big ? 60 : 32,
+          height: big ? 60 : 32,
+          child: Center(
+            child: Text(
+              name.isBlank ? name : name.substring(0, 2).toUpperCase().trim(),
+              style: TextStyle(
+                fontSize: big ? 24 : 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),

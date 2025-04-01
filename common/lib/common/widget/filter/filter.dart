@@ -121,7 +121,7 @@ class FilterWidgetState extends State<FilterWidget> {
             FilterOptionWidget(
                 option: it,
                 nameOverride: nameOverride,
-                colorOverride: widget.bgColor,
+                colorOverride: widget.bgColor?.darken(20),
                 selections: widget.selections,
                 onSelect: (selected) {
                   _updateUserChoice(widget.filter, it.optionName, selected);
