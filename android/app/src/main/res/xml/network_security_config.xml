@@ -13,5 +13,6 @@
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">blokada.org</domain>
         <domain includeSubdomains="true">blocka.net</domain>
+        <certificateTransparency enabled="true" />.
     </domain-config>
 </network-security-config>
