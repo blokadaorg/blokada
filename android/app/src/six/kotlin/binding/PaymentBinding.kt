@@ -35,7 +35,6 @@ import com.adapty.utils.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import service.ConnectivityService
 import service.ContextService
 import service.FlutterService
 import ui.AdaptyPaymentFragment
@@ -82,9 +81,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         try {
             val location = FileLocation.fromAsset("fallbacks/six-android.json")
             Adapty.setFallbackPaywalls(location) { error ->
-                if (error != null) throw error
+                if (error != null) {
+                    logError("Adapty: Error when setting fallback, ignore", error)
+                }
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
+            // Catch probably not needed, exception is passed through callback
+            // and since it's using suspended coroutines internally, it seemed
+            // to not be catchable like this
             logError("Adapty: Failed setting fallback, ignore", e)
         }
         callback(Result.success(Unit))
@@ -103,10 +107,11 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         stepOrder: Long,
         callback: (Result<Unit>) -> Unit
     ) {
-        Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
-            if (error == null) callback(Result.success(Unit))
-            else callback(Result.failure(error))
-        }
+//        Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
+//            if (error == null) callback(Result.success(Unit))
+//            else callback(Result.failure(error))
+//        }
+        callback(Result.success(Unit))
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
