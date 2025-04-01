@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func handleException(exception: NSException) {
         let exceptionString = "Exception Name: \(exception.name)\nReason: \(exception.reason ?? "")\nUser Info: \(String(describing: exception.userInfo))"
-        commands.execute(.fatal, exceptionString)
+        commands.execute(.error, exceptionString)
     }
 
     // Notification registration callback: success

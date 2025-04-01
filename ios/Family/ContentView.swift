@@ -89,7 +89,7 @@ struct ContentView: View {
             .alert(isPresented: self.$homeVM.showError) {
                 Alert(title: Text(self.homeVM.errorHeader ?? L10n.alertErrorHeader), message: Text(self.homeVM.showErrorMessage()),
                       primaryButton: Alert.Button.default(Text(L10n.universalActionShowLog), action: {
-                    self.commands.execute(.log)
+                    self.commands.execute(.shareLog)
                 }),
                       secondaryButton: Alert.Button.cancel(
                         Text(L10n.universalActionClose), action: { self.vm.stage.onDismissed() }
