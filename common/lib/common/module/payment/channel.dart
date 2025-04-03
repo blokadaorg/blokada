@@ -6,7 +6,8 @@ mixin PaymentChannel {
   Future<void> identify(AccountId accountId);
   Future<void> logOnboardingStep(String name, OnboardingStep step);
   Future<void> preload(Marker m, Placement placement);
-  Future<void> showPaymentScreen(Marker m, Placement placement, {bool forceReload = false});
+  Future<void> showPaymentScreen(Marker m, Placement placement,
+      {bool forceReload = false});
   Future<void> closePaymentScreen();
 }
 
@@ -22,7 +23,8 @@ class PaymentCommand with Command, Logging {
     return [
       registerCommand(cmdPaymentHandleSuccess, argsNum: 2, fn: cmdCheckout),
       registerCommand(cmdPaymentHandleFailure, argsNum: 2, fn: cmdFailure),
-      registerCommand(cmdPaymentHandleScreenClosed, argsNum: 0, fn: cmdScreenClosed),
+      registerCommand(cmdPaymentHandleScreenClosed,
+          argsNum: 0, fn: cmdScreenClosed),
     ];
   }
 
@@ -41,6 +43,6 @@ class PaymentCommand with Command, Logging {
   }
 
   Future<void> cmdScreenClosed(Marker m, dynamic args) async {
-    await _actor.handleScreenClosed();
+    await _actor.handleScreenClosed(m);
   }
 }

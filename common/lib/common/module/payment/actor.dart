@@ -25,7 +25,7 @@ class PaymentActor with Actor, Logging {
   bool _isOpened = false;
   OnboardingStep? _pendingOnboard;
 
-  Function onPaymentScreenOpened = () => {};
+  Function onPaymentScreenOpened = (bool opened) => {};
 
   @override
   onStart(Marker m) async {
@@ -91,7 +91,10 @@ class PaymentActor with Actor, Logging {
   // No expiration check, we assume user will open the paywall soon
   // And that adapty is ok with preloading
   _maybePreload(ValueUpdate<AccountState> it) async {
-    if (!_preloaded && _preloadCompleter == null && _adaptyInitialized && !it.now.type.isActive()) {
+    if (!_preloaded &&
+        _preloadCompleter == null &&
+        _adaptyInitialized &&
+        !it.now.type.isActive()) {
       _preloadCompleter = Completer();
       try {
         await _channel.preload(it.m, Placement.primary);
@@ -133,9 +136,10 @@ class PaymentActor with Actor, Logging {
       await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
-        onPaymentScreenOpened();
+        onPaymentScreenOpened(true);
         await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
+        onPaymentScreenOpened(false);
         _isOpened = false;
         await handleFailure(m, "Failed creating paywall", e,
             s: s, temporary: true);
@@ -143,9 +147,11 @@ class PaymentActor with Actor, Logging {
     });
   }
 
-  closePaymentScreen() async {
-    await _channel.closePaymentScreen();
-    handleScreenClosed();
+  closePaymentScreen(Marker m) async {
+    return await log(m).trace("closePaymentScreen", (m) async {
+      await _channel.closePaymentScreen();
+      handleScreenClosed(m);
+    });
   }
 
   checkoutSuccessfulPayment(String profileId, {bool restore = false}) async {
@@ -188,8 +194,9 @@ class PaymentActor with Actor, Logging {
     await _stage.showModal(sheet, m);
   }
 
-  handleScreenClosed() {
-    log(Markers.ui).i("Payment screen closed");
+  handleScreenClosed(Marker m) {
+    log(m).i("Payment screen closed");
+    onPaymentScreenOpened(false);
     _isOpened = false;
   }
 }

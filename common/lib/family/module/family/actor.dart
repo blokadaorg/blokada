@@ -113,7 +113,7 @@ class FamilyActor with Logging, Actor {
     _updatePhase(m, reason: "postActivationOnboarding");
 
     log(m).pair("modal", _stage.route.modal);
-    _payment.closePaymentScreen();
+    _payment.closePaymentScreen(m);
   }
 
   // Locking this device will enable the blocking for "this device"
