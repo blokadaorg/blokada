@@ -483,10 +483,10 @@
     <string name="family_device_delete_confirm">Are you sure you want to delete %s? This will unlink the device from your account.</string>
     <string name="family_device_header_add">Add a device</string>
     <string name="family_device_header_link">Link a device</string>
-    <string name="family_perms_header">One more thing</string>
-    <string name="family_perms_brief_alt">Activate \'%s\' in Settings by navigating as shown below.</string>
-    <string name="family_perms_setting_ios_general">General</string>
-    <string name="family_perms_setting_ios_vpn">VPN &amp; Device Management</string>
+    <string name="family_perms_header">أمرٌ آخر فقط</string>
+    <string name="family_perms_brief_alt">فعّل \'%s\' من الإعدادات باتباع الخطوات الموضحة أدناه.</string>
+    <string name="family_perms_setting_ios_general">الإعدادات > عام</string>
+    <string name="family_perms_setting_ios_vpn">عام > VPN وإدارة الجهاز</string>
     <string name="family_perms_setting_ios_dns">DNS</string>
     <string name="family_perms_setting_ios_automatic">Automatic</string>
     <string name="family_perms_setting_android_connections">Connections</string>

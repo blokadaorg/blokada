@@ -631,16 +631,16 @@
 "family device header add" = "Add a device";
 "family device header link" = "Link a device";
 
-"family perms header" = "One more thing";
+"family perms header" = "أمرٌ آخر فقط";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "فعّل '%@' من الإعدادات باتباع الخطوات الموضحة أدناه.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "الإعدادات > عام";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "عام > VPN وإدارة الجهاز";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
