@@ -637,31 +637,31 @@
 "family perms brief alt" = "فعّل '%@' من الإعدادات باتباع الخطوات الموضحة أدناه.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "الإعدادات > عام";
+"family perms setting ios general" = "عام";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "عام > VPN وإدارة الجهاز";
+"family perms setting ios vpn" = "VPN وإدارة الجهاز";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "تلقائي";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "الاتصالات";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "إعدادات اتصال إضافية";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "DNS الخاص";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "اسم مضيف موفر DNS الخاص";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(أو ما شابه)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(قد لا تكون موجودة دائمًا)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "وأخيرًا، اضغط مطولًا على حقل النص للصق الإعداد المطلوب.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Reason";
