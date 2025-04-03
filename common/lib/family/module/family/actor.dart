@@ -71,7 +71,7 @@ class FamilyActor with Logging, Actor {
         await _reload(m, createDeviceIfNeeded: true);
         _updatePhase(m, loading: false, reason: "activateCta");
       } else {
-        _permStore.askNotificationPermissions(m);
+        _permStore.askNotificationPermissions(m); // Family only
         await _payment.openPaymentScreen(m);
       }
     });

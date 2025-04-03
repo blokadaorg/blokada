@@ -8,7 +8,6 @@ import 'package:mobx/mobx.dart';
 import '../../account/account.dart';
 import '../../device/device.dart';
 import '../../perm/perm.dart';
-import '../../stage/channel.pg.dart';
 import '../../stage/stage.dart';
 import '../app.dart';
 
@@ -122,7 +121,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         pausedUntil = null;
       } on AccountTypeException {
         try {
-          _permStore.askNotificationPermissions(m);
           await _payment.openPaymentScreen(m);
 
           // Delay to show in-progress until payment sheet loads
@@ -134,7 +132,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         }
       } on OnboardingException {
         await _app.appPaused(true, m);
-        _permStore.askNotificationPermissions(m);
+        _permStore.askNotificationPermissions(m); // V6 only
         rethrow;
       } catch (e) {
         await _permStore.syncPerms(m);
