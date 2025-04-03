@@ -13,6 +13,7 @@
 package binding
 
 import android.content.Context
+import android.telephony.SubscriptionInfo
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -54,7 +55,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private var _fragment: AdaptyPaymentFragment? = null
     private var _retry = true
 
-    private var _currentSubscriptionProductId: String? = null
+    private var _currentSubscription: CurrentSubscription? = null
     private var _currentView: AdaptyPaywallView? = null
     private var _currentViewForPlacementId: String? = null
 
@@ -85,15 +86,22 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             val location = FileLocation.fromAsset("fallbacks/android.json")
             Adapty.setFallbackPaywalls(location) { error ->
                 if (error != null) {
-                    logError("Adapty: Error when setting fallback, ignore", error)
+                    logError("Error when setting fallback, ignore", error)
                 }
             }
         } catch (e: Throwable) {
             // Catch probably not needed, exception is passed through callback
             // and since it's using suspended coroutines internally, it seemed
             // to not be catchable like this
-            logError("Adapty: Failed setting fallback, ignore", e)
+            logError("Failed setting fallback, ignore", e)
         }
+
+        Adapty.setOnProfileUpdatedListener { profile ->
+            _scope.launch {
+                maybeRestoreSubscription()
+            }
+        }
+
         callback(Result.success(Unit))
     }
 
@@ -110,24 +118,38 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         stepOrder: Long,
         callback: (Result<Unit>) -> Unit
     ) {
-//        Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
-//            if (error == null) callback(Result.success(Unit))
-//            else callback(Result.failure(error))
-//        }
-        callback(Result.success(Unit))
+        try {
+            Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
+                if (error == null) callback(Result.success(Unit))
+                else callback(Result.failure(error))
+            }
+        } catch (e: Exception) {
+            callback(Result.failure(e))
+        }
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
         getActivityScope()?.launch {
             try {
-                _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
+                maybeRestoreSubscription()
                 _currentView = fetchPaywall(placementId)
                 _currentViewForPlacementId = placementId
+
                 callback(Result.success(Unit))
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
         } ?: callback(Result.failure(Exception("No activity context")))
+    }
+
+    // Automatically recover subscription if user has one
+    // (android only, to prevent double sub)
+    private suspend fun maybeRestoreSubscription() {
+        val currentSubscription = fetchCurrentSubscription()
+        if (currentSubscription != null) {
+            log("Found existing active subscription, restoring")
+            handleSuccess(currentSubscription.profileId, restore = true)
+        }
     }
 
     override fun doShowPaymentScreen(
@@ -139,7 +161,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         getActivityScope()?.launch {
             try {
                 if (forceReload || _currentViewForPlacementId != placementId) {
-                    _currentSubscriptionProductId = fetchCurrentSubscriptionProductId()
+                    _currentSubscription = fetchCurrentSubscription()
                     _currentView = fetchPaywall(placementId)
                     _currentViewForPlacementId = placementId
                 }
@@ -211,17 +233,29 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    private suspend fun fetchCurrentSubscriptionProductId(): String? {
+    // Fetch current subscription product_id, needed for handling prorate things.
+    // Also check for existing access level to trigger restore and prevent user
+    // from simultaneously subscribing to two plans.
+    private suspend fun fetchCurrentSubscription(): CurrentSubscription? {
         return suspendCoroutine { continuation ->
             Adapty.getProfile { result ->
                 when (result) {
                     is AdaptyResult.Success -> {
-                        log("Adapty profileId: ${result.value.profileId}")
-                        val subId =
-                            result.value.accessLevels.values.firstOrNull { it.isActive }?.vendorProductId?.substringBefore(
-                                ":"
-                            )
-                        continuation.resumeWith(Result.success(subId))
+                        log("ProfileId: ${result.value.profileId}")
+                        val firstActiveSub =
+                            result.value.accessLevels.values.firstOrNull { it.isActive }
+
+                        if (firstActiveSub == null) {
+                            continuation.resumeWith(Result.success(null))
+                            return@getProfile
+                        }
+
+                        val sub = CurrentSubscription(
+                            profileId = result.value.profileId,
+                            productId = firstActiveSub.vendorProductId.substringBefore(":")
+                        )
+
+                        continuation.resumeWith(Result.success(sub))
                     }
 
                     is AdaptyResult.Error -> {
@@ -315,11 +349,11 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         onSubscriptionUpdateParamsReceived: AdaptyUiEventListener.SubscriptionUpdateParamsCallback
     ) {
         // TODO: no support for downgrading yet
-        val subId = _currentSubscriptionProductId
-        if (subId != null) {
+        val sub = _currentSubscription
+        if (sub != null) {
             onSubscriptionUpdateParamsReceived(
                 AdaptySubscriptionUpdateParameters(
-                    subId,
+                    sub.productId,
                     AdaptySubscriptionUpdateParameters.ReplacementMode.CHARGE_PRORATED_PRICE
                 )
             )
@@ -357,14 +391,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
     private fun logError(message: String, error: Throwable) {
         _scope.launch {
-            val errorString = "$message: ${error.message}"
+            val errorString = "Adapty: $message: ${error.message}"
             commands.execute(CommandName.WARNING, errorString)
         }
     }
 
     private fun log(message: String) {
         _scope.launch {
-            commands.execute(CommandName.INFO, message)
+            commands.execute(CommandName.INFO, "Adapty: $message")
         }
     }
 
@@ -379,14 +413,16 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     // Unused interface methods below
 
     override fun onProductSelected(product: AdaptyPaywallProduct, context: Context) {
-        Log.d("adapty", "product selected")
+        Log.d("Adapty", "product selected")
     }
 
     override fun onPurchaseStarted(product: AdaptyPaywallProduct, context: Context) {
-        Log.d("adapty", "purchase started")
+        Log.d("Adapty", "purchase started")
     }
 
     override fun onRestoreStarted(context: Context) {
-        Log.d("adapty", "restore started")
+        Log.d("Adapty", "restore started")
     }
 }
+
+private data class CurrentSubscription(val profileId: String, val productId: String)
