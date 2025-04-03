@@ -39,12 +39,13 @@ object TranslationService {
     private val untranslated = mutableListOf<Localised>()
 
     fun setup() {
-        log.v("Translation service set up, locale: $locale")
+        setLocale(null)
+        log.v("Translation service set up, locale: $locale (${locale.toLanguageTag()})")
         initialized = true
         reload(skipUpdatingActivity = true)
     }
 
-    fun setLocale(locale: String?) {
+    private fun setLocale(locale: String?) {
         try {
             this.locale = Locale.forLanguageTag(locale!!)
         } catch (ex: NullPointerException) {
@@ -64,8 +65,8 @@ object TranslationService {
         return supported.getFirstSupportedLocale()
     }
 
-    fun getLocale(): Locale {
-        return locale
+    fun getLocale(): String {
+        return locale.toLanguageTag()
     }
 
     fun get(string: Localised): String {

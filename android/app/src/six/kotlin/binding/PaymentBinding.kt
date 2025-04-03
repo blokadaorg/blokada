@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import service.ContextService
 import service.FlutterService
+import service.TranslationService
 import ui.AdaptyPaymentFragment
 import ui.MainActivity
 import utils.Intents
@@ -47,6 +48,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private val flutter by lazy { FlutterService }
     private val context by lazy { ContextService }
     private val commands by lazy { CommandBinding }
+    private val translate by lazy { TranslationService }
     private val intents by lazy { Intents }
 
     private var _fragment: AdaptyPaymentFragment? = null
@@ -157,7 +159,11 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
     private suspend fun fetchPaywall(placementId: String): AdaptyPaywallView {
         return suspendCoroutine { continuation ->
-            Adapty.getPaywall(placementId, locale = "en", loadTimeout = 10.seconds) { result ->
+            Adapty.getPaywall(
+                placementId,
+                locale = translate.getLocale(),
+                loadTimeout = 10.seconds
+            ) { result ->
                 when (result) {
                     is AdaptyResult.Success -> {
                         val paywall = result.value
