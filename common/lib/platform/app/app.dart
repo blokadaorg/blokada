@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 
 import '../account/account.dart';
 import '../device/device.dart';
-import '../stage/stage.dart';
 import 'channel.act.dart';
 
 part 'app.g.dart';
@@ -118,7 +117,6 @@ class AppStore = AppStoreBase with _$AppStore;
 abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   late final _ops = Core.get<AppOps>();
   late final _account = Core.get<AccountStore>();
-  late final _stage = Core.get<StageStore>();
   late final _device = Core.get<DeviceStore>();
 
   AppStoreBase() {
@@ -244,8 +242,6 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
 
   _updateStatus(Marker m) async {
     status = _strategy.getCurrentStatus();
-    await _stage.setReady(
-        !status.isWorking() && status != AppStatus.unknown, m);
     await emit(appStatusChanged, status, m);
   }
 }

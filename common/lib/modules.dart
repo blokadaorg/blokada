@@ -9,8 +9,8 @@ import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
 import 'package:common/common/module/notification/notification.dart';
-import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/module/onboard/onboard.dart';
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/module/support/support.dart';
@@ -71,6 +71,13 @@ class Modules with Logging {
     await _registerModule(CustomlistModule());
     await _registerModule(SupportModule());
 
+    // The stores. Order is important
+    StageStore().onRegister();
+    AccountStore().onRegister();
+    await _registerModule(AccountModule());
+    AccountRefreshStore().onRegister();
+    DeviceStore().onRegister();
+
     await _registerModule(PaymentModule());
 
     // Then family-only deps (for now at least)
@@ -83,13 +90,6 @@ class Modules with Logging {
     }
 
     await _registerModule(PlatformCommonModule());
-
-    // The stores. Order is important
-    StageStore().onRegister();
-    AccountStore().onRegister();
-    await _registerModule(AccountModule());
-    AccountRefreshStore().onRegister();
-    DeviceStore().onRegister();
 
     // Compatibility layer for v6 (temporary)
     if (!Core.act.isFamily) {

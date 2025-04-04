@@ -150,9 +150,9 @@ abstract class StageStoreBase
   @observable
   StageRouteState route = StageRouteState.init();
 
-  // Queue up events that happened before the app was initialized, for later.
+  // Obsolete
   @observable
-  bool isReady = false;
+  bool isReady = true;
 
   bool _isForeground = false;
   Completer? _foregroundCompleter;
@@ -269,12 +269,7 @@ abstract class StageStoreBase
 
   @action
   Future<void> setReady(bool isReady, Marker m) async {
-    if (this.isReady == isReady) return;
-    return await log(m).trace("setStageReady", (m) async {
-      log(m).log(attr: {"ready": isReady});
-      this.isReady = isReady;
-      if (isReady && _isForeground) await _processWaiting(m);
-    });
+    // TODO: obsolete, unused anymore
   }
 
   @action

@@ -31,28 +31,40 @@ class PaymentActor with Actor, Logging {
   onStart(Marker m) async {
     await _onboard.fetch(m);
 
+    /// Wait once account is available because we need to do the init as a part
+    /// of the startup sequence (meaning we have to block in this call).
+    /// We want to make sure the sub restore was tried before user continues.
+    final account = await _accountEphemeral.fetch(m);
+
     /// The Adapty init handling is convoluted because of how they handle profiles.
     /// We do not want to create unnecessary profiles.
     ///
     /// Init flow:
     /// - if existing account id from cloud storage has ever been active, use it
     /// - if account was never active (ie. new user), init without any account ID
-    ///
+    if (account.hasBeenActiveBefore()) {
+      // Initialise Adapty with account ID, if account has been active before
+      log(m).log(
+        msg: "Adapty: initialising",
+        attr: {"accountId": account.id},
+        sensitive: true,
+      );
+      _adaptyInitialized = true;
+      await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
+      await reportOnboarding(_pendingOnboard);
+    } else {
+      // Initialise Adapty with no account ID provided (never active)
+      log(m).log(msg: "Adapty: initialising without accountId");
+      _adaptyInitialized = true;
+      await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
+      await reportOnboarding(_pendingOnboard);
+    }
+
     /// After init:
     /// - pass account id to Adapty if it changes, and has been active before
     _accountEphemeral.onChangeInstant((it) async {
       if (it.now.hasBeenActiveBefore()) {
-        if (!_adaptyInitialized) {
-          // Initialise Adapty with account ID, if account has been active before
-          log(it.m).log(
-            msg: "Adapty: initialising",
-            attr: {"accountId": it.now.id},
-            sensitive: true,
-          );
-          _adaptyInitialized = true;
-          await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
-          await reportOnboarding(_pendingOnboard);
-        } else {
+        if (_adaptyInitialized) {
           // Pass account ID to Adapty on change, whenever active
           log(it.m).log(
             msg: "Adapty: identifying",
@@ -61,23 +73,14 @@ class PaymentActor with Actor, Logging {
           );
           await _channel.identify(it.now.id);
         }
-      } else {
-        if (!_adaptyInitialized) {
-          // Initialise Adapty with no account ID provided (never active)
-          log(it.m).log(msg: "Adapty: initialising without accountId");
-          _adaptyInitialized = true;
-          await _channel.init(it.m, _key.get(), it.now.id, !Core.act.isRelease);
-          await reportOnboarding(_pendingOnboard);
-        } else {
-          // Inactive account: changed manually, or new load
-        }
       }
-
-      await _maybePreload(it);
     });
 
     // TODO: change to new Value type
     _account.addOn(accountChanged, _onAccountChanged);
+
+    // Do the preload once on start, and await as a part of the startup sequence
+    await _maybePreload(m, account);
   }
 
   _onAccountChanged(Marker m) async {
@@ -90,17 +93,17 @@ class PaymentActor with Actor, Logging {
   // Only if Adapty is initialised and account is inactive
   // No expiration check, we assume user will open the paywall soon
   // And that adapty is ok with preloading
-  _maybePreload(ValueUpdate<AccountState> it) async {
+  _maybePreload(Marker m, AccountState account) async {
     if (!_preloaded &&
         _preloadCompleter == null &&
         _adaptyInitialized &&
-        !it.now.type.isActive()) {
+        !account.type.isActive()) {
       _preloadCompleter = Completer();
       try {
-        await _channel.preload(it.m, Placement.primary);
-        log(it.m).i("Adapty: preloaded paywall");
+        await _channel.preload(m, Placement.primary);
+        log(m).i("Adapty: preloaded paywall");
       } catch (e, s) {
-        log(it.m).e(msg: "Adapty: failed preloading", err: e, stack: s);
+        log(m).e(msg: "Adapty: failed preloading", err: e, stack: s);
       } finally {
         // No matter what we mark it as done
         _preloaded = true;
