@@ -1,7 +1,7 @@
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
-import 'package:common/common/widget/overlay/blur_background.dart';
+import 'package:common/common/widget/modal/blur_background.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -108,8 +108,9 @@ class _RateScreenState extends State<RateScreen>
                 const Spacer(),
                 const SizedBox(height: 50),
                 Image.asset(
-                  Core.act.isFamily ? "assets/images/family-logo.png" :
-                  "assets/images/blokada_logo.png",
+                  Core.act.isFamily
+                      ? "assets/images/family-logo.png"
+                      : "assets/images/blokada_logo.png",
                   fit: BoxFit.contain,
                   width: 128,
                   height: 128,

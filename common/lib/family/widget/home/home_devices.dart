@@ -1,13 +1,12 @@
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/device/home_device.dart';
-import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +23,7 @@ class HomeDevices extends StatefulWidget {
 
 class HomeDevicesState extends State<HomeDevices>
     with TickerProviderStateMixin, Logging {
+  late final _modal = Core.get<CurrentModalValue>();
   late final _slidableOnboarding = Core.get<SlidableOnboarding>();
 
   late final AnimationController _ctrl = AnimationController(
@@ -97,86 +97,6 @@ class HomeDevicesState extends State<HomeDevices>
         ),
       );
     }
-
-    // Group devices in pairs and allow vertical carousel scrolling
-    // final d = devices.reversed.toList();
-    // final pairs = Iterable.generate((d.length / 2).ceil(), (index) => index * 2)
-    //     .map((i) =>
-    //         _pairWidget(d.sublist(i, i + 2 >= d.length ? d.length : i + 2)))
-    //     .toList();
-    //
-    // return Column(
-    //   children: [
-    //     Padding(
-    //       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-    //       child: Row(
-    //         children: [
-    //           _buildAddDeviceButton(context),
-    //           const Spacer(),
-    //           Touch(
-    //               onTap: () {
-    //                 _carouselCtrl.nextPage();
-    //               },
-    //               decorationBuilder: (value) {
-    //                 return BoxDecoration(
-    //                   color: context.theme.bgMiniCard.withOpacity(value),
-    //                   borderRadius: BorderRadius.circular(4),
-    //                 );
-    //               },
-    //               child: const Padding(
-    //                 padding: EdgeInsets.all(4.0),
-    //                 child: Icon(
-    //                   CupertinoIcons.chevron_up,
-    //                   size: 18,
-    //                   color: Colors.white,
-    //                 ),
-    //               )),
-    //           Touch(
-    //               onTap: () {
-    //                 _carouselCtrl.previousPage();
-    //               },
-    //               decorationBuilder: (value) {
-    //                 return BoxDecoration(
-    //                   color: context.theme.bgMiniCard.withOpacity(value),
-    //                   borderRadius: BorderRadius.circular(4),
-    //                 );
-    //               },
-    //               child: const Padding(
-    //                 padding: EdgeInsets.all(4.0),
-    //                 child: Icon(
-    //                   CupertinoIcons.chevron_down,
-    //                   size: 18,
-    //                   color: Colors.white,
-    //                 ),
-    //               )),
-    //         ],
-    //       ),
-    //     ),
-    //     CarouselSlider(
-    //         items: d.sublist(1),
-    //         carouselController: _carouselCtrl,
-    //         options: CarouselOptions(
-    //           height: 186,
-    //           //aspectRatio: 16 / 9,
-    //           viewportFraction: 1.0,
-    //           initialPage: d.length - 1 - 1,
-    //           enableInfiniteScroll: true,
-    //           reverse: true,
-    //           autoPlay: true,
-    //           autoPlayInterval: const Duration(seconds: 10),
-    //           enlargeCenterPage: false,
-    //           scrollDirection: Axis.vertical,
-    //         )),
-    //     d.first,
-    //   ],
-    // );
-  }
-
-  Widget _pairWidget(List<Widget> widgets) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: widgets.reversed.toList(),
-    );
   }
 
   List<Widget> _getDevices(BuildContext context) {
@@ -251,10 +171,7 @@ class HomeDevicesState extends State<HomeDevices>
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: MiniCard(
             onTap: () {
-              showSheet(
-                context,
-                builder: (context) => const LinkDeviceSheet(),
-              );
+              _modal.change(Markers.userTap, Modal.familyLinkDevice);
             },
             color: context.theme.accent,
             child: SizedBox(

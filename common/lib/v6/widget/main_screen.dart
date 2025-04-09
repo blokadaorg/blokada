@@ -1,5 +1,6 @@
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/overlay.dart';
+import 'package:common/common/widget/modal/bottom_sheet.dart';
+import 'package:common/common/widget/modal/overlay.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/v6/widget/home_screen.dart';
@@ -46,6 +47,7 @@ class V6MainScreenState extends State<V6MainScreen> {
               right: 0,
               child: TopCommonBar(),
             ),
+            const BottomManagerSheet(),
             const OverlaySheet(),
           ],
         ),

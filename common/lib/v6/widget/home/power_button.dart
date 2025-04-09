@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:common/common/widget/bottom_sheet.dart';
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/core/core.dart';
@@ -29,11 +29,11 @@ class PowerButton extends StatefulWidget {
 
 class _PowerButtonState extends State<PowerButton>
     with TickerProviderStateMixin, Logging {
-  final _app = Core.get<AppStore>();
-  final _appStart = Core.get<AppStartStore>();
-  final _stats = Core.get<StatsStore>();
-  final _home = Core.get<HomeStore>();
-  late final _permsSheet = Core.get<StatefulWidget>(tag: "privateDnsSheet");
+  late final _app = Core.get<AppStore>();
+  late final _appStart = Core.get<AppStartStore>();
+  late final _stats = Core.get<StatsStore>();
+  late final _home = Core.get<HomeStore>();
+  late final _modal = Core.get<CurrentModalValue>();
 
   late Future<List<ui.Image>> loadIcons;
 
@@ -324,8 +324,8 @@ class _PowerButtonState extends State<PowerButton>
                     log(Markers.userTap).trace("tappedPowerButton", (m) async {
                       try {
                         await _appStart.toggleApp(m);
-                      } on OnboardingException catch (e) {
-                        showSheet(context, builder: (context) => _permsSheet);
+                      } on OnboardingException catch (_) {
+                        _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                       }
                     });
                     _updateAnimations();

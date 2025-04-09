@@ -1,5 +1,6 @@
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/overlay.dart';
+import 'package:common/common/widget/modal/bottom_sheet.dart';
+import 'package:common/common/widget/modal/overlay.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/widget/home/animated_bg.dart';
@@ -49,6 +50,7 @@ class FamilyMainScreenState extends State<FamilyMainScreen> {
               right: 0,
               child: TopCommonBar(),
             ),
+            const BottomManagerSheet(),
             const OverlaySheet(),
           ],
         ),

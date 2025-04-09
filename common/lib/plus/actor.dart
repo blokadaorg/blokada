@@ -10,6 +10,7 @@ class PlusActor with Logging, Actor {
   late final _currentLease = Core.get<CurrentLeaseValue>();
   late final _currentGateway = Core.get<CurrentGatewayValue>();
   late final _vpnStatus = Core.get<CurrentVpnStatusValue>();
+  late final _modal = Core.get<CurrentModalValue>();
 
   late final _app = Core.get<AppStore>();
   late final _device = Core.get<DeviceStore>();
@@ -68,7 +69,7 @@ class PlusActor with Logging, Actor {
         await switchPlus(true, m);
       } on TooManyLeasesException catch (_) {
         await _app.plusActivated(false, m);
-        await _stage.showModal(StageModal.plusTooManyLeases, m);
+        _modal.change(m, Modal.plusDeviceLimitReached);
       } catch (e) {
         await _app.plusActivated(false, m);
         await _stage.showModal(StageModal.plusVpnFailure, m);
@@ -100,7 +101,8 @@ class PlusActor with Logging, Actor {
           final g = _currentGateway.present;
 
           if (l == null || k == null || g == null) {
-            throw Exception("Missing lease (${l?.publicKey}), keypair (${k?.publicKey}) or gateway (${g?.publicKey})");
+            throw Exception(
+                "Missing lease (${l?.publicKey}), keypair (${k?.publicKey}) or gateway (${g?.publicKey})");
           }
 
           await _vpn.setVpnConfig(_assembleConfig(k, g, l), m);

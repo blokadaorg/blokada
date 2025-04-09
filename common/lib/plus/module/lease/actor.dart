@@ -6,12 +6,11 @@ class LeaseActor with Logging, Actor, Cooldown {
   late final _keypair = Core.get<CurrentKeypairValue>();
   late final _gateway = Core.get<GatewayActor>();
   late final _currentLease = Core.get<CurrentLeaseValue>();
+  late final _leases = Core.get<LeasesValue>();
 
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _device = Core.get<DeviceStore>();
-
-  List<Lease> leases = [];
 
   DateTime lastRefresh = DateTime(0);
 
@@ -27,8 +26,9 @@ class LeaseActor with Logging, Actor, Cooldown {
   fetch(Marker m, {bool noRetry = false}) async {
     return await log(m).trace("fetch", (m) async {
       final leases = await _api.getLeases(m, noRetry: noRetry);
-      this.leases = leases.map((it) => it.toLease).toList();
-      _channel.doLeasesChanged(this.leases);
+      var mappedLeases = leases.map((it) => it.toLease).toList();
+      _channel.doLeasesChanged(mappedLeases);
+      await _leases.change(m, mappedLeases);
 
       // Find and verify current lease
       final current = _findCurrentLease();
@@ -36,6 +36,11 @@ class LeaseActor with Logging, Actor, Cooldown {
       if (current != null) {
         try {
           await _gateway.selectGateway(current.gatewayId, m);
+
+          // Put current lease on top of the list (for UI)
+          mappedLeases.removeWhere((it) => it.publicKey == current.publicKey);
+          mappedLeases.insert(0, current);
+          await _leases.change(m, mappedLeases);
         } on Exception catch (_) {
           log(m).i("current lease for unknown gateway, setting to null");
           await _currentLease.change(m, null);
@@ -63,7 +68,7 @@ class LeaseActor with Logging, Actor, Cooldown {
         // Too many leases, try to remove one with the alias of current device
         // and the public key of current device
         try {
-          final lease = leases.firstWhere(
+          final lease = _leases.present!.firstWhere(
               (it) => it.alias == deviceAlias && it.publicKey == keypairPk);
           await _api.deleteLease(
             JsonLeasePayload(
@@ -101,7 +106,8 @@ class LeaseActor with Logging, Actor, Cooldown {
 
   deleteLeaseById(String leasePublicKey, Marker m) async {
     return await log(m).trace("deleteLeaseById", (m) async {
-      final lease = leases.firstWhere((it) => it.publicKey == leasePublicKey);
+      final lease =
+          _leases.present!.firstWhere((it) => it.publicKey == leasePublicKey);
       return deleteLease(lease, m);
     });
   }
@@ -127,7 +133,7 @@ class LeaseActor with Logging, Actor, Cooldown {
   }
 
   Lease? _findCurrentLease() {
-    return leases
-        .firstWhereOrNull((it) => it.publicKey == _keypair.present!.publicKey);
+    return _leases.present
+        ?.firstWhereOrNull((it) => it.publicKey == _keypair.present!.publicKey);
   }
 }

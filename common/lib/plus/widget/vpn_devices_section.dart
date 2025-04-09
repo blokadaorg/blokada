@@ -2,10 +2,8 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/plus/module/lease/lease.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:common/plus/widget/vpn_devices_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class VpnDevicesSection extends StatefulWidget {
   final bool primary;
@@ -16,34 +14,7 @@ class VpnDevicesSection extends StatefulWidget {
   State<StatefulWidget> createState() => VpnDevicesSectionState();
 }
 
-class VpnDevicesSectionState extends State<VpnDevicesSection>
-    with Logging, Disposables {
-  late final _currentLeaseValue = Core.get<CurrentLeaseValue>();
-  late final _leaseActor = Core.get<LeaseActor>();
-
-  List<Lease> _leases = [];
-  Lease? _currentLease;
-
-  @override
-  void initState() {
-    super.initState();
-    disposeLater(_currentLeaseValue.onChange.listen(_reload));
-    _reload(null);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    disposeAll();
-  }
-
-  _reload(_) {
-    setState(() {
-      _leases = _leaseActor.leases;
-      _currentLease = _currentLeaseValue.present;
-    });
-  }
-
+class VpnDevicesSectionState extends State<VpnDevicesSection> with Logging {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,102 +36,8 @@ class VpnDevicesSectionState extends State<VpnDevicesSection>
               child: Text("account lease label devices".i18n,
                   style: Theme.of(context).textTheme.headlineMedium),
             ),
-            CommonCard(
-                padding: const EdgeInsets.all(0),
-                child: _buildDevices(context)),
+            const VpnDevicesList(),
           ],
         ));
-  }
-
-  Widget _buildDevices(BuildContext context) {
-    //   final widgets = [
-    //     _wrapInDismissible(
-    //         context,
-    //         "abc",
-    //         _buildDevice(
-    //           context,
-    //           name: "iPhone",
-    //           thisDevice: true,
-    //         )),
-    //     _wrapInDismissible(
-    //         context,
-    //         "oo",
-    //         _buildDevice(
-    //           context,
-    //           name: "823h2t3h242gcgh3",
-    //           thisDevice: false,
-    //         )),
-    //   ];
-    // return Column(children: widgets);
-
-    if (_leases.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text(
-          "universal label none".i18n,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: context.theme.textSecondary),
-        ),
-      );
-    }
-
-    return Column(
-      children: _leases.map((lease) {
-        return _wrapInDismissible(
-            context,
-            lease.publicKey,
-            _buildDevice(
-              context,
-              name: lease.alias ?? lease.publicKey.short(),
-              thisDevice: lease == _currentLease,
-            ));
-      }).toList(),
-    );
-  }
-
-  Widget _buildDevice(BuildContext context,
-      {required String name, required bool thisDevice}) {
-    final suffix = thisDevice ? "account lease label this device".i18n : "";
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(name + suffix,
-                style: Theme.of(context).textTheme.bodyLarge),
-          ),
-          Icon(Icons.devices, color: context.theme.textSecondary),
-        ],
-      ),
-    );
-  }
-
-  Widget _wrapInDismissible(
-      BuildContext context, String publicKey, Widget child) {
-    return Slidable(
-      key: Key(publicKey),
-      endActionPane: ActionPane(
-        motion: const BehindMotion(),
-        extentRatio: 0.3,
-        children: [
-          SlidableAction(
-            onPressed: (c) => deleteLease(context, publicKey),
-            backgroundColor: Colors.red.withOpacity(0.95),
-            foregroundColor: Colors.white,
-            icon: CupertinoIcons.delete,
-            label: "universal action delete".i18n,
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(8), bottomRight: Radius.circular(8)),
-          ),
-        ],
-      ),
-      child: child,
-    );
-  }
-
-  deleteLease(BuildContext context, String publicKey) {
-    _leaseActor.deleteLeaseById(publicKey, Markers.userTap);
   }
 }

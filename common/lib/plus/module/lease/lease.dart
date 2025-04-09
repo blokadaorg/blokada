@@ -44,11 +44,18 @@ class CurrentLeaseValue extends NullableAsyncValue<Lease> {
   CurrentLeaseValue() : super(sensitive: true);
 }
 
+class LeasesValue extends AsyncValue<List<Lease>> {
+  LeasesValue() : super(sensitive: true) {
+    load = (m) async => <Lease>[];
+  }
+}
+
 class LeaseModule with Module {
   @override
   onCreateModule() async {
     await register(LeaseApi());
     await register(CurrentLeaseValue());
+    await register(LeasesValue());
     await register(LeaseActor());
   }
 }
