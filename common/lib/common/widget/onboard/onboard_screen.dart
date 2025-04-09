@@ -1,13 +1,12 @@
 import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/onboard/onboard.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
+import 'package:common/common/widget/modal/blur_background.dart';
 import 'package:common/common/widget/onboard/background.dart';
-import 'package:common/common/widget/overlay/blur_background.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/common/navigation.dart';
 import 'package:common/family/widget/home/big_icon.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -111,7 +110,8 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 36.0, vertical: 8.0),
                   child: MiniCard(
                     onTap: _close,
                     color: context.theme.accent,
@@ -138,7 +138,8 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
     );
   }
 
-  Widget _buildTosPrivacyText(BuildContext context, String text, {TextAlign textAlign = TextAlign.center}) {
+  Widget _buildTosPrivacyText(BuildContext context, String text,
+      {TextAlign textAlign = TextAlign.center}) {
     // Define a regex pattern to find text between * markers
     final pattern = RegExp(r'\*(.*?)\*');
     final matches = pattern.allMatches(text);
@@ -171,8 +172,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
               color: context.theme.accent,
               decoration: TextDecoration.underline,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _openTos(true),
+            recognizer: TapGestureRecognizer()..onTap = () => _openTos(true),
           ),
           TextSpan(text: parts[2]), // Text between links
           TextSpan(
@@ -181,8 +181,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
               color: context.theme.accent,
               decoration: TextDecoration.underline,
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _openTos(false),
+            recognizer: TapGestureRecognizer()..onTap = () => _openTos(false),
           ),
           TextSpan(text: parts[4]), // Text after second link
         ],

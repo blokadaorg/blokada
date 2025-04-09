@@ -1,8 +1,8 @@
 import 'package:common/common/dialog.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -36,6 +36,7 @@ class DeviceSectionState extends State<DeviceSection>
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _selectedDevice = Core.get<SelectedDeviceTag>();
   late final _custom = Core.get<CustomlistActor>();
+  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   late FamilyDevice device;
 
@@ -208,11 +209,8 @@ class DeviceSectionState extends State<DeviceSection>
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: CommonClickable(
                   onTap: () {
-                    showSheet(
-                      context,
-                      builder: (context) =>
-                          LinkDeviceSheet(device: device.device),
-                    );
+                    _modalWidget.change(Markers.userTap,
+                        (context) => LinkDeviceSheet(device: device.device));
                   },
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

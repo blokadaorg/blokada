@@ -8,6 +8,7 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/link/link.dart';
 import 'package:common/common/module/list/list.dart';
 import 'package:common/common/module/lock/lock.dart';
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
@@ -65,6 +66,7 @@ class Modules with Logging {
       await _registerModule(OnboardModule());
     }
 
+    await _registerModule(ModalModule());
     await _registerModule(ListModule());
     await _registerModule(FilterModule());
     await _registerModule(JournalModule());

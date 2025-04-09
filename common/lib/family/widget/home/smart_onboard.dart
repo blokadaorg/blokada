@@ -1,11 +1,10 @@
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/payment/payment.dart';
-import 'package:common/common/widget/bottom_sheet.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/home/big_icon.dart';
-import 'package:common/family/widget/home/link_device_sheet.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +29,7 @@ class SmartOnboardState extends State<SmartOnboard>
   late final _stage = Core.get<StageStore>();
   late final _family = Core.get<FamilyActor>();
   late final _payment = Core.get<PaymentActor>();
-  late final _permsSheet = Core.get<StatefulWidget>(tag: "privateDnsSheet");
+  late final _modal = Core.get<CurrentModalValue>();
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +179,7 @@ class SmartOnboardState extends State<SmartOnboard>
       });
     } else if (p.requiresPerms()) {
       _payment.reportOnboarding(OnboardingStep.permsPrompted);
-      showSheet(context, builder: (context) => _permsSheet);
+      _modal.change(Markers.userTap, Modal.onboardPrivateDns);
     } else if (p.isLocked2()) {
       log(Markers.userTap).trace("handleCtaTap", (m) async {
         await _stage.showModal(StageModal.lock, m);
@@ -192,7 +191,7 @@ class SmartOnboardState extends State<SmartOnboard>
         await _stage.showModal(StageModal.accountChange, m);
       });
     } else {
-      showSheet(context, builder: (context) => const LinkDeviceSheet());
+      _modal.change(Markers.userTap, Modal.familyLinkDevice);
     }
   }
 

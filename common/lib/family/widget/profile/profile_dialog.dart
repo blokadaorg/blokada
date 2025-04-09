@@ -1,12 +1,11 @@
 import 'package:common/common/dialog.dart';
-import 'package:common/common/widget/bottom_sheet.dart';
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/profile/profile.dart';
-import 'package:common/family/widget/add_profile_sheet.dart';
 import 'package:common/family/widget/profile/profile_button.dart';
 import 'package:common/family/widget/profile/profile_utils.dart';
 import 'package:dartx/dartx.dart';
@@ -29,6 +28,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
   late final _devices = Core.get<DeviceActor>();
   late final _profiles = Core.get<ProfileActor>();
   late final _familyDevices = Core.get<FamilyDevicesValue>();
+  late final _modal = Core.get<CurrentModalValue>();
 
   late JsonDevice device;
   String? error;
@@ -83,10 +83,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
               const SizedBox(height: 40),
               CommonClickable(
                 onTap: () {
-                  showSheet(
-                    context,
-                    builder: (context) => const AddProfileSheet(),
-                  );
+                  _modal.change(Markers.userTap, Modal.familyAddProfile);
                 },
                 tapBgColor: context.theme.divider,
                 tapBorderRadius: BorderRadius.circular(24),
