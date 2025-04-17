@@ -40,17 +40,20 @@ $ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 $ export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
 $ gem install cocoapods --user-install
 $ gem install bundler
+$ pod install --repo-update
 $ brew install swiftlint go@1.22
 $ export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
-
 $ flutter doctor
+$ make regen-ios
 ```
 
 Also don't forget the following:
 ```
-git submodule update --init --recursive
+$ git submodule update --init --recursive
 
 // for iOS signing (from ios dir):
 fastlane match development
 ...
 ```
+
+Now see fastlane/README.md for more details on how to build the apps.
