@@ -57,13 +57,16 @@ void main() {
         final currentLease = CurrentLeaseValue();
         Core.register(currentLease);
 
+        final leases = LeasesValue();
+        Core.register(leases);
+
         final subject = LeaseActor();
-        expect(subject.leases.isEmpty, true);
+        expect(leases.present, null);
         verifyNever(gateway.selectGateway(any, any));
 
         await subject.fetch(m);
-        expect(subject.leases.length, 3);
-        expect(subject.leases.first.alias, "Solar quokka");
+        expect(leases.present!.length, 3);
+        expect(leases.present!.first.alias, "Solar quokka");
         expect(currentLease.present, null);
         verify(gateway.selectGateway(any, m)).called(1);
       });
@@ -96,8 +99,11 @@ void main() {
         final currentLease = CurrentLeaseValue();
         Core.register(currentLease);
 
+        final leases = LeasesValue();
+        Core.register(leases);
+
         final subject = LeaseActor();
-        expect(subject.leases.isEmpty, true);
+        expect(leases.present, null);
         verifyNever(gateway.selectGateway(any, any));
 
         await subject.fetch(m);
@@ -137,12 +143,15 @@ void main() {
         final currentLease = CurrentLeaseValue();
         Core.register(currentLease);
 
+        final leases = LeasesValue();
+        Core.register(leases);
+
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
 
         // No leases at first
         final subject = LeaseActor();
-        expect(subject.leases.isEmpty, true);
+        expect(leases.present, null);
 
         // After posting, it should fetch leases (and we have a matching one in fixtures)
         await subject.newLease(
@@ -175,6 +184,9 @@ void main() {
         Core.register<CurrentKeypairValue>(keypair);
 
         Core.register(CurrentLeaseValue());
+
+        final leases = LeasesValue();
+        Core.register(leases);
 
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
@@ -303,6 +315,9 @@ void main() {
 
         Core.register(CurrentLeaseValue());
 
+        final leases = LeasesValue();
+        Core.register(leases);
+
         final subject = LeaseActor();
         await subject.fetch(m);
 
@@ -337,6 +352,9 @@ void main() {
         Core.register<StageStore>(stage);
 
         Core.register(CurrentLeaseValue());
+
+        final leases = LeasesValue();
+        Core.register(leases);
 
         final subject = LeaseActor();
         verifyNever(json.getLeases(any));
