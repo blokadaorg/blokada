@@ -166,18 +166,18 @@ class DeviceActor with Logging, Actor {
     onChange(false);
   }
 
-  pauseDevice(JsonDevice device, bool pause, Marker m) async {
+  changeDeviceMode(JsonDevice device, JsonDeviceMode mode, Marker m) async {
     final draft = JsonDevice(
       deviceTag: device.deviceTag,
       alias: device.alias,
       profileId: device.profileId,
       retention: device.retention,
-      mode: pause ? JsonDeviceMode.off : JsonDeviceMode.on,
+      mode: mode,
     );
     final old = _commit(draft, dirty: true);
 
     try {
-      final updated = await _devices.pause(device, pause, m);
+      final updated = await _devices.changeMode(device, mode, m);
       _commit(updated);
       return updated;
     } catch (e) {

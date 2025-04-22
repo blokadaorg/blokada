@@ -99,14 +99,13 @@ class JsonDevicePayload {
         profileId = null,
         assert(retention != null && deviceTag != null);
 
-  JsonDevicePayload.forUpdatePaused({
+  JsonDevicePayload.forUpdateMode({
     required this.deviceTag,
-    required bool paused,
+    required JsonDeviceMode this.mode,
     this.retention,
   })  : alias = null,
         //retention = null,
         profileId = null,
-        mode = paused ? JsonDeviceMode.off : JsonDeviceMode.on,
         assert(deviceTag != null);
 
   JsonDevicePayload.forUpdateProfile({

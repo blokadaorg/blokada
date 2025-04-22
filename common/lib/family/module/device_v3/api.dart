@@ -42,12 +42,13 @@ class DeviceApi {
         )));
   }
 
-  Future<JsonDevice> pause(JsonDevice device, bool paused, Marker m) async {
+  Future<JsonDevice> changeMode(
+      JsonDevice device, JsonDeviceMode mode, Marker m) async {
     final result = await _api.request(ApiEndpoint.putDevice, m,
-        payload: _marshal.fromPayload(JsonDevicePayload.forUpdatePaused(
+        payload: _marshal.fromPayload(JsonDevicePayload.forUpdateMode(
             deviceTag: device.deviceTag,
-            paused: paused,
-            retention: paused ? null : "24h")));
+            mode: mode,
+            retention: mode == JsonDeviceMode.off ? null : "24h")));
     return _marshal.toDevice(result);
   }
 

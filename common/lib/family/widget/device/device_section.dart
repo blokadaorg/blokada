@@ -177,31 +177,39 @@ class DeviceSectionState extends State<DeviceSection>
                             color: context.theme.textSecondary,
                           )),
                     ),
-                    const SizedBox(height: 8),
-                    const CommonDivider(indent: 0),
-                    CommonItem(
-                      onTap: () {},
-                      icon: CupertinoIcons.time,
-                      text: "family stats label pause".i18n,
-                      chevron: false,
-                      trailing: CupertinoSwitch(
-                        activeColor: context.theme.accent,
-                        value: device.device.mode == JsonDeviceMode.off,
-                        onChanged: (bool? value) {
-                          log(Markers.userTap).i(
-                              "changing pause device ${device.device.deviceTag}");
-                          _device.pauseDevice(
-                              device.device, value ?? false, Markers.userTap);
-                          //setState(() {});
-                        },
-                      ),
-                    ),
                   ],
                 ),
               ],
             ),
           ),
         ),
+
+        // Internet control section
+        const SizedBox(height: 32),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text("INTERNET CONTROL".capitalize(),
+              style: const TextStyle(fontWeight: FontWeight.w500)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text("Manage Internet access for this device.",
+              style: TextStyle(color: context.theme.textSecondary)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: CommonCard(
+            child: Column(
+              children: [
+                Column(
+                  children: _buildInternetControlOptions(context),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        // Bottom links
         const SizedBox(height: 6),
         device.thisDevice
             ? Container()
@@ -246,6 +254,76 @@ class DeviceSectionState extends State<DeviceSection>
               ),
         const SizedBox(height: 48),
       ],
+    );
+  }
+
+  List<Widget> _buildInternetControlOptions(BuildContext context) {
+    onChanged(JsonDeviceMode? value) {
+      if (value == null) return;
+      log(Markers.userTap)
+          .i("changing device mode ${device.device.deviceTag} to $value");
+      _device.changeDeviceMode(device.device, value, Markers.userTap);
+    }
+
+    return [
+      _buildInternetControlOption(
+          context,
+          JsonDeviceMode.on,
+          "Filter Content",
+          "Blocks harmful and inappropriate sites according to your filters and blocklists.",
+          onChanged),
+      const CommonDivider(indent: 0),
+      _buildInternetControlOption(context, JsonDeviceMode.off, "Allow All",
+          "No content is blocked. The Internet is fully open.", onChanged),
+      const CommonDivider(indent: 0),
+      _buildInternetControlOption(context, JsonDeviceMode.blocked, "Block All",
+          "Stops all Internet access on the device.", onChanged),
+    ];
+  }
+
+  Widget _buildInternetControlOption(BuildContext context, JsonDeviceMode value,
+      String text, String desc, ValueChanged<JsonDeviceMode?> onChanged) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 12.0),
+      child: Row(
+        children: [
+          CupertinoRadio(
+              value: value,
+              groupValue: device.device.mode,
+              activeColor: context.theme.accent,
+              inactiveColor: context.theme.shadow.withAlpha(127),
+              onChanged: onChanged),
+          const SizedBox(width: 16),
+          Expanded(
+              child: GestureDetector(
+            onTap: () {
+              onChanged(value);
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: context.theme.textPrimary,
+                    fontSize: 16,
+                    //fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    color: context.theme.textSecondary,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ],
+            ),
+          )),
+        ],
+      ),
     );
   }
 }
