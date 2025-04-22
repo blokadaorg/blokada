@@ -283,23 +283,25 @@ class DeviceSectionState extends State<DeviceSection>
 
   Widget _buildInternetControlOption(BuildContext context, JsonDeviceMode value,
       String text, String desc, ValueChanged<JsonDeviceMode?> onChanged) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 12.0),
-      child: Row(
-        children: [
-          CupertinoRadio(
-              value: value,
-              groupValue: device.device.mode,
-              activeColor: context.theme.accent,
-              inactiveColor: context.theme.shadow.withAlpha(127),
-              onChanged: onChanged),
-          const SizedBox(width: 16),
-          Expanded(
-              child: GestureDetector(
-            onTap: () {
-              onChanged(value);
-            },
-            child: Column(
+    return GestureDetector(
+      onTap: () {
+        onChanged(value);
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 12.0),
+        child: Row(
+          children: [
+            CupertinoRadio(
+                value: value,
+                groupValue: device.device.mode,
+                useCheckmarkStyle: true,
+                activeColor: context.theme.accent,
+                inactiveColor: context.theme.shadow.withAlpha(127),
+                onChanged: onChanged),
+            const SizedBox(width: 16),
+            Expanded(
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -320,9 +322,9 @@ class DeviceSectionState extends State<DeviceSection>
                   textAlign: TextAlign.start,
                 ),
               ],
-            ),
-          )),
-        ],
+            )),
+          ],
+        ),
       ),
     );
   }
