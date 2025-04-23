@@ -9,8 +9,8 @@ class CoreConfig {
   Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);
   Duration plusVpnCommandTimeout = const Duration(seconds: 5);
   Duration statsRefreshWhenOnAnotherScreen = const Duration(seconds: 240);
-  Duration refreshVeryFrequent = const Duration(seconds: 10);
-  Duration refreshOnHome = const Duration(seconds: 120);
+  Duration refreshVeryFrequent = const Duration(seconds: 5);
+  Duration refreshOnHome = const Duration(seconds: 15);
 
   bool obfuscateSensitiveParams = false;
 

@@ -25,7 +25,6 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     }
   }
 
-  @override
   onRegister() {
     Core.register<api.StatsApi>(api.StatsApi());
     Core.register<StatsStore>(this as StatsStore);

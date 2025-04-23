@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:common/common/widget/minicard/counter.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
@@ -10,13 +8,12 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/platform/stats/stats.dart';
-import 'package:common/v6/widget/home/home.dart';
 import 'package:common/v6/widget/home/home_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
 class HomeCounter2 extends StatefulWidget {
-  HomeCounter2({Key? key}) : super(key: key);
+  const HomeCounter2({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,31 +26,24 @@ class _HomeCounterState extends State<HomeCounter2>
   final _stage = Core.get<StageStore>();
   final _app = Core.get<AppStore>();
   final _stats = Core.get<StatsStore>();
-  final _home = Core.get<HomeStore>();
 
-  bool powerReady = false;
-  double blockedCounter = 0.0;
-  double previousBlockedCounter = 0.0;
+  double counter = 0.0;
+  double lastCounter = -1.0;
 
   @override
   void initState() {
     super.initState();
 
     mobx.autorun((_) {
-      final status = _app.status;
       final stats = _stats.stats;
-      final powerReady = _home.powerOnAnimationReady;
 
       setState(() {
-        this.powerReady = powerReady;
-        blockedCounter = stats.dayBlocked.toDouble();
-        if (powerReady) {
-          Timer(Duration(seconds: 5), () {
-            previousBlockedCounter = blockedCounter;
-          });
+        if (lastCounter < 0) {
+          lastCounter = 0;
         } else {
-          previousBlockedCounter = 0;
+          lastCounter = counter;
         }
+        counter = stats.dayTotal.toDouble();
       });
     });
   }
@@ -77,7 +67,7 @@ class _HomeCounterState extends State<HomeCounter2>
               : theme.cloud,
           chevronIcon: Icons.bar_chart,
         ),
-        big: MiniCardCounter(counter: blockedCounter),
+        big: MiniCardCounter(counter: counter, lastCounter: lastCounter),
         small: "",
         footer: "home status detail active".i18n.replaceAll("*", ""),
       ),

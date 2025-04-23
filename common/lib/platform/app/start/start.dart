@@ -76,7 +76,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     if (_plusPermEnabled != _app.conditions.plusPermEnabled) {
       _plusPermEnabled = _app.conditions.plusPermEnabled;
 
-      if (_app.conditions.plusPermEnabled) {
+      if (_app.conditions.plusPermEnabled && !_app.status.isWorking()) {
         // Just got the perms, show the location selection screen
         await log(Markers.start).trace("autoLocationAfterPerms", (m) async {
           // TODO: replace with new modal approach

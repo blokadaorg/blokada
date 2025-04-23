@@ -13,7 +13,9 @@ final appStatusChanged = EmitterEvent<AppStatus>("appStatusChanged");
 
 extension AppStatusExt on AppStatus {
   bool isWorking() {
-    return this == AppStatus.initializing || this == AppStatus.reconfiguring;
+    return this == AppStatus.initializing ||
+        this == AppStatus.reconfiguring ||
+        this == AppStatus.unknown;
   }
 
   bool isActive() {
@@ -108,7 +110,7 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, plusReconfiguring: $reconfiguring, appPaused: $appPaused}";
+    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused}";
   }
 }
 

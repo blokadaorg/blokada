@@ -205,12 +205,16 @@ abstract class StageStoreBase
       _foregroundCompleter = Completer();
 
       if (route.isForeground()) {
-        await emit(willEnterBackground, route, m);
-        route = route.newBg();
-        _isForeground = false;
-        await emitValue(routeChanged, route, m);
+        try {
+          await emit(willEnterBackground, route, m);
+          route = route.newBg();
+          _isForeground = false;
+          await emitValue(routeChanged, route, m);
 
-        await _scheduler.eventTriggered(m, Event.appForeground, value: "0");
+          await _scheduler.eventTriggered(m, Event.appForeground, value: "0");
+        } catch (e, s) {
+          log(m).e(msg: "failed in setBackground events", err: e, stack: s);
+        }
       }
 
       _foregroundCompleter?.complete();
@@ -292,11 +296,15 @@ abstract class StageStoreBase
         log(m).w("routeFgHack");
       }
 
-      log(m).i("foreground emitting");
-      await emitValue(routeChanged, route, m);
+      try {
+        log(m).i("foreground emitting");
+        await emitValue(routeChanged, route, m);
 
-      // TODO: this needs to be removed
-      await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
+        // TODO: this needs to be removed
+        await _scheduler.eventTriggered(m, Event.appForeground, value: "1");
+      } catch (e, s) {
+        log(m).e(msg: "failed in processWaiting events", err: e, stack: s);
+      }
     }
 
     final path = _pathToShow;

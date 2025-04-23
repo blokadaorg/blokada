@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class MiniCardCounter extends StatefulWidget {
   final double counter;
+  final double lastCounter;
 
   const MiniCardCounter({
     super.key,
     required this.counter,
+    required this.lastCounter,
   });
 
   @override
@@ -14,12 +16,10 @@ class MiniCardCounter extends StatefulWidget {
 }
 
 class MiniCardCounterState extends State<MiniCardCounter> {
-  var lastCounter = 0.0; // TODO: use this actually
-
   @override
   Widget build(BuildContext context) {
     return Countup(
-      begin: lastCounter,
+      begin: widget.lastCounter,
       end: widget.counter,
       duration: const Duration(seconds: 1),
       style: const TextStyle(

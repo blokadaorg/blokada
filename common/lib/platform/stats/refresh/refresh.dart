@@ -24,7 +24,6 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
     _account.addOn(accountIdChanged, onAccountIdChanged);
   }
 
-  @override
   onRegister() {
     Core.register<StatsRefreshStore>(this as StatsRefreshStore);
   }
@@ -116,10 +115,16 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   }
 
   _reschedule(Marker m) {
-    final newDate = _getNextRefresh(m);
+    var newDate = _getNextRefresh(m);
     if (newDate == null) {
       _scheduler.stop(m, keyTimer);
     } else {
+      // Make sure first call happens in the future
+      // Otherwise in onboarding we make it when stats are 0 yet
+      if (newDate.isBefore(DateTime.now())) {
+        newDate = DateTime.now().add(const Duration(seconds: 3));
+      }
+
       _scheduler.addOrUpdate(Job(
         keyTimer,
         m,
