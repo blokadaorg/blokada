@@ -130,7 +130,6 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
     });
   }
 
-  @override
   onRegister() {
     Core.register<AppOps>(getOps());
     Core.register<AppStore>(this as AppStore);
@@ -139,7 +138,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @observable
   AppStatus status = AppStatus.unknown;
 
-  AppStatusStrategy _strategy = AppStatusStrategy();
+  AppStatusStrategy conditions = AppStatusStrategy();
 
   @action
   Future<void> initStarted(Marker m) async {
@@ -148,7 +147,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
         throw StateError("initStarted: incorrect status: $status");
       }
 
-      _strategy = _strategy.update(initStarted: true, initFail: false);
+      conditions = conditions.update(initStarted: true, initFail: false);
       await _updateStatus(m);
     });
   }
@@ -160,7 +159,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
         throw StateError("initFail: incorrect status: $status");
       }
 
-      _strategy = _strategy.update(initFail: true);
+      conditions = conditions.update(initFail: true);
       await _updateStatus(m);
     });
   }
@@ -172,7 +171,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
         throw StateError("initCompleted: incorrect status: $status");
       }
 
-      _strategy = _strategy.update(initFail: false, initCompleted: true);
+      conditions = conditions.update(initFail: false, initCompleted: true);
       await _updateStatus(m);
     });
   }
@@ -180,7 +179,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> cloudPermEnabled(bool enabled, Marker m) async {
     return await log(m).trace("cloudPermEnabled", (m) async {
-      _strategy = _strategy.update(cloudPermEnabled: enabled);
+      conditions = conditions.update(cloudPermEnabled: enabled);
       await _updateStatus(m);
     });
   }
@@ -189,7 +188,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   Future<void> onDeviceChanged(Marker m) async {
     return await log(m).trace("onDeviceChanged", (m) async {
       final enabled = _device.cloudEnabled;
-      _strategy = _strategy.update(cloudEnabled: enabled);
+      conditions = conditions.update(cloudEnabled: enabled);
       await _updateStatus(m);
     });
   }
@@ -202,7 +201,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
       final isPlus = account.type == AccountType.plus;
       final isFamily = account.type == AccountType.family;
 
-      _strategy = _strategy.update(
+      conditions = conditions.update(
           accountIsCloud: isCloud || isPlus,
           accountIsPlus: isPlus,
           accountIsFamily: isFamily);
@@ -213,10 +212,10 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> appPaused(bool paused, Marker m) async {
     return await log(m).trace("appPaused", (m) async {
-      _strategy = _strategy.update(appPaused: paused, reconfiguring: false);
+      conditions = conditions.update(appPaused: paused, reconfiguring: false);
       await _updateStatus(m);
       log(m).pair("paused", paused);
-      log(m).pair("appStatusStrategy", _strategy);
+      log(m).pair("appStatusStrategy", conditions);
       log(m).pair("appStatus", status);
     });
   }
@@ -224,10 +223,10 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> plusActivated(bool active, Marker m) async {
     return await log(m).trace("plusActivated", (m) async {
-      _strategy = _strategy.update(plusActive: active, reconfiguring: false);
+      conditions = conditions.update(plusActive: active, reconfiguring: false);
       await _updateStatus(m);
       log(m).pair("active", active);
-      log(m).pair("appStatusStrategy", _strategy);
+      log(m).pair("appStatusStrategy", conditions);
       log(m).pair("appStatus", status);
     });
   }
@@ -235,13 +234,13 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> reconfiguring(Marker m) async {
     return await log(m).trace("reconfiguring", (m) async {
-      _strategy = _strategy.update(reconfiguring: true);
+      conditions = conditions.update(reconfiguring: true);
       await _updateStatus(m);
     });
   }
 
   _updateStatus(Marker m) async {
-    status = _strategy.getCurrentStatus();
+    status = conditions.getCurrentStatus();
     await emit(appStatusChanged, status, m);
   }
 }
