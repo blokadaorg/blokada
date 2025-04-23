@@ -2,6 +2,8 @@ import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/channel.pg.dart';
+import 'package:common/platform/stage/channel.pg.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:common/plus/plus.dart';
 import 'package:mobx/mobx.dart';
 
@@ -30,6 +32,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _permStore = Core.get<PlatformPermActor>();
   late final _payment = Core.get<PaymentActor>();
   late final _modal = Core.get<CurrentModalValue>();
+  late final _stage = Core.get<StageStore>();
 
   AppStartStoreBase() {
     _app.addOn(appStatusChanged, onAppStatus);
@@ -41,6 +44,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   bool _paused = false;
   bool _cloudPermEnabled = false;
+  bool _plusPermEnabled = false;
 
   @observable
   DateTime? pausedUntil;
@@ -52,23 +56,35 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       _paused = true;
     }
 
-    if (_cloudPermEnabled == _app.conditions.cloudPermEnabled) {
-      // No change in cloudPermEnabled
+    // If cloud perm has just changed
+    if (_cloudPermEnabled != _app.conditions.cloudPermEnabled) {
+      _cloudPermEnabled = _app.conditions.cloudPermEnabled;
+
+      if (_app.conditions.cloudPermEnabled) {
+        // Just got the perms, auto start the app
+        await log(Markers.start).trace("autoStartAfterPerms", (m) async {
+          await unpauseApp(m);
+        });
+      } else {
+        // Just lost the perms, show the perms screen
+        _modal.change(m, Modal.onboardPrivateDns);
+      }
       return;
     }
 
-    if (_app.conditions.cloudPermEnabled) {
-      // Just got the perms, auto start the app
-      _cloudPermEnabled = _app.conditions.cloudPermEnabled;
-      await log(Markers.start).trace("autoStartAfterPerms", (m) async {
-        await unpauseApp(m);
-      });
-    } else {
-      // Just lost the perms, show the perms screen
-      _modal.change(m, Modal.onboardPrivateDns);
-    }
+    // If plus perm has just changed
+    if (_plusPermEnabled != _app.conditions.plusPermEnabled) {
+      _plusPermEnabled = _app.conditions.plusPermEnabled;
 
-    _cloudPermEnabled = _app.conditions.cloudPermEnabled;
+      if (_app.conditions.plusPermEnabled) {
+        // Just got the perms, show the location selection screen
+        await log(Markers.start).trace("autoLocationAfterPerms", (m) async {
+          // TODO: replace with new modal approach
+          await _stage.showModal(StageModal.plusLocationSelect, m);
+        });
+      }
+      return;
+    }
   }
 
   @action

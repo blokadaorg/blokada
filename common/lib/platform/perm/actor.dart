@@ -77,6 +77,7 @@ class PlatformPermActor with Logging, Actor {
           if (!Core.act.isFamily) await _plus.reactToPlusLost(m);
           await _app.plusActivated(false, m);
         }
+        await _app.plusPermEnabled(enabled, m);
       }
     });
   }
@@ -116,7 +117,7 @@ class PlatformPermActor with Logging, Actor {
   }
 
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
-    if (!(route.isBecameForeground()/* || route.modal == StageModal.perms*/)) {
+    if (!(route.isBecameForeground() /* || route.modal == StageModal.perms*/)) {
       return;
     }
 

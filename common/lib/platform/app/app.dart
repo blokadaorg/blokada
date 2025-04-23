@@ -185,6 +185,14 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   }
 
   @action
+  Future<void> plusPermEnabled(bool enabled, Marker m) async {
+    return await log(m).trace("plusPermEnabled", (m) async {
+      conditions = conditions.update(plusPermEnabled: enabled);
+      await _updateStatus(m);
+    });
+  }
+
+  @action
   Future<void> onDeviceChanged(Marker m) async {
     return await log(m).trace("onDeviceChanged", (m) async {
       final enabled = _device.cloudEnabled;
