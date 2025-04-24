@@ -41,6 +41,7 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
         // That could probably happen if system was restoring the view from the saved state
         // But we don't care to show this fragment in such scenario, user can re-open
         if (adaptyView == null) {
+            payment.logError("AdaptyPaymentFragment: closing", Exception("adaptyView is null"))
             parentFragmentManager.beginTransaction().remove(this).commit()
             return
         }

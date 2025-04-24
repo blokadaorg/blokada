@@ -167,8 +167,21 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                 }
 
                 val activity = context.requireActivity() as MainActivity
-                _fragment = AdaptyPaymentFragment.newInstance(_currentView!!)
-                _fragment!!.show(activity.supportFragmentManager, null)
+                val manager = activity.supportFragmentManager
+                val tag = "adapty"
+                val existingFragment = manager.findFragmentByTag(tag)
+                if (existingFragment != null) {
+                    manager.beginTransaction().remove(existingFragment).commitNow()
+                    log("Removed existing adapty fragment")
+                }
+
+                val fragment = AdaptyPaymentFragment.newInstance(_currentView!!)
+                _fragment = fragment
+
+                // Ensure the transaction completes with commitNow instead of relying on show()
+                val transaction = manager.beginTransaction()
+                transaction.add(fragment, tag)
+                transaction.commitNow()
 
                 // Drop preload after one use since we cannot reuse the view
                 _currentViewForPlacementId = null
@@ -389,7 +402,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    private fun logError(message: String, error: Throwable) {
+    fun logError(message: String, error: Throwable) {
         _scope.launch {
             val errorString = "Adapty: $message: ${error.message}"
             commands.execute(CommandName.WARNING, errorString)
