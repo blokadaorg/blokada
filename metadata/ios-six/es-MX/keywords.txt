@@ -1,1 +1,1 @@
-blokada,blockada,blocka,adblock,ad blocker,block ads,dns,wireguard,vpn,fast,safe,data,speed,private
+bloqueador,anuncios,dnscloak,wireguard,privacidad,rastreador,shield,rapido,filtro,seguro,vpn,dns
