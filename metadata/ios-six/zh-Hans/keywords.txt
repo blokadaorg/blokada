@@ -1,1 +1,1 @@
-blokada,blockada,blocka,adblock,ad blocker,block ads,dns,wireguard,vpn,fast,safe,data,speed,private
+广告拦截,adblock,dnscloak,wireguard,隐私,隐私保护,跟踪器,过滤,游戏,应用,快速,省流量,广告屏蔽,vpn,dns
