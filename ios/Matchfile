@@ -4,7 +4,7 @@ storage_mode("git")
 
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
-app_identifier(["net.blocka.app", "net.blocka.app.network-extension", "net.blocka.app.family"])
+app_identifier(["net.blocka.app", "net.blocka.app.network-extension", "net.blocka.app.web-extension", "net.blocka.app.family"])
 username("apple-signing@blocka.net")
 
 # For all available options run `fastlane match --help`
