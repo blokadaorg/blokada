@@ -67,7 +67,13 @@ class _HomeCounterState extends State<HomeCounter2>
               : theme.cloud,
           chevronIcon: Icons.bar_chart,
         ),
-        big: MiniCardCounter(counter: counter, lastCounter: lastCounter),
+        big: counter == 0
+            ? const Text("...",
+                style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.w600,
+                ))
+            : MiniCardCounter(counter: counter, lastCounter: lastCounter),
         small: "",
         footer: "home status detail active".i18n.replaceAll("*", ""),
       ),
