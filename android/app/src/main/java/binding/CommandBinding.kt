@@ -15,6 +15,7 @@ package binding
 import channel.command.CommandEvents
 import channel.command.CommandName
 import channel.command.CommandOps
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,13 +23,13 @@ import service.FlutterService
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-object CommandBinding: CommandOps {
+object CommandBinding : CommandOps {
     private val cmd by lazy { CommandEvents(flutter.engine.dartExecutor.binaryMessenger) }
     private val flutter by lazy { FlutterService }
 
     private var canAcceptCommands = false
     private var queue = mutableListOf<Triple<CommandName, String?, String?>>()
-    private var scope = GlobalScope
+    private var scope = CoroutineScope(Dispatchers.Main)
 
     init {
         CommandOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
@@ -51,7 +52,7 @@ object CommandBinding: CommandOps {
 
     suspend fun execute(command: CommandName) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
-            scope.launch(Dispatchers.Main) {
+            scope.launch {
                 cmd.onCommand(command.name, 2) { cont.resume(Unit) }
             }
         } else {
@@ -62,7 +63,7 @@ object CommandBinding: CommandOps {
 
     suspend fun execute(command: CommandName, p1: String) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
-            scope.launch(Dispatchers.Main) {
+            scope.launch {
                 cmd.onCommandWithParam(command.name, p1, 2) { cont.resume(Unit) }
             }
         } else {
@@ -73,7 +74,7 @@ object CommandBinding: CommandOps {
 
     suspend fun execute(command: CommandName, p1: String, p2: String) = suspendCoroutine { cont ->
         if (canAcceptCommands) {
-            scope.launch(Dispatchers.Main) {
+            scope.launch {
                 cmd.onCommandWithParams(command.name, p1, p2, 2) { cont.resume(Unit) }
             }
         } else {

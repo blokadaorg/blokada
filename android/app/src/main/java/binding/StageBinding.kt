@@ -130,11 +130,11 @@ object StageBinding : StageOps {
             else -> null
         }
 
-        if (name != null) {
-            sheet.showSheet(name)
-        } else {
-            // Confirm modal was shown for unknown modals, so the common lib can display it
-            scope.launch {
+        scope.launch {
+            if (name != null) {
+                sheet.showSheet(name)
+            } else {
+                // Confirm modal was shown for unknown modals, so the common lib can display it
                 command.execute(CommandName.MODALSHOWN, modal.name)
             }
         }
@@ -176,13 +176,13 @@ object StageBinding : StageOps {
         }
 
         if (name != null) {
-            dialog.showAlert(
-                name,
-                title = title,
-                onDismiss = ::modalDismissed,
-                additionalAction = action
-            )
             scope.launch {
+                dialog.showAlert(
+                    name,
+                    title = title,
+                    onDismiss = ::modalDismissed,
+                    additionalAction = action
+                )
                 command.execute(CommandName.MODALSHOWN, modal.name)
             }
             return true

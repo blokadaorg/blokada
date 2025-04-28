@@ -15,8 +15,6 @@ package repository
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -24,10 +22,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import model.Granted
 import org.blokada.R
+import service.AlertDialogService
 import service.ContextService
-import service.DialogService
 import service.NotificationService
-import service.SystemNavService
 import service.VpnPermissionService
 import utils.Intents
 
@@ -40,7 +37,7 @@ open class PermsRepo {
     private val context by lazy { ContextService }
     private val vpnPerms by lazy { VpnPermissionService }
     private val notification by lazy { NotificationService }
-    private val dialog by lazy { DialogService }
+    private val dialog by lazy { AlertDialogService }
     private val intents by lazy { Intents }
     private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
@@ -69,19 +66,15 @@ open class PermsRepo {
         val granted = notificationPermsHot.first()
         if (!granted) {
             displayNotificationPermsInstructions()
-                .collect {
-
-                }
         }
     }
 
-    private suspend fun displayNotificationPermsInstructions(): Flow<Boolean> {
+    private fun displayNotificationPermsInstructions() {
         val ctx = context.requireContext()
-        return dialog.showAlert(
+        dialog.showAlert(
             message = ctx.getString(R.string.notification_perms_denied),
-            header = ctx.getString(R.string.notification_perms_header),
-            okText = ctx.getString(R.string.dnsprofile_action_open_settings),
-            okAction = {
+            title = ctx.getString(R.string.notification_perms_header),
+            positiveAction = ctx.getString(R.string.dnsprofile_action_open_settings) to {
                 val intent = intents.createNotificationSettingsIntent(ctx)
                 intents.openIntentActivity(ctx, intent)
             }

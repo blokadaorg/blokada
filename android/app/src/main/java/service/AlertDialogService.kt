@@ -20,7 +20,7 @@ import utils.Logger
 object AlertDialogService {
 
     private val log = Logger("Dialog")
-    private val context = ContextService
+    private val context by lazy { ContextService }
 
     private var displayedDialog: AlertDialog? = null
 
@@ -97,7 +97,9 @@ object AlertDialogService {
     }
 
     private fun AlertDialog.Builder.showButNotCrash(): AlertDialog? {
-        return try { this.show() } catch (ex: Exception) {
+        return try {
+            this.show()
+        } catch (ex: Exception) {
             log.e("Could not show dialog, ignoring: ${ex.message}")
             null
         }
