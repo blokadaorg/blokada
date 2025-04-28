@@ -109,7 +109,6 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
     willAcceptOn([accountChanged, accountIdChanged]);
   }
 
-  @override
   onRegister() {
     Core.register<AccountApi>(AccountApi());
     Core.register<AccountStore>(this as AccountStore);

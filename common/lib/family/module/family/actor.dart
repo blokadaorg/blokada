@@ -23,12 +23,11 @@ class FamilyActor with Logging, Actor {
   bool? permsGranted = false;
   bool appLocked = false;
 
-  bool _onboardingShown = false;
-
   @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       _account.addOn(accountChanged, _postActivationOnboarding);
+      _payment.addOnValue(paymentSuccessful, activateCta);
       _isLocked.onChange.listen(_updatePhaseFromLock);
       _link.linkedMode.onChange.listen(
           (_) => _updatePhase(Markers.root, reason: "linkedModeChanged"));
@@ -64,7 +63,7 @@ class FamilyActor with Logging, Actor {
   }
 
   // First CTA action to either activate onboarding or open payment
-  activateCta(Marker m) async {
+  activateCta(bool restore, Marker m) async {
     return await log(m).trace("activateCta", (m) async {
       if (_account.type.isActive()) {
         _updatePhase(m, loading: true);

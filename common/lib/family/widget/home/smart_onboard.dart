@@ -175,7 +175,7 @@ class SmartOnboardState extends State<SmartOnboard>
 
     if (p.requiresActivation()) {
       log(Markers.userTap).trace("handleCtaTap", (m) async {
-        await _family.activateCta(m);
+        await _family.activateCta(false, m);
       });
     } else if (p.requiresPerms()) {
       _payment.reportOnboarding(OnboardingStep.permsPrompted);

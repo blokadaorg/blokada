@@ -4,7 +4,6 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/perm/channel.pg.dart';
 import 'package:common/platform/perm/dnscheck.dart';
-import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/plus/plus.dart';
 import 'package:flutter/cupertino.dart';

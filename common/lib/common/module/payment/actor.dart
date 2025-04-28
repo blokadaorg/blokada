@@ -1,5 +1,9 @@
 part of 'payment.dart';
 
+// Emitted when user successfully finishes the payment flow
+// True if the payment was restore flow (could be non-user triggered)
+final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
+
 enum Placement {
   primary("primary"),
   plusUpgrade("home_plus_upgrade");
@@ -9,11 +13,10 @@ enum Placement {
   const Placement(this.id);
 }
 
-class PaymentActor with Actor, Logging {
+class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   late final _accountEphemeral = Core.get<api.AccountEphemeral>();
   late final _account = Core.get<AccountStore>();
   late final _api = Core.get<PaymentApi>();
-  late final _family = Core.get<FamilyActor>();
   late final _onboard = Core.get<CurrentOnboardingStepValue>();
   late final _stage = Core.get<StageStore>();
   late final _channel = Core.get<PaymentChannel>();
@@ -26,6 +29,11 @@ class PaymentActor with Actor, Logging {
   OnboardingStep? _pendingOnboard;
 
   Function onPaymentScreenOpened = (bool opened) => {};
+
+  @override
+  onCreate(Marker m) async {
+    willAcceptOnValue(paymentSuccessful);
+  }
 
   @override
   onStart(Marker m) async {
@@ -172,10 +180,7 @@ class PaymentActor with Actor, Logging {
           sensitive: true,
         );
 
-        // TODO: make it for both not only family
-        if (Core.act.isFamily) {
-          await _family.activateCta(m);
-        }
+        await emitValue(paymentSuccessful, restore, m);
       } catch (e, s) {
         await handleFailure(m, "Failed checkout", e, s: s, restore: restore);
       }
