@@ -1,5 +1,6 @@
 import 'package:common/common/module/account/account.dart';
 import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/blockaweb/blockaweb.dart';
 import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/env/env.dart';
@@ -123,6 +124,7 @@ class Modules with Logging {
 
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
+    await _registerModule(BlockaWebModule());
     CommandStore().onRegister();
 
     Core.register<TopBarController>(TopBarController());
