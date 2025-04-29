@@ -40,6 +40,7 @@ class CoreBinding: CoreOps {
 
     // Persistence
     private let localStorage = UserDefaults.standard
+    private let sharedStorage = UserDefaults(suiteName: "group.net.blocka.app")
     private let iCloud = NSUbiquitousKeyValueStore()
     private let keychain = KeychainSwift()
 
@@ -165,7 +166,14 @@ class CoreBinding: CoreOps {
     
     func doSave(key: String, value: String, isSecure: Bool, isBackup: Bool,
                 completion: @escaping (Result<Void, Error>) -> Void) {
-        if (isBackup) {
+        if (key == "blockawebActive") {
+            // Special case to provide persisted flag to blockaweb extension
+            if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+                let fileURL = containerURL.appendingPathComponent("blockawebShared.json")
+                try? value.write(to: fileURL, atomically: true, encoding: .utf8)
+            }
+            completion(.success(()))
+        } else if (isBackup) {
             self.iCloud.set(value, forKey: key)
             self.iCloud.synchronize()
             completion(.success(()))

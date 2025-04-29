@@ -27,10 +27,17 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     }
     
     os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
-    
-    // TODO: fetch real value from cache.
-    let active = true
-    
+
+    var active = false
+    if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+      let fileURL = containerURL.appendingPathComponent("blockawebShared.json")
+      if FileManager.default.fileExists(atPath: fileURL.path), let content = try? String(contentsOf: fileURL) {
+        active = content == "1"
+      }
+    }
+
+    os_log(.default, "blockaweb active: %@", active)
+
     let response = NSExtensionItem()
     if #available(iOS 15.0, macOS 11.0, *) {
       response.userInfo = [ SFExtensionMessageKey: [ "status": [ "active": active ] ] ]
