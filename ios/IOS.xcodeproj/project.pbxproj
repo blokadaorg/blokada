@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -283,6 +283,7 @@
 		4E673D2529E6AC2200A8A60D /* Flutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D2329E6AC2200A8A60D /* Flutter.swift */; };
 		4E673D2829E6ACFA00A8A60D /* StageBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D2729E6ACFA00A8A60D /* StageBinding.swift */; };
 		4E673D2929E6ACFA00A8A60D /* StageBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E673D2729E6ACFA00A8A60D /* StageBinding.swift */; };
+		4E6B37132DBB8C9C00A37431 /* BlockaWebExtDev.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E6B36CF2DBB85C100A37431 /* BlockaWebExtDev.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E6FD7222BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
 		4E6FD7232BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
 		4E6FD7242BFFB7A20014D80E /* FlavorDeps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */; };
@@ -670,6 +671,13 @@
 			remoteGlobalIDString = 4EEF402E293A08390036EA57;
 			remoteInfo = WireGuardBridgeiOS;
 		};
+		4E6B37142DBB8C9C00A37431 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E6B36CE2DBB85C100A37431;
+			remoteInfo = BlockaWebExt;
+		};
 		4ED751582D635F2F00CEE82E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 47729DFA22F447C800B9B36B /* Project object */;
@@ -713,6 +721,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				4E6B37132DBB8C9C00A37431 /* BlockaWebExtDev.appex in Embed Foundation Extensions */,
 				4ED7517F2D635F5800CEE82E /* WireGuardNetExtDev.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -754,7 +763,6 @@
 		4E1275E72AE7CEA800A94994 /* FlavorResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorResources.swift; sourceTree = "<group>"; };
 		4E1275ED2AE7CF0D00A94994 /* FlavorResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorResources.swift; sourceTree = "<group>"; };
 		4E1276C52AE7D0FC00A94994 /* FamilyMocked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyMocked.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E1276C62AE7D0FC00A94994 /* Mocked copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Mocked copy-Info.plist"; path = "/Users/kar/code/github.com/blokadaorg/six-ios/Mocked copy-Info.plist"; sourceTree = "<absolute>"; };
 		4E1DC4C827564F3100A4CAB1 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E227F3F243496C5004F4955 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		4E23CF93293DEFC900613D0A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = App/Config/Config.xcconfig; sourceTree = "<group>"; };
@@ -814,7 +822,6 @@
 		4E23D07329472EB700613D0A /* BlockaPacketTunnelProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockaPacketTunnelProvider.swift; sourceTree = "<group>"; };
 		4E23D07529472ED800613D0A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E23D0772947303F00613D0A /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		4E270CFA2A80E85E00D3484B /* WGNetx copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "WGNetx copy-Info.plist"; path = "/Users/kar/code/github.com/blokadaorg/six-ios/WGNetx copy-Info.plist"; sourceTree = "<absolute>"; };
 		4E270D012A80EB1100D3484B /* Flavor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flavor.swift; sourceTree = "<group>"; };
 		4E270DEE2A80EB8300D3484B /* Blokada Family.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blokada Family.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E290FB52497A1F700FC4C61 /* BlokadaText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaText.swift; sourceTree = "<group>"; };
@@ -849,7 +856,6 @@
 		4E46EBE12BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Packs.strings; sourceTree = "<group>"; };
 		4E46EBE22BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/PackTags.strings; sourceTree = "<group>"; };
 		4E46EBE32BF352E50000EFC1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Ui.strings; sourceTree = "<group>"; };
-		4E4F320F2B1736900087ECA1 /* FamilyProdRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyProdRelease.entitlements; sourceTree = "<group>"; };
 		4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountChangeView.swift; sourceTree = "<group>"; };
 		4E59B8D129EEDBEF005ECD5F /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
@@ -860,6 +866,7 @@
 		4E673D1729E6A94800A8A60D /* CommonBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonBinding.swift; sourceTree = "<group>"; };
 		4E673D2329E6AC2200A8A60D /* Flutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flutter.swift; sourceTree = "<group>"; };
 		4E673D2729E6ACFA00A8A60D /* StageBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageBinding.swift; sourceTree = "<group>"; };
+		4E6B36CF2DBB85C100A37431 /* BlockaWebExtDev.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlockaWebExtDev.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6FD7212BFFB7A20014D80E /* FlavorDeps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorDeps.swift; sourceTree = "<group>"; };
 		4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorDeps.swift; sourceTree = "<group>"; };
 		4E78E359245EBFD90017B234 /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
@@ -981,6 +988,39 @@
 		FC0CE56C29D8A2B13170BD63 /* Pods-Prod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prod.release.xcconfig"; path = "Target Support Files/Pods-Prod/Pods-Prod.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4E6B37112DBB85C100A37431 /* Exceptions for "BlockaWebExtension" folder in "BlockaWebExtDev" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/_locales,
+				Resources/background.js,
+				Resources/content.js,
+				Resources/images,
+				Resources/manifest.json,
+				Resources/popup.css,
+				Resources/popup.html,
+				Resources/popup.js,
+				SafariWebExtensionHandler.swift,
+			);
+			target = 4E6B36CE2DBB85C100A37431 /* BlockaWebExtDev */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4E6B36A32DBB85C100A37431 /* BlockaWebExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4E6B37112DBB85C100A37431 /* Exceptions for "BlockaWebExtension" folder in "BlockaWebExtDev" target */,
+			);
+			explicitFolders = (
+				Resources/_locales,
+				Resources/images,
+			);
+			path = BlockaWebExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		47729DFF22F447C800B9B36B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -1027,6 +1067,13 @@
 				4E270DDE2A80EB8300D3484B /* Factory in Frameworks */,
 				4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */,
 				81A14548F0971940140E60F7 /* Pods_FamilyProd.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E6B36CC2DBB85C100A37431 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,13 +1138,11 @@
 				4E23CFE9293DFEE200613D0A /* WireGuardKitC */,
 				4E23CFDF293DFAB300613D0A /* WireGuardNetworkExtension */,
 				4E1DC4C927564F3100A4CAB1 /* AppTests */,
+				4E6B36A32DBB85C100A37431 /* BlockaWebExtension */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
 				976CF20AFE2D9EC991A20222 /* Pods */,
 				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
-				4E270CFA2A80E85E00D3484B /* WGNetx copy-Info.plist */,
-				4E1276C62AE7D0FC00A94994 /* Mocked copy-Info.plist */,
-				4E4F320F2B1736900087ECA1 /* FamilyProdRelease.entitlements */,
 				4ED7517E2D635F2F00CEE82E /* WireGuardNetworkExtensioniOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -1114,6 +1159,7 @@
 				4E270DEE2A80EB8300D3484B /* Blokada Family.app */,
 				4E1276C52AE7D0FC00A94994 /* FamilyMocked.app */,
 				4ED7517D2D635F2F00CEE82E /* WireGuardNetExtDev.appex */,
+				4E6B36CF2DBB85C100A37431 /* BlockaWebExtDev.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1675,6 +1721,23 @@
 			productReference = 4E270DEE2A80EB8300D3484B /* Blokada Family.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4E6B36CE2DBB85C100A37431 /* BlockaWebExtDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E6B37092DBB85C100A37431 /* Build configuration list for PBXNativeTarget "BlockaWebExtDev" */;
+			buildPhases = (
+				4E6B36CB2DBB85C100A37431 /* Sources */,
+				4E6B36CC2DBB85C100A37431 /* Frameworks */,
+				4E6B36CD2DBB85C100A37431 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlockaWebExtDev;
+			productName = "blockaweb Extension (iOS)";
+			productReference = 4E6B36CF2DBB85C100A37431 /* BlockaWebExtDev.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4E7FE98E244DC28900851E9F /* Mocked */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Mocked" */;
@@ -1717,6 +1780,7 @@
 			);
 			dependencies = (
 				4ED751812D635F5800CEE82E /* PBXTargetDependency */,
+				4E6B37152DBB8C9C00A37431 /* PBXTargetDependency */,
 			);
 			name = Dev;
 			packageProductDependencies = (
@@ -1778,7 +1842,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Blocka AB";
 				TargetAttributes = {
@@ -1793,13 +1857,15 @@
 					4E23CF97293DF7D100613D0A = {
 						CreatedOnToolsVersion = 14.1;
 					};
+					4E6B36CE2DBB85C100A37431 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					4EEF402E293A08390036EA57 = {
 						CreatedOnToolsVersion = 14.1;
 					};
 				};
 			};
 			buildConfigurationList = 47729DFD22F447C800B9B36B /* Build configuration list for PBXProject "IOS" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1827,6 +1893,7 @@
 				4E270DF42A80F30400D3484B /* XCRemoteSwiftPackageReference "Factory" */,
 				4E58C1352AC1B7D7002CA1A3 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 47729E0322F447C800B9B36B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1841,6 +1908,7 @@
 				4EEF402E293A08390036EA57 /* WireGuardBridgeiOS */,
 				4E23CF97293DF7D100613D0A /* WireGuardNetExt */,
 				4ED751562D635F2F00CEE82E /* WireGuardNetExtDev */,
+				4E6B36CE2DBB85C100A37431 /* BlockaWebExtDev */,
 			);
 		};
 /* End PBXProject section */
@@ -1895,6 +1963,13 @@
 				4E270DE42A80EB8300D3484B /* LaunchScreen.storyboard in Resources */,
 				4EA029332B346FA400B689B4 /* Flavor.xcconfig in Resources */,
 				4E270DE52A80EB8300D3484B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E6B36CD2DBB85C100A37431 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2627,6 +2702,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4E6B36CB2DBB85C100A37431 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E7FE994244DC28900851E9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2960,6 +3042,11 @@
 			isa = PBXTargetDependency;
 			target = 4EEF402E293A08390036EA57 /* WireGuardBridgeiOS */;
 			targetProxy = 4E23CFA8293DF9E900613D0A /* PBXContainerItemProxy */;
+		};
+		4E6B37152DBB8C9C00A37431 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E6B36CE2DBB85C100A37431 /* BlockaWebExtDev */;
+			targetProxy = 4E6B37142DBB8C9C00A37431 /* PBXContainerItemProxy */;
 		};
 		4ED751572D635F2F00CEE82E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3596,6 +3683,83 @@
 			};
 			name = Release;
 		};
+		4E6B37042DBB85C100A37431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BlockaWebExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BlockaWebExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Blocka AB. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = dev;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.web-extension";
+				PRODUCT_NAME = BlockaWebExtDev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development net.blocka.app.web-extension";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4E6B37052DBB85C100A37431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BlockaWebExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BlockaWebExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Blocka AB. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = dev;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.blocka.app.web-extension";
+				PRODUCT_NAME = BlockaWebExtDev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development net.blocka.app.web-extension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4E7FE9D6244DC28900851E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0655BBF8E78C476032237728 /* Pods-Mocked.debug.xcconfig */;
@@ -4040,6 +4204,15 @@
 			buildConfigurations = (
 				4E270DEC2A80EB8300D3484B /* Debug */,
 				4E270DED2A80EB8300D3484B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E6B37092DBB85C100A37431 /* Build configuration list for PBXNativeTarget "BlockaWebExtDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E6B37042DBB85C100A37431 /* Debug */,
+				4E6B37052DBB85C100A37431 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
