@@ -18,7 +18,18 @@ default_platform(:ios)
 platform :ios do
   desc "Six: build release"
   lane :build_ios_six do
-    build_app(workspace: "IOS.xcworkspace", scheme: "Prod")
+    build_app(
+      workspace: "IOS.xcworkspace",
+      scheme: "Prod",
+      export_options: {
+        provisioningProfiles: {
+          "net.blocka.app" => "match AppStore net.blocka.app",
+          "net.blocka.app.family" => "match AppStore net.blocka.app.family",
+          "net.blocka.app.network-extension" => "match AppStore net.blocka.app.network-extension",
+          "net.blocka.app.web-extension" => "match AppStore net.blocka.app.web-extension"
+        }
+      }
+    )
   end
 
   desc "Family: build release"
