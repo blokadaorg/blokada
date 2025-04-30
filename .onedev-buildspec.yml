@@ -423,3 +423,26 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
+- name: fastlane match
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: fastlane match
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands: |
+        make fastlane-match
+    envVars:
+    - name: BLOKADA_APPSTORE_KEY_BASE64
+      value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
