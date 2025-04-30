@@ -22,7 +22,7 @@ ADAPTY_VER := 3_4.0
 	build-ios build-ios-family build-ios-six \
 	version version-clean \
 	publish-android gplay-key-unpack gplay-key-clean \
-	publish-ios appstore-key-unpack appstore-key-clean \
+	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
@@ -141,6 +141,9 @@ appstore-key-unpack:
 # Clean up after unpacking AppStore key
 appstore-key-clean:
 	rm -rf ios/blokada-appstore.json
+
+fastlane-match:
+	cd ios/ && $(FASTLANE) match appstore --readonly
 
 
 # Build android family .apk from scratch (debug)
