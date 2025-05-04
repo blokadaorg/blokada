@@ -25,8 +25,6 @@ class PlusActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
-      _app.addOn(appStatusChanged, reactToAppStatus);
-
       _plusEnabled.onChange.listen((change) async {
         await _channel.doPlusEnabledChanged(change.now);
       });
@@ -57,6 +55,8 @@ class PlusActor with Logging, Actor {
       if (_account.type == AccountType.plus) {
         await _lease.fetch(m);
       }
+
+      _app.addOn(appStatusChanged, reactToAppStatus);
     });
   }
 
@@ -96,9 +96,9 @@ class PlusActor with Logging, Actor {
         await _vpn.turnVpnOff(m);
 
         if (active) {
-          final l = _currentLease.present;
-          final k = _currentKeypair.present;
-          final g = _currentGateway.present;
+          final l = await _currentLease.now();
+          final k = await _currentKeypair.now();
+          final g = await _currentGateway.now();
 
           if (l == null || k == null || g == null) {
             throw Exception(
