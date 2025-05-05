@@ -37,7 +37,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                         "Want to block video ads?",
                         style: Theme.of(context)
                             .textTheme
-                            .displaySmall!
+                            .headlineMedium!
                             .copyWith(fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
@@ -104,7 +104,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                                 child: Transform.translate(
                                   offset: const Offset(12, 0),
                                   child: CupertinoSwitch(
-                                      value: false, onChanged: (_) => {}),
+                                      value: true, onChanged: (_) => {}),
                                 ),
                               ),
                             ),
@@ -131,7 +131,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                           height: 32,
                           child: Center(
                             child: Text(
-                              "Open Safari",
+                              "Open YouTube in Safari",
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
