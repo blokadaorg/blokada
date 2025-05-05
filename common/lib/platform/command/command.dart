@@ -1,3 +1,4 @@
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/perm/perm.dart';
@@ -44,7 +45,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "SKIPBYPASSLIST",
     cmdPaymentHandleSuccess.toUpperCase(),
     cmdPaymentHandleFailure.toUpperCase(),
-    cmdPaymentHandleScreenClosed.toUpperCase()
+    cmdPaymentHandleScreenClosed.toUpperCase(),
+    cmdOnboard.toUpperCase(),
   ];
 
   @override
@@ -169,6 +171,13 @@ class CommandStore with Logging, Actor implements CommandEvents {
         }
 
         return await onCommandWithParam("FAMILYLINK", tag, m);
+      } else if (url.startsWith(onboardLinkBase)) {
+        final screen = url.split("screen=").last.trim();
+        if (screen.isEmpty) {
+          throw Exception("Unknown onboard screen parameter");
+        }
+
+        return await onCommandWithParam(cmdOnboard, screen, m);
       } else {
         throw Exception("Unsupported url: $url");
       }
