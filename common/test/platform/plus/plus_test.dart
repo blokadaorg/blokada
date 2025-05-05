@@ -211,6 +211,10 @@ void main() {
   group("storeErrors", () {
     test("switchPlusFailing", () async {
       await withTrace((m) async {
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence);
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+
         Core.register<StageStore>(MockStageStore());
 
         final ops = MockPlusOps();
@@ -220,12 +224,15 @@ void main() {
         Core.register<GatewayActor>(MockGatewayActor());
 
         final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, null);
         Core.register(currentLease);
 
         final currentKeypair = CurrentKeypairValue();
+        await currentKeypair.change(m, Fixtures.keypair);
         Core.register(currentKeypair);
 
         final currentGateway = CurrentGatewayValue();
+        await currentGateway.change(m, null);
         Core.register(currentGateway);
 
         final app = MockAppStore();
@@ -236,9 +243,6 @@ void main() {
 
         final vpn = MockVpnActor();
         Core.register<VpnActor>(vpn);
-
-        final persistence = MockPersistence();
-        Core.register<Persistence>(persistence);
 
         final plusEnabled = PlusEnabledValue();
         Core.register(plusEnabled);
