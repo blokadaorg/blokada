@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Are you sure you want to delete %s? This will unlink the device from your account.</string>
     <string name="family_device_header_add">Add a device</string>
     <string name="family_device_header_link">Link a device</string>
+    <string name="family_device_label_internet">インターネット制御</string>
+    <string name="family_device_brief_internet">このデバイスのインターネットアクセスを管理します。</string>
+    <string name="family_device_label_internet_on">コンテンツをフィルター</string>
+    <string name="family_device_brief_internet_on">フィルターやブロックリストに基づいて、有害または不適切なサイトをブロックします。</string>
+    <string name="family_device_label_internet_off">すべて許可</string>
+    <string name="family_device_brief_internet_off">すべてのコンテンツが許可されます。インターネットは完全に開かれています。</string>
+    <string name="family_device_label_internet_block">すべてブロック</string>
+    <string name="family_device_brief_internet_block">このデバイスのインターネットアクセスをすべて停止します。</string>
     <string name="family_perms_header">One more thing</string>
     <string name="family_perms_brief_alt">Activate \'%s\' in Settings by navigating as shown below.</string>
     <string name="family_perms_setting_ios_general">General</string>

@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Вы уверены, что хотите удалить %s? Это отвяжет устройство от вашего аккаунта.</string>
     <string name="family_device_header_add">Добавить устройство</string>
     <string name="family_device_header_link">Привязать устройство</string>
+    <string name="family_device_label_internet">КОНТРОЛЬ ИНТЕРНЕТА</string>
+    <string name="family_device_brief_internet">Управление доступом в интернет для этого устройства.</string>
+    <string name="family_device_label_internet_on">Фильтр контента</string>
+    <string name="family_device_brief_internet_on">Блокирует опасные и нежелательные сайты в соответствии с вашими фильтрами и списками блокировки.</string>
+    <string name="family_device_label_internet_off">Разрешить все</string>
+    <string name="family_device_brief_internet_off">Никакой контент не блокируется. Интернет полностью открыт.</string>
+    <string name="family_device_label_internet_block">Блокировать все</string>
+    <string name="family_device_brief_internet_block">Приостанавливает доступ к интернету на устройстве.</string>
     <string name="family_perms_header">Еще один шаг</string>
     <string name="family_perms_brief_alt">Активируйте \'%s\' в Настройках, перейдя по ссылке ниже.</string>
     <string name="family_perms_setting_ios_general">Общее</string>

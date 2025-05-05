@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Určitě chcete odstranit %s? Tím zrušíte propojení zařízení s vaším účtem.</string>
     <string name="family_device_header_add">Přidat zařízení</string>
     <string name="family_device_header_link">Propojit zařízení</string>
+    <string name="family_device_label_internet">INTERNET CONTROL</string>
+    <string name="family_device_brief_internet">Manage Internet access for this device.</string>
+    <string name="family_device_label_internet_on">Filter Content</string>
+    <string name="family_device_brief_internet_on">Blocks harmful and inappropriate sites according to your filters and blocklists.</string>
+    <string name="family_device_label_internet_off">Allow All</string>
+    <string name="family_device_brief_internet_off">No content is blocked. The Internet is fully open.</string>
+    <string name="family_device_label_internet_block">Block All</string>
+    <string name="family_device_brief_internet_block">Stops all Internet access on the device.</string>
     <string name="family_perms_header">Ještě jedna věc</string>
     <string name="family_perms_brief_alt">Aktivujte „%s“ v Nastavení navigací, jak je uvedeno níže.</string>
     <string name="family_perms_setting_ios_general">Obecné</string>
@@ -531,7 +539,7 @@
     <string name="family_account_restore_desc">Zadejte ID účtu pro obnovení vašich nákupů.</string>
     <string name="generic_account_active">Váš účet byl úspěšně obnoven. Vítejte zpět!</string>
     <string name="notification_new_message_title">Nová zpráva</string>
-    <string name="onboard_header">No more ads.\nSeriously.</string>
-    <string name="onboard_desc">Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.</string>
-    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
+    <string name="onboard_header">Žádné další reklamy.\nVážně.</string>
+    <string name="onboard_desc">Blokujte reklamy a sledovače všude s naší prémiovou aplikací. Užijte si rychlejší prohlížení, lepší soukromí a snížení využití dat.</string>
+    <string name="onboard_terms">Pokračováním přijímáte naše smluvní podmínky a potvrzujete přijetí našich Zásad ochrany osobních údajů.</string>
 </resources>

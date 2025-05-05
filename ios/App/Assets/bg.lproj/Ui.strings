@@ -631,6 +631,16 @@
 "family device header add" = "Добавяне на устройство";
 "family device header link" = "Свързване на устройство";
 
+"family device label internet" = "INTERNET CONTROL";
+"family device brief internet" = "Manage Internet access for this device.";
+"family device label internet on" = "Filter Content";
+"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
+"family device label internet off" = "Allow All";
+"family device brief internet off" = "No content is blocked. The Internet is fully open.";
+"family device label internet block" = "Block All";
+"family device brief internet block" = "Stops all Internet access on the device.";
+
+
 "family perms header" = "Още едно нещо";
 
 // Param is just Blokada Family
@@ -737,6 +747,6 @@
 "notification new message title" = "Ново съобщение";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "Без повече реклами.\nСериозно.";
+"onboard desc" = "Блокирайте навсякъде реклами и тракери с нашето премиум приложение. Насладете се на по-бързо сърфиране, по-добра поверителност и намалено използване на данни.";
+"onboard terms" = "Продължавайки, вие приемате нашите Условия за ползване и потвърждавате, че сте съгласни с нашата Политика за поверителност.";

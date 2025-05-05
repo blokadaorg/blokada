@@ -631,6 +631,16 @@
 "family device header add" = "Dodaj urządzenie";
 "family device header link" = "Połącz urządzenie";
 
+"family device label internet" = "Kontrola Internetu";
+"family device brief internet" = "Zarządzaj dostępem do Internetu dla tego urządzenia.";
+"family device label internet on" = "Filtrowanie treści";
+"family device brief internet on" = "Blokuje szkodliwe i nieodpowiednie strony zgodnie z Twoimi filtrami i listami blokad.";
+"family device label internet off" = "Zezwól na wszystko";
+"family device brief internet off" = "Żadne treści nie są blokowane. Internet jest całkowicie otwarty.";
+"family device label internet block" = "Zablokuj wszystko";
+"family device brief internet block" = "Zatrzymuje cały dostęp do Internetu na tym urządzeniu.";
+
+
 "family perms header" = "Jeszcze jedna rzecz";
 
 // Param is just Blokada Family

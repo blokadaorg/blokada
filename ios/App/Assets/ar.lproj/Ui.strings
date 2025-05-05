@@ -13,7 +13,7 @@
 "error device offline" = "جهازك غير متّصل بالإنترنت";
 "error account inactive" = "حسابك غير نَشِط. الرجاء تنشيط حسابك من أجل الإستمرار في استخدام BLOKADA+.";
 "error account inactive generic" = "حسابك غير نشط. يرجى تنشيط حسابك من أجل الاستمرار في استخدام بلوكادا.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "يبدو أن هذا ليس حسابًا نشطًا صالحًا. إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بنا.";
 "error account invalid" = "يبدو أنّ مُعرِّف الحساب هذا غير صالح.";
 "error creating account" = "تَعذَّر إنشاء حساب جديد. الرجاء المحاولة مرّة أُخرى لاحقاً.";
 "error fetching data" = "تَعذَّر إكمال هذا الإجراء. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
@@ -44,7 +44,7 @@
 "universal action cancel" = "إلغاء";
 "universal action close" = "إغلاق";
 "universal action done" = "تمّ";
-"universal action edit" = "Edit";
+"universal action edit" = "تحرير";
 "universal action try again" = "إعادة المحاولة";
 "universal action learn more" = "لمعرفة المزيد";
 "universal action help" = "المُساعَدة";
@@ -78,13 +78,13 @@
 "universal action revoke" = "إلغاء";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "الدردشة معنا";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "إنهاء";
+"support placeholder" = "اسأل عن أي شيء تريد معرفته!";
+"support error generic" = "عذرًا، لم أفهم. هل يمكنك التكرار؟";
 // Its ok to leave it as it is
-"support name bot" = "Blocka Bot";
+"support name bot" = "بوت Blocka";
 
 "universal label help" = "المُساعَدة";
 "universal label welcome" = "مرحباً !";
@@ -274,7 +274,7 @@
 "account action inbox" = "صندوق الوارد";
 "account action logout" = "استعادة الشراء";
 "account action logout only" = "تسجيل الخروج";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "استعادة معرف الحساب";
 "account action create" = "إنشاء حساب جديد";
 "account action about" = "حوْلَ";
 "account action tap to show" = "انقر لإظهار";
@@ -362,7 +362,7 @@
 "payment action terms" = "شروط الخدمة";
 "payment action policy" = "سياسة الخصوصيّة";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "تطبيق رمز العرض";
 "payment alert error header" = "رسالة من متجر التطبيقات";
 // As in saving money: You are saving $5
 "payment save text" = "إنت تقوم بحفظ %@";
@@ -418,7 +418,7 @@
 
 "payment cancel footer" = "يتم تجديد الاشتراك تلقائياً قبل انتهاء فترة الفاتورة الحالية. يمكنك الإلغاء في أي وقت من الإعدادات.";
 "payment cancel footer trial short" = "إلغاء خلال الأيام التالية %@ ولن يتم شحنك.";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment trial brief" = "الدفع بعد %@ يومًا. يتم تجديد الاشتراك تلقائيًا كل عام حتى يتم الإلغاء.";
 
 "location region worldwide" = "في كل مكان";
 "location region america" = "أمريكا";
@@ -523,7 +523,7 @@
 "family rename device" = "إعادة تسمية الجهاز";
 "family label this device" = "هذا الجهاز (%@)";
 "family onboard header" = "مرحبا بك في عائلة بلوكادا!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "مرحبًا بك في %s!";
 "family onboard body" = "اتبع الإرشادات على الشاشة لإعداد جهازك الأول.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -537,15 +537,15 @@
 "family status ready body" = "أضف جهازك الأول الآن";
 "family status perms header" = "انتهينا تقريباً !";
 "family status perms body" = "يرجى منح الأذونات اللازمة";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "اضغط لإنهاء إجراء الإعداد";
 "family status expired header" = "انتهت صلاحية الحساب";
 "family status expired body" = "الرجاء تفعيل حسابك للمتابعة";
 "family status linked header" = "التطبيق مرتبط!";
 "family status locked header" = "التطبيق مقفل";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "قفل باستخدام رمز pin";
+"family settings lock enter" = "أدخل رمز pin الجديد الخاص بك";
+"family settings lock remove" = "إزالة رمز pin";
 
 "family payment slug" = "قم بحماية عائلتك بأكملها باشتراك واحد. قم بمراقبة وحماية جميع الأجهزة العائلية من المحتوى غير المرغوب فيه.";
 "family payment features devices header" = "مراقبة الجهاز العائلي";
@@ -585,51 +585,61 @@
 "toplist tld unknown" = "غير معروف";
 
 "family notification subtitle" = "حماية الأسرة متوقف";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "هذا الجهاز مرتبط بالفعل. يرجى إلغاء ربطه باستخدام تطبيق الوالدين ثم المحاولة مرة أخرى.";
+"family profile dialog header" = "اختر ملفًا شخصيًا لاستخدامه مع %@.";
+"family profile dialog header this" = "اختر ملفًا شخصيًا لاستخدامه لهذا الجهاز.";
+"family profile add" = "أي ملف شخصي ترغب في إضافته؟";
+"family profile template" = "اختر قالبًا للبدء.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "الوالد";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "الوالد";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "الطفل";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "الطفل";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "مخصص";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "مخصص";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "إضافة ملف شخصي جديد";
+"family profile action delete" = "إزالة هذا الملف الشخصي";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "يتم استخدام هذا الملف الشخصي حاليًا. تأكد من عدم استخدام أي جهاز له قبل الحذف.";
+"family profile error" = "فشل في حذف هذا الملف الشخصي.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "ملف %@ الشخصي";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "اختر ملفًا شخصيًا";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "الإحصائيات";
+"family device brief statistics" = "عرض النشاط الأخير لهذا الجهاز.";
+"family device label settings" = "إعدادات الجهاز";
+"family device brief settings alt" = "إدارة إعدادات الحظر لهذا الجهاز.";
+"family device action link" = "إعادة ربط هذا الجهاز";
+"family device action delete" = "حذف هذا الجهاز";
+"family device delete confirm" = "هل أنت متأكد أنك تريد حذف %@؟ سيؤدي ذلك إلى إلغاء ربط الجهاز من حسابك.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "إضافة جهاز";
+"family device header link" = "ربط جهاز";
+
+"family device label internet" = "التحكم في الإنترنت";
+"family device brief internet" = "إدارة الوصول إلى الإنترنت لهذا الجهاز.";
+"family device label internet on" = "تصفية المحتوى";
+"family device brief internet on" = "يحظر المواقع الضارة وغير الملائمة وفقًا للفلاتر وقوائم الحظر الخاصة بك.";
+"family device label internet off" = "السماح للجميع";
+"family device brief internet off" = "لا يتم حظر أي محتوى. الإنترنت مفتوح بالكامل.";
+"family device label internet block" = "حظر الكل";
+"family device brief internet block" = "يوقف كل الوصول إلى الإنترنت على هذا الجهاز.";
+
 
 "family perms header" = "أمرٌ آخر فقط";
 
@@ -664,79 +674,79 @@
 "family perms copy android" = "وأخيرًا، اضغط مطولًا على حقل النص للصق الإعداد المطلوب.";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family stats label reason" = "السبب";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label blocklist" = "قائمة الحظر";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "الملف الشخصي";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "قوائم الحظر";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "قوائم الحظر في الملف الشخصي";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ محدد";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "إيقاف الحظر مؤقتًا";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "غير معروف";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "لا شيء";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "عرض الأكثر شيوعًا أولاً";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "إزالة من استثناءاتي";
+"family stats exceptions add" = "إضافة إلى استثناءاتي";
+"family stats title" = "استثناءاتي";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "امسح رمز الاستجابة السريعة أدناه لإضافة جهاز إلى عائلتك. سيتم إغلاق هذه الشاشة تلقائيًا عند اكتشاف الجهاز.";
+"family link description again" = "امسح رمز الاستجابة السريعة أدناه لإعادة ربط جهاز. سيتم إغلاق هذه الشاشة تلقائيًا عند اكتشاف الجهاز.";
+"family qr brief" = "امسح رمز الاستجابة السريعة المعروض على جهاز الوالد";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "التفاصيل";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "ملف شخصي جديد";
+"family dialog title rename profile" = "إعادة تسمية الملف الشخصي";
+"family dialog title new device" = "جهاز جديد";
+"family dialog title rename device" = "إعادة تسمية الجهاز";
+"family dialog brief profile" = "أدخل اسمًا لهذا الملف الشخصي.";
+"family dialog brief device" = "أدخل اسمًا لهذا الجهاز.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "لم يتم العثور على نتائج تطابق معايير البحث الخاصة بك";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "تم الحظر %@ مرة";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "تم السماح %@ مرة";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "إدارة هذا الجهاز باستخدام جهاز الوالد.";
+"family status qr body" = "امسح رمز الاستجابة السريعة لربط هذا الجهاز.";
+"family status active header" = "نشط!";
+"family status active body" = "اضغط على الجهاز لمزيد من التفاصيل.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "ربط";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "فتح القفل";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "أدخل معرف حسابك لاستعادة مشترياتك.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "تمت استعادة حسابك بنجاح. مرحبًا بعودتك!";
 
-"notification new message title" = "New message";
+"notification new message title" = "رسالة جديدة";
 
 
 "onboard header" = "لا مزيد من الإعلانات.\nبجدية.";
 "onboard desc" = "احظر الإعلانات وأدوات التتبع في كل مكان مع تطبيقنا المميز. استمتع بتصفح أسرع، وخصوصية أفضل، واستهلاك بيانات أقل.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard terms" = "بالمتابعة، فإنك تقبل شروط الخدمة وتقر باستلام سياسة الخصوصية الخاصة بنا.";

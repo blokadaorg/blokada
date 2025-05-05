@@ -631,6 +631,16 @@
 "family device header add" = "Apparaat toevoegen";
 "family device header link" = "Koppel een apparaat";
 
+"family device label internet" = "Internetbeheer";
+"family device brief internet" = "Beheer de internettoegang voor dit apparaat.";
+"family device label internet on" = "Inhoud filteren";
+"family device brief internet on" = "Blokkeert schadelijke en ongepaste websites volgens je filters en blokkeerlijsten.";
+"family device label internet off" = "Alles toestaan";
+"family device brief internet off" = "Er wordt geen inhoud geblokkeerd. Het internet is volledig open.";
+"family device label internet block" = "Alles blokkeren";
+"family device brief internet block" = "Stopt alle internettoegang op dit apparaat.";
+
+
 "family perms header" = "Nog één ding";
 
 // Param is just Blokada Family

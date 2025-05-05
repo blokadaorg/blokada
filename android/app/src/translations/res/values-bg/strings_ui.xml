@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Сигурни ли сте, че искате да изтриете %s? Това ще прекъсне връзката на устройството с вашия профил.</string>
     <string name="family_device_header_add">Добавяне на устройство</string>
     <string name="family_device_header_link">Свързване на устройство</string>
+    <string name="family_device_label_internet">INTERNET CONTROL</string>
+    <string name="family_device_brief_internet">Manage Internet access for this device.</string>
+    <string name="family_device_label_internet_on">Filter Content</string>
+    <string name="family_device_brief_internet_on">Blocks harmful and inappropriate sites according to your filters and blocklists.</string>
+    <string name="family_device_label_internet_off">Allow All</string>
+    <string name="family_device_brief_internet_off">No content is blocked. The Internet is fully open.</string>
+    <string name="family_device_label_internet_block">Block All</string>
+    <string name="family_device_brief_internet_block">Stops all Internet access on the device.</string>
     <string name="family_perms_header">Още едно нещо</string>
     <string name="family_perms_brief_alt">Активирайте \"%s\" в Настройки, като навигирате, както е показано по-долу.</string>
     <string name="family_perms_setting_ios_general">Общи</string>
@@ -531,7 +539,7 @@
     <string name="family_account_restore_desc">Въведете ID на профила, за да възстановите покупките си.</string>
     <string name="generic_account_active">Вашият акаунт е успешно възстановен. Добре дошъл отново!</string>
     <string name="notification_new_message_title">Ново съобщение</string>
-    <string name="onboard_header">No more ads.\nSeriously.</string>
-    <string name="onboard_desc">Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.</string>
-    <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
+    <string name="onboard_header">Без повече реклами.\nСериозно.</string>
+    <string name="onboard_desc">Блокирайте навсякъде реклами и тракери с нашето премиум приложение. Насладете се на по-бързо сърфиране, по-добра поверителност и намалено използване на данни.</string>
+    <string name="onboard_terms">Продължавайки, вие приемате нашите Условия за ползване и потвърждавате, че сте съгласни с нашата Политика за поверителност.</string>
 </resources>

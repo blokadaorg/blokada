@@ -482,6 +482,14 @@
     "family device delete confirm": "Sei sicuro di voler rimuovere %s? Ciò scollegherà il dispositivo dal tuo account.",
     "family device header add": "Aggiungi un dispositivo",
     "family device header link": "Collega un dispositivo",
+    "family device label internet": "CONTROLLO INTERNET",
+    "family device brief internet": "Gestisci l'accesso ad internet per questo dispositivo.",
+    "family device label internet on": "Filtro contenuti",
+    "family device brief internet on": "Blocca siti pericolosi ed inappropriati in base ai tuoi filtri e liste di blocco.",
+    "family device label internet off": "Consenti Tutto",
+    "family device brief internet off": "Nessun contenuto è bloccato. Internet è completamente accessibile.",
+    "family device label internet block": "Blocca Tutto",
+    "family device brief internet block": "Blocca l'accesso ad Internet sul dispositivo.",
     "family perms header": "Per ultimo",
     "family perms brief alt": "Attiva '%s' nelle Impostazioni navigando come mostrato sotto.",
     "family perms setting ios general": "Generale",
@@ -529,8 +537,8 @@
     "family cta action unlock": "Sblocca",
     "family account restore desc": "Inserisci l'ID del tuo account per ripristinare gli acquisti.",
     "generic account active": "Il tuo account è stato ripristinato correttamente. Bentornato!",
-    "notification new message title": "New message",
-    "onboard header": "Niente più pubblicità.\nSul serio.",
-    "onboard desc": "Blocca pubblicità e tracker ovunque con la nostra app premium. Navigazione più veloce, maggiore privacy e meno consumo di dati.",
-    "onboard terms": "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy."
+    "notification new message title": "Nuovo messaggio",
+    "onboard header": "Niente più pubblicità.\nPer davvero.",
+    "onboard desc": "Con la nostra app premium, blocchi pubblicità e tracker ovunque. Goditi una navigazione più veloce, maggior privacy e minor consumo di dati.",
+    "onboard terms": "Continuando, accetti i nostri Termini e Condizioni e confermi di aver visionato la nostra Informativa sulla Privacy."
 } }

@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Are you sure you want to delete %s? This will unlink the device from your account.</string>
     <string name="family_device_header_add">Add a device</string>
     <string name="family_device_header_link">Link a device</string>
+    <string name="family_device_label_internet">網路控制</string>
+    <string name="family_device_brief_internet">管理此裝置的網路存取權限。</string>
+    <string name="family_device_label_internet_on">過濾內容</string>
+    <string name="family_device_brief_internet_on">根據您的過濾條件與封鎖清單，封鎖有害或不當的網站。</string>
+    <string name="family_device_label_internet_off">全部允許</string>
+    <string name="family_device_brief_internet_off">不封鎖任何內容。網際網路完全開放。</string>
+    <string name="family_device_label_internet_block">全部封鎖</string>
+    <string name="family_device_brief_internet_block">停止此裝置的所有網路存取。</string>
     <string name="family_perms_header">One more thing</string>
     <string name="family_perms_brief_alt">Activate \'%s\' in Settings by navigating as shown below.</string>
     <string name="family_perms_setting_ios_general">General</string>

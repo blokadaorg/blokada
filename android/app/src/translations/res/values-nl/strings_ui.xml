@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Weet je zeker dat je %swilt verwijderen? Dit zal het apparaat loskoppelen van je account.</string>
     <string name="family_device_header_add">Apparaat toevoegen</string>
     <string name="family_device_header_link">Koppel een apparaat</string>
+    <string name="family_device_label_internet">Internetbeheer</string>
+    <string name="family_device_brief_internet">Beheer de internettoegang voor dit apparaat.</string>
+    <string name="family_device_label_internet_on">Inhoud filteren</string>
+    <string name="family_device_brief_internet_on">Blokkeert schadelijke en ongepaste websites volgens je filters en blokkeerlijsten.</string>
+    <string name="family_device_label_internet_off">Alles toestaan</string>
+    <string name="family_device_brief_internet_off">Er wordt geen inhoud geblokkeerd. Het internet is volledig open.</string>
+    <string name="family_device_label_internet_block">Alles blokkeren</string>
+    <string name="family_device_brief_internet_block">Stopt alle internettoegang op dit apparaat.</string>
     <string name="family_perms_header">Nog één ding</string>
     <string name="family_perms_brief_alt">Activeer \'%s\' in Instellingen door te navigeren zoals hieronder weergegeven.</string>
     <string name="family_perms_setting_ios_general">Algemeen</string>

@@ -631,6 +631,16 @@
 "family device header add" = "Lägg till en enhet";
 "family device header link" = "Länka enhet";
 
+"family device label internet" = "Internetkontroll";
+"family device brief internet" = "Hantera internetåtkomst för den här enheten.";
+"family device label internet on" = "Filtrera innehåll";
+"family device brief internet on" = "Blockerar skadliga och olämpliga webbplatser enligt dina filter och blocklistor.";
+"family device label internet off" = "Tillåt allt";
+"family device brief internet off" = "Inget innehåll blockeras. Internet är helt öppet.";
+"family device label internet block" = "Blockera allt";
+"family device brief internet block" = "Stoppar all internetåtkomst på enheten.";
+
+
 "family perms header" = "En sak till";
 
 // Param is just Blokada Family

@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">%s\'i silmek istediğinizden emin misiniz? Bu, cihazın hesabınızla bağlantısını kaldıracaktır.</string>
     <string name="family_device_header_add">Cihaz ekle</string>
     <string name="family_device_header_link">Bir cihazı bağla</string>
+    <string name="family_device_label_internet">INTERNET CONTROL</string>
+    <string name="family_device_brief_internet">Manage Internet access for this device.</string>
+    <string name="family_device_label_internet_on">Filter Content</string>
+    <string name="family_device_brief_internet_on">Blocks harmful and inappropriate sites according to your filters and blocklists.</string>
+    <string name="family_device_label_internet_off">Allow All</string>
+    <string name="family_device_brief_internet_off">No content is blocked. The Internet is fully open.</string>
+    <string name="family_device_label_internet_block">Block All</string>
+    <string name="family_device_brief_internet_block">Stops all Internet access on the device.</string>
     <string name="family_perms_header">Bir şey daha</string>
     <string name="family_perms_brief_alt">Aşağıda gösterildiği gibi gezinerek Ayarlarda \'%s\' öğesini etkinleştirin.</string>
     <string name="family_perms_setting_ios_general">Genel</string>

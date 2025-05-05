@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Êtes-vous sûr de vouloir supprimer %s? Cela supprimera l\'appareil de votre compte.</string>
     <string name="family_device_header_add">Ajouter un appareil</string>
     <string name="family_device_header_link">Associer un appareil</string>
+    <string name="family_device_label_internet">CONTRÔLE D’INTERNET</string>
+    <string name="family_device_brief_internet">Gérez l’accès à Internet pour cet appareil.</string>
+    <string name="family_device_label_internet_on">Filtrer le contenu</string>
+    <string name="family_device_brief_internet_on">Bloque les sites nuisibles et inappropriés selon vos filtres et listes de blocage.</string>
+    <string name="family_device_label_internet_off">Tout autoriser</string>
+    <string name="family_device_brief_internet_off">Aucun contenu n’est bloqué. L’accès à Internet est totalement ouvert.</string>
+    <string name="family_device_label_internet_block">Tout bloquer</string>
+    <string name="family_device_brief_internet_block">Interrompt tout accès à Internet sur cet appareil.</string>
     <string name="family_perms_header">Une dernière chose</string>
     <string name="family_perms_brief_alt">Activez \'%s\' dans les paramètres en naviguant comme indiqué ci-dessous.</string>
     <string name="family_perms_setting_ios_general">Général</string>

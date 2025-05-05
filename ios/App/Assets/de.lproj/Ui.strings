@@ -631,6 +631,16 @@
 "family device header add" = "Gerät hinzufügen";
 "family device header link" = "Gerät verknüpfen";
 
+"family device label internet" = "Internetkontrolle";
+"family device brief internet" = "Verwalte den Internetzugang für dieses Gerät.";
+"family device label internet on" = "Inhalte filtern";
+"family device brief internet on" = "Blockiert schädliche und unangemessene Websites gemäß deinen Filtern und Sperrlisten.";
+"family device label internet off" = "Alles zulassen";
+"family device brief internet off" = "Es wird kein Inhalt blockiert. Das Internet ist vollständig offen.";
+"family device label internet block" = "Alles blockieren";
+"family device brief internet block" = "Stoppt jeglichen Internetzugang auf diesem Gerät.";
+
+
 "family perms header" = "Noch eine Sache";
 
 // Param is just Blokada Family

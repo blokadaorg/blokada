@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">¿Está seguro que desea eliminar %s? Esto desvinculará el dispositivo de su cuenta.</string>
     <string name="family_device_header_add">Añadir un dispositivo</string>
     <string name="family_device_header_link">Vincular un dispositivo</string>
+    <string name="family_device_label_internet">Control de Internet</string>
+    <string name="family_device_brief_internet">Administra el acceso a Internet para este dispositivo.</string>
+    <string name="family_device_label_internet_on">Filtrar contenido</string>
+    <string name="family_device_brief_internet_on">Bloquea sitios dañinos e inapropiados según tus filtros y listas de bloqueo.</string>
+    <string name="family_device_label_internet_off">Permitir todo</string>
+    <string name="family_device_brief_internet_off">No se bloquea ningún contenido. Internet está completamente abierto.</string>
+    <string name="family_device_label_internet_block">Bloquear todo</string>
+    <string name="family_device_brief_internet_block">Detiene todo el acceso a Internet en este dispositivo.</string>
     <string name="family_perms_header">Una cosa más</string>
     <string name="family_perms_brief_alt">Activa \'%s\' en Ajustes navegando como se muestra a continuación.</string>
     <string name="family_perms_setting_ios_general">General</string>

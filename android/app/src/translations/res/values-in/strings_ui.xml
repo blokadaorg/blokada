@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Apakah Anda yakin ingin menghapus %s? Perangkat akan diputuskan tautannya dari akun Anda.</string>
     <string name="family_device_header_add">Tambahkan perangkat</string>
     <string name="family_device_header_link">Tautkan perangkat</string>
+    <string name="family_device_label_internet">KENDALI INTERNET</string>
+    <string name="family_device_brief_internet">Atur akses internet untuk perangkat ini.</string>
+    <string name="family_device_label_internet_on">Filter Konten</string>
+    <string name="family_device_brief_internet_on">Memblokir situs berbahaya dan tak patut berdasarkan filter dan blocklist yang sudah Anda buat.</string>
+    <string name="family_device_label_internet_off">Izinkan Semua</string>
+    <string name="family_device_brief_internet_off">Tidak ada konten yang diblokir. Internet bebas diakses.</string>
+    <string name="family_device_label_internet_block">Blokir Semua</string>
+    <string name="family_device_brief_internet_block">Tutup seluruh akses internet di perangkat.</string>
     <string name="family_perms_header">Satu hal lagi</string>
     <string name="family_perms_brief_alt">Aktifkan \'%s\' di Pengaturan dengan mengikuti petunjuk di bawah ini.</string>
     <string name="family_perms_setting_ios_general">Umum</string>

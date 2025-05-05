@@ -483,6 +483,14 @@
     <string name="family_device_delete_confirm">Är du säker på att du vill ta bort %s? Enheten kommer inte längre vara länkad med ditt konto.</string>
     <string name="family_device_header_add">Lägg till en enhet</string>
     <string name="family_device_header_link">Länka enhet</string>
+    <string name="family_device_label_internet">Internetkontroll</string>
+    <string name="family_device_brief_internet">Hantera internetåtkomst för den här enheten.</string>
+    <string name="family_device_label_internet_on">Filtrera innehåll</string>
+    <string name="family_device_brief_internet_on">Blockerar skadliga och olämpliga webbplatser enligt dina filter och blocklistor.</string>
+    <string name="family_device_label_internet_off">Tillåt allt</string>
+    <string name="family_device_brief_internet_off">Inget innehåll blockeras. Internet är helt öppet.</string>
+    <string name="family_device_label_internet_block">Blockera allt</string>
+    <string name="family_device_brief_internet_block">Stoppar all internetåtkomst på enheten.</string>
     <string name="family_perms_header">En sak till</string>
     <string name="family_perms_brief_alt">Aktivera \'%s\' i Inställningar genom att navigera enligt nedan.</string>
     <string name="family_perms_setting_ios_general">Allmänt</string>

@@ -631,6 +631,16 @@
 "family device header add" = "Cihaz ekle";
 "family device header link" = "Bir cihazı bağla";
 
+"family device label internet" = "INTERNET CONTROL";
+"family device brief internet" = "Manage Internet access for this device.";
+"family device label internet on" = "Filter Content";
+"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
+"family device label internet off" = "Allow All";
+"family device brief internet off" = "No content is blocked. The Internet is fully open.";
+"family device label internet block" = "Block All";
+"family device brief internet block" = "Stops all Internet access on the device.";
+
+
 "family perms header" = "Bir şey daha";
 
 // Param is just Blokada Family
