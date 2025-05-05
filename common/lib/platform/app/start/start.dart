@@ -56,7 +56,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       _paused = true;
     }
 
-    // If cloud perm has just changed
+    // If cloud onboard has just changed
     if (_cloudPermEnabled != _app.conditions.cloudPermEnabled) {
       _cloudPermEnabled = _app.conditions.cloudPermEnabled;
 
@@ -72,7 +72,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       return;
     }
 
-    // If plus perm has just changed
+    // If plus onboard has just changed
     if (_plusPermEnabled != _app.conditions.plusPermEnabled) {
       _plusPermEnabled = _app.conditions.plusPermEnabled;
 

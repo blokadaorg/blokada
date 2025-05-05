@@ -3,25 +3,23 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PrivateDnsSettingGuideWidget extends StatelessWidget {
+class SafariSettingGuideWidget extends StatelessWidget {
   final String title;
   final String? subtitle;
   final String? edgeText;
   final Widget? iconReplacement;
   final IconData? icon;
-  final bool chevron;
-  final bool android;
+  final Widget? widgetRight;
   final bool centerTitle;
 
-  const PrivateDnsSettingGuideWidget({
+  const SafariSettingGuideWidget({
     Key? key,
     required this.title,
     this.subtitle,
     this.edgeText,
     this.iconReplacement,
     this.icon,
-    this.chevron = true,
-    this.android = false,
+    this.widgetRight,
     this.centerTitle = false,
   }) : super(key: key);
 
@@ -44,17 +42,15 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
                     ? Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: (android)
-                              ? Colors.blue
-                              : context.theme.textSecondary,
+                          color: null,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Icon(
-                            size: (android) ? 24 : 16,
+                            size: 16,
                             icon!,
-                            color: Colors.white,
+                            color: context.theme.textPrimary,
                           ),
                         ),
                       )
@@ -64,39 +60,37 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
                             child: iconReplacement!,
                           )
                         : Container()),
-                (icon != null || iconReplacement != null)
+                ((icon != null || iconReplacement != null) && !centerTitle)
                     ? const SizedBox(width: 12)
                     : Container(),
-                Column(
-                  crossAxisAlignment: (centerTitle)
-                      ? CrossAxisAlignment.center
-                      : CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500)),
-                    (subtitle != null)
-                        ? Text(subtitle!,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: context.theme.textSecondary))
-                        : Container(),
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: (centerTitle)
+                        ? CrossAxisAlignment.center
+                        : CrossAxisAlignment.start,
+                    children: [
+                      Text(title,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500),
+                          textAlign: (centerTitle)
+                              ? TextAlign.center
+                              : TextAlign.start),
+                      (subtitle != null)
+                          ? Text(subtitle!,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: context.theme.textSecondary))
+                          : Container(),
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 (edgeText != null)
                     ? Text(edgeText!,
                         style: TextStyle(
                             fontSize: 14, color: context.theme.textSecondary))
                     : Container(),
                 const SizedBox(width: 4),
-                (chevron && !android)
-                    ? Icon(
-                        size: 16,
-                        CupertinoIcons.chevron_forward,
-                        color: context.theme.divider,
-                      )
-                    : Container(),
+                widgetRight ?? Container(),
               ],
             ),
           ),

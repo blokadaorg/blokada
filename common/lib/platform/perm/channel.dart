@@ -30,6 +30,9 @@ class PlatformPermChannel with PermChannel {
 
   @override
   Future<bool> doAuthenticate() => _platform.doAuthenticate();
+
+  @override
+  Future<void> doOpenSafari() => _platform.doOpenSafari();
 }
 
 class NoOpPermChannel with PermChannel {
@@ -60,4 +63,7 @@ class NoOpPermChannel with PermChannel {
 
   @override
   Future<bool> doAuthenticate() => Future.value(true);
+
+  @override
+  Future<void> doOpenSafari() => Future.value();
 }

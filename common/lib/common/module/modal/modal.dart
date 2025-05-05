@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 enum Modal {
   onboardPrivateDns,
+  onboardSafari,
   plusDeviceLimitReached,
   familyAddProfile,
   familyLinkDevice,

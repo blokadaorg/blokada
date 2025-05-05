@@ -10,6 +10,7 @@ mixin PermChannel {
   Future<void> doAskNotificationPerms();
   Future<void> doAskVpnPerms();
   Future<bool> doAuthenticate();
+  Future<void> doOpenSafari();
 }
 
 class PermActor with Logging, Actor {
