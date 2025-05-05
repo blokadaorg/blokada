@@ -25,7 +25,8 @@
             ],
             "matches": [
                 "https://www.youtube.com/*",
-                "https://m.youtube.com/*"
+                "https://m.youtube.com/*",
+                "https://www.youtube-nocookie.com/*"
             ]
         }
     ],
