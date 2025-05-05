@@ -57,7 +57,8 @@ class V6OnboardActor with Actor, Logging {
     if (Core.act.platform != PlatformType.iOS) return;
     return await log(it.m).trace("maybeShowSafariOnboard", (m) async {
       final dnsEnabled = _perm.isPrivateDnsEnabled;
-      final seen = await _onboardSafari.now();
+      //final seen = await _onboardSafari.now();
+      final seen = false;
       if (dnsEnabled && !seen) {
         await _modal.change(m, Modal.onboardSafari);
       }
