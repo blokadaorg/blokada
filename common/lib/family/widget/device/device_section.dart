@@ -188,12 +188,12 @@ class DeviceSectionState extends State<DeviceSection>
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("INTERNET CONTROL".capitalize(),
+          child: Text("family device label internet".i18n.capitalize(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("Manage Internet access for this device.",
+          child: Text("family device brief internet".i18n,
               style: TextStyle(color: context.theme.textSecondary)),
         ),
         Padding(
@@ -269,15 +269,23 @@ class DeviceSectionState extends State<DeviceSection>
       _buildInternetControlOption(
           context,
           JsonDeviceMode.on,
-          "Filter Content",
-          "Blocks harmful and inappropriate sites according to your filters and blocklists.",
+          "family device label internet on".i18n,
+          "family device brief internet on".i18n,
           onChanged),
       const CommonDivider(indent: 0),
-      _buildInternetControlOption(context, JsonDeviceMode.off, "Allow All",
-          "No content is blocked. The Internet is fully open.", onChanged),
+      _buildInternetControlOption(
+          context,
+          JsonDeviceMode.off,
+          "family device label internet off".i18n,
+          "family device brief internet off".i18n,
+          onChanged),
       const CommonDivider(indent: 0),
-      _buildInternetControlOption(context, JsonDeviceMode.blocked, "Block All",
-          "Stops all Internet access on the device.", onChanged),
+      _buildInternetControlOption(
+          context,
+          JsonDeviceMode.blocked,
+          "family device label internet block".i18n,
+          "family device brief internet block".i18n,
+          onChanged),
     ];
   }
 
