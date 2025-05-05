@@ -1,4 +1,5 @@
 import 'package:common/common/module/modal/modal.dart';
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/safari/safari_onboard_sheet.dart';
 import 'package:common/core/core.dart';
@@ -11,7 +12,6 @@ part 'value.dart';
 class V6OnboardModule with Module {
   @override
   onCreateModule() async {
-    await register(V6SafariOnboardedValue());
     await register(V6PrivateDnsStringProvider());
     await register(V6OnboardActor());
   }
@@ -24,7 +24,7 @@ class V6OnboardActor with Actor, Logging {
   late final _modal = Core.get<CurrentModalValue>();
 
   late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
-  late final _safariOnboarded = Core.get<V6SafariOnboardedValue>();
+  late final _onboardSafari = Core.get<OnboardSafariValue>();
   late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   @override
@@ -39,8 +39,6 @@ class V6OnboardActor with Actor, Logging {
 
   @override
   onStart(Marker m) async {
-    await _safariOnboarded.fetch(m);
-
     _payment.addOnValue(paymentSuccessful, showDnsOnboard);
     _dnsEnabledFor.onChangeInstant(showSafariOnboard);
   }
@@ -59,7 +57,7 @@ class V6OnboardActor with Actor, Logging {
     if (Core.act.platform != PlatformType.iOS) return;
     return await log(it.m).trace("maybeShowSafariOnboard", (m) async {
       final dnsEnabled = _perm.isPrivateDnsEnabled;
-      final seen = await _safariOnboarded.now();
+      final seen = await _onboardSafari.now();
       if (dnsEnabled && !seen) {
         await _modal.change(m, Modal.onboardSafari);
       }

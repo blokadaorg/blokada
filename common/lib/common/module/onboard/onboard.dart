@@ -5,15 +5,13 @@ import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 
 part 'actor.dart';
-
-class OnboardingStepValue extends StringPersistedValue {
-  OnboardingStepValue() : super("onboarding:step", sensitive: false);
-}
+part 'value.dart';
 
 class OnboardModule with Module {
   @override
   onCreateModule() async {
-    await register(OnboardingStepValue());
+    await register(OnboardIntroValue());
+    await register(OnboardSafariValue());
     await register(OnboardActor());
   }
 }

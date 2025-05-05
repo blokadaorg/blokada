@@ -33,7 +33,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
   _close() async {
     log(Markers.userTap).trace("tappedCloseOverlay", (m) async {
       await _stage.dismissModal(m);
-      await _onboard.markOnboardSeen(m);
+      await _onboard.markIntroSeen(m);
     });
   }
 

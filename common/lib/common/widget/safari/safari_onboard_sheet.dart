@@ -1,3 +1,4 @@
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/safari/safari_setting_guide.dart';
 import 'package:common/common/widget/theme.dart';
@@ -15,6 +16,7 @@ class SafariOnboardSheetIos extends StatefulWidget {
 
 class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
   late final _channel = Core.get<PermChannel>();
+  final _onboard = Core.get<OnboardActor>();
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +153,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
+                          _onboard.markSafariSeen(Markers.userTap);
                         },
                         color: context.theme.bgColor,
                         child: SizedBox(

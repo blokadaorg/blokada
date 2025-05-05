@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:adapty_flutter/adapty_flutter.dart';
 import 'package:common/common/module/api/api.dart' as api;
 import 'package:common/core/core.dart';
-import 'package:common/family/module/family/family.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/account/api.dart';
 import 'package:common/platform/stage/channel.pg.dart';
@@ -24,7 +23,8 @@ enum OnboardingStep {
   ctaTapped(4),
   accountActivated(5),
   permsPrompted(6),
-  permsGranted(7);
+  permsGranted(7),
+  safariPrompted(8);
 
   final int order;
 
@@ -39,7 +39,7 @@ class CurrentOnboardingStepValue
   OnboardingStep fromStringified(String value) {
     try {
       return OnboardingStep.values.firstWhere(
-            (e) => e.name == value,
+        (e) => e.name == value,
       );
     } catch (e) {
       return OnboardingStep.appStarting;
