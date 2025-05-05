@@ -47,7 +47,7 @@ class Markers {
       case ui:
         return "ui";
       case perm:
-        return "perm";
+        return "onboard";
       case persistence:
         return "persistence";
       case valueChange:

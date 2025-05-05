@@ -31,7 +31,7 @@ import 'package:common/platform/payment/payment.dart';
 import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/plus/plus.dart';
-import 'package:common/v6/module/perm/perm.dart';
+import 'package:common/v6/module/onboard/onboard.dart';
 import 'package:common/v6/widget/home/home.dart';
 
 import 'platform/account/account.dart';
@@ -107,7 +107,7 @@ class Modules with Logging {
     await _registerModule(PlatformPermModule());
 
     if (!Core.act.isFamily) {
-      await _registerModule(V6PermModule());
+      await _registerModule(V6OnboardModule());
       await _registerModule(PlusModule());
       await _registerModule(PlatformPlusModule());
       HomeStore().onRegister();
