@@ -42,59 +42,57 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
     os_log(.default, "blockaweb: received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
 
-    let active = checkAppStatus()
+    // Decode app status set by main app.
+    let status = decodeAppStatus() ?? JsonBlockaweb(timestamp: Date(), active: false)
     markExtensionAsEnabled()
 
     let response = NSExtensionItem()
+    // Format timestamp as ISO string for JSON serialization
+    let timestampString = blockaDateFormatter.string(from: status.timestamp)
     if #available(iOS 15.0, macOS 11.0, *) {
-      response.userInfo = [ SFExtensionMessageKey: [ "status": [ "active": active ] ] ]
+      response.userInfo = [ SFExtensionMessageKey: [ "status": [ "active": status.active, "timestamp": timestampString ] ] ]
     } else {
-      response.userInfo = [ "message": [ "status": [ "active": active ] ] ]
+      response.userInfo = [ "message": [ "status": [ "active": status.active, "timestamp": timestampString ] ] ]
     }
 
     context.completeRequest(returningItems: [ response ], completionHandler: nil)
   }
 
-    // Loads the app status from a shared file (updated by app)
-    func checkAppStatus() -> Bool {
-        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
-          let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
-          if FileManager.default.fileExists(atPath: fileURL.path) {
-              do {
-                  let content = try String(contentsOf: fileURL, encoding: .utf8)
+  /// Decode the shared app status JSON into our model
+  private func decodeAppStatus() -> JsonBlockaweb? {
+      guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") else {
+          return nil
+      }
+      let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
+      guard FileManager.default.fileExists(atPath: fileURL.path),
+            let content = try? String(contentsOf: fileURL, encoding: .utf8),
+            let jsonData = content.data(using: .utf8) else {
+          return nil
+      }
+      do {
+          let status = try blockaDecoder.decode(JsonBlockaweb.self, from: jsonData)
+          return status
+      } catch {
+          os_log(.error, "blockaweb: failed to decode app status: %{public}@", "\(error)")
+          return nil
+      }
+  }
 
-                  if let jsonData = content.data(using: .utf8) {
-                      do {
-                          let status = try blockaDecoder.decode(JsonBlockaweb.self, from: jsonData)
-                          os_log(.default, "blockaweb: got app status: %{public}@", "\(status)")
-                          return (status.active && status.timestamp > Date())
-                      } catch {
-                          os_log(.error, "blockaweb: failed to decode app.json: %{public}@", "\(error)")
-                      }
-                  }
-              } catch {
-                  os_log(.error, "blockaweb: failed to read app.json: %{public}@", "\(error)")
-              }
+  // Saves a timestamp for when the extension was called last time (for the app to check)
+  func markExtensionAsEnabled() {
+      if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+          let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
+          let status = JsonBlockaweb(timestamp: Date(), active: true)
+
+          do {
+              let jsonData = try blockaEncoder.encode(status)
+              try jsonData.write(to: fileURL, options: [.atomic])
+              os_log(.default, "blockaweb: status updated with timestamp")
+          } catch {
+              os_log(.error, "blockaweb: failed to write blockaweb JSON: %{public}@", "\(error)")
           }
-        }
-        return false
-    }
-
-    // Saves a timestamp for when the extension was called last time (for the app to check)
-    func markExtensionAsEnabled() {
-        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
-            let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
-            let status = JsonBlockaweb(timestamp: Date(), active: true)
-
-            do {
-                let jsonData = try blockaEncoder.encode(status)
-                try jsonData.write(to: fileURL, options: [.atomic])
-                os_log(.default, "blockaweb: status updated with timestamp")
-            } catch {
-                os_log(.error, "blockaweb: failed to write blockaweb JSON: %{public}@", "\(error)")
-            }
-        }
-    }
+      }
+  }
 }
 
 func initDateFormatter() -> DateFormatter {
