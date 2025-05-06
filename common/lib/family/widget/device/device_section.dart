@@ -188,7 +188,7 @@ class DeviceSectionState extends State<DeviceSection>
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label internet".i18n.capitalize(),
+          child: Text("family device label internet".i18n.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
