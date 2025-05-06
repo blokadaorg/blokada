@@ -52,7 +52,7 @@ class BlockaWebActor with Actor, Logging {
     if (ping == null) return true;
 
     // Extension seen long ago, show onboard
-    final oneDayAgo = DateTime.now().subtract(const Duration(days: 1));
+    final oneDayAgo = DateTime.now().subtract(const Duration(minutes: 5));
     if (ping.timestamp.isBefore(oneDayAgo)) {
       return true;
     }
