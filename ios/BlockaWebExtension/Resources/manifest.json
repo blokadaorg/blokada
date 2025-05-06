@@ -33,5 +33,12 @@
     "permissions": [
         "nativeMessaging",
         "storage"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [
+        "images/background.svg",
+        "images/shield.svg"
     ]
 }

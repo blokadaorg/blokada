@@ -1,0 +1,19 @@
+{
+  "extension_name": {
+    "message": "Blokada",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "حسِّن تجربة التصفح على Safari من خلال حظر الإعلانات والمتعقبات والمحتوى غير المرغوب فيه.",
+    "description": "Description of what the extension does."
+  },
+  "status_enabled": {
+    "message": "تم تفعيل إضافة Safari!"
+  },
+  "status_inactive": {
+    "message": "تحقّق من الحالة في تطبيق Blokada"
+  },
+  "open_app": {
+    "message": "افتح Blokada"
+  }
+}

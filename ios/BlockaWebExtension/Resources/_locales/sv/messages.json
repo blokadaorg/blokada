@@ -1,0 +1,19 @@
+{
+  "extension_name": {
+    "message": "Blokada",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Förbättra din surfupplevelse i Safari genom att blockera annonser, spårare och annat oönskat innehåll.",
+    "description": "Description of what the extension does."
+  },
+  "status_enabled": {
+    "message": "Safari-tillägget är aktiverat!"
+  },
+  "status_inactive": {
+    "message": "Kontrollera status i Blokada"
+  },
+  "open_app": {
+    "message": "Öppna Blokada"
+  }
+}

@@ -1,13 +1,68 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 :root {
     color-scheme: light dark;
 }
 
 body {
-    width: 100px;
     padding: 10px;
 
     font-family: system-ui;
     text-align: center;
+    /* Use SVG image as background */
+    background-image: url('images/background.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100%;
+    color: #fff;
+}
+
+/* Ensure the logo image covers the upper half of the popup */
+.logo {
+    display: block;
+    height: 50vh;
+    /* 50% of the viewport height */
+    width: auto;
+    max-width: 100%;
+    /* Prevent overflow horizontally */
+    object-fit: contain;
+    margin: 0 auto 30px;
+}
+
+/* Status text styling */
+#status-text {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+/* Open app button styling */
+#open-app-btn {
+    display: inline-block;
+    font-size: 1rem;
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+#open-app-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#open-app-btn:active {
+    background-color: rgba(255, 255, 255, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {
