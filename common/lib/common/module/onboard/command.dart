@@ -1,6 +1,7 @@
 part of 'onboard.dart';
 
 const cmdOnboard = "onboard";
+const cmdOnboardReset = "onboardReset";
 
 const onboardLinkBase = "https://go.blokada.org/six/onboard";
 const onboardLinkTemplate = "$onboardLinkBase?screen=SCREEN";
@@ -8,14 +9,19 @@ const onboardLinkTemplate = "$onboardLinkBase?screen=SCREEN";
 class OnboardCommand with Command {
   late final _modal = Core.get<CurrentModalValue>();
 
+  late final _onboardIntro = Core.get<OnboardIntroValue>();
+  late final _onboardSafari = Core.get<OnboardSafariValue>();
+
   @override
   List<CommandSpec> onRegisterCommands() {
     return [
-      registerCommand(cmdOnboard, argsNum: 1, fn: cmdLink),
+      registerCommand(cmdOnboard, argsNum: 1, fn: commandOnboard),
+      registerCommand(cmdOnboardReset, argsNum: 1, fn: commandReset),
     ];
   }
 
-  Future<void> cmdLink(Marker m, dynamic args) async {
+  // Opens the given onboarding directly, used by deep links.
+  Future<void> commandOnboard(Marker m, dynamic args) async {
     final onboardScreen = args[0] as String;
 
     var modal = Modal.onboardPrivateDns;
@@ -31,5 +37,17 @@ class OnboardCommand with Command {
     await sleepAsync(const Duration(seconds: 3));
 
     await _modal.change(m, modal);
+  }
+
+  Future<void> commandReset(Marker m, dynamic args) async {
+    final onboardScreen = args[0] as String;
+
+    if (onboardScreen == "intro") {
+      _onboardIntro.change(m, null);
+    } else if (onboardScreen == "safari") {
+      _onboardSafari.change(m, false);
+    } else {
+      throw Exception("Unknown onboard screen: $onboardScreen");
+    }
   }
 }

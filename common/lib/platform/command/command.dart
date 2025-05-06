@@ -21,7 +21,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
   late final _permission = Core.get<PlatformPermActor>();
   late final _scheduler = Core.get<Scheduler>();
 
-  @override
   void onRegister() {
     Core.register<CommandStore>(this);
     if (Core.act.isProd) CommandEvents.setup(this);
@@ -47,6 +46,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     cmdPaymentHandleFailure.toUpperCase(),
     cmdPaymentHandleScreenClosed.toUpperCase(),
     cmdOnboard.toUpperCase(),
+    cmdOnboardReset.toUpperCase(),
   ];
 
   @override

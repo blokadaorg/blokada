@@ -1,4 +1,5 @@
 import 'package:common/common/module/api/api.dart';
+import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
@@ -9,7 +10,8 @@ part 'value.dart';
 class BlockaWebModule with Module {
   @override
   onCreateModule() async {
-    await register(BlockaWebProvidedStatus());
+    await register(BlockawebAppStatusValue());
+    await register(BlockawebPingValue());
     await register(BlockaWebActor());
   }
 }
@@ -18,15 +20,18 @@ class BlockaWebActor with Actor, Logging {
   late final _scheduler = Core.get<Scheduler>();
   late final _app = Core.get<AppStore>();
   late final _account = Core.get<AccountEphemeral>();
+  late final _onboardSafari = Core.get<OnboardSafariValue>();
 
-  late final _status = Core.get<BlockaWebProvidedStatus>();
+  late final _appStatus = Core.get<BlockawebAppStatusValue>();
+  late final _ping = Core.get<BlockawebPingValue>();
 
   DateTime _accountActiveUntil = DateTime(0);
   bool _appActive = false;
 
   @override
   onStart(Marker m) async {
-    await _status.fetch(m);
+    await _appStatus.fetch(m);
+    await _ping.fetch(m);
 
     reactionOnStore((_) => _app.status, (retention) async {
       _appActive = _app.status.isActive();
@@ -34,6 +39,26 @@ class BlockaWebActor with Actor, Logging {
     });
 
     _account.onChangeInstant(_updateStatusFromAccount);
+  }
+
+  Future<bool> needsOnboard() async {
+    final ping = await _ping.now();
+    final userSkipped = await _onboardSafari.now();
+
+    // Uer skipped onboarding, leave them alone
+    if (userSkipped) return false;
+
+    // Fresh onboarding case, show onboard
+    if (ping == null) return true;
+
+    // Extension seen long ago, show onboard
+    final oneDayAgo = DateTime.now().subtract(const Duration(days: 1));
+    if (ping.timestamp.isBefore(oneDayAgo)) {
+      return true;
+    }
+
+    // Extension seen recently, no need to onboard
+    return false;
   }
 
   _updateStatusFromAccount(ValueUpdate<AccountState> it) async {
@@ -53,11 +78,12 @@ class BlockaWebActor with Actor, Logging {
 
   Future<bool> _syncBlockaweb(Marker m) async {
     final newStatus = JsonBlockaweb(
-      accountActiveUntil: _accountActiveUntil,
-      appActive: _appActive,
+      timestamp: _accountActiveUntil,
+      active: _appActive,
     );
 
-    await _status.change(m, newStatus);
+    await _appStatus.change(m, newStatus);
+    await _ping.fetch(m, force: true);
     return false;
   }
 }

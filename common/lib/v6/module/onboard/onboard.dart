@@ -1,5 +1,5 @@
+import 'package:common/common/module/blockaweb/blockaweb.dart';
 import 'package:common/common/module/modal/modal.dart';
-import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/safari/safari_onboard_sheet.dart';
 import 'package:common/core/core.dart';
@@ -21,10 +21,10 @@ class V6OnboardModule with Module {
 class V6OnboardActor with Actor, Logging {
   late final _perm = Core.get<PlatformPermActor>();
   late final _payment = Core.get<PaymentActor>();
+  late final _blockaweb = Core.get<BlockaWebActor>();
   late final _modal = Core.get<CurrentModalValue>();
 
   late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
-  late final _onboardSafari = Core.get<OnboardSafariValue>();
   late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   @override
@@ -57,9 +57,8 @@ class V6OnboardActor with Actor, Logging {
     if (Core.act.platform != PlatformType.iOS) return;
     return await log(it.m).trace("maybeShowSafariOnboard", (m) async {
       final dnsEnabled = _perm.isPrivateDnsEnabled;
-      //final seen = await _onboardSafari.now();
-      final seen = false;
-      if (dnsEnabled && !seen) {
+      final needsOnboard = await _blockaweb.needsOnboard();
+      if (dnsEnabled && needsOnboard) {
         await _modal.change(m, Modal.onboardSafari);
       }
     });

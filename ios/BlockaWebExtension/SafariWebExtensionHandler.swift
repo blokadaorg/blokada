@@ -8,14 +8,19 @@
 import SafariServices
 import os.log
 
+// Used both ways, by the app to provide its status to the exception,
+// and by the exception to provide a ping its alive.
+// For the former, timestamp is account expiration.
+// For the latter, timestamp is last ping.
 struct JsonBlockaweb: Codable {
-    let accountActiveUntil: Date
-    let appActive: Bool
+    let timestamp: Date
+    let active: Bool
 }
 
 let blockaDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
 let blockaDateFormatter = initDateFormatter()
 let blockaDecoder = initJsonDecoder()
+let blockaEncoder = initJsonEncoder()
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
   func beginRequest(with context: NSExtensionContext) {
@@ -35,10 +40,10 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
       message = request?.userInfo?["message"]
     }
 
-    os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
+    os_log(.default, "blockaweb: received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
 
-    var active = checkAppStatus()
-    os_log(.default, "blockaweb active: %{public}@", "\(active)")
+    let active = checkAppStatus()
+    markExtensionAsEnabled()
 
     let response = NSExtensionItem()
     if #available(iOS 15.0, macOS 11.0, *) {
@@ -53,7 +58,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     // Loads the app status from a shared file (updated by app)
     func checkAppStatus() -> Bool {
         if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
-          let fileURL = containerURL.appendingPathComponent("app.json")
+          let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
           if FileManager.default.fileExists(atPath: fileURL.path) {
               do {
                   let content = try String(contentsOf: fileURL, encoding: .utf8)
@@ -61,18 +66,34 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                   if let jsonData = content.data(using: .utf8) {
                       do {
                           let status = try blockaDecoder.decode(JsonBlockaweb.self, from: jsonData)
-                          os_log(.default, "blockaweb status: %{public}@", "\(status)")
-                          return (status.appActive && status.accountActiveUntil > Date())
+                          os_log(.default, "blockaweb: got app status: %{public}@", "\(status)")
+                          return (status.active && status.timestamp > Date())
                       } catch {
-                          os_log(.error, "Failed to decode app.json: %{public}@", "\(error)")
+                          os_log(.error, "blockaweb: failed to decode app.json: %{public}@", "\(error)")
                       }
                   }
               } catch {
-                  os_log(.error, "Failed to read app.json: %{public}@", "\(error)")
+                  os_log(.error, "blockaweb: failed to read app.json: %{public}@", "\(error)")
               }
           }
         }
         return false
+    }
+
+    // Saves a timestamp for when the extension was called last time (for the app to check)
+    func markExtensionAsEnabled() {
+        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+            let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
+            let status = JsonBlockaweb(timestamp: Date(), active: true)
+
+            do {
+                let jsonData = try blockaEncoder.encode(status)
+                try jsonData.write(to: fileURL, options: [.atomic])
+                os_log(.default, "blockaweb: status updated with timestamp")
+            } catch {
+                os_log(.error, "blockaweb: failed to write blockaweb JSON: %{public}@", "\(error)")
+            }
+        }
     }
 }
 
@@ -84,7 +105,12 @@ func initDateFormatter() -> DateFormatter {
 
 func initJsonDecoder() -> JSONDecoder {
     let decoder = JSONDecoder()
-    let dateFormatter = blockaDateFormatter
-    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+    decoder.dateDecodingStrategy = .formatted(blockaDateFormatter)
     return decoder
+}
+
+func initJsonEncoder() -> JSONEncoder {
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .formatted(blockaDateFormatter)
+    return encoder
 }

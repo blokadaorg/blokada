@@ -182,18 +182,14 @@ class CoreBinding: CoreOps {
         }
     }
 
-    // Special case to provide app status to blockaweb extension
-    func saveAppStatusForBlockaweb(_ value: String) {
-        // We save to a file accessible by both the app, and the extension (using app groups)
-        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
-            let fileURL = containerURL.appendingPathComponent("app.json")
-            try? value.write(to: fileURL, atomically: true, encoding: .utf8)
-        }
-    }
-    
     func doLoad(key: String, isSecure: Bool, isBackup: Bool,
                 completion: @escaping (Result<String, Error>) -> Void) {
-        if (isBackup) {
+        if (key == "blockaweb:ping") {
+            guard let it = loadPingFromBlockaweb() else {
+                return completion(.failure(CommonError.emptyResult))
+            }
+            completion(.success(it))
+        } else if (isBackup) {
             guard let it = self.iCloud.string(forKey: key) else {
                 return completion(.failure(CommonError.emptyResult))
             }
@@ -223,6 +219,30 @@ class CoreBinding: CoreOps {
             self.localStorage.removeObject(forKey: key)
             completion(.success(()))
         }
+    }
+
+    // Special case to provide app status to blockaweb extension
+    func saveAppStatusForBlockaweb(_ value: String) {
+        // We save to a file accessible by both the app, and the extension (using app groups)
+        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+            let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
+            try? value.write(to: fileURL, atomically: true, encoding: .utf8)
+        }
+    }
+
+    func loadPingFromBlockaweb() -> String? {
+        if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.net.blocka.app") {
+            let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                do {
+                    let content = try String(contentsOf: fileURL, encoding: .utf8)
+                    return content
+                } catch {
+                    return nil
+                }
+            }
+        }
+        return nil
     }
 }
 

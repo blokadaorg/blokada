@@ -204,10 +204,10 @@ abstract class NullableAsyncValue<T> with Logging {
     return null;
   }
 
-  Future<T?> fetch(Marker m) async {
+  Future<T?> fetch(Marker m, {bool force = false}) async {
     if (_resolving) return await _waitForResolve();
 
-    if (!_resolved && load != null) {
+    if (load != null && (!_resolved || force)) {
       _resolving = true;
       final newValue = await load!.call(m);
       await change(m, newValue);
