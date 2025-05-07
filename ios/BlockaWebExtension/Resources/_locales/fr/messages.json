@@ -4,7 +4,7 @@
     "description": "The display name for the extension."
   },
   "extension_description": {
-    "message": "Améliorez votre expérience de navigation sur Safari en bloquant les publicités, les traqueurs et les contenus indésirables.",
+    "message": "Améliorez Safari en bloquant pubs, traqueurs et contenus indésirables pour une meilleure navigation.",
     "description": "Description of what the extension does."
   },
   "status_enabled": {
