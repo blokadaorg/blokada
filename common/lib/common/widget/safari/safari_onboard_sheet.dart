@@ -34,7 +34,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                     children: [
                       const SizedBox(height: 24),
                       Text(
-                        "Want to block video ads?",
+                        "onboard safari header".i18n,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -45,7 +45,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "Enable our extension in Safari to block video ads while browsing.",
+                          "onboard safari brief".i18n,
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),
@@ -79,7 +79,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                                   TextStyle(color: context.theme.textSecondary),
                             ),
                             SafariSettingGuideWidget(
-                              title: "Manage Extensions",
+                              title: "onboard safari step 2".i18n,
                               widgetRight: Icon(
                                 size: 16,
                                 Icons.extension_outlined,
@@ -131,7 +131,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                           height: 32,
                           child: Center(
                             child: Text(
-                              "Open YouTube in Safari",
+                              "onboard safari cta".i18n,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -160,7 +160,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                           height: 32,
                           child: Center(
                             child: Text(
-                              "Skip for now",
+                              "onboard safari skip".i18n,
                               style: TextStyle(
                                 color: context.theme.textPrimary,
                                 fontWeight: FontWeight.w600,
