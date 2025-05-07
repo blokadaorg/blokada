@@ -542,4 +542,9 @@
     <string name="onboard_header">لا مزيد من الإعلانات.\nبجدية.</string>
     <string name="onboard_desc">احظر الإعلانات وأدوات التتبع في كل مكان مع تطبيقنا المميز. استمتع بتصفح أسرع، وخصوصية أفضل، واستهلاك بيانات أقل.</string>
     <string name="onboard_terms">بالمتابعة، فإنك تقبل شروط الخدمة وتقر باستلام سياسة الخصوصية الخاصة بنا.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

@@ -483,7 +483,7 @@
     <string name="family_device_delete_confirm">Är du säker på att du vill ta bort %s? Enheten kommer inte längre vara länkad med ditt konto.</string>
     <string name="family_device_header_add">Lägg till en enhet</string>
     <string name="family_device_header_link">Länka enhet</string>
-    <string name="family_device_label_internet">Internetkontroll</string>
+    <string name="family_device_label_internet">INTERNETKONTROLL</string>
     <string name="family_device_brief_internet">Hantera internetåtkomst för den här enheten.</string>
     <string name="family_device_label_internet_on">Filtrera innehåll</string>
     <string name="family_device_brief_internet_on">Blockerar skadliga och olämpliga webbplatser enligt dina filter och blocklistor.</string>
@@ -542,4 +542,9 @@
     <string name="onboard_header">Inga fler annonser.\nPå riktigt.</string>
     <string name="onboard_desc">Blockera annonser och trackers överallt med vår premiumapp. Surfa snabbare, få bättre integritet och använd mindre data.</string>
     <string name="onboard_terms">Genom att fortsätta godkänner du våra användarvillkor och bekräftar mottagandet av vår sekretesspolicy.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

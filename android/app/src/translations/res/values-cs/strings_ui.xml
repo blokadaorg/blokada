@@ -542,4 +542,9 @@
     <string name="onboard_header">Žádné další reklamy.\nVážně.</string>
     <string name="onboard_desc">Blokujte reklamy a sledovače všude s naší prémiovou aplikací. Užijte si rychlejší prohlížení, lepší soukromí a snížení využití dat.</string>
     <string name="onboard_terms">Pokračováním přijímáte naše smluvní podmínky a potvrzujete přijetí našich Zásad ochrany osobních údajů.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

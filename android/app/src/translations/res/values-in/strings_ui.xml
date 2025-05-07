@@ -542,4 +542,9 @@
     <string name="onboard_header">Tak ada lagi iklan.\nSerius.</string>
     <string name="onboard_desc">Blokir iklan dan tracker di manapun dengan aplikasi premium kami. Nikmati pengalaman browsing yang lebih cepat, dengan keamanan privasi yang lebih baik, dan konsumsi data yang lebih hemat.</string>
     <string name="onboard_terms">Dengan melanjutkan berarti Anda menerima Ketentuan Layanan dan menyatakan menerima tanda bukti Kebijakan Privasi kami.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

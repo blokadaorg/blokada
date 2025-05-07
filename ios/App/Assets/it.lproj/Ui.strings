@@ -750,3 +750,9 @@
 "onboard header" = "Niente più pubblicità.\nPer davvero.";
 "onboard desc" = "Con la nostra app premium, blocchi pubblicità e tracker ovunque. Goditi una navigazione più veloce, maggior privacy e minor consumo di dati.";
 "onboard terms" = "Continuando, accetti i nostri Termini e Condizioni e confermi di aver visionato la nostra Informativa sulla Privacy.";
+
+"onboard safari header" = "Want to block video ads?";
+"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
+"onboard safari step 2" = "Manage Extensions";
+"onboard safari cta" = "Open YouTube in Safari";
+"onboard safari skip" = "Skip for now";

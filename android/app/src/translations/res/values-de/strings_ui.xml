@@ -483,7 +483,7 @@
     <string name="family_device_delete_confirm">Sind Sie sicher, dass Sie %slöschen möchten? Dadurch wird das Gerät von Ihrem Konto entfernt.</string>
     <string name="family_device_header_add">Gerät hinzufügen</string>
     <string name="family_device_header_link">Gerät verknüpfen</string>
-    <string name="family_device_label_internet">Internetkontrolle</string>
+    <string name="family_device_label_internet">INTERNETKONTROLLE</string>
     <string name="family_device_brief_internet">Verwalte den Internetzugang für dieses Gerät.</string>
     <string name="family_device_label_internet_on">Inhalte filtern</string>
     <string name="family_device_brief_internet_on">Blockiert schädliche und unangemessene Websites gemäß deinen Filtern und Sperrlisten.</string>
@@ -542,4 +542,9 @@
     <string name="onboard_header">Keine Werbung mehr.\nWirklich.</string>
     <string name="onboard_desc">Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.</string>
     <string name="onboard_terms">Indem Sie fortfahren, akzeptieren Sie unsere Nutzungsbedingungen und erkennen den Erhalt unserer Datenschutzerklärung.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

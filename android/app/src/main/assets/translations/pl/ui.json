@@ -482,7 +482,7 @@
     "family device delete confirm": "Czy na pewno chcesz usunąć %s? To odłączy urządzenie od Twojego konta.",
     "family device header add": "Dodaj urządzenie",
     "family device header link": "Połącz urządzenie",
-    "family device label internet": "Kontrola Internetu",
+    "family device label internet": "KONTROLA INTERNETU",
     "family device brief internet": "Zarządzaj dostępem do Internetu dla tego urządzenia.",
     "family device label internet on": "Filtrowanie treści",
     "family device brief internet on": "Blokuje szkodliwe i nieodpowiednie strony zgodnie z Twoimi filtrami i listami blokad.",
@@ -540,5 +540,10 @@
     "notification new message title": "Nowa wiadomość",
     "onboard header": "Nigdy więcej reklam.\nSerio.",
     "onboard desc": "Blokuj reklamy i trackery za pomocą naszej aplikacji premium. Ciesz się szybszym przeglądaniem Internetu, lepszą prywatnością i mniejszym zużyciem danych.",
-    "onboard terms": "Kontynuując, akceptujesz nasze warunki korzystania z usługi i potwierdzasz otrzymanie naszej polityki prywatności."
+    "onboard terms": "Kontynuując, akceptujesz nasze warunki korzystania z usługi i potwierdzasz otrzymanie naszej polityki prywatności.",
+    "onboard safari header": "Want to block video ads?",
+    "onboard safari brief": "Enable our extension in Safari to block video ads while browsing.",
+    "onboard safari step 2": "Manage Extensions",
+    "onboard safari cta": "Open YouTube in Safari",
+    "onboard safari skip": "Skip for now"
 } }

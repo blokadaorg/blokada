@@ -483,7 +483,7 @@
     <string name="family_device_delete_confirm">Weet je zeker dat je %swilt verwijderen? Dit zal het apparaat loskoppelen van je account.</string>
     <string name="family_device_header_add">Apparaat toevoegen</string>
     <string name="family_device_header_link">Koppel een apparaat</string>
-    <string name="family_device_label_internet">Internetbeheer</string>
+    <string name="family_device_label_internet">INTERNETBEHEER</string>
     <string name="family_device_brief_internet">Beheer de internettoegang voor dit apparaat.</string>
     <string name="family_device_label_internet_on">Inhoud filteren</string>
     <string name="family_device_brief_internet_on">Blokkeert schadelijke en ongepaste websites volgens je filters en blokkeerlijsten.</string>
@@ -542,4 +542,9 @@
     <string name="onboard_header">Geen advertenties meer.\nEcht waar.</string>
     <string name="onboard_desc">Blokkeer advertenties en trackers overal met onze premium app. Geniet van sneller browsen, betere privacy en minder dataverbruik.</string>
     <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>

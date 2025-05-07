@@ -542,4 +542,9 @@
     <string name="onboard_header">Больше никакой рекламы.\nСерьезно.</string>
     <string name="onboard_desc">Блокируйте рекламу и трекеры повсюду с помощью нашего премиум-приложения. Наслаждайтесь более быстрым просмотром веб-страниц, повышением конфиденциальности и снижением потребления данных.</string>
     <string name="onboard_terms">Продолжая, вы принимаете наши Условия предоставления услуг и подтверждаете получение нашей Политики конфиденциальности.</string>
+    <string name="onboard_safari_header">Want to block video ads?</string>
+    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
+    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_cta">Open YouTube in Safari</string>
+    <string name="onboard_safari_skip">Skip for now</string>
 </resources>
