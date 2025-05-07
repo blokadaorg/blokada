@@ -8,12 +8,15 @@
         "description": "Description of what the extension does."
     },
     "status_enabled": {
-        "message": "Safari Extension Enabled!"
+        "message": "Safari Extension Enabled!",
+        "description": "Shown in the popup when the extension is active."
     },
     "status_inactive": {
-        "message": "Check status in Blokada"
+        "message": "Check status in Blokada",
+        "description": "Shown in the popup when the extension appears to be inactive."
     },
     "open_app": {
-        "message": "Open Blokada"
+        "message": "Open Blokada",
+        "description": "Text on the button that opens the main app."
     }
 }
