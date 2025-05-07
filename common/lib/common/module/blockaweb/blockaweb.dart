@@ -51,11 +51,11 @@ class BlockaWebActor with Actor, Logging {
     // Fresh onboarding case, show onboard
     if (ping == null) return true;
 
-    // Extension seen long ago, show onboard
-    final oneDayAgo = DateTime.now().subtract(const Duration(minutes: 5));
-    if (ping.timestamp.isBefore(oneDayAgo)) {
-      return true;
-    }
+    // // Extension seen long ago, show onboard
+    // final oneDayAgo = DateTime.now().subtract(const Duration(minutes: 5));
+    // if (ping.timestamp.isBefore(oneDayAgo)) {
+    //   return true;
+    // }
 
     // Extension seen recently, no need to onboard
     return false;
