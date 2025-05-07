@@ -28,6 +28,15 @@
                 "https://m.youtube.com/*",
                 "https://www.youtube-nocookie.com/*"
             ]
+        },
+        {
+            "run_at": "document_end",
+            "js": [
+                "ping.js"
+            ],
+            "matches": [
+                "https://go.blokada.org/howto/*"
+            ]
         }
     ],
     "permissions": [
