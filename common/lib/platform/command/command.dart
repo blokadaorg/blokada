@@ -162,8 +162,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
   _executeUrl(String url, Marker m) async {
     try {
-      // Family link device
       if (url.startsWith(familyLinkBase)) {
+        // Family link device
         final tag = url.split("tag=").last.split("&").first.trim();
         final name = url.split("name=").last.urlDecode.trim();
         if (tag.isEmpty || name.isEmpty) {
@@ -172,6 +172,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
         return await onCommandWithParam("FAMILYLINK", tag, m);
       } else if (url.startsWith(onboardLinkBase)) {
+        // Show onboard
         final screen = url.split("screen=").last.trim();
         if (screen.isEmpty) {
           throw Exception("Unknown onboard screen parameter");
@@ -179,7 +180,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
         return await onCommandWithParam(cmdOnboard, screen, m);
       } else {
-        throw Exception("Unsupported url: $url");
+        // Any other url just should open the app, do nothing
       }
     } catch (e) {
       await _stage.showModal(StageModal.fault, m);
