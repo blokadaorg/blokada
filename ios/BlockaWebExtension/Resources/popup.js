@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Open main app when button clicked
   openBtn.addEventListener('click', () => {
-    const appUrl = 'https://go.blokada.org/six/';
+    const appUrl = 'six://go.blokada.org/six/';
     window.open(appUrl, '_blank');
   });
 });

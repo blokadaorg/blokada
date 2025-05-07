@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>net.blocka.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>six</string>
+			</array>
+		</dict>
+	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>net.blocka.app.expiration</string>
@@ -9,7 +20,9 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-	    <string>fetch</string>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -52,12 +65,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -79,6 +86,5 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is used to scan QR codes for linking account.</string>
-
 </dict>
 </plist>

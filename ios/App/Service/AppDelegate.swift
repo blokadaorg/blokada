@@ -192,6 +192,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    // Handle custom URL scheme (six:// etc) for linking from web extension or else (just open app)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.scheme == "six" {
+            return true
+        }
+        return false
+    }
 }
 
 // Copied from WG - not sure if important
