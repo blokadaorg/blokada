@@ -8,12 +8,15 @@
     "description": "Description of what the extension does."
   },
   "status_enabled": {
-    "message": "تم تفعيل إضافة Safari!"
+    "message": "تم تفعيل إضافة Safari!",
+    "description": "Shown in the popup when the extension is active."
   },
   "status_inactive": {
-    "message": "تحقّق من الحالة في تطبيق Blokada"
+    "message": "تحقّق من الحالة في تطبيق Blokada",
+    "description": "Shown in the popup when the extension appears to be inactive."
   },
   "open_app": {
-    "message": "افتح Blokada"
+    "message": "افتح Blokada",
+    "description": "Text on the button that opens the main app."
   }
 }

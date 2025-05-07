@@ -8,12 +8,15 @@
     "description": "Description of what the extension does."
   },
   "status_enabled": {
-    "message": "Safari-tillägget är aktiverat!"
+    "message": "Safari-tillägget är aktiverat!",
+    "description": "Shown in the popup when the extension is active."
   },
   "status_inactive": {
-    "message": "Kontrollera status i Blokada"
+    "message": "Kontrollera status i Blokada",
+    "description": "Shown in the popup when the extension appears to be inactive."
   },
   "open_app": {
-    "message": "Öppna Blokada"
+    "message": "Öppna Blokada",
+    "description": "Text on the button that opens the main app."
   }
 }
