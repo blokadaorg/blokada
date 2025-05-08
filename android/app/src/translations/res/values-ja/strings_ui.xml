@@ -542,9 +542,9 @@
     <string name="onboard_header">No more ads.\nSeriously.</string>
     <string name="onboard_desc">Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.</string>
     <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">動画広告をブロックしますか？</string>
+    <string name="onboard_safari_brief">Safariで拡張機能を有効にして、閲覧中の動画広告をブロックしてください。</string>
+    <string name="onboard_safari_step_two">拡張機能を管理</string>
+    <string name="onboard_safari_cta">SafariでYouTubeを開く</string>
+    <string name="onboard_safari_skip">今はスキップ</string>
 </resources>

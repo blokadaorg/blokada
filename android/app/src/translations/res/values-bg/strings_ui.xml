@@ -483,14 +483,14 @@
     <string name="family_device_delete_confirm">Сигурни ли сте, че искате да изтриете %s? Това ще прекъсне връзката на устройството с вашия профил.</string>
     <string name="family_device_header_add">Добавяне на устройство</string>
     <string name="family_device_header_link">Свързване на устройство</string>
-    <string name="family_device_label_internet">INTERNET CONTROL</string>
-    <string name="family_device_brief_internet">Manage Internet access for this device.</string>
-    <string name="family_device_label_internet_on">Filter Content</string>
-    <string name="family_device_brief_internet_on">Blocks harmful and inappropriate sites according to your filters and blocklists.</string>
-    <string name="family_device_label_internet_off">Allow All</string>
-    <string name="family_device_brief_internet_off">No content is blocked. The Internet is fully open.</string>
-    <string name="family_device_label_internet_block">Block All</string>
-    <string name="family_device_brief_internet_block">Stops all Internet access on the device.</string>
+    <string name="family_device_label_internet">КОНТРОЛ НА ИНТЕРНЕТ</string>
+    <string name="family_device_brief_internet">Управление на достъпа до интернет за това устройство.</string>
+    <string name="family_device_label_internet_on">Съдържание на филтъра</string>
+    <string name="family_device_brief_internet_on">Блокира вредни и неподходящи сайтове в съответствие с вашите блокиращи филтри и списъци.</string>
+    <string name="family_device_label_internet_off">Разрешаване на всички</string>
+    <string name="family_device_brief_internet_off">Не се блокира никакво съдържание. Интернет е напълно отворен.</string>
+    <string name="family_device_label_internet_block">Блокиране на всички</string>
+    <string name="family_device_brief_internet_block">Спира целия достъп на устройството до интернет.</string>
     <string name="family_perms_header">Още едно нещо</string>
     <string name="family_perms_brief_alt">Активирайте \"%s\" в Настройки, като навигирате, както е показано по-долу.</string>
     <string name="family_perms_setting_ios_general">Общи</string>
@@ -542,9 +542,9 @@
     <string name="onboard_header">Без повече реклами.\nСериозно.</string>
     <string name="onboard_desc">Блокирайте навсякъде реклами и тракери с нашето премиум приложение. Насладете се на по-бързо сърфиране, по-добра поверителност и намалено използване на данни.</string>
     <string name="onboard_terms">Продължавайки, вие приемате нашите Условия за ползване и потвърждавате, че сте съгласни с нашата Политика за поверителност.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">Искате да блокирате видео реклами?</string>
+    <string name="onboard_safari_brief">Активирайте нашето разширение в Safari, за да блокирате видео реклами по време на сърфирането.</string>
+    <string name="onboard_safari_step_two">Управление на разширенията</string>
+    <string name="onboard_safari_cta">Отваряне на YouTube в Safari</string>
+    <string name="onboard_safari_skip">Пропусни за сега</string>
 </resources>

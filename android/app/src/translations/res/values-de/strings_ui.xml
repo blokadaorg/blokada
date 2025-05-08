@@ -542,9 +542,9 @@
     <string name="onboard_header">Keine Werbung mehr.\nWirklich.</string>
     <string name="onboard_desc">Blockiere Werbung und Tracker überall mit unserer Premium-App. Genieße schnelleres Surfen, besseren Datenschutz und geringeren Datenverbrauch.</string>
     <string name="onboard_terms">Indem Sie fortfahren, akzeptieren Sie unsere Nutzungsbedingungen und erkennen den Erhalt unserer Datenschutzerklärung.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">Möchtest du Videoanzeigen blockieren?</string>
+    <string name="onboard_safari_brief">Aktiviere unsere Erweiterung in Safari, um Videoanzeigen beim Surfen zu blockieren.</string>
+    <string name="onboard_safari_step_two">Erweiterungen verwalten</string>
+    <string name="onboard_safari_cta">YouTube in Safari öffnen</string>
+    <string name="onboard_safari_skip">Jetzt überspringen</string>
 </resources>

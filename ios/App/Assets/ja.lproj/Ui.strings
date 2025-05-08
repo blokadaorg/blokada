@@ -752,8 +752,8 @@
 "onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
 "onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "動画広告をブロックしますか？";
+"onboard safari brief" = "Safariで拡張機能を有効にして、閲覧中の動画広告をブロックしてください。";
+"onboard safari step 2" = "拡張機能を管理";
+"onboard safari cta" = "SafariでYouTubeを開く";
+"onboard safari skip" = "今はスキップ";

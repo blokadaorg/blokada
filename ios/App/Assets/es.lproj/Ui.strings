@@ -751,8 +751,8 @@
 "onboard desc" = "Bloquea anuncios y rastreadores en todas partes con nuestra app premium. Disfruta de una navegación más rápida, mayor privacidad y menor uso de datos.";
 "onboard terms" = "Al continuar usted acepta nuestros Términos de Servicio y reconoce la recepción de nuestra Política de Privacidad.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "¿Quieres bloquear los anuncios en vídeo?";
+"onboard safari brief" = "Activa nuestra extensión en Safari para bloquear anuncios en vídeo mientras navegas.";
+"onboard safari step 2" = "Administrar extensiones";
+"onboard safari cta" = "Abrir YouTube en Safari";
+"onboard safari skip" = "Omitir por ahora";

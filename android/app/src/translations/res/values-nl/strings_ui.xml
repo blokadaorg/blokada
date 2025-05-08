@@ -542,9 +542,9 @@
     <string name="onboard_header">Geen advertenties meer.\nEcht waar.</string>
     <string name="onboard_desc">Blokkeer advertenties en trackers overal met onze premium app. Geniet van sneller browsen, betere privacy en minder dataverbruik.</string>
     <string name="onboard_terms">By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
+    <string name="onboard_safari_header">Wil je video-advertenties blokkeren?</string>
+    <string name="onboard_safari_brief">Schakel onze extensie in Safari in om video-advertenties tijdens het browsen te blokkeren.</string>
+    <string name="onboard_safari_step_two">Extensies beheren</string>
     <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_skip">Voor nu overslaan</string>
 </resources>

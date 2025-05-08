@@ -486,7 +486,7 @@
     <string name="family_device_label_internet">KONTROLA INTERNETU</string>
     <string name="family_device_brief_internet">Zarządzaj dostępem do Internetu dla tego urządzenia.</string>
     <string name="family_device_label_internet_on">Filtrowanie treści</string>
-    <string name="family_device_brief_internet_on">Blokuje szkodliwe i nieodpowiednie strony zgodnie z Twoimi filtrami i listami blokad.</string>
+    <string name="family_device_brief_internet_on">Blokuje szkodliwe i nieodpowiednie strony zgodnie z Twoimi filtrami i bloklistami.</string>
     <string name="family_device_label_internet_off">Zezwól na wszystko</string>
     <string name="family_device_brief_internet_off">Żadne treści nie są blokowane. Internet jest całkowicie otwarty.</string>
     <string name="family_device_label_internet_block">Zablokuj wszystko</string>
@@ -542,9 +542,9 @@
     <string name="onboard_header">Nigdy więcej reklam.\nSerio.</string>
     <string name="onboard_desc">Blokuj reklamy i trackery za pomocą naszej aplikacji premium. Ciesz się szybszym przeglądaniem Internetu, lepszą prywatnością i mniejszym zużyciem danych.</string>
     <string name="onboard_terms">Kontynuując, akceptujesz nasze warunki korzystania z usługi i potwierdzasz otrzymanie naszej polityki prywatności.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">Chcesz zablokować reklamy wideo?</string>
+    <string name="onboard_safari_brief">Włącz nasze rozszerzenie w Safari, aby blokować reklamy wideo podczas oglądania.</string>
+    <string name="onboard_safari_step_two">Zarządzaj rozszerzeniami</string>
+    <string name="onboard_safari_cta">Otwórz YouTube w Safari</string>
+    <string name="onboard_safari_skip">Pomiń na razie</string>
 </resources>
