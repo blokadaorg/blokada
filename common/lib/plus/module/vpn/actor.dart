@@ -166,7 +166,7 @@ class VpnActor with Logging, Actor {
   }
 
   Future<bool> _onOngoingTimerFired(Marker m) async {
-    log(m).i("VPN ongoing status too long");
+    log(m).e(msg: "VPN ongoing status too long");
     await setActualStatus("deactivated", m);
     return false;
   }
