@@ -20,7 +20,7 @@ import 'package:common/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
+import 'package:input_code_field/input_code_field.dart';
 
 import '../../module/lock/lock.dart';
 
@@ -341,37 +341,43 @@ void _showPinDialog(
   required Function(String) onConfirm,
   required Function() onRemove,
 }) {
-  final pinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: TextStyle(
-        fontSize: 22, color: context.theme.accent, fontWeight: FontWeight.w500),
-    decoration: BoxDecoration(
-      border: Border.all(color: context.theme.divider),
-      borderRadius: BorderRadius.circular(16),
-    ),
-  );
+  late final InputCodeControl ctrl = InputCodeControl(inputRegex: '^[0-9]*\$');
 
   showDefaultDialog(
     context,
     title: Text(title),
-    content: (context) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(desc),
-        const SizedBox(height: 16),
-        Material(
-          color: Colors.transparent,
-          child: Pinput(
-            defaultPinTheme: pinTheme,
-            onCompleted: (pin) {
-              Navigator.of(context).pop();
-              onConfirm(pin);
-            },
+    content: (context) {
+      ctrl.done(() {
+        Navigator.of(context).pop();
+        onConfirm(ctrl.value);
+      });
+
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(desc),
+          const SizedBox(height: 16),
+          Material(
+            color: Colors.transparent,
+            child: InputCodeField(
+              control: ctrl,
+              count: 4,
+              inputType: TextInputType.number,
+              decoration: InputCodeDecoration(
+                  focusColor: context.theme.accent,
+                  box: BoxDecoration(
+                    border: Border.all(color: context.theme.divider),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBox: BoxDecoration(
+                    border: Border.all(color: context.theme.accent),
+                    borderRadius: BorderRadius.circular(16),
+                  )),
+            ),
           ),
-        ),
-      ],
-    ),
+        ],
+      );
+    },
     actions: (context) => [
       TextButton(
         onPressed: () => Navigator.of(context).pop(),

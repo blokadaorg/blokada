@@ -47,7 +47,6 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   qr_flutter: ^4.1.0
   animations: ^2.0.11
-  pinput: ^4.0.0
   provider: ^6.1.2
   timeago: ^3.6.1
   mockito: ^5.3.2
@@ -55,6 +54,7 @@ dependencies:
   flutter_chat_ui: ^1.6.15
   logger: ^2.4.0
   adapty_flutter: ^3.4.0
+  input_code_field: ^2.0.2
 
 dependency_overrides:
   syncfusion_flutter_charts:
