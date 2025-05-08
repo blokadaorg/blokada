@@ -116,4 +116,7 @@ object PermBinding : PermOps {
         }
     }
 
+    override fun doOpenSafari(callback: (Result<Unit>) -> Unit) {
+        callback(Result.failure(Exception("No Safari on Android")))
+    }
 }
