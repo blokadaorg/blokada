@@ -12,7 +12,7 @@ part 'value.dart';
 class V6OnboardModule with Module {
   @override
   onCreateModule() async {
-    await register(V6PrivateDnsStringProvider());
+    await register<PrivateDnsStringProvider>(V6PrivateDnsStringProvider());
     await register(V6OnboardActor());
   }
 }
