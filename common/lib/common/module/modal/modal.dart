@@ -9,7 +9,11 @@ enum Modal {
   familyLinkDevice,
 }
 
-class CurrentModalValue extends NullableAsyncValue<Modal> {}
+class CurrentModalValue extends NullableAsyncValue<Modal> {
+  CurrentModalValue() : super() {
+    load = (Marker m) async => null;
+  }
+}
 
 class CurrentModalWidgetValue extends AsyncValue<WidgetBuilder> {}
 
@@ -27,6 +31,8 @@ class ModalActor with Actor {
 
   @override
   Future<void> onStart(Marker m) async {
+    await _modal.fetch(m);
+
     // Since our bottom sheet displaying library does not support informing
     // us about when the sheet is closed, we use delay to reset state so that
     // we can show another (or same) sheet.
