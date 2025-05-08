@@ -131,15 +131,6 @@ class LeaseApi {
     }
   }
 
-  Future<void> deleteLeaseByGateway(
-      String keypairPublicKey, String gatewayId, Marker m) async {
-    final payload =
-        JsonLeasePayload(publicKey: keypairPublicKey, gatewayId: gatewayId);
-
-    await _api.request(ApiEndpoint.deleteLeaseV2, m,
-        payload: _marshal.fromPayload(payload));
-  }
-
   Future<void> deleteLease(JsonLeasePayload payload, Marker m) async {
     await _api.request(ApiEndpoint.deleteLeaseV2, m,
         payload: _marshal.fromPayload(payload));

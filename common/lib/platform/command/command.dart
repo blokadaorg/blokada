@@ -1,3 +1,4 @@
+import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/core/core.dart';
@@ -41,7 +42,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "APPLENOTIFICATIONTOKEN",
     "NEWPLUS",
     "VPNSTATUS",
-    "SKIPBYPASSLIST",
+    commandLogLevel.toUpperCase(),
+    commandSkipBypass.toUpperCase(),
     cmdPaymentHandleSuccess.toUpperCase(),
     cmdPaymentHandleFailure.toUpperCase(),
     cmdPaymentHandleScreenClosed.toUpperCase(),

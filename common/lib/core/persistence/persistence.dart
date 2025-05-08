@@ -32,7 +32,7 @@ class Persistence with Logging {
     try {
       final result = await _channel.doLoad(key, isSecure, isBackup);
 
-      log(m).t("load ($isSecure/$isBackup)");
+      log(m).t("load (s:$isSecure, b:$isBackup)");
       log(m).logt(msg: "key: $key", attr: {"value": result}, sensitive: true);
 
       return result;
@@ -47,15 +47,14 @@ class Persistence with Logging {
       {bool isBackup = false}) async {
     final result = await _channel.doLoad(key, isSecure, isBackup);
 
-    log(m).t("loadJson ($isSecure/$isBackup)");
+    log(m).t("loadJson (s:$isSecure, b:$isBackup)");
     log(m).logt(msg: "key: $key", attr: {"value": result}, sensitive: true);
 
     return jsonDecode(result);
   }
 
-  save(Marker m, String key, String value,
-      {bool isBackup = false}) async {
-    log(m).t("save ($isSecure/$isBackup)");
+  save(Marker m, String key, String value, {bool isBackup = false}) async {
+    log(m).t("save (s:$isSecure, b:$isBackup)");
     log(m).logt(msg: "key: $key", attr: {"value": value}, sensitive: true);
 
     await _channel.doSave(key, value, isSecure, isBackup);
@@ -63,14 +62,14 @@ class Persistence with Logging {
 
   saveJson(Marker m, String key, Map<String, dynamic> json,
       {bool isBackup = false}) async {
-    log(m).t("save ($isSecure/$isBackup)");
+    log(m).t("save (s:$isSecure, b:$isBackup)");
     log(m).logt(msg: "key: $key", attr: {"value": json}, sensitive: true);
 
     await _channel.doSave(key, jsonEncode(json), isSecure, isBackup);
   }
 
   delete(Marker m, String key, {bool isBackup = false}) async {
-    log(m).t("delete ($isSecure/$isBackup)");
+    log(m).t("delete (s:$isSecure, b:$isBackup)");
 
     await _channel.doDelete(key, isSecure, isBackup);
   }

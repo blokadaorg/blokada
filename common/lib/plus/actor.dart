@@ -35,17 +35,13 @@ class PlusActor with Logging, Actor {
 
       _currentLease.onChange.listen((change) async {
         if (change.now == null) {
-          await log(change.m).trace("currentLeaseDropped", (m) async {
-            await reactToPlusLost(m);
-          });
+          await reactToPlusLost(m, "current lease dropped");
         }
       });
 
       _currentGateway.onChange.listen((change) async {
         if (change.now == null) {
-          await log(change.m).trace("currentGatewayDropped", (m) async {
-            await reactToPlusLost(m);
-          });
+          await reactToPlusLost(m, "current gateway dropped");
         }
       });
 
@@ -183,8 +179,9 @@ class PlusActor with Logging, Actor {
     }
   }
 
-  reactToPlusLost(Marker m) async {
+  reactToPlusLost(Marker m, String reason) async {
     return await log(m).trace("reactToPlusLost", (m) async {
+      log(m).w("Lost Plus, reason: $reason");
       final plusEnabled = await _plusEnabled.now();
       if (plusEnabled || _vpnStatus.now.isActive()) {
         await _plusEnabled.change(m, false);

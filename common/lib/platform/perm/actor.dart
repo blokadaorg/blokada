@@ -74,7 +74,9 @@ class PlatformPermActor with Logging, Actor {
       if (enabled != _vpnEnabled.present) {
         await _vpnEnabled.change(m, enabled);
         if (!enabled) {
-          if (!Core.act.isFamily) await _plus.reactToPlusLost(m);
+          if (!Core.act.isFamily) {
+            await _plus.reactToPlusLost(m, "VPN perm disabled");
+          }
           await _app.plusActivated(false, m);
         }
         await _app.plusPermEnabled(enabled, m);

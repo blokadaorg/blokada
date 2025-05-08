@@ -28,8 +28,8 @@ abstract class PlusChannel
 class PlusModule with Module {
   @override
   Submodules onRegisterSubmodules() async => [
-        GatewayModule(),
         KeypairModule(),
+        GatewayModule(),
         LeaseModule(),
         VpnModule(),
       ];

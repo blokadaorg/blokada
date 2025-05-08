@@ -1,6 +1,9 @@
 import 'package:common/core/core.dart';
 import 'package:flutter/foundation.dart';
 
+const commandLogLevel = "logLevel";
+const commandSkipBypass = "skipBypassList";
+
 // Used by support to ask for detailed logs when troubleshooting
 class ConfigLogLevel extends StringPersistedValue {
   ConfigLogLevel() : super("config:logLevel");
@@ -19,8 +22,8 @@ class ConfigCommand with Command, Logging {
   @override
   List<CommandSpec> onRegisterCommands() {
     return [
-      registerCommand("logLevel", argsNum: 1, fn: cmdLogLevel),
-      registerCommand("skipBypassList", argsNum: 1, fn: cmdSkipBypassList),
+      registerCommand(commandLogLevel, argsNum: 1, fn: cmdLogLevel),
+      registerCommand(commandSkipBypass, argsNum: 1, fn: cmdSkipBypassList),
     ];
   }
 
