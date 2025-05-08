@@ -14,20 +14,20 @@ FASTLANE := fastlane
 # Build everything from scratch (release)
 build:
 	pod repo update
-	pod install
+	pod install --repo-update
 	$(MAKE) ipa-family
 	$(MAKE) ipa-six
 
 # Build .ipa of family (release) - with pods
 build-family:
 	pod repo update
-	pod install
+	pod install --repo-update
 	$(MAKE) ipa-family
 
 # Build .ipa of six (release) - with pods
 build-six:
 	pod repo update
-	pod install
+	pod install --repo-update
 	$(MAKE) ipa-six
 
 # Build .ipa of family (release)
