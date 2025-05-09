@@ -446,3 +446,17 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
+- name: pull github
+  steps:
+  - !PullRepository
+    name: pull
+    remoteUrl: https://github.com/blokadaorg/blokada.git
+    passwordSecret: GITHUB_ACCESS
+    refs: refs/heads/* refs/tags/*
+    withLfs: false
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
