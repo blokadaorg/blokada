@@ -173,14 +173,14 @@ class CommandStore with Logging, Actor implements CommandEvents {
         }
 
         return await onCommandWithParam("FAMILYLINK", tag, m);
-      } else if (url.startsWith(onboardLinkBase)) {
-        // Show onboard
-        final screen = url.split("screen=").last.trim();
-        if (screen.isEmpty) {
-          throw Exception("Unknown onboard screen parameter");
-        }
-
-        return await onCommandWithParam(cmdOnboard, screen, m);
+        // } else if (url.startsWith(onboardLinkBase)) {
+        //   // Show onboard
+        //   final screen = url.split("screen=").last.trim();
+        //   if (screen.isEmpty) {
+        //     throw Exception("Unknown onboard screen parameter");
+        //   }
+        //
+        //   return await onCommandWithParam(cmdOnboard, screen, m);
       } else {
         // Any other url just should open the app, do nothing
       }
