@@ -1,5 +1,6 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
+import 'package:dartx/dartx.dart';
 
 class PrivateDnsCheck with Actor, Logging {
   void onRegister() {
@@ -7,6 +8,10 @@ class PrivateDnsCheck with Actor, Logging {
   }
 
   bool isCorrect(Marker m, String line, DeviceTag tag, String alias) {
+    if (line.contains("%")) {
+      line = line.urlDecode;
+    }
+
     log(m).pair("current dns", line);
 
     var expected = _getIosPrivateDnsStringV6(m, tag, alias);
