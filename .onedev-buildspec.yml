@@ -448,6 +448,12 @@ jobs:
   timeout: 14400
 - name: pull github
   steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PullRepository
     name: pull
     remoteUrl: https://github.com/blokadaorg/blokada.git
