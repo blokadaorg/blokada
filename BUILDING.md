@@ -56,4 +56,10 @@ fastlane match development
 ...
 ```
 
+If there are any problems with iOS dependencies, you may need to do (in ios dir):
+```
+$ rm Podfile.lock
+$ pod install --repo-update
+```
+
 Now see fastlane/README.md for more details on how to build the apps.
