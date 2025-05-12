@@ -455,6 +455,9 @@ jobs:
     withLfs: false
     force: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !ScheduleTrigger
+    cronExpression: 0 * 7-19 ? * MON-FRI
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
