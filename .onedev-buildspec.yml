@@ -451,7 +451,6 @@ jobs:
   - !PullRepository
     name: pull
     remoteUrl: https://github.com/blokadaorg/blokada.git
-    passwordSecret: GITHUB_ACCESS
     refs: refs/heads/* refs/tags/*
     withLfs: false
     force: false
