@@ -16,9 +16,9 @@ test:
 	$(FLUTTER) test
 
 clean:
+	$(FLUTTER) pub cache clean -f
+	rm pubspec.lock
 	$(FLUTTER) clean
-	rm -rf ~/.pub-cache
-	rm -rf ~/.dart_tool
 
 
 # Build everything from scratch (release)
