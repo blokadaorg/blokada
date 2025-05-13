@@ -53,7 +53,7 @@ dependencies:
   i18n_extension_importer: ^0.0.6
   flutter_chat_ui: ^1.6.15
   logger: ^2.4.0
-  adapty_flutter: ^3.4.0
+  adapty_flutter: ^3.6.0
   input_code_field: ^2.0.2
 
 dependency_overrides:

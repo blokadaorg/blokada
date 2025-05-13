@@ -173,4 +173,10 @@ class AdaptyPaymentChannel
 
   @override
   void paywallViewDidStartRestore(AdaptyUIView view) {}
+
+  void paywallViewDidFinishWebPaymentNavigation(
+    AdaptyUIView view,
+    AdaptyPaywallProduct? product,
+    AdaptyError? error,
+  ) {}
 }
