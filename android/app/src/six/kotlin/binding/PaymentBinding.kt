@@ -377,12 +377,10 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
     // New methods added in adapty 3.6.0
     override fun onPaywallShown(context: Context) {
-        TODO("Not yet implemented")
     }
 
     // New methods added in adapty 3.6.0
     override fun onPaywallClosed() {
-        TODO("Not yet implemented")
     }
 
     private fun closePaymentScreen() {
