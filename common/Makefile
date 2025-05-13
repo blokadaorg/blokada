@@ -16,8 +16,6 @@ test:
 	$(FLUTTER) test
 
 clean:
-	$(FLUTTER) pub cache clean -f
-	rm -f pubspec.lock
 	$(FLUTTER) clean
 
 
