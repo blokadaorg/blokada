@@ -99,6 +99,7 @@ jobs:
     runInContainer: false
     interpreter: !DefaultInterpreter
       commands: |
+        flutter precache --force
         make ci-test
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
