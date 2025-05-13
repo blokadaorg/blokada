@@ -92,6 +92,7 @@ class PlusActor with Logging, Actor {
         await _vpn.turnVpnOff(m);
 
         if (active) {
+          await _lease.fetch(m);
           final l = await _currentLease.now();
           final k = await _currentKeypair.now();
           final g = await _currentGateway.now();

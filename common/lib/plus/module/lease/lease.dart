@@ -33,6 +33,11 @@ class Lease {
     required this.vip4,
     required this.vip6,
   });
+
+  @override
+  String toString() {
+    return 'Lease{publicKey: $publicKey, gatewayId: $gatewayId, expires: $expires, alias: $alias}';
+  }
 }
 
 mixin LeaseChannel {

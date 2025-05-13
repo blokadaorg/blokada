@@ -31,7 +31,6 @@ class BlockaWebActor with Actor, Logging {
   @override
   onStart(Marker m) async {
     await _appStatus.fetch(m);
-    await _ping.fetch(m);
 
     reactionOnStore((_) => _app.status, (retention) async {
       _appActive = _app.status.isActive();
@@ -41,8 +40,8 @@ class BlockaWebActor with Actor, Logging {
     _account.onChangeInstant(_updateStatusFromAccount);
   }
 
-  Future<bool> needsOnboard() async {
-    final ping = await _ping.now();
+  Future<bool> needsOnboard(Marker m) async {
+    final ping = await _ping.fetch(m);
     final userSkipped = await _onboardSafari.now();
 
     // Uer skipped onboarding, leave them alone
