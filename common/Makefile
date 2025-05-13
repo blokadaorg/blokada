@@ -17,6 +17,9 @@ test:
 
 clean:
 	$(FLUTTER) clean
+	rm -rf ~/.pub-cache
+	rm -rf ~/.dart_tool
+
 
 # Build everything from scratch (release)
 build: pub gen-android gen-ios runner lib

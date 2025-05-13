@@ -29,7 +29,7 @@ ADAPTY_VER := 3_4.0
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
-	ci-copy-source \
+	ci-copy-source ci-test \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
@@ -227,23 +227,31 @@ ci-copy-source:
 
 # CI: build android family app from scratch
 ci-build-android-family:
+	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-android-family
 
 # CI: build android six app from scratch
 ci-build-android-six:
+	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-android-six
 
 # CI: build ios family app from scratch
 ci-build-ios-family:
+	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-ios-family
 
 # CI: build ios six app from scratch
 ci-build-ios-six:
+	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-ios-six
+
+ci-test:
+	$(MAKE) clean
+	$(MAKE) test
 
 # Put Adapty fallback paywalls in the right places. uses DIR
 adapty-paywalls:
