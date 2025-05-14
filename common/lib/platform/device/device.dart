@@ -39,7 +39,6 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     _account.addOn(accountIdChanged, fetch);
   }
 
-  @override
   onRegister() {
     Core.register<DeviceApi>(DeviceApi());
     Core.register<DeviceStore>(this as DeviceStore);

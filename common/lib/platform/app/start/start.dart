@@ -56,15 +56,19 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       _paused = true;
     }
 
+    if (Core.act.isFamily) return;
+
     // If cloud onboard has just changed
     if (_cloudPermEnabled != _app.conditions.cloudPermEnabled) {
       _cloudPermEnabled = _app.conditions.cloudPermEnabled;
 
       if (_app.conditions.cloudPermEnabled) {
-        // Just got the perms, auto start the app
-        await log(Markers.start).trace("autoStartAfterPerms", (m) async {
-          await unpauseApp(m);
-        });
+        if (_device.cloudEnabled == true) {
+          // Just got the perms, auto start the app
+          await log(Markers.start).trace("autoStartAfterPerms", (m) async {
+            await unpauseApp(m);
+          });
+        }
       } else {
         // Just lost the perms, show the perms screen
         _modal.change(m, Modal.onboardPrivateDns);
