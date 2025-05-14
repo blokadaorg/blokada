@@ -227,25 +227,21 @@ ci-copy-source:
 
 # CI: build android family app from scratch
 ci-build-android-family:
-	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-android-family
 
 # CI: build android six app from scratch
 ci-build-android-six:
-	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-android-six
 
 # CI: build ios family app from scratch
 ci-build-ios-family:
-	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-ios-family
 
 # CI: build ios six app from scratch
 ci-build-ios-six:
-	$(MAKE) clean
 	$(MAKE) version
 	$(MAKE) build-ios-six
 
