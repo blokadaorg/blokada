@@ -16,9 +16,6 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import binding.AppBinding
 import binding.isActive
-import binding.isWorking
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -30,19 +27,18 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
     private val log = Logger("QSTile")
     private val app by lazy { AppBinding }
-    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
     private var tileActive = false
 
     init {
-        scope.launch {
+        GlobalScope.launch {
             app.appStatus.collect { syncStatus() }
         }
     }
 
     override fun onStartListening() {
         tileActive = true
-        scope.launch { syncStatus() }
+        GlobalScope.launch { syncStatus() }
     }
 
     override fun onStopListening() {
@@ -50,18 +46,18 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     }
 
     override fun onTileAdded() {
-        scope.launch { syncStatus() }
+        GlobalScope.launch { syncStatus() }
     }
 
     override fun onClick() {
-        scope.launch {
+        GlobalScope.launch {
             syncStatus()?.let { isActive ->
                 if (isActive) {
                     log.v("Turning off from QuickSettings")
-                    app.pause()
+                    executeCommand(Command.OFF)
                 } else {
                     log.v("Turning on from QuickSettings")
-                    app.unpause()
+                    executeCommand(Command.ON)
                 }
             }
         }
@@ -73,17 +69,10 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
         return when {
             tile == null -> null
-
-            state.isWorking() -> {
-                showWorking(tile)
-                true
-            }
-
             state.isActive() -> {
                 showOn(tile)
                 true
             }
-
             else -> {
                 showOff(tile)
                 false
@@ -100,12 +89,6 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     private fun showOn(qsTile: Tile) {
         qsTile.state = Tile.STATE_ACTIVE
         qsTile.label = getString(R.string.home_status_active)
-        updateTile(qsTile)
-    }
-
-    private fun showWorking(qsTile: Tile) {
-        qsTile.state = Tile.STATE_ACTIVE
-        qsTile.label = getString(R.string.home_status_detail_progress)
         updateTile(qsTile)
     }
 

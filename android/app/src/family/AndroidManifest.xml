@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ This file is part of Blokada.
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,9 +16,7 @@
     android:sharedUserId="org.blokada.family"
     android:sharedUserMaxSdkVersion="32">
 
-    <meta-data
-        android:name="isMonitoringTool"
-        android:value="child_monitoring" />
+    <meta-data android:name="isMonitoringTool" android:value="child_monitoring" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -27,7 +26,7 @@
 
     <uses-permission
         android:name="android.permission.REQUEST_INSTALL_PACKAGES"
-        tools:node="remove" />
+        tools:node="remove"/>
 
     <application>
         <activity
@@ -65,16 +64,5 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name="ui.QuickSettingsToggle"
-            android:icon="@drawable/blokada_logo"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
     </application>
 </manifest>
