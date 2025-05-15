@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * Copyright © 2021 Blocka AB. All rights reserved.
+ * Copyright © 2025 Blocka AB. All rights reserved.
  *
  * @author Karol Gusak (karol@blocka.net)
  */
@@ -17,20 +17,27 @@ import android.service.quicksettings.TileService
 import binding.AppBinding
 import binding.isActive
 import binding.isWorking
+import channel.app.AppStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.blokada.R
+import service.NOTIF_QUICKSETTINGS
+import service.NotificationService
 import utils.FlavorSpecific
 import utils.Logger
+import utils.QuickSettingsNotification
+
+private typealias IsActive = Boolean
+private typealias IsVpn = Boolean
 
 class QuickSettingsToggle : TileService(), FlavorSpecific {
 
     private val log = Logger("QSTile")
     private val app by lazy { AppBinding }
     private val scope by lazy { CoroutineScope(Dispatchers.Main) }
+    private val notification by lazy { NotificationService }
 
     private var tileActive = false
 
@@ -55,19 +62,21 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
 
     override fun onClick() {
         scope.launch {
-            syncStatus()?.let { isActive ->
+            syncStatus()?.let { (isActive, isVpn) ->
                 if (isActive) {
                     log.v("Turning off from QuickSettings")
                     app.pause()
+                    if (isVpn) notification.show(QuickSettingsNotification())
                 } else {
                     log.v("Turning on from QuickSettings")
+                    notification.cancel(QuickSettingsNotification())
                     app.unpause()
                 }
             }
         }
     }
 
-    private suspend fun syncStatus(): IsActive? {
+    private suspend fun syncStatus(): Pair<IsActive, IsVpn>? {
         val state = app.appStatus.first()
         val tile = qsTile
 
@@ -75,17 +84,18 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
             tile == null -> null
             state.isWorking() -> {
                 showWorking(tile)
-                true
+                true to false
             }
 
             state.isActive() -> {
                 showOn(tile)
-                true
+                val isVpn = state == AppStatus.ACTIVATEDPLUS
+                true to isVpn
             }
 
             else -> {
                 showOff(tile)
-                false
+                false to false
             }
         }
     }
@@ -116,5 +126,3 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
         }
     }
 }
-
-private typealias IsActive = Boolean

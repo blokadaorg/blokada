@@ -27,6 +27,7 @@ import utils.NewMessageNotification
 import utils.NotificationChannels
 import utils.NotificationPrototype
 import utils.OnboardingNotification
+import utils.QuickSettingsNotification
 import java.util.Calendar
 import java.util.Date
 
@@ -38,11 +39,13 @@ val NOTIF_PAUSE = "pauseTimeout"
 val NOTIF_ONBOARDING = "onboardingDnsAdvice"
 val NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 val NOTIF_NEW_MESSAGE = "supportNewMessage"
+val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 
 object NotificationService {
     private val context by lazy { ContextService }
     private val notificationManager by lazy {
-        context.requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        context.requireContext()
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
     private val alarmManager by lazy {
         context.requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -120,6 +123,7 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             NOTIF_ONBOARDING -> OnboardingNotification()
             NOTIF_ONBOARDING_FAMILY -> FamilyOnboardingNotification()
             NOTIF_NEW_MESSAGE -> NewMessageNotification(intent.getStringExtra("body"))
+            NOTIF_QUICKSETTINGS -> QuickSettingsNotification()
             else -> null
         }
 

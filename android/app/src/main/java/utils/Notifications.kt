@@ -132,12 +132,29 @@ class NewMessageNotification(val body: String?) : NotificationPrototype(
     }
 )
 
+// Shown while QS is changing app status
+class QuickSettingsNotification() : NotificationPrototype(
+    9, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle("Blokada Plus VPN paused")
+        b.setContentText("Tap to open Blokada and resume protection.")
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
 // The following are the notifications for v6.
 // The old ones are left untouched to not change v5 behavior
 // in case we want separate flavors.
 
 class AccountExpiredNotification : NotificationPrototype(
-    8, NotificationChannels.BLOCKA,
+    21, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_acc_header))
@@ -160,7 +177,7 @@ class AccountExpiredNotification : NotificationPrototype(
 // When Plus lease expires. This should normally not happen as leases are
 // automatically extended while the account is active.
 class PlusLeaseExpiredNotification : NotificationPrototype(
-    9, NotificationChannels.BLOCKA,
+    22, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_lease_header))
@@ -182,7 +199,7 @@ class PlusLeaseExpiredNotification : NotificationPrototype(
 
 // When timed-pause runs out.
 class PauseTimeoutNotification : NotificationPrototype(
-    10, NotificationChannels.BLOCKA,
+    23, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.notification_pause_header))
@@ -204,7 +221,7 @@ class PauseTimeoutNotification : NotificationPrototype(
 
 // When executing a command from the background (some silly android requirements)
 class ExecutingCommandNotification : NotificationPrototype(
-    11, NotificationChannels.ACTIVITY,
+    24, NotificationChannels.ACTIVITY,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
         b.setContentTitle(ctx.getString(R.string.universal_status_processing))
