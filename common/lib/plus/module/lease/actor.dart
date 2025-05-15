@@ -3,7 +3,7 @@ part of 'lease.dart';
 class LeaseActor with Logging, Actor, Cooldown {
   late final _channel = Core.get<LeaseChannel>();
   late final _api = Core.get<LeaseApi>();
-  late final _keypair = Core.get<CurrentKeypairValue>();
+  late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _gateway = Core.get<GatewayActor>();
   late final _currentLease = Core.get<CurrentLeaseValue>();
   late final _leases = Core.get<LeasesValue>();
@@ -31,7 +31,8 @@ class LeaseActor with Logging, Actor, Cooldown {
       await _leases.change(m, mappedLeases);
 
       // Find and verify current lease
-      final current = _findCurrentLease();
+      final keypairPk = await _publicKey.now();
+      final current = _findCurrentLease(keypairPk);
       await _currentLease.change(m, current);
       if (current != null) {
         try {
@@ -55,7 +56,7 @@ class LeaseActor with Logging, Actor, Cooldown {
 
   newLease(GatewayId gatewayId, Marker m) async {
     return await log(m).trace("newLease", (m) async {
-      final keypairPk = _keypair.present!.publicKey;
+      final keypairPk = await _publicKey.now();
       final deviceAlias = _device.deviceAlias;
 
       try {
@@ -132,8 +133,7 @@ class LeaseActor with Logging, Actor, Cooldown {
     });
   }
 
-  Lease? _findCurrentLease() {
-    return _leases.present
-        ?.firstWhereOrNull((it) => it.publicKey == _keypair.present!.publicKey);
+  Lease? _findCurrentLease(String keypairPk) {
+    return _leases.present?.firstWhereOrNull((it) => it.publicKey == keypairPk);
   }
 }
