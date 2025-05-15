@@ -23,8 +23,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   late final _key = Core.get<AdaptyApiKey>();
 
   bool _adaptyInitialized = false;
-  bool _preloaded = false;
-  Completer? _preloadCompleter;
+  Completer? _preloadCompleter = Completer();
   bool _isOpened = false;
   OnboardingStep? _pendingOnboard;
 
@@ -102,23 +101,19 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   // No expiration check, we assume user will open the paywall soon
   // And that adapty is ok with preloading
   _maybePreload(Marker m, AccountState account) async {
-    if (!_preloaded &&
-        _preloadCompleter == null &&
-        _adaptyInitialized &&
-        !account.type.isActive()) {
-      _preloadCompleter = Completer();
+    if (_adaptyInitialized && !account.type.isActive()) {
+      _preloadCompleter ??= Completer();
       try {
         await _channel.preload(m, Placement.primary);
         log(m).i("Adapty: preloaded paywall");
       } catch (e, s) {
         log(m).e(msg: "Adapty: failed preloading", err: e, stack: s);
-      } finally {
-        // No matter what we mark it as done
-        _preloaded = true;
-        _preloadCompleter?.complete();
-        _preloadCompleter = null;
       }
     }
+
+    // No matter what we mark it as done
+    _preloadCompleter?.complete();
+    _preloadCompleter = null;
   }
 
   reportOnboarding(OnboardingStep? step, {bool reset = false}) async {
