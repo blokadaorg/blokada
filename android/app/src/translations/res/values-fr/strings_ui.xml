@@ -542,9 +542,9 @@
     <string name="onboard_header">Pas de pubs.\nSérieusement.</string>
     <string name="onboard_desc">Bloquez les pubs et les traqueurs partout avec notre app premium. Profitez d’une navigation plus rapide, d’une meilleure confidentialité et d’une utilisation de données réduite.</string>
     <string name="onboard_terms">En continuant, vous acceptez nos conditions d\'utilisation et reconnaissez la réception de notre politique de confidentialité.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">Souhaitez-vous bloquer les publicités vidéo ?</string>
+    <string name="onboard_safari_brief">Activez notre extension dans Safari pour bloquer les publicités vidéo pendant la navigation.</string>
+    <string name="onboard_safari_step_two">Gérer les extensions</string>
+    <string name="onboard_safari_cta">Ouvrir YouTube dans Safari</string>
+    <string name="onboard_safari_skip">Passer pour l\'instant</string>
 </resources>

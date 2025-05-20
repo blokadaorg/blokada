@@ -42,9 +42,9 @@
 // One of the tags used for searching blocklists
 "malware" = "malware";
 // One of the tags used for searching blocklists
-"spam" = "Spam";
+"spam" = "spam";
 // One of the tags used for searching blocklists
-"dating" = "Rencontre";
+"dating" = "rencontre";
 // One of the tags used for searching blocklists
 "piracy" = "piratage";
 // One of the tags used for searching blocklists
@@ -56,7 +56,7 @@
 // One of the tags used for searching blocklists
 "chat" = "tchat";
 // One of the tags used for searching blocklists
-"gaming" = "Jeu";
+"gaming" = "jeu";
 // One of the tags used for searching blocklists
 "games" = "jeux";
 // One of the tags used for searching blocklists

@@ -751,8 +751,8 @@
 "onboard desc" = "Blokir iklan dan tracker di manapun dengan aplikasi premium kami. Nikmati pengalaman browsing yang lebih cepat, dengan keamanan privasi yang lebih baik, dan konsumsi data yang lebih hemat.";
 "onboard terms" = "Dengan melanjutkan berarti Anda menerima Ketentuan Layanan dan menyatakan menerima tanda bukti Kebijakan Privasi kami.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Ingin memblokir iklan video?";
+"onboard safari brief" = "Aktifkan ekstensi Blokada di Safari untuk memblokir iklan video saat Anda menjelajah internet.";
+"onboard safari step 2" = "Kelola Ekstensi";
+"onboard safari cta" = "Buka YouTube di Safari";
+"onboard safari skip" = "Lewati untuk saat ini";

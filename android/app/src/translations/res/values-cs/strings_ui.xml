@@ -483,14 +483,14 @@
     <string name="family_device_delete_confirm">Určitě chcete odstranit %s? Tím zrušíte propojení zařízení s vaším účtem.</string>
     <string name="family_device_header_add">Přidat zařízení</string>
     <string name="family_device_header_link">Propojit zařízení</string>
-    <string name="family_device_label_internet">INTERNET CONTROL</string>
-    <string name="family_device_brief_internet">Manage Internet access for this device.</string>
-    <string name="family_device_label_internet_on">Filter Content</string>
-    <string name="family_device_brief_internet_on">Blocks harmful and inappropriate sites according to your filters and blocklists.</string>
-    <string name="family_device_label_internet_off">Allow All</string>
-    <string name="family_device_brief_internet_off">No content is blocked. The Internet is fully open.</string>
-    <string name="family_device_label_internet_block">Block All</string>
-    <string name="family_device_brief_internet_block">Stops all Internet access on the device.</string>
+    <string name="family_device_label_internet">INTERNETOVÁ KONTROLA</string>
+    <string name="family_device_brief_internet">Správa přístupu k internetu pro toto zařízení.</string>
+    <string name="family_device_label_internet_on">Filtrovat obsah</string>
+    <string name="family_device_brief_internet_on">Blokuje škodlivé a nevhodné stránky podle vašich filtrů a seznamů.</string>
+    <string name="family_device_label_internet_off">Povolit vše</string>
+    <string name="family_device_brief_internet_off">Žádný obsah není zablokován. Internet je plně otevřen.</string>
+    <string name="family_device_label_internet_block">Blokovat vše</string>
+    <string name="family_device_brief_internet_block">Zastaví na zařízení veškerý přístup k internetu.</string>
     <string name="family_perms_header">Ještě jedna věc</string>
     <string name="family_perms_brief_alt">Aktivujte „%s“ v Nastavení navigací, jak je uvedeno níže.</string>
     <string name="family_perms_setting_ios_general">Obecné</string>
@@ -542,9 +542,9 @@
     <string name="onboard_header">Žádné další reklamy.\nVážně.</string>
     <string name="onboard_desc">Blokujte reklamy a sledovače všude s naší prémiovou aplikací. Užijte si rychlejší prohlížení, lepší soukromí a snížení využití dat.</string>
     <string name="onboard_terms">Pokračováním přijímáte naše smluvní podmínky a potvrzujete přijetí našich Zásad ochrany osobních údajů.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
+    <string name="onboard_safari_header">Chcete blokovat video reklamy?</string>
+    <string name="onboard_safari_brief">Povolte naše rozšíření v Safari pro blokování reklam při prohlížení.</string>
+    <string name="onboard_safari_step_two">Spravovat rozšíření</string>
+    <string name="onboard_safari_cta">Otevřít YouTube v Safari</string>
+    <string name="onboard_safari_skip">Prozatím přeskočit</string>
 </resources>

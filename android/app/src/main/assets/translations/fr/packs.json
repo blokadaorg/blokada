@@ -35,7 +35,7 @@
     "A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch.": "Une liste noire de sites Web malveillants qui sont utilisés pour la distribution de logiciels malveillants, basée sur urlhaus.abuse.ch.",
     "A blocklist from the maker of the adblocker test": "Une liste noire du fabricant du test de bloqueur de publicités",
     "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test": "Il s'agit de la liste noire officielle de d3ward, le fabricant du site populaire de test de bloqueur de publicité. Elle est destinée à atteindre un score de 100% dans le test. Gardez à l'esprit qu'il s'agit d'une liste minimale. Vous pouvez l'utiliser avec une autre liste noire activée. Si vous souhaitez effectuer le test, rendez-vous sur go.blokada.org/test",
-    "Ads": "Annonces",
+    "Ads": "Publicités",
     "Blocks advertisements and tracking": "Bloque les publicités et le suivi",
     "Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy.": "Élimine les publicités intrusives et le suivi web. Augmente la vitesse de navigation et protège la confidentialité des utilisateurs.",
     "Malware": "Malware",

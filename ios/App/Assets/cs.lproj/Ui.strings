@@ -631,14 +631,14 @@
 "family device header add" = "Přidat zařízení";
 "family device header link" = "Propojit zařízení";
 
-"family device label internet" = "INTERNET CONTROL";
-"family device brief internet" = "Manage Internet access for this device.";
-"family device label internet on" = "Filter Content";
-"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
-"family device label internet off" = "Allow All";
-"family device brief internet off" = "No content is blocked. The Internet is fully open.";
-"family device label internet block" = "Block All";
-"family device brief internet block" = "Stops all Internet access on the device.";
+"family device label internet" = "INTERNETOVÁ KONTROLA";
+"family device brief internet" = "Správa přístupu k internetu pro toto zařízení.";
+"family device label internet on" = "Filtrovat obsah";
+"family device brief internet on" = "Blokuje škodlivé a nevhodné stránky podle vašich filtrů a seznamů.";
+"family device label internet off" = "Povolit vše";
+"family device brief internet off" = "Žádný obsah není zablokován. Internet je plně otevřen.";
+"family device label internet block" = "Blokovat vše";
+"family device brief internet block" = "Zastaví na zařízení veškerý přístup k internetu.";
 
 
 "family perms header" = "Ještě jedna věc";
@@ -751,8 +751,8 @@
 "onboard desc" = "Blokujte reklamy a sledovače všude s naší prémiovou aplikací. Užijte si rychlejší prohlížení, lepší soukromí a snížení využití dat.";
 "onboard terms" = "Pokračováním přijímáte naše smluvní podmínky a potvrzujete přijetí našich Zásad ochrany osobních údajů.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Chcete blokovat video reklamy?";
+"onboard safari brief" = "Povolte naše rozšíření v Safari pro blokování reklam při prohlížení.";
+"onboard safari step 2" = "Spravovat rozšíření";
+"onboard safari cta" = "Otevřít YouTube v Safari";
+"onboard safari skip" = "Prozatím přeskočit";
