@@ -57,6 +57,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     }
 
     if (Core.act.isFamily) return;
+    if (!_account.type.isActive()) return;
 
     // If cloud onboard has just changed
     if (_cloudPermEnabled != _app.conditions.cloudPermEnabled) {
