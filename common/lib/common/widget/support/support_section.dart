@@ -1,10 +1,10 @@
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/support/convert.dart';
-import 'package:common/common/widget/theme.dart';
+import 'package:common/common/widget/support/link_message.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 class SupportSection extends StatefulWidget {
@@ -15,40 +15,28 @@ class SupportSection extends StatefulWidget {
 }
 
 class SupportSectionState extends State<SupportSection> {
-  late final _controller = Core.get<SupportActor>();
+  late final _stage = Core.get<StageStore>();
+  late final _actor = Core.get<SupportActor>();
   late final _sessionInitDebounce =
       Debounce(const Duration(milliseconds: 1200));
-
-  final List<types.Message> _messages = [];
-
-  final _me = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
-  final _notMe = const types.User(
-    id: 'f590b0b3-3b6b-4b7b-8b3b-3b6b4b7b8b3b',
-    firstName: "Blocka Bot",
-    //imageUrl: "assets/images/appicon.png",
-  );
 
   @override
   void initState() {
     super.initState();
-    _controller.onChange = _refresh;
-    _controller.loadOrInit(Markers.support);
+    _actor.onChange = _refresh;
+    _actor.loadOrInit(Markers.support);
     _refresh();
   }
 
   _refresh() {
     if (!mounted) return;
-    setState(() {
-      _messages.clear();
-      _messages
-          .addAll(_controller.messages.map((e) => e.toMessage(_me, _notMe)));
-    });
+    setState(() {});
   }
 
   maybeStartSessionDelayed() {
     _sessionInitDebounce.run(() {
       if (!mounted) return;
-      _controller.maybeStartSession(Markers.support);
+      _actor.maybeStartSession(Markers.support);
     });
   }
 
@@ -57,29 +45,40 @@ class SupportSectionState extends State<SupportSection> {
     maybeStartSessionDelayed();
     return Padding(
       padding: EdgeInsets.only(
-          left: 16.0, right: 16.0, top: getTopPadding(context), bottom: 32.0),
+          left: 0, right: 0, top: getTopPadding(context), bottom: 0),
       child: Chat(
-        messages: _messages.reversed.toList(),
-        onSendPressed: _handleSendPressed,
-        user: _me,
-        theme: context.theme.chatTheme,
-        showUserAvatars: true,
-        showUserNames: true,
-        inputOptions: const InputOptions(
-          sendButtonVisibilityMode: SendButtonVisibilityMode.always,
+        chatController: _actor.controller,
+        currentUserId: _actor.me.id,
+        onMessageSend: _handleSendPressed,
+        theme: ChatTheme.fromThemeData(Theme.of(context)),
+        // showUserAvatars: true,
+        // showUserNames: true,
+        // emptyState: Center(child: Text("support placeholder".i18n)),
+        builders: Builders(
+          chatAnimatedListBuilder: (context, itemBuilder) {
+            return ChatAnimatedListReversed(itemBuilder: itemBuilder);
+          },
+          textMessageBuilder: (context, message, index) {
+            return LinkMessage(
+                message: message,
+                index: index,
+                onOpenLink: (it) {
+                  _stage.openUrl(it.url, Markers.userTap);
+                });
+          },
         ),
-        emptyState: Center(child: Text("support placeholder".i18n)),
+        resolveUser: (id) async {
+          if (id == _actor.me.id) {
+            return _actor.me;
+          } else {
+            return _actor.notMe;
+          }
+        },
       ),
     );
   }
 
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
-
-  void _handleSendPressed(types.PartialText message) {
-    _controller.sendMessage(message.text, Markers.support);
+  void _handleSendPressed(String message) {
+    _actor.sendMessage(message, Markers.support);
   }
 }

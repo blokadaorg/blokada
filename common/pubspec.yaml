@@ -51,10 +51,13 @@ dependencies:
   timeago: ^3.6.1
   mockito: ^5.3.2
   i18n_extension_importer: ^0.0.6
-  flutter_chat_ui: ^1.6.15
+  flutter_chat_core: ^2.0.0
+  flutter_chat_ui: ^2.0.0
+  flyer_chat_text_message: ^2.0.0
   logger: ^2.4.0
   adapty_flutter: ^3.6.0
   input_code_field: ^2.0.2
+  flutter_linkify: ^6.0.0
 
 dependency_overrides:
   syncfusion_flutter_charts:

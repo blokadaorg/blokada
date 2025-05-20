@@ -3,7 +3,6 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
@@ -95,15 +94,6 @@ class BlokadaApp extends StatelessWidget {
               textPrimary: Colors.black,
               textSecondary: Colors.black54,
               divider: Colors.black26,
-              chatTheme: DefaultChatTheme(
-                backgroundColor: Color(0xFFF2F1F6),
-                inputBackgroundColor: Colors.black.withAlpha(20),
-                inputTextColor: Colors.black,
-                inputTextCursorColor: accentColor,
-                inputBorderRadius: BorderRadius.circular(10),
-                primaryColor: accentColor,
-                secondaryColor: Colors.white,
-              ),
             )
           }),
       darkTheme: FlexThemeData.dark(
@@ -132,15 +122,6 @@ class BlokadaApp extends StatelessWidget {
               textPrimary: Colors.white,
               textSecondary: Color(0xFF99989F),
               divider: Colors.white24,
-              chatTheme: DarkChatTheme(
-                backgroundColor: Color(0xFF000000),
-                inputBackgroundColor: Colors.white.withAlpha(20),
-                inputTextColor: Colors.white,
-                inputTextCursorColor: accentColor,
-                inputBorderRadius: BorderRadius.circular(10),
-                primaryColor: accentColor,
-                secondaryColor: Color(0xFF1C1C1E),
-              ),
             )
           }),
       home: Builder(builder: (context) {

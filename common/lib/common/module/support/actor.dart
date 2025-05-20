@@ -14,7 +14,15 @@ class SupportActor with Logging, Actor {
   bool initialized = false;
   late int _ttl;
 
+  late ChatController controller = InMemoryChatController();
   List<SupportMessage> messages = [];
+
+  final me = const User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
+  final notMe = const User(
+    id: 'f590b0b3-3b6b-4b7b-8b3b-3b6b4b7b8b3b',
+    name: "Blocka Bot",
+    //imageUrl: "assets/images/appicon.png",
+  );
 
   Function onChange = () {};
   Function(Marker m) onReset = (Marker m) {};
@@ -79,7 +87,8 @@ class SupportActor with Logging, Actor {
 
     // Update local cache
     await _chatHistory.change(m, SupportMessages(messages));
-
+    await controller.insertAllMessages(
+        messages.map((it) => it.toFlyerMessage(me, notMe)).toList());
     onChange();
   }
 
@@ -97,6 +106,7 @@ class SupportActor with Logging, Actor {
     await _currentSession.change(m, null);
     await _chatHistory.change(m, null);
     messages = [];
+    await controller.setMessages([]);
     onChange();
     onReset(m);
   }
@@ -173,6 +183,7 @@ class SupportActor with Logging, Actor {
     final message = SupportMessage(msg, DateTime.now(), isMe: true);
     messages.add(message);
     _chatHistory.change(m, SupportMessages(messages));
+    controller.insertMessage(message.toFlyerMessage(me, notMe));
     onChange();
   }
 
@@ -195,6 +206,7 @@ class SupportActor with Logging, Actor {
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
     await _chatHistory.change(m, SupportMessages(messages));
+    await controller.insertMessage(message.toFlyerMessage(me, notMe));
     onChange();
     await _unread.newMessage(m, message.text);
   }
