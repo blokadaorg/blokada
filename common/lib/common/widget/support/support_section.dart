@@ -1,6 +1,7 @@
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/support/link_message.dart';
+import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,13 @@ class SupportSectionState extends State<SupportSection> {
   @override
   Widget build(BuildContext context) {
     maybeStartSessionDelayed();
+    final bubbleColor = context.theme.isDarkTheme()
+        ? context.theme.shadow.withOpacity(0.5)
+        : context.theme.shadow;
+    final bottomBarColor = context.theme.isDarkTheme()
+        ? context.theme.shadow.withOpacity(0.3)
+        : context.theme.shadow.withOpacity(0.5);
+
     return Padding(
       padding: EdgeInsets.only(
           left: 0, right: 0, top: getTopPadding(context), bottom: 0),
@@ -50,7 +58,14 @@ class SupportSectionState extends State<SupportSection> {
         chatController: _actor.controller,
         currentUserId: _actor.me.id,
         onMessageSend: _handleSendPressed,
-        theme: ChatTheme.fromThemeData(Theme.of(context)),
+        theme: ChatTheme.fromThemeData(Theme.of(context)).copyWith(
+          colors: ChatColors.fromThemeData(Theme.of(context)).copyWith(
+            surface: context.theme.bgColor,
+            surfaceContainer: bubbleColor,
+            surfaceContainerLow: bottomBarColor,
+            surfaceContainerHigh: context.theme.bgColorHome1,
+          ),
+        ),
         // showUserAvatars: true,
         // showUserNames: true,
         // emptyState: Center(child: Text("support placeholder".i18n)),
