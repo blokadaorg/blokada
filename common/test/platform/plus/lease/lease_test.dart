@@ -1,4 +1,5 @@
 import 'package:common/common/module/env/env.dart';
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/device/device.dart';
@@ -51,6 +52,10 @@ void main() {
         keypair.change(m, Fixtures.keypair);
         Core.register<CurrentKeypairValue>(keypair);
 
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, Fixtures.keypair.publicKey);
+        Core.register(pk);
+
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
 
@@ -92,6 +97,10 @@ void main() {
                 publicKey: "6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=",
                 privateKey: "sk"));
         Core.register<CurrentKeypairValue>(keypair);
+
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, "6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
+        Core.register(pk);
 
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
@@ -140,6 +149,10 @@ void main() {
                 privateKey: "sk"));
         Core.register<CurrentKeypairValue>(keypair);
 
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, "6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
+        Core.register(pk);
+
         final currentLease = CurrentLeaseValue();
         Core.register(currentLease);
 
@@ -182,6 +195,10 @@ void main() {
                 publicKey: "6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=",
                 privateKey: "sk"));
         Core.register<CurrentKeypairValue>(keypair);
+
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, "6fJ02Kot2groEpWk5c2onSHm0as3K2GJ2ljE9f70TFk=");
+        Core.register(pk);
 
         Core.register(CurrentLeaseValue());
 
@@ -313,6 +330,8 @@ void main() {
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
 
+        Core.register(PublicKeyProvidedValue());
+
         Core.register(CurrentLeaseValue());
 
         final leases = LeasesValue();
@@ -350,6 +369,8 @@ void main() {
         final stage = MockStageStore();
         when(stage.route).thenReturn(route);
         Core.register<StageStore>(stage);
+
+        Core.register(PublicKeyProvidedValue());
 
         Core.register(CurrentLeaseValue());
 
