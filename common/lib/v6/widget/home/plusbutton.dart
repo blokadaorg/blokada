@@ -33,7 +33,7 @@ class _PlusButtonState extends State<PlusButton>
   final _plus = Core.get<PlusActor>();
   final _plusEnabled = Core.get<PlusEnabledValue>();
   final _permVpnEnabled = Core.get<VpnEnabledValue>();
-  final _permChannnel = Core.get<PermChannel>();
+  final _permChannel = Core.get<PermChannel>();
   final _payment = Core.get<PaymentActor>();
 
   var activated = false;
@@ -71,9 +71,7 @@ class _PlusButtonState extends State<PlusButton>
                 duration: const Duration(milliseconds: 500),
                 child: MiniCard(
                     color: theme.accent,
-                    onTap: () {
-                      _displayLocations();
-                    },
+                    onTap: () => _doActionOrAskPerm(_displayLocations),
                     child: _buildButtonContent())),
             // When switch is on
             IgnorePointer(
@@ -83,9 +81,7 @@ class _PlusButtonState extends State<PlusButton>
                   duration: const Duration(milliseconds: 500),
                   child: MiniCard(
                       outlined: true,
-                      onTap: () {
-                        _displayLocations();
-                      },
+                      onTap: () => _doActionOrAskPerm(_displayLocations),
                       child: _buildButtonContent())),
             ),
             // When account is not Plus (CTA)
@@ -128,14 +124,10 @@ class _PlusButtonState extends State<PlusButton>
               activeColor: theme.accent,
               onChanged: (value) {
                 setState(() {
-                  if (location.isEmpty) {
-                    _displayLocations();
-                  } else {
+                  _doActionOrAskPerm((m) async {
                     activated = value;
-                    log(Markers.userTap).trace("tappedSwitchPlus", (m) async {
-                      await _plus.switchPlus(value, m);
-                    });
-                  }
+                    await _plus.switchPlus(value, m);
+                  });
                 });
               },
             ),
@@ -145,14 +137,18 @@ class _PlusButtonState extends State<PlusButton>
     );
   }
 
-  _displayLocations() {
-    log(Markers.userTap).trace("tappedDisplayLocations", (m) async {
+  _doActionOrAskPerm(Future<void> Function(Marker m) action) {
+    log(Markers.userTap).trace("tappedPlusButton", (m) async {
       if (_permVpnEnabled.present == true) {
-        await _stage.showModal(StageModal.plusLocationSelect, m);
+        await action(m);
       } else {
-        await _permChannnel.doAskVpnPerms();
+        await _permChannel.doAskVpnPerms();
       }
     });
+  }
+
+  Future<void> _displayLocations(Marker m) async {
+    await _stage.showModal(StageModal.plusLocationSelect, m);
   }
 
   _displayPayments() {
