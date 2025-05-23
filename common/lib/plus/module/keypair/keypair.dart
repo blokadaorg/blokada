@@ -21,6 +21,11 @@ class Keypair {
         'publicKey': publicKey,
         'privateKey': privateKey,
       };
+
+  @override
+  String toString() {
+    return 'Keypair{publicKey: $publicKey}';
+  }
 }
 
 @PlatformProvided()

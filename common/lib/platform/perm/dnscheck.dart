@@ -22,7 +22,7 @@ class PrivateDnsCheck with Actor, Logging {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
     }
 
-    log(m).pair("expected dns", expected);
+    log(m).pair("expects dns", expected);
 
     return line == expected;
   }

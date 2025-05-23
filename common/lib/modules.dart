@@ -131,36 +131,27 @@ class Modules with Logging {
   }
 
   start(Marker m) async {
-    await log(m).trace("startModules", (m) async {
-      for (var mod in _modules) {
-        try {
-          await log(m).trace("${mod.runtimeType}", (m) async {
-            // Hack to be refactored
-            if (mod.runtimeType == AccountModule) {
-              log(m).i("Starting legacy device store");
-              final legacyDevice = Core.get<DeviceStore>();
-              await legacyDevice.start(m);
-            }
+    log(m).t("Starting modules...");
 
-            await mod.start(m);
-
-            // Hack to be refactored
-            if (mod.runtimeType == AccountModule) {
-              log(m).i("Starting legacy account refresh store");
-              final legacyAccount = Core.get<AccountRefreshStore>();
-              await legacyAccount.start(m);
-            }
-          });
-        } catch (e, s) {
-          // Log error details and continue starting other modules
-          log(m).e(
-            msg: "Failed starting module: ${mod.runtimeType}",
-            err: e,
-            stack: s,
-          );
+    for (var mod in _modules) {
+      await log(m).trace("${mod.runtimeType}", (m) async {
+        // Hack to be refactored
+        if (mod.runtimeType == AccountModule) {
+          log(m).i("Starting legacy device store");
+          final legacyDevice = Core.get<DeviceStore>();
+          await legacyDevice.start(m);
         }
-      }
-    });
+
+        await mod.start(m);
+
+        // Hack to be refactored
+        if (mod.runtimeType == AccountModule) {
+          log(m).i("Starting legacy account refresh store");
+          final legacyAccount = Core.get<AccountRefreshStore>();
+          await legacyAccount.start(m);
+        }
+      });
+    }
 
     await _appStart.startApp(m); // TODO: refactor this
 
