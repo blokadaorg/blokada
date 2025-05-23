@@ -10,7 +10,7 @@ class KeypairActor with Logging, Actor {
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
 
   @override
-  onStart(Marker m) async {
+  onCreate(Marker m) async {
     _account.addOn(accountIdChanged, generate);
 
     await load(m);
