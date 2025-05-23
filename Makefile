@@ -1,4 +1,4 @@
-# Define common variables 
+# Define common variables
 FLAVOR := family
 FASTLANE := fastlane
 
@@ -12,13 +12,13 @@ CI_BUILD_DIR := /tmp/build
 
 ADAPTY_DIR := ~/Downloads
 ADAPTY_VER := 3_4.0
- 
-# Default target 
+
+# Default target
 .DEFAULT_GOAL := build
- 
+
 .PHONY: clean test build \
-	translate \
-	build-android build-android-family build-android-six \
+        translate \
+        build-android build-android-family build-android-six build-android-six-offline \
 	build-ios build-ios-family build-ios-six \
 	version version-clean \
 	publish-android gplay-key-unpack gplay-key-clean \
@@ -37,7 +37,7 @@ ADAPTY_VER := 3_4.0
 translate:
 	$(TRANSLATE_SCRIPT)
 
-clean: 
+clean:
 	$(MAKE) gplay-key-clean
 	$(MAKE) appstore-key-clean
 	$(MAKE) -C common/ clean
@@ -67,6 +67,11 @@ build-android-family:
 build-android-six:
 	$(MAKE) -C common/ build-android
 	$(MAKE) -C android/ aab-six
+
+# Build android six .aab from scratch using local dependencies
+build-android-six-offline:
+	$(MAKE) -C common/ build-android-offline
+	$(MAKE) -C android/ aab-six-offline
 
 # Build all ios .ipa apps from scratch (release)
 build-ios:
@@ -214,7 +219,7 @@ install-six-debug:
 	$(MAKE) -C android/ install-six-debug
 
 # Uninstall all Android apps
-uninstall: 
+uninstall:
 	$(MAKE) -C android/ uninstall
 
 

@@ -7,10 +7,10 @@ OUTPUT_DIR := build/pigeon/
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: test clean pub gen-android gen-ios runner \
-	lib lib-debug \
-        build-android build-ios build \
-	other-lib-ios-debug other-build-web
+.PHONY: test clean pub pub-offline gen-android gen-ios runner \
+        lib lib-debug \
+        build-android build-android-offline build-ios build build-offline \
+        other-lib-ios-debug other-build-web
 
 test:
 	$(FLUTTER) test
@@ -22,8 +22,14 @@ clean:
 # Build everything from scratch (release)
 build: pub gen-android gen-ios runner lib
 
+# Build everything from scratch using only local dependencies
+build-offline: pub-offline gen-android gen-ios runner lib
+
 # Build the Android library from scratch (release)
 build-android: pub gen-android runner lib
+
+# Build the Android library from scratch using local dependencies
+build-android-offline: pub-offline gen-android runner lib
 
 # Build iOS dependencies (library itself is built by xcode)
 build-ios: pub gen-ios runner
@@ -31,6 +37,10 @@ build-ios: pub gen-ios runner
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:
 	$(FLUTTER) pub get
+
+# Fetch dependencies from local cache only
+pub-offline:
+	$(FLUTTER) pub get --offline
 
 # Generate all necessary files for both platforms
 gen: gen-android gen-ios runner

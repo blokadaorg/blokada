@@ -1,10 +1,11 @@
 # Define common variables
 GRADLE := ./gradlew
+GRADLE_OFFLINE := ./gradlew --offline
 
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: clean build aab-family aab-six apk-family apk-six \
+.PHONY: clean build aab-family aab-six aab-six-offline apk-family apk-six \
 	apk-family-debug apk-six-debug \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall
@@ -27,6 +28,10 @@ aab-family:
 # Build .aab of six (release)
 aab-six:
 	$(GRADLE) bundleSixRelease
+
+# Build .aab of six (release) using local dependencies
+aab-six-offline:
+	$(GRADLE_OFFLINE) bundleSixRelease
 
 # Build .apk of family (release)
 apk-family:
