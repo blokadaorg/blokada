@@ -21,3 +21,9 @@ class CoreConfig {
     appStartFailWait = noWait;
   }
 }
+
+// Used by support to ask for detailed logs when troubleshooting
+// Provided by module/config but also used in core (in trace.dart)
+class ConfigLogLevel extends StringPersistedValue {
+  ConfigLogLevel() : super("config:logLevel");
+}

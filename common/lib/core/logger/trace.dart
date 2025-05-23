@@ -6,6 +6,7 @@ class LogTracerActor with Actor {
   static final Map<Marker, TracingEvent> _traces = {};
 
   late final _logger = Core.get<Logger>();
+  late final _logLevel = Core.get<ConfigLogLevel>();
 
   final timeout = const Duration(seconds: 15);
   late final _debounce = Debounce(timeout);
@@ -95,7 +96,7 @@ class LogTracerActor with Actor {
 
   _startTimeout() {
     if (Core.act.isTest) return;
-    if (kReleaseMode) return;
+    if (kReleaseMode && _logLevel.present != "verbose") return;
     _debounce.run(_hangTraceCheck);
   }
 

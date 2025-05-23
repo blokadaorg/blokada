@@ -49,5 +49,7 @@ class CoreModule with Module {
 
     await register(Persistence(isSecure: false));
     await register(Persistence(isSecure: true), tag: Persistence.secure);
+
+    await register(ConfigLogLevel());
   }
 }

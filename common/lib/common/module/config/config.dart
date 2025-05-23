@@ -4,11 +4,6 @@ import 'package:flutter/foundation.dart';
 const commandLogLevel = "logLevel";
 const commandSkipBypass = "skipBypassList";
 
-// Used by support to ask for detailed logs when troubleshooting
-class ConfigLogLevel extends StringPersistedValue {
-  ConfigLogLevel() : super("config:logLevel");
-}
-
 // A temporary command to not use bypass list (android)
 // Needed if someone is using "block connections outside vpn"
 class ConfigPlusSkipBypassList extends BoolPersistedValue {
@@ -78,7 +73,6 @@ class ConfigActor with Actor {
 class ConfigModule with Module {
   @override
   onCreateModule() async {
-    await register(ConfigLogLevel());
     await register(ConfigPlusSkipBypassList());
 
     await register(ConfigCommand());
