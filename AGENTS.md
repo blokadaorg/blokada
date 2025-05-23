@@ -13,6 +13,12 @@ work is handled in `common/Makefile`.
 
 Makefiles are tab indented, so be careful when editing them.
 
+## Building offline
+
+Use `make build-android-six-offline` to build the "six" flavour without
+attempting to fetch packages from the network. This relies on dependencies being
+already cached.
+
 ## Tests
 
 `make test` runs the Flutter tests located in `common/`. These require the
