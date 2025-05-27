@@ -15,6 +15,7 @@ import '../app.dart';
 part 'start.g.dart';
 
 const String _keyTimer = "app:pause";
+const String _keyAutoStart = "app:autoStart";
 
 class AccountTypeException implements Exception {}
 
@@ -66,9 +67,8 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       if (_app.conditions.cloudPermEnabled) {
         if (_device.cloudEnabled == true) {
           // Just got the perms, auto start the app
-          await log(Markers.start).trace("autoStartAfterPerms", (m) async {
-            await unpauseApp(m);
-          });
+          await _scheduler.addOrUpdate(Job(_keyAutoStart, Markers.ui,
+              before: DateTime.now(), callback: unpauseApp));
         }
       } else {
         // Just lost the perms, show the perms screen
@@ -83,7 +83,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
       if (_app.conditions.plusPermEnabled && !_app.status.isWorking()) {
         // Just got the perms, show the location selection screen
-        await log(Markers.start).trace("autoLocationAfterPerms", (m) async {
+        await log(m).trace("autoLocationAfterPerms", (m) async {
           // TODO: replace with new modal approach
           await _stage.showModal(StageModal.plusLocationSelect, m);
         });
