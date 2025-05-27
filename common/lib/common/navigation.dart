@@ -20,6 +20,8 @@ import 'package:common/family/module/family/family.dart';
 import 'package:common/family/widget/device/device_screen.dart';
 import 'package:common/family/widget/filters_section.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/widget/vpn_bypass_dialog.dart';
+import 'package:common/plus/widget/vpn_bypass_section.dart';
 import 'package:common/plus/widget/vpn_devices_section.dart';
 import 'package:common/v6/widget/activity_screen.dart';
 import 'package:common/v6/widget/advanced_screen.dart';
@@ -36,6 +38,7 @@ enum Paths {
   settingsAccount("/settings/account", true),
   settingsRetention("/settings/retention", true),
   settingsVpnDevices("/settings/vpn", true),
+  settingsVpnBypass("/settings/bypass", true),
   support("/support", true), // Doesn't work in pane
   // V6 tabs
   activity("/activity", false),
@@ -66,6 +69,7 @@ class Navigation with Logging {
   late final _filter = Core.get<JournalFilterValue>();
   late final _custom = Core.get<CustomlistActor>();
   late final _support = Core.get<SupportActor>();
+  late final _bypass = Core.get<BypassAddDialog>();
 
   static late bool isTabletMode;
 
@@ -162,6 +166,17 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "web vpn devices header".i18n,
           child: const VpnDevicesSection(),
+        ),
+      );
+    }
+
+    if (settings.name == Paths.settingsVpnBypass.path) {
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: "VPN Bypass",
+          topBarTrailing: _bypass.getBypassAction(context),
+          child: const VpnBypassSection(),
         ),
       );
     }

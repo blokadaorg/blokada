@@ -19,7 +19,6 @@ typealias AppId = String
 class App(
     val id: AppId,
     val name: String,
-    val isBypassed: Boolean,
     val isSystem: Boolean
 ) {
     override fun equals(other: Any?): Boolean {

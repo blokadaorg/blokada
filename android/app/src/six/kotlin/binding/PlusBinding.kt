@@ -12,16 +12,19 @@
 
 package binding
 
+import android.content.pm.PackageManager.NameNotFoundException
 import androidx.lifecycle.MutableLiveData
 import channel.command.CommandName
 import channel.plus.OpsGateway
+import channel.plus.OpsInstalledApp
 import channel.plus.OpsKeypair
 import channel.plus.OpsLease
 import channel.plus.OpsVpnConfig
 import channel.plus.PlusOps
 import engine.EngineService
 import engine.KeypairService
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -29,8 +32,14 @@ import model.BlockaConfig
 import model.LegacyGateway
 import model.LegacyLease
 import model.TunnelStatus
+import repository.AppRepository
+import service.ContextService
 import service.EnvironmentService
 import service.FlutterService
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import java.io.ByteArrayOutputStream
+import androidx.core.graphics.createBitmap
 
 fun OpsVpnConfig.toLease(): OpsLease {
     // TODO: replace this old model
@@ -53,15 +62,16 @@ fun TunnelStatus.toVpnStatus(): String {
     }
 }
 
-object PlusBinding: PlusOps {
+object PlusBinding : PlusOps {
     private val flutter by lazy { FlutterService }
     private val engine by lazy { EngineService }
     private val keypair by lazy { KeypairService }
     private val command by lazy { CommandBinding }
+    private val apps by lazy { AppRepository }
 
     val config = MutableStateFlow<Pair<OpsVpnConfig?, Boolean>?>(null)
     val status = MutableStateFlow<TunnelStatus?>(null)
-    private val scope = GlobalScope
+    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
     init {
         // Vpn
@@ -85,7 +95,8 @@ object PlusBinding: PlusOps {
                     lease = fromLease(vpn.toLease()),
                     gateway = gateway,
                     vpnEnabled = active,
-                    tunnelEnabled = active
+                    tunnelEnabled = active,
+                    bypassedAppIds = vpn.bypassedPackages.filterNotNull(),
                 )
                 engine.updateConfig(user = user)
             }
@@ -131,7 +142,8 @@ object PlusBinding: PlusOps {
     val gatewaysLive = MutableLiveData<List<LegacyGateway>>()
 
     override fun doGatewaysChanged(gateways: List<OpsGateway>, callback: (Result<Unit>) -> Unit) {
-        this.gateways.value = gateways.sortedBy { it.region + it.location }.map { fromGateway(it)!! }
+        this.gateways.value =
+            gateways.sortedBy { it.region + it.location }.map { fromGateway(it)!! }
         callback(Result.success(Unit))
     }
 
@@ -180,6 +192,33 @@ object PlusBinding: PlusOps {
     override fun doPlusEnabledChanged(plusEnabled: Boolean, callback: (Result<Unit>) -> Unit) {
         this.plusEnabled.value = plusEnabled
         callback(Result.success(Unit))
+    }
+
+    // Bypass
+
+    override fun doGetInstalledApps(callback: (Result<List<OpsInstalledApp>>) -> Unit) {
+        scope.launch {
+            val list = apps.getApps().map { it ->
+                OpsInstalledApp(
+                    packageName = it.id,
+                    appName = it.name,
+                )
+            }
+            callback(Result.success(list))
+        }
+    }
+
+    override fun doGetAppIcon(packageName: String, callback: (Result<ByteArray?>) -> Unit) {
+        scope.launch {
+            try {
+                val byteArray = apps.getAppIcon(packageName)
+                callback(Result.success(byteArray))
+            } catch (e: NameNotFoundException) {
+                callback(Result.success(null))
+            } catch (e: Exception) {
+                callback(Result.failure(e))
+            }
+        }
     }
 }
 

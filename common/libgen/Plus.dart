@@ -39,6 +39,12 @@ class OpsVpnConfig {
   late String gatewayPort;
   late String leaseVip4;
   late String leaseVip6;
+  late List<String?> bypassedPackages;
+}
+
+class OpsInstalledApp {
+  late String packageName;
+  late String appName;
 }
 
 @HostApi()
@@ -76,6 +82,14 @@ abstract class PlusOps {
 
   @async
   void doPlusEnabledChanged(bool plusEnabled);
+
+  // Bypass
+
+  @async
+  List<OpsInstalledApp> doGetInstalledApps();
+
+  @async
+  Uint8List? doGetAppIcon(String packageName);
 }
 
 @FlutterApi()

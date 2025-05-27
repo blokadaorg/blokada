@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 

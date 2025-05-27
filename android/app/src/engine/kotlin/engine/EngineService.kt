@@ -121,7 +121,12 @@ object EngineService {
             when {
                 // Plus mode for v6 (cloud filtering)
                 isPlusMode() -> {
-                    wgTunnel.start(config.privateKey, config.lease(), config.gateway())
+                    wgTunnel.start(
+                        config.privateKey,
+                        config.lease(),
+                        config.gateway(),
+                        config.user.bypassedAppIds,
+                    )
                     state.plusMode(config)
                 }
 

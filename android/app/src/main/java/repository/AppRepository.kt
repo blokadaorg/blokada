@@ -14,8 +14,14 @@ package repository
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import androidx.core.graphics.createBitmap
 import binding.CommonBinding
+import binding.PlusBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -26,45 +32,19 @@ import service.ContextService
 import service.PersistenceService
 import utils.cause
 import utils.Logger
+import java.io.ByteArrayOutputStream
 
 object AppRepository {
 
     private val log = Logger("AppRepository")
-    private val context = ContextService
-    private val persistence = PersistenceService
-    private val scope = GlobalScope
-    private val common = CommonBinding
+    private val context by lazy { ContextService }
+    private val scope by lazy { CoroutineScope(Dispatchers.Main) }
 
-    private var bypassedAppIds = persistence.load(BypassedAppIds::class).ids
-        set(value) {
-            persistence.save(BypassedAppIds(value))
-            field = value
-        }
-
-    private val alwaysBypassed by lazy {
+    val alwaysBypassed: List<AppId> by lazy {
         listOf<AppId>(
             // This app package name
             context.requireContext().packageName
         )
-    }
-
-    // List decided by #133
-    private val commonBypassList = listOf(
-        "com.google.android.projection.gearhead", // Android Auto
-        "com.google.android.apps.chromecast.app", // Google Chromecast
-        "com.gopro.smarty", // GoPro
-        "com.google.android.apps.messaging", // RCS/Jibe messaging services
-        "com.sonos.acr", // Sonos
-        "com.sonos.acr2", // Sonos
-        "com.google.stadia.android", // Stadia
-    )
-
-    fun getPackageNamesOfAppsToBypass(forRealTunnel: Boolean = false): List<AppId> {
-        if (common.skipBypassList) {
-            return alwaysBypassed + bypassedAppIds
-        } else {
-            return alwaysBypassed + commonBypassList + bypassedAppIds
-        }
     }
 
     suspend fun getApps(): List<App> {
@@ -73,7 +53,6 @@ object AppRepository {
             val ctx = context.requireContext()
             val installed = try {
                 ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                    .filter { it.packageName != ctx.packageName }
             } catch (ex: Exception) {
                 log.w("Could not fetch apps, ignoring".cause(ex))
                 emptyList<ApplicationInfo>()
@@ -86,7 +65,6 @@ object AppRepository {
                         id = it.packageName,
                         name = ctx.packageManager.getApplicationLabel(it).toString(),
                         isSystem = (it.flags and ApplicationInfo.FLAG_SYSTEM) != 0,
-                        isBypassed = isAppBypassed(it.packageName)
                     )
                 } catch (ex: Exception) {
                     log.w("Could not map app, ignoring".cause(ex))
@@ -98,23 +76,25 @@ object AppRepository {
         }.await()
     }
 
-    fun isAppBypassed(id: AppId): Boolean {
-        return bypassedAppIds.contains(id)
-    }
+    fun getAppIcon(packageName: String): ByteArray? {
+        val ctx = context.requireContext()
+        val packageManager = ctx.packageManager
 
-    fun switchBypassForApp(id: AppId) {
-        if (isAppBypassed(id)) bypassedAppIds -= id
-        else bypassedAppIds += id
-    }
+        // Get the application info to access the icon
+        val appInfo = packageManager.getApplicationInfo(packageName, 0)
+        val icon = packageManager.getDrawable(packageName, appInfo.icon, appInfo) ?: return null
 
-    fun getAppIcon(id: AppId): Drawable? {
-        return try {
-            val ctx = context.requireContext()
-            ctx.packageManager.getApplicationIcon(
-                ctx.packageManager.getApplicationInfo(id, PackageManager.GET_META_DATA)
-            )
-        } catch (e: Exception) {
-            null
-        }
+        // Convert the drawable to a bitmap
+        val bitmap = createBitmap(icon.intrinsicWidth, icon.intrinsicHeight)
+        val canvas = Canvas(bitmap)
+        icon.setBounds(0, 0, canvas.width, canvas.height)
+        icon.draw(canvas)
+
+        // Convert the bitmap to a byte array
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+
+        return byteArray
     }
 }

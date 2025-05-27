@@ -46,6 +46,7 @@ class VpnConfig {
   final String gatewayPort;
   final String leaseVip4;
   final String leaseVip6;
+  final Set<String> bypassedPackages;
 
   VpnConfig({
     required this.devicePrivateKey,
@@ -57,6 +58,7 @@ class VpnConfig {
     required this.gatewayPort,
     required this.leaseVip4,
     required this.leaseVip6,
+    required this.bypassedPackages,
   });
 
   bool isSame(VpnConfig other) {
@@ -68,6 +70,7 @@ class VpnConfig {
         gatewayIpv6 == other.gatewayIpv6 &&
         gatewayPort == other.gatewayPort &&
         leaseVip4 == other.leaseVip4 &&
-        leaseVip6 == other.leaseVip6;
+        leaseVip6 == other.leaseVip6 &&
+        const SetEquality().equals(bypassedPackages, bypassedPackages);
   }
 }
