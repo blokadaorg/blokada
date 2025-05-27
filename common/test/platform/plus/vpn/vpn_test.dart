@@ -26,6 +26,7 @@ _createFixtureConfig({String gw = "gw", String tag = "tag"}) => VpnConfig(
       gatewayPort: "69",
       leaseVip4: "vip4",
       leaseVip6: "vip6",
+      bypassedPackages: {},
     );
 
 void main() {

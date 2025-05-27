@@ -166,6 +166,21 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                   ],
                                 )
                               : Container(),
+                          (_account.type == AccountType.plus &&
+                                  Core.act.platform == PlatformType.android)
+                              ? Column(
+                                  children: [
+                                    SettingsItem(
+                                        icon: Icons.web_stories_outlined,
+                                        text: "VPN Bypass",
+                                        onTap: () {
+                                          Navigation.open(
+                                              Paths.settingsVpnBypass);
+                                        }),
+                                    const CommonDivider(),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       )
                     : Container(),

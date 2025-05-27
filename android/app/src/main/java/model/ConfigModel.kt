@@ -15,7 +15,7 @@ package model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LegacyGateway (
+data class LegacyGateway(
     val publicKey: String,
     val region: String,
     val location: String,
@@ -48,7 +48,8 @@ data class BlockaConfig(
     val lease: LegacyLease?,
     val gateway: LegacyGateway?,
     val vpnEnabled: Boolean,
-    val tunnelEnabled: Boolean = false
+    val tunnelEnabled: Boolean = false,
+    val bypassedAppIds: List<String> = emptyList(),
 ) {
     fun lease() = lease!!
     fun gateway() = gateway!!

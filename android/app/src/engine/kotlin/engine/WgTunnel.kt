@@ -22,6 +22,7 @@ import com.wireguard.crypto.Key
 import com.wireguard.crypto.KeyPair
 import kotlinx.coroutines.delay
 import model.BlokadaException
+import model.BypassedAppIds
 import model.LegacyGateway
 import model.LegacyLease
 import repository.AppRepository
@@ -45,7 +46,12 @@ object WgTunnel {
         "192.192.0.0/10", "193.0.0.0/8", "194.0.0.0/7", "196.0.0.0/6", "200.0.0.0/5", "208.0.0.0/4",
     )
 
-    suspend fun start(privateKey: String, lease: LegacyLease, gateway: LegacyGateway) {
+    suspend fun start(
+        privateKey: String,
+        lease: LegacyLease,
+        gateway: LegacyGateway,
+        bypassedAppIds: List<String>
+    ) {
         log.v("Starting WG tunnel for: ${gateway.country}")
 
         // Remove old tunnel config if any
@@ -75,15 +81,15 @@ object WgTunnel {
         val c = Config.Builder()
             .setInterface(
                 Interface.Builder()
-                .setKeyPair(KeyPair(Key.fromBase64(privateKey)))
-                .addAddress(InetNetwork.parse("${lease.vip4}/32"))
-                .addAddress(InetNetwork.parse("${lease.vip6}/64"))
-                .addDnsServer(dnsAddress)
-                .excludeApplications(apps.getPackageNamesOfAppsToBypass(forRealTunnel = true))
-                .build()
+                    .setKeyPair(KeyPair(Key.fromBase64(privateKey)))
+                    .addAddress(InetNetwork.parse("${lease.vip4}/32"))
+                    .addAddress(InetNetwork.parse("${lease.vip6}/64"))
+                    .addDnsServer(dnsAddress)
+                    .excludeApplications(apps.alwaysBypassed + bypassedAppIds)
+                    .build()
             )
             .addPeer(peerBuilder.build())
-        .build()
+            .build()
 
         val tunnel = wgManager.create("Blokada", c)
         wgManager.setTunnelState(tunnel, Tunnel.State.UP)

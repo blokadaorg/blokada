@@ -40,3 +40,19 @@ extension StringExt on String {
     return length >= this.length ? this : '${substring(0, length)}…';
   }
 }
+
+String middleEllipsis(String text, {int maxLength = 24}) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  // Reserve 3 characters for the ellipsis
+  if (maxLength < 6) {
+    return text.substring(0, maxLength);
+  }
+
+  int charsPerSide = (maxLength - 3) ~/ 2;
+  int endIndex = text.length - charsPerSide;
+
+  return '${text.substring(0, charsPerSide)}...${text.substring(endIndex)}';
+}

@@ -11,6 +11,8 @@ class PlusActor with Logging, Actor {
   late final _currentGateway = Core.get<CurrentGatewayValue>();
   late final _vpnStatus = Core.get<CurrentVpnStatusValue>();
   late final _modal = Core.get<CurrentModalValue>();
+  late final _bypassedPackages = Core.get<BypassedPackagesValue>();
+  late final _scheduler = Core.get<Scheduler>();
 
   late final _app = Core.get<AppStore>();
   late final _device = Core.get<DeviceStore>();
@@ -43,6 +45,13 @@ class PlusActor with Logging, Actor {
         if (change.now == null) {
           await reactToPlusLost(m, "current gateway dropped");
         }
+      });
+
+      _bypassedPackages.onChange.listen((change) async {
+        await _scheduler.addOrUpdate(Job(
+            "reconfigureVpnAfterBypassChange", change.m,
+            before: DateTime.now().add(const Duration(seconds: 3)),
+            callback: reconfigureVpnAfterBypassChange));
       });
 
       await _gateway.fetch(m);
@@ -102,7 +111,10 @@ class PlusActor with Logging, Actor {
                 "Missing lease (${l?.publicKey}), keypair (${k?.publicKey}) or gateway (${g?.publicKey})");
           }
 
-          await _vpn.setVpnConfig(_assembleConfig(k, g, l), m);
+          var b = await _bypassedPackages.now();
+          b ??= <String>{};
+
+          await _vpn.setVpnConfig(_assembleConfig(k, g, l, b), m);
           await _vpn.turnVpnOn(m);
 
           var requestAttempts = 5;
@@ -130,7 +142,8 @@ class PlusActor with Logging, Actor {
     });
   }
 
-  VpnConfig _assembleConfig(Keypair keypair, Gateway gateway, Lease lease) {
+  VpnConfig _assembleConfig(Keypair keypair, Gateway gateway, Lease lease,
+      Set<String> bypassedPackages) {
     return VpnConfig(
       devicePrivateKey: keypair.privateKey,
       deviceTag: _device.currentDeviceTag,
@@ -141,6 +154,7 @@ class PlusActor with Logging, Actor {
       gatewayPort: gateway.port.toString(),
       leaseVip4: lease.vip4,
       leaseVip6: lease.vip6,
+      bypassedPackages: bypassedPackages,
     );
   }
 
@@ -190,5 +204,13 @@ class PlusActor with Logging, Actor {
         await _clearLease(m);
       }
     });
+  }
+
+  Future<bool> reconfigureVpnAfterBypassChange(Marker m) async {
+    final plusEnabled = await _plusEnabled.now();
+    if (!plusEnabled || _app.status != AppStatus.activatedPlus) return false;
+    await switchPlus(false, m);
+    await switchPlus(true, m);
+    return false;
   }
 }

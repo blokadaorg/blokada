@@ -63,9 +63,9 @@ class ActivityItemState extends State<ActivityItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.entry.domainName,
+                  Text(middleEllipsis(widget.entry.domainName),
                       style: const TextStyle(fontSize: 18),
-                      overflow: TextOverflow.ellipsis),
+                      overflow: TextOverflow.clip),
                   Text(
                     widget.entry.timestampText,
                     style: TextStyle(

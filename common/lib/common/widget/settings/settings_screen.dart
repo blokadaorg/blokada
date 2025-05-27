@@ -10,6 +10,7 @@ import 'package:common/common/widget/support/support_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
+import 'package:common/plus/widget/vpn_bypass_section.dart';
 import 'package:common/plus/widget/vpn_devices_section.dart';
 import 'package:flutter/material.dart';
 
@@ -86,6 +87,8 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
         return const RetentionSection(primary: false);
       case Paths.settingsVpnDevices:
         return const VpnDevicesSection();
+      case Paths.settingsVpnBypass:
+        return const VpnBypassSection();
       case Paths.support:
         return const SupportSection();
       default:

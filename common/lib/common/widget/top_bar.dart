@@ -280,6 +280,8 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
         title = "activity section header".i18n;
       } else if (s.name == Paths.settingsVpnDevices.path) {
         title = "web vpn devices header".i18n;
+      } else if (s.name == Paths.settingsVpnBypass.path) {
+        title = "VPN Bypass";
       } else if (s.name == Paths.support.path) {
         title = "support action chat".i18n;
       } else if (s.name == Paths.activity.path) {

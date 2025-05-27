@@ -86,6 +86,7 @@ class PlatformPlusChannel extends PlusChannel {
           gatewayPort: config.gatewayPort,
           leaseVip4: config.leaseVip4,
           leaseVip6: config.leaseVip6,
+          bypassedPackages: config.bypassedPackages.toList(),
         ),
       );
 
@@ -95,6 +96,21 @@ class PlatformPlusChannel extends PlusChannel {
   @override
   Future<void> doPlusEnabledChanged(bool plusEnabled) =>
       _ops.doPlusEnabledChanged(plusEnabled);
+
+  // Bypass
+
+  @override
+  Future<List<InstalledApp>> doGetInstalledApps() => _ops
+      .doGetInstalledApps()
+      .then(
+        (apps) => apps
+            .map((app) => InstalledApp.fromOps(app!.packageName, app.appName))
+            .toList(),
+      );
+
+  @override
+  Future<Uint8List?> doGetAppIcon(String packageName) =>
+      _ops.doGetAppIcon(packageName);
 }
 
 class NoOpPlusChannel extends PlusChannel {
@@ -130,6 +146,21 @@ class NoOpPlusChannel extends PlusChannel {
 
   @override
   Future<void> doPlusEnabledChanged(bool plusEnabled) => Future.value();
+
+  // Bypass
+
+  @override
+  Future<List<InstalledApp>> doGetInstalledApps() => Future.value(
+        [
+          InstalledApp(
+            packageName: 'com.example.app',
+            appName: 'Example App',
+          ),
+        ],
+      );
+
+  @override
+  Future<Uint8List?> doGetAppIcon(String packageName) => Future.value();
 }
 
 final fixtureVpnConfig = VpnConfig(
@@ -142,4 +173,5 @@ final fixtureVpnConfig = VpnConfig(
   gatewayPort: 'gatewayPort',
   leaseVip4: 'leaseVip4',
   leaseVip6: 'leaseVip6',
+  bypassedPackages: {},
 );

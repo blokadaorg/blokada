@@ -1,10 +1,12 @@
 import 'package:common/core/core.dart';
 import 'package:common/platform/plus/channel.pg.dart';
+import 'package:common/plus/module/bypass/bypass.dart';
 import 'package:common/plus/module/gateway/gateway.dart';
 import 'package:common/plus/module/keypair/keypair.dart';
 import 'package:common/plus/module/lease/lease.dart';
 import 'package:common/plus/module/vpn/vpn.dart';
 import 'package:common/plus/plus.dart';
+import 'package:flutter/foundation.dart';
 
 part 'channel.dart';
 
@@ -23,6 +25,7 @@ class PlatformPlusModule with Logging, Module {
     await register<GatewayChannel>(channel);
     await register<LeaseChannel>(channel);
     await register<VpnChannel>(channel);
+    await register<BypassChannel>(channel);
 
     await register<PlusChannel>(channel);
   }

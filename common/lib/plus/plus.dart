@@ -6,6 +6,7 @@ import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/bypass/bypass.dart';
 import 'package:common/plus/module/gateway/gateway.dart';
 import 'package:common/plus/module/keypair/keypair.dart';
 import 'package:common/plus/module/lease/lease.dart';
@@ -21,7 +22,12 @@ class PlusEnabledValue extends BoolPersistedValue {
 
 @PlatformProvided()
 abstract class PlusChannel
-    with GatewayChannel, KeypairChannel, LeaseChannel, VpnChannel {
+    with
+        GatewayChannel,
+        KeypairChannel,
+        LeaseChannel,
+        VpnChannel,
+        BypassChannel {
   Future<void> doPlusEnabledChanged(bool plusEnabled);
 }
 
@@ -32,6 +38,7 @@ class PlusModule with Module {
         GatewayModule(),
         LeaseModule(),
         VpnModule(),
+        BypassModule(),
       ];
 
   @override
