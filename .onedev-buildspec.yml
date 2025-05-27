@@ -1,4 +1,4 @@
-version: 38
+version: 40
 jobs:
 - name: publish android manually
   steps:
@@ -7,7 +7,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish android
     runInContainer: false
@@ -18,7 +19,8 @@ jobs:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   paramSpecs:
   - !TextParam
     name: version-name
@@ -54,7 +56,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish android six
     runInContainer: false
@@ -65,7 +68,8 @@ jobs:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !TagCreateTrigger
     tags: '*/six/android'
@@ -93,7 +97,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: tests
     runInContainer: false
@@ -102,7 +107,8 @@ jobs:
         flutter precache --force
         make ci-test
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !BranchUpdateTrigger
     branches: main
@@ -118,7 +124,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: build aab
     runInContainer: false
@@ -144,11 +151,13 @@ jobs:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !PublishArtifactStep
     name: export artifacts
     artifacts: android/app/build/outputs/bundle/**
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   paramSpecs:
   - !TextParam
     name: version-name
@@ -169,7 +178,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish android-family
     runInContainer: false
@@ -180,7 +190,8 @@ jobs:
     - name: BLOKADA_GPLAY_KEY_BASE64
       value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !TagCreateTrigger
     tags: '*/family/android'
@@ -207,7 +218,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: build aab
     runInContainer: false
@@ -229,11 +241,13 @@ jobs:
     - name: GRADLE_OPTS
       value: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !PublishArtifactStep
     name: export artifacts
     artifacts: android/app/build/outputs/bundle/**
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   paramSpecs:
   - !TextParam
     name: version-name
@@ -251,7 +265,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: build ipa
     runInContainer: false
@@ -268,11 +283,13 @@ jobs:
     - name: BLOKADA_VERSION_NAME
       value: '@param:version-name@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !PublishArtifactStep
     name: export artifacts
     artifacts: ios/*.ipa
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   paramSpecs:
   - !TextParam
     name: version-name
@@ -294,7 +311,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish ipa family
     runInContainer: false
@@ -305,7 +323,8 @@ jobs:
     - name: BLOKADA_APPSTORE_KEY_BASE64
       value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !TagCreateTrigger
     tags: '*/family/ios'
@@ -338,7 +357,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish ipa six
     runInContainer: false
@@ -349,7 +369,8 @@ jobs:
     - name: BLOKADA_APPSTORE_KEY_BASE64
       value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !TagCreateTrigger
     tags: '*/six/ios'
@@ -382,7 +403,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: publish ios
     runInContainer: false
@@ -393,7 +415,8 @@ jobs:
     - name: BLOKADA_APPSTORE_KEY_BASE64
       value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   paramSpecs:
   - !TextParam
     name: version-name
@@ -431,7 +454,8 @@ jobs:
     cloneCredential: !DefaultCredential {}
     withLfs: false
     withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   - !CommandStep
     name: fastlane match
     runInContainer: false
@@ -442,7 +466,8 @@ jobs:
     - name: BLOKADA_APPSTORE_KEY_BASE64
       value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
     useTTY: true
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -452,10 +477,12 @@ jobs:
   - !PullRepository
     name: pull
     remoteUrl: https://github.com/blokadaorg/blokada.git
+    accessTokenSecret: GITHUB_ACCESS
     refs: refs/heads/* refs/tags/*
     withLfs: false
     force: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: SUCCESSFUL
+    optional: false
   triggers:
   - !ScheduleTrigger
     cronExpression: 0 * 7-19 ? * MON-FRI
