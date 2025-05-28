@@ -7,8 +7,7 @@ class GatewayActor with Logging, Actor, Cooldown {
   late final _api = Core.get<GatewayApi>();
   late final _currentGatewayId = Core.get<CurrentGatewayIdValue>();
   late final _currentGateway = Core.get<CurrentGatewayValue>();
-
-  List<Gateway> gateways = [];
+  late final _gateways = Core.get<GatewaysValue>();
 
   @override
   onStart(Marker m) async {
@@ -17,10 +16,12 @@ class GatewayActor with Logging, Actor, Cooldown {
 
   fetch(Marker m) async {
     return await log(m).trace("fetch", (m) async {
+      List<Gateway> gateways = [];
       try {
-        final gateways = await _api.get(m);
-        this.gateways = gateways.map((it) => it.toGateway).toList();
-        _channel.doGatewaysChanged(this.gateways);
+        final jsonGateways = await _api.get(m);
+        gateways = jsonGateways.map((it) => it.toGateway).toList();
+        _gateways.change(m, gateways);
+        _channel.doGatewaysChanged(gateways);
       } catch (e) {
         // Always emit gateways so the UI displays it
         _channel.doGatewaysChanged(gateways);
@@ -49,7 +50,8 @@ class GatewayActor with Logging, Actor, Cooldown {
       }
 
       try {
-        final gateway = gateways.firstWhere((it) => it.publicKey == id);
+        final gateway =
+            (await _gateways.now())!.firstWhere((it) => it.publicKey == id);
         await _currentGatewayId.change(m, id);
         await _currentGateway.change(m, gateway);
         _channel.doSelectedGatewayChanged(id);

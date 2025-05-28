@@ -68,7 +68,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         if (_device.cloudEnabled == true) {
           // Just got the perms, auto start the app
           await _scheduler.addOrUpdate(Job(_keyAutoStart, Markers.ui,
-              before: DateTime.now(), callback: unpauseApp));
+              before: DateTime.now()
+                  .add(const Duration(seconds: 1)), // Wait a bit at startup
+              callback: unpauseApp));
         }
       } else {
         // Just lost the perms, show the perms screen

@@ -28,6 +28,13 @@ class Gateway {
       .split("-")
       .map((it) => it[0].toUpperCase() + it.substring(1))
       .join(" ");
+
+  @override
+  String toString() {
+    return "Gateway(publicKey: $publicKey, region: $region, location: $location, "
+        "resourceUsagePercent: $resourceUsagePercent, ipv4: $ipv4, ipv6: $ipv6, "
+        "port: $port, country: $country)";
+  }
 }
 
 typedef GatewayId = String;
@@ -37,7 +44,11 @@ class CurrentGatewayIdValue extends StringPersistedValue {
 }
 
 class CurrentGatewayValue extends NullableAsyncValue<Gateway> {
-  CurrentGatewayValue() : super (sensitive: true);
+  CurrentGatewayValue() : super(sensitive: true);
+}
+
+class GatewaysValue extends NullableAsyncValue<List<Gateway>> {
+  GatewaysValue() : super(sensitive: true);
 }
 
 @PlatformProvided()
@@ -52,6 +63,7 @@ class GatewayModule with Module {
     await register(GatewayApi());
     await register(CurrentGatewayIdValue());
     await register(CurrentGatewayValue());
+    await register(GatewaysValue());
     await register(GatewayActor());
   }
 }

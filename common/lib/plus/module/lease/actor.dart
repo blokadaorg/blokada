@@ -42,8 +42,9 @@ class LeaseActor with Logging, Actor, Cooldown {
           mappedLeases.removeWhere((it) => it.publicKey == current.publicKey);
           mappedLeases.insert(0, current);
           await _leases.change(m, mappedLeases);
-        } on Exception catch (_) {
-          log(m).i("current lease for unknown gateway, setting to null");
+        } on Exception catch (e) {
+          log(m).w("current lease for unknown gateway, setting to null");
+          log(m).w("gateway returned: $e");
           await _currentLease.change(m, null);
         }
       } else {
