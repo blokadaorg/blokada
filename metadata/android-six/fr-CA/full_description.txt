@@ -1,78 +1,49 @@
-Essayez Blokada gratuitement !
+🌐 Blokada : Bloqueur de publicités puissant, DNS sécurisé et VPN WireGuard
 
-🌐 Blokada : Protégez votre vie privée et bloquez les publicités
-
-Blokada est la solution idéale pour naviguer sur Internet de manière rapide et sécurisée. 🚀 Protégez vos données, bloquez les publicités et empêchez les trackers de suivre votre activité. 🔒
+Blokada est le bloqueur de publicités de confiance qui supprime les annonces et les traqueurs dans toutes vos applications, navigateurs et jeux Android. Sa technologie de blocage avancée, son DNS chiffré et son VPN intégré sans journaux basé sur WireGuard® garantissent une navigation rapide, privée et sécurisée. Bénéficiez d’un blocage global sans vider votre batterie ni consommer vos données. Protégez Android, iOS, Windows, macOS et Linux — avec un seul abonnement simple.
 
 🔥 Pourquoi choisir Blokada ?
 
-• Navigation rapide et fluide 🚀
-• Bloqueur de publicités puissant 🛑
-• Protection avancée de la vie privée 🔐
-• DNS sécurisé et sans fuite 🕵️‍♂️
-• VPN rapide et fiable 🌍
+• Bloqueur de publicités global – bloque les annonces et traqueurs partout : applis, navigateurs, jeux
+• Vérifié par la communauté – technologie open-source fiable dans le monde entier
+• Filtrage DNS sécurisé – chiffrez vos requêtes DNS via TLS/HTTPS pour plus de confidentialité
+• VPN intégré avec WireGuard – navigation sécurisée et privée sans journaux
+• Filtres publicitaires dans le cloud – mises à jour automatiques sans impact sur la batterie
+• Performance optimisée – navigation plus rapide, consommation réduite de données, autonomie préservée
 
-🌟 Fonctionnalités clés
+🌟 Fonctionnalités clés de Blokada
 
-• Protégez tous vos appareils avec un seul abonnement 📱
-• Essai gratuit disponible ✅
+• Blocage avancé – bloquez les publicités gênantes, traqueurs et logiciels malveillants
+• Tableau de bord des traqueurs – visualisez ce qui est bloqué et gérez vos règles
+• DNS chiffré – empêche le chargement des domaines malveillants
+• VPN intégré avec WireGuard – connexion rapide et privée, même en Wi-Fi public
+• Blocage personnalisable – activez des listes de filtres puissantes selon vos besoins
+• Statistiques détaillées – surveillez la performance de votre blocage et de votre protection
 
-🚀 VPN rapide et sécurisé
+🛡️ Protection de la vie privée & transparence
 
-• Vitesse optimisée pour un streaming sans interruption 🌐
-• Protégez vos connexions avec notre VPN avancé 🔒
-• Propulsé par WireGuard pour une performance maximale ⚡
+Le VPN sans journaux et le DNS chiffré de Blokada garantissent une confidentialité maximale. Le blocage et le filtrage DNS s’effectuent de manière sécurisée dans le cloud, réduisant ainsi la consommation de batterie et de données. Blokada est un bloqueur open-source reconnu mondialement pour sa transparence et sa sécurité.
 
-🔒 Protection DNS avancée
+⚡ Bloqueur et VPN optimisés pour la performance
 
-• Sécurisez votre trafic Internet avec un DNS privé 🛡️
-• Bloquez les domaines malveillants et protégez vos données 🔐
+Naviguez plus rapidement et en toute sécurité avec Blokada. Moins de publicités, moins de traqueurs, plus d’efficacité.
 
-🛡️ Un bloqueur puissant
+🚀 Facile à configurer – Commencez maintenant !
 
-• Élimine les publicités intrusives, les trackers et les logiciels espions 🚫
-• Fonctionne avec toutes les applications et navigateurs 📲
-• Réduit la consommation de données et économise la batterie 🔋
+1. Téléchargez Blokada sur Google Play
+2. Activez le blocage des publicités, le DNS chiffré et le VPN
+3. Naviguez, utilisez vos applis et jouez sans pub et en toute confidentialité
 
-☁️ Intégration au cloud
+🎯 Blokada est idéal pour :
 
-• Synchronisez vos paramètres sur tous vos appareils ☁️
-• Accédez à vos préférences où que vous soyez 🌍
-• Protection continue sur tous vos appareils Android 🤖
+• Ceux qui valorisent la vie privée – bloque les traqueurs et protège vos données
+• Utilisateurs intensifs – élimine les pubs et accélère la navigation
+• Joueurs – moins de distractions, meilleure performance
+• Voyageurs – restez en sécurité sur les réseaux Wi-Fi publics
 
-🌐 Une expérience en ligne propre
+🌈 Reprenez le contrôle de votre confidentialité et sécurité en ligne grâce à Blokada. Téléchargez l’app maintenant et profitez d’Internet sans pubs ni traqueurs !
 
-• Bloquez les contenus indésirables et profitez d’une navigation fluide 🧼
-• Protégez vos données personnelles et votre historique de navigation 🔒
+---
 
-📱 Optimisé pour Android
-
-• Léger et efficace, fonctionne en arrière-plan sans ralentir votre appareil 🔋
-• Interface simple et intuitive 🖱️
-
-🔧 Paramètres avancés
-
-• Personnalisation complète du VPN, DNS et du bloqueur ⚙️
-• Mises à jour régulières pour contrer les nouvelles menaces 🔄
-
-🌈 Profitez d’Internet sans interruptions
-
-• Connexion VPN ultra rapide et sécurisée 🌐
-• Sécurisez vos données sur les réseaux Wi-Fi publics 🛡️
-• Navigation anonyme sans journalisation 🚫📝
-
-🎉 Téléchargez Blokada dès aujourd’hui !
-
-Activez votre VPN et DNS sécurisé ⚙️
-Naviguez sans publicité et protégez votre vie privée 🚀
-
-Reprenez le contrôle de votre expérience en ligne avec Blokada. 🌟
-
-----
-
-Conditions d'utilisation : https://go.blokada.org/terms
+Conditions d’utilisation : https://go.blokada.org/terms
 Politique de confidentialité : https://go.blokada.org/privacy
-
-Essayez Blokada Cloud et voyez la différence. Configurez un nombre illimité d’appareils avec un seul abonnement. Des guides de configuration sont disponibles pour la plupart des plateformes, avec des applications natives pour Android et iOS.
-
-Pour aller plus loin, Blokada Plus vous offre un accès à notre réseau VPN privé (serveurs dans plusieurs pays) pour jusqu’à 5 appareils.
