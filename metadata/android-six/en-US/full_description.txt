@@ -1,80 +1,49 @@
-Now with a free trial for everyone!
+🌐 Blokada: Powerful Ad Blocker, Secure DNS & WireGuard VPN
 
-🌐 Blokada: Your Fast & Secure Online Solution
+Blokada is the trusted ad blocker that stops ads and trackers on all your Android apps, browsers, and games. Our advanced ad blocking technology, encrypted DNS, and built-in no-log WireGuard® VPN ensure fast, private, and secure online experiences. Enjoy systemwide ad blocking and tracking protection without draining your battery or data. Protect Android, iOS, Windows, macOS & Linux—all with one simple subscription.
 
-Experience the fastest and most secure way to browse the online world with Blokada! 🌟 Protect your data and enjoy clean and ad-free content. Say goodbye to unwanted ads, malware, and spyware. 🔒
+🔥 Why Blokada’s Ad Blocker?
 
-🔥 Why Choose Blokada?
+• Systemwide ad blocker – Block ads and trackers everywhere: apps, browsers, and games
+• Community verified – Open-source adblocker technology trusted worldwide
+• Secure DNS filtering – Encrypt DNS requests over TLS/HTTPS to protect your privacy
+• Built-in WireGuard VPN – No-log VPN keeps your browsing private and secure
+• Cloud-based ad blocking filters – Automatic updates without battery drain
+• Optimized performance – Enjoy faster page loads, reduced data usage, and minimal impact on battery
 
-• Fast browsing speeds 🚀
-• Enhanced security features 🔐
-• Block unwanted content 🛑
-• Protect your data and privacy 🕵️‍♂️
-• Seamless Android integration 🤖
+🌟 Key Features of Blokada Ad Blocker
 
-🌟 Key Features
+• Advanced ad blocking – Block annoying ads, intrusive trackers, and malware systemwide
+• Tracker control dashboard – See blocked trackers and decide precisely what to allow
+• Secure encrypted DNS – Block malicious domains and trackers before they load
+• Built-in VPN powered by WireGuard – Fast, secure, private browsing even on public Wi-Fi
+• Customizable ad blocking – Enable powerful filter lists to control exactly what gets blocked
+• Detailed insights – Track your ad blocker and privacy protection performance
 
-• Protect all your devices with one subscription 📱
-• Free trial available ✅
+🛡️ Privacy Protection & Transparency
 
-🚀 Fast & Secure VPN
+Blokada’s no-log VPN and encrypted DNS ensure maximum privacy. Ad blocking and DNS filtering happen securely in the cloud, reducing battery and data usage. As an open-source ad blocker, Blokada is community-reviewed and trusted globally for data security and privacy protection.
 
-• Fast connection speeds for smooth online experience 🌐
-• Secure your network with our advanced VPN 🔒
-• Powered by WireGuard for top-notch performance ⚡
+⚡ Performance Optimized Ad Blocker & VPN
 
-🔒 Advanced DNS Options
+Blokada ensures a faster, safer, ad-free internet. Our optimized ad blocking technology reduces data usage, increases browsing speed, and minimizes battery drain, keeping your device running smoothly while enhancing your privacy.
 
-• Update your DNS settings for optimal security 🛡️
-• Block malicious domains and enhance privacy 🔐
+🚀 Easy to Set Up – Start Ad Blocking Immediately!
 
-🛡️ Powerful Blocker
+1. Download Blokada ad blocker from Google Play
+2. Enable ad blocking, encrypted DNS, and VPN protection
+3. Browse, use apps, and game ad-free and privately!
 
-• Block ads, malware, spyware, and trackers 🚫
-• Enjoy a clean, ad-free experience across all apps 🧹
-• Protect your data from unwanted access 🔒
+🎯 Who Benefits Most from Blokada Ad Blocker?
 
-☁️ Cloud Integration
+• Privacy-conscious users – block trackers and protect personal data
+• Heavy internet users – eliminate ads and speed up browsing
+• Gamers – ad blocker reduces distractions and improves performance
+• Frequent travelers – stay secure on public Wi-Fi networks with VPN and encrypted DNS
 
-• Sync settings across devices with our cloud services ☁️
-• Access your preferences anytime, anywhere 🌍
-• Enjoy consistent protection across all your Android devices 🤖
+🌈 Take control of your online privacy and security today with Blokada’s industry-leading ad blocker, encrypted DNS, and secure VPN. Download Blokada now and experience online freedom without ads and trackers!
 
-🌐 Clean Online Experience
-
-• Block unwanted content for a cleaner internet 🧼
-• Reduce data usage by eliminating unnecessary ads 📉
-• Enhance your online privacy and security 🔐
-
-📱 Optimized for Android
-
-• Lightweight and efficient for all Android devices 🤖
-• Runs seamlessly in the background without draining battery 🔋
-• User-friendly interface for easy navigation 🖱️
-
-🔧 Advanced Settings
-
-• Full control over DNS, VPN, and blocker configurations ⚙️
-• Regular updates to protect against new malware and spyware 🔄
-
-🌈 Additional Benefits
-
-• Fast and reliable VPN connections 🌐
-• Protects your data on public Wi-Fi networks 🛡️
-• Private browsing with no logs kept 🚫📝
-
-🎉 Download Blokada Today!
-
-Set up your VPN and DNS preferences ⚙️
-Enjoy a fast, secure, and clean online experience! 🚀
-
-Take control of your online experience with Blokada! 🌟
-
-----
+---
 
 Terms of Use: https://go.blokada.org/terms
 Privacy Policy: https://go.blokada.org/privacy
-
-Try Blokada Cloud and see the difference. Set up an unlimited number of devices with one subscription. Setup guides available for most platforms, with native apps for Android and iOS.
-
-For users wanting more, we also offer the Blokada Plus upgrade, that gives you access to our independent VPN network (servers in multiple countries), for up to 5 devices.
