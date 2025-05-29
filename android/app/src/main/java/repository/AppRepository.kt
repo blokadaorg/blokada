@@ -14,22 +14,15 @@ package repository
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.NameNotFoundException
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import androidx.core.graphics.createBitmap
-import binding.CommonBinding
-import binding.PlusBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import model.App
 import model.AppId
-import model.BypassedAppIds
 import service.ContextService
-import service.PersistenceService
 import utils.cause
 import utils.Logger
 import java.io.ByteArrayOutputStream
