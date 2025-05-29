@@ -478,7 +478,7 @@ jobs:
     name: pull
     remoteUrl: https://github.com/blokadaorg/blokada.git
     accessTokenSecret: GITHUB_ACCESS
-    refs: refs/heads/* refs/tags/*
+    refs: refs/heads/main refs/heds/25* refs/tags/*
     withLfs: false
     force: false
     condition: SUCCESSFUL
