@@ -30,12 +30,15 @@ void main() {
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
         Core.register<GatewayApi>(json);
 
+        final gateways = GatewaysValue();
+        Core.register(gateways);
+
         final subject = GatewayActor();
-        expect(subject.gateways.isEmpty, true);
+        expect((await gateways.now())?.isEmpty, true);
 
         await subject.fetch(m);
-        expect(subject.gateways.length, 3);
-        expect(subject.gateways.first.country, 'US');
+        expect((await gateways.now())?.length, 3);
+        expect((await gateways.now())?.first.country, 'US');
       });
     });
 
@@ -61,6 +64,9 @@ void main() {
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
         Core.register<GatewayApi>(json);
+
+        final gateways = GatewaysValue();
+        Core.register(gateways);
 
         final subject = GatewayActor();
         await subject.fetch(m);
@@ -92,6 +98,9 @@ void main() {
         when(json.get(any))
             .thenAnswer((_) => Future.value(fixtureGatewayEntries));
         Core.register<GatewayApi>(json);
+
+        final gateways = GatewaysValue();
+        Core.register(gateways);
 
         final subject = GatewayActor();
         await subject.fetch(m);
