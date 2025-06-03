@@ -16,7 +16,7 @@ ADAPTY_VER := 3_4.0
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: clean test build \
+.PHONY: clean test test-offline build \
         translate \
         build-android build-android-family build-android-six build-android-six-offline \
 	build-ios build-ios-family build-ios-six \
@@ -45,6 +45,10 @@ clean:
 
 test:
 	$(MAKE) -C common/ pub gen-android runner
+	$(MAKE) -C common/ test
+
+test-offline:
+	$(MAKE) -C common/ pub-offline gen-android runner
 	$(MAKE) -C common/ test
 
 # Build everything from scratch
