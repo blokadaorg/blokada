@@ -23,3 +23,6 @@ already cached.
 
 `make test` runs the Flutter tests located in `common/`. These require the
 Flutter dependencies to be available locally.
+
+Use `make test-offline` to run the tests without contacting the network. This
+assumes all dependencies have already been fetched.
