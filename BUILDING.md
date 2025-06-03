@@ -25,11 +25,9 @@ Rough installation instructions for macos:
 
 ```
 $ brew install python3
-$ brew install --cask flutter
 $ (android SDK can be installed with Android Studio)
 $ brew install --cask temurin@17
 $ brew install fastlane
-$ flutter config --jdk-dir <java-path>
 $ export ANDROID_HOME=<sdk-path>
 
 $ (install Xcode from AppStore)
@@ -43,7 +41,14 @@ $ gem install bundler
 $ pod install --repo-update
 $ brew install swiftlint go@1.22
 $ export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
-$ flutter doctor
+
+$ brew tap leoafarias/fvm
+$ brew install fvm
+$ cd common/
+$ fvm install && fvm use
+$ fvm flutter config --jdk-dir <java-path>
+$ fvm flutter doctor
+
 $ make regen-ios
 ```
 
