@@ -16,7 +16,7 @@ body {
     font-family: system-ui;
     text-align: center;
     /* Use SVG image as background */
-    background-image: url('images/background.svg');
+    background-image: url("images/background.svg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
