@@ -40,6 +40,14 @@ allprojects {
         google()
         mavenCentral()
     }
+    
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            android {
+                ndkVersion = "27.0.12077973"
+            }
+        }
+    }
 }
 
 task clean(type: Delete) {
