@@ -26,6 +26,8 @@ android {
     namespace "org.blokada"
     compileSdk 35
 
+    ndkVersion = "29.0.13113456"
+
     kotlin {
         jvmToolchain 17
     }
