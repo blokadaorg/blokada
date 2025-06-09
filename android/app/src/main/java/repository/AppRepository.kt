@@ -16,6 +16,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.os.Build
 import androidx.core.graphics.createBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,9 +43,13 @@ object AppRepository {
 
     suspend fun getApps(): List<App> {
         return scope.async(Dispatchers.Default) {
-            log.v("Fetching apps")
+            log.v("Fetching apps (Android ${Build.VERSION.SDK_INT})")
             val ctx = context.requireContext()
             val installed = try {
+                // On Android 11+ (API 30+), this requires QUERY_ALL_PACKAGES permission
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    log.v("Android 11+ detected, using QUERY_ALL_PACKAGES permission")
+                }
                 ctx.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
             } catch (ex: Exception) {
                 log.w("Could not fetch apps, ignoring".cause(ex))
@@ -70,24 +75,32 @@ object AppRepository {
     }
 
     fun getAppIcon(packageName: String): ByteArray? {
-        val ctx = context.requireContext()
-        val packageManager = ctx.packageManager
+        return try {
+            val ctx = context.requireContext()
+            val packageManager = ctx.packageManager
 
-        // Get the application info to access the icon
-        val appInfo = packageManager.getApplicationInfo(packageName, 0)
-        val icon = packageManager.getDrawable(packageName, appInfo.icon, appInfo) ?: return null
+            // Get the application info to access the icon
+            val appInfo = packageManager.getApplicationInfo(packageName, 0)
+            val icon = packageManager.getDrawable(packageName, appInfo.icon, appInfo) ?: return null
 
-        // Convert the drawable to a bitmap
-        val bitmap = createBitmap(icon.intrinsicWidth, icon.intrinsicHeight)
-        val canvas = Canvas(bitmap)
-        icon.setBounds(0, 0, canvas.width, canvas.height)
-        icon.draw(canvas)
+            // Convert the drawable to a bitmap
+            val bitmap = createBitmap(icon.intrinsicWidth, icon.intrinsicHeight)
+            val canvas = Canvas(bitmap)
+            icon.setBounds(0, 0, canvas.width, canvas.height)
+            icon.draw(canvas)
 
-        // Convert the bitmap to a byte array
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val byteArray = stream.toByteArray()
+            // Convert the bitmap to a byte array
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray = stream.toByteArray()
 
-        return byteArray
+            byteArray
+        } catch (ex: PackageManager.NameNotFoundException) {
+            log.w("Package not found: $packageName")
+            null
+        } catch (ex: Exception) {
+            log.w("Could not get app icon for $packageName".cause(ex))
+            null
+        }
     }
 }
