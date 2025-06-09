@@ -73,13 +73,15 @@ class SupportSectionState extends State<SupportSection> {
           chatAnimatedListBuilder: (context, itemBuilder) {
             return ChatAnimatedListReversed(itemBuilder: itemBuilder);
           },
-          textMessageBuilder: (context, message, index) {
+          textMessageBuilder: (context, message, index,
+              {required bool isSentByMe, groupStatus}) {
             return LinkMessage(
-                message: message,
-                index: index,
-                onOpenLink: (it) {
-                  _stage.openUrl(it.url, Markers.userTap);
-                });
+              message: message,
+              index: index,
+              onOpenLink: (it) {
+                _stage.openUrl(it.url, Markers.userTap);
+              },
+            );
           },
         ),
         resolveUser: (id) async {
