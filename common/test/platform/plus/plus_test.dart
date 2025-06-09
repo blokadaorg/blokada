@@ -5,6 +5,7 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/plus/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/plus/module/bypass/bypass.dart';
 import 'package:common/plus/module/gateway/gateway.dart';
 import 'package:common/plus/module/keypair/keypair.dart';
 import 'package:common/plus/module/lease/lease.dart';
@@ -78,6 +79,8 @@ void main() {
         final device = MockDeviceStore();
         when(device.currentDeviceTag).thenReturn("some device tag");
         Core.register<DeviceStore>(device);
+
+        Core.register(BypassedPackagesValue());
 
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
@@ -179,6 +182,8 @@ void main() {
 
         final keypair = MockKeypairActor();
         Core.register<KeypairActor>(keypair);
+
+        Core.register(BypassedPackagesValue());
 
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
