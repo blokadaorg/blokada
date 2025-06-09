@@ -9,3 +9,5 @@ blokada-gplay.json
 blokada-appstore.json
 *.jks
 *.keystore
+
+*.local.json
