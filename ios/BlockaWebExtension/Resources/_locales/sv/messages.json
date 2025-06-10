@@ -15,6 +15,18 @@
     "message": "Kontrollera status i Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada är aktiv",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_access_expired": {
+    "message": "Åtkomst har upphört – öppna appen för detaljer",
+    "description": "Shown when the account has expired."
+  },
+  "status_expiring_soon": {
+    "message": "Kontot upphör snart – kontrollera appen",
+    "description": "Shown when the account is expiring within 7 days."
+  },
   "open_app": {
     "message": "Öppna Blokada",
     "description": "Text on the button that opens the main app."

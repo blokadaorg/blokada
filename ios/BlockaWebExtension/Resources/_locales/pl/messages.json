@@ -15,6 +15,18 @@
     "message": "Sprawdź status w aplikacji Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada jest aktywna",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_access_expired": {
+    "message": "Dostęp wygasł – otwórz aplikację po szczegóły",
+    "description": "Shown when the account has expired."
+  },
+  "status_expiring_soon": {
+    "message": "Konto wygasa wkrótce – sprawdź aplikację",
+    "description": "Shown when the account is expiring within 7 days."
+  },
   "open_app": {
     "message": "Otwórz Blokada",
     "description": "Text on the button that opens the main app."
