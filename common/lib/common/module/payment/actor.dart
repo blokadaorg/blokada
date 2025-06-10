@@ -58,12 +58,14 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       );
       _adaptyInitialized = true;
       await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
+      await _syncCustomAttributes(m, account);
       await reportOnboarding(_pendingOnboard);
     } else {
       // Initialise Adapty with no account ID provided (never active)
       log(m).log(msg: "Adapty: initialising without accountId");
       _adaptyInitialized = true;
       await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
+      await _syncCustomAttributes(m, account);
       await reportOnboarding(_pendingOnboard);
     }
 
@@ -79,6 +81,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
             sensitive: true,
           );
           await _channel.identify(it.now.id);
+          await _syncCustomAttributes(it.m, it.now);
         }
       }
     });
@@ -201,5 +204,20 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     log(m).i("Payment screen closed");
     onPaymentScreenOpened(false);
     _isOpened = false;
+  }
+
+  _syncCustomAttributes(Marker m, AccountState account) async {
+    final attributes = account.jsonAccount.attributes;
+    if (attributes == null || attributes.isEmpty) {
+      return; // No attributes to sync
+    }
+
+    try {
+      await _channel.setCustomAttributes(m, attributes);
+      log(m).i("Synced custom attributes to Adapty");
+    } catch (e, s) {
+      log(m).e(msg: "Failed syncing custom attributes", err: e, stack: s);
+      // Don't fail the initialization for this
+    }
   }
 }
