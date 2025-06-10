@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:common/common/dialog.dart';
 import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
@@ -123,8 +124,9 @@ class _PowerButtonState extends State<PowerButton>
         _setState();
       });
 
+    // Use 5 min as this is our default pause time
     animCtrlArcTimerCounter =
-        AnimationController(vsync: this, duration: Duration(seconds: 60));
+        AnimationController(vsync: this, duration: const Duration(minutes: 5));
     animArcTimerCounter =
         Tween<double>(begin: 1, end: 0).animate(animCtrlArcTimerCounter)
           ..addListener(() {
@@ -345,10 +347,20 @@ class _PowerButtonState extends State<PowerButton>
                 if (!status.isWorking()) {
                   setState(() {
                     log(Markers.userTap).trace("tappedPowerButton", (m) async {
-                      try {
-                        await _appStart.toggleApp(m, pauseWithTimer: true);
-                      } on OnboardingException catch (_) {
-                        _modal.change(Markers.userTap, Modal.onboardPrivateDns);
+                      if (!status.isActive()) {
+                        try {
+                          await _appStart.toggleApp(m);
+                        } on OnboardingException catch (_) {
+                          _modal.change(
+                              Markers.userTap, Modal.onboardPrivateDns);
+                        }
+                      } else {
+                        showPauseDialog(context, onSelected: (duration) {
+                          log(Markers.userTap).trace("tappedPowerButtonDialog",
+                              (m) async {
+                            _appStart.toggleApp(m, duration: duration);
+                          });
+                        });
                       }
                     });
                     pausedForSeconds = null;

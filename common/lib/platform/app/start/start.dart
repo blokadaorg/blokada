@@ -186,14 +186,14 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   }
 
   @action
-  Future<void> toggleApp(Marker m, {bool pauseWithTimer = false}) async {
+  Future<void> toggleApp(Marker m, {Duration? duration}) async {
     return await log(m).trace("toggleApp", (m) async {
       if (_app.status == AppStatus.initFail) {
         await startApp(m);
       } else if (_paused) {
         await unpauseApp(m);
-      } else if (pauseWithTimer) {
-        await pauseAppUntil(const Duration(seconds: 60), m);
+      } else if (duration != null) {
+        await pauseAppUntil(duration, m);
       } else {
         await pauseAppIndefinitely(m);
       }

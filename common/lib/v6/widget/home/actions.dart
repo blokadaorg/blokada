@@ -75,7 +75,9 @@ class _HomeActionsState extends State<HomeActions>
                 },
                 child: Text(
                   status.isInactive()
-                      ? "home action tap to activate".i18n
+                      ? ((_appStart.pausedFor != null)
+                          ? "home status detail paused".i18n
+                          : "home action tap to activate".i18n)
                       : "home status detail progress".i18n,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),

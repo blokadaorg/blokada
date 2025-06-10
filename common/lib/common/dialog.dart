@@ -6,6 +6,7 @@ import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/profile/profile.dart';
 import 'package:common/family/widget/profile/profile_dialog.dart';
+import 'package:common/plus/widget/pause_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +31,18 @@ void showSelectProfileDialog(BuildContext context,
                 onSelected.call(profile);
               }
             : null),
+    actions: (context) => [],
+  );
+}
+
+void showPauseDialog(BuildContext context,
+    {required Function(Duration?) onSelected}) {
+  showDefaultDialog(
+    context,
+    title: Text("home power off menu header".i18n),
+    content: (context) => PauseDialog(
+      onSelected: onSelected,
+    ),
     actions: (context) => [],
   );
 }

@@ -7,6 +7,7 @@ enum Modal {
   plusDeviceLimitReached,
   familyAddProfile,
   familyLinkDevice,
+  pause,
 }
 
 class CurrentModalValue extends NullableAsyncValue<Modal> {
