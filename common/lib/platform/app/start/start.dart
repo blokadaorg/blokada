@@ -5,6 +5,7 @@ import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/plus/plus.dart';
+import 'package:common/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
@@ -37,6 +38,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   AppStartStoreBase() {
     _app.addOn(appStatusChanged, onAppStatus);
+    reactionOnStore((_) => _device.pausedForSeconds, _rescheduleUnpause);
   }
 
   onRegister() {
@@ -48,7 +50,19 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   bool _plusPermEnabled = false;
 
   @observable
-  DateTime? pausedUntil;
+  Duration? pausedFor;
+
+  _rescheduleUnpause(_) {
+    if (_device.pausedForSeconds > 0) {
+      pausedFor = Duration(seconds: _device.pausedForSeconds);
+      final pausedUntil = DateTime.now().add(pausedFor!);
+      _scheduler.addOrUpdate(Job(_keyTimer, Markers.timer,
+          before: pausedUntil, callback: unpauseApp));
+    } else {
+      _scheduler.stop(Markers.timer, _keyTimer);
+      pausedFor = null;
+    }
+  }
 
   onAppStatus(Marker m) async {
     if (_app.status.isActive()) {
@@ -110,20 +124,13 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     return await log(m).trace("pauseAppUntil", (m) async {
       try {
         await _app.reconfiguring(m);
-        await _pauseApp(m);
+        await _pauseApp(m, pauseDuration: duration);
         if (!Core.act.isFamily) await _plus.reactToAppPause(false, m);
         _paused = true;
         await _app.appPaused(true, m);
-        final pausedUntil = DateTime.now().add(duration);
-        await _scheduler.addOrUpdate(
-            Job(_keyTimer, m, before: pausedUntil, callback: unpauseApp));
-        this.pausedUntil = pausedUntil;
-        log(m).pair("pausedUntil", pausedUntil);
       } catch (e) {
         _paused = false;
         await _app.appPaused(false, m);
-        await _scheduler.stop(m, _keyTimer);
-        pausedUntil = null;
       }
     });
   }
@@ -137,13 +144,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         if (!Core.act.isFamily) await _plus.reactToAppPause(false, m);
         _paused = true;
         await _app.appPaused(true, m);
-        await _scheduler.stop(m, _keyTimer);
-        pausedUntil = null;
       } catch (e) {
         _paused = false;
         await _app.appPaused(false, m);
-        await _scheduler.stop(m, _keyTimer);
-        pausedUntil = null;
       }
     });
   }
@@ -152,13 +155,12 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   Future<bool> unpauseApp(Marker m) async {
     await log(m).trace("unpauseApp", (m) async {
       try {
+        pausedFor = null;
         await _app.reconfiguring(m);
         await _unpauseApp(m);
         if (!Core.act.isFamily) await _plus.reactToAppPause(true, m);
         _paused = false;
         await _app.appPaused(false, m);
-        await _scheduler.stop(m, _keyTimer);
-        pausedUntil = null;
       } on AccountTypeException {
         try {
           await _payment.openPaymentScreen(m);
@@ -184,20 +186,22 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   }
 
   @action
-  Future<void> toggleApp(Marker m) async {
+  Future<void> toggleApp(Marker m, {bool pauseWithTimer = false}) async {
     return await log(m).trace("toggleApp", (m) async {
       if (_app.status == AppStatus.initFail) {
         await startApp(m);
       } else if (_paused) {
         await unpauseApp(m);
+      } else if (pauseWithTimer) {
+        await pauseAppUntil(const Duration(seconds: 60), m);
       } else {
         await pauseAppIndefinitely(m);
       }
     });
   }
 
-  Future<void> _pauseApp(Marker m) async {
-    await _device.setCloudEnabled(false, m);
+  Future<void> _pauseApp(Marker m, {Duration? pauseDuration}) async {
+    await _device.setCloudEnabled(m, false, pauseDuration: pauseDuration);
   }
 
   Future<void> _unpauseApp(Marker m) async {
@@ -208,6 +212,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       // } else if (_account.type == AccountType.plus && _permVpn.present != true) {
       //   throw OnboardingException();
     }
-    await _device.setCloudEnabled(true, m);
+    await _device.setCloudEnabled(m, true);
   }
 }

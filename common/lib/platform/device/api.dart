@@ -22,6 +22,7 @@ class JsonDevice {
   late List<String> lists;
   late String retention;
   late bool paused;
+  late int pausedForSeconds;
   late bool safeSearch;
 
   JsonDevice({
@@ -29,6 +30,7 @@ class JsonDevice {
     required this.lists,
     required this.retention,
     required this.paused,
+    required this.pausedForSeconds,
     required this.safeSearch,
   });
 
@@ -38,6 +40,7 @@ class JsonDevice {
       lists = json['lists'].cast<String>();
       retention = json['retention'];
       paused = json['paused'];
+      pausedForSeconds = json['paused_for'] ?? 0;
       safeSearch = json['safe_search'];
     } on TypeError catch (e) {
       throw JsonError(json, e);
@@ -49,22 +52,26 @@ class JsonDevicePayload {
   late List<String>? lists;
   late String? retention;
   late bool? paused;
+  late int? pausedForSeconds;
   late bool? safeSearch;
 
   JsonDevicePayload.forLists({
     required this.lists,
   })  : retention = null,
         paused = null,
+        pausedForSeconds = null,
         safeSearch = null;
 
   JsonDevicePayload.forRetention({
     required this.retention,
   })  : lists = null,
         paused = null,
+        pausedForSeconds = null,
         safeSearch = null;
 
   JsonDevicePayload.forPaused({
     required this.paused,
+    required this.pausedForSeconds,
   })  : lists = null,
         retention = null,
         safeSearch = null;
@@ -73,6 +80,7 @@ class JsonDevicePayload {
     required this.safeSearch,
   })  : lists = null,
         retention = null,
+        pausedForSeconds = null,
         paused = null;
 
   Map<String, dynamic> toJson() {
@@ -81,6 +89,7 @@ class JsonDevicePayload {
     data['lists'] = lists;
     data['retention'] = retention;
     data['paused'] = paused;
+    data['paused_for'] = pausedForSeconds;
     data['safe_search'] = safeSearch;
     return data;
   }
@@ -108,6 +117,7 @@ class DeviceApi {
   Future<void> putDevice(
     Marker m, {
     bool? paused,
+    int? pausedForSeconds,
     List<String>? lists,
     String? retention,
     bool? safeSearch,
@@ -121,7 +131,9 @@ class DeviceApi {
 
     dynamic payload = <String, dynamic>{};
     if (paused != null) {
-      payload = JsonDevicePayload.forPaused(paused: paused).toJson();
+      payload = JsonDevicePayload.forPaused(
+              paused: paused, pausedForSeconds: pausedForSeconds)
+          .toJson();
     } else if (lists != null) {
       payload = JsonDevicePayload.forLists(lists: lists).toJson();
     } else if (retention != null) {

@@ -10,7 +10,6 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/app/start/start.dart';
 import 'package:common/platform/stats/stats.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -45,6 +44,7 @@ class _PowerButtonState extends State<PowerButton>
   late AnimationController animCtrlArcStart;
   late AnimationController animCtrlArcCounter;
   late AnimationController animCtrlArc2Counter;
+  late AnimationController animCtrlArcTimerCounter;
 
   late Animation<double> animLoading;
   late Animation<double> animLibre;
@@ -54,12 +54,15 @@ class _PowerButtonState extends State<PowerButton>
   late Animation<double> animArcLoading;
   late Animation<double> animArcCounter;
   late Animation<double> animArc2Counter;
+  late Animation<double> animArcTimerCounter;
 
   bool pressed = false;
 
   var loadingCounter = 0.5;
   var counter = 0.3;
   var newCounter = 0.5;
+
+  int? pausedForSeconds;
 
   @override
   void initState() {
@@ -120,6 +123,14 @@ class _PowerButtonState extends State<PowerButton>
         _setState();
       });
 
+    animCtrlArcTimerCounter =
+        AnimationController(vsync: this, duration: Duration(seconds: 60));
+    animArcTimerCounter =
+        Tween<double>(begin: 1, end: 0).animate(animCtrlArcTimerCounter)
+          ..addListener(() {
+            _setState();
+          });
+
     animCtrlLoading = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2000),
@@ -153,6 +164,7 @@ class _PowerButtonState extends State<PowerButton>
         _home.powerOnIsReady();
         log(Markers.root).i("app status active, power on is ready");
       }
+      pausedForSeconds = _appStart.pausedFor?.inSeconds;
       _scheduleUpdateAnimations();
     });
 
@@ -230,6 +242,15 @@ class _PowerButtonState extends State<PowerButton>
     } else {
       animCtrlCover.reverse();
     }
+
+    if (pausedForSeconds != null) {
+      // If the app is paused, animate the timer arc
+      animCtrlArcTimerCounter.value = 1 - (pausedForSeconds! / 60.0);
+      animCtrlArcTimerCounter.forward();
+    } else {
+      // If the app is not paused, reset the timer arc (to end animation value)
+      animCtrlArcTimerCounter.value = 1.0;
+    }
   }
 
   _animateStatusRingTo(double value) {
@@ -283,7 +304,8 @@ class _PowerButtonState extends State<PowerButton>
                           animArcLoading,
                           animArcCounter,
                           animArcAlpha,
-                          animArc2Counter
+                          animArc2Counter,
+                          animArcTimerCounter,
                         ]),
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
@@ -298,6 +320,7 @@ class _PowerButtonState extends State<PowerButton>
                                 arcAlpha: animArcAlpha.value,
                                 arcStart: animArcLoading.value,
                                 arcEnd: animArcCounter.value,
+                                arcTimerEnd: animArcTimerCounter.value,
                                 arcCounter: [
                                   animArc2Counter.value *
                                       math.min(
@@ -323,11 +346,28 @@ class _PowerButtonState extends State<PowerButton>
                   setState(() {
                     log(Markers.userTap).trace("tappedPowerButton", (m) async {
                       try {
+                        await _appStart.toggleApp(m, pauseWithTimer: true);
+                      } on OnboardingException catch (_) {
+                        _modal.change(Markers.userTap, Modal.onboardPrivateDns);
+                      }
+                    });
+                    pausedForSeconds = null;
+                    _updateAnimations();
+                  });
+                }
+              },
+              onLongTap: () {
+                if (!status.isWorking()) {
+                  setState(() {
+                    log(Markers.userTap).trace("tappedPowerButtonLong",
+                        (m) async {
+                      try {
                         await _appStart.toggleApp(m);
                       } on OnboardingException catch (_) {
                         _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                       }
                     });
+                    pausedForSeconds = null;
                     _updateAnimations();
                   });
                 }
@@ -373,6 +413,8 @@ class _PowerButtonState extends State<PowerButton>
     animCtrlArcCounter.dispose();
     animCtrlArc2Counter.stop();
     animCtrlArc2Counter.dispose();
+    animCtrlArcTimerCounter.stop();
+    animCtrlArcTimerCounter.dispose();
     super.dispose();
   }
 
@@ -388,7 +430,8 @@ class PowerButtonPainter extends CustomPainter {
   final ui.Image iconImage;
 
   final edge = 9.0;
-  final ringWith = 6.0;
+  final ringWidth = 6.0;
+  final timerRingWidth = 12.0;
   final iconWidth = 30.0;
   final blurRadius = 5.0;
 
@@ -400,6 +443,7 @@ class PowerButtonPainter extends CustomPainter {
   final double arcEnd;
   final arcAlpha;
   final List<double> arcCounter;
+  final double arcTimerEnd;
   final Color colorShadow;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
@@ -410,6 +454,7 @@ class PowerButtonPainter extends CustomPainter {
   late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(alphaPlus);
   late Color colorText = Colors.white;
   late Color colorLoading = Colors.white.withOpacity(alphaLoading);
+  late Color colorTimer = colorShadow;
 
   PowerButtonPainter({
     required this.iconImage,
@@ -421,6 +466,7 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcEnd,
     required this.arcAlpha,
     required this.arcCounter,
+    required this.arcTimerEnd,
     required this.colorShadow,
   });
 
@@ -441,22 +487,27 @@ class PowerButtonPainter extends CustomPainter {
     Paint inactiveRingPaint = Paint()
       ..color = colorShadow
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith;
+      ..strokeWidth = ringWidth;
+
+    Paint timerArcPaint = Paint()
+      ..color = colorTimer.withOpacity(alphaCover)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = timerRingWidth;
 
     Paint loadingRingPaint = Paint()
       ..color = colorLoading
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith;
+      ..strokeWidth = ringWidth;
 
     Paint loadingArcPaint = Paint()
       ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.40))
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith * 0.5;
+      ..strokeWidth = ringWidth * 0.5;
 
     Paint loadingArc2Paint = Paint()
       ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.30))
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith * 0.5;
+      ..strokeWidth = ringWidth * 0.5;
 
     Paint libreRingPaint = Paint()
       ..shader = LinearGradient(
@@ -468,7 +519,7 @@ class PowerButtonPainter extends CustomPainter {
         ],
       ).createShader(rect)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith;
+      ..strokeWidth = ringWidth;
 
     Paint plusRingPaint = Paint()
       ..shader = LinearGradient(
@@ -480,7 +531,7 @@ class PowerButtonPainter extends CustomPainter {
         ],
       ).createShader(rect)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWith;
+      ..strokeWidth = ringWidth;
 
     Paint innerShadowPaint = Paint()
       ..shader = RadialGradient(
@@ -493,7 +544,7 @@ class PowerButtonPainter extends CustomPainter {
 
     // ring inactive
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWith, inactiveRingPaint);
+        size.width / 2 - ringWidth, inactiveRingPaint);
 
     // Filled background when active
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
@@ -502,17 +553,17 @@ class PowerButtonPainter extends CustomPainter {
     // ring blue
     //libreRingPaint.alpha = alphaBlue
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWith, libreRingPaint);
+        size.width / 2 - ringWidth, libreRingPaint);
 
     // ring orange
     // plusRingPaint.alpha = alphaOrange
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWith, plusRingPaint);
+        size.width / 2 - ringWidth, plusRingPaint);
 
     // ring loading
     // loadingRingPaint.alpha = alphaLoading
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWith, loadingRingPaint);
+        size.width / 2 - ringWidth, loadingRingPaint);
 
     // shadow and the off state cover
     // shadowPaint.alpha = alphaCover
@@ -521,10 +572,19 @@ class PowerButtonPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width / 2, size.height / 2),
         size.width / 2 - edge * 1.7, coverPaint);
 
+    // timer arc (in ring place)
+    canvas.drawArc(
+        Rect.fromLTWH(timerRingWidth * 2, timerRingWidth * 2,
+            size.width - timerRingWidth * 4, size.height - timerRingWidth * 4),
+        -math.pi / 2,
+        -math.min(arcTimerEnd, 1.0) * math.pi * 2,
+        false,
+        timerArcPaint);
+
     // loading arc and blocked counter
     canvas.drawArc(
-        Rect.fromLTWH(-ringWith * 1, -ringWith * 1, size.width + ringWith * 2,
-            size.height + ringWith * 2),
+        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1,
+            size.width + ringWidth * 2, size.height + ringWidth * 2),
         arcStart * math.pi * 2 - math.pi / 2,
         math.min(arcEnd, 1.0) * math.pi * 2,
         false,
@@ -532,8 +592,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // counter arc total
     canvas.drawArc(
-        Rect.fromLTWH(-ringWith * 2, -ringWith * 2, size.width + ringWith * 4,
-            size.height + ringWith * 4),
+        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2,
+            size.width + ringWidth * 4, size.height + ringWidth * 4),
         0 - math.pi / 2,
         math.min(arcCounter[0], 1.0) * math.pi * 2,
         false,
@@ -541,8 +601,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // blocked counter - the overlap
     canvas.drawArc(
-        Rect.fromLTWH(-ringWith * 1, -ringWith * 1, size.width + ringWith * 2,
-            size.height + ringWith * 2),
+        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1,
+            size.width + ringWidth * 2, size.height + ringWidth * 2),
         0 - math.pi / 2,
         math.max(0, arcEnd - 1.0) * math.pi * 2,
         false,
@@ -550,48 +610,12 @@ class PowerButtonPainter extends CustomPainter {
 
     // counter arc total - the overlap
     canvas.drawArc(
-        Rect.fromLTWH(-ringWith * 2, -ringWith * 2, size.width + ringWith * 4,
-            size.height + ringWith * 4),
+        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2,
+            size.width + ringWidth * 4, size.height + ringWidth * 4),
         0 - math.pi / 2,
         math.max(0, arcCounter[0] - 1.0) * math.pi * 2,
         false,
         loadingArc2Paint);
-
-    // counter arc 10k-100k unused
-    // canvas.drawArc(
-    //     Rect.fromLTWH(- ringWith * 3, - ringWith * 3, size.width + ringWith * 6, size.height + ringWith * 6),
-    //     0 - math.pi / 2, arcCounter[1] * math.pi * 2, false, loadingArcPaint);
-    //
-    // // counter arc 100k-1m unused
-    // canvas.drawArc(
-    //     Rect.fromLTWH(- ringWith * 4, - ringWith * 4, size.width + ringWith * 8, size.height + ringWith * 8),
-    //     0 - math.pi / 2, arcCounter[2] * math.pi * 2, false, loadingArcPaint);
-
-    // draw icon
-    final iconColor = (alphaPlus == 1.0)
-        ? colorRingPlus1
-        : ((alphaLibre == 1.0)
-            ? colorRingLibre1
-            : ((alphaCover > 0.0)
-                ? Colors.black
-                : ((colorShadow.isLight) ? Colors.black : Colors.white)));
-
-    Paint iconPaint = Paint()
-      //..colorFilter = ColorFilter.mode(colorRingPlus1, BlendMode.srcIn);
-      ..isAntiAlias = true
-      ..colorFilter = ColorFilter.mode(iconColor, BlendMode.srcIn);
-
-    // canvas.drawImageRect(
-    //     iconImage,
-    //     ui.Rect.fromLTWH(0.0, 0.0, iconImage.width.toDouble(),
-    //         iconImage.height.toDouble()), // source rectangle
-    //     ui.Rect.fromLTWH(
-    //       (size.width - iconWidth) / 2,
-    //       (size.height - iconWidth) / 2,
-    //       iconWidth,
-    //       iconWidth,
-    //     ), // destination rectangle
-    //     iconPaint);
   }
 
   @override

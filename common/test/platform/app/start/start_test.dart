@@ -6,7 +6,6 @@ import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/start/start.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/perm/perm.dart';
-import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/plus/module/vpn/vpn.dart';
 import 'package:common/plus/plus.dart';
@@ -46,11 +45,13 @@ void main() {
         Core.register<Scheduler>(timer);
 
         final subject = AppStartStore();
+        final duration = const Duration(seconds: 30);
 
-        await subject.pauseAppUntil(const Duration(seconds: 30), m);
+        await subject.pauseAppUntil(duration, m);
 
         verify(app.appPaused(true, m)).called(1);
-        verify(device.setCloudEnabled(false, m)).called(1);
+        verify(device.setCloudEnabled(m, false, pauseDuration: duration))
+            .called(1);
         verify(timer.addOrUpdate(any)).called(1);
       });
     });
@@ -73,7 +74,7 @@ void main() {
         await subject.pauseAppIndefinitely(m);
 
         verify(app.appPaused(true, m)).called(1);
-        verify(device.setCloudEnabled(false, m)).called(1);
+        verify(device.setCloudEnabled(m, false, pauseDuration: null)).called(1);
         verify(timer.stop(any, any)).called(1);
       });
     });
@@ -112,7 +113,7 @@ void main() {
         await subject.unpauseApp(m);
 
         verify(app.appPaused(false, m)).called(1);
-        verify(device.setCloudEnabled(true, m)).called(1);
+        verify(device.setCloudEnabled(m, true)).called(1);
         verify(timer.stop(any, any)).called(1);
       });
     });

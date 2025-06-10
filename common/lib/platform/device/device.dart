@@ -62,6 +62,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @observable
   String deviceAlias = "";
 
+  @observable
+  int pausedForSeconds = 0;
+
   @computed
   String get currentDeviceTag {
     final tag = deviceTag;
@@ -94,16 +97,20 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       lists = device.lists;
       retention = device.retention;
       deviceTag = device.deviceTag;
+      pausedForSeconds = device.pausedForSeconds;
 
+      log(m).pair("pausedForSeconds", pausedForSeconds);
       log(m).pair("tagAfterFetch", deviceTag);
       await emit(deviceChanged, deviceTag!, m);
     });
   }
 
   @action
-  Future<void> setCloudEnabled(bool enabled, Marker m) async {
+  Future<void> setCloudEnabled(Marker m, bool enabled,
+      {Duration? pauseDuration}) async {
     return await log(m).trace("setCloudEnabled", (m) async {
-      await _api.putDevice(m, paused: !enabled);
+      await _api.putDevice(m,
+          paused: !enabled, pausedForSeconds: pauseDuration?.inSeconds);
       await fetch(m);
     });
   }

@@ -20,6 +20,7 @@ final _fixtureJsonDevice = JsonDevice(
   lists: ["a", "b"],
   retention: "24h",
   paused: true,
+  pausedForSeconds: 60,
   safeSearch: false,
 );
 
@@ -61,7 +62,7 @@ void main() {
         subject.deviceTag = "some-tag";
         mockAct(subject);
 
-        await subject.setCloudEnabled(true, m);
+        await subject.setCloudEnabled(m, true);
         verify(api.putDevice(m, paused: false)).called(1);
 
         await subject.setRetention("1h", m);
@@ -107,7 +108,7 @@ void main() {
 
         final subject = DeviceStore();
 
-        await expectLater(subject.setCloudEnabled(true, m), throwsException);
+        await expectLater(subject.setCloudEnabled(m, true), throwsException);
         await expectLater(subject.setRetention("1h", m), throwsException);
         await expectLater(subject.setLists(["c", "d"], m), throwsException);
       });
