@@ -13,6 +13,7 @@
 import Foundation
 import Factory
 import Combine
+import Flutter
 
 extension OpsGateway {
     func niceName() -> String {
@@ -84,6 +85,7 @@ struct CurrentLease {
 }
 
 class PlusBinding: PlusOps {
+    
     let plusEnabled = CurrentValueSubject<Bool, Never>(false)
 
     @Injected(\.flutter) private var flutter
@@ -190,6 +192,14 @@ class PlusBinding: PlusOps {
             privateKey: privKey.base64Key
         )
         completion(.success(currentKeypair))
+    }
+
+    func doGetInstalledApps(completion: @escaping (Result<[OpsInstalledApp], any Error>) -> Void) {
+        completion(.failure("doGetInstalledApps is Android only"))
+    }
+    
+    func doGetAppIcon(packageName: String, completion: @escaping (Result<FlutterStandardTypedData?, any Error>) -> Void) {
+        completion(.failure("doGetAppIcon is Android only"))
     }
 }
 

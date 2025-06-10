@@ -9,6 +9,13 @@ class BypassActor with Actor, Logging {
 
   @override
   onStart(Marker m) async {
+    if (Core.act.platform != PlatformType.android) {
+      // Bypass is only supported on Android
+      // Ensure dependencies for Plus are loaded (empty list)
+      await _bypassedPackages.fetch(m);
+      return;
+    }
+
     // Load installed apps when the actor starts
     // Sort by app name, if available, otherwise by package name
     // Put apps without names at the end
