@@ -15,6 +15,18 @@
     "message": "تحقّق من الحالة في تطبيق Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada نشطة",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_access_expired": {
+    "message": "انتهت صلاحية الوصول – افتح التطبيق للتفاصيل",
+    "description": "Shown when the account has expired."
+  },
+  "status_expiring_soon": {
+    "message": "الحساب ينتهي قريباً – تحقق من التطبيق",
+    "description": "Shown when the account is expiring within 7 days."
+  },
   "open_app": {
     "message": "افتح Blokada",
     "description": "Text on the button that opens the main app."
