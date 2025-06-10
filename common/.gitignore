@@ -57,6 +57,7 @@ build/
 .ios/
 .flutter-plugins
 .flutter-plugins-dependencies
+coverage/
 
 # Symbolication related
 app.*.symbols

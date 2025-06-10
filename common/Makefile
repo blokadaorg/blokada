@@ -1,7 +1,7 @@
 # Define common variables
-FLUTTER := flutter
+FLUTTER := fvm flutter
 PIGEON := ./scripts/pigeon.py
-DART := dart
+DART := fvm dart
 OUTPUT_DIR := build/pigeon/
 
 # Default target
@@ -37,11 +37,11 @@ gen: gen-android gen-ios runner
 
 # Generate platform interface files for Android
 gen-android:
-	$(PIGEON) --android --output=$(OUTPUT_DIR) --cmd=$(DART)
+	$(PIGEON) --android --output=$(OUTPUT_DIR) --cmd="$(DART)"
 
 # Generate platform interface files for iOS
 gen-ios:
-	$(PIGEON) --output=$(OUTPUT_DIR) --cmd=$(DART)
+	$(PIGEON) --output=$(OUTPUT_DIR) --cmd="$(DART)"
 
 # Generate files from build_runner (mocks etc)
 runner:
