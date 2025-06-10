@@ -9,12 +9,14 @@ class JsonAccount {
   bool? active;
   String? type;
   String? paymentSource;
+  Map<String, dynamic>? attributes;
 
   JsonAccount({
     required this.id,
     required this.activeUntil,
     required this.active,
     required this.type,
+    this.attributes,
   });
 
   isActive() {
@@ -32,6 +34,7 @@ class JsonAccount {
       active = json['active'];
       type = json['type'];
       paymentSource = json['payment_source'];
+      attributes = json['attributes'] as Map<String, dynamic>?;
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }
@@ -44,6 +47,9 @@ class JsonAccount {
     data['active'] = active;
     data['type'] = type;
     data['payment_source'] = paymentSource;
+    if (attributes != null) {
+      data['attributes'] = attributes;
+    }
     return data;
   }
 }
