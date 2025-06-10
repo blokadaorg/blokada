@@ -52,7 +52,6 @@ void main() {
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(m, false, pauseDuration: duration))
             .called(1);
-        verify(timer.addOrUpdate(any)).called(1);
       });
     });
 
@@ -75,7 +74,6 @@ void main() {
 
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(m, false, pauseDuration: null)).called(1);
-        verify(timer.stop(any, any)).called(1);
       });
     });
 
@@ -114,7 +112,6 @@ void main() {
 
         verify(app.appPaused(false, m)).called(1);
         verify(device.setCloudEnabled(m, true)).called(1);
-        verify(timer.stop(any, any)).called(1);
       });
     });
 

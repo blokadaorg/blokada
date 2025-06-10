@@ -38,11 +38,11 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   AppStartStoreBase() {
     _app.addOn(appStatusChanged, onAppStatus);
-    reactionOnStore((_) => _device.pausedForSeconds, _rescheduleUnpause);
   }
 
   onRegister() {
     Core.register<AppStartStore>(this as AppStartStore);
+    reactionOnStore((_) => _device.pausedForSeconds, _rescheduleUnpause);
   }
 
   bool _paused = false;
