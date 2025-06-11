@@ -1,3 +1,4 @@
+import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -70,10 +71,12 @@ class V6StatsSectionState extends State<V6StatsSection> {
                       color: theme.textSecondary,
                     ),
                     const SizedBox(height: 4),
-                    RadialSegment(autoRefresh: widget.autoRefresh),
+                    FreemiumBlur(
+                        blurX: 18,
+                        child: RadialSegment(autoRefresh: widget.autoRefresh)),
                     const SizedBox(height: 16),
                     const Divider(),
-                    ColumnChart(stats: stats),
+                    FreemiumBlur(blurX: 18, child: ColumnChart(stats: stats)),
                   ],
                 ),
               ),
