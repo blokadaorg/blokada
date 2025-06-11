@@ -4,6 +4,7 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/stats/action_info.dart';
 import 'package:common/common/widget/stats/action_item.dart';
@@ -83,10 +84,12 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.entry.domainName,
-                            style: const TextStyle(
-                                fontSize: 24, color: Colors.white),
-                            overflow: TextOverflow.ellipsis),
+                        FreemiumBlur(
+                          child: Text(widget.entry.domainName,
+                              style: const TextStyle(
+                                  fontSize: 24, color: Colors.white),
+                              overflow: TextOverflow.ellipsis),
+                        ),
                         Text(
                           (widget.entry.isBlocked()
                               ? "activity request blocked".i18n
@@ -222,16 +225,18 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
             //     color: context.theme.textSecondary,
             //     size: 20),
             // const SizedBox(width: 4),
-            Text(
-              _filter.getFilterContainingList(widget.entry.listId,
-                  full: !Core.act.isFamily),
-              style: TextStyle(
-                color: context.theme.textSecondary,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+            FreemiumBlur(
+              child: Text(
+                _filter.getFilterContainingList(widget.entry.listId,
+                    full: !Core.act.isFamily),
+                style: TextStyle(
+                  color: context.theme.textSecondary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
             ),
           ],
         ),
@@ -253,15 +258,17 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                   Icon(getProfileIcon(profile!.template),
                       color: getProfileColor(profile!.template), size: 20),
                   const SizedBox(width: 4),
-                  Text(
-                    profile!.displayAlias.i18n,
-                    style: TextStyle(
-                      color: getProfileColor(profile!.template),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                  FreemiumBlur(
+                    child: Text(
+                      profile!.displayAlias.i18n,
+                      style: TextStyle(
+                        color: getProfileColor(profile!.template),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
                   ),
                 ],
               )
@@ -270,15 +277,17 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                   Icon(CupertinoIcons.question_circle,
                       color: context.theme.textSecondary, size: 20),
                   const SizedBox(width: 4),
-                  Text(
-                    "family stats label profile unknown".i18n,
-                    style: TextStyle(
-                      color: context.theme.textSecondary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                  FreemiumBlur(
+                    child: Text(
+                      "family stats label profile unknown".i18n,
+                      style: TextStyle(
+                        color: context.theme.textSecondary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
                   ),
                 ],
               ),

@@ -6,6 +6,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExceptionsSection extends StatefulWidget {
   final bool primary;
@@ -63,33 +64,35 @@ class ExceptionsSectionState extends State<ExceptionsSection>
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: !_isReady
           ? Container()
-          : ListView(
-              primary: widget.primary,
-              children: [
-                    SizedBox(height: getTopPadding(context)),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: context.theme.bgMiniCard,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12)),
+          : SlidableAutoCloseBehavior(
+              child: ListView(
+                primary: widget.primary,
+                children: [
+                      SizedBox(height: getTopPadding(context)),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: context.theme.bgMiniCard,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12)),
+                        ),
+                        height: 12,
                       ),
-                      height: 12,
-                    ),
-                  ] +
-                  _buildItems(context, _denied) +
-                  _buildItems(context, _allowed) +
-                  [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: context.theme.bgMiniCard,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12)),
+                    ] +
+                    _buildItems(context, _denied) +
+                    _buildItems(context, _allowed) +
+                    [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: context.theme.bgMiniCard,
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12),
+                              bottomRight: Radius.circular(12)),
+                        ),
+                        height: 12,
                       ),
-                      height: 12,
-                    ),
-                  ],
+                    ],
+              ),
             ),
     );
   }

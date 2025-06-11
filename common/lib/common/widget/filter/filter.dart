@@ -1,6 +1,7 @@
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/widget/color.dart';
 import 'package:common/common/widget/filter/filter_option.dart';
+import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
@@ -76,11 +77,16 @@ class FilterWidgetState extends State<FilterWidget> {
                             color: context.theme.divider,
                           )),
                   const SizedBox(height: 8.0),
-                  Text(widget.texts.title.i18n,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
+                  FreemiumBlur(
+                    blurX: 12,
+                    child: Text(widget.texts.title.i18n,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              fontWeight: FontWeight.bold,
+                            )),
+                  ),
                   const SizedBox(height: 4.0),
                   Text(
                     widget.texts.description.i18n,

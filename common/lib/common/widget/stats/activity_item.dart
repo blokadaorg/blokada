@@ -1,6 +1,7 @@
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
+import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/two_letter_icon.dart';
 import 'package:common/core/core.dart';
@@ -63,9 +64,10 @@ class ActivityItemState extends State<ActivityItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(middleEllipsis(widget.entry.domainName),
-                      style: const TextStyle(fontSize: 18),
-                      overflow: TextOverflow.clip),
+                  FreemiumBlur(
+                      child: Text(middleEllipsis(widget.entry.domainName),
+                          style: const TextStyle(fontSize: 18),
+                          overflow: TextOverflow.clip)),
                   Text(
                     widget.entry.timestampText,
                     style: TextStyle(

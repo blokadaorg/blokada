@@ -1,3 +1,4 @@
+import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class ActionInfo extends StatelessWidget {
           Text(label,
               style:
                   TextStyle(fontSize: 12, color: context.theme.textSecondary)),
-          Text(text, style: TextStyle(fontSize: 16)),
+          FreemiumBlur(child: Text(text, style: const TextStyle(fontSize: 16))),
         ],
       ),
     );
