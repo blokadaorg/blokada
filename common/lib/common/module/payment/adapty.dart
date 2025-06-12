@@ -181,12 +181,14 @@ class AdaptyPaymentChannel
   ) {}
 
   @override
-  Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {
+  Future<void> setCustomAttributes(
+      Marker m, Map<String, dynamic> attributes) async {
     return await log(m).trace("setCustomAttributes", (m) async {
-      // Convert attributes to Adapty format
-      final customAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes);
-      
-      if (customAttributes.isEmpty) {
+      // Extract pre-processed custom attributes from Flutter
+      final customAttributes =
+          attributes['custom_attributes'] as List<Map<String, dynamic>>?;
+
+      if (customAttributes == null || customAttributes.isEmpty) {
         log(m).t("No valid custom attributes to sync to Adapty");
         return;
       }
@@ -194,11 +196,11 @@ class AdaptyPaymentChannel
       try {
         // Create builder and add custom attributes
         final builder = AdaptyProfileParametersBuilder();
-        
+
         for (final attr in customAttributes) {
           final key = attr['key'] as String;
           final value = attr['value'];
-          
+
           // Use appropriate method based on value type
           if (value is String) {
             builder.setCustomStringAttribute(value, key);
@@ -213,11 +215,11 @@ class AdaptyPaymentChannel
         }
 
         await _adapty.updateProfile(builder.build());
-        log(m).i("Synced ${customAttributes.length} custom attributes to Adapty");
+        log(m)
+            .i("Synced ${customAttributes.length} custom attributes to Adapty");
       } on AdaptyError catch (adaptyError) {
         throw Exception("Adapty error: ${adaptyError.message}");
       }
     });
   }
 }
-

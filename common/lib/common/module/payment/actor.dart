@@ -213,7 +213,18 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     }
 
     try {
-      await _channel.setCustomAttributes(m, attributes);
+      // Process attributes using Flutter converter
+      final processedAttributes =
+          AdaptyAttributeConverter.convertToCustomAttributes(attributes);
+
+      if (processedAttributes.isEmpty) {
+        log(m).i("No valid attributes to sync after processing");
+        return;
+      }
+
+      // Pass processed attributes to platform channel
+      await _channel
+          .setCustomAttributes(m, {'custom_attributes': processedAttributes});
       log(m).i("Synced custom attributes to Adapty");
     } catch (e, s) {
       log(m).e(msg: "Failed syncing custom attributes", err: e, stack: s);
