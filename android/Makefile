@@ -4,7 +4,7 @@ GRADLE := ./gradlew
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: clean build aab-family aab-six apk-family apk-six \
+.PHONY: clean build test aab-family aab-six apk-family apk-six \
 	apk-family-debug apk-six-debug \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall
@@ -16,6 +16,9 @@ clean:
 # ready beforehand. This is handled when running make targets from
 # the root directory instead.
 
+# Run android specific unit tests
+test:
+	$(GRADLE) testSixDebugUnitTest testFamilyDebugUnitTest
 
 # Build everything from scratch (release)
 build: aab-family aab-six

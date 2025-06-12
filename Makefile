@@ -1,4 +1,4 @@
-# Define common variables 
+# Define common variables
 FLAVOR := family
 FASTLANE := fastlane
 
@@ -12,10 +12,10 @@ CI_BUILD_DIR := /tmp/build
 
 ADAPTY_DIR := ~/Downloads
 ADAPTY_VER := 3_4.0
- 
-# Default target 
+
+# Default target
 .DEFAULT_GOAL := build
- 
+
 .PHONY: clean test build \
 	translate \
 	build-android build-android-family build-android-six \
@@ -37,7 +37,7 @@ ADAPTY_VER := 3_4.0
 translate:
 	$(TRANSLATE_SCRIPT)
 
-clean: 
+clean:
 	$(MAKE) gplay-key-clean
 	$(MAKE) appstore-key-clean
 	$(MAKE) -C common/ clean
@@ -46,6 +46,7 @@ clean:
 test:
 	$(MAKE) -C common/ pub gen-android runner
 	$(MAKE) -C common/ test
+	$(MAKE) -C android/ test
 
 # Build everything from scratch
 build:
@@ -214,7 +215,7 @@ install-six-debug:
 	$(MAKE) -C android/ install-six-debug
 
 # Uninstall all Android apps
-uninstall: 
+uninstall:
 	$(MAKE) -C android/ uninstall
 
 
