@@ -116,12 +116,23 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         try {
             val builder = AdaptyProfileParameters.Builder()
 
-            // Convert attributes using the utility converter
-            val processedAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes)
+            // Extract pre-processed custom attributes from Flutter
+            val customAttributes = attributes["custom_attributes"] as? List<Map<String, Any?>>
 
-            // Add each processed attribute to the builder
-            for ((key, value) in processedAttributes) {
-                builder.withCustomAttribute(value, key)
+            if (customAttributes != null) {
+                // Add each pre-processed attribute to the builder
+                for (attr in customAttributes) {
+                    val key = attr["key"] as? String
+                    val value = attr["value"]
+                    if (key != null && value != null) {
+                        when (value) {
+                            is String -> builder.withCustomAttribute(key, value)
+                            is Double -> builder.withCustomAttribute(key, value)
+                            is Number -> builder.withCustomAttribute(key, value.toDouble())
+                            else -> builder.withCustomAttribute(key, value.toString())
+                        }
+                    }
+                }
             }
 
             Adapty.updateProfile(builder.build()) { error ->

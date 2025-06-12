@@ -194,12 +194,14 @@ class AdaptyPaymentChannel
   void paywallViewDidDisappear(AdaptyUIPaywallView view) {}
 
   @override
-  Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {
+  Future<void> setCustomAttributes(
+      Marker m, Map<String, dynamic> attributes) async {
     return await log(m).trace("setCustomAttributes", (m) async {
-      // Convert attributes to Adapty format
-      final customAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes);
+      // Extract pre-processed custom attributes from Flutter
+      final customAttributes =
+          attributes['custom_attributes'] as List<Map<String, dynamic>>?;
 
-      if (customAttributes.isEmpty) {
+      if (customAttributes == null || customAttributes.isEmpty) {
         log(m).t("No valid custom attributes to sync to Adapty");
         return;
       }
@@ -226,11 +228,11 @@ class AdaptyPaymentChannel
         }
 
         await _adapty.updateProfile(builder.build());
-        log(m).i("Synced ${customAttributes.length} custom attributes to Adapty");
+        log(m)
+            .i("Synced ${customAttributes.length} custom attributes to Adapty");
       } on AdaptyError catch (adaptyError) {
         throw Exception("Adapty error: ${adaptyError.message}");
       }
     });
   }
 }
-
