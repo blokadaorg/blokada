@@ -13,7 +13,6 @@
 package binding
 
 import android.content.Context
-import android.telephony.SubscriptionInfo
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +23,7 @@ import com.adapty.errors.AdaptyError
 import com.adapty.models.AdaptyConfig
 import com.adapty.models.AdaptyPaywallProduct
 import com.adapty.models.AdaptyProfile
+import com.adapty.models.AdaptyProfileParameters
 import com.adapty.models.AdaptyPurchaseResult
 import com.adapty.models.AdaptySubscriptionUpdateParameters
 import com.adapty.ui.AdaptyPaywallView
@@ -33,6 +33,7 @@ import com.adapty.utils.AdaptyLogLevel
 import com.adapty.utils.AdaptyResult
 import com.adapty.utils.FileLocation
 import com.adapty.utils.seconds
+import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +43,6 @@ import service.TranslationService
 import ui.AdaptyPaymentFragment
 import ui.MainActivity
 import utils.Intents
-import kotlin.coroutines.suspendCoroutine
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
@@ -66,20 +66,20 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun doInit(
-        apiKey: String,
-        accountId: String?,
-        verboseLogs: Boolean,
-        callback: (Result<Unit>) -> Unit
+            apiKey: String,
+            accountId: String?,
+            verboseLogs: Boolean,
+            callback: (Result<Unit>) -> Unit
     ) {
         Adapty.logLevel = if (verboseLogs) AdaptyLogLevel.VERBOSE else AdaptyLogLevel.WARN
         Adapty.activate(
-            context.requireAppContext(),
-            AdaptyConfig.Builder(apiKey)
-                .withObserverMode(false)
-                .withCustomerUserId(accountId)
-                .withIpAddressCollectionDisabled(true)
-                .withAdIdCollectionDisabled(true)
-                .build()
+                context.requireAppContext(),
+                AdaptyConfig.Builder(apiKey)
+                        .withObserverMode(false)
+                        .withCustomerUserId(accountId)
+                        .withIpAddressCollectionDisabled(true)
+                        .withAdIdCollectionDisabled(true)
+                        .build()
         )
 
         try {
@@ -97,9 +97,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
 
         Adapty.setOnProfileUpdatedListener { profile ->
-            _scope.launch {
-                maybeRestoreSubscription()
-            }
+            _scope.launch { maybeRestoreSubscription() }
         }
 
         callback(Result.success(Unit))
@@ -107,16 +105,39 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
     override fun doIdentify(accountId: String, callback: (Result<Unit>) -> Unit) {
         Adapty.identify(accountId) { error ->
-            if (error == null) callback(Result.success(Unit))
-            else callback(Result.failure(error))
+            if (error == null) callback(Result.success(Unit)) else callback(Result.failure(error))
+        }
+    }
+
+    override fun doSetCustomAttributes(
+            attributes: Map<String, Any?>,
+            callback: (Result<Unit>) -> Unit
+    ) {
+        try {
+            val builder = AdaptyProfileParameters.Builder()
+
+            // Convert attributes using the utility converter
+            val processedAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes)
+
+            // Add each processed attribute to the builder
+            for ((key, value) in processedAttributes) {
+                builder.withCustomAttribute(value, key)
+            }
+
+            Adapty.updateProfile(builder.build()) { error ->
+                if (error == null) callback(Result.success(Unit))
+                else callback(Result.failure(error))
+            }
+        } catch (e: Exception) {
+            callback(Result.failure(e))
         }
     }
 
     override fun doLogOnboardingStep(
-        name: String,
-        stepName: String,
-        stepOrder: Long,
-        callback: (Result<Unit>) -> Unit
+            name: String,
+            stepName: String,
+            stepOrder: Long,
+            callback: (Result<Unit>) -> Unit
     ) {
         try {
             Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
@@ -139,7 +160,8 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
-        } ?: callback(Result.failure(Exception("No activity context")))
+        }
+                ?: callback(Result.failure(Exception("No activity context")))
     }
 
     // Automatically recover subscription if user has one
@@ -153,9 +175,9 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun doShowPaymentScreen(
-        placementId: String,
-        forceReload: Boolean,
-        callback: (Result<Unit>) -> Unit
+            placementId: String,
+            forceReload: Boolean,
+            callback: (Result<Unit>) -> Unit
     ) {
         _retry = true
         getActivityScope()?.launch {
@@ -189,15 +211,16 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             } catch (e: Exception) {
                 callback(Result.failure(e))
             }
-        } ?: callback(Result.failure(Exception("No activity context")))
+        }
+                ?: callback(Result.failure(Exception("No activity context")))
     }
 
     private suspend fun fetchPaywall(placementId: String): AdaptyPaywallView {
         return suspendCoroutine { continuation ->
             Adapty.getPaywall(
-                placementId,
-                locale = translate.getLocale(),
-                loadTimeout = 10.seconds
+                    placementId,
+                    locale = translate.getLocale(),
+                    loadTimeout = 10.seconds
             ) { result ->
                 when (result) {
                     is AdaptyResult.Success -> {
@@ -208,9 +231,11 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                                 is AdaptyResult.Success -> {
                                     if (!context.hasActivityContext()) {
                                         continuation.resumeWith(
-                                            Result.failure(
-                                                Exception("Activity context no longer available")
-                                            )
+                                                Result.failure(
+                                                        Exception(
+                                                                "Activity context no longer available"
+                                                        )
+                                                )
                                         )
                                         return@getViewConfiguration
                                     }
@@ -219,25 +244,24 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                                         val activity = context.requireActivity() as MainActivity
                                         val viewConfiguration = result.value
                                         // use loaded configuration
-                                        val view = AdaptyUI.getPaywallView(
-                                            activity,
-                                            viewConfiguration,
-                                            null,
-                                            this,
-                                        )
+                                        val view =
+                                                AdaptyUI.getPaywallView(
+                                                        activity,
+                                                        viewConfiguration,
+                                                        null,
+                                                        this,
+                                                )
                                         continuation.resumeWith(Result.success(view))
                                     } catch (e: Exception) {
                                         continuation.resumeWith(Result.failure(e))
                                     }
                                 }
-
                                 is AdaptyResult.Error -> {
                                     continuation.resumeWith(Result.failure(result.error))
                                 }
                             }
                         }
                     }
-
                     is AdaptyResult.Error -> {
                         continuation.resumeWith(Result.failure(result.error))
                     }
@@ -256,28 +280,28 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                     is AdaptyResult.Success -> {
                         log("ProfileId: ${result.value.profileId}")
                         val firstActiveSub =
-                            result.value.accessLevels.values.firstOrNull { it.isActive }
+                                result.value.accessLevels.values.firstOrNull { it.isActive }
 
                         if (firstActiveSub == null) {
                             continuation.resumeWith(Result.success(null))
                             return@getProfile
                         }
 
-                        val sub = CurrentSubscription(
-                            profileId = result.value.profileId,
-                            productId = firstActiveSub.vendorProductId.substringBefore(":")
-                        )
+                        val sub =
+                                CurrentSubscription(
+                                        profileId = result.value.profileId,
+                                        productId =
+                                                firstActiveSub.vendorProductId.substringBefore(":")
+                                )
 
                         continuation.resumeWith(Result.success(sub))
                     }
-
                     is AdaptyResult.Error -> {
                         continuation.resumeWith(Result.failure(result.error))
                     }
                 }
             }
         }
-
     }
 
     override fun doClosePaymentScreen(callback: (Result<Unit>) -> Unit) {
@@ -289,16 +313,15 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     // AdaptyUiEventListener implemented from here downward
 
     override fun onPurchaseFinished(
-        purchaseResult: AdaptyPurchaseResult,
-        product: AdaptyPaywallProduct,
-        context: Context
+            purchaseResult: AdaptyPurchaseResult,
+            product: AdaptyPaywallProduct,
+            context: Context
     ) {
         when (purchaseResult) {
             is AdaptyPurchaseResult.Success -> {
                 closePaymentScreen()
                 handleSuccess(purchaseResult.profile.profileId, restore = false)
             }
-
             else -> {}
         }
     }
@@ -313,15 +336,11 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             AdaptyUI.Action.Close -> {
                 closePaymentScreen()
             }
-
             is AdaptyUI.Action.OpenUrl -> {
                 val intent = intents.createOpenInBrowserIntent(action.url)
                 intents.openIntentActivity(context, intent)
             }
-
-            is AdaptyUI.Action.Custom -> {
-
-            }
+            is AdaptyUI.Action.Custom -> {}
         }
     }
 
@@ -343,9 +362,9 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun onPurchaseFailure(
-        error: AdaptyError,
-        product: AdaptyPaywallProduct,
-        context: Context
+            error: AdaptyError,
+            product: AdaptyPaywallProduct,
+            context: Context
     ) {
         closePaymentScreen()
         logError("Failed purchase", error)
@@ -363,23 +382,30 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun onAwaitingSubscriptionUpdateParams(
-        product: AdaptyPaywallProduct,
-        context: Context,
-        onSubscriptionUpdateParamsReceived: AdaptyUiEventListener.SubscriptionUpdateParamsCallback
+            product: AdaptyPaywallProduct,
+            context: Context,
+            onSubscriptionUpdateParamsReceived:
+                    AdaptyUiEventListener.SubscriptionUpdateParamsCallback
     ) {
         // TODO: no support for downgrading yet
         val sub = _currentSubscription
         if (sub != null) {
             onSubscriptionUpdateParamsReceived(
-                AdaptySubscriptionUpdateParameters(
-                    sub.productId,
-                    AdaptySubscriptionUpdateParameters.ReplacementMode.CHARGE_PRORATED_PRICE
-                )
+                    AdaptySubscriptionUpdateParameters(
+                            sub.productId,
+                            AdaptySubscriptionUpdateParameters.ReplacementMode.CHARGE_PRORATED_PRICE
+                    )
             )
         } else {
             onSubscriptionUpdateParamsReceived(null)
         }
     }
+
+    // New methods added in adapty 3.6.0
+    override fun onPaywallShown(context: Context) {}
+
+    // New methods added in adapty 3.6.0
+    override fun onPaywallClosed() {}
 
     private fun closePaymentScreen() {
         _fragment?.dismiss()
@@ -403,9 +429,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     fun handleScreenClosed() {
-        _scope.launch {
-            commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED)
-        }
+        _scope.launch { commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED) }
     }
 
     fun logError(message: String, error: Throwable) {
@@ -416,9 +440,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     private fun log(message: String) {
-        _scope.launch {
-            commands.execute(CommandName.INFO, "Adapty: $message")
-        }
+        _scope.launch { commands.execute(CommandName.INFO, "Adapty: $message") }
     }
 
     // Returns scope to execute coroutines in. We need activity scope for the paywall itself,
