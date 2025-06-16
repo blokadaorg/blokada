@@ -66,14 +66,21 @@ class BypassActor with Actor, Logging {
 
   // Returns matching apps based on the search string.
   // Will try to do fuzzy match for both package name and app name.
-  Future<List<InstalledApp>> find(String search) async {
+  List<InstalledApp> find(String search) {
     if (search.length < 2) return [];
 
-    final lowerSearch = search.toLowerCase();
-    return allApps.where((app) {
-      return app.packageName.toLowerCase().contains(lowerSearch) ||
-          (app.appName?.toLowerCase().contains(lowerSearch) ?? false);
+    final lowerQuery = search.toLowerCase();
+
+    // First, search app names, then package names
+    var result = allApps.where((app) {
+      return app.appName?.toLowerCase().contains(lowerQuery) ?? false;
     }).toList();
+
+    result += allApps.where((app) {
+      return app.packageName.contains(lowerQuery);
+    }).toList();
+
+    return result.distinctBy((app) => app.packageName).toList();
   }
 
   Future<void> setAppBypass(Marker m, String packageName, bool bypassed) async {

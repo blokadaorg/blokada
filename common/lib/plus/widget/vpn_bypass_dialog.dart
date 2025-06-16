@@ -47,16 +47,7 @@ class BypassAddDialog with Logging {
       if (query.length < 2) {
         suggestions.value = [];
       } else {
-        final lowerQuery = query.trim().toLowerCase();
-
-        // First, search app names, then package names
-        suggestions.value = apps.where((app) {
-          return app.appName?.toLowerCase().contains(lowerQuery) ?? false;
-        }).toList();
-
-        suggestions.value += apps.where((app) {
-          return app.packageName.contains(lowerQuery);
-        }).toList();
+        suggestions.value = _bypass.find(query);
       }
     }
 
@@ -123,7 +114,9 @@ class BypassAddDialog with Logging {
                                     showIcon: false,
                                     showChevron: false,
                                     onTap: () {
-                                      _ctrl.text = suggestion.packageName;
+                                      Navigator.of(context).pop();
+                                      onConfirm(suggestion.packageName);
+                                      _ctrl.text = "";
                                     },
                                   ))
                               .toList(),
@@ -142,15 +135,6 @@ class BypassAddDialog with Logging {
             suggestions.value = [];
           },
           child: Text("universal action cancel".i18n),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            onConfirm(_ctrl.text);
-            _ctrl.text = "";
-            suggestions.value = [];
-          },
-          child: Text("universal action save".i18n),
         ),
       ],
     );

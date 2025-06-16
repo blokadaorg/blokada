@@ -29,6 +29,6 @@ class InstalledApp {
 
   @override
   String toString() {
-    return 'InstalledApp(packageName: $packageName, appName: $appName)';
+    return packageName;
   }
 }

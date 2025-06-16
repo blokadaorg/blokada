@@ -71,6 +71,6 @@ class VpnConfig {
         gatewayPort == other.gatewayPort &&
         leaseVip4 == other.leaseVip4 &&
         leaseVip6 == other.leaseVip6 &&
-        const SetEquality().equals(bypassedPackages, bypassedPackages);
+        const SetEquality().equals(bypassedPackages, other.bypassedPackages);
   }
 }

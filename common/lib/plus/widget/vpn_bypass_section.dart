@@ -23,8 +23,6 @@ class VpnBypassSectionState extends State<VpnBypassSection>
 
   final Map<String, Widget> _appIcons = {};
 
-  String _searchQuery = '';
-
   @override
   void initState() {
     super.initState();
@@ -35,6 +33,7 @@ class VpnBypassSectionState extends State<VpnBypassSection>
   @override
   rebuild(dynamic it) async {
     if (!mounted) return;
+    setState(() {});
     _loadAppIcons(); // Load icons asynchronously
   }
 
@@ -82,29 +81,6 @@ class VpnBypassSectionState extends State<VpnBypassSection>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: _buildAppsList(),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        onChanged: (value) {
-          setState(() {
-            _searchQuery = value;
-          });
-        },
-        decoration: InputDecoration(
-          hintText: "universal action search".i18n,
-          prefixIcon: const Icon(Icons.search),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: context.theme.divider.withOpacity(0.1),
-        ),
-      ),
     );
   }
 

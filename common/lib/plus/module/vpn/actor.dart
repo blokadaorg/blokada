@@ -23,6 +23,7 @@ class VpnActor with Logging, Actor {
   setVpnConfig(VpnConfig config, Marker m) async {
     return await log(m).trace("setVpnConfig", (m) async {
       if (actualConfig != null && config.isSame(actualConfig!)) {
+        log(m).i("event ignored, config is the same");
         return;
       }
 

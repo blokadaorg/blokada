@@ -19,6 +19,8 @@ class PlusActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
 
+  bool _isSwitching = false;
+
   @override
   onCreate(Marker m) async {
     await _plusEnabled.fetch(m);
@@ -94,6 +96,8 @@ class PlusActor with Logging, Actor {
     return await log(m).trace("switchPlus", (m) async {
       log(m).pair("active", active);
       try {
+        _isSwitching = true;
+
         // Save the active flag
         await _plusEnabled.change(m, active);
 
@@ -113,6 +117,8 @@ class PlusActor with Logging, Actor {
 
           var b = await _bypassedPackages.now();
           b ??= <String>{};
+
+          log(m).pair("bypassed apps", b);
 
           await _vpn.setVpnConfig(_assembleConfig(k, g, l, b), m);
           await _vpn.turnVpnOn(m);
@@ -138,6 +144,8 @@ class PlusActor with Logging, Actor {
         await _app.plusActivated(false, m);
         await _stage.showModal(StageModal.plusVpnFailure, m);
         rethrow;
+      } finally {
+        _isSwitching = false;
       }
     });
   }
@@ -179,6 +187,7 @@ class PlusActor with Logging, Actor {
   reactToAppStatus(Marker m) async {
     final plusEnabled = await _plusEnabled.now();
     if (plusEnabled &&
+        !_isSwitching &&
         _app.status == AppStatus.activatedCloud &&
         _vpnStatus.now == VpnStatus.deactivated) {
       // If VPN was on, but is not (for example after app restart), bring it up.
@@ -209,7 +218,6 @@ class PlusActor with Logging, Actor {
   Future<bool> reconfigureVpnAfterBypassChange(Marker m) async {
     final plusEnabled = await _plusEnabled.now();
     if (!plusEnabled || _app.status != AppStatus.activatedPlus) return false;
-    await switchPlus(false, m);
     await switchPlus(true, m);
     return false;
   }

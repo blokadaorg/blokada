@@ -40,6 +40,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import java.io.ByteArrayOutputStream
 import androidx.core.graphics.createBitmap
+import utils.Logger
 
 fun OpsVpnConfig.toLease(): OpsLease {
     // TODO: replace this old model
