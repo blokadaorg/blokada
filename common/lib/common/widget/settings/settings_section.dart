@@ -172,7 +172,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                   children: [
                                     SettingsItem(
                                         icon: Icons.web_stories_outlined,
-                                        text: "VPN Bypass",
+                                        text: "bypass section header".i18n,
                                         onTap: () {
                                           Navigation.open(
                                               Paths.settingsVpnBypass);

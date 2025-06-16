@@ -24,7 +24,7 @@ class BypassAddDialog with Logging {
           });
         },
         child: Text(
-          "Add",
+          "universal action add".i18n,
           style: TextStyle(
             color: context.theme.accent,
             fontSize: 17,
@@ -56,12 +56,12 @@ class BypassAddDialog with Logging {
 
     showDefaultDialog(
       context,
-      title: const Text("Add app"),
+      title: Text("bypass action add".i18n),
       content: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Start typing to search apps."),
+          Text("bypass dialog add brief".i18n),
           const SizedBox(height: 16),
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),

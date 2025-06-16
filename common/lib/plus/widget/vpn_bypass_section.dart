@@ -91,9 +91,7 @@ class VpnBypassSectionState extends State<VpnBypassSection>
           children: <Widget>[
                 // Padding for header
                 SizedBox(height: getTopPadding(context)),
-                ExpandableInfoCard(
-                    text:
-                        "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the “Block connections without VPN” setting enabled, bypassed apps will not have internet access."),
+                ExpandableInfoCard(text: "bypass info".i18n),
                 const SizedBox(height: 40),
                 Text("Bypassed apps",
                     style: Theme.of(context)
@@ -140,7 +138,7 @@ class VpnBypassSectionState extends State<VpnBypassSection>
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Center(
             child: Text(
-              "No apps added. Use the Add button at the top to add new apps to this list.",
+              "bypass none".i18n,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: context.theme.textSecondary,
                   ),

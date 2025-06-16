@@ -174,7 +174,7 @@ class Navigation with Logging {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "VPN Bypass",
+          title: "bypass section header".i18n,
           topBarTrailing: _bypass.getBypassAction(context),
           child: const VpnBypassSection(),
         ),
