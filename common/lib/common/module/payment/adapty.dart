@@ -13,7 +13,7 @@ class AdaptyPaymentChannel
   late final _adapty = Adapty();
   late final _adaptyUi = AdaptyUI();
 
-  AdaptyUIView? _paymentView;
+  AdaptyUIPaywallView? _paymentView;
   String? _paymentViewForPlacementId;
 
   @override
@@ -71,14 +71,15 @@ class AdaptyPaymentChannel
   }
 
   @override
-  closePaymentScreen({AdaptyUIView? view}) async {
+  closePaymentScreen({AdaptyUIPaywallView? view}) async {
     view?.dismiss();
     if (view == null) _paymentView?.dismiss();
     _paymentView = null;
     _actor.handleScreenClosed(Markers.ui);
   }
 
-  Future<AdaptyUIView> _createPaywall(Marker m, Placement placement) async {
+  Future<AdaptyUIPaywallView> _createPaywall(
+      Marker m, Placement placement) async {
     final paywall = await _fetchPaywall(m, placement);
     return await _adaptyUi.createPaywallView(
       paywall: paywall,
@@ -97,7 +98,7 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFinishPurchase(AdaptyUIView view,
+  void paywallViewDidFinishPurchase(AdaptyUIPaywallView view,
       AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
@@ -117,13 +118,15 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFinishRestore(AdaptyUIView view, AdaptyProfile profile) {
+  void paywallViewDidFinishRestore(
+      AdaptyUIPaywallView view, AdaptyProfile profile) {
     closePaymentScreen(view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
   }
 
   @override
-  void paywallViewDidPerformAction(AdaptyUIView view, AdaptyUIAction action) {
+  void paywallViewDidPerformAction(
+      AdaptyUIPaywallView view, AdaptyUIAction action) {
     switch (action) {
       case const CloseAction():
       case const AndroidSystemBackAction():
@@ -138,45 +141,55 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFailLoadingProducts(AdaptyUIView view, AdaptyError error) {
+  void paywallViewDidFailLoadingProducts(
+      AdaptyUIPaywallView view, AdaptyError error) {
     closePaymentScreen(view: view);
     _actor.handleFailure(Markers.ui, "Failed loading products", error,
         temporary: true);
   }
 
   @override
-  void paywallViewDidFailPurchase(
-      AdaptyUIView view, AdaptyPaywallProduct product, AdaptyError error) {
+  void paywallViewDidFailPurchase(AdaptyUIPaywallView view,
+      AdaptyPaywallProduct product, AdaptyError error) {
     closePaymentScreen(view: view);
     _actor.handleFailure(Markers.ui, "Failed purchase", error);
   }
 
   @override
-  void paywallViewDidFailRendering(AdaptyUIView view, AdaptyError error) {
+  void paywallViewDidFailRendering(
+      AdaptyUIPaywallView view, AdaptyError error) {
     //closePaymentScreen(view: view);
     //_handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
     log(Markers.ui).e(msg: "Failed rendering adapty", err: error);
   }
 
   @override
-  void paywallViewDidFailRestore(AdaptyUIView view, AdaptyError error) {
+  void paywallViewDidFailRestore(AdaptyUIPaywallView view, AdaptyError error) {
     closePaymentScreen(view: view);
     _actor.handleFailure(Markers.ui, "Failed restore", error, restore: true);
   }
 
   @override
-  void paywallViewDidSelectProduct(AdaptyUIView view, String productId) {}
+  void paywallViewDidSelectProduct(
+      AdaptyUIPaywallView view, String productId) {}
 
   @override
   void paywallViewDidStartPurchase(
-      AdaptyUIView view, AdaptyPaywallProduct product) {}
+      AdaptyUIPaywallView view, AdaptyPaywallProduct product) {}
 
   @override
-  void paywallViewDidStartRestore(AdaptyUIView view) {}
+  void paywallViewDidStartRestore(AdaptyUIPaywallView view) {}
 
+  @override
   void paywallViewDidFinishWebPaymentNavigation(
-    AdaptyUIView view,
+    AdaptyUIPaywallView view,
     AdaptyPaywallProduct? product,
     AdaptyError? error,
   ) {}
+
+  @override
+  void paywallViewDidAppear(AdaptyUIPaywallView view) {}
+
+  @override
+  void paywallViewDidDisappear(AdaptyUIPaywallView view) {}
 }

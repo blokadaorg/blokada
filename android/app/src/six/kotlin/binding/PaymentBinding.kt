@@ -84,7 +84,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
 
         try {
             val location = FileLocation.fromAsset("fallbacks/android.json")
-            Adapty.setFallbackPaywalls(location) { error ->
+            Adapty.setFallback(location) { error ->
                 if (error != null) {
                     logError("Error when setting fallback, ignore", error)
                 }
@@ -336,6 +336,12 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         return retry
     }
 
+    override fun onPaywallClosed() {
+    }
+
+    override fun onPaywallShown(context: Context) {
+    }
+
     override fun onPurchaseFailure(
         error: AdaptyError,
         product: AdaptyPaywallProduct,
@@ -373,14 +379,6 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         } else {
             onSubscriptionUpdateParamsReceived(null)
         }
-    }
-
-    // New methods added in adapty 3.6.0
-    override fun onPaywallShown(context: Context) {
-    }
-
-    // New methods added in adapty 3.6.0
-    override fun onPaywallClosed() {
     }
 
     private fun closePaymentScreen() {
