@@ -76,6 +76,8 @@
 "universal action clear" = "Temizle";
 // A verb "to revoke permissions"
 "universal action revoke" = "Kaldır";
+// A verb "to add new item to list"
+"universal action add" = "Add";
 
 // Action to open chat
 "support action chat" = "Bizimle sohbet edin";
@@ -756,3 +758,10 @@
 "onboard safari step 2" = "Manage Extensions";
 "onboard safari cta" = "Open YouTube in Safari";
 "onboard safari skip" = "Skip for now";
+
+// A section to configure apps that should bypass (skip) VPN
+"bypass section header" = "VPN Bypass";
+"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
+"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
+"bypass action add" = "Add app";
+"bypass dialog add brief" = "Start typing to search apps.";

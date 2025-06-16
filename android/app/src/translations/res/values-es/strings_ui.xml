@@ -60,6 +60,7 @@
     <string name="universal_action_filter">Filtro</string>
     <string name="universal_action_clear">Limpiar</string>
     <string name="universal_action_revoke">Revocar</string>
+    <string name="universal_action_add">Add</string>
     <string name="support_action_chat">Chatea con nosotros</string>
     <string name="support_action_end">Fin</string>
     <string name="support_placeholder">Pregunte por cualquier cosa que desee saber!</string>
@@ -547,4 +548,9 @@
     <string name="onboard_safari_step_two">Administrar extensiones</string>
     <string name="onboard_safari_cta">Abrir YouTube en Safari</string>
     <string name="onboard_safari_skip">Omitir por ahora</string>
+    <string name="bypass_section_header">VPN Bypass</string>
+    <string name="bypass_info">Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the \'Block connections without VPN\' setting enabled, bypassed apps will not have internet access.</string>
+    <string name="bypass_none">No apps added. Use the Add button at the top to add new apps to this list.</string>
+    <string name="bypass_action_add">Add app</string>
+    <string name="bypass_dialog_add_brief">Start typing to search apps.</string>
 </resources>

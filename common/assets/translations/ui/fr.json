@@ -59,6 +59,7 @@
     "universal action filter": "Filtrer",
     "universal action clear": "Effacer",
     "universal action revoke": "Révoquer",
+    "universal action add": "Add",
     "support action chat": "Discutez avec nous",
     "support action end": "Fin",
     "support placeholder": "Demandez nous n'importe quoi !",
@@ -545,5 +546,10 @@
     "onboard safari brief": "Activez notre extension dans Safari pour bloquer les publicités vidéo pendant la navigation.",
     "onboard safari step 2": "Gérer les extensions",
     "onboard safari cta": "Ouvrir YouTube dans Safari",
-    "onboard safari skip": "Passer pour l'instant"
+    "onboard safari skip": "Passer pour l'instant",
+    "bypass section header": "VPN Bypass",
+    "bypass info": "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.",
+    "bypass none": "No apps added. Use the Add button at the top to add new apps to this list.",
+    "bypass action add": "Add app",
+    "bypass dialog add brief": "Start typing to search apps."
 }
