@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:common/common/dialog.dart';
+import 'package:common/common/action_sheet.dart';
 import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
@@ -355,7 +355,7 @@ class _PowerButtonState extends State<PowerButton>
                               Markers.userTap, Modal.onboardPrivateDns);
                         }
                       } else {
-                        showPauseDialog(context, onSelected: (duration) {
+                        showPauseActionSheet(context, onSelected: (duration) {
                           log(Markers.userTap).trace("tappedPowerButtonDialog",
                               (m) async {
                             _appStart.toggleApp(m, duration: duration);
@@ -585,13 +585,16 @@ class PowerButtonPainter extends CustomPainter {
         size.width / 2 - edge * 1.7, coverPaint);
 
     // timer arc (in ring place)
-    canvas.drawArc(
+    drawDashedArc(
+        canvas,
         Rect.fromLTWH(timerRingWidth * 2, timerRingWidth * 2,
             size.width - timerRingWidth * 4, size.height - timerRingWidth * 4),
         -math.pi / 2,
         -math.min(arcTimerEnd, 1.0) * math.pi * 2,
-        false,
-        timerArcPaint);
+        timerArcPaint,
+        0.05, // dash length in radians
+        0.05 // gap length in radians
+        );
 
     // loading arc and blocked counter
     canvas.drawArc(
@@ -633,5 +636,33 @@ class PowerButtonPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
+  }
+
+  // Draws a dashed arc on the canvas.
+  void drawDashedArc(
+    Canvas canvas,
+    Rect rect,
+    double startAngle,
+    double sweepAngle,
+    Paint paint,
+    double dashLength,
+    double gapLength,
+  ) {
+    double totalLength = sweepAngle.abs();
+    double currentAngle = startAngle;
+    final direction = sweepAngle.isNegative ? -1 : 1;
+
+    while (totalLength > 0) {
+      final currentDashLength = math.min(dashLength, totalLength);
+      canvas.drawArc(
+        rect,
+        currentAngle,
+        currentDashLength * direction,
+        false,
+        paint,
+      );
+      currentAngle += (currentDashLength + gapLength) * direction;
+      totalLength -= (currentDashLength + gapLength);
+    }
   }
 }
