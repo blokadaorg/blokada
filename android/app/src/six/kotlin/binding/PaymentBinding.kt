@@ -418,12 +418,6 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    // New methods added in adapty 3.6.0
-    override fun onPaywallShown(context: Context) {}
-
-    // New methods added in adapty 3.6.0
-    override fun onPaywallClosed() {}
-
     private fun closePaymentScreen() {
         _fragment?.dismiss()
         _fragment = null
