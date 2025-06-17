@@ -13,6 +13,7 @@ import 'package:i18n_extension/i18n_extension.dart';
 part 'actor.dart';
 part 'adapty.dart';
 part 'adapty_key.dart';
+part 'attribute_converter.dart';
 part 'api.dart';
 part 'channel.dart';
 

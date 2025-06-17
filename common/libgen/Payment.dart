@@ -19,4 +19,7 @@ abstract class PaymentOps {
 
   @async
   void doClosePaymentScreen();
+
+  @async
+  void doSetCustomAttributes(Map<String, Object?> attributes);
 }

@@ -9,6 +9,7 @@ mixin PaymentChannel {
   Future<void> showPaymentScreen(Marker m, Placement placement,
       {bool forceReload = false});
   Future<void> closePaymentScreen();
+  Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes);
 }
 
 const cmdPaymentHandleSuccess = "paymentHandleSuccess";

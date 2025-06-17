@@ -192,4 +192,47 @@ class AdaptyPaymentChannel
 
   @override
   void paywallViewDidDisappear(AdaptyUIPaywallView view) {}
+
+  @override
+  Future<void> setCustomAttributes(
+      Marker m, Map<String, dynamic> attributes) async {
+    return await log(m).trace("setCustomAttributes", (m) async {
+      // Extract pre-processed custom attributes from Flutter
+      final customAttributes =
+          attributes['custom_attributes'] as List<Map<String, dynamic>>?;
+
+      if (customAttributes == null || customAttributes.isEmpty) {
+        log(m).t("No valid custom attributes to sync to Adapty");
+        return;
+      }
+
+      try {
+        // Create builder and add custom attributes
+        final builder = AdaptyProfileParametersBuilder();
+
+        for (final attr in customAttributes) {
+          final key = attr['key'] as String;
+          final value = attr['value'];
+
+          // Use appropriate method based on value type
+          if (value is String) {
+            builder.setCustomStringAttribute(value, key);
+          } else if (value is double) {
+            builder.setCustomDoubleAttribute(value, key);
+          } else if (value is num) {
+            builder.setCustomDoubleAttribute(value.toDouble(), key);
+          } else {
+            // Convert other types to string
+            builder.setCustomStringAttribute(value.toString(), key);
+          }
+        }
+
+        await _adapty.updateProfile(builder.build());
+        log(m)
+            .i("Synced ${customAttributes.length} custom attributes to Adapty");
+      } on AdaptyError catch (adaptyError) {
+        throw Exception("Adapty error: ${adaptyError.message}");
+      }
+    });
+  }
 }
