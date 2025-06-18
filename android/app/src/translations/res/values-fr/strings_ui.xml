@@ -60,7 +60,7 @@
     <string name="universal_action_filter">Filtrer</string>
     <string name="universal_action_clear">Effacer</string>
     <string name="universal_action_revoke">Révoquer</string>
-    <string name="universal_action_add">Add</string>
+    <string name="universal_action_add">Ajouter</string>
     <string name="support_action_chat">Discutez avec nous</string>
     <string name="support_action_end">Fin</string>
     <string name="support_placeholder">Demandez nous n\'importe quoi !</string>
@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">Activer</string>
     <string name="home_power_action_turn_off">Désactiver</string>
     <string name="home_power_action_pause">Pause pour 5 min</string>
+    <string name="home_power_action_pause_five">Pause de 5 minutes</string>
+    <string name="home_power_action_off_all">Désactiver toutes les protections</string>
+    <string name="home_power_pause_status_active">Le blocage des publicités est actif</string>
     <string name="home_status_paused">En pause</string>
     <string name="home_status_active">Actif</string>
     <string name="home_status_deactivated">Désactivé</string>
@@ -548,9 +551,9 @@
     <string name="onboard_safari_step_two">Gérer les extensions</string>
     <string name="onboard_safari_cta">Ouvrir YouTube dans Safari</string>
     <string name="onboard_safari_skip">Passer pour l\'instant</string>
-    <string name="bypass_section_header">VPN Bypass</string>
-    <string name="bypass_info">Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the \'Block connections without VPN\' setting enabled, bypassed apps will not have internet access.</string>
-    <string name="bypass_none">No apps added. Use the Add button at the top to add new apps to this list.</string>
-    <string name="bypass_action_add">Add app</string>
-    <string name="bypass_dialog_add_brief">Start typing to search apps.</string>
+    <string name="bypass_section_header">Contournement VPN</string>
+    <string name="bypass_info">Certaines applications peuvent ne pas fonctionner correctement avec le VPN. Vous pouvez les ajouter à la liste de contournement pour diriger leur trafic hors du tunnel VPN, ce qui peut améliorer la connectivité, mais nuit à la confidentialité. L\'application intègre également quelques entrées de contournement pour plus de compatibilité. Remarque : si le paramètre « Bloquer les connexions sans VPN » est activé sur votre appareil, les applications contournées n\'auront pas accès à Internet.</string>
+    <string name="bypass_none">Aucune application ajoutée. Utilisez le bouton « Ajouter » en haut pour ajouter de nouvelles applications à cette liste.</string>
+    <string name="bypass_action_add">Ajouter une application</string>
+    <string name="bypass_dialog_add_brief">Commencez à taper pour rechercher des applications.</string>
 </resources>

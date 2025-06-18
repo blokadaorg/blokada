@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">تشغيل</string>
     <string name="home_power_action_turn_off">إيقاف التشغيل</string>
     <string name="home_power_action_pause">إيقاف مؤقَّت لمدّة 5 دقائق</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">إيقاف مؤقَّت</string>
     <string name="home_status_active">مُفَعَّل</string>
     <string name="home_status_deactivated">غير مُفعَّل</string>

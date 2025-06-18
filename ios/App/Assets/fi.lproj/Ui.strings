@@ -165,6 +165,9 @@
 "home power action turn on" = "Ota käyttöön";
 "home power action turn off" = "Kytke pois";
 "home power action pause" = "Pysäytä viideksi minuutiksi";
+"home power action pause five" = "Pause for 5 Minutes";
+"home power action off all" = "Turn Off All Protection";
+"home power pause status active" = "Ad Blocking is Active";
 
 "home status paused" = "Keskeytetty";
 "home status active" = "Aktiivinen";

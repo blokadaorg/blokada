@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">有効にする</string>
     <string name="home_power_action_turn_off">停止</string>
     <string name="home_power_action_pause">5 分間停止</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">停止しています</string>
     <string name="home_status_active">有効</string>
     <string name="home_status_deactivated">無効</string>

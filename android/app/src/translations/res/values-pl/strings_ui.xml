@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">Włącz</string>
     <string name="home_power_action_turn_off">Wyłącz</string>
     <string name="home_power_action_pause">Wstrzymaj na 5 min</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">Wstrzymana</string>
     <string name="home_status_active">Aktywna</string>
     <string name="home_status_deactivated">Dezaktywowana</string>

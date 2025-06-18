@@ -165,6 +165,9 @@
 "home power action turn on" = "Porneşte";
 "home power action turn off" = "Oprește";
 "home power action pause" = "Pauză pentru 5 minute";
+"home power action pause five" = "Pause for 5 Minutes";
+"home power action off all" = "Turn Off All Protection";
+"home power pause status active" = "Ad Blocking is Active";
 
 "home status paused" = "În Pauză";
 "home status active" = "Activ";

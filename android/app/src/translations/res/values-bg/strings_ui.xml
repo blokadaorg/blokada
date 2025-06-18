@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">Включване</string>
     <string name="home_power_action_turn_off">Изключване</string>
     <string name="home_power_action_pause">Пауза за 5 мин</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">На пауза</string>
     <string name="home_status_active">Активна</string>
     <string name="home_status_deactivated">Деактивирана</string>

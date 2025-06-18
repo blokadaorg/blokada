@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">開啟</string>
     <string name="home_power_action_turn_off">關閉</string>
     <string name="home_power_action_pause">暫停 5 分鐘</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">已暫停</string>
     <string name="home_status_active">運作中</string>
     <string name="home_status_deactivated">已停用</string>

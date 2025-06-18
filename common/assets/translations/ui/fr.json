@@ -59,7 +59,7 @@
     "universal action filter": "Filtrer",
     "universal action clear": "Effacer",
     "universal action revoke": "Révoquer",
-    "universal action add": "Add",
+    "universal action add": "Ajouter",
     "support action chat": "Discutez avec nous",
     "support action end": "Fin",
     "support placeholder": "Demandez nous n'importe quoi !",
@@ -118,6 +118,9 @@
     "home power action turn on": "Activer",
     "home power action turn off": "Désactiver",
     "home power action pause": "Pause pour 5 min",
+    "home power action pause five": "Pause de 5 minutes",
+    "home power action off all": "Désactiver toutes les protections",
+    "home power pause status active": "Le blocage des publicités est actif",
     "home status paused": "En pause",
     "home status active": "Actif",
     "home status deactivated": "Désactivé",
@@ -547,9 +550,9 @@
     "onboard safari step 2": "Gérer les extensions",
     "onboard safari cta": "Ouvrir YouTube dans Safari",
     "onboard safari skip": "Passer pour l'instant",
-    "bypass section header": "VPN Bypass",
-    "bypass info": "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.",
-    "bypass none": "No apps added. Use the Add button at the top to add new apps to this list.",
-    "bypass action add": "Add app",
-    "bypass dialog add brief": "Start typing to search apps."
+    "bypass section header": "Contournement VPN",
+    "bypass info": "Certaines applications peuvent ne pas fonctionner correctement avec le VPN. Vous pouvez les ajouter à la liste de contournement pour diriger leur trafic hors du tunnel VPN, ce qui peut améliorer la connectivité, mais nuit à la confidentialité. L'application intègre également quelques entrées de contournement pour plus de compatibilité. Remarque : si le paramètre « Bloquer les connexions sans VPN » est activé sur votre appareil, les applications contournées n'auront pas accès à Internet.",
+    "bypass none": "Aucune application ajoutée. Utilisez le bouton « Ajouter » en haut pour ajouter de nouvelles applications à cette liste.",
+    "bypass action add": "Ajouter une application",
+    "bypass dialog add brief": "Commencez à taper pour rechercher des applications."
 }

@@ -165,6 +165,9 @@
 "home power action turn on" = "Slå på";
 "home power action turn off" = "Stäng av";
 "home power action pause" = "Pausa i 5 minuter";
+"home power action pause five" = "Pause for 5 Minutes";
+"home power action off all" = "Turn Off All Protection";
+"home power pause status active" = "Ad Blocking is Active";
 
 "home status paused" = "Pausad";
 "home status active" = "Aktiv";

@@ -165,6 +165,9 @@
 "home power action turn on" = "Zapnout";
 "home power action turn off" = "Vypnout";
 "home power action pause" = "Pozastavit na 5 minut";
+"home power action pause five" = "Pause for 5 Minutes";
+"home power action off all" = "Turn Off All Protection";
+"home power pause status active" = "Ad Blocking is Active";
 
 "home status paused" = "Pozastaveno";
 "home status active" = "Aktivní";

@@ -59,7 +59,7 @@
     "universal action filter": "Фильтр",
     "universal action clear": "Очистить",
     "universal action revoke": "Отозвать",
-    "universal action add": "Add",
+    "universal action add": "Добавить",
     "support action chat": "Спросите в чате",
     "support action end": "Конец",
     "support placeholder": "Спросите о том, что вы хотите знать!",
@@ -118,6 +118,9 @@
     "home power action turn on": "Включить",
     "home power action turn off": "Отключить",
     "home power action pause": "Остановить на 5 минут",
+    "home power action pause five": "Остановить на 5 минут",
+    "home power action off all": "Отключить всю защиту",
+    "home power pause status active": "Блокировка рекламы активна",
     "home status paused": "Остановлено",
     "home status active": "Активно",
     "home status deactivated": "Деактивировано",
@@ -547,9 +550,9 @@
     "onboard safari step 2": "Управление расширениями",
     "onboard safari cta": "Открыть YouTube в Safari",
     "onboard safari skip": "Пропустить сейчас",
-    "bypass section header": "VPN Bypass",
+    "bypass section header": "Обход VPN",
     "bypass info": "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.",
     "bypass none": "No apps added. Use the Add button at the top to add new apps to this list.",
-    "bypass action add": "Add app",
-    "bypass dialog add brief": "Start typing to search apps."
+    "bypass action add": "Добавить приложение",
+    "bypass dialog add brief": "Начните вводить для поиска приложений."
 }

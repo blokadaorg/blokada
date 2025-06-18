@@ -119,6 +119,9 @@
     <string name="home_power_action_turn_on">Slå på</string>
     <string name="home_power_action_turn_off">Stäng av</string>
     <string name="home_power_action_pause">Pausa i 5 minuter</string>
+    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
+    <string name="home_power_action_off_all">Turn Off All Protection</string>
+    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
     <string name="home_status_paused">Pausad</string>
     <string name="home_status_active">Aktiv</string>
     <string name="home_status_deactivated">Avaktiverad</string>
