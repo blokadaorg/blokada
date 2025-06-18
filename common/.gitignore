@@ -1,7 +1,5 @@
 /.android
 
-pubspec.lock
-
 # generated files are build with a script
 *.g.dart
 *.pg.dart
