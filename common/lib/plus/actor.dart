@@ -50,8 +50,7 @@ class PlusActor with Logging, Actor {
       });
 
       _bypassedPackages.onChange.listen((change) async {
-        await _scheduler.addOrUpdate(Job(
-            "reconfigureVpnAfterBypassChange", change.m,
+        await _scheduler.addOrUpdate(Job("reconfigureVpnAfterBypassChange", change.m,
             before: DateTime.now().add(const Duration(seconds: 3)),
             callback: reconfigureVpnAfterBypassChange));
       });
@@ -150,8 +149,8 @@ class PlusActor with Logging, Actor {
     });
   }
 
-  VpnConfig _assembleConfig(Keypair keypair, Gateway gateway, Lease lease,
-      Set<String> bypassedPackages) {
+  VpnConfig _assembleConfig(
+      Keypair keypair, Gateway gateway, Lease lease, Set<String> bypassedPackages) {
     return VpnConfig(
       devicePrivateKey: keypair.privateKey,
       deviceTag: _device.currentDeviceTag,
@@ -198,6 +197,13 @@ class PlusActor with Logging, Actor {
       // If the VPN is active (for example after app start), but we did not
       // expect it, try to sync the state.
       return await log(m).trace("reactToAppStatusC2", (m) async {
+        await switchPlus(true, m);
+      });
+    } else if (plusEnabled &&
+        _app.status == AppStatus.pausedPlus &&
+        _vpnStatus.now == VpnStatus.deactivated) {
+      // If app is paused with timer, VPN should be active, but is not (probably after app restart).
+      return await log(m).trace("reactToAppStatusC3", (m) async {
         await switchPlus(true, m);
       });
     }

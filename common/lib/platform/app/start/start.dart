@@ -56,8 +56,8 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     if (_device.pausedForSeconds > 0) {
       pausedFor = Duration(seconds: _device.pausedForSeconds);
       final pausedUntil = DateTime.now().add(pausedFor!);
-      _scheduler.addOrUpdate(Job(_keyTimer, Markers.timer,
-          before: pausedUntil, callback: unpauseApp));
+      _scheduler
+          .addOrUpdate(Job(_keyTimer, Markers.timer, before: pausedUntil, callback: unpauseApp));
     } else {
       _scheduler.stop(Markers.timer, _keyTimer);
       pausedFor = null;
@@ -82,8 +82,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         if (_device.cloudEnabled == true) {
           // Just got the perms, auto start the app
           await _scheduler.addOrUpdate(Job(_keyAutoStart, Markers.ui,
-              before: DateTime.now()
-                  .add(const Duration(seconds: 1)), // Wait a bit at startup
+              before: DateTime.now().add(const Duration(seconds: 1)), // Wait a bit at startup
               callback: unpauseApp));
         }
       } else {
@@ -125,7 +124,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       try {
         await _app.reconfiguring(m);
         await _pauseApp(m, pauseDuration: duration);
-        if (!Core.act.isFamily) await _plus.reactToAppPause(false, m);
         _paused = true;
         await _app.appPaused(true, m);
       } catch (e) {

@@ -25,6 +25,7 @@ extension AppStatusExt on AppStatus {
   bool isInactive() {
     return this == AppStatus.deactivated ||
         this == AppStatus.paused ||
+        this == AppStatus.pausedPlus ||
         this == AppStatus.initFail;
   }
 }
@@ -42,6 +43,7 @@ class AppStatusStrategy {
   final bool plusActive;
   final bool reconfiguring;
   final bool appPaused;
+  final bool appPausedWithTimer;
 
   AppStatusStrategy({
     this.initStarted = false,
@@ -56,6 +58,7 @@ class AppStatusStrategy {
     this.plusActive = false,
     this.reconfiguring = false,
     this.appPaused = false,
+    this.appPausedWithTimer = false,
   });
 
   AppStatusStrategy update({
@@ -71,6 +74,7 @@ class AppStatusStrategy {
     bool? plusActive,
     bool? reconfiguring,
     bool? appPaused,
+    bool? appPausedWithTimer,
   }) {
     return AppStatusStrategy(
       initStarted: initStarted ?? this.initStarted,
@@ -85,6 +89,7 @@ class AppStatusStrategy {
       plusActive: plusActive ?? this.plusActive,
       reconfiguring: reconfiguring ?? this.reconfiguring,
       appPaused: appPaused ?? this.appPaused,
+      appPausedWithTimer: appPausedWithTimer ?? this.appPausedWithTimer,
     );
   }
 
@@ -97,7 +102,9 @@ class AppStatusStrategy {
       return AppStatus.initializing;
     } else if (reconfiguring) {
       return AppStatus.reconfiguring;
-    } else if (accountIsPlus && /*plusPermEnabled &&*/ plusActive) {
+    } else if (appPausedWithTimer && accountIsPlus) {
+      return AppStatus.pausedPlus;
+    } else if (accountIsPlus && plusActive) {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedPlus;
     } else if (accountIsCloud && cloudPermEnabled && cloudEnabled) {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedCloud;
@@ -110,7 +117,7 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused}";
+    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused, appPausedWithTimer: $appPausedWithTimer}";
   }
 }
 
@@ -179,7 +186,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   }
 
   @action
-  Future<void> cloudPermEnabled(bool enabled, Marker m) async {
+  Future<void> cloudPermEnabled(Marker m, bool enabled) async {
     return await log(m).trace("cloudPermEnabled", (m) async {
       conditions = conditions.update(cloudPermEnabled: enabled);
       await _updateStatus(m);
@@ -198,7 +205,8 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   Future<void> onDeviceChanged(Marker m) async {
     return await log(m).trace("onDeviceChanged", (m) async {
       final enabled = _device.cloudEnabled;
-      conditions = conditions.update(cloudEnabled: enabled);
+      conditions = conditions.update(
+          cloudEnabled: enabled, appPausedWithTimer: _device.pausedForSeconds > 0);
       await _updateStatus(m);
     });
   }
@@ -212,9 +220,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
       final isFamily = account.type == AccountType.family;
 
       conditions = conditions.update(
-          accountIsCloud: isCloud || isPlus,
-          accountIsPlus: isPlus,
-          accountIsFamily: isFamily);
+          accountIsCloud: isCloud || isPlus, accountIsPlus: isPlus, accountIsFamily: isFamily);
       await _updateStatus(m);
     });
   }
@@ -224,9 +230,6 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
     return await log(m).trace("appPaused", (m) async {
       conditions = conditions.update(appPaused: paused, reconfiguring: false);
       await _updateStatus(m);
-      log(m).pair("paused", paused);
-      log(m).pair("appStatusStrategy", conditions);
-      log(m).pair("appStatus", status);
     });
   }
 
@@ -235,9 +238,6 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
     return await log(m).trace("plusActivated", (m) async {
       conditions = conditions.update(plusActive: active, reconfiguring: false);
       await _updateStatus(m);
-      log(m).pair("active", active);
-      log(m).pair("appStatusStrategy", conditions);
-      log(m).pair("appStatus", status);
     });
   }
 
@@ -251,6 +251,8 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
 
   _updateStatus(Marker m) async {
     status = conditions.getCurrentStatus();
+    log(m).pair("appStatusStrategy", conditions);
+    log(m).pair("appStatus", status);
     await emit(appStatusChanged, status, m);
   }
 }

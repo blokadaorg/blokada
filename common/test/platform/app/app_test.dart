@@ -72,12 +72,12 @@ void main() {
         expect(subject.status, AppStatus.deactivated);
 
         // Granted perms and enabled Cloud in api, now should be active
-        await subject.cloudPermEnabled(true, m);
+        await subject.cloudPermEnabled(m, true);
         await subject.onDeviceChanged(m);
         expect(subject.status, AppStatus.activatedCloud);
 
         // Rejected perms again
-        await subject.cloudPermEnabled(false, m);
+        await subject.cloudPermEnabled(m, false);
         expect(subject.status, AppStatus.deactivated);
       });
     });
@@ -107,7 +107,7 @@ void main() {
 
         // User got the onboarding right for device
         await subject.onAccountChanged(m);
-        await subject.cloudPermEnabled(true, m);
+        await subject.cloudPermEnabled(m, true);
         await subject.onDeviceChanged(m);
         expect(subject.status, AppStatus.activatedCloud);
 
@@ -118,7 +118,7 @@ void main() {
         expect(subject.status, AppStatus.activatedCloud);
 
         // When the requirements are not satisfied, wont unpause
-        await subject.cloudPermEnabled(false, m);
+        await subject.cloudPermEnabled(m, false);
         await subject.appPaused(true, m);
         expect(subject.status, AppStatus.deactivated);
         await subject.appPaused(false, m);
@@ -175,7 +175,7 @@ void main() {
 
         await perm.setPrivateDnsEnabled("some-tag", m);
 
-        verify(store.cloudPermEnabled(true, m)).called(1);
+        verify(store.cloudPermEnabled(m, true)).called(1);
       });
     });
   });

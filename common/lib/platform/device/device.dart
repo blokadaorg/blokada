@@ -80,8 +80,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       await setDeviceName(_env.deviceName, m);
 
       // Only show current device journal by default
-      _journalFilter.now =
-          _journalFilter.now.updateOnly(deviceName: deviceAlias);
+      _journalFilter.now = _journalFilter.now.updateOnly(deviceName: deviceAlias);
     });
   }
 
@@ -93,11 +92,11 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       log(m).pair("tagBeforeFetch", deviceTag);
 
       final device = await _api.getDevice(m);
+      pausedForSeconds = device.pausedForSeconds;
       cloudEnabled = !device.paused;
       lists = device.lists;
       retention = device.retention;
       deviceTag = device.deviceTag;
-      pausedForSeconds = device.pausedForSeconds;
 
       log(m).pair("pausedForSeconds", pausedForSeconds);
       log(m).pair("tagAfterFetch", deviceTag);
@@ -106,11 +105,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   }
 
   @action
-  Future<void> setCloudEnabled(Marker m, bool enabled,
-      {Duration? pauseDuration}) async {
+  Future<void> setCloudEnabled(Marker m, bool enabled, {Duration? pauseDuration}) async {
     return await log(m).trace("setCloudEnabled", (m) async {
-      await _api.putDevice(m,
-          paused: !enabled, pausedForSeconds: pauseDuration?.inSeconds);
+      await _api.putDevice(m, paused: !enabled, pausedForSeconds: pauseDuration?.inSeconds);
       await fetch(m);
     });
   }

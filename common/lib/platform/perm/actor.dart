@@ -20,8 +20,7 @@ class PlatformPermActor with Logging, Actor {
   }
 
   bool get isPrivateDnsEnabled {
-    return _device.deviceTag != null &&
-        _dnsEnabledFor.present == _device.deviceTag;
+    return _device.deviceTag != null && _dnsEnabledFor.present == _device.deviceTag;
   }
 
   int _privateDnsTagChangeCounter = 0;
@@ -41,7 +40,7 @@ class PlatformPermActor with Logging, Actor {
 
       if (tag != _dnsEnabledFor.present) {
         await _dnsEnabledFor.change(m, tag);
-        await _app.cloudPermEnabled(tag == _device.deviceTag, m);
+        await _app.cloudPermEnabled(m, tag == _device.deviceTag);
       }
     });
   }
@@ -50,7 +49,7 @@ class PlatformPermActor with Logging, Actor {
     return await log(m).trace("privateDnsDisabled", (m) async {
       if (_dnsEnabledFor.present != null) {
         await _dnsEnabledFor.change(m, null);
-        await _app.cloudPermEnabled(false, m);
+        await _app.cloudPermEnabled(m, false);
       }
     });
   }
@@ -149,8 +148,7 @@ class PlatformPermActor with Logging, Actor {
 
   _recheckDnsPerm(DeviceTag tag, Marker m) async {
     final current = await _channel.getPrivateDnsSetting();
-    final isEnabled =
-        _check.isCorrect(m, current, _device.deviceTag!, _device.deviceAlias);
+    final isEnabled = _check.isCorrect(m, current, _device.deviceTag!, _device.deviceAlias);
 
     if (isEnabled) {
       await setPrivateDnsEnabled(tag, m);
