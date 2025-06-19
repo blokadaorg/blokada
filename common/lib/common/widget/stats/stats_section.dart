@@ -1,13 +1,16 @@
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/journal/journal.dart';
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/common/widget/stats/activity_item.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +18,14 @@ class StatsSection extends StatefulWidget {
   final DeviceTag? deviceTag;
   final bool primary;
   final bool isHeader;
+  final bool freemium;
 
   const StatsSection({
     Key? key,
     required this.deviceTag,
     required this.isHeader,
     this.primary = true,
+    this.freemium = true,
   }) : super(key: key);
 
   @override
@@ -33,8 +38,13 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   late final _filter = Core.get<JournalFilterValue>();
   late final _entries = Core.get<JournalEntriesValue>();
   late final _customlist = Core.get<CustomListsValue>();
+  late final _accountStore = Core.get<AccountStore>();
 
   bool _isReady = false;
+
+  bool get _isFreemium {
+    return _accountStore.isFreemium;
+  }
 
   @override
   void initState() {
@@ -79,44 +89,56 @@ class StatsSectionState extends State<StatsSection> with Disposables {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: RefreshIndicator(
-        displacement: 100.0,
-        onRefresh: _pullToRefresh,
-        child: ListView(
-            primary: widget.primary,
-            children: [
-                  // Header for v6 or padding for Family
-                  (widget.isHeader)
-                      ? _buildHeaderForV6(context)
-                      : SizedBox(height: getTopPadding(context)),
-                  // The rest of the screen
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.theme.bgMiniCard,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12)),
-                    ),
-                    height: 12,
-                  ),
-                ] +
-                (!_isReady || _entries.now.isEmpty
-                    ? _buildEmpty(context)
-                    : _buildItems(context)) +
-                [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.theme.bgMiniCard,
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(12)),
-                    ),
-                    height: 12,
-                  ),
-                ]),
-      ),
+    return Stack(
+      children: [
+        IgnorePointer(
+          ignoring: _isFreemium,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: RefreshIndicator(
+              displacement: 100.0,
+              onRefresh: _pullToRefresh,
+              child: ListView(
+                  primary: widget.primary,
+                  children: [
+                        // Header for v6 or padding for Family
+                        (widget.isHeader)
+                            ? _buildHeaderForV6(context)
+                            : SizedBox(height: getTopPadding(context)),
+                        // The rest of the screen
+                        Container(
+                          decoration: BoxDecoration(
+                            color: context.theme.bgMiniCard,
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                          ),
+                          height: 12,
+                        ),
+                      ] +
+                      (!_isReady || _entries.now.isEmpty
+                          ? _buildEmpty(context)
+                          : _buildItems(context)) +
+                      [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: context.theme.bgMiniCard,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+                          ),
+                          height: 12,
+                        ),
+                      ]),
+            ),
+          ),
+        ),
+        (_isFreemium)
+            ? const FreemiumScreen(
+                title: "Unlock full tracking control",
+                subtitle: "See which trackers are reaching you - and block them.",
+                placement: Placement.freemiumActivity,
+              )
+            : Container(),
+      ],
     );
   }
 
@@ -161,9 +183,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
         color: context.theme.bgMiniCard,
         child: Column(children: [
           ActivityItem(entry: it),
-          index < _entries.now.length - 1
-              ? const CommonDivider(indent: 60)
-              : Container(),
+          index < _entries.now.length - 1 ? const CommonDivider(indent: 60) : Container(),
         ]),
       );
     }).toList();

@@ -1,5 +1,4 @@
 import 'package:common/common/module/filter/filter.dart';
-import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/string.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/two_letter_icon.dart';
@@ -49,19 +48,15 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
           child: Row(
             children: [
               TwoLetterIconWidget(
-                  name: widget.nameOverride ??
-                      _getDecor(widget.option.optionName).i18n,
+                  name: widget.nameOverride ?? _getDecor(widget.option.optionName).i18n,
                   colorOverride: widget.colorOverride,
                   big: true),
               const SizedBox(width: 12.0),
               Expanded(
-                child: FreemiumBlur(
-                  child: Text(
-                    widget.nameOverride ??
-                        _getDecor(widget.option.optionName).i18n,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                child: Text(
+                  widget.nameOverride ?? _getDecor(widget.option.optionName).i18n,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(width: 8.0),

@@ -123,6 +123,12 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   @action
   Future<void> setLists(List<String> lists, Marker m) async {
+    // Skip device updates in freemium mode to prevent refresh loops
+    if (_account.isFreemium) {
+      log(m).i("Skipping setLists in freemium mode");
+      return;
+    }
+    
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
       await _api.putDevice(m, lists: lists);

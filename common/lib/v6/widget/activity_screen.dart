@@ -8,6 +8,7 @@ import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/with_top_bar.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -22,6 +23,7 @@ class ActivityScreen extends StatefulWidget {
 class ActivityScreenState extends State<ActivityScreen> with Logging {
   final _device = Core.get<DeviceStore>();
   late final _filter = Core.get<JournalFilterValue>();
+  late final _account = Core.get<AccountStore>();
 
   var _showStats = false;
 
@@ -43,7 +45,9 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
     autorun((_) {
       final retention = _device.retention;
       setState(() {
-        _showStats = retention == "24h";
+        // Show only if retention is enabled
+        // ... or if freemium since we show a sample data
+        _showStats = retention == "24h" || _account.isFreemium;
       });
     });
   }

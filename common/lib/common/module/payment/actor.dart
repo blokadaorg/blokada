@@ -6,7 +6,10 @@ final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 
 enum Placement {
   primary("primary"),
-  plusUpgrade("home_plus_upgrade");
+  plusUpgrade("home_plus_upgrade"),
+  freemiumStats("stats_freemium"),
+  freemiumActivity("activity_freemium"),
+  freemiumFilters("filters_freemium");
 
   final String id;
 
@@ -150,8 +153,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       } catch (e, s) {
         onPaymentScreenOpened(false);
         _isOpened = false;
-        await handleFailure(m, "Failed creating paywall", e,
-            s: s, temporary: true);
+        await handleFailure(m, "Failed creating paywall", e, s: s, temporary: true);
       }
     });
   }
@@ -214,8 +216,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
 
     try {
       // Process attributes using Flutter converter
-      final processedAttributes =
-          AdaptyAttributeConverter.convertToCustomAttributes(attributes);
+      final processedAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes);
 
       if (processedAttributes.isEmpty) {
         log(m).i("No valid attributes to sync after processing");
@@ -223,8 +224,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       }
 
       // Pass processed attributes to platform channel
-      await _channel
-          .setCustomAttributes(m, {'custom_attributes': processedAttributes});
+      await _channel.setCustomAttributes(m, {'custom_attributes': processedAttributes});
       log(m).i("Synced custom attributes to Adapty");
     } catch (e, s) {
       log(m).e(msg: "Failed syncing custom attributes", err: e, stack: s);

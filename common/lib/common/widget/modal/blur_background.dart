@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 class BlurBackground extends StatefulWidget {
   final bool Function()? canClose;
   final VoidCallback? onClosed;
+  final Color? bgColor;
+  final double blur;
   final Widget child;
 
   const BlurBackground({
     Key? key,
     this.onClosed,
     this.canClose,
+    this.bgColor,
+    this.blur = 25.0,
     required this.child,
   }) : super(key: key);
 
@@ -20,8 +24,7 @@ class BlurBackground extends StatefulWidget {
   State<StatefulWidget> createState() => BlurBackgroundState();
 }
 
-class BlurBackgroundState extends State<BlurBackground>
-    with TickerProviderStateMixin, Logging {
+class BlurBackgroundState extends State<BlurBackground> with TickerProviderStateMixin, Logging {
   final _animDuration = const Duration(milliseconds: 400);
   double _opacity = 0.0;
 
@@ -43,7 +46,7 @@ class BlurBackgroundState extends State<BlurBackground>
 
     _animBlur = Tween<double>(
       begin: 0.0,
-      end: 25.0,
+      end: widget.blur,
     ).animate(_ctrlBlur);
 
     // Show the view soon after creating
@@ -94,7 +97,7 @@ class BlurBackgroundState extends State<BlurBackground>
                     opacity: _opacity,
                     duration: _animDuration,
                     child: Container(
-                      color: Colors.black.withOpacity(0.75),
+                      color: widget.bgColor ?? Colors.black.withOpacity(0.75),
                     ),
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/widget/color.dart';
 import 'package:common/common/widget/filter/filter_option.dart';
-import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:dartx/dartx.dart';
@@ -67,26 +66,16 @@ class FilterWidgetState extends State<FilterWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      widget.texts.tags
-                          .map((e) => e.i18n)
-                          .join(", ")
-                          .toUpperCase(),
+                  Text(widget.texts.tags.map((e) => e.i18n).join(", ").toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: context.theme.divider,
                           )),
                   const SizedBox(height: 8.0),
-                  FreemiumBlur(
-                    blurX: 12,
-                    child: Text(widget.texts.title.i18n,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              fontWeight: FontWeight.bold,
-                            )),
-                  ),
+                  Text(widget.texts.title.i18n,
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
                   const SizedBox(height: 4.0),
                   Text(
                     widget.texts.description.i18n,
@@ -98,8 +87,7 @@ class FilterWidgetState extends State<FilterWidget> {
             const SizedBox(height: 16.0),
             Container(
               decoration: BoxDecoration(
-                color:
-                    (widget.bgColor == null) ? Colors.transparent : bgOptions,
+                color: (widget.bgColor == null) ? Colors.transparent : bgOptions,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
@@ -133,11 +121,7 @@ class FilterWidgetState extends State<FilterWidget> {
                   _updateUserChoice(widget.filter, it.optionName, selected);
                 }),
             Divider(
-                indent: 16,
-                endIndent: 16,
-                thickness: 0.4,
-                height: 4,
-                color: context.theme.divider),
+                indent: 16, endIndent: 16, thickness: 0.4, height: 4, color: context.theme.divider),
           ];
         })
         .flatten()

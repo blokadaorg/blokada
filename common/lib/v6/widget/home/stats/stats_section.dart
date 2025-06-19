@@ -1,9 +1,11 @@
-import 'package:common/common/widget/freemium_blur.dart';
+import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -14,14 +16,14 @@ import 'radial_segment.dart';
 import 'totalcounter.dart';
 
 class V6StatsSection extends StatefulWidget {
-  V6StatsSection(
-      {Key? key,
-      required bool this.autoRefresh,
-      required ScrollController this.controller})
-      : super(key: key);
-
   final bool autoRefresh;
   final ScrollController controller;
+
+  const V6StatsSection({
+    Key? key,
+    required this.autoRefresh,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => V6StatsSectionState();
@@ -29,8 +31,13 @@ class V6StatsSection extends StatefulWidget {
 
 class V6StatsSectionState extends State<V6StatsSection> {
   final _store = Core.get<StatsStore>();
+  late final _accountStore = Core.get<AccountStore>();
 
   var stats = UiStats.empty();
+
+  bool get _isFreemium {
+    return _accountStore.isFreemium;
+  }
 
   @override
   void initState() {
@@ -51,45 +58,57 @@ class V6StatsSectionState extends State<V6StatsSection> {
 
   Widget content() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.bgColor,
-      ),
-      child: RelativeBuilder(builder: (context, height, width, sy, sx) {
-        return Column(
-          children: [
-            const SizedBox(height: 42),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: MiniCard(
-                child: Column(
-                  children: [
-                    MiniCardHeader(
-                      text: "stats header day".i18n,
-                      icon: Icons.timelapse,
-                      color: theme.textSecondary,
+    return Stack(
+      children: [
+        IgnorePointer(
+          ignoring: _isFreemium,
+          child: Container(
+            decoration: BoxDecoration(
+              color: theme.bgColor,
+            ),
+            child: RelativeBuilder(builder: (context, height, width, sy, sx) {
+              return Column(
+                children: [
+                  const SizedBox(height: 42),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: MiniCard(
+                      child: Column(
+                        children: [
+                          MiniCardHeader(
+                            text: "stats header day".i18n,
+                            icon: Icons.timelapse,
+                            color: theme.textSecondary,
+                          ),
+                          const SizedBox(height: 4),
+                          RadialSegment(autoRefresh: widget.autoRefresh),
+                          const SizedBox(height: 16),
+                          const Divider(),
+                          ColumnChart(stats: stats),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 4),
-                    FreemiumBlur(
-                        blurX: 18,
-                        child: RadialSegment(autoRefresh: widget.autoRefresh)),
-                    const SizedBox(height: 16),
-                    const Divider(),
-                    FreemiumBlur(blurX: 18, child: ColumnChart(stats: stats)),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TotalCounter(autoRefresh: widget.autoRefresh),
-            ),
-            const Spacer(),
-            SizedBox(height: sy(60)),
-          ],
-        );
-      }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TotalCounter(autoRefresh: widget.autoRefresh),
+                  ),
+                  const Spacer(),
+                  SizedBox(height: sy(60)),
+                ],
+              );
+            }),
+          ),
+        ),
+        (_isFreemium)
+            ? const FreemiumScreen(
+                title: "Unlock your stats",
+                subtitle: "Upgrade to Plus to access detailed statistics and insights.",
+                placement: Placement.freemiumStats,
+              )
+            : Container(),
+      ],
     );
   }
 }

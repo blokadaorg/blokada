@@ -1,5 +1,4 @@
 import 'package:common/common/module/config/config.dart';
-import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/minicard/summary.dart';
@@ -77,14 +76,11 @@ class TotalCounterState extends State<TotalCounter> with Logging {
           chevronIcon: Icons.ios_share_outlined,
         ),
         // bigText: _formatCounter(blocked),
-        big: FreemiumBlur(
-          blurX: 10,
-          child: Text(StatsStoreBase.formatCounter(blocked),
-              style: const TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.w600,
-              )),
-        ),
+        big: Text(StatsStoreBase.formatCounter(blocked),
+            style: const TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w600,
+            )),
         small: "",
         footer: _getBlockedText(),
       ),
