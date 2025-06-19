@@ -27,6 +27,8 @@ class BlockaWebActor with Actor, Logging {
 
   DateTime _accountActiveUntil = DateTime(0);
   bool _appActive = false;
+  bool _freemium = false;
+  DateTime? _freemiumYoutubeUntil;
 
   @override
   onStart(Marker m) async {
@@ -63,6 +65,18 @@ class BlockaWebActor with Actor, Logging {
   _updateStatusFromAccount(ValueUpdate<AccountState> it) async {
     _accountActiveUntil =
         DateTime.tryParse(it.now.jsonAccount.activeUntil ?? "") ?? DateTime(0);
+
+    // Extract freemium attributes from account
+    final attributes = it.now.jsonAccount.attributes ?? {};
+    _freemium = attributes['freemium'] as bool? ?? false;
+
+    if (attributes['freemium_youtube_until'] != null) {
+      _freemiumYoutubeUntil =
+          DateTime.tryParse(attributes['freemium_youtube_until'] as String);
+    } else {
+      _freemiumYoutubeUntil = null;
+    }
+
     await _scheduleSync(it.m);
   }
 
@@ -79,6 +93,8 @@ class BlockaWebActor with Actor, Logging {
     final newStatus = JsonBlockaweb(
       timestamp: _accountActiveUntil,
       active: _appActive,
+      freemium: _freemium,
+      freemiumYoutubeUntil: _freemiumYoutubeUntil,
     );
 
     await _appStatus.change(m, newStatus);

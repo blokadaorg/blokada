@@ -27,6 +27,14 @@
     "message": "الحساب ينتهي قريباً – تحقق من التطبيق",
     "description": "Shown when the account is expiring within 7 days."
   },
+  "status_trial_active": {
+    "message": "التجربة المجانية نشطة ($1 أيام متبقية)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "انتهت التجربة المجانية",
+    "description": "Shown when freemium trial has expired."
+  },
   "open_app": {
     "message": "افتح Blokada",
     "description": "Text on the button that opens the main app."
