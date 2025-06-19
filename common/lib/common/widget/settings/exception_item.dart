@@ -1,5 +1,4 @@
 import 'package:common/common/widget/common_clickable.dart';
-import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,8 +26,7 @@ class ExceptionItem extends StatefulWidget {
 class ExceptionItemState extends State<ExceptionItem> {
   @override
   Widget build(BuildContext context) {
-    return _wrapInDismissible(
-        context, widget.entry, widget.blocked, (ctx) => _buildItem(ctx));
+    return _wrapInDismissible(context, widget.entry, widget.blocked, (ctx) => _buildItem(ctx));
   }
 
   Widget _buildItem(BuildContext context) {
@@ -53,15 +51,11 @@ class ExceptionItemState extends State<ExceptionItem> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FreemiumBlur(
-                  child: Text(widget.entry,
-                      style: const TextStyle(fontSize: 18),
-                      overflow: TextOverflow.ellipsis),
-                ),
+                Text(widget.entry,
+                    style: const TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis),
                 Text(
                   "${widget.blocked ? "block" : "allow"}",
-                  style: TextStyle(
-                      color: context.theme.textSecondary, fontSize: 12),
+                  style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
                 ),
               ],
             ),
@@ -77,8 +71,7 @@ class ExceptionItemState extends State<ExceptionItem> {
     );
   }
 
-  Widget _wrapInDismissible(
-      BuildContext context, String entry, bool blocked, WidgetBuilder child) {
+  Widget _wrapInDismissible(BuildContext context, String entry, bool blocked, WidgetBuilder child) {
     return Slidable(
       key: Key(entry),
       groupTag: '0',

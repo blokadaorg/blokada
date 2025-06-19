@@ -1,4 +1,3 @@
-import 'package:common/common/widget/freemium_blur.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +14,8 @@ class ActionInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style:
-                  TextStyle(fontSize: 12, color: context.theme.textSecondary)),
-          FreemiumBlur(child: Text(text, style: const TextStyle(fontSize: 16))),
+          Text(label, style: TextStyle(fontSize: 12, color: context.theme.textSecondary)),
+          Text(text, style: const TextStyle(fontSize: 16)),
         ],
       ),
     );

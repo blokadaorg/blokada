@@ -46,8 +46,7 @@ class AccountState {
   AccountType type;
   JsonAccount jsonAccount;
 
-  AccountState(this.id, this.jsonAccount)
-      : type = accountTypeFromName(jsonAccount.type);
+  AccountState(this.id, this.jsonAccount) : type = accountTypeFromName(jsonAccount.type);
 
   AccountState update(JsonAccount apiAccount) {
     return AccountState(id, apiAccount);
@@ -57,9 +56,7 @@ class AccountState {
 }
 
 AccountType accountTypeFromName(String? name) {
-  return (name?.isEmpty ?? true)
-      ? AccountType.libre
-      : AccountType.values.byName(name ?? "unknown");
+  return (name?.isEmpty ?? true) ? AccountType.libre : AccountType.values.byName(name ?? "unknown");
 }
 
 enum AccountType { libre, plus, cloud, family }
@@ -70,9 +67,7 @@ extension AccountTypeExt on AccountType {
   }
 
   bool isUpgradeOver(AccountType? other) {
-    return other != null &&
-            this == AccountType.plus &&
-            other != AccountType.plus ||
+    return other != null && this == AccountType.plus && other != AccountType.plus ||
         this == AccountType.cloud && other == AccountType.libre ||
         this == AccountType.family && other == AccountType.libre;
   }
@@ -132,13 +127,21 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
     return type ?? AccountType.libre;
   }
 
+  @computed
+  bool get isFreemium {
+    if (type.isActive()) return false;
+    return true;
+    // final attributes = account?.jsonAccount.attributes;
+    // if (attributes == null) return false;
+    // return attributes['freemium'] == true;
+  }
+
   AccountId? _previousAccountId;
 
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      final accJson =
-          await _persistence.loadJson(m, _keyAccount, isBackup: true);
+      final accJson = await _persistence.loadJson(m, _keyAccount, isBackup: true);
       final jsonAccount = JsonAccount.fromJson(accJson);
       _ensureValidAccountId(jsonAccount.id);
       await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
@@ -149,8 +152,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   Future<void> createAccount(Marker m) async {
     return await log(m).trace("create", (m) async {
       final jsonAccount = await _api.postAccount(m);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),
-          isBackup: true);
+      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
@@ -162,8 +164,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         throw AccountNotInitialized();
       }
       final jsonAccount = await _api.getAccount(account!.id, m);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),
-          isBackup: true);
+      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);
     });
   }
@@ -175,8 +176,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         final sanitizedId = _sanitizeAccountId(id);
         _ensureValidAccountId(sanitizedId);
         final jsonAccount = await _api.getAccount(sanitizedId, m);
-        await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),
-            isBackup: true);
+        await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
         await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
         if (jsonAccount.isActive()) {
           await sleepAsync(const Duration(milliseconds: 500));
@@ -199,8 +199,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   Future<void> propose(JsonAccount jsonAccount, Marker m) async {
     return await log(m).trace("propose", (m) async {
       _ensureValidAccountId(jsonAccount.id);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),
-          isBackup: true);
+      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
@@ -215,8 +214,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         type: AccountType.libre.name,
       );
 
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(),
-          isBackup: true);
+      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);
     });
   }
