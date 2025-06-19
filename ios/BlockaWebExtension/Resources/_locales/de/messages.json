@@ -27,6 +27,14 @@
     "message": "Konto läuft bald ab – prüfe die App",
     "description": "Shown when the account is expiring within 7 days."
   },
+  "status_trial_active": {
+    "message": "Kostenlose Testversion aktiv ($1 Tage verbleibend)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "Kostenlose Testversion abgelaufen",
+    "description": "Shown when freemium trial has expired."
+  },
   "open_app": {
     "message": "Blokada öffnen",
     "description": "Text on the button that opens the main app."

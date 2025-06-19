@@ -27,6 +27,14 @@
     "message": "Konto wygasa wkrótce – sprawdź aplikację",
     "description": "Shown when the account is expiring within 7 days."
   },
+  "status_trial_active": {
+    "message": "Darmowa wersja próbna aktywna ($1 dni pozostało)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "Darmowa wersja próbna wygasła",
+    "description": "Shown when freemium trial has expired."
+  },
   "open_app": {
     "message": "Otwórz Blokada",
     "description": "Text on the button that opens the main app."

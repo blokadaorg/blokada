@@ -27,6 +27,14 @@
     "message": "Compte expire bientôt – vérifiez l'app",
     "description": "Shown when the account is expiring within 7 days."
   },
+  "status_trial_active": {
+    "message": "Essai gratuit actif ($1 jours restants)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "Essai gratuit expiré",
+    "description": "Shown when freemium trial has expired."
+  },
   "open_app": {
     "message": "Ouvrir Blokada",
     "description": "Text on the button that opens the main app."

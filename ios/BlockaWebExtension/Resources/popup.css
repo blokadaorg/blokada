@@ -86,6 +86,13 @@ body {
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
 }
 
+.status-trial {
+    background-color: rgba(255, 149, 0, 0.2);
+    border: 2px solid rgba(255, 149, 0, 0.6);
+    color: #ff9500;
+    box-shadow: 0 0 12px rgba(255, 149, 0, 0.3);
+}
+
 /* Open app button styling */
 #open-app-btn {
     display: inline-block;

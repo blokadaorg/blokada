@@ -34,21 +34,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateStatusDisplay(status) {
-    const { active, timestamp } = status;
+    const { active, timestamp, freemium, freemiumYoutubeUntil } = status;
 
-    // Active might be false even if account isn't expired,
-    // for example if the user has paused Blokada.
+    // If app is paused, show inactive regardless of subscription status
     if (!active) {
       setStatusState("inactive", browser.i18n.getMessage("status_inactive"));
       return;
     }
 
-    // Parse the timestamp (account expiration date)
-    const expirationDate = new Date(timestamp);
     const now = new Date();
+    const accountExpiry = new Date(timestamp);
+    const isAccountExpired = accountExpiry <= now;
 
-    // Check if account has expired
-    if (expirationDate <= now) {
+    // Check freemium eligibility for expired accounts
+    if (isAccountExpired && freemium && freemiumYoutubeUntil) {
+      const freemiumExpiry = new Date(freemiumYoutubeUntil);
+
+      if (freemiumExpiry <= now) {
+        // Freemium trial has expired
+        setStatusState(
+          "expired",
+          browser.i18n.getMessage("status_trial_expired"),
+        );
+        return;
+      }
+
+      // Freemium trial is active
+      const daysLeft = Math.ceil(
+        (freemiumExpiry - now) / (24 * 60 * 60 * 1000),
+      );
+      setStatusState(
+        "trial",
+        browser.i18n
+          .getMessage("status_trial_active")
+          .replace("$1", daysLeft.toString()),
+      );
+      return;
+    }
+
+    // Regular subscription logic (unchanged)
+    if (isAccountExpired) {
       setStatusState(
         "expired",
         browser.i18n.getMessage("status_access_expired"),
@@ -56,9 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Check if account is expiring within 7 days
     const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-    if (expirationDate <= sevenDaysFromNow) {
+    if (accountExpiry <= sevenDaysFromNow) {
       setStatusState(
         "expiring",
         browser.i18n.getMessage("status_expiring_soon"),
@@ -66,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Account is active and not expiring soon
     setStatusState("active", browser.i18n.getMessage("status_blocking_active"));
   }
 
