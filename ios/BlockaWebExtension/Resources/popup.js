@@ -44,11 +44,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const now = new Date();
     const accountExpiry = new Date(timestamp);
-    const isAccountExpired = accountExpiry <= now;
+    const isAccountExpired = isValidDate(accountExpiry)
+      ? accountExpiry <= now
+      : true;
 
     // Check freemium eligibility for expired accounts
     if (isAccountExpired && freemium && freemiumYoutubeUntil) {
       const freemiumExpiry = new Date(freemiumYoutubeUntil);
+
+      if (!isValidDate(freemiumExpiry)) {
+        setStatusState(
+          "expired",
+          browser.i18n.getMessage("status_trial_expired"),
+        );
+        return;
+      }
 
       if (freemiumExpiry <= now) {
         // Freemium trial has expired
@@ -81,13 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-    if (accountExpiry <= sevenDaysFromNow) {
-      setStatusState(
-        "expiring",
-        browser.i18n.getMessage("status_expiring_soon"),
+    if (isValidDate(accountExpiry)) {
+      const sevenDaysFromNow = new Date(
+        now.getTime() + 7 * 24 * 60 * 60 * 1000,
       );
-      return;
+      if (accountExpiry <= sevenDaysFromNow) {
+        setStatusState(
+          "expiring",
+          browser.i18n.getMessage("status_expiring_soon"),
+        );
+        return;
+      }
     }
 
     setStatusState("active", browser.i18n.getMessage("status_blocking_active"));
@@ -102,5 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add the appropriate CSS class for visual styling
     statusText.classList.add(`status-${state}`);
+  }
+
+  function isValidDate(date) {
+    return date instanceof Date && !isNaN(date.getTime());
   }
 });

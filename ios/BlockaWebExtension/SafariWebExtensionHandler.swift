@@ -24,11 +24,6 @@ struct JsonBlockaweb: Codable {
     }
 }
 
-let blockaDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-let blockaDateFormatter = initDateFormatter()
-let blockaDecoder = initJsonDecoder()
-let blockaEncoder = initJsonEncoder()
-
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     func beginRequest(with context: NSExtensionContext) {
         let request = context.inputItems.first as? NSExtensionItem
@@ -56,15 +51,18 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         let status =
             decodeAppStatus()
             ?? JsonBlockaweb(
-                timestamp: Date(), active: false, freemium: false, freemiumYoutubeUntil: nil)
+                timestamp: Date(timeIntervalSince1970: 0),
+                active: false,
+                freemium: false,
+                freemiumYoutubeUntil: nil
+            )
         markExtensionAsEnabled()
 
         let response = NSExtensionItem()
-        // Format timestamp as ISO string for JSON serialization
-        let timestampString = blockaDateFormatter.string(from: status.timestamp)
-        let freemiumUntilString = status.freemiumYoutubeUntil.map {
-            blockaDateFormatter.string(from: $0)
-        }
+
+        // Format timestamps for JavaScript consumption
+        let timestampString = formatDateForJS(status.timestamp)
+        let freemiumUntilString = status.freemiumYoutubeUntil.map { formatDateForJS($0) }
 
         if #available(iOS 15.0, macOS 11.0, *) {
             response.userInfo = [
@@ -108,8 +106,43 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         else {
             return nil
         }
+
         do {
-            let status = try blockaDecoder.decode(JsonBlockaweb.self, from: jsonData)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .custom { decoder in
+                let container = try decoder.singleValueContainer()
+                let dateString = try container.decode(String.self)
+
+                // Handle Go API date formats:
+                // "0001-01-01T00:00:00Z" (zero time)
+                // "2025-06-17T10:13:00.141629Z" (with microseconds)
+
+                if dateString == "0001-01-01T00:00:00Z" {
+                    return Date(timeIntervalSince1970: 0)  // Unix epoch = expired
+                }
+
+                // Try standard ISO8601 first
+                let iso8601 = ISO8601DateFormatter()
+                iso8601.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                if let date = iso8601.date(from: dateString) {
+                    return date
+                }
+
+                // Fallback for format without fractional seconds
+                iso8601.formatOptions = [.withInternetDateTime]
+                if let date = iso8601.date(from: dateString) {
+                    return date
+                }
+
+                throw DecodingError.dataCorrupted(
+                    DecodingError.Context(
+                        codingPath: decoder.codingPath,
+                        debugDescription: "Cannot decode date string \(dateString)"
+                    )
+                )
+            }
+
+            let status = try decoder.decode(JsonBlockaweb.self, from: jsonData)
             return status
         } catch {
             os_log(.error, "blockaweb: failed to decode app status: %{public}@", "\(error)")
@@ -124,10 +157,16 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         {
             let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
             let status = JsonBlockaweb(
-                timestamp: Date(), active: true, freemium: false, freemiumYoutubeUntil: nil)
+                timestamp: Date(),
+                active: true,
+                freemium: false,
+                freemiumYoutubeUntil: nil
+            )
 
             do {
-                let jsonData = try blockaEncoder.encode(status)
+                let encoder = JSONEncoder()
+                encoder.dateEncodingStrategy = .iso8601
+                let jsonData = try encoder.encode(status)
                 try jsonData.write(to: fileURL, options: [.atomic])
                 os_log(.default, "blockaweb: status updated with timestamp")
             } catch {
@@ -135,22 +174,15 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             }
         }
     }
-}
 
-func initDateFormatter() -> DateFormatter {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = blockaDateFormat
-    return dateFormatter
-}
+    /// Format date for JavaScript consumption - handle zero time as clearly expired
+    private func formatDateForJS(_ date: Date) -> String {
+        if date.timeIntervalSince1970 <= 1 {  // Zero time or very close to it
+            return "1970-01-01T00:00:00.000Z"  // Clearly expired for JS
+        }
 
-func initJsonDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .formatted(blockaDateFormatter)
-    return decoder
-}
-
-func initJsonEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    encoder.dateEncodingStrategy = .formatted(blockaDateFormatter)
-    return encoder
+        let iso8601 = ISO8601DateFormatter()
+        iso8601.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return iso8601.string(from: date)
+    }
 }
