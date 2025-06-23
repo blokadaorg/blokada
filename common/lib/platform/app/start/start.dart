@@ -52,15 +52,26 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   @observable
   Duration? pausedFor;
 
+  @observable
+  DateTime? pausedUntil;
+
+  @computed
+  Duration? get pausedForAccurate {
+    if (pausedUntil == null) return null;
+    final remaining = pausedUntil!.difference(DateTime.now());
+    return remaining.isNegative ? null : remaining;
+  }
+
   _rescheduleUnpause(_) {
     if (_device.pausedForSeconds > 0) {
       pausedFor = Duration(seconds: _device.pausedForSeconds);
-      final pausedUntil = DateTime.now().add(pausedFor!);
+      pausedUntil = DateTime.now().add(pausedFor!);
       _scheduler
-          .addOrUpdate(Job(_keyTimer, Markers.timer, before: pausedUntil, callback: unpauseApp));
+          .addOrUpdate(Job(_keyTimer, Markers.timer, before: pausedUntil!, callback: unpauseApp));
     } else {
       _scheduler.stop(Markers.timer, _keyTimer);
       pausedFor = null;
+      pausedUntil = null;
     }
   }
 
@@ -154,6 +165,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
     await log(m).trace("unpauseApp", (m) async {
       try {
         pausedFor = null;
+        pausedUntil = null;
         await _app.reconfiguring(m);
         await _unpauseApp(m);
         if (!Core.act.isFamily) await _plus.reactToAppPause(true, m);

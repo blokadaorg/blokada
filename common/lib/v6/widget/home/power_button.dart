@@ -63,6 +63,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   var newCounter = 0.5;
 
   int? pausedForSeconds;
+  Timer? timerRefresh;
 
   @override
   void initState() {
@@ -152,8 +153,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         _home.powerOnIsReady();
         log(Markers.root).i("app status active, power on is ready");
       }
-      pausedForSeconds = _appStart.pausedFor?.inSeconds;
+      pausedForSeconds = _appStart.pausedForAccurate?.inSeconds;
       _scheduleUpdateAnimations();
+      _scheduleTimerRefresh();
     });
 
     mobx.autorun((_) {
@@ -192,6 +194,20 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       _updateAnimations();
       timer = null;
     });
+  }
+
+  _scheduleTimerRefresh() {
+    timerRefresh?.cancel();
+    if (_getRemainingSeconds() > 0) {
+      timerRefresh = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (_getRemainingSeconds() > 0) {
+          _setState();
+        } else {
+          timer.cancel();
+          timerRefresh = null;
+        }
+      });
+    }
   }
 
   _updateAnimations() {
@@ -372,11 +388,23 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 );
               },
               child: Center(
-                child: Icon(
-                  Icons.power_settings_new_sharp,
-                  size: 32,
-                  color: (status.isInactive() ? Colors.black : theme.textPrimary).withOpacity(0.8),
-                ),
+                child: _getRemainingSeconds() > 0
+                    ? Text(
+                        _formatTime(_getRemainingSeconds()),
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: theme.textPrimary,
+                          fontFamily: 'monospace',
+                          fontFeatures: const [FontFeature.tabularFigures()],
+                        ),
+                      )
+                    : Icon(
+                        Icons.power_settings_new_sharp,
+                        size: 32,
+                        color: (status.isInactive() ? Colors.black : theme.textPrimary)
+                            .withOpacity(0.8),
+                      ),
               ),
             ),
           )
@@ -385,8 +413,21 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     });
   }
 
+  int _getRemainingSeconds() {
+    final remaining = _appStart.pausedForAccurate?.inSeconds;
+    return remaining != null && remaining > 0 ? remaining : 0;
+  }
+
+  String _formatTime(int seconds) {
+    final minutes = seconds ~/ 60;
+    final remainingSeconds = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
   @override
   void dispose() {
+    timer?.cancel();
+    timerRefresh?.cancel();
     animCtrlLoading.stop();
     animCtrlLoading.dispose();
     animCtrlLibre.stop();
