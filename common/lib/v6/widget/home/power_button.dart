@@ -414,8 +414,10 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   }
 
   int _getRemainingSeconds() {
-    final remaining = _appStart.pausedForAccurate?.inSeconds;
-    return remaining != null && remaining > 0 ? remaining : 0;
+    final pausedUntil = _appStart.pausedUntil;
+    if (pausedUntil == null) return 0;
+    final remaining = pausedUntil.difference(DateTime.now());
+    return remaining.isNegative ? 0 : remaining.inSeconds;
   }
 
   String _formatTime(int seconds) {
