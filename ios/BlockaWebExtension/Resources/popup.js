@@ -1,3 +1,5 @@
+import { determineStatusState } from "./popup-logic.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const statusText = document.getElementById("status-text");
   const openBtn = document.getElementById("open-app-btn");
@@ -34,77 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateStatusDisplay(status) {
-    const { active, timestamp, freemium, freemiumYoutubeUntil } = status;
+    const result = determineStatusState(status);
+    let message = browser.i18n.getMessage(result.messageKey);
 
-    // If app is paused, show inactive regardless of subscription status
-    if (!active) {
-      setStatusState("inactive", browser.i18n.getMessage("status_inactive"));
-      return;
+    if (result.daysLeft) {
+      message = message.replace("$1", result.daysLeft.toString());
     }
 
-    const now = new Date();
-    const accountExpiry = new Date(timestamp);
-    const isAccountExpired = isValidDate(accountExpiry)
-      ? accountExpiry <= now
-      : true;
-
-    // Check freemium eligibility for expired accounts
-    if (isAccountExpired && freemium && freemiumYoutubeUntil) {
-      const freemiumExpiry = new Date(freemiumYoutubeUntil);
-
-      if (!isValidDate(freemiumExpiry)) {
-        setStatusState(
-          "expired",
-          browser.i18n.getMessage("status_trial_expired"),
-        );
-        return;
-      }
-
-      if (freemiumExpiry <= now) {
-        // Freemium trial has expired
-        setStatusState(
-          "expired",
-          browser.i18n.getMessage("status_trial_expired"),
-        );
-        return;
-      }
-
-      // Freemium trial is active
-      const daysLeft = Math.ceil(
-        (freemiumExpiry - now) / (24 * 60 * 60 * 1000),
-      );
-      setStatusState(
-        "trial",
-        browser.i18n
-          .getMessage("status_trial_active")
-          .replace("$1", daysLeft.toString()),
-      );
-      return;
-    }
-
-    // Regular subscription logic (unchanged)
-    if (isAccountExpired) {
-      setStatusState(
-        "expired",
-        browser.i18n.getMessage("status_access_expired"),
-      );
-      return;
-    }
-
-    if (isValidDate(accountExpiry)) {
-      const sevenDaysFromNow = new Date(
-        now.getTime() + 7 * 24 * 60 * 60 * 1000,
-      );
-      if (accountExpiry <= sevenDaysFromNow) {
-        setStatusState(
-          "expiring",
-          browser.i18n.getMessage("status_expiring_soon"),
-        );
-        return;
-      }
-    }
-
-    setStatusState("active", browser.i18n.getMessage("status_blocking_active"));
+    setStatusState(result.state, message);
   }
 
   function setStatusState(state, message) {
@@ -116,9 +55,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add the appropriate CSS class for visual styling
     statusText.classList.add(`status-${state}`);
-  }
-
-  function isValidDate(date) {
-    return date instanceof Date && !isNaN(date.getTime());
   }
 });
