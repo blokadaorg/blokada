@@ -10,7 +10,7 @@ class OnboardCommand with Command {
   late final _modal = Core.get<CurrentModalValue>();
 
   late final _onboardIntro = Core.get<OnboardIntroValue>();
-  late final _onboardSafari = Core.get<OnboardSafariValue>();
+  late final _onboardSafariYoutube = Core.get<OnboardSafariValue>();
 
   @override
   List<CommandSpec> onRegisterCommands() {
@@ -27,6 +27,8 @@ class OnboardCommand with Command {
     var modal = Modal.onboardPrivateDns;
     if (onboardScreen == "safari") {
       modal = Modal.onboardSafari;
+    } else if (onboardScreen == "youtube") {
+      modal = Modal.onboardSafariYoutube;
     } else {
       throw Exception("Unknown onboard screen: $onboardScreen");
     }
@@ -44,8 +46,8 @@ class OnboardCommand with Command {
 
     if (onboardScreen == "intro") {
       _onboardIntro.change(m, null);
-    } else if (onboardScreen == "safari") {
-      _onboardSafari.change(m, false);
+    } else if (onboardScreen == "youtube") {
+      _onboardSafariYoutube.change(m, false);
     } else {
       throw Exception("Unknown onboard screen: $onboardScreen");
     }

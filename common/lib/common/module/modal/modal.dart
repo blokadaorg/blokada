@@ -1,9 +1,13 @@
 import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 
+/// This is the newer approach to showing modals / dialogs.
+/// Old stuff (from StageStore and Navigation) should be merged and removed.
+
 enum Modal {
   onboardPrivateDns,
   onboardSafari,
+  onboardSafariYoutube,
   plusDeviceLimitReached,
   familyAddProfile,
   familyLinkDevice,

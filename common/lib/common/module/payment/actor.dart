@@ -4,6 +4,10 @@ part of 'payment.dart';
 // True if the payment was restore flow (could be non-user triggered)
 final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 
+// Emitted when the paywall is closed
+// Argument is always false
+final paymentClosed = EmitterEvent<bool>("paymentClosed");
+
 enum Placement {
   primary("primary"),
   plusUpgrade("home_plus_upgrade"),
@@ -28,13 +32,14 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   bool _adaptyInitialized = false;
   Completer? _preloadCompleter = Completer();
   bool _isOpened = false;
+  bool _isError = false; // To prevent adapty error spam loop
   OnboardingStep? _pendingOnboard;
 
   Function onPaymentScreenOpened = (bool opened) => {};
 
   @override
   onCreate(Marker m) async {
-    willAcceptOnValue(paymentSuccessful);
+    willAcceptOnValue(paymentSuccessful, [paymentClosed]);
   }
 
   @override
@@ -145,14 +150,14 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     return await log(m).trace("openPaymentScreen", (m) async {
       if (_isOpened) return;
       _isOpened = true;
+      _isError = false;
       await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
         onPaymentScreenOpened(true);
         await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
-        onPaymentScreenOpened(false);
-        _isOpened = false;
+        await handleScreenClosed(m);
         await handleFailure(m, "Failed creating paywall", e, s: s, temporary: true);
       }
     });
@@ -161,7 +166,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   closePaymentScreen(Marker m) async {
     return await log(m).trace("closePaymentScreen", (m) async {
       await _channel.closePaymentScreen();
-      handleScreenClosed(m);
+      await handleScreenClosed(m);
     });
   }
 
@@ -191,6 +196,9 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       {StackTrace? s, bool restore = false, bool temporary = false}) async {
     log(m).e(msg: "Adapty: $msg", err: e, stack: s);
 
+    if (_isError) return;
+    _isError = true;
+
     var sheet = StageModal.paymentFailed;
     if (restore) {
       sheet = StageModal.accountRestoreFailed;
@@ -202,10 +210,12 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     await _stage.showModal(sheet, m);
   }
 
-  handleScreenClosed(Marker m) {
+  handleScreenClosed(Marker m) async {
+    if (!_isOpened) return;
     log(m).i("Payment screen closed");
     onPaymentScreenOpened(false);
     _isOpened = false;
+    await emitValue(paymentClosed, false, m);
   }
 
   _syncCustomAttributes(Marker m, AccountState account) async {

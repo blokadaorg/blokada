@@ -12,8 +12,8 @@ import 'package:common/v6/widget/home/home_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
-class HomeCounter2 extends StatefulWidget {
-  const HomeCounter2({Key? key}) : super(key: key);
+class HomeCounter extends StatefulWidget {
+  const HomeCounter({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,8 +21,7 @@ class HomeCounter2 extends StatefulWidget {
   }
 }
 
-class _HomeCounterState extends State<HomeCounter2>
-    with TickerProviderStateMixin, Logging {
+class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin, Logging {
   final _stage = Core.get<StageStore>();
   final _app = Core.get<AppStore>();
   final _stats = Core.get<StatsStore>();
@@ -62,9 +61,7 @@ class _HomeCounterState extends State<HomeCounter2>
         header: MiniCardHeader(
           text: "stats header day".i18n,
           icon: Icons.shield_outlined,
-          color: (_app.status == AppStatus.activatedPlus)
-              ? theme.accent
-              : theme.cloud,
+          color: (_app.status == AppStatus.activatedPlus) ? theme.accent : theme.cloud,
           chevronIcon: Icons.bar_chart,
         ),
         big: counter == 0
