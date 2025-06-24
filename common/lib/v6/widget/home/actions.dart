@@ -1,13 +1,14 @@
 import 'package:common/common/widget/anim/sliding.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/start/start.dart';
+import 'package:common/v6/widget/home/counter.dart';
+import 'package:common/v6/widget/home/freemium.dart';
 import 'package:common/v6/widget/home/plusbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-
-import 'counter.dart';
 
 class HomeActions extends StatefulWidget {
   const HomeActions({Key? key}) : super(key: key);
@@ -18,10 +19,10 @@ class HomeActions extends StatefulWidget {
   }
 }
 
-class _HomeActionsState extends State<HomeActions>
-    with TickerProviderStateMixin, Logging {
+class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin, Logging {
   final _app = Core.get<AppStore>();
   final _appStart = Core.get<AppStartStore>();
+  final _account = Core.get<AccountStore>();
 
   late final AnimationController _ctrlCounter = AnimationController(
     duration: const Duration(seconds: 1),
@@ -85,9 +86,12 @@ class _HomeActionsState extends State<HomeActions>
             ),
             Column(
               children: [
-                Sliding(controller: _ctrlCounter, child: HomeCounter2()),
+                Sliding(
+                    controller: _ctrlCounter,
+                    child: _account.isFreemium ? const FreemiumCounter() : const HomeCounter()),
                 const SizedBox(height: 16),
-                Sliding(controller: _ctrlPlus, child: PlusButton()),
+                Sliding(
+                    controller: _ctrlPlus, child: _account.isFreemium ? Container() : PlusButton()),
               ],
             ),
           ],

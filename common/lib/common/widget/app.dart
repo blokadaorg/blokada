@@ -25,6 +25,7 @@ class BlokadaApp extends StatelessWidget {
     const familyColor2 = Color(0xff4ae5f6);
     const familyColor3 = Color(0xff3c8cff);
     final accentColor = Core.act.isFamily ? familyColor : plusColor;
+    final freemiumColor = Color(0xFF48A9A6);
 
     Navigation.isTabletMode = isTabletMode(context);
 
@@ -88,6 +89,7 @@ class BlokadaApp extends StatelessWidget {
               panelBackground: const Color(0xffF5F7FA),
               cloud: Color(0xFF007AFF),
               accent: accentColor,
+              freemium: freemiumColor,
               // shadow: const Color(0xffF5F7FA),
               shadow: Color(0xffe8e8e8),
               bgMiniCard: Colors.white,
@@ -116,6 +118,7 @@ class BlokadaApp extends StatelessWidget {
               bgColorCard: Color(0xFF1C1C1E),
               panelBackground: const Color(0xff1c1c1e),
               accent: accentColor,
+              freemium: freemiumColor,
               cloud: Color(0xFF007AFF),
               shadow: Color(0xFF424242),
               bgMiniCard: Color(0xFF1F1F1F),

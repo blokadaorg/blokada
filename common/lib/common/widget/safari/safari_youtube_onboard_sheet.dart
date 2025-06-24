@@ -7,14 +7,14 @@ import 'package:common/family/module/perm/perm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SafariOnboardSheetIos extends StatefulWidget {
-  const SafariOnboardSheetIos({Key? key}) : super(key: key);
+class SafariYoutubeOnboardSheetIos extends StatefulWidget {
+  const SafariYoutubeOnboardSheetIos({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => SafariOnboardSheetIosState();
+  State<StatefulWidget> createState() => SafariYoutubeOnboardSheetIosState();
 }
 
-class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
+class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetIos> {
   late final _channel = Core.get<PermChannel>();
   final _onboard = Core.get<OnboardActor>();
 
@@ -59,8 +59,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                           children: [
                             Text(
                               "1.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
+                              style: TextStyle(color: context.theme.textSecondary),
                             ),
                             SafariSettingGuideWidget(
                               title: "youtube.com",
@@ -75,8 +74,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                             const SizedBox(height: 16),
                             Text(
                               "2.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
+                              style: TextStyle(color: context.theme.textSecondary),
                             ),
                             SafariSettingGuideWidget(
                               title: "onboard safari step 2".i18n,
@@ -89,22 +87,19 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                             const SizedBox(height: 16),
                             Text(
                               "3.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
+                              style: TextStyle(color: context.theme.textSecondary),
                             ),
                             SafariSettingGuideWidget(
                               title: "Blokada",
                               iconReplacement: Image(
-                                image:
-                                    AssetImage('assets/images/v6-appicon.png'),
+                                image: AssetImage('assets/images/v6-appicon.png'),
                                 width: 24,
                               ),
                               widgetRight: Transform.scale(
                                 scale: 0.8,
                                 child: Transform.translate(
                                   offset: const Offset(12, 0),
-                                  child: CupertinoSwitch(
-                                      value: true, onChanged: (_) => {}),
+                                  child: CupertinoSwitch(value: true, onChanged: (_) => {}),
                                 ),
                               ),
                             ),
@@ -153,7 +148,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
-                          _onboard.markSafariSeen(Markers.userTap);
+                          _onboard.markSafariYoutubeSeen(Markers.userTap);
                         },
                         color: context.theme.bgColor,
                         child: SizedBox(

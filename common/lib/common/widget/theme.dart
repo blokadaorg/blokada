@@ -13,6 +13,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
   final Color panelBackground;
   final Color cloud;
   final Color accent;
+  final Color freemium;
   final Color shadow;
   final Color bgMiniCard;
   final Color textPrimary;
@@ -28,6 +29,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     required this.panelBackground,
     required this.cloud,
     required this.accent,
+    required this.freemium,
     required this.shadow,
     required this.bgMiniCard,
     required this.textPrimary,
@@ -48,6 +50,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     Color? cloud,
     Color? plus,
     Color? family,
+    Color? freemium,
     Color? shadow,
     Color? bgMiniCard,
     Color? textPrimary,
@@ -64,6 +67,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
         panelBackground: panelBackground ?? this.panelBackground,
         cloud: cloud ?? this.cloud,
         accent: family ?? this.accent,
+        freemium: freemium ?? this.freemium,
         shadow: shadow ?? this.shadow,
         bgMiniCard: bgMiniCard ?? this.bgMiniCard,
         textPrimary: textPrimary ?? this.textPrimary,
@@ -85,6 +89,7 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
       panelBackground: Color.lerp(panelBackground, other.panelBackground, t)!,
       cloud: Color.lerp(cloud, other.cloud, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
+      freemium: Color.lerp(freemium, other.freemium, t)!,
       shadow: Color.lerp(shadow, other.shadow, t)!,
       bgMiniCard: Color.lerp(bgMiniCard, other.bgMiniCard, t)!,
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,

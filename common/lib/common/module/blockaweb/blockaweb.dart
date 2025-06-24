@@ -5,6 +5,7 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/util/mobx.dart';
 
+part 'safari_content_actor.dart';
 part 'value.dart';
 
 class BlockaWebModule with Module {
@@ -13,6 +14,7 @@ class BlockaWebModule with Module {
     await register(BlockawebAppStatusValue());
     await register(BlockawebPingValue());
     await register(BlockaWebActor());
+    await register(SafariContentActor());
   }
 }
 
@@ -63,16 +65,14 @@ class BlockaWebActor with Actor, Logging {
   }
 
   _updateStatusFromAccount(ValueUpdate<AccountState> it) async {
-    _accountActiveUntil =
-        DateTime.tryParse(it.now.jsonAccount.activeUntil ?? "") ?? DateTime(0);
+    _accountActiveUntil = DateTime.tryParse(it.now.jsonAccount.activeUntil ?? "") ?? DateTime(0);
 
     // Extract freemium attributes from account
     final attributes = it.now.jsonAccount.attributes ?? {};
     _freemium = attributes['freemium'] as bool? ?? false;
 
     if (attributes['freemium_youtube_until'] != null) {
-      _freemiumYoutubeUntil =
-          DateTime.tryParse(attributes['freemium_youtube_until'] as String);
+      _freemiumYoutubeUntil = DateTime.tryParse(attributes['freemium_youtube_until'] as String);
     } else {
       _freemiumYoutubeUntil = null;
     }

@@ -45,27 +45,29 @@ mixin Emitter on Logging {
 }
 
 mixin ValueEmitter<T> on Logging {
-  final List<Function(T, Marker)> _listeners = [];
+  final Map<EmitterEvent<T>, List<Function(T, Marker)>> _eventListeners = {};
   final executor = CallbackExecutor();
-  late EmitterEvent<T> event;
 
-  willAcceptOnValue(EmitterEvent<T> event) {
-    this.event = event;
-    _listeners.clear();
+  willAcceptOnValue(EmitterEvent<T> event, [List<EmitterEvent<T>>? additionalEvents]) {
+    _eventListeners.clear();
+    final events = [event, ...(additionalEvents ?? [])];
+    _eventListeners.addEntries(events.map((it) => MapEntry(it, [])));
   }
 
   addOnValue(EmitterEvent<T> on, Function(T, Marker) listener) {
-    if (on != event) throw Exception("Unknown event");
-    _listeners.add(listener);
+    final listeners = _eventListeners[on];
+    if (listeners == null) throw Exception("Unknown event");
+    listeners.add(listener);
   }
 
   removeOnValue(EmitterEvent<T> on, dynamic listener) {
-    _listeners.remove(listener);
+    _eventListeners[on]?.remove(listener);
   }
 
   emitValue(EmitterEvent<T> on, T value, Marker m) async {
-    if (on != event) throw Exception("Unknown event");
-    for (final listener in _listeners.toList()) {
+    final listeners = _eventListeners[on];
+    if (listeners == null) throw Exception("Unknown event");
+    for (final listener in listeners.toList()) {
       await executor.callListener(on, listener, value, m);
     }
   }

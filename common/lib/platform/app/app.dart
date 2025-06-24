@@ -19,7 +19,9 @@ extension AppStatusExt on AppStatus {
   }
 
   bool isActive() {
-    return this == AppStatus.activatedCloud || this == AppStatus.activatedPlus;
+    return this == AppStatus.activatedCloud ||
+        this == AppStatus.activatedPlus ||
+        this == AppStatus.activatedFreemium;
   }
 
   bool isInactive() {
@@ -39,11 +41,13 @@ class AppStatusStrategy {
   final bool accountIsCloud;
   final bool accountIsPlus;
   final bool accountIsFamily;
+  final bool accountIsFreemium;
   final bool plusPermEnabled;
   final bool plusActive;
   final bool reconfiguring;
   final bool appPaused;
   final bool appPausedWithTimer;
+  final bool freemiumEnabled;
 
   AppStatusStrategy({
     this.initStarted = false,
@@ -54,11 +58,13 @@ class AppStatusStrategy {
     this.accountIsCloud = false,
     this.accountIsPlus = false,
     this.accountIsFamily = false,
+    this.accountIsFreemium = false,
     this.plusPermEnabled = false,
     this.plusActive = false,
     this.reconfiguring = false,
     this.appPaused = false,
     this.appPausedWithTimer = false,
+    this.freemiumEnabled = false,
   });
 
   AppStatusStrategy update({
@@ -70,11 +76,13 @@ class AppStatusStrategy {
     bool? accountIsCloud,
     bool? accountIsPlus,
     bool? accountIsFamily,
+    bool? accountIsFreemium,
     bool? plusPermEnabled,
     bool? plusActive,
     bool? reconfiguring,
     bool? appPaused,
     bool? appPausedWithTimer,
+    bool? freemiumEnabled,
   }) {
     return AppStatusStrategy(
       initStarted: initStarted ?? this.initStarted,
@@ -85,11 +93,13 @@ class AppStatusStrategy {
       accountIsCloud: accountIsCloud ?? this.accountIsCloud,
       accountIsPlus: accountIsPlus ?? this.accountIsPlus,
       accountIsFamily: accountIsFamily ?? this.accountIsFamily,
+      accountIsFreemium: accountIsFreemium ?? this.accountIsFreemium,
       plusPermEnabled: plusPermEnabled ?? this.plusPermEnabled,
       plusActive: plusActive ?? this.plusActive,
       reconfiguring: reconfiguring ?? this.reconfiguring,
       appPaused: appPaused ?? this.appPaused,
       appPausedWithTimer: appPausedWithTimer ?? this.appPausedWithTimer,
+      freemiumEnabled: freemiumEnabled ?? this.freemiumEnabled,
     );
   }
 
@@ -110,6 +120,8 @@ class AppStatusStrategy {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedCloud;
     } else if (accountIsFamily && cloudPermEnabled && cloudEnabled) {
       return (appPaused) ? AppStatus.deactivated : AppStatus.activatedCloud;
+    } else if (accountIsFreemium && freemiumEnabled) {
+      return (appPaused) ? AppStatus.deactivated : AppStatus.activatedFreemium;
     } else {
       return AppStatus.deactivated;
     }
@@ -117,7 +129,7 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused, appPausedWithTimer: $appPausedWithTimer}";
+    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, accountIsFreemium: $accountIsFreemium, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused, appPausedWithTimer: $appPausedWithTimer, freemiumEnabled: $freemiumEnabled}";
   }
 }
 
@@ -218,9 +230,14 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
       final isCloud = account.type == AccountType.cloud;
       final isPlus = account.type == AccountType.plus;
       final isFamily = account.type == AccountType.family;
+      final isFreemium = _account.isFreemium;
 
       conditions = conditions.update(
-          accountIsCloud: isCloud || isPlus, accountIsPlus: isPlus, accountIsFamily: isFamily);
+        accountIsCloud: isCloud || isPlus,
+        accountIsPlus: isPlus,
+        accountIsFamily: isFamily,
+        accountIsFreemium: isFreemium,
+      );
       await _updateStatus(m);
     });
   }
@@ -237,6 +254,15 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   Future<void> plusActivated(bool active, Marker m) async {
     return await log(m).trace("plusActivated", (m) async {
       conditions = conditions.update(plusActive: active, reconfiguring: false);
+      await _updateStatus(m);
+    });
+  }
+
+  @action
+  Future<void> freemiumActivated(Marker m, bool active) async {
+    return await log(m).trace("freemiumActivated", (m) async {
+      conditions =
+          conditions.update(freemiumEnabled: active, reconfiguring: false, appPaused: false);
       await _updateStatus(m);
     });
   }

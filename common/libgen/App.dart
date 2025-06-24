@@ -9,7 +9,8 @@ enum AppStatus {
   paused,
   pausedPlus, // When app is paused with timer, but VPN stays active
   activatedCloud,
-  activatedPlus
+  activatedPlus,
+  activatedFreemium,
 }
 
 @HostApi()
