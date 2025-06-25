@@ -77,7 +77,7 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Widerrufen";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Neu";
 
 // Action to open chat
 "support action chat" = "Chatte mit uns";
@@ -165,9 +165,9 @@
 "home power action turn on" = "Einschalten";
 "home power action turn off" = "Ausschalten";
 "home power action pause" = "Für 5 Min. pausieren";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "5 Minuten pausieren";
+"home power action off all" = "Alle Schutzfunktionen ausschalten";
+"home power pause status active" = "Werbeblocking ist aktiv";
 
 "home status paused" = "Pausiert";
 "home status active" = "Aktiv";
@@ -763,8 +763,8 @@
 "onboard safari skip" = "Jetzt überspringen";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPN-Umgehung";
+"bypass info" = "Einige Apps funktionieren möglicherweise nicht richtig mit dem VPN. Du kannst sie zur Umgehungsliste hinzufügen, um ihren Verkehr außerhalb des VPN-Tunnels zu versenden, was bei der Konnektivität helfen kann, aber die Privatsphäre verringert. Die App enthält auch ein paar integrierte Bypass-Einträge zur Kompatibilität. Notiz: Wenn Ihr Gerät die Einstellung 'Blockiere Verbindungen ohne VPN' aktiviert hat, haben umgebende Apps keinen Internetzugang.";
+"bypass none" = "Keine Apps hinzugefügt. Verwenden Sie die Schaltfläche Hinzufügen, um neue Apps zu dieser Liste hinzuzufügen.";
+"bypass action add" = "App hinzufügen";
+"bypass dialog add brief" = "Tippen, um Apps zu suchen.";

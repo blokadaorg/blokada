@@ -60,7 +60,7 @@
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Rensa</string>
     <string name="universal_action_revoke">Återkalla</string>
-    <string name="universal_action_add">Add</string>
+    <string name="universal_action_add">Lägg till</string>
     <string name="support_action_chat">Chatta med oss</string>
     <string name="support_action_end">Slut</string>
     <string name="support_placeholder">Fråga om allt du vill veta!</string>
@@ -119,9 +119,9 @@
     <string name="home_power_action_turn_on">Slå på</string>
     <string name="home_power_action_turn_off">Stäng av</string>
     <string name="home_power_action_pause">Pausa i 5 minuter</string>
-    <string name="home_power_action_pause_five">Pause for 5 Minutes</string>
-    <string name="home_power_action_off_all">Turn Off All Protection</string>
-    <string name="home_power_pause_status_active">Ad Blocking is Active</string>
+    <string name="home_power_action_pause_five">Pausa för 5 minuter</string>
+    <string name="home_power_action_off_all">Stäng av allt skydd</string>
+    <string name="home_power_pause_status_active">Annonsblockering är aktiv</string>
     <string name="home_status_paused">Pausad</string>
     <string name="home_status_active">Aktiv</string>
     <string name="home_status_deactivated">Avaktiverad</string>
@@ -546,14 +546,14 @@
     <string name="onboard_header">Inga fler annonser.\nPå riktigt.</string>
     <string name="onboard_desc">Blockera annonser och trackers överallt med vår premiumapp. Surfa snabbare, få bättre integritet och använd mindre data.</string>
     <string name="onboard_terms">Genom att fortsätta godkänner du våra användarvillkor och bekräftar mottagandet av vår sekretesspolicy.</string>
-    <string name="onboard_safari_header">Want to block video ads?</string>
-    <string name="onboard_safari_brief">Enable our extension in Safari to block video ads while browsing.</string>
-    <string name="onboard_safari_step_two">Manage Extensions</string>
-    <string name="onboard_safari_cta">Open YouTube in Safari</string>
-    <string name="onboard_safari_skip">Skip for now</string>
-    <string name="bypass_section_header">VPN Bypass</string>
-    <string name="bypass_info">Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the \'Block connections without VPN\' setting enabled, bypassed apps will not have internet access.</string>
-    <string name="bypass_none">No apps added. Use the Add button at the top to add new apps to this list.</string>
-    <string name="bypass_action_add">Add app</string>
-    <string name="bypass_dialog_add_brief">Start typing to search apps.</string>
+    <string name="onboard_safari_header">Vill du blockera videoannonser?</string>
+    <string name="onboard_safari_brief">Aktivera vårt tillägg i Safari för att blockera videoannonser medan du surfar.</string>
+    <string name="onboard_safari_step_two">Hantera tillägg</string>
+    <string name="onboard_safari_cta">Öppna YouTube i Safari</string>
+    <string name="onboard_safari_skip">Hoppa över för nu</string>
+    <string name="bypass_section_header">VPN-förbigång</string>
+    <string name="bypass_info">Vissa appar kanske inte fungerar som de ska med VPN. Du kan lägga till dem i bypass listan för att skicka sin trafik utanför VPN-tunneln, vilket kan hjälpa till med anslutning men minskar sekretess. Appen innehåller även några inbyggda bypass-poster för kompatibilitet. Obs! Om din enhet har inställningen \"Blockera anslutningar utan VPN\" aktiverad, kommer kringgående appar inte ha internetåtkomst.</string>
+    <string name="bypass_none">Inga appar tillsatta. Använd knappen Lägg till högst upp för att lägga till nya appar till den här listan.</string>
+    <string name="bypass_action_add">Lägg till app</string>
+    <string name="bypass_dialog_add_brief">Börja skriva för att söka på appar.</string>
 </resources>

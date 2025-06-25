@@ -77,7 +77,7 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Återkalla";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Lägg till";
 
 // Action to open chat
 "support action chat" = "Chatta med oss";
@@ -165,9 +165,9 @@
 "home power action turn on" = "Slå på";
 "home power action turn off" = "Stäng av";
 "home power action pause" = "Pausa i 5 minuter";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Pausa för 5 minuter";
+"home power action off all" = "Stäng av allt skydd";
+"home power pause status active" = "Annonsblockering är aktiv";
 
 "home status paused" = "Pausad";
 "home status active" = "Aktiv";
@@ -756,15 +756,15 @@
 "onboard desc" = "Blockera annonser och trackers överallt med vår premiumapp. Surfa snabbare, få bättre integritet och använd mindre data.";
 "onboard terms" = "Genom att fortsätta godkänner du våra användarvillkor och bekräftar mottagandet av vår sekretesspolicy.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Vill du blockera videoannonser?";
+"onboard safari brief" = "Aktivera vårt tillägg i Safari för att blockera videoannonser medan du surfar.";
+"onboard safari step 2" = "Hantera tillägg";
+"onboard safari cta" = "Öppna YouTube i Safari";
+"onboard safari skip" = "Hoppa över för nu";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPN-förbigång";
+"bypass info" = "Vissa appar kanske inte fungerar som de ska med VPN. Du kan lägga till dem i bypass listan för att skicka sin trafik utanför VPN-tunneln, vilket kan hjälpa till med anslutning men minskar sekretess. Appen innehåller även några inbyggda bypass-poster för kompatibilitet. Obs! Om din enhet har inställningen \"Blockera anslutningar utan VPN\" aktiverad, kommer kringgående appar inte ha internetåtkomst.";
+"bypass none" = "Inga appar tillsatta. Använd knappen Lägg till högst upp för att lägga till nya appar till den här listan.";
+"bypass action add" = "Lägg till app";
+"bypass dialog add brief" = "Börja skriva för att söka på appar.";

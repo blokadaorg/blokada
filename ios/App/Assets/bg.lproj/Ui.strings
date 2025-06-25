@@ -77,7 +77,7 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Анулирaне";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Добави";
 
 // Action to open chat
 "support action chat" = "Чат с нас";
@@ -165,9 +165,9 @@
 "home power action turn on" = "Включване";
 "home power action turn off" = "Изключване";
 "home power action pause" = "Пауза за 5 мин";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Пауза за 5 мин";
+"home power action off all" = "Изключване на всички защити";
+"home power pause status active" = "Блокирането на реклами е активно";
 
 "home status paused" = "На пауза";
 "home status active" = "Активна";
@@ -763,8 +763,8 @@
 "onboard safari skip" = "Пропусни за сега";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "Пропускане на VPN";
+"bypass info" = "Някои приложения може да не работят правилно с VPN. Можете да ги добавите към списъка с изключения, така че техният трафик да преминава извън VPN тунела, което може да подобри свързаността, но намалява поверителността. Приложението включва и няколко вградени изключения за съвместимост. Забележка: ако на устройството ви е активирана настройката „Блокирай връзки без VPN“, приложенията с изключение няма да имат достъп до интернет.";
+"bypass none" = "Няма добавени приложения. Използвайте бутона „Добавяне“ горе, за да добавите нови приложения към този списък.";
+"bypass action add" = "Добавяне на приложение";
+"bypass dialog add brief" = "Започнете да пишете, за да търсите приложения.";
