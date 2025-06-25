@@ -1,28 +1,19 @@
-import 'package:common/common/module/api/api.dart';
-import 'package:common/common/module/onboard/onboard.dart';
-import 'package:common/core/core.dart';
-import 'package:common/platform/account/account.dart';
-import 'package:common/platform/app/app.dart';
-import 'package:common/util/mobx.dart';
+part of 'safari.dart';
 
-part 'safari_content_actor.dart';
-part 'value.dart';
-
-class BlockaWebModule with Module {
-  @override
-  onCreateModule() async {
-    await register(BlockawebAppStatusValue());
-    await register(BlockawebPingValue());
-    await register(BlockaWebActor());
-    await register(SafariContentActor());
-  }
-}
-
-class BlockaWebActor with Actor, Logging {
+/// Handles state sync between the app and the Safari YouTube extension (blockaweb).
+/// Also decides if it's necessary to show the onboarding screen for the extension.
+class SafariYoutubeActor with Actor, Logging {
   late final _scheduler = Core.get<Scheduler>();
   late final _app = Core.get<AppStore>();
   late final _account = Core.get<AccountEphemeral>();
   late final _onboardSafari = Core.get<OnboardSafariValue>();
+  late final _channel = Core.get<SafariChannel>();
+  late final _onboardActor = Core.get<OnboardActor>();
+  late final _perm = Core.get<PlatformPermActor>();
+  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
+
+  late final _modal = Core.get<CurrentModalValue>();
+  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   late final _appStatus = Core.get<BlockawebAppStatusValue>();
   late final _ping = Core.get<BlockawebPingValue>();
@@ -31,6 +22,16 @@ class BlockaWebActor with Actor, Logging {
   bool _appActive = false;
   bool _freemium = false;
   DateTime? _freemiumYoutubeUntil;
+
+  @override
+  onCreate(Marker m) async {
+    // Provide the widget factory for the modal this module handles
+    _modal.onChange.listen((it) {
+      if (it.now == Modal.onboardSafariYoutube) {
+        _modalWidget.change(it.m, (context) => const SafariYoutubeOnboardSheetIos());
+      }
+    });
+  }
 
   @override
   onStart(Marker m) async {
@@ -42,9 +43,22 @@ class BlockaWebActor with Actor, Logging {
     });
 
     _account.onChangeInstant(_updateStatusFromAccount);
+    _dnsEnabledFor.onChangeInstant(showSafariYoutubeOnboard);
   }
 
-  Future<bool> needsOnboard(Marker m) async {
+  // Safari Youtube onboard in iOS, after DNS perms are granted (but only once)
+  showSafariYoutubeOnboard(NullableValueUpdate<DeviceTag> it) async {
+    if (Core.act.platform != PlatformType.iOS) return;
+    return await log(it.m).trace("maybeShowSafariYoutubeOnboard", (m) async {
+      final dnsEnabled = _perm.isPrivateDnsEnabled;
+      final needsOnboard = await _needsOnboard(m);
+      if (dnsEnabled && needsOnboard) {
+        await _modal.change(m, Modal.onboardSafariYoutube);
+      }
+    });
+  }
+
+  Future<bool> _needsOnboard(Marker m) async {
     final ping = await _ping.fetch(m);
     final userSkipped = await _onboardSafari.now();
 
@@ -82,7 +96,7 @@ class BlockaWebActor with Actor, Logging {
 
   _scheduleSync(Marker m) async {
     await _scheduler.addOrUpdate(Job(
-      "blockaweb:sync",
+      "safari:youtube:sync",
       m,
       before: DateTime.now(),
       callback: _syncBlockaweb,
@@ -100,5 +114,13 @@ class BlockaWebActor with Actor, Logging {
     await _appStatus.change(m, newStatus);
     await _ping.fetch(m, force: true);
     return false;
+  }
+
+  doOpenPermsFlow() async {
+    await _channel.doOpenPermsFlowForContentFilter();
+  }
+
+  markOnboardSeen(Marker m) async {
+    _onboardActor.markSafariYoutubeSeen(m);
   }
 }

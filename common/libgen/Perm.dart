@@ -28,7 +28,4 @@ abstract class PermOps {
 
   @async
   bool doAuthenticate();
-
-  @async
-  void doOpenSafari();
 }

@@ -15,7 +15,6 @@ mixin Act {
   late final bool isFamily;
   late final bool isTest;
   late final bool isRelease;
-  late final bool isFreemium;
   late final bool hasToys;
   late final PlatformType platform;
   late final Flavor flavor;
@@ -25,12 +24,10 @@ class ActScreenplay with Act {
   final ActScenario scenario;
 
   ActScreenplay(this.scenario, Flavor flavor, PlatformType platform) {
-    isProd =
-        scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
+    isProd = scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
     isFamily = flavor == Flavor.family;
     isTest = scenario == ActScenario.test;
     isRelease = kReleaseMode;
-    isFreemium = true;
     hasToys = scenario == ActScenario.prodWithToys;
     this.platform = platform;
     this.flavor = flavor;

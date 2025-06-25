@@ -1,9 +1,8 @@
-import 'package:common/common/module/blockaweb/blockaweb.dart';
+import 'package:common/common/module/safari/safari.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/safari/safari_setting_guide.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
-import 'package:common/family/module/perm/perm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,6 @@ class SafariContentOnboardSheetIos extends StatefulWidget {
 }
 
 class SafariContentOnboardSheetIosState extends State<SafariContentOnboardSheetIos> {
-  late final _channel = Core.get<PermChannel>();
   final _onboard = Core.get<SafariContentActor>();
 
   @override
@@ -104,8 +102,7 @@ class SafariContentOnboardSheetIosState extends State<SafariContentOnboardSheetI
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
-                          //_channel.doOpenSafari();
-                          _onboard.markAsActive();
+                          _onboard.doOpenPermsFlow(Markers.userTap);
                         },
                         color: context.theme.accent,
                         child: SizedBox(
