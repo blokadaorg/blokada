@@ -10,7 +10,6 @@ mixin PermChannel {
   Future<void> doAskNotificationPerms();
   Future<void> doAskVpnPerms();
   Future<bool> doAuthenticate();
-  Future<void> doOpenSafari();
 }
 
 class PermActor with Logging, Actor {
@@ -37,8 +36,7 @@ class PermActor with Logging, Actor {
     await _channel.doSetDns(device.deviceTag);
 
     final current = await _channel.getPrivateDnsSetting();
-    await _perm.change(
-        m, _check.isCorrect(m, current, device.deviceTag, device.alias));
+    await _perm.change(m, _check.isCorrect(m, current, device.deviceTag, device.alias));
   }
 
   String getAndroidDnsStringToCopy(Marker m) {

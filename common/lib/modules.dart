@@ -1,6 +1,5 @@
 import 'package:common/common/module/account/account.dart';
 import 'package:common/common/module/api/api.dart';
-import 'package:common/common/module/blockaweb/blockaweb.dart';
 import 'package:common/common/module/config/config.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/env/env.dart';
@@ -15,6 +14,7 @@ import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/module/perm/perm.dart';
 import 'package:common/common/module/rate/rate.dart';
+import 'package:common/common/module/safari/safari.dart';
 import 'package:common/common/module/support/support.dart';
 import 'package:common/common/widget/top_bar.dart';
 import 'package:common/core/core.dart';
@@ -31,6 +31,7 @@ import 'package:common/platform/filter/filter.dart';
 import 'package:common/platform/payment/payment.dart';
 import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/plus/plus.dart';
+import 'package:common/platform/safari/safari.dart';
 import 'package:common/plus/plus.dart';
 import 'package:common/v6/module/onboard/onboard.dart';
 import 'package:common/v6/widget/home/home.dart';
@@ -124,7 +125,12 @@ class Modules with Logging {
 
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
-    await _registerModule(BlockaWebModule());
+
+    if (Core.act.platform == PlatformType.iOS) {
+      await _registerModule(SafariModule());
+      await _registerModule(PlatformSafariModule());
+    }
+
     CommandStore().onRegister();
 
     Core.register<TopBarController>(TopBarController());

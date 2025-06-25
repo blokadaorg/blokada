@@ -133,12 +133,6 @@ class PermBinding: PermOps {
             .store(in: &cancellables)
     }
 
-    func doOpenSafari(completion: @escaping (Result<Void, Error>) -> Void) {
-        let url = URL(string: "https://go.blokada.org/howto/safari-extension")!
-        UIApplication.shared.open(url)
-        completion(Result.success(()))
-    }
-
     func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {
         privateDns.isPrivateDnsProfileActive()
         .combineLatest(privateDns.getPrivateDnsServerUrl())

@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
     @Injected(\.family) private var family
+    @Injected(\.safari) private var safari
 
     private var deps = FlavorDeps()
 

@@ -1,6 +1,7 @@
-part of 'blockaweb.dart';
+part of 'safari.dart';
 
 // A simple struct provided to blockaweb extension that gives it app status.
+// Also used to pass status the other way (blockaweb status to the app).
 class JsonBlockaweb {
   late DateTime timestamp;
   late bool active;
@@ -40,23 +41,23 @@ class JsonBlockaweb {
   }
 }
 
+// Status of this app, passed to the blockaweb extension.
 class BlockawebAppStatusValue extends JsonPersistedValue<JsonBlockaweb> {
   BlockawebAppStatusValue() : super("blockaweb:status");
 
   @override
-  JsonBlockaweb fromJson(Map<String, dynamic> json) =>
-      JsonBlockaweb.fromJson(json);
+  JsonBlockaweb fromJson(Map<String, dynamic> json) => JsonBlockaweb.fromJson(json);
 
   @override
   Map<String, dynamic> toJson(JsonBlockaweb value) => value.toJson();
 }
 
+// Status of blockaweb, passed to this app.
 class BlockawebPingValue extends JsonPersistedValue<JsonBlockaweb> {
   BlockawebPingValue() : super("blockaweb:ping");
 
   @override
-  JsonBlockaweb fromJson(Map<String, dynamic> json) =>
-      JsonBlockaweb.fromJson(json);
+  JsonBlockaweb fromJson(Map<String, dynamic> json) => JsonBlockaweb.fromJson(json);
 
   @override
   Map<String, dynamic> toJson(JsonBlockaweb value) => value.toJson();
