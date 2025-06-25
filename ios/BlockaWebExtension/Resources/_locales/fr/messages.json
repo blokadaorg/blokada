@@ -12,8 +12,28 @@
     "description": "Shown in the popup when the extension is active."
   },
   "status_inactive": {
-    "message": "Vérifiez l’état dans l’application Blokada",
+    "message": "Vérifiez l'état dans l'application Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
+  },
+  "status_blocking_active": {
+    "message": "Blokada est active",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_access_expired": {
+    "message": "Accès expiré – ouvrez l'app pour plus de détails",
+    "description": "Shown when the account has expired."
+  },
+  "status_expiring_soon": {
+    "message": "Compte expire bientôt – vérifiez l'app",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "Essai gratuit actif ($1 jours restants)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "Essai gratuit expiré",
+    "description": "Shown when freemium trial has expired."
   },
   "open_app": {
     "message": "Ouvrir Blokada",

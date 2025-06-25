@@ -4,6 +4,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -11,35 +12,85 @@ body {
 }
 
 body {
-    padding: 10px;
-
+    padding: 16px;
+    overflow: hidden;
     font-family: system-ui;
     text-align: center;
     /* Use SVG image as background */
-    background-image: url('images/background.svg');
+    background-image: url("images/background.svg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    min-height: 100%;
     color: #fff;
 }
 
-/* Ensure the logo image covers the upper half of the popup */
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+/* Ensure the logo image fits properly in the popup */
 .logo {
     display: block;
-    height: 50vh;
-    /* 50% of the viewport height */
     width: auto;
-    max-width: 100%;
-    /* Prevent overflow horizontally */
+    max-width: 25%;
     object-fit: contain;
-    margin: 0 auto 30px;
+    margin: 0 auto;
+    flex-shrink: 0;
 }
 
 /* Status text styling */
 #status-text {
-    font-size: 1.25rem;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    margin: 20px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Status-specific styling */
+.status-active {
+    background-color: rgba(34, 197, 94, 0.2);
+    border: 2px solid rgba(34, 197, 94, 0.6);
+    color: #10b981;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+}
+
+.status-inactive {
+    background-color: rgba(156, 163, 175, 0.2);
+    border: 2px solid rgba(156, 163, 175, 0.6);
+    color: #9ca3af;
+}
+
+.status-expired {
+    background-color: rgba(239, 68, 68, 0.2);
+    border: 2px solid rgba(239, 68, 68, 0.6);
+    color: #ef4444;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+.status-expiring {
+    background-color: rgba(245, 158, 11, 0.2);
+    border: 2px solid rgba(245, 158, 11, 0.6);
+    color: #f59e0b;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}
+
+.status-trial {
+    background-color: rgba(255, 149, 0, 0.2);
+    border: 2px solid rgba(255, 149, 0, 0.6);
+    color: #ff9500;
+    box-shadow: 0 0 12px rgba(255, 149, 0, 0.3);
 }
 
 /* Open app button styling */
@@ -55,6 +106,8 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease;
     text-decoration: none;
+    flex-shrink: 0;
+    margin-top: auto;
 }
 
 #open-app-btn:hover {

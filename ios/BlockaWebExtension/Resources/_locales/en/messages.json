@@ -1,22 +1,42 @@
 {
-    "extension_name": {
-        "message": "Blokada",
-        "description": "The display name for the extension."
-    },
-    "extension_description": {
-        "message": "Improve your web browsing experience in Safari by blocking ads, trackers, and other unwanted content.",
-        "description": "Description of what the extension does."
-    },
-    "status_enabled": {
-        "message": "Safari Extension Enabled!",
-        "description": "Shown in the popup when the extension is active."
-    },
-    "status_inactive": {
-        "message": "Check status in Blokada",
-        "description": "Shown in the popup when the extension appears to be inactive."
-    },
-    "open_app": {
-        "message": "Open Blokada",
-        "description": "Text on the button that opens the main app."
-    }
+  "extension_name": {
+    "message": "Blokada",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Improve your web browsing experience in Safari by blocking ads, trackers, and other unwanted content.",
+    "description": "Description of what the extension does."
+  },
+  "status_enabled": {
+    "message": "Safari Extension Enabled!",
+    "description": "Shown in the popup when the extension is active."
+  },
+  "status_inactive": {
+    "message": "Check status in Blokada",
+    "description": "Shown in the popup when the extension appears to be inactive."
+  },
+  "status_blocking_active": {
+    "message": "Blokada is active",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_access_expired": {
+    "message": "Access expired – open the app for details",
+    "description": "Shown when the account has expired."
+  },
+  "status_expiring_soon": {
+    "message": "Account expiring soon – check the app",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "Free trial active ($1 days left)",
+    "description": "Shown when freemium trial is active with days remaining."
+  },
+  "status_trial_expired": {
+    "message": "Free trial expired",
+    "description": "Shown when freemium trial has expired."
+  },
+  "open_app": {
+    "message": "Open Blokada",
+    "description": "Text on the button that opens the main app."
+  }
 }
