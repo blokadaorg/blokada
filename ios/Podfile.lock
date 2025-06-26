@@ -43,12 +43,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Adapty: 139245a1d0ff3da258ac35906c315c65fbd0882d
-  adapty_flutter: 36755dc818f0d252c63f20a5dd724db05304baba
+  adapty_flutter: 186765602c462f386cc411d6d0f25a4d7a586802
   AdaptyPlugin: 45e97d0eb981186ca5f745ad7c595b457697ba6b
   AdaptyUI: 715bd3535846711328a48e09a1f0424f32c24b6f
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  FlutterPluginRegistrant: d1a918f6a61c1a38c4680cbaa4ca50fd4b9be8e4
-  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  FlutterPluginRegistrant: 139a5c929ae235ec9989d53464676f46b767cbab
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
 
 PODFILE CHECKSUM: 8428ac9d17b9d3c273bf161a479c5315054012be
 
