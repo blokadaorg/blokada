@@ -314,24 +314,26 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
                             painter: PowerButtonPainter(
-                                iconImage: (status == AppStatus.paused)
-                                    ? snapshot.data![1]
-                                    : snapshot.data![0],
-                                alphaLoading: animLoading.value,
-                                alphaCover: animCover.value,
-                                alphaLibre: animLibre.value,
-                                alphaPlus: animPlus.value,
-                                arcAlpha: animArcAlpha.value,
-                                arcStart: animArcLoading.value,
-                                arcEnd: animArcCounter.value,
-                                arcTimerEnd: animArcTimerCounter.value,
-                                arcCounter: [
-                                  animArc2Counter.value *
-                                      math.min(2.0, (stats.dayBlockedRatio / 100)),
-                                  0,
-                                  0
-                                ],
-                                colorShadow: theme.shadow),
+                              iconImage: (status == AppStatus.paused)
+                                  ? snapshot.data![1]
+                                  : snapshot.data![0],
+                              alphaLoading: animLoading.value,
+                              alphaCover: animCover.value,
+                              alphaLibre: animLibre.value,
+                              alphaPlus: animPlus.value,
+                              arcAlpha: animArcAlpha.value,
+                              arcStart: animArcLoading.value,
+                              arcEnd: animArcCounter.value,
+                              arcTimerEnd: animArcTimerCounter.value,
+                              arcCounter: [
+                                animArc2Counter.value *
+                                    math.min(2.0, (stats.dayBlockedRatio / 100)),
+                                0,
+                                0
+                              ],
+                              colorShadow: theme.shadow,
+                              isFreemium: _account.isFreemium,
+                            ),
                           );
                         },
                       );
@@ -481,6 +483,7 @@ class PowerButtonPainter extends CustomPainter {
   final List<double> arcCounter;
   final double arcTimerEnd;
   final Color colorShadow;
+  final bool isFreemium;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
@@ -506,6 +509,7 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcCounter,
     required this.arcTimerEnd,
     required this.colorShadow,
+    required this.isFreemium,
   });
 
   @override
@@ -605,9 +609,11 @@ class PowerButtonPainter extends CustomPainter {
     canvas.drawCircle(
         Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, libreRingPaint);
 
-    // ring freemium
-    canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, freemiumRingPaint);
+    if (isFreemium) {
+      // ring freemium
+      canvas.drawCircle(
+          Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, freemiumRingPaint);
+    }
 
     // ring orange
     // plusRingPaint.alpha = alphaOrange
