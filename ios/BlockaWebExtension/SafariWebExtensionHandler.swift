@@ -35,18 +35,31 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             profile = request?.userInfo?["profile"] as? UUID
         }
 
-        let message: Any?
-        if #available(iOS 15.0, macOS 11.0, *) {
-            message = request?.userInfo?[SFExtensionMessageKey]
-        } else {
-            message = request?.userInfo?["message"]
-        }
+        let message = request?.userInfo?[SFExtensionMessageKey]
 
         os_log(
             .default,
             "blockaweb: received message from browser.runtime.sendNativeMessage: %@ (profile: %@)",
             String(describing: message), profile?.uuidString ?? "none")
 
+        let response = NSExtensionItem()
+
+        // Route to appropriate message handler
+        let messageType = (message as? [String: Any])?["message"] as? String ?? "status"
+
+        switch messageType {
+        case "rules":
+            response.userInfo = handleRulesMessage()
+        default:
+            response.userInfo = handleStatusMessage()
+        }
+
+        context.completeRequest(returningItems: [response], completionHandler: nil)
+    }
+
+    // MARK: - Message Handlers
+
+    private func handleStatusMessage() -> [String: Any] {
         // Decode app status set by main app.
         let status =
             decodeAppStatus()
@@ -58,37 +71,33 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             )
         markExtensionAsEnabled()
 
-        let response = NSExtensionItem()
-
         // Format timestamps for JavaScript consumption
         let timestampString = formatDateForJS(status.timestamp)
         let freemiumUntilString = status.freemiumYoutubeUntil.map { formatDateForJS($0) }
 
-        if #available(iOS 15.0, macOS 11.0, *) {
-            response.userInfo = [
-                SFExtensionMessageKey: [
-                    "status": [
-                        "active": status.active,
-                        "timestamp": timestampString,
-                        "freemium": status.freemium ?? false,
-                        "freemiumYoutubeUntil": freemiumUntilString as Any,
-                    ]
+        return [
+            SFExtensionMessageKey: [
+                "status": [
+                    "active": status.active,
+                    "timestamp": timestampString,
+                    "freemium": status.freemium ?? false,
+                    "freemiumYoutubeUntil": freemiumUntilString as Any,
                 ]
             ]
-        } else {
-            response.userInfo = [
-                "message": [
-                    "status": [
-                        "active": status.active,
-                        "timestamp": timestampString,
-                        "freemium": status.freemium ?? false,
-                        "freemiumYoutubeUntil": freemiumUntilString as Any,
-                    ]
-                ]
-            ]
-        }
+        ]
+    }
 
-        context.completeRequest(returningItems: [response], completionHandler: nil)
+    private func handleRulesMessage() -> [String: Any] {
+        return [SFExtensionMessageKey: ["rules": getEnabledRules()]]
+    }
+
+    // MARK: - Rule Configuration
+
+    private func getEnabledRules() -> [String: Bool] {
+        // Static configuration for which rules should be enabled
+        return [
+            "basic-rules": true
+        ]
     }
 
     /// Decode the shared app status JSON into our model

@@ -1,53 +1,54 @@
 {
-    "manifest_version": 3,
-    "default_locale": "en",
-    "name": "__MSG_extension_name__",
-    "description": "__MSG_extension_description__",
-    "version": "1.0",
-    "icons": {
-        "48": "images/icon-48.png",
-        "96": "images/icon-96.png",
-        "128": "images/icon-128.png",
-        "256": "images/icon-256.png",
-        "512": "images/icon-512.png"
+  "manifest_version": 3,
+  "default_locale": "en",
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__",
+  "version": "1.0",
+  "icons": {
+    "48": "images/icon-48.png",
+    "96": "images/icon-96.png",
+    "128": "images/icon-128.png",
+    "256": "images/icon-256.png",
+    "512": "images/icon-512.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "js": ["content.js"],
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*",
+        "https://www.youtube-nocookie.com/*"
+      ]
     },
-    "background": {
-        "scripts": [
-            "background.js"
-        ],
-        "persistent": false
-    },
-    "content_scripts": [
-        {
-            "run_at": "document_start",
-            "js": [
-                "content.js"
-            ],
-            "matches": [
-                "https://www.youtube.com/*",
-                "https://m.youtube.com/*",
-                "https://www.youtube-nocookie.com/*"
-            ]
-        },
-        {
-            "run_at": "document_end",
-            "js": [
-                "ping.js"
-            ],
-            "matches": [
-                "https://go.blokada.org/howto/*"
-            ]
-        }
-    ],
-    "permissions": [
-        "nativeMessaging",
-        "storage"
-    ],
-    "action": {
-        "default_popup": "popup.html"
-    },
-    "web_accessible_resources": [
-        "images/background.svg",
-        "images/shield.svg"
+    {
+      "run_at": "document_end",
+      "js": ["ping.js"],
+      "matches": ["https://go.blokada.org/howto/*"]
+    }
+  ],
+  "permissions": [
+    "declarativeNetRequest",
+    "activeTab",
+    "nativeMessaging",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "basic-rules",
+        "path": "basic-rules.json",
+        "enabled": false
+      }
     ]
+  },
+  "web_accessible_resources": ["images/background.svg", "images/logo.svg"]
 }
