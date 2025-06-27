@@ -64,11 +64,11 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
   }
 
   @override
-  closePaymentScreen({AdaptyUIPaywallView? view}) async {
+  closePaymentScreen(bool isError, {AdaptyUIPaywallView? view}) async {
     view?.dismiss();
     if (view == null) _paymentView?.dismiss();
     _paymentView = null;
-    await _actor.handleScreenClosed(Markers.ui);
+    await _actor.handleScreenClosed(Markers.ui, isError: isError);
   }
 
   Future<AdaptyUIPaywallView> _createPaywall(Marker m, Placement placement) async {
@@ -95,7 +95,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
         // successful purchase
-        closePaymentScreen(view: view);
+        closePaymentScreen(false, view: view);
         _actor.checkoutSuccessfulPayment(profile.profileId);
         break;
       case AdaptyPurchaseResultPending():
@@ -111,7 +111,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   void paywallViewDidFinishRestore(AdaptyUIPaywallView view, AdaptyProfile profile) {
-    closePaymentScreen(view: view);
+    closePaymentScreen(false, view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
   }
 
@@ -120,7 +120,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
     switch (action) {
       case const CloseAction():
       case const AndroidSystemBackAction():
-        closePaymentScreen(view: view);
+        closePaymentScreen(false, view: view);
         break;
       case OpenUrlAction(url: final url):
         _stage.openUrl(url, Markers.ui);
@@ -132,14 +132,14 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   void paywallViewDidFailLoadingProducts(AdaptyUIPaywallView view, AdaptyError error) {
-    closePaymentScreen(view: view);
+    closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed loading products", error, temporary: true);
   }
 
   @override
   void paywallViewDidFailPurchase(
       AdaptyUIPaywallView view, AdaptyPaywallProduct product, AdaptyError error) {
-    closePaymentScreen(view: view);
+    closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed purchase", error);
   }
 
@@ -152,7 +152,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   void paywallViewDidFailRestore(AdaptyUIPaywallView view, AdaptyError error) {
-    closePaymentScreen(view: view);
+    closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed restore", error, restore: true);
   }
 

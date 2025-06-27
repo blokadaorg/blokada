@@ -318,8 +318,8 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    override fun doClosePaymentScreen(callback: (Result<Unit>) -> Unit) {
-        closePaymentScreen()
+    override fun doClosePaymentScreen(isError: Boolean, callback: (Result<Unit>) -> Unit) {
+        closePaymentScreen(isError)
         _retry = true
         callback(Result.success(Unit))
     }
@@ -333,7 +333,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     ) {
         when (purchaseResult) {
             is AdaptyPurchaseResult.Success -> {
-                closePaymentScreen()
+                closePaymentScreen(false)
                 handleSuccess(purchaseResult.profile.profileId, restore = false)
             }
 
@@ -342,14 +342,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun onRestoreSuccess(profile: AdaptyProfile, context: Context) {
-        closePaymentScreen()
+        closePaymentScreen(false)
         handleSuccess(profile.profileId, restore = true)
     }
 
     override fun onActionPerformed(action: AdaptyUI.Action, context: Context) {
         when (action) {
             AdaptyUI.Action.Close -> {
-                closePaymentScreen()
+                closePaymentScreen(false)
             }
 
             is AdaptyUI.Action.OpenUrl -> {
@@ -362,7 +362,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun onLoadingProductsFailure(error: AdaptyError, context: Context): Boolean {
-        closePaymentScreen()
+        closePaymentScreen(true)
         logError("Failed loading products", error)
         handleFailure(restore = false, temporary = true)
 
@@ -383,7 +383,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         product: AdaptyPaywallProduct,
         context: Context
     ) {
-        closePaymentScreen()
+        closePaymentScreen(true)
         logError("Failed purchase", error)
         handleFailure(restore = false, temporary = false)
     }
@@ -393,7 +393,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     }
 
     override fun onRestoreFailure(error: AdaptyError, context: Context) {
-        closePaymentScreen()
+        closePaymentScreen(true)
         logError("Failed restore", error)
         handleFailure(restore = true, temporary = false)
     }
@@ -418,10 +418,10 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    private fun closePaymentScreen() {
+    private fun closePaymentScreen(isError: Boolean) {
         _fragment?.dismiss()
         _fragment = null
-        handleScreenClosed()
+        handleScreenClosed(isError)
     }
 
     private fun handleSuccess(profileId: String, restore: Boolean) {
@@ -439,8 +439,9 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
-    fun handleScreenClosed() {
-        _scope.launch { commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED) }
+    fun handleScreenClosed(isError: Boolean) {
+        val err = if (isError) "1" else "0"
+        _scope.launch { commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED, err) }
     }
 
     fun logError(message: String, error: Throwable) {

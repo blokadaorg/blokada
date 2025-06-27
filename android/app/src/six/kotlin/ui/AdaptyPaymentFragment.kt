@@ -55,7 +55,7 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
     }
 
     override fun onDestroy() {
-        payment.handleScreenClosed()
+        payment.handleScreenClosed(false)
         super.onDestroy()
     }
 }

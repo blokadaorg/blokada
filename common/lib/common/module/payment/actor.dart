@@ -5,7 +5,7 @@ part of 'payment.dart';
 final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 
 // Emitted when the paywall is closed
-// Argument is always false
+// Argument is "isError" - true if the paywall was closed due to an error
 final paymentClosed = EmitterEvent<bool>("paymentClosed");
 
 enum Placement {
@@ -158,16 +158,16 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
         onPaymentScreenOpened(true);
         await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
-        await handleScreenClosed(m);
+        await handleScreenClosed(m, isError: true);
         await handleFailure(m, "Failed creating paywall", e, s: s, temporary: true);
       }
     });
   }
 
-  closePaymentScreen(Marker m) async {
+  closePaymentScreen(Marker m, {required bool isError}) async {
     return await log(m).trace("closePaymentScreen", (m) async {
-      await _channel.closePaymentScreen();
-      await handleScreenClosed(m);
+      await _channel.closePaymentScreen(isError);
+      await handleScreenClosed(m, isError: isError);
     });
   }
 
@@ -211,12 +211,12 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     await _stage.showModal(sheet, m);
   }
 
-  handleScreenClosed(Marker m) async {
+  handleScreenClosed(Marker m, {required bool isError}) async {
     if (!_isOpened) return;
     log(m).i("Payment screen closed");
     onPaymentScreenOpened(false);
     _isOpened = false;
-    await emitValue(paymentClosed, false, m);
+    await emitValue(paymentClosed, isError, m);
   }
 
   _syncCustomAttributes(Marker m, AccountState account) async {

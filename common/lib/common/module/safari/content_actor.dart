@@ -15,7 +15,8 @@ class SafariContentActor with Actor, Logging {
     // Provide the widget factory for the modal this module handles
     _modal.onChange.listen((it) {
       if (it.now == Modal.onboardSafari) {
-        _modalWidget.change(it.m, (context) => const SafariContentOnboardSheetIos());
+        _modalWidget.change(
+            it.m, (context) => const SafariContentOnboardSheetIos());
       }
     });
   }
@@ -27,7 +28,8 @@ class SafariContentActor with Actor, Logging {
   }
 
   // Safari content filter onboard on iOS, after paywall closed with purchase
-  checkFreemiumStateAfterPaywall(bool ignored, Marker m) async {
+  checkFreemiumStateAfterPaywall(bool isError, Marker m) async {
+    if (isError) return;
     return await log(m).trace("checkFreemiumStateAfterPaywall", (m) async {
       if (_app.status.isActive()) return;
       if (!_account.isFreemium) return;
