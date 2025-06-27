@@ -13,7 +13,8 @@ enum Placement {
   plusUpgrade("home_plus_upgrade"),
   freemiumStats("stats_freemium"),
   freemiumActivity("activity_freemium"),
-  freemiumFilters("filters_freemium");
+  freemiumFilters("filters_freemium"),
+  freemiumWeekly("sheet_weekly_freemium");
 
   final String id;
 

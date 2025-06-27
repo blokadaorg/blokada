@@ -11,6 +11,7 @@ class OnboardCommand with Command {
 
   late final _onboardIntro = Core.get<OnboardIntroValue>();
   late final _onboardSafariYoutube = Core.get<OnboardSafariValue>();
+  late final _weekly = Core.get<WeeklyRefreshActor>();
 
   @override
   List<CommandSpec> onRegisterCommands() {
@@ -26,9 +27,14 @@ class OnboardCommand with Command {
 
     var modal = Modal.onboardPrivateDns;
     if (onboardScreen == "safari") {
+      _ensureIos();
       modal = Modal.onboardSafari;
     } else if (onboardScreen == "youtube") {
+      _ensureIos();
       modal = Modal.onboardSafariYoutube;
+    } else if (onboardScreen == "weekly") {
+      _ensureIos();
+      modal = Modal.weeklyRefresh;
     } else {
       throw Exception("Unknown onboard screen: $onboardScreen");
     }
@@ -45,11 +51,21 @@ class OnboardCommand with Command {
     final onboardScreen = args[0] as String;
 
     if (onboardScreen == "intro") {
-      _onboardIntro.change(m, null);
+      _ensureIos();
+      await _onboardIntro.change(m, null);
     } else if (onboardScreen == "youtube") {
-      _onboardSafariYoutube.change(m, false);
+      _ensureIos();
+      await _onboardSafariYoutube.change(m, false);
+    } else if (onboardScreen == "weekly") {
+      _ensureIos();
+      // No await because user will see OK and go to background, before it triggers
+      _weekly.testFlow(m);
     } else {
       throw Exception("Unknown onboard screen: $onboardScreen");
     }
+  }
+
+  _ensureIos() {
+    if (Core.act.platform != PlatformType.iOS) throw Exception("This is iOS only onboard");
   }
 }

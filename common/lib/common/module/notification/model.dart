@@ -6,8 +6,7 @@ class NotificationEvent {
   final DateTime? when;
   final String? body;
 
-  NotificationEvent.shown(this.id, this.when, {this.body})
-      : type = NotificationEventType.show;
+  NotificationEvent.shown(this.id, this.when, {this.body}) : type = NotificationEventType.show;
 
   NotificationEvent.dismissed()
       : id = NotificationId.all,
@@ -21,6 +20,7 @@ enum NotificationId {
   accountExpired,
   accountExpiredFamily,
   supportNewMessage,
+  weeklyRefresh,
 }
 
 enum NotificationEventType {

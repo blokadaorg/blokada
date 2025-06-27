@@ -33,6 +33,7 @@ import 'package:common/platform/perm/dnscheck.dart';
 import 'package:common/platform/plus/plus.dart';
 import 'package:common/platform/safari/safari.dart';
 import 'package:common/plus/plus.dart';
+import 'package:common/v6/module/freemium/freemium.dart';
 import 'package:common/v6/module/onboard/onboard.dart';
 import 'package:common/v6/widget/home/home.dart';
 
@@ -129,6 +130,7 @@ class Modules with Logging {
     if (Core.act.platform == PlatformType.iOS) {
       await _registerModule(SafariModule());
       await _registerModule(PlatformSafariModule());
+      await _registerModule(FreemiumModule());
     }
 
     CommandStore().onRegister();

@@ -12,6 +12,7 @@ enum Modal {
   familyAddProfile,
   familyLinkDevice,
   pause,
+  weeklyRefresh,
 }
 
 class CurrentModalValue extends NullableAsyncValue<Modal> {

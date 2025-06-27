@@ -23,6 +23,7 @@ let NOTIF_ONBOARDING = "onboardingDnsAdvice"
 let NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
 let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
+let NOTIF_WEEKLY_REFRESH = "weeklyRefresh"
 
 func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
@@ -60,6 +61,9 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
             content.body = body.count > 32 ? body.prefix(32) + "..." : body
         }
         content.badge = NSNumber(value: 1)
+    } else if id == NOTIF_WEEKLY_REFRESH {
+        content.title = "Update your filters"
+        content.body = "Tap to update your ad-block filters and stay safe from websites and apps that are most likely to cause you harm."
     } else {
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle
