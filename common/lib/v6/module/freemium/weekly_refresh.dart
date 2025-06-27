@@ -1,7 +1,5 @@
 part of 'freemium.dart';
 
-const _days = 7;
-
 class WeeklyRefreshActor with Logging, Actor {
   late final _notification = Core.get<NotificationActor>();
   late final _stage = Core.get<StageStore>();
@@ -29,7 +27,7 @@ class WeeklyRefreshActor with Logging, Actor {
     final lastOpen = await _lastOpen.fetch(m);
     if (lastOpen == null || lastOpen == DateTime.fromMillisecondsSinceEpoch(0)) {
       // If the last open time is not set at all, user just started using the app
-      await _lastOpen.change(m, DateTime.now().add(const Duration(days: _days)));
+      await _lastOpen.change(m, DateTime.now().add(_getCooldownDuration()));
     }
   }
 
@@ -43,7 +41,7 @@ class WeeklyRefreshActor with Logging, Actor {
       if (!route.isForeground()) {
         await _lastOpen.change(m, DateTime.now());
         await _notification.show(NotificationId.weeklyRefresh, m,
-            when: DateTime.now().add(const Duration(days: _days)));
+            when: DateTime.now().add(_getCooldownDuration()));
         return;
       }
 
@@ -53,7 +51,7 @@ class WeeklyRefreshActor with Logging, Actor {
 
       // If the app is opened after a week, show the weekly refresh modal
       final lastOpen = await _lastOpen.now();
-      if (lastOpen == null || DateTime.now().difference(lastOpen).inDays >= _days) {
+      if (lastOpen == null || DateTime.now().difference(lastOpen) >= _getCooldownDuration()) {
         await _modal.change(m, Modal.weeklyRefresh);
       }
 
@@ -68,5 +66,9 @@ class WeeklyRefreshActor with Logging, Actor {
     await _lastOpen.change(m, DateTime.fromMicrosecondsSinceEpoch(0));
     await _notification.show(NotificationId.weeklyRefresh, m,
         when: DateTime.now().add(const Duration(seconds: 5)));
+  }
+
+  Duration _getCooldownDuration() {
+    return Core.act.isRelease ? const Duration(days: 7) : const Duration(minutes: 7);
   }
 }
