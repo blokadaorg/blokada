@@ -1023,10 +1023,10 @@
 			membershipExceptions = (
 				Resources/_locales,
 				Resources/background.js,
-				"Resources/basic-rules.json",
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
+				"Resources/oisd-small.json",
 				Resources/ping.js,
 				"Resources/popup-logic.js",
 				Resources/popup.css,
@@ -1041,10 +1041,10 @@
 			membershipExceptions = (
 				Resources/_locales,
 				Resources/background.js,
-				"Resources/basic-rules.json",
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
+				"Resources/oisd-small.json",
 				Resources/ping.js,
 				"Resources/popup-logic.js",
 				Resources/popup.css,

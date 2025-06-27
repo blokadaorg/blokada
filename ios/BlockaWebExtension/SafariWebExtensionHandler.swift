@@ -105,7 +105,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     private func getEnabledRules() -> [String: Bool] {
         // Static configuration for which rules should be enabled
         return [
-            "basic-rules": true
+            "oisd-small": true
         ]
     }
 

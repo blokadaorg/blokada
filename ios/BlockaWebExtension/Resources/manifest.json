@@ -45,8 +45,8 @@
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "basic-rules",
-        "path": "basic-rules.json",
+        "id": "oisd-small",
+        "path": "oisd-small.json",
         "enabled": false
       }
     ]
