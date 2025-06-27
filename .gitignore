@@ -1,6 +1,7 @@
 .DS_Store
 
 ios/Pods
+ios/Podfile.lock
 
 local.properties
 keystore.properties

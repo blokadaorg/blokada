@@ -26,8 +26,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  flex_color_scheme: ^7.3.1
-  syncfusion_flutter_charts: ^26.2.10
+  flex_color_scheme: ^8.2.0
+  syncfusion_flutter_charts: ^28.1.36
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
@@ -60,16 +60,7 @@ dependencies:
   flutter_linkify: ^6.0.0
 
 dependency_overrides:
-  syncfusion_flutter_charts:
-    git:
-      url: https://github.com/Luvti/flutter-widgets
-      path: packages/syncfusion_flutter_charts
-      ref: 15e3c4a95e3cf2e2393755bf5aa11c0206ed6dea #flutter/3.24
-  syncfusion_flutter_core:
-    git:
-      url: https://github.com/Luvti/flutter-widgets
-      path: packages/syncfusion_flutter_core
-      ref: 15e3c4a95e3cf2e2393755bf5aa11c0206ed6dea #flutter/3.24
+  intl: 0.20.2
 
 dev_dependencies:
   flutter_test:
