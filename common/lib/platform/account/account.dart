@@ -130,10 +130,9 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   @computed
   bool get isFreemium {
     if (type.isActive()) return false;
-    return true;
-    // final attributes = account?.jsonAccount.attributes;
-    // if (attributes == null) return false;
-    // return attributes['freemium'] == true;
+    final attributes = account?.jsonAccount.attributes;
+    if (attributes == null) return false;
+    return attributes['freemium'] == true;
   }
 
   AccountId? _previousAccountId;
