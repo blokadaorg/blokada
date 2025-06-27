@@ -26,11 +26,9 @@ class NotificationActor with Logging, Actor {
     _account.addOn(accountChanged, sendAppleTokenAsync);
   }
 
-  showWithBody(NotificationId id, Marker m, String body,
-      {DateTime? when}) async {
+  showWithBody(NotificationId id, Marker m, String body, {DateTime? when}) async {
     return await log(m).trace("showWithPayload", (m) async {
-      _addCapped(NotificationEvent.shown(
-          id, when ?? DateTime.now().add(const Duration(seconds: 3)),
+      _addCapped(NotificationEvent.shown(id, when ?? DateTime.now().add(const Duration(seconds: 3)),
           body: body));
       await _updateChannel();
       log(m).pair("notificationId", id);
@@ -39,9 +37,11 @@ class NotificationActor with Logging, Actor {
 
   show(NotificationId id, Marker m, {DateTime? when}) async {
     return await log(m).trace("show", (m) async {
+      log(m).pair("when", when);
+
       // Always add time to current, otherwise iOS skips it
-      _addCapped(NotificationEvent.shown(
-          id, when ?? DateTime.now().add(const Duration(seconds: 3))));
+      _addCapped(
+          NotificationEvent.shown(id, when ?? DateTime.now().add(const Duration(seconds: 3))));
       await _updateChannel();
       log(m).pair("notificationId", id);
     });
@@ -90,8 +90,7 @@ class NotificationActor with Logging, Actor {
 
   notificationTapped(Marker m, String notificationId) async {
     return await log(m).trace("notificationTapped", (m) async {
-      final id = NotificationId.values
-          .firstWhereOrNull((it) => it.name == notificationId);
+      final id = NotificationId.values.firstWhereOrNull((it) => it.name == notificationId);
 
       log(m).pair("id", id);
       if (id == NotificationId.supportNewMessage) {
@@ -115,8 +114,7 @@ class NotificationActor with Logging, Actor {
   _updateChannel() async {
     final event = _notifications.now.last;
     if (event.type == NotificationEventType.show) {
-      await _channel.doShow(
-          event.id.name, event.when!.toUtc().toIso8601String(), event.body);
+      await _channel.doShow(event.id.name, event.when!.toUtc().toIso8601String(), event.body);
     } else if (event.type == NotificationEventType.dismiss) {
       await _channel.doDismissAll();
     }

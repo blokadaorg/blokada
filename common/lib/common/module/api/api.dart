@@ -7,9 +7,9 @@ import 'package:flutter/services.dart';
 
 part 'endpoint.dart';
 part 'error.dart';
-part 'freemium_aware_http.dart';
 part 'freemium_data.dart';
 part 'http.dart';
+part 'mockable_http.dart';
 
 class AccountId extends AsyncValue<String> {
   AccountId() : super(sensitive: true);
@@ -83,7 +83,7 @@ class ApiModule with Module {
     await register(AccountEphemeral());
 
     // Register FreemiumAwareHttp instead of regular Http
-    await register<Http>(FreemiumAwareHttp());
+    await register<Http>(MockableHttp());
 
     await register(Api());
   }

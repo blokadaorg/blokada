@@ -1,11 +1,11 @@
 part of 'api.dart';
 
-class FreemiumAwareHttp extends Http {
+class MockableHttp extends Http {
   final FreemiumDataProvider _dataProvider = FreemiumDataProvider();
   late final _accountStore = Core.get<AccountStore>();
 
   bool get _isFreemium {
-      return _accountStore.isFreemium;
+    return _accountStore.isFreemium;
   }
 
   @override

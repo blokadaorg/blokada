@@ -2,7 +2,6 @@ import 'package:common/common/module/api/api.dart';
 import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/onboard/onboard.dart';
 import 'package:common/common/module/payment/payment.dart';
-import 'package:common/common/widget/safari/safari_content_onboard_sheet.dart';
 import 'package:common/common/widget/safari/safari_youtube_onboard_sheet.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
@@ -10,11 +9,11 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/perm/perm.dart';
+import 'package:common/platform/stage/stage.dart';
 import 'package:common/util/mobx.dart';
 
-part 'content_actor.dart';
+part 'actor.dart';
 part 'value.dart';
-part 'youtube_actor.dart';
 
 /// SafariModule handles integration with the Safari browser extensions (iOS only).
 ///
@@ -29,15 +28,11 @@ class SafariModule with Module {
   onCreateModule() async {
     await register(BlockawebAppStatusValue());
     await register(BlockawebPingValue());
-    await register(SafariYoutubeActor());
-    await register(SafariContentActor());
+    await register(SafariActor());
   }
 }
 
 @PlatformProvided()
 mixin SafariChannel {
-  Future<bool> doGetStateOfContentFilter();
-  Future<void> doUpdateContentFilterRules(bool filtering);
-  Future<void> doOpenPermsFlowForYoutube();
-  Future<void> doOpenPermsFlowForContentFilter();
+  Future<void> doOpenSafariSetup();
 }

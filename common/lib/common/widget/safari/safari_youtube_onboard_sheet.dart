@@ -14,7 +14,7 @@ class SafariYoutubeOnboardSheetIos extends StatefulWidget {
 }
 
 class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetIos> {
-  final _onboard = Core.get<SafariYoutubeActor>();
+  final _onboard = Core.get<SafariActor>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                     children: [
                       const SizedBox(height: 24),
                       Text(
-                        "onboard safari header".i18n,
+                        "Want to block ads in Safari?",
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -43,7 +43,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "onboard safari brief".i18n,
+                          "Enable our extension in Safari to block ads while browsing. Now also YouTube video ads will be blocked!",
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),
@@ -117,45 +117,16 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
-                          _onboard.doOpenPermsFlow();
+                          _onboard.openSafariSetup();
                         },
                         color: context.theme.accent,
                         child: SizedBox(
                           height: 32,
                           child: Center(
                             child: Text(
-                              "onboard safari cta".i18n,
+                              "Open Safari",
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: MiniCard(
-                        onTap: () async {
-                          Navigator.of(context).pop();
-                          _onboard.markOnboardSeen(Markers.userTap);
-                        },
-                        color: context.theme.bgColor,
-                        child: SizedBox(
-                          height: 32,
-                          child: Center(
-                            child: Text(
-                              "onboard safari skip".i18n,
-                              style: TextStyle(
-                                color: context.theme.textPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
