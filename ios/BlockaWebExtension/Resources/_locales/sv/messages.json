@@ -28,7 +28,7 @@
     "description": "Shown when the account is expiring within 7 days."
   },
   "status_trial_active": {
-    "message": "Gratis provperiod aktiv ($1 dagar kvar)",
+    "message": "Gratis provperiod aktiv ({DAYS} dagar kvar)",
     "description": "Shown when freemium trial is active with days remaining."
   },
   "status_trial_expired": {

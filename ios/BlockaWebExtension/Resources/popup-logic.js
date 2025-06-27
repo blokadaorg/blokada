@@ -27,6 +27,7 @@ export function determineStatusState(status) {
     }
 
     const daysLeft = Math.ceil((freemiumExpiry - now) / (24 * 60 * 60 * 1000));
+
     return {
       state: "trial",
       messageKey: "status_trial_active",

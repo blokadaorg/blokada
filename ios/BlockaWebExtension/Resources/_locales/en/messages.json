@@ -28,7 +28,7 @@
     "description": "Shown when the account is expiring within 7 days."
   },
   "status_trial_active": {
-    "message": "Free trial active ($1 days left)",
+    "message": "Free trial active ({DAYS} days left)",
     "description": "Shown when freemium trial is active with days remaining."
   },
   "status_trial_expired": {

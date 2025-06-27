@@ -28,7 +28,7 @@
     "description": "Shown when the account is expiring within 7 days."
   },
   "status_trial_active": {
-    "message": "التجربة المجانية نشطة ($1 أيام متبقية)",
+    "message": "النسخة التجريبية المجانية نشطة ({DAYS} أيام متبقية)",
     "description": "Shown when freemium trial is active with days remaining."
   },
   "status_trial_expired": {

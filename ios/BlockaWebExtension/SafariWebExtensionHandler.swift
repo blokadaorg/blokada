@@ -69,22 +69,31 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 freemium: false,
                 freemiumYoutubeUntil: nil
             )
+
         markExtensionAsEnabled()
 
         // Format timestamps for JavaScript consumption
         let timestampString = formatDateForJS(status.timestamp)
         let freemiumUntilString = status.freemiumYoutubeUntil.map { formatDateForJS($0) }
 
-        return [
+        var statusDict: [String: Any] = [
+            "active": status.active,
+            "timestamp": timestampString,
+            "freemium": status.freemium ?? false,
+        ]
+
+        // Only include freemiumYoutubeUntil if it has a value
+        if let freemiumUntil = freemiumUntilString {
+            statusDict["freemiumYoutubeUntil"] = freemiumUntil
+        }
+
+        let response = [
             SFExtensionMessageKey: [
-                "status": [
-                    "active": status.active,
-                    "timestamp": timestampString,
-                    "freemium": status.freemium ?? false,
-                    "freemiumYoutubeUntil": freemiumUntilString as Any,
-                ]
+                "status": statusDict
             ]
         ]
+
+        return response
     }
 
     private func handleRulesMessage() -> [String: Any] {
@@ -106,6 +115,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             let containerURL = FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: "group.net.blocka.app")
         else {
+
             return nil
         }
         let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
@@ -113,6 +123,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             let content = try? String(contentsOf: fileURL, encoding: .utf8),
             let jsonData = content.data(using: .utf8)
         else {
+
             return nil
         }
 
@@ -186,12 +197,16 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
     /// Format date for JavaScript consumption - handle zero time as clearly expired
     private func formatDateForJS(_ date: Date) -> String {
+
         if date.timeIntervalSince1970 <= 1 {  // Zero time or very close to it
+
             return "1970-01-01T00:00:00.000Z"  // Clearly expired for JS
         }
 
         let iso8601 = ISO8601DateFormatter()
         iso8601.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return iso8601.string(from: date)
+        let formatted = iso8601.string(from: date)
+
+        return formatted
     }
 }

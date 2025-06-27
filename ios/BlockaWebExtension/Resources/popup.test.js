@@ -65,6 +65,33 @@ const tests = [
     },
     expected: { state: "expired", messageKey: "status_trial_expired" },
   },
+  {
+    name: "Missing freemiumYoutubeUntil (Swift optional handling)",
+    input: {
+      active: true,
+      timestamp: "2023-01-01T00:00:00Z",
+      freemium: true,
+      // freemiumYoutubeUntil is undefined (Swift doesn't include it when nil)
+    },
+    expected: { state: "expired", messageKey: "status_trial_expired" },
+  },
+  {
+    name: "Active freemium trial with Swift date format",
+    input: {
+      active: true,
+      timestamp: "1970-01-01T00:00:00.000Z", // Expired account
+      freemium: true,
+      freemiumYoutubeUntil: "2025-07-04T10:42:47.072Z", // Swift ISO format
+    },
+    expected: {
+      state: "trial",
+      messageKey: "status_trial_active",
+      daysLeft: Math.ceil(
+        (new Date("2025-07-04T10:42:47.072Z") - new Date()) /
+          (24 * 60 * 60 * 1000),
+      ),
+    },
+  },
 ];
 
 function runTests() {
