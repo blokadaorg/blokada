@@ -80,8 +80,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
   }
 
   @override
-  Future<void> onCommandWithParams(
-      String command, String p1, String p2, Marker m) async {
+  Future<void> onCommandWithParams(String command, String p1, String p2, Marker m) async {
     for (var cmd in newCommands) {
       if (command.toUpperCase().startsWith(cmd)) {
         return await commands.execute(m, command, [p1, p2]);
@@ -100,8 +99,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
       for (var cmd in newCommands) {
         if (command.toUpperCase().startsWith(cmd)) {
-          return await commands.execute(
-              m, commandParts[0], commandParts.sublist(1));
+          return await commands.execute(m, commandParts[0], commandParts.sublist(1));
         }
       }
 

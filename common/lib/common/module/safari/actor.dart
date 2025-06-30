@@ -15,13 +15,13 @@ class SafariActor with Actor, Logging {
   late final _appStatus = Core.get<BlockawebAppStatusValue>();
   late final _ping = Core.get<BlockawebPingValue>();
   late final _stage = Core.get<StageStore>();
+  late final _perm = Core.get<PlatformPermActor>();
 
   // Deps for the optional flow
   late final _scheduler = Core.get<Scheduler>();
   late final _account = Core.get<AccountEphemeral>();
   late final _onboardSafari = Core.get<OnboardSafariValue>();
   late final _onboardActor = Core.get<OnboardActor>();
-  late final _perm = Core.get<PlatformPermActor>();
   late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
 
   // Deps for the mandatory flow
@@ -190,6 +190,11 @@ class SafariActor with Actor, Logging {
 
     if (isActivated && _app.status == AppStatus.activatedFreemium) return false;
     if (!isActivated && _app.status != AppStatus.activatedFreemium) return false;
+
+    if (isActivated) {
+      // Will only ask if not granted
+      await _perm.askNotificationPermissions(m, checkForPerms: true);
+    }
 
     await _app.freemiumActivated(m, isActivated);
     return false;

@@ -5,6 +5,7 @@ import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/safari/safari_youtube_onboard_sheet.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/device_v3/device.dart';
+import 'package:common/family/module/perm/perm.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
