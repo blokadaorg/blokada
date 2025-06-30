@@ -1,0 +1,5 @@
+# Generated Safari Web Extension rules
+Resources/rules/*.json
+
+# Source file symlinks for Make dependencies  
+Resources/rules/*.txt

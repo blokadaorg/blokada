@@ -12,14 +12,20 @@
     "512": "images/icon-512.png"
   },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "content_scripts": [
     {
       "run_at": "document_start",
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "matches": [
         "https://www.youtube.com/*",
         "https://m.youtube.com/*",
@@ -28,8 +34,12 @@
     },
     {
       "run_at": "document_end",
-      "js": ["ping.js"],
-      "matches": ["https://go.blokada.org/howto/*"]
+      "js": [
+        "ping.js"
+      ],
+      "matches": [
+        "https://go.blokada.org/howto/*"
+      ]
     }
   ],
   "permissions": [
@@ -46,10 +56,13 @@
     "rule_resources": [
       {
         "id": "oisd-small",
-        "path": "oisd-small.json",
+        "path": "rules/oisd-small.json",
         "enabled": false
       }
     ]
   },
-  "web_accessible_resources": ["images/background.svg", "images/logo.svg"]
+  "web_accessible_resources": [
+    "images/background.svg",
+    "images/logo.svg"
+  ]
 }

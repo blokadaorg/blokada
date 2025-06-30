@@ -131,8 +131,8 @@ Examples:
                        default=150000,
                        help='Maximum number of rules (default: 150000 for Safari)')
     parser.add_argument('--output-dir',
-                       default='ios/BlockaWebExtension/Resources',
-                       help='Output directory (default: ios/BlockaWebExtension/Resources)')
+                       default='ios/BlockaWebExtension/Resources/rules',
+                       help='Output directory')
 
     args = parser.parse_args()
 

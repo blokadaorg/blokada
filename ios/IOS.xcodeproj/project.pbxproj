@@ -1026,7 +1026,6 @@
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				"Resources/oisd-small.json",
 				Resources/ping.js,
 				"Resources/popup-logic.js",
 				Resources/popup.css,
@@ -1044,7 +1043,6 @@
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
-				"Resources/oisd-small.json",
 				Resources/ping.js,
 				"Resources/popup-logic.js",
 				Resources/popup.css,
@@ -1789,6 +1787,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E5E732F2DC0DF0500A0B192 /* Build configuration list for PBXNativeTarget "BlockaWebExt" */;
 			buildPhases = (
+				B27F19A42E13D64E00EE56A2 /* Make content filter rules */,
 				4E5E732C2DC0DF0500A0B192 /* Sources */,
 				4E5E732D2DC0DF0500A0B192 /* Frameworks */,
 				4E5E732E2DC0DF0500A0B192 /* Resources */,
@@ -1806,6 +1805,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E6B37092DBB85C100A37431 /* Build configuration list for PBXNativeTarget "BlockaWebExtDev" */;
 			buildPhases = (
+				B27F19A52E13D6BC00EE56A2 /* Make content filter rules */,
 				4E6B36CB2DBB85C100A37431 /* Sources */,
 				4E6B36CC2DBB85C100A37431 /* Frameworks */,
 				4E6B36CD2DBB85C100A37431 /* Resources */,
@@ -2344,7 +2344,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin\n";
 		};
 		B0E65CE39D5FD6DD53B129D4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2368,6 +2368,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B27F19A42E13D64E00EE56A2 /* Make content filter rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make content filter rules";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nmake -C \"${SRCROOT}/BlockaWebExtension\" gen-rules\n";
+		};
+		B27F19A52E13D6BC00EE56A2 /* Make content filter rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make content filter rules";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nmake -C \"${SRCROOT}/BlockaWebExtension\" gen-rules\n";
+		};
 		B864EACB5DB73F47E3B33140 /* [CP-User] Run Flutter Build common Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2380,7 +2417,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build\n";
 		};
 		C26F2754DDE952990DD3075F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3881,7 +3918,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BlockaWebExt-Info.plist";
@@ -3922,7 +3959,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BlockaWebExt-Info.plist";
@@ -3961,7 +3998,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BlockaWebExtension/Info.plist;
@@ -4002,7 +4039,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BlockaWebExtension/Info.plist;

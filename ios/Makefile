@@ -36,4 +36,5 @@ ipa-family:
 
 # Build .ipa of six (release)
 ipa-six:
+	$(MAKE) -C BlockaWebExtension gen-rules
 	$(FASTLANE) build_ios_six
