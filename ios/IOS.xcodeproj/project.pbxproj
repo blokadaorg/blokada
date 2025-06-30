@@ -627,6 +627,15 @@
 		4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE3289D27D225F3003B5D57 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3289C27D225F3003B5D57 /* ModelTests.swift */; };
+		4EE7491C2E12B73500F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE7491D2E12B73500F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE7491E2E12B74000F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE7491F2E12B74000F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE749202E12B74900F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE749212E12B74900F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE749232E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
+		4EE749242E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
+		4EE749252E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
 		4EEC49512A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
 		4EEC49522A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
 		4EEC49532A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
@@ -766,7 +775,7 @@
 		47729E0522F447C800B9B36B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47729E1122F447CA00B9B36B /* Info-six.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-six.plist"; sourceTree = "<group>"; };
 		4845648844193CBC09726A12 /* Pods-FamilyMocked.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyMocked.release.xcconfig"; path = "Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked.release.xcconfig"; sourceTree = "<group>"; };
 		4E02E30D2A56DA620014E884 /* NetworkCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
@@ -980,6 +989,7 @@
 		4EDB13DD2D14346E000E2AD3 /* ButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
 		4EE3289C27D225F3003B5D57 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		4EE749222E12B91200F95DDB /* Info-family.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-family.plist"; sourceTree = "<group>"; };
 		4EEC49502A4D983D001EF934 /* CoreBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBinding.swift; sourceTree = "<group>"; };
 		4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsBinding.swift; sourceTree = "<group>"; };
 		4EF35C942C9D77DE00699022 /* UrlBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBinding.swift; sourceTree = "<group>"; };
@@ -1521,7 +1531,8 @@
 				4EF7EDF4240E9E95001FA02E /* Resources.swift */,
 				4E356A8B24378CA80094EE27 /* Strings.swift */,
 				4E4562B3240D114D0022CBF6 /* Error.swift */,
-				47729E1122F447CA00B9B36B /* Info.plist */,
+				47729E1122F447CA00B9B36B /* Info-six.plist */,
+				4EE749222E12B91200F95DDB /* Info-family.plist */,
 				4ED3445523E1B0D90075B796 /* IOS.entitlements */,
 				47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */,
 				4E290FBE2498A3E200FC4C61 /* Packs.strings */,
@@ -2006,6 +2017,7 @@
 				4E1276BC2AE7D0FC00A94994 /* Ui.strings in Resources */,
 				4E1276BD2AE7D0FC00A94994 /* LaunchScreen.storyboard in Resources */,
 				4EA029352B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749232E12B91200F95DDB /* Info-family.plist in Resources */,
 				4E1276BE2AE7D0FC00A94994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2033,6 +2045,7 @@
 				4E270DE32A80EB8300D3484B /* Ui.strings in Resources */,
 				4E270DE42A80EB8300D3484B /* LaunchScreen.storyboard in Resources */,
 				4EA029332B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749242E12B91200F95DDB /* Info-family.plist in Resources */,
 				4E270DE52A80EB8300D3484B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2084,6 +2097,7 @@
 				4EBF3BE52A80E55900F637BB /* Ui.strings in Resources */,
 				4EBF3BE62A80E55900F637BB /* LaunchScreen.storyboard in Resources */,
 				4EA029342B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749252E12B91200F95DDB /* Info-family.plist in Resources */,
 				4EBF3BE72A80E55900F637BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2106,9 +2120,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2120,7 +2138,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2152,7 +2174,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2206,7 +2232,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2216,7 +2246,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2226,7 +2260,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2239,9 +2277,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2256,9 +2298,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2273,9 +2319,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2287,7 +2337,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2319,7 +2373,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2354,9 +2412,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2368,7 +2430,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2381,9 +2447,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2395,7 +2465,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2405,7 +2479,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2437,7 +2515,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2447,7 +2529,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2580,6 +2666,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE7491E2E12B74000F95DDB /* SafariBinding.swift in Sources */,
+				4EE7491F2E12B74000F95DDB /* Safari.swift in Sources */,
 				4EA6DEE42D5BA9BB006BAA10 /* App.swift in Sources */,
 				4EA6DEE52D5BA9BB006BAA10 /* Command.swift in Sources */,
 				4EA6DEE62D5BA9BB006BAA10 /* Core.swift in Sources */,
@@ -2707,6 +2795,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE749202E12B74900F95DDB /* SafariBinding.swift in Sources */,
+				4EE749212E12B74900F95DDB /* Safari.swift in Sources */,
 				4E270DF02A80EB9200D3484B /* Flavor.swift in Sources */,
 				4E92C70A2C05CF9700A33170 /* HomeViewModel.swift in Sources */,
 				4EDB13E12D14346E000E2AD3 /* ButtonView.swift in Sources */,
@@ -3008,6 +3098,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE7491C2E12B73500F95DDB /* SafariBinding.swift in Sources */,
+				4EE7491D2E12B73500F95DDB /* Safari.swift in Sources */,
 				4E92C7082C05CEB600A33170 /* NetworkCommand.swift in Sources */,
 				4E92C7062C05CE2E00A33170 /* NetxServiceIn.swift in Sources */,
 				4EBF3B152A80E55900F637BB /* Date+Extensions.swift in Sources */,
@@ -3383,7 +3475,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3434,7 +3526,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3703,7 +3795,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3751,7 +3843,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3957,7 +4049,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3999,7 +4091,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4039,7 +4131,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4090,7 +4182,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4137,7 +4229,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4183,7 +4275,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
