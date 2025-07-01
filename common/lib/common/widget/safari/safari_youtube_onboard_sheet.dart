@@ -32,7 +32,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                     children: [
                       const SizedBox(height: 24),
                       Text(
-                        "Want to block ads in Safari?",
+                        "Start blocking ads in Safari",
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -43,7 +43,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "Enable our extension in Safari to block ads while browsing. Now also YouTube video ads will be blocked!",
+                          "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),

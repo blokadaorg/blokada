@@ -40,13 +40,13 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
           child: Column(
             children: [
               MiniCardHeader(
-                text: "Freemium",
+                text: "Essentials",
                 icon: Icons.shield_outlined,
                 color: theme.freemium,
               ),
               SizedBox(height: 12),
               Text(
-                  "You are using Blokada in freemium mode. Adblocking is active in your Safari (also YouTube ads)."),
+                  "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps."),
             ],
           ),
         ),
