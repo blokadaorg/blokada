@@ -56,7 +56,7 @@
     "rule_resources": [
       {
         "id": "oisd-small",
-        "path": "rules/oisd-small.json",
+        "path": "oisd-small.json",
         "enabled": false
       }
     ]
