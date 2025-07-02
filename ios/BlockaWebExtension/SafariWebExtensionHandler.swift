@@ -54,6 +54,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             response.userInfo = handleStatusMessage()
         }
 
+        os_log(.default, "blockaweb: sending response: %{public}@", String(describing: response.userInfo))
         context.completeRequest(returningItems: [response], completionHandler: nil)
     }
 
@@ -115,9 +116,10 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             let containerURL = FileManager.default.containerURL(
                 forSecurityApplicationGroupIdentifier: "group.net.blocka.app")
         else {
-
+            os_log(.error, "blockaweb: App Group containerURL returned nil - provisioning issue!")
             return nil
         }
+        os_log(.default, "blockaweb: App Group URL: %{public}@", containerURL.path)
         let fileURL = containerURL.appendingPathComponent("blockaweb.app.status.json")
         guard FileManager.default.fileExists(atPath: fileURL.path),
             let content = try? String(contentsOf: fileURL, encoding: .utf8),
@@ -175,6 +177,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         if let containerURL = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: "group.net.blocka.app")
         {
+            os_log(.default, "blockaweb: markExtensionAsEnabled - App Group URL: %{public}@", containerURL.path)
             let fileURL = containerURL.appendingPathComponent("blockaweb.ping.json")
             let status = JsonBlockaweb(
                 timestamp: Date(),
@@ -192,6 +195,8 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             } catch {
                 os_log(.error, "blockaweb: failed to write blockaweb JSON: %{public}@", "\(error)")
             }
+        } else {
+            os_log(.error, "blockaweb: markExtensionAsEnabled - App Group containerURL returned nil!")
         }
     }
 
