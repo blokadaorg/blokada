@@ -104,9 +104,25 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     // MARK: - Rule Configuration
 
     private func getEnabledRules() -> [String: Bool] {
-        // Static configuration for which rules should be enabled
+        // Get current app status to determine rule availability
+        let status = decodeAppStatus()
+
+        // Rules are only enabled for freemium users without active subscription
+        let shouldEnableRules: Bool = {
+            guard let status = status else { return false }
+            guard status.active else { return false }
+            guard status.freemium == true else { return false }
+
+            // Check if subscription is expired (timestamp < now)
+            let now = Date()
+            let accountExpiry = status.timestamp
+            return now > accountExpiry
+        }()
+
+        os_log(.default, "blockaweb: rules enabled: %{public}@", shouldEnableRules ? "true" : "false")
+
         return [
-            "oisd-small": true
+            "oisd-small": shouldEnableRules
         ]
     }
 
