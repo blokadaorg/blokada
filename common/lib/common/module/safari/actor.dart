@@ -204,11 +204,10 @@ class SafariActor with Actor, Logging {
     if (ping == null) return false;
     final now = DateTime.now();
 
-    log(m).pair("ping active", ping.active);
     log(m).pair("ping timestamp valid", now.difference(ping.timestamp) < _pingStatusValidity);
 
     if (now.difference(ping.timestamp) < _pingStatusValidity) {
-      return ping.active;
+      return true;
     }
     return false;
   }
