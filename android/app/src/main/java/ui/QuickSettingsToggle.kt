@@ -20,8 +20,11 @@ import binding.isWorking
 import channel.app.AppStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.blokada.R
 import service.NOTIF_QUICKSETTINGS
 import service.NotificationService
@@ -40,37 +43,64 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
     private val notification by lazy { NotificationService }
 
     private var tileActive = false
+    private var statusCollectorJob: Job? = null
+    private val tileMutex = Mutex()
 
-    init {
-        scope.launch {
-            app.appStatus.collect { syncStatus() }
+    // Defer status collection until tile is actually being used to prevent
+    // EGL context conflicts with Flutter rendering on Android 10
+    private fun startStatusCollection() {
+        if (statusCollectorJob?.isActive == true) return
+        
+        statusCollectorJob = scope.launch {
+            app.appStatus.collect { 
+                if (tileActive) {
+                    tileMutex.withLock {
+                        syncStatus()
+                    }
+                }
+            }
         }
     }
 
     override fun onStartListening() {
         tileActive = true
-        scope.launch { syncStatus() }
+        startStatusCollection()
+        scope.launch { 
+            tileMutex.withLock {
+                syncStatus() 
+            }
+        }
     }
 
     override fun onStopListening() {
         tileActive = false
+        // Cancel collection when tile is no longer actively listened to
+        statusCollectorJob?.cancel()
+        statusCollectorJob = null
     }
 
     override fun onTileAdded() {
-        scope.launch { syncStatus() }
+        startStatusCollection()
+        scope.launch { 
+            tileMutex.withLock {
+                syncStatus() 
+            }
+        }
     }
 
     override fun onClick() {
         scope.launch {
-            syncStatus()?.let { (isActive, isVpn) ->
-                if (isActive) {
-                    log.v("Turning off from QuickSettings")
-                    app.pause()
-                    if (isVpn) notification.show(QuickSettingsNotification())
-                } else {
-                    log.v("Turning on from QuickSettings")
-                    notification.cancel(QuickSettingsNotification())
-                    app.unpause()
+            tileMutex.withLock {
+                syncStatus()?.let { (isActive, isVpn) ->
+                    if (isActive) {
+                        log.v("Turning off from QuickSettings")
+                        app.pause()
+                        if (isVpn) notification.show(QuickSettingsNotification())
+                    } else {
+                        log.v("Turning on from QuickSettings")
+                        notification.cancel(QuickSettingsNotification())
+                        app.unpause()
+                    }
                 }
             }
         }
@@ -118,11 +148,16 @@ class QuickSettingsToggle : TileService(), FlavorSpecific {
         updateTile(qsTile)
     }
 
-    // Apparently it can crash for unknown reasons
+    // Enhanced error handling to prevent EGL context issues on Android 10
     private fun updateTile(gsTile: Tile) {
         try {
-            qsTile.updateTile()
+            // Only update if tile is currently active to prevent concurrent EGL operations
+            if (tileActive && gsTile != null) {
+                gsTile.updateTile()
+            }
         } catch (ex: Exception) {
+            log.w("Failed to update tile: ${ex.message}")
         }
     }
+    
 }
