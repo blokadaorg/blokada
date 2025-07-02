@@ -28,7 +28,7 @@ class SafariActor with Actor, Logging {
   late final _accountStore = Core.get<AccountStore>();
   late final _payment = Core.get<PaymentActor>();
 
-  final Duration _pingStatusValidity = const Duration(minutes: 5);
+  final Duration _pingStatusValidity = const Duration(hours: 24);
 
   DateTime _accountActiveUntil = DateTime(0);
   bool _appActive = false;
