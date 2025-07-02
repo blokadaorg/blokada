@@ -19,11 +19,13 @@ export function determineStatusState(status) {
     const freemiumExpiry = new Date(freemiumYoutubeUntil);
 
     if (!isValidDate(freemiumExpiry)) {
-      return { state: "expired", messageKey: "status_trial_expired" };
+      // Invalid date, treat as essentials (basic freemium)
+      return { state: "essentials", messageKey: "status_essentials_active" };
     }
 
     if (freemiumExpiry <= now) {
-      return { state: "expired", messageKey: "status_trial_expired" };
+      // Trial expired, back to essentials (basic freemium)  
+      return { state: "essentials", messageKey: "status_essentials_active" };
     }
 
     const daysLeft = Math.ceil((freemiumExpiry - now) / (24 * 60 * 60 * 1000));
@@ -36,7 +38,12 @@ export function determineStatusState(status) {
   }
 
   if (isAccountExpired) {
-    return { state: "expired", messageKey: "status_access_expired" };
+    // If freemium is available, user has basic content blocking (essentials)
+    if (freemium) {
+      return { state: "essentials", messageKey: "status_essentials_active" };
+    }
+    // No freemium eligibility, truly inactive
+    return { state: "inactive", messageKey: "status_inactive" };
   }
 
   if (isValidDate(accountExpiry)) {

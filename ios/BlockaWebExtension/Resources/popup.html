@@ -3,15 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="popup.css">
     <script type="module" src="popup.js"></script>
 </head>
 
 <body>
-    <div class="popup-container">
+    <div class="popup-container" id="main-view">
         <img src="images/logo.svg" alt="BlockaWeb Logo" class="logo">
-        <p id="status-text"></p>
+        <div id="status-text" class="status-button"></div>
         <button id="open-app-btn"></button>
+    </div>
+    
+    <div class="popup-container detail-view" id="detail-view" style="display: none;">
+        <div class="detail-header">
+            <button id="back-btn" class="back-button"></button>
+        </div>
+        <div id="detail-status-title" class="detail-title"></div>
+        <div id="detail-features" class="features-list"></div>
     </div>
 </body>
 

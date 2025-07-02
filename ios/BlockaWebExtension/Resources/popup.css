@@ -1,10 +1,28 @@
 html,
 body {
-    width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
+    background-color: #000;
+}
+
+/* iPhone sizing */
+@media screen and (max-width: 414px) {
+    html, body {
+        width: 100vw;
+        height: 400px;
+        max-height: 400px;
+        min-height: 400px;
+    }
+}
+
+/* iPad sizing */
+@media screen and (min-width: 415px) {
+    html, body {
+        width: 380px;
+        height: 480px;
+    }
 }
 
 :root {
@@ -12,7 +30,8 @@ body {
 }
 
 body {
-    padding: 16px;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
     font-family: system-ui;
     text-align: center;
@@ -21,7 +40,25 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    background-color: #000;
     color: #fff;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Ensure background covers iPhone properly */
+@media screen and (max-width: 414px) {
+    body {
+        background-position: center center;
+        background-size: cover;
+        background-color: #000;
+        height: 400px;
+        max-height: 400px;
+    }
+    
+    html {
+        background-color: #000;
+    }
 }
 
 .popup-container {
@@ -31,73 +68,149 @@ body {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    gap: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* iPhone container */
+@media screen and (max-width: 414px) {
+    .popup-container {
+        padding: 16px;
+        gap: 16px;
+        justify-content: flex-start;
+    }
+}
+
+/* iPad container */
+@media screen and (min-width: 415px) {
+    .popup-container {
+        padding: 24px;
+        gap: 20px;
+    }
 }
 
 /* Ensure the logo image fits properly in the popup */
 .logo {
     display: block;
-    width: auto;
-    max-width: 25%;
     object-fit: contain;
     margin: 0 auto;
     flex-shrink: 0;
 }
 
-/* Status text styling */
-#status-text {
-    font-size: 1.1rem;
-    margin: 20px 0;
-    padding: 12px 16px;
+/* iPhone logo */
+@media screen and (max-width: 414px) {
+    .logo {
+        width: auto;
+        max-width: 22%;
+        height: 50px;
+        margin-bottom: 8px;
+    }
+}
+
+/* iPad logo */
+@media screen and (min-width: 415px) {
+    .logo {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Status button styling */
+.status-button {
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.3s ease;
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+}
+
+/* iPhone status button */
+@media screen and (max-width: 414px) {
+    .status-button {
+        font-size: 1rem;
+        margin: 8px 0;
+        padding: 10px 14px;
+    }
+}
+
+/* iPad status button */
+@media screen and (min-width: 415px) {
+    .status-button {
+        font-size: 1.1rem;
+        margin: 20px 0;
+        padding: 12px 16px;
+    }
+}
+
+.status-button::after {
+    content: ">";
+    font-size: 1.2rem;
+    font-weight: bold;
+    opacity: 0.7;
+    margin-left: 8px;
+}
+
+.status-button:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+.status-button:active {
+    transform: scale(0.98);
 }
 
 /* Status-specific styling */
-.status-active {
-    background-color: rgba(34, 197, 94, 0.2);
-    border: 2px solid rgba(34, 197, 94, 0.6);
-    color: #10b981;
-    box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+.status-essentials {
+    --status-color: 72, 169, 166;
+    background-color: rgba(var(--status-color), 0.2);
+    border: 2px solid rgba(var(--status-color), 0.6);
+    color: #48A9A6;
+    box-shadow: 0 0 12px rgba(var(--status-color), 0.3);
+}
+
+.status-cloud {
+    --status-color: 0, 122, 255;
+    background-color: rgba(var(--status-color), 0.2);
+    border: 2px solid rgba(var(--status-color), 0.6);
+    color: #007AFF;
+    box-shadow: 0 0 12px rgba(var(--status-color), 0.3);
 }
 
 .status-inactive {
-    background-color: rgba(156, 163, 175, 0.2);
-    border: 2px solid rgba(156, 163, 175, 0.6);
+    --status-color: 156, 163, 175;
+    background-color: rgba(var(--status-color), 0.2);
+    border: 2px solid rgba(var(--status-color), 0.6);
     color: #9ca3af;
+    cursor: default;
 }
 
-.status-expired {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 2px solid rgba(239, 68, 68, 0.6);
-    color: #ef4444;
-    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+.status-inactive::after {
+    display: none;
 }
 
-.status-expiring {
-    background-color: rgba(245, 158, 11, 0.2);
-    border: 2px solid rgba(245, 158, 11, 0.6);
-    color: #f59e0b;
-    box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+.status-inactive:hover {
+    transform: none;
+    opacity: 1;
 }
 
 .status-trial {
-    background-color: rgba(255, 149, 0, 0.2);
-    border: 2px solid rgba(255, 149, 0, 0.6);
+    --status-color: 255, 149, 0;
+    background-color: rgba(var(--status-color), 0.2);
+    border: 2px solid rgba(var(--status-color), 0.6);
     color: #ff9500;
-    box-shadow: 0 0 12px rgba(255, 149, 0, 0.3);
+    box-shadow: 0 0 12px rgba(var(--status-color), 0.3);
 }
 
 /* Open app button styling */
-#open-app-btn {
+/* Button styling */
+.app-button, #open-app-btn {
     display: inline-block;
-    font-size: 1rem;
-    padding: 12px 24px;
     background-color: rgba(255, 255, 255, 0.15);
     border: none;
     border-radius: 8px;
@@ -110,13 +223,153 @@ body {
     margin-top: auto;
 }
 
-#open-app-btn:hover {
+/* iPhone button */
+@media screen and (max-width: 414px) {
+    .app-button, #open-app-btn {
+        font-size: 1rem;
+        padding: 12px 24px;
+        margin-top: auto;
+        margin-bottom: 20px;
+    }
+}
+
+/* iPad button */
+@media screen and (min-width: 415px) {
+    .app-button, #open-app-btn {
+        font-size: 1rem;
+        padding: 14px 28px;
+    }
+}
+
+.app-button:hover, #open-app-btn:hover {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-#open-app-btn:active {
+.app-button:active, #open-app-btn:active {
     background-color: rgba(255, 255, 255, 0.35);
 }
+
+/* Detail view styling */
+.detail-view {
+    display: none;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+}
+
+.detail-view.active {
+    display: flex;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.detail-view.entering {
+    display: flex;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.detail-view.exiting {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.detail-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.back-button:hover {
+    opacity: 1;
+}
+
+.detail-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+
+/* iPhone features list */
+@media screen and (max-width: 414px) {
+    .features-list {
+        gap: 6px;
+        margin-bottom: 8px;
+        flex-grow: 0;
+    }
+}
+
+/* iPad features list */
+@media screen and (min-width: 415px) {
+    .features-list {
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* iPhone feature items */
+@media screen and (max-width: 414px) {
+    .feature-item {
+        padding: 4px 0;
+        font-size: 0.9rem;
+    }
+}
+
+/* iPad feature items */
+@media screen and (min-width: 415px) {
+    .feature-item {
+        padding: 10px 0;
+        font-size: 1.1rem;
+    }
+}
+
+.feature-icon {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", system-ui;
+}
+
+.feature-enabled {
+    color: #10b981;
+}
+
+.feature-disabled {
+    color: #9ca3af;
+}
+
+.feature-trial {
+    color: #ff9500;
+}
+
 
 @media (prefers-color-scheme: dark) {
     /* Dark Mode styles go here. */

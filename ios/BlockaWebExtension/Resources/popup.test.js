@@ -19,7 +19,7 @@ const tests = [
   {
     name: "Expired subscription",
     input: { active: true, timestamp: "2023-01-01T00:00:00Z" },
-    expected: { state: "expired", messageKey: "status_access_expired" },
+    expected: { state: "inactive", messageKey: "status_inactive" },
   },
   {
     name: "Expiring soon (3 days)",
@@ -46,34 +46,34 @@ const tests = [
     },
   },
   {
-    name: "Expired freemium trial",
+    name: "Expired freemium trial (back to essentials)",
     input: {
       active: true,
       timestamp: "2023-01-01T00:00:00Z",
       freemium: true,
       freemiumYoutubeUntil: "2023-06-01T00:00:00Z",
     },
-    expected: { state: "expired", messageKey: "status_trial_expired" },
+    expected: { state: "essentials", messageKey: "status_essentials_active" },
   },
   {
-    name: "Invalid freemium date",
+    name: "Invalid freemium date (treat as essentials)",
     input: {
       active: true,
       timestamp: "2023-01-01T00:00:00Z",
       freemium: true,
       freemiumYoutubeUntil: "invalid-date",
     },
-    expected: { state: "expired", messageKey: "status_trial_expired" },
+    expected: { state: "essentials", messageKey: "status_essentials_active" },
   },
   {
-    name: "Missing freemiumYoutubeUntil (Swift optional handling)",
+    name: "Active freemium essentials (content blocking only)",
     input: {
       active: true,
       timestamp: "2023-01-01T00:00:00Z",
       freemium: true,
-      // freemiumYoutubeUntil is undefined (Swift doesn't include it when nil)
+      // freemiumYoutubeUntil is undefined - user has basic freemium access
     },
-    expected: { state: "expired", messageKey: "status_trial_expired" },
+    expected: { state: "essentials", messageKey: "status_essentials_active" },
   },
   {
     name: "Active freemium trial with Swift date format",
