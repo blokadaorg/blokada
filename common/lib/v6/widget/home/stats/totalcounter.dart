@@ -3,8 +3,6 @@ import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/minicard/summary.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/stage/channel.pg.dart';
-import 'package:common/platform/stage/stage.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:common/util/mobx.dart';
 import 'package:flutter/material.dart';

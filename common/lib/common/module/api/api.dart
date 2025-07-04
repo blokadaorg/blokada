@@ -1,10 +1,15 @@
+import 'dart:convert';
+import 'dart:math' as math;
+
 import 'package:common/core/core.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:flutter/services.dart';
 
 part 'endpoint.dart';
 part 'error.dart';
+part 'freemium_data.dart';
 part 'http.dart';
+part 'mockable_http.dart';
 
 class AccountId extends AsyncValue<String> {
   AccountId() : super(sensitive: true);
@@ -17,9 +22,7 @@ class AccountEphemeral extends AsyncValue<AccountState> {
 class BaseUrl extends Value<String> {
   BaseUrl()
       : super(load: () {
-          return Core.act.isFamily
-              ? "https://family.api.blocka.net/"
-              : "https://api.blocka.net/";
+          return Core.act.isFamily ? "https://family.api.blocka.net/" : "https://api.blocka.net/";
         });
 }
 
@@ -78,7 +81,9 @@ class ApiModule with Module {
 
     await register(AccountId());
     await register(AccountEphemeral());
-    await register(Http());
+
+    // Register FreemiumAwareHttp instead of regular Http
+    await register<Http>(MockableHttp());
 
     await register(Api());
   }

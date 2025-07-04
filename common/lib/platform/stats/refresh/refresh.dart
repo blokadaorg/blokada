@@ -104,8 +104,9 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   @action
   Future<void> onAccountChanged(Marker m) async {
     final account = _account.account!;
-    _accountIsActive = account.type.isActive();
-    log(m).t("statsRefresh, account is active: $_accountIsActive");
+    // Allow stats for active accounts OR freemium accounts (for sample data)
+    _accountIsActive = account.type.isActive() || _account.isFreemium;
+    log(m).t("statsRefresh, account is active: $_accountIsActive, freemium: ${_account.isFreemium}");
     _reschedule(m);
   }
 

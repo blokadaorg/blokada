@@ -7,16 +7,56 @@
     "message": "حسِّن تجربة التصفح على Safari من خلال حظر الإعلانات والمتعقبات والمحتوى غير المرغوب فيه.",
     "description": "Description of what the extension does."
   },
-  "status_enabled": {
-    "message": "تم تفعيل إضافة Safari!",
-    "description": "Shown in the popup when the extension is active."
-  },
   "status_inactive": {
     "message": "تحقّق من الحالة في تطبيق Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada نشطة",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_essentials_active": {
+    "message": "حجب Safari نشط",
+    "description": "Shown when freemium essentials (basic content blocking) is active."
+  },
+  "status_expiring_soon": {
+    "message": "الحساب ينتهي قريباً – تحقق من التطبيق",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "النسخة التجريبية المجانية نشطة",
+    "description": "Shown when freemium trial is active."
+  },
+  "status_trial_active_detailed": {
+    "message": "النسخة التجريبية المجانية نشطة ({DAYS} أيام متبقية)",
+    "description": "Shown when freemium trial is active with days remaining in detail view."
+  },
   "open_app": {
     "message": "افتح Blokada",
     "description": "Text on the button that opens the main app."
+  },
+  "back_button": {
+    "message": "عودة",
+    "description": "Text on the back button in detail view."
+  },
+  "feature_safari_blocking": {
+    "message": "حظر إعلانات Safari",
+    "description": "Name of the Safari ad blocking feature."
+  },
+  "feature_device_wide": {
+    "message": "حماية الجهاز",
+    "description": "Name of the device-wide protection feature."
+  },
+  "feature_youtube_ads": {
+    "message": "إعلانات YouTube",
+    "description": "Name of the YouTube ad blocking feature."
+  },
+  "feature_youtube_ads_trial": {
+    "message": "إعلانات YouTube ({DAYS} أيام)",
+    "description": "Name of the YouTube ad blocking feature with trial days remaining."
+  },
+  "feature_cookie_popups": {
+    "message": "نوافذ ملفات تعريف الارتباط (قريباً)",
+    "description": "Name of the cookie popup blocking feature."
   }
 }

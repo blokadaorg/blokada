@@ -768,3 +768,18 @@
 "bypass none" = "Nie dodano aplikacji. Użyj przycisku Dodaj na górze aby dodać nowe aplikacje do tej listy.";
 "bypass action add" = "Dodaj aplikację";
 "bypass dialog add brief" = "Zacznij pisać aby wyszukać aplikacje.";
+
+// A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
+"freemium home status header" = "Essentials";
+"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+
+"freemium stats cta header" = "Unlock full tracking control";
+"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
+"freemium filters cta header" = "Unlock advanced blocklists";
+"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
+"freemium activity cta header" = "Unlock your stats";
+"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+
+"freemium sheet safari header" = "Start blocking ads in Safari";
+"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
+"freemium sheet safari cta" = "Open Safari";

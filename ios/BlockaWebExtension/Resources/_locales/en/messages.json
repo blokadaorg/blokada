@@ -1,22 +1,62 @@
 {
-    "extension_name": {
-        "message": "Blokada",
-        "description": "The display name for the extension."
-    },
-    "extension_description": {
-        "message": "Improve your web browsing experience in Safari by blocking ads, trackers, and other unwanted content.",
-        "description": "Description of what the extension does."
-    },
-    "status_enabled": {
-        "message": "Safari Extension Enabled!",
-        "description": "Shown in the popup when the extension is active."
-    },
-    "status_inactive": {
-        "message": "Check status in Blokada",
-        "description": "Shown in the popup when the extension appears to be inactive."
-    },
-    "open_app": {
-        "message": "Open Blokada",
-        "description": "Text on the button that opens the main app."
-    }
+  "extension_name": {
+    "message": "Blokada",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Improve your web browsing experience in Safari by blocking ads, trackers, and other unwanted content.",
+    "description": "Description of what the extension does."
+  },
+  "status_inactive": {
+    "message": "Check status in Blokada",
+    "description": "Shown in the popup when the extension appears to be inactive."
+  },
+  "status_blocking_active": {
+    "message": "Blokada is active",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_essentials_active": {
+    "message": "Safari blocking active",
+    "description": "Shown when freemium essentials (basic content blocking) is active."
+  },
+  "status_expiring_soon": {
+    "message": "Account expiring soon – check the app",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "Free trial active",
+    "description": "Shown when freemium trial is active."
+  },
+  "status_trial_active_detailed": {
+    "message": "Free trial active ({DAYS} days left)",
+    "description": "Shown when freemium trial is active with days remaining in detail view."
+  },
+  "open_app": {
+    "message": "Open Blokada",
+    "description": "Text on the button that opens the main app."
+  },
+  "back_button": {
+    "message": "Back",
+    "description": "Text on the back button in detail view."
+  },
+  "feature_safari_blocking": {
+    "message": "Safari ad blocking",
+    "description": "Name of the Safari ad blocking feature."
+  },
+  "feature_device_wide": {
+    "message": "Device-wide protection",
+    "description": "Name of the device-wide protection feature."
+  },
+  "feature_youtube_ads": {
+    "message": "YouTube ads",
+    "description": "Name of the YouTube ad blocking feature."
+  },
+  "feature_youtube_ads_trial": {
+    "message": "YouTube ads ({DAYS} days)",
+    "description": "Name of the YouTube ad blocking feature with trial days remaining."
+  },
+  "feature_cookie_popups": {
+    "message": "Cookie popups (coming soon)",
+    "description": "Name of the cookie popup blocking feature."
+  }
 }

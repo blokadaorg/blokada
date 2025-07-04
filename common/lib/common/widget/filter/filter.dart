@@ -66,21 +66,16 @@ class FilterWidgetState extends State<FilterWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      widget.texts.tags
-                          .map((e) => e.i18n)
-                          .join(", ")
-                          .toUpperCase(),
+                  Text(widget.texts.tags.map((e) => e.i18n).join(", ").toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w500,
                             color: context.theme.divider,
                           )),
                   const SizedBox(height: 8.0),
                   Text(widget.texts.title.i18n,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
                   const SizedBox(height: 4.0),
                   Text(
                     widget.texts.description.i18n,
@@ -92,8 +87,7 @@ class FilterWidgetState extends State<FilterWidget> {
             const SizedBox(height: 16.0),
             Container(
               decoration: BoxDecoration(
-                color:
-                    (widget.bgColor == null) ? Colors.transparent : bgOptions,
+                color: (widget.bgColor == null) ? Colors.transparent : bgOptions,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
@@ -127,11 +121,7 @@ class FilterWidgetState extends State<FilterWidget> {
                   _updateUserChoice(widget.filter, it.optionName, selected);
                 }),
             Divider(
-                indent: 16,
-                endIndent: 16,
-                thickness: 0.4,
-                height: 4,
-                color: context.theme.divider),
+                indent: 16, endIndent: 16, thickness: 0.4, height: 4, color: context.theme.divider),
           ];
         })
         .flatten()

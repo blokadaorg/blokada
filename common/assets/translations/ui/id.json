@@ -554,5 +554,16 @@
     "bypass info": "Beberapa app mungkin tidak berfungsi sebagaimana mestinya dengan VPN. Anda bisa menambahkan app tersebut ke daftar bypass yang memungkinkan app tersebut beroperasi di luar jalur VPN, hal ini bisa membantu dalam hal konektivitas namun mengurangi tingkat privasi. Blokada juga memiliki beberapa app yang sudah dimasukkan ke dalam daftar bypass secara default. Catatan: jika Anda mengaktifkan opsi 'Blokir koneksi tanpa VPN' di perangkat Anda, app yang di-bypass tidak akan terkoneksi ke internet.",
     "bypass none": "Tidak ada app yang ditambahkan. Gunakan tombol Tambah App di atas untuk menambahkan app ke daftar ini.",
     "bypass action add": "Tambah App",
-    "bypass dialog add brief": "Mulai mengetik untuk mencari app."
+    "bypass dialog add brief": "Mulai mengetik untuk mencari app.",
+    "freemium home status header": "Essentials",
+    "freemium home status desc safari": "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.",
+    "freemium stats cta header": "Unlock full tracking control",
+    "freemium stats cta desc": "See which trackers are reaching you - and block them.",
+    "freemium filters cta header": "Unlock advanced blocklists",
+    "freemium filters cta desc": "Upgrade your plan to enable advanced protection and extra blocklists.",
+    "freemium activity cta header": "Unlock your stats",
+    "freemium activity cta desc": "Upgrade to Plus to access detailed statistics and insights.",
+    "freemium sheet safari header": "Start blocking ads in Safari",
+    "freemium sheet safari desc": "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
+    "freemium sheet safari cta": "Open Safari"
 }

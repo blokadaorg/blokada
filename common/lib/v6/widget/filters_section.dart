@@ -1,28 +1,40 @@
 import 'package:collection/collection.dart';
 import 'package:common/common/module/filter/filter.dart';
+import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/filter/filter.dart';
+import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/profile/profile.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/filter/filter.dart';
 import 'package:flutter/material.dart';
 
 class V6FiltersSection extends StatefulWidget {
   final bool twoColumns;
+  final bool freemium;
 
-  const V6FiltersSection({Key? key, this.twoColumns = false}) : super(key: key);
+  const V6FiltersSection({
+    Key? key,
+    this.twoColumns = false,
+    this.freemium = true,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => V6FiltersSectionState();
 }
 
-class V6FiltersSectionState extends State<V6FiltersSection>
-    with Logging, Disposables {
+class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Disposables {
   late final _knownFilters = Core.get<KnownFilters>();
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _legacy = Core.get<PlatformFilterActor>();
+  late final _accountStore = Core.get<AccountStore>();
 
   late JsonProfile profile;
+
+  bool get _isFreemium {
+    return _accountStore.isFreemium;
+  }
 
   @override
   void initState() {
@@ -39,13 +51,23 @@ class V6FiltersSectionState extends State<V6FiltersSection>
   @override
   Widget build(BuildContext context) {
     final padding = SizedBox(height: getTopPadding(context)) as Widget;
-    final filters = widget.twoColumns
-        ? _buildFiltersPerRow(context)
-        : _buildFilters(context);
+    final filters = widget.twoColumns ? _buildFiltersPerRow(context) : _buildFilters(context);
 
-    return ListView(primary: true, children: [padding] + filters
-        //_buildFooter(context),
-        );
+    return Stack(
+      children: [
+        IgnorePointer(
+          ignoring: _isFreemium,
+          child: ListView(primary: true, children: [padding] + filters),
+        ),
+        (_isFreemium)
+            ? FreemiumScreen(
+                title: "freemium filters cta header".i18n,
+                subtitle: "freemium filters cta desc".i18n,
+                placement: Placement.freemiumFilters,
+              )
+            : Container(),
+      ],
+    );
   }
 
   List<Widget> _buildFiltersPerRow(BuildContext context) {
@@ -96,24 +118,20 @@ class V6FiltersSectionState extends State<V6FiltersSection>
     const Color(0xFFFDB39C),
   ];
 
-  Widget _buildFilter(
-      BuildContext context, Filter filter, List<String> selections,
+  Widget _buildFilter(BuildContext context, Filter filter, List<String> selections,
       {Color? color}) {
     try {
-      final texts = filterDecorDefaults
-          .firstWhere((it) => it.filterName == filter.filterName);
+      final texts = filterDecorDefaults.firstWhere((it) => it.filterName == filter.filterName);
       return FilterWidget(
           filter: filter,
           texts: texts,
           selections: selections.toList(), // To not edit in place
           onSelect: (sel, option) {
-            _legacy.toggleFilterOption(
-                filter.filterName, option, Markers.userTap);
+            _legacy.toggleFilterOption(filter.filterName, option, Markers.userTap);
           },
           bgColor: color);
     } catch (e) {
-      throw Exception(
-          "Error getting filter decor, filter: ${filter.filterName}: $e");
+      throw Exception("Error getting filter decor, filter: ${filter.filterName}: $e");
     }
   }
 }

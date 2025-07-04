@@ -7,6 +7,7 @@ import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/account/account.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/app/start/start.dart';
@@ -33,6 +34,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late final _stats = Core.get<StatsStore>();
   late final _home = Core.get<HomeStore>();
   late final _modal = Core.get<CurrentModalValue>();
+  late final _account = Core.get<AccountStore>();
 
   late Future<List<ui.Image>> loadIcons;
 
@@ -312,24 +314,26 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
                             painter: PowerButtonPainter(
-                                iconImage: (status == AppStatus.paused)
-                                    ? snapshot.data![1]
-                                    : snapshot.data![0],
-                                alphaLoading: animLoading.value,
-                                alphaCover: animCover.value,
-                                alphaLibre: animLibre.value,
-                                alphaPlus: animPlus.value,
-                                arcAlpha: animArcAlpha.value,
-                                arcStart: animArcLoading.value,
-                                arcEnd: animArcCounter.value,
-                                arcTimerEnd: animArcTimerCounter.value,
-                                arcCounter: [
-                                  animArc2Counter.value *
-                                      math.min(2.0, (stats.dayBlockedRatio / 100)),
-                                  0,
-                                  0
-                                ],
-                                colorShadow: theme.shadow),
+                              iconImage: (status == AppStatus.paused)
+                                  ? snapshot.data![1]
+                                  : snapshot.data![0],
+                              alphaLoading: animLoading.value,
+                              alphaCover: animCover.value,
+                              alphaLibre: animLibre.value,
+                              alphaPlus: animPlus.value,
+                              arcAlpha: animArcAlpha.value,
+                              arcStart: animArcLoading.value,
+                              arcEnd: animArcCounter.value,
+                              arcTimerEnd: animArcTimerCounter.value,
+                              arcCounter: [
+                                animArc2Counter.value *
+                                    math.min(2.0, (stats.dayBlockedRatio / 100)),
+                                0,
+                                0
+                              ],
+                              colorShadow: theme.shadow,
+                              isFreemium: _account.isFreemium,
+                            ),
                           );
                         },
                       );
@@ -346,13 +350,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 if (!status.isWorking()) {
                   setState(() {
                     log(Markers.userTap).trace("tappedPowerButton", (m) async {
-                      if (!status.isActive()) {
+                      if (!status.isActive() || _account.isFreemium) {
                         try {
                           await _appStart.toggleApp(m);
                         } on OnboardingException catch (_) {
                           _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                         }
                       } else {
+                        // Show pause action sheet for deactivating only if not freemium
                         showPauseActionSheet(context, onSelected: (duration) {
                           log(Markers.userTap).trace("tappedPowerButtonDialog", (m) async {
                             _appStart.toggleApp(m, duration: duration);
@@ -478,6 +483,7 @@ class PowerButtonPainter extends CustomPainter {
   final List<double> arcCounter;
   final double arcTimerEnd;
   final Color colorShadow;
+  final bool isFreemium;
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
@@ -485,6 +491,8 @@ class PowerButtonPainter extends CustomPainter {
   late Color colorRingLibre2 = Color(0xFF5856D5).withOpacity(alphaLibre);
   late Color colorRingPlus1 = Color(0xFFFF9400).withOpacity(alphaPlus);
   late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(alphaPlus);
+  late Color colorLibreFreemium1 = Color(0xFFACBDBA).withOpacity(alphaLibre);
+  late Color colorLibreFreemium2 = Color(0xFF48A9A6).withOpacity(alphaLibre);
   late Color colorText = Colors.white;
   late Color colorLoading = Colors.white.withOpacity(alphaLoading);
   late Color colorTimer = colorShadow;
@@ -501,6 +509,7 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcCounter,
     required this.arcTimerEnd,
     required this.colorShadow,
+    required this.isFreemium,
   });
 
   @override
@@ -554,6 +563,18 @@ class PowerButtonPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = ringWidth;
 
+    Paint freemiumRingPaint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: [
+          colorLibreFreemium1,
+          colorLibreFreemium2,
+        ],
+      ).createShader(rect)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = ringWidth;
+
     Paint plusRingPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.centerLeft,
@@ -587,6 +608,12 @@ class PowerButtonPainter extends CustomPainter {
     //libreRingPaint.alpha = alphaBlue
     canvas.drawCircle(
         Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, libreRingPaint);
+
+    if (isFreemium) {
+      // ring freemium
+      canvas.drawCircle(
+          Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, freemiumRingPaint);
+    }
 
     // ring orange
     // plusRingPaint.alpha = alphaOrange

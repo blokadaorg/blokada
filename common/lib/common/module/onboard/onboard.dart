@@ -4,6 +4,7 @@ import 'package:common/common/module/rate/rate.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/v6/module/freemium/freemium.dart';
 
 part 'actor.dart';
 part 'command.dart';

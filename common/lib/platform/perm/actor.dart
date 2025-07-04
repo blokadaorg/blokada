@@ -162,7 +162,11 @@ class PlatformPermActor with Logging, Actor {
     await setVpnPermEnabled(isEnabled, m);
   }
 
-  askNotificationPermissions(Marker m) async {
+  askNotificationPermissions(Marker m, {bool checkForPerms = false}) async {
+    if (checkForPerms && await _channel.doNotificationEnabled()) {
+      return;
+    }
+
     await _channel.doAskNotificationPerms();
   }
 }

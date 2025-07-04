@@ -29,15 +29,15 @@ class FamilyActor with Logging, Actor {
       _account.addOn(accountChanged, _postActivationOnboarding);
       _payment.addOnValue(paymentSuccessful, activateCta);
       _isLocked.onChange.listen(_updatePhaseFromLock);
-      _link.linkedMode.onChange.listen(
-          (_) => _updatePhase(Markers.root, reason: "linkedModeChanged"));
+      _link.linkedMode.onChange
+          .listen((_) => _updatePhase(Markers.root, reason: "linkedModeChanged"));
       _link.linkDeviceFinished = (m) => _reload(m);
 
       _onStatsChanges();
       _onDnsPermChanges();
 
-      _device.onChange = (dirty) => log(Markers.device)
-          .trace("devicesChanged", (m) => _reload(m, dirty: dirty));
+      _device.onChange =
+          (dirty) => log(Markers.device).trace("devicesChanged", (m) => _reload(m, dirty: dirty));
 
       await _reload(m);
     });
@@ -76,8 +76,7 @@ class FamilyActor with Logging, Actor {
     });
   }
 
-  _reload(Marker m,
-      {bool dirty = false, bool createDeviceIfNeeded = false}) async {
+  _reload(Marker m, {bool dirty = false, bool createDeviceIfNeeded = false}) async {
     return await log(m).trace("reload", (m) async {
       if (!dirty) {
         await _device.reload(m, createIfNeeded: createDeviceIfNeeded);
@@ -86,8 +85,7 @@ class FamilyActor with Logging, Actor {
       final deviceTag = (await _thisDevice.fetch(m))?.deviceTag;
       log(m).pair("deviceTag", deviceTag);
 
-      devices.now = FamilyDevices([], null)
-          .fromApi(_device.devices, _profiles.profiles, deviceTag);
+      devices.now = FamilyDevices([], null).fromApi(_device.devices, _profiles.profiles, deviceTag);
       _stats.monitorDeviceTags = devices.now.getTags();
 
       await _stats.startAutoRefresh(m);
@@ -112,7 +110,7 @@ class FamilyActor with Logging, Actor {
     _updatePhase(m, reason: "postActivationOnboarding");
 
     log(m).pair("modal", _stage.route.modal);
-    _payment.closePaymentScreen(m);
+    _payment.closePaymentScreen(m, isError: false);
   }
 
   // Locking this device will enable the blocking for "this device"

@@ -4,8 +4,7 @@ class PlatformPaymentChannel with PaymentChannel {
   late final _ops = PaymentOps();
 
   @override
-  Future<void> init(
-          Marker m, String apiKey, AccountId? accountId, bool verboseLogs) =>
+  Future<void> init(Marker m, String apiKey, AccountId? accountId, bool verboseLogs) =>
       _ops.doInit(apiKey, accountId, verboseLogs);
 
   @override
@@ -19,7 +18,7 @@ class PlatformPaymentChannel with PaymentChannel {
       _ops.doShowPaymentScreen(placement.id, forceReload);
 
   @override
-  Future<void> closePaymentScreen() => _ops.doClosePaymentScreen();
+  Future<void> closePaymentScreen(bool isError) => _ops.doClosePaymentScreen(isError);
 
   @override
   Future<void> logOnboardingStep(String name, OnboardingStep step) =>

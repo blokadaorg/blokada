@@ -4,3 +4,6 @@
 [submodule "deps/wireguard-apple"]
 	path = deps/wireguard-apple
 	url = https://github.com/blokadaorg/wireguard-apple
+[submodule "deps/landing-github-pages"]
+	path = deps/landing-github-pages
+	url = https://github.com/blokadaorg/landing-github-pages.git

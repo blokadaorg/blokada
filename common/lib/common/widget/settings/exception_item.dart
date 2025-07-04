@@ -26,53 +26,55 @@ class ExceptionItem extends StatefulWidget {
 class ExceptionItemState extends State<ExceptionItem> {
   @override
   Widget build(BuildContext context) {
-    return _wrapInDismissible(
-        context,
-        widget.entry,
-        widget.blocked,
-        CommonClickable(
-          onTap: () {
-            widget.onChange(widget.entry);
-          },
-          tapBorderRadius: BorderRadius.zero,
-          bgColor: context.theme.bgColorCard,
-          padding:
-              const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 4),
-          child: Row(
-            children: [
-              const SizedBox(width: 12),
-              Container(
-                color: widget.blocked ? Colors.red : Colors.green,
-                width: 4,
-                height: 52,
-              ),
-              const SizedBox(width: 6),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.entry,
-                        style: const TextStyle(fontSize: 18),
-                        overflow: TextOverflow.ellipsis),
-                    Text(
-                      "${widget.blocked ? "block" : "allow"}",
-                      style: TextStyle(
-                          color: context.theme.textSecondary, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-            ],
-          ),
-        ));
+    return _wrapInDismissible(context, widget.entry, widget.blocked, (ctx) => _buildItem(ctx));
   }
 
-  Widget _wrapInDismissible(
-      BuildContext context, String entry, bool blocked, Widget child) {
+  Widget _buildItem(BuildContext context) {
+    return CommonClickable(
+      onTap: () {
+        Slidable.of(context)?.openStartActionPane();
+      },
+      tapBorderRadius: BorderRadius.zero,
+      bgColor: context.theme.bgColorCard,
+      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 4),
+      child: Row(
+        children: [
+          const SizedBox(width: 12),
+          Container(
+            color: widget.blocked ? Colors.red : Colors.green,
+            width: 4,
+            height: 52,
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.entry,
+                    style: const TextStyle(fontSize: 18), overflow: TextOverflow.ellipsis),
+                Text(
+                  "${widget.blocked ? "block" : "allow"}",
+                  style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Icon(
+            CupertinoIcons.chevron_forward,
+            size: 16,
+            color: context.theme.textSecondary,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _wrapInDismissible(BuildContext context, String entry, bool blocked, WidgetBuilder child) {
     return Slidable(
       key: Key(entry),
+      groupTag: '0',
       startActionPane: ActionPane(
         motion: const BehindMotion(),
         extentRatio: 0.3,
@@ -105,7 +107,9 @@ class ExceptionItemState extends State<ExceptionItem> {
           ),
         ],
       ),
-      child: child,
+      child: Builder(builder: (context) {
+        return child(context);
+      }),
     );
   }
 }

@@ -4,9 +4,7 @@ part of 'payment.dart';
 // We are waiting for the flutter SDK to add support for android prorate modes.
 // After that, we can drop the android SDK.
 // This is handled through flutter platform channel (the other class).
-class AdaptyPaymentChannel
-    with Logging, PaymentChannel
-    implements AdaptyUIObserver {
+class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObserver {
   late final _stage = Core.get<StageStore>();
   late final _actor = Core.get<PaymentActor>(); // Circular dep
 
@@ -35,8 +33,7 @@ class AdaptyPaymentChannel
       final assetId = Core.act.platform == PlatformType.iOS ? "ios" : "android";
       await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
     } catch (e, s) {
-      log(m)
-          .e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
+      log(m).e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
     }
   }
 
@@ -47,8 +44,7 @@ class AdaptyPaymentChannel
 
   @override
   logOnboardingStep(String name, OnboardingStep step) async {
-    await _adapty.logShowOnboarding(
-        name: name, screenName: step.name, screenOrder: step.order);
+    await _adapty.logShowOnboarding(name: name, screenName: step.name, screenOrder: step.order);
   }
 
   @override
@@ -58,11 +54,8 @@ class AdaptyPaymentChannel
   }
 
   @override
-  showPaymentScreen(Marker m, Placement placement,
-      {bool forceReload = false}) async {
-    if (forceReload ||
-        _paymentViewForPlacementId != placement.id ||
-        _paymentView == null) {
+  showPaymentScreen(Marker m, Placement placement, {bool forceReload = false}) async {
+    if (forceReload || _paymentViewForPlacementId != placement.id || _paymentView == null) {
       _paymentView = await _createPaywall(m, placement);
       _paymentViewForPlacementId = placement.id;
     }
@@ -71,15 +64,14 @@ class AdaptyPaymentChannel
   }
 
   @override
-  closePaymentScreen({AdaptyUIPaywallView? view}) async {
+  closePaymentScreen(bool isError, {AdaptyUIPaywallView? view}) async {
     view?.dismiss();
     if (view == null) _paymentView?.dismiss();
     _paymentView = null;
-    _actor.handleScreenClosed(Markers.ui);
+    await _actor.handleScreenClosed(Markers.ui, isError: isError);
   }
 
-  Future<AdaptyUIPaywallView> _createPaywall(
-      Marker m, Placement placement) async {
+  Future<AdaptyUIPaywallView> _createPaywall(Marker m, Placement placement) async {
     final paywall = await _fetchPaywall(m, placement);
     return await _adaptyUi.createPaywallView(
       paywall: paywall,
@@ -98,12 +90,12 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFinishPurchase(AdaptyUIPaywallView view,
-      AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
+  void paywallViewDidFinishPurchase(
+      AdaptyUIPaywallView view, AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
         // successful purchase
-        closePaymentScreen(view: view);
+        closePaymentScreen(false, view: view);
         _actor.checkoutSuccessfulPayment(profile.profileId);
         break;
       case AdaptyPurchaseResultPending():
@@ -118,19 +110,17 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFinishRestore(
-      AdaptyUIPaywallView view, AdaptyProfile profile) {
-    closePaymentScreen(view: view);
+  void paywallViewDidFinishRestore(AdaptyUIPaywallView view, AdaptyProfile profile) {
+    closePaymentScreen(false, view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
   }
 
   @override
-  void paywallViewDidPerformAction(
-      AdaptyUIPaywallView view, AdaptyUIAction action) {
+  void paywallViewDidPerformAction(AdaptyUIPaywallView view, AdaptyUIAction action) {
     switch (action) {
       case const CloseAction():
       case const AndroidSystemBackAction():
-        closePaymentScreen(view: view);
+        closePaymentScreen(false, view: view);
         break;
       case OpenUrlAction(url: final url):
         _stage.openUrl(url, Markers.ui);
@@ -141,23 +131,20 @@ class AdaptyPaymentChannel
   }
 
   @override
-  void paywallViewDidFailLoadingProducts(
-      AdaptyUIPaywallView view, AdaptyError error) {
-    closePaymentScreen(view: view);
-    _actor.handleFailure(Markers.ui, "Failed loading products", error,
-        temporary: true);
+  void paywallViewDidFailLoadingProducts(AdaptyUIPaywallView view, AdaptyError error) {
+    closePaymentScreen(true, view: view);
+    _actor.handleFailure(Markers.ui, "Failed loading products", error, temporary: true);
   }
 
   @override
-  void paywallViewDidFailPurchase(AdaptyUIPaywallView view,
-      AdaptyPaywallProduct product, AdaptyError error) {
-    closePaymentScreen(view: view);
+  void paywallViewDidFailPurchase(
+      AdaptyUIPaywallView view, AdaptyPaywallProduct product, AdaptyError error) {
+    closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed purchase", error);
   }
 
   @override
-  void paywallViewDidFailRendering(
-      AdaptyUIPaywallView view, AdaptyError error) {
+  void paywallViewDidFailRendering(AdaptyUIPaywallView view, AdaptyError error) {
     //closePaymentScreen(view: view);
     //_handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
     log(Markers.ui).e(msg: "Failed rendering adapty", err: error);
@@ -165,17 +152,15 @@ class AdaptyPaymentChannel
 
   @override
   void paywallViewDidFailRestore(AdaptyUIPaywallView view, AdaptyError error) {
-    closePaymentScreen(view: view);
+    closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed restore", error, restore: true);
   }
 
   @override
-  void paywallViewDidSelectProduct(
-      AdaptyUIPaywallView view, String productId) {}
+  void paywallViewDidSelectProduct(AdaptyUIPaywallView view, String productId) {}
 
   @override
-  void paywallViewDidStartPurchase(
-      AdaptyUIPaywallView view, AdaptyPaywallProduct product) {}
+  void paywallViewDidStartPurchase(AdaptyUIPaywallView view, AdaptyPaywallProduct product) {}
 
   @override
   void paywallViewDidStartRestore(AdaptyUIPaywallView view) {}
@@ -194,12 +179,10 @@ class AdaptyPaymentChannel
   void paywallViewDidDisappear(AdaptyUIPaywallView view) {}
 
   @override
-  Future<void> setCustomAttributes(
-      Marker m, Map<String, dynamic> attributes) async {
+  Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {
     return await log(m).trace("setCustomAttributes", (m) async {
       // Extract pre-processed custom attributes from Flutter
-      final customAttributes =
-          attributes['custom_attributes'] as List<Map<String, dynamic>>?;
+      final customAttributes = attributes['custom_attributes'] as List<Map<String, dynamic>>?;
 
       if (customAttributes == null || customAttributes.isEmpty) {
         log(m).t("No valid custom attributes to sync to Adapty");
@@ -228,8 +211,7 @@ class AdaptyPaymentChannel
         }
 
         await _adapty.updateProfile(builder.build());
-        log(m)
-            .i("Synced ${customAttributes.length} custom attributes to Adapty");
+        log(m).i("Synced ${customAttributes.length} custom attributes to Adapty");
       } on AdaptyError catch (adaptyError) {
         throw Exception("Adapty error: ${adaptyError.message}");
       }

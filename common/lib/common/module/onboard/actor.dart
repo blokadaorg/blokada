@@ -3,7 +3,7 @@ part of 'onboard.dart';
 class OnboardActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _onboardIntro = Core.get<OnboardIntroValue>();
-  late final _onboardSafari = Core.get<OnboardSafariValue>();
+  late final _onboardSafariYoutube = Core.get<OnboardSafariValue>();
 
   late final _payment = Core.get<PaymentActor>();
   late final _rateMetadata = RateMetadataValue();
@@ -11,7 +11,7 @@ class OnboardActor with Logging, Actor {
   @override
   onStart(Marker m) async {
     final step = await _onboardIntro.fetch(m);
-    await _onboardSafari.fetch(m);
+    await _onboardSafariYoutube.fetch(m);
 
     if (step == null) {
       log(m).t("Onboarding not done before, checking metadata");
@@ -37,7 +37,7 @@ class OnboardActor with Logging, Actor {
     await _onboardIntro.change(m, "first");
   }
 
-  markSafariSeen(Marker m) async {
-    await _onboardSafari.change(m, true);
+  markSafariYoutubeSeen(Marker m) async {
+    await _onboardSafariYoutube.change(m, true);
   }
 }

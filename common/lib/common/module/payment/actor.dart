@@ -4,9 +4,17 @@ part of 'payment.dart';
 // True if the payment was restore flow (could be non-user triggered)
 final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 
+// Emitted when the paywall is closed
+// Argument is "isError" - true if the paywall was closed due to an error
+final paymentClosed = EmitterEvent<bool>("paymentClosed");
+
 enum Placement {
   primary("primary"),
-  plusUpgrade("home_plus_upgrade");
+  plusUpgrade("home_plus_upgrade"),
+  freemiumStats("stats_freemium"),
+  freemiumActivity("activity_freemium"),
+  freemiumFilters("filters_freemium"),
+  freemiumWeekly("sheet_weekly_freemium");
 
   final String id;
 
@@ -25,13 +33,14 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   bool _adaptyInitialized = false;
   Completer? _preloadCompleter = Completer();
   bool _isOpened = false;
+  bool _isError = false; // To prevent adapty error spam loop
   OnboardingStep? _pendingOnboard;
 
   Function onPaymentScreenOpened = (bool opened) => {};
 
   @override
   onCreate(Marker m) async {
-    willAcceptOnValue(paymentSuccessful);
+    willAcceptOnValue(paymentSuccessful, [paymentClosed]);
   }
 
   @override
@@ -142,24 +151,23 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     return await log(m).trace("openPaymentScreen", (m) async {
       if (_isOpened) return;
       _isOpened = true;
+      _isError = false;
       await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
         onPaymentScreenOpened(true);
         await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
-        onPaymentScreenOpened(false);
-        _isOpened = false;
-        await handleFailure(m, "Failed creating paywall", e,
-            s: s, temporary: true);
+        await handleScreenClosed(m, isError: true);
+        await handleFailure(m, "Failed creating paywall", e, s: s, temporary: true);
       }
     });
   }
 
-  closePaymentScreen(Marker m) async {
+  closePaymentScreen(Marker m, {required bool isError}) async {
     return await log(m).trace("closePaymentScreen", (m) async {
-      await _channel.closePaymentScreen();
-      handleScreenClosed(m);
+      await _channel.closePaymentScreen(isError);
+      await handleScreenClosed(m, isError: isError);
     });
   }
 
@@ -189,6 +197,9 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       {StackTrace? s, bool restore = false, bool temporary = false}) async {
     log(m).e(msg: "Adapty: $msg", err: e, stack: s);
 
+    if (_isError) return;
+    _isError = true;
+
     var sheet = StageModal.paymentFailed;
     if (restore) {
       sheet = StageModal.accountRestoreFailed;
@@ -200,10 +211,12 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     await _stage.showModal(sheet, m);
   }
 
-  handleScreenClosed(Marker m) {
+  handleScreenClosed(Marker m, {required bool isError}) async {
+    if (!_isOpened) return;
     log(m).i("Payment screen closed");
     onPaymentScreenOpened(false);
     _isOpened = false;
+    await emitValue(paymentClosed, isError, m);
   }
 
   _syncCustomAttributes(Marker m, AccountState account) async {
@@ -214,8 +227,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
 
     try {
       // Process attributes using Flutter converter
-      final processedAttributes =
-          AdaptyAttributeConverter.convertToCustomAttributes(attributes);
+      final processedAttributes = AdaptyAttributeConverter.convertToCustomAttributes(attributes);
 
       if (processedAttributes.isEmpty) {
         log(m).i("No valid attributes to sync after processing");
@@ -223,8 +235,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       }
 
       // Pass processed attributes to platform channel
-      await _channel
-          .setCustomAttributes(m, {'custom_attributes': processedAttributes});
+      await _channel.setCustomAttributes(m, {'custom_attributes': processedAttributes});
       log(m).i("Synced custom attributes to Adapty");
     } catch (e, s) {
       log(m).e(msg: "Failed syncing custom attributes", err: e, stack: s);

@@ -50,8 +50,7 @@ void main() {
         await subject.pauseAppUntil(duration, m);
 
         verify(app.appPaused(true, m)).called(1);
-        verify(device.setCloudEnabled(m, false, pauseDuration: duration))
-            .called(1);
+        verify(device.setCloudEnabled(m, false, pauseDuration: duration)).called(1);
       });
     });
 

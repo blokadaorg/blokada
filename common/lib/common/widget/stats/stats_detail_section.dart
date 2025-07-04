@@ -19,8 +19,7 @@ class StatsDetailSection extends StatefulWidget {
   final UiJournalEntry entry;
   final bool primary;
 
-  const StatsDetailSection(
-      {super.key, required this.entry, this.primary = true});
+  const StatsDetailSection({super.key, required this.entry, this.primary = true});
 
   @override
   State<StatefulWidget> createState() => StatsDetailSectionState();
@@ -63,16 +62,12 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      const Icon(CupertinoIcons.shield,
-                          color: Colors.white, size: 64),
+                      const Icon(CupertinoIcons.shield, color: Colors.white, size: 64),
                       Transform.translate(
                         offset: const Offset(0, -3),
                         child: Text(
-                          (widget.entry.requests > 99)
-                              ? "99"
-                              : widget.entry.requests.toString(),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          (widget.entry.requests > 99) ? "99" : widget.entry.requests.toString(),
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ),
                     ],
@@ -84,15 +79,13 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.entry.domainName,
-                            style: const TextStyle(
-                                fontSize: 24, color: Colors.white),
+                            style: const TextStyle(fontSize: 24, color: Colors.white),
                             overflow: TextOverflow.ellipsis),
                         Text(
                           (widget.entry.isBlocked()
                               ? "activity request blocked".i18n
                               : "activity request allowed".i18n),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
+                          style: const TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
                     ),
@@ -118,8 +111,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                       _buildFilterInfo(context),
                       (Core.act.isFamily)
                           ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Container(
                                 color: context.theme.divider.withOpacity(0.1),
                                 width: 1,
@@ -152,8 +144,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                           : "family stats exceptions add".i18n,
                       onTap: () {
                         log(Markers.userTap).trace("addCustom", (m) async {
-                          await _custom.addOrRemove(
-                              widget.entry.domainName, Markers.userTap,
+                          await _custom.addOrRemove(widget.entry.domainName, Markers.userTap,
                               gotBlocked: widget.entry.isBlocked());
                           setState(() {});
                         });
@@ -163,8 +154,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                       icon: CupertinoIcons.doc_on_clipboard,
                       text: "activity action copy to clipboard".i18n,
                       onTap: () {
-                        Clipboard.setData(
-                            ClipboardData(text: widget.entry.domainName));
+                        Clipboard.setData(ClipboardData(text: widget.entry.domainName));
                       }),
                 ],
               ),
@@ -193,9 +183,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                           label: "universal label device".i18n,
                           text: widget.entry.deviceName,
                         ),
-                  (Core.act.isFamily)
-                      ? Container()
-                      : const CommonDivider(indent: 0),
+                  (Core.act.isFamily) ? Container() : const CommonDivider(indent: 0),
                   ActionInfo(
                     label: "activity time of occurrence".i18n,
                     text: widget.entry.timestamp.toString(),
@@ -223,8 +211,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
             //     size: 20),
             // const SizedBox(width: 4),
             Text(
-              _filter.getFilterContainingList(widget.entry.listId,
-                  full: !Core.act.isFamily),
+              _filter.getFilterContainingList(widget.entry.listId, full: !Core.act.isFamily),
               style: TextStyle(
                 color: context.theme.textSecondary,
                 fontSize: 18,

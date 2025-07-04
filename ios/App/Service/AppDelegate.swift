@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @Injected(\.stage) private var stage
     @Injected(\.url) private var url
     @Injected(\.family) private var family
+    @Injected(\.safari) private var safari
 
     private var deps = FlavorDeps()
 
@@ -194,7 +195,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Handle custom URL scheme (six:// etc) for linking from web extension or else (just open app)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme == "six" {
+        if url.scheme == "six" && flutter.isFlavorFamily == false {
+            return true
+        } else if url.scheme == "family" && flutter.isFlavorFamily {
             return true
         }
         return false

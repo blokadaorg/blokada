@@ -31,7 +31,7 @@ class PurchaseTimeoutActor with Logging, Actor {
     // Coming back from BG, dismiss the payment modal if it's still there
     if (route.isBecameForeground() && _justNotified) {
       _justNotified = false;
-      _payment.closePaymentScreen(m);
+      _payment.closePaymentScreen(m, isError: false);
     }
 
     if ((await _notified.now()) == true) return;

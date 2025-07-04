@@ -14,10 +14,8 @@ class ActionInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style:
-                  TextStyle(fontSize: 12, color: context.theme.textSecondary)),
-          Text(text, style: TextStyle(fontSize: 16)),
+          Text(label, style: TextStyle(fontSize: 12, color: context.theme.textSecondary)),
+          Text(text, style: const TextStyle(fontSize: 16)),
         ],
       ),
     );

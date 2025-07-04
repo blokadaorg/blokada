@@ -272,6 +272,12 @@
 		4E59B8D329EEDBEF005ECD5F /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59B8D129EEDBEF005ECD5F /* Notification.swift */; };
 		4E5CACEA276B9ADC00F6F237 /* CombineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */; };
 		4E5E73342DC0DF2F00A0B192 /* BlockaWebExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4E5E73322DC0DF0500A0B192 /* BlockaWebExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4E601D5E2E0BF94800D55564 /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4E601D5F2E0BF94800D55564 /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4E601D602E0BF94800D55564 /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4E601D622E0BF96A00D55564 /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4E601D632E0BF96A00D55564 /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4E601D642E0BF96A00D55564 /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
 		4E61D8F327B3D30400C98D36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4E61D8F427B3D30400C98D36 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F227B3D30400C98D36 /* ContentView.swift */; };
 		4E61D8F627B3DB2E00C98D36 /* SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8F527B3DB2E00C98D36 /* SafeArea.swift */; };
@@ -621,6 +627,15 @@
 		4EE25DBD2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE25DBE2788245500F2F79B /* NetxServiceIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */; };
 		4EE3289D27D225F3003B5D57 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3289C27D225F3003B5D57 /* ModelTests.swift */; };
+		4EE7491C2E12B73500F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE7491D2E12B73500F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE7491E2E12B74000F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE7491F2E12B74000F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE749202E12B74900F95DDB /* SafariBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D612E0BF96700D55564 /* SafariBinding.swift */; };
+		4EE749212E12B74900F95DDB /* Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E601D5D2E0BF94800D55564 /* Safari.swift */; };
+		4EE749232E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
+		4EE749242E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
+		4EE749252E12B91200F95DDB /* Info-family.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE749222E12B91200F95DDB /* Info-family.plist */; };
 		4EEC49512A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
 		4EEC49522A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
 		4EEC49532A4D983D001EF934 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
@@ -760,7 +775,7 @@
 		47729E0522F447C800B9B36B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		47729E1122F447CA00B9B36B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47729E1122F447CA00B9B36B /* Info-six.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-six.plist"; sourceTree = "<group>"; };
 		4845648844193CBC09726A12 /* Pods-FamilyMocked.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyMocked.release.xcconfig"; path = "Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked.release.xcconfig"; sourceTree = "<group>"; };
 		4E02E30D2A56DA620014E884 /* NetworkCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
@@ -870,6 +885,8 @@
 		4E5CACE9276B9ADC00F6F237 /* CombineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTests.swift; sourceTree = "<group>"; };
 		4E5E73322DC0DF0500A0B192 /* BlockaWebExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlockaWebExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E5E73332DC0DF0500A0B192 /* BlockaWebExt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "BlockaWebExt-Info.plist"; path = "/Users/kar/code/blokadaorg/blokada/ios/BlockaWebExt-Info.plist"; sourceTree = "<absolute>"; };
+		4E601D5D2E0BF94800D55564 /* Safari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Safari.swift; path = ../common/build/pigeon/ios/Safari.swift; sourceTree = SOURCE_ROOT; };
+		4E601D612E0BF96700D55564 /* SafariBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariBinding.swift; sourceTree = "<group>"; };
 		4E61D8E627B2DA7F00C98D36 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4E61D8F227B3D30400C98D36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4E61D8F527B3DB2E00C98D36 /* SafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArea.swift; sourceTree = "<group>"; };
@@ -972,6 +989,7 @@
 		4EDB13DD2D14346E000E2AD3 /* ButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		4EE25DBC2788245500F2F79B /* NetxServiceIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetxServiceIn.swift; sourceTree = "<group>"; };
 		4EE3289C27D225F3003B5D57 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		4EE749222E12B91200F95DDB /* Info-family.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-family.plist"; sourceTree = "<group>"; };
 		4EEC49502A4D983D001EF934 /* CoreBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBinding.swift; sourceTree = "<group>"; };
 		4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandsBinding.swift; sourceTree = "<group>"; };
 		4EF35C942C9D77DE00699022 /* UrlBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBinding.swift; sourceTree = "<group>"; };
@@ -1008,7 +1026,9 @@
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
+				"Resources/oisd-small.json",
 				Resources/ping.js,
+				"Resources/popup-logic.js",
 				Resources/popup.css,
 				Resources/popup.html,
 				Resources/popup.js,
@@ -1024,7 +1044,9 @@
 				Resources/content.js,
 				Resources/images,
 				Resources/manifest.json,
+				"Resources/oisd-small.json",
 				Resources/ping.js,
+				"Resources/popup-logic.js",
 				Resources/popup.css,
 				Resources/popup.html,
 				Resources/popup.js,
@@ -1456,6 +1478,7 @@
 				4E88AA192B2B1B62006B16E7 /* SplashView.swift */,
 				4E6FD7252BFFB7CD0014D80E /* FlavorDeps.swift */,
 				4E946E5B2A29CD430053943D /* PlusBinding.swift */,
+				4E601D612E0BF96700D55564 /* SafariBinding.swift */,
 				4E955DC72771DC12008DE06F /* ViewModels.swift */,
 				4E8AE1FB27591F8E00BD2E5B /* Services.swift */,
 				4E23CFF2293E17D900613D0A /* WgService.swift */,
@@ -1508,7 +1531,8 @@
 				4EF7EDF4240E9E95001FA02E /* Resources.swift */,
 				4E356A8B24378CA80094EE27 /* Strings.swift */,
 				4E4562B3240D114D0022CBF6 /* Error.swift */,
-				47729E1122F447CA00B9B36B /* Info.plist */,
+				47729E1122F447CA00B9B36B /* Info-six.plist */,
+				4EE749222E12B91200F95DDB /* Info-family.plist */,
 				4ED3445523E1B0D90075B796 /* IOS.entitlements */,
 				47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */,
 				4E290FBE2498A3E200FC4C61 /* Packs.strings */,
@@ -1593,6 +1617,7 @@
 		4EFFBCA429E6984500CEF37A /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				4E601D5D2E0BF94800D55564 /* Safari.swift */,
 				4EA6DEFF2D5BA9CE006BAA10 /* Url.swift */,
 				4EA6DEC02D5BA9BB006BAA10 /* App.swift */,
 				4EA6DEC12D5BA9BB006BAA10 /* Command.swift */,
@@ -1764,6 +1789,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E5E732F2DC0DF0500A0B192 /* Build configuration list for PBXNativeTarget "BlockaWebExt" */;
 			buildPhases = (
+				B27F19A42E13D64E00EE56A2 /* Make content filter rules */,
 				4E5E732C2DC0DF0500A0B192 /* Sources */,
 				4E5E732D2DC0DF0500A0B192 /* Frameworks */,
 				4E5E732E2DC0DF0500A0B192 /* Resources */,
@@ -1781,6 +1807,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E6B37092DBB85C100A37431 /* Build configuration list for PBXNativeTarget "BlockaWebExtDev" */;
 			buildPhases = (
+				B27F19A52E13D6BC00EE56A2 /* Make content filter rules */,
 				4E6B36CB2DBB85C100A37431 /* Sources */,
 				4E6B36CC2DBB85C100A37431 /* Frameworks */,
 				4E6B36CD2DBB85C100A37431 /* Resources */,
@@ -1992,6 +2019,7 @@
 				4E1276BC2AE7D0FC00A94994 /* Ui.strings in Resources */,
 				4E1276BD2AE7D0FC00A94994 /* LaunchScreen.storyboard in Resources */,
 				4EA029352B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749232E12B91200F95DDB /* Info-family.plist in Resources */,
 				4E1276BE2AE7D0FC00A94994 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2019,6 +2047,7 @@
 				4E270DE32A80EB8300D3484B /* Ui.strings in Resources */,
 				4E270DE42A80EB8300D3484B /* LaunchScreen.storyboard in Resources */,
 				4EA029332B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749242E12B91200F95DDB /* Info-family.plist in Resources */,
 				4E270DE52A80EB8300D3484B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2070,6 +2099,7 @@
 				4EBF3BE52A80E55900F637BB /* Ui.strings in Resources */,
 				4EBF3BE62A80E55900F637BB /* LaunchScreen.storyboard in Resources */,
 				4EA029342B346FA400B689B4 /* Flavor.xcconfig in Resources */,
+				4EE749252E12B91200F95DDB /* Info-family.plist in Resources */,
 				4EBF3BE72A80E55900F637BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2092,13 +2122,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2110,11 +2136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2146,11 +2168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2204,11 +2222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2218,11 +2232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2232,11 +2242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2249,13 +2255,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2270,13 +2272,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2291,13 +2289,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2309,11 +2303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2340,16 +2330,49 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B27F19A42E13D64E00EE56A2 /* Make content filter rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make content filter rules";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nmake -C \"${SRCROOT}/BlockaWebExtension\" gen-rules\n";
+		};
+		B27F19A52E13D6BC00EE56A2 /* Make content filter rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Make content filter rules";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\nmake -C \"${SRCROOT}/BlockaWebExtension\" gen-rules\n";
+		};
 		B864EACB5DB73F47E3B33140 /* [CP-User] Run Flutter Build common Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2384,13 +2407,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2402,11 +2421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2419,13 +2434,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2437,11 +2448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2451,11 +2458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2487,11 +2490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Embed Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2501,11 +2500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-			);
 			name = "[CP-User] Run Flutter Build common Script";
-			outputPaths = (
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2596,6 +2591,7 @@
 				4E673D2829E6ACFA00A8A60D /* StageBinding.swift in Sources */,
 				4E673D2429E6AC2200A8A60D /* Flutter.swift in Sources */,
 				4E78E35A245EBFD90017B234 /* Sequence+Extensions.swift in Sources */,
+				4E601D602E0BF94800D55564 /* Safari.swift in Sources */,
 				4E290FC32498A8EB00FC4C61 /* UiGen.swift in Sources */,
 				4E955DC82771DC12008DE06F /* ViewModels.swift in Sources */,
 				4E23D054293F3DD800613D0A /* x25519.c in Sources */,
@@ -2619,6 +2615,7 @@
 				4E42353D244F3D21005A0779 /* LocationListViewModel.swift in Sources */,
 				4E61D8F627B3DB2E00C98D36 /* SafeArea.swift in Sources */,
 				4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */,
+				4E601D632E0BF96A00D55564 /* SafariBinding.swift in Sources */,
 				4E970C092769FE6F00ABD896 /* Tasker.swift in Sources */,
 				4E8AE1EA2758D93800BD2E5B /* Repos.swift in Sources */,
 				4E23D06F2947274100613D0A /* WgLoggerForApp.swift in Sources */,
@@ -2636,6 +2633,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE7491E2E12B74000F95DDB /* SafariBinding.swift in Sources */,
+				4EE7491F2E12B74000F95DDB /* Safari.swift in Sources */,
 				4EA6DEE42D5BA9BB006BAA10 /* App.swift in Sources */,
 				4EA6DEE52D5BA9BB006BAA10 /* Command.swift in Sources */,
 				4EA6DEE62D5BA9BB006BAA10 /* Core.swift in Sources */,
@@ -2763,6 +2762,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE749202E12B74900F95DDB /* SafariBinding.swift in Sources */,
+				4EE749212E12B74900F95DDB /* Safari.swift in Sources */,
 				4E270DF02A80EB9200D3484B /* Flavor.swift in Sources */,
 				4E92C70A2C05CF9700A33170 /* HomeViewModel.swift in Sources */,
 				4EDB13E12D14346E000E2AD3 /* ButtonView.swift in Sources */,
@@ -2871,6 +2872,7 @@
 				4EAFCE312487BA47003601A1 /* ShowTime.swift in Sources */,
 				4E2ECCFA245AFBCB009040F1 /* SpinnerView.swift in Sources */,
 				4EDB13CB2D14321D000E2AD3 /* LinkRepo.swift in Sources */,
+				4E601D622E0BF96A00D55564 /* SafariBinding.swift in Sources */,
 				4E118DFA24640356005112C1 /* FileManager+Extensions.swift in Sources */,
 				4E8AE1E82758D0BD00BD2E5B /* JsonUtil.swift in Sources */,
 				4E08B9D7247EAD8100AED8F0 /* ContentHostingController.swift in Sources */,
@@ -2885,6 +2887,7 @@
 				4E7FE99C244DC28900851E9F /* KeychainSwiftDistrib.swift in Sources */,
 				4E8AE1FA275918B400BD2E5B /* CombineUtil.swift in Sources */,
 				4E290FC12498A57000FC4C61 /* Localization.swift in Sources */,
+				4E601D5E2E0BF94800D55564 /* Safari.swift in Sources */,
 				4E1264432880061A008D26B2 /* FlutterHomeView.swift in Sources */,
 				4E8AE1EB2758D93800BD2E5B /* Repos.swift in Sources */,
 				4E2ECCF7245AF870009040F1 /* LoadingButtonView.swift in Sources */,
@@ -3020,6 +3023,7 @@
 				4E8651912A3C968B0060AFB1 /* StageBinding.swift in Sources */,
 				4E8651972A3C968B0060AFB1 /* Flutter.swift in Sources */,
 				4E86519B2A3C968B0060AFB1 /* Sequence+Extensions.swift in Sources */,
+				4E601D5F2E0BF94800D55564 /* Safari.swift in Sources */,
 				4E86519D2A3C968B0060AFB1 /* UiGen.swift in Sources */,
 				4E86519E2A3C968B0060AFB1 /* ViewModels.swift in Sources */,
 				4E8651A32A3C968B0060AFB1 /* x25519.c in Sources */,
@@ -3043,6 +3047,7 @@
 				4E8651D42A3C968B0060AFB1 /* LocationListViewModel.swift in Sources */,
 				4E8651D82A3C968B0060AFB1 /* SafeArea.swift in Sources */,
 				4E8651D92A3C968B0060AFB1 /* LocationListView.swift in Sources */,
+				4E601D642E0BF96A00D55564 /* SafariBinding.swift in Sources */,
 				4E8651DA2A3C968B0060AFB1 /* Tasker.swift in Sources */,
 				4E8651E02A3C968B0060AFB1 /* Repos.swift in Sources */,
 				4E8651E32A3C968B0060AFB1 /* WgLoggerForApp.swift in Sources */,
@@ -3060,6 +3065,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE7491C2E12B73500F95DDB /* SafariBinding.swift in Sources */,
+				4EE7491D2E12B73500F95DDB /* Safari.swift in Sources */,
 				4E92C7082C05CEB600A33170 /* NetworkCommand.swift in Sources */,
 				4E92C7062C05CE2E00A33170 /* NetxServiceIn.swift in Sources */,
 				4EBF3B152A80E55900F637BB /* Date+Extensions.swift in Sources */,
@@ -3435,7 +3442,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3486,7 +3493,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3755,7 +3762,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3803,7 +3810,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Blokada Family";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3841,7 +3848,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BlockaWebExt-Info.plist";
@@ -3882,7 +3889,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BlockaWebExt-Info.plist";
@@ -3921,7 +3928,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BlockaWebExtension/Info.plist;
@@ -3962,7 +3969,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HQH5AFGB68;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BlockaWebExtension/Info.plist;
@@ -4009,7 +4016,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4051,7 +4058,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/App/Assets/Info.plist";
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4091,7 +4098,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4142,7 +4149,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-six.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4189,7 +4196,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4235,7 +4242,7 @@
 					"$(SRCROOT)/../common/build/ios-framework/$(CONFIGURATION)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = App/Assets/Info.plist;
+				INFOPLIST_FILE = "App/Assets/Info-family.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

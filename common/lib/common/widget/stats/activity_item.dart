@@ -43,16 +43,12 @@ class ActivityItemState extends State<ActivityItem> {
               alignment: Alignment.center,
               children: [
                 Icon(CupertinoIcons.shield,
-                    color: widget.entry.isBlocked() ? Colors.red : Colors.green,
-                    size: 52),
+                    color: widget.entry.isBlocked() ? Colors.red : Colors.green, size: 52),
                 Transform.translate(
                   offset: const Offset(0, -3),
                   child: Text(
-                    (widget.entry.requests > 99)
-                        ? "99"
-                        : widget.entry.requests.toString(),
-                    style: TextStyle(
-                        color: context.theme.textPrimary, fontSize: 12),
+                    (widget.entry.requests > 99) ? "99" : widget.entry.requests.toString(),
+                    style: TextStyle(color: context.theme.textPrimary, fontSize: 12),
                   ),
                 ),
               ],
@@ -64,24 +60,19 @@ class ActivityItemState extends State<ActivityItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(middleEllipsis(widget.entry.domainName),
-                      style: const TextStyle(fontSize: 18),
-                      overflow: TextOverflow.clip),
+                      style: const TextStyle(fontSize: 18), overflow: TextOverflow.clip),
                   Text(
                     widget.entry.timestampText,
-                    style: TextStyle(
-                        color: context.theme.textSecondary, fontSize: 12),
+                    style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
                   ),
                   Text(
                     _getActionString(),
-                    style: TextStyle(
-                        color: context.theme.textSecondary, fontSize: 12),
+                    style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
                   ),
                 ],
               ),
             ),
-            (Core.act.isFamily)
-                ? Container()
-                : TwoLetterIconWidget(name: widget.entry.deviceName),
+            (Core.act.isFamily) ? Container() : TwoLetterIconWidget(name: widget.entry.deviceName),
           ],
         ),
       ),
@@ -90,13 +81,9 @@ class ActivityItemState extends State<ActivityItem> {
 
   String _getActionString() {
     if (widget.entry.isBlocked()) {
-      return "family activity blocked times"
-          .i18n
-          .withParams(widget.entry.requests);
+      return "family activity blocked times".i18n.withParams(widget.entry.requests);
     } else {
-      return "family activity allowed times"
-          .i18n
-          .withParams(widget.entry.requests);
+      return "family activity allowed times".i18n.withParams(widget.entry.requests);
     }
   }
 }

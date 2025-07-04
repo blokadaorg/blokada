@@ -28,7 +28,6 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _app = Core.get<AppStore>();
   late final _scheduler = Core.get<Scheduler>();
   late final _device = Core.get<DeviceStore>();
-  late final _perm = Core.get<PlatformPermActor>();
   late final _account = Core.get<AccountStore>();
   late final _plus = Core.get<PlusActor>();
   late final _permStore = Core.get<PlatformPermActor>();
@@ -176,8 +175,12 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
           await _payment.openPaymentScreen(m);
 
           // Delay to show in-progress until payment sheet loads
-          log(m).i("Delay wait for payment screen");
-          await sleepAsync(const Duration(seconds: 3));
+          // MARK1
+          // Freemium flow works better without this delay
+          if (!_app.conditions.accountIsFreemium) {
+            log(m).i("Delay wait for payment screen");
+            await sleepAsync(const Duration(seconds: 3));
+          }
           await _app.appPaused(true, m);
         } catch (e) {
           await _app.appPaused(true, m);
@@ -217,7 +220,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   Future<void> _unpauseApp(Marker m) async {
     if (_account.type == AccountType.libre) {
       throw AccountTypeException();
-    } else if (!_perm.isPrivateDnsEnabledFor(_device.deviceTag)) {
+    } else if (!_permStore.isPrivateDnsEnabledFor(_device.deviceTag)) {
       throw OnboardingException();
       // } else if (_account.type == AccountType.plus && _permVpn.present != true) {
       //   throw OnboardingException();

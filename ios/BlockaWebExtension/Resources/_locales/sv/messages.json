@@ -7,16 +7,56 @@
     "message": "Förbättra din surfupplevelse i Safari genom att blockera annonser, spårare och annat oönskat innehåll.",
     "description": "Description of what the extension does."
   },
-  "status_enabled": {
-    "message": "Safari-tillägget är aktiverat!",
-    "description": "Shown in the popup when the extension is active."
-  },
   "status_inactive": {
     "message": "Kontrollera status i Blokada",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada är aktiv",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_essentials_active": {
+    "message": "Safari-blockering aktiv",
+    "description": "Shown when freemium essentials (basic content blocking) is active."
+  },
+  "status_expiring_soon": {
+    "message": "Kontot upphör snart – kontrollera appen",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "Gratis provperiod aktiv",
+    "description": "Shown when freemium trial is active."
+  },
+  "status_trial_active_detailed": {
+    "message": "Gratis provperiod aktiv ({DAYS} dagar kvar)",
+    "description": "Shown when freemium trial is active with days remaining in detail view."
+  },
   "open_app": {
     "message": "Öppna Blokada",
     "description": "Text on the button that opens the main app."
+  },
+  "back_button": {
+    "message": "Tillbaka",
+    "description": "Text on the back button in detail view."
+  },
+  "feature_safari_blocking": {
+    "message": "Safari-annonsblockering",
+    "description": "Name of the Safari ad blocking feature."
+  },
+  "feature_device_wide": {
+    "message": "Enhetsskydd",
+    "description": "Name of the device-wide protection feature."
+  },
+  "feature_youtube_ads": {
+    "message": "YouTube-annonser",
+    "description": "Name of the YouTube ad blocking feature."
+  },
+  "feature_youtube_ads_trial": {
+    "message": "YouTube-annonser ({DAYS} dagar)",
+    "description": "Name of the YouTube ad blocking feature with trial days remaining."
+  },
+  "feature_cookie_popups": {
+    "message": "Cookie-popups (kommer snart)",
+    "description": "Name of the cookie popup blocking feature."
   }
 }

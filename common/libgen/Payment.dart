@@ -18,7 +18,7 @@ abstract class PaymentOps {
   void doShowPaymentScreen(String placementId, bool forceReload);
 
   @async
-  void doClosePaymentScreen();
+  void doClosePaymentScreen(bool isError);
 
   @async
   void doSetCustomAttributes(Map<String, Object?> attributes);

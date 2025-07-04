@@ -7,16 +7,56 @@
     "message": "Verbessere dein Surferlebnis in Safari, indem du Werbung, Tracker und unerwünschte Inhalte blockierst.",
     "description": "Description of what the extension does."
   },
-  "status_enabled": {
-    "message": "Safari-Erweiterung aktiviert!",
-    "description": "Shown in the popup when the extension is active."
-  },
   "status_inactive": {
     "message": "Status in der Blokada-App überprüfen",
     "description": "Shown in the popup when the extension appears to be inactive."
   },
+  "status_blocking_active": {
+    "message": "Blokada ist aktiv",
+    "description": "Shown when blocking is active and account is valid."
+  },
+  "status_essentials_active": {
+    "message": "Safari-Blockierung aktiv",
+    "description": "Shown when freemium essentials (basic content blocking) is active."
+  },
+  "status_expiring_soon": {
+    "message": "Konto läuft bald ab – prüfe die App",
+    "description": "Shown when the account is expiring within 7 days."
+  },
+  "status_trial_active": {
+    "message": "Kostenlose Testversion aktiv",
+    "description": "Shown when freemium trial is active."
+  },
+  "status_trial_active_detailed": {
+    "message": "Kostenlose Testversion aktiv ({DAYS} Tage verbleibend)",
+    "description": "Shown when freemium trial is active with days remaining in detail view."
+  },
   "open_app": {
     "message": "Blokada öffnen",
     "description": "Text on the button that opens the main app."
+  },
+  "back_button": {
+    "message": "Zurück",
+    "description": "Text on the back button in detail view."
+  },
+  "feature_safari_blocking": {
+    "message": "Safari-Werbeblocker",
+    "description": "Name of the Safari ad blocking feature."
+  },
+  "feature_device_wide": {
+    "message": "Geräteschutz",
+    "description": "Name of the device-wide protection feature."
+  },
+  "feature_youtube_ads": {
+    "message": "YouTube-Werbung",
+    "description": "Name of the YouTube ad blocking feature."
+  },
+  "feature_youtube_ads_trial": {
+    "message": "YouTube-Werbung ({DAYS} Tage)",
+    "description": "Name of the YouTube ad blocking feature with trial days remaining."
+  },
+  "feature_cookie_popups": {
+    "message": "Cookie-Popups (bald verfügbar)",
+    "description": "Name of the cookie popup blocking feature."
   }
 }

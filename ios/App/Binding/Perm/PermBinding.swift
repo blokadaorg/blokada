@@ -66,8 +66,16 @@ class PermBinding: PermOps {
     }
 
     func doNotificationEnabled(completion: @escaping (Result<Bool, Error>) -> Void) {
-        // TODO: actual perms?
-        completion(.success(false))
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                if (settings.authorizationStatus == .notDetermined) {
+                    return completion(.success(false))
+                }
+
+                // Ignore other states, assuming we should not show the perm dialog (so return true)
+                completion(.success(true))
+            }
+        }
     }
 
     func doVpnEnabled(completion: @escaping (Result<Granted, Error>) -> Void) {
@@ -131,12 +139,6 @@ class PermBinding: PermOps {
                 }
             )
             .store(in: &cancellables)
-    }
-
-    func doOpenSafari(completion: @escaping (Result<Void, Error>) -> Void) {
-        let url = URL(string: "https://go.blokada.org/howto/safari-extension")!
-        UIApplication.shared.open(url)
-        completion(Result.success(()))
     }
 
     func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {

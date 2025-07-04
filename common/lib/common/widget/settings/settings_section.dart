@@ -114,13 +114,9 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                       Expanded(
                         child: Text(_getAccountSubText(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: Core.act.isFamily
-                                        ? Colors.white
-                                        : context.theme.textPrimary)),
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                color:
+                                    Core.act.isFamily ? Colors.white : context.theme.textPrimary)),
                       ),
                       const SizedBox(width: 16),
                     ],
@@ -129,97 +125,97 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
               ),
             ),
           ),
-          const SizedBox(height: 48),
-          SectionLabel(
-              text: "account section header primary".i18n.capitalize()),
-          CommonCard(
-            child: Column(
-              children: [
-                (!Core.act.isFamily)
-                    ? Column(
+          (_account.isFreemium)
+              ? Container()
+              : Column(
+                  children: [
+                    const SizedBox(height: 48),
+                    SectionLabel(text: "account section header primary".i18n.capitalize()),
+                    CommonCard(
+                      child: Column(
                         children: [
-                          SettingsItem(
-                              icon: CupertinoIcons.shield_lefthalf_fill,
-                              text: "family stats title".i18n, // My exceptions
-                              onTap: () {
-                                Navigation.open(Paths.settingsExceptions);
-                              }),
-                          const CommonDivider(),
-                          SettingsItem(
-                              icon: CupertinoIcons.chart_bar,
-                              text: "activity section header".i18n,
-                              onTap: () {
-                                Navigation.open(Paths.settingsRetention);
-                              }),
-                          const CommonDivider(),
-                          (_account.type == AccountType.plus)
+                          (!Core.act.isFamily)
                               ? Column(
                                   children: [
                                     SettingsItem(
-                                        icon: CupertinoIcons.device_desktop,
-                                        text: "web vpn devices header".i18n,
+                                        icon: CupertinoIcons.shield_lefthalf_fill,
+                                        text: "family stats title".i18n, // My exceptions
                                         onTap: () {
-                                          Navigation.open(
-                                              Paths.settingsVpnDevices);
+                                          Navigation.open(Paths.settingsExceptions);
                                         }),
                                     const CommonDivider(),
-                                  ],
-                                )
-                              : Container(),
-                          (_account.type == AccountType.plus &&
-                                  Core.act.platform == PlatformType.android)
-                              ? Column(
-                                  children: [
                                     SettingsItem(
-                                        icon: Icons.web_stories_outlined,
-                                        text: "bypass section header".i18n,
+                                        icon: CupertinoIcons.chart_bar,
+                                        text: "activity section header".i18n,
                                         onTap: () {
-                                          Navigation.open(
-                                              Paths.settingsVpnBypass);
+                                          Navigation.open(Paths.settingsRetention);
                                         }),
                                     const CommonDivider(),
+                                    (_account.type == AccountType.plus)
+                                        ? Column(
+                                            children: [
+                                              SettingsItem(
+                                                  icon: CupertinoIcons.device_desktop,
+                                                  text: "web vpn devices header".i18n,
+                                                  onTap: () {
+                                                    Navigation.open(Paths.settingsVpnDevices);
+                                                  }),
+                                              const CommonDivider(),
+                                            ],
+                                          )
+                                        : Container(),
+                                    (_account.type == AccountType.plus &&
+                                            Core.act.platform == PlatformType.android)
+                                        ? Column(
+                                            children: [
+                                              SettingsItem(
+                                                  icon: Icons.web_stories_outlined,
+                                                  text: "bypass section header".i18n,
+                                                  onTap: () {
+                                                    Navigation.open(Paths.settingsVpnBypass);
+                                                  }),
+                                              const CommonDivider(),
+                                            ],
+                                          )
+                                        : Container(),
                                   ],
                                 )
                               : Container(),
+                          SettingsItem(
+                              icon: CupertinoIcons.ellipsis,
+                              text: "family settings lock pin".i18n,
+                              onTap: () {
+                                if (_hasPin.now) {
+                                  _showPinDialog(
+                                    context,
+                                    title: "family settings lock pin".i18n,
+                                    desc: "family settings lock enter".i18n,
+                                    inputValue: "",
+                                    onConfirm: (String value) {
+                                      log(Markers.userTap).trace("tappedChangePin", (m) async {
+                                        Navigator.of(context).pop();
+                                        await _lock.lock(m, value);
+                                      });
+                                    },
+                                    onRemove: () {
+                                      log(Markers.userTap).trace("tappedRemovePin", (m) async {
+                                        await _lock.removeLock(m);
+                                      });
+                                    },
+                                  );
+                                } else {
+                                  log(Markers.userTap).trace("tappedLock", (m) async {
+                                    await _lock.autoLock(m);
+                                  });
+                                }
+                              }),
                         ],
-                      )
-                    : Container(),
-                SettingsItem(
-                    icon: CupertinoIcons.ellipsis,
-                    text: "family settings lock pin".i18n,
-                    onTap: () {
-                      if (_hasPin.now) {
-                        _showPinDialog(
-                          context,
-                          title: "family settings lock pin".i18n,
-                          desc: "family settings lock enter".i18n,
-                          inputValue: "",
-                          onConfirm: (String value) {
-                            log(Markers.userTap).trace("tappedChangePin",
-                                (m) async {
-                              Navigator.of(context).pop();
-                              await _lock.lock(m, value);
-                            });
-                          },
-                          onRemove: () {
-                            log(Markers.userTap).trace("tappedRemovePin",
-                                (m) async {
-                              await _lock.removeLock(m);
-                            });
-                          },
-                        );
-                      } else {
-                        log(Markers.userTap).trace("tappedLock", (m) async {
-                          await _lock.autoLock(m);
-                        });
-                      }
-                    }),
-              ],
-            ),
-          ),
+                      ),
+                    ),
+                  ],
+                ),
           const SizedBox(height: 40),
-          SectionLabel(
-              text: "account section header my subscription".i18n.capitalize()),
+          SectionLabel(text: "account section header my subscription".i18n.capitalize()),
           CommonCard(
             child: Column(
               children: [
@@ -260,8 +256,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     icon: CupertinoIcons.person_3,
                     text: "universal action community".i18n,
                     onTap: () {
-                      log(Markers.userTap).trace("settingsOpenCommunity",
-                          (m) async {
+                      log(Markers.userTap).trace("settingsOpenCommunity", (m) async {
                         await _stage.openLink(LinkId.knowledgeBase, m);
                       });
                     }),
@@ -279,8 +274,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     icon: CupertinoIcons.person_2,
                     text: "account action about".i18n,
                     onTap: () {
-                      log(Markers.userTap).trace("settingsOpenAbout",
-                          (m) async {
+                      log(Markers.userTap).trace("settingsOpenAbout", (m) async {
                         await _stage.openLink(LinkId.credits, m);
                       });
                     }),
@@ -297,9 +291,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             ),
           ),
           const SizedBox(height: 12),
-          Center(
-              child: Text(_getAppVersion(),
-                  style: TextStyle(color: context.theme.divider))),
+          Center(child: Text(_getAppVersion(), style: TextStyle(color: context.theme.divider))),
         ],
       ),
     );
@@ -331,8 +323,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
       return "account status text inactive".i18n;
     }
 
-    String formattedDate =
-        "${date.year}-${padZero(date.month)}-${padZero(date.day)}";
+    String formattedDate = "${date.year}-${padZero(date.month)}-${padZero(date.day)}";
 
     return "account status text"
         .i18n
