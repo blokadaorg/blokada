@@ -138,6 +138,7 @@ void main() {
         Core.register<AccountStore>(account);
 
         final app = MockAppStore();
+        when(app.conditions).thenAnswer((_) => AppStatusStrategy());
         Core.register<AppStore>(app);
 
         final perm = MockPlatformPermActor();
