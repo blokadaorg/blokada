@@ -554,5 +554,16 @@
     "bypass info": "Vissa appar kanske inte fungerar som de ska med VPN. Du kan lägga till dem i bypass listan för att skicka sin trafik utanför VPN-tunneln, vilket kan hjälpa till med anslutning men minskar sekretess. Appen innehåller även några inbyggda bypass-poster för kompatibilitet. Obs! Om din enhet har inställningen \"Blockera anslutningar utan VPN\" aktiverad, kommer kringgående appar inte ha internetåtkomst.",
     "bypass none": "Inga appar tillsatta. Använd knappen Lägg till högst upp för att lägga till nya appar till den här listan.",
     "bypass action add": "Lägg till app",
-    "bypass dialog add brief": "Börja skriva för att söka på appar."
+    "bypass dialog add brief": "Börja skriva för att söka på appar.",
+    "freemium home status header": "Essentials",
+    "freemium home status desc safari": "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.",
+    "freemium stats cta header": "Unlock full tracking control",
+    "freemium stats cta desc": "See which trackers are reaching you - and block them.",
+    "freemium filters cta header": "Unlock advanced blocklists",
+    "freemium filters cta desc": "Upgrade your plan to enable advanced protection and extra blocklists.",
+    "freemium activity cta header": "Unlock your stats",
+    "freemium activity cta desc": "Upgrade to Plus to access detailed statistics and insights.",
+    "freemium sheet safari header": "Start blocking ads in Safari",
+    "freemium sheet safari desc": "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
+    "freemium sheet safari cta": "Open Safari"
 }

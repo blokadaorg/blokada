@@ -554,5 +554,16 @@
     "bypass info": "Einige Apps funktionieren möglicherweise nicht richtig mit dem VPN. Du kannst sie zur Umgehungsliste hinzufügen, um ihren Verkehr außerhalb des VPN-Tunnels zu versenden, was bei der Konnektivität helfen kann, aber die Privatsphäre verringert. Die App enthält auch ein paar integrierte Bypass-Einträge zur Kompatibilität. Notiz: Wenn Ihr Gerät die Einstellung 'Blockiere Verbindungen ohne VPN' aktiviert hat, haben umgebende Apps keinen Internetzugang.",
     "bypass none": "Keine Apps hinzugefügt. Verwenden Sie die Schaltfläche Hinzufügen, um neue Apps zu dieser Liste hinzuzufügen.",
     "bypass action add": "App hinzufügen",
-    "bypass dialog add brief": "Tippen, um Apps zu suchen."
+    "bypass dialog add brief": "Tippen, um Apps zu suchen.",
+    "freemium home status header": "Essentials",
+    "freemium home status desc safari": "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.",
+    "freemium stats cta header": "Unlock full tracking control",
+    "freemium stats cta desc": "See which trackers are reaching you - and block them.",
+    "freemium filters cta header": "Unlock advanced blocklists",
+    "freemium filters cta desc": "Upgrade your plan to enable advanced protection and extra blocklists.",
+    "freemium activity cta header": "Unlock your stats",
+    "freemium activity cta desc": "Upgrade to Plus to access detailed statistics and insights.",
+    "freemium sheet safari header": "Start blocking ads in Safari",
+    "freemium sheet safari desc": "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
+    "freemium sheet safari cta": "Open Safari"
 }

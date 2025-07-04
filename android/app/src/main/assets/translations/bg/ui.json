@@ -554,5 +554,16 @@
     "bypass info": "Някои приложения може да не работят правилно с VPN. Можете да ги добавите към списъка с изключения, така че техният трафик да преминава извън VPN тунела, което може да подобри свързаността, но намалява поверителността. Приложението включва и няколко вградени изключения за съвместимост. Забележка: ако на устройството ви е активирана настройката „Блокирай връзки без VPN“, приложенията с изключение няма да имат достъп до интернет.",
     "bypass none": "Няма добавени приложения. Използвайте бутона „Добавяне“ горе, за да добавите нови приложения към този списък.",
     "bypass action add": "Добавяне на приложение",
-    "bypass dialog add brief": "Започнете да пишете, за да търсите приложения."
+    "bypass dialog add brief": "Започнете да пишете, за да търсите приложения.",
+    "freemium home status header": "Essentials",
+    "freemium home status desc safari": "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.",
+    "freemium stats cta header": "Unlock full tracking control",
+    "freemium stats cta desc": "See which trackers are reaching you - and block them.",
+    "freemium filters cta header": "Unlock advanced blocklists",
+    "freemium filters cta desc": "Upgrade your plan to enable advanced protection and extra blocklists.",
+    "freemium activity cta header": "Unlock your stats",
+    "freemium activity cta desc": "Upgrade to Plus to access detailed statistics and insights.",
+    "freemium sheet safari header": "Start blocking ads in Safari",
+    "freemium sheet safari desc": "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
+    "freemium sheet safari cta": "Open Safari"
 } }
