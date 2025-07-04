@@ -13,6 +13,7 @@ FASTLANE := fastlane
 
 # Build everything from scratch (release)
 build:
+	export LANG=en_US.UTF-8
 	pod repo update
 	pod install --repo-update
 	$(MAKE) ipa-family
@@ -20,12 +21,14 @@ build:
 
 # Build .ipa of family (release) - with pods
 build-family:
+	export LANG=en_US.UTF-8
 	pod repo update
 	pod install --repo-update
 	$(MAKE) ipa-family
 
 # Build .ipa of six (release) - with pods
 build-six:
+	export LANG=en_US.UTF-8
 	pod repo update
 	pod install --repo-update
 	$(MAKE) ipa-six
