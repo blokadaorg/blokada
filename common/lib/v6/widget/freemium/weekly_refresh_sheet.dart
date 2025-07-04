@@ -1,3 +1,4 @@
+import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -14,6 +15,7 @@ class WeeklyRefreshSheetIos extends StatefulWidget {
 
 class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
   final _payment = Core.get<PaymentActor>();
+  final _modal = Core.get<CurrentModalValue>();
 
   bool updating = false;
   bool updated = false;
@@ -33,7 +35,10 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
         });
       }
       await sleepAsync(const Duration(seconds: 1));
-      if (mounted) Navigator.of(context).pop();
+      if (mounted) {
+        // Auto-close the modal after successful update
+        Navigator.of(context).pop();
+      }
     } catch (e) {
       // Handle any errors that may occur during the update process
       if (mounted) {
@@ -134,7 +139,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: MiniCard(
                         onTap: () async {
-                          Navigator.of(context).pop();
+                          _modal.change(Markers.userTap, null);
                           _payment.openPaymentScreen(Markers.userTap,
                               placement: Placement.freemiumWeekly);
                         },
