@@ -70,7 +70,7 @@ void main() {
 
         final subject = AppStartStore();
 
-        await subject.pauseAppIndefinitely(m);
+        await subject.pauseAppIndefinitely(m)
 
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(m, false, pauseDuration: null)).called(1);

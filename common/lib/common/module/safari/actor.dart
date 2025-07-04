@@ -141,10 +141,8 @@ class SafariActor with Actor, Logging {
       }
 
       // Status is active, so we can proceed with the app state sync
-      // Needs to happen after the wait from unpauseApp
-      // MARK1
+      await _app.appPaused(false, m);
       await _app.reconfiguring(m);
-      await sleepAsync(const Duration(seconds: 3));
       await _syncFreemiumStateOnForeground(m);
     });
   }

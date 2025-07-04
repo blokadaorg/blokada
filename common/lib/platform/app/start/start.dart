@@ -176,8 +176,11 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
           // Delay to show in-progress until payment sheet loads
           // MARK1
-          log(m).i("Delay wait for payment screen");
-          await sleepAsync(const Duration(seconds: 3));
+          // Freemium flow works better without this delay
+          if (!_app.conditions.accountIsFreemium) {
+            log(m).i("Delay wait for payment screen");
+            await sleepAsync(const Duration(seconds: 3));
+          }
           await _app.appPaused(true, m);
         } catch (e) {
           await _app.appPaused(true, m);

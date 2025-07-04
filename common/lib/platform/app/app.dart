@@ -261,8 +261,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> freemiumActivated(Marker m, bool active) async {
     return await log(m).trace("freemiumActivated", (m) async {
-      conditions =
-          conditions.update(freemiumEnabled: active, reconfiguring: false, appPaused: false);
+      conditions = conditions.update(freemiumEnabled: active, reconfiguring: false);
       await _updateStatus(m);
     });
   }
