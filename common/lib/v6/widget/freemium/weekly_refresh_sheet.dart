@@ -79,7 +79,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                         child: Text(
                           "It's been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.",
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
                         ),
                       ),
