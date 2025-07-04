@@ -60,9 +60,9 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
           child: ListView(primary: true, children: [padding] + filters),
         ),
         (_isFreemium)
-            ? const FreemiumScreen(
-                title: "Unlock advanced blocklists",
-                subtitle: "Upgrade your plan to enable advanced protection and extra blocklists.",
+            ? FreemiumScreen(
+                title: "freemium filters cta header".i18n,
+                subtitle: "freemium filters cta desc".i18n,
                 placement: Placement.freemiumFilters,
               )
             : Container(),

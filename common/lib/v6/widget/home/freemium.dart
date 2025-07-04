@@ -40,17 +40,16 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
           child: Column(
             children: [
               MiniCardHeader(
-                text: "Essentials",
+                text: "freemium home status header".i18n,
                 icon: Icons.shield_outlined,
                 color: theme.freemium,
               ),
-              SizedBox(height: 12),
-              Text(
-                  "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps."),
+              const SizedBox(height: 12),
+              Text("freemium home status desc safari".i18n),
             ],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         _buildCta(context),
       ],
     );

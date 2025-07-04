@@ -50,8 +50,7 @@ void main() {
         await subject.pauseAppUntil(duration, m);
 
         verify(app.appPaused(true, m)).called(1);
-        verify(device.setCloudEnabled(m, false, pauseDuration: duration))
-            .called(1);
+        verify(device.setCloudEnabled(m, false, pauseDuration: duration)).called(1);
       });
     });
 
@@ -70,7 +69,7 @@ void main() {
 
         final subject = AppStartStore();
 
-        await subject.pauseAppIndefinitely(m)
+        await subject.pauseAppIndefinitely(m);
 
         verify(app.appPaused(true, m)).called(1);
         verify(device.setCloudEnabled(m, false, pauseDuration: null)).called(1);

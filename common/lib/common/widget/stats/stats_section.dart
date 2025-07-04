@@ -132,9 +132,9 @@ class StatsSectionState extends State<StatsSection> with Disposables {
           ),
         ),
         (_isFreemium)
-            ? const FreemiumScreen(
-                title: "Unlock full tracking control",
-                subtitle: "See which trackers are reaching you - and block them.",
+            ? FreemiumScreen(
+                title: "freemium stats cta header".i18n,
+                subtitle: "freemium stats cta desc".i18n,
                 placement: Placement.freemiumActivity,
               )
             : Container(),

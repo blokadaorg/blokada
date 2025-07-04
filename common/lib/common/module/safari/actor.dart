@@ -40,7 +40,9 @@ class SafariActor with Actor, Logging {
     // Provide the widget factory for the modal this module handles
     _modal.onChange.listen((it) {
       if (it.now == Modal.onboardSafari) {
-        _modalWidget.change(it.m, (context) => const SafariYoutubeOnboardSheetIos());
+        _modalWidget.change(it.m, (context) => const SafariOnboardSheetIos());
+      } else if (it.now == Modal.onboardSafariYoutube) {
+        _modalWidget.change(it.m, (context) => const SafariOnboardYtSheetIos());
       }
     });
   }

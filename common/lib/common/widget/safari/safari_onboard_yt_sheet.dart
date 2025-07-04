@@ -6,15 +6,15 @@ import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SafariYoutubeOnboardSheetIos extends StatefulWidget {
-  const SafariYoutubeOnboardSheetIos({Key? key}) : super(key: key);
+class SafariOnboardYtSheetIos extends StatefulWidget {
+  const SafariOnboardYtSheetIos({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => SafariYoutubeOnboardSheetIosState();
+  State<StatefulWidget> createState() => SafariOnboardYtSheetIosState();
 }
 
-class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetIos> {
-  final _onboard = Core.get<SafariActor>();
+class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
+  final _actor = Core.get<SafariActor>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                     children: [
                       const SizedBox(height: 24),
                       Text(
-                        "Start blocking ads in Safari",
+                        "onboard safari header".i18n,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -43,7 +43,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
+                          "onboard safari brief".i18n,
                           softWrap: true,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.theme.textSecondary),
@@ -89,7 +89,7 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                             ),
                             SafariSettingGuideWidget(
                               title: "Blokada",
-                              iconReplacement: Image(
+                              iconReplacement: const Image(
                                 image: AssetImage('assets/images/v6-appicon.png'),
                                 width: 24,
                               ),
@@ -117,16 +117,45 @@ class SafariYoutubeOnboardSheetIosState extends State<SafariYoutubeOnboardSheetI
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
-                          _onboard.openSafariSetup();
+                          _actor.openSafariSetup();
                         },
                         color: context.theme.accent,
                         child: SizedBox(
                           height: 32,
                           child: Center(
                             child: Text(
-                              "Open Safari",
+                              "onboard safari cta".i18n,
                               style: const TextStyle(
                                 color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: MiniCard(
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          _actor.markOptionalOnboardSeen(Markers.userTap);
+                        },
+                        color: context.theme.bgColor,
+                        child: SizedBox(
+                          height: 32,
+                          child: Center(
+                            child: Text(
+                              "onboard safari skip".i18n,
+                              style: TextStyle(
+                                color: context.theme.textPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

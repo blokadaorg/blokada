@@ -102,9 +102,9 @@ class V6StatsSectionState extends State<V6StatsSection> {
           ),
         ),
         (_isFreemium)
-            ? const FreemiumScreen(
-                title: "Unlock your stats",
-                subtitle: "Upgrade to Plus to access detailed statistics and insights.",
+            ? FreemiumScreen(
+                title: "freemium activity cta header".i18n,
+                subtitle: "freemium activity cta desc".i18n,
                 placement: Placement.freemiumStats,
               )
             : Container(),
