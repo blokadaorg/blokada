@@ -78,7 +78,7 @@ class SmartOnboardState extends State<SmartOnboard>
                       fontSize: 18,
                       color: Colors.white.withOpacity(0.8),
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                     maxLines: 3,
                   ),
                 ),

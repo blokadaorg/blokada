@@ -38,7 +38,7 @@ class DeviceLimitSheetState extends State<DeviceLimitSheet> {
                       Text(
                         "error vpn too many leases".i18n,
                         softWrap: true,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: TextStyle(color: context.theme.textSecondary),
                       ),
                       const SizedBox(height: 32), // Replaces Spacer

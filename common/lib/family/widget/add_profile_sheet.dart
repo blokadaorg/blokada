@@ -69,7 +69,7 @@ class AddProfileSheetState extends State<AddProfileSheet> {
                   SizedBox(height: 8),
                   Text("family profile template".i18n,
                       style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.center),
+                      textAlign: TextAlign.start),
                   SizedBox(height: 56),
                   ProfileButton(
                     onTap: () => showRenameDialog(context, "profile", null,

@@ -45,7 +45,7 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                         child: Text(
                           "freemium sheet safari desc".i18n,
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),

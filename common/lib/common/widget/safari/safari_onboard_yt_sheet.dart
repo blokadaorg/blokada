@@ -45,7 +45,7 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                         child: Text(
                           "onboard safari brief".i18n,
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),

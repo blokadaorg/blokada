@@ -127,7 +127,7 @@ class _RateScreenState extends State<RateScreen>
                 const SizedBox(height: 30),
                 Text(
                   "main rate us description".i18n,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   style: const TextStyle(fontSize: 16, color: Colors.white),
                 ),
                 const SizedBox(height: 20),
@@ -167,7 +167,7 @@ class _RateScreenState extends State<RateScreen>
                         duration: _duration,
                         child: Text(
                           "main rate us on app store".i18n,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: const TextStyle(
                               fontSize: 16, color: Colors.white),
                         ),

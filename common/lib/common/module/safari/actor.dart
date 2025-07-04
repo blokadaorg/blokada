@@ -28,7 +28,6 @@ class SafariActor with Actor, Logging {
   late final _accountStore = Core.get<AccountStore>();
   late final _payment = Core.get<PaymentActor>();
 
-  final Duration _pingStatusValidity = const Duration(hours: 24);
 
   DateTime _accountActiveUntil = DateTime(0);
   bool _appActive = false;
@@ -192,8 +191,16 @@ class SafariActor with Actor, Logging {
     if (!isActivated && _app.status != AppStatus.activatedFreemium) return false;
 
     if (isActivated) {
-      // Will only ask if not granted
-      await _perm.askNotificationPermissions(m, checkForPerms: true);
+      // Auto-unpause app only when Safari extension transitions from inactive to active
+      // This handles the case where user completes Safari onboarding and returns to app
+      // but NOT when user has explicitly turned off the app power
+      if (!_app.conditions.freemiumEnabled && _app.conditions.appPaused) {
+        // Will only ask if not granted
+        await _perm.askNotificationPermissions(m, checkForPerms: true);
+        
+        // Auto-unpause the app since Safari extension is now active for the first time
+        await _app.appPaused(false, m);
+      }
     }
 
     await _app.freemiumActivated(m, isActivated);
@@ -201,14 +208,8 @@ class SafariActor with Actor, Logging {
   }
 
   bool _isPingValidAndActive(Marker m, JsonBlockaweb? ping) {
-    if (ping == null) return false;
-    final now = DateTime.now();
-
-    log(m).pair("ping timestamp valid", now.difference(ping.timestamp) < _pingStatusValidity);
-
-    if (now.difference(ping.timestamp) < _pingStatusValidity) {
-      return true;
-    }
-    return false;
+    final isValid = _ping.isPingValidAndActive(ping);
+    log(m).pair("ping timestamp valid", isValid);
+    return isValid;
   }
 }

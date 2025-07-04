@@ -111,7 +111,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
                         child: Text(
                           "family perms brief alt".i18n.withParams(_appName),
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),
@@ -178,7 +178,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
                         child: Text(
                           "family perms copy android".i18n,
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),

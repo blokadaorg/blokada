@@ -55,7 +55,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                         child: Text(
                           "family perms brief alt".i18n.withParams(_appName),
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),
