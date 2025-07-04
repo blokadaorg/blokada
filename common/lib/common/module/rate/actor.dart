@@ -18,6 +18,7 @@ class RateActor with Logging, Actor {
   late final _familyStats = Core.get<StatsActor>();
   late final _familyPhase = Core.get<FamilyPhaseValue>();
   late final _scheduler = Core.get<Scheduler>();
+  late final _account = Core.get<AccountStore>();
 
   late final _rateMetadata = RateMetadataValue();
 
@@ -25,6 +26,7 @@ class RateActor with Logging, Actor {
   onStart(Marker m) async {
     return await log(m).trace("start", (m) async {
       _app.addOn(appStatusChanged, _scheduleAfterAppStatus);
+      _account.addOn(accountChanged, _trackFreemiumYoutubeActivation);
       await _load(m);
     });
   }
@@ -42,6 +44,39 @@ class RateActor with Logging, Actor {
     });
   }
 
+  _trackFreemiumYoutubeActivation(Marker m) async {
+    return await log(m).trace("trackFreemiumYoutubeActivation", (m) async {
+      final account = _account.account;
+      if (account == null) return;
+      
+      final attributes = account.jsonAccount.attributes ?? {};
+      final freemiumYoutubeUntil = attributes['freemium_youtube_until'] as String?;
+      
+      if (freemiumYoutubeUntil != null) {
+        final meta = await _rateMetadata.now();
+        if (meta != null && meta.freemiumYoutubeActivatedTime == null) {
+          // First time YouTube freemium is activated, store the timestamp
+          final updatedMeta = JsonRate(
+            lastSeen: meta.lastSeen,
+            lastRate: meta.lastRate,
+            freemiumYoutubeActivatedTime: DateTime.now(),
+          );
+          await _rateMetadata.change(m, updatedMeta);
+        }
+      }
+    });
+  }
+
+  bool _shouldShowForFreemiumYoutube(JsonRate meta) {
+    // Must have freemium YouTube activated timestamp
+    if (meta.freemiumYoutubeActivatedTime == null) return false;
+    
+    // Must be at least 2 days since freemium YouTube was activated
+    final now = DateTime.now();
+    final daysSinceActivation = now.difference(meta.freemiumYoutubeActivatedTime!).inDays;
+    return daysSinceActivation >= 2;
+  }
+
   Future<bool> checkRateConditions(Marker m) async {
     final meta = await _rateMetadata.now();
 
@@ -53,6 +88,12 @@ class RateActor with Logging, Actor {
 
     // Skip if already showing stuff
     if (!_stage.route.isMainRoute()) return false;
+
+    // Check for freemium YouTube condition (for non-family apps)
+    if (!Core.act.isFamily && _account.isFreemium && _shouldShowForFreemiumYoutube(meta)) {
+      await show(m);
+      return false;
+    }
 
     if (!Core.act.isFamily) {
       // Only when app got active ...
@@ -95,7 +136,11 @@ class RateActor with Logging, Actor {
       if (meta == null) {
         meta = JsonRate(lastSeen: lastSeen);
       } else {
-        meta = JsonRate(lastSeen: lastSeen, lastRate: meta.lastRate);
+        meta = JsonRate(
+          lastSeen: lastSeen, 
+          lastRate: meta.lastRate,
+          freemiumYoutubeActivatedTime: meta.freemiumYoutubeActivatedTime,
+        );
       }
       await _rateMetadata.change(m, meta);
       await _stage.showModal(StageModal.rate, m);
@@ -105,8 +150,11 @@ class RateActor with Logging, Actor {
   _rate(int rate, bool showPlatformDialog, Marker m) async {
     return await log(m).trace("rate", (m) async {
       JsonRate? meta = await _rateMetadata.now();
-      meta =
-          JsonRate(lastSeen: meta?.lastSeen ?? DateTime.now(), lastRate: rate);
+      meta = JsonRate(
+        lastSeen: meta?.lastSeen ?? DateTime.now(), 
+        lastRate: rate,
+        freemiumYoutubeActivatedTime: meta?.freemiumYoutubeActivatedTime,
+      );
       await _rateMetadata.change(m, meta);
 
       if (rate >= 4 && showPlatformDialog) {
