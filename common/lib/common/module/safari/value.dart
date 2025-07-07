@@ -54,6 +54,8 @@ class BlockawebAppStatusValue extends JsonPersistedValue<JsonBlockaweb> {
 
 // Status of blockaweb, passed to this app.
 class BlockawebPingValue extends JsonPersistedValue<JsonBlockaweb> {
+  static const Duration _pingStatusValidity = Duration(hours: 24);
+  
   BlockawebPingValue() : super("blockaweb:ping");
 
   @override
@@ -61,4 +63,10 @@ class BlockawebPingValue extends JsonPersistedValue<JsonBlockaweb> {
 
   @override
   Map<String, dynamic> toJson(JsonBlockaweb value) => value.toJson();
+  
+  bool isPingValidAndActive(JsonBlockaweb? ping) {
+    if (ping == null) return false;
+    final now = DateTime.now();
+    return now.difference(ping.timestamp) < _pingStatusValidity;
+  }
 }

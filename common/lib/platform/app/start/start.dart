@@ -1,5 +1,6 @@
 import 'package:common/common/module/modal/modal.dart';
 import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/module/safari/safari.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/channel.pg.dart';
 import 'package:common/platform/stage/channel.pg.dart';
@@ -34,6 +35,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
   late final _payment = Core.get<PaymentActor>();
   late final _modal = Core.get<CurrentModalValue>();
   late final _stage = Core.get<StageStore>();
+  late final _ping = Core.get<BlockawebPingValue>();
 
   AppStartStoreBase() {
     _app.addOn(appStatusChanged, onAppStatus);
@@ -219,7 +221,15 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   Future<void> _unpauseApp(Marker m) async {
     if (_account.type == AccountType.libre) {
-      throw AccountTypeException();
+      if (_account.isFreemium) {
+        final pingData = await _ping.fetch(m, force: true);
+        if (!_ping.isPingValidAndActive(pingData)) {
+          throw AccountTypeException();
+        }
+        return;
+      } else {
+        throw AccountTypeException();
+      }
     } else if (!_permStore.isPrivateDnsEnabledFor(_device.deviceTag)) {
       throw OnboardingException();
       // } else if (_account.type == AccountType.plus && _permVpn.present != true) {

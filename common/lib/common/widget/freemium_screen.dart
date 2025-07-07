@@ -94,7 +94,7 @@ class _FreemiumScreenState extends State<FreemiumScreen>
             Text(
               widget.subtitle,
               style: Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
             ),
             const SizedBox(height: 32),
             MiniCard(
