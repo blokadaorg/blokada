@@ -163,3 +163,9 @@ The `common/` directory is a Flutter module that gets embedded into native apps:
 4. **Localization**: Translations are in `common/assets/translations/` and synced using `make translate`
 
 5. **CI/CD**: The project uses GitHub Actions for CI. See `make ci-*` targets for CI-specific builds
+
+## Business logic
+
+For detailed information about bussiness logic such as account types, subscription states, and feature access, see:
+
+@common/docs/ACCOUNT_TYPES.md and other relevant documents in the `common/docs/` directory.
