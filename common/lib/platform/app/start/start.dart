@@ -226,6 +226,7 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
         if (!_ping.isPingValidAndActive(pingData)) {
           throw AccountTypeException();
         }
+        await _app.freemiumActivated(m, true);
         return;
       } else {
         throw AccountTypeException();
