@@ -770,16 +770,16 @@
 "bypass dialog add brief" = "Mulai mengetik untuk mencari app.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Esensial";
+"freemium home status desc safari" = "Perlindungan esensial telah aktif di Safari. Upgrade untuk mendapatkan perlindungan penuh di semua aplikasi.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Buka kendali pelacakan lengkap";
+"freemium stats cta desc" = "Lihat tracker mana saja yang mengintai Anda - kemudian blokir.";
+"freemium filters cta header" = "Buka blocklist lanjutan";
+"freemium filters cta desc" = "Upgrade langganan Anda untuk mengaktifkan perlindungan lebih lanjut dan blocklist tambahan.";
+"freemium activity cta header" = "Buka statistik Anda";
+"freemium activity cta desc" = "Upgrade ke versi Plus untuk mengakses statistik dan pemahaman lebih dalam.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Mulai blokir iklan di Safari";
+"freemium sheet safari desc" = "Aktifkan ekstensi kami di Safari untuk mendapatkan perlindungan esensial ketika menjelajahi internet. Ekstensi ini memblokir iklan yang mengganggu — termasuk iklan video di YouTube — sehingga Anda dapat menikmati pengalaman berselancar yang lebih bersih dan cepat.";
+"freemium sheet safari cta" = "Buka Safari";

@@ -770,16 +770,16 @@
 "bypass dialog add brief" = "Commencez à taper pour rechercher des applications.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Essentiel";
+"freemium home status desc safari" = "La protection essentielle est activée dans Safari. Passez à la version supérieure pour bénéficier d'une couverture complète pour toutes les applications.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Débloquez le contrôle complet du suivi";
+"freemium stats cta desc" = "Découvrez quels trackers vous atteignent et bloquez-les.";
+"freemium filters cta header" = "Débloquez les listes de blocage avancées";
+"freemium filters cta desc" = "Mettez à niveau votre forfait pour activer une protection avancée et des listes de blocage supplémentaires.";
+"freemium activity cta header" = "Débloquez vos statistiques";
+"freemium activity cta desc" = "Passez à Plus pour accéder à des statistiques et des informations détaillées.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Commencez à bloquer les publicités dans Safari";
+"freemium sheet safari desc" = "Activez notre extension dans Safari pour obtenir une protection essentielle pendant que vous naviguez. Il bloque les publicités ennuyeuses — y compris les publicités vidéo sur YouTube — pour que vous puissiez profiter d’une expérience Web plus propre et plus rapide.";
+"freemium sheet safari cta" = "Ouvrez Safari";

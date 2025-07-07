@@ -556,15 +556,15 @@
     <string name="bypass_none">Tidak ada app yang ditambahkan. Gunakan tombol Tambah App di atas untuk menambahkan app ke daftar ini.</string>
     <string name="bypass_action_add">Tambah App</string>
     <string name="bypass_dialog_add_brief">Mulai mengetik untuk mencari app.</string>
-    <string name="freemium_home_status_header">Essentials</string>
-    <string name="freemium_home_status_desc_safari">Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.</string>
-    <string name="freemium_stats_cta_header">Unlock full tracking control</string>
-    <string name="freemium_stats_cta_desc">See which trackers are reaching you - and block them.</string>
-    <string name="freemium_filters_cta_header">Unlock advanced blocklists</string>
-    <string name="freemium_filters_cta_desc">Upgrade your plan to enable advanced protection and extra blocklists.</string>
-    <string name="freemium_activity_cta_header">Unlock your stats</string>
-    <string name="freemium_activity_cta_desc">Upgrade to Plus to access detailed statistics and insights.</string>
-    <string name="freemium_sheet_safari_header">Start blocking ads in Safari</string>
-    <string name="freemium_sheet_safari_desc">Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.</string>
-    <string name="freemium_sheet_safari_cta">Open Safari</string>
+    <string name="freemium_home_status_header">Esensial</string>
+    <string name="freemium_home_status_desc_safari">Perlindungan esensial telah aktif di Safari. Upgrade untuk mendapatkan perlindungan penuh di semua aplikasi.</string>
+    <string name="freemium_stats_cta_header">Buka kendali pelacakan lengkap</string>
+    <string name="freemium_stats_cta_desc">Lihat tracker mana saja yang mengintai Anda - kemudian blokir.</string>
+    <string name="freemium_filters_cta_header">Buka blocklist lanjutan</string>
+    <string name="freemium_filters_cta_desc">Upgrade langganan Anda untuk mengaktifkan perlindungan lebih lanjut dan blocklist tambahan.</string>
+    <string name="freemium_activity_cta_header">Buka statistik Anda</string>
+    <string name="freemium_activity_cta_desc">Upgrade ke versi Plus untuk mengakses statistik dan pemahaman lebih dalam.</string>
+    <string name="freemium_sheet_safari_header">Mulai blokir iklan di Safari</string>
+    <string name="freemium_sheet_safari_desc">Aktifkan ekstensi kami di Safari untuk mendapatkan perlindungan esensial ketika menjelajahi internet. Ekstensi ini memblokir iklan yang mengganggu — termasuk iklan video di YouTube — sehingga Anda dapat menikmati pengalaman berselancar yang lebih bersih dan cepat.</string>
+    <string name="freemium_sheet_safari_cta">Buka Safari</string>
 </resources>

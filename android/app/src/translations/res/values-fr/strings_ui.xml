@@ -556,15 +556,15 @@
     <string name="bypass_none">Aucune application ajoutée. Utilisez le bouton « Ajouter » en haut pour ajouter de nouvelles applications à cette liste.</string>
     <string name="bypass_action_add">Ajouter une application</string>
     <string name="bypass_dialog_add_brief">Commencez à taper pour rechercher des applications.</string>
-    <string name="freemium_home_status_header">Essentials</string>
-    <string name="freemium_home_status_desc_safari">Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.</string>
-    <string name="freemium_stats_cta_header">Unlock full tracking control</string>
-    <string name="freemium_stats_cta_desc">See which trackers are reaching you - and block them.</string>
-    <string name="freemium_filters_cta_header">Unlock advanced blocklists</string>
-    <string name="freemium_filters_cta_desc">Upgrade your plan to enable advanced protection and extra blocklists.</string>
-    <string name="freemium_activity_cta_header">Unlock your stats</string>
-    <string name="freemium_activity_cta_desc">Upgrade to Plus to access detailed statistics and insights.</string>
-    <string name="freemium_sheet_safari_header">Start blocking ads in Safari</string>
-    <string name="freemium_sheet_safari_desc">Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.</string>
-    <string name="freemium_sheet_safari_cta">Open Safari</string>
+    <string name="freemium_home_status_header">Essentiel</string>
+    <string name="freemium_home_status_desc_safari">La protection essentielle est activée dans Safari. Passez à la version supérieure pour bénéficier d\'une couverture complète pour toutes les applications.</string>
+    <string name="freemium_stats_cta_header">Débloquez le contrôle complet du suivi</string>
+    <string name="freemium_stats_cta_desc">Découvrez quels trackers vous atteignent et bloquez-les.</string>
+    <string name="freemium_filters_cta_header">Débloquez les listes de blocage avancées</string>
+    <string name="freemium_filters_cta_desc">Mettez à niveau votre forfait pour activer une protection avancée et des listes de blocage supplémentaires.</string>
+    <string name="freemium_activity_cta_header">Débloquez vos statistiques</string>
+    <string name="freemium_activity_cta_desc">Passez à Plus pour accéder à des statistiques et des informations détaillées.</string>
+    <string name="freemium_sheet_safari_header">Commencez à bloquer les publicités dans Safari</string>
+    <string name="freemium_sheet_safari_desc">Activez notre extension dans Safari pour obtenir une protection essentielle pendant que vous naviguez. Il bloque les publicités ennuyeuses — y compris les publicités vidéo sur YouTube — pour que vous puissiez profiter d’une expérience Web plus propre et plus rapide.</string>
+    <string name="freemium_sheet_safari_cta">Ouvrez Safari</string>
 </resources>

@@ -56,7 +56,7 @@
 "Protects against malicious software" = "الحماية من البرمجيات الضارة";
 "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "يدافع ضد البرمجيات الخبيثة والمواقع الضارة. يوفر درعا آمنا ضد طائفة من التهديدات الإلكترونية.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
+"Adult Content" = "محتوى للبالغين";
 "Blocks adult and pornographic content" = "حظر المحتوى الكباري والإباحي للكبار";
 "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "هذا الفلتر يستهدف محتوى الكبار للحصول على تجربة أكثر أماناً على الإنترنت. يحمي المستخدمين من المواد الواضحة والمخاطر المحتملة.";
 // Name of the Dating shield
@@ -76,7 +76,7 @@
 "Blocks popular video streaming platforms" = "حظر منصات بث الفيديو الشائعة";
 "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "تقييد الوصول إلى أعلى خدمات بث الفيديو. مصمم للمستخدمين الراغبين في إدارة عادات العرض وحفظ عرض الترددات.";
 // Name of the Streaming apps shield
-"Streaming" = "Streaming";
+"Streaming" = "البث المباشر";
 "Blocks streaming apps and related content" = "حظر تطبيقات البث والمحتوى ذي الصلة";
 "Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "يميز مجموعة منتقاة من تطبيقات البث الشائعة. يسمح بالتحكم في استهلاك الوسائط.";
 // Name of the Social media shield
@@ -96,23 +96,23 @@
 "Restricts access to popular games" = "تقييد الوصول إلى الألعاب الشهيرة";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "عرض تطبيقات الألعاب العليا. مثالي للمستخدمين الذين يرغبون في التحكم بدقة في دخول اللعبة.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
+"Online shopping" = "التسوق عبر الإنترنت";
 "Blocks leading e-commerce and shopping applications" = "حظر تطبيقات التجارة الإلكترونية والتسوق";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "هذا الدرع يمنع الوصول إلى تطبيقات التسوق الشائعة. إنه يساعد المستخدمين في كبح عمليات شراء أو تشتيت النوافذ.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
+"Other apps" = "تطبيقات أخرى";
 "A selection of various popular applications" = "مجموعة مختارة من التطبيقات الشائعة المختلفة";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "يوفر هذا الدرع قائمة من التطبيقات الشائعة من مختلف الأنواع. تم إنشاؤها للمستخدمين بهدف التحكم في التطبيق بشكل أكثر شمولا.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Safe search" = "البحث الآمن";
+"Enable safe search to filter out inappropriate search results in search engines." = "فعّل البحث الآمن لتصفية نتائج البحث غير الملائمة في محركات البحث.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "أساسي";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "موسع";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "استضافة الملفات";
 // Filter name, blocks torrent sites
-"Torrent" = "Torrent";
+"Torrent" = "تورنت";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "الألعاب عبر الإنترنت";

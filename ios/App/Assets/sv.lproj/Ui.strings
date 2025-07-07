@@ -770,16 +770,16 @@
 "bypass dialog add brief" = "Börja skriva för att söka på appar.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Grundläggande";
+"freemium home status desc safari" = "Grundläggande skydd är aktivt i Safari. Uppgradera för att få fullt skydd i alla appar.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Lås upp full spårningskontroll";
+"freemium stats cta desc" = "Se vilka spårare som når dig – och blockera dem.";
+"freemium filters cta header" = "Lås upp avancerade blocklistor";
+"freemium filters cta desc" = "Uppgradera din plan för att aktivera avancerat skydd och extra blocklistor.";
+"freemium activity cta header" = "Lås upp din statistik";
+"freemium activity cta desc" = "Uppgradera till Plus för att få tillgång till detaljerad statistik och insikter.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Börja blockera annonser i Safari";
+"freemium sheet safari desc" = "Aktivera vårt tillägg i Safari för att få grundläggande skydd när du surfar. Det blockerar irriterande annonser – även videoannonser på YouTube – för en renare och snabbare webbupplevelse.";
+"freemium sheet safari cta" = "Öppna Safari";
