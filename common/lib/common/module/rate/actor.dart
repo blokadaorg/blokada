@@ -48,10 +48,8 @@ class RateActor with Logging, Actor {
     return await log(m).trace("trackFreemiumYoutubeActivation", (m) async {
       final account = _account.account;
       if (account == null) return;
-      
-      final attributes = account.jsonAccount.attributes ?? {};
-      final freemiumYoutubeUntil = attributes['freemium_youtube_until'] as String?;
-      
+
+      final freemiumYoutubeUntil = account.jsonAccount.getFreemiumYoutubeUntil();
       if (freemiumYoutubeUntil != null) {
         final meta = await _rateMetadata.now();
         if (meta != null && meta.freemiumYoutubeActivatedTime == null) {
@@ -70,7 +68,7 @@ class RateActor with Logging, Actor {
   bool _shouldShowForFreemiumYoutube(JsonRate meta) {
     // Must have freemium YouTube activated timestamp
     if (meta.freemiumYoutubeActivatedTime == null) return false;
-    
+
     // Must be at least 2 days since freemium YouTube was activated
     final now = DateTime.now();
     final daysSinceActivation = now.difference(meta.freemiumYoutubeActivatedTime!).inDays;
@@ -137,7 +135,7 @@ class RateActor with Logging, Actor {
         meta = JsonRate(lastSeen: lastSeen);
       } else {
         meta = JsonRate(
-          lastSeen: lastSeen, 
+          lastSeen: lastSeen,
           lastRate: meta.lastRate,
           freemiumYoutubeActivatedTime: meta.freemiumYoutubeActivatedTime,
         );
@@ -151,7 +149,7 @@ class RateActor with Logging, Actor {
     return await log(m).trace("rate", (m) async {
       JsonRate? meta = await _rateMetadata.now();
       meta = JsonRate(
-        lastSeen: meta?.lastSeen ?? DateTime.now(), 
+        lastSeen: meta?.lastSeen ?? DateTime.now(),
         lastRate: rate,
         freemiumYoutubeActivatedTime: meta?.freemiumYoutubeActivatedTime,
       );

@@ -130,9 +130,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   @computed
   bool get isFreemium {
     if (type.isActive()) return false;
-    final attributes = account?.jsonAccount.attributes;
-    if (attributes == null) return false;
-    return attributes['freemium'] == true;
+    return account?.jsonAccount.isFreemium() ?? false;
   }
 
   AccountId? _previousAccountId;
@@ -225,7 +223,9 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
     this.account = account;
 
     if (oldA != null) {
-      if (oldA.type != newA.type || oldA.activeUntil != newA.activeUntil) {
+      if (oldA.type != newA.type ||
+          oldA.activeUntil != newA.activeUntil ||
+          oldA.isFreemium() != newA.isFreemium()) {
         await emit(accountChanged, account, m);
       }
     } else {

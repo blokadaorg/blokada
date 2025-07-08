@@ -225,7 +225,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
 
   @action
   Future<void> onAccountChanged(Marker m) async {
-    return await log(m).trace("onAccountChanged", (m) async {
+    return await log(m).trace("onAccountChangedUpdateAppStore", (m) async {
       final account = _account.account!;
       final isCloud = account.type == AccountType.cloud;
       final isPlus = account.type == AccountType.plus;

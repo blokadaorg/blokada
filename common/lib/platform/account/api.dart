@@ -23,6 +23,28 @@ class JsonAccount {
     return active ?? false;
   }
 
+  isFreemium() {
+    if (attributes == null) return false;
+    return attributes!['freemium'] == true;
+  }
+
+  DateTime? getFreemiumYoutubeUntil() {
+    if (attributes == null) return null;
+    final freemiumUntil = attributes!['freemium_youtube_until'];
+    if (freemiumUntil is String) {
+      return DateTime.tryParse(freemiumUntil);
+    }
+    return null;
+  }
+
+  DateTime getActiveUntil() {
+    if (activeUntil == null || activeUntil!.isEmpty) {
+      return DateTime(0);
+    }
+    final date = DateTime.tryParse(activeUntil!);
+    return date ?? DateTime(0);
+  }
+
   bool hasBeenActiveBefore() {
     return paymentSource?.isNotEmpty ?? false;
   }
@@ -72,8 +94,7 @@ class AccountApi {
   }
 
   Future<JsonAccount> postAccount(Marker m) async {
-    final result = await _api.request(ApiEndpoint.postAccountV2, m,
-        skipResolvingParams: true);
+    final result = await _api.request(ApiEndpoint.postAccountV2, m, skipResolvingParams: true);
     return _marshal.toAccount(result);
   }
 }

@@ -28,7 +28,6 @@ class SafariActor with Actor, Logging {
   late final _accountStore = Core.get<AccountStore>();
   late final _payment = Core.get<PaymentActor>();
 
-
   DateTime _accountActiveUntil = DateTime(0);
   bool _appActive = false;
   bool _freemium = false;
@@ -111,18 +110,9 @@ class SafariActor with Actor, Logging {
   }
 
   _updateStatusFromAccount(ValueUpdate<AccountState> it) async {
-    _accountActiveUntil = DateTime.tryParse(it.now.jsonAccount.activeUntil ?? "") ?? DateTime(0);
-
-    // Extract freemium attributes from account
-    final attributes = it.now.jsonAccount.attributes ?? {};
-    _freemium = attributes['freemium'] as bool? ?? false;
-
-    if (attributes['freemium_youtube_until'] != null) {
-      _freemiumYoutubeUntil = DateTime.tryParse(attributes['freemium_youtube_until'] as String);
-    } else {
-      _freemiumYoutubeUntil = null;
-    }
-
+    _accountActiveUntil = it.now.jsonAccount.getActiveUntil();
+    _freemium = it.now.jsonAccount.isFreemium();
+    _freemiumYoutubeUntil = it.now.jsonAccount.getFreemiumYoutubeUntil();
     await _scheduleSyncBlockaweb(it.m);
   }
 
@@ -197,7 +187,7 @@ class SafariActor with Actor, Logging {
       if (!_app.conditions.freemiumEnabled && _app.conditions.appPaused) {
         // Will only ask if not granted
         await _perm.askNotificationPermissions(m, checkForPerms: true);
-        
+
         // Auto-unpause the app since Safari extension is now active for the first time
         await _app.appPaused(false, m);
       }
