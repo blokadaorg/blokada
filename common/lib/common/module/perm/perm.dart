@@ -27,7 +27,7 @@ class CommonPermSheetActor with Actor {
   }
 
   WidgetBuilder _getBuilder() {
-    if (Core.act.platform == PlatformType.iOS) {
+    if (Core.act.isIos) {
       return (context) => const PrivateDnsSheetIos();
     } else {
       return (context) => const PrivateDnsSheetAndroid();

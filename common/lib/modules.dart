@@ -127,7 +127,7 @@ class Modules with Logging {
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
 
-    if (Core.act.platform == PlatformType.iOS) {
+    if (Core.act.isIos) {
       await _registerModule(SafariModule());
       await _registerModule(PlatformSafariModule());
       await _registerModule(FreemiumModule());

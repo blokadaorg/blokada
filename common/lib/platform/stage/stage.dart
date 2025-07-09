@@ -15,8 +15,7 @@ final willEnterBackground = EmitterEvent("willEnterBackground");
 
 enum StageTab { background, home, activity, advanced, settings }
 
-final _background =
-    StageRoute(path: "", tab: StageTab.background, payload: null);
+final _background = StageRoute(path: "", tab: StageTab.background, payload: null);
 
 const _afterDismissWait = Duration(milliseconds: 1000);
 
@@ -34,8 +33,7 @@ class StageRoute {
   StageRoute.fromPath(String path)
       : this(path: path, tab: _pathToTab(path), payload: _pathToPayload(path));
 
-  StageRoute.forTab(StageTab tab)
-      : this(path: tab.name, tab: tab, payload: null);
+  StageRoute.forTab(StageTab tab) : this(path: tab.name, tab: tab, payload: null);
 
   static StageTab _pathToTab(String path) {
     final parts = path.split("/");
@@ -71,15 +69,13 @@ class StageRouteState {
     this._tabStates,
   );
 
-  StageRouteState.init()
-      : this(_background, StageRoute.forTab(StageTab.home), null, null, {});
+  StageRouteState.init() : this(_background, StageRoute.forTab(StageTab.home), null, null, {});
 
-  StageRouteState newBg() => (route == _background)
-      ? this
-      : StageRouteState(_background, route, modal, modal, _tabStates);
+  StageRouteState newBg() =>
+      (route == _background) ? this : StageRouteState(_background, route, modal, modal, _tabStates);
 
-  StageRouteState newFg({StageModal? m}) => StageRouteState(
-      _prevRoute, _background, m ?? modal, m ?? modal, _tabStates);
+  StageRouteState newFg({StageModal? m}) =>
+      StageRouteState(_prevRoute, _background, m ?? modal, m ?? modal, _tabStates);
 
   StageRouteState newRoute(StageRoute route) {
     // Restore the state for this tab if exists
@@ -141,8 +137,7 @@ class StageRouteState {
 
 class StageStore = StageStoreBase with _$StageStore;
 
-abstract class StageStoreBase
-    with Store, Logging, Actor, ValueEmitter<StageRouteState>, Emitter {
+abstract class StageStoreBase with Store, Logging, Actor, ValueEmitter<StageRouteState>, Emitter {
   late final _ops = Core.get<StageOps>();
   late final _scheduler = Core.get<Scheduler>();
   late final _links = Core.get<LinkActor>();
@@ -232,8 +227,7 @@ abstract class StageStoreBase
           return;
         }
 
-        final newRoute =
-            route.newModal(null).newRoute(StageRoute.fromPath(path));
+        final newRoute = route.newModal(null).newRoute(StageRoute.fromPath(path));
 
         log(m).log(msg: "setRoute", attr: {
           "route": newRoute.route.path,
@@ -442,7 +436,7 @@ abstract class StageStoreBase
 
   bool _modalIsException(StageModal modal) {
     // Only on android we can invoke sheets before Foreground
-    if (Core.act.platform != PlatformType.android) return false;
+    if (!Core.act.isAndroid) return false;
     return modal == StageModal.onboarding;
   }
 }

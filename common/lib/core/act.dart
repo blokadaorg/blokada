@@ -13,6 +13,8 @@ enum ActScenario {
 mixin Act {
   late final bool isProd;
   late final bool isFamily;
+  late final bool isIos;
+  late final bool isAndroid;
   late final bool isTest;
   late final bool isRelease;
   late final bool hasToys;
@@ -29,6 +31,8 @@ class ActScreenplay with Act {
     isTest = scenario == ActScenario.test;
     isRelease = kReleaseMode;
     hasToys = scenario == ActScenario.prodWithToys;
+    isIos = platform == PlatformType.iOS;
+    isAndroid = platform == PlatformType.android;
     this.platform = platform;
     this.flavor = flavor;
   }

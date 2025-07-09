@@ -67,7 +67,7 @@ class PurchaseTimeoutActor with Logging, Actor {
 
   // Checks if user abandoned the purchase, to trigger the timeout event
   bool _shouldTriggerCheck(bool isForeground) {
-    if (Core.act.platform == PlatformType.iOS) {
+    if (Core.act.isIos) {
       // On iOS, we trigger if user opened the screen and then just left the app
       return !isForeground && _userEnteredPurchase;
     } else {
@@ -86,7 +86,7 @@ class PurchaseTimeoutActor with Logging, Actor {
     // On Android, we need to be more selective, because the billing UI
     // will show up and then the app will go to background, so we need to
     // check if user is still not during the normal purchase flow.
-    if (Core.act.platform == PlatformType.android && _isPurchaseOpened) {
+    if (Core.act.isAndroid && _isPurchaseOpened) {
       return false;
     }
 

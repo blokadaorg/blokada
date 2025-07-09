@@ -129,6 +129,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
 
   @computed
   bool get isFreemium {
+    if (Core.act.isAndroid) return false; // For now no freemium on Android
     if (type.isActive()) return false;
     return account?.jsonAccount.isFreemium() ?? false;
   }

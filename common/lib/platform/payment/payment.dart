@@ -8,7 +8,7 @@ part 'channel.dart';
 class PlatformPaymentModule with Module, Logging {
   @override
   onCreateModule() async {
-    if (Core.act.platform == PlatformType.android && !Core.act.isFamily) {
+    if (Core.act.isAndroid && !Core.act.isFamily) {
       // This is a temporary android Adapty SDK integration.
       // We are using it only until Adapty flutter SDK supports prorate modes.
       // Then this "if" can be dropped

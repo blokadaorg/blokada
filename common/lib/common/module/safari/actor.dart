@@ -79,7 +79,7 @@ class SafariActor with Actor, Logging {
 
   // Safari optional (YT) onboard in iOS, after DNS perms are granted (but only once)
   _maybeShowOptionalOnboard(NullableValueUpdate<DeviceTag> it) async {
-    if (Core.act.platform != PlatformType.iOS) return;
+    if (!Core.act.isIos) return;
     return await log(it.m).trace("maybeShowSafariOptionalOnboard", (m) async {
       final dnsEnabled = _perm.isPrivateDnsEnabled;
       final needsOnboard = await _needsOptionalOnboard(m);

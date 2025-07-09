@@ -16,7 +16,7 @@ class PrivateDnsCheck with Actor, Logging {
 
     var expected = _getIosPrivateDnsStringV6(m, tag, alias);
 
-    if (Core.act.platform == PlatformType.android) {
+    if (Core.act.isAndroid) {
       expected = getAndroidPrivateDnsString(m, tag, alias);
     } else if (Core.act.flavor == Flavor.family) {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);

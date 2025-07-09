@@ -9,7 +9,7 @@ class BypassActor with Actor, Logging {
 
   @override
   onStart(Marker m) async {
-    if (Core.act.platform != PlatformType.android) {
+    if (!Core.act.isAndroid) {
       // Bypass is only supported on Android
       // Ensure dependencies for Plus are loaded (empty list)
       await _bypassedPackages.fetch(m);
@@ -26,7 +26,7 @@ class BypassActor with Actor, Logging {
     var packages = (await _bypassedPackages.fetch(m));
     packages ??= <String>{};
 
-    if (packages.isEmpty && Core.act.platform == PlatformType.android) {
+    if (packages.isEmpty && Core.act.isAndroid) {
       log(m).i("No bypassed packages found, using default list for Android");
 
       // List decided by #133
@@ -52,8 +52,7 @@ class BypassActor with Actor, Logging {
               appName: allApps
                   .firstWhere(
                     (app) => app.packageName == packageName,
-                    orElse: () =>
-                        InstalledApp(packageName: packageName, appName: null),
+                    orElse: () => InstalledApp(packageName: packageName, appName: null),
                   )
                   .appName,
             ))
@@ -87,8 +86,7 @@ class BypassActor with Actor, Logging {
     await log(m).trace("setAppBypass", (m) async {
       log(m).i("Setting bypass for $packageName to $bypassed");
 
-      Set<String> apps = <String>{}
-        ..addAll((await _bypassedPackages.now()) ?? <String>{});
+      Set<String> apps = <String>{}..addAll((await _bypassedPackages.now()) ?? <String>{});
 
       if (bypassed) {
         apps.add(packageName);

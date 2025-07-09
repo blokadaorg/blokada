@@ -66,6 +66,6 @@ class OnboardCommand with Command {
   }
 
   _ensureIos() {
-    if (Core.act.platform != PlatformType.iOS) throw Exception("This is iOS only onboard");
+    if (!Core.act.isIos) throw Exception("This is iOS only onboard");
   }
 }

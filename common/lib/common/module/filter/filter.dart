@@ -18,7 +18,7 @@ class CurrentConfig extends NullableAsyncValue<UserFilterConfig> {
 }
 
 class SelectedFilters extends AsyncValue<List<FilterSelection>> {
-  SelectedFilters() : super (sensitive: true) {
+  SelectedFilters() : super(sensitive: true) {
     load = (Marker m) async => <FilterSelection>[];
   }
 }
@@ -28,7 +28,7 @@ class FilterModule with Module {
   onCreateModule() async {
     await register(KnownFilters(
       isFamily: Core.act.isFamily,
-      isIos: Core.act.platform == PlatformType.iOS,
+      isIos: Core.act.isIos,
     ));
     await register(DefaultFilters(Core.act.isFamily));
 

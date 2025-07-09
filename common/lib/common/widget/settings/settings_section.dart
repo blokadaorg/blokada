@@ -164,8 +164,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                             ],
                                           )
                                         : Container(),
-                                    (_account.type == AccountType.plus &&
-                                            Core.act.platform == PlatformType.android)
+                                    (_account.type == AccountType.plus && Core.act.isAndroid)
                                         ? Column(
                                             children: [
                                               SettingsItem(
