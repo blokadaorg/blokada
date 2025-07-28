@@ -89,6 +89,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
           const Spacer(),
           Text(header,
               textAlign: TextAlign.center,
+              textScaler: TextScaler.noScaling,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: headerFontSize,
@@ -99,6 +100,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
             padding: const EdgeInsets.symmetric(horizontal: 36.0),
             child: Text("onboard desc".i18n,
                 textAlign: TextAlign.left,
+                textScaler: TextScaler.noScaling,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -110,8 +112,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 36.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
                   child: MiniCard(
                     onTap: _close,
                     color: context.theme.accent,
