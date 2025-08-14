@@ -21,7 +21,15 @@ class ServicesSingleton {
 
     fileprivate init() {}
 
-    lazy var systemNav = SystemNavService()
+    lazy var privateDns: PrivateDnsServiceIn = {
+        if ProcessInfo.processInfo.isiOSAppOnMac {
+            return PrivateDnsServiceMac()
+        } else {
+            return PrivateDnsService()
+        }
+    }()
+    
+    lazy var systemNav = SystemNavService(privateDnsService: privateDns)
     lazy var dialog = DialogService()
     lazy var netx: NetxServiceIn = WgService()
     lazy var quickActions = QuickActionsService()

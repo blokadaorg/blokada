@@ -21,7 +21,8 @@ class ServicesSingleton {
 
     fileprivate init() {}
 
-    lazy var systemNav = SystemNavService()
+    lazy var privateDns: PrivateDnsServiceIn = PrivateDnsServiceMock()
+    lazy var systemNav = SystemNavService(privateDnsService: privateDns)
     lazy var dialog = DialogService()
 
     lazy var netx = NetxServiceMock()

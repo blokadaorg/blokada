@@ -14,9 +14,29 @@ import Foundation
 import UIKit
 
 class SystemNavService {
+    
+    private let privateDnsService: PrivateDnsServiceIn
+    
+    init(privateDnsService: PrivateDnsServiceIn) {
+        self.privateDnsService = privateDnsService
+    }
 
     func openSystemSettings() {
-        UIApplication.shared.open(URL(string: "App-Prefs:root=General")!)
+        // Check if running on macOS at runtime
+        if ProcessInfo.processInfo.isiOSAppOnMac {
+            // Running as "Designed for iPad" on Mac
+            // First prompt to install DNS profile
+            if let macDnsService = privateDnsService as? PrivateDnsServiceMac {
+                macDnsService.promptToInstallDNSProfile()
+            }
+            // Then open network preferences
+            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.network") {
+                UIApplication.shared.open(url)
+            }
+        } else {
+            // Running on actual iOS device
+            UIApplication.shared.open(URL(string: "App-Prefs:root=General")!)
+        }
     }
 
     func openAppSettings() {

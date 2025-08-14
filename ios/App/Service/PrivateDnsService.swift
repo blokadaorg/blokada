@@ -19,6 +19,7 @@ import NetworkExtension
 protocol PrivateDnsServiceIn {
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error>
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error>
+    func getPrivateDnsServerUrl() -> AnyPublisher<String, Error>
 }
 
 class PrivateDnsServiceMock: PrivateDnsServiceIn {
@@ -34,6 +35,10 @@ class PrivateDnsServiceMock: PrivateDnsServiceIn {
 
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error> {
         return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
+    
+    func getPrivateDnsServerUrl() -> AnyPublisher<String, Error> {
+        return Just("https://cloud.blokada.org/mock").setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 
 }

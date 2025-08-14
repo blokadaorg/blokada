@@ -251,6 +251,12 @@
 		4E356A8C24378CA80094EE27 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E356A8B24378CA80094EE27 /* Strings.swift */; };
 		4E36D5ED24589AFF00E339F2 /* BlokadaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */; };
 		4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */; };
+		4E38CDE62E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
+		4E38CDE72E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
+		4E38CDE82E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
+		4E38CDE92E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
+		4E38CDEA2E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
+		4E38CDEB2E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */; };
 		4E40DBD02417D54E00662E10 /* LocationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40DBCF2417D54E00662E10 /* LocationListView.swift */; };
 		4E42353A244F3ADE005A0779 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423539244F3ADE005A0779 /* LocationViewModel.swift */; };
 		4E42353B244F3ADE005A0779 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423539244F3ADE005A0779 /* LocationViewModel.swift */; };
@@ -870,6 +876,7 @@
 		4E363E662880027F00406368 /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E363E672880027F00406368 /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/App.xcframework"; sourceTree = "<group>"; };
 		4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaView.swift; sourceTree = "<group>"; };
+		4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDnsServiceMac.swift; sourceTree = "<group>"; };
 		4E3E1FB62A7B8F24005A2550 /* Flavor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flavor.swift; sourceTree = "<group>"; };
 		4E40DBCF2417D54E00662E10 /* LocationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListView.swift; sourceTree = "<group>"; };
 		4E423539244F3ADE005A0779 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
@@ -1291,6 +1298,7 @@
 		4E201D1327551759001FA2FF /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */,
 				4E8AE1E92758D93800BD2E5B /* Repos.swift */,
 				47729E0522F447C800B9B36B /* AppDelegate.swift */,
 				4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */,
@@ -2124,9 +2132,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2138,7 +2150,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2170,7 +2186,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2224,7 +2244,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2234,7 +2258,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2244,7 +2272,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2257,9 +2289,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2274,9 +2310,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2291,9 +2331,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2305,7 +2349,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2374,7 +2422,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2409,9 +2461,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2423,7 +2479,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2436,9 +2496,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2450,7 +2514,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2460,7 +2528,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2492,7 +2564,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Embed Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
@@ -2502,7 +2578,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputPaths = (
+			);
 			name = "[CP-User] Run Flutter Build common Script";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
@@ -2546,6 +2626,7 @@
 				4E23D000293E1F9700613D0A /* TunnelConfiguration+UapiConfig.swift in Sources */,
 				4E2F2A0F2760AB9D005A59F5 /* PrivateDnsService.swift in Sources */,
 				4E2F2A152760BE6F005A59F5 /* NavModel.swift in Sources */,
+				4E38CDE82E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4E8AE1FC27591F8E00BD2E5B /* Services.swift in Sources */,
 				4E23D03D293E20BC00613D0A /* String+ArrayConversion.swift in Sources */,
 				4E23D04A293E215F00613D0A /* LocalizationHelper.swift in Sources */,
@@ -2642,6 +2723,7 @@
 				4EA6DEE62D5BA9BB006BAA10 /* Core.swift in Sources */,
 				4EA6DEE72D5BA9BB006BAA10 /* Perm.swift in Sources */,
 				4EA6DEE82D5BA9BB006BAA10 /* Stage.swift in Sources */,
+				4E38CDEA2E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4EA6DEEA2D5BA9BB006BAA10 /* Common.swift in Sources */,
 				4EA6DEEB2D5BA9BB006BAA10 /* Plus.swift in Sources */,
 				4EA6DEEC2D5BA9BB006BAA10 /* Family.swift in Sources */,
@@ -2817,6 +2899,7 @@
 				4E270DB12A80EB8300D3484B /* Thread.swift in Sources */,
 				4E88AA162B2B1B28006B16E7 /* BlokadaView.swift in Sources */,
 				4E270DB72A80EB8300D3484B /* BlockaLogger.swift in Sources */,
+				4E38CDEB2E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4EA6DF002D5BA9CE006BAA10 /* Url.swift in Sources */,
 				4EDB13CC2D14321D000E2AD3 /* LinkRepo.swift in Sources */,
 				4E270DB92A80EB8300D3484B /* LoggerSaver.swift in Sources */,
@@ -2867,6 +2950,7 @@
 				4E290FB72497A26800FC4C61 /* BlokadaText.swift in Sources */,
 				4E78E35B245EBFF90017B234 /* Sequence+Extensions.swift in Sources */,
 				4EEC49532A4D983D001EF934 /* CoreBinding.swift in Sources */,
+				4E38CDE62E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */,
 				4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */,
 				4EBDD3632A0CDD190039C101 /* PermBinding.swift in Sources */,
@@ -2979,6 +3063,7 @@
 				4E86513E2A3C968B0060AFB1 /* TunnelConfiguration+UapiConfig.swift in Sources */,
 				4E86513F2A3C968B0060AFB1 /* PrivateDnsService.swift in Sources */,
 				4E8651402A3C968B0060AFB1 /* NavModel.swift in Sources */,
+				4E38CDE92E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4E8651412A3C968B0060AFB1 /* Services.swift in Sources */,
 				4E8651432A3C968B0060AFB1 /* String+ArrayConversion.swift in Sources */,
 				4E8651442A3C968B0060AFB1 /* LocalizationHelper.swift in Sources */,
@@ -3120,6 +3205,7 @@
 				4EBF3BB32A80E55900F637BB /* Thread.swift in Sources */,
 				4E88AA172B2B1B28006B16E7 /* BlokadaView.swift in Sources */,
 				4EBF3BB92A80E55900F637BB /* BlockaLogger.swift in Sources */,
+				4E38CDE72E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4EA6DF022D5BA9CE006BAA10 /* Url.swift in Sources */,
 				4EBF3BBB2A80E55900F637BB /* LoggerSaver.swift in Sources */,
 				4EBF3BC02A80E55900F637BB /* SafeArea.swift in Sources */,
@@ -4122,7 +4208,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development net.blocka.app";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4171,7 +4257,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development net.blocka.app";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
