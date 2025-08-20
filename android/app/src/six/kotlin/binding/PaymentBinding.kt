@@ -24,6 +24,7 @@ import com.adapty.models.AdaptyConfig
 import com.adapty.models.AdaptyPaywallProduct
 import com.adapty.models.AdaptyProfile
 import com.adapty.models.AdaptyProfileParameters
+import com.adapty.models.AdaptyPurchaseParameters
 import com.adapty.models.AdaptyPurchaseResult
 import com.adapty.models.AdaptySubscriptionUpdateParameters
 import com.adapty.ui.AdaptyPaywallView
@@ -398,24 +399,27 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         handleFailure(restore = true, temporary = false)
     }
 
-    override fun onAwaitingSubscriptionUpdateParams(
+
+    override fun onAwaitingPurchaseParams(
         product: AdaptyPaywallProduct,
         context: Context,
-        onSubscriptionUpdateParamsReceived:
-        AdaptyUiEventListener.SubscriptionUpdateParamsCallback
-    ) {
+        onPurchaseParamsReceived: AdaptyUiEventListener.PurchaseParamsCallback
+    ): AdaptyUiEventListener.PurchaseParamsCallback.IveBeenInvoked {
         // TODO: no support for downgrading yet
         val sub = _currentSubscription
         if (sub != null) {
-            onSubscriptionUpdateParamsReceived(
-                AdaptySubscriptionUpdateParameters(
-                    sub.productId,
-                    AdaptySubscriptionUpdateParameters.ReplacementMode.CHARGE_PRORATED_PRICE
-                )
+            onPurchaseParamsReceived(
+                AdaptyPurchaseParameters.Builder().withSubscriptionUpdateParams(
+                    AdaptySubscriptionUpdateParameters(
+                        sub.productId,
+                        AdaptySubscriptionUpdateParameters.ReplacementMode.CHARGE_PRORATED_PRICE
+                    )
+                ).build()
             )
         } else {
-            onSubscriptionUpdateParamsReceived(null)
+            onPurchaseParamsReceived(AdaptyPurchaseParameters.Empty)
         }
+        return AdaptyUiEventListener.PurchaseParamsCallback.IveBeenInvoked
     }
 
     private fun closePaymentScreen(isError: Boolean) {
