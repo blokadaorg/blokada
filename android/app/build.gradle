@@ -209,7 +209,7 @@ dependencies {
     implementation "io.github.g00fy2.quickie:quickie-bundled:1.11.0"
 
     // Adapty SDK
-    sixImplementation platform('io.adapty:adapty-bom:3.8.2')
+    sixImplementation platform('io.adapty:adapty-bom:3.10.0')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 

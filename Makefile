@@ -11,7 +11,7 @@ TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
 CI_BUILD_DIR := /tmp/build
 
 ADAPTY_DIR := ~/Downloads
-ADAPTY_VER := 3_4.0
+ADAPTY_VER := 3_8.0
  
 # Default target 
 .DEFAULT_GOAL := build
