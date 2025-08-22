@@ -27,4 +27,7 @@ _actAllPermsEnabled(MockPermOps ops) {
   when(() => ops.doVpnEnabled()).thenAnswer((_) async {
     return true;
   });
+  when(() => ops.isRunningOnMac()).thenAnswer((_) async {
+    return false;
+  });
 }

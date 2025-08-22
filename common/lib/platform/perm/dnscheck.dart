@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:dartx/dartx.dart';
 
 class PrivateDnsCheck with Actor, Logging {
+  late final _api = Core.get<Api>();
+
   void onRegister() {
     Core.register<PrivateDnsCheck>(this);
   }
@@ -27,6 +32,26 @@ class PrivateDnsCheck with Actor, Logging {
     log(m).pair("expects dns", expected);
 
     return line == expected;
+  }
+
+  Future<bool> checkPrivateDnsEnabledWithApi(Marker m, DeviceTag deviceTag) async {
+    try {
+      final params = {
+        ApiParam.deviceTag: deviceTag,
+      };
+
+      final response = await _api.get(
+        ApiEndpoint.getStatusTest,
+        m,
+        params: params,
+      );
+
+      final json = jsonDecode(response);
+      return json['blokada_dns'] == true;
+    } catch (e) {
+      log(m).e(msg: "checkPrivateDnsEnabledWithApi", err: e);
+      return false;
+    }
   }
 
   String _getIosPrivateDnsStringV6(Marker m, DeviceTag tag, String alias) {

@@ -58,6 +58,7 @@ enum ApiEndpoint {
   putSupport("https://support.blocka.net/v3/support", type: "PUT"),
   postAdaptyCheckout("v3/adapty/checkout",
       type: "POST", params: [ApiParam.accountId]),
+  getStatusTest("v3/status/test"),
 
   // V2 api (to be migrated away)
   getAccountV2("v2/account", params: [ApiParam.accountId]),

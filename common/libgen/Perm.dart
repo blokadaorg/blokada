@@ -6,6 +6,9 @@ abstract class PermOps {
   String getPrivateDnsSetting();
 
   @async
+  bool isRunningOnMac();
+
+  @async
   void doSetPrivateDnsEnabled(String tag, String alias);
 
   @async

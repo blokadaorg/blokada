@@ -2,6 +2,7 @@ part of 'perm.dart';
 
 mixin PermChannel {
   Future<String> getPrivateDnsSetting();
+  Future<bool> isRunningOnMac();
   Future<void> doSetPrivateDnsEnabled(String tag, String alias);
   Future<void> doSetDns(String tag);
   Future<bool> doNotificationEnabled();
@@ -35,8 +36,15 @@ class PermActor with Logging, Actor {
     }
     await _channel.doSetDns(device.deviceTag);
 
-    final current = await _channel.getPrivateDnsSetting();
-    await _perm.change(m, _check.isCorrect(m, current, device.deviceTag, device.alias));
+    // Use API check on macOS, local check on iOS/iPadOS
+    final isOnMac = await _channel.isRunningOnMac();
+    if (isOnMac) {
+      final isEnabled = await _check.checkPrivateDnsEnabledWithApi(m, device.deviceTag);
+      await _perm.change(m, isEnabled);
+    } else {
+      final current = await _channel.getPrivateDnsSetting();
+      await _perm.change(m, _check.isCorrect(m, current, device.deviceTag, device.alias));
+    }
   }
 
   String getAndroidDnsStringToCopy(Marker m) {

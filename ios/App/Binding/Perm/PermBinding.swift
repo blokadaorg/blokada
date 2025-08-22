@@ -158,6 +158,17 @@ class PermBinding: PermOps {
         .store(in: &cancellables)
     }
 
+    func isRunningOnMac(completion: @escaping (Result<Bool, any Error>) -> Void) {
+        // Check if this is an iPad app running on macOS
+        if #available(iOS 14.0, *) {
+            let isOnMac = ProcessInfo.processInfo.isiOSAppOnMac
+            completion(Result.success(isOnMac))
+        } else {
+            // iOS versions before 14.0 cannot run on Mac
+            completion(Result.success(false))
+        }
+    }
+
     func openSystemSettings() {
         let id = self.flutter.isFlavorFamily ? NOTIF_ONBOARDING_FAMILY : NOTIF_ONBOARDING
         self.notification.scheduleNotification(id: id, when: Date().addingTimeInterval(3))

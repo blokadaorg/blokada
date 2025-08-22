@@ -10,6 +10,9 @@ class PlatformPermChannel with PermChannel {
   Future<void> doAskVpnPerms() => _platform.doAskVpnPerms();
 
   @override
+  Future<bool> isRunningOnMac() => _platform.isRunningOnMac();
+
+  @override
   Future<bool> doNotificationEnabled() => _platform.doNotificationEnabled();
 
   @override
@@ -38,6 +41,9 @@ class NoOpPermChannel with PermChannel {
 
   @override
   Future<void> doAskNotificationPerms() => Future.value();
+
+  @override
+  Future<bool> isRunningOnMac() => Future.value(false);
 
   @override
   Future<bool> doNotificationEnabled() => Future.value(false);
