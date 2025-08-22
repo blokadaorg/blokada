@@ -160,6 +160,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   AppStatus status = AppStatus.unknown;
 
   AppStatusStrategy conditions = AppStatusStrategy();
+  bool? _pendingPlusActive;
 
   @action
   Future<void> initStarted(Marker m) async {
@@ -193,6 +194,14 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
       }
 
       conditions = conditions.update(initFail: false, initCompleted: true);
+      
+      // Apply any pending VPN status
+      if (_pendingPlusActive != null) {
+        log(m).i("Applying pending VPN status: ${_pendingPlusActive}");
+        conditions = conditions.update(plusActive: _pendingPlusActive!);
+        _pendingPlusActive = null;
+      }
+      
       await _updateStatus(m);
     });
   }
@@ -253,6 +262,12 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> plusActivated(bool active, Marker m) async {
     return await log(m).trace("plusActivated", (m) async {
+      if (!conditions.initStarted || !conditions.initCompleted) {
+        log(m).i("Storing VPN status for after initialization");
+        _pendingPlusActive = active;
+        return;
+      }
+      
       conditions = conditions.update(plusActive: active, reconfiguring: false);
       await _updateStatus(m);
     });
