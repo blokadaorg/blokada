@@ -29,8 +29,8 @@ class SystemNavService {
             if let macDnsService = privateDnsService as? PrivateDnsServiceMac {
                 macDnsService.promptToInstallDNSProfile()
             }
-            // Then open network preferences
-            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.network") {
+            // Then open main system preferences window
+            if let url = URL(string: "x-apple.systempreferences:com.apple.preferences") {
                 UIApplication.shared.open(url)
             }
         } else {
