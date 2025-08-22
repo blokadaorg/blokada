@@ -1,4 +1,5 @@
 import 'package:common/common/module/payment/payment.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
@@ -66,39 +67,44 @@ class V6StatsSectionState extends State<V6StatsSection> {
             decoration: BoxDecoration(
               color: theme.bgColor,
             ),
-            child: RelativeBuilder(builder: (context, height, width, sy, sx) {
-              return Column(
-                children: [
-                  const SizedBox(height: 42),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: MiniCard(
-                      child: Column(
-                        children: [
-                          MiniCardHeader(
-                            text: "stats header day".i18n,
-                            icon: Icons.timelapse,
-                            color: theme.textSecondary,
+            child: Center(
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: maxContentWidth),
+                child: RelativeBuilder(builder: (context, height, width, sy, sx) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 42),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: MiniCard(
+                          child: Column(
+                            children: [
+                              MiniCardHeader(
+                                text: "stats header day".i18n,
+                                icon: Icons.timelapse,
+                                color: theme.textSecondary,
+                              ),
+                              const SizedBox(height: 4),
+                              RadialSegment(autoRefresh: widget.autoRefresh),
+                              const SizedBox(height: 16),
+                              const Divider(),
+                              ColumnChart(stats: stats),
+                            ],
                           ),
-                          const SizedBox(height: 4),
-                          RadialSegment(autoRefresh: widget.autoRefresh),
-                          const SizedBox(height: 16),
-                          const Divider(),
-                          ColumnChart(stats: stats),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: TotalCounter(autoRefresh: widget.autoRefresh),
-                  ),
-                  const Spacer(),
-                  SizedBox(height: sy(60)),
-                ],
-              );
-            }),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: TotalCounter(autoRefresh: widget.autoRefresh),
+                      ),
+                      const Spacer(),
+                      SizedBox(height: sy(60)),
+                    ],
+                  );
+                }),
+              ),
+            ),
           ),
         ),
         (_isFreemium)

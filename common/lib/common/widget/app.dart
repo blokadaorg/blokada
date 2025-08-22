@@ -2,9 +2,21 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_extension.dart';
+
+class BlokadaScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+    PointerDeviceKind.trackpad,
+    PointerDeviceKind.unknown,
+  };
+}
 
 class BlokadaApp extends StatelessWidget {
   final Widget content;
@@ -30,6 +42,7 @@ class BlokadaApp extends StatelessWidget {
     Navigation.isTabletMode = isTabletMode(context);
 
     return MaterialApp(
+      scrollBehavior: BlokadaScrollBehavior(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
