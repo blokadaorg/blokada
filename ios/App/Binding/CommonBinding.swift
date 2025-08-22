@@ -256,9 +256,22 @@ class CommonBinding: CommonOps {
     }
 
     func doGetEnvInfo(completion: @escaping (Result<OpsEnvInfo, Error>) -> Void) {
+        let osName = ProcessInfo.processInfo.isiOSAppOnMac ? "macos" : "ios"
+        let actualOsVersion: String
+        
+        if ProcessInfo.processInfo.isiOSAppOnMac {
+            // Use simple API - just return whatever macOS gives us
+            let version = ProcessInfo.processInfo.operatingSystemVersion
+            actualOsVersion = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+        } else {
+            // Use iOS version for actual iOS devices
+            actualOsVersion = osVersion
+        }
+        
         completion(Result.success(OpsEnvInfo(
             appVersion: appVersion,
-            osVersion: osVersion,
+            osName: osName,
+            osVersion: actualOsVersion,
             buildFlavor: getBuildFlavor(),
             buildType: buildType,
             cpu: cpu,
@@ -267,6 +280,7 @@ class CommonBinding: CommonOps {
             deviceName: deviceName
         )))
     }
+    
 
     fileprivate var cpu: String {
         #if PREVIEW

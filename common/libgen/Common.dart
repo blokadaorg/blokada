@@ -42,6 +42,7 @@ abstract class CommonOps {
 
 class OpsEnvInfo {
   final String appVersion;
+  final String osName;
   final String osVersion;
   final String buildFlavor;
   final String buildType;
@@ -52,6 +53,7 @@ class OpsEnvInfo {
 
   OpsEnvInfo(
     this.appVersion,
+    this.osName,
     this.osVersion,
     this.buildFlavor,
     this.buildType,

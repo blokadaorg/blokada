@@ -23,6 +23,7 @@ class PlatformCommonChannel extends CommonChannel {
     final e = await _ops.doGetEnvInfo();
     return EnvInfo(
       e.appVersion,
+      e.osName,
       e.osVersion,
       e.buildFlavor,
       e.buildType,
@@ -84,6 +85,7 @@ class NoOpCommonChannel extends CommonChannel {
   @override
   Future<EnvInfo> doGetEnvInfo() async => EnvInfo(
         "mockVersion",
+        "mockOsName",
         "mockOsVersion",
         "mockBuildFlavor",
         "mockBuildType",

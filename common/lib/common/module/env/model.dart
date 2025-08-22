@@ -2,6 +2,7 @@ part of 'env.dart';
 
 class EnvInfo {
   final String appVersion;
+  final String osName;
   final String osVersion;
   final String buildFlavor;
   final String buildType;
@@ -12,6 +13,7 @@ class EnvInfo {
 
   EnvInfo(
     this.appVersion,
+    this.osName,
     this.osVersion,
     this.buildFlavor,
     this.buildType,
@@ -23,6 +25,7 @@ class EnvInfo {
 
   toSimpleString() {
     return "appVersion: $appVersion, "
+        "osName: $osName, "
         "osVersion: $osVersion, "
         "buildFlavor: $buildFlavor, "
         "buildType: $buildType, "

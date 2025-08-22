@@ -49,6 +49,7 @@ object CommonBinding : CommonOps {
             Result.success(
                 OpsEnvInfo(
                     appVersion = BuildConfig.VERSION_NAME,
+                    osName = "android",
                     osVersion = Build.VERSION.SDK_INT.toString(),
                     buildFlavor = env.getFlavor(),
                     buildType = BuildConfig.BUILD_TYPE,

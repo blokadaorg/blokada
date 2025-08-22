@@ -20,6 +20,6 @@ class EnvActor with Logging, Actor {
   }
 
   _getUserAgent(EnvInfo p) {
-    return "blokada/${p.appVersion} (${Core.act.platform.name.toLowerCase()}-${p.osVersion} ${p.buildFlavor} ${p.buildType} ${p.cpu}) ${p.deviceBrand} ${p.deviceModel})";
+    return "blokada/${p.appVersion} (${p.osName}-${p.osVersion} ${p.buildFlavor} ${p.buildType} ${p.cpu}) ${p.deviceBrand} ${p.deviceModel})";
   }
 }
