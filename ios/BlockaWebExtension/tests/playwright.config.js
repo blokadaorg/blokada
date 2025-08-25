@@ -46,5 +46,29 @@ export default defineConfig({
         }
       },
     },
+    {
+      name: 'webkit-iphone-bottomsheet',
+      use: { 
+        ...devices['iPhone 14 Pro'],
+        viewport: { width: 390, height: 844 }, // Full iPhone 14 Pro dimensions for bottom sheet testing
+        storageState: undefined,
+        contextOptions: {
+          clearCookies: true,
+          clearLocalStorage: true,
+        }
+      }
+    },
+    {
+      name: 'webkit-desktop',
+      use: { 
+        ...devices['Desktop Safari'],
+        viewport: { width: 640, height: 480 }, // Desktop Safari extension popup dimensions
+        storageState: undefined,
+        contextOptions: {
+          clearCookies: true,
+          clearLocalStorage: true,
+        }
+      }
+    },
   ]
 });

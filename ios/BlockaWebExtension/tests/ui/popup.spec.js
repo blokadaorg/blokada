@@ -56,9 +56,29 @@ async function refreshAndGetStatus(page) {
   });
 }
 
+// Helper to check for black borders by ensuring body fills viewport
+async function checkNoBlackBorders(page, testInfo) {
+  const coverage = await page.evaluate(() => {
+    const body = document.body;
+    const rect = body.getBoundingClientRect();
+    return {
+      bodyWidth: rect.width,
+      bodyHeight: rect.height,
+      viewportWidth: window.innerWidth,
+      viewportHeight: window.innerHeight
+    };
+  });
+  
+  console.log(`Viewport: ${coverage.viewportWidth}x${coverage.viewportHeight}, Body: ${coverage.bodyWidth}x${coverage.bodyHeight}`);
+  
+  // Allow 1px tolerance for rounding
+  expect(coverage.bodyWidth).toBeGreaterThanOrEqual(coverage.viewportWidth - 1);
+  expect(coverage.bodyHeight).toBeGreaterThanOrEqual(coverage.viewportHeight - 1);
+}
+
 test.describe('BlockaWeb Safari Extension Popup', () => {
   
-  test('renders inactive state', async ({ page }) => {
+  test('renders inactive state', async ({ page }, testInfo) => {
     await setupMockBrowser(page, { active: false, timestamp: "2024-12-31T23:59:59Z" });
     await page.goto('/Resources/popup.html', { waitUntil: 'networkidle' });
     
@@ -70,11 +90,14 @@ test.describe('BlockaWeb Safari Extension Popup', () => {
     await expect(page.locator('#status-text')).toContainText('Check status in Blokada');
     await expect(page.locator('#status-text')).toHaveClass(/status-inactive/);
     
-    const screenshot = await page.screenshot({ path: 'ui/screenshots/popup-inactive.png', fullPage: true });
-    await test.info().attach('popup-inactive', { body: screenshot, contentType: 'image/png' });
+    // Check for black borders
+    await checkNoBlackBorders(page, testInfo);
+    
+    const screenshot = await page.screenshot({ path: `ui/screenshots/popup-inactive-${testInfo.project.name}.png`, fullPage: true });
+    await test.info().attach(`popup-inactive-${testInfo.project.name}`, { body: screenshot, contentType: 'image/png' });
   });
 
-  test('renders active subscription state', async ({ page }) => {
+  test('renders active subscription state', async ({ page }, testInfo) => {
     await setupMockBrowser(page, { active: true, timestamp: "2099-12-31T23:59:59Z" });
     await page.goto('/Resources/popup.html', { waitUntil: 'networkidle' });
     
@@ -86,11 +109,14 @@ test.describe('BlockaWeb Safari Extension Popup', () => {
     await expect(page.locator('#status-text')).toContainText('Blokada is active');
     await expect(page.locator('#status-text')).toHaveClass(/status-cloud/);
     
-    const screenshot = await page.screenshot({ path: 'ui/screenshots/popup-active.png', fullPage: true });
-    await test.info().attach('popup-active', { body: screenshot, contentType: 'image/png' });
+    // Check for black borders
+    await checkNoBlackBorders(page, testInfo);
+    
+    const screenshot = await page.screenshot({ path: `ui/screenshots/popup-active-${testInfo.project.name}.png`, fullPage: true });
+    await test.info().attach(`popup-active-${testInfo.project.name}`, { body: screenshot, contentType: 'image/png' });
   });
 
-  test('renders freemium trial state', async ({ page }) => {
+  test('renders freemium trial state', async ({ page }, testInfo) => {
     await setupMockBrowser(page, { 
       active: true, 
       timestamp: "2023-01-01T00:00:00Z",
@@ -107,11 +133,14 @@ test.describe('BlockaWeb Safari Extension Popup', () => {
     await expect(page.locator('#status-text')).toContainText('Free trial active');
     await expect(page.locator('#status-text')).toHaveClass(/status-trial/);
     
-    const screenshot = await page.screenshot({ path: 'ui/screenshots/popup-trial.png', fullPage: true });
-    await test.info().attach('popup-trial', { body: screenshot, contentType: 'image/png' });
+    // Check for black borders
+    await checkNoBlackBorders(page, testInfo);
+    
+    const screenshot = await page.screenshot({ path: `ui/screenshots/popup-trial-${testInfo.project.name}.png`, fullPage: true });
+    await test.info().attach(`popup-trial-${testInfo.project.name}`, { body: screenshot, contentType: 'image/png' });
   });
 
-  test('renders expired subscription state', async ({ page }) => {
+  test('renders expired subscription state', async ({ page }, testInfo) => {
     await setupMockBrowser(page, { active: true, timestamp: "2023-01-01T00:00:00Z" });
     await page.goto('/Resources/popup.html', { waitUntil: 'networkidle' });
     
@@ -122,11 +151,14 @@ test.describe('BlockaWeb Safari Extension Popup', () => {
     
     await expect(page.locator('#status-text')).toContainText('Check status in Blokada');
     
-    const screenshot = await page.screenshot({ path: 'ui/screenshots/popup-expired.png', fullPage: true });
-    await test.info().attach('popup-expired', { body: screenshot, contentType: 'image/png' });
+    // Check for black borders
+    await checkNoBlackBorders(page, testInfo);
+    
+    const screenshot = await page.screenshot({ path: `ui/screenshots/popup-expired-${testInfo.project.name}.png`, fullPage: true });
+    await test.info().attach(`popup-expired-${testInfo.project.name}`, { body: screenshot, contentType: 'image/png' });
   });
 
-  test('renders essentials state', async ({ page }) => {
+  test('renders essentials state', async ({ page }, testInfo) => {
     await setupMockBrowser(page, { 
       active: true, 
       timestamp: "2023-01-01T00:00:00Z", 
@@ -142,8 +174,11 @@ test.describe('BlockaWeb Safari Extension Popup', () => {
     await expect(page.locator('#status-text')).toContainText('Safari blocking active');
     await expect(page.locator('#status-text')).toHaveClass(/status-essentials/);
     
-    const screenshot = await page.screenshot({ path: 'ui/screenshots/popup-essentials.png', fullPage: true });
-    await test.info().attach('popup-essentials', { body: screenshot, contentType: 'image/png' });
+    // Check for black borders
+    await checkNoBlackBorders(page, testInfo);
+    
+    const screenshot = await page.screenshot({ path: `ui/screenshots/popup-essentials-${testInfo.project.name}.png`, fullPage: true });
+    await test.info().attach(`popup-essentials-${testInfo.project.name}`, { body: screenshot, contentType: 'image/png' });
   });
 
   test('detail view navigation works', async ({ page }) => {
