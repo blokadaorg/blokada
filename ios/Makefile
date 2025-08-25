@@ -4,7 +4,7 @@ FASTLANE := fastlane
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: build build-family build-six ipa-family ipa-six
+.PHONY: build build-family build-six ipa-family ipa-six pods
 
 # Note: for all targets in this Makefile, the common lib has to be
 # ready beforehand. This is handled when running make targets from
@@ -41,3 +41,8 @@ ipa-family:
 ipa-six:
 	$(MAKE) -C BlockaWebExtension gen-rules
 	$(FASTLANE) build_ios_six
+
+# Regenerate Podfile.lock
+pods:
+	rm -rf Podfile.lock
+	pod install --repo-update

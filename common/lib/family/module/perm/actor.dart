@@ -42,7 +42,11 @@ class PermActor with Logging, Actor {
   String getAndroidDnsStringToCopy(Marker m) {
     final tag = _deviceTag.present!.deviceTag;
     final alias = _deviceTag.present!.alias;
-    return _check.getAndroidPrivateDnsString(m, tag, alias);
+    if (Core.act.flavor == Flavor.family) {
+      return _check.getAndroidPrivateDnsStringFamily(m, tag);
+    } else {
+      return _check.getAndroidPrivateDnsString(m, tag, alias);
+    }
   }
 
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {

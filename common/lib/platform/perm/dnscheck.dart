@@ -16,7 +16,9 @@ class PrivateDnsCheck with Actor, Logging {
 
     var expected = _getIosPrivateDnsStringV6(m, tag, alias);
 
-    if (Core.act.isAndroid) {
+    if (Core.act.isAndroid && Core.act.flavor == Flavor.family) {
+      expected = getAndroidPrivateDnsStringFamily(m, tag);
+    } else if (Core.act.isAndroid) {
       expected = getAndroidPrivateDnsString(m, tag, alias);
     } else if (Core.act.flavor == Flavor.family) {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
@@ -52,6 +54,15 @@ class PrivateDnsCheck with Actor, Logging {
       return "$name-$tag.cloud.blokada.org";
     } catch (e) {
       log(m).e(msg: "getAndroidPrivateDnsString", err: e);
+      return "";
+    }
+  }
+
+  String getAndroidPrivateDnsStringFamily(Marker m, DeviceTag tag) {
+    try {
+      return "$tag.cloud.blokada.org";
+    } catch (e) {
+      log(m).e(msg: "getAndroidPrivateDnsStringFamily", err: e);
       return "";
     }
   }
