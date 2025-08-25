@@ -25,7 +25,7 @@ export default defineConfig({
   webServer: {
     command: 'python3 -m http.server 8080 > /dev/null 2>&1',
     port: 8080,
-    cwd: '/Users/johnny/Documents/Blokada/blokada/ios/BlockaWebExtension',
+    cwd: '../',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
