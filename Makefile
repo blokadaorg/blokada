@@ -148,6 +148,7 @@ appstore-key-clean:
 	rm -rf ios/blokada-appstore.json
 
 fastlane-match:
+	cd ios/ && $(FASTLANE) match development --force_for_new_devices --include_mac_in_profiles true
 	cd ios/ && $(FASTLANE) match appstore --readonly
 
 

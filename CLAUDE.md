@@ -175,6 +175,20 @@ The `common/` directory is a Flutter module that gets embedded into native apps:
 - CocoaPods for dependency management
 - **iOS 14+ Flutter Debug Limitation**: Flutter debug mode apps cannot launch directly on device without Xcode/Flutter tooling connection. The `make -C ios run` target defaults to Release mode to bypass this restriction.
 
+#### Mac Support ("Designed for iPad")
+iOS apps can run on Mac with Apple Silicon. If you get provisioning profile errors when selecting Mac as target:
+
+1. **Register Mac device** (requires OTP - must be run manually):
+```bash
+cd ios
+fastlane run register_device name:"Mac Name" udid:"$(system_profiler SPHardwareDataType | grep 'Provisioning UDID' | awk '{print $3}')" team_id:"HQH5AFGB68"
+```
+
+2. **Regenerate profiles with Mac support**:
+```bash
+make fastlane-match
+```
+
 ## Important Considerations
 
 1. **Platform Channels**: Communication between Flutter and native code uses Pigeon-generated interfaces. Always regenerate after modifying `.dart` files in `libgen/`
