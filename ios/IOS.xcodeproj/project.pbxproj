@@ -662,6 +662,8 @@
 		4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		81A14548F0971940140E60F7 /* Pods_FamilyProd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172E613B3E5E2ECA63DB72B5 /* Pods_FamilyProd.framework */; };
+		B2382A312E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
+		B2382A322E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
 		D457AF88E4351BB1D413F70B /* Pods_FamilyMocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39323AFF3B4C4CB93EF7EEB4 /* Pods_FamilyMocked.framework */; };
 /* End PBXBuildFile section */
 
@@ -2755,6 +2757,7 @@
 				4E23CFE6293DFAB300613D0A /* PacketTunnelProvider.swift in Sources */,
 				4E23CFF0293DFEE200613D0A /* x25519.c in Sources */,
 				4E23D02C293E20BC00613D0A /* PrivateKey.swift in Sources */,
+				B2382A312E61E14300ED7415 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3172,6 +3175,7 @@
 				4ED751722D635F2F00CEE82E /* PacketTunnelProvider.swift in Sources */,
 				4ED751732D635F2F00CEE82E /* x25519.c in Sources */,
 				4ED751742D635F2F00CEE82E /* PrivateKey.swift in Sources */,
+				B2382A322E61E14300ED7415 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

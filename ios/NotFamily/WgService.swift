@@ -52,7 +52,7 @@ class WgService: NetxServiceIn {
         // First state will be soon rewritten by actual state unless something is wrong
         //self.writeWgState.send(VpnStatus.inProgress())
     }
-    
+
     private func initTunnelsManager() {
         TunnelsManager.create { [weak self] result in
             guard let self = self else { return }
@@ -264,7 +264,7 @@ class WgService: NetxServiceIn {
                         guard error == nil else {
                             return promise(.failure("stopVpn: could not disable on-demand".cause(error)))
                         }
-                        
+
                         return promise(.success(manager))
                     }
                 }
@@ -284,7 +284,7 @@ class WgService: NetxServiceIn {
 
                     // Also make a timeout
                     Just(true)
-                    .delay(for: 15.0, scheduler: self.bgQueue)
+                    .delay(for: .seconds(HTTP_TIMEOUT_INTERVAL), scheduler: self.bgQueue)
                     .flatMap { _ in self.wgStateHot.first() }
                     .tryMap { state -> Ignored in
                         if state == .activated {
@@ -319,7 +319,7 @@ class WgService: NetxServiceIn {
                         if let error = error {
                             return promise(.failure("createVpnProfile: could not remove".cause(error)))
                         }
-                        
+
                         return promise(.success(manager))
                     }
                 }
@@ -366,7 +366,7 @@ class WgService: NetxServiceIn {
     func getStatePublisher() -> AnyPublisher<VpnStatus, Never> {
         return wgStateHot
     }
-    
+
     func getPermsPublisher() -> AnyPublisher<Granted, Never> {
         return permsHot
     }
@@ -450,11 +450,11 @@ class WgService: NetxServiceIn {
                 BlockaLogger.v("WgService", "No perms, emitting disconnected")
                 self.writeWgState.send(.deactivated)
             }
-            
+
         })
         .store(in: &cancellables)
     }
-    
+
     func makeProtectedRequest(url: String, method: String, body: String) -> AnyPublisher<String, Error> {
         let request = [
             NetworkCommand.request.rawValue, url, method, ":body:", body
@@ -504,9 +504,9 @@ class WgService: NetxServiceIn {
                 }
                 .eraseToAnyPublisher(),
 
-                // Also make a timeout
+                // Also make a timeout, same as http client timeout
                 Just(true)
-                .delay(for: 5.0, scheduler: self.bgQueue)
+                .delay(for: .seconds(HTTP_TIMEOUT_INTERVAL), scheduler: self.bgQueue)
                 .tryMap { state -> String in
                     throw "WG message timeout"
                 }
