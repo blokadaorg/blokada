@@ -20,6 +20,9 @@ class VpnActor with Logging, Actor {
 
   bool _settingConfig = false;
 
+  DateTime? _lastReadyTime;
+  static const _sustainedReadyDuration = Duration(seconds: 2);
+
   setVpnConfig(VpnConfig config, Marker m) async {
     return await log(m).trace("setVpnConfig", (m) async {
       if (actualConfig != null && config.isSame(actualConfig!)) {
@@ -90,11 +93,26 @@ class VpnActor with Logging, Actor {
 
       _actualStatus.now = status;
       if (!_actualStatus.now.isReady()) {
+        _lastReadyTime = null;
         await _app.reconfiguring(m);
         await _startOngoingTimeout(m);
         return;
       } else {
-        await _stopOngoingTimeout(m);
+        // Track when we first became ready
+        final now = DateTime.now();
+        _lastReadyTime ??= now;
+        
+        // Only stop ongoing timeout if we've been ready for a sustained period
+        // or if we've successfully reached our target status
+        final sustainedReady = now.difference(_lastReadyTime!) >= _sustainedReadyDuration;
+        final reachedTarget = targetStatus == _actualStatus.now || targetStatus == VpnStatus.unknown;
+        
+        if (sustainedReady || reachedTarget) {
+          await _stopOngoingTimeout(m);
+          log(m).i("Stopping ongoing timeout - sustained: $sustainedReady, target reached: $reachedTarget");
+        } else {
+          log(m).i("Brief ready state detected, keeping timeout active");
+        }
       }
 
       // Done working, fire up any queued events.
