@@ -14,3 +14,6 @@ import Foundation
 
 // Many events initiated from UI are debounced to avoid general abuse (in seconds)
 let DEFAULT_USER_INTERACTION_DEBOUNCE = 0.3
+
+// HTTP timeout configuration - used by main app, network extension, and WgService (in seconds)
+let HTTP_TIMEOUT_INTERVAL: TimeInterval = 15.0

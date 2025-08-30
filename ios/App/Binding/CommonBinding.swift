@@ -33,8 +33,8 @@ class CommonBinding: CommonOps {
 
     init() {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = TimeInterval(15)
-        configuration.timeoutIntervalForResource = TimeInterval(15)
+        configuration.timeoutIntervalForRequest = HTTP_TIMEOUT_INTERVAL
+        configuration.timeoutIntervalForResource = HTTP_TIMEOUT_INTERVAL
         session = URLSession(configuration: configuration)
 
         CommonOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
