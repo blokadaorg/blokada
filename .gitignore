@@ -11,3 +11,5 @@ blokada-appstore.json
 *.keystore
 
 *.local.json
+!.claude/
+!.claude/settings.json
