@@ -194,14 +194,14 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
       }
 
       conditions = conditions.update(initFail: false, initCompleted: true);
-      
+
       // Apply any pending VPN status
       if (_pendingPlusActive != null) {
-        log(m).i("Applying pending VPN status: ${_pendingPlusActive}");
-        conditions = conditions.update(plusActive: _pendingPlusActive!);
+        log(m).i("Applying pending VPN status: $_pendingPlusActive");
+        conditions = conditions.update(plusActive: _pendingPlusActive!, reconfiguring: false);
         _pendingPlusActive = null;
       }
-      
+
       await _updateStatus(m);
     });
   }
@@ -267,7 +267,7 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
         _pendingPlusActive = active;
         return;
       }
-      
+
       conditions = conditions.update(plusActive: active, reconfiguring: false);
       await _updateStatus(m);
     });
