@@ -60,88 +60,100 @@ class PrivateDnsServiceMac: PrivateDnsServiceIn {
             .eraseToAnyPublisher()
     }
     
-    // Generate DNS profile with stored tag and name
-    func generateDNSProfile() -> Data? {
+    // Fetch DNS profile from API
+    func fetchDNSProfile(completion: @escaping (Data?) -> Void) {
         guard let tag = pendingProfileTag else {
             BlockaLogger.e("PrivateDnsMac", "No pending profile tag")
-            return nil
-        }
-        
-        // Generate the server URL based on tag and name
-        let serverURL: String
-        if let name = pendingProfileName {
-            let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-            serverURL = "https://cloud.blokada.org/\(tag)/\(nameSanitized)"
-        } else {
-            serverURL = "https://cloud.blokada.org/\(tag)"
-        }
-        
-        BlockaLogger.v("PrivateDnsMac", "Generating profile with URL: \(serverURL)")
-        
-        let profileDict: [String: Any] = [
-            "PayloadContent": [[
-                "DNSSettings": [
-                    "DNSProtocol": "HTTPS",
-                    "ServerURL": serverURL,
-                    // Optional: Add server addresses if you have specific IPs
-                    // "ServerAddresses": ["your.server.ip"],
-                ],
-                "OnDemandRules": [[
-                    "Action": "Connect"
-                ]],
-                "PayloadType": "com.apple.dnsSettings.managed",
-                "PayloadIdentifier": "com.blokada.dns.\(tag)",
-                "PayloadUUID": UUID().uuidString,
-                "PayloadVersion": 1,
-                "PayloadDisplayName": "Blokada DNS - \(pendingProfileName ?? tag)"
-            ]],
-            "PayloadDisplayName": "Blokada Private DNS",
-            "PayloadDescription": "This profile configures your device to use Blokada's encrypted DNS servers.",
-            "PayloadIdentifier": "com.blokada.dns-profile",
-            "PayloadOrganization": "Blocka AB",
-            "PayloadRemovalDisallowed": false,
-            "PayloadType": "Configuration",
-            "PayloadUUID": UUID().uuidString,
-            "PayloadVersion": 1,
-            "PayloadScope": "User"
-        ]
-        
-        return try? PropertyListSerialization.data(
-            fromPropertyList: profileDict,
-            format: .xml,
-            options: 0
-        )
-    }
-    
-    func promptToInstallDNSProfile() {
-        guard let profileData = generateDNSProfile() else {
-            BlockaLogger.e("PrivateDnsMac", "Failed to generate profile")
+            completion(nil)
             return
         }
         
-        // Create a temporary file
-        let tempDirectory = FileManager.default.temporaryDirectory
-        let profileURL = tempDirectory.appendingPathComponent("Blokada-DNS.mobileconfig")
+        // Build API URL with encoded parameters
+        var urlComponents = URLComponents(string: "https://api.cloud.blokada.org/apple")
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "device_tag", value: tag),
+            URLQueryItem(name: "device_name", value: pendingProfileName ?? "")
+        ]
         
-        do {
-            // Write profile to temporary file
-            try profileData.write(to: profileURL)
+        guard let url = urlComponents?.url else {
+            BlockaLogger.e("PrivateDnsMac", "Failed to build API URL")
+            completion(nil)
+            return
+        }
+        
+        BlockaLogger.v("PrivateDnsMac", "Fetching profile from: \(url.absoluteString)")
+        
+        // Create URL request
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 30
+        
+        // Perform the request
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                BlockaLogger.e("PrivateDnsMac", "Error fetching profile: \(error)")
+                completion(nil)
+                return
+            }
             
-            // Open the file - this will prompt the user to install it
-            UIApplication.shared.open(profileURL) { success in
-                if success {
-                    BlockaLogger.v("PrivateDnsMac", "Profile opened successfully")
-                } else {
-                    BlockaLogger.e("PrivateDnsMac", "Failed to open profile")
-                }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                BlockaLogger.e("PrivateDnsMac", "Invalid response")
+                completion(nil)
+                return
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                BlockaLogger.e("PrivateDnsMac", "API returned status: \(httpResponse.statusCode)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data else {
+                BlockaLogger.e("PrivateDnsMac", "No data received")
+                completion(nil)
+                return
+            }
+            
+            BlockaLogger.v("PrivateDnsMac", "Successfully fetched profile (\(data.count) bytes)")
+            completion(data)
+        }.resume()
+    }
+    
+    func promptToInstallDNSProfile() {
+        // Fetch profile from API
+        fetchDNSProfile { [weak self] profileData in
+            guard let profileData = profileData else {
+                BlockaLogger.e("PrivateDnsMac", "Failed to fetch profile")
+                return
+            }
+            
+            // Switch to main thread for file operations and UI
+            DispatchQueue.main.async {
+                // Create a temporary file
+                let tempDirectory = FileManager.default.temporaryDirectory
+                let profileURL = tempDirectory.appendingPathComponent("Blokada-DNS.mobileconfig")
                 
-                // Clean up temp file after a delay
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    try? FileManager.default.removeItem(at: profileURL)
+                do {
+                    // Write profile to temporary file
+                    try profileData.write(to: profileURL)
+                    
+                    // Open the file - this will prompt the user to install it
+                    UIApplication.shared.open(profileURL) { success in
+                        if success {
+                            BlockaLogger.v("PrivateDnsMac", "Profile opened successfully")
+                        } else {
+                            BlockaLogger.e("PrivateDnsMac", "Failed to open profile")
+                        }
+                        
+                        // Clean up temp file after a delay
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            try? FileManager.default.removeItem(at: profileURL)
+                        }
+                    }
+                } catch {
+                    BlockaLogger.e("PrivateDnsMac", "Error saving profile: \(error)")
                 }
             }
-        } catch {
-            BlockaLogger.e("PrivateDnsMac", "Error saving profile: \(error)")
         }
     }
     
