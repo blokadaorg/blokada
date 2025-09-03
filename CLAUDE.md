@@ -40,54 +40,66 @@ Before building, ensure dependencies are initialized:
 git submodule update --init --recursive
 ```
 
+### Development Workflow
+
+**Iterative development process:**
+1. **Make code changes**
+2. **Regenerate interfaces** (if modified `libgen/*.dart`): `make regen-ios` (iOS only) or `make regen` (all platforms)  
+3. **Check linting**: `fvm flutter analyze` - fix syntax/style issues immediately
+4. **Ensure tests pass**: `make test` - iterate steps 1-4 until **ALL** tests pass
+5. **Test on device**: Manual verification on physical device
+
+### Device Testing (Step 5 of Workflow)
+
+```bash
+# iOS: Build, install and run with console output
+make -C ios run-six      # or make -C ios run-family
+make -C ios run-six DEVICE_NAME="Your Device"  # specify device
+
+# Android: Install debug builds
+make install-family-debug    # or make install-six-debug
+```
+
 ### Building
 
-#### Android Debug APKs
+#### Debug Builds (for development)
 ```bash
-# Build Family app (debug)
+# Android
 make build-android-family-debug
-
-# Build Blokada 6 app (debug)
 make build-android-six-debug
-
-# Quick rebuild (if common lib unchanged)
-make build-android-family-debug-quick
+make build-android-family-debug-quick  # if common lib unchanged
 make build-android-six-debug-quick
+
+# iOS  
+make build-ios-six-debug
+# Note: make -C ios run automatically builds, installs, and runs
 ```
 
-#### Android Release AABs
+#### Release Builds (for deployment)
 ```bash
-# Build all Android apps
+# Android
 make build-android
-
-# Build specific app
 make build-android-family
 make build-android-six
-```
 
-#### iOS
-```bash
-# Build all iOS apps
+# iOS
 make build-ios
-
-# Build specific app
 make build-ios-family
 make build-ios-six
 ```
 
-### Testing
+### Testing & Linting (Steps 3-4 of Workflow)
+
 ```bash
 # Run all tests
 make test
 
-# Run Flutter tests directly
-cd common && flutter test
-```
+# Check linting
+fvm flutter analyze
 
-### Linting
-```bash
-# Run Flutter analyzer
-cd common && flutter analyze
+# Direct Flutter commands (if needed)
+cd common && fvm flutter test
+cd common && fvm flutter analyze
 ```
 
 ### Code Generation
@@ -117,6 +129,18 @@ make install-six-debug    # debug
 
 # Uninstall all
 make uninstall
+```
+
+### Device Testing & Debugging
+```bash
+# iOS: Build, install and run with console output (BLOCKING - use background task)
+make -C ios run-six [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+make -C ios run-family [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+# Default: CONFIG=Release (required for iOS 14+ to launch without Xcode/Flutter tooling)
+# These commands are blocking and provide console output - run as background task when needed
+
+# Android: Install and run debug builds
+make install-family-debug    # or make install-six-debug
 ```
 
 ### Version Management
@@ -149,6 +173,7 @@ The `common/` directory is a Flutter module that gets embedded into native apps:
 - Schemes: `FamilyProd`, `FamilyDev`, `Prod`, `Dev`, `Mocked`
 - Fastlane for automation and deployment
 - CocoaPods for dependency management
+- **iOS 14+ Flutter Debug Limitation**: Flutter debug mode apps cannot launch directly on device without Xcode/Flutter tooling connection. The `make -C ios run` target defaults to Release mode to bypass this restriction.
 
 ## Important Considerations
 

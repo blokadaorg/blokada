@@ -19,7 +19,7 @@ ADAPTY_VER := 3_8.0
 .PHONY: clean test build \
 	translate \
 	build-android build-android-family build-android-six \
-	build-ios build-ios-family build-ios-six \
+	build-ios build-ios-family build-ios-six build-ios-six-debug \
 	version version-clean \
 	publish-android gplay-key-unpack gplay-key-clean \
 	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
@@ -82,6 +82,11 @@ build-ios-family:
 build-ios-six:
 	$(MAKE) -C common/ build-ios
 	$(MAKE) -C ios/ build-six
+
+# Build ios six .ipa from scratch (debug)
+build-ios-six-debug:
+	$(MAKE) -C common/ build-ios
+	$(MAKE) -C ios/ build-six-debug
 
 
 # Set version in proper files for all apps (use NAME and CODE params, or env vars)

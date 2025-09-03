@@ -1,0 +1,32 @@
+{
+  "env": {
+    "BASH_DEFAULT_TIMEOUT_MS": "900000"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew:*)",
+      "Bash(dart run:*)",
+      "Bash(fastlane match:*)",
+      "Bash(flutter analyze:*)",
+      "Bash(flutter build:*)",
+      "Bash(flutter packages pub run build_runner:*)",
+      "Bash(flutter test:*)",
+      "Bash(fvm dart run build_runner build:*)",
+      "Bash(fvm flutter:*)",
+      "Bash(fvm list:*)",
+      "Bash(fvm use:*)",
+      "Bash(make build:*)",
+      "Bash(make clean:*)",
+      "Bash(make gen)",
+      "Bash(make install:*)",
+      "Bash(make regen:*)",
+      "Bash(make test:*)",
+      "Bash(make uninstall)",
+      "Bash(pod install:*)",
+      "Bash(pod update:*)",
+      "Bash(make -C ios run:*)",
+      "Bash(xcrun devicectl list:*)",
+      "Bash(xcodebuild:*)"
+    ]
+  }
+}
