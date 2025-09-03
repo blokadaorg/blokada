@@ -55,16 +55,18 @@ class _FreemiumScreenState extends State<FreemiumScreen>
               child: Container(),
             ),
           ),
-          Container(
-            constraints: const BoxConstraints(maxWidth: maxContentWidth),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Spacer(),
-                _buildCtaDialog(context),
-                const Spacer(),
-              ],
+          Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: maxContentWidth),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  _buildCtaDialog(context),
+                  const Spacer(),
+                ],
+              ),
             ),
           ),
         ],
