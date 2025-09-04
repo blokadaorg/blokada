@@ -3552,7 +3552,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development net.blocka.app";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -3594,14 +3594,14 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
-				MARKETING_VERSION = dev;
+				MARKETING_VERSION = 25.3.17;
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada 6";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore net.blocka.app";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "wireguard-apple/Sources/WireGuardNetworkExtension/WireGuardNetworkExtension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
