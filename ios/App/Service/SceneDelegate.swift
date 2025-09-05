@@ -92,9 +92,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         homeVM.hideContent = false
         foreground.onForeground(true)
         
-        // For macOS compatibility mode, also register for focus monitoring
-        if ProcessInfo.processInfo.isiOSAppOnMac {
-            registerForMacOSFocusNotifications()
+        // For iPad and macOS, register for enhanced focus monitoring
+        if UIDevice.current.userInterfaceIdiom == .pad || ProcessInfo.processInfo.isiOSAppOnMac {
+            registerForEnhancedFocusNotifications()
         }
     }
 
@@ -137,10 +137,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - macOS Compatibility Mode Support
     
     
-    private func registerForMacOSFocusNotifications() {
-        BlockaLogger.w("SceneDelegate", "SUCCESS: Using scene notifications for macOS window focus detection!")
+    private func registerForEnhancedFocusNotifications() {
+        let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "macOS" : "iPad"
+        BlockaLogger.w("SceneDelegate", "SUCCESS: Using scene notifications for \(platform) window focus detection!")
         
-        // Use scene-level notifications for focus/defocus detection on macOS
+        // Use scene-level notifications for focus/defocus detection on iPad and macOS
         NotificationCenter.default.removeObserver(self, name: UIScene.didActivateNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIScene.willDeactivateNotification, object: nil)
         
@@ -158,28 +159,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             object: nil
         )
         
-        BlockaLogger.w("SceneDelegate", "Registered macOS window focus detection using scene notifications")
+        BlockaLogger.w("SceneDelegate", "Registered \(platform) window focus detection using scene notifications")
     }
     
     
     @objc private func sceneDidActivate() {
-        // Only process if running on Mac
-        guard ProcessInfo.processInfo.isiOSAppOnMac else { 
+        // Only process if running on iPad or Mac
+        guard UIDevice.current.userInterfaceIdiom == .pad || ProcessInfo.processInfo.isiOSAppOnMac else { 
             return 
         }
         
-        BlockaLogger.w("SceneDelegate", "macOS: Window gained focus")
+        let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "macOS" : "iPad"
+        BlockaLogger.w("SceneDelegate", "\(platform): Window gained focus")
         homeVM.hideContent = false
         foreground.onForeground(true)
     }
     
     @objc private func sceneWillDeactivate() {
-        // Only process if running on Mac
-        guard ProcessInfo.processInfo.isiOSAppOnMac else { 
+        // Only process if running on iPad or Mac
+        guard UIDevice.current.userInterfaceIdiom == .pad || ProcessInfo.processInfo.isiOSAppOnMac else { 
             return 
         }
         
-        BlockaLogger.w("SceneDelegate", "macOS: Window lost focus")
+        let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "macOS" : "iPad"
+        BlockaLogger.w("SceneDelegate", "\(platform): Window lost focus")
         
         // Close the keyboard when losing focus
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -190,7 +193,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     deinit {
         // Clean up notifications
-        if ProcessInfo.processInfo.isiOSAppOnMac {
+        if UIDevice.current.userInterfaceIdiom == .pad || ProcessInfo.processInfo.isiOSAppOnMac {
             NotificationCenter.default.removeObserver(self)
         }
     }
