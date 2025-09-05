@@ -4,7 +4,6 @@
 import Foundation
 import NetworkExtension
 import os
-import Factory
 
 // This is our override of wg-ios that adds the ability to perform protected HTTP requests.
 class BlockaPacketTunnelProvider: PacketTunnelProvider {
