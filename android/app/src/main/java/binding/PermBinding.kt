@@ -115,4 +115,9 @@ object PermBinding : PermOps {
             callback(Result.success(true))
         }
     }
+
+    override fun isRunningOnMac(callback: (Result<Boolean>) -> Unit) {
+        // Android apps cannot run on Mac, always return false
+        callback(Result.success(false))
+    }
 }
