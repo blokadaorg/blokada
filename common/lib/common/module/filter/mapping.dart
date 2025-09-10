@@ -57,8 +57,7 @@ final _v6iOS = [
     Option("facebook", FilterAction.list, ["blacklist/facebook"]),
   ]),
   Filter("developerdan", [
-    Option("ads and tracking", FilterAction.list,
-        ["developerdan/ads and tracking"]),
+    Option("ads and tracking", FilterAction.list, ["developerdan/ads and tracking"]),
     Option("facebook", FilterAction.list, ["developerdan/facebook"]),
     Option("amp", FilterAction.list, ["developerdan/amp"]),
     Option("hate and junk", FilterAction.list, ["developerdan/hate and junk"]),
@@ -131,8 +130,7 @@ final _v6Android = [
     Option("facebook", FilterAction.list, ["blacklist/facebook"]),
   ]),
   Filter("developerdan", [
-    Option("ads and tracking", FilterAction.list,
-        ["developerdan/ads and tracking"]),
+    Option("ads and tracking", FilterAction.list, ["developerdan/ads and tracking"]),
     Option("facebook", FilterAction.list, ["developerdan/facebook"]),
     Option("amp", FilterAction.list, ["developerdan/amp"]),
     Option("hate and junk", FilterAction.list, ["developerdan/hate and junk"]),
@@ -161,7 +159,7 @@ final _v6Android = [
   Filter("urlhaus", [
     Option("standard", FilterAction.list, ["urlhaus/standard"]),
   ]),
-  Filter("1hosts", [
+  Filter("nhosts", [
     Option("lite", FilterAction.list, ["1hosts/lite (wildcards)"]),
     Option("pro", FilterAction.list, ["1hosts/pro (wildcards)"]),
   ]),
@@ -179,8 +177,7 @@ const filterOptionPorn = "porn";
 
 final _family = [
   Filter(filterSafeSearch, [
-    Option(filterOptionSafeSearch, FilterAction.config,
-        [FilterConfigKey.safeSearch.name],
+    Option(filterOptionSafeSearch, FilterAction.config, [FilterConfigKey.safeSearch.name],
         action2: FilterAction.list, action2Params: ["safesearch/safesearch"]),
   ]),
   Filter(filterAds, [
@@ -190,7 +187,6 @@ final _family = [
     ]),
     Option("extended", FilterAction.list, [
       "adaway/standard",
-      "1hosts/lite (wildcards)",
       "oisd/big",
       // Those below I'm not sure how to treat
       "blacklist/adservers",
