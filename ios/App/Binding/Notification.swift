@@ -45,14 +45,18 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
         content.title = L10n.activatedHeader
         content.subtitle = L10n.dnsprofileNotificationSubtitle
         if ProcessInfo.processInfo.isiOSAppOnMac {
-            content.body = "Profile Downloaded -> Blokada Private DNS -> Install..."
+            content.body = "Profile Downloaded -> Blokada -> Install..."
         } else {
             content.body = L10n.dnsprofileNotificationBody
         }
     } else if id == NOTIF_ONBOARDING_FAMILY {
         content.title = L10n.activatedHeader
         content.subtitle = L10n.dnsprofileNotificationSubtitle
-        content.body = L10n.dnsprofileNotificationBody.replacingOccurrences(of: "Blokada", with: "Blokada Family")
+        if ProcessInfo.processInfo.isiOSAppOnMac {
+            content.body = "Profile Downloaded -> Blokada -> Install..."
+        } else {
+            content.body = L10n.dnsprofileNotificationBody.replacingOccurrences(of: "Blokada", with: "Blokada Family")
+        }
     } else if id == NOTIF_ACC_EXP_FAMILY {
         content.title = L10n.notificationAccHeader
         content.subtitle = L10n.familyNotificationSubtitle

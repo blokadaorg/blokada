@@ -13,6 +13,8 @@
 import SwiftUI
 import CodeScanner
 import Factory
+import AVFoundation
+import Vision
 
 struct AccountChangeView: View {
     @ObservedObject var vm = ViewModels.account
@@ -148,14 +150,37 @@ struct AccountChangeView: View {
 
 struct AccountChangeScanView: View {
     @Injected(\.commands) var commands
-    
+
     @Binding var isShowingScanner: Bool
     let handleScan: (Result<ScanResult, ScanError>) -> Void
 
+    // Detect if running on Mac
+    private var isRunningOnMac: Bool {
+        #if targetEnvironment(macCatalyst)
+        return true
+        #else
+        if #available(iOS 14.0, *) {
+            return ProcessInfo.processInfo.isiOSAppOnMac
+        }
+        return false
+        #endif
+    }
+
     var body: some View {
-        ZStack {
-            CodeScannerView(codeTypes: [.qr], simulatedData: "mockedmocked", completion: self.handleScan)
-            .ignoresSafeArea()
+        return ZStack {
+            if isRunningOnMac {
+                // Use no camera on macOS to completely avoid camera/Metal issues
+                MacLinkingMessageView(isShowingScanner: $isShowingScanner) { code in
+                    // Handle the QR code string directly
+                    self.commands.execute(CommandName.url, code)
+                    self.isShowingScanner = false
+                }
+                .ignoresSafeArea()
+            } else {
+                // Use CodeScanner for iOS devices
+                CodeScannerView(codeTypes: [.qr], simulatedData: "mockedmocked", completion: self.handleScan)
+                .ignoresSafeArea()
+            }
 
             VStack(spacing: 0) {
                 HStack {
@@ -176,14 +201,15 @@ struct AccountChangeScanView: View {
             }
             
             VStack {
-                Text(L10n.familyQrBrief)
+                Text(isRunningOnMac ? "Camera not supported on MacOS. Use the share button on parent device instead. Simply share the link to this device by AirDrop to start the linking process." : L10n.familyQrBrief
+                )
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.white)
                 Spacer()
             }
             .padding([.leading, .trailing], 32)
-            .padding(.top, 64)
+            .padding(.top, 80)
             
             RoundedRectangle(cornerRadius: 8)
                 .stroke(style: StrokeStyle(lineWidth: 2, dash: [10, 5]))
@@ -192,6 +218,29 @@ struct AccountChangeScanView: View {
         }
     }
 }
+
+// Simple message for macOS users about AirDrop linking
+struct MacLinkingMessageView: View {
+    @Binding var isShowingScanner: Bool
+    let onCodeDetected: (String) -> Void
+
+    var body: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Spacer()
+                Image(systemName: "square.and.arrow.up.badge.clock")
+                    .font(.system(size: 48))
+                    .foregroundColor(Color.white.opacity(0.05))
+                    .padding(.bottom, 42)
+                Spacer()
+            }
+            Spacer()
+        }
+        .background(Color.cDarkBackground)
+    }
+}
+
 
 struct AccountChangeView_Previews: PreviewProvider {
     static var previews: some View {
