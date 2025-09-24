@@ -23,6 +23,7 @@ import 'package:common/family/module/device_v3/device.dart';
 import 'package:common/family/module/family/family.dart';
 import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/module/profile/profile.dart';
+import 'package:common/family/module/qrscan/qrscan.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/common/common.dart';
 import 'package:common/platform/core/core.dart';
@@ -122,6 +123,7 @@ class Modules with Logging {
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
       await _registerModule(PlatformFamilyModule());
+      await _registerModule(QrScanModule());
     }
 
     await _registerModule(RateModule());

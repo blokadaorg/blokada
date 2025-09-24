@@ -4,6 +4,7 @@ import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/family/family.dart';
+import 'package:common/family/module/perm/perm.dart';
 import 'package:common/family/widget/home/big_icon.dart';
 import 'package:common/platform/stage/channel.pg.dart';
 import 'package:common/platform/stage/stage.dart';
@@ -30,6 +31,7 @@ class SmartOnboardState extends State<SmartOnboard>
   late final _family = Core.get<FamilyActor>();
   late final _payment = Core.get<PaymentActor>();
   late final _modal = Core.get<CurrentModalValue>();
+  late final _permChannel = Core.get<PermChannel>();
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +139,12 @@ class SmartOnboardState extends State<SmartOnboard>
                     child: MiniCard(
                       onTap: () {
                         log(Markers.userTap).trace("tappedLink", (m) async {
-                          await _stage.showModal(StageModal.accountChange, m);
+                          final isOnMac = await _permChannel.isRunningOnMac();
+                          if (isOnMac) {
+                            await _modal.change(m, Modal.familyQrScanMacos);
+                          } else {
+                            await _stage.showModal(StageModal.accountChange, m);
+                          }
                         });
                       },
                       color: context.theme.textPrimary.withOpacity(0.15),
@@ -188,7 +195,12 @@ class SmartOnboardState extends State<SmartOnboard>
       // await _modal.set(StageModal.onboardingAccountDecided);
     } else if (p == FamilyPhase.linkedExpired) {
       log(Markers.userTap).trace("tappedLinkExpired", (m) async {
-        await _stage.showModal(StageModal.accountChange, m);
+        final isOnMac = await _permChannel.isRunningOnMac();
+        if (isOnMac) {
+          await _modal.change(m, Modal.familyQrScanMacos);
+        } else {
+          await _stage.showModal(StageModal.accountChange, m);
+        }
       });
     } else {
       _modal.change(Markers.userTap, Modal.familyLinkDevice);

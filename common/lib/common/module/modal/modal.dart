@@ -11,6 +11,7 @@ enum Modal {
   plusDeviceLimitReached,
   familyAddProfile,
   familyLinkDevice,
+  familyQrScanMacos,
   pause,
   weeklyRefresh,
 }
