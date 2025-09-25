@@ -10,6 +10,7 @@ class MiniCard extends StatelessWidget {
   final bool? outlined;
   final Widget child;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry? padding;
 
   const MiniCard({
     super.key,
@@ -17,6 +18,7 @@ class MiniCard extends StatelessWidget {
     this.color,
     this.outlined,
     this.onTap,
+    this.padding,
   });
 
   @override
@@ -38,7 +40,7 @@ class MiniCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         );
       },
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
       child: child,
     );
   }

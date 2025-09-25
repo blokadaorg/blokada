@@ -10,12 +10,14 @@ class MiniCardChart extends StatelessWidget {
   final UiStats stats;
   final Color color;
   final bool animate;
+  final double? height;
 
   const MiniCardChart({
     super.key,
     required this.stats,
     required this.color,
     this.animate = true,
+    this.height,
   });
 
   @override
@@ -23,9 +25,9 @@ class MiniCardChart extends StatelessWidget {
     return GestureDetector(
       //decoration: BoxDecoration(color: Colors.greenAccent),
       child: (stats.totalAllowed > 0)
-          ? _ColumnChart(stats: stats, color: color, animate: animate)
+          ? _ColumnChart(stats: stats, color: color, animate: animate, height: height)
           : SizedBox(
-              height: 90,
+              height: height ?? 90,
               //constraints: const BoxConstraints(maxHeight: 90),
               child: // Container(),
                   Center(child: Text("universal status waiting for data".i18n)),
@@ -44,12 +46,14 @@ class _ColumnChart extends StatelessWidget {
   final Color color;
   final UiStats stats;
   final bool animate;
+  final double? height;
 
   _ColumnChart({
     Key? key,
     required this.stats,
     required this.color,
     required this.animate,
+    this.height,
   }) : super(key: key) {
     _compute();
   }
@@ -99,7 +103,7 @@ class _ColumnChart extends StatelessWidget {
     ];
 
     return Container(
-      constraints: const BoxConstraints(maxHeight: 90),
+      constraints: BoxConstraints(maxHeight: height ?? 90),
       child: SfCartesianChart(
         margin: const EdgeInsets.all(0),
         plotAreaBorderWidth: 0,

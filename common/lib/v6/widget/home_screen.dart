@@ -2,7 +2,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/home/home_section.dart';
-import 'package:common/v6/widget/home/stats/stats_section.dart';
+import 'package:common/v6/widget/home/stats/privacy_pulse_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -83,7 +83,7 @@ class _V6HomeScreenState extends State<V6HomeScreen> with Logging {
   _getPages() {
     return <Widget>[
       V6HomeSection(),
-      V6StatsSection(
+      PrivacyPulseSection(
           key: UniqueKey(), autoRefresh: true, controller: ScrollController()),
     ];
   }
