@@ -12,6 +12,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
 
 import '../../../../common/widget/stats/privacy_pulse.dart';
+import '../../../../common/widget/stats/top_domains.dart';
 
 class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
@@ -81,6 +82,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> {
                             child: PrivacyPulse(stats: stats),
                           ),
                         ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: TopDomains(),
                       ),
                       const Spacer(),
                       SizedBox(height: sy(60)),
