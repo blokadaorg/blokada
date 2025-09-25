@@ -8,6 +8,7 @@ import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
 import 'package:common/common/widget/settings/settings_screen.dart';
 import 'package:common/common/widget/stats/stats_detail_section.dart';
+import 'package:common/common/widget/stats/domain_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/support/support_section.dart';
@@ -70,6 +71,7 @@ class Navigation with Logging {
   late final _custom = Core.get<CustomlistActor>();
   late final _support = Core.get<SupportActor>();
   late final _bypass = Core.get<BypassAddDialog>();
+  late final _journal = Core.get<JournalActor>();
 
   static late bool isTabletMode;
 
@@ -128,8 +130,16 @@ class Navigation with Logging {
       return StandardRoute(
         settings: settings,
         builder: (context) => WithTopBar(
-          title: "family device title details".i18n,
-          child: StatsDetailSection(entry: entry),
+          title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
+          child: Core.act.isFamily
+            ? StatsDetailSection(entry: entry)
+            : () {
+                final mainEntry = _journal.getMainEntry(entry);
+                return DomainDetailSection(
+                  entry: mainEntry,
+                  subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+                );
+              }(),
         ),
       );
     }

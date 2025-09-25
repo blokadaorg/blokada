@@ -120,3 +120,15 @@ class JournalFilter {
     return filtered;
   }
 }
+
+class UiJournalMainEntry {
+  final String domainName;
+  final int requests;
+  final UiJournalAction action;
+
+  UiJournalMainEntry({
+    required this.domainName,
+    required this.requests,
+    required this.action,
+  });
+}

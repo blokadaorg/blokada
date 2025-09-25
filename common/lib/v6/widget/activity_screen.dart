@@ -2,7 +2,7 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
-import 'package:common/common/widget/stats/stats_detail_section.dart';
+import 'package:common/common/widget/stats/domain_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
@@ -24,6 +24,7 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   final _device = Core.get<DeviceStore>();
   late final _filter = Core.get<JournalFilterValue>();
   late final _account = Core.get<AccountStore>();
+  late final _journal = Core.get<JournalActor>();
 
   var _showStats = false;
 
@@ -129,7 +130,12 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   Widget _buildForPath(Paths path, Object? arguments) {
     switch (path) {
       case Paths.deviceStatsDetail:
-        return StatsDetailSection(entry: _arguments as UiJournalEntry);
+        final entry = _arguments as UiJournalEntry;
+        final mainEntry = _journal.getMainEntry(entry);
+        return DomainDetailSection(
+          entry: mainEntry,
+          subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+        );
       default:
         return Container();
     }

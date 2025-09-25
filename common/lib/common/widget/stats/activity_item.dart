@@ -2,7 +2,6 @@ import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
-import 'package:common/common/widget/two_letter_icon.dart';
 import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,27 +31,13 @@ class ActivityItemState extends State<ActivityItem> {
         opacity: widget.entry.modified ? 0.5 : 1,
         child: Row(
           children: [
-            widget.entry.isBlocked()
-                ? Container(
-                    color: Colors.red,
-                    width: 4,
-                    height: 52,
-                  )
-                : Container(width: 4),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(CupertinoIcons.shield,
-                    color: widget.entry.isBlocked() ? Colors.red : Colors.green, size: 52),
-                Transform.translate(
-                  offset: const Offset(0, -3),
-                  child: Text(
-                    (widget.entry.requests > 99) ? "99" : widget.entry.requests.toString(),
-                    style: TextStyle(color: context.theme.textPrimary, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
+            const SizedBox(width: 12),
+            Icon(
+                widget.entry.isBlocked()
+                    ? CupertinoIcons.xmark_shield_fill
+                    : CupertinoIcons.checkmark_shield_fill,
+                color: widget.entry.isBlocked() ? Colors.red : Colors.green,
+                size: 52),
             const SizedBox(width: 6),
             Expanded(
               flex: 1,
@@ -65,14 +50,20 @@ class ActivityItemState extends State<ActivityItem> {
                     widget.entry.timestampText,
                     style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
                   ),
-                  Text(
-                    _getActionString(),
-                    style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
-                  ),
+                  if (widget.entry.requests > 1)
+                    Text(
+                      _getActionString(),
+                      style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
+                    ),
                 ],
               ),
             ),
-            (Core.act.isFamily) ? Container() : TwoLetterIconWidget(name: widget.entry.deviceName),
+            Icon(
+              CupertinoIcons.right_chevron,
+              color: context.theme.textPrimary,
+              size: 20,
+            ),
+            const SizedBox(width: 6),
           ],
         ),
       ),

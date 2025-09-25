@@ -92,6 +92,68 @@ class JournalActor with Logging, Actor {
     filteredEntries.now = [];
   }
 
+  UiJournalMainEntry getMainEntry(UiJournalEntry entry) {
+    // Extract TLD-level domain (e.g., "ads.apple.com" -> "apple.com")
+    String mainDomain = _extractMainDomain(entry.domainName);
+
+    // TODO: Action and requests are taken directly from entry for now
+    // In the future, these should be aggregated from all related subdomains
+    return UiJournalMainEntry(
+      domainName: mainDomain,
+      requests: entry.requests,
+      action: entry.action,
+    );
+  }
+
+  List<UiJournalEntry> getSubdomainEntries(UiJournalMainEntry mainEntry) {
+    // Filter for subdomains with matching action only
+    final filteredEntries = allEntries.where((entry) =>
+      entry.domainName != mainEntry.domainName &&
+      entry.domainName.endsWith('.${mainEntry.domainName}') &&
+      entry.action == mainEntry.action
+    );
+
+    // Group by domainName and sum up requests
+    final Map<String, UiJournalEntry> aggregatedEntries = {};
+
+    for (final entry in filteredEntries) {
+      final domainName = entry.domainName;
+      if (aggregatedEntries.containsKey(domainName)) {
+        // Sum up requests for the same domain
+        final existing = aggregatedEntries[domainName]!;
+        aggregatedEntries[domainName] = UiJournalEntry(
+          deviceName: existing.deviceName,
+          domainName: existing.domainName,
+          action: existing.action,
+          listId: existing.listId,
+          profileId: existing.profileId,
+          timestamp: existing.timestamp,
+          requests: existing.requests + entry.requests,
+          modified: existing.modified,
+        );
+      } else {
+        // First occurrence of this domain
+        aggregatedEntries[domainName] = entry;
+      }
+    }
+
+    // Convert to list and sort by domainName
+    final result = aggregatedEntries.values.toList();
+    result.sort((a, b) => a.domainName.compareTo(b.domainName));
+
+    return result;
+  }
+
+  String _extractMainDomain(String domain) {
+    // Simple TLD extraction - splits by dots and takes last 2 parts
+    // e.g., "ads.apple.com" -> "apple.com"
+    List<String> parts = domain.split('.');
+    if (parts.length >= 2) {
+      return '${parts[parts.length - 2]}.${parts[parts.length - 1]}';
+    }
+    return domain; // Return as-is if already a main domain
+  }
+
   bool _decideModified(String domainName, UiJournalAction action,
       List<String> allowed, List<String> denied, bool wasException) {
     final isOnAllowed = allowed.contains(domainName);
