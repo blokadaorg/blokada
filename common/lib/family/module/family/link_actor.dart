@@ -9,6 +9,8 @@ class LinkActor with Logging, Actor {
   late final _device = Core.get<DeviceActor>();
   late final _auth = Core.get<AuthActor>();
   late final _thisDevice = Core.get<ThisDevice>();
+  late final _modal = Core.get<CurrentModalValue>();
+  late final _topBarController = Core.get<TopBarController>();
 
   late final linkedMode = Core.get<FamilyLinkedMode>();
 
@@ -89,6 +91,12 @@ class LinkActor with Logging, Actor {
         linkedTokenOk = true;
         linkedMode.now = true;
         await _stage.dismissModal(m);
+        // Close the new modal system modal if open (e.g. familyQrScanMacos)
+        // Note: The modal value auto-resets after 500ms, so we can't rely on checking it.
+        // We use maybePop to safely close any modal without affecting navigation if no modal is open.
+        await _modal.change(m, null);
+        // Safely pop any modal sheet from navigator (won't pop if nothing to pop)
+        await _topBarController.navigatorKey.currentState?.maybePop();
       } on AlreadyLinkedException catch (e) {
         await _stage.showModal(StageModal.faultLinkAlready, m);
         rethrow;

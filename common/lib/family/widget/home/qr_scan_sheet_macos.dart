@@ -109,7 +109,7 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                           "Our Mac app cannot scan QR codes. Instead, please link it to your parent app like this:"
                               .i18n,
                           softWrap: true,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
                       ),
@@ -255,9 +255,7 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: MiniCard(
-                          onTap: _hasText
-                              ? () => _handleLink(_linkController.text)
-                              : null,
+                          onTap: _hasText ? () => _handleLink(_linkController.text) : null,
                           color: _hasText
                               ? context.theme.accent
                               : context.theme.accent.withOpacity(0.5),
