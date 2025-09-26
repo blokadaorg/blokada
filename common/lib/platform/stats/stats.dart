@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/device/device.dart';
 import 'package:mobx/mobx.dart';
 
 import 'api.dart' as api;
@@ -12,6 +13,7 @@ class StatsStore = StatsStoreBase with _$StatsStore;
 
 abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<api.StatsApi>();
+  late final _device = Core.get<DeviceStore>();
 
   StatsStoreBase() {}
 
@@ -62,11 +64,34 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   bool hasStats = false;
 
   @action
-  Future<void> fetch(Marker m) async {
+  Future<void> fetch(Marker m, {bool toplists = false}) async {
     return await log(m).trace("fetch", (m) async {
       final oneDay = await _api.getStats("24h", "1h", m);
       final oneWeek = await _api.getStats("1w", "24h", m);
-      stats = _convertStats(oneDay, oneWeek);
+
+      // For V6 app, we need to fetch toplists for "this device" if requested
+      api.JsonToplistEndpoint? toplistAllowed;
+      api.JsonToplistEndpoint? toplistBlocked;
+
+      if (toplists) {
+        try {
+          // For V6 app, get account-level toplists without device_name parameter
+          toplistAllowed = await _api.getToplist(false, m);
+          toplistBlocked = await _api.getToplist(true, m);
+          log(m).i("Fetched account toplists - allowed: ${toplistAllowed?.toplist.metrics.length ?? 0} entries, blocked: ${toplistBlocked?.toplist.metrics.length ?? 0} entries");
+        } catch (e) {
+          // If toplist fetching fails, continue without it
+          log(m).w("Failed to fetch toplists: $e");
+        }
+      }
+
+      stats = _convertStats(
+        oneDay,
+        oneWeek,
+        toplistAllowed: toplistAllowed,
+        toplistBlocked: toplistBlocked,
+        previousStats: stats,
+      );
       hasStats = true;
       deviceStatsChangesCounter++;
     });
@@ -201,6 +226,8 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       convertedToplist = previousStats?.toplist ?? [];
     }
 
+    print("DEBUG: Converted toplist has ${convertedToplist.length} entries");
+
     return UiStats(
         totalAllowed: int.parse(stats.totalAllowed),
         totalBlocked: int.parse(stats.totalBlocked),
@@ -215,13 +242,16 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   _convertToplist(api.JsonToplistEndpoint toplist) {
     final result = <UiToplistEntry>[];
+    print("DEBUG: Converting toplist with ${toplist.toplist.metrics.length} metrics");
     for (var metric in toplist.toplist.metrics) {
       final action = metric.tags.action;
       final isAllowed = action == "fallthrough" || action == "allowed";
       final firstDps = metric.dps.first;
       final c = (metric.tags.company == "unknown") ? null : metric.tags.company;
-      result.add(UiToplistEntry(
-          c, metric.tags.tld, !isAllowed, firstDps.value.round()));
+      final entry = UiToplistEntry(
+          c, metric.tags.tld, !isAllowed, firstDps.value.round());
+      result.add(entry);
+      print("DEBUG: Added toplist entry - company: ${entry.company}, tld: ${entry.tld}, blocked: ${entry.blocked}, value: ${entry.value}");
     }
     //result.sort((a, b) => b.value.compareTo(a.value));
     return result;

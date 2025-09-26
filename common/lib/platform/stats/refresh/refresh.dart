@@ -63,7 +63,8 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
         }
       }
     } else {
-      await _stats.fetch(m);
+      // V6 app - include toplists when on home screen for Privacy Pulse widget
+      await _stats.fetch(m, toplists: _isHomeScreen);
     }
 
     _lastRefresh = DateTime.now();

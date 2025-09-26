@@ -2,8 +2,12 @@ import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
+import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TopDomains extends StatefulWidget {
   const TopDomains({super.key});
@@ -14,76 +18,83 @@ class TopDomains extends StatefulWidget {
 
 class TopDomainsState extends State<TopDomains> {
   bool _showBlocked = true;
+  late final _statsStore = Core.get<StatsStore>();
 
-  // Mock data
-  final List<DomainEntry> _blockedDomains = [
-    DomainEntry('apple.com', 15),
-    DomainEntry('facebook.net', 12),
-    DomainEntry('example.org', 9),
-  ];
+  List<UiToplistEntry> get _blockedDomains {
+    final stats = _statsStore.stats;
+    return stats.toplist.where((entry) => entry.blocked).take(10).toList();
+  }
 
-  final List<DomainEntry> _allowedDomains = [
-    DomainEntry('google.com', 25),
-    DomainEntry('github.com', 18),
-    DomainEntry('stackoverflow.com', 14),
-  ];
+  List<UiToplistEntry> get _allowedDomains {
+    final stats = _statsStore.stats;
+    return stats.toplist.where((entry) => !entry.blocked).take(10).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Title header
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: Text(
-            "Toplists",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: context.theme.textPrimary,
-            ),
-          ),
-        ),
+    return Observer(
+      builder: (context) {
+        final currentDomains = _showBlocked ? _blockedDomains : _allowedDomains;
 
-        // Tabbed card
-        CommonCard(
-          padding: EdgeInsets.zero,
-          child: Column(
-            children: [
-              // Tab row
-              Row(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: Text(
+                "Toplists",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textPrimary,
+                ),
+              ),
+            ),
+
+            // Tabbed card
+            CommonCard(
+              padding: EdgeInsets.zero,
+              child: Column(
                 children: [
-                  Expanded(
-                    child: _buildTab(
-                      "Blocked",
-                      _showBlocked,
-                      () => setState(() => _showBlocked = true),
-                      Color(0xffff3b30),
-                    ),
+                  // Tab row
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildTab(
+                          "Blocked",
+                          _showBlocked,
+                          () => setState(() => _showBlocked = true),
+                          Color(0xffff3b30),
+                        ),
+                      ),
+                      Expanded(
+                        child: _buildTab(
+                          "Allowed",
+                          !_showBlocked,
+                          () => setState(() => _showBlocked = false),
+                          Color(0xff33c75a),
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: _buildTab(
-                      "Allowed",
-                      !_showBlocked,
-                      () => setState(() => _showBlocked = false),
-                      Color(0xff33c75a),
-                    ),
-                  ),
+
+                  const CommonDivider(),
+
+                  // Domain list or empty state
+                  if (currentDomains.isEmpty)
+                    _buildEmptyState()
+                  else
+                    for (int i = 0; i < currentDomains.length; i++) ...{
+                      _buildDomainItem(currentDomains[i]),
+                      if (i < currentDomains.length - 1) const CommonDivider(),
+                    },
                 ],
               ),
-
-              const CommonDivider(),
-
-              // Domain list
-              for (int i = 0; i < (_showBlocked ? _blockedDomains : _allowedDomains).length; i++) ...{
-                _buildDomainItem((_showBlocked ? _blockedDomains : _allowedDomains)[i]),
-                if (i < (_showBlocked ? _blockedDomains : _allowedDomains).length - 1) const CommonDivider(),
-              },
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -115,7 +126,9 @@ class TopDomainsState extends State<TopDomains> {
     );
   }
 
-  Widget _buildDomainItem(DomainEntry domain) {
+  Widget _buildDomainItem(UiToplistEntry entry) {
+    final domainName = entry.company ?? entry.tld ?? "Unknown";
+
     return CommonClickable(
       onTap: () {
         // TODO: Navigate to domain details
@@ -126,7 +139,7 @@ class TopDomainsState extends State<TopDomains> {
           children: [
             Expanded(
               child: Text(
-                domain.name,
+                domainName,
                 style: TextStyle(
                   fontSize: 16,
                   color: context.theme.textPrimary,
@@ -134,7 +147,7 @@ class TopDomainsState extends State<TopDomains> {
               ),
             ),
             Text(
-              domain.count.toString(),
+              entry.value.toString(),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -152,11 +165,20 @@ class TopDomainsState extends State<TopDomains> {
       ),
     );
   }
+
+  Widget _buildEmptyState() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+      child: Center(
+        child: Text(
+          _showBlocked ? "No blocked domains found" : "No allowed domains found",
+          style: TextStyle(
+            color: context.theme.textSecondary,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class DomainEntry {
-  final String name;
-  final int count;
-
-  DomainEntry(this.name, this.count);
-}

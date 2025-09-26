@@ -49,15 +49,12 @@ enum ApiEndpoint {
     ApiParam.profileId,
   ]),
   postCustomList("v3/customlist", type: "POST", params: [ApiParam.accountId]),
-  deleteCustomList("v3/customlist",
-      type: "DELETE", params: [ApiParam.accountId]),
+  deleteCustomList("v3/customlist", type: "DELETE", params: [ApiParam.accountId]),
   postSupport("https://support.blocka.net/v3/support",
       type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]),
-  getSupport("https://support.blocka.net/v3/support",
-      type: "GET", params: [ApiParam.sessionId]),
+  getSupport("https://support.blocka.net/v3/support", type: "GET", params: [ApiParam.sessionId]),
   putSupport("https://support.blocka.net/v3/support", type: "PUT"),
-  postAdaptyCheckout("v3/adapty/checkout",
-      type: "POST", params: [ApiParam.accountId]),
+  postAdaptyCheckout("v3/adapty/checkout", type: "POST", params: [ApiParam.accountId]),
   getStatusTest("v3/status/test", params: [ApiParam.deviceTag]),
 
   // V2 api (to be migrated away)
@@ -79,6 +76,11 @@ enum ApiEndpoint {
     ApiParam.toplistAction,
     ApiParam.statsDeviceName,
   ]),
+  // For v6, we do not provide device_name parameter
+  getToplistV2V6("v2/activity/toplist", params: [
+    ApiParam.accountId,
+    ApiParam.toplistAction,
+  ]),
   getCustomListV2("v2/customlist", params: [
     ApiParam.accountId,
   ]),
@@ -86,14 +88,10 @@ enum ApiEndpoint {
   postLeaseV2("v2/lease", type: "POST", params: [ApiParam.accountId]),
   deleteLeaseV2("v2/lease", type: "DELETE", params: [ApiParam.accountId]),
   postCustomListV2("v2/customlist", type: "POST", params: [ApiParam.accountId]),
-  deleteCustomListV2("v2/customlist",
-      type: "DELETE", params: [ApiParam.accountId]),
-  postNotificationToken("v2/apple/device",
-      type: "POST", params: [ApiParam.accountId]),
-  postCheckoutGplayV2("v2/gplay/checkout",
-      type: "POST", params: [ApiParam.accountId]),
-  postCheckoutAppleV2("v2/apple/checkout",
-      type: "POST", params: [ApiParam.accountId]),
+  deleteCustomListV2("v2/customlist", type: "DELETE", params: [ApiParam.accountId]),
+  postNotificationToken("v2/apple/device", type: "POST", params: [ApiParam.accountId]),
+  postCheckoutGplayV2("v2/gplay/checkout", type: "POST", params: [ApiParam.accountId]),
+  postCheckoutAppleV2("v2/apple/checkout", type: "POST", params: [ApiParam.accountId]),
   ;
 
   const ApiEndpoint(

@@ -8,10 +8,7 @@ class JsonStatsEndpoint {
   late String totalBlocked;
   late JsonStats stats;
 
-  JsonStatsEndpoint(
-      {required this.totalAllowed,
-      required this.totalBlocked,
-      required this.stats});
+  JsonStatsEndpoint({required this.totalAllowed, required this.totalBlocked, required this.stats});
 
   JsonStatsEndpoint.fromJson(Map<String, dynamic> json) {
     try {
@@ -151,8 +148,7 @@ class StatsApi {
   late final _api = Core.get<Api>();
   late final _marshal = StatsMarshal();
 
-  Future<JsonStatsEndpoint> getStats(
-      String since, String downsample, Marker m) async {
+  Future<JsonStatsEndpoint> getStats(String since, String downsample, Marker m) async {
     final result = await _api.get(ApiEndpoint.getStatsV2, m, params: {
       ApiParam.statsSince: since,
       ApiParam.statsDownsample: downsample,
@@ -174,8 +170,17 @@ class StatsApi {
     return _marshal.toStatsEndpoint(result);
   }
 
-  Future<JsonToplistEndpoint> getToplistForDevice(
-      bool blocked, String deviceName, Marker m) async {
+  Future<JsonToplistEndpoint> getToplist(bool blocked, Marker m) async {
+    final action = blocked ? "blocked" : "allowed";
+
+    final result = await _api.get(ApiEndpoint.getToplistV2V6, m, params: {
+      ApiParam.toplistAction: action,
+    });
+
+    return _marshal.toToplistEndpoint(result);
+  }
+
+  Future<JsonToplistEndpoint> getToplistForDevice(bool blocked, String deviceName, Marker m) async {
     final action = blocked ? "blocked" : "allowed";
     final encoded = Uri.encodeComponent(deviceName);
 
