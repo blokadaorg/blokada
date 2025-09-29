@@ -29,6 +29,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   List<UiJournalEntry> _filteredSubdomains = [];
   List<UiJournalEntry> _allSubdomains = [];
 
+  // Helper to count domain levels (dots + 1)
+  int _getDomainLevel(String domain) {
+    return domain.split('.').length;
+  }
+
+  // Extract second-level domain (e.g., "x.y.abc.apple.com" -> "abc.apple.com")
+  String _getSecondLevelDomain(String domain) {
+    final parts = domain.split('.');
+    if (parts.length <= 3) {
+      return domain; // Already second-level or TLD
+    }
+    // Take the last 3 parts for second-level domain
+    return parts.sublist(parts.length - 3).join('.');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -100,6 +115,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
             width: 80,
             height: 80,
             fit: BoxFit.contain,
+            fadeInDuration: Duration.zero,
+            fadeOutDuration: Duration.zero,
             placeholder: (context, url) => Container(
               width: 80,
               height: 80,
@@ -258,9 +275,59 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   }
 
   Widget _buildSubdomainItem(UiJournalEntry subdomain) {
+    // Check if current main entry is already second-level (3 parts)
+    final currentLevel = _getDomainLevel(widget.entry.domainName);
+    final isSecondLevel = currentLevel >= 3;
+
+    // If we're at second level, items are not clickable but keep styling
+    if (isSecondLevel) {
+      return CommonClickable(
+        onTap: () {}, // Empty function - no tap handler
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  subdomain.domainName,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: context.theme.textPrimary,
+                  ),
+                ),
+              ),
+              Text(
+                subdomain.requests.toString(),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Otherwise, make it clickable and navigate to second-level
     return CommonClickable(
       onTap: () {
-        // TODO: Implement subdomain detail navigation
+        // Extract second-level domain from the clicked subdomain
+        final targetDomain = _getSecondLevelDomain(subdomain.domainName);
+
+        // Create a MainEntry for the second-level domain
+        final subdomainAsMain = UiJournalMainEntry(
+          domainName: targetDomain,
+          requests: subdomain.requests,
+          action: subdomain.action,
+        );
+
+        // Pass a custom object to indicate we want to use subdomain as-is
+        Navigation.open(Paths.deviceStatsDetail, arguments: {
+          'mainEntry': subdomainAsMain,
+          'isSubdomain': true,
+        });
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),

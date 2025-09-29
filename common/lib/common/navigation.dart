@@ -125,23 +125,41 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.deviceStatsDetail.path) {
-      final entry = settings.arguments as UiJournalEntry;
+      // Check if this is a subdomain navigation or normal entry
+      if (settings.arguments is Map && (settings.arguments as Map)['isSubdomain'] == true) {
+        final args = settings.arguments as Map;
+        final mainEntry = args['mainEntry'] as UiJournalMainEntry;
 
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
-          child: Core.act.isFamily
-            ? StatsDetailSection(entry: entry)
-            : () {
-                final mainEntry = _journal.getMainEntry(entry);
-                return DomainDetailSection(
-                  entry: mainEntry,
-                  subdomainEntries: _journal.getSubdomainEntries(mainEntry),
-                );
-              }(),
-        ),
-      );
+        return StandardRoute(
+          settings: settings,
+          builder: (context) => WithTopBar(
+            title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
+            child: DomainDetailSection(
+              entry: mainEntry,
+              subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+            ),
+          ),
+        );
+      } else {
+        // Normal entry - extract TLD as before
+        final entry = settings.arguments as UiJournalEntry;
+
+        return StandardRoute(
+          settings: settings,
+          builder: (context) => WithTopBar(
+            title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
+            child: Core.act.isFamily
+              ? StatsDetailSection(entry: entry)
+              : () {
+                  final mainEntry = _journal.getMainEntry(entry);
+                  return DomainDetailSection(
+                    entry: mainEntry,
+                    subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+                  );
+                }(),
+          ),
+        );
+      }
     }
 
     if (settings.name == Paths.settings.path) {
