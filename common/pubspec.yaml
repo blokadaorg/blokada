@@ -58,6 +58,7 @@ dependencies:
   adapty_flutter: 3.10.0
   input_code_field: ^2.0.2
   flutter_linkify: ^6.0.0
+  cached_network_image: ^3.3.1
 
 dependency_overrides:
   intl: 0.20.2

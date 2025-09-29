@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -91,18 +92,44 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-        // Domain icon (using Apple logo placeholder)
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: context.theme.textPrimary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Icon(
-            CupertinoIcons.globe,
-            size: 40,
-            color: context.theme.textPrimary,
+        // Domain icon with favicon
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: CachedNetworkImage(
+            imageUrl: 'https://www.google.com/s2/favicons?domain=${widget.entry.domainName}&sz=128',
+            width: 80,
+            height: 80,
+            fit: BoxFit.contain,
+            placeholder: (context, url) => Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: context.theme.textPrimary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Icon(
+                  CupertinoIcons.globe,
+                  size: 40,
+                  color: context.theme.textPrimary,
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: context.theme.textPrimary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Icon(
+                  CupertinoIcons.globe,
+                  size: 40,
+                  color: context.theme.textPrimary,
+                ),
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 16),
