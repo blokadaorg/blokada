@@ -1,5 +1,6 @@
 import 'dart:io' as io;
 
+import 'package:common/common/widget/activity/activity_rule_dialog.dart';
 import 'package:common/common/widget/support/support_dialog.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
@@ -16,6 +17,42 @@ void showSupportDialog(BuildContext context) {
       title: Text("universal action more".i18n),
       content: (context) => const SupportDialog(),
       actions: (context) => []);
+}
+
+void showActivityRuleDialog(BuildContext context,
+    {required String domainName, Function(ActivityRuleOption)? onSelected}) {
+  showDefaultDialog(
+    context,
+    title: Text("What should happen to traffic to $domainName?"),
+    content: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 32),
+        ActivityRuleDialog(
+          domainName: domainName,
+          onSelected: onSelected != null
+              ? (option) {
+                  Navigator.of(context).pop();
+                  onSelected.call(option);
+                }
+              : null,
+        ),
+      ],
+    ),
+    actions: (context) => [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
+        ),
+        child: Text("Cancel"),
+      ),
+    ],
+  );
 }
 
 void showSelectProfileDialog(BuildContext context,
@@ -35,8 +72,7 @@ void showSelectProfileDialog(BuildContext context,
   );
 }
 
-void showPauseDialog(BuildContext context,
-    {required Function(Duration?) onSelected}) {
+void showPauseDialog(BuildContext context, {required Function(Duration?) onSelected}) {
   showDefaultDialog(
     context,
     title: Text("home power off menu header".i18n),
@@ -47,8 +83,7 @@ void showPauseDialog(BuildContext context,
   );
 }
 
-void showConfirmDialog(BuildContext context, String name,
-    {required Function() onConfirm}) {
+void showConfirmDialog(BuildContext context, String name, {required Function() onConfirm}) {
   showDefaultDialog(
     context,
     title: Text("family device action delete".i18n),
@@ -80,8 +115,7 @@ void showConfirmDialog(BuildContext context, String name,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: Text("universal action delete".i18n,
-            style: const TextStyle(color: Colors.red)),
+        child: Text("universal action delete".i18n, style: const TextStyle(color: Colors.red)),
       ),
     ],
   );
@@ -109,15 +143,12 @@ void showRenameDialog(BuildContext context, String what, String? name,
                 fillColor: context.theme.bgColor,
                 focusColor: context.theme.bgColor,
                 hoverColor: context.theme.bgColor,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
               ),
             ),
@@ -202,15 +233,12 @@ void showAddExceptionDialog(
                 fillColor: context.theme.bgColor,
                 focusColor: context.theme.bgColor,
                 hoverColor: context.theme.bgColor,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
               ),
             ),
@@ -262,15 +290,12 @@ void showInputDialog(
                   fillColor: context.theme.bgColor,
                   focusColor: context.theme.bgColor,
                   hoverColor: context.theme.bgColor,
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: context.theme.bgColor, width: 0.0),
+                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: context.theme.bgColor, width: 0.0),
+                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                   ),
                 ),
               ),

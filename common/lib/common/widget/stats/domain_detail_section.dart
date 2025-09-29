@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:common/common/dialog.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -42,6 +43,15 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
     }
     // Take the last 3 parts for second-level domain
     return parts.sublist(parts.length - 3).join('.');
+  }
+
+  // Extract TLD domain for favicon (e.g., "ads.apple.com" -> "apple.com")
+  String _getTldDomain(String domain) {
+    final parts = domain.split('.');
+    if (parts.length >= 2) {
+      return '${parts[parts.length - 2]}.${parts[parts.length - 1]}';
+    }
+    return domain; // Return as-is if already a TLD
   }
 
   @override
@@ -94,8 +104,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
           _buildSubdomainsList(),
           const SizedBox(height: 16),
 
-          // Search bar
-          _buildSearchBar(),
+          // Search bar (only show if more than 1 subdomain)
+          if (_allSubdomains.length > 1) _buildSearchBar(),
           const SizedBox(height: 40), // Bottom padding like original
         ],
       ),
@@ -111,7 +121,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: CachedNetworkImage(
-            imageUrl: 'https://www.google.com/s2/favicons?domain=${widget.entry.domainName}&sz=128',
+            imageUrl: 'https://www.google.com/s2/favicons?domain=${_getTldDomain(widget.entry.domainName)}&sz=128',
             width: 80,
             height: 80,
             fit: BoxFit.contain,
@@ -214,7 +224,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
     return CommonCard(
       child: CommonClickable(
         onTap: () {
-          // TODO: Implement add rule functionality
+          showActivityRuleDialog(
+            context,
+            domainName: widget.entry.domainName,
+            onSelected: (option) {
+              // TODO: Implement rule action based on selected option
+            },
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
