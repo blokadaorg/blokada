@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:common/common/module/api/api.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/core/core.dart';

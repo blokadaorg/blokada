@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +33,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   List<UiJournalEntry> _filteredSubdomains = [];
   List<UiJournalEntry> _allSubdomains = [];
 
+  late final _filter = Core.get<FilterActor>();
+  late final _journal = Core.get<JournalActor>();
+
   // Helper to count domain levels (dots + 1)
   int _getDomainLevel(String domain) {
     return domain.split('.').length;
@@ -52,6 +58,53 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
       return '${parts[parts.length - 2]}.${parts[parts.length - 1]}';
     }
     return domain; // Return as-is if already a TLD
+  }
+
+  String _getSubtitleText() {
+    final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
+    final mainRequests = widget.entry.requests;
+    final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
+
+    String baseText;
+    String? listId;
+
+    // Determine the base text based on requests distribution
+    if (mainRequests == 0 && subdomainRequests > 0) {
+      // Only subdomains have requests
+      baseText =
+          "$subdomainRequests requests to subdomains of ${widget.entry.domainName} were $actionText";
+      // Use the first subdomain's listId if available
+      listId = _allSubdomains.firstOrNull?.listId;
+    } else if (mainRequests > 0 && subdomainRequests == 0) {
+      // Only main domain has requests
+      baseText = "$mainRequests requests to ${widget.entry.domainName} were $actionText";
+      listId = widget.entry.listId;
+    } else if (mainRequests > 0 && subdomainRequests > 0) {
+      // Both have requests
+      baseText =
+          "$mainRequests requests to ${widget.entry.domainName} were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
+      listId = widget.entry.listId;
+    } else {
+      // Neither has requests (shouldn't normally happen)
+      baseText = "No requests to ${widget.entry.domainName} or its subdomains";
+      return baseText;
+    }
+
+    // Add blocklist info if domain was blocked and we have a listId
+    if (widget.entry.action == UiJournalAction.block && listId != null) {
+      // Check if it's a user rule (short ID)
+      if (listId.length < 16) {
+        return "$baseText by your rules";
+      } else {
+        // Get the blocklist name
+        final listName = _filter.getFilterContainingList(listId);
+        if (listName != "family stats label none".i18n && listName != "family stats title".i18n) {
+          return "$baseText by $listName";
+        }
+      }
+    }
+
+    return baseText;
   }
 
   @override
@@ -117,70 +170,72 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-        // Domain icon with favicon
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: CachedNetworkImage(
-            imageUrl: 'https://www.google.com/s2/favicons?domain=${_getTldDomain(widget.entry.domainName)}&sz=128',
-            width: 80,
-            height: 80,
-            fit: BoxFit.contain,
-            fadeInDuration: Duration.zero,
-            fadeOutDuration: Duration.zero,
-            placeholder: (context, url) => Container(
+          // Domain icon with favicon
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: CachedNetworkImage(
+              imageUrl:
+                  'https://www.google.com/s2/favicons?domain=${_getTldDomain(widget.entry.domainName)}&sz=128',
               width: 80,
               height: 80,
-              decoration: BoxDecoration(
-                color: context.theme.textPrimary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16),
+              fit: BoxFit.contain,
+              fadeInDuration: Duration.zero,
+              fadeOutDuration: Duration.zero,
+              placeholder: (context, url) => Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: context.theme.textPrimary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Icon(
+                    CupertinoIcons.globe,
+                    size: 40,
+                    color: context.theme.textPrimary,
+                  ),
+                ),
               ),
-              child: Center(
-                child: Icon(
-                  CupertinoIcons.globe,
-                  size: 40,
-                  color: context.theme.textPrimary,
+              errorWidget: (context, url, error) => Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: context.theme.textPrimary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Icon(
+                    CupertinoIcons.globe,
+                    size: 40,
+                    color: context.theme.textPrimary,
+                  ),
                 ),
               ),
             ),
-            errorWidget: (context, url, error) => Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: context.theme.textPrimary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Icon(
-                  CupertinoIcons.globe,
-                  size: 40,
-                  color: context.theme.textPrimary,
-                ),
-              ),
+          ),
+          const SizedBox(height: 16),
+
+          // Domain name
+          Text(
+            widget.entry.domainName,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              color: context.theme.textPrimary,
             ),
           ),
-        ),
-        const SizedBox(height: 16),
+          const SizedBox(height: 8),
 
-        // Domain name
-        Text(
-          widget.entry.domainName,
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-            color: context.theme.textPrimary,
+          // Subtitle with stats
+          Text(
+            _getSubtitleText(),
+            style: TextStyle(
+              fontSize: 16,
+              color: context.theme.textSecondary,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(height: 8),
-
-        // Subtitle with stats
-        Text(
-          "${widget.entry.requests} requests to subdomains of ${widget.entry.domainName} were ${widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed'}",
-          style: TextStyle(
-            fontSize: 16,
-            color: context.theme.textSecondary,
-          ),
-          textAlign: TextAlign.center,
-        ),
         ],
       ),
     );
@@ -266,7 +321,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Center(
             child: Text(
-              _searchController.text.isEmpty ? "No subdomains found" : "No subdomains match your search",
+              _searchController.text.isEmpty
+                  ? "No subdomains found"
+                  : "No subdomains match your search",
               style: TextStyle(
                 color: context.theme.textSecondary,
                 fontSize: 16,
@@ -332,11 +389,17 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
         // Extract second-level domain from the clicked subdomain
         final targetDomain = _getSecondLevelDomain(subdomain.domainName);
 
-        // Create a MainEntry for the second-level domain
+        // Sum up all requests for this domain and action
+        final totalRequests = _journal.allEntries
+            .where((e) => e.domainName == targetDomain && e.action == subdomain.action)
+            .fold(0, (sum, e) => sum + e.requests);
+
+        // Create a MainEntry using the actual clicked subdomain but with summed requests
         final subdomainAsMain = UiJournalMainEntry(
           domainName: targetDomain,
-          requests: subdomain.requests,
+          requests: totalRequests,
           action: subdomain.action,
+          listId: subdomain.listId,
         );
 
         // Pass a custom object to indicate we want to use subdomain as-is

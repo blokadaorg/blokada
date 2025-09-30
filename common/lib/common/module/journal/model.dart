@@ -125,10 +125,12 @@ class UiJournalMainEntry {
   final String domainName;
   final int requests;
   final UiJournalAction action;
+  final String? listId;
 
   UiJournalMainEntry({
     required this.domainName,
     required this.requests,
     required this.action,
+    this.listId,
   });
 }

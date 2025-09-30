@@ -96,12 +96,17 @@ class JournalActor with Logging, Actor {
     // Extract TLD-level domain (e.g., "ads.apple.com" -> "apple.com")
     String mainDomain = _extractMainDomain(entry.domainName);
 
-    // TODO: Action and requests are taken directly from entry for now
-    // In the future, these should be aggregated from all related subdomains
+    // Find exact match for the main domain with same action
+    final exactMatch = allEntries.firstWhereOrNull(
+      (e) => e.domainName == mainDomain && e.action == entry.action
+    );
+
+    // Use exact match data if found, otherwise use defaults
     return UiJournalMainEntry(
       domainName: mainDomain,
-      requests: entry.requests,
+      requests: exactMatch?.requests ?? 0,
       action: entry.action,
+      listId: exactMatch?.listId,
     );
   }
 
