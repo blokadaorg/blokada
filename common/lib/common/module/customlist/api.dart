@@ -24,9 +24,16 @@ class JsonCustomList {
 
   JsonCustomList.fromJson(Map<String, dynamic> json) {
     try {
-      domainName = json['domain_name'];
+      final rawDomain = json['domain_name'] as String;
+      // API returns wildcard domains with "*." prefix - strip it for internal use
+      if (rawDomain.startsWith('*.')) {
+        domainName = rawDomain.substring(2); // Remove "*." prefix
+        wildcard = true;
+      } else {
+        domainName = rawDomain;
+        wildcard = json['wildcard'] ?? false;
+      }
       action = json['action'].toString().toAction();
-      wildcard = json['wildcard'];
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }
@@ -61,16 +68,19 @@ class JsonCustomListPayload {
   late String? profileId;
   late String? domainName;
   late JsonCustomListAction? action;
+  late bool? wildcard;
 
   JsonCustomListPayload.forCreate({
     required this.profileId,
     required this.domainName,
     required this.action,
-  }) : assert(domainName != null && action != null);
+    required this.wildcard,
+  }) : assert(domainName != null && action != null && wildcard != null);
 
   JsonCustomListPayload.forDelete({
     required this.profileId,
     required this.domainName,
+    this.wildcard,
   })  : action = null,
         assert(domainName != null);
 
@@ -78,8 +88,15 @@ class JsonCustomListPayload {
     final map = <String, dynamic>{};
     map['account_id'] = ApiParam.accountId.placeholder;
     if (profileId != null) map['profile_id'] = profileId;
-    if (domainName != null) map['domain_name'] = domainName;
+    if (domainName != null) {
+      // API expects wildcard hosts with "*." prefix instead of wildcard bool
+      final domain = (wildcard == true && !domainName!.startsWith('*.'))
+          ? '*.$domainName'
+          : domainName;
+      map['domain_name'] = domain;
+    }
     if (action != null) map['action'] = action!.name;
+    // Don't send wildcard parameter - it's encoded in domain_name prefix
     return map;
   }
 }
@@ -120,12 +137,20 @@ class CustomlistApi {
         ? ApiEndpoint.postCustomListV2
         : ApiEndpoint.postCustomList;
 
-    await _api.request(endpoint, m,
-        payload: _marshal.fromPayload(JsonCustomListPayload.forCreate(
-          profileId: profileId,
-          domainName: entry.domainName,
-          action: entry.action,
-        )));
+    final payload = _marshal.fromPayload(JsonCustomListPayload.forCreate(
+      profileId: profileId,
+      domainName: entry.domainName,
+      action: entry.action,
+      wildcard: entry.wildcard,
+    ));
+
+    print("CustomlistApi.add: Sending request to ${endpoint.name}");
+    print("CustomlistApi.add: domain=${entry.domainName}, action=${entry.action.name}, wildcard=${entry.wildcard}");
+    print("CustomlistApi.add: Full payload: $payload");
+
+    await _api.request(endpoint, m, payload: payload);
+
+    print("CustomlistApi.add: Request completed");
   }
 
   delete(Marker m, JsonCustomList entry, {String? profileId}) async {
@@ -137,6 +162,7 @@ class CustomlistApi {
         payload: _marshal.fromPayload(JsonCustomListPayload.forDelete(
           profileId: profileId,
           domainName: entry.domainName,
+          wildcard: entry.wildcard,
         )));
   }
 }

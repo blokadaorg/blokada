@@ -1,3 +1,5 @@
+import 'package:common/common/module/journal/journal.dart';
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
@@ -19,6 +21,7 @@ class TopDomains extends StatefulWidget {
 class TopDomainsState extends State<TopDomains> {
   bool _showBlocked = true;
   late final _statsStore = Core.get<StatsStore>();
+  late final _journal = Core.get<JournalActor>();
 
   List<UiToplistEntry> get _blockedDomains {
     final stats = _statsStore.stats;
@@ -131,7 +134,18 @@ class TopDomainsState extends State<TopDomains> {
 
     return CommonClickable(
       onTap: () {
-        // TODO: Navigate to domain details
+        // Convert toplist entry to UiJournalMainEntry for navigation
+        final mainEntry = UiJournalMainEntry(
+          domainName: domainName,
+          requests: entry.value,
+          action: entry.blocked ? UiJournalAction.block : UiJournalAction.allow,
+          listId: null,
+        );
+
+        Navigation.open(Paths.deviceStatsDetail, arguments: {
+          'mainEntry': mainEntry,
+          'isSubdomain': false,
+        });
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),

@@ -171,24 +171,85 @@ class StatsApi {
   }
 
   Future<JsonToplistEndpoint> getToplist(bool blocked, Marker m) async {
-    final action = blocked ? "blocked" : "allowed";
+    // MOCK: Temporarily return mock data instead of API call
+    return _getMockToplist(blocked);
 
-    final result = await _api.get(ApiEndpoint.getToplistV2V6, m, params: {
-      ApiParam.toplistAction: action,
-    });
-
-    return _marshal.toToplistEndpoint(result);
+    // final action = blocked ? "blocked" : "allowed";
+    // final result = await _api.get(ApiEndpoint.getToplistV2V6, m, params: {
+    //   ApiParam.toplistAction: action,
+    // });
+    // return _marshal.toToplistEndpoint(result);
   }
 
   Future<JsonToplistEndpoint> getToplistForDevice(bool blocked, String deviceName, Marker m) async {
-    final action = blocked ? "blocked" : "allowed";
-    final encoded = Uri.encodeComponent(deviceName);
+    // MOCK: Temporarily return mock data instead of API call
+    return _getMockToplist(blocked);
 
-    final result = await _api.get(ApiEndpoint.getToplistV2, m, params: {
-      ApiParam.toplistAction: action,
-      ApiParam.statsDeviceName: encoded,
-    });
+    // final action = blocked ? "blocked" : "allowed";
+    // final encoded = Uri.encodeComponent(deviceName);
+    // final result = await _api.get(ApiEndpoint.getToplistV2, m, params: {
+    //   ApiParam.toplistAction: action,
+    //   ApiParam.statsDeviceName: encoded,
+    // });
+    // return _marshal.toToplistEndpoint(result);
+  }
 
-    return _marshal.toToplistEndpoint(result);
+  // MOCK: Helper function to generate mock toplist data
+  JsonToplistEndpoint _getMockToplist(bool blocked) {
+    if (blocked) {
+      return JsonToplistEndpoint(
+        toplist: JsonStats(
+          metrics: [
+            JsonMetrics(
+              tags: JsonTags(action: 'blocked', company: 'doubleclick.net', tld: 'doubleclick.net'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 1250)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'blocked', company: 'facebook.com', tld: 'facebook.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 980)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'blocked', company: 'ads.amazon.com', tld: 'ads.amazon.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 750)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'blocked', company: 'analytics.microsoft.com', tld: 'analytics.microsoft.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 620)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'blocked', company: 'analytics.twitter.com', tld: 'analytics.twitter.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 500)],
+            ),
+          ],
+        ),
+      );
+    } else {
+      return JsonToplistEndpoint(
+        toplist: JsonStats(
+          metrics: [
+            JsonMetrics(
+              tags: JsonTags(action: 'allowed', company: 'cloudflare.com', tld: 'cloudflare.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 2100)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'allowed', company: 'googleapis.com', tld: 'googleapis.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 1800)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'allowed', company: 'apple.com', tld: 'apple.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 1500)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'allowed', company: 'github.com', tld: 'github.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 1200)],
+            ),
+            JsonMetrics(
+              tags: JsonTags(action: 'allowed', company: 'amazonaws.com', tld: 'amazonaws.com'),
+              dps: [JsonDps(timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000, value: 900)],
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

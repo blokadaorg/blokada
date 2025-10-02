@@ -130,16 +130,14 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   Widget _buildForPath(Paths path, Object? arguments) {
     switch (path) {
       case Paths.deviceStatsDetail:
-        // Check if this is a subdomain navigation or normal entry
+        // Check if this is a Map argument (from toplist or subdomain navigation)
         if (_arguments is Map) {
           final args = _arguments as Map;
-          if (args['isSubdomain'] == true) {
-            final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-            return DomainDetailSection(
-              entry: mainEntry,
-              subdomainEntries: _journal.getSubdomainEntries(mainEntry),
-            );
-          }
+          final mainEntry = args['mainEntry'] as UiJournalMainEntry;
+          return DomainDetailSection(
+            entry: mainEntry,
+            subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+          );
         }
         // Normal entry - extract TLD as before
         final entry = _arguments as UiJournalEntry;

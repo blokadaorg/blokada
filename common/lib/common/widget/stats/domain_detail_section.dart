@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
@@ -35,6 +36,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
 
   late final _filter = Core.get<FilterActor>();
   late final _journal = Core.get<JournalActor>();
+  late final _customlist = Core.get<CustomlistActor>();
+  late final _customlistValue = Core.get<CustomListsValue>();
 
   // Helper to count domain levels (dots + 1)
   int _getDomainLevel(String domain) {
@@ -58,6 +61,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
       return '${parts[parts.length - 2]}.${parts[parts.length - 1]}';
     }
     return domain; // Return as-is if already a TLD
+  }
+
+  /// Check if domain has an existing rule in customlists
+  /// Check both allowed and blocked lists, with any wildcard value
+  bool _hasExistingRule() {
+    final domain = widget.entry.domainName;
+    // Check if domain exists in customlists with any wildcard value
+    return _customlist.isInAllowedList(domain) || _customlist.isInBlockedList(domain);
   }
 
   String _getSubtitleText() {
@@ -114,6 +125,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
     _allSubdomains = widget.subdomainEntries ?? [];
     _filteredSubdomains = _allSubdomains;
     _searchController.addListener(_filterSubdomains);
+
+    // Listen to customlist changes to rebuild the widget
+    _customlistValue.onChange.listen((_) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
@@ -276,12 +292,16 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   }
 
   Widget _buildAddRuleCard() {
+    final hasRule = _hasExistingRule();
+
     return CommonCard(
       child: CommonClickable(
         onTap: () {
           showActivityRuleDialog(
             context,
             domainName: widget.entry.domainName,
+            action: widget.entry.action,
+            customlistActor: _customlist,
             onSelected: (option) {
               // TODO: Implement rule action based on selected option
             },
@@ -293,7 +313,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
             children: [
               Expanded(
                 child: Text(
-                  "Add Rule",
+                  hasRule ? "Edit Rule" : "Add Rule",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,

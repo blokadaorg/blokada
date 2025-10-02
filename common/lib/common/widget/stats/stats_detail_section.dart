@@ -144,7 +144,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                           : "family stats exceptions add".i18n,
                       onTap: () {
                         log(Markers.userTap).trace("addCustom", (m) async {
-                          await _custom.addOrRemove(widget.entry.domainName, Markers.userTap,
+                          await _custom.addOrRemove(widget.entry.domainName, false, Markers.userTap,
                               gotBlocked: widget.entry.isBlocked());
                           setState(() {});
                         });

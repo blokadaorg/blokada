@@ -23,8 +23,8 @@ class ExceptionsSectionState extends State<ExceptionsSection>
   late final _lists = Core.get<CustomListsValue>();
 
   bool _isReady = false;
-  late List<String> _allowed;
-  late List<String> _denied;
+  late List<CustomListEntry> _allowed;
+  late List<CustomListEntry> _denied;
 
   @override
   void initState() {
@@ -54,8 +54,8 @@ class ExceptionsSectionState extends State<ExceptionsSection>
   }
 
   _sort() {
-    _allowed.sort();
-    _denied.sort();
+    _allowed.sort((a, b) => a.domainName.compareTo(b.domainName));
+    _denied.sort((a, b) => a.domainName.compareTo(b.domainName));
   }
 
   @override
@@ -97,17 +97,17 @@ class ExceptionsSectionState extends State<ExceptionsSection>
     );
   }
 
-  List<Widget> _buildItems(BuildContext context, List<String> items) {
+  List<Widget> _buildItems(BuildContext context, List<CustomListEntry> items) {
     return items.mapIndexed((index, it) {
       //return List.generate(100, (index) {
       return Container(
         color: context.theme.bgMiniCard,
         child: Column(children: [
           ExceptionItem(
-              entry: it,
+              entry: it.domainName,
               blocked: items == _denied,
-              onRemove: _onRemove,
-              onChange: _onChange),
+              onRemove: (_) => _onRemove(it),
+              onChange: (_) => _onChange(it)),
           index < (_denied.length + _allowed.length - 1)
               ? const CommonDivider(indent: 60)
               : Container(),
@@ -116,15 +116,15 @@ class ExceptionsSectionState extends State<ExceptionsSection>
     }).toList();
   }
 
-  _onRemove(String entry) async {
+  _onRemove(CustomListEntry entry) async {
     log(Markers.userTap).trace("deleteCustom", (m) async {
-      await _custom.remove(m, entry);
+      await _custom.remove(m, entry.domainName, entry.wildcard);
     });
   }
 
-  _onChange(String entry) async {
+  _onChange(CustomListEntry entry) async {
     log(Markers.userTap).trace("changeCustom", (m) async {
-      await _custom.toggle(m, entry);
+      await _custom.toggle(m, entry.domainName, entry.wildcard);
     });
   }
 }

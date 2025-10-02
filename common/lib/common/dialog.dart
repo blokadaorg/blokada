@@ -1,5 +1,7 @@
 import 'dart:io' as io;
 
+import 'package:common/common/module/customlist/customlist.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/widget/activity/activity_rule_dialog.dart';
 import 'package:common/common/widget/support/support_dialog.dart';
 import 'package:common/common/widget/theme.dart';
@@ -20,7 +22,12 @@ void showSupportDialog(BuildContext context) {
 }
 
 void showActivityRuleDialog(BuildContext context,
-    {required String domainName, Function(ActivityRuleOption)? onSelected}) {
+    {required String domainName,
+    required UiJournalAction action,
+    required CustomlistActor customlistActor,
+    Function(ActivityRuleOption)? onSelected}) {
+  ActivityRuleOption? selectedOption;
+
   showDefaultDialog(
     context,
     title: Text("What should happen to traffic to $domainName?"),
@@ -30,12 +37,11 @@ void showActivityRuleDialog(BuildContext context,
         const SizedBox(height: 32),
         ActivityRuleDialog(
           domainName: domainName,
-          onSelected: onSelected != null
-              ? (option) {
-                  Navigator.of(context).pop();
-                  onSelected.call(option);
-                }
-              : null,
+          action: action,
+          customlistActor: customlistActor,
+          onSelected: (option) {
+            selectedOption = option;
+          },
         ),
       ],
     ),
@@ -49,10 +55,72 @@ void showActivityRuleDialog(BuildContext context,
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: Text("Cancel"),
+        child: Text("universal action cancel".i18n),
+      ),
+      TextButton(
+        onPressed: () async {
+          if (selectedOption != null) {
+            await _applyRuleOption(
+              domainName: domainName,
+              action: action,
+              customlistActor: customlistActor,
+              option: selectedOption!,
+            );
+            if (onSelected != null) {
+              onSelected(selectedOption!);
+            }
+          }
+
+          Navigator.of(context).pop();
+        },
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
+        ),
+        child: Text("universal action save".i18n),
       ),
     ],
   );
+}
+
+Future<void> _applyRuleOption({
+  required String domainName,
+  required UiJournalAction action,
+  required CustomlistActor customlistActor,
+  required ActivityRuleOption option,
+}) async {
+  final m = Markers.userTap;
+
+  // Determine which list to modify based on action
+  // If domain was blocked, we add to allowed list (gotBlocked=true)
+  // If domain was allowed, we add to blocked list (gotBlocked=false)
+  final gotBlocked = action == UiJournalAction.block;
+
+  // Always clean up both exact and wildcard entries first
+  if (customlistActor.contains(domainName, wildcard: false)) {
+    await customlistActor.remove(m, domainName, false);
+  }
+  if (customlistActor.contains(domainName, wildcard: true)) {
+    await customlistActor.remove(m, domainName, true);
+  }
+
+  // Apply the new rule based on selected option
+  switch (option) {
+    case ActivityRuleOption.automatic:
+      // Already removed both entries above, nothing more to do
+      break;
+
+    case ActivityRuleOption.allow:
+      // Add exact domain only (wildcard: false)
+      await customlistActor.addOrRemove(domainName, false, m, gotBlocked: gotBlocked);
+      break;
+
+    case ActivityRuleOption.allowWithSubdomains:
+      // Add wildcard domain (wildcard: true)
+      await customlistActor.addOrRemove(domainName, true, m, gotBlocked: gotBlocked);
+      break;
+  }
 }
 
 void showSelectProfileDialog(BuildContext context,

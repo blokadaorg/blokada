@@ -160,9 +160,9 @@ class JournalActor with Logging, Actor {
   }
 
   bool _decideModified(String domainName, UiJournalAction action,
-      List<String> allowed, List<String> denied, bool wasException) {
-    final isOnAllowed = allowed.contains(domainName);
-    final isOnDenied = denied.contains(domainName);
+      List<CustomListEntry> allowed, List<CustomListEntry> denied, bool wasException) {
+    final isOnAllowed = allowed.any((e) => e.domainName == domainName);
+    final isOnDenied = denied.any((e) => e.domainName == domainName);
     final wasAllowed = action == UiJournalAction.allow;
     final wasDenied = action == UiJournalAction.block;
 

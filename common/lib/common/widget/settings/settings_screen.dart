@@ -117,7 +117,7 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.addOrRemove(entry, m, gotBlocked: true);
+              await _custom.addOrRemove(entry, false, m, gotBlocked: true);
             });
           });
         },

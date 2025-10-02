@@ -125,8 +125,8 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.deviceStatsDetail.path) {
-      // Check if this is a subdomain navigation or normal entry
-      if (settings.arguments is Map && (settings.arguments as Map)['isSubdomain'] == true) {
+      // Check if this is a Map argument (from toplist or subdomain navigation)
+      if (settings.arguments is Map) {
         final args = settings.arguments as Map;
         final mainEntry = args['mainEntry'] as UiJournalMainEntry;
 
@@ -254,7 +254,7 @@ class Navigation with Logging {
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry) {
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.addOrRemove(entry, m, gotBlocked: true);
+              await _custom.addOrRemove(entry, false, m, gotBlocked: true);
             });
           });
         },
