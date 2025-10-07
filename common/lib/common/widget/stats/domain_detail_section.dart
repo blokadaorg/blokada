@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:common/common/dialog.dart';
+import 'package:common/common/module/api/api.dart';
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/filter/filter.dart';
 import 'package:common/common/module/journal/journal.dart';
@@ -10,18 +11,23 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/stats/api.dart' as stats_api;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DomainDetailSection extends StatefulWidget {
   final UiJournalMainEntry entry;
   final bool primary;
-  final List<UiJournalEntry>? subdomainEntries;
+  final int level;
+  final String domain;
+  final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
   const DomainDetailSection({
     super.key,
     required this.entry,
     this.primary = true,
+    required this.level,
+    required this.domain,
     this.subdomainEntries,
   });
 
@@ -29,15 +35,18 @@ class DomainDetailSection extends StatefulWidget {
   State<StatefulWidget> createState() => DomainDetailSectionState();
 }
 
-class DomainDetailSectionState extends State<DomainDetailSection> {
+class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   final TextEditingController _searchController = TextEditingController();
   List<UiJournalEntry> _filteredSubdomains = [];
   List<UiJournalEntry> _allSubdomains = [];
+  bool _isLoading = true;
 
   late final _filter = Core.get<FilterActor>();
   late final _journal = Core.get<JournalActor>();
   late final _customlist = Core.get<CustomlistActor>();
   late final _customlistValue = Core.get<CustomListsValue>();
+  late final _statsApi = Core.get<stats_api.StatsApi>();
+  late final _accountId = Core.get<AccountId>();
 
   // Helper to count domain levels (dots + 1)
   int _getDomainLevel(String domain) {
@@ -121,14 +130,80 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   @override
   void initState() {
     super.initState();
-    // Default to empty list if not provided
-    _allSubdomains = widget.subdomainEntries ?? [];
-    _filteredSubdomains = _allSubdomains;
     _searchController.addListener(_filterSubdomains);
 
     // Listen to customlist changes to rebuild the widget
     _customlistValue.onChange.listen((_) {
       if (mounted) setState(() {});
+    });
+
+    // Fetch subdomains from API
+    _fetchSubdomains();
+  }
+
+  Future<void> _fetchSubdomains() async {
+    await log(Markers.userTap).trace("fetchSubdomains", (m) async {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final accountId = await _accountId.fetch(m);
+        final actionStr = widget.entry.action == UiJournalAction.block ? "blocked" : "allowed";
+
+        log(m).pair("level", widget.level);
+        log(m).pair("domain", widget.domain);
+        log(m).pair("action", actionStr);
+
+        final response = await _statsApi.getToplistV2(
+          accountId: accountId,
+          level: widget.level,
+          domain: widget.domain,
+          action: actionStr,
+          limit: 50, // Fetch more subdomains
+          range: "24h",
+          m: m,
+        );
+
+        // Convert toplist entries to UiJournalEntry format
+        final subdomains = <UiJournalEntry>[];
+        for (var bucket in response.toplist) {
+          for (var entry in bucket.entries) {
+            // Skip the root entry (is_root = true)
+            if (entry.isRoot == true) continue;
+
+            subdomains.add(UiJournalEntry(
+              deviceName: entry.deviceName ?? "",
+              domainName: entry.name,
+              action: widget.entry.action,
+              listId: "",
+              profileId: "",
+              timestamp: DateTime.now(),
+              requests: entry.count,
+              modified: false,
+            ));
+          }
+        }
+
+        log(m).pair("subdomain_count", subdomains.length);
+
+        if (mounted) {
+          setState(() {
+            _allSubdomains = subdomains;
+            _filteredSubdomains = subdomains;
+            _isLoading = false;
+          });
+        }
+      } catch (e) {
+        log(m).e(msg: "Failed to fetch subdomains", err: e);
+        if (mounted) {
+          setState(() {
+            _allSubdomains = [];
+            _filteredSubdomains = [];
+            _isLoading = false;
+          });
+        }
+      }
     });
   }
 
@@ -335,6 +410,17 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   }
 
   Widget _buildSubdomainsList() {
+    if (_isLoading) {
+      return CommonCard(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    }
+
     if (_filteredSubdomains.isEmpty) {
       return CommonCard(
         child: Padding(
@@ -368,64 +454,23 @@ class DomainDetailSectionState extends State<DomainDetailSection> {
   }
 
   Widget _buildSubdomainItem(UiJournalEntry subdomain) {
-    // Check if current main entry is already second-level (3 parts)
-    final currentLevel = _getDomainLevel(widget.entry.domainName);
-    final isSecondLevel = currentLevel >= 3;
+    // Level 2 items can navigate to level 3, level 3 items are not clickable
+    final isLevel3 = widget.level >= 3;
 
-    // If we're at second level, items are not clickable but keep styling
-    if (isSecondLevel) {
-      return CommonClickable(
-        onTap: () {}, // Empty function - no tap handler
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  subdomain.domainName,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: context.theme.textPrimary,
-                  ),
-                ),
-              ),
-              Text(
-                subdomain.requests.toString(),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: context.theme.textSecondary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Otherwise, make it clickable and navigate to second-level
     return CommonClickable(
-      onTap: () {
-        // Extract second-level domain from the clicked subdomain
-        final targetDomain = _getSecondLevelDomain(subdomain.domainName);
-
-        // Sum up all requests for this domain and action
-        final totalRequests = _journal.allEntries
-            .where((e) => e.domainName == targetDomain && e.action == subdomain.action)
-            .fold(0, (sum, e) => sum + e.requests);
-
-        // Create a MainEntry using the actual clicked subdomain but with summed requests
+      onTap: isLevel3 ? () {} : () {
+        // Navigate to level 3 (exact hosts under this subdomain)
         final subdomainAsMain = UiJournalMainEntry(
-          domainName: targetDomain,
-          requests: totalRequests,
+          domainName: subdomain.domainName,
+          requests: subdomain.requests,
           action: subdomain.action,
           listId: subdomain.listId,
         );
 
-        // Pass a custom object to indicate we want to use subdomain as-is
         Navigation.open(Paths.deviceStatsDetail, arguments: {
           'mainEntry': subdomainAsMain,
-          'isSubdomain': true,
+          'level': 3,  // Fetch level 3 (exact hosts)
+          'domain': subdomain.domainName,  // Use subdomain as the domain context
         });
       },
       child: Padding(

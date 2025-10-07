@@ -134,16 +134,22 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
         if (_arguments is Map) {
           final args = _arguments as Map;
           final mainEntry = args['mainEntry'] as UiJournalMainEntry;
+          final level = args['level'] as int? ?? 2;  // Default to level 2
+          final domain = args['domain'] as String? ?? mainEntry.domainName;
+
           return DomainDetailSection(
             entry: mainEntry,
-            subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+            level: level,
+            domain: domain,
           );
         }
-        // Normal entry - extract TLD as before
+        // Legacy: Normal entry from journal - extract TLD and use journal data
         final entry = _arguments as UiJournalEntry;
         final mainEntry = _journal.getMainEntry(entry);
         return DomainDetailSection(
           entry: mainEntry,
+          level: 2,
+          domain: mainEntry.domainName,
           subdomainEntries: _journal.getSubdomainEntries(mainEntry),
         );
       default:

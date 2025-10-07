@@ -25,12 +25,12 @@ class TopDomainsState extends State<TopDomains> {
 
   List<UiToplistEntry> get _blockedDomains {
     final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => entry.blocked).take(10).toList();
+    return stats.toplist.where((entry) => entry.blocked).take(5).toList();
   }
 
   List<UiToplistEntry> get _allowedDomains {
     final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => !entry.blocked).take(10).toList();
+    return stats.toplist.where((entry) => !entry.blocked).take(5).toList();
   }
 
   @override
@@ -144,7 +144,8 @@ class TopDomainsState extends State<TopDomains> {
 
         Navigation.open(Paths.deviceStatsDetail, arguments: {
           'mainEntry': mainEntry,
-          'isSubdomain': false,
+          'level': 2,  // Fetch level 2 (subdomains under this eTLD+1)
+          'domain': domainName,  // Domain to fetch subdomains for
         });
       },
       child: Padding(

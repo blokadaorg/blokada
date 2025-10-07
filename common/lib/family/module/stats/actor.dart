@@ -21,7 +21,7 @@ class StatsActor with Logging, Actor {
     });
   }
 
-  fetch(Marker m, {bool forceFetchAll = false}) async {
+  fetch(Marker m, {bool forceFetchAll = false, bool toplists = false}) async {
     await log(m).trace("fetch", (m) async {
       var t = monitorDeviceTags;
 
@@ -36,9 +36,43 @@ class StatsActor with Logging, Actor {
         final oneDay = await _api.fetch(m, tag, "24h", "1h");
         final oneWeek = await _api.fetch(m, tag, "1w", "24h");
 
-        // XXXX toplists
+        // Fetch toplists if requested
+        platform_stats.JsonToplistV2Response? toplistAllowed;
+        platform_stats.JsonToplistV2Response? toplistBlocked;
 
-        stats[tag] = _convertStats(oneDay, oneWeek, previousStats: stats[tag]);
+        if (toplists) {
+          try {
+            // Fetch blocked entries
+            toplistBlocked = await _api.fetchToplist(
+              m: m,
+              tag: tag,
+              level: 1,
+              action: "blocked",
+              limit: 5,
+              range: "24h",
+            );
+
+            // Fetch allowed entries
+            toplistAllowed = await _api.fetchToplist(
+              m: m,
+              tag: tag,
+              level: 1,
+              action: "allowed",
+              limit: 5,
+              range: "24h",
+            );
+          } catch (e) {
+            log(m).w("Failed to fetch toplists: $e");
+          }
+        }
+
+        stats[tag] = _convertStats(
+          oneDay,
+          oneWeek,
+          toplistAllowed: toplistAllowed,
+          toplistBlocked: toplistBlocked,
+          previousStats: stats[tag],
+        );
       }
     });
   }
@@ -84,8 +118,8 @@ class StatsActor with Logging, Actor {
 UiStats _convertStats(
   JsonStatsEndpoint stats,
   JsonStatsEndpoint oneWeek, {
-  JsonToplistEndpoint? toplistAllowed,
-  JsonToplistEndpoint? toplistBlocked,
+  platform_stats.JsonToplistV2Response? toplistAllowed,
+  platform_stats.JsonToplistV2Response? toplistBlocked,
   UiStats? previousStats,
 }) {
   int now = DateTime.now().millisecondsSinceEpoch;
@@ -156,13 +190,16 @@ UiStats _convertStats(
     avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
   }
 
-  List<UiToplistEntry> convertedToplist =
-      toplistAllowed == null ? [] : _convertToplist(toplistAllowed);
-  convertedToplist = convertedToplist +
-      (toplistBlocked == null ? [] : _convertToplist(toplistBlocked));
-
-  if (convertedToplist.isEmpty) {
-    convertedToplist = previousStats?.toplist ?? [];
+  List<UiToplistEntry> convertedToplist = [];
+  if (toplistAllowed != null || toplistBlocked != null) {
+    if (toplistAllowed != null) {
+      convertedToplist.addAll(_convertToplistV2(toplistAllowed));
+    }
+    if (toplistBlocked != null) {
+      convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+    }
+  } else if (previousStats != null) {
+    convertedToplist = previousStats.toplist;
   }
 
   return UiStats(
@@ -188,5 +225,21 @@ _convertToplist(JsonToplistEndpoint toplist) {
         UiToplistEntry(c, metric.tags.tld, !isAllowed, firstDps.value.round()));
   }
   //result.sort((a, b) => b.value.compareTo(a.value));
+  return result;
+}
+
+List<UiToplistEntry> _convertToplistV2(platform_stats.JsonToplistV2Response response) {
+  final result = <UiToplistEntry>[];
+  for (var bucket in response.toplist) {
+    final isAllowed = bucket.action == "fallthrough" || bucket.action == "allowed";
+    for (var entry in bucket.entries) {
+      result.add(UiToplistEntry(
+        entry.name,      // Use name as company
+        entry.name,      // Use name as tld
+        !isAllowed,      // blocked flag
+        entry.count,     // request count
+      ));
+    }
+  }
   return result;
 }

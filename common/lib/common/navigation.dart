@@ -129,6 +129,8 @@ class Navigation with Logging {
       if (settings.arguments is Map) {
         final args = settings.arguments as Map;
         final mainEntry = args['mainEntry'] as UiJournalMainEntry;
+        final level = args['level'] as int? ?? 2;
+        final domain = args['domain'] as String? ?? mainEntry.domainName;
 
         return StandardRoute(
           settings: settings,
@@ -136,7 +138,8 @@ class Navigation with Logging {
             title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
             child: DomainDetailSection(
               entry: mainEntry,
-              subdomainEntries: _journal.getSubdomainEntries(mainEntry),
+              level: level,
+              domain: domain,
             ),
           ),
         );
@@ -154,6 +157,8 @@ class Navigation with Logging {
                   final mainEntry = _journal.getMainEntry(entry);
                   return DomainDetailSection(
                     entry: mainEntry,
+                    level: 2,
+                    domain: mainEntry.domainName,
                     subdomainEntries: _journal.getSubdomainEntries(mainEntry),
                   );
                 }(),

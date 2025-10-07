@@ -134,6 +134,130 @@ class JsonToplistEndpoint {
   }
 }
 
+// New v2 toplist models
+class JsonToplistV2Response {
+  late List<JsonToplistBucket> toplist;
+  late JsonWindow window;
+  late String level;
+  String? domain;
+  late int limit;
+
+  JsonToplistV2Response({
+    required this.toplist,
+    required this.window,
+    required this.level,
+    this.domain,
+    required this.limit,
+  });
+
+  JsonToplistV2Response.fromJson(Map<String, dynamic> json) {
+    try {
+      toplist = <JsonToplistBucket>[];
+      json['toplist'].forEach((v) {
+        toplist.add(JsonToplistBucket.fromJson(v));
+      });
+      window = JsonWindow.fromJson(json['window']);
+      level = json['level'];
+      domain = json.containsKey('domain') ? json['domain'] : null;
+      limit = json['limit'];
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['toplist'] = toplist.map((v) => v.toJson()).toList();
+    data['window'] = window.toJson();
+    data['level'] = level;
+    if (domain != null) data['domain'] = domain;
+    data['limit'] = limit;
+    return data;
+  }
+}
+
+class JsonToplistBucket {
+  late String action;
+  late List<JsonToplistEntry> entries;
+
+  JsonToplistBucket({required this.action, required this.entries});
+
+  JsonToplistBucket.fromJson(Map<String, dynamic> json) {
+    action = json['action'];
+    entries = <JsonToplistEntry>[];
+    json['entries'].forEach((v) {
+      entries.add(JsonToplistEntry.fromJson(v));
+    });
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['action'] = action;
+    data['entries'] = entries.map((v) => v.toJson()).toList();
+    return data;
+  }
+}
+
+class JsonToplistEntry {
+  late String name;
+  late int count;
+  bool? isRoot;
+  String? deviceName;
+
+  JsonToplistEntry({
+    required this.name,
+    required this.count,
+    this.isRoot,
+    this.deviceName,
+  });
+
+  JsonToplistEntry.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    count = json['count'];
+    isRoot = json.containsKey('is_root') ? json['is_root'] : null;
+    deviceName = json.containsKey('device_name') ? json['device_name'] : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['count'] = count;
+    if (isRoot != null) data['is_root'] = isRoot;
+    if (deviceName != null) data['device_name'] = deviceName;
+    return data;
+  }
+}
+
+class JsonWindow {
+  late String label;
+  late String start;
+  late String end;
+  String? date;
+
+  JsonWindow({
+    required this.label,
+    required this.start,
+    required this.end,
+    this.date,
+  });
+
+  JsonWindow.fromJson(Map<String, dynamic> json) {
+    label = json['label'];
+    start = json['start'];
+    end = json['end'];
+    date = json.containsKey('date') ? json['date'] : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['label'] = label;
+    data['start'] = start;
+    data['end'] = end;
+    if (date != null) data['date'] = date;
+    return data;
+  }
+}
+
 class StatsMarshal {
   JsonStatsEndpoint toStatsEndpoint(JsonString json) {
     return JsonStatsEndpoint.fromJson(jsonDecode(json));
@@ -141,6 +265,10 @@ class StatsMarshal {
 
   JsonToplistEndpoint toToplistEndpoint(JsonString json) {
     return JsonToplistEndpoint.fromJson(jsonDecode(json));
+  }
+
+  JsonToplistV2Response toToplistV2Response(JsonString json) {
+    return JsonToplistV2Response.fromJson(jsonDecode(json));
   }
 }
 
@@ -170,28 +298,45 @@ class StatsApi {
     return _marshal.toStatsEndpoint(result);
   }
 
+  Future<JsonToplistV2Response> getToplistV2({
+    required String accountId,
+    String? deviceTag,
+    String? deviceName,
+    int level = 1,
+    String? action,
+    String? domain,
+    int limit = 10,
+    String range = "24h",
+    String? end,
+    String? date,
+    required Marker m,
+  }) async {
+    final params = {
+      ApiParam.accountId: accountId,
+      ApiParam.deviceTag: deviceTag ?? "",
+      ApiParam.statsDeviceName: deviceName != null ? Uri.encodeComponent(deviceName) : "",
+      ApiParam.toplistLevel: level.toString(),
+      ApiParam.toplistAction: action ?? "",
+      ApiParam.toplistDomain: domain ?? "",
+      ApiParam.toplistLimit: limit.toString(),
+      ApiParam.toplistRange: range,
+      ApiParam.toplistEnd: end ?? "",
+      ApiParam.toplistDate: date ?? "",
+    };
+
+    final result = await _api.get(ApiEndpoint.getToplistV2, m, params: params);
+    return _marshal.toToplistV2Response(result);
+  }
+
+  // Keep old methods for backwards compatibility during migration
   Future<JsonToplistEndpoint> getToplist(bool blocked, Marker m) async {
     // MOCK: Temporarily return mock data instead of API call
     return _getMockToplist(blocked);
-
-    // final action = blocked ? "blocked" : "allowed";
-    // final result = await _api.get(ApiEndpoint.getToplistV2V6, m, params: {
-    //   ApiParam.toplistAction: action,
-    // });
-    // return _marshal.toToplistEndpoint(result);
   }
 
   Future<JsonToplistEndpoint> getToplistForDevice(bool blocked, String deviceName, Marker m) async {
     // MOCK: Temporarily return mock data instead of API call
     return _getMockToplist(blocked);
-
-    // final action = blocked ? "blocked" : "allowed";
-    // final encoded = Uri.encodeComponent(deviceName);
-    // final result = await _api.get(ApiEndpoint.getToplistV2, m, params: {
-    //   ApiParam.toplistAction: action,
-    //   ApiParam.statsDeviceName: encoded,
-    // });
-    // return _marshal.toToplistEndpoint(result);
   }
 
   // MOCK: Helper function to generate mock toplist data

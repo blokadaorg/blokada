@@ -72,14 +72,16 @@ enum ApiEndpoint {
     ApiParam.statsDownsample,
   ]),
   getToplistV2("v2/activity/toplist", params: [
-    ApiParam.accountId,
-    ApiParam.toplistAction,
-    ApiParam.statsDeviceName,
-  ]),
-  // For v6, we do not provide device_name parameter
-  getToplistV2V6("v2/activity/toplist", params: [
-    ApiParam.accountId,
-    ApiParam.toplistAction,
+    ApiParam.accountId,           // account_id (required)
+    ApiParam.deviceTag,           // device_tag (optional)
+    ApiParam.statsDeviceName,     // device_name (optional)
+    ApiParam.toplistLevel,        // level (optional, default 1)
+    ApiParam.toplistAction,       // action (optional: allowed/blocked/fallthrough)
+    ApiParam.toplistDomain,       // domain (optional, required for level 2+)
+    ApiParam.toplistLimit,        // limit (optional, default 10)
+    ApiParam.toplistRange,        // range (optional, default 24h)
+    ApiParam.toplistEnd,          // end (optional)
+    ApiParam.toplistDate,         // date (optional)
   ]),
   getCustomListV2("v2/customlist", params: [
     ApiParam.accountId,
@@ -123,7 +125,13 @@ enum ApiParam {
   statsDownsample("downsample"),
   toplistAction("action"),
   statsDeviceName("device_name"),
-  sessionId("session_id");
+  sessionId("session_id"),
+  toplistLevel("level"),
+  toplistDomain("domain"),
+  toplistLimit("limit"),
+  toplistRange("range"),
+  toplistEnd("end"),
+  toplistDate("date");
 
   const ApiParam(this.name) : placeholder = "($name)";
 
