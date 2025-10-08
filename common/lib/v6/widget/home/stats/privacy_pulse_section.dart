@@ -28,7 +28,7 @@ class PrivacyPulseSection extends StatefulWidget {
   State<StatefulWidget> createState() => PrivacyPulseSectionState();
 }
 
-class PrivacyPulseSectionState extends State<PrivacyPulseSection> {
+class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final _store = Core.get<StatsStore>();
   late final _accountStore = Core.get<AccountStore>();
 
@@ -48,6 +48,15 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> {
         });
       });
     }
+
+    // Fetch toplists once when screen loads
+    _fetchToplists();
+  }
+
+  void _fetchToplists() {
+    log(Markers.userTap).trace("privacyPulseFetchToplists", (m) async {
+      await _store.fetchToplists(m);
+    });
   }
 
   @override

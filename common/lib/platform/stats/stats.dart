@@ -66,50 +66,14 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   bool hasStats = false;
 
   @action
-  Future<void> fetch(Marker m, {bool toplists = false}) async {
+  Future<void> fetch(Marker m) async {
     return await log(m).trace("fetch", (m) async {
       final oneDay = await _api.getStats("24h", "1h", m);
       final oneWeek = await _api.getStats("1w", "24h", m);
 
-      // Fetch toplists using new v2 API
-      api.JsonToplistV2Response? toplistAllowed;
-      api.JsonToplistV2Response? toplistBlocked;
-
-      if (toplists) {
-        try {
-          final accountId = await _accountId.fetch(m);
-
-          // Fetch blocked entries
-          toplistBlocked = await _api.getToplistV2(
-            accountId: accountId,
-            level: 1,
-            action: "blocked",
-            limit: 5,
-            range: "24h",
-            m: m,
-          );
-
-          // Fetch allowed entries (includes fallthrough)
-          toplistAllowed = await _api.getToplistV2(
-            accountId: accountId,
-            level: 1,
-            action: "allowed",
-            limit: 5,
-            range: "24h",
-            m: m,
-          );
-
-        } catch (e) {
-          // If toplist fetching fails, continue without it
-          log(m).w("Failed to fetch toplists: $e");
-        }
-      }
-
       stats = _convertStats(
         oneDay,
         oneWeek,
-        toplistAllowed: toplistAllowed,
-        toplistBlocked: toplistBlocked,
         previousStats: stats,
       );
       hasStats = true;
@@ -118,50 +82,68 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   }
 
   @action
-  Future<void> fetchForDevice(String deviceName, Marker m,
-      {bool toplists = false}) async {
+  Future<void> fetchToplists(Marker m) async {
+    return await log(m).trace("fetchToplists", (m) async {
+      try {
+        final accountId = await _accountId.fetch(m);
+
+        // Fetch blocked entries
+        final toplistBlocked = await _api.getToplistV2(
+          accountId: accountId,
+          level: 1,
+          action: "blocked",
+          limit: 5,
+          range: "24h",
+          m: m,
+        );
+
+        // Fetch allowed entries
+        final toplistAllowed = await _api.getToplistV2(
+          accountId: accountId,
+          level: 1,
+          action: "allowed",
+          limit: 5,
+          range: "24h",
+          m: m,
+        );
+
+        // Convert toplists and update stats
+        List<UiToplistEntry> convertedToplist = [];
+        if (toplistAllowed != null) {
+          convertedToplist.addAll(_convertToplistV2(toplistAllowed));
+        }
+        if (toplistBlocked != null) {
+          convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+        }
+
+        // Update stats with new toplist
+        stats = UiStats(
+          totalAllowed: stats.totalAllowed,
+          totalBlocked: stats.totalBlocked,
+          allowedHistogram: stats.allowedHistogram,
+          blockedHistogram: stats.blockedHistogram,
+          toplist: convertedToplist,
+          avgDayAllowed: stats.avgDayAllowed,
+          avgDayBlocked: stats.avgDayBlocked,
+          avgDayTotal: stats.avgDayTotal,
+          latestTimestamp: stats.latestTimestamp,
+        );
+        deviceStatsChangesCounter++;
+      } catch (e) {
+        log(m).w("Failed to fetch toplists: $e");
+      }
+    });
+  }
+
+  @action
+  Future<void> fetchForDevice(String deviceName, Marker m) async {
     return await log(m).trace("fetchForDevice", (m) async {
       final oneDay = await _api.getStatsForDevice("24h", "1h", deviceName, m);
       final oneWeek = await _api.getStatsForDevice("1w", "24h", deviceName, m);
 
-      api.JsonToplistV2Response? toplistAllowed;
-      api.JsonToplistV2Response? toplistBlocked;
-
-      if (toplists) {
-        try {
-          final accountId = await _accountId.fetch(m);
-
-          // Fetch blocked entries
-          toplistBlocked = await _api.getToplistV2(
-            accountId: accountId,
-            deviceName: deviceName,
-            level: 1,
-            action: "blocked",
-            limit: 5,
-            range: "24h",
-            m: m,
-          );
-
-          // Fetch allowed entries
-          toplistAllowed = await _api.getToplistV2(
-            accountId: accountId,
-            deviceName: deviceName,
-            level: 1,
-            action: "allowed",
-            limit: 5,
-            range: "24h",
-            m: m,
-          );
-        } catch (e) {
-          log(m).w("Failed to fetch toplists for device: $e");
-        }
-      }
-
       deviceStats[deviceName] = _convertStats(
         oneDay,
         oneWeek,
-        toplistAllowed: toplistAllowed,
-        toplistBlocked: toplistBlocked,
         previousStats: deviceStats[deviceName],
       );
       deviceStatsChangesCounter++;

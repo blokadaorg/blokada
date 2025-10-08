@@ -242,14 +242,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           // Add Rule card
           _buildAddRuleCard(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 40),
 
-          // Subdomains list
-          _buildSubdomainsList(),
-          const SizedBox(height: 16),
+          // Subdomains section header
+          Text("Subdomains",
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+          const SizedBox(height: 8),
 
           // Search bar (only show if more than 1 subdomain)
           if (_allSubdomains.length > 1) _buildSearchBar(),
+          if (_allSubdomains.length > 1) const SizedBox(height: 16),
+
+          // Subdomains list
+          _buildSubdomainsList(),
           const SizedBox(height: 40), // Bottom padding like original
         ],
       ),
@@ -325,7 +332,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               fontSize: 16,
               color: context.theme.textSecondary,
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
           ),
         ],
       ),

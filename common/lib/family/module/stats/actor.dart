@@ -21,7 +21,7 @@ class StatsActor with Logging, Actor {
     });
   }
 
-  fetch(Marker m, {bool forceFetchAll = false, bool toplists = false}) async {
+  fetch(Marker m, {bool forceFetchAll = false}) async {
     await log(m).trace("fetch", (m) async {
       var t = monitorDeviceTags;
 
@@ -36,43 +36,77 @@ class StatsActor with Logging, Actor {
         final oneDay = await _api.fetch(m, tag, "24h", "1h");
         final oneWeek = await _api.fetch(m, tag, "1w", "24h");
 
-        // Fetch toplists if requested
-        platform_stats.JsonToplistV2Response? toplistAllowed;
-        platform_stats.JsonToplistV2Response? toplistBlocked;
-
-        if (toplists) {
-          try {
-            // Fetch blocked entries
-            toplistBlocked = await _api.fetchToplist(
-              m: m,
-              tag: tag,
-              level: 1,
-              action: "blocked",
-              limit: 5,
-              range: "24h",
-            );
-
-            // Fetch allowed entries
-            toplistAllowed = await _api.fetchToplist(
-              m: m,
-              tag: tag,
-              level: 1,
-              action: "allowed",
-              limit: 5,
-              range: "24h",
-            );
-          } catch (e) {
-            log(m).w("Failed to fetch toplists: $e");
-          }
-        }
-
         stats[tag] = _convertStats(
           oneDay,
           oneWeek,
-          toplistAllowed: toplistAllowed,
-          toplistBlocked: toplistBlocked,
           previousStats: stats[tag],
         );
+      }
+    });
+  }
+
+  fetchToplists(Marker m, {bool forceFetchAll = false}) async {
+    await log(m).trace("fetchToplists", (m) async {
+      var t = monitorDeviceTags;
+
+      // Refresh only selected device when user is on device screen
+      // When on home, fetch all devices, but more rarely
+      final selected = await _selectedDevice.now();
+      if (selected != null && !forceFetchAll) {
+        t = [selected];
+      }
+
+      for (final tag in t) {
+        platform_stats.JsonToplistV2Response? toplistAllowed;
+        platform_stats.JsonToplistV2Response? toplistBlocked;
+
+        try {
+          // Fetch blocked entries
+          toplistBlocked = await _api.fetchToplist(
+            m: m,
+            tag: tag,
+            level: 1,
+            action: "blocked",
+            limit: 5,
+            range: "24h",
+          );
+
+          // Fetch allowed entries
+          toplistAllowed = await _api.fetchToplist(
+            m: m,
+            tag: tag,
+            level: 1,
+            action: "allowed",
+            limit: 5,
+            range: "24h",
+          );
+        } catch (e) {
+          log(m).w("Failed to fetch toplists: $e");
+        }
+
+        // Update stats with toplists only
+        if (stats.containsKey(tag)) {
+          final currentStats = stats[tag]!;
+          List<UiToplistEntry> convertedToplist = [];
+          if (toplistAllowed != null) {
+            convertedToplist.addAll(_convertToplistV2(toplistAllowed));
+          }
+          if (toplistBlocked != null) {
+            convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+          }
+
+          stats[tag] = UiStats(
+            totalAllowed: currentStats.totalAllowed,
+            totalBlocked: currentStats.totalBlocked,
+            allowedHistogram: currentStats.allowedHistogram,
+            blockedHistogram: currentStats.blockedHistogram,
+            toplist: convertedToplist,
+            avgDayAllowed: currentStats.avgDayAllowed,
+            avgDayBlocked: currentStats.avgDayBlocked,
+            avgDayTotal: currentStats.avgDayTotal,
+            latestTimestamp: currentStats.latestTimestamp,
+          );
+        }
       }
     });
   }
@@ -118,8 +152,6 @@ class StatsActor with Logging, Actor {
 UiStats _convertStats(
   JsonStatsEndpoint stats,
   JsonStatsEndpoint oneWeek, {
-  platform_stats.JsonToplistV2Response? toplistAllowed,
-  platform_stats.JsonToplistV2Response? toplistBlocked,
   UiStats? previousStats,
 }) {
   int now = DateTime.now().millisecondsSinceEpoch;
@@ -190,15 +222,9 @@ UiStats _convertStats(
     avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
   }
 
+  // Keep previous toplist if available
   List<UiToplistEntry> convertedToplist = [];
-  if (toplistAllowed != null || toplistBlocked != null) {
-    if (toplistAllowed != null) {
-      convertedToplist.addAll(_convertToplistV2(toplistAllowed));
-    }
-    if (toplistBlocked != null) {
-      convertedToplist.addAll(_convertToplistV2(toplistBlocked));
-    }
-  } else if (previousStats != null) {
+  if (previousStats != null) {
     convertedToplist = previousStats.toplist;
   }
 

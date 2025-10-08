@@ -54,7 +54,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
       if (_isStatsScreenFor != null) {
         // Stats screen opened for a device, we need to refresh only that device
         log(m).pair("devices", 1);
-        await _stats.fetchForDevice(_isStatsScreenFor!, m, toplists: true);
+        await _stats.fetchForDevice(_isStatsScreenFor!, m);
       } else {
         // Otherwise just refresh all monitored devices (less often)
         log(m).pair("devices", _monitoredDevices.length);
@@ -63,8 +63,8 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
         }
       }
     } else {
-      // V6 app - include toplists when on home screen for Privacy Pulse widget
-      await _stats.fetch(m, toplists: _isHomeScreen);
+      // V6 app - stats refresh without toplists
+      await _stats.fetch(m);
     }
 
     _lastRefresh = DateTime.now();

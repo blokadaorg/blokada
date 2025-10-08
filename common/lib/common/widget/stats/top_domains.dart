@@ -84,14 +84,22 @@ class TopDomainsState extends State<TopDomains> {
 
                   const CommonDivider(),
 
-                  // Domain list or empty state
-                  if (currentDomains.isEmpty)
-                    _buildEmptyState()
-                  else
-                    for (int i = 0; i < currentDomains.length; i++) ...{
-                      _buildDomainItem(currentDomains[i]),
-                      if (i < currentDomains.length - 1) const CommonDivider(),
-                    },
+                  // Domain list or empty state with background color
+                  Container(
+                    color: _showBlocked
+                        ? Color(0xffff3b30).withOpacity(0.05)
+                        : Color(0xff33c75a).withOpacity(0.05),
+                    child: currentDomains.isEmpty
+                        ? _buildEmptyState()
+                        : Column(
+                            children: [
+                              for (int i = 0; i < currentDomains.length; i++) ...{
+                                _buildDomainItem(currentDomains[i]),
+                                if (i < currentDomains.length - 1) const CommonDivider(),
+                              },
+                            ],
+                          ),
+                  ),
                 ],
               ),
             ),
