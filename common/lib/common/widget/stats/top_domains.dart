@@ -25,12 +25,12 @@ class TopDomainsState extends State<TopDomains> {
 
   List<UiToplistEntry> get _blockedDomains {
     final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => entry.blocked).take(5).toList();
+    return stats.toplist.where((entry) => entry.blocked).take(12).toList();
   }
 
   List<UiToplistEntry> get _allowedDomains {
     final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => !entry.blocked).take(5).toList();
+    return stats.toplist.where((entry) => !entry.blocked).take(12).toList();
   }
 
   @override
@@ -84,28 +84,31 @@ class TopDomainsState extends State<TopDomains> {
 
                   const CommonDivider(),
 
-                  // Domain list or empty state with background color
-                  Container(
-                    color: _showBlocked
-                        ? Color(0xffff3b30).withOpacity(0.05)
-                        : Color(0xff33c75a).withOpacity(0.05),
-                    child: currentDomains.isEmpty
-                        ? _buildEmptyState()
-                        : Column(
-                            children: [
-                              for (int i = 0; i < currentDomains.length; i++) ...{
-                                _buildDomainItem(currentDomains[i]),
-                                if (i < currentDomains.length - 1) const CommonDivider(),
-                              },
-                            ],
-                          ),
-                  ),
+                  // Domain list, loading state, or empty state
+                  if (_statsStore.toplistsLoading)
+                    _buildLoadingState()
+                  else if (currentDomains.isEmpty)
+                    _buildEmptyState()
+                  else
+                    for (int i = 0; i < currentDomains.length; i++) ...{
+                      _buildDomainItem(currentDomains[i]),
+                      if (i < currentDomains.length - 1) const CommonDivider(),
+                    },
                 ],
               ),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 

@@ -65,6 +65,9 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   @observable
   bool hasStats = false;
 
+  @observable
+  bool toplistsLoading = false;
+
   @action
   Future<void> fetch(Marker m) async {
     return await log(m).trace("fetch", (m) async {
@@ -84,15 +87,18 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   @action
   Future<void> fetchToplists(Marker m) async {
     return await log(m).trace("fetchToplists", (m) async {
+      toplistsLoading = true;
       try {
         final accountId = await _accountId.fetch(m);
+        final deviceName = _device.deviceAlias;
 
         // Fetch blocked entries
         final toplistBlocked = await _api.getToplistV2(
           accountId: accountId,
+          deviceName: deviceName,
           level: 1,
           action: "blocked",
-          limit: 5,
+          limit: 12,
           range: "24h",
           m: m,
         );
@@ -100,9 +106,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         // Fetch allowed entries
         final toplistAllowed = await _api.getToplistV2(
           accountId: accountId,
+          deviceName: deviceName,
           level: 1,
           action: "allowed",
-          limit: 5,
+          limit: 12,
           range: "24h",
           m: m,
         );
@@ -131,6 +138,8 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         deviceStatsChangesCounter++;
       } catch (e) {
         log(m).w("Failed to fetch toplists: $e");
+      } finally {
+        toplistsLoading = false;
       }
     });
   }

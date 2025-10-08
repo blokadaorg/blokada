@@ -11,6 +11,7 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
+import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/api.dart' as stats_api;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   late final _customlistValue = Core.get<CustomListsValue>();
   late final _statsApi = Core.get<stats_api.StatsApi>();
   late final _accountId = Core.get<AccountId>();
+  late final _device = Core.get<DeviceStore>();
 
   // Helper to count domain levels (dots + 1)
   int _getDomainLevel(String domain) {
@@ -149,14 +151,17 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
       try {
         final accountId = await _accountId.fetch(m);
+        final deviceName = _device.deviceAlias;
         final actionStr = widget.entry.action == UiJournalAction.block ? "blocked" : "allowed";
 
         log(m).pair("level", widget.level);
         log(m).pair("domain", widget.domain);
         log(m).pair("action", actionStr);
+        log(m).pair("deviceName", deviceName);
 
         final response = await _statsApi.getToplistV2(
           accountId: accountId,
+          deviceName: deviceName,
           level: widget.level,
           domain: widget.domain,
           action: actionStr,
@@ -242,14 +247,20 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           // Add Rule card
           _buildAddRuleCard(),
-          const SizedBox(height: 40),
+          const SizedBox(height: 16),
 
           // Subdomains section header
-          Text("Subdomains",
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  )),
-          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              "Subdomains",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: context.theme.textPrimary,
+              ),
+            ),
+          ),
 
           // Search bar (only show if more than 1 subdomain)
           if (_allSubdomains.length > 1) _buildSearchBar(),
