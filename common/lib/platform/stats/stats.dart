@@ -103,7 +103,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
           m: m,
         );
 
-        // Fetch allowed entries
+        // Fetch allowed entries (both "allowed" and "fallthrough" types)
         final toplistAllowed = await _api.getToplistV2(
           accountId: accountId,
           deviceName: deviceName,
@@ -114,13 +114,25 @@ abstract class StatsStoreBase with Store, Logging, Actor {
           m: m,
         );
 
-        // Convert toplists and update stats
+        final toplistFallthrough = await _api.getToplistV2(
+          accountId: accountId,
+          deviceName: deviceName,
+          level: 1,
+          action: "fallthrough",
+          limit: 12,
+          range: "24h",
+          m: m,
+        );
+
+        // Convert and merge allowed + fallthrough entries
         List<UiToplistEntry> convertedToplist = [];
-        if (toplistAllowed != null) {
-          convertedToplist.addAll(_convertToplistV2(toplistAllowed));
-        }
         if (toplistBlocked != null) {
           convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+        }
+
+        // Merge allowed and fallthrough entries
+        if (toplistAllowed != null || toplistFallthrough != null) {
+          convertedToplist.addAll(_mergeAllowedToplists(toplistAllowed, toplistFallthrough));
         }
 
         // Update stats with new toplist
@@ -291,6 +303,45 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         ));
       }
     }
+    return result;
+  }
+
+  List<UiToplistEntry> _mergeAllowedToplists(
+      api.JsonToplistV2Response? allowed, api.JsonToplistV2Response? fallthrough) {
+    // Collect all entries from both responses
+    final entries = <String, int>{};
+
+    // Process allowed entries
+    if (allowed != null) {
+      for (var bucket in allowed.toplist) {
+        for (var entry in bucket.entries) {
+          entries[entry.name] = (entries[entry.name] ?? 0) + entry.count;
+        }
+      }
+    }
+
+    // Process fallthrough entries and merge with allowed
+    if (fallthrough != null) {
+      for (var bucket in fallthrough.toplist) {
+        for (var entry in bucket.entries) {
+          entries[entry.name] = (entries[entry.name] ?? 0) + entry.count;
+        }
+      }
+    }
+
+    // Convert to UiToplistEntry and sort by count descending
+    final result = entries.entries
+        .map((e) => UiToplistEntry(
+              e.key,    // Use name as company
+              e.key,    // Use name as tld
+              false,    // Not blocked (these are allowed)
+              e.value,  // Merged count
+            ))
+        .toList();
+
+    // Sort by count descending
+    result.sort((a, b) => b.value.compareTo(a.value));
+
     return result;
   }
 }

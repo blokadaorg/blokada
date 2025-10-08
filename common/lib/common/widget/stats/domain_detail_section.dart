@@ -152,50 +152,99 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       try {
         final accountId = await _accountId.fetch(m);
         final deviceName = _device.deviceAlias;
-        final actionStr = widget.entry.action == UiJournalAction.block ? "blocked" : "allowed";
+        final isBlocked = widget.entry.action == UiJournalAction.block;
 
         log(m).pair("level", widget.level);
         log(m).pair("domain", widget.domain);
-        log(m).pair("action", actionStr);
+        log(m).pair("action", isBlocked ? "blocked" : "allowed+fallthrough");
         log(m).pair("deviceName", deviceName);
 
-        final response = await _statsApi.getToplistV2(
-          accountId: accountId,
-          deviceName: deviceName,
-          level: widget.level,
-          domain: widget.domain,
-          action: actionStr,
-          limit: 50, // Fetch more subdomains
-          range: "24h",
-          m: m,
-        );
+        // For blocked, fetch only "blocked" action
+        // For allowed, fetch both "allowed" and "fallthrough" and merge
+        final subdomains = <String, int>{};
 
-        // Convert toplist entries to UiJournalEntry format
-        final subdomains = <UiJournalEntry>[];
-        for (var bucket in response.toplist) {
-          for (var entry in bucket.entries) {
-            // Skip the root entry (is_root = true)
-            if (entry.isRoot == true) continue;
+        if (isBlocked) {
+          final response = await _statsApi.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: widget.level,
+            domain: widget.domain,
+            action: "blocked",
+            limit: 50,
+            range: "24h",
+            m: m,
+          );
 
-            subdomains.add(UiJournalEntry(
-              deviceName: entry.deviceName ?? "",
-              domainName: entry.name,
-              action: widget.entry.action,
-              listId: "",
-              profileId: "",
-              timestamp: DateTime.now(),
-              requests: entry.count,
-              modified: false,
-            ));
+          for (var bucket in response.toplist) {
+            for (var entry in bucket.entries) {
+              if (entry.isRoot == true) continue;
+              subdomains[entry.name] = entry.count;
+            }
+          }
+        } else {
+          // Fetch both allowed and fallthrough, then merge
+          final allowedResponse = await _statsApi.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: widget.level,
+            domain: widget.domain,
+            action: "allowed",
+            limit: 50,
+            range: "24h",
+            m: m,
+          );
+
+          final fallthroughResponse = await _statsApi.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: widget.level,
+            domain: widget.domain,
+            action: "fallthrough",
+            limit: 50,
+            range: "24h",
+            m: m,
+          );
+
+          // Merge allowed entries
+          for (var bucket in allowedResponse.toplist) {
+            for (var entry in bucket.entries) {
+              if (entry.isRoot == true) continue;
+              subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
+            }
+          }
+
+          // Merge fallthrough entries
+          for (var bucket in fallthroughResponse.toplist) {
+            for (var entry in bucket.entries) {
+              if (entry.isRoot == true) continue;
+              subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
+            }
           }
         }
 
-        log(m).pair("subdomain_count", subdomains.length);
+        // Convert merged entries to UiJournalEntry format and sort by count
+        final subdomainsList = subdomains.entries
+            .map((e) => UiJournalEntry(
+                  deviceName: "",
+                  domainName: e.key,
+                  action: widget.entry.action,
+                  listId: "",
+                  profileId: "",
+                  timestamp: DateTime.now(),
+                  requests: e.value,
+                  modified: false,
+                ))
+            .toList();
+
+        // Sort by request count descending
+        subdomainsList.sort((a, b) => b.requests.compareTo(a.requests));
+
+        log(m).pair("subdomain_count", subdomainsList.length);
 
         if (mounted) {
           setState(() {
-            _allSubdomains = subdomains;
-            _filteredSubdomains = subdomains;
+            _allSubdomains = subdomainsList;
+            _filteredSubdomains = subdomainsList;
             _isLoading = false;
           });
         }
