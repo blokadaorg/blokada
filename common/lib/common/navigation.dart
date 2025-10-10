@@ -133,6 +133,7 @@ class Navigation with Logging {
         final mainEntry = args['mainEntry'] as UiJournalMainEntry;
         final level = args['level'] as int? ?? 2;
         final domain = args['domain'] as String? ?? mainEntry.domainName;
+        final fetchToplist = args['fetchToplist'] as bool? ?? true;
 
         return StandardRoute(
           settings: settings,
@@ -142,18 +143,30 @@ class Navigation with Logging {
               entry: mainEntry,
               level: level,
               domain: domain,
+              fetchToplist: fetchToplist,
             ),
           ),
         );
       } else {
-        // Normal entry - use StatsDetailSection for both Family and V6
+        // Normal entry - convert to UiJournalMainEntry and use DomainDetailSection
         final entry = settings.arguments as UiJournalEntry;
+        final mainEntry = UiJournalMainEntry(
+          domainName: entry.domainName,
+          requests: entry.requests,
+          action: entry.action,
+          listId: entry.listId,
+        );
 
         return StandardRoute(
           settings: settings,
           builder: (context) => WithTopBar(
             title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
-            child: StatsDetailSection(entry: entry),
+            child: DomainDetailSection(
+              entry: mainEntry,
+              level: 2,  // Start at level 2 (subdomains)
+              domain: entry.domainName,
+              fetchToplist: false,  // Don't fetch toplists for journal entries
+            ),
           ),
         );
       }

@@ -21,6 +21,7 @@ class DomainDetailSection extends StatefulWidget {
   final bool primary;
   final int level;
   final String domain;
+  final bool fetchToplist;
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
   const DomainDetailSection({
@@ -29,6 +30,7 @@ class DomainDetailSection extends StatefulWidget {
     this.primary = true,
     required this.level,
     required this.domain,
+    this.fetchToplist = true,
     this.subdomainEntries,
   });
 
@@ -99,6 +101,34 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   String _getSubtitleText() {
     final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
+
+    // If fetchToplist is false, use widget.entry.requests directly
+    if (!widget.fetchToplist) {
+      final requests = widget.entry.requests;
+      String baseText = "$requests requests to ${widget.entry.domainName} were $actionText";
+
+      // Add blocklist info if domain was blocked and we have a listId
+      if (widget.entry.action == UiJournalAction.block && widget.entry.listId != null && widget.entry.listId!.isNotEmpty) {
+        // Check if it's a user rule (short ID)
+        if (widget.entry.listId!.length < 16) {
+          return "$baseText by your rules";
+        } else {
+          // Get the blocklist name
+          final listName = _filter.getFilterContainingList(widget.entry.listId!);
+          if (listName != "family stats label none".i18n && listName != "family stats title".i18n) {
+            return "$baseText by $listName";
+          }
+        }
+      }
+
+      return baseText;
+    }
+
+    // Show loading state while fetching toplists
+    if (_isLoading) {
+      return "Loading...";
+    }
+
     final mainRequests = _parentCount;  // Use parent_count from API for parent domain
     final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
 
@@ -144,6 +174,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return baseText;
   }
 
+  bool _hasScheduledFetch = false;
+
   @override
   void initState() {
     super.initState();
@@ -159,10 +191,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Fetch subdomains only when route becomes current (after navigation animation)
-    final route = ModalRoute.of(context);
-    if (route != null && route.isCurrent && _isLoading) {
-      _fetchSubdomains();
+    // Schedule fetch to run after route animation completes
+    if (!_hasScheduledFetch && widget.fetchToplist) {
+      _hasScheduledFetch = true;
+      final route = ModalRoute.of(context);
+      if (route != null && route.animation != null) {
+        // Listen for animation completion
+        route.animation!.addStatusListener((status) {
+          if (status == AnimationStatus.completed && mounted) {
+            _fetchSubdomains();
+          }
+        });
+      } else {
+        // Fallback if no animation (shouldn't happen)
+        _fetchSubdomains();
+      }
     }
   }
 
@@ -331,25 +374,28 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           _buildAddRuleCard(),
           const SizedBox(height: 16),
 
-          // Subdomains section header
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Text(
-              "Subdomains",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: context.theme.textPrimary,
+          // Subdomains section (only show if fetchToplist is true)
+          if (widget.fetchToplist) ...[
+            // Subdomains section header
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                "Subdomains",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textPrimary,
+                ),
               ),
             ),
-          ),
 
-          // Search bar (only show if more than 1 subdomain)
-          if (_allSubdomains.length > 1) _buildSearchBar(),
-          if (_allSubdomains.length > 1) const SizedBox(height: 16),
+            // Search bar (only show if more than 1 subdomain)
+            if (_allSubdomains.length > 1) _buildSearchBar(),
+            if (_allSubdomains.length > 1) const SizedBox(height: 16),
 
-          // Subdomains list
-          _buildSubdomainsList(),
+            // Subdomains list
+            _buildSubdomainsList(),
+          ],
           const SizedBox(height: 40), // Bottom padding like original
         ],
       ),
@@ -542,13 +588,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
     return CommonCard(
       padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          for (int i = 0; i < _filteredSubdomains.length; i++) ...[
-            _buildSubdomainItem(_filteredSubdomains[i]),
-            if (i < _filteredSubdomains.length - 1) const CommonDivider(),
-          ],
-        ],
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: _filteredSubdomains.length,
+        separatorBuilder: (context, index) => const CommonDivider(),
+        itemBuilder: (context, index) {
+          return _buildSubdomainItem(_filteredSubdomains[index]);
+        },
       ),
     );
   }
@@ -574,9 +621,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'domain': subdomain.domainName,  // Use subdomain as the domain context
           });
         }
-        // Level 3: Navigate to StatsDetailSection
+        // Level 3: Navigate to DomainDetailSection with level 4
         else if (widget.level == 3) {
-          Navigation.open(Paths.deviceStatsDetail, arguments: subdomain);
+          final subdomainAsMain = UiJournalMainEntry(
+            domainName: subdomain.domainName,
+            requests: subdomain.requests,
+            action: subdomain.action,
+            listId: subdomain.listId,
+          );
+
+          Navigation.open(Paths.deviceStatsDetail, arguments: {
+            'mainEntry': subdomainAsMain,
+            'level': 4,  // Fetch level 4 (if any more subdomains)
+            'domain': subdomain.domainName,
+            'fetchToplist': false,  // Don't fetch at level 4 (final level)
+          });
         }
         // Level 4+: Do nothing (shouldn't happen, but just in case)
       },
