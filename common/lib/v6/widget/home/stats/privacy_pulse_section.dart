@@ -85,6 +85,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: MiniCard(
+                          onTap: () {
+                            Navigation.open(Paths.activity);
+                          },
                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
