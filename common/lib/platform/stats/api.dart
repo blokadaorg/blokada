@@ -178,12 +178,14 @@ class JsonToplistV2Response {
 
 class JsonToplistBucket {
   late String action;
+  int? parentCount;
   late List<JsonToplistEntry> entries;
 
-  JsonToplistBucket({required this.action, required this.entries});
+  JsonToplistBucket({required this.action, this.parentCount, required this.entries});
 
   JsonToplistBucket.fromJson(Map<String, dynamic> json) {
     action = json['action'];
+    parentCount = json.containsKey('parent_count') ? json['parent_count'] : null;
     entries = <JsonToplistEntry>[];
     json['entries'].forEach((v) {
       entries.add(JsonToplistEntry.fromJson(v));
@@ -193,6 +195,7 @@ class JsonToplistBucket {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['action'] = action;
+    if (parentCount != null) data['parent_count'] = parentCount;
     data['entries'] = entries.map((v) => v.toJson()).toList();
     return data;
   }

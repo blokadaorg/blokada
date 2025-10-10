@@ -41,6 +41,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _filteredSubdomains = [];
   List<UiJournalEntry> _allSubdomains = [];
   bool _isLoading = true;
+  int _parentCount = 0;  // Count for parent domain itself
 
   late final _filter = Core.get<FilterActor>();
   late final _journal = Core.get<JournalActor>();
@@ -84,7 +85,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   String _getSubtitleText() {
     final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
-    final mainRequests = widget.entry.requests;
+    final mainRequests = _parentCount;  // Use parent_count from API for parent domain
     final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
 
     String baseText;
@@ -113,7 +114,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     }
 
     // Add blocklist info if domain was blocked and we have a listId
-    if (widget.entry.action == UiJournalAction.block && listId != null) {
+    if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
       // Check if it's a user rule (short ID)
       if (listId.length < 16) {
         return "$baseText by your rules";
@@ -162,6 +163,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         // For blocked, fetch only "blocked" action
         // For allowed, fetch both "allowed" and "fallthrough" and merge
         final subdomains = <String, int>{};
+        int parentCount = 0;
 
         if (isBlocked) {
           final response = await _statsApi.getToplistV2(
@@ -176,6 +178,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           );
 
           for (var bucket in response.toplist) {
+            // Extract parent count
+            parentCount += bucket.parentCount ?? 0;
+
             for (var entry in bucket.entries) {
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = entry.count;
@@ -205,16 +210,20 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             m: m,
           );
 
-          // Merge allowed entries
+          // Merge allowed entries and parent counts
           for (var bucket in allowedResponse.toplist) {
+            parentCount += bucket.parentCount ?? 0;
+
             for (var entry in bucket.entries) {
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
             }
           }
 
-          // Merge fallthrough entries
+          // Merge fallthrough entries and parent counts
           for (var bucket in fallthroughResponse.toplist) {
+            parentCount += bucket.parentCount ?? 0;
+
             for (var entry in bucket.entries) {
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
@@ -240,11 +249,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         subdomainsList.sort((a, b) => b.requests.compareTo(a.requests));
 
         log(m).pair("subdomain_count", subdomainsList.length);
+        log(m).pair("parent_count", parentCount);
 
         if (mounted) {
           setState(() {
             _allSubdomains = subdomainsList;
             _filteredSubdomains = subdomainsList;
+            _parentCount = parentCount;
             _isLoading = false;
           });
         }
