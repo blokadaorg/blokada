@@ -153,9 +153,17 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     _customlistValue.onChange.listen((_) {
       if (mounted) setState(() {});
     });
+  }
 
-    // Fetch subdomains from API
-    _fetchSubdomains();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Fetch subdomains only when route becomes current (after navigation animation)
+    final route = ModalRoute.of(context);
+    if (route != null && route.isCurrent && _isLoading) {
+      _fetchSubdomains();
+    }
   }
 
   Future<void> _fetchSubdomains() async {
