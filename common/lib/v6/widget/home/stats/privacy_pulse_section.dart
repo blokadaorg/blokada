@@ -9,7 +9,6 @@ import 'package:common/platform/account/account.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
-import 'package:relative_scale/relative_scale.dart';
 
 import '../../../../common/widget/stats/privacy_pulse.dart';
 import '../../../../common/widget/stats/top_domains.dart';
@@ -77,33 +76,28 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             child: Center(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                child: RelativeBuilder(builder: (context, height, width, sy, sx) {
-                  return Column(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: ListView(
+                    controller: widget.controller,
                     children: [
-                      const SizedBox(height: 42),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: MiniCard(
-                          onTap: () {
-                            Navigation.open(Paths.activity);
-                          },
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: PrivacyPulse(stats: stats),
-                          ),
+                      SizedBox(height: getTopPadding(context)),
+                      MiniCard(
+                        onTap: () {
+                          Navigation.open(Paths.activity);
+                        },
+                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: PrivacyPulse(stats: stats),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: TopDomains(),
-                      ),
-                      const Spacer(),
-                      SizedBox(height: sy(60)),
+                      const SizedBox(height: 12),
+                      TopDomains(),
+                      const SizedBox(height: 60),
                     ],
-                  );
-                }),
+                  ),
+                ),
               ),
             ),
           ),

@@ -26,6 +26,7 @@ import 'package:common/plus/widget/vpn_bypass_section.dart';
 import 'package:common/plus/widget/vpn_devices_section.dart';
 import 'package:common/v6/widget/activity_screen.dart';
 import 'package:common/v6/widget/advanced_screen.dart';
+import 'package:common/v6/widget/privacy_pulse_screen.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {
@@ -43,6 +44,7 @@ enum Paths {
   support("/support", true), // Doesn't work in pane
   // V6 tabs
   activity("/activity", false),
+  privacyPulse("/privacyPulse", false),
   advanced("/advanced", false);
 
   final String path;
@@ -218,6 +220,11 @@ class Navigation with Logging {
     if (settings.name == Paths.activity.path) {
       return StandardRoute(
           settings: settings, builder: (context) => const ActivityScreen());
+    }
+
+    if (settings.name == Paths.privacyPulse.path) {
+      return StandardRoute(
+          settings: settings, builder: (context) => const PrivacyPulseScreen());
     }
 
     if (settings.name == Paths.advanced.path) {

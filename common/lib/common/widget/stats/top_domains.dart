@@ -18,8 +18,10 @@ class TopDomains extends StatefulWidget {
   State<StatefulWidget> createState() => TopDomainsState();
 }
 
+enum ToplistTab { blocked, allowed }
+
 class TopDomainsState extends State<TopDomains> {
-  bool _showBlocked = true;
+  ToplistTab _selectedTab = ToplistTab.blocked;
   late final _statsStore = Core.get<StatsStore>();
   late final _journal = Core.get<JournalActor>();
 
@@ -37,7 +39,7 @@ class TopDomainsState extends State<TopDomains> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        final currentDomains = _showBlocked ? _blockedDomains : _allowedDomains;
+        final currentDomains = _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,31 +57,47 @@ class TopDomainsState extends State<TopDomains> {
               ),
             ),
 
-            // Tabbed card
+            // Combined card with segmented control and list
             CommonCard(
               padding: EdgeInsets.zero,
               child: Column(
                 children: [
-                  // Tab row
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildTab(
-                          "Blocked",
-                          _showBlocked,
-                          () => setState(() => _showBlocked = true),
-                          Color(0xffff3b30),
-                        ),
+                  // Segmented control inside card
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: CupertinoSlidingSegmentedControl<ToplistTab>(
+                        groupValue: _selectedTab,
+                        onValueChanged: (ToplistTab? value) {
+                          if (value != null) {
+                            setState(() => _selectedTab = value);
+                          }
+                        },
+                        children: {
+                          ToplistTab.blocked: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                            child: Text(
+                              "Blocked",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          ToplistTab.allowed: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                            child: Text(
+                              "Allowed",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        },
                       ),
-                      Expanded(
-                        child: _buildTab(
-                          "Allowed",
-                          !_showBlocked,
-                          () => setState(() => _showBlocked = false),
-                          Color(0xff33c75a),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
 
                   const CommonDivider(),
@@ -108,34 +126,6 @@ class TopDomainsState extends State<TopDomains> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Center(
         child: CircularProgressIndicator(),
-      ),
-    );
-  }
-
-  Widget _buildTab(String title, bool isSelected, VoidCallback onTap, Color color) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.05) : Colors.transparent,
-          border: Border(
-            bottom: BorderSide(
-              color: isSelected ? color : Colors.transparent,
-              width: 2,
-            ),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: isSelected ? color : context.theme.textSecondary,
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -197,7 +187,7 @@ class TopDomainsState extends State<TopDomains> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Center(
         child: Text(
-          _showBlocked ? "No blocked domains found" : "No allowed domains found",
+          _selectedTab == ToplistTab.blocked ? "No blocked domains found" : "No allowed domains found",
           style: TextStyle(
             color: context.theme.textSecondary,
             fontSize: 16,

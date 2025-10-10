@@ -1,3 +1,4 @@
+import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/counter.dart';
 import 'package:common/common/widget/minicard/header.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
@@ -6,9 +7,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
-import 'package:common/platform/stage/stage.dart';
 import 'package:common/platform/stats/stats.dart';
-import 'package:common/v6/widget/home/home_section.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -22,7 +21,6 @@ class HomeCounter extends StatefulWidget {
 }
 
 class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin, Logging {
-  final _stage = Core.get<StageStore>();
   final _app = Core.get<AppStore>();
   final _stats = Core.get<StatsStore>();
 
@@ -48,7 +46,7 @@ class _HomeCounterState extends State<HomeCounter> with TickerProviderStateMixin
   }
 
   _onTap() {
-    _stage.setRoute(pathHomeStats, Markers.userTap);
+    Navigation.open(Paths.privacyPulse);
   }
 
   @override

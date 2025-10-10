@@ -54,7 +54,7 @@ class _TabState extends State<TabWidget> with Disposables {
       // Already popped above
       _stage.setRoute(StageTab.home.name, Markers.userTap);
     } else if (tab == StageTab.activity) {
-      Navigation.open(Paths.activity);
+      Navigation.open(Paths.privacyPulse);
       _stage.setRoute(StageTab.activity.name, Markers.userTap);
     } else if (tab == StageTab.advanced) {
       Navigation.open(Paths.advanced);

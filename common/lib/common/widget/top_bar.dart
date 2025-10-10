@@ -267,7 +267,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
       } else if (s.name == Paths.deviceStats.path) {
         title = "activity section header".i18n;
       } else if (s.name == Paths.deviceStatsDetail.path) {
-        title = "family device title details".i18n;
+        title = Core.act.isFamily ? "family device title details".i18n : "Domain Details";
       } else if (s.name == Paths.settings.path) {
         if (Core.act.isFamily) {
           title = "account action my account".i18n;
@@ -286,6 +286,8 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
         title = "support action chat".i18n;
       } else if (s.name == Paths.activity.path) {
         title = "main tab activity".i18n;
+      } else if (s.name == Paths.privacyPulse.path) {
+        title = "Privacy Pulse".i18n;
       } else if (s.name == Paths.advanced.path) {
         title = "main tab advanced".i18n;
       } else {

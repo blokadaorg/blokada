@@ -17,7 +17,7 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
 
   _tap(StageTab tab) async {
     if (tab == StageTab.activity) {
-      Navigation.open(Paths.activity);
+      Navigation.open(Paths.privacyPulse);
       _updateStage(StageTab.activity);
     } else if (tab == StageTab.advanced) {
       Navigation.open(Paths.advanced);
