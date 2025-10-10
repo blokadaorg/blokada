@@ -3,6 +3,7 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
 import 'package:common/common/widget/stats/domain_detail_section.dart';
+import 'package:common/common/widget/stats/stats_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
 import 'package:common/common/widget/theme.dart';
@@ -143,15 +144,9 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
             domain: domain,
           );
         }
-        // Legacy: Normal entry from journal - extract TLD and use journal data
+        // Normal entry from journal - use StatsDetailSection
         final entry = _arguments as UiJournalEntry;
-        final mainEntry = _journal.getMainEntry(entry);
-        return DomainDetailSection(
-          entry: mainEntry,
-          level: 2,
-          domain: mainEntry.domainName,
-          subdomainEntries: _journal.getSubdomainEntries(mainEntry),
-        );
+        return StatsDetailSection(entry: entry, primary: false);
       default:
         return Container();
     }

@@ -144,24 +144,14 @@ class Navigation with Logging {
           ),
         );
       } else {
-        // Normal entry - extract TLD as before
+        // Normal entry - use StatsDetailSection for both Family and V6
         final entry = settings.arguments as UiJournalEntry;
 
         return StandardRoute(
           settings: settings,
           builder: (context) => WithTopBar(
             title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
-            child: Core.act.isFamily
-              ? StatsDetailSection(entry: entry)
-              : () {
-                  final mainEntry = _journal.getMainEntry(entry);
-                  return DomainDetailSection(
-                    entry: mainEntry,
-                    level: 2,
-                    domain: mainEntry.domainName,
-                    subdomainEntries: _journal.getSubdomainEntries(mainEntry),
-                  );
-                }(),
+            child: StatsDetailSection(entry: entry),
           ),
         );
       }

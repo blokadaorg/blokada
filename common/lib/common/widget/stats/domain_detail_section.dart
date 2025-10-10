@@ -546,27 +546,31 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildSubdomainItem(UiJournalEntry subdomain) {
-    // Level 2 items can navigate to level 3, level 3 items are not clickable
-    final isLevel3 = widget.level >= 3;
-
     // Trim parent domain suffix from subdomain name for display
     final displayName = _trimParentSuffix(subdomain.domainName);
 
     return CommonClickable(
-      onTap: isLevel3 ? () {} : () {
-        // Navigate to level 3 (exact hosts under this subdomain)
-        final subdomainAsMain = UiJournalMainEntry(
-          domainName: subdomain.domainName,
-          requests: subdomain.requests,
-          action: subdomain.action,
-          listId: subdomain.listId,
-        );
+      onTap: () {
+        // Level 2: Navigate to level 3 (exact hosts)
+        if (widget.level == 2) {
+          final subdomainAsMain = UiJournalMainEntry(
+            domainName: subdomain.domainName,
+            requests: subdomain.requests,
+            action: subdomain.action,
+            listId: subdomain.listId,
+          );
 
-        Navigation.open(Paths.deviceStatsDetail, arguments: {
-          'mainEntry': subdomainAsMain,
-          'level': 3,  // Fetch level 3 (exact hosts)
-          'domain': subdomain.domainName,  // Use subdomain as the domain context
-        });
+          Navigation.open(Paths.deviceStatsDetail, arguments: {
+            'mainEntry': subdomainAsMain,
+            'level': 3,  // Fetch level 3 (exact hosts)
+            'domain': subdomain.domainName,  // Use subdomain as the domain context
+          });
+        }
+        // Level 3: Navigate to StatsDetailSection
+        else if (widget.level == 3) {
+          Navigation.open(Paths.deviceStatsDetail, arguments: subdomain);
+        }
+        // Level 4+: Do nothing (shouldn't happen, but just in case)
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
