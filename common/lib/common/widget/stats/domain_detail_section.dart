@@ -83,6 +83,20 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return _customlist.isInAllowedList(domain) || _customlist.isInBlockedList(domain);
   }
 
+  /// Trim parent domain suffix from subdomain name for display
+  /// Example: "cdn.apple.com" with parent "apple.com" -> "cdn"
+  String _trimParentSuffix(String subdomainName) {
+    final parentDomain = widget.entry.domainName;
+    final suffix = '.$parentDomain';
+
+    if (subdomainName.endsWith(suffix)) {
+      return subdomainName.substring(0, subdomainName.length - suffix.length);
+    }
+
+    // If it doesn't end with the parent, return as-is
+    return subdomainName;
+  }
+
   String _getSubtitleText() {
     final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
     final mainRequests = _parentCount;  // Use parent_count from API for parent domain
@@ -535,6 +549,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     // Level 2 items can navigate to level 3, level 3 items are not clickable
     final isLevel3 = widget.level >= 3;
 
+    // Trim parent domain suffix from subdomain name for display
+    final displayName = _trimParentSuffix(subdomain.domainName);
+
     return CommonClickable(
       onTap: isLevel3 ? () {} : () {
         // Navigate to level 3 (exact hosts under this subdomain)
@@ -557,7 +574,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           children: [
             Expanded(
               child: Text(
-                subdomain.domainName,
+                displayName,
                 style: TextStyle(
                   fontSize: 16,
                   color: context.theme.textPrimary,
