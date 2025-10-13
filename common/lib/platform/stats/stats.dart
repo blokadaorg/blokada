@@ -86,74 +86,89 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   @action
   Future<void> fetchToplists(Marker m) async {
-    return await log(m).trace("fetchToplists", (m) async {
-      toplistsLoading = true;
-      try {
-        final accountId = await _accountId.fetch(m);
-        final deviceName = _device.deviceAlias;
+    toplistsLoading = true;
+    try {
+      return await log(m).trace("fetchToplists", (m) async {
+        try {
+          final accountId = await _accountId.fetch(m);
+          final deviceName = _device.deviceAlias;
 
-        // Fetch blocked entries
-        final toplistBlocked = await _api.getToplistV2(
-          accountId: accountId,
-          deviceName: deviceName,
-          level: 1,
-          action: "blocked",
-          limit: 12,
-          range: "24h",
-          m: m,
-        );
+          // Fetch blocked entries
+          final toplistBlocked = await _api.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: 1,
+            action: "blocked",
+            limit: 12,
+            range: "24h",
+            m: m,
+          );
 
-        // Fetch allowed entries (both "allowed" and "fallthrough" types)
-        final toplistAllowed = await _api.getToplistV2(
-          accountId: accountId,
-          deviceName: deviceName,
-          level: 1,
-          action: "allowed",
-          limit: 12,
-          range: "24h",
-          m: m,
-        );
+          // Fetch allowed entries (both "allowed" and "fallthrough" types)
+          final toplistAllowed = await _api.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: 1,
+            action: "allowed",
+            limit: 12,
+            range: "24h",
+            m: m,
+          );
 
-        final toplistFallthrough = await _api.getToplistV2(
-          accountId: accountId,
-          deviceName: deviceName,
-          level: 1,
-          action: "fallthrough",
-          limit: 12,
-          range: "24h",
-          m: m,
-        );
+          final toplistFallthrough = await _api.getToplistV2(
+            accountId: accountId,
+            deviceName: deviceName,
+            level: 1,
+            action: "fallthrough",
+            limit: 12,
+            range: "24h",
+            m: m,
+          );
 
-        // Convert and merge allowed + fallthrough entries
-        List<UiToplistEntry> convertedToplist = [];
-        if (toplistBlocked != null) {
-          convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+          // Convert and merge allowed + fallthrough entries
+          List<UiToplistEntry> convertedToplist = [];
+          if (toplistBlocked != null) {
+            convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+          }
+
+          // Merge allowed and fallthrough entries
+          if (toplistAllowed != null || toplistFallthrough != null) {
+            convertedToplist.addAll(_mergeAllowedToplists(toplistAllowed, toplistFallthrough));
+          }
+
+          // Update stats with new toplist
+          stats = UiStats(
+            totalAllowed: stats.totalAllowed,
+            totalBlocked: stats.totalBlocked,
+            allowedHistogram: stats.allowedHistogram,
+            blockedHistogram: stats.blockedHistogram,
+            toplist: convertedToplist,
+            avgDayAllowed: stats.avgDayAllowed,
+            avgDayBlocked: stats.avgDayBlocked,
+            avgDayTotal: stats.avgDayTotal,
+            latestTimestamp: stats.latestTimestamp,
+          );
+          deviceStatsChangesCounter++;
+        } catch (e) {
+          log(m).w("Failed to fetch toplists: $e");
+          // Set empty toplist on error - only update toplist field
+          stats = UiStats(
+            totalAllowed: stats.totalAllowed,
+            totalBlocked: stats.totalBlocked,
+            allowedHistogram: stats.allowedHistogram.isEmpty ? [0] : stats.allowedHistogram,
+            blockedHistogram: stats.blockedHistogram.isEmpty ? [0] : stats.blockedHistogram,
+            toplist: [],
+            avgDayAllowed: stats.avgDayAllowed == 0 ? 1 : stats.avgDayAllowed,
+            avgDayBlocked: stats.avgDayBlocked == 0 ? 1 : stats.avgDayBlocked,
+            avgDayTotal: stats.avgDayTotal,
+            latestTimestamp: stats.latestTimestamp,
+          );
+          deviceStatsChangesCounter++;
         }
-
-        // Merge allowed and fallthrough entries
-        if (toplistAllowed != null || toplistFallthrough != null) {
-          convertedToplist.addAll(_mergeAllowedToplists(toplistAllowed, toplistFallthrough));
-        }
-
-        // Update stats with new toplist
-        stats = UiStats(
-          totalAllowed: stats.totalAllowed,
-          totalBlocked: stats.totalBlocked,
-          allowedHistogram: stats.allowedHistogram,
-          blockedHistogram: stats.blockedHistogram,
-          toplist: convertedToplist,
-          avgDayAllowed: stats.avgDayAllowed,
-          avgDayBlocked: stats.avgDayBlocked,
-          avgDayTotal: stats.avgDayTotal,
-          latestTimestamp: stats.latestTimestamp,
-        );
-        deviceStatsChangesCounter++;
-      } catch (e) {
-        log(m).w("Failed to fetch toplists: $e");
-      } finally {
-        toplistsLoading = false;
-      }
-    });
+      });
+    } finally {
+      toplistsLoading = false;
+    }
   }
 
   @action
