@@ -36,9 +36,11 @@ class JsonStats {
 
   JsonStats.fromJson(Map<String, dynamic> json) {
     metrics = <JsonMetrics>[];
-    json['metrics'].forEach((v) {
-      metrics.add(JsonMetrics.fromJson(v));
-    });
+    if (json['metrics'] != null) {
+      json['metrics'].forEach((v) {
+        metrics.add(JsonMetrics.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -57,9 +59,11 @@ class JsonMetrics {
   JsonMetrics.fromJson(Map<String, dynamic> json) {
     tags = JsonTags.fromJson(json['tags']);
     dps = <JsonDps>[];
-    json['dps'].forEach((v) {
-      dps.add(JsonDps.fromJson(v));
-    });
+    if (json['dps'] != null) {
+      json['dps'].forEach((v) {
+        dps.add(JsonDps.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -153,9 +157,11 @@ class JsonToplistV2Response {
   JsonToplistV2Response.fromJson(Map<String, dynamic> json) {
     try {
       toplist = <JsonToplistBucket>[];
-      json['toplist'].forEach((v) {
-        toplist.add(JsonToplistBucket.fromJson(v));
-      });
+      if (json['toplist'] != null) {
+        json['toplist'].forEach((v) {
+          toplist.add(JsonToplistBucket.fromJson(v));
+        });
+      }
       window = JsonWindow.fromJson(json['window']);
       level = json['level'];
       domain = json.containsKey('domain') ? json['domain'] : null;
@@ -187,9 +193,11 @@ class JsonToplistBucket {
     action = json['action'];
     parentCount = json.containsKey('parent_count') ? json['parent_count'] : null;
     entries = <JsonToplistEntry>[];
-    json['entries'].forEach((v) {
-      entries.add(JsonToplistEntry.fromJson(v));
-    });
+    if (json['entries'] != null) {
+      json['entries'].forEach((v) {
+        entries.add(JsonToplistEntry.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {

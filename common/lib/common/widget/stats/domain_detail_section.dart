@@ -242,15 +242,25 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             m: m,
           );
 
+          log(m).pair("blocked_buckets", response.toplist.length);
           for (var bucket in response.toplist) {
+            log(m).pair("blocked_bucket_action", bucket.action);
+            log(m).pair("blocked_bucket_parentCount", bucket.parentCount);
+            log(m).pair("blocked_bucket_entries", bucket.entries.length);
+
             // Extract parent count
             parentCount += bucket.parentCount ?? 0;
 
             for (var entry in bucket.entries) {
+              log(m).pair("blocked_entry_name", entry.name);
+              log(m).pair("blocked_entry_count", entry.count);
+              log(m).pair("blocked_entry_isRoot", entry.isRoot);
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = entry.count;
             }
           }
+          log(m).pair("blocked_final_parentCount", parentCount);
+          log(m).pair("blocked_final_subdomains", subdomains.length);
         } else {
           // Fetch both allowed and fallthrough, then merge
           final allowedResponse = await _statsApi.getToplistV2(
@@ -275,11 +285,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             m: m,
           );
 
+          log(m).pair("allowed_buckets", allowedResponse.toplist.length);
+          log(m).pair("fallthrough_buckets", fallthroughResponse.toplist.length);
+
           // Merge allowed entries and parent counts
           for (var bucket in allowedResponse.toplist) {
+            log(m).pair("allowed_bucket_action", bucket.action);
+            log(m).pair("allowed_bucket_parentCount", bucket.parentCount);
+            log(m).pair("allowed_bucket_entries", bucket.entries.length);
+
             parentCount += bucket.parentCount ?? 0;
 
             for (var entry in bucket.entries) {
+              log(m).pair("allowed_entry_name", entry.name);
+              log(m).pair("allowed_entry_count", entry.count);
+              log(m).pair("allowed_entry_isRoot", entry.isRoot);
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
             }
@@ -287,13 +307,23 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           // Merge fallthrough entries and parent counts
           for (var bucket in fallthroughResponse.toplist) {
+            log(m).pair("fallthrough_bucket_action", bucket.action);
+            log(m).pair("fallthrough_bucket_parentCount", bucket.parentCount);
+            log(m).pair("fallthrough_bucket_entries", bucket.entries.length);
+
             parentCount += bucket.parentCount ?? 0;
 
             for (var entry in bucket.entries) {
+              log(m).pair("fallthrough_entry_name", entry.name);
+              log(m).pair("fallthrough_entry_count", entry.count);
+              log(m).pair("fallthrough_entry_isRoot", entry.isRoot);
               if (entry.isRoot == true) continue;
               subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
             }
           }
+
+          log(m).pair("allowed_final_parentCount", parentCount);
+          log(m).pair("allowed_final_subdomains", subdomains.length);
         }
 
         // Convert merged entries to UiJournalEntry format and sort by count
