@@ -38,8 +38,8 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
         _wrapInDecor(
           context,
           TabItem(
-            icon: CupertinoIcons.chart_bar,
-            title: "main tab activity".i18n,
+            icon: CupertinoIcons.checkmark_shield,
+            title: "Privacy Pulse".i18n,
             active: false,
           ),
           onTap: () => _tap(StageTab.activity),
