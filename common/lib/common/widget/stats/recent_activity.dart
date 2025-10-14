@@ -24,12 +24,12 @@ class RecentActivityState extends State<RecentActivity> with Disposables {
 
   List<UiJournalEntry> get _blockedEntries {
     final entries = _journalEntries.now;
-    return entries.where((entry) => entry.isBlocked()).take(12).toList();
+    return entries.where((entry) => entry.isBlocked()).take(5).toList();
   }
 
   List<UiJournalEntry> get _allowedEntries {
     final entries = _journalEntries.now;
-    return entries.where((entry) => !entry.isBlocked()).take(12).toList();
+    return entries.where((entry) => !entry.isBlocked()).take(5).toList();
   }
 
   @override

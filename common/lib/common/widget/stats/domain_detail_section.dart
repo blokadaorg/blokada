@@ -539,13 +539,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             onLongPress: () {
               Clipboard.setData(ClipboardData(text: widget.entry.domainName));
             },
-            child: DomainNameText(
-              domain: widget.entry.domainName,
+            child: Text(
+              middleEllipsis(widget.entry.domainName),
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
                 color: context.theme.textPrimary,
               ),
+              overflow: TextOverflow.clip,
             ),
           ),
           const SizedBox(height: 8),
