@@ -9,12 +9,14 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/domain_name_text.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/api.dart' as stats_api;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DomainDetailSection extends StatefulWidget {
   final UiJournalMainEntry entry;
@@ -99,13 +101,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return subdomainName;
   }
 
+  /// Get only the first part of domain (before first dot)
+  /// Example: "www.apple.com" -> "www"
+  String _getFirstSubdomain(String domainName) {
+    final parts = domainName.split('.');
+    return parts.isNotEmpty ? parts[0] : domainName;
+  }
+
   String _getSubtitleText() {
     final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
+    final shortDomain = _getFirstSubdomain(widget.entry.domainName);
 
     // If fetchToplist is false, use widget.entry.requests directly
     if (!widget.fetchToplist) {
       final requests = widget.entry.requests;
-      String baseText = "$requests requests to ${widget.entry.domainName} were $actionText";
+      String baseText = "$requests requests to $shortDomain were $actionText";
 
       // Add blocklist info if domain was blocked and we have a listId
       if (widget.entry.action == UiJournalAction.block && widget.entry.listId != null && widget.entry.listId!.isNotEmpty) {
@@ -139,21 +149,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     if (mainRequests == 0 && subdomainRequests > 0) {
       // Only subdomains have requests
       baseText =
-          "$subdomainRequests requests to subdomains of ${widget.entry.domainName} were $actionText";
+          "$subdomainRequests requests to subdomains of $shortDomain were $actionText";
       // Use the first subdomain's listId if available
       listId = _allSubdomains.firstOrNull?.listId;
     } else if (mainRequests > 0 && subdomainRequests == 0) {
       // Only main domain has requests
-      baseText = "$mainRequests requests to ${widget.entry.domainName} were $actionText";
+      baseText = "$mainRequests requests to $shortDomain were $actionText";
       listId = widget.entry.listId;
     } else if (mainRequests > 0 && subdomainRequests > 0) {
       // Both have requests
       baseText =
-          "$mainRequests requests to ${widget.entry.domainName} were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
+          "$mainRequests requests to $shortDomain were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
       listId = widget.entry.listId;
     } else {
       // Neither has requests (shouldn't normally happen)
-      baseText = "No requests to ${widget.entry.domainName} or its subdomains";
+      baseText = "No requests to $shortDomain or its subdomains";
       return baseText;
     }
 
@@ -404,6 +414,48 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           _buildAddRuleCard(),
           const SizedBox(height: 16),
 
+          // When not fetching toplist (final level), show additional info sections
+          if (!widget.fetchToplist) ...[
+            // Filter/Blocklist info
+            if (widget.entry.action == UiJournalAction.block &&
+                widget.entry.listId != null &&
+                widget.entry.listId!.isNotEmpty)
+              _buildFilterInfoCard(),
+            if (widget.entry.action == UiJournalAction.block &&
+                widget.entry.listId != null &&
+                widget.entry.listId!.isNotEmpty)
+              const SizedBox(height: 16),
+
+            // Actions section header
+            Text(
+              "activity actions header".i18n,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: context.theme.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Actions card
+            _buildActionsCard(),
+            const SizedBox(height: 16),
+
+            // Information section header
+            Text(
+              "activity information header".i18n,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: context.theme.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Information card
+            _buildInformationCard(),
+          ],
+
           // Subdomains section (only show if fetchToplist is true)
           if (widget.fetchToplist) ...[
             // Subdomains section header
@@ -482,14 +534,18 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           ),
           const SizedBox(height: 16),
 
-          // Domain name
-          Text(
-            widget.entry.domainName,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-              color: context.theme.textPrimary,
+          // Domain name (long press to copy)
+          GestureDetector(
+            onLongPress: () {
+              Clipboard.setData(ClipboardData(text: widget.entry.domainName));
+            },
+            child: DomainNameText(
+              domain: widget.entry.domainName,
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w600,
+                color: context.theme.textPrimary,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -631,9 +687,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildSubdomainItem(UiJournalEntry subdomain) {
-    // Trim parent domain suffix from subdomain name for display
-    final displayName = _trimParentSuffix(subdomain.domainName);
-
     return CommonClickable(
       onTap: () {
         // Level 2: Navigate to level 3 (exact hosts)
@@ -674,12 +727,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         child: Row(
           children: [
             Expanded(
-              child: Text(
-                displayName,
+              child: DomainNameText(
+                domain: subdomain.domainName,
                 style: TextStyle(
                   fontSize: 16,
                   color: context.theme.textPrimary,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
@@ -693,6 +747,146 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildFilterInfoCard() {
+    final listId = widget.entry.listId;
+    if (listId == null || listId.isEmpty) return Container();
+
+    String filterName;
+    String filterLabel;
+
+    // Check if it's a user rule (short ID)
+    if (listId.length < 16) {
+      filterName = "Your custom rules";
+      filterLabel = "family stats label blocklist".i18n;
+    } else {
+      // Get the blocklist name
+      filterName = _filter.getFilterContainingList(listId);
+      filterLabel = "family stats label blocklist".i18n;
+    }
+
+    return CommonCard(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(
+              CupertinoIcons.shield_lefthalf_fill,
+              color: widget.entry.action == UiJournalAction.block
+                  ? Colors.red
+                  : Colors.green,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    filterLabel,
+                    style: TextStyle(
+                      color: context.theme.textSecondary,
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    filterName,
+                    style: TextStyle(
+                      color: context.theme.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionsCard() {
+    return CommonCard(
+      padding: EdgeInsets.zero,
+      child: CommonClickable(
+        onTap: () {
+          Clipboard.setData(ClipboardData(text: widget.entry.domainName));
+          // TODO: Maybe show a toast/snackbar confirming copy
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            children: [
+              Icon(
+                CupertinoIcons.doc_on_clipboard,
+                color: context.theme.textPrimary,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  "activity action copy to clipboard".i18n,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: context.theme.textPrimary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInformationCard() {
+    return CommonCard(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Domain name
+            _buildInfoRow(
+              label: "activity domain name".i18n,
+              value: widget.entry.domainName,
+            ),
+            const SizedBox(height: 12),
+            // Request count
+            _buildInfoRow(
+              label: "activity request count".i18n,
+              value: widget.entry.requests.toString(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow({required String label, required String value}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: context.theme.textSecondary,
+            fontSize: 12,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(
+            color: context.theme.textPrimary,
+            fontSize: 16,
+          ),
+        ),
+      ],
     );
   }
 }

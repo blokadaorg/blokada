@@ -3,6 +3,7 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/domain_name_text.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -169,8 +170,8 @@ class RecentActivityState extends State<RecentActivity> with Disposables {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    middleEllipsis(entry.domainName),
+                  DomainNameText(
+                    domain: entry.domainName,
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textPrimary,

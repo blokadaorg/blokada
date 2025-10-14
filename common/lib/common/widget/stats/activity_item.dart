@@ -1,6 +1,7 @@
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_clickable.dart';
+import 'package:common/common/widget/domain_name_text.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,8 +45,11 @@ class ActivityItemState extends State<ActivityItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(middleEllipsis(widget.entry.domainName),
-                      style: const TextStyle(fontSize: 18), overflow: TextOverflow.clip),
+                  DomainNameText(
+                    domain: widget.entry.domainName,
+                    style: const TextStyle(fontSize: 18),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   Text(
                     widget.entry.timestampText,
                     style: TextStyle(color: context.theme.textSecondary, fontSize: 12),

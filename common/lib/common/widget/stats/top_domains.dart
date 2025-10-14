@@ -3,6 +3,7 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/common_divider.dart';
+import 'package:common/common/widget/domain_name_text.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
@@ -154,12 +155,13 @@ class TopDomainsState extends State<TopDomains> {
         child: Row(
           children: [
             Expanded(
-              child: Text(
-                domainName,
+              child: DomainNameText(
+                domain: domainName,
                 style: TextStyle(
                   fontSize: 16,
                   color: context.theme.textPrimary,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
