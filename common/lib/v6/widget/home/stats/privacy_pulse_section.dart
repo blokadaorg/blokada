@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
 import '../../../../common/widget/stats/privacy_pulse.dart';
+import '../../../../common/widget/stats/recent_activity.dart';
 import '../../../../common/widget/stats/top_domains.dart';
 
 class PrivacyPulseSection extends StatefulWidget {
@@ -83,9 +84,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                     children: [
                       SizedBox(height: getTopPadding(context)),
                       MiniCard(
-                        onTap: () {
-                          Navigation.open(Paths.activity);
-                        },
                         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -94,6 +92,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                       ),
                       const SizedBox(height: 12),
                       TopDomains(),
+                      const SizedBox(height: 12),
+                      RecentActivity(),
                       const SizedBox(height: 60),
                     ],
                   ),
