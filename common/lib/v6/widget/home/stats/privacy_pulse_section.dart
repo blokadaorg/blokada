@@ -13,6 +13,7 @@ import 'package:mobx/mobx.dart' as mobx;
 import '../../../../common/widget/stats/privacy_pulse.dart';
 import '../../../../common/widget/stats/recent_activity.dart';
 import '../../../../common/widget/stats/top_domains.dart';
+import '../../../../common/widget/stats/totalcounter.dart';
 
 class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
@@ -94,6 +95,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                       RecentActivity(),
                       const SizedBox(height: 12),
                       TopDomains(),
+                      const SizedBox(height: 48),
+                      TotalCounter(stats: stats),
                       const SizedBox(height: 60),
                     ],
                   ),
