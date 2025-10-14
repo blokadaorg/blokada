@@ -5,6 +5,7 @@ import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:mobx/mobx.dart';
+import 'package:meta/meta.dart';
 
 import 'api.dart' as api;
 
@@ -208,78 +209,29 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     });
   }
 
+  @visibleForTesting
+  UiStats convertStatsForTesting(
+    api.JsonStatsEndpoint stats,
+    api.JsonStatsEndpoint oneWeek, {
+    api.JsonToplistV2Response? toplistAllowed,
+    api.JsonToplistV2Response? toplistBlocked,
+    UiStats? previousStats,
+  }) {
+    return _convertStats(
+      stats,
+      oneWeek,
+      toplistAllowed: toplistAllowed,
+      toplistBlocked: toplistBlocked,
+      previousStats: previousStats,
+    );
+  }
+
   UiStats _convertStats(
       api.JsonStatsEndpoint stats, api.JsonStatsEndpoint oneWeek,
       {api.JsonToplistV2Response? toplistAllowed,
       api.JsonToplistV2Response? toplistBlocked,
       UiStats? previousStats}) {
-    int now = DateTime.now().millisecondsSinceEpoch;
-    now = now ~/ 1000; // Drop microseconds
-    now = now - now % 3600; // Round down to the nearest hour
-
-    //final rng = Random();
-    //List<int> allowedHistogram = List.filled(24, rng.nextInt(500));
-    List<int> allowedHistogram = List.filled(24, 0);
-    List<int> blockedHistogram = List.filled(24, 0);
-    int latestTimestamp = 0;
-
-    for (var metric in stats.stats.metrics) {
-      final action = metric.tags.action;
-      final isAllowed = action == "fallthrough" || action == "allowed";
-      metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-      for (var d in metric.dps) {
-        final diffHours = ((now - d.timestamp) ~/ 3600);
-        final hourIndex = 24 - diffHours - 1;
-
-        if (hourIndex < 0) continue;
-        if (latestTimestamp < d.timestamp * 1000) {
-          latestTimestamp = d.timestamp * 1000;
-        }
-
-        if (isAllowed) {
-          allowedHistogram[hourIndex] = d.value.round();
-        } else {
-          blockedHistogram[hourIndex] = d.value.round();
-        }
-      }
-    }
-
-    // Also parse the weekly sample to get the average
-    var avgDayAllowed = 0;
-    var avgDayBlocked = 0;
-    for (var metric in oneWeek.stats.metrics) {
-      final action = metric.tags.action;
-      final isAllowed = action == "fallthrough" || action == "allowed";
-      metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-      final histogram = metric.dps.map((d) => d.value.round()).toList();
-
-      // Get previous week if available
-      if (histogram.length >= 2) {
-        if (isAllowed) {
-          avgDayAllowed = (histogram
-                      .sublist(0, histogram.length - 1)
-                      .reduce((a, b) => a + b) /
-                  (histogram.length - 1))
-              .round();
-          avgDayAllowed *= 2;
-        } else {
-          avgDayBlocked = (histogram
-                      .sublist(0, histogram.length - 1)
-                      .reduce((a, b) => a + b) /
-                  (histogram.length - 1))
-              .round();
-          avgDayBlocked *= 2;
-        }
-      }
-    }
-
-    // Calculate last week's average based on this week (no data)
-    if (avgDayAllowed == 0) {
-      avgDayAllowed = allowedHistogram.reduce((a, b) => a + b) * 24 * 2;
-    }
-    if (avgDayBlocked == 0) {
-      avgDayBlocked = blockedHistogram.reduce((a, b) => a + b) * 24 * 2;
-    }
+    final result = computeStatsBaselines(stats, oneWeek);
 
     List<UiToplistEntry> convertedToplist = [];
     if (toplistAllowed != null || toplistBlocked != null) {
@@ -294,15 +246,16 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     }
 
     return UiStats(
-        totalAllowed: int.parse(stats.totalAllowed),
-        totalBlocked: int.parse(stats.totalBlocked),
-        allowedHistogram: allowedHistogram,
-        blockedHistogram: blockedHistogram,
-        toplist: convertedToplist,
-        avgDayAllowed: avgDayAllowed,
-        avgDayBlocked: avgDayBlocked,
-        avgDayTotal: avgDayAllowed + avgDayBlocked,
-        latestTimestamp: latestTimestamp);
+      totalAllowed: result.totalAllowed,
+      totalBlocked: result.totalBlocked,
+      allowedHistogram: result.allowedHistogram,
+      blockedHistogram: result.blockedHistogram,
+      toplist: convertedToplist,
+      avgDayAllowed: result.avgDayAllowed,
+      avgDayBlocked: result.avgDayBlocked,
+      avgDayTotal: result.avgDayTotal,
+      latestTimestamp: result.latestTimestamp,
+    );
   }
 
   List<UiToplistEntry> _convertToplistV2(api.JsonToplistV2Response response) {
@@ -359,4 +312,126 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
     return result;
   }
+}
+
+class StatsComputationResult {
+  StatsComputationResult({
+    required this.totalAllowed,
+    required this.totalBlocked,
+    required this.allowedHistogram,
+    required this.blockedHistogram,
+    required this.avgDayAllowed,
+    required this.avgDayBlocked,
+    required this.avgDayTotal,
+    required this.latestTimestamp,
+  });
+
+  final int totalAllowed;
+  final int totalBlocked;
+  final List<int> allowedHistogram;
+  final List<int> blockedHistogram;
+  final int avgDayAllowed;
+  final int avgDayBlocked;
+  final int avgDayTotal;
+  final int latestTimestamp;
+}
+
+StatsComputationResult computeStatsBaselines(
+    api.JsonStatsEndpoint stats, api.JsonStatsEndpoint oneWeek,
+    {DateTime? referenceTime}) {
+  int now =
+      (referenceTime ?? DateTime.now()).millisecondsSinceEpoch;
+  now = now ~/ 1000; // Drop microseconds
+  now = now - now % 3600; // Round down to the nearest hour
+
+  final allowedHistogram = List<int>.filled(24, 0);
+  final blockedHistogram = List<int>.filled(24, 0);
+  int latestTimestamp = 0;
+
+  for (var metric in stats.stats.metrics) {
+    final action = metric.tags.action;
+    final isAllowed = action == "fallthrough" || action == "allowed";
+    metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    for (var d in metric.dps) {
+      final diffHours = ((now - d.timestamp) ~/ 3600);
+      final hourIndex = 24 - diffHours - 1;
+
+      if (hourIndex < 0) continue;
+      if (latestTimestamp < d.timestamp * 1000) {
+        latestTimestamp = d.timestamp * 1000;
+      }
+
+      final rounded = d.value.round();
+      if (isAllowed) {
+        allowedHistogram[hourIndex] += rounded;
+      } else {
+        blockedHistogram[hourIndex] += rounded;
+      }
+    }
+  }
+
+  final allowedDailyTotals = <int, int>{};
+  final blockedDailyTotals = <int, int>{};
+
+  void addDailyTotals(Map<int, int> target, List<api.JsonDps> dps) {
+    for (var point in dps) {
+      final timestamp = point.timestamp;
+      final value = point.value.round();
+      target[timestamp] = (target[timestamp] ?? 0) + value;
+    }
+  }
+
+  for (var metric in oneWeek.stats.metrics) {
+    final action = metric.tags.action;
+    final isAllowed = action == "fallthrough" || action == "allowed";
+    metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    if (metric.dps.isEmpty) continue;
+
+    if (isAllowed) {
+      addDailyTotals(allowedDailyTotals, metric.dps);
+    } else {
+      addDailyTotals(blockedDailyTotals, metric.dps);
+    }
+  }
+
+  int fallbackFromHistogram(List<int> histogram) {
+    final fallbackSum = histogram.fold<int>(0, (a, b) => a + b);
+    return fallbackSum * 24 * 2;
+  }
+
+  int calculateAverage(Map<int, int> totals, List<int> fallbackHistogram) {
+    if (totals.isEmpty) {
+      return fallbackFromHistogram(fallbackHistogram);
+    }
+
+    final sortedTotals = totals.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
+
+    if (sortedTotals.length <= 1) {
+      return fallbackFromHistogram(fallbackHistogram);
+    }
+
+    final previousEntries = sortedTotals.sublist(0, sortedTotals.length - 1);
+    final previousValues = previousEntries.map((e) => e.value);
+    final sum = previousValues.fold<int>(0, (a, b) => a + b);
+    if (sum == 0) {
+      return fallbackFromHistogram(fallbackHistogram);
+    }
+    final avg = (sum / previousEntries.length).round();
+    return avg * 2;
+  }
+
+  final avgDayAllowed = calculateAverage(allowedDailyTotals, allowedHistogram);
+  final avgDayBlocked = calculateAverage(blockedDailyTotals, blockedHistogram);
+
+  return StatsComputationResult(
+    totalAllowed: int.parse(stats.totalAllowed),
+    totalBlocked: int.parse(stats.totalBlocked),
+    allowedHistogram: allowedHistogram,
+    blockedHistogram: blockedHistogram,
+    avgDayAllowed: avgDayAllowed,
+    avgDayBlocked: avgDayBlocked,
+    avgDayTotal: avgDayAllowed + avgDayBlocked,
+    latestTimestamp: latestTimestamp,
+  );
 }

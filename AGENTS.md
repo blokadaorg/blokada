@@ -17,3 +17,9 @@ Makefiles are tab indented, so be careful when editing them.
 
 `make test` runs the Flutter tests located in `common/`. These require the
 Flutter dependencies to be available locally.
+
+In sandboxed environments where network trust stores cannot be modified, prefer
+running `make -C common test`. The top-level `make test` target invokes
+`fvm flutter pub get` before testing, which attempts to update dependencies and
+can fail with `CERTIFICATE_VERIFY_FAILED` when the sandbox blocks certificate
+installation.
