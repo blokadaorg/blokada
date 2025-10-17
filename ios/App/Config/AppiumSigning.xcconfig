@@ -1,0 +1,3 @@
+// Appium-specific signing settings so WebDriverAgent builds with the project team.
+DEVELOPMENT_TEAM = HQH5AFGB68
+CODE_SIGN_IDENTITY = Apple Development

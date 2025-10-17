@@ -13,3 +13,9 @@ blokada-appstore.json
 *.local.json
 !.claude/
 !.claude/settings.json
+
+# Appium / WDIO artifacts
+automation/appium/output/
+automation/appium/wdio/node_modules/
+automation/appium/wdio/.npmrc
+!.appiumrc.yaml
