@@ -30,10 +30,6 @@ android {
         jvmToolchain 17
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
 
     buildFeatures {
         buildConfig = true
@@ -143,6 +139,10 @@ android {
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
         beta.res.srcDirs += 'src/translations/res'
+    }
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
     }
 }
 
