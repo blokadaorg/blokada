@@ -18,6 +18,27 @@ class CustomListEntry {
   int get hashCode => domainName.hashCode ^ wildcard.hashCode;
 }
 
+/// Represents a customlist rule that is relevant to a given domain
+/// Includes metadata about how the rule matches (exact or parent wildcard)
+class RelevantCustomlistRule {
+  final String domain;
+  final JsonCustomListAction action;
+  final bool wildcard;
+  final String matchType; // 'exact' or 'parent'
+  final int level; // 0 for exact, 1+ for parent levels up
+
+  RelevantCustomlistRule({
+    required this.domain,
+    required this.action,
+    required this.wildcard,
+    required this.matchType,
+    required this.level,
+  });
+
+  bool get isExact => matchType == 'exact';
+  bool get isParent => matchType == 'parent';
+}
+
 class CustomLists {
   final List<CustomListEntry> denied;
   final List<CustomListEntry> allowed;
@@ -172,5 +193,112 @@ class CustomlistActor with Actor, Logging {
     }
     // Check if domain exists with any wildcard value
     return denied.any((e) => e.domainName == domain);
+  }
+
+  /// Get all customlist rules that are relevant for a given domain
+  /// This includes exact matches and parent wildcard rules
+  ///
+  /// Example: for "ads.www.apple.com", this returns rules for:
+  /// - "ads.www.apple.com" (exact, level 0)
+  /// - "www.apple.com" (parent wildcard, level 1)
+  /// - "apple.com" (parent wildcard, level 2)
+  ///
+  /// Rules are sorted by specificity: exact first, then by level (closer parents first)
+  List<RelevantCustomlistRule> getRelevantRulesForDomain(String domain) {
+    final rules = <RelevantCustomlistRule>[];
+
+    // Check exact match (both wildcard=false and wildcard=true for exact domain)
+    final exactAllowedNonWildcard = _payload.now.allowed
+        .where((e) => e.domainName == domain && !e.wildcard);
+    final exactBlockedNonWildcard = _payload.now.denied
+        .where((e) => e.domainName == domain && !e.wildcard);
+
+    final exactAllowedWildcard = _payload.now.allowed
+        .where((e) => e.domainName == domain && e.wildcard);
+    final exactBlockedWildcard = _payload.now.denied
+        .where((e) => e.domainName == domain && e.wildcard);
+
+    // Add non-wildcard exact matches
+    for (var entry in exactAllowedNonWildcard) {
+      rules.add(RelevantCustomlistRule(
+        domain: entry.domainName,
+        action: JsonCustomListAction.allow,
+        wildcard: entry.wildcard,
+        matchType: 'exact',
+        level: 0,
+      ));
+    }
+
+    for (var entry in exactBlockedNonWildcard) {
+      rules.add(RelevantCustomlistRule(
+        domain: entry.domainName,
+        action: JsonCustomListAction.block,
+        wildcard: entry.wildcard,
+        matchType: 'exact',
+        level: 0,
+      ));
+    }
+
+    // Add wildcard exact matches
+    for (var entry in exactAllowedWildcard) {
+      rules.add(RelevantCustomlistRule(
+        domain: entry.domainName,
+        action: JsonCustomListAction.allow,
+        wildcard: entry.wildcard,
+        matchType: 'exact',
+        level: 0,
+      ));
+    }
+
+    for (var entry in exactBlockedWildcard) {
+      rules.add(RelevantCustomlistRule(
+        domain: entry.domainName,
+        action: JsonCustomListAction.block,
+        wildcard: entry.wildcard,
+        matchType: 'exact',
+        level: 0,
+      ));
+    }
+
+    // Check parent domains (only wildcards apply to subdomains)
+    final parts = domain.split('.');
+    for (int i = 1; i < parts.length; i++) {
+      final parentDomain = parts.sublist(i).join('.');
+
+      // Only wildcard rules on parent domains affect subdomains
+      final parentAllowedWildcard = _payload.now.allowed
+          .where((e) => e.domainName == parentDomain && e.wildcard);
+      final parentBlockedWildcard = _payload.now.denied
+          .where((e) => e.domainName == parentDomain && e.wildcard);
+
+      for (var entry in parentAllowedWildcard) {
+        rules.add(RelevantCustomlistRule(
+          domain: entry.domainName,
+          action: JsonCustomListAction.allow,
+          wildcard: entry.wildcard,
+          matchType: 'parent',
+          level: i,
+        ));
+      }
+
+      for (var entry in parentBlockedWildcard) {
+        rules.add(RelevantCustomlistRule(
+          domain: entry.domainName,
+          action: JsonCustomListAction.block,
+          wildcard: entry.wildcard,
+          matchType: 'parent',
+          level: i,
+        ));
+      }
+    }
+
+    // Sort: exact first, then by level (closer parents first)
+    rules.sort((a, b) {
+      if (a.matchType == 'exact' && b.matchType != 'exact') return -1;
+      if (a.matchType != 'exact' && b.matchType == 'exact') return 1;
+      return a.level.compareTo(b.level);
+    });
+
+    return rules;
   }
 }

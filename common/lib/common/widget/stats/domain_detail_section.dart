@@ -79,12 +79,16 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return domain; // Return as-is if already a TLD
   }
 
-  /// Check if domain has an existing rule in customlists
-  /// Check both allowed and blocked lists, with any wildcard value
-  bool _hasExistingRule() {
-    final domain = widget.entry.domainName;
-    // Check if domain exists in customlists with any wildcard value
-    return _customlist.isInAllowedList(domain) || _customlist.isInBlockedList(domain);
+  /// Get all relevant rules for the current domain
+  /// This includes exact matches and parent wildcard rules
+  List<RelevantCustomlistRule> _getRelevantRules() {
+    return _customlist.getRelevantRulesForDomain(widget.entry.domainName);
+  }
+
+  /// Check if domain has an exact rule (not just parent wildcards)
+  bool _hasExactRule() {
+    final rules = _getRelevantRules();
+    return rules.any((r) => r.isExact);
   }
 
   /// Trim parent domain suffix from subdomain name for display
@@ -410,8 +414,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           _buildHeader(),
           const SizedBox(height: 32),
 
-          // Add Rule card
-          _buildAddRuleCard(),
+          // Rules section (shows all relevant rules)
+          _buildRulesSection(),
           const SizedBox(height: 16),
 
           // When not fetching toplist (final level), show additional info sections
@@ -599,9 +603,46 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     );
   }
 
-  Widget _buildAddRuleCard() {
-    final hasRule = _hasExistingRule();
+  Widget _buildRulesSection() {
+    final relevantRules = _getRelevantRules();
+    final hasExactRule = _hasExactRule();
 
+    if (relevantRules.isEmpty) {
+      // Simple add button when no rules exist
+      return _buildSimpleAddButton();
+    }
+
+    // Show rules card with list
+    return CommonCard(
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          // Header
+          if (relevantRules.length > 1 || !hasExactRule) _buildRulesHeader(),
+
+          // List of relevant rules
+          ...relevantRules.asMap().entries.map((entry) {
+            final index = entry.key;
+            final rule = entry.value;
+            return Column(
+              children: [
+                if (index > 0) const CommonDivider(),
+                _buildRuleItem(rule),
+              ],
+            );
+          }),
+
+          // Add button if no exact rule
+          if (!hasExactRule) ...[
+            const CommonDivider(),
+            _buildAddRuleButton(hasParentRules: true),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSimpleAddButton() {
     return CommonCard(
       child: CommonClickable(
         onTap: () {
@@ -616,27 +657,185 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
+              Icon(
+                CupertinoIcons.plus_circle,
+                color: context.theme.textPrimary,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  hasRule ? "Edit Rule" : "Add Rule",
-                  textAlign: TextAlign.center,
+                  "Add rule for ${_getFirstSubdomain(widget.entry.domainName)}",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: context.theme.textPrimary,
                   ),
                 ),
               ),
-              Icon(
-                CupertinoIcons.chevron_right,
-                color: context.theme.textSecondary,
-                size: 18,
-              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRulesHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      child: Row(
+        children: [
+          Text(
+            "Rules affecting this domain",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.theme.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRuleItem(RelevantCustomlistRule rule) {
+    final isExact = rule.isExact;
+    final actionText = rule.action == JsonCustomListAction.block ? 'Blocked' : 'Allowed';
+    final actionColor = rule.action == JsonCustomListAction.block ? Colors.red : Colors.green;
+    final wildcardSuffix = rule.wildcard ? ' (applies to all subdomains)' : '';
+
+    return CommonClickable(
+      onTap: () {
+        if (isExact) {
+          // Open edit dialog for exact rule
+          showActivityRuleDialog(
+            context,
+            domainName: widget.entry.domainName,
+            action: widget.entry.action,
+            customlistActor: _customlist,
+            onSelected: (option) {
+              // TODO: Implement rule action based on selected option
+            },
+          );
+        } else {
+          // For parent rules, navigate to that domain's detail view
+          final parentMainEntry = UiJournalMainEntry(
+            domainName: rule.domain,
+            requests: 0,
+            action: widget.entry.action,
+            listId: "",
+          );
+
+          Navigation.open(Paths.deviceStatsDetail, arguments: {
+            'mainEntry': parentMainEntry,
+            'level': 2,
+            'domain': rule.domain,
+          });
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Row(
+          children: [
+            Icon(
+              isExact ? CupertinoIcons.checkmark_shield : CupertinoIcons.shield,
+              color: actionColor,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    rule.domain,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: isExact ? FontWeight.w600 : FontWeight.normal,
+                      color: context.theme.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    isExact
+                      ? '$actionText$wildcardSuffix • Tap to edit'
+                      : '$actionText • Applies to all subdomains',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: context.theme.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              CupertinoIcons.chevron_right,
+              color: context.theme.textSecondary,
+              size: 18,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddRuleButton({required bool hasParentRules}) {
+    return CommonClickable(
+      onTap: () {
+        showActivityRuleDialog(
+          context,
+          domainName: widget.entry.domainName,
+          action: widget.entry.action,
+          customlistActor: _customlist,
+          onSelected: (option) {
+            // TODO: Implement rule action based on selected option
+          },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Row(
+          children: [
+            Icon(
+              CupertinoIcons.plus_circle,
+              color: context.theme.textPrimary,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Add rule for ${_getFirstSubdomain(widget.entry.domainName)}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: context.theme.textPrimary,
+                    ),
+                  ),
+                  if (hasParentRules) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      "This will override parent rules",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: context.theme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            Icon(
+              CupertinoIcons.chevron_right,
+              color: context.theme.textSecondary,
+              size: 18,
+            ),
+          ],
         ),
       ),
     );
