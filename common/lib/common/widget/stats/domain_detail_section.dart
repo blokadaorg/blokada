@@ -494,7 +494,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             borderRadius: BorderRadius.circular(16),
             child: CachedNetworkImage(
               imageUrl:
-                  'https://www.google.com/s2/favicons?domain=${_getTldDomain(widget.entry.domainName)}&sz=128',
+                  'https://cloud.blokada.org/favicons?domain=${_getTldDomain(widget.entry.domainName)}',
               width: 80,
               height: 80,
               fit: BoxFit.contain,
