@@ -95,7 +95,12 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
               ?.firstWhereOrNull((it) => it.filterName == filter.filterName)
               ?.options ??
           [];
-      filters.add(_buildFilter(context, filter, selected, color: color));
+      try {
+        filters.add(_buildFilter(context, filter, selected, color: color));
+      } catch (e) {
+        print("ERROR: Unknown filter from API: '${filter.filterName}' - skipping. Add FilterDecor entry to filter_decor_defaults.dart");
+        // Continue processing other filters instead of crashing
+      }
     }
     return filters;
   }

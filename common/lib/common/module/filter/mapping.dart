@@ -159,7 +159,7 @@ final _v6Android = [
   Filter("urlhaus", [
     Option("standard", FilterAction.list, ["urlhaus/standard"]),
   ]),
-  Filter("nhosts", [
+  Filter("1hosts", [
     Option("lite", FilterAction.list, ["1hosts/lite (wildcards)"]),
     Option("pro", FilterAction.list, ["1hosts/pro (wildcards)"]),
   ]),
