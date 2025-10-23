@@ -33,6 +33,7 @@ ADAPTY_VER := 3_8.0
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
+	appium-test \
 
 translate:
 	$(TRANSLATE_SCRIPT)
@@ -87,6 +88,30 @@ build-ios-six:
 build-ios-six-debug:
 	$(MAKE) -C common/ build-ios
 	$(MAKE) -C ios/ build-six-debug
+
+
+# Run WebdriverIO Appium tests against a connected iOS device
+appium-test:
+	@set -euo pipefail; \
+	cd automation/appium/wdio && \
+	npm install >/dev/null 2>&1 && \
+	if ! command -v appium >/dev/null 2>&1; then \
+		echo "Appium CLI not found. Install with 'npm install -g appium'."; \
+		exit 1; \
+	fi; \
+	node scripts/check-driver.mjs; \
+	UDID=$${IOS_UDID:-$$(IOS_AUTO_SELECT_FIRST=1 node scripts/select-device.mjs)} && \
+	DEVICE_NAME=$${IOS_DEVICE_NAME:-$$(xcrun devicectl -q list devices --json-output /dev/stdout 2>/dev/null | jq -r ".result.devices[] | select(.hardwareProperties.udid == \"$$UDID\") | .deviceProperties.name" | head -n 1 2>/dev/null)} && \
+	export IOS_AUTO_SELECT_FIRST=1; \
+	export IOS_UDID="$$UDID"; \
+	if [ -n "$$DEVICE_NAME" ]; then \
+		export IOS_DEVICE_NAME="$$DEVICE_NAME"; \
+	fi; \
+	if [ -n "$${APP_BUNDLE_ID:-}" ]; then \
+		export APP_BUNDLE_ID="$${APP_BUNDLE_ID}"; \
+	fi; \
+	$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$UDID" IOS_DEVICE_NAME="$$DEVICE_NAME"; \
+	npx wdio run wdio.conf.ts
 
 
 # Set version in proper files for all apps (use NAME and CODE params, or env vars)

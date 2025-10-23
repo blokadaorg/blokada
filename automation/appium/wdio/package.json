@@ -1,0 +1,28 @@
+{
+  "name": "@blokada/wdio-tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "wdio": "wdio run wdio.conf.ts",
+    "test": "npm run wdio",
+    "lint": "echo \"No lint configured\""
+  },
+  "dependencies": {
+    "@wdio/appium-service": "^9.20.0",
+    "@wdio/cli": "^9.0.5",
+    "@wdio/globals": "^9.17.0",
+    "@wdio/local-runner": "^9.20.0",
+    "@wdio/mocha-framework": "^9.20.0",
+    "@wdio/spec-reporter": "^9.20.0",
+    "webdriverio": "^9.0.5"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.2",
+    "@types/node": "^20.11.30",
+    "chai": "^6.2.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.5"
+  }
+}

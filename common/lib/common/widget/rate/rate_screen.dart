@@ -1,3 +1,4 @@
+import 'package:common/common/automation/ids.dart';
 import 'package:common/common/module/rate/rate.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
@@ -97,131 +98,126 @@ class _RateScreenState extends State<RateScreen>
       child: BlurBackground(
         key: bgStateKey,
         onClosed: _close,
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: maxContentWidth),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Spacer(),
-                const SizedBox(height: 50),
-                Image.asset(
-                  Core.act.isFamily
-                      ? "assets/images/family-logo.png"
-                      : "assets/images/blokada_logo.png",
-                  fit: BoxFit.contain,
-                  width: 128,
-                  height: 128,
-                  // color: Colors.white.withOpacity(0.8),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  "main rate us header".i18n,
-                  style: const TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  "main rate us description".i18n,
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RateStar(
-                      full: _rating >= 1,
-                      onTap: () => setState(() => _rating = 1),
-                    ),
-                    RateStar(
-                      full: _rating >= 2,
-                      onTap: () => setState(() => _rating = 2),
-                    ),
-                    RateStar(
-                      full: _rating >= 3,
-                      onTap: () => setState(() => _rating = 3),
-                    ),
-                    RateStar(
-                      full: _rating >= 4,
-                      onTap: () => setState(() => _rating = 4),
-                    ),
-                    RateStar(
-                      full: _rating >= 5,
-                      onTap: () => setState(() => _rating = 5),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 80),
-                AnimatedOpacity(
-                  opacity: _rating > 0 ? 1.0 : 0.0,
-                  duration: _duration,
-                  child: Column(
-                    children: [
-                      AnimatedOpacity(
-                        opacity: _rating >= 4 ? 1.0 : 0.0,
-                        duration: _duration,
-                        child: Text(
-                          "main rate us on app store".i18n,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      MiniCard(
-                        onTap: () {
-                          _showPlatformDialog = true;
-                          bgStateKey.currentState?.animateToClose();
-                        },
-                        color: theme.accent,
-                        child: SizedBox(
-                          width: 200,
-                          child: Text(
-                              _rating >= 4
-                                  ? "main rate us action sure".i18n
-                                  : "universal action continue".i18n,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                AnimatedOpacity(
-                  opacity: _rating > 0 && _rating < 4 ? 0.0 : 1.0,
-                  duration: _duration,
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          bgStateKey.currentState?.animateToClose();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 64),
-                          child: Text(
-                            "universal action cancel".i18n,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+        child: Semantics(
+          identifier: AutomationIds.rateModal,
+          container: true,
+          explicitChildNodes: true,
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: maxContentWidth),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: _buildRateBody(theme),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildRateBody(BlokadaTheme theme) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Spacer(),
+        const SizedBox(height: 50),
+        Image.asset(
+          Core.act.isFamily
+              ? "assets/images/family-logo.png"
+              : "assets/images/blokada_logo.png",
+          fit: BoxFit.contain,
+          width: 128,
+          height: 128,
+        ),
+        const SizedBox(height: 30),
+        Text(
+          "main rate us header".i18n,
+          style: const TextStyle(
+              fontSize: 36, fontWeight: FontWeight.w900, color: Colors.white),
+        ),
+        const SizedBox(height: 30),
+        Text(
+          "main rate us description".i18n,
+          textAlign: TextAlign.start,
+          style: const TextStyle(fontSize: 16, color: Colors.white),
+        ),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RateStar(full: _rating >= 1, onTap: () => setState(() => _rating = 1)),
+            RateStar(full: _rating >= 2, onTap: () => setState(() => _rating = 2)),
+            RateStar(full: _rating >= 3, onTap: () => setState(() => _rating = 3)),
+            RateStar(full: _rating >= 4, onTap: () => setState(() => _rating = 4)),
+            RateStar(full: _rating >= 5, onTap: () => setState(() => _rating = 5)),
+          ],
+        ),
+        const SizedBox(height: 80),
+        AnimatedOpacity(
+          opacity: _rating > 0 ? 1.0 : 0.0,
+          duration: _duration,
+          child: Column(
+            children: [
+              AnimatedOpacity(
+                opacity: _rating >= 4 ? 1.0 : 0.0,
+                duration: _duration,
+                child: Text(
+                  "main rate us on app store".i18n,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 20),
+              MiniCard(
+                onTap: () {
+                  _showPlatformDialog = true;
+                  bgStateKey.currentState?.animateToClose();
+                },
+                color: theme.accent,
+                child: SizedBox(
+                  width: 200,
+                  child: Text(
+                    _rating >= 4
+                        ? "main rate us action sure".i18n
+                        : "universal action continue".i18n,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        AnimatedOpacity(
+          opacity: _rating > 0 && _rating < 4 ? 0.0 : 1.0,
+          duration: _duration,
+          child: Row(
+            children: [
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  bgStateKey.currentState?.animateToClose();
+                },
+                child: Semantics(
+                  identifier: AutomationIds.rateDismiss,
+                  button: true,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 40, vertical: 64),
+                    child: Text(
+                      "universal action cancel".i18n,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
