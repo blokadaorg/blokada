@@ -77,22 +77,44 @@ class TopDomainsState extends State<TopDomains> {
                         children: {
                           ToplistTab.blocked: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Text(
-                              "Blocked",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.xmark_shield_fill,
+                                  color: Colors.red,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "Blocked",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           ToplistTab.allowed: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Text(
-                              "Allowed",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.checkmark_shield_fill,
+                                  color: Colors.green,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "Allowed",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         },
