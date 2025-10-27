@@ -56,7 +56,13 @@ class PlusActor with Logging, Actor {
       });
 
       await _gateway.fetch(m);
-      await _gateway.load(m);
+      try {
+        await _gateway.load(m);
+      } on Exception catch (e) {
+        log(m).w("current gateway unknown, setting to null");
+        log(m).w("gateway returned: $e");
+        // Gateway will be null, which triggers reactToPlusLost via onChange listener
+      }
 
       if (_account.type == AccountType.plus) {
         await _lease.fetch(m);
