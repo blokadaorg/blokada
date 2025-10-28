@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/core/core.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,6 +18,7 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _scheduler = Core.get<Scheduler>();
   late final _account = Core.get<AccountStore>();
+  late final _journal = Core.get<JournalActor>();
 
   StatsRefreshStoreBase() {
     _stage.addOnValue(routeChanged, onRouteChanged);
@@ -63,8 +65,10 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
         }
       }
     } else {
-      // V6 app - stats refresh without toplists
+      // V6 app - refresh stats, journal (recent activity), and toplists
       await _stats.fetch(m);
+      await _journal.fetch(m, tag: null);
+      await _stats.fetchToplists(m);
     }
 
     _lastRefresh = DateTime.now();

@@ -94,6 +94,13 @@ abstract class StatsStoreBase with Store, Logging, Actor {
           final accountId = await _accountId.fetch(m);
           final deviceName = _device.deviceAlias;
 
+          // Guard: Don't fetch if deviceAlias is not set yet
+          if (deviceName.isEmpty) {
+            log(m).w("deviceAlias not set yet, skipping toplist fetch");
+            toplistsLoading = false;
+            return;
+          }
+
           // Fetch blocked entries
           final toplistBlocked = await _api.getToplistV2(
             accountId: accountId,

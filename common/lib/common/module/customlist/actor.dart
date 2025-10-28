@@ -292,10 +292,10 @@ class CustomlistActor with Actor, Logging {
       }
     }
 
-    // Sort: exact first, then by level (closer parents first)
+    // Sort: parent wildcard first, then exact rules, ordered by level (closer parents first)
     rules.sort((a, b) {
-      if (a.matchType == 'exact' && b.matchType != 'exact') return -1;
-      if (a.matchType != 'exact' && b.matchType == 'exact') return 1;
+      if (a.matchType == 'exact' && b.matchType != 'exact') return 1;
+      if (a.matchType != 'exact' && b.matchType == 'exact') return -1;
       return a.level.compareTo(b.level);
     });
 

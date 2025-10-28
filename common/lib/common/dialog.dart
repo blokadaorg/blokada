@@ -58,9 +58,13 @@ void showActivityRuleDialog(BuildContext context,
         child: Text("universal action cancel".i18n),
       ),
       TextButton(
-        onPressed: () async {
+        onPressed: () {
+          // Close dialog immediately
+          Navigator.of(context).pop();
+
+          // Apply rule in background (fire-and-forget)
           if (selectedOption != null) {
-            await _applyRuleOption(
+            _applyRuleOption(
               domainName: domainName,
               action: action,
               customlistActor: customlistActor,
@@ -70,8 +74,6 @@ void showActivityRuleDialog(BuildContext context,
               onSelected(selectedOption!);
             }
           }
-
-          Navigator.of(context).pop();
         },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(

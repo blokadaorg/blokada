@@ -6,6 +6,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/account/account.dart';
+import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -32,8 +33,10 @@ class PrivacyPulseSection extends StatefulWidget {
 class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final _store = Core.get<StatsStore>();
   late final _accountStore = Core.get<AccountStore>();
+  late final _deviceStore = Core.get<DeviceStore>();
 
   var stats = UiStats.empty();
+  bool _toplistsFetched = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -50,7 +53,16 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       });
     }
 
-    // Fetch toplists once when screen loads
+    // Watch for deviceAlias to become available and fetch toplists
+    mobx.autorun((_) {
+      final deviceAlias = _deviceStore.deviceAlias;
+      if (deviceAlias.isNotEmpty && !_toplistsFetched) {
+        _toplistsFetched = true;
+        _fetchToplists();
+      }
+    });
+
+    // Also try to fetch immediately (will be skipped if deviceAlias not ready)
     _fetchToplists();
   }
 

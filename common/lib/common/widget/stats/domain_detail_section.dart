@@ -635,38 +635,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildRuleItem(RelevantCustomlistRule rule) {
-    final isExact = rule.isExact;
     final displayDomain = rule.wildcard ? '*.${rule.domain}' : rule.domain;
 
     return CommonCard(
       child: CommonClickable(
         onTap: () {
-          if (isExact) {
-            // Open edit dialog for exact rule
-            showActivityRuleDialog(
-              context,
-              domainName: widget.entry.domainName,
-              action: widget.entry.action,
-              customlistActor: _customlist,
-              onSelected: (option) {
-                // TODO: Implement rule action based on selected option
-              },
-            );
-          } else {
-            // For parent rules, navigate to that domain's detail view
-            final parentMainEntry = UiJournalMainEntry(
-              domainName: rule.domain,
-              requests: 0,
-              action: widget.entry.action,
-              listId: "",
-            );
-
-            Navigation.open(Paths.deviceStatsDetail, arguments: {
-              'mainEntry': parentMainEntry,
-              'level': 2,
-              'domain': rule.domain,
-            });
-          }
+          // Open edit dialog for both exact and parent wildcard rules
+          showActivityRuleDialog(
+            context,
+            domainName: rule.domain,
+            action: widget.entry.action,
+            customlistActor: _customlist,
+            onSelected: (option) {
+              // TODO: Implement rule action based on selected option
+            },
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
