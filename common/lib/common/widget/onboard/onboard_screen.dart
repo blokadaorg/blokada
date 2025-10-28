@@ -7,6 +7,7 @@ import 'package:common/common/widget/onboard/background.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/widget/home/big_icon.dart';
+import 'package:common/common/automation/ids.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -59,9 +60,14 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
             key: bgStateKey,
             canClose: () => false,
             onClosed: _close,
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: maxContentWidth),
-              child: _getFirstTimeScreen(context),
+            child: Semantics(
+              identifier: AutomationIds.onboardIntroSheet,
+              container: true,
+              explicitChildNodes: true,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: maxContentWidth),
+                child: _getFirstTimeScreen(context),
+              ),
             ),
           ),
         ],
@@ -112,18 +118,23 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 8.0),
-                  child: MiniCard(
-                    onTap: _close,
-                    color: context.theme.accent,
-                    child: SizedBox(
-                      height: 32,
-                      child: Center(
-                        child: Text(
-                          "universal action continue".i18n,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 36.0, vertical: 8.0),
+                  child: Semantics(
+                    identifier: AutomationIds.onboardContinue,
+                    button: true,
+                    child: MiniCard(
+                      onTap: _close,
+                      color: context.theme.accent,
+                      child: SizedBox(
+                        height: 32,
+                        child: Center(
+                          child: Text(
+                            "universal action continue".i18n,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
