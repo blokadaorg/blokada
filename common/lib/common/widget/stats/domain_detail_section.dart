@@ -114,12 +114,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   String _getSubtitleText() {
     final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
-    final shortDomain = _getFirstSubdomain(widget.entry.domainName);
+    // Insert zero-width spaces after dots to allow text wrapping at domain boundaries
+    final domainDisplay = widget.entry.domainName.replaceAll('.', '.\u200B');
 
     // If fetchToplist is false, use widget.entry.requests directly
     if (!widget.fetchToplist) {
       final requests = widget.entry.requests;
-      String baseText = "$requests requests to $shortDomain were $actionText";
+      String baseText = "$requests requests to $domainDisplay were $actionText";
 
       // Add blocklist info if domain was blocked and we have a listId
       if (widget.entry.action == UiJournalAction.block && widget.entry.listId != null && widget.entry.listId!.isNotEmpty) {
@@ -153,21 +154,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     if (mainRequests == 0 && subdomainRequests > 0) {
       // Only subdomains have requests
       baseText =
-          "$subdomainRequests requests to subdomains of $shortDomain were $actionText";
+          "$subdomainRequests requests to subdomains of $domainDisplay were $actionText";
       // Use the first subdomain's listId if available
       listId = _allSubdomains.firstOrNull?.listId;
     } else if (mainRequests > 0 && subdomainRequests == 0) {
       // Only main domain has requests
-      baseText = "$mainRequests requests to $shortDomain were $actionText";
+      baseText = "$mainRequests requests to $domainDisplay were $actionText";
       listId = widget.entry.listId;
     } else if (mainRequests > 0 && subdomainRequests > 0) {
       // Both have requests
       baseText =
-          "$mainRequests requests to $shortDomain were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
+          "$mainRequests requests to $domainDisplay were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
       listId = widget.entry.listId;
     } else {
       // Neither has requests (shouldn't normally happen)
-      baseText = "No requests to $shortDomain or its subdomains";
+      baseText = "No requests to $domainDisplay or its subdomains";
       return baseText;
     }
 
@@ -198,6 +199,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     // Listen to customlist changes to rebuild the widget
     _customlistValue.onChange.listen((_) {
       if (mounted) setState(() {});
+    });
+
+    // Fetch customlist rules when widget initializes
+    log(Markers.userTap).trace("fetchCustomlist", (m) async {
+      await _customlist.fetch(m);
     });
   }
 
@@ -420,16 +426,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           // When not fetching toplist (final level), show additional info sections
           if (!widget.fetchToplist) ...[
-            // Filter/Blocklist info
-            if (widget.entry.action == UiJournalAction.block &&
-                widget.entry.listId != null &&
-                widget.entry.listId!.isNotEmpty)
-              _buildFilterInfoCard(),
-            if (widget.entry.action == UiJournalAction.block &&
-                widget.entry.listId != null &&
-                widget.entry.listId!.isNotEmpty)
-              const SizedBox(height: 16),
-
             // Actions section header
             Text(
               "activity actions header".i18n,
@@ -544,7 +540,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               Clipboard.setData(ClipboardData(text: widget.entry.domainName));
             },
             child: Text(
-              middleEllipsis(widget.entry.domainName),
+              middleEllipsis(widget.entry.domainName, maxLength: 20),
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
@@ -563,6 +559,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               color: context.theme.textSecondary,
             ),
             textAlign: TextAlign.left,
+            softWrap: true,
+            overflow: TextOverflow.visible,
           ),
         ],
       ),
@@ -607,42 +605,110 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final relevantRules = _getRelevantRules();
     final hasExactRule = _hasExactRule();
 
-    if (relevantRules.isEmpty) {
-      // Simple add button when no rules exist
-      return _buildSimpleAddButton();
-    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // "Your Rules" header
+        Text(
+          "Your Rules",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: context.theme.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 8),
 
-    // Show rules card with list
-    return CommonCard(
-      padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          // Header
-          if (relevantRules.length > 1 || !hasExactRule) _buildRulesHeader(),
-
-          // List of relevant rules
-          ...relevantRules.asMap().entries.map((entry) {
-            final index = entry.key;
-            final rule = entry.value;
-            return Column(
-              children: [
-                if (index > 0) const CommonDivider(),
-                _buildRuleItem(rule),
-              ],
-            );
-          }),
-
-          // Add button if no exact rule
-          if (!hasExactRule) ...[
-            const CommonDivider(),
-            _buildAddRuleButton(hasParentRules: true),
+        // List of relevant rules (each in its own card)
+        ...relevantRules.map((rule) => Column(
+          children: [
+            _buildRuleItem(rule),
+            const SizedBox(height: 8),
           ],
-        ],
+        )),
+
+        // Add button (only show if no exact rule exists)
+        if (!hasExactRule)
+          _buildAddRuleButton(hasParentRules: relevantRules.isNotEmpty),
+      ],
+    );
+  }
+
+  Widget _buildRuleItem(RelevantCustomlistRule rule) {
+    final isExact = rule.isExact;
+    final displayDomain = rule.wildcard ? '*.${rule.domain}' : rule.domain;
+
+    return CommonCard(
+      child: CommonClickable(
+        onTap: () {
+          if (isExact) {
+            // Open edit dialog for exact rule
+            showActivityRuleDialog(
+              context,
+              domainName: widget.entry.domainName,
+              action: widget.entry.action,
+              customlistActor: _customlist,
+              onSelected: (option) {
+                // TODO: Implement rule action based on selected option
+              },
+            );
+          } else {
+            // For parent rules, navigate to that domain's detail view
+            final parentMainEntry = UiJournalMainEntry(
+              domainName: rule.domain,
+              requests: 0,
+              action: widget.entry.action,
+              listId: "",
+            );
+
+            Navigation.open(Paths.deviceStatsDetail, arguments: {
+              'mainEntry': parentMainEntry,
+              'level': 2,
+              'domain': rule.domain,
+            });
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Edit Matched Rule",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: context.theme.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Matches ${middleEllipsis(displayDomain)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: context.theme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Icon(
+                CupertinoIcons.chevron_right,
+                color: context.theme.textSecondary,
+                size: 18,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildSimpleAddButton() {
+  Widget _buildAddRuleButton({required bool hasParentRules}) {
     return CommonCard(
       child: CommonClickable(
         onTap: () {
@@ -660,182 +726,37 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
-              Icon(
-                CupertinoIcons.plus_circle,
-                color: context.theme.textPrimary,
-                size: 24,
-              ),
-              const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  "Add rule for ${_getFirstSubdomain(widget.entry.domainName)}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: context.theme.textPrimary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRulesHeader() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      child: Row(
-        children: [
-          Text(
-            "Rules affecting this domain",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: context.theme.textSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRuleItem(RelevantCustomlistRule rule) {
-    final isExact = rule.isExact;
-    final actionText = rule.action == JsonCustomListAction.block ? 'Blocked' : 'Allowed';
-    final actionColor = rule.action == JsonCustomListAction.block ? Colors.red : Colors.green;
-    final wildcardSuffix = rule.wildcard ? ' (applies to all subdomains)' : '';
-
-    return CommonClickable(
-      onTap: () {
-        if (isExact) {
-          // Open edit dialog for exact rule
-          showActivityRuleDialog(
-            context,
-            domainName: widget.entry.domainName,
-            action: widget.entry.action,
-            customlistActor: _customlist,
-            onSelected: (option) {
-              // TODO: Implement rule action based on selected option
-            },
-          );
-        } else {
-          // For parent rules, navigate to that domain's detail view
-          final parentMainEntry = UiJournalMainEntry(
-            domainName: rule.domain,
-            requests: 0,
-            action: widget.entry.action,
-            listId: "",
-          );
-
-          Navigation.open(Paths.deviceStatsDetail, arguments: {
-            'mainEntry': parentMainEntry,
-            'level': 2,
-            'domain': rule.domain,
-          });
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        child: Row(
-          children: [
-            Icon(
-              isExact ? CupertinoIcons.checkmark_shield : CupertinoIcons.shield,
-              color: actionColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    rule.domain,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: isExact ? FontWeight.w600 : FontWeight.normal,
-                      color: context.theme.textPrimary,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Add Rule",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: context.theme.textPrimary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    isExact
-                      ? '$actionText$wildcardSuffix • Tap to edit'
-                      : '$actionText • Applies to all subdomains',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: context.theme.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              CupertinoIcons.chevron_right,
-              color: context.theme.textSecondary,
-              size: 18,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAddRuleButton({required bool hasParentRules}) {
-    return CommonClickable(
-      onTap: () {
-        showActivityRuleDialog(
-          context,
-          domainName: widget.entry.domainName,
-          action: widget.entry.action,
-          customlistActor: _customlist,
-          onSelected: (option) {
-            // TODO: Implement rule action based on selected option
-          },
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        child: Row(
-          children: [
-            Icon(
-              CupertinoIcons.plus_circle,
-              color: context.theme.textPrimary,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Add rule for ${_getFirstSubdomain(widget.entry.domainName)}",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: context.theme.textPrimary,
-                    ),
-                  ),
-                  if (hasParentRules) ...[
                     const SizedBox(height: 4),
                     Text(
-                      "This will override parent rules",
+                      "Create rule for this domain",
                       style: TextStyle(
                         fontSize: 14,
                         color: context.theme.textSecondary,
                       ),
                     ),
                   ],
-                ],
+                ),
               ),
-            ),
-            Icon(
-              CupertinoIcons.chevron_right,
-              color: context.theme.textSecondary,
-              size: 18,
-            ),
-          ],
+              const SizedBox(width: 12),
+              Icon(
+                CupertinoIcons.chevron_right,
+                color: context.theme.textSecondary,
+                size: 18,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -942,65 +863,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: context.theme.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFilterInfoCard() {
-    final listId = widget.entry.listId;
-    if (listId == null || listId.isEmpty) return Container();
-
-    String filterName;
-    String filterLabel;
-
-    // Check if it's a user rule (short ID)
-    if (listId.length < 16) {
-      filterName = "Your custom rules";
-      filterLabel = "family stats label blocklist".i18n;
-    } else {
-      // Get the blocklist name
-      filterName = _filter.getFilterContainingList(listId);
-      filterLabel = "family stats label blocklist".i18n;
-    }
-
-    return CommonCard(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Icon(
-              CupertinoIcons.shield_lefthalf_fill,
-              color: widget.entry.action == UiJournalAction.block
-                  ? Colors.red
-                  : Colors.green,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    filterLabel,
-                    style: TextStyle(
-                      color: context.theme.textSecondary,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    filterName,
-                    style: TextStyle(
-                      color: context.theme.textPrimary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
               ),
             ),
           ],

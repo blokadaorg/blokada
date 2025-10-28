@@ -184,7 +184,7 @@ class RecentActivityState extends State<RecentActivity> with Disposables {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    middleEllipsis(entry.domainName),
+                    middleEllipsis(entry.domainName, maxLength: 32),
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textPrimary,
