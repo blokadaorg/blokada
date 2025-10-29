@@ -65,10 +65,11 @@ abstract class StatsRefreshStoreBase with Store, Logging, Actor {
         }
       }
     } else {
-      // V6 app - refresh stats, journal (recent activity), and toplists
+      // V6 app - refresh stats and journal (recent activity)
+      // Note: toplists are NOT refreshed here to avoid excessive API calls
+      // Users can manually pull-to-refresh to update toplists
       await _stats.fetch(m);
       await _journal.fetch(m, tag: null);
-      await _stats.fetchToplists(m);
     }
 
     _lastRefresh = DateTime.now();

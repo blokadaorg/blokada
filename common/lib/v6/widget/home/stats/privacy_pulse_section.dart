@@ -1,3 +1,4 @@
+import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/freemium_screen.dart';
@@ -34,6 +35,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final _store = Core.get<StatsStore>();
   late final _accountStore = Core.get<AccountStore>();
   late final _deviceStore = Core.get<DeviceStore>();
+  late final _journal = Core.get<JournalActor>();
 
   var stats = UiStats.empty();
   bool _toplistsFetched = false;
@@ -72,6 +74,15 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     });
   }
 
+  Future<void> _pullToRefresh() async {
+    return await log(Markers.userTap).trace("privacyPulsePullToRefresh", (m) async {
+      // Refresh all 3 API endpoints
+      await _store.fetch(m);
+      await _journal.fetch(m, tag: null);
+      await _store.fetchToplists(m);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return content();
@@ -92,25 +103,29 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                 constraints: const BoxConstraints(maxWidth: maxContentWidth),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: ListView(
-                    controller: widget.controller,
-                    children: [
-                      SizedBox(height: getTopPadding(context)),
-                      MiniCard(
-                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: PrivacyPulse(stats: stats),
+                  child: RefreshIndicator(
+                    displacement: 100.0,
+                    onRefresh: _pullToRefresh,
+                    child: ListView(
+                      controller: widget.controller,
+                      children: [
+                        SizedBox(height: getTopPadding(context)),
+                        MiniCard(
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: PrivacyPulse(stats: stats),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      RecentActivity(),
-                      const SizedBox(height: 12),
-                      TopDomains(),
-                      const SizedBox(height: 48),
-                      TotalCounter(stats: stats),
-                      const SizedBox(height: 60),
-                    ],
+                        const SizedBox(height: 12),
+                        RecentActivity(),
+                        const SizedBox(height: 12),
+                        TopDomains(),
+                        const SizedBox(height: 48),
+                        TotalCounter(stats: stats),
+                        const SizedBox(height: 60),
+                      ],
+                    ),
                   ),
                 ),
               ),
