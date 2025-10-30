@@ -17,79 +17,129 @@ class JournalActor with Logging, Actor {
   late final devices = Core.get<JournalDevicesValue>();
 
   List<UiJournalEntry> allEntries = [];
+  bool isLoadingMore = false;
+  bool hasMoreData = true;
+  String? lastLoadedTimestamp;
 
-  fetch(Marker m, {DeviceTag? tag}) async {
+  fetch(Marker m, {DeviceTag? tag, bool append = false}) async {
     await log(m).trace("fetch", (m) async {
+      // Check if we can proceed with pagination
+      if (append && (!hasMoreData || isLoadingMore)) {
+        return;
+      }
+
       if (Core.act.isFamily && tag == null) {
         throw Exception("Family must provide a tag");
       }
 
-      List<JsonJournalEntry> entries;
-      if (Core.act.isFamily) {
-        entries = await _api.fetch(m, tag!);
-      } else {
-        entries = await _api.fetchForV6(m);
+      if (append) {
+        isLoadingMore = true;
       }
 
-      final allowed = _customlist.now.allowed;
-      final denied = _customlist.now.denied;
+      try {
+        // Determine start parameter for pagination
+        String? start = append ? lastLoadedTimestamp : null;
 
-      final mapped = entries.map((e) {
-        final entry = UiJournalEntry.fromJsonEntry(e, false);
-        return UiJournalEntry.fromJsonEntry(
-            e,
-            _decideModified(entry.domainName, entry.action, allowed, denied,
-                _wasException(entry.listId)));
-      }).toList();
-
-      // Sort from the oldest
-      mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-
-      // Group entries by same domainName if they are next to each other, and have the same action
-      final grouped = <UiJournalEntry>[];
-      for (var i = 0; i < mapped.length; i++) {
-        final entry = mapped[i];
-        if (grouped.isNotEmpty &&
-            grouped.last.domainName == entry.domainName &&
-            grouped.last.action == entry.action) {
-          grouped.last = UiJournalEntry(
-            deviceName: entry.deviceName,
-            domainName: entry.domainName,
-            action: entry.action,
-            listId: entry.listId,
-            profileId: entry.profileId,
-            timestamp: entry.timestamp, // Most recent occurrence
-            requests: grouped.last.requests + 1,
-            modified: entry.modified,
-          );
+        List<JsonJournalEntry> entries;
+        if (Core.act.isFamily) {
+          entries = await _api.fetch(m, tag!, start: start);
         } else {
-          grouped.add(entry);
+          entries = await _api.fetchForV6(m, start: start);
+        }
+
+        // If no entries returned, we've reached the end
+        if (entries.isEmpty) {
+          hasMoreData = false;
+          if (append) {
+            isLoadingMore = false;
+          }
+          return;
+        }
+
+        final allowed = _customlist.now.allowed;
+        final denied = _customlist.now.denied;
+
+        final mapped = entries.map((e) {
+          final entry = UiJournalEntry.fromJsonEntry(e, false);
+          return UiJournalEntry.fromJsonEntry(
+              e,
+              _decideModified(entry.domainName, entry.action, allowed, denied,
+                  _wasException(entry.listId)));
+        }).toList();
+
+        // Sort from the oldest
+        mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+        // Group entries by same domainName if they are next to each other, and have the same action
+        final grouped = <UiJournalEntry>[];
+        for (var i = 0; i < mapped.length; i++) {
+          final entry = mapped[i];
+          if (grouped.isNotEmpty &&
+              grouped.last.domainName == entry.domainName &&
+              grouped.last.action == entry.action) {
+            grouped.last = UiJournalEntry(
+              deviceName: entry.deviceName,
+              domainName: entry.domainName,
+              action: entry.action,
+              listId: entry.listId,
+              profileId: entry.profileId,
+              timestamp: entry.timestamp, // Most recent occurrence
+              requests: grouped.last.requests + 1,
+              modified: entry.modified,
+            );
+          } else {
+            grouped.add(entry);
+          }
+        }
+
+        // Sort from the most recent first
+        grouped.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+        // Parse timestampText for every entry
+        // Also add device names
+        Set<String> deviceNames = append ? Set.from(devices.now) : {};
+        for (var entry in grouped) {
+          entry.timestampText = timeago.format(entry.timestamp);
+
+          if (entry.deviceName.isNotBlank) {
+            deviceNames.add(entry.deviceName);
+          }
+        }
+        devices.now = deviceNames;
+
+        // Update entries and pagination state
+        if (append) {
+          allEntries.addAll(grouped);
+          // Update cursor to the timestamp of the last (oldest) entry
+          if (grouped.isNotEmpty) {
+            lastLoadedTimestamp = grouped.last.timestamp.toIso8601String();
+          }
+        } else {
+          allEntries = grouped;
+          // Reset pagination state on full refresh
+          hasMoreData = true;
+          if (grouped.isNotEmpty) {
+            lastLoadedTimestamp = grouped.last.timestamp.toIso8601String();
+          } else {
+            lastLoadedTimestamp = null;
+          }
+        }
+
+        filteredEntries.now = filter.now.apply(allEntries);
+      } finally {
+        if (append) {
+          isLoadingMore = false;
         }
       }
-
-      // Sort from the most recent first
-      grouped.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-
-      // Parse timestampText for every entry
-      // Also add device names
-      Set<String> deviceNames = {};
-      for (var entry in grouped) {
-        entry.timestampText = timeago.format(entry.timestamp);
-
-        if (entry.deviceName.isNotBlank) {
-          deviceNames.add(entry.deviceName);
-        }
-      }
-      devices.now = deviceNames;
-
-      allEntries = grouped;
-      filteredEntries.now = filter.now.apply(allEntries);
     });
   }
 
   clear() {
     allEntries = [];
     filteredEntries.now = [];
+    hasMoreData = true;
+    lastLoadedTimestamp = null;
+    isLoadingMore = false;
   }
 
   UiJournalMainEntry getMainEntry(UiJournalEntry entry) {

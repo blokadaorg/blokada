@@ -60,15 +60,22 @@ class JournalApi {
   late final _api = Core.get<Api>();
   late final _marshal = JsonJournalMarshal();
 
-  Future<List<JsonJournalEntry>> fetch(Marker m, DeviceTag tag) async {
-    final response = await _api.get(ApiEndpoint.getJournal, m, params: {
+  Future<List<JsonJournalEntry>> fetch(Marker m, DeviceTag tag, {String? start}) async {
+    final params = {
       ApiParam.deviceTag: tag,
-    });
+      ApiParam.activityStart: start ?? "",
+    };
+
+    final response = await _api.get(ApiEndpoint.getJournal, m, params: params);
     return _marshal.toEndpoint(response).activity;
   }
 
-  Future<List<JsonJournalEntry>> fetchForV6(Marker m) async {
-    final response = await _api.get(ApiEndpoint.getJournalV2, m);
+  Future<List<JsonJournalEntry>> fetchForV6(Marker m, {String? start}) async {
+    final params = {
+      ApiParam.activityStart: start ?? "",
+    };
+
+    final response = await _api.get(ApiEndpoint.getJournalV2, m, params: params);
     return _marshal.toEndpoint(response).activity;
   }
 }

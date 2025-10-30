@@ -40,6 +40,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   late final _customlist = Core.get<CustomListsValue>();
   late final _accountStore = Core.get<AccountStore>();
 
+  final ScrollController _scrollController = ScrollController();
   bool _isReady = false;
 
   bool get _isFreemium {
@@ -49,6 +50,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_onScroll);
     disposeLater(_entries.onChange.listen(rebuildEntries));
     disposeLater(_filter.onChange.listen(rebuild));
     disposeLater(_customlist.onChange.listen(rebuild));
@@ -58,8 +60,33 @@ class StatsSectionState extends State<StatsSection> with Disposables {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     disposeAll();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (_journal.isLoadingMore || !_journal.hasMoreData || _isFreemium) return;
+
+    // Check if scrolled near bottom (within 200 pixels)
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      print("📊 Activity pagination triggered - loading more entries");
+      _loadMore();
+    }
+  }
+
+  Future<void> _loadMore() async {
+    if (_journal.isLoadingMore || !_journal.hasMoreData) return;
+
+    print("📊 Fetching more activity entries (current: ${_entries.now.length})");
+    await _journal.fetch(Markers.stats, tag: widget.deviceTag, append: true);
+    print("📊 Fetch completed (total: ${_entries.now.length})");
+
+    // Trigger rebuild to show new entries and update loading indicator
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -73,6 +100,25 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     setState(() {
       _isReady = true;
     });
+
+    // After rebuilding, check if the list is scrollable
+    // If not scrollable and more data available, fetch more
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkIfNeedsMoreData();
+    });
+  }
+
+  void _checkIfNeedsMoreData() {
+    if (!mounted || !_scrollController.hasClients) return;
+    if (_journal.isLoadingMore || !_journal.hasMoreData || _isFreemium) return;
+
+    // Check if the content is shorter than the viewport (not scrollable)
+    final isScrollable = _scrollController.position.maxScrollExtent > 0;
+
+    if (!isScrollable && _entries.now.isNotEmpty) {
+      print("📊 Activity list not scrollable but has more data - auto-loading next page");
+      _loadMore();
+    }
   }
 
   Future<void> _pullToRefresh() async {
@@ -99,7 +145,8 @@ class StatsSectionState extends State<StatsSection> with Disposables {
               displacement: 100.0,
               onRefresh: _pullToRefresh,
               child: ListView(
-                  primary: widget.primary,
+                  controller: _scrollController,
+                  primary: false, // Must be false when providing a custom controller
                   children: [
                         // Header for v6 or padding for Family
                         (widget.isHeader)
@@ -118,6 +165,9 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                       (!_isReady || _entries.now.isEmpty
                           ? _buildEmpty(context)
                           : _buildItems(context)) +
+                      (_journal.isLoadingMore
+                          ? [_buildLoadingIndicator(context)]
+                          : []) +
                       [
                         Container(
                           decoration: BoxDecoration(
@@ -203,5 +253,15 @@ class StatsSectionState extends State<StatsSection> with Disposables {
         ),
       ),
     ];
+  }
+
+  Widget _buildLoadingIndicator(BuildContext context) {
+    return Container(
+      color: context.theme.bgMiniCard,
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }

@@ -40,6 +40,7 @@ enum ApiEndpoint {
   getJournal("v3/activity", params: [
     ApiParam.accountId,
     ApiParam.deviceTag,
+    ApiParam.activityStart,
   ]),
   postToken("v3/auth/token", type: "POST"),
   postTokenRefresh("v3/auth/token/refresh", type: "POST"),
@@ -65,6 +66,7 @@ enum ApiEndpoint {
   getListsV2("v2/list", params: [ApiParam.accountId]),
   getJournalV2("v2/activity", params: [
     ApiParam.accountId,
+    ApiParam.activityStart,
   ]),
   getStatsV2("v2/stats", params: [
     ApiParam.accountId,
@@ -131,7 +133,8 @@ enum ApiParam {
   toplistLimit("limit"),
   toplistRange("range"),
   toplistEnd("end"),
-  toplistDate("date");
+  toplistDate("date"),
+  activityStart("start");
 
   const ApiParam(this.name) : placeholder = "($name)";
 
