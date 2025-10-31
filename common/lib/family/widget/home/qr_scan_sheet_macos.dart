@@ -19,20 +19,30 @@ class QrScanSheetMacos extends StatefulWidget {
 class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
   late final _familyLink = Core.get<LinkActor>();
   late final _channel = Core.get<FamilyChannel>();
+  late final _linkedMode = Core.get<FamilyLinkedMode>();
 
   final _linkController = TextEditingController();
   bool _isProcessing = false;
   String? _errorMessage;
   bool _hasText = false;
+  StreamSubscription? _linkedModeSubscription;
 
   @override
   void initState() {
     super.initState();
     _linkController.addListener(_onTextChanged);
+
+    // Listen to linkedMode changes and pop when linked
+    _linkedModeSubscription = _linkedMode.onChange.listen((event) {
+      if (event.now == true && mounted) {
+        Navigator.of(context).pop();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _linkedModeSubscription?.cancel();
     _linkController.removeListener(_onTextChanged);
     _linkController.dispose();
     super.dispose();

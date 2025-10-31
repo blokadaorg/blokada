@@ -38,8 +38,8 @@ class LinkActor with Logging, Actor {
 
   // Initiates the QR code based child device registration process,
   // Returns URL to be used in QR code.
-  Future<LinkingDevice> initiateLinkDevice(String deviceName,
-      JsonProfile? profile, JsonDevice? device, Marker m) async {
+  Future<LinkingDevice> initiateLinkDevice(
+      String deviceName, JsonProfile? profile, JsonDevice? device, Marker m) async {
     return await log(m).trace("setWaitingForDevice", (m) async {
       LinkingDevice d = device == null
           ? await _device.addDevice(deviceName, profile, m)
@@ -91,12 +91,6 @@ class LinkActor with Logging, Actor {
         linkedTokenOk = true;
         linkedMode.now = true;
         await _stage.dismissModal(m);
-        // Close the new modal system modal if open (e.g. familyQrScanMacos)
-        // Note: The modal value auto-resets after 500ms, so we can't rely on checking it.
-        // We use maybePop to safely close any modal without affecting navigation if no modal is open.
-        await _modal.change(m, null);
-        // Safely pop any modal sheet from navigator (won't pop if nothing to pop)
-        await _topBarController.navigatorKey.currentState?.maybePop();
       } on AlreadyLinkedException catch (e) {
         await _stage.showModal(StageModal.faultLinkAlready, m);
         rethrow;
