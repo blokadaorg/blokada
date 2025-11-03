@@ -8,6 +8,13 @@ final _noFilter = JournalFilter(
   exactMatch: false,
 );
 
+class _ProcessedEntries {
+  final List<UiJournalEntry> entries;
+  final Set<String> deviceNames;
+
+  _ProcessedEntries(this.entries, this.deviceNames);
+}
+
 class JournalActor with Logging, Actor {
   late final _api = Core.get<JournalApi>();
   late final _customlist = Core.get<CustomListsValue>();
@@ -86,60 +93,12 @@ class JournalActor with Logging, Actor {
           return;
         }
 
-        final allowed = _customlist.now.allowed;
-        final denied = _customlist.now.denied;
-
-        final mapped = entries.map((e) {
-          final entry = UiJournalEntry.fromJsonEntry(e, false);
-          return UiJournalEntry.fromJsonEntry(
-              e,
-              _decideModified(entry.domainName, entry.action, allowed, denied,
-                  _wasException(entry.listId)));
-        }).toList();
-
-        // Sort from the oldest
-        mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-
-        // Group entries by same domainName if they are next to each other, and have the same action
-        final grouped = <UiJournalEntry>[];
-        for (var i = 0; i < mapped.length; i++) {
-          final entry = mapped[i];
-          if (grouped.isNotEmpty &&
-              grouped.last.domainName == entry.domainName &&
-              grouped.last.action == entry.action) {
-            grouped.last = UiJournalEntry(
-              deviceName: entry.deviceName,
-              domainName: entry.domainName,
-              action: entry.action,
-              listId: entry.listId,
-              profileId: entry.profileId,
-              timestamp: entry.timestamp, // Most recent occurrence
-              requests: grouped.last.requests + 1,
-              modified: entry.modified,
-            );
-          } else {
-            grouped.add(entry);
-          }
-        }
-
-        // Sort from the most recent first
-        grouped.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-
-        // Parse timestampText for every entry
-        // Also add device names
         // Keep previously discovered devices when using server-side filters
-        Set<String> deviceNames = Set.from(devices.now);
-        if (!append && deviceParam == null) {
-          deviceNames.clear();
-        }
-        for (var entry in grouped) {
-          entry.timestampText = timeago.format(entry.timestamp);
-
-          if (entry.deviceName.isNotBlank) {
-            deviceNames.add(entry.deviceName);
-          }
-        }
-        devices.now = deviceNames;
+        final initialDeviceNames =
+            append ? Set<String>.from(devices.now) : <String>{};
+        final processed = _processEntries(entries, initialDeviceNames);
+        final grouped = processed.entries;
+        devices.now = processed.deviceNames;
 
         // Update entries and pagination state
         if (append) {
@@ -149,7 +108,6 @@ class JournalActor with Logging, Actor {
             lastLoadedTimestamp = grouped.last.timestamp.toIso8601String();
           }
         } else {
-          allEntries = grouped;
           // Reset pagination state on full refresh
           hasMoreData = true;
           if (grouped.isNotEmpty) {
@@ -157,6 +115,7 @@ class JournalActor with Logging, Actor {
           } else {
             lastLoadedTimestamp = null;
           }
+          allEntries = List<UiJournalEntry>.from(grouped);
         }
 
         filteredEntries.now = currentFilter.apply(allEntries);
@@ -282,14 +241,103 @@ class JournalActor with Logging, Actor {
   String? _normalizeDomainQuery(String query, bool exactMatch) {
     final trimmed = query.trim();
     if (trimmed.length <= 1) return null;
-    final normalized = trimmed;
+    final normalized = trimmed.toLowerCase();
     if (exactMatch) return normalized;
     return '*$normalized*';
   }
 
-  String? _normalizeDeviceName(String deviceName) {
+  String? _normalizeDeviceName(String? deviceName) {
+    if (deviceName == null) return null;
     final trimmed = deviceName.trim();
     if (trimmed.isEmpty) return null;
     return trimmed;
+  }
+
+  _ProcessedEntries _processEntries(
+      List<JsonJournalEntry> entries, Set<String> deviceNames) {
+    final allowed = _customlist.now.allowed;
+    final denied = _customlist.now.denied;
+
+    final mapped = entries.map((e) {
+      final entry = UiJournalEntry.fromJsonEntry(e, false);
+      return UiJournalEntry.fromJsonEntry(
+          e,
+          _decideModified(entry.domainName, entry.action, allowed, denied,
+              _wasException(entry.listId)));
+    }).toList();
+
+    mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+    final grouped = <UiJournalEntry>[];
+    for (var entry in mapped) {
+      if (grouped.isNotEmpty &&
+          grouped.last.domainName == entry.domainName &&
+          grouped.last.action == entry.action) {
+        grouped.last = UiJournalEntry(
+          deviceName: entry.deviceName,
+          domainName: entry.domainName,
+          action: entry.action,
+          listId: entry.listId,
+          profileId: entry.profileId,
+          timestamp: entry.timestamp,
+          requests: grouped.last.requests + 1,
+          modified: entry.modified,
+        );
+      } else {
+        grouped.add(entry);
+      }
+    }
+
+    grouped.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
+    for (var entry in grouped) {
+      entry.timestampText = timeago.format(entry.timestamp);
+      if (entry.deviceName.isNotBlank) {
+        deviceNames.add(entry.deviceName);
+      }
+    }
+
+    return _ProcessedEntries(grouped, deviceNames);
+  }
+
+  Future<List<UiJournalEntry>> fetchPreview(
+    Marker m, {
+    required UiJournalAction action,
+    DeviceTag? tag,
+    String? deviceName,
+    int limit = 5,
+  }) async {
+    return await log(m).trace("fetchPreview", (m) async {
+      final deviceParam = _normalizeDeviceName(deviceName);
+      final actionParam = action == UiJournalAction.block ? "block" : "allow";
+
+      List<JsonJournalEntry> entries;
+      if (Core.act.isFamily) {
+        if (tag == null) {
+          throw Exception("Family must provide a tag");
+        }
+        entries = await _api.fetch(
+          m,
+          tag,
+          domain: null,
+          action: actionParam,
+          deviceName: deviceParam,
+        );
+      } else {
+        entries = await _api.fetchForV6(
+          m,
+          domain: null,
+          action: actionParam,
+          deviceName: deviceParam,
+        );
+      }
+
+      if (entries.isEmpty) {
+        return [];
+      }
+
+      final processed = _processEntries(entries, <String>{});
+      return processed.entries.take(limit).toList();
+    });
   }
 }
