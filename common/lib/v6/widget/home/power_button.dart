@@ -426,7 +426,7 @@ class _PowerButtonState extends State<PowerButton>
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: theme.textPrimary,
+                            color: Colors.black,
                             fontFamily: 'monospace',
                             fontFeatures: const [FontFeature.tabularFigures()],
                           ),
