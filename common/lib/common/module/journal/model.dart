@@ -61,12 +61,14 @@ class JournalFilter {
   final String searchQuery; // Empty string means "no query"
   final String deviceName; // Empty string means "all devices"
   final bool sortNewestFirst;
+  final bool exactMatch;
 
   JournalFilter({
     required this.showOnly,
     required this.searchQuery,
     required this.deviceName,
     required this.sortNewestFirst,
+    required this.exactMatch,
   });
 
   // Providing null means "no change" (existing filter is used)
@@ -76,38 +78,19 @@ class JournalFilter {
     String? searchQuery,
     String? deviceName,
     bool? sortNewestFirst,
+    bool? exactMatch,
   }) {
     return JournalFilter(
       showOnly: showOnly ?? this.showOnly,
       searchQuery: searchQuery ?? this.searchQuery,
       deviceName: deviceName ?? this.deviceName,
       sortNewestFirst: sortNewestFirst ?? this.sortNewestFirst,
+      exactMatch: exactMatch ?? this.exactMatch,
     );
   }
 
   List<UiJournalEntry> apply(List<UiJournalEntry> entries) {
     List<UiJournalEntry> filtered = entries;
-
-    // Apply search term
-    final q = searchQuery;
-    if (q.length > 1) {
-      filtered = filtered.where((e) => e.domainName.contains(q)).toList();
-    }
-
-    // Apply device
-    final d = deviceName;
-    if (!Core.act.isFamily && d.isNotEmpty) {
-      filtered = filtered.where((e) => e.deviceName == deviceName).toList();
-    }
-
-    // Apply filtering
-    if (showOnly == JournalFilterType.blocked) {
-      filtered =
-          filtered.where((e) => e.action == UiJournalAction.block).toList();
-    } else if (showOnly == JournalFilterType.passed) {
-      filtered =
-          filtered.where((e) => e.action == UiJournalAction.allow).toList();
-    }
 
     // Apply sorting
     if (sortNewestFirst) {

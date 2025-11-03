@@ -60,19 +60,46 @@ class JournalApi {
   late final _api = Core.get<Api>();
   late final _marshal = JsonJournalMarshal();
 
-  Future<List<JsonJournalEntry>> fetch(Marker m, DeviceTag tag, {String? start}) async {
+  Future<List<JsonJournalEntry>> fetch(
+    Marker m,
+    DeviceTag tag, {
+    String? start,
+    String? domain,
+    String? action,
+    String? deviceName,
+  }) async {
+    final encodedDomain =
+        (domain != null && domain.isNotEmpty) ? Uri.encodeComponent(domain) : "";
+    final encodedDevice =
+        (deviceName != null && deviceName.isNotEmpty) ? Uri.encodeComponent(deviceName) : "";
     final params = {
       ApiParam.deviceTag: tag,
       ApiParam.activityStart: start ?? "",
+      ApiParam.journalDomain: encodedDomain,
+      ApiParam.journalAction: action ?? "",
+      ApiParam.journalDeviceName: encodedDevice,
     };
 
     final response = await _api.get(ApiEndpoint.getJournal, m, params: params);
     return _marshal.toEndpoint(response).activity;
   }
 
-  Future<List<JsonJournalEntry>> fetchForV6(Marker m, {String? start}) async {
+  Future<List<JsonJournalEntry>> fetchForV6(
+    Marker m, {
+    String? start,
+    String? domain,
+    String? action,
+    String? deviceName,
+  }) async {
+    final encodedDomain =
+        (domain != null && domain.isNotEmpty) ? Uri.encodeComponent(domain) : "";
+    final encodedDevice =
+        (deviceName != null && deviceName.isNotEmpty) ? Uri.encodeComponent(deviceName) : "";
     final params = {
       ApiParam.activityStart: start ?? "",
+      ApiParam.journalDomain: encodedDomain,
+      ApiParam.journalAction: action ?? "",
+      ApiParam.journalDeviceName: encodedDevice,
     };
 
     final response = await _api.get(ApiEndpoint.getJournalV2, m, params: params);

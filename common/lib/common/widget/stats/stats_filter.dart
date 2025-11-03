@@ -135,6 +135,34 @@ class StatsFilterState extends State<StatsFilter> {
           child: CommonItem(
             onTap: () {
               setState(() {
+                widget.filter.draft = widget.filter.draft
+                    .updateOnly(exactMatch: !widget.filter.draft.exactMatch);
+              });
+            },
+            icon: CupertinoIcons.textformat,
+            text: "Exact match",
+            chevron: false,
+            trailing: CupertinoSwitch(
+              activeColor: context.theme.accent,
+              value: widget.filter.draft.exactMatch,
+              onChanged: (bool? value) {
+                setState(() {
+                  widget.filter.draft =
+                      widget.filter.draft.updateOnly(exactMatch: value ?? false);
+                });
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: context.theme.divider.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: CommonItem(
+            onTap: () {
+              setState(() {
                 widget.filter.draft = widget.filter.draft.updateOnly(
                     sortNewestFirst: !widget.filter.draft.sortNewestFirst);
               });

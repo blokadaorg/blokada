@@ -5,6 +5,7 @@ final _noFilter = JournalFilter(
   searchQuery: "", // Empty string means "no query"
   deviceName: "", // Empty string means "all devices"
   sortNewestFirst: true,
+  exactMatch: false,
 );
 
 class JournalActor with Logging, Actor {
@@ -37,19 +38,48 @@ class JournalActor with Logging, Actor {
       }
 
       try {
+        final currentFilter = filter.now;
+        final domainParam =
+            _normalizeDomainQuery(currentFilter.searchQuery, currentFilter.exactMatch);
+        final deviceParam = _normalizeDeviceName(currentFilter.deviceName);
+        final actionParam = _mapActionParam(currentFilter.showOnly);
+
         // Determine start parameter for pagination
         String? start = append ? lastLoadedTimestamp : null;
 
         List<JsonJournalEntry> entries;
         if (Core.act.isFamily) {
-          entries = await _api.fetch(m, tag!, start: start);
+          entries = await _api.fetch(
+            m,
+            tag!,
+            start: start,
+            domain: domainParam,
+            action: actionParam,
+            deviceName: deviceParam,
+          );
         } else {
-          entries = await _api.fetchForV6(m, start: start);
+          entries = await _api.fetchForV6(
+            m,
+            start: start,
+            domain: domainParam,
+            action: actionParam,
+            deviceName: deviceParam,
+          );
+        }
+
+        // If filter changed while waiting for response, drop outdated data
+        if (!identical(currentFilter, filter.now)) {
+          return;
         }
 
         // If no entries returned, we've reached the end
         if (entries.isEmpty) {
           hasMoreData = false;
+          if (!append) {
+            allEntries = [];
+            filteredEntries.now = currentFilter.apply(allEntries);
+            lastLoadedTimestamp = null;
+          }
           if (append) {
             isLoadingMore = false;
           }
@@ -97,7 +127,11 @@ class JournalActor with Logging, Actor {
 
         // Parse timestampText for every entry
         // Also add device names
-        Set<String> deviceNames = append ? Set.from(devices.now) : {};
+        // Keep previously discovered devices when using server-side filters
+        Set<String> deviceNames = Set.from(devices.now);
+        if (!append && deviceParam == null) {
+          deviceNames.clear();
+        }
         for (var entry in grouped) {
           entry.timestampText = timeago.format(entry.timestamp);
 
@@ -125,7 +159,7 @@ class JournalActor with Logging, Actor {
           }
         }
 
-        filteredEntries.now = filter.now.apply(allEntries);
+        filteredEntries.now = currentFilter.apply(allEntries);
       } finally {
         if (append) {
           isLoadingMore = false;
@@ -231,5 +265,31 @@ class JournalActor with Logging, Actor {
     // Actual lists are 32 chars
     // When list is user custom exceptions, its device id, which is shorter
     return listId.isNotEmpty && listId.length < 32;
+  }
+
+  String? _mapActionParam(JournalFilterType showOnly) {
+    switch (showOnly) {
+      case JournalFilterType.blocked:
+        return "block";
+      case JournalFilterType.passed:
+        return "allow";
+      case JournalFilterType.all:
+      default:
+        return null;
+    }
+  }
+
+  String? _normalizeDomainQuery(String query, bool exactMatch) {
+    final trimmed = query.trim();
+    if (trimmed.length <= 1) return null;
+    final normalized = trimmed;
+    if (exactMatch) return normalized;
+    return '*$normalized*';
+  }
+
+  String? _normalizeDeviceName(String deviceName) {
+    final trimmed = deviceName.trim();
+    if (trimmed.isEmpty) return null;
+    return trimmed;
   }
 }
