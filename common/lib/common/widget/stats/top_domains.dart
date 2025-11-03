@@ -47,13 +47,25 @@ class TopDomainsState extends State<TopDomains> {
             // Title header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Text(
-                "Toplists",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: context.theme.textPrimary,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Toplists",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: context.theme.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    "24h",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: context.theme.textSecondary,
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -220,4 +232,3 @@ class TopDomainsState extends State<TopDomains> {
     );
   }
 }
-
