@@ -327,6 +327,7 @@ class JournalActor with Logging, Actor {
           domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
+          limit: limit,
         );
       } else {
         entries = await _api.fetchForV6(
@@ -334,6 +335,7 @@ class JournalActor with Logging, Actor {
           domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
+          limit: limit,
         );
       }
 
@@ -342,7 +344,7 @@ class JournalActor with Logging, Actor {
       }
 
       final processed = _processEntries(entries, <String>{});
-      return processed.entries.take(limit).toList();
+      return processed.entries;
     });
   }
 }

@@ -73,6 +73,7 @@ enum ApiEndpoint {
     ApiParam.journalDomain,
     ApiParam.journalAction,
     ApiParam.journalDeviceName,
+    ApiParam.limit,
   ]),
   getStatsV2("v2/stats", params: [
     ApiParam.accountId,
@@ -143,7 +144,8 @@ enum ApiParam {
   activityStart("start"),
   journalDomain("domain"),
   journalAction("action"),
-  journalDeviceName("device_name");
+  journalDeviceName("device_name"),
+  limit("limit");
 
   const ApiParam(this.name) : placeholder = "($name)";
 

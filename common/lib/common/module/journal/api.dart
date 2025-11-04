@@ -67,6 +67,7 @@ class JournalApi {
     String? domain,
     String? action,
     String? deviceName,
+    int? limit,
   }) async {
     final encodedDomain =
         (domain != null && domain.isNotEmpty) ? Uri.encodeComponent(domain) : "";
@@ -78,6 +79,7 @@ class JournalApi {
       ApiParam.journalDomain: encodedDomain,
       ApiParam.journalAction: action ?? "",
       ApiParam.journalDeviceName: encodedDevice,
+      if (limit != null) ApiParam.limit: limit.toString(),
     };
 
     final response = await _api.get(ApiEndpoint.getJournal, m, params: params);
@@ -90,6 +92,7 @@ class JournalApi {
     String? domain,
     String? action,
     String? deviceName,
+    int? limit,
   }) async {
     final encodedDomain =
         (domain != null && domain.isNotEmpty) ? Uri.encodeComponent(domain) : "";
@@ -100,6 +103,7 @@ class JournalApi {
       ApiParam.journalDomain: encodedDomain,
       ApiParam.journalAction: action ?? "",
       ApiParam.journalDeviceName: encodedDevice,
+      if (limit != null) ApiParam.limit: limit.toString(),
     };
 
     final response = await _api.get(ApiEndpoint.getJournalV2, m, params: params);
