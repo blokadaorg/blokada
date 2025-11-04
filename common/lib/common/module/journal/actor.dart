@@ -310,6 +310,7 @@ class JournalActor with Logging, Actor {
     bool exactMatchDomain = false,
   }) async {
     return await log(m).trace("fetchPreview", (m) async {
+      final requestedLimit = limit * 3;
       final deviceParam = _normalizeDeviceName(deviceName);
       final actionParam = action == UiJournalAction.block ? "block" : "allow";
       final domainParam = domain == null
@@ -327,7 +328,7 @@ class JournalActor with Logging, Actor {
           domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
-          limit: limit,
+          limit: requestedLimit,
         );
       } else {
         entries = await _api.fetchForV6(
@@ -335,7 +336,7 @@ class JournalActor with Logging, Actor {
           domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
-          limit: limit,
+          limit: requestedLimit,
         );
       }
 
@@ -344,7 +345,9 @@ class JournalActor with Logging, Actor {
       }
 
       final processed = _processEntries(entries, <String>{});
-      return processed.entries;
+      // Grouping can collapse multiple API entries into fewer rows,
+      // so we intentionally over-fetch 3x and then clamp to requested size.
+      return processed.entries.take(limit).toList();
     });
   }
 }

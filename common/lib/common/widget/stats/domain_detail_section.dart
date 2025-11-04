@@ -46,7 +46,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _filteredSubdomains = [];
   List<UiJournalEntry> _allSubdomains = [];
   bool _isLoading = true;
-  int _parentCount = 0;  // Count for parent domain itself
+  int _parentCount = 0; // Count for parent domain itself
 
   late final _filter = Core.get<FilterActor>();
   late final _journal = Core.get<JournalActor>();
@@ -118,12 +118,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return parts.isNotEmpty ? parts[0] : domainName;
   }
 
-  String? _getBlocklistName(String? listId) {
+  String? _getBlocklistName(String? listId, UiJournalAction action) {
     if (listId == null || listId.isEmpty) {
       return null;
     }
     if (listId.length < 16) {
-      return null;
+      return action == UiJournalAction.block ? "Your blocked rules" : "Your allowed rules";
     }
 
     final listName = _filter.getFilterContainingList(listId);
@@ -144,7 +144,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       String baseText = "$requests requests to $domainDisplay were $actionText";
 
       // Add blocklist info if domain was blocked and we have a listId
-      if (widget.entry.action == UiJournalAction.block && widget.entry.listId != null && widget.entry.listId!.isNotEmpty) {
+      if (widget.entry.action == UiJournalAction.block &&
+          widget.entry.listId != null &&
+          widget.entry.listId!.isNotEmpty) {
         // Check if it's a user rule (short ID)
         if (widget.entry.listId!.length < 16) {
           return "$baseText by your rules";
@@ -165,7 +167,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       return "Loading...";
     }
 
-    final mainRequests = _parentCount;  // Use parent_count from API for parent domain
+    final mainRequests = _parentCount; // Use parent_count from API for parent domain
     final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
 
     String baseText;
@@ -174,8 +176,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     // Determine the base text based on requests distribution
     if (mainRequests == 0 && subdomainRequests > 0) {
       // Only subdomains have requests
-      baseText =
-          "$subdomainRequests requests to subdomains of $domainDisplay were $actionText";
+      baseText = "$subdomainRequests requests to subdomains of $domainDisplay were $actionText";
       // Use the first subdomain's listId if available
       listId = _allSubdomains.firstOrNull?.listId;
     } else if (mainRequests > 0 && subdomainRequests == 0) {
@@ -199,7 +200,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       if (listId.length < 16) {
         return "$baseText by your rules";
       } else {
-        final listName = _getBlocklistName(listId);
+        final listName = _getBlocklistName(listId, widget.entry.action);
         if (listName != null) {
           return "$baseText by $listName";
         }
@@ -763,15 +764,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
         // List of relevant rules (each in its own card)
         ...relevantRules.map((rule) => Column(
-          children: [
-            _buildRuleItem(rule),
-            const SizedBox(height: 8),
-          ],
-        )),
+              children: [
+                _buildRuleItem(rule),
+                const SizedBox(height: 8),
+              ],
+            )),
 
         // Add button (only show if no exact rule exists)
-        if (!hasExactRule)
-          _buildAddRuleButton(hasParentRules: relevantRules.isNotEmpty),
+        if (!hasExactRule) _buildAddRuleButton(hasParentRules: relevantRules.isNotEmpty),
       ],
     );
   }
@@ -946,8 +946,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           Navigation.open(Paths.deviceStatsDetail, arguments: {
             'mainEntry': subdomainAsMain,
-            'level': 3,  // Fetch level 3 (exact hosts)
-            'domain': subdomain.domainName,  // Use subdomain as the domain context
+            'level': 3, // Fetch level 3 (exact hosts)
+            'domain': subdomain.domainName, // Use subdomain as the domain context
           });
         }
         // Level 3: Navigate to DomainDetailSection with level 4
@@ -961,9 +961,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
           Navigation.open(Paths.deviceStatsDetail, arguments: {
             'mainEntry': subdomainAsMain,
-            'level': 4,  // Fetch level 4 (if any more subdomains)
+            'level': 4, // Fetch level 4 (if any more subdomains)
             'domain': subdomain.domainName,
-            'fetchToplist': false,  // Don't fetch at level 4 (final level)
+            'fetchToplist': false, // Don't fetch at level 4 (final level)
           });
         }
         // Level 4+: Do nothing (shouldn't happen, but just in case)
@@ -1060,10 +1060,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildRecentItem(UiJournalEntry entry) {
-    final relativeTime = entry.timestampText.isNotEmpty
-        ? entry.timestampText
-        : timeago.format(entry.timestamp);
-    final blocklistName = _getBlocklistName(entry.listId);
+    final relativeTime =
+        entry.timestampText.isNotEmpty ? entry.timestampText : timeago.format(entry.timestamp);
+    final blocklistName = _getBlocklistName(entry.listId, entry.action);
     final subtitle = blocklistName != null ? "$relativeTime • $blocklistName" : relativeTime;
 
     return CommonClickable(
