@@ -306,10 +306,15 @@ class JournalActor with Logging, Actor {
     DeviceTag? tag,
     String? deviceName,
     int limit = 5,
+    String? domain,
+    bool exactMatchDomain = false,
   }) async {
     return await log(m).trace("fetchPreview", (m) async {
       final deviceParam = _normalizeDeviceName(deviceName);
       final actionParam = action == UiJournalAction.block ? "block" : "allow";
+      final domainParam = domain == null
+          ? null
+          : (exactMatchDomain ? domain.trim().toLowerCase() : _normalizeDomainQuery(domain, false));
 
       List<JsonJournalEntry> entries;
       if (Core.act.isFamily) {
@@ -319,14 +324,14 @@ class JournalActor with Logging, Actor {
         entries = await _api.fetch(
           m,
           tag,
-          domain: null,
+          domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
         );
       } else {
         entries = await _api.fetchForV6(
           m,
-          domain: null,
+          domain: domainParam,
           action: actionParam,
           deviceName: deviceParam,
         );

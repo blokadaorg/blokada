@@ -17,6 +17,7 @@ import 'package:common/platform/stats/api.dart' as stats_api;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class DomainDetailSection extends StatefulWidget {
   final UiJournalMainEntry entry;
@@ -54,6 +55,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   late final _statsApi = Core.get<stats_api.StatsApi>();
   late final _accountId = Core.get<AccountId>();
   late final _device = Core.get<DeviceStore>();
+
+  List<UiJournalEntry> _recentBlockedEntries = [];
+  List<UiJournalEntry> _recentAllowedEntries = [];
+  bool _recentBlockedLoading = false;
+  bool _recentAllowedLoading = false;
 
   // Helper to count domain levels (dots + 1)
   int _getDomainLevel(String domain) {
@@ -110,6 +116,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   String _getFirstSubdomain(String domainName) {
     final parts = domainName.split('.');
     return parts.isNotEmpty ? parts[0] : domainName;
+  }
+
+  String? _getBlocklistName(String? listId) {
+    if (listId == null || listId.isEmpty) {
+      return null;
+    }
+    if (listId.length < 16) {
+      return null;
+    }
+
+    final listName = _filter.getFilterContainingList(listId);
+    if (listName == "family stats label none".i18n || listName.isEmpty) {
+      return null;
+    }
+    return listName;
   }
 
   String _getSubtitleText() {
@@ -178,9 +199,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       if (listId.length < 16) {
         return "$baseText by your rules";
       } else {
-        // Get the blocklist name
-        final listName = _filter.getFilterContainingList(listId);
-        if (listName != "family stats label none".i18n && listName != "family stats title".i18n) {
+        final listName = _getBlocklistName(listId);
+        if (listName != null) {
           return "$baseText by $listName";
         }
       }
@@ -195,6 +215,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   void initState() {
     super.initState();
     _searchController.addListener(_filterSubdomains);
+
+    if (widget.fetchToplist) {
+      _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
+      _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
+      _fetchRecentActivity();
+    }
 
     // Listen to customlist changes to rebuild the widget
     _customlistValue.onChange.listen((_) {
@@ -387,6 +413,107 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     });
   }
 
+  String _buildWildcardDomain(String domain) {
+    final trimmed = domain.trim();
+    if (trimmed.isEmpty) {
+      return trimmed;
+    }
+    final normalized = trimmed.toLowerCase();
+    if (normalized.startsWith('*')) {
+      return normalized;
+    }
+    return '*.$normalized';
+  }
+
+  Future<void> _fetchRecentActivity() async {
+    await log(Markers.stats).trace("fetchRecentDomainActivity", (m) async {
+      final wildcardDomain = _buildWildcardDomain(widget.domain);
+      final deviceName = _device.deviceAlias.isNotEmpty ? _device.deviceAlias : null;
+      final deviceTag = _device.deviceTag;
+
+      if (wildcardDomain.isEmpty) {
+        if (mounted) {
+          setState(() {
+            _recentBlockedEntries = [];
+            _recentAllowedEntries = [];
+            _recentBlockedLoading = false;
+            _recentAllowedLoading = false;
+          });
+        } else {
+          _recentBlockedEntries = [];
+          _recentAllowedEntries = [];
+          _recentBlockedLoading = false;
+          _recentAllowedLoading = false;
+        }
+        return;
+      }
+
+      if (mounted) {
+        setState(() {
+          _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
+          _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
+        });
+      } else {
+        _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
+        _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
+      }
+
+      Future<List<UiJournalEntry>> loadAction(UiJournalAction action) async {
+        final previous = action == UiJournalAction.block
+            ? List<UiJournalEntry>.from(_recentBlockedEntries)
+            : List<UiJournalEntry>.from(_recentAllowedEntries);
+
+        if (Core.act.isFamily && (deviceTag == null || deviceTag.isEmpty)) {
+          log(m).w("Missing device tag for recent activity fetch");
+          return previous;
+        }
+
+        try {
+          final entries = await _journal.fetchPreview(
+            m,
+            action: action,
+            tag: Core.act.isFamily ? deviceTag : null,
+            deviceName: deviceName,
+            limit: 10,
+            domain: wildcardDomain,
+            exactMatchDomain: true,
+          );
+
+          return entries;
+        } catch (e, s) {
+          log(m).e(
+            msg: "Failed to fetch recent activity for domain",
+            err: e,
+            stack: s,
+          );
+          return previous;
+        }
+      }
+
+      final results = await Future.wait([
+        widget.entry.action == UiJournalAction.block
+            ? loadAction(UiJournalAction.block)
+            : Future.value(<UiJournalEntry>[]),
+        widget.entry.action == UiJournalAction.allow
+            ? loadAction(UiJournalAction.allow)
+            : Future.value(<UiJournalEntry>[]),
+      ]);
+
+      if (!mounted) return;
+
+      setState(() {
+        if (widget.entry.action == UiJournalAction.block) {
+          _recentBlockedEntries = results[0];
+          _recentBlockedLoading = false;
+        }
+        if (widget.entry.action == UiJournalAction.allow) {
+          _recentAllowedEntries = results[1];
+          _recentAllowedLoading = false;
+        }
+      });
+    });
+  }
+
   @override
   void dispose() {
     _searchController.removeListener(_filterSubdomains);
@@ -477,6 +604,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
             // Subdomains list
             _buildSubdomainsList(),
+            const SizedBox(height: 24),
+            if (widget.entry.action == UiJournalAction.block)
+              _buildRecentSection(
+                title: "Recently Blocked",
+                entries: _recentBlockedEntries,
+                isLoading: _recentBlockedLoading,
+                action: UiJournalAction.block,
+              )
+            else
+              _buildRecentSection(
+                title: "Recently Allowed",
+                entries: _recentAllowedEntries,
+                isLoading: _recentAllowedLoading,
+                action: UiJournalAction.allow,
+              ),
           ],
           const SizedBox(height: 40), // Bottom padding like original
         ],
@@ -847,6 +989,120 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 fontWeight: FontWeight.w600,
                 color: context.theme.textSecondary,
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRecentSection({
+    required String title,
+    required List<UiJournalEntry> entries,
+    required bool isLoading,
+    required UiJournalAction action,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: context.theme.textPrimary,
+          ),
+        ),
+        const SizedBox(height: 8),
+        CommonCard(
+          padding: EdgeInsets.zero,
+          child: Builder(
+            builder: (context) {
+              if (isLoading && entries.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              if (entries.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  child: Center(
+                    child: Text(
+                      action == UiJournalAction.block
+                          ? "No recently blocked domains"
+                          : "No recently allowed domains",
+                      style: TextStyle(
+                        color: context.theme.textSecondary,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              return Column(
+                children: [
+                  for (int i = 0; i < entries.length; i++) ...[
+                    _buildRecentItem(entries[i]),
+                    if (i < entries.length - 1) const CommonDivider(),
+                  ],
+                ],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRecentItem(UiJournalEntry entry) {
+    final relativeTime = entry.timestampText.isNotEmpty
+        ? entry.timestampText
+        : timeago.format(entry.timestamp);
+    final blocklistName = _getBlocklistName(entry.listId);
+    final subtitle = blocklistName != null ? "$relativeTime • $blocklistName" : relativeTime;
+
+    return CommonClickable(
+      onTap: () {
+        Navigation.open(Paths.deviceStatsDetail, arguments: entry);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DomainNameText(
+                    domain: entry.domainName,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: context.theme.textPrimary,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: context.theme.textSecondary,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              CupertinoIcons.chevron_right,
+              color: context.theme.textSecondary,
+              size: 16,
             ),
           ],
         ),
