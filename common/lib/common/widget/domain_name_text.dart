@@ -14,7 +14,7 @@ class DomainNameText extends StatelessWidget {
   }) : super(key: key);
 
   String _applyMiddleEllipsis(String text, double availableWidth, TextStyle? style) {
-    if (availableWidth <= 0) return text;
+    if (availableWidth <= 0) return '...';
 
     final textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
@@ -39,10 +39,14 @@ class DomainNameText extends StatelessWidget {
 
     // Available width minus ellipsis, divided by avg char width
     final availableForChars = availableWidth - ellipsisPainter.width;
-    final maxChars = (availableForChars / avgCharWidth).floor();
+    final maxChars = availableForChars > 0 ? (availableForChars / avgCharWidth).floor() : 0;
+
+    if (maxChars <= 3) {
+      return '...';
+    }
 
     // Apply middle ellipsis with calculated max length
-    return middleEllipsis(text, maxLength: maxChars > 3 ? maxChars : text.length);
+    return middleEllipsis(text, maxLength: maxChars);
   }
 
   @override
@@ -55,6 +59,8 @@ class DomainNameText extends StatelessWidget {
         domain,
         style: style,
         overflow: overflow,
+        maxLines: 1,
+        softWrap: false,
       );
     }
 
@@ -88,6 +94,8 @@ class DomainNameText extends StatelessWidget {
               ],
             ),
             overflow: overflow,
+            maxLines: 1,
+            softWrap: false,
           );
         },
       );
@@ -133,6 +141,7 @@ class DomainNameText extends StatelessWidget {
           ),
           overflow: TextOverflow.clip,
           maxLines: 1,
+          softWrap: false,
         );
       },
     );

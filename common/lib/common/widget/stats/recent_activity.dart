@@ -21,7 +21,8 @@ class RecentActivity extends StatefulWidget {
 
 enum ActivityTab { blocked, allowed }
 
-class RecentActivityState extends State<RecentActivity> with Logging {
+class RecentActivityState extends State<RecentActivity>
+    with Logging, AutomaticKeepAliveClientMixin {
   ActivityTab _selectedTab = ActivityTab.blocked;
   late final _journal = Core.get<JournalActor>();
   late final _deviceStore = Core.get<DeviceStore>();
@@ -35,6 +36,9 @@ class RecentActivityState extends State<RecentActivity> with Logging {
   mobx.ReactionDisposer? _deviceReaction;
   StreamSubscription? _entriesSubscription;
   bool _pendingRefresh = false;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -70,6 +74,7 @@ class RecentActivityState extends State<RecentActivity> with Logging {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final currentEntries =
         _selectedTab == ActivityTab.blocked ? _blockedEntries : _allowedEntries;
 
@@ -174,7 +179,7 @@ class RecentActivityState extends State<RecentActivity> with Logging {
                   const CommonDivider(),
 
                   // Activity list or empty state
-                  if (_isLoading)
+                  if (_isLoading && currentEntries.isEmpty)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 24),
                       child: const Center(child: CircularProgressIndicator()),

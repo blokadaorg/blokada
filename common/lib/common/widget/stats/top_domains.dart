@@ -137,7 +137,7 @@ class TopDomainsState extends State<TopDomains> {
                   const CommonDivider(),
 
                   // Domain list, loading state, or empty state
-                  if (_statsStore.toplistsLoading)
+                  if (_statsStore.toplistsLoading && currentDomains.isEmpty)
                     _buildLoadingState()
                   else if (currentDomains.isEmpty)
                     _buildEmptyState()
