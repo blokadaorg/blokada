@@ -267,9 +267,16 @@ class Navigation with Logging {
   Widget? _getExceptionsAction(BuildContext context) {
     return CommonClickable(
         onTap: () {
-          showAddExceptionDialog(context, onConfirm: (entry) {
+          showAddExceptionDialog(context, onConfirm: (entry, blocked) {
+            final trimmed = entry.trim();
+            if (trimmed.isEmpty) return;
+
+            final isWildcard = trimmed.startsWith("*.");
+            final domain = isWildcard ? trimmed.substring(2) : trimmed;
+            if (domain.isEmpty) return;
+
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.addOrRemove(entry, false, m, gotBlocked: true);
+              await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
             });
           });
         },

@@ -280,53 +280,96 @@ String _getBrief(String what) {
 
 void showAddExceptionDialog(
   BuildContext context, {
-  required Function(String) onConfirm,
+  required Function(String entry, bool blocked) onConfirm,
 }) {
   final TextEditingController _ctrl = TextEditingController(text: "");
+  final ValueNotifier<bool> _isBlocked = ValueNotifier<bool>(true);
 
   showDefaultDialog(
     context,
     title: const Text("Add exception"),
-    content: (context) => Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-            "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com"),
-        const SizedBox(height: 16),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12.0),
-          child: Material(
-            child: TextField(
-              controller: _ctrl,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: context.theme.bgColor,
-                focusColor: context.theme.bgColor,
-                hoverColor: context.theme.bgColor,
-                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+    content: (context) => ValueListenableBuilder<bool>(
+      valueListenable: _isBlocked,
+      builder: (context, blocked, _) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+                "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com"),
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Material(
+                child: TextField(
+                  controller: _ctrl,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: context.theme.bgColor,
+                    focusColor: context.theme.bgColor,
+                    hoverColor: context.theme.bgColor,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Container(
+                color: context.theme.bgColor,
+                child: CupertinoSlidingSegmentedControl<bool>(
+                  groupValue: blocked,
+                  onValueChanged: (value) {
+                    if (value != null) {
+                      _isBlocked.value = value;
+                    }
+                  },
+                  children: const {
+                    true: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Block",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    false: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Allow",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     ),
     actions: (context) => [
       TextButton(
         onPressed: () => Navigator.of(context).pop(),
         child: Text("universal action cancel".i18n),
       ),
-      TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-          onConfirm(_ctrl.text);
+      ValueListenableBuilder<bool>(
+        valueListenable: _isBlocked,
+        builder: (context, blocked, _) {
+          return TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              onConfirm(_ctrl.text, blocked);
+            },
+            child: Text("universal action save".i18n),
+          );
         },
-        child: Text("universal action save".i18n),
       ),
     ],
   );
