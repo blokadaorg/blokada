@@ -94,6 +94,7 @@ class JournalApi {
     String? deviceName,
     int? limit,
   }) async {
+    final requestLimit = limit ?? 1000;
     final encodedDomain =
         (domain != null && domain.isNotEmpty) ? Uri.encodeComponent(domain) : "";
     final encodedDevice =
@@ -103,7 +104,7 @@ class JournalApi {
       ApiParam.journalDomain: encodedDomain,
       ApiParam.journalAction: action ?? "",
       ApiParam.journalDeviceName: encodedDevice,
-      if (limit != null) ApiParam.limit: limit.toString(),
+      ApiParam.limit: requestLimit.toString(),
     };
 
     final response = await _api.get(ApiEndpoint.getJournalV2, m, params: params);
