@@ -284,7 +284,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             level: widget.level,
             domain: widget.domain,
             action: "blocked",
-            limit: 50,
+            limit: 12,
             range: "24h",
             m: m,
           );
@@ -316,7 +316,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             level: widget.level,
             domain: widget.domain,
             action: "allowed",
-            limit: 50,
+            limit: 10,
             range: "24h",
             m: m,
           );
@@ -327,7 +327,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             level: widget.level,
             domain: widget.domain,
             action: "fallthrough",
-            limit: 50,
+            limit: 10,
             range: "24h",
             m: m,
           );
@@ -475,7 +475,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             action: action,
             tag: Core.act.isFamily ? deviceTag : null,
             deviceName: deviceName,
-            limit: 10,
+            limit: 5,
             domain: wildcardDomain,
             exactMatchDomain: true,
           );
@@ -584,6 +584,22 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             _buildInformationCard(),
           ],
 
+          // Recents list
+          if (widget.entry.action == UiJournalAction.block)
+            _buildRecentSection(
+              title: "Recent Activity",
+              entries: _recentBlockedEntries,
+              isLoading: _recentBlockedLoading,
+              action: UiJournalAction.block,
+            )
+          else
+            _buildRecentSection(
+              title: "Recent Activity",
+              entries: _recentAllowedEntries,
+              isLoading: _recentAllowedLoading,
+              action: UiJournalAction.allow,
+            ),
+
           // Subdomains section (only show if fetchToplist is true)
           if (widget.fetchToplist) ...[
             // Subdomains section header
@@ -605,21 +621,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
             // Subdomains list
             _buildSubdomainsList(),
-            const SizedBox(height: 24),
-            if (widget.entry.action == UiJournalAction.block)
-              _buildRecentSection(
-                title: "Recently Blocked",
-                entries: _recentBlockedEntries,
-                isLoading: _recentBlockedLoading,
-                action: UiJournalAction.block,
-              )
-            else
-              _buildRecentSection(
-                title: "Recently Allowed",
-                entries: _recentAllowedEntries,
-                isLoading: _recentAllowedLoading,
-                action: UiJournalAction.allow,
-              ),
           ],
           const SizedBox(height: 40), // Bottom padding like original
         ],
@@ -1062,8 +1063,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   Widget _buildRecentItem(UiJournalEntry entry) {
     final relativeTime =
         entry.timestampText.isNotEmpty ? entry.timestampText : timeago.format(entry.timestamp);
-    final blocklistName = _getBlocklistName(entry.listId, entry.action);
-    final subtitle = blocklistName != null ? "$relativeTime • $blocklistName" : relativeTime;
+    //final blocklistName = _getBlocklistName(entry.listId, entry.action);
+    //final subtitle = blocklistName != null ? "$relativeTime • $blocklistName" : relativeTime;
+    final subtitle = relativeTime;
 
     return CommonClickable(
       onTap: () {
@@ -1077,13 +1079,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    middleEllipsis(entry.domainName, maxLength: 32),
+                  DomainNameText(
+                    domain: entry.domainName,
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textPrimary,
                     ),
-                    overflow: TextOverflow.clip,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
