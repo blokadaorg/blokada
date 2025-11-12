@@ -39,7 +39,7 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
           context,
           TabItem(
             icon: CupertinoIcons.checkmark_shield,
-            title: "Privacy Pulse".i18n,
+            title: "privacy pulse section header".i18n,
             active: false,
           ),
           onTap: () => _tap(StageTab.activity),
@@ -57,8 +57,7 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
     );
   }
 
-  Widget _wrapInDecor(BuildContext context, Widget child,
-      {required VoidCallback onTap}) {
+  Widget _wrapInDecor(BuildContext context, Widget child, {required VoidCallback onTap}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
       child: MiniCard(onTap: onTap, child: SizedBox(width: 114, child: child)),

@@ -30,7 +30,7 @@ void showActivityRuleDialog(BuildContext context,
 
   showDefaultDialog(
     context,
-    title: Text("What should happen to traffic to $domainName?"),
+    title: Text("dialog title activity rule".i18n.withParams(domainName)),
     content: (context) => Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -287,7 +287,7 @@ void showAddExceptionDialog(
 
   showDefaultDialog(
     context,
-    title: const Text("Add exception"),
+    title: Text("dialog exception add title".i18n),
     content: (context) => ValueListenableBuilder<bool>(
       valueListenable: _isBlocked,
       builder: (context, blocked, _) {
@@ -295,8 +295,7 @@ void showAddExceptionDialog(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-                "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com"),
+            Text("dialog exception add text".i18n),
             const SizedBox(height: 16),
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
@@ -331,18 +330,18 @@ void showAddExceptionDialog(
                       _isBlocked.value = value;
                     }
                   },
-                  children: const {
+                  children: {
                     true: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Text(
-                        "Block",
+                        "userdenied action block".i18n,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ),
                     false: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Text(
-                        "Allow",
+                        "userdenied action allow".i18n,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ),

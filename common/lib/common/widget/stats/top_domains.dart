@@ -23,7 +23,6 @@ enum ToplistTab { blocked, allowed }
 class TopDomainsState extends State<TopDomains> {
   ToplistTab _selectedTab = ToplistTab.blocked;
   late final _statsStore = Core.get<StatsStore>();
-  late final _journal = Core.get<JournalActor>();
 
   List<UiToplistEntry> get _blockedDomains {
     final stats = _statsStore.stats;
@@ -39,7 +38,8 @@ class TopDomainsState extends State<TopDomains> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        final currentDomains = _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
+        final currentDomains =
+            _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +51,7 @@ class TopDomainsState extends State<TopDomains> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Toplists",
+                    "privacy pulse toplists header".i18n,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -59,7 +59,7 @@ class TopDomainsState extends State<TopDomains> {
                     ),
                   ),
                   Text(
-                    "24h",
+                    "privacy pulse timespan 24h".i18n,
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textSecondary,
@@ -99,7 +99,7 @@ class TopDomainsState extends State<TopDomains> {
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  "Blocked",
+                                  "privacy pulse tab blocked".i18n,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -120,7 +120,7 @@ class TopDomainsState extends State<TopDomains> {
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  "Allowed",
+                                  "privacy pulse tab allowed".i18n,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -179,8 +179,8 @@ class TopDomainsState extends State<TopDomains> {
 
         Navigation.open(Paths.deviceStatsDetail, arguments: {
           'mainEntry': mainEntry,
-          'level': 2,  // Fetch level 2 (subdomains under this eTLD+1)
-          'domain': domainName,  // Domain to fetch subdomains for
+          'level': 2, // Fetch level 2 (subdomains under this eTLD+1)
+          'domain': domainName, // Domain to fetch subdomains for
         });
       },
       child: Padding(
@@ -222,7 +222,7 @@ class TopDomainsState extends State<TopDomains> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Center(
         child: Text(
-          _selectedTab == ToplistTab.blocked ? "No blocked domains found" : "No allowed domains found",
+          "privacy pulse empty".i18n,
           style: TextStyle(
             color: context.theme.textSecondary,
             fontSize: 16,

@@ -64,9 +64,7 @@ class TopBarState extends State<TopBar> {
             GestureDetector(
               onTap: () => _scrollToTop(context),
               child: Opacity(
-                opacity: widget.animateBg
-                    ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0)
-                    : 1.0,
+                opacity: widget.animateBg ? math.min(math.max(ctrl.scroll - 10, 0.0), 1.0) : 1.0,
                 child: Column(
                   children: [
                     ClipRect(
@@ -161,16 +159,13 @@ class TopCommonBarState extends State<TopCommonBar> {
               ctrl.nav.length > 1
                   ? Opacity(
                       opacity: ctrl.show <= 0.5
-                          ? (ctrl.nav.length > 2
-                              ? (1.0 - ctrl.show)
-                              : xpow(ctrl.show, 8))
+                          ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
                           : ctrl.show,
                       child: GestureDetector(
                         onTap: () {
                           ctrl.navigatorKey.currentState!.pop();
                         },
-                        child: Icon(Icons.arrow_back_ios,
-                            color: context.theme.accent),
+                        child: Icon(Icons.arrow_back_ios, color: context.theme.accent),
                       ),
                     )
                   : Container(),
@@ -267,7 +262,9 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
       } else if (s.name == Paths.deviceStats.path) {
         title = "activity section header".i18n;
       } else if (s.name == Paths.deviceStatsDetail.path) {
-        title = Core.act.isFamily ? "family device title details".i18n : "Domain Details";
+        title = Core.act.isFamily
+            ? "family device title details".i18n
+            : "domain details section header".i18n;
       } else if (s.name == Paths.settings.path) {
         if (Core.act.isFamily) {
           title = "account action my account".i18n;
@@ -356,8 +353,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
   }
 
   @override
-  void didStartUserGesture(
-      Route<dynamic> route, Route<dynamic>? previousRoute) {
+  void didStartUserGesture(Route<dynamic> route, Route<dynamic>? previousRoute) {
     if (ignoreGesture) return;
 
     userGesture = true;

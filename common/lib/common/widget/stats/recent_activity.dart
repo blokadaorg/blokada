@@ -75,127 +75,126 @@ class RecentActivityState extends State<RecentActivity>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final currentEntries =
-        _selectedTab == ActivityTab.blocked ? _blockedEntries : _allowedEntries;
+    final currentEntries = _selectedTab == ActivityTab.blocked ? _blockedEntries : _allowedEntries;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title header with Show All link
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Recent Activity",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: context.theme.textPrimary,
-                    ),
-                  ),
-                  CommonClickable(
-                    onTap: () {
-                      Navigation.open(Paths.activity);
-                    },
-                    child: Text(
-                      "Show All",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: context.theme.accent,
-                      ),
-                    ),
-                  ),
-                ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Title header with Show All link
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "privacy pulse recents header".i18n,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textPrimary,
+                ),
               ),
-            ),
-
-            // Combined card with segmented control and list
-            CommonCard(
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  // Segmented control inside card
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: CupertinoSlidingSegmentedControl<ActivityTab>(
-                        groupValue: _selectedTab,
-                        onValueChanged: (ActivityTab? value) {
-                          if (value != null) {
-                            setState(() => _selectedTab = value);
-                          }
-                        },
-                        children: {
-                          ActivityTab.blocked: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  CupertinoIcons.xmark_shield_fill,
-                                  color: Colors.red,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  "Blocked",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ActivityTab.allowed: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  CupertinoIcons.checkmark_shield_fill,
-                                  color: Colors.green,
-                                  size: 18,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  "Allowed",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        },
-                      ),
-                    ),
+              CommonClickable(
+                onTap: () {
+                  Navigation.open(Paths.activity);
+                },
+                child: Text(
+                  "privacy pulse timespan show all".i18n,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: context.theme.accent,
                   ),
-
-                  const CommonDivider(),
-
-                  // Activity list or empty state
-                  if (_isLoading && currentEntries.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 24),
-                      child: const Center(child: CircularProgressIndicator()),
-                    )
-                  else if (currentEntries.isEmpty)
-                    _buildEmptyState()
-                  else
-                    for (int i = 0; i < currentEntries.length; i++) ...{
-                      _buildActivityItem(currentEntries[i]),
-                      if (i < currentEntries.length - 1) const CommonDivider(),
-                    },
-                ],
+                ),
               ),
-            ),
-          ],
-        );
+            ],
+          ),
+        ),
+
+        // Combined card with segmented control and list
+        CommonCard(
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              // Segmented control inside card
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CupertinoSlidingSegmentedControl<ActivityTab>(
+                    groupValue: _selectedTab,
+                    onValueChanged: (ActivityTab? value) {
+                      if (value != null) {
+                        setState(() => _selectedTab = value);
+                      }
+                    },
+                    children: {
+                      ActivityTab.blocked: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              CupertinoIcons.xmark_shield_fill,
+                              color: Colors.red,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              "privacy pulse tab blocked".i18n,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ActivityTab.allowed: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              CupertinoIcons.checkmark_shield_fill,
+                              color: Colors.green,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              "privacy pulse tab allowed".i18n,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    },
+                  ),
+                ),
+              ),
+
+              const CommonDivider(),
+
+              // Activity list or empty state
+              if (_isLoading && currentEntries.isEmpty)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else if (currentEntries.isEmpty)
+                _buildEmptyState()
+              else
+                for (int i = 0; i < currentEntries.length; i++) ...{
+                  _buildActivityItem(currentEntries[i]),
+                  if (i < currentEntries.length - 1) const CommonDivider(),
+                },
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildActivityItem(UiJournalEntry entry) {
@@ -245,7 +244,7 @@ class RecentActivityState extends State<RecentActivity>
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Center(
         child: Text(
-          _selectedTab == ActivityTab.blocked ? "No blocked activity" : "No allowed activity",
+          "privacy pulse empty".i18n,
           style: TextStyle(
             color: context.theme.textSecondary,
             fontSize: 16,

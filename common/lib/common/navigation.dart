@@ -7,7 +7,6 @@ import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/settings/exceptions_section.dart';
 import 'package:common/common/widget/settings/retention_section.dart';
 import 'package:common/common/widget/settings/settings_screen.dart';
-import 'package:common/common/widget/stats/stats_detail_section.dart';
 import 'package:common/common/widget/stats/domain_detail_section.dart';
 import 'package:common/common/widget/stats/stats_filter.dart';
 import 'package:common/common/widget/stats/stats_section.dart';
@@ -96,8 +95,7 @@ class Navigation with Logging {
     if (settings.name == Paths.device.path) {
       final device = settings.arguments as FamilyDevice;
       return StandardRoute(
-          settings: settings,
-          builder: (context) => DeviceScreen(tag: device.device.deviceTag));
+          settings: settings, builder: (context) => DeviceScreen(tag: device.device.deviceTag));
     }
 
     if (settings.name == Paths.deviceStats.path) {
@@ -108,8 +106,7 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "activity section header".i18n,
           topBarTrailing: _getStatsAction(context, device.device.deviceTag),
-          child:
-              StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
+          child: StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
         ),
       );
     }
@@ -138,7 +135,9 @@ class Navigation with Logging {
         return StandardRoute(
           settings: settings,
           builder: (context) => WithTopBar(
-            title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
+            title: Core.act.isFamily
+                ? "family device title details".i18n
+                : "domain details section header".i18n,
             child: DomainDetailSection(
               entry: mainEntry,
               level: level,
@@ -160,12 +159,14 @@ class Navigation with Logging {
         return StandardRoute(
           settings: settings,
           builder: (context) => WithTopBar(
-            title: Core.act.isFamily ? "family device title details".i18n : "Domain Details",
+            title: Core.act.isFamily
+                ? "family device title details".i18n
+                : "domain details section header".i18n,
             child: DomainDetailSection(
               entry: mainEntry,
-              level: 2,  // Start at level 2 (subdomains)
+              level: 2, // Start at level 2 (subdomains)
               domain: entry.domainName,
-              fetchToplist: false,  // Don't fetch toplists for journal entries
+              fetchToplist: false, // Don't fetch toplists for journal entries
             ),
           ),
         );
@@ -173,8 +174,7 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.settings.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const SettingsScreen());
+      return StandardRoute(settings: settings, builder: (context) => const SettingsScreen());
     }
 
     if (settings.name == Paths.settingsExceptions.path) {
@@ -231,18 +231,15 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.activity.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const ActivityScreen());
+      return StandardRoute(settings: settings, builder: (context) => const ActivityScreen());
     }
 
     if (settings.name == Paths.privacyPulse.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const PrivacyPulseScreen());
+      return StandardRoute(settings: settings, builder: (context) => const PrivacyPulseScreen());
     }
 
     if (settings.name == Paths.advanced.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const AdvancedScreen());
+      return StandardRoute(settings: settings, builder: (context) => const AdvancedScreen());
     }
 
     return StandardRoute(settings: settings, builder: (context) => homeContent);

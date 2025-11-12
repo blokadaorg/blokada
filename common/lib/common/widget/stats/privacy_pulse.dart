@@ -1,4 +1,5 @@
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -25,9 +26,9 @@ class PrivacyPulse extends StatelessWidget {
                   color: context.theme.textPrimary,
                   size: 36,
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Text(
-                  "Privacy Pulse",
+                  "privacy pulse section header".i18n,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -36,9 +37,9 @@ class PrivacyPulse extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
-              "Recent activity and protection level for this device",
+              "privacy pulse brief".i18n,
               style: TextStyle(
                 fontSize: 14,
                 color: context.theme.textSecondary,
@@ -46,7 +47,7 @@ class PrivacyPulse extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment
         HorizontalRadialSegment(stats: stats),
       ],

@@ -28,8 +28,7 @@ class StatsFilterState extends State<StatsFilter> {
     super.initState();
     _ctrl.text = widget.filter.draft.searchQuery;
     _ctrl.addListener(() {
-      widget.filter.draft =
-          widget.filter.draft.updateOnly(searchQuery: _ctrl.text.toLowerCase());
+      widget.filter.draft = widget.filter.draft.updateOnly(searchQuery: _ctrl.text.toLowerCase());
     });
   }
 
@@ -47,15 +46,12 @@ class StatsFilterState extends State<StatsFilter> {
                 fillColor: context.theme.bgColor,
                 focusColor: context.theme.bgColor,
                 hoverColor: context.theme.bgColor,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: context.theme.bgColor, width: 0.0),
+                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
                 ),
               ),
             ),
@@ -67,8 +63,8 @@ class StatsFilterState extends State<StatsFilter> {
           child: ProfileButton(
             onTap: () {
               setState(() {
-                widget.filter.draft = widget.filter.draft
-                    .updateOnly(showOnly: JournalFilterType.all);
+                widget.filter.draft =
+                    widget.filter.draft.updateOnly(showOnly: JournalFilterType.all);
               });
             },
             icon: CupertinoIcons.shield,
@@ -89,8 +85,8 @@ class StatsFilterState extends State<StatsFilter> {
           child: ProfileButton(
             onTap: () {
               setState(() {
-                widget.filter.draft = widget.filter.draft
-                    .updateOnly(showOnly: JournalFilterType.blocked);
+                widget.filter.draft =
+                    widget.filter.draft.updateOnly(showOnly: JournalFilterType.blocked);
               });
             },
             icon: CupertinoIcons.shield,
@@ -98,10 +94,9 @@ class StatsFilterState extends State<StatsFilter> {
                 ? Colors.red
                 : context.theme.divider,
             name: "activity filter show blocked".i18n,
-            borderColor:
-                widget.filter.draft.showOnly == JournalFilterType.blocked
-                    ? Colors.red.withOpacity(0.30)
-                    : null,
+            borderColor: widget.filter.draft.showOnly == JournalFilterType.blocked
+                ? Colors.red.withOpacity(0.30)
+                : null,
             tapBgColor: context.theme.divider.withOpacity(0.1),
             padding: const EdgeInsets.only(left: 12),
             trailing: const SizedBox(height: 48),
@@ -110,8 +105,8 @@ class StatsFilterState extends State<StatsFilter> {
         ProfileButton(
           onTap: () {
             setState(() {
-              widget.filter.draft = widget.filter.draft
-                  .updateOnly(showOnly: JournalFilterType.passed);
+              widget.filter.draft =
+                  widget.filter.draft.updateOnly(showOnly: JournalFilterType.passed);
             });
           },
           icon: CupertinoIcons.shield,
@@ -135,20 +130,19 @@ class StatsFilterState extends State<StatsFilter> {
           child: CommonItem(
             onTap: () {
               setState(() {
-                widget.filter.draft = widget.filter.draft
-                    .updateOnly(exactMatch: !widget.filter.draft.exactMatch);
+                widget.filter.draft =
+                    widget.filter.draft.updateOnly(exactMatch: !widget.filter.draft.exactMatch);
               });
             },
             icon: CupertinoIcons.textformat,
-            text: "Exact match",
+            text: "activity filter exact match".i18n,
             chevron: false,
             trailing: CupertinoSwitch(
               activeColor: context.theme.accent,
               value: widget.filter.draft.exactMatch,
               onChanged: (bool? value) {
                 setState(() {
-                  widget.filter.draft =
-                      widget.filter.draft.updateOnly(exactMatch: value ?? false);
+                  widget.filter.draft = widget.filter.draft.updateOnly(exactMatch: value ?? false);
                 });
               },
             ),
@@ -163,8 +157,8 @@ class StatsFilterState extends State<StatsFilter> {
           child: CommonItem(
             onTap: () {
               setState(() {
-                widget.filter.draft = widget.filter.draft.updateOnly(
-                    sortNewestFirst: !widget.filter.draft.sortNewestFirst);
+                widget.filter.draft = widget.filter.draft
+                    .updateOnly(sortNewestFirst: !widget.filter.draft.sortNewestFirst);
               });
             },
             icon: Icons.sort,
@@ -175,8 +169,8 @@ class StatsFilterState extends State<StatsFilter> {
               value: !widget.filter.draft.sortNewestFirst,
               onChanged: (bool? value) {
                 setState(() {
-                  widget.filter.draft = widget.filter.draft.updateOnly(
-                      sortNewestFirst: !widget.filter.draft.sortNewestFirst);
+                  widget.filter.draft = widget.filter.draft
+                      .updateOnly(sortNewestFirst: !widget.filter.draft.sortNewestFirst);
                 });
               },
             ),

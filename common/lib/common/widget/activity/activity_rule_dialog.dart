@@ -1,6 +1,7 @@
 import 'package:common/common/module/customlist/customlist.dart';
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/cupertino.dart';
 
 enum ActivityRuleOption {
@@ -76,25 +77,42 @@ class ActivityRuleDialogState extends State<ActivityRuleDialog> {
     final domain = widget.domainName;
 
     // Check if domain exists in customlists to determine the action verb
-    String actionVerb;
-    String actionDescription;
+    String actionShortDomain;
+    String actionDescDomain;
+    String actionShortDomainAndSubdomains;
+    String actionDescDomainAndSubdomains;
 
     if (widget.customlistActor.isInAllowedList(domain)) {
       // Domain is in allowed list, so the action is "allow"
-      actionVerb = "allow";
-      actionDescription = "let traffic through to";
+      actionShortDomain = "dialog rule domain allow".i18n;
+      actionDescDomain = "dialog rule domain desc allow".i18n.withParams(widget.domainName);
+      actionShortDomainAndSubdomains = "dialog rule subdomains allow".i18n;
+      actionDescDomainAndSubdomains =
+          "dialog rule subdomains desc allow".i18n.withParams(widget.domainName);
     } else if (widget.customlistActor.isInBlockedList(domain)) {
       // Domain is in blocked list, so the action is "block"
-      actionVerb = "block";
-      actionDescription = "block traffic to";
+      actionShortDomain = "dialog rule domain block".i18n;
+      actionDescDomain = "dialog rule domain desc block".i18n.withParams(widget.domainName);
+      actionShortDomainAndSubdomains = "dialog rule subdomains block".i18n;
+      actionDescDomainAndSubdomains =
+          "dialog rule subdomains desc block".i18n.withParams(widget.domainName);
     } else {
       // Domain not in customlists, use entry action
       // If domain was blocked, user wants to allow it
       // If domain was allowed, user wants to block it
-      actionVerb = widget.action == UiJournalAction.block ? "allow" : "block";
-      actionDescription = widget.action == UiJournalAction.block
-          ? "let traffic through to"
-          : "block traffic to";
+      if (widget.action == UiJournalAction.block) {
+        actionShortDomain = "dialog rule domain allow".i18n;
+        actionDescDomain = "dialog rule domain desc allow".i18n.withParams(widget.domainName);
+        actionShortDomainAndSubdomains = "dialog rule subdomains allow".i18n;
+        actionDescDomainAndSubdomains =
+            "dialog rule subdomains desc allow".i18n.withParams(widget.domainName);
+      } else {
+        actionShortDomain = "dialog rule domain block".i18n;
+        actionDescDomain = "dialog rule domain desc block".i18n.withParams(widget.domainName);
+        actionShortDomainAndSubdomains = "dialog rule subdomains block".i18n;
+        actionDescDomainAndSubdomains =
+            "dialog rule subdomains desc block".i18n.withParams(widget.domainName);
+      }
     }
 
     return Column(
@@ -103,20 +121,20 @@ class ActivityRuleDialogState extends State<ActivityRuleDialog> {
       children: [
         _buildOption(
           ActivityRuleOption.automatic,
-          "Use automatic protection",
-          "Block or allow this domain based on your selected filters.\n(Default setting)",
+          "dialog rule auto".i18n,
+          "dialog rule auto desc".i18n,
         ),
         const SizedBox(height: 16),
         _buildOption(
           ActivityRuleOption.allow,
-          "Always $actionVerb this domain",
-          "Ignore filters and $actionDescription ${widget.domainName}.",
+          actionShortDomain,
+          actionDescDomain,
         ),
         const SizedBox(height: 16),
         _buildOption(
           ActivityRuleOption.allowWithSubdomains,
-          "Always $actionVerb this domain and subdomains",
-          "${actionDescription[0].toUpperCase()}${actionDescription.substring(1)} ${widget.domainName} and all addresses under it.",
+          actionShortDomainAndSubdomains,
+          actionDescDomainAndSubdomains,
         ),
       ],
     );

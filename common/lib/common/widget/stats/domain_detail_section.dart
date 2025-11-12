@@ -134,14 +134,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   String _getSubtitleText() {
-    final actionText = widget.entry.action == UiJournalAction.block ? 'blocked' : 'allowed';
     // Insert zero-width spaces after dots to allow text wrapping at domain boundaries
     final domainDisplay = widget.entry.domainName.replaceAll('.', '.\u200B');
 
     // If fetchToplist is false, use widget.entry.requests directly
     if (!widget.fetchToplist) {
       final requests = widget.entry.requests;
-      String baseText = "$requests requests to $domainDisplay were $actionText";
 
       // Add blocklist info if domain was blocked and we have a listId
       if (widget.entry.action == UiJournalAction.block &&
@@ -149,17 +147,38 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           widget.entry.listId!.isNotEmpty) {
         // Check if it's a user rule (short ID)
         if (widget.entry.listId!.length < 16) {
-          return "$baseText by your rules";
+          if (widget.entry.action == UiJournalAction.block) {
+            return "domain details summary blocked basic customlist"
+                .i18n
+                .withParams(requests, domainDisplay);
+          } else {
+            return "domain details summary allowed basic customlist"
+                .i18n
+                .withParams(requests, domainDisplay);
+          }
         } else {
           // Get the blocklist name
           final listName = _filter.getFilterContainingList(widget.entry.listId!);
           if (listName != "family stats label none".i18n && listName != "family stats title".i18n) {
-            return "$baseText by $listName";
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked basic list"
+                  .i18n
+                  .withParams(requests, domainDisplay, listName);
+            } else {
+              return "domain details summary allowed basic list"
+                  .i18n
+                  .withParams(requests, domainDisplay, listName);
+            }
           }
         }
       }
 
-      return baseText;
+      // Basic text without list info
+      if (widget.entry.action == UiJournalAction.block) {
+        return "domain details summary blocked basic".i18n.withParams(requests, domainDisplay);
+      } else {
+        return "domain details summary allowed basic".i18n.withParams(requests, domainDisplay);
+      }
     }
 
     // Show loading state while fetching toplists
@@ -176,38 +195,164 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     // Determine the base text based on requests distribution
     if (mainRequests == 0 && subdomainRequests > 0) {
       // Only subdomains have requests
-      baseText = "$subdomainRequests requests to subdomains of $domainDisplay were $actionText";
       // Use the first subdomain's listId if available
       listId = _allSubdomains.firstOrNull?.listId;
-    } else if (mainRequests > 0 && subdomainRequests == 0) {
-      // Only main domain has requests
-      baseText = "$mainRequests requests to $domainDisplay were $actionText";
-      listId = widget.entry.listId;
-    } else if (mainRequests > 0 && subdomainRequests > 0) {
-      // Both have requests
-      baseText =
-          "$mainRequests requests to $domainDisplay were $actionText and $subdomainRequests requests to its subdomains were also $actionText";
-      listId = widget.entry.listId;
-    } else {
-      // Neither has requests (shouldn't normally happen)
-      baseText = "No requests to $domainDisplay or its subdomains";
-      return baseText;
-    }
 
-    // Add blocklist info if domain was blocked and we have a listId
-    if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
-      // Check if it's a user rule (short ID)
-      if (listId.length < 16) {
-        return "$baseText by your rules";
+      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+        // Check if it's a user rule (short ID)
+        if (listId.length < 16) {
+          if (widget.entry.action == UiJournalAction.block) {
+            return "domain details summary blocked subdomain customlist"
+                .i18n
+                .withParams(subdomainRequests, domainDisplay);
+          } else {
+            return "domain details summary allowed subdomain customlist"
+                .i18n
+                .withParams(subdomainRequests, domainDisplay);
+          }
+        } else {
+          final listName = _getBlocklistName(listId, widget.entry.action);
+          if (listName != null) {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked subdomain list"
+                  .i18n
+                  .withParams(subdomainRequests, domainDisplay, listName);
+            } else {
+              return "domain details summary allowed subdomain list"
+                  .i18n
+                  .withParams(subdomainRequests, domainDisplay, listName);
+            }
+          } else {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked subdomain"
+                  .i18n
+                  .withParams(subdomainRequests, domainDisplay);
+            } else {
+              return "domain details summary allowed subdomain"
+                  .i18n
+                  .withParams(subdomainRequests, domainDisplay);
+            }
+          }
+        }
       } else {
-        final listName = _getBlocklistName(listId, widget.entry.action);
-        if (listName != null) {
-          return "$baseText by $listName";
+        if (widget.entry.action == UiJournalAction.block) {
+          return "domain details summary blocked subdomain"
+              .i18n
+              .withParams(subdomainRequests, domainDisplay);
+        } else {
+          return "domain details summary allowed subdomain"
+              .i18n
+              .withParams(subdomainRequests, domainDisplay);
         }
       }
-    }
+    } else if (mainRequests > 0 && subdomainRequests == 0) {
+      // Only main domain has requests
+      listId = widget.entry.listId;
 
-    return baseText;
+      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+        // Check if it's a user rule (short ID)
+        if (listId.length < 16) {
+          if (widget.entry.action == UiJournalAction.block) {
+            return "domain details summary blocked basic customlist"
+                .i18n
+                .withParams(mainRequests, domainDisplay);
+          } else {
+            return "domain details summary allowed basic customlist"
+                .i18n
+                .withParams(mainRequests, domainDisplay);
+          }
+        } else {
+          final listName = _getBlocklistName(listId, widget.entry.action);
+          if (listName != null) {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked basic list"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, listName);
+            } else {
+              return "domain details summary allowed basic list"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, listName);
+            }
+          } else {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked basic"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay);
+            } else {
+              return "domain details summary allowed basic"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay);
+            }
+          }
+        }
+      } else {
+        if (widget.entry.action == UiJournalAction.block) {
+          return "domain details summary blocked basic"
+              .i18n
+              .withParams(mainRequests, domainDisplay);
+        } else {
+          return "domain details summary allowed basic"
+              .i18n
+              .withParams(mainRequests, domainDisplay);
+        }
+      }
+    } else if (mainRequests > 0 && subdomainRequests > 0) {
+      // Both have requests
+      listId = widget.entry.listId;
+
+      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+        // Check if it's a user rule (short ID)
+        if (listId.length < 16) {
+          if (widget.entry.action == UiJournalAction.block) {
+            return "domain details summary blocked both customlist"
+                .i18n
+                .withParams(mainRequests, domainDisplay, subdomainRequests);
+          } else {
+            return "domain details summary allowed both customlist"
+                .i18n
+                .withParams(mainRequests, domainDisplay, subdomainRequests);
+          }
+        } else {
+          final listName = _getBlocklistName(listId, widget.entry.action);
+          if (listName != null) {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked both list"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, subdomainRequests, false)
+                  .withParams(listName);
+            } else {
+              return "domain details summary allowed both list"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, subdomainRequests, false)
+                  .withParams(listName);
+            }
+          } else {
+            if (widget.entry.action == UiJournalAction.block) {
+              return "domain details summary blocked both"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, subdomainRequests);
+            } else {
+              return "domain details summary allowed both"
+                  .i18n
+                  .withParams(mainRequests, domainDisplay, subdomainRequests);
+            }
+          }
+        }
+      } else {
+        if (widget.entry.action == UiJournalAction.block) {
+          return "domain details summary blocked both"
+              .i18n
+              .withParams(mainRequests, domainDisplay, subdomainRequests);
+        } else {
+          return "domain details summary allowed both"
+              .i18n
+              .withParams(mainRequests, domainDisplay, subdomainRequests);
+        }
+      }
+    } else {
+      // Neither has requests (shouldn't normally happen)
+      return "domain details summary none".i18n.withParams(domainDisplay);
+    }
   }
 
   bool _hasScheduledFetch = false;
@@ -589,14 +734,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Recents list
             if (widget.entry.action == UiJournalAction.block)
               _buildRecentSection(
-                title: "Recent Activity",
+                title: "privacy pulse recents header".i18n,
                 entries: _recentBlockedEntries,
                 isLoading: _recentBlockedLoading,
                 action: UiJournalAction.block,
               )
             else
               _buildRecentSection(
-                title: "Recent Activity",
+                title: "privacy pulse recents header".i18n,
                 entries: _recentAllowedEntries,
                 isLoading: _recentAllowedLoading,
                 action: UiJournalAction.allow,
@@ -606,7 +751,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                "Subdomains",
+                "privacy pulse toplists header".i18n,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -726,7 +871,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: "Search subdomains",
+                hintText: "domain details action search subdomains".i18n,
                 hintStyle: TextStyle(
                   color: context.theme.textSecondary.withOpacity(0.6),
                   fontSize: 16,
@@ -754,7 +899,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       children: [
         // "Your Rules" header
         Text(
-          "Your Rules",
+          "domain details rules section header".i18n,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -803,7 +948,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Edit Matched Rule",
+                      "domain details edit rule action".i18n,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -812,7 +957,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Matches ${middleEllipsis(displayDomain)}',
+                      "domain details edit rule brief"
+                          .i18n
+                          .withParams(middleEllipsis(displayDomain)),
                       style: TextStyle(
                         fontSize: 14,
                         color: context.theme.textSecondary,
@@ -857,7 +1004,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Add Rule",
+                      "domain details add rule action".i18n,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -866,7 +1013,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "Create rule for this domain",
+                      "domain details add rule brief".i18n,
                       style: TextStyle(
                         fontSize: 14,
                         color: context.theme.textSecondary,
@@ -906,9 +1053,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Center(
             child: Text(
-              _searchController.text.isEmpty
-                  ? "No subdomains found"
-                  : "No subdomains match your search",
+              "privacy pulse empty".i18n,
               style: TextStyle(
                 color: context.theme.textSecondary,
                 fontSize: 16,
@@ -1033,9 +1178,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Center(
                     child: Text(
-                      action == UiJournalAction.block
-                          ? "No recently blocked domains"
-                          : "No recently allowed domains",
+                      "privacy pulse empty".i18n,
                       style: TextStyle(
                         color: context.theme.textSecondary,
                         fontSize: 16,

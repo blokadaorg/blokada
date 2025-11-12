@@ -59,7 +59,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
 
   Widget _buildForPhone(BuildContext context) {
     return WithTopBar(
-      title: "Privacy Pulse".i18n,
+      title: "privacy pulse section header".i18n,
       child: Row(
         children: [
           Expanded(
@@ -91,7 +91,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
 
   Widget _buildForTablet(BuildContext context) {
     return WithTopBar(
-      title: "Privacy Pulse".i18n,
+      title: "privacy pulse section header".i18n,
       maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
       child: _buildStatsScreenTablet(context),
     );
@@ -134,7 +134,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         if (_arguments is Map) {
           final args = _arguments as Map;
           final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-          final level = args['level'] as int? ?? 2;  // Default to level 2
+          final level = args['level'] as int? ?? 2; // Default to level 2
           final domain = args['domain'] as String? ?? mainEntry.domainName;
 
           return DomainDetailSection(
