@@ -94,8 +94,7 @@ class JournalActor with Logging, Actor {
         }
 
         // Keep previously discovered devices when using server-side filters
-        final initialDeviceNames =
-            append ? Set<String>.from(devices.now) : <String>{};
+        final initialDeviceNames = append ? Set<String>.from(devices.now) : <String>{};
         final processed = _processEntries(entries, initialDeviceNames);
         final grouped = processed.entries;
         devices.now = processed.deviceNames;
@@ -140,9 +139,8 @@ class JournalActor with Logging, Actor {
     String mainDomain = _extractMainDomain(entry.domainName);
 
     // Find exact match for the main domain with same action
-    final exactMatch = allEntries.firstWhereOrNull(
-      (e) => e.domainName == mainDomain && e.action == entry.action
-    );
+    final exactMatch =
+        allEntries.firstWhereOrNull((e) => e.domainName == mainDomain && e.action == entry.action);
 
     // Use exact match data if found, otherwise use defaults
     return UiJournalMainEntry(
@@ -156,10 +154,9 @@ class JournalActor with Logging, Actor {
   List<UiJournalEntry> getSubdomainEntries(UiJournalMainEntry mainEntry) {
     // Filter for subdomains with matching action only
     final filteredEntries = allEntries.where((entry) =>
-      entry.domainName != mainEntry.domainName &&
-      entry.domainName.endsWith('.${mainEntry.domainName}') &&
-      entry.action == mainEntry.action
-    );
+        entry.domainName != mainEntry.domainName &&
+        entry.domainName.endsWith('.${mainEntry.domainName}') &&
+        entry.action == mainEntry.action);
 
     // Group by domainName and sum up requests
     final Map<String, UiJournalEntry> aggregatedEntries = {};
@@ -202,8 +199,8 @@ class JournalActor with Logging, Actor {
     return domain; // Return as-is if already a main domain
   }
 
-  bool _decideModified(String domainName, UiJournalAction action,
-      List<CustomListEntry> allowed, List<CustomListEntry> denied, bool wasException) {
+  bool _decideModified(String domainName, UiJournalAction action, List<CustomListEntry> allowed,
+      List<CustomListEntry> denied, bool wasException) {
     final isOnAllowed = allowed.any((e) => e.domainName == domainName);
     final isOnDenied = denied.any((e) => e.domainName == domainName);
     final wasAllowed = action == UiJournalAction.allow;
@@ -253,8 +250,7 @@ class JournalActor with Logging, Actor {
     return trimmed;
   }
 
-  _ProcessedEntries _processEntries(
-      List<JsonJournalEntry> entries, Set<String> deviceNames) {
+  _ProcessedEntries _processEntries(List<JsonJournalEntry> entries, Set<String> deviceNames) {
     final allowed = _customlist.now.allowed;
     final denied = _customlist.now.denied;
 
@@ -262,8 +258,8 @@ class JournalActor with Logging, Actor {
       final entry = UiJournalEntry.fromJsonEntry(e, false);
       return UiJournalEntry.fromJsonEntry(
           e,
-          _decideModified(entry.domainName, entry.action, allowed, denied,
-              _wasException(entry.listId)));
+          _decideModified(
+              entry.domainName, entry.action, allowed, denied, _wasException(entry.listId)));
     }).toList();
 
     mapped.sort((a, b) => a.timestamp.compareTo(b.timestamp));
@@ -310,7 +306,7 @@ class JournalActor with Logging, Actor {
     bool exactMatchDomain = false,
   }) async {
     return await log(m).trace("fetchPreview", (m) async {
-      final requestedLimit = limit * 3;
+      final requestedLimit = limit * 10;
       final deviceParam = _normalizeDeviceName(deviceName);
       final actionParam = action == UiJournalAction.block ? "block" : "allow";
       final domainParam = domain == null
