@@ -35,6 +35,7 @@ class SystemNavService {
             }
         } else {
             // Running on actual iOS device
+            // This method broke with iOS26, will open all-apps page of system settings
             UIApplication.shared.open(URL(string: "App-Prefs:root=General")!)
         }
     }

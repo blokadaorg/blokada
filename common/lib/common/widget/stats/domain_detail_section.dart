@@ -584,24 +584,24 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             _buildInformationCard(),
           ],
 
-          // Recents list
-          if (widget.entry.action == UiJournalAction.block)
-            _buildRecentSection(
-              title: "Recent Activity",
-              entries: _recentBlockedEntries,
-              isLoading: _recentBlockedLoading,
-              action: UiJournalAction.block,
-            )
-          else
-            _buildRecentSection(
-              title: "Recent Activity",
-              entries: _recentAllowedEntries,
-              isLoading: _recentAllowedLoading,
-              action: UiJournalAction.allow,
-            ),
-
-          // Subdomains section (only show if fetchToplist is true)
+          // Recents and Subdomains section (only show if fetchToplist is true)
           if (widget.fetchToplist) ...[
+            // Recents list
+            if (widget.entry.action == UiJournalAction.block)
+              _buildRecentSection(
+                title: "Recent Activity",
+                entries: _recentBlockedEntries,
+                isLoading: _recentBlockedLoading,
+                action: UiJournalAction.block,
+              )
+            else
+              _buildRecentSection(
+                title: "Recent Activity",
+                entries: _recentAllowedEntries,
+                isLoading: _recentAllowedLoading,
+                action: UiJournalAction.allow,
+              ),
+
             // Subdomains section header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
