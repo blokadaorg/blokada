@@ -107,6 +107,7 @@
 "universal status restart required" = "Starta om appen för att ändringarna ska träda i kraft.";
 "universal status redirect" = "Fortsätt med Blokada-appen";
 "universal status confirm" = "Är du säker du vill fortsätta?";
+"universal status loading" = "Loading...";
 
 "alert error header" = "Hoppsan!";
 "alert vpn expired header" = "BLOKADA+ löpte ut";
@@ -244,6 +245,8 @@
 "activity filter show allowed" = "Endast tillåtna";
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Visar tillfällen för: %@";
+// A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
+"activity filter exact match" = "Exact match";
 "activity empty text" = "Kom tillbaka hit när du har använt din enhet ett tag, för att se var din enhet ansluter.";
 "activity device filter show all" = "Alla enheter";
 "activity retention header" = "Ska vi lagra din aktivitet?";
@@ -783,3 +786,81 @@
 "freemium sheet safari header" = "Börja blockera annonser i Safari";
 "freemium sheet safari desc" = "Aktivera vårt tillägg i Safari för att få grundläggande skydd när du surfar. Det blockerar irriterande annonser – även videoannonser på YouTube – för en renare och snabbare webbupplevelse.";
 "freemium sheet safari cta" = "Öppna Safari";
+
+"dialog title activity rule" = "What should happen to traffic to %@?";
+"dialog exception add title" = "Add exception";
+"dialog exception add text" = "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com";
+
+"domain details section header" = "Domain Details";
+// A button to add a new rule to block / allow domain
+"domain details rules section header" = "Your Rules";
+"domain details add rule action" = "Add Rule";
+"domain details add rule brief" = "Create rule for this domain";
+// A button do edit rule that has been found for given domain
+"domain details edit rule action" = "Edit Matched Rule";
+// A short text for matching rule, like "Matches *.example.com"
+"domain details edit rule brief" = "Matches %@";
+"domain details action search subdomains" = "Search subdomains";
+// Just one word header for Subdomains section
+"domain details header subdomains" = "Subdomains";
+
+// Example: 29 requests to apple.com were allowed
+"domain details summary" = "%@ requests to %@ were %@";
+// Action used in the summary text
+"domain details summary action allowed" = "allowed";
+// Action used in the summary text
+"domain details summary action blocked" = "blocked";
+// Param is the domain details summary: '29 requests to apple.com were allowed by your rules'
+"domain details summary reason your rules" = "%@ by your rules";
+// Param is the domain details summary, and blocklist name: '29 requests to apple.com were allowed by OISD'
+"domain details summary reason list" = "%@ by %@";
+// Example: '29 requests to subdomains of apple.com were allowed'
+"domain details summary subdomain" = "%@ requests to subdomains of %@ were %@";
+// Example: '29 requests to apple.com were allowed and 33 requests to its subdomains were also allowed'
+"domain details summary subdomain alt" = "%@ requests to %@ were %@ and %@ requests to its subdomains were also %@";
+"domain details summary none" = "No requests to %@ or its subdomains";
+
+// A rule name to use default configuration
+"dialog rule auto" = "Use automatic protection";
+"dialog rule auto desc" = "Block or allow this domain based on your selected filters.\n(Default setting)";
+// A part of the rule description: 'Always allow this domain'
+"dialog rule action allow" = "allow";
+// A part of the rule long description: 'Ignore filters and let traffic through to example.com'
+"dialog rule action allow desc" = "let traffic through to";
+// A part of the rule description: 'Always block this domain'
+"dialog rule action block" = "block";
+// A part of the rule long description: 'Ignore filters and block traffic to example.com'
+"dialog rule action block desc" = "block traffic to";
+// A part of the rule description: 'Always allow this domain'
+"dialog rule domain" = "Always %@ this domain";
+// A part of the rule long description: 'Ignore filters and block traffic to example.com'
+"dialog rule domain desc" = "Ignore filters and %@ %@.";
+// A part of the rule description: 'Always allow this domain and subdomains'
+"dialog rule subdomains" = "Always %@ this domain and subdomains";
+// A part of the rule long description: 'Block traffic to example.com and all addresses under it'
+"dialog rule subdomains desc" = "%@ %@ and all addresses under it.";
+
+
+// Name to refer to user's list of blocked exceptions
+"domain details your rules blocked" = "Your blocked rules";
+
+// Name to refer to user's list of allowed exceptions
+"domain details your rules allowed" = "Your allowed rules";
+
+// A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
+"privacy pulse section header" = "Privacy Pulse";
+"privacy pulse brief" = "Recent activity and protection level for this device";
+// A header for Toplists section
+"privacy pulse toplists header" = "Toplists";
+// A header for Recent Activity section (shows user activity)
+"privacy pulse recents header" = "Recent Activity";
+// A timespan duration indicator, keep super short
+"privacy pulse timespan 24h" = "24h";
+// Action to show all entries. Keep it very short.
+"privacy pulse timespan show all" = "Show All";
+// A tab name for Blocked entries
+"privacy pulse tab blocked" = "Blocked";
+// A tab name for Allowed entries
+"privacy pulse tab allowed" = "Allowed";
+// A generic text used in various contexts, like recently blocked / allowed lists etc.
+"privacy pulse empty" = "Nothing to show";
