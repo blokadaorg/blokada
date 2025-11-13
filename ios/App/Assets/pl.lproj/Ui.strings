@@ -791,6 +791,7 @@
 "dialog exception add title" = "Dodaj wyjątek";
 "dialog exception add text" = "Wprowadź nazwę hosta, aby dodać do twoich wyjątków. Możesz użyć gwiazdki jako wieloznacznika: *.example.com";
 
+// Keep it very short. Can be just 'Details'.
 "domain details section header" = "Szczegóły domeny";
 // A button to add a new rule to block / allow domain
 "domain details rules section header" = "Twoje reguły";
@@ -804,41 +805,52 @@
 // Just one word header for Subdomains section
 "domain details header subdomains" = "Subdomeny";
 
-// Example: 29 requests to apple.com were allowed
-"domain details summary" = "%@ zapytań/ia do %@ zostało/y %@";
-// Action used in the summary text
-"domain details summary action allowed" = "zezwolone/ych";
-// Action used in the summary text
-"domain details summary action blocked" = "zablokowane/ych";
-// Param is the domain details summary: '29 requests to apple.com were allowed by your rules'
-"domain details summary reason your rules" = "%@ przez Twoje reguły";
-// Param is the domain details summary, and blocklist name: '29 requests to apple.com were allowed by OISD'
-"domain details summary reason list" = "%@ przez %@";
-// Example: '29 requests to subdomains of apple.com were allowed'
-"domain details summary subdomain" = "%@ zapytań/ia do subdomen %@ zostało/y %@";
-// Example: '29 requests to apple.com were allowed and 33 requests to its subdomains were also allowed'
-"domain details summary subdomain alt" = "%@ zapytań do %@ zostało %@ i %@ zapytań do ich subdomen zostało także %@";
+// Example: 29 request(s) to apple.com were blocked
+"domain details summary blocked basic" = "%@ żądania(e) do %@ zostały(o) zablokowane";
+"domain details summary allowed basic" = "%@ żądania(e) do %@ zostały(o) zezwolone";
+"domain details summary blocked basic customlist" = "%@ żądania(e) do %@ zostały(o) zablokowane przez Twoje reguły";
+"domain details summary allowed basic customlist" = "%@ żądania(e) do %@ zostały(o) zezwolone przez Twoje reguły";
+"domain details summary blocked basic list" = "%@ żądania(e) do %@ zostały(o) zablokowane przez %@";
+"domain details summary allowed basic list" = "%@ żądania(e) do %@ zostały(o) zezwolone przez %@";
+
+// Example: 29 request(s) to subdomains of apple.com were blocked
+"domain details summary blocked subdomain" = "%@ żądania(e) do subdomen %@ zostały(o) zablokowane";
+"domain details summary allowed subdomain" = "%@ żądania(e) do subdomen %@ zostały(o) zezwolone";
+"domain details summary blocked subdomain customlist" = "%@ żądania(e) do subdomen %@ zostały(o) zablokowane przez Twoje reguły";
+"domain details summary allowed subdomain customlist" = "%@ żądania(e) do subdomen %@ zostały(o) zezwolone przez Twoje reguły";
+"domain details summary blocked subdomain list" = "%@ żądania(e) do subdomen %@ zostały(o) zablokowane przez %@";
+"domain details summary allowed subdomain list" = "%@ żądania(e) do subdomen %@ zostały(o) zezwolone przez %@";
+
+// Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
+"domain details summary blocked both" = "%@ żądania(e) do %@ zostały(o) zablokowane i %@ żądania(e) do ich subdomen zostały(o) także zablokowane";
+"domain details summary allowed both" = "%@ żądania(e) do %@ zostały(o) zezwolone i %@ żądania(e) do ich subdomen zostały(o) także zezwolone";
+"domain details summary blocked both customlist" = "%@ żądania(e) do %@ zostały(o) zablokowane i %@ żądania(e) do ich subdomen zostały(o) także zablokowane przez Twoje reguły";
+"domain details summary allowed both customlist" = "%@ żądania(e) do %@ zostały(o) zezwolone i %@ żądania(e) do ich subdomen zostały(o) także zezwolone przez Twoje reguły";
+"domain details summary blocked both list" = "%@ żądania(e) do %@ zostały(o) zablokowane i %@ żądania(e) do ich subdomen zostały(o) także zablokowane przez %@";
+"domain details summary allowed both list" = "%@ żądania(e) do %@ zostały(o) zezwolone i %@ żądania(e) do ich subdomen zostały(o) także zezwolone przez %@";
+
+// Param: domain name
 "domain details summary none" = "Brak zapytań do %@ lub poddomen";
 
 // A rule name to use default configuration
 "dialog rule auto" = "Użyj automatycznej ochrony";
 "dialog rule auto desc" = "Zablokuj lub zezwól na tą domenę na podstawie wybranych filtrów.\n(ustawienie domyślne)";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule action allow" = "zezwól";
-// A part of the rule long description: 'Ignore filters and let traffic through to example.com'
-"dialog rule action allow desc" = "pozwól na ruch do";
-// A part of the rule description: 'Always block this domain'
-"dialog rule action block" = "blokuj";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule action block desc" = "blokuj ruch do";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule domain" = "Zawsze %@ na tą domenę";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule domain desc" = "Ignoruj filtry i %@ %@.";
-// A part of the rule description: 'Always allow this domain and subdomains'
-"dialog rule subdomains" = "Zawsze %@ na tą domenę i subdomeny";
-// A part of the rule long description: 'Block traffic to example.com and all addresses under it'
-"dialog rule subdomains desc" = "%@ %@ i wszystkie subdomeny.";
+
+"dialog rule domain block" = "Zawsze blokuj tą domenę";
+// Param: domain name
+"dialog rule domain desc block" = "Ignoruj filtry i blokuj ruch do %@.";
+
+"dialog rule domain allow" = "Zawsze zezwalaj tą domenę";
+// Param: domain name
+"dialog rule domain desc allow" = "Ignoruj filtry i zezwalaj na ruch do %@.";
+
+"dialog rule subdomains block" = "Zawsze blokuj tą domenę i subdomeny";
+// Param: domain name
+"dialog rule subdomains desc block" = "Blokuj ruch do %@ i wszystkie adresy pod nim.";
+
+"dialog rule subdomains allow" = "Zawsze zezwalaj na tę domenę i subdomeny";
+// Param: domain name
+"dialog rule subdomains desc allow" = "Zezwalaj na ruch do %@ i wszystkie adresy pod nim.";
 
 
 // Name to refer to user's list of blocked exceptions
@@ -856,8 +868,8 @@
 "privacy pulse recents header" = "Ostatnia aktywność";
 // A timespan duration indicator, keep super short
 "privacy pulse timespan 24h" = "24h";
-// Action to show all entries. Keep it very short.
-"privacy pulse timespan show all" = "Pokaż wszystko";
+// Action to show all entries. Keep it very short. Can be 'More'.
+"privacy pulse timespan show all" = "Więcej";
 // A tab name for Blocked entries
 "privacy pulse tab blocked" = "Zablokowane";
 // A tab name for Allowed entries

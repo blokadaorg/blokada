@@ -107,7 +107,7 @@
 "universal status restart required" = "Моля, рестартирайте приложението, за да влязат в сила промените.";
 "universal status redirect" = "Продължете към приложението Blokada";
 "universal status confirm" = "Сигурни ли сте, че искате да продължите?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Зареждане...";
 
 "alert error header" = "Ооопс!";
 "alert vpn expired header" = "BLOKADA+ е изтекла";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Показано за: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact match";
+"activity filter exact match" = "Точно съвпадение";
 "activity empty text" = "Използвайте устройството и след това се върнете тук, за да видите къде се свързва вашето устройство.";
 "activity device filter show all" = "Всички устройства";
 "activity retention header" = "Трябва ли да съхраняваме вашата активност?";
@@ -773,94 +773,106 @@
 "bypass dialog add brief" = "Започнете да пишете, за да търсите приложения.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Основни";
+"freemium home status desc safari" = "Основната защита е активна в Safari. Направете надграждане, за да отключите пълната защита за всички приложения.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Отключете пълният контрол върху проследяването";
+"freemium stats cta desc" = "Вижте кои тракери достигат до вас - и ги блокирайте.";
+"freemium filters cta header" = "Отключете разширени блокиращи списъци";
+"freemium filters cta desc" = "Актуализирайте плана си, за да активирате разширената защита и допълнителните блокиращи списъци.";
+"freemium activity cta header" = "Отключете статистиките си";
+"freemium activity cta desc" = "Направете надграждане към Plus, за да получите достъп до подробни статистики и анализи.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Започнете да блокирате рекламите в Safari";
+"freemium sheet safari desc" = "Активирайте нашето разширение в Safari, за да получите необходимата защита докато сърфирате. То блокира досадните реклами, включително видео рекламите в YouTube, така ще можете да се насладите на по-чисто и по-бързо сърфиране в интернет.";
+"freemium sheet safari cta" = "Отваряне на Safari";
 
-"dialog title activity rule" = "What should happen to traffic to %@?";
-"dialog exception add title" = "Add exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com";
+"dialog title activity rule" = "Какво трябва да се случи с трафика към %@?";
+"dialog exception add title" = "Добавяне на изключение";
+"dialog exception add text" = "Въведете име на хост, което да добавите към изключенията си. Можете да използвате звезда като заместващ символ: *.example.com";
 
-"domain details section header" = "Domain Details";
+// Keep it very short. Can be just 'Details'.
+"domain details section header" = "Подробности за домейна";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Rules";
-"domain details add rule action" = "Add Rule";
-"domain details add rule brief" = "Create rule for this domain";
+"domain details rules section header" = "Вашите правила";
+"domain details add rule action" = "Добавяне на правило";
+"domain details add rule brief" = "Създаване на правило за този домейн";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matched Rule";
+"domain details edit rule action" = "Редактиране на съответстващо правило";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Matches %@";
-"domain details action search subdomains" = "Search subdomains";
+"domain details edit rule brief" = "Съответства на %@";
+"domain details action search subdomains" = "Търсене на поддомейни";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Поддомейни";
 
-// Example: 29 requests to apple.com were allowed
-"domain details summary" = "%@ requests to %@ were %@";
-// Action used in the summary text
-"domain details summary action allowed" = "allowed";
-// Action used in the summary text
-"domain details summary action blocked" = "blocked";
-// Param is the domain details summary: '29 requests to apple.com were allowed by your rules'
-"domain details summary reason your rules" = "%@ by your rules";
-// Param is the domain details summary, and blocklist name: '29 requests to apple.com were allowed by OISD'
-"domain details summary reason list" = "%@ by %@";
-// Example: '29 requests to subdomains of apple.com were allowed'
-"domain details summary subdomain" = "%@ requests to subdomains of %@ were %@";
-// Example: '29 requests to apple.com were allowed and 33 requests to its subdomains were also allowed'
-"domain details summary subdomain alt" = "%@ requests to %@ were %@ and %@ requests to its subdomains were also %@";
-"domain details summary none" = "No requests to %@ or its subdomains";
+// Example: 29 request(s) to apple.com were blocked
+"domain details summary blocked basic" = "%@ request(s) to %@ were blocked";
+"domain details summary allowed basic" = "%@ request(s) to %@ were allowed";
+"domain details summary blocked basic customlist" = "%@ request(s) to %@ were blocked by your rules";
+"domain details summary allowed basic customlist" = "%@ request(s) to %@ were allowed by your rules";
+"domain details summary blocked basic list" = "%@ request(s) to %@ were blocked by %@";
+"domain details summary allowed basic list" = "%@ request(s) to %@ were allowed by %@";
+
+// Example: 29 request(s) to subdomains of apple.com were blocked
+"domain details summary blocked subdomain" = "%@ request(s) to subdomains of %@ were blocked";
+"domain details summary allowed subdomain" = "%@ request(s) to subdomains of %@ were allowed";
+"domain details summary blocked subdomain customlist" = "%@ request(s) to subdomains of %@ were blocked by your rules";
+"domain details summary allowed subdomain customlist" = "%@ request(s) to subdomains of %@ were allowed by your rules";
+"domain details summary blocked subdomain list" = "%@ request(s) to subdomains of %@ were blocked by %@";
+"domain details summary allowed subdomain list" = "%@ request(s) to subdomains of %@ were allowed by %@";
+
+// Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
+"domain details summary blocked both" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked";
+"domain details summary allowed both" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed";
+"domain details summary blocked both customlist" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by your rules";
+"domain details summary allowed both customlist" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by your rules";
+"domain details summary blocked both list" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by %@";
+"domain details summary allowed both list" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by %@";
+
+// Param: domain name
+"domain details summary none" = "Няма заявки към %@ или неговите поддомейни";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use automatic protection";
-"dialog rule auto desc" = "Block or allow this domain based on your selected filters.\n(Default setting)";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule action allow" = "allow";
-// A part of the rule long description: 'Ignore filters and let traffic through to example.com'
-"dialog rule action allow desc" = "let traffic through to";
-// A part of the rule description: 'Always block this domain'
-"dialog rule action block" = "block";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule action block desc" = "block traffic to";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule domain" = "Always %@ this domain";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule domain desc" = "Ignore filters and %@ %@.";
-// A part of the rule description: 'Always allow this domain and subdomains'
-"dialog rule subdomains" = "Always %@ this domain and subdomains";
-// A part of the rule long description: 'Block traffic to example.com and all addresses under it'
-"dialog rule subdomains desc" = "%@ %@ and all addresses under it.";
+"dialog rule auto" = "Използвай автоматична защита";
+"dialog rule auto desc" = "Блокирайте или разрешете този домейн въз основа на избраните от вас филтри.\n(Настройка по подразбиране)";
+
+"dialog rule domain block" = "Always block this domain";
+// Param: domain name
+"dialog rule domain desc block" = "Ignore filters and block traffic to %@.";
+
+"dialog rule domain allow" = "Always allow this domain";
+// Param: domain name
+"dialog rule domain desc allow" = "Ignore filters and let traffic through to %@.";
+
+"dialog rule subdomains block" = "Always block this domain and subdomains";
+// Param: domain name
+"dialog rule subdomains desc block" = "Block traffic to %@ and all addresses under it.";
+
+"dialog rule subdomains allow" = "Always allow this domain and subdomains";
+// Param: domain name
+"dialog rule subdomains desc allow" = "Let traffic through to %@ and all addresses under it.";
 
 
 // Name to refer to user's list of blocked exceptions
-"domain details your rules blocked" = "Your blocked rules";
+"domain details your rules blocked" = "Вашите правила за блокиране";
 
 // Name to refer to user's list of allowed exceptions
-"domain details your rules allowed" = "Your allowed rules";
+"domain details your rules allowed" = "Вашите правила за разрешаване";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "Recent activity and protection level for this device";
+"privacy pulse section header" = "Пулс";
+"privacy pulse brief" = "Последна дейност и ниво на защита за това устройство";
 // A header for Toplists section
-"privacy pulse toplists header" = "Toplists";
+"privacy pulse toplists header" = "Топ списъци";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Последна активност";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "24h";
-// Action to show all entries. Keep it very short.
-"privacy pulse timespan show all" = "Show All";
+"privacy pulse timespan 24h" = "24ч";
+// Action to show all entries. Keep it very short. Can be 'More'.
+"privacy pulse timespan show all" = "Показване на всичко";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Блокирани";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Разрешени";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show";
+"privacy pulse empty" = "Няма нищо за показване";
