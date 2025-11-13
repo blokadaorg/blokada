@@ -791,6 +791,7 @@
 "dialog exception add title" = "Add exception";
 "dialog exception add text" = "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com";
 
+// Keep it very short. Can be just 'Details'.
 "domain details section header" = "Domain Details";
 // A button to add a new rule to block / allow domain
 "domain details rules section header" = "Your Rules";
@@ -804,51 +805,52 @@
 // Just one word header for Subdomains section
 "domain details header subdomains" = "Subdomains";
 
-"domain details summary blocked basic" = "%@ requests to %@ were blocked";
-"domain details summary allowed basic" = "%@ requests to %@ were allowed";
-"domain details summary blocked basic list" = "%@ requests to %@ were blocked by %@";
-"domain details summary allowed basic list" = "%@ requests to %@ were allowed by %@";
-"domain details summary blocked basic customlist" = "%@ requests to %@ were blocked by your rules";
-"domain details summary allowed basic customlist" = "%@ requests to %@ were allowed by your rules";
+// Example: 29 request(s) to apple.com were blocked
+"domain details summary blocked basic" = "%@ request(s) to %@ were blocked";
+"domain details summary allowed basic" = "%@ request(s) to %@ were allowed";
+"domain details summary blocked basic customlist" = "%@ request(s) to %@ were blocked by your rules";
+"domain details summary allowed basic customlist" = "%@ request(s) to %@ were allowed by your rules";
+"domain details summary blocked basic list" = "%@ request(s) to %@ were blocked by %@";
+"domain details summary allowed basic list" = "%@ request(s) to %@ were allowed by %@";
 
-"domain details summary blocked subdomain" = "%@ requests to subdomains of %@ were blocked";
-"domain details summary allowed subdomain" = "%@ requests to subdomains of %@ were allowed";
-"domain details summary blocked subdomain list" = "%@ requests to subdomains of %@ were blocked by %@";
-"domain details summary allowed subdomain list" = "%@ requests to subdomains of %@ were allowed by %@";
-"domain details summary blocked subdomain customlist" = "%@ requests to subdomains of %@ were blocked by your rules";
-"domain details summary allowed subdomain customlist" = "%@ requests to subdomains of %@ were allowed by your rules";
+// Example: 29 request(s) to subdomains of apple.com were blocked
+"domain details summary blocked subdomain" = "%@ request(s) to subdomains of %@ were blocked";
+"domain details summary allowed subdomain" = "%@ request(s) to subdomains of %@ were allowed";
+"domain details summary blocked subdomain customlist" = "%@ request(s) to subdomains of %@ were blocked by your rules";
+"domain details summary allowed subdomain customlist" = "%@ request(s) to subdomains of %@ were allowed by your rules";
+"domain details summary blocked subdomain list" = "%@ request(s) to subdomains of %@ were blocked by %@";
+"domain details summary allowed subdomain list" = "%@ request(s) to subdomains of %@ were allowed by %@";
 
-"domain details summary blocked both" = "%@ requests to %@ were blocked and %@ requests to its subdomains were also blocked";
-"domain details summary allowed both" = "%@ requests to %@ were allowed and %@ requests to its subdomains were also allowed";
-"domain details summary blocked both list" = "%@ requests to %@ were blocked and %@ requests to its subdomains were also blocked by %@";
-"domain details summary allowed both list" = "%@ requests to %@ were allowed and %@ requests to its subdomains were also allowed by %@";
-"domain details summary blocked both customlist" = "%@ requests to %@ were blocked and %@ requests to its subdomains were also blocked by your rules";
-"domain details summary allowed both customlist" = "%@ requests to %@ were allowed and %@ requests to its subdomains were also allowed by your rules";
+// Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
+"domain details summary blocked both" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked";
+"domain details summary allowed both" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed";
+"domain details summary blocked both customlist" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by your rules";
+"domain details summary allowed both customlist" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by your rules";
+"domain details summary blocked both list" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by %@";
+"domain details summary allowed both list" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by %@";
 
-
-// Example: '29 requests to apple.com were allowed and 33 requests to its subdomains were also allowed'
-
+// Param: domain name
 "domain details summary none" = "No requests to %@ or its subdomains";
 
 // A rule name to use default configuration
 "dialog rule auto" = "Use automatic protection";
 "dialog rule auto desc" = "Block or allow this domain based on your selected filters.\n(Default setting)";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule action allow" = "allow";
-// A part of the rule long description: 'Ignore filters and let traffic through to example.com'
-"dialog rule action allow desc" = "let traffic through to";
-// A part of the rule description: 'Always block this domain'
-"dialog rule action block" = "block";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule action block desc" = "block traffic to";
-// A part of the rule description: 'Always allow this domain'
-"dialog rule domain" = "Always %@ this domain";
-// A part of the rule long description: 'Ignore filters and block traffic to example.com'
-"dialog rule domain desc" = "Ignore filters and %@ %@.";
-// A part of the rule description: 'Always allow this domain and subdomains'
-"dialog rule subdomains" = "Always %@ this domain and subdomains";
-// A part of the rule long description: 'Block traffic to example.com and all addresses under it'
-"dialog rule subdomains desc" = "%@ %@ and all addresses under it.";
+
+"dialog rule domain block" = "Always block this domain";
+// Param: domain name
+"dialog rule domain desc block" = "Ignore filters and block traffic to %@.";
+
+"dialog rule domain allow" = "Always allow this domain";
+// Param: domain name
+"dialog rule domain desc allow" = "Ignore filters and let traffic through to %@.";
+
+"dialog rule subdomains block" = "Always block this domain and subdomains";
+// Param: domain name
+"dialog rule subdomains desc block" = "Block traffic to %@ and all addresses under it.";
+
+"dialog rule subdomains allow" = "Always allow this domain and subdomains";
+// Param: domain name
+"dialog rule subdomains desc allow" = "Let traffic through to %@ and all addresses under it.";
 
 
 // Name to refer to user's list of blocked exceptions
