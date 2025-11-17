@@ -107,7 +107,7 @@
 "universal status restart required" = "Por favor, reinicia la aplicación para aplicar los cambios.";
 "universal status redirect" = "Continuar con Blokada";
 "universal status confirm" = "¿Deseas continuar?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Cargando...";
 
 "alert error header" = "¡Vaya!";
 "alert vpn expired header" = "BLOKADA+ ha expirado";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Mostrando para: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact match";
+"activity filter exact match" = "Sólo coincidencia exacta";
 "activity empty text" = "Intenta usar tu dispositivo y vuelve aquí más tarde, para ver a dónde se conecta tu dispositivo.";
 "activity device filter show all" = "Todos los dispositivos";
 "activity retention header" = "¿Deberíamos guardar su actividad?";
@@ -787,92 +787,85 @@
 "freemium sheet safari desc" = "Activa nuestra extensión en Safari para obtener protección esencial mientras navegas. Bloquea anuncios molestos — incluidos los de video en YouTube — para una experiencia web más limpia y rápida.";
 "freemium sheet safari cta" = "Abrir Safari";
 
-"dialog title activity rule" = "What should happen to traffic to %@?";
-"dialog exception add title" = "Add exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com";
+"dialog title activity rule" = "¿Cómo debe Blokada manejar el Trámite a %@?";
+"dialog exception add title" = "Añadir una excepción";
+"dialog exception add text" = "Introduzca un nombre de host para añadir a sus excepciones. Puede utilizar * como comodín, por ejemplo *.example.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "Detalles";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Rules";
-"domain details add rule action" = "Add Rule";
-"domain details add rule brief" = "Create rule for this domain";
+"domain details rules section header" = "Sus reglas personalizadas";
+"domain details add rule action" = "Añadir una Regla";
+"domain details add rule brief" = "Crear una regla para este dominio.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matched Rule";
+"domain details edit rule action" = "Editar regla coincidente";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Matches %@";
-"domain details action search subdomains" = "Search subdomains";
+"domain details edit rule brief" = "Se aplica a %@.";
+"domain details action search subdomains" = "Buscar subdominios";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Subdominios";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "%@ request(s) to %@ were blocked";
-"domain details summary allowed basic" = "%@ request(s) to %@ were allowed";
-"domain details summary blocked basic customlist" = "%@ request(s) to %@ were blocked by your rules";
-"domain details summary allowed basic customlist" = "%@ request(s) to %@ were allowed by your rules";
-"domain details summary blocked basic list" = "%@ request(s) to %@ were blocked by %@";
-"domain details summary allowed basic list" = "%@ request(s) to %@ were allowed by %@";
+"domain details summary blocked basic" = "Se bloquearon %@ solicitud(es) a %@.";
+"domain details summary allowed basic" = "Se permitieron %@ solicitud(es) a %@.";
+"domain details summary blocked basic customlist" = "Tus reglas bloquearon %@ solicitud(es) a %@.";
+"domain details summary allowed basic customlist" = "Tus reglas permitieron %@ solicitud(es) a %@.";
+"domain details summary blocked basic list" = "Se bloquearon %@ solicitud(es) a %@ usando %@.";
+"domain details summary allowed basic list" = "Se permitieron %@ solicitud(es) a %@ usando %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "%@ request(s) to subdomains of %@ were blocked";
-"domain details summary allowed subdomain" = "%@ request(s) to subdomains of %@ were allowed";
-"domain details summary blocked subdomain customlist" = "%@ request(s) to subdomains of %@ were blocked by your rules";
-"domain details summary allowed subdomain customlist" = "%@ request(s) to subdomains of %@ were allowed by your rules";
-"domain details summary blocked subdomain list" = "%@ request(s) to subdomains of %@ were blocked by %@";
-"domain details summary allowed subdomain list" = "%@ request(s) to subdomains of %@ were allowed by %@";
+"domain details summary blocked subdomain" = "Se bloquearon %@ solicitud(es) a los subdominios de %@.";
+"domain details summary allowed subdomain" = "Se permitieron %@ solicitud(es) a los subdominios de %@.";
+"domain details summary blocked subdomain customlist" = "Tus reglas bloquearon %@ solicitud(es) a los subdominios de %@.";
+"domain details summary allowed subdomain customlist" = "Tus reglas permitieron %@ solicitud(es) a los subdominios de %@.";
+"domain details summary blocked subdomain list" = "Se bloquearon %@ solicitud(es) a los subdominios de %@ usando %@.";
+"domain details summary allowed subdomain list" = "Se permitieron %@ solicitud(es) a los subdominios de %@ usando %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked";
-"domain details summary allowed both" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed";
-"domain details summary blocked both customlist" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by your rules";
-"domain details summary allowed both customlist" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by your rules";
-"domain details summary blocked both list" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by %@";
-"domain details summary allowed both list" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by %@";
+"domain details summary blocked both" = "Se bloquearon %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios.";
+"domain details summary allowed both" = "Se permitieron %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios.";
+"domain details summary blocked both customlist" = "Tus reglas bloquearon %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios.";
+"domain details summary allowed both customlist" = "Tus reglas permitieron %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios.";
+"domain details summary blocked both list" = "Se bloquearon %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios usando %@.";
+"domain details summary allowed both list" = "Se permitieron %@ solicitud(es) a %@ y %@ solicitud(es) a sus subdominios usando %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains";
+"domain details summary none" = "No hay solicitudes a %@ o sus subdominios.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use automatic protection";
-"dialog rule auto desc" = "Block or allow this domain based on your selected filters.\n(Default setting)";
+"dialog rule auto" = "Usar protección automática";
+"dialog rule auto desc" = "Bloquear o permitir este dominio de acuerdo a sus filtros seleccionados.\n(Configuración predeterminada)";
 
-"dialog rule domain block" = "Always block this domain";
+"dialog rule domain block" = "Bloquear siempre este dominio";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and block traffic to %@.";
+"dialog rule domain desc block" = "Ignorar filtros y bloquear siempre el tráfico a %@.";
 
-"dialog rule domain allow" = "Always allow this domain";
+"dialog rule domain allow" = "Permitir siempre este dominio";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and let traffic through to %@.";
+"dialog rule domain desc allow" = "Ignorar filtros y siempre permitir tráfico a %@.";
 
-"dialog rule subdomains block" = "Always block this domain and subdomains";
+"dialog rule subdomains block" = "Bloquear siempre este dominio y sus subdominios";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and all addresses under it.";
+"dialog rule subdomains desc block" = "Bloquear tráfico a %@ y a cada subdominio debajo de él.";
 
-"dialog rule subdomains allow" = "Always allow this domain and subdomains";
+"dialog rule subdomains allow" = "Permitir siempre este dominio y sus subdominios";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Let traffic through to %@ and all addresses under it.";
-
-
-// Name to refer to user's list of blocked exceptions
-"domain details your rules blocked" = "Your blocked rules";
-
-// Name to refer to user's list of allowed exceptions
-"domain details your rules allowed" = "Your allowed rules";
+"dialog rule subdomains desc allow" = "Permitir tráfico a %@ y a cada subdominio debajo de él.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "Recent activity and protection level for this device";
+"privacy pulse section header" = "Pulso";
+"privacy pulse brief" = "Vea la actividad reciente y el estado de protección de este dispositivo.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Toplists";
+"privacy pulse toplists header" = "Dominios más frecuentes";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Actividad reciente";
 // A timespan duration indicator, keep super short
 "privacy pulse timespan 24h" = "24h";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "Show All";
+"privacy pulse timespan show all" = "Ver todos";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Bloqueado";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Permitido";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show";
+"privacy pulse empty" = "Nada que mostrar aún";
