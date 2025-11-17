@@ -569,7 +569,7 @@
     <string name="freemium_sheet_safari_header">Empieza a bloquear anuncios en Safari</string>
     <string name="freemium_sheet_safari_desc">Activa nuestra extensión en Safari para obtener protección esencial mientras navegas. Bloquea anuncios molestos — incluidos los de video en YouTube — para una experiencia web más limpia y rápida.</string>
     <string name="freemium_sheet_safari_cta">Abrir Safari</string>
-    <string name="dialog_title_activity_rule">¿Cómo debe Blokada manejar el Trámite a %s?</string>
+    <string name="dialog_title_activity_rule">¿Cómo debería Blokada gestionar el tráfico hacia %s?</string>
     <string name="dialog_exception_add_title">Añadir una excepción</string>
     <string name="dialog_exception_add_text">Introduzca un nombre de host para añadir a sus excepciones. Puede utilizar * como comodín, por ejemplo *.example.com.</string>
     <string name="domain_details_section_header">Detalles</string>

@@ -787,7 +787,7 @@
 "freemium sheet safari desc" = "Activa nuestra extensión en Safari para obtener protección esencial mientras navegas. Bloquea anuncios molestos — incluidos los de video en YouTube — para una experiencia web más limpia y rápida.";
 "freemium sheet safari cta" = "Abrir Safari";
 
-"dialog title activity rule" = "¿Cómo debe Blokada manejar el Trámite a %@?";
+"dialog title activity rule" = "¿Cómo debería Blokada gestionar el tráfico hacia %@?";
 "dialog exception add title" = "Añadir una excepción";
 "dialog exception add text" = "Introduzca un nombre de host para añadir a sus excepciones. Puede utilizar * como comodín, por ejemplo *.example.com.";
 
