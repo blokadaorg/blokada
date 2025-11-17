@@ -1303,7 +1303,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             const SizedBox(height: 12),
             // Request count
             _buildInfoRow(
-              label: "activity request count".i18n,
+              label: "activity number of occurrences".i18n,
               value: widget.entry.requests.toString(),
             ),
           ],
