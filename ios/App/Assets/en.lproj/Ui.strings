@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Showing for: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact match";
+"activity filter exact match" = "Exact Match Only";
 "activity empty text" = "Try using your device, and come back here later, to see where your device connects to.";
 "activity device filter show all" = "All devices";
 "activity retention header" = "Should we store your activity?";
@@ -787,97 +787,85 @@
 "freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
 "freemium sheet safari cta" = "Open Safari";
 
-"dialog title activity rule" = "What should happen to traffic to %@?";
-"dialog exception add title" = "Add exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You may use a star as a wildcard: *.example.com";
+"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
+"dialog exception add title" = "Add an Exception";
+"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
 
 // Keep it very short. Can be just 'Details'.
 "domain details section header" = "Domain Details";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Rules";
-"domain details add rule action" = "Add Rule";
-"domain details add rule brief" = "Create rule for this domain";
+"domain details rules section header" = "Your Custom Rules";
+"domain details add rule action" = "Add a Rule";
+"domain details add rule brief" = "Create a rule for this domain.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matched Rule";
+"domain details edit rule action" = "Edit Matching Rule";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Matches %@";
-"domain details action search subdomains" = "Search subdomains";
+"domain details edit rule brief" = "Applies to %@.";
+"domain details action search subdomains" = "Search Subdomains";
 // Just one word header for Subdomains section
 "domain details header subdomains" = "Subdomains";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "%@ request(s) to %@ were blocked";
-"domain details summary allowed basic" = "%@ request(s) to %@ were allowed";
-"domain details summary blocked basic customlist" = "%@ request(s) to %@ were blocked by your rules";
-"domain details summary allowed basic customlist" = "%@ request(s) to %@ were allowed by your rules";
-"domain details summary blocked basic list" = "%@ request(s) to %@ were blocked by %@";
-"domain details summary allowed basic list" = "%@ request(s) to %@ were allowed by %@";
+"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
+"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
+"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
+"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
+"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
+"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "%@ request(s) to subdomains of %@ were blocked";
-"domain details summary allowed subdomain" = "%@ request(s) to subdomains of %@ were allowed";
-"domain details summary blocked subdomain customlist" = "%@ request(s) to subdomains of %@ were blocked by your rules";
-"domain details summary allowed subdomain customlist" = "%@ request(s) to subdomains of %@ were allowed by your rules";
-"domain details summary blocked subdomain list" = "%@ request(s) to subdomains of %@ were blocked by %@";
-"domain details summary allowed subdomain list" = "%@ request(s) to subdomains of %@ were allowed by %@";
+"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
+"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
+"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
+"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
+"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
+"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked";
-"domain details summary allowed both" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed";
-"domain details summary blocked both customlist" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by your rules";
-"domain details summary allowed both customlist" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by your rules";
-"domain details summary blocked both list" = "%@ request(s) to %@ were blocked and %@ request(s) to its subdomains were also blocked by %@";
-"domain details summary allowed both list" = "%@ request(s) to %@ were allowed and %@ request(s) to its subdomains were also allowed by %@";
+"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
+"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
+"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
+"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
+"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains";
+"domain details summary none" = "No requests to %@ or its subdomains.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use automatic protection";
-"dialog rule auto desc" = "Block or allow this domain based on your selected filters.\n(Default setting)";
+"dialog rule auto" = "Use Automatic Protection";
+"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
 
-"dialog rule domain block" = "Always block this domain";
+"dialog rule domain block" = "Always Block This Domain";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and block traffic to %@.";
+"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
 
-"dialog rule domain allow" = "Always allow this domain";
+"dialog rule domain allow" = "Always Allow This Domain";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and let traffic through to %@.";
+"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
 
-"dialog rule subdomains block" = "Always block this domain and subdomains";
+"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and all addresses under it.";
+"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
 
-"dialog rule subdomains allow" = "Always allow this domain and subdomains";
+"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Let traffic through to %@ and all addresses under it.";
-
-
-// Name to refer to user's list of blocked exceptions
-"domain details your rules blocked" = "Your blocked rules";
-
-// Name to refer to user's list of allowed exceptions
-"domain details your rules allowed" = "Your allowed rules";
+"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
 "privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "Recent activity and protection level for this device";
+"privacy pulse brief" = "See recent activity and the protection status of this device.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Toplists";
+"privacy pulse toplists header" = "Top domains";
 // A header for Recent Activity section (shows user activity)
 "privacy pulse recents header" = "Recent Activity";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "24h";
+"privacy pulse timespan 24h" = "Last 24 h";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "Show All";
+"privacy pulse timespan show all" = "See All";
 // A tab name for Blocked entries
 "privacy pulse tab blocked" = "Blocked";
 // A tab name for Allowed entries
 "privacy pulse tab allowed" = "Allowed";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show";
-
-
-
-
-
+"privacy pulse empty" = "Nothing to show yet";
