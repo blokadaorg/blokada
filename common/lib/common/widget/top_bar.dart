@@ -163,7 +163,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                           : ctrl.show,
                       child: GestureDetector(
                         onTap: () {
-                          ctrl.navigatorKey.currentState!.pop();
+                          ctrl.goBackFromPlatform();
                         },
                         child: Icon(Icons.arrow_back_ios, color: context.theme.accent),
                       ),
@@ -176,7 +176,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                         opacity: xpow(ctrl.show, 8),
                         child: GestureDetector(
                           onTap: () {
-                            ctrl.navigatorKey.currentState!.pop();
+                            ctrl.goBackFromPlatform();
                           },
                           child: SizedBox(
                             width: 88,
@@ -198,7 +198,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                         opacity: xpow(1.0 - ctrl.show, 8),
                         child: GestureDetector(
                           onTap: () {
-                            ctrl.navigatorKey.currentState!.pop();
+                            ctrl.goBackFromPlatform();
                           },
                           child: SizedBox(
                             width: 88,
@@ -284,7 +284,7 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
       } else if (s.name == Paths.activity.path) {
         title = "main tab activity".i18n;
       } else if (s.name == Paths.privacyPulse.path) {
-        title = "Privacy Pulse".i18n;
+        title = "privacy pulse section header".i18n;
       } else if (s.name == Paths.advanced.path) {
         title = "main tab advanced".i18n;
       } else {
