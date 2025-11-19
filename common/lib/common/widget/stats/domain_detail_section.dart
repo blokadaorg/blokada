@@ -1121,6 +1121,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             Expanded(
               child: DomainNameText(
                 domain: subdomain.domainName,
+                tldSuffix: widget.entry.domainName,
                 style: TextStyle(
                   fontSize: 16,
                   color: context.theme.textPrimary,
@@ -1224,6 +1225,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 children: [
                   DomainNameText(
                     domain: entry.domainName,
+                    tldSuffix: widget.entry.domainName,
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textPrimary,

@@ -5,12 +5,14 @@ class DomainNameText extends StatelessWidget {
   final String domain;
   final TextStyle? style;
   final TextOverflow? overflow;
+  final String? tldSuffix;
 
   const DomainNameText({
     Key? key,
     required this.domain,
     this.style,
     this.overflow,
+    this.tldSuffix,
   }) : super(key: key);
 
   String _applyMiddleEllipsis(String text, double availableWidth, TextStyle? style) {
@@ -51,9 +53,52 @@ class DomainNameText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? primaryPart;
+    String? suffixPart;
+
+    if (tldSuffix != null && tldSuffix!.isNotEmpty) {
+      final domainLower = domain.toLowerCase();
+      final suffixLower = tldSuffix!.toLowerCase();
+
+      if (domainLower == suffixLower) {
+        return Text(
+          domain,
+          style: style,
+          overflow: overflow,
+          maxLines: 1,
+          softWrap: false,
+        );
+      }
+      final index = domainLower.lastIndexOf(suffixLower);
+
+      if (index > 0 && index + suffixLower.length == domainLower.length) {
+        primaryPart = domain.substring(0, index);
+        suffixPart = domain.substring(index);
+      }
+    }
+
     final parts = domain.split('.');
 
-    if (parts.length <= 1) {
+    if (primaryPart == null || suffixPart == null) {
+      if (parts.length <= 1) {
+        // No dot in domain, display normally
+        return Text(
+          domain,
+          style: style,
+          overflow: overflow,
+          maxLines: 1,
+          softWrap: false,
+        );
+      }
+
+      primaryPart = parts[0];
+      suffixPart = domain.substring(primaryPart.length);
+    }
+
+    final primary = primaryPart!;
+    final suffix = suffixPart!;
+
+    if (suffix.isEmpty) {
       // No dot in domain, display normally
       return Text(
         domain,
@@ -63,11 +108,6 @@ class DomainNameText extends StatelessWidget {
         softWrap: false,
       );
     }
-
-    // First part (before first dot)
-    final firstPart = parts[0];
-    // Rest (everything after first dot)
-    final suffix = domain.substring(firstPart.length);
 
     if (overflow != TextOverflow.ellipsis) {
       // No ellipsis handling needed
@@ -80,7 +120,7 @@ class DomainNameText extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: firstPart,
+                  text: primary,
                   style: style,
                 ),
                 TextSpan(
@@ -115,7 +155,7 @@ class DomainNameText extends StatelessWidget {
 
         // Measure the first part width
         final firstPartPainter = TextPainter(
-          text: TextSpan(text: firstPart, style: style),
+          text: TextSpan(text: primary, style: style),
           maxLines: 1,
           textDirection: TextDirection.ltr,
         )..layout();
@@ -130,7 +170,7 @@ class DomainNameText extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: firstPart,
+                text: primary,
                 style: style,
               ),
               TextSpan(
