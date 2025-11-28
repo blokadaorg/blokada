@@ -1,5 +1,6 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/common/widget/touch.dart';
+import 'package:common/common/widget/unread_badge.dart';
 import 'package:flutter/material.dart';
 
 class SmartHeaderButton extends StatefulWidget {
@@ -62,24 +63,7 @@ class SmartHeaderButtonState extends State<SmartHeaderButton> {
           ),
         ),
         widget.unread
-            ? Container(
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: Center(
-                      child: Text(
-                        "1",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )),
-              )
+            ? const UnreadBadge()
             : Container(),
       ],
     );

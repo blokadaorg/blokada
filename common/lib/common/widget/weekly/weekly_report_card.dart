@@ -5,11 +5,12 @@ import 'package:flutter/cupertino.dart';
 
 /// A reusable card for weekly change summaries on the Privacy Pulse screen.
 ///
-/// Mirrors the existing card aesthetics: rounded `CommonCard` background,
-/// primary/secondary text colors from the theme, and an optional CTA + dismiss.
+/// Uses the same aesthetics as other Privacy Pulse cards, with an optional CTA
+/// and dismiss button. The main content area is a free-form widget so complex
+/// layouts can be embedded.
 class WeeklyReportCard extends StatelessWidget {
   final String title;
-  final String description;
+  final Widget content;
   final String? time;
   final String? ctaLabel;
   final IconData icon;
@@ -21,7 +22,7 @@ class WeeklyReportCard extends StatelessWidget {
   const WeeklyReportCard({
     super.key,
     required this.title,
-    required this.description,
+    required this.content,
     required this.icon,
     this.iconColor,
     this.backgroundColor,
@@ -41,14 +42,14 @@ class WeeklyReportCard extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
                   icon,
                   color: iconColor ?? theme.accent,
-                  size: 42,
+                  size: 32,
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -64,14 +65,7 @@ class WeeklyReportCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        description,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: theme.textSecondary,
-                          height: 1.3,
-                        ),
-                      ),
+                      content,
                       if (time != null || (ctaLabel != null && onCtaTap != null)) ...[
                         const SizedBox(height: 12),
                         Row(
@@ -91,7 +85,8 @@ class WeeklyReportCard extends StatelessWidget {
                             if (ctaLabel != null && onCtaTap != null)
                               CommonClickable(
                                 onTap: onCtaTap!,
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 tapBorderRadius: BorderRadius.circular(8),
                                 child: Text(
                                   ctaLabel!,

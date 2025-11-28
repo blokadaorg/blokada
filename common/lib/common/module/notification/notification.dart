@@ -4,8 +4,13 @@ import 'package:collection/collection.dart';
 import 'package:common/common/module/api/api.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/core/core.dart';
-import 'package:common/platform/account/account.dart';
+import 'package:common/platform/account/account.dart' hide AccountId;
+import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stage/stage.dart';
+import 'package:common/platform/stats/api.dart' as platform_stats;
+import 'package:meta/meta.dart';
+import 'package:mobx/mobx.dart';
+import 'package:mobx/mobx.dart' as mobx show ReactionDisposer;
 
 part 'actor.dart';
 part 'api.dart';
@@ -34,8 +39,11 @@ class NotificationModule with Module {
     await register(NotificationApi());
     await register(NotificationsValue());
     await register(NotificationActor());
-    await register(WeeklyReportScheduleValue());
-    await register(WeeklyReportActor());
+    if (!Core.act.isFamily) {
+      await register(WeeklyReportScheduleValue());
+      await register(WeeklyReportPendingEventValue());
+      await register(WeeklyReportActor());
+    }
     await register(NotificationCommand());
   }
 }

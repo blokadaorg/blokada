@@ -7,12 +7,15 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/stats.dart';
+import 'package:common/common/module/notification/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TopDomains extends StatefulWidget {
-  const TopDomains({super.key});
+  final Key? headerKey;
+  final WeeklyReportToplistHighlight? highlight;
+  const TopDomains({super.key, this.headerKey, this.highlight});
 
   @override
   State<StatefulWidget> createState() => TopDomainsState();
@@ -35,11 +38,41 @@ class TopDomainsState extends State<TopDomains> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _syncSelectedTab();
+  }
+
+  @override
+  void didUpdateWidget(covariant TopDomains oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.highlight != widget.highlight) {
+      _syncSelectedTab();
+    }
+  }
+
+  void _syncSelectedTab() {
+    final highlight = widget.highlight;
+    if (highlight == null) return;
+    setState(() {
+      _selectedTab = highlight.blocked ? ToplistTab.blocked : ToplistTab.allowed;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final highlight = widget.highlight;
+    final highlightName = highlight?.name.toLowerCase();
+    final highlightBlocked = highlight?.blocked;
+
     return Observer(
       builder: (context) {
         final currentDomains =
             _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
+        final highlightVisible =
+            highlight != null && highlightBlocked == (_selectedTab == ToplistTab.blocked);
+        String _normalized(UiToplistEntry e) =>
+            (e.company ?? e.tld ?? '').toLowerCase();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,6 +81,7 @@ class TopDomainsState extends State<TopDomains> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Row(
+                key: widget.headerKey,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -143,7 +177,11 @@ class TopDomainsState extends State<TopDomains> {
                     _buildEmptyState()
                   else
                     for (int i = 0; i < currentDomains.length; i++) ...{
-                      _buildDomainItem(currentDomains[i]),
+                      _buildDomainItem(
+                        currentDomains[i],
+                        isHighlighted: highlightVisible &&
+                            _normalized(currentDomains[i]) == highlightName,
+                      ),
                       if (i < currentDomains.length - 1) const CommonDivider(),
                     },
                 ],
@@ -164,7 +202,7 @@ class TopDomainsState extends State<TopDomains> {
     );
   }
 
-  Widget _buildDomainItem(UiToplistEntry entry) {
+  Widget _buildDomainItem(UiToplistEntry entry, {bool isHighlighted = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
 
     return CommonClickable(
@@ -185,33 +223,44 @@ class TopDomainsState extends State<TopDomains> {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                middleEllipsis(domainName),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  middleEllipsis(domainName),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: context.theme.textPrimary,
+                  ),
+                  overflow: TextOverflow.clip,
+                ),
+              ),
+              if (isHighlighted) ...[
+                Icon(
+                  CupertinoIcons.arrow_up_right,
+                  color: Colors.green,
+                  size: 32,
+                ),
+                const SizedBox(width: 6),
+              ],
+              Text(
+                entry.value.toString(),
                 style: TextStyle(
                   fontSize: 16,
-                  color: context.theme.textPrimary,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textSecondary,
                 ),
-                overflow: TextOverflow.clip,
               ),
-            ),
-            Text(
-              entry.value.toString(),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+              SizedBox(width: 8),
+              Icon(
+                CupertinoIcons.chevron_right,
                 color: context.theme.textSecondary,
+                size: 16,
               ),
-            ),
-            SizedBox(width: 8),
-            Icon(
-              CupertinoIcons.chevron_right,
-              color: context.theme.textSecondary,
-              size: 16,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

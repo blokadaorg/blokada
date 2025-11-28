@@ -291,6 +291,7 @@ class StatsApi {
     final result = await _api.get(ApiEndpoint.getStatsV2, m, params: {
       ApiParam.statsSince: since,
       ApiParam.statsDownsample: downsample,
+      ApiParam.statsDeviceName: "",
     });
 
     return _marshal.toStatsEndpoint(result);

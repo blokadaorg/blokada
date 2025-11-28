@@ -1,6 +1,7 @@
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/payment/payment.dart';
-import 'package:common/common/navigation.dart';
+import 'package:common/common/navigation.dart' show maxContentWidth, getTopPadding;
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
@@ -12,9 +13,11 @@ import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mobx/mobx.dart' as mobx;
+import 'package:timeago/timeago.dart' as timeago;
 
-import '../../../../common/widget/stats/privacy_pulse.dart';
+import '../../../../common/widget/stats/privacy_pulse_charts.dart';
 import '../../../../common/widget/stats/recent_activity.dart';
 import '../../../../common/widget/stats/top_domains.dart';
 import '../../../../common/widget/stats/totalcounter.dart';
@@ -38,9 +41,13 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   late final _accountStore = Core.get<AccountStore>();
   late final _deviceStore = Core.get<DeviceStore>();
   late final _journal = Core.get<JournalActor>();
+  late final _weeklyReport = Core.get<WeeklyReportActor>();
 
   var stats = UiStats.empty();
   bool _toplistsFetched = false;
+  WeeklyReportEvent? _weeklyEvent;
+  final List<mobx.ReactionDisposer> _disposers = [];
+  final _topDomainsKey = GlobalKey();
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -58,16 +65,32 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     }
 
     // Watch for deviceAlias to become available and fetch toplists
-    mobx.autorun((_) {
+    _disposers.add(mobx.autorun((_) {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty && !_toplistsFetched) {
         _toplistsFetched = true;
         _fetchToplists();
       }
-    });
+    }));
 
     // Also try to fetch immediately (will be skipped if deviceAlias not ready)
     _fetchToplists();
+
+    _disposers.add(mobx.autorun((_) {
+      setState(() {
+        _weeklyEvent = _weeklyReport.currentEvent.value;
+      });
+    }));
+
+    _weeklyReport.refreshAndPick(Markers.stats);
+  }
+
+  @override
+  void dispose() {
+    for (final disposer in _disposers) {
+      disposer();
+    }
+    super.dispose();
   }
 
   void _fetchToplists() {
@@ -105,40 +128,61 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                 constraints: const BoxConstraints(maxWidth: maxContentWidth),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: RefreshIndicator(
-                    displacement: 100.0,
-                    onRefresh: _pullToRefresh,
-                    child: ListView(
-                      controller: widget.controller,
-                      children: [
-                        SizedBox(height: getTopPadding(context)),
-                        WeeklyReportCard(
-                          title: "Tracking Increased",
-                          description:
-                              "You saw more tracking activity this week — up 34% from last week.",
-                          time: "2 hours ago",
-                          ctaLabel: "View report",
-                          icon: CupertinoIcons.chart_bar_alt_fill,
-                          iconColor: context.theme.accent,
-                          onCtaTap: () {},
-                          onDismiss: () {},
-                        ),
-                        const SizedBox(height: 16),
-                        MiniCard(
-                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: PrivacyPulse(stats: stats),
+                  child: PrimaryScrollController(
+                    controller: widget.controller,
+                    child: RefreshIndicator(
+                      displacement: 100.0,
+                      onRefresh: _pullToRefresh,
+                      child: ListView(
+                        controller: widget.controller,
+                        children: [
+                          SizedBox(height: getTopPadding(context)),
+                          if (_weeklyEvent != null) ...[
+                            Builder(builder: (context) {
+                              final event = _weeklyEvent!;
+                              final isToplist =
+                                  event.type == WeeklyReportEventType.toplistChange;
+                              final timeLabel =
+                                  timeago.format(event.generatedAt, allowFromNow: true);
+                              return WeeklyReportCard(
+                                title: event.title,
+                                content: Text(
+                                  event.body,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: context.theme.textSecondary,
+                                    height: 1.3,
+                                  ),
+                                ),
+                                time: timeLabel,
+                                ctaLabel: isToplist ? "Show" : null,
+                                icon: _iconFor(event.icon),
+                                iconColor: context.theme.accent,
+                                onCtaTap: isToplist ? _scrollToTopDomains : null,
+                                onDismiss: () => _dismissWeeklyReport(),
+                              );
+                            }),
+                            const SizedBox(height: 16),
+                          ],
+                          MiniCard(
+                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: PrivacyPulseCharts(stats: stats),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        RecentActivity(),
-                        const SizedBox(height: 12),
-                        TopDomains(),
-                        const SizedBox(height: 48),
-                        TotalCounter(stats: stats),
-                        const SizedBox(height: 60),
-                      ],
+                          const SizedBox(height: 12),
+                          RecentActivity(),
+                          const SizedBox(height: 12),
+                          TopDomains(
+                            headerKey: _topDomainsKey,
+                            highlight: _weeklyEvent?.toplistHighlight,
+                          ),
+                          const SizedBox(height: 48),
+                          TotalCounter(stats: stats),
+                          const SizedBox(height: 60),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -155,5 +199,91 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             : Container(),
       ],
     );
+  }
+
+  void _scrollToTopDomains({int attempt = 0}) {
+    final keyContext = _topDomainsKey.currentContext;
+    final logger = log(Markers.userTap)..t('weeklyReport:scroll:trigger');
+    const double topOffset = 120.0;
+
+    if (!widget.controller.hasClients) {
+      logger.t('weeklyReport:scroll:noClients');
+      return;
+    }
+
+    if (keyContext == null) {
+      logger
+        ..t('weeklyReport:scroll:noContext')
+        ..pair('attempt', attempt);
+      if (attempt >= 2) return;
+      final mid = widget.controller.position.maxScrollExtent * 0.5;
+      widget.controller.animateTo(
+        mid,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      ).whenComplete(() {
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => _scrollToTopDomains(attempt: attempt + 1));
+      });
+      return;
+    }
+
+    try {
+      logger
+        ..t('weeklyReport:scroll:ensureVisible')
+        ..pair('currentOffset', widget.controller.offset);
+
+      final renderObject = keyContext.findRenderObject();
+      final viewport = RenderAbstractViewport.of(renderObject);
+      if (renderObject != null && viewport != null) {
+        final target =
+            viewport.getOffsetToReveal(renderObject, 0).offset - topOffset;
+        final clamped = target.clamp(
+          widget.controller.position.minScrollExtent,
+          widget.controller.position.maxScrollExtent,
+        );
+        logger
+          ..pair('targetOffsetRaw', target)
+          ..pair('targetOffsetClamped', clamped);
+        widget.controller.animateTo(
+          clamped.toDouble(),
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      } else {
+        logger.t('weeklyReport:scroll:noViewport');
+        Scrollable.ensureVisible(
+          keyContext,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+          alignment: 0.0,
+        );
+      }
+    } catch (e, st) {
+      logger
+        ..t('weeklyReport:scroll:error')
+        ..pair('error', e.toString())
+        ..pair('stack', st.toString());
+    }
+  }
+
+  void _dismissWeeklyReport() {
+    _weeklyReport.dismissCurrent(Markers.userTap);
+    setState(() {
+      _weeklyEvent = null;
+    });
+  }
+
+  IconData _iconFor(WeeklyReportIcon icon) {
+    switch (icon) {
+      case WeeklyReportIcon.chart:
+        return CupertinoIcons.chart_bar_alt_fill;
+      case WeeklyReportIcon.shield:
+        return CupertinoIcons.shield_fill;
+      case WeeklyReportIcon.trendUp:
+        return CupertinoIcons.arrow_up_right;
+      case WeeklyReportIcon.trendDown:
+        return CupertinoIcons.arrow_down_right;
+    }
   }
 }

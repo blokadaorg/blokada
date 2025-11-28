@@ -1,4 +1,5 @@
 import 'package:common/common/widget/theme.dart';
+import 'package:common/common/widget/unread_badge.dart';
 import 'package:flutter/material.dart';
 
 class TabItem extends StatefulWidget {
@@ -6,6 +7,7 @@ class TabItem extends StatefulWidget {
   final String title;
   final bool active;
   final VoidCallback? onTap;
+  final bool showUnreadBadge;
 
   const TabItem({
     Key? key,
@@ -13,6 +15,7 @@ class TabItem extends StatefulWidget {
     required this.title,
     required this.active,
     this.onTap,
+    this.showUnreadBadge = false,
   }) : super(key: key);
 
   @override
@@ -33,9 +36,20 @@ class TabItemState extends State<TabItem> {
           height: 48,
           child: Column(
             children: [
-              Icon(
-                widget.icon,
-                color: color,
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Icon(
+                    widget.icon,
+                    color: color,
+                  ),
+                  if (widget.showUnreadBadge)
+                    const Positioned(
+                      right: -8,
+                      top: -6,
+                      child: UnreadBadge(),
+                    ),
+                ],
               ),
               Text(widget.title, style: TextStyle(color: color), textAlign: TextAlign.center),
             ],

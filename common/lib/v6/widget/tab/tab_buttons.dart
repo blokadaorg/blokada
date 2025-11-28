@@ -1,9 +1,11 @@
+import 'package:common/common/module/notification/notification.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/stage/stage.dart';
 import 'package:common/v6/widget/tab/tab_item.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mobx/mobx.dart' as mobx;
 
 class TabButtonsWidget extends StatefulWidget {
   const TabButtonsWidget({Key? key}) : super(key: key);
@@ -14,6 +16,31 @@ class TabButtonsWidget extends StatefulWidget {
 
 class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
   final _stage = Core.get<StageStore>();
+  final _weeklyReport = Core.get<WeeklyReportActor>();
+  final List<mobx.ReactionDisposer> _disposers = [];
+  bool _hasUnseenReport = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _disposers.add(mobx.autorun((_) {
+      final hasUnseen = _weeklyReport.hasUnseen.value;
+      if (!mounted) return;
+      if (hasUnseen != _hasUnseenReport) {
+        setState(() {
+          _hasUnseenReport = hasUnseen;
+        });
+      }
+    }));
+  }
+
+  @override
+  void dispose() {
+    for (final disposer in _disposers) {
+      disposer();
+    }
+    super.dispose();
+  }
 
   _tap(StageTab tab) async {
     if (tab == StageTab.activity) {
@@ -41,6 +68,7 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
             icon: CupertinoIcons.checkmark_shield,
             title: "privacy pulse section header".i18n,
             active: false,
+            showUnreadBadge: _hasUnseenReport,
           ),
           onTap: () => _tap(StageTab.activity),
         ),

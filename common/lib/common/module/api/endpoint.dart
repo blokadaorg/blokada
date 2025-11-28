@@ -79,6 +79,7 @@ enum ApiEndpoint {
     ApiParam.accountId,
     ApiParam.statsSince,
     ApiParam.statsDownsample,
+    ApiParam.statsDeviceName,
   ]),
   getToplistV2("v2/activity/toplist", params: [
     ApiParam.accountId,           // account_id (required)
@@ -132,6 +133,7 @@ enum ApiParam {
   profileId("profile_id"),
   statsSince("since"),
   statsDownsample("downsample"),
+  statsEnd("end"),
   toplistAction("action"),
   statsDeviceName("device_name"),
   sessionId("session_id"),

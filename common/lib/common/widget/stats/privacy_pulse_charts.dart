@@ -5,10 +5,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'horizontal_radial_segment.dart';
 
-class PrivacyPulse extends StatelessWidget {
+class PrivacyPulseCharts extends StatelessWidget {
   final UiStats stats;
 
-  const PrivacyPulse({Key? key, required this.stats}) : super(key: key);
+  const PrivacyPulseCharts({
+    Key? key,
+    required this.stats,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,4 +56,5 @@ class PrivacyPulse extends StatelessWidget {
       ],
     );
   }
+
 }
