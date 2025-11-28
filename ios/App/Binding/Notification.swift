@@ -24,6 +24,56 @@ let NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
 let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 let NOTIF_WEEKLY_REFRESH = "weeklyRefresh"
+let NOTIF_WEEKLY_REPORT = "weeklyReport"
+let WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000
+
+struct WeeklyReportPayload: Codable {
+    let title: String?
+    let body: String?
+    let refreshedTitle: String?
+    let refreshedBody: String?
+    let backgroundLeadMs: Int?
+
+    func toJsonString() -> String? {
+        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    func refreshed() -> WeeklyReportPayload {
+        WeeklyReportPayload(
+            title: refreshedTitle ?? title ?? "Traffic increased refresh",
+            body: refreshedBody ?? body ?? "Your traffic increased by 4% this week (bg)",
+            refreshedTitle: refreshedTitle,
+            refreshedBody: refreshedBody,
+            backgroundLeadMs: backgroundLeadMs ?? WEEKLY_REPORT_BACKGROUND_LEAD_MS
+        )
+    }
+
+    static func from(json: String?) -> WeeklyReportPayload? {
+        guard let json = json, let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(WeeklyReportPayload.self, from: data)
+    }
+
+    static func defaults() -> WeeklyReportPayload {
+        WeeklyReportPayload(
+            title: "Weekly privacy report",
+            body: "See this week's highlights from your protection.",
+            refreshedTitle: "Traffic increased refresh",
+            refreshedBody: "Your traffic increased by 4% this week (bg)",
+            backgroundLeadMs: WEEKLY_REPORT_BACKGROUND_LEAD_MS
+        )
+    }
+
+    static func updated() -> WeeklyReportPayload {
+        WeeklyReportPayload(
+            title: "Traffic increased",
+            body: "Your traffic increased by 420% this week",
+            refreshedTitle: "Traffic increased refresh",
+            refreshedBody: "Your traffic increased by 4% this week (bg)",
+            backgroundLeadMs: WEEKLY_REPORT_BACKGROUND_LEAD_MS
+        )
+    }
+}
 
 func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificationContent {
     let content = UNMutableNotificationContent()
@@ -69,6 +119,10 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
             content.body = body.count > 32 ? body.prefix(32) + "..." : body
         }
         content.badge = NSNumber(value: 1)
+    } else if id == NOTIF_WEEKLY_REPORT {
+        let payload = WeeklyReportPayload.from(json: body) ?? WeeklyReportPayload.defaults()
+        content.title = payload.title ?? "Weekly privacy report"
+        content.body = payload.body ?? "See this week's highlights from your protection."
     } else if id == NOTIF_WEEKLY_REFRESH {
         content.title = "Update your filters"
         content.body = "Tap to update your ad-block filters and stay safe from websites and apps that are most likely to cause you harm."

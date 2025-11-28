@@ -93,6 +93,12 @@
     <string name="notification_generic_header">Blokada: Action required</string>
     <string name="notification_generic_subtitle">Tap to learn more</string>
     <string name="notification_generic_body">Please open the app for details.</string>
+    <string name="notification_weekly_report_title">Weekly privacy report</string>
+    <string name="notification_weekly_report_body">See this week&#39;s highlights from your protection.</string>
+    <string name="notification_weekly_report_updated_title">Traffic increased</string>
+    <string name="notification_weekly_report_updated_body">Your traffic increased by 420% this week</string>
+    <string name="notification_weekly_report_refresh_title">Traffic increased refresh</string>
+    <string name="notification_weekly_report_refresh_body">Your traffic increased by 4% this week</string>
     <string name="notification_acc_header">Subscription expired</string>
     <string name="notification_acc_subtitle">Adblocking is disabled</string>
     <string name="notification_acc_body">Please update your subscription to continue using Blokada.</string>

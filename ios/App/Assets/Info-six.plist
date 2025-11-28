@@ -17,6 +17,7 @@
 	<array>
 		<string>net.blocka.app.expiration</string>
 		<string>net.blocka.app.scheduler</string>
+		<string>net.blocka.app.weeklyreport.prefetch</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

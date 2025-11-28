@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "net.blocka.app.scheduler", using: nil) { task in
             self.handleBackgroundPing(task: task as! BGAppRefreshTask)
         }
+        WeeklyReportBackgroundScheduler.shared.register()
 
         return true
     }

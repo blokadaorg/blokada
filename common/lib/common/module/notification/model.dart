@@ -20,6 +20,7 @@ enum NotificationId {
   accountExpired,
   accountExpiredFamily,
   supportNewMessage,
+  weeklyReport,
   weeklyRefresh,
 }
 

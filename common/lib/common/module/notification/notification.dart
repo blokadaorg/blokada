@@ -10,6 +10,7 @@ part 'actor.dart';
 part 'api.dart';
 part 'command.dart';
 part 'model.dart';
+part 'weekly_report.dart';
 
 @PlatformProvided()
 mixin NotificationChannel {
@@ -32,6 +33,8 @@ class NotificationModule with Module {
     await register(NotificationApi());
     await register(NotificationsValue());
     await register(NotificationActor());
+    await register(WeeklyReportScheduleValue());
+    await register(WeeklyReportActor());
     await register(NotificationCommand());
   }
 }
