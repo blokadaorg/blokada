@@ -4,11 +4,13 @@ import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/freemium_screen.dart';
 import 'package:common/common/widget/minicard/minicard.dart';
 import 'package:common/common/widget/theme.dart';
+import 'package:common/common/widget/weekly/weekly_report_card.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/stats.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -110,6 +112,18 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                       controller: widget.controller,
                       children: [
                         SizedBox(height: getTopPadding(context)),
+                        WeeklyReportCard(
+                          title: "Tracking Increased",
+                          description:
+                              "You saw more tracking activity this week — up 34% from last week.",
+                          time: "2 hours ago",
+                          ctaLabel: "View report",
+                          icon: CupertinoIcons.chart_bar_alt_fill,
+                          iconColor: context.theme.accent,
+                          onCtaTap: () {},
+                          onDismiss: () {},
+                        ),
+                        const SizedBox(height: 16),
                         MiniCard(
                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                           child: Padding(
