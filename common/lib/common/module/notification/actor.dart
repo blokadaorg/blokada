@@ -11,6 +11,7 @@ class NotificationActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
+  var _pendingPrivacyPulseNav = false;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -60,6 +61,11 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
+
+      if (_pendingPrivacyPulseNav) {
+        _pendingPrivacyPulseNav = false;
+        Navigation.open(Paths.privacyPulse);
+      }
     });
   }
 
@@ -99,7 +105,11 @@ class NotificationActor with Logging, Actor {
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
       } else if (id == NotificationId.weeklyReport) {
-        await _stage.setRoute(Paths.privacyPulse.path, m);
+        if (_stage.route.isForeground()) {
+          Navigation.open(Paths.privacyPulse);
+        } else {
+          _pendingPrivacyPulseNav = true;
+        }
       }
     });
   }
