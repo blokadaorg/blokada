@@ -237,6 +237,7 @@ class WeeklyReportNotification(
         b.setVibrate(LongArray(0))
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
+        intentActivity.putExtra("notificationId", NOTIF_WEEKLY_REPORT)
         val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }

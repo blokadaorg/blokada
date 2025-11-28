@@ -98,6 +98,8 @@ class NotificationActor with Logging, Actor {
         // await _stage.setRoute(Paths.settings.path, m);
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
+      } else if (id == NotificationId.weeklyReport) {
+        await _stage.setRoute(Paths.privacyPulse.path, m);
       }
     });
   }

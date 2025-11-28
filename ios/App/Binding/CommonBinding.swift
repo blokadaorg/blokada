@@ -400,7 +400,7 @@ class CommonBinding: CommonOps {
 
     func scheduleNotification(id: String, when: Date, body: String? = nil) -> AnyPublisher<Ignored, Error> {
         // Skip weekly report scheduling on family flavor
-        if Services.flutter.isFlavorFamily && id == NOTIF_WEEKLY_REPORT {
+        if flutter.isFlavorFamily && id == NOTIF_WEEKLY_REPORT {
             return Future<Ignored, Error> { promise in promise(.success(true)) }
                 .eraseToAnyPublisher()
         }

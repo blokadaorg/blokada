@@ -83,6 +83,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleIntent(intent: Intent) {
+        val notificationId = intent.getStringExtra("notificationId")
+        if (notificationId != null) {
+            lifecycleScope.launch {
+                commands.execute(CommandName.NOTIFICATIONTAPPED, notificationId)
+            }
+        }
     }
 
     private var lastOnResume = 0L
