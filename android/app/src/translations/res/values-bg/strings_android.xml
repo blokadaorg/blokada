@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Докоснете, за да промените настройката за тази мрежа</string>
     <string name="networks_label_details_default_network">Настройките по-долу се прилагат по подразбиране за всички мрежи. Можете да ги запишете само и за избрани мрежи (в предишния екран).</string>
     <string name="networks_action_encrypt_dns">Криптиран DNS</string>
-    <string name="networks_action_use_dns">Използван DNS: %s</string>
+    <string name="networks_action_use_dns">Използван DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Предпочитан мрежов DNS</string>
     <string name="networks_action_force_libre_mode">Принудителен Libre режим</string>
     <string name="networks_label_specific_network">Настройте поведението на устройството, когато се свърже с тази мрежа.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Може да видите известие, когато Blokada във фонов режим прочете името на мрежата.</string>
     <string name="networks_section_choose_dns">Изберете DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada ще криптира DNS, ако е възможно. Това ще подобри сигурността ви и ще предотврати злонамерени участници да шпионират какви уебсайтове и приложения използвате.</string>
-    <string name="networks_summary_use_dns">Blokada ще използва %s като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.</string>
-    <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %s. Когато се използва мрежов DNS настройките за криптиране ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в проблемни мрежи, но ви оставя незащитени.</string>
+    <string name="networks_summary_use_dns">Blokada ще използва %1$s като DNS на вашето устройство. Изборът му позволява криптиране (има икона на ключ) и е близо до вас, това ще помогне за защита на вашите данни и за по-бърза връзка.</string>
+    <string name="networks_summary_network_dns">Blokada ще използва мрежов DNS, ако е наличен, или ще превключи на %1$s. Когато се използва мрежов DNS настройките за криптиране ще бъдат игнорирани. Използването на мрежов DNS помага за отстраняване на проблеми с връзката в проблемни мрежи, но ви оставя незащитени.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada временно ще деактивира режим Плюс, когато се използва мрежов DNS. Това е така, защото не е възможен достъп до мрежовия DNS във VPN. Плюс режимът ще се възстанови автоматично, когато вашето устройство превключи към друга мрежа.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada ще използва Blokada DNS в режим Plus за да осигури високо ниво на криптиране и скорост. Можете да промените тази настройка в долната част на екрана Избор на DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada винаги ще използва режим Libre в тази мрежа и ще игнорира Blokada Plus за това местоположение. Това е полезно за мрежи, при които не искате допълнителна защита.</string>

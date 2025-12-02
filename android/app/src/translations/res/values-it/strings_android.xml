@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Tocca per modificare le impostazioni per questa rete</string>
     <string name="networks_label_details_default_network">Le impostazioni sottostanti sono applicate per impostazione predefinita a tutte le reti. È possibile sovrascriverle per le reti selezionate (nella schermata precedente).</string>
     <string name="networks_action_encrypt_dns">Cripta DNS</string>
-    <string name="networks_action_use_dns">Usa DNS: %s</string>
+    <string name="networks_action_use_dns">Usa DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Preferisci DNS di rete</string>
     <string name="networks_action_force_libre_mode">Forza modalità Libre</string>
     <string name="networks_label_specific_network">Regola cosa dovrebbe accadere quando il dispositivo si connette a questa rete.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Potresti vedere una notifica quando Blokada legge il nome della rete in background.</string>
     <string name="networks_section_choose_dns">Scegli DNS</string>
     <string name="networks_summary_encrypt_dns">Se possibile, Blokada cifrerà i DNS. Ciò migliorerà la tua sicurezza e impedirà a malintenzionati di spiare le tue attività sul web e delle app che utilizzi.</string>
-    <string name="networks_summary_use_dns">Blokada userà %s come DNS del dispositivo. Sceglierne uno che consente la crittografia (ha l\'icona di un lucchetto), e che ti è vicino, aiuterà nel proteggere i tuoi dati e rendere più veloce la tua connessione.</string>
-    <string name="networks_summary_network_dns">Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %s. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L\'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.</string>
+    <string name="networks_summary_use_dns">Blokada userà %1$s come DNS del dispositivo. Sceglierne uno che consente la crittografia (ha l\'icona di un lucchetto), e che ti è vicino, aiuterà nel proteggere i tuoi dati e rendere più veloce la tua connessione.</string>
+    <string name="networks_summary_network_dns">Se disponibile, Blokada userà i DNS della rete, altrimenti passerà a %1$s. Inoltre, le impostazioni di Crittografia DNS verranno ignorate se utilizzati i DNS di rete. L\'utilizzo dei DNS di rete aiuta a risolvere i problemi di connettività su reti problematiche, ma non ti offre protezione.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada disabiliterà temporaneamente la modalità Plus ogni volta che viene utilizzato il DNS di rete. Questo perché non è possibile accedere al DNS di rete in VPN. La modalità Plus verrà ripristinata automaticamente quando il dispositivo passerà ad un\'altra rete.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada utilizzerà i DNS di Blokada in modalità Plus, per garantire un alto livello di crittografia e velocità. È possibile modificare questa impostazione nella parte inferiore della schermata Scegli DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada userà sempre la modalità Libre su questa rete e ignorerà la tua posizione Blokada Plus. Ciò è utile per le reti delle quali non si desidera una protezione aggiuntiva.</string>

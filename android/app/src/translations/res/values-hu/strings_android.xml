@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Nyomjon erre a hálózat beállításaihoz</string>
     <string name="networks_label_details_default_network">A lenti beállítások alkalmazódnak minden hálózathoz alapbeállítás képpen. Felülírhatóak a kiválasztott hálózatoknál (az előző képernyőn).</string>
     <string name="networks_action_encrypt_dns">Titkosított DNS</string>
-    <string name="networks_action_use_dns">%s DNS használata</string>
+    <string name="networks_action_use_dns">%1$s DNS használata</string>
     <string name="networks_action_use_network_dns">Hálózati DNS preferálása</string>
     <string name="networks_action_force_libre_mode">Libre mód erőltetése</string>
     <string name="networks_label_specific_network">Állítsd be mi történjen amikor az eszközöd ehhez a hálózathoz kapcsolódik.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Előfordulhat, hogy értesítést kapsz, amikor a Blokada a háttérben beolvassa a hálózat nevét.</string>
     <string name="networks_section_choose_dns">DNS választása</string>
     <string name="networks_summary_encrypt_dns">Blokada megpróbálja titkosítani a DNS-t ha lehetséges. Ez növeli a biztonságot, és megakadályozza hogy mások kémkedjenek az után, hogy milyen oldalakat vagy appot használsz.</string>
-    <string name="networks_summary_use_dns">A Blokada a %s-t fogja használni az eszköz DNS-eként. Azt választja ami támogatja a titkosítást (kulcs ikon), közelben található, és a védelem mellett gyors sebességre is képes.</string>
-    <string name="networks_summary_network_dns">A Blokada a hálózat DNS-ét fogja használni, de átválthat a %s-ra. Emellett a Titkosított DNS beállítások figyelmen kívűl lesznke hagyva ha a hálózat DNS-e van használatban. Habár az alap hálózati DNS segíthet a csatlakozási problémák megoldásában, védtelen marad a kibertérben.</string>
+    <string name="networks_summary_use_dns">A Blokada a %1$s-t fogja használni az eszköz DNS-eként. Azt választja ami támogatja a titkosítást (kulcs ikon), közelben található, és a védelem mellett gyors sebességre is képes.</string>
+    <string name="networks_summary_network_dns">A Blokada a hálózat DNS-ét fogja használni, de átválthat a %1$s-ra. Emellett a Titkosított DNS beállítások figyelmen kívűl lesznke hagyva ha a hálózat DNS-e van használatban. Habár az alap hálózati DNS segíthet a csatlakozási problémák megoldásában, védtelen marad a kibertérben.</string>
     <string name="networks_summary_network_dns_and_plus_mode">A Blokada ideiglenesen kikapcsolja a Plus módot amikor hálózati DNS-t használ. Sajnos nem elérhető erről a VPN. A Plus mód automatikusan visszaáll, ha az eszköze átvált egy másik hálózatra.</string>
     <string name="networks_summary_blocka_plus_mode">A Blokada a Blokada DNS-t fogja használni Plus módban a magas fokú titkosítás és sebesség érdekében. Megváltoztathatja ezt a beállítást a DNS ablak választás alján.</string>
     <string name="networks_summary_force_libre_mode">A Blokada mindig Libre módban lesz ezen a hálózaton, és figyelmen kívűl hagyja a Blokada Plus helyzetét. Ez hasznos olyan hálózatokon, ahol nem szükséges az extra védelem.</string>

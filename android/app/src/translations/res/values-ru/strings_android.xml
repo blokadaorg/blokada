@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Нажмите, чтобы изменить настройки для этой сети</string>
     <string name="networks_label_details_default_network">Настройки, приведенные ниже, применяются по умолчанию для всех сетей. Их можно переопределить для выбранных сетей (на предыдущем экране).</string>
     <string name="networks_action_encrypt_dns">Шифровать DNS</string>
-    <string name="networks_action_use_dns">Использовать DNS: %s</string>
+    <string name="networks_action_use_dns">Использовать DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Предпочитать DNS провайдера</string>
     <string name="networks_action_force_libre_mode">Принудительный режим Libre</string>
     <string name="networks_label_specific_network">Настройте, что должно произойти, когда устройство подключится к этой сети.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Вы можете увидеть уведомление, когда Blokada будет считывать название вашей сети в фоновом режиме.</string>
     <string name="networks_section_choose_dns">Выбрать DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada будет шифровать DNS, если это возможно. Это позволяет повысить безопасность и предотвратить слежку за используемыми вами веб-сайтами и приложениями со стороны злоумышленников.</string>
-    <string name="networks_summary_use_dns">Blokada будет использовать %s в качестве DNS вашего устройства. Выбор DNS, обеспечивающего шифрование (со значком замка) и находящегося рядом с вами, поможет защитить ваши данные и сделать ваше соединение более быстрым.</string>
-    <string name="networks_summary_network_dns">Blokada будет использовать DNS вашей сети, если он доступен, или переключится на %s в противном случае. Кроме того, настройки шифрования DNS будут игнорироваться при использовании сетевого DNS. Использование DNS сети помогает решить проблемы с подключением в проблемных сетях, но при этом делает вас незащищенным.</string>
+    <string name="networks_summary_use_dns">Blokada будет использовать %1$s в качестве DNS вашего устройства. Выбор DNS, обеспечивающего шифрование (со значком замка) и находящегося рядом с вами, поможет защитить ваши данные и сделать ваше соединение более быстрым.</string>
+    <string name="networks_summary_network_dns">Blokada будет использовать DNS вашей сети, если он доступен, или переключится на %1$s в противном случае. Кроме того, настройки шифрования DNS будут игнорироваться при использовании сетевого DNS. Использование DNS сети помогает решить проблемы с подключением в проблемных сетях, но при этом делает вас незащищенным.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada временно отключает режим Plus при использовании DNS сети. Это связано с тем, что при использовании VPN невозможно получить доступ к DNS сети. Режим Plus будет автоматически восстановлен, когда ваше устройство переключится на другую сеть.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada будет использовать Blokada DNS в режиме Plus для обеспечения высокого уровня шифрования и скорости. Вы можете изменить эту настройку в нижней части экрана меню выбора DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada всегда будет использовать режим Libre в этой сети и игнорировать ваше местоположение Blokada Plus. Это полезно для сетей, в которых дополнительная защита не требуется.</string>

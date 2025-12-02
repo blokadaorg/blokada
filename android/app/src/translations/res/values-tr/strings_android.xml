@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Bu ağın ayarlarını değiştirmek için dokunun</string>
     <string name="networks_label_details_default_network">Aşağıdaki ayarlar varsayılan olarak tüm ağlar için uygulanır. Seçili ağlar için bunları geçersiz kılabilirsiniz (önceki ekranda).</string>
     <string name="networks_action_encrypt_dns">DNS\'yi şifrele</string>
-    <string name="networks_action_use_dns">DNS\'i kullan: %s</string>
+    <string name="networks_action_use_dns">DNS\'i kullan: %1$s</string>
     <string name="networks_action_use_network_dns">Ağ DNS\'sini tercih et</string>
     <string name="networks_action_force_libre_mode">Libre moduna zorla</string>
     <string name="networks_label_specific_network">Cihazınız bu ağa bağlandığında ne olacağını ayarlayın.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Blokada arka planda ağ adınızı okuduğunda bir bildirim görebilirsiniz.</string>
     <string name="networks_section_choose_dns">DNS seç</string>
     <string name="networks_summary_encrypt_dns">Blokada, mümkün olduğunda DNS\'yi şifreleyecektir. Bu, güvenliğinizi artırır ve kötü niyetli kişilerin hangi web sitelerini ve uygulamaları kullandığınız hakkında casusluk yapmasını engeller.</string>
-    <string name="networks_summary_use_dns">Blokada, cihazınızın DNS\'si olarak %s kullanacaktır. Şifrelemeye izin veren (kilit simgesi olan) ve size yakın olanı seçmek, verilerinizin korunmasına ve bağlantınızın hızlı olmasına yardımcı olacaktır.</string>
-    <string name="networks_summary_network_dns">Blokada, varsa ağın DNS\'sini kullanacak veya aksi takdirde %s geçecektir. Ayrıca, DNS\'yi Şifrele ayarları, ağ DNS\'si her kullanıldığında yok sayılacaktır. Ağın DNS\'sini kullanmak, sorunlu ağlardaki bağlantı sorunlarını çözmenize yardımcı olur, ancak sizi korumasız bırakır.</string>
+    <string name="networks_summary_use_dns">Blokada, cihazınızın DNS\'si olarak %1$s kullanacaktır. Şifrelemeye izin veren (kilit simgesi olan) ve size yakın olanı seçmek, verilerinizin korunmasına ve bağlantınızın hızlı olmasına yardımcı olacaktır.</string>
+    <string name="networks_summary_network_dns">Blokada, varsa ağın DNS\'sini kullanacak veya aksi takdirde %1$s geçecektir. Ayrıca, DNS\'yi Şifrele ayarları, ağ DNS\'si her kullanıldığında yok sayılacaktır. Ağın DNS\'sini kullanmak, sorunlu ağlardaki bağlantı sorunlarını çözmenize yardımcı olur, ancak sizi korumasız bırakır.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada, ağ DNS\'si her kullanıldığındaPlus modunu geçici olarak devre dışı bırakır. Bunun nedeni, VPN\'de ağ DNS\'sine erişmenin mümkün olmamasıdır. Cihazınız başka bir ağa geçtiğinde Plus Modu otomatik olarak geri yüklenir.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada, yüksek düzeyde şifreleme ve hız sağlamak için Blokada DNS\'yi Plus modunda kullanacaktır. Bu ayarı DNS Seçin ekranının altında değiştirebilirsiniz.</string>
     <string name="networks_summary_force_libre_mode">Blokada, bu ağda her zaman Libre modunu kullanacak ve Blokada Plus konumunuzu yok sayacaktır. Bu, ek koruma istemediğiniz ağlar için kullanışlıdır.</string>

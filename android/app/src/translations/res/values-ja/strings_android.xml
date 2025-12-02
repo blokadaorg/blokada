@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">タップしてこのネットワークの設定を変更します</string>
     <string name="networks_label_details_default_network">以下の設定は、すべてのネットワークにデフォルトで適用されます。任意のネットワークの設定を (前の画面で) 上書きできます。</string>
     <string name="networks_action_encrypt_dns">DNS を暗号化</string>
-    <string name="networks_action_use_dns">DNS: %s</string>
+    <string name="networks_action_use_dns">DNS: %1$s</string>
     <string name="networks_action_use_network_dns">ネットワーク DNS を優先する</string>
     <string name="networks_action_force_libre_mode">Libre モードを強制する</string>
     <string name="networks_label_specific_network">このネットワークに接続されたときの動作を設定します。</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Blokada がネットワーク名をバックグラウンドで読み込むと通知が表示されることがあります。</string>
     <string name="networks_section_choose_dns">DNS を選択</string>
     <string name="networks_summary_encrypt_dns">Blokada は暗号化された DNS に優先して接続します。これによりセキュリティが向上し、悪意のある人物があなたが使用するウェブサイトやアプリをスパイするのを防ぎます。</string>
-    <string name="networks_summary_use_dns">Blokada は端末の DNS として %s を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。</string>
-    <string name="networks_summary_network_dns">Blokada はネットワーク DNS を使用し、使用できない場合は %s に切り替えます。ネットワーク DNS を使用すると DNS は暗号化されません。ネットワーク上の接続の問題が解決される場合がありますが、保護されていない状態になります。</string>
+    <string name="networks_summary_use_dns">Blokada は端末の DNS として %1$s を使用します。ロックアイコン付きの暗号化された DNS を選択すると、データを保護することができます。一般に、近くにあるサーバーの方が通信速度が速くなるとされています。</string>
+    <string name="networks_summary_network_dns">Blokada はネットワーク DNS を使用し、使用できない場合は %1$s に切り替えます。ネットワーク DNS を使用すると DNS は暗号化されません。ネットワーク上の接続の問題が解決される場合がありますが、保護されていない状態になります。</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada は、ネットワーク DNS が使用されるたびに Plus モードを一時的に無効にします。これは VPN でネットワーク DNS にアクセスできないためです。端末が別のネットワークに切り替わると、Plus モードは自動的に復元されます。</string>
     <string name="networks_summary_blocka_plus_mode">Blokada は Plus モードで Blokada DNS を使用して、高いレベルの暗号化と速度を確保します。DNS 選択画面の下部でこの設定を変更できます。</string>
     <string name="networks_summary_force_libre_mode">Blokada はこのネットワーク上で常に Libre モードを使用し、Blokada Plus の接続先を無視します。追加の保護を必要としないネットワークでご利用ください。</string>

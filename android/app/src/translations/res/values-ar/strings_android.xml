@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">انقر لتعديل إعدادات هذه الشبكة</string>
     <string name="networks_label_details_default_network">يتم تطبيق الإعدادات أدناه بشكل افتراضي على جميع الشبكات. يمكنك تجاوزها للشبكات المحدّدة (في الشاشة السابقة).</string>
     <string name="networks_action_encrypt_dns">تشفير DNS</string>
-    <string name="networks_action_use_dns">استخدام DNS: %s</string>
+    <string name="networks_action_use_dns">استخدام DNS: %1$s</string>
     <string name="networks_action_use_network_dns">تفضيل شبكة DNS</string>
     <string name="networks_action_force_libre_mode">فرض وضع Libre</string>
     <string name="networks_label_specific_network">اضبط ما يجب أن يحدث عندما يتّصل جهازك بهذه الشبكة.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">قد ترى إشعاراً عندما يقرأ بلوكادا اسم شبكتك في الخلفية.</string>
     <string name="networks_section_choose_dns">اختر DNS</string>
     <string name="networks_summary_encrypt_dns">سيقوم بلوكادا بتشفير DNS إن أمكن. يعمل ذلك على تحسين أمنك و يمنع الجهات الضارة من التجسس على مواقع الويب و التطبيقات التي تستخدمها.</string>
-    <string name="networks_summary_use_dns">سيستخدم بلوكادا %s كنظام DNS لجهازك. سيساعد اختيار الخيار الذي يسمح بالتشفير (الذي يحتوي على رمز القفل) ، و القريب منك ، على حماية بياناتك و جعل اتصالك سريعاً.</string>
-    <string name="networks_summary_network_dns">سيستخدم بلوكادا DNS الخاص بالشبكة إذا كان متاحاً ، أو يتحوّل إلى %s بدلاً من ذلك. أيضاً ، سيتم تجاهل إعدادات تشفير DNS عند استخدام DNS الشبكة. يساعد استخدام DNS الخاص بالشبكة في إصلاح مشكلات الاتصال على الشبكات المزعجة ، لكنّه يتركك غير محمي.</string>
+    <string name="networks_summary_use_dns">سيستخدم بلوكادا %1$s كنظام DNS لجهازك. سيساعد اختيار الخيار الذي يسمح بالتشفير (الذي يحتوي على رمز القفل) ، و القريب منك ، على حماية بياناتك و جعل اتصالك سريعاً.</string>
+    <string name="networks_summary_network_dns">سيستخدم بلوكادا DNS الخاص بالشبكة إذا كان متاحاً ، أو يتحوّل إلى %1$s بدلاً من ذلك. أيضاً ، سيتم تجاهل إعدادات تشفير DNS عند استخدام DNS الشبكة. يساعد استخدام DNS الخاص بالشبكة في إصلاح مشكلات الاتصال على الشبكات المزعجة ، لكنّه يتركك غير محمي.</string>
     <string name="networks_summary_network_dns_and_plus_mode">سيقوم بلوكادا مؤقّتاً بتعطيل وضع Plus عند استخدام DNS للشبكة. لأنّه لا يمكن الوصول إلى DNS للشبكة أثناء اتصال VPN. سيتم استعادة وضع Plus تلقائيّاً عندما ينتقل جهازك إلى شبكة أُخرى.</string>
     <string name="networks_summary_blocka_plus_mode">بلوكادا سيستخدم Blokada DNS في وضع Plus لضمان مستوى عالٍ من التشفير و السرعة. يمكنك تغيير هذا الإعداد في الجزء السفلي من شاشة اختيار DNS.</string>
     <string name="networks_summary_force_libre_mode">سيستخدم Blokada دائماً وضع Libre على هذه الشبكة ، و يتجاهل موقع Blokada Plus الخاصّ بك. هذا مفيد للشبكات التي لا تريد فيها حماية إضافيّة.</string>

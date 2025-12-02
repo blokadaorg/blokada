@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Toca para modificar la configuración de esta red</string>
     <string name="networks_label_details_default_network">Los siguientes ajustes se aplican por defecto para todas las redes. Puede anularlos para las redes seleccionadas (en la pantalla anterior).</string>
     <string name="networks_action_encrypt_dns">Encriptar DNS</string>
-    <string name="networks_action_use_dns">Usar DNS: %s</string>
+    <string name="networks_action_use_dns">Usar DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Preferir red DNS</string>
     <string name="networks_action_force_libre_mode">Forzar modo Libre</string>
     <string name="networks_label_specific_network">Ajusta lo que debería suceder cuando el dispositivo se conecte a esta red.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Tal vez veas una notificación cuando Blokada lea el nombre de la red en segundo plano.</string>
     <string name="networks_section_choose_dns">Elegir DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada cifrará el DNS si es posible. Esto mejora tu seguridad y evita que agentes maliciosos espíen qué sitios web y aplicaciones utilizas.</string>
-    <string name="networks_summary_use_dns">Blokada utilizará %s como el DNS de tu dispositivo. Elegir el que permite cifrado (tiene el icono del candado), y esté cerca de ti ayudará a proteger tus datos y a que tu conexión sea rápida.</string>
-    <string name="networks_summary_network_dns">Blokada utilizará el DNS de la red si está disponible, o cambiará a %s en caso contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar DNS ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.</string>
+    <string name="networks_summary_use_dns">Blokada utilizará %1$s como el DNS de tu dispositivo. Elegir el que permite cifrado (tiene el icono del candado), y esté cerca de ti ayudará a proteger tus datos y a que tu conexión sea rápida.</string>
+    <string name="networks_summary_network_dns">Blokada utilizará el DNS de la red si está disponible, o cambiará a %1$s en caso contrario. Además, la configuración de DNS cifrado se ignorará cuando se utilice DNS de red. Usar DNS ayuda a solucionar problemas de conectividad en redes problemáticas, pero te deja sin protección.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada desactivará temporalmente el modo Plus cuando se utilice DNS de red. Esto es porque no es posible acceder a DNS de red en VPN. El modo Plus se restaurará automáticamente cuando el dispositivo cambie a otra red.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada usará Blokada DNS en modo Plus para asegurar un alto nivel de cifrado y velocidad. Puedes cambiar esto desde la parte inferior de la pantalla \"Elegir DNS\".</string>
     <string name="networks_summary_force_libre_mode">Blokada siempre utilizará el modo Libre en esta red, e ignorará la ubicación de Blokada Plus. Esto puede ser útil para redes en las que no se quiera la protección adicional.</string>

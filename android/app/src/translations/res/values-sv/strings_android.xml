@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Tryck för att ändra inställningar för detta nätverk</string>
     <string name="networks_label_details_default_network">Inställningarna nedan tillämpas som standard för alla nätverk. Du kan åsidosätta dem för valda nätverk (i föregående skärm).</string>
     <string name="networks_action_encrypt_dns">Kryptera DNS</string>
-    <string name="networks_action_use_dns">Använd DNS: %s</string>
+    <string name="networks_action_use_dns">Använd DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Föredra nätverkets DNS</string>
     <string name="networks_action_force_libre_mode">Tvinga Libreläge</string>
     <string name="networks_label_specific_network">Välj vad som ska hända när enheten ansluter till detta nätverk.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Du kanske ser en notifikation när Blokada läser ditt nätverksnamn i bakgrunden.</string>
     <string name="networks_section_choose_dns">Välj DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada krypterar DNS om möjligt. Detta förbättrar din säkerhet och förhindrar skadliga aktörer att spionera på vilka webbplatser och appar du använder.</string>
-    <string name="networks_summary_use_dns">Blokada kommer att använda %s som din enhets DNS. Väljer du den som tillåter kryptering (har låsikonen), och är nära dig, hjälper det till med att skydda dina data och göra din anslutning snabb.</string>
-    <string name="networks_summary_network_dns">Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %s i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.</string>
+    <string name="networks_summary_use_dns">Blokada kommer att använda %1$s som din enhets DNS. Väljer du den som tillåter kryptering (har låsikonen), och är nära dig, hjälper det till med att skydda dina data och göra din anslutning snabb.</string>
+    <string name="networks_summary_network_dns">Blokada kommer att använda nätverkets DNS om tillgängligt, eller byta till %1$s i övriga fall. Även inställningar för \"Kryptera DNS\" kommer att ignoreras när nätverkets DNS används. Att använda nätverkets DNS hjälper till att åtgärda anslutningsproblem på besvärliga nätverk, men lämnar dig oskyddad.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada kommer tillfälligt att inaktivera Plus-läget när nätverkets DNS används. Detta beror på att det inte är möjligt att komma åt nätverkets DNS via VPN. Plus-läget återställs automatiskt när enheten växlar till ett annat nätverk.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada kommer att använda Blokada DNS i Plus-läge, för att säkerställa hög nivå av kryptering och hastighet. Du kan ändra den här inställningen längst ner på Välj DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada kommer alltid att använda Librelägre på detta nätverk och ignorera din Blokada Plus-plats. Detta är användbart för nätverk där du inte vill ha extra skydd.</string>

@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Ketuk untuk memodifikasi pengaturan jaringan ini</string>
     <string name="networks_label_details_default_network">Pengaturan di bawah ini diterapkan secara default untuk semua jaringan. Anda bisa merubahnya untuk jaringan yang Anda pilih (di menu sebelumnya).</string>
     <string name="networks_action_encrypt_dns">Enkripsikan DNS</string>
-    <string name="networks_action_use_dns">Gunakan DNS: %s</string>
+    <string name="networks_action_use_dns">Gunakan DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Utamakan DNS jaringan</string>
     <string name="networks_action_force_libre_mode">Tetap pakai Libre Mode</string>
     <string name="networks_label_specific_network">Atur apa yang terjadi ketika perangkat Anda tersambung dengan jaringan ini.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Anda mungkin akan melihat pemberitahuan ketika Blokada memindai nama jaringan Anda di latar belakang.</string>
     <string name="networks_section_choose_dns">Pilih server DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada akan mengenkripsi DNS jika memungkinkan. Hal ini akan memperkuat keamanan dan mencegah orang lain memata-matai situs web dan aplikasi yang Anda pakai.</string>
-    <string name="networks_summary_use_dns">Blokada akan memakai %s sebagai DNS perangkat Anda. Memilih DNS yang mendukung enkripsi (bertanda ikon kunci) dan lokasi yang berdekatan dengan Anda akan membantu melindungi serta mempercepat koneksi Anda.</string>
-    <string name="networks_summary_network_dns">Blokada akan memakai DNS dari jaringan jika tersedia, jika tidak memungkinkan Blokada akan menggunakan %s. Pengaturan Enkripsi DNS akan diabaikan ketika DNS jaringan aktif. Penggunaan DNS dari jaringan membantu perbaikan kendala koneksi pada jaringan bermasalah, namun akan membuat koneksi Anda tak terlindungi.</string>
+    <string name="networks_summary_use_dns">Blokada akan memakai %1$s sebagai DNS perangkat Anda. Memilih DNS yang mendukung enkripsi (bertanda ikon kunci) dan lokasi yang berdekatan dengan Anda akan membantu melindungi serta mempercepat koneksi Anda.</string>
+    <string name="networks_summary_network_dns">Blokada akan memakai DNS dari jaringan jika tersedia, jika tidak memungkinkan Blokada akan menggunakan %1$s. Pengaturan Enkripsi DNS akan diabaikan ketika DNS jaringan aktif. Penggunaan DNS dari jaringan membantu perbaikan kendala koneksi pada jaringan bermasalah, namun akan membuat koneksi Anda tak terlindungi.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada akan menonaktifkan Mode Plus untuk sementara waktu ketika DNS jaringan digunakan. Hal ini dikarenakan pengguna tidak akan mungkin mengakses DNS jaringan saat menggunakan VPN. Mode Plus akan kembali aktif secara otomatis ketika perangkat Anda beralih ke jaringan lain.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada akan memakai Blokada DNS dalam Mode Plus demi menjamin kecepatan dan tingkat enkripsi tinggi. Anda dapat mengubah pengaturan ini di bagian bawah layar Pilih DNS.</string>
     <string name="networks_summary_force_libre_mode">Blokada akan selalu menggunakan Mode Libre di jaringan ini, dan mengabaikan lokasi yang Anda pilih di mode Blokada Plus. Ini berguna untuk jaringan di mana Anda tidak menginginkan perlindungan tambahan.</string>

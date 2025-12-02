@@ -21,7 +21,7 @@
     <string name="networks_label_configuration_inactive">Klepnutím upravíte nastavení pro tuto síť</string>
     <string name="networks_label_details_default_network">Níže uvedená nastavení jsou ve výchozím nastavení použita pro všechny sítě. Můžete je upravit pro vybrané sítě (na předchozí obrazovce).</string>
     <string name="networks_action_encrypt_dns">Šifrovat DNS</string>
-    <string name="networks_action_use_dns">Použít DNS: %s</string>
+    <string name="networks_action_use_dns">Použít DNS: %1$s</string>
     <string name="networks_action_use_network_dns">Preferovat síťovou DNS</string>
     <string name="networks_action_force_libre_mode">Vynutit režim Libre</string>
     <string name="networks_label_specific_network">Nastavte, co by se mělo stát, když se vaše zařízení připojí k této síti.</string>
@@ -32,8 +32,8 @@
     <string name="networks_permission_request_granted">Když Blokada na pozadí přečte název vaší sítě, může se zobrazit oznámení.</string>
     <string name="networks_section_choose_dns">Vybrat DNS</string>
     <string name="networks_summary_encrypt_dns">Blokada šifruje DNS, pokud je to možné. Tím se zlepší vaše zabezpečení a zabrání se škodlivým činitelům špehovat, jaké weby a aplikace používáte.</string>
-    <string name="networks_summary_use_dns">Blokada použije %s jako DNS vašeho zařízení. Výběr toho, který umožňuje šifrování (má ikonu zámku) a je blízko vás, pomůže chránit vaše data a zrychlí vaše připojení.</string>
-    <string name="networks_summary_network_dns">Blokada použije DNS sítě, pokud je k dispozici, nebo přepne na %s. Při každém použití síťového DNS bude také ignorováno nastavení Šifrovat DNS. Používání DNS v síti pomáhá řešit problémy s připojením v problémových sítích, ale nechává vás nechráněného.</string>
+    <string name="networks_summary_use_dns">Blokada použije %1$s jako DNS vašeho zařízení. Výběr toho, který umožňuje šifrování (má ikonu zámku) a je blízko vás, pomůže chránit vaše data a zrychlí vaše připojení.</string>
+    <string name="networks_summary_network_dns">Blokada použije DNS sítě, pokud je k dispozici, nebo přepne na %1$s. Při každém použití síťového DNS bude také ignorováno nastavení Šifrovat DNS. Používání DNS v síti pomáhá řešit problémy s připojením v problémových sítích, ale nechává vás nechráněného.</string>
     <string name="networks_summary_network_dns_and_plus_mode">Blokada dočasně zakáže režim Plus, kdykoli se použije síťové DNS. Je to proto, že ve VPN není možné přistupovat k síťovému DNS. Jakmile se zařízení přepne do jiné sítě, režim Plus se automaticky obnoví.</string>
     <string name="networks_summary_blocka_plus_mode">Blokada bude používat Blokada DNS v režimu Plus, aby zajistila vysokou úroveň šifrování a rychlosti. Toto nastavení můžete změnit v dolní části obrazovky \"Vybrat DNS\".</string>
     <string name="networks_summary_force_libre_mode">Blokada bude v této síti vždy používat režim Libre a bude ignorovat vaši polohu Blokada Plus. To je užitečné pro sítě, kde nevyžadujete další ochranu.</string>
