@@ -83,8 +83,6 @@
         <receiver android:name="service.DozeReceiver" />
 
         <receiver android:name="service.NotificationAlarmReceiver" />
-        <receiver android:name="service.WeeklyReportBackgroundReceiver" />
-
         <receiver
             android:name="service.BootReceiver"
             android:enabled="true"

@@ -86,7 +86,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   }
 
   @action
-  Future<void> fetchToplists(Marker m) async {
+  Future<void> fetchToplists(Marker m, {String range = "24h"}) async {
     toplistsLoading = true;
     try {
       return await log(m).trace("fetchToplists", (m) async {
@@ -108,7 +108,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
             level: 1,
             action: "blocked",
             limit: 12,
-            range: "24h",
+            range: range,
             m: m,
           );
 
@@ -119,7 +119,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
             level: 1,
             action: "allowed",
             limit: 12,
-            range: "24h",
+            range: range,
             m: m,
           );
 
@@ -129,7 +129,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
             level: 1,
             action: "fallthrough",
             limit: 12,
-            range: "24h",
+            range: range,
             m: m,
           );
 

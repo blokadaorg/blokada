@@ -45,14 +45,13 @@ val NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 val NOTIF_NEW_MESSAGE = "supportNewMessage"
 val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 val NOTIF_WEEKLY_REPORT = "weeklyReport"
-
 private const val WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000L
 
-object NotificationService {
-    private val context by lazy { ContextService }
-    private val notificationManager by lazy {
-        context.requireContext()
-            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    object NotificationService {
+        private val context by lazy { ContextService }
+        private val notificationManager by lazy {
+            context.requireContext()
+                .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
     private val alarmManager by lazy {
         context.requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -89,10 +88,6 @@ object NotificationService {
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         Log.d("NotificationService", "Scheduled $notificationId at ${calendar.time}")
-
-        if (notificationId == NOTIF_WEEKLY_REPORT && scheduleBackground) {
-            scheduleWeeklyReportBackground(ctx, calendar.timeInMillis, parsedPayload)
-        }
     }
 
     fun dismissAll() {
@@ -132,35 +127,6 @@ object NotificationService {
         return notificationManager.areNotificationsEnabled()
     }
 
-    private fun scheduleWeeklyReportBackground(
-        ctx: Context,
-        targetAt: Long,
-        payload: WeeklyReportPayload?
-    ) {
-        val refreshedContent = (payload ?: WeeklyReportPayload.defaults(ctx)).refreshed(ctx)
-        val leadMs = payload?.backgroundLeadMs ?: WEEKLY_REPORT_BACKGROUND_LEAD_MS
-        val backgroundAt = targetAt - leadMs
-        if (backgroundAt <= System.currentTimeMillis()) {
-            Log.d("NotificationService", "Skipping weekly report background schedule, backgroundAt is past")
-            return
-        }
-
-        val intent = Intent(ctx, WeeklyReportBackgroundReceiver::class.java)
-        intent.putExtra("id", NOTIF_WEEKLY_REPORT)
-        intent.putExtra("targetAt", targetAt)
-        intent.putExtra("title", refreshedContent.title)
-        intent.putExtra("body", refreshedContent.body)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            ctx,
-            NOTIF_WEEKLY_REPORT.hashCode() + 1,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP, backgroundAt, pendingIntent)
-        Log.d("NotificationService", "Scheduled weekly report background at ${Date(backgroundAt)}")
-    }
 }
 
 class NotificationAlarmReceiver : BroadcastReceiver() {
@@ -183,33 +149,6 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
         }
 
         if (n != null) notification.show(n)
-    }
-}
-
-class WeeklyReportBackgroundReceiver : BroadcastReceiver() {
-    private val notification by lazy { NotificationService }
-
-    override fun onReceive(context: Context, intent: Intent) {
-        val targetAt = intent.getLongExtra("targetAt", -1L)
-        if (targetAt <= 0L) return
-
-        val refreshedTitle = intent.getStringExtra("title")
-        val refreshedBody = intent.getStringExtra("body")
-
-        Log.d("NotificationService", "Weekly report background execution at ${Date()} for target ${Date(targetAt)}")
-        // TODO: refresh stats here once available
-        notification.show(
-            NOTIF_WEEKLY_REPORT,
-            Date(targetAt),
-            WeeklyReportPayload(
-                refreshedTitle,
-                refreshedBody,
-                refreshedTitle,
-                refreshedBody,
-                WEEKLY_REPORT_BACKGROUND_LEAD_MS
-            ).toJson(),
-            scheduleBackground = false
-        )
     }
 }
 

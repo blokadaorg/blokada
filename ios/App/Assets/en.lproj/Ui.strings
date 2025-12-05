@@ -861,6 +861,7 @@
 "privacy pulse recents header" = "Recent Activity";
 // A timespan duration indicator, keep super short
 "privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 1w" = "1 week";
 // Action to show all entries. Keep it very short. Can be 'More'.
 "privacy pulse timespan show all" = "See All";
 // A tab name for Blocked entries

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/module/payment/payment.dart';
 import 'package:common/common/navigation.dart' show maxContentWidth, getTopPadding;
@@ -14,6 +16,7 @@ import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -47,7 +50,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   bool _toplistsFetched = false;
   WeeklyReportEvent? _weeklyEvent;
   final List<mobx.ReactionDisposer> _disposers = [];
-  final _topDomainsKey = GlobalKey();
+  final _topDomainsHeaderKey = GlobalKey();
+  ToplistRange _toplistRange = ToplistRange.daily;
+  Future<void>? _pendingToplistRequest;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -69,12 +74,12 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty && !_toplistsFetched) {
         _toplistsFetched = true;
-        _fetchToplists();
+        unawaited(_fetchToplists());
       }
     }));
 
     // Also try to fetch immediately (will be skipped if deviceAlias not ready)
-    _fetchToplists();
+    unawaited(_fetchToplists());
 
     _disposers.add(mobx.autorun((_) {
       setState(() {
@@ -93,9 +98,20 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     super.dispose();
   }
 
-  void _fetchToplists() {
-    log(Markers.userTap).trace("privacyPulseFetchToplists", (m) async {
-      await _store.fetchToplists(m);
+  Future<void> _fetchToplists({ToplistRange? rangeOverride}) {
+    final selectedRange = rangeOverride ?? _toplistRange;
+    final future =
+        log(Markers.userTap).trace("privacyPulseFetchToplists", (m) async {
+      await _store.fetchToplists(
+        m,
+        range: selectedRange == ToplistRange.daily ? "24h" : "7d",
+      );
+    });
+    _pendingToplistRequest = future;
+    return future.whenComplete(() {
+      if (_pendingToplistRequest == future) {
+        _pendingToplistRequest = null;
+      }
     });
   }
 
@@ -104,8 +120,26 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       // Refresh all 3 API endpoints
       await _store.fetch(m);
       await _journal.fetch(m, tag: null);
-      await _store.fetchToplists(m);
+      await _store.fetchToplists(
+        m,
+        range: _toplistRange == ToplistRange.daily ? "24h" : "7d",
+      );
     });
+  }
+
+  Future<void> _setToplistRange(ToplistRange range) async {
+    if (_toplistRange != range) {
+      setState(() {
+        _toplistRange = range;
+      });
+      await _fetchToplists(rangeOverride: range);
+      return;
+    }
+
+    final pending = _pendingToplistRequest;
+    if (pending != null) {
+      await pending;
+    }
   }
 
   @override
@@ -158,7 +192,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                                 ctaLabel: isToplist ? "Show" : null,
                                 icon: _iconFor(event.icon),
                                 iconColor: context.theme.accent,
-                                onCtaTap: isToplist ? _scrollToTopDomains : null,
+                                onCtaTap: isToplist ? _handleWeeklyReportTap : null,
                                 onDismiss: () => _dismissWeeklyReport(),
                               );
                             }),
@@ -175,8 +209,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           RecentActivity(),
                           const SizedBox(height: 12),
                           TopDomains(
-                            headerKey: _topDomainsKey,
+                            headerKey: _topDomainsHeaderKey,
                             highlight: _weeklyEvent?.toplistHighlight,
+                            range: _toplistRange,
+                            onRangeChanged: _setToplistRange,
                           ),
                           const SizedBox(height: 48),
                           TotalCounter(stats: stats),
@@ -201,8 +237,25 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     );
   }
 
-  void _scrollToTopDomains({int attempt = 0}) {
-    final keyContext = _topDomainsKey.currentContext;
+  void _handleWeeklyReportTap() {
+    if (_weeklyEvent?.type != WeeklyReportEventType.toplistChange) return;
+    unawaited(_scrollAndEnsureWeeklyHighlight());
+  }
+
+  Future<void> _scrollAndEnsureWeeklyHighlight() async {
+    await _scrollToTopDomains(force: true);
+    if (_toplistRange != ToplistRange.weekly) {
+      await _setToplistRange(ToplistRange.weekly);
+    }
+  }
+
+  Future<void> _scrollToTopDomains({int attempt = 0, bool force = false}) async {
+    if (!force && _toplistRange != ToplistRange.weekly) {
+      log(Markers.userTap).t('weeklyReport:scroll:wrongRange');
+      return;
+    }
+
+    final keyContext = _topDomainsHeaderKey.currentContext;
     final logger = log(Markers.userTap)..t('weeklyReport:scroll:trigger');
     const double topOffset = 120.0;
 
@@ -217,14 +270,17 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         ..pair('attempt', attempt);
       if (attempt >= 2) return;
       final mid = widget.controller.position.maxScrollExtent * 0.5;
-      widget.controller.animateTo(
-        mid,
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeOut,
-      ).whenComplete(() {
-        WidgetsBinding.instance
-            .addPostFrameCallback((_) => _scrollToTopDomains(attempt: attempt + 1));
-      });
+      try {
+        await widget.controller.animateTo(
+          mid,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      } catch (_) {
+        return;
+      }
+      await SchedulerBinding.instance.endOfFrame;
+      await _scrollToTopDomains(attempt: attempt + 1, force: force);
       return;
     }
 
@@ -245,14 +301,14 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         logger
           ..pair('targetOffsetRaw', target)
           ..pair('targetOffsetClamped', clamped);
-        widget.controller.animateTo(
+        await widget.controller.animateTo(
           clamped.toDouble(),
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeOut,
         );
       } else {
         logger.t('weeklyReport:scroll:noViewport');
-        Scrollable.ensureVisible(
+        await Scrollable.ensureVisible(
           keyContext,
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeOut,

@@ -1,7 +1,6 @@
 part of 'notification.dart';
 
 const Duration weeklyReportInterval = Duration(minutes: 10);
-const Duration weeklyReportFreshnessWindow = Duration(minutes: 20);
 const Duration weeklyReportBackgroundLead = Duration(minutes: 2);
 
 class WeeklyReportScheduleValue extends StringifiedPersistedValue<DateTime> {
@@ -20,6 +19,10 @@ class WeeklyReportLastDismissedValue extends StringPersistedValue {
 
 class WeeklyReportLastScheduledValue extends StringPersistedValue {
   WeeklyReportLastScheduledValue() : super('notification:weekly_report:last_scheduled');
+}
+
+class WeeklyReportLastNotifiedValue extends StringPersistedValue {
+  WeeklyReportLastNotifiedValue() : super('notification:weekly_report:last_notified');
 }
 
 class WeeklyReportPendingEventValue
@@ -694,6 +697,7 @@ class WeeklyReportActor with Logging, Actor {
   late final _repository = WeeklyReportRepository();
   late final _lastDismissed = WeeklyReportLastDismissedValue();
   late final _lastScheduled = WeeklyReportLastScheduledValue();
+  late final _lastNotified = WeeklyReportLastNotifiedValue();
   late final _deviceStore = Core.get<DeviceStore>();
   late final _pendingEvent = Core.get<WeeklyReportPendingEventValue>();
 
@@ -729,31 +733,9 @@ class WeeklyReportActor with Logging, Actor {
     });
   }
 
-  bool _hasFreshUnseen() {
-    final event = currentEvent.value;
-    if (event == null) return false;
-    final pickedAt = _currentPickedAt;
-    if (pickedAt == null) return false;
-
-    // Use the configured freshness window to avoid overlapping events.
-    final age = DateTime.now().toUtc().difference(pickedAt);
-    return age < weeklyReportFreshnessWindow;
-  }
-
-  Future<WeeklyReportPendingEvent?> _getFreshPendingEvent(Marker m) async {
-    final pending = await _pendingEvent.fetch(m);
-    if (pending == null) return null;
-    final age = DateTime.now().toUtc().difference(pending.pickedAt);
-    if (age >= weeklyReportFreshnessWindow) {
-      await _pendingEvent.change(m, null);
-      return null;
-    }
-    return pending;
-  }
-
   Future<bool> _hydratePendingEvent(Marker m) async {
     if (currentEvent.value != null) return true;
-    final pending = await _getFreshPendingEvent(m);
+    final pending = await _pendingEvent.fetch(m);
     if (pending == null) return false;
     _setCurrent(pending.event, pickedAt: pending.pickedAt);
     return true;
@@ -761,17 +743,23 @@ class WeeklyReportActor with Logging, Actor {
 
   Future<void> _storePendingEvent(Marker m, WeeklyReportEvent? event) async {
     if (event == null) {
+      log(m).t('weeklyReport:pending:clear:noneEvent');
       await _pendingEvent.change(m, null);
       return;
     }
     final existing = await _pendingEvent.fetch(m);
     if (existing != null && existing.event.id == event.id) {
+      log(m).t('weeklyReport:pending:keep:sameEvent');
       return;
     }
     final pending = WeeklyReportPendingEvent(
       event: event,
       pickedAt: DateTime.now().toUtc(),
     );
+    log(m)
+      ..t('weeklyReport:pending:set')
+      ..pair('eventId', event.id)
+      ..pair('pickedAt', pending.pickedAt.toIso8601String());
     await _pendingEvent.change(m, pending);
   }
 
@@ -795,20 +783,12 @@ class WeeklyReportActor with Logging, Actor {
 
   Future<void> _refreshAndSchedule(Marker m) async {
     await _hydratePendingEvent(m);
-    if (_hasFreshUnseen()) {
-      log(m).t('weeklyReport:skipRefresh:hasUnseenFresh');
-      return;
-    }
     final event = await refreshAndPick(m);
     await _ensureScheduled(m, eventOverride: event);
   }
 
   Future<WeeklyReportEvent?> refreshAndPick(Marker m) async {
     await _hydratePendingEvent(m);
-    if (_hasFreshUnseen()) {
-      log(m).t('weeklyReport:skipPick:hasUnseenFresh');
-      return currentEvent.value;
-    }
     _setLoading(true);
     final pick = await _generatePick(m);
     _setCurrent(pick?.event);
@@ -831,13 +811,16 @@ class WeeklyReportActor with Logging, Actor {
   Future<void> dismissCurrent(Marker m) async {
     final event = currentEvent.value;
     if (event == null) return;
+    log(m)
+      ..t('weeklyReport:dismissCurrent')
+      ..pair('eventId', event.id);
     await _lastDismissed.change(m, event.id);
     _setCurrent(null);
     await _pendingEvent.change(m, null);
   }
 
   Future<WeeklyReportPick?> _generatePick(Marker m) async {
-    final pending = await _getFreshPendingEvent(m);
+    final pending = await _pendingEvent.fetch(m);
     if (pending != null) {
       log(m).t('weeklyReport:reusePending');
       return WeeklyReportPick(pending.event, pending.pickedAt);
@@ -896,6 +879,12 @@ class WeeklyReportActor with Logging, Actor {
         ..pair('scheduledAt', target.toIso8601String())
         ..pair('hasEvent', event != null);
 
+      final lastNotified = await _lastNotified.fetch(m);
+      if (lastNotified != null && lastNotified == payload.eventId) {
+        log(m).t('weeklyReport:notificationSkippedAlreadyNotified');
+        return;
+      }
+
       final scheduleKey = '${payload.eventId}:${target.toIso8601String()}';
       final lastScheduled = await _lastScheduled.fetch(m);
       if (lastScheduled == scheduleKey) {
@@ -913,6 +902,7 @@ class WeeklyReportActor with Logging, Actor {
         when: target,
       );
       await _lastScheduled.change(m, scheduleKey);
+      await _lastNotified.change(m, payload.eventId);
     });
   }
 

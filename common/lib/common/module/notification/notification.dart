@@ -41,6 +41,7 @@ class NotificationModule with Module {
     await register(NotificationActor());
     if (!Core.act.isFamily) {
       await register(WeeklyReportScheduleValue());
+      await register(WeeklyReportLastNotifiedValue());
       await register(WeeklyReportPendingEventValue());
       await register(WeeklyReportActor());
     }

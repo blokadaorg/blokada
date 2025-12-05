@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/common/module/journal/journal.dart';
 import 'package:common/common/navigation.dart';
 import 'package:common/common/widget/common_card.dart';
@@ -12,10 +14,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+enum ToplistRange { daily, weekly }
+
 class TopDomains extends StatefulWidget {
   final Key? headerKey;
   final WeeklyReportToplistHighlight? highlight;
-  const TopDomains({super.key, this.headerKey, this.highlight});
+  final ToplistRange range;
+  final Future<void> Function(ToplistRange) onRangeChanged;
+  const TopDomains({
+    super.key,
+    this.headerKey,
+    this.highlight,
+    required this.range,
+    required this.onRangeChanged,
+  });
 
   @override
   State<StatefulWidget> createState() => TopDomainsState();
@@ -64,13 +76,17 @@ class TopDomainsState extends State<TopDomains> {
     final highlight = widget.highlight;
     final highlightName = highlight?.name.toLowerCase();
     final highlightBlocked = highlight?.blocked;
+    final isWeeklyMode = widget.range == ToplistRange.weekly;
 
     return Observer(
       builder: (context) {
         final currentDomains =
             _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
-        final highlightVisible =
-            highlight != null && highlightBlocked == (_selectedTab == ToplistTab.blocked);
+        final isLoading = _statsStore.toplistsLoading;
+        final highlightVisible = highlight != null &&
+            isWeeklyMode &&
+            !isLoading &&
+            highlightBlocked == (_selectedTab == ToplistTab.blocked);
         String _normalized(UiToplistEntry e) =>
             (e.company ?? e.tld ?? '').toLowerCase();
 
@@ -92,11 +108,24 @@ class TopDomainsState extends State<TopDomains> {
                       color: context.theme.textPrimary,
                     ),
                   ),
-                  Text(
-                    "privacy pulse timespan 24h".i18n,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.textSecondary,
+                  CommonClickable(
+                    onTap: () {
+                      if (_statsStore.toplistsLoading) {
+                        return;
+                      }
+                      final next = widget.range == ToplistRange.daily
+                          ? ToplistRange.weekly
+                          : ToplistRange.daily;
+                      unawaited(widget.onRangeChanged(next));
+                    },
+                    child: Text(
+                      widget.range == ToplistRange.daily
+                          ? "privacy pulse timespan 24h".i18n
+                          : "privacy pulse timespan 1w".i18n,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.theme.accent,
+                      ),
                     ),
                   ),
                 ],
@@ -239,9 +268,9 @@ class TopDomainsState extends State<TopDomains> {
               ),
               if (isHighlighted) ...[
                 Icon(
-                  CupertinoIcons.arrow_up_right,
+                  CupertinoIcons.arrow_up,
                   color: Colors.green,
-                  size: 32,
+                  size: 28,
                 ),
                 const SizedBox(width: 6),
               ],

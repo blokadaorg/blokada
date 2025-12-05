@@ -16,7 +16,6 @@ import UIKit
 import Combine
 import StoreKit
 import UserNotifications
-import BackgroundTasks
 
 class CommonBinding: CommonOps {
 
@@ -434,12 +433,6 @@ class CommonBinding: CommonOps {
                         print("Scheduling notification failed with error: \(error)")
                         return promise(.failure(error))
                     } else {
-                        if id == NOTIF_WEEKLY_REPORT, let payload = weeklyPayload {
-                            let leadMs = payload.backgroundLeadMs ?? WEEKLY_REPORT_BACKGROUND_LEAD_MS
-                            let backgroundAt = when.addingTimeInterval(Double(leadMs) / -1000.0)
-                            BlockaLogger.v("Notif", "Scheduling weekly report background at \(backgroundAt)")
-                            WeeklyReportBackgroundScheduler.shared.schedule(target: when, payload: payload)
-                        }
                         return promise(.success(true))
                     }
                 }
@@ -469,114 +462,6 @@ class CommonBinding: CommonOps {
     func doShareText(text: String, completion: @escaping (Result<Void, Error>) -> Void) {
         shareText.send(text)
         return completion(.success(()))
-    }
-}
-
-class WeeklyReportBackgroundScheduler {
-    static let shared = WeeklyReportBackgroundScheduler()
-    let taskIdentifier = "net.blocka.app.weeklyreport.prefetch"
-    private let storageKey = "notification:weekly_report:background"
-
-    func register() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: taskIdentifier, using: nil) { task in
-            guard let refreshTask = task as? BGAppRefreshTask else {
-                task.setTaskCompleted(success: false)
-                return
-            }
-            self.handle(task: refreshTask)
-        }
-    }
-
-    func schedule(target: Date, payload: WeeklyReportPayload) {
-        let leadMs = payload.backgroundLeadMs ?? WEEKLY_REPORT_BACKGROUND_LEAD_MS
-        let backgroundAt = target.addingTimeInterval(Double(leadMs) / -1000.0)
-        guard backgroundAt > Date() else {
-            BlockaLogger.v("Notif", "Skipping weekly report background schedule because target is in the past")
-            return
-        }
-
-        persist(target: target, payload: payload)
-
-        let request = BGAppRefreshTaskRequest(identifier: taskIdentifier)
-        request.earliestBeginDate = backgroundAt
-
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            BlockaLogger.v("Notif", "Scheduled weekly report background at \(backgroundAt)")
-        } catch {
-            BlockaLogger.w("Notif", "Failed to schedule weekly report background: \(error)")
-        }
-    }
-
-    func handle(task: BGAppRefreshTask) {
-        task.expirationHandler = {
-            BlockaLogger.w("Notif", "Weekly report background task expired")
-            task.setTaskCompleted(success: false)
-        }
-
-        refreshNotification { success in
-            task.setTaskCompleted(success: success)
-        }
-    }
-
-    private func refreshNotification(completion: @escaping (Bool) -> Void) {
-        guard let stored = UserDefaults.standard.dictionary(forKey: storageKey),
-              let targetTs = stored["targetTs"] as? Double else {
-            completion(false)
-            return
-        }
-
-        let targetDate = Date(timeIntervalSince1970: targetTs)
-        let refreshedTitle = stored["refreshedTitle"] as? String
-        let refreshedBody = stored["refreshedBody"] as? String
-        let leadMs = stored["backgroundLeadMs"] as? Int ?? WEEKLY_REPORT_BACKGROUND_LEAD_MS
-
-        // TODO: refresh stats here once available
-        let refreshedPayload = WeeklyReportPayload(
-            title: refreshedTitle ?? "Traffic increased refresh",
-            body: refreshedBody ?? "Your traffic increased by 4% this week",
-            refreshedTitle: refreshedTitle,
-            refreshedBody: refreshedBody,
-            backgroundLeadMs: leadMs
-        )
-
-        guard let json = refreshedPayload.toJsonString() else {
-            completion(false)
-            return
-        }
-
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.current
-        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: targetDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        let request = UNNotificationRequest(
-            identifier: NOTIF_WEEKLY_REPORT,
-            content: mapNotificationToUser(NOTIF_WEEKLY_REPORT, json),
-            trigger: trigger
-        )
-
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                BlockaLogger.w("Notif", "Failed to refresh weekly report notification: \(error)")
-                completion(false)
-                return
-            }
-
-            BlockaLogger.v("Notif", "Refreshed weekly report notification for \(targetDate)")
-            completion(true)
-        }
-    }
-
-    private func persist(target: Date, payload: WeeklyReportPayload) {
-        UserDefaults.standard.set(
-            [
-                "targetTs": target.timeIntervalSince1970,
-                "refreshedTitle": payload.refreshedTitle ?? payload.title ?? "Traffic increased refresh",
-                "refreshedBody": payload.refreshedBody ?? payload.body ?? "Your traffic increased by 4% this week",
-                "backgroundLeadMs": payload.backgroundLeadMs ?? WEEKLY_REPORT_BACKGROUND_LEAD_MS
-            ],
-            forKey: storageKey
-        )
     }
 }
 
