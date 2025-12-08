@@ -2,21 +2,21 @@ import 'package:common/common/widget/common_card.dart';
 import 'package:common/common/widget/common_clickable.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// A reusable card for weekly change summaries on the Privacy Pulse screen.
 ///
-/// Uses the same aesthetics as other Privacy Pulse cards, with an optional CTA
-/// and dismiss button. The main content area is a free-form widget so complex
-/// layouts can be embedded.
+/// Uses the same aesthetics as other Privacy Pulse cards, with an optional tap
+/// action and dismiss button. The main content area is a free-form widget so
+/// complex layouts can be embedded.
 class WeeklyReportCard extends StatelessWidget {
   final String title;
   final Widget content;
   final String? time;
-  final String? ctaLabel;
   final IconData icon;
   final Color? iconColor;
   final Color? backgroundColor;
-  final VoidCallback? onCtaTap;
+  final VoidCallback? onTap;
   final VoidCallback? onDismiss;
 
   const WeeklyReportCard({
@@ -27,8 +27,7 @@ class WeeklyReportCard extends StatelessWidget {
     this.iconColor,
     this.backgroundColor,
     this.time,
-    this.ctaLabel,
-    this.onCtaTap,
+    this.onTap,
     this.onDismiss,
   });
 
@@ -41,8 +40,18 @@ class WeeklyReportCard extends StatelessWidget {
       padding: EdgeInsets.zero,
       child: Stack(
         children: [
+          if (onTap != null)
+            Positioned.fill(
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: onTap,
+                ),
+              ),
+            ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -66,37 +75,14 @@ class WeeklyReportCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       content,
-                      if (time != null || (ctaLabel != null && onCtaTap != null)) ...[
+                      if (time != null) ...[
                         const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            if (time != null)
-                              Expanded(
-                                child: Text(
-                                  time!,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: theme.textSecondary,
-                                  ),
-                                ),
-                              )
-                            else
-                              const Spacer(),
-                            if (ctaLabel != null && onCtaTap != null)
-                              CommonClickable(
-                                onTap: onCtaTap!,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                tapBorderRadius: BorderRadius.circular(8),
-                                child: Text(
-                                  ctaLabel!,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: theme.accent,
-                                  ),
-                                ),
-                              ),
-                          ],
+                        Text(
+                          time!,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: theme.textSecondary,
+                          ),
                         ),
                       ],
                     ],

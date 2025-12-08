@@ -863,6 +863,9 @@ class WeeklyReportActor with Logging, Actor {
   }
 
   Future<void> _ensureScheduled(Marker m, {WeeklyReportEvent? eventOverride}) async {
+    // Temporarily disable scheduling of weekly report notifications.
+    return;
+
     await log(m).trace('weeklyReport:onAppOpen', (m) async {
       final now = DateTime.now();
       final stored = await _scheduledAt.fetch(m);

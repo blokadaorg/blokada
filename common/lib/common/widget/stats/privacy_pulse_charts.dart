@@ -7,10 +7,12 @@ import 'horizontal_radial_segment.dart';
 
 class PrivacyPulseCharts extends StatelessWidget {
   final UiStats stats;
+  final Widget? trailing;
 
   const PrivacyPulseCharts({
     Key? key,
     required this.stats,
+    this.trailing,
   }) : super(key: key);
 
   @override
@@ -19,36 +21,44 @@ class PrivacyPulseCharts extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Header section
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Icon(
-                  CupertinoIcons.checkmark_shield,
-                  color: context.theme.textPrimary,
-                  size: 36,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  "privacy pulse section header".i18n,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+            Expanded(
+              child: Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.checkmark_shield,
                     color: context.theme.textPrimary,
+                    size: 36,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "privacy pulse brief".i18n,
-              style: TextStyle(
-                fontSize: 14,
-                color: context.theme.textSecondary,
+                  const SizedBox(width: 12),
+                  Flexible(
+                    child: Text(
+                      "privacy pulse section header".i18n,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: context.theme.textPrimary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+            if (trailing != null) ...[
+              const SizedBox(width: 12),
+              trailing!,
+            ],
           ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "privacy pulse brief".i18n,
+          style: TextStyle(
+            fontSize: 14,
+            color: context.theme.textSecondary,
+          ),
         ),
         const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment

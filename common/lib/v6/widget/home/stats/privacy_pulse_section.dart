@@ -189,10 +189,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                                   ),
                                 ),
                                 time: timeLabel,
-                                ctaLabel: isToplist ? "Show" : null,
                                 icon: _iconFor(event.icon),
                                 iconColor: context.theme.accent,
-                                onCtaTap: isToplist ? _handleWeeklyReportTap : null,
+                                onTap: isToplist ? _handleWeeklyReportTap : null,
                                 onDismiss: () => _dismissWeeklyReport(),
                               );
                             }),
@@ -202,11 +201,12 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: PrivacyPulseCharts(stats: stats),
+                              child: PrivacyPulseCharts(
+                                stats: stats,
+                                trailing: _buildToplistRangeToggle(context),
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 12),
-                          RecentActivity(),
                           const SizedBox(height: 12),
                           TopDomains(
                             headerKey: _topDomainsHeaderKey,
@@ -214,6 +214,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                             range: _toplistRange,
                             onRangeChanged: _setToplistRange,
                           ),
+                          const SizedBox(height: 12),
+                          RecentActivity(),
                           const SizedBox(height: 48),
                           TotalCounter(stats: stats),
                           const SizedBox(height: 60),
@@ -240,6 +242,41 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   void _handleWeeklyReportTap() {
     if (_weeklyEvent?.type != WeeklyReportEventType.toplistChange) return;
     unawaited(_scrollAndEnsureWeeklyHighlight());
+  }
+
+  Widget _buildToplistRangeToggle(BuildContext context) {
+    return CupertinoSlidingSegmentedControl<ToplistRange>(
+      groupValue: _toplistRange,
+      onValueChanged: (ToplistRange? value) {
+        if (value != null) {
+          unawaited(_setToplistRange(value));
+        }
+      },
+      children: {
+        ToplistRange.daily: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Text(
+            "24 h",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.theme.textPrimary,
+            ),
+          ),
+        ),
+        ToplistRange.weekly: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Text(
+            "7 d",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.theme.textPrimary,
+            ),
+          ),
+        ),
+      },
+    );
   }
 
   Future<void> _scrollAndEnsureWeeklyHighlight() async {

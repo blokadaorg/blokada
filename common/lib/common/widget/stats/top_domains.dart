@@ -108,24 +108,13 @@ class TopDomainsState extends State<TopDomains> {
                       color: context.theme.textPrimary,
                     ),
                   ),
-                  CommonClickable(
-                    onTap: () {
-                      if (_statsStore.toplistsLoading) {
-                        return;
-                      }
-                      final next = widget.range == ToplistRange.daily
-                          ? ToplistRange.weekly
-                          : ToplistRange.daily;
-                      unawaited(widget.onRangeChanged(next));
-                    },
-                    child: Text(
-                      widget.range == ToplistRange.daily
-                          ? "privacy pulse timespan 24h".i18n
-                          : "privacy pulse timespan 1w".i18n,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: context.theme.accent,
-                      ),
+                  Text(
+                    widget.range == ToplistRange.daily
+                        ? "privacy pulse timespan 24h".i18n
+                        : "privacy pulse timespan 1w".i18n,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: context.theme.textSecondary,
                     ),
                   ),
                 ],
