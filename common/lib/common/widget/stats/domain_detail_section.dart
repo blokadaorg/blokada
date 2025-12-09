@@ -13,7 +13,7 @@ import 'package:common/common/widget/domain_name_text.dart';
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/device/device.dart';
-import 'package:common/platform/stats/api.dart' as stats_api;
+import 'package:common/platform/stats/toplist_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,8 +52,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   late final _journal = Core.get<JournalActor>();
   late final _customlist = Core.get<CustomlistActor>();
   late final _customlistValue = Core.get<CustomListsValue>();
-  late final _statsApi = Core.get<stats_api.StatsApi>();
-  late final _accountId = Core.get<AccountId>();
+  late final _toplists = Core.get<ToplistStore>();
   late final _device = Core.get<DeviceStore>();
 
   List<UiJournalEntry> _recentBlockedEntries = [];
@@ -408,7 +407,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       });
 
       try {
-        final accountId = await _accountId.fetch(m);
         final deviceName = _device.deviceAlias;
         final isBlocked = widget.entry.action == UiJournalAction.block;
 
@@ -423,15 +421,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         int parentCount = 0;
 
         if (isBlocked) {
-          final response = await _statsApi.getToplistV2(
-            accountId: accountId,
+          final response = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: widget.level,
             domain: widget.domain,
             action: "blocked",
             limit: 12,
             range: "24h",
-            m: m,
           );
 
           log(m).pair("blocked_buckets", response.toplist.length);
@@ -455,26 +452,24 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           log(m).pair("blocked_final_subdomains", subdomains.length);
         } else {
           // Fetch both allowed and fallthrough, then merge
-          final allowedResponse = await _statsApi.getToplistV2(
-            accountId: accountId,
+          final allowedResponse = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: widget.level,
             domain: widget.domain,
             action: "allowed",
             limit: 10,
             range: "24h",
-            m: m,
           );
 
-          final fallthroughResponse = await _statsApi.getToplistV2(
-            accountId: accountId,
+          final fallthroughResponse = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: widget.level,
             domain: widget.domain,
             action: "fallthrough",
             limit: 10,
             range: "24h",
-            m: m,
           );
 
           log(m).pair("allowed_buckets", allowedResponse.toplist.length);

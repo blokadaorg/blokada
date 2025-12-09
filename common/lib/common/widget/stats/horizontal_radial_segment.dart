@@ -1,6 +1,7 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/stats.dart';
 import 'package:common/v6/widget/home/stats/radial_chart.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import '../../../../common/widget/minicard/chart.dart';
 
 class HorizontalRadialSegment extends StatefulWidget {
   final UiStats stats;
+  final StatsCounters? counters;
 
-  const HorizontalRadialSegment({Key? key, required this.stats}) : super(key: key);
+  const HorizontalRadialSegment({Key? key, required this.stats, this.counters}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => HorizontalRadialSegmentState();
@@ -28,9 +30,16 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
     lastAllowed = allowed;
     lastBlocked = blocked;
     lastTotal = total;
-    allowed = widget.stats.dayAllowed.toDouble();
-    blocked = widget.stats.dayBlocked.toDouble();
-    total = widget.stats.dayTotal.toDouble();
+    final counters = widget.counters;
+    if (counters != null) {
+      allowed = counters.allowed.toDouble();
+      blocked = counters.blocked.toDouble();
+      total = counters.total.toDouble();
+    } else {
+      allowed = widget.stats.dayAllowed.toDouble();
+      blocked = widget.stats.dayBlocked.toDouble();
+      total = widget.stats.dayTotal.toDouble();
+    }
   }
 
   @override

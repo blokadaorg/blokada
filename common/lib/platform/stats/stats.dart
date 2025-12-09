@@ -4,6 +4,7 @@ import 'package:common/common/module/api/api.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/device/device.dart';
+import 'package:common/platform/stats/toplist_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:meta/meta.dart';
 
@@ -17,6 +18,13 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<api.StatsApi>();
   late final _device = Core.get<DeviceStore>();
   late final _accountId = Core.get<AccountId>();
+  late final _toplists = Core.get<ToplistStore>();
+
+  static const Duration _cacheTtl = Duration(seconds: 10);
+  api.JsonStatsEndpoint? _lastDayEndpoint;
+  api.JsonStatsEndpoint? _lastWeekEndpoint;
+  DateTime? _lastDayFetch;
+  DateTime? _lastWeekFetch;
 
   StatsStoreBase() {}
 
@@ -71,18 +79,85 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   @action
   Future<void> fetch(Marker m) async {
-    return await log(m).trace("fetch", (m) async {
-      final oneDay = await _api.getStats("24h", "1h", m);
-      final oneWeek = await _api.getStats("1w", "24h", m);
+    await fetchDay(m);
+  }
 
+  Future<UiStats> fetchDay(Marker m, {bool force = false}) async {
+    return await log(m).trace("fetchDay", (m) async {
+      if (!force && _shouldUseCache(_lastDayFetch)) {
+        return stats;
+      }
+
+      _lastDayEndpoint = await _api.getStats("24h", "1h", m);
+      _lastDayFetch = DateTime.now();
+      _recomputeStats();
+      return stats;
+    });
+  }
+
+  Future<UiStats> fetchWeek(Marker m, {bool force = false}) async {
+    return await log(m).trace("fetchWeek", (m) async {
+      if (!force && _shouldUseCache(_lastWeekFetch)) {
+        return stats;
+      }
+
+      _lastWeekEndpoint = await _api.getStats("1w", "24h", m);
+      _lastWeekFetch = DateTime.now();
+      _recomputeStats();
+      return stats;
+    });
+  }
+
+  Future<StatsCounters> countersForRange(String range, Marker m, {bool force = false}) async {
+    if (range == "7d") {
+      await fetchWeek(m, force: force);
+      return _buildCounters(_lastWeekEndpoint);
+    }
+
+    await fetchDay(m, force: force);
+    return _buildCounters(_lastDayEndpoint);
+  }
+
+  StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
+    if (endpoint == null) return StatsCounters.empty();
+    int allowed = 0;
+    int blocked = 0;
+    for (final metric in endpoint.stats.metrics) {
+      final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+      for (final d in metric.dps) {
+        final rounded = d.value.round();
+        if (isAllowed) {
+          allowed += rounded;
+        } else {
+          blocked += rounded;
+        }
+      }
+    }
+    return StatsCounters(allowed: allowed, blocked: blocked, total: allowed + blocked);
+  }
+
+  void _recomputeStats() {
+    final day = _lastDayEndpoint ?? _lastWeekEndpoint;
+    final week = _lastWeekEndpoint ?? _lastDayEndpoint;
+
+    if (day == null || week == null) {
+      return;
+    }
+
+    runInAction(() {
       stats = _convertStats(
-        oneDay,
-        oneWeek,
+        day,
+        week,
         previousStats: stats,
       );
       hasStats = true;
       deviceStatsChangesCounter++;
     });
+  }
+
+  bool _shouldUseCache(DateTime? lastFetch) {
+    if (lastFetch == null) return false;
+    return DateTime.now().difference(lastFetch) < _cacheTtl;
   }
 
   @action
@@ -102,35 +177,32 @@ abstract class StatsStoreBase with Store, Logging, Actor {
           }
 
           // Fetch blocked entries
-          final toplistBlocked = await _api.getToplistV2(
-            accountId: accountId,
+          final toplistBlocked = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: 1,
             action: "blocked",
             limit: 12,
             range: range,
-            m: m,
           );
 
           // Fetch allowed entries (both "allowed" and "fallthrough" types)
-          final toplistAllowed = await _api.getToplistV2(
-            accountId: accountId,
+          final toplistAllowed = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: 1,
             action: "allowed",
             limit: 12,
             range: range,
-            m: m,
           );
 
-          final toplistFallthrough = await _api.getToplistV2(
-            accountId: accountId,
+          final toplistFallthrough = await _toplists.fetch(
+            m: m,
             deviceName: deviceName,
             level: 1,
             action: "fallthrough",
             limit: 12,
             range: range,
-            m: m,
           );
 
           // Convert and merge allowed + fallthrough entries
@@ -213,6 +285,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       deviceStats = {};
       deviceStatsChangesCounter = 0;
       hasStats = false;
+      _lastDayEndpoint = null;
+      _lastWeekEndpoint = null;
+      _lastDayFetch = null;
+      _lastWeekFetch = null;
     });
   }
 
@@ -441,4 +517,18 @@ StatsComputationResult computeStatsBaselines(
     avgDayTotal: avgDayAllowed + avgDayBlocked,
     latestTimestamp: latestTimestamp,
   );
+}
+
+class StatsCounters {
+  final int allowed;
+  final int blocked;
+  final int total;
+
+  const StatsCounters({
+    required this.allowed,
+    required this.blocked,
+    required this.total,
+  });
+
+  static StatsCounters empty() => const StatsCounters(allowed: 0, blocked: 0, total: 0);
 }

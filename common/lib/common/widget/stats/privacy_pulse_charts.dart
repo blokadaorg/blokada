@@ -1,6 +1,7 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'horizontal_radial_segment.dart';
@@ -8,11 +9,13 @@ import 'horizontal_radial_segment.dart';
 class PrivacyPulseCharts extends StatelessWidget {
   final UiStats stats;
   final Widget? trailing;
+  final StatsCounters? counters;
 
   const PrivacyPulseCharts({
     Key? key,
     required this.stats,
     this.trailing,
+    this.counters,
   }) : super(key: key);
 
   @override
@@ -62,7 +65,7 @@ class PrivacyPulseCharts extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment
-        HorizontalRadialSegment(stats: stats),
+        HorizontalRadialSegment(stats: stats, counters: counters),
       ],
     );
   }

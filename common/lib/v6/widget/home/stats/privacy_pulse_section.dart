@@ -52,7 +52,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final List<mobx.ReactionDisposer> _disposers = [];
   final _topDomainsHeaderKey = GlobalKey();
   ToplistRange _toplistRange = ToplistRange.daily;
+  Future<void>? _pendingStatsRequest;
   Future<void>? _pendingToplistRequest;
+  StatsCounters _counters = StatsCounters.empty();
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -72,14 +74,15 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     // Watch for deviceAlias to become available and fetch toplists
     _disposers.add(mobx.autorun((_) {
       final deviceAlias = _deviceStore.deviceAlias;
-      if (deviceAlias.isNotEmpty && !_toplistsFetched) {
-        _toplistsFetched = true;
-        unawaited(_fetchToplists());
+      if (deviceAlias.isNotEmpty) {
+        _kickoffStatsFetch();
+        unawaited(_updateCounters());
+        if (!_toplistsFetched) {
+          _toplistsFetched = true;
+          unawaited(_fetchToplists());
+        }
       }
     }));
-
-    // Also try to fetch immediately (will be skipped if deviceAlias not ready)
-    unawaited(_fetchToplists());
 
     _disposers.add(mobx.autorun((_) {
       setState(() {
@@ -96,6 +99,20 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       disposer();
     }
     super.dispose();
+  }
+
+  Future<void> _kickoffStatsFetch({bool force = false}) {
+    if (!force && _pendingStatsRequest != null) {
+      return _pendingStatsRequest!;
+    }
+
+    final future = _store.fetchDay(Markers.stats, force: force).then((_) {});
+    _pendingStatsRequest = future;
+    return future.whenComplete(() {
+      if (_pendingStatsRequest == future) {
+        _pendingStatsRequest = null;
+      }
+    });
   }
 
   Future<void> _fetchToplists({ToplistRange? rangeOverride}) {
@@ -115,10 +132,19 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     });
   }
 
+  Future<void> _updateCounters({bool force = false}) async {
+    final rangeLabel = _toplistRange == ToplistRange.daily ? "24h" : "7d";
+    final counters = await _store.countersForRange(rangeLabel, Markers.stats, force: force);
+    if (!mounted) return;
+    setState(() {
+      _counters = counters;
+    });
+  }
+
   Future<void> _pullToRefresh() async {
     return await log(Markers.userTap).trace("privacyPulsePullToRefresh", (m) async {
-      // Refresh all 3 API endpoints
-      await _store.fetch(m);
+      await _kickoffStatsFetch(force: true);
+      await _updateCounters(force: true);
       await _journal.fetch(m, tag: null);
       await _store.fetchToplists(
         m,
@@ -132,6 +158,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       setState(() {
         _toplistRange = range;
       });
+      await _updateCounters(force: true);
       await _fetchToplists(rangeOverride: range);
       return;
     }
@@ -199,14 +226,15 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           ],
                           MiniCard(
                             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: PrivacyPulseCharts(
-                                stats: stats,
-                                trailing: _buildToplistRangeToggle(context),
-                              ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: PrivacyPulseCharts(
+                              stats: stats,
+                              counters: _counters,
+                              trailing: _buildToplistRangeToggle(context),
                             ),
                           ),
+                        ),
                           const SizedBox(height: 12),
                           TopDomains(
                             headerKey: _topDomainsHeaderKey,

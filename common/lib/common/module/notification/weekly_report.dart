@@ -473,6 +473,7 @@ class WeeklyReportRepository with Logging {
   late final _statsApi = Core.get<platform_stats.StatsApi>();
   late final _accountId = Core.get<AccountId>();
   late final _deviceStore = Core.get<DeviceStore>();
+  late final _toplists = Core.get<ToplistStore>();
 
   Future<WeeklyReportWindow?> load(Marker m) async {
     return await log(m).trace('weeklyReport:load', (m) async {
@@ -565,30 +566,30 @@ class WeeklyReportRepository with Logging {
     platform_stats.JsonToplistV2Response? allowed;
     platform_stats.JsonToplistV2Response? fallthrough;
     try {
-      allowed = await _statsApi.getToplistV2(
-        accountId: accountId,
+      allowed = await _toplists.fetch(
+        m: m,
         deviceName: deviceName,
         level: 1,
         action: "allowed",
         limit: 5,
         range: range,
         end: end,
-        m: m,
+        ttl: Duration(seconds: 10),
       );
     } catch (e, s) {
       log(m).w("Failed to fetch allowed toplist: $e");
     }
 
     try {
-      fallthrough = await _statsApi.getToplistV2(
-        accountId: accountId,
+      fallthrough = await _toplists.fetch(
+        m: m,
         deviceName: deviceName,
         level: 1,
         action: "fallthrough",
         limit: 5,
         range: range,
         end: end,
-        m: m,
+        ttl: Duration(seconds: 10),
       );
     } catch (e, s) {
       log(m).w("Failed to fetch fallthrough toplist: $e");
@@ -606,15 +607,15 @@ class WeeklyReportRepository with Logging {
     required String? end,
   }) async {
     try {
-      final response = await _statsApi.getToplistV2(
-        accountId: accountId,
+      final response = await _toplists.fetch(
+        m: m,
         deviceName: deviceName,
         level: 1,
         action: action,
         limit: 5,
         range: range,
         end: end,
-        m: m,
+        ttl: Duration(seconds: 10),
       );
       return _convertToplist(response, blocked: action == "blocked");
     } catch (e, s) {

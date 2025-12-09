@@ -46,8 +46,8 @@ import 'platform/command/command.dart';
 import 'platform/device/device.dart';
 import 'platform/perm/perm.dart';
 import 'platform/stage/stage.dart';
-import 'platform/stats/refresh/refresh.dart';
 import 'platform/stats/stats.dart';
+import 'platform/stats/toplist_store.dart';
 
 class Modules with Logging {
   late final _appStart = Core.get<AppStartStore>();
@@ -118,7 +118,7 @@ class Modules with Logging {
     }
 
     StatsStore().onRegister();
-    StatsRefreshStore().onRegister();
+    ToplistStore().onRegister();
 
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
