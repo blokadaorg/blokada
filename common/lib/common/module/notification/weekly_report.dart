@@ -398,68 +398,85 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
 }
 
 class ToplistMovementSource implements WeeklyReportEventSource {
+  late final _deltaStore = Core.get<StatsDeltaStore>();
+  late final _deviceStore = Core.get<DeviceStore>();
+
   @override
   String get name => 'toplist_movement';
 
   @override
   Future<List<WeeklyReportEvent>> generate(WeeklyReportWindow window, Marker m) async {
+    final deviceName = _deviceStore.deviceAlias;
+    if (deviceName.isEmpty) return [];
+    await _deltaStore.refresh(m, deviceName: deviceName, range: "7d", force: true);
     final events = <WeeklyReportEvent>[];
-    events.addAll(_compare(window, blocked: true));
-    events.addAll(_compare(window, blocked: false));
+    events.addAll(_fromDeltas(deviceName, blocked: true, anchor: window.anchor));
+    events.addAll(_fromDeltas(deviceName, blocked: false, anchor: window.anchor));
     return events;
   }
 
-  List<WeeklyReportEvent> _compare(WeeklyReportWindow window, {required bool blocked}) {
-    final current = blocked ? window.current.blockedToplist : window.current.allowedToplist;
-    final previous = blocked ? window.previous.blockedToplist : window.previous.allowedToplist;
-    final previousMap = {
-      for (var entry in previous) entry.name.toLowerCase(): entry.rank,
-    };
-
+  List<WeeklyReportEvent> _fromDeltas(String deviceName,
+      {required bool blocked, required DateTime anchor}) {
+    final deltas = _deltaStore.deltasFor(deviceName, "7d", blocked: blocked);
     final results = <WeeklyReportEvent>[];
-    for (final entry in current) {
-      final normalized = entry.name.toLowerCase();
-      final prevRank = previousMap[normalized];
-      final currentRank = entry.rank + 1; // user-facing rank
-      if (prevRank == null) {
-        final id =
-            'toplist:${blocked ? 'blocked' : 'allowed'}:${entry.name}:${window.anchor.toIso8601String()}';
+    for (final delta in deltas) {
+      final currentRank = delta.newRank;
+      final prevRank = delta.previousRank;
+      final id =
+          'toplist:${blocked ? 'blocked' : 'allowed'}:${delta.name}:${anchor.toIso8601String()}';
+      if (delta.type == ToplistDeltaType.newEntry) {
         results.add(WeeklyReportEvent(
           id: id,
           title: blocked ? 'New tracker in top list' : 'New domain in top list',
-          body: '${entry.name} is now #$currentRank this week.',
+          body: '${delta.name} is now #$currentRank this week.',
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
-          score: 80 - entry.rank * 5,
-          generatedAt: window.anchor,
+          score: 80 - currentRank * 5,
+          generatedAt: anchor,
           ctaLabel: 'View report',
           timeLabel: 'This week',
           toplistHighlight: WeeklyReportToplistHighlight(
-            name: entry.name,
+            name: delta.name,
             blocked: blocked,
             newRank: currentRank,
             previousRank: null,
           ),
         ));
-      } else if (prevRank > entry.rank) {
-        final movedBy = prevRank - entry.rank;
-        final id =
-            'toplist:${blocked ? 'blocked' : 'allowed'}:${entry.name}:${window.anchor.toIso8601String()}';
+      } else if (delta.type == ToplistDeltaType.up && prevRank != null) {
+        final movedBy = prevRank - currentRank;
         results.add(WeeklyReportEvent(
           id: id,
           title: blocked ? 'Tracker activity increased' : 'Domain moved up',
-          body: '${entry.name} moved to #$currentRank (was #${prevRank + 1}) this week.',
+          body: '${delta.name} moved to #$currentRank (was #$prevRank) this week.',
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
-          score: (50 + movedBy * 5 - entry.rank).toDouble(),
-          generatedAt: window.anchor,
+          score: (50 + movedBy * 5 - currentRank).toDouble(),
+          generatedAt: anchor,
           ctaLabel: 'View report',
           timeLabel: 'This week',
           toplistHighlight: WeeklyReportToplistHighlight(
-            name: entry.name,
+            name: delta.name,
             blocked: blocked,
             newRank: currentRank,
-            previousRank: prevRank + 1,
+            previousRank: prevRank,
+          ),
+        ));
+      } else if (delta.type == ToplistDeltaType.down && prevRank != null) {
+        results.add(WeeklyReportEvent(
+          id: id,
+          title: blocked ? 'Tracker activity decreased' : 'Domain moved down',
+          body: '${delta.name} moved to #$currentRank (was #$prevRank) this week.',
+          type: WeeklyReportEventType.toplistChange,
+          icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
+          score: (30 - currentRank).toDouble(),
+          generatedAt: anchor,
+          ctaLabel: 'View report',
+          timeLabel: 'This week',
+          toplistHighlight: WeeklyReportToplistHighlight(
+            name: delta.name,
+            blocked: blocked,
+            newRank: currentRank,
+            previousRank: prevRank,
           ),
         ));
       }
@@ -692,7 +709,6 @@ class WeeklyReportRepository with Logging {
 }
 
 class WeeklyReportActor with Logging, Actor {
-  late final _stage = Core.get<StageStore>();
   late final _notification = Core.get<NotificationActor>();
   late final _scheduledAt = Core.get<WeeklyReportScheduleValue>();
   late final _repository = WeeklyReportRepository();
@@ -716,9 +732,6 @@ class WeeklyReportActor with Logging, Actor {
       ToplistMovementSource(),
     ];
   }
-
-  bool _initialized = false;
-  mobx.ReactionDisposer? _aliasDisposer;
 
   void _setCurrent(WeeklyReportEvent? event, {DateTime? pickedAt}) {
     runInAction(() {
@@ -766,26 +779,8 @@ class WeeklyReportActor with Logging, Actor {
 
   @override
   onStart(Marker m) async {
+    // Weekly report generation is now triggered explicitly from the Privacy Pulse screen.
     if (Core.act.isFamily) return;
-    _stage.addOnValue(routeChanged, _onRouteChanged);
-    _aliasDisposer = autorun((_) {
-      final alias = _deviceStore.deviceAlias;
-      if (alias.isEmpty || _initialized) return;
-      _initialized = true;
-      _refreshAndSchedule(Markers.stats);
-    });
-  }
-
-  Future<void> _onRouteChanged(StageRouteState route, Marker m) async {
-    if (!route.isBecameForeground()) return;
-    if (!_initialized) return;
-    await _refreshAndSchedule(m);
-  }
-
-  Future<void> _refreshAndSchedule(Marker m) async {
-    await _hydratePendingEvent(m);
-    final event = await refreshAndPick(m);
-    await _ensureScheduled(m, eventOverride: event);
   }
 
   Future<WeeklyReportEvent?> refreshAndPick(Marker m) async {

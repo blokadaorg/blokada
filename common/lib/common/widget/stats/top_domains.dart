@@ -9,6 +9,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/stats.dart';
+import 'package:common/platform/stats/delta_store.dart';
 import 'package:common/common/module/notification/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +21,16 @@ class TopDomains extends StatefulWidget {
   final Key? headerKey;
   final WeeklyReportToplistHighlight? highlight;
   final ToplistRange range;
+  final List<ToplistDelta>? blockedDeltas;
+  final List<ToplistDelta>? allowedDeltas;
   final Future<void> Function(ToplistRange) onRangeChanged;
   const TopDomains({
     super.key,
     this.headerKey,
     this.highlight,
     required this.range,
+    this.blockedDeltas,
+    this.allowedDeltas,
     required this.onRangeChanged,
   });
 
@@ -109,9 +114,7 @@ class TopDomainsState extends State<TopDomains> {
                     ),
                   ),
                   Text(
-                    widget.range == ToplistRange.daily
-                        ? "privacy pulse timespan 24h".i18n
-                        : "privacy pulse timespan 1w".i18n,
+                    widget.range == ToplistRange.daily ? "24 h" : "7 d",
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textSecondary,
@@ -222,6 +225,16 @@ class TopDomainsState extends State<TopDomains> {
 
   Widget _buildDomainItem(UiToplistEntry entry, {bool isHighlighted = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
+    final deltas = entry.blocked ? widget.blockedDeltas : widget.allowedDeltas;
+    ToplistDelta? delta;
+    if (deltas != null) {
+      for (final d in deltas) {
+        if (d.name.toLowerCase() == domainName.toLowerCase()) {
+          delta = d;
+          break;
+        }
+      }
+    }
 
     return CommonClickable(
       onTap: () {
@@ -240,29 +253,49 @@ class TopDomainsState extends State<TopDomains> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        padding: const EdgeInsets.only(left: 0, right: 12, top: 4, bottom: 4),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           child: Row(
             children: [
+              if (delta != null && delta.type != ToplistDeltaType.same) ...[
+                Icon(
+                  _iconForDelta(delta),
+                  color: _colorForDelta(delta, context),
+                  size: 18,
+                ),
+                const SizedBox(width: 8),
+              ] else ...[
+                const SizedBox(width: 18),
+                const SizedBox(width: 8),
+              ],
               Expanded(
-                child: Text(
-                  middleEllipsis(domainName),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: context.theme.textPrimary,
-                  ),
-                  overflow: TextOverflow.clip,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      middleEllipsis(domainName),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.theme.textPrimary,
+                      ),
+                      overflow: TextOverflow.clip,
+                    ),
+                    if (delta != null && delta.type == ToplistDeltaType.newEntry)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2.0),
+                        child: Text(
+                          "NEW",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: context.theme.accent,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
-              if (isHighlighted) ...[
-                Icon(
-                  CupertinoIcons.arrow_up,
-                  color: Colors.green,
-                  size: 28,
-                ),
-                const SizedBox(width: 6),
-              ],
               Text(
                 entry.value.toString(),
                 style: TextStyle(
@@ -282,6 +315,34 @@ class TopDomainsState extends State<TopDomains> {
         ),
       ),
     );
+  }
+
+  IconData _iconForDelta(ToplistDelta delta) {
+    switch (delta.type) {
+      case ToplistDeltaType.up:
+        return CupertinoIcons.arrowtriangle_up_fill;
+      case ToplistDeltaType.down:
+        return CupertinoIcons.arrowtriangle_down_fill;
+      case ToplistDeltaType.newEntry:
+        return CupertinoIcons.sparkles;
+      case ToplistDeltaType.same:
+      default:
+        return CupertinoIcons.minus;
+    }
+  }
+
+  Color _colorForDelta(ToplistDelta delta, BuildContext context) {
+    switch (delta.type) {
+      case ToplistDeltaType.up:
+        return Colors.green;
+      case ToplistDeltaType.down:
+        return Colors.red;
+      case ToplistDeltaType.newEntry:
+        return context.theme.accent;
+      case ToplistDeltaType.same:
+      default:
+        return context.theme.textSecondary;
+    }
   }
 
   Widget _buildEmptyState() {

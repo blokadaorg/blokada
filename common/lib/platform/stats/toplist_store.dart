@@ -32,6 +32,9 @@ class ToplistStore with Logging, Actor {
     Duration ttl = defaultTtl,
     bool force = false,
   }) async {
+    if (deviceName == null || deviceName.isEmpty) {
+      throw Exception("ToplistStore: deviceName is required for toplist queries");
+    }
     final accountId = await _accountId.fetch(m);
     final key = _ToplistKey(
       accountId: accountId,

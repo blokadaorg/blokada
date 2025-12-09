@@ -1,6 +1,7 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/delta_store.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,12 +11,14 @@ class PrivacyPulseCharts extends StatelessWidget {
   final UiStats stats;
   final Widget? trailing;
   final StatsCounters? counters;
+  final CounterDelta? counterDelta;
 
   const PrivacyPulseCharts({
     Key? key,
     required this.stats,
     this.trailing,
     this.counters,
+    this.counterDelta,
   }) : super(key: key);
 
   @override
@@ -65,7 +68,7 @@ class PrivacyPulseCharts extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment
-        HorizontalRadialSegment(stats: stats, counters: counters),
+        HorizontalRadialSegment(stats: stats, counters: counters, counterDelta: counterDelta),
       ],
     );
   }

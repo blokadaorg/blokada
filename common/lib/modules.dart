@@ -48,6 +48,7 @@ import 'platform/perm/perm.dart';
 import 'platform/stage/stage.dart';
 import 'platform/stats/stats.dart';
 import 'platform/stats/toplist_store.dart';
+import 'platform/stats/delta_store.dart';
 
 class Modules with Logging {
   late final _appStart = Core.get<AppStartStore>();
@@ -119,6 +120,7 @@ class Modules with Logging {
 
     StatsStore().onRegister();
     ToplistStore().onRegister();
+    StatsDeltaStore().onRegister();
 
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());

@@ -1,6 +1,7 @@
 import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/delta_store.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:common/v6/widget/home/stats/radial_chart.dart';
 import 'package:countup/countup.dart';
@@ -11,8 +12,10 @@ import '../../../../common/widget/minicard/chart.dart';
 class HorizontalRadialSegment extends StatefulWidget {
   final UiStats stats;
   final StatsCounters? counters;
+  final CounterDelta? counterDelta;
 
-  const HorizontalRadialSegment({Key? key, required this.stats, this.counters}) : super(key: key);
+  const HorizontalRadialSegment({Key? key, required this.stats, this.counters, this.counterDelta})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => HorizontalRadialSegmentState();
@@ -40,6 +43,25 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
       blocked = widget.stats.dayBlocked.toDouble();
       total = widget.stats.dayTotal.toDouble();
     }
+  }
+
+  Widget _buildDeltaText(int? percent,
+      {required bool negativeGood, Color? color}) {
+    if (percent == null || percent == 0) {
+      return SizedBox.shrink();
+    }
+    final sign = percent > 0 ? "+" : "";
+    return Padding(
+      padding: const EdgeInsets.only(top: 2.0),
+      child: Text(
+        "$sign$percent%",
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: color ?? Colors.grey,
+        ),
+      ),
+    );
   }
 
   @override
@@ -123,6 +145,23 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           ),
                         ],
                       ),
+                    ),
+                  ],
+                ),
+              ),
+              // Delta badges below counters
+              Padding(
+                padding: const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildDeltaText(widget.counterDelta?.blockedPercent,
+                          negativeGood: false, color: context.theme.textSecondary),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: _buildDeltaText(widget.counterDelta?.allowedPercent,
+                          negativeGood: true, color: context.theme.textSecondary),
                     ),
                   ],
                 ),

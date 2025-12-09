@@ -118,6 +118,21 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     return _buildCounters(_lastDayEndpoint);
   }
 
+  Future<PeriodCounters> countersPeriods(String range, Marker m, {bool force = false}) async {
+    // Use 2w/24h buckets and slice into current vs previous periods.
+    final rolling = await _api.getStats("2w", "24h", m);
+    if (range == "7d") {
+      final current = _buildCountersFromBuckets(rolling, days: 7, offsetDays: 0);
+      final previous = _buildCountersFromBuckets(rolling, days: 7, offsetDays: 7);
+      return PeriodCounters(current: current, previous: previous);
+    }
+
+    // 24h: use last day vs previous day from the same 2w/24h window
+    final current = _buildCountersFromBuckets(rolling, days: 1, offsetDays: 0);
+    final previous = _buildCountersFromBuckets(rolling, days: 1, offsetDays: 1);
+    return PeriodCounters(current: current, previous: previous);
+  }
+
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
     if (endpoint == null) return StatsCounters.empty();
     int allowed = 0;
@@ -133,6 +148,56 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         }
       }
     }
+    return StatsCounters(allowed: allowed, blocked: blocked, total: allowed + blocked);
+  }
+
+  StatsCounters _buildCountersFromMetrics(
+      api.JsonStatsEndpoint endpoint, int startInclusive, int endExclusive) {
+    int allowed = 0;
+    int blocked = 0;
+    for (final metric in endpoint.stats.metrics) {
+      final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+      for (final d in metric.dps) {
+        if (d.timestamp < startInclusive || d.timestamp >= endExclusive) continue;
+        final rounded = d.value.round();
+        if (isAllowed) {
+          allowed += rounded;
+        } else {
+          blocked += rounded;
+        }
+      }
+    }
+    return StatsCounters(allowed: allowed, blocked: blocked, total: allowed + blocked);
+  }
+
+  StatsCounters _buildCountersFromBuckets(api.JsonStatsEndpoint endpoint,
+      {required int days, required int offsetDays}) {
+    // dps timestamps are bucket start; buckets are daily for 24h downsample.
+    final allowedBuckets = <int>[];
+    final blockedBuckets = <int>[];
+
+    for (final metric in endpoint.stats.metrics) {
+      final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+      metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+      final values = metric.dps.map((d) => d.value.round()).toList();
+      if (values.isEmpty) continue;
+      if (isAllowed) {
+        allowedBuckets.addAll(values);
+      } else {
+        blockedBuckets.addAll(values);
+      }
+    }
+
+    int sumLast(List<int> buckets) {
+      if (buckets.isEmpty) return 0;
+      final start = buckets.length - offsetDays - days;
+      final end = buckets.length - offsetDays;
+      if (start < 0) return 0;
+      return buckets.sublist(start, end).fold<int>(0, (a, b) => a + b);
+    }
+
+    final allowed = sumLast(allowedBuckets);
+    final blocked = sumLast(blockedBuckets);
     return StatsCounters(allowed: allowed, blocked: blocked, total: allowed + blocked);
   }
 
@@ -531,4 +596,11 @@ class StatsCounters {
   });
 
   static StatsCounters empty() => const StatsCounters(allowed: 0, blocked: 0, total: 0);
+}
+
+class PeriodCounters {
+  final StatsCounters current;
+  final StatsCounters previous;
+
+  const PeriodCounters({required this.current, required this.previous});
 }

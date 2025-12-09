@@ -13,6 +13,7 @@ import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/account/account.dart';
 import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/stats.dart';
+import 'package:common/platform/stats/delta_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,6 +46,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   late final _deviceStore = Core.get<DeviceStore>();
   late final _journal = Core.get<JournalActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
+  late final _deltaStore = Core.get<StatsDeltaStore>();
 
   var stats = UiStats.empty();
   bool _toplistsFetched = false;
@@ -55,6 +57,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   Future<void>? _pendingStatsRequest;
   Future<void>? _pendingToplistRequest;
   StatsCounters _counters = StatsCounters.empty();
+  final Map<ToplistRange, List<ToplistDelta>> _blockedDeltas = {};
+  final Map<ToplistRange, List<ToplistDelta>> _allowedDeltas = {};
+  final Map<ToplistRange, CounterDelta> _counterDeltas = {};
+  bool _weeklyReportFetched = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -75,7 +81,13 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     _disposers.add(mobx.autorun((_) {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty) {
-        _kickoffStatsFetch();
+        _kickoffStatsFetch().then((_) async {
+          if (!_weeklyReportFetched) {
+            _weeklyReportFetched = true;
+            await _weeklyReport.refreshAndPick(Markers.stats);
+          }
+        });
+        unawaited(_refreshDeltas());
         unawaited(_updateCounters());
         if (!_toplistsFetched) {
           _toplistsFetched = true;
@@ -89,8 +101,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         _weeklyEvent = _weeklyReport.currentEvent.value;
       });
     }));
-
-    _weeklyReport.refreshAndPick(Markers.stats);
   }
 
   @override
@@ -132,6 +142,21 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     });
   }
 
+  Future<void> _refreshDeltas({ToplistRange? rangeOverride, bool force = false}) async {
+    final range = rangeOverride ?? _toplistRange;
+    final deviceName = _deviceStore.deviceAlias;
+    if (deviceName.isEmpty) return;
+    final label = range == ToplistRange.daily ? "24h" : "7d";
+    await _deltaStore.refresh(Markers.stats,
+        deviceName: deviceName, range: label, force: force);
+    if (!mounted) return;
+    setState(() {
+      _blockedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: true);
+      _allowedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: false);
+      _counterDeltas[range] = _deltaStore.counterDeltaFor(deviceName, label);
+    });
+  }
+
   Future<void> _updateCounters({bool force = false}) async {
     final rangeLabel = _toplistRange == ToplistRange.daily ? "24h" : "7d";
     final counters = await _store.countersForRange(rangeLabel, Markers.stats, force: force);
@@ -145,6 +170,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     return await log(Markers.userTap).trace("privacyPulsePullToRefresh", (m) async {
       await _kickoffStatsFetch(force: true);
       await _updateCounters(force: true);
+      await _refreshDeltas(rangeOverride: _toplistRange, force: true);
+      await _weeklyReport.refreshAndPick(m);
       await _journal.fetch(m, tag: null);
       await _store.fetchToplists(
         m,
@@ -159,6 +186,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         _toplistRange = range;
       });
       await _updateCounters(force: true);
+      await _refreshDeltas(rangeOverride: range, force: true);
       await _fetchToplists(rangeOverride: range);
       return;
     }
@@ -226,20 +254,23 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           ],
                           MiniCard(
                             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: PrivacyPulseCharts(
-                              stats: stats,
-                              counters: _counters,
-                              trailing: _buildToplistRangeToggle(context),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: PrivacyPulseCharts(
+                                stats: stats,
+                                counters: _counters,
+                                counterDelta: _counterDeltas[_toplistRange],
+                                trailing: _buildToplistRangeToggle(context),
+                              ),
                             ),
                           ),
-                        ),
                           const SizedBox(height: 12),
                           TopDomains(
                             headerKey: _topDomainsHeaderKey,
                             highlight: _weeklyEvent?.toplistHighlight,
                             range: _toplistRange,
+                            blockedDeltas: _blockedDeltas[_toplistRange],
+                            allowedDeltas: _allowedDeltas[_toplistRange],
                             onRangeChanged: _setToplistRange,
                           ),
                           const SizedBox(height: 12),
