@@ -255,7 +255,7 @@ class TopDomainsState extends State<TopDomains> {
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 12, top: 4, bottom: 4),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 6),
           child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[
@@ -270,29 +270,36 @@ class TopDomainsState extends State<TopDomains> {
                 const SizedBox(width: 8),
               ],
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Text(
-                      middleEllipsis(domainName),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: context.theme.textPrimary,
+                    Expanded(
+                      child: Text(
+                        middleEllipsis(
+                          domainName,
+                          maxLength:
+                              delta != null && delta.type == ToplistDeltaType.newEntry ? 18 : 24,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: context.theme.textPrimary,
+                        ),
+                        overflow: TextOverflow.clip,
                       ),
-                      overflow: TextOverflow.clip,
                     ),
-                    if (delta != null && delta.type == ToplistDeltaType.newEntry)
+                    if (delta != null && delta.type == ToplistDeltaType.newEntry) ...[
+                      const SizedBox(width: 6),
                       Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
+                        padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
                           "NEW",
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
-                            color: context.theme.accent,
+                            color: context.theme.cloud.withOpacity(0.5),
                           ),
                         ),
                       ),
+                    ],
                   ],
                 ),
               ),
@@ -324,7 +331,7 @@ class TopDomainsState extends State<TopDomains> {
       case ToplistDeltaType.down:
         return CupertinoIcons.arrowtriangle_down_fill;
       case ToplistDeltaType.newEntry:
-        return CupertinoIcons.sparkles;
+        return CupertinoIcons.circle_fill;
       case ToplistDeltaType.same:
       default:
         return CupertinoIcons.minus;
@@ -334,11 +341,11 @@ class TopDomainsState extends State<TopDomains> {
   Color _colorForDelta(ToplistDelta delta, BuildContext context) {
     switch (delta.type) {
       case ToplistDeltaType.up:
-        return Colors.green;
+        return context.theme.cloud.withOpacity(0.5);
       case ToplistDeltaType.down:
-        return Colors.red;
+        return context.theme.cloud.withOpacity(0.5);
       case ToplistDeltaType.newEntry:
-        return context.theme.accent;
+        return context.theme.cloud.withOpacity(0.5);
       case ToplistDeltaType.same:
       default:
         return context.theme.textSecondary;
