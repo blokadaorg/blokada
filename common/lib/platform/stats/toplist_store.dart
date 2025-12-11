@@ -6,7 +6,7 @@ import 'package:common/platform/stats/api.dart' as api;
 
 /// Caches toplist responses to avoid duplicate network calls when data was just fetched.
 class ToplistStore with Logging, Actor {
-  static const Duration defaultTtl = Duration(seconds: 10);
+  static const Duration defaultTtl = Duration(hours: 1);
 
   late final _api = Core.get<api.StatsApi>();
   late final _accountId = Core.get<AccountId>();

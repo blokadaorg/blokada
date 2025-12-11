@@ -149,7 +149,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     if (deviceName.isEmpty) return;
     final label = range == ToplistRange.daily ? "24h" : "7d";
     await _deltaStore.refresh(Markers.stats,
-        deviceName: deviceName, range: label, force: force);
+        deviceName: deviceName, range: label, force: false);
     if (!mounted) return;
     setState(() {
       _blockedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: true);
