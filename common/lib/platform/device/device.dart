@@ -31,12 +31,16 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   late final _journalFilter = Core.get<JournalFilterValue>();
 
+  static const Duration _deviceCacheTtl = Duration(seconds: 30);
+  DateTime? _lastDeviceFetch;
+  String? _lastAccountId;
+
   DeviceStoreBase() {
     willAcceptOn([deviceChanged]);
 
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, onAccountChanged);
-    _account.addOn(accountIdChanged, fetch);
+    _account.addOn(accountIdChanged, onAccountIdChanged);
   }
 
   onRegister() {
@@ -85,8 +89,13 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   }
 
   @action
-  Future<void> fetch(Marker m) async {
+  Future<void> fetch(Marker m, {bool force = false}) async {
     if (Core.act.isFamily) return;
+
+    if (!force && _isCacheValid()) {
+      log(m).i("device fetch skipped (cache hit)");
+      return;
+    }
 
     return await log(m).trace("fetch", (m) async {
       log(m).pair("tagBeforeFetch", deviceTag);
@@ -97,6 +106,10 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       lists = device.lists;
       retention = device.retention;
       deviceTag = device.deviceTag;
+      final now = DateTime.now();
+      _lastDeviceFetch = now;
+      lastRefresh = now;
+      _lastAccountId = _account.account?.id;
 
       log(m).pair("pausedForSeconds", pausedForSeconds);
       log(m).pair("tagAfterFetch", deviceTag);
@@ -106,18 +119,31 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   @action
   Future<void> setCloudEnabled(Marker m, bool enabled, {Duration? pauseDuration}) async {
+    final pauseSeconds = pauseDuration?.inSeconds;
+    final shouldUpdate =
+        cloudEnabled != enabled || (pauseSeconds != null && pauseSeconds != pausedForSeconds);
+    if (!shouldUpdate) {
+      log(m).i("setCloudEnabled noop, skipping device refresh");
+      return;
+    }
+
     return await log(m).trace("setCloudEnabled", (m) async {
-      await _api.putDevice(m, paused: !enabled, pausedForSeconds: pauseDuration?.inSeconds);
-      await fetch(m);
+      await _api.putDevice(m, paused: !enabled, pausedForSeconds: pauseSeconds);
+      await fetch(m, force: true);
     });
   }
 
   @action
   Future<void> setRetention(DeviceRetention retention, Marker m) async {
+    if (this.retention == retention) {
+      log(m).i("setRetention noop, skipping device refresh");
+      return;
+    }
+
     return await log(m).trace("setRetention", (m) async {
       log(m).pair("retention", retention);
       await _api.putDevice(m, retention: retention);
-      await fetch(m);
+      await fetch(m, force: true);
     });
   }
 
@@ -128,11 +154,16 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       log(m).i("Skipping setLists in freemium mode");
       return;
     }
+
+    if (_listsEqual(this.lists, lists)) {
+      log(m).i("setLists noop, skipping device refresh");
+      return;
+    }
     
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
       await _api.putDevice(m, lists: lists);
-      await fetch(m);
+      await fetch(m, force: true);
     });
   }
 
@@ -150,7 +181,6 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   Future<void> onRouteChanged(StageRouteState route, Marker m) async {
     if (!route.isForeground()) return;
     if (!route.isMainRoute()) return;
-    if (!isCooledDown(Core.config.deviceRefreshCooldown)) return;
 
     return await log(m).trace("fetchDevice", (m) async {
       await fetch(m);
@@ -159,8 +189,32 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   @action
   Future<void> onAccountChanged(Marker m) async {
+    final id = _account.account?.id;
+    if (id == null) return;
+    if (id == _lastAccountId) {
+      log(m).i("account id unchanged, skipping device refresh");
+      return;
+    }
+    _lastAccountId = id;
     return await log(m).trace("onAccountChanged", (m) async {
-      await fetch(m);
+      await fetch(m, force: true);
     });
+  }
+
+  @action
+  Future<void> onAccountIdChanged(Marker m) async {
+    final id = _account.account?.id;
+    _lastAccountId = id;
+    await fetch(m, force: true);
+  }
+
+  bool _isCacheValid() {
+    if (deviceTag == null || _lastDeviceFetch == null) return false;
+    return DateTime.now().difference(_lastDeviceFetch!) < _deviceCacheTtl;
+  }
+
+  bool _listsEqual(List<String>? a, List<String>? b) {
+    if (a == null || b == null) return false;
+    return Set.from(a) == Set.from(b);
   }
 }
