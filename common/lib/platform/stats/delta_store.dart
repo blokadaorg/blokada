@@ -123,7 +123,8 @@ class StatsDeltaStore with Logging, Actor {
       force: true,
     );
 
-    final countersPeriod = await _stats.countersPeriods(range, m, force: force);
+    final countersPeriod =
+        await _stats.countersPeriods(range, deviceName, m, force: force);
 
     final allowedMergedCurrent = _mergeAllowed(allowedCurrent, fallthroughCurrent);
     final allowedMergedPrev = _mergeAllowed(allowedPrev, fallthroughPrev);

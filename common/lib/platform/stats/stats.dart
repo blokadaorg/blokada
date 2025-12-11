@@ -88,7 +88,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         return stats;
       }
 
-      _lastDayEndpoint = await _api.getStats("24h", "1h", m);
+      final deviceName = _deviceNameOrNull(m);
+      if (deviceName == null) return stats;
+
+      _lastDayEndpoint = await _api.getStats("24h", "1h", deviceName, m);
       _lastDayFetch = DateTime.now();
       _recomputeStats();
       return stats;
@@ -101,7 +104,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
         return stats;
       }
 
-      _lastWeekEndpoint = await _api.getStats("1w", "24h", m);
+      final deviceName = _deviceNameOrNull(m);
+      if (deviceName == null) return stats;
+
+      _lastWeekEndpoint = await _api.getStats("1w", "24h", deviceName, m);
       _lastWeekFetch = DateTime.now();
       _recomputeStats();
       return stats;
@@ -118,9 +124,18 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     return _buildCounters(_lastDayEndpoint);
   }
 
-  Future<PeriodCounters> countersPeriods(String range, Marker m, {bool force = false}) async {
+  Future<PeriodCounters> countersPeriods(String range, String deviceName, Marker m,
+      {bool force = false}) async {
+    final targetDevice = _deviceNameOrNull(m, override: deviceName);
+    if (targetDevice == null) {
+      return PeriodCounters(
+        current: StatsCounters.empty(),
+        previous: StatsCounters.empty(),
+      );
+    }
+
     // Use 2w/24h buckets and slice into current vs previous periods.
-    final rolling = await _api.getStats("2w", "24h", m);
+    final rolling = await _api.getStats("2w", "24h", targetDevice, m);
     if (range == "7d") {
       final current = _buildCountersFromBuckets(rolling, days: 7, offsetDays: 0);
       final previous = _buildCountersFromBuckets(rolling, days: 7, offsetDays: 7);
@@ -223,6 +238,15 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   bool _shouldUseCache(DateTime? lastFetch) {
     if (lastFetch == null) return false;
     return DateTime.now().difference(lastFetch) < _cacheTtl;
+  }
+
+  String? _deviceNameOrNull(Marker m, {String? override}) {
+    final deviceName = (override ?? _device.deviceAlias).trim();
+    if (deviceName.isEmpty) {
+      log(m).w("deviceAlias not set yet, skipping stats fetch");
+      return null;
+    }
+    return deviceName;
   }
 
   @action
