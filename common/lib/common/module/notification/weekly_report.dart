@@ -2,6 +2,7 @@ part of 'notification.dart';
 
 const Duration weeklyReportInterval = Duration(minutes: 10);
 const Duration weeklyReportBackgroundLead = Duration(minutes: 2);
+const bool weeklyReportGenerationEnabled = false; // Temporary kill switch for weekly reports.
 
 class WeeklyReportScheduleValue extends StringifiedPersistedValue<DateTime> {
   WeeklyReportScheduleValue() : super('notification:weekly_report:scheduled_at');
@@ -784,6 +785,13 @@ class WeeklyReportActor with Logging, Actor {
   }
 
   Future<WeeklyReportEvent?> refreshAndPick(Marker m) async {
+    if (!weeklyReportGenerationEnabled) {
+      log(m).t('weeklyReport:disabled:generate');
+      _setCurrent(null);
+      await _pendingEvent.change(m, null);
+      return null;
+    }
+
     await _hydratePendingEvent(m);
     _setLoading(true);
     final pick = await _generatePick(m);
@@ -859,8 +867,10 @@ class WeeklyReportActor with Logging, Actor {
   }
 
   Future<void> _ensureScheduled(Marker m, {WeeklyReportEvent? eventOverride}) async {
-    // Temporarily disable scheduling of weekly report notifications.
-    return;
+    if (!weeklyReportGenerationEnabled) {
+      log(m).t('weeklyReport:disabled:schedule');
+      return;
+    }
 
     await log(m).trace('weeklyReport:onAppOpen', (m) async {
       final now = DateTime.now();

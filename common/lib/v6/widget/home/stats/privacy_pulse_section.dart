@@ -82,10 +82,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty) {
         _kickoffStatsFetch().then((_) async {
-          if (!_weeklyReportFetched) {
-            _weeklyReportFetched = true;
-            await _weeklyReport.refreshAndPick(Markers.stats);
-          }
+          // Temporarily disabled weekly report fetch (kept for re-enable later).
+          // if (!_weeklyReportFetched) {
+          //   _weeklyReportFetched = true;
+          //   await _weeklyReport.refreshAndPick(Markers.stats);
+          // }
         });
         unawaited(_refreshDeltas());
         unawaited(_updateCounters());
@@ -171,7 +172,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       await _kickoffStatsFetch(force: true);
       await _updateCounters(force: true);
       await _refreshDeltas(rangeOverride: _toplistRange, force: true);
-      await _weeklyReport.refreshAndPick(m);
+      // Temporarily disabled weekly report refresh (kept for re-enable later).
+      // await _weeklyReport.refreshAndPick(m);
       await _journal.fetch(m, tag: null);
       await _store.fetchToplists(
         m,
