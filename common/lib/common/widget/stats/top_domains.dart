@@ -87,6 +87,8 @@ class TopDomainsState extends State<TopDomains> {
       builder: (context) {
         final currentDomains =
             _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
+        final deltas =
+            _selectedTab == ToplistTab.blocked ? widget.blockedDeltas : widget.allowedDeltas;
         final isLoading = _statsStore.toplistsLoading;
         final highlightVisible = highlight != null &&
             isWeeklyMode &&
@@ -94,6 +96,21 @@ class TopDomainsState extends State<TopDomains> {
             highlightBlocked == (_selectedTab == ToplistTab.blocked);
         String _normalized(UiToplistEntry e) =>
             (e.company ?? e.tld ?? '').toLowerCase();
+        final deltaMap = <String, ToplistDelta>{};
+        if (deltas != null) {
+          for (final d in deltas) {
+            if (d.type == ToplistDeltaType.same) continue;
+            deltaMap[d.name.toLowerCase()] = d;
+          }
+        }
+        final limitedDeltas = <String, ToplistDelta>{};
+        for (final entry in currentDomains) {
+          if (limitedDeltas.length >= 3) break;
+          final d = deltaMap[_normalized(entry)];
+          if (d != null) {
+            limitedDeltas[_normalized(entry)] = d;
+          }
+        }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +209,7 @@ class TopDomainsState extends State<TopDomains> {
                   const CommonDivider(),
 
                   // Domain list, loading state, or empty state
-                  if (_statsStore.toplistsLoading && currentDomains.isEmpty)
+                  if (_statsStore.toplistsLoading)
                     _buildLoadingState()
                   else if (currentDomains.isEmpty)
                     _buildEmptyState()
@@ -200,6 +217,7 @@ class TopDomainsState extends State<TopDomains> {
                     for (int i = 0; i < currentDomains.length; i++) ...{
                       _buildDomainItem(
                         currentDomains[i],
+                        delta: limitedDeltas[_normalized(currentDomains[i])],
                         isHighlighted: highlightVisible &&
                             _normalized(currentDomains[i]) == highlightName,
                       ),
@@ -223,19 +241,9 @@ class TopDomainsState extends State<TopDomains> {
     );
   }
 
-  Widget _buildDomainItem(UiToplistEntry entry, {bool isHighlighted = false}) {
+  Widget _buildDomainItem(UiToplistEntry entry,
+      {ToplistDelta? delta, bool isHighlighted = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
-    final deltas =
-        (entry.blocked ? widget.blockedDeltas : widget.allowedDeltas)?.take(3);
-    ToplistDelta? delta;
-    if (deltas != null) {
-      for (final d in deltas) {
-        if (d.name.toLowerCase() == domainName.toLowerCase()) {
-          delta = d;
-          break;
-        }
-      }
-    }
 
     return CommonClickable(
       onTap: () {
@@ -260,10 +268,16 @@ class TopDomainsState extends State<TopDomains> {
           child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[
-                Icon(
-                  _iconForDelta(delta),
-                  color: _colorForDelta(delta, context),
-                  size: 18,
+                SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: Center(
+                    child: Icon(
+                      _iconForDelta(delta),
+                      color: _colorForDelta(delta, context),
+                      size: delta?.type == ToplistDeltaType.newEntry ? 9 : 18,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
               ] else ...[
@@ -296,7 +310,7 @@ class TopDomainsState extends State<TopDomains> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
-                            color: context.theme.cloud.withOpacity(0.5),
+                            color: context.theme.cloud,
                           ),
                         ),
                       ),

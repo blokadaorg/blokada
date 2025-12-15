@@ -184,6 +184,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   Future<void> _setToplistRange(ToplistRange range) async {
     if (_toplistRange != range) {
+      mobx.runInAction(() {
+        _store.toplistsLoading = true;
+      });
       setState(() {
         _toplistRange = range;
       });

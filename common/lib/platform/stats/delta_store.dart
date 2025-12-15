@@ -68,7 +68,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: now.toIso8601String(),
-      force: true,
+      force: force,
     );
     final allowedCurrent = await _toplists.fetch(
       m: m,
@@ -78,7 +78,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: now.toIso8601String(),
-      force: true,
+      force: force,
     );
     final fallthroughCurrent = await _toplists.fetch(
       m: m,
@@ -88,7 +88,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: now.toIso8601String(),
-      force: true,
+      force: force,
     );
 
     // Previous window (shifted back by one duration)
@@ -100,7 +100,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: prevEnd.toIso8601String(),
-      force: true,
+      force: force,
     );
     final allowedPrev = await _toplists.fetch(
       m: m,
@@ -110,7 +110,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: prevEnd.toIso8601String(),
-      force: true,
+      force: force,
     );
     final fallthroughPrev = await _toplists.fetch(
       m: m,
@@ -120,7 +120,7 @@ class StatsDeltaStore with Logging, Actor {
       limit: 12,
       range: range,
       end: prevEnd.toIso8601String(),
-      force: true,
+      force: force,
     );
 
     final countersPeriod =

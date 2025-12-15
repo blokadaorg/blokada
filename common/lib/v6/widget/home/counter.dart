@@ -7,6 +7,7 @@ import 'package:common/common/widget/theme.dart';
 import 'package:common/core/core.dart';
 import 'package:common/platform/app/app.dart';
 import 'package:common/platform/app/channel.pg.dart';
+import 'package:common/platform/device/device.dart';
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,18 +26,35 @@ class _HomeCounterState extends State<HomeCounter>
     with TickerProviderStateMixin, WidgetsBindingObserver, Logging {
   final _app = Core.get<AppStore>();
   final _stats = Core.get<StatsStore>();
+  final _device = Core.get<DeviceStore>();
 
   double counter = 0.0;
   double lastCounter = -1.0;
   Future<void>? _pendingFetch;
   late final AnimationController _ticker;
   bool _tickerRunning = false;
+  mobx.ReactionDisposer? _deviceAliasDisposer;
+  String? _lastFetchedAlias;
 
   @override
   void initState() {
     super.initState();
 
     _pendingFetch = _stats.fetchDay(Markers.stats);
+
+    // Track the current alias to avoid double-fetching when it's already set
+    _lastFetchedAlias = _device.deviceAlias;
+
+    _deviceAliasDisposer = mobx.reaction<String>(
+      (_) => _device.deviceAlias,
+      (alias) {
+        if (alias.isEmpty) return;
+        if (_lastFetchedAlias == alias) return;
+        _lastFetchedAlias = alias;
+        _stats.fetchDay(Markers.stats, force: true);
+      },
+      fireImmediately: true,
+    );
 
     _ticker = AnimationController(vsync: this, duration: const Duration(seconds: 30))
       ..addStatusListener(_onTick);
@@ -91,6 +109,7 @@ class _HomeCounterState extends State<HomeCounter>
   void dispose() {
     _stopTicker();
     _ticker.dispose();
+    _deviceAliasDisposer?.call();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
