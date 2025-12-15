@@ -225,7 +225,8 @@ class TopDomainsState extends State<TopDomains> {
 
   Widget _buildDomainItem(UiToplistEntry entry, {bool isHighlighted = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
-    final deltas = entry.blocked ? widget.blockedDeltas : widget.allowedDeltas;
+    final deltas =
+        (entry.blocked ? widget.blockedDeltas : widget.allowedDeltas)?.take(3);
     ToplistDelta? delta;
     if (deltas != null) {
       for (final d in deltas) {
@@ -341,11 +342,11 @@ class TopDomainsState extends State<TopDomains> {
   Color _colorForDelta(ToplistDelta delta, BuildContext context) {
     switch (delta.type) {
       case ToplistDeltaType.up:
-        return context.theme.cloud.withOpacity(0.5);
+        return context.theme.cloud;
       case ToplistDeltaType.down:
-        return context.theme.cloud.withOpacity(0.5);
+        return context.theme.cloud;
       case ToplistDeltaType.newEntry:
-        return context.theme.cloud.withOpacity(0.5);
+        return context.theme.cloud;
       case ToplistDeltaType.same:
       default:
         return context.theme.textSecondary;
