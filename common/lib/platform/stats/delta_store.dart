@@ -131,6 +131,8 @@ class StatsDeltaStore with Logging, Actor {
     final blockedEntriesCurrent = _convertToplist(blockedCurrent);
     final blockedEntriesPrev = _convertToplist(blockedPrev);
 
+    final hasComparison = countersPeriod.hasComparison;
+
     final pair = _SnapshotPair(
       previous: _Snapshot(
         blocked: blockedEntriesPrev,
@@ -143,6 +145,7 @@ class StatsDeltaStore with Logging, Actor {
         counters: countersPeriod.current,
       ),
       updatedAt: DateTime.now(),
+      hasComparison: hasComparison,
     );
     _snapshots[key] = pair;
   }
@@ -159,7 +162,7 @@ class StatsDeltaStore with Logging, Actor {
 
   List<ToplistDelta> deltasFor(String deviceName, String range, {required bool blocked}) {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
-    if (pair == null || pair.current == null) return [];
+    if (pair == null || pair.current == null || !pair.hasComparison) return [];
 
     // If no previous snapshot, treat all current entries as new
     if (pair.previous == null) {
@@ -214,6 +217,7 @@ class StatsDeltaStore with Logging, Actor {
   CounterDelta counterDeltaFor(String deviceName, String range) {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
     if (pair == null || pair.current == null || pair.previous == null) return CounterDelta.empty();
+    if (!pair.hasComparison) return CounterDelta.empty();
     final prev = pair.previous!.counters;
     final curr = pair.current!.counters;
 
@@ -289,6 +293,11 @@ class _SnapshotPair {
   final _Snapshot? previous;
   final _Snapshot? current;
   final DateTime updatedAt;
+  final bool hasComparison;
 
-  _SnapshotPair({required this.previous, required this.current, required this.updatedAt});
+  _SnapshotPair(
+      {required this.previous,
+      required this.current,
+      required this.updatedAt,
+      required this.hasComparison});
 }
