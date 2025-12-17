@@ -19,3 +19,5 @@ automation/appium/output/
 automation/appium/wdio/node_modules/
 automation/appium/wdio/.npmrc
 !.appiumrc.yaml
+
+*.log
