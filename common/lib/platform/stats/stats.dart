@@ -91,7 +91,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       final deviceName = _deviceNameOrNull(m);
       if (deviceName == null) return stats;
 
-      _lastDayEndpoint = await _api.getStats("24h", "1h", deviceName, m);
+      _lastDayEndpoint = await _api.getStats("48h", "1h", deviceName, m);
       _lastDayFetch = DateTime.now();
       _recomputeStats();
       return stats;
@@ -120,8 +120,11 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       return _buildCounters(_lastWeekEndpoint);
     }
 
-    await fetchDay(m, force: force);
-    return _buildCounters(_lastDayEndpoint);
+    final deviceName = _deviceNameOrNull(m);
+    if (deviceName == null) return StatsCounters.empty();
+
+    final periods = await countersPeriods(range, deviceName, m, force: force);
+    return periods.current;
   }
 
   Future<PeriodCounters> countersPeriods(String range, String deviceName, Marker m,
@@ -135,14 +138,24 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       );
     }
 
-    // Use 2w/24h buckets and slice into current vs previous periods.
+    if (range != "7d") {
+      // For 24h deltas we want a true last-24h vs previous-24h comparison,
+      // based on hourly buckets, independent of day boundaries.
+      final rolling = await _api.getStats("48h", "1h", targetDevice, m);
+      return buildHourlyPeriodCountersFromRollingStats(rolling, hours: 24);
+    }
+
+    // Weekly: use 2w/24h buckets and slice into current vs previous periods.
     final rolling = await _api.getStats("2w", "24h", targetDevice, m);
     if (range == "7d") {
       return buildPeriodCountersFromRollingStats(rolling, days: 7);
     }
 
-    // 24h: use last day vs previous day from the same 2w/24h window
-    return buildPeriodCountersFromRollingStats(rolling, days: 1);
+    return PeriodCounters(
+      current: StatsCounters.empty(),
+      previous: StatsCounters.empty(),
+      hasComparison: false,
+    );
   }
 
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
@@ -661,6 +674,85 @@ PeriodCounters buildPeriodCountersFromRollingStats(api.JsonStatsEndpoint endpoin
   );
 
   final hasComparison = uniqueDays.length >= days * 2;
+
+  return PeriodCounters(
+    current: current,
+    previous: previous,
+    hasComparison: hasComparison,
+  );
+}
+
+@visibleForTesting
+PeriodCounters buildHourlyPeriodCountersFromRollingStats(
+  api.JsonStatsEndpoint endpoint, {
+  required int hours,
+  DateTime? referenceTime,
+}) {
+  final allowedPoints = <_BucketPoint>[];
+  final blockedPoints = <_BucketPoint>[];
+
+  for (final metric in endpoint.stats.metrics) {
+    final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+    for (final d in metric.dps) {
+      final point = _BucketPoint(timestamp: d.timestamp, value: d.value.round());
+      if (isAllowed) {
+        allowedPoints.add(point);
+      } else {
+        blockedPoints.add(point);
+      }
+    }
+  }
+
+  if (allowedPoints.isEmpty && blockedPoints.isEmpty) {
+    return PeriodCounters(
+      current: StatsCounters.empty(),
+      previous: StatsCounters.empty(),
+      hasComparison: false,
+    );
+  }
+
+  final now = (referenceTime ?? DateTime.now().toUtc());
+  final anchor = DateTime.utc(now.year, now.month, now.day, now.hour);
+  final anchorSeconds = anchor.millisecondsSinceEpoch ~/ 1000;
+
+  final hourUnit = Duration(hours: 1).inSeconds;
+  final currentEnd = anchorSeconds;
+  final currentStart = currentEnd - hours * hourUnit;
+  final previousEnd = currentStart;
+  final previousStart = previousEnd - hours * hourUnit;
+
+  int sumWindow(List<_BucketPoint> points, int startInclusive, int endExclusive) {
+    var sum = 0;
+    for (final p in points) {
+      if (p.timestamp >= startInclusive && p.timestamp < endExclusive) {
+        sum += p.value;
+      }
+    }
+    return sum;
+  }
+
+  final allowedCurrent = sumWindow(allowedPoints, currentStart, currentEnd);
+  final blockedCurrent = sumWindow(blockedPoints, currentStart, currentEnd);
+  final allowedPrevious = sumWindow(allowedPoints, previousStart, previousEnd);
+  final blockedPrevious = sumWindow(blockedPoints, previousStart, previousEnd);
+
+  final current = StatsCounters(
+    allowed: allowedCurrent,
+    blocked: blockedCurrent,
+    total: allowedCurrent + blockedCurrent,
+  );
+  final previous = StatsCounters(
+    allowed: allowedPrevious,
+    blocked: blockedPrevious,
+    total: allowedPrevious + blockedPrevious,
+  );
+
+  final uniqueHours = <int>{};
+  for (final p in [...allowedPoints, ...blockedPoints]) {
+    uniqueHours.add(p.timestamp ~/ hourUnit);
+  }
+
+  final hasComparison = uniqueHours.length >= hours * 2;
 
   return PeriodCounters(
     current: current,
