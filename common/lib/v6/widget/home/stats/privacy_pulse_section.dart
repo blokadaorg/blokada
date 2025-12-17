@@ -117,7 +117,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       return _pendingStatsRequest!;
     }
 
-    final future = _store.fetchDay(Markers.stats, force: force).then((_) {});
+    final future = _store.fetchDay(Markers.stats, force: force).then((_) async {
+      await _store.fetchWeek(Markers.stats, force: force);
+    });
     _pendingStatsRequest = future;
     return future.whenComplete(() {
       if (_pendingStatsRequest == future) {

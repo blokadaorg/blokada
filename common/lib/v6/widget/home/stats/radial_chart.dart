@@ -54,6 +54,9 @@ class RadialChart extends StatelessWidget {
   ];
 
   void _convert() {
+    final allowedVal = min(max(stats.dayAllowedRatio, 1.0), 100.0);
+    final blockedVal = min(max(stats.dayBlockedRatio, 1.0), 100.0);
+
     data = [
       // _ChartData(
       //   "stats label total".i18n,
@@ -70,7 +73,7 @@ class RadialChart extends StatelessWidget {
       // ),
       _ChartData(
         "stats label allowed".i18n,
-        max(stats.dayAllowedRatio, 1),
+        allowedVal,
         const Color(0xff33c75a),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
@@ -81,7 +84,7 @@ class RadialChart extends StatelessWidget {
       ),
       _ChartData(
         "stats label blocked".i18n,
-        max(stats.dayBlockedRatio, 1),
+        blockedVal,
         const Color(0xffff3b30),
         ui.Gradient.sweep(
           const Offset(0.5, 0.5),
