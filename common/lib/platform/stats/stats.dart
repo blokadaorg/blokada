@@ -138,11 +138,11 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     // Use 2w/24h buckets and slice into current vs previous periods.
     final rolling = await _api.getStats("2w", "24h", targetDevice, m);
     if (range == "7d") {
-      return _buildPeriodCounters(rolling, days: 7);
+      return buildPeriodCountersFromRollingStats(rolling, days: 7);
     }
 
     // 24h: use last day vs previous day from the same 2w/24h window
-    return _buildPeriodCounters(rolling, days: 1);
+    return buildPeriodCountersFromRollingStats(rolling, days: 1);
   }
 
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
@@ -161,85 +161,6 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       }
     }
     return StatsCounters(allowed: allowed, blocked: blocked, total: allowed + blocked);
-  }
-
-  PeriodCounters _buildPeriodCounters(api.JsonStatsEndpoint endpoint, {required int days}) {
-    final allowedPoints = <_BucketPoint>[];
-    final blockedPoints = <_BucketPoint>[];
-
-    for (final metric in endpoint.stats.metrics) {
-      final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
-      for (final d in metric.dps) {
-        final point = _BucketPoint(timestamp: d.timestamp, value: d.value.round());
-        if (isAllowed) {
-          allowedPoints.add(point);
-        } else {
-          blockedPoints.add(point);
-        }
-      }
-    }
-
-    if (allowedPoints.isEmpty && blockedPoints.isEmpty) {
-      return PeriodCounters(
-        current: StatsCounters.empty(),
-        previous: StatsCounters.empty(),
-        hasComparison: false,
-      );
-    }
-
-    allowedPoints.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-    blockedPoints.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-
-    final allPoints = [...allowedPoints, ...blockedPoints];
-    final allTimestamps = allPoints.map((p) => p.timestamp).toList();
-    final latestTs = allTimestamps.reduce((a, b) => a > b ? a : b);
-
-    final usesMillis = latestTs > 10000000000; // crude detection for ms vs s
-    final dayUnit = usesMillis ? Duration(days: 1).inMilliseconds : Duration(days: 1).inSeconds;
-
-    final uniqueDays = <int>{};
-    for (final ts in allTimestamps) {
-      uniqueDays.add(ts ~/ dayUnit);
-    }
-
-    int sumWindow(List<_BucketPoint> points, int startInclusive, int endExclusive) {
-      var sum = 0;
-      for (final p in points) {
-        if (p.timestamp >= startInclusive && p.timestamp < endExclusive) {
-          sum += p.value;
-        }
-      }
-      return sum;
-    }
-
-    final currentEnd = latestTs + dayUnit;
-    final currentStart = currentEnd - days * dayUnit;
-    final previousEnd = currentStart;
-    final previousStart = previousEnd - days * dayUnit;
-
-    final allowedCurrent = sumWindow(allowedPoints, currentStart, currentEnd);
-    final blockedCurrent = sumWindow(blockedPoints, currentStart, currentEnd);
-    final allowedPrevious = sumWindow(allowedPoints, previousStart, previousEnd);
-    final blockedPrevious = sumWindow(blockedPoints, previousStart, previousEnd);
-
-    final current = StatsCounters(
-      allowed: allowedCurrent,
-      blocked: blockedCurrent,
-      total: allowedCurrent + blockedCurrent,
-    );
-    final previous = StatsCounters(
-      allowed: allowedPrevious,
-      blocked: blockedPrevious,
-      total: allowedPrevious + blockedPrevious,
-    );
-
-    final hasComparison = uniqueDays.length >= days * 2;
-
-    return PeriodCounters(
-      current: current,
-      previous: previous,
-      hasComparison: hasComparison,
-    );
   }
 
   void _recomputeStats() {
@@ -665,4 +586,85 @@ class _BucketPoint {
   final int value;
 
   _BucketPoint({required this.timestamp, required this.value});
+}
+
+@visibleForTesting
+PeriodCounters buildPeriodCountersFromRollingStats(api.JsonStatsEndpoint endpoint,
+    {required int days}) {
+  final allowedPoints = <_BucketPoint>[];
+  final blockedPoints = <_BucketPoint>[];
+
+  for (final metric in endpoint.stats.metrics) {
+    final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+    for (final d in metric.dps) {
+      final point = _BucketPoint(timestamp: d.timestamp, value: d.value.round());
+      if (isAllowed) {
+        allowedPoints.add(point);
+      } else {
+        blockedPoints.add(point);
+      }
+    }
+  }
+
+  if (allowedPoints.isEmpty && blockedPoints.isEmpty) {
+    return PeriodCounters(
+      current: StatsCounters.empty(),
+      previous: StatsCounters.empty(),
+      hasComparison: false,
+    );
+  }
+
+  allowedPoints.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+  blockedPoints.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+  final allPoints = [...allowedPoints, ...blockedPoints];
+  final allTimestamps = allPoints.map((p) => p.timestamp).toList();
+  final latestTs = allTimestamps.reduce((a, b) => a > b ? a : b);
+
+  final usesMillis = latestTs > 10000000000; // crude detection for ms vs s
+  final dayUnit = usesMillis ? Duration(days: 1).inMilliseconds : Duration(days: 1).inSeconds;
+
+  final uniqueDays = <int>{};
+  for (final ts in allTimestamps) {
+    uniqueDays.add(ts ~/ dayUnit);
+  }
+
+  int sumWindow(List<_BucketPoint> points, int startInclusive, int endExclusive) {
+    var sum = 0;
+    for (final p in points) {
+      if (p.timestamp >= startInclusive && p.timestamp < endExclusive) {
+        sum += p.value;
+      }
+    }
+    return sum;
+  }
+
+  final currentEnd = latestTs + dayUnit;
+  final currentStart = currentEnd - days * dayUnit;
+  final previousEnd = currentStart;
+  final previousStart = previousEnd - days * dayUnit;
+
+  final allowedCurrent = sumWindow(allowedPoints, currentStart, currentEnd);
+  final blockedCurrent = sumWindow(blockedPoints, currentStart, currentEnd);
+  final allowedPrevious = sumWindow(allowedPoints, previousStart, previousEnd);
+  final blockedPrevious = sumWindow(blockedPoints, previousStart, previousEnd);
+
+  final current = StatsCounters(
+    allowed: allowedCurrent,
+    blocked: blockedCurrent,
+    total: allowedCurrent + blockedCurrent,
+  );
+  final previous = StatsCounters(
+    allowed: allowedPrevious,
+    blocked: blockedPrevious,
+    total: allowedPrevious + blockedPrevious,
+  );
+
+  final hasComparison = uniqueDays.length >= days * 2;
+
+  return PeriodCounters(
+    current: current,
+    previous: previous,
+    hasComparison: hasComparison,
+  );
 }

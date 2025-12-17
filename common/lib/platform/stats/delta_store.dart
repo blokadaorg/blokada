@@ -6,6 +6,7 @@ import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/api.dart' as api;
 import 'package:common/platform/stats/stats.dart';
 import 'package:common/platform/stats/toplist_store.dart';
+import 'package:meta/meta.dart';
 
 enum ToplistDeltaType { up, down, newEntry, same }
 
@@ -32,6 +33,25 @@ class CounterDelta {
   const CounterDelta({required this.allowedPercent, required this.blockedPercent});
 
   static CounterDelta empty() => const CounterDelta(allowedPercent: 0, blockedPercent: 0);
+}
+
+@visibleForTesting
+int percentChange(int previous, int current) {
+  if (previous == 0) return 0;
+  return (((current - previous) / previous) * 100).round();
+}
+
+@visibleForTesting
+CounterDelta computeCounterDelta({
+  required StatsCounters previous,
+  required StatsCounters current,
+  required bool hasComparison,
+}) {
+  if (!hasComparison) return CounterDelta.empty();
+  return CounterDelta(
+    allowedPercent: percentChange(previous.allowed, current.allowed),
+    blockedPercent: percentChange(previous.blocked, current.blocked),
+  );
 }
 
 class StatsDeltaStore with Logging, Actor {
@@ -223,19 +243,10 @@ class StatsDeltaStore with Logging, Actor {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
     if (pair == null || pair.current == null || pair.previous == null) return CounterDelta.empty();
     if (!pair.hasComparison) return CounterDelta.empty();
-    final prev = pair.previous!.counters;
-    final curr = pair.current!.counters;
-
-    int pct(int prev, int curr) {
-      if (prev == 0) {
-        return curr == 0 ? 0 : 100;
-      }
-      return (((curr - prev) / prev) * 100).round();
-    }
-
-    return CounterDelta(
-      allowedPercent: pct(prev.allowed, curr.allowed),
-      blockedPercent: pct(prev.blocked, curr.blocked),
+    return computeCounterDelta(
+      previous: pair.previous!.counters,
+      current: pair.current!.counters,
+      hasComparison: pair.hasComparison,
     );
   }
 
