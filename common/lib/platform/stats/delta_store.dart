@@ -57,7 +57,8 @@ class StatsDeltaStore with Logging, Actor {
 
     final now = DateTime.now().toUtc();
     final duration = _rangeToDuration(range);
-    final prevEnd = now.subtract(duration);
+    final currentEnd = _truncateToDay(now);
+    final prevEnd = currentEnd.subtract(duration);
 
     // Current window
     final blockedCurrent = await _toplists.fetch(
@@ -67,7 +68,7 @@ class StatsDeltaStore with Logging, Actor {
       action: "blocked",
       limit: 12,
       range: range,
-      end: now.toIso8601String(),
+      end: currentEnd.toIso8601String(),
       force: force,
     );
     final allowedCurrent = await _toplists.fetch(
@@ -77,7 +78,7 @@ class StatsDeltaStore with Logging, Actor {
       action: "allowed",
       limit: 12,
       range: range,
-      end: now.toIso8601String(),
+      end: currentEnd.toIso8601String(),
       force: force,
     );
     final fallthroughCurrent = await _toplists.fetch(
@@ -87,7 +88,7 @@ class StatsDeltaStore with Logging, Actor {
       action: "fallthrough",
       limit: 12,
       range: range,
-      end: now.toIso8601String(),
+      end: currentEnd.toIso8601String(),
       force: force,
     );
 
@@ -158,6 +159,10 @@ class StatsDeltaStore with Logging, Actor {
       default:
         return const Duration(hours: 24);
     }
+  }
+
+  DateTime _truncateToDay(DateTime dt) {
+    return DateTime.utc(dt.year, dt.month, dt.day);
   }
 
   List<ToplistDelta> deltasFor(String deviceName, String range, {required bool blocked}) {
