@@ -45,16 +45,12 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
     }
   }
 
-  Widget _buildDeltaText(int? percent,
-      {required bool negativeGood, Color? color}) {
-    if (percent == null || percent == 0) {
-      return SizedBox.shrink();
-    }
-    final sign = percent > 0 ? "+" : "";
+  Widget _buildDeltaText(int? percent, {required bool negativeGood, Color? color}) {
+    final display = percent == null || percent == 0 ? "" : "${percent > 0 ? "+" : ""}$percent%";
     return Padding(
       padding: const EdgeInsets.only(top: 2.0),
       child: Text(
-        "$sign$percent%",
+        display,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
