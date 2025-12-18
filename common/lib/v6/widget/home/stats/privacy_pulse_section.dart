@@ -62,6 +62,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final Map<ToplistRange, CounterDelta> _counterDeltas = {};
   DailySeries? _weeklySparkline;
   bool _weeklyReportFetched = false;
+  bool _hasStats = false;
+  final Map<ToplistRange, bool> _deltaReady = {
+    ToplistRange.daily: false,
+    ToplistRange.weekly: false,
+  };
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -74,6 +79,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       mobx.autorun((_) {
         setState(() {
           stats = _store.stats;
+          _hasStats = _store.hasStats;
         });
       });
     }
@@ -149,6 +155,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   Future<void> _refreshDeltas({ToplistRange? rangeOverride, bool force = false}) async {
     final range = rangeOverride ?? _toplistRange;
+    setState(() {
+      _deltaReady[range] = false;
+    });
     final deviceName = _deviceStore.deviceAlias;
     if (deviceName.isEmpty) return;
     final label = range == ToplistRange.daily ? "24h" : "7d";
@@ -159,6 +168,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       _blockedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: true);
       _allowedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: false);
       _counterDeltas[range] = _deltaStore.counterDeltaFor(deviceName, label);
+      _deltaReady[range] = true;
     });
   }
 
@@ -278,11 +288,13 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                               padding: const EdgeInsets.all(16.0),
                               child: PrivacyPulseCharts(
                                 stats: stats,
-                                counters: _counters,
-                                counterDelta: _counterDeltas[_toplistRange],
-                                sparklineSeries: _toplistRange == ToplistRange.weekly
-                                    ? _weeklySparkline
-                                    : null,
+                              counters: _counters,
+                              counterDelta: _counterDeltas[_toplistRange],
+                              statsReady: _hasStats,
+                              deltaReady: _deltaReady[_toplistRange] ?? false,
+                              sparklineSeries: _toplistRange == ToplistRange.weekly
+                                  ? _weeklySparkline
+                                  : null,
                                 trailing: _buildToplistRangeToggle(context),
                               ),
                             ),

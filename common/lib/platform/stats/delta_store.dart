@@ -29,10 +29,16 @@ class ToplistDelta {
 class CounterDelta {
   final int allowedPercent;
   final int blockedPercent;
+  final bool hasComparison;
 
-  const CounterDelta({required this.allowedPercent, required this.blockedPercent});
+  const CounterDelta({
+    required this.allowedPercent,
+    required this.blockedPercent,
+    required this.hasComparison,
+  });
 
-  static CounterDelta empty() => const CounterDelta(allowedPercent: 0, blockedPercent: 0);
+  static CounterDelta empty() =>
+      const CounterDelta(allowedPercent: 0, blockedPercent: 0, hasComparison: false);
 }
 
 @visibleForTesting
@@ -51,6 +57,7 @@ CounterDelta computeCounterDelta({
   return CounterDelta(
     allowedPercent: percentChange(previous.allowed, current.allowed),
     blockedPercent: percentChange(previous.blocked, current.blocked),
+    hasComparison: hasComparison,
   );
 }
 

@@ -14,6 +14,8 @@ class HorizontalRadialSegment extends StatefulWidget {
   final StatsCounters? counters;
   final CounterDelta? counterDelta;
   final DailySeries? sparklineSeries;
+  final bool statsReady;
+  final bool deltaReady;
 
   const HorizontalRadialSegment({
     Key? key,
@@ -21,6 +23,8 @@ class HorizontalRadialSegment extends StatefulWidget {
     this.counters,
     this.counterDelta,
     this.sparklineSeries,
+    this.statsReady = true,
+    this.deltaReady = true,
   })
       : super(key: key);
 
@@ -35,6 +39,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   var lastBlocked = 0.0;
   var lastAllowed = 0.0;
   var lastTotal = 0.0;
+  RadialRing? _selectedRing;
 
   _calculate() {
     lastAllowed = allowed;
@@ -52,43 +57,76 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
     }
   }
 
-  Widget _buildDeltaText(int? percent, {required bool negativeGood, Color? color}) {
+  Widget _buildDeltaText(
+    int? percent, {
+    required bool negativeGood,
+    Color? color,
+    FontWeight fontWeight = FontWeight.w500,
+    double fontSize = 12,
+  }) {
     final display = percent == null || percent == 0 ? "" : "${percent > 0 ? "+" : ""}$percent%";
     return Padding(
       padding: const EdgeInsets.only(top: 2.0),
       child: Text(
         display,
         style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
           color: color ?? Colors.grey,
         ),
       ),
     );
   }
 
+  void _toggleSelection(RadialRing ring) {
+    setState(() {
+      if (_selectedRing == ring) {
+        _selectedRing = null;
+      } else {
+        _selectedRing = ring;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     _calculate();
+    final selectedRing = _selectedRing;
+    final blockedOpacity =
+        selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
+    final allowedOpacity =
+        selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
+    final blockedDeltaWeight = selectedRing == RadialRing.blocked
+        ? FontWeight.w700
+        : FontWeight.w500;
+    final allowedDeltaWeight = selectedRing == RadialRing.allowed
+        ? FontWeight.w700
+        : FontWeight.w500;
+    final blockedDeltaSize = selectedRing == RadialRing.blocked ? 13.0 : 12.0;
+    final allowedDeltaSize = selectedRing == RadialRing.allowed ? 13.0 : 12.0;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Radial chart - fixed width
         ClipRect(
           child: Center(
-              child: Transform.scale(
-                scale: 1.3, // Scale up to reduce apparent padding
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: RadialChart(
-                    stats: widget.stats,
-                    counterDelta: widget.counterDelta,
-                  ),
+            child: Transform.scale(
+              scale: 1.3, // Scale up to reduce apparent padding
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: RadialChart(
+                  stats: widget.stats,
+                  counterDelta: widget.counterDelta,
+                  statsReady: widget.statsReady,
+                  deltaReady: widget.deltaReady,
+                  selectedRing: selectedRing,
+                  onRingTap: _toggleSelection,
                 ),
               ),
             ),
           ),
+        ),
         SizedBox(width: 16),
         // Right side content - remaining space
         Expanded(
@@ -100,56 +138,64 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("stats label blocked".i18n,
-                              maxLines: 1,
+                      child: AnimatedOpacity(
+                        opacity: blockedOpacity,
+                        duration: const Duration(milliseconds: 180),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("stats label blocked".i18n,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  color: Color(0xffff3b30),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                            Countup(
+                              begin: lastBlocked,
+                              end: blocked,
+                              duration: const Duration(seconds: 1),
                               style: const TextStyle(
-                                color: Color(0xffff3b30),
-                                fontSize: 12,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                              )),
-                          Countup(
-                            begin: lastBlocked,
-                            end: blocked,
-                            duration: const Duration(seconds: 1),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.visible,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.visible,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("stats label allowed".i18n,
-                              maxLines: 1,
+                      child: AnimatedOpacity(
+                        opacity: allowedOpacity,
+                        duration: const Duration(milliseconds: 180),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("stats label allowed".i18n,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  color: Color(0xff33c75a),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                            Countup(
+                              begin: lastAllowed,
+                              end: allowed,
+                              duration: const Duration(seconds: 1),
                               style: const TextStyle(
-                                color: Color(0xff33c75a),
-                                fontSize: 12,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                              )),
-                          Countup(
-                            begin: lastAllowed,
-                            end: allowed,
-                            duration: const Duration(seconds: 1),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.visible,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.visible,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -161,13 +207,35 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: _buildDeltaText(widget.counterDelta?.blockedPercent,
-                          negativeGood: false, color: context.theme.textSecondary),
+                      child: AnimatedOpacity(
+                        opacity: blockedOpacity,
+                        duration: const Duration(milliseconds: 180),
+                        child: _buildDeltaText(
+                          widget.counterDelta?.hasComparison == true
+                              ? widget.counterDelta?.blockedPercent
+                              : null,
+                          negativeGood: false,
+                          color: context.theme.textSecondary,
+                          fontWeight: blockedDeltaWeight,
+                          fontSize: blockedDeltaSize,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                      child: _buildDeltaText(widget.counterDelta?.allowedPercent,
-                          negativeGood: true, color: context.theme.textSecondary),
+                      child: AnimatedOpacity(
+                        opacity: allowedOpacity,
+                        duration: const Duration(milliseconds: 180),
+                        child: _buildDeltaText(
+                          widget.counterDelta?.hasComparison == true
+                              ? widget.counterDelta?.allowedPercent
+                              : null,
+                          negativeGood: true,
+                          color: context.theme.textSecondary,
+                          fontWeight: allowedDeltaWeight,
+                          fontSize: allowedDeltaSize,
+                        ),
+                      ),
                     ),
                   ],
                 ),

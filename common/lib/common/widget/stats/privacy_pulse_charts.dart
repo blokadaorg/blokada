@@ -13,6 +13,8 @@ class PrivacyPulseCharts extends StatelessWidget {
   final StatsCounters? counters;
   final CounterDelta? counterDelta;
   final DailySeries? sparklineSeries;
+  final bool statsReady;
+  final bool deltaReady;
 
   const PrivacyPulseCharts({
     Key? key,
@@ -21,6 +23,8 @@ class PrivacyPulseCharts extends StatelessWidget {
     this.counters,
     this.counterDelta,
     this.sparklineSeries,
+    this.statsReady = true,
+    this.deltaReady = true,
   }) : super(key: key);
 
   @override
@@ -75,6 +79,8 @@ class PrivacyPulseCharts extends StatelessWidget {
           counters: counters,
           counterDelta: counterDelta,
           sparklineSeries: sparklineSeries,
+          statsReady: statsReady,
+          deltaReady: deltaReady,
         ),
       ],
     );

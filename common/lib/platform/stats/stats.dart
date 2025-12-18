@@ -143,7 +143,15 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     if (range != "7d") {
       // For 24h deltas we want a true last-24h vs previous-24h comparison,
       // based on hourly buckets, independent of day boundaries.
-      final rolling = await _api.getStats("48h", "1h", targetDevice, m);
+      api.JsonStatsEndpoint rolling;
+      final canUseCache = !force && _lastDayEndpoint != null && _shouldUseCache(_lastDayFetch);
+      if (canUseCache) {
+        rolling = _lastDayEndpoint!;
+      } else {
+        rolling = await _api.getStats("48h", "1h", targetDevice, m);
+        _lastDayEndpoint = rolling;
+        _lastDayFetch = DateTime.now();
+      }
       return buildHourlyPeriodCountersFromRollingStats(rolling, hours: 24);
     }
 

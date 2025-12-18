@@ -9,51 +9,48 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+enum RadialRing { allowed, blocked }
+
 class RadialChart extends StatelessWidget {
   final UiStats stats;
   final CounterDelta? counterDelta;
+  final bool statsReady;
+  final bool deltaReady;
+  final RadialRing? selectedRing;
+  final ValueChanged<RadialRing>? onRingTap;
 
-  RadialChart({Key? key, required this.stats, this.counterDelta}) : super(key: key) {
+  RadialChart({
+    Key? key,
+    required this.stats,
+    this.counterDelta,
+    this.statsReady = true,
+    this.deltaReady = true,
+    this.selectedRing,
+    this.onRingTap,
+  }) : super(key: key) {
     _convert();
   }
 
-  late List<_ChartData> data;
+  late _ChartData allowedData;
+  late _ChartData blockedData;
   CircularSeriesController? _chartSeriesController;
 
-  List<Color> colorsMixed = <Color>[
-    // const Color(0xffb6b6b6),
-    // const Color(0xff9f9f9f),
-    const Color(0xff33c75a),
-    const Color(0xff1cab42),
+  List<Color> colorsRed = <Color>[
+    const Color(0xffff7a6c),
     const Color(0xffff3b30),
     const Color(0xffde342a),
   ];
 
-  List<double> stopsMixed = <double>[
-    0.10,
-    0.66,
-    0.67,
-    0.90,
-  ];
-
-  List<Color> colorsRed = <Color>[
-    const Color(0xffff3b30),
-    const Color(0xffef6049)
-  ];
-
   List<Color> colorsGreen = <Color>[
-    const Color(0xff33c75a),
-    const Color(0xff6de88d),
-  ];
-
-  List<Color> colorsGray = <Color>[
-    const Color(0xff808080),
-    const Color(0xffb6b6b6),
+    const Color(0xff61d981),
+    const Color(0xff2fb653),
+    const Color(0xff17933a),
   ];
 
   List<double> stops = <double>[
-    0.1,
-    0.7,
+    0.0,
+    0.6,
+    1.0,
   ];
 
   @visibleForTesting
@@ -64,78 +61,162 @@ class RadialChart extends StatelessWidget {
 
   void _convert() {
     final delta = counterDelta;
-    final allowedRatio = delta != null ? gaugeFillFromDelta(delta.allowedPercent) : stats.dayAllowedRatio;
-    final blockedRatio = delta != null ? gaugeFillFromDelta(delta.blockedPercent) : stats.dayBlockedRatio;
+    final hasDelta = deltaReady && delta?.hasComparison == true;
+    final statsUsable = statsReady && deltaReady;
+    final allowedRatio = hasDelta
+        ? gaugeFillFromDelta(delta!.allowedPercent)
+        : (statsUsable ? stats.dayAllowedRatio : 0.0);
+    final blockedRatio = hasDelta
+        ? gaugeFillFromDelta(delta!.blockedPercent)
+        : (statsUsable ? stats.dayBlockedRatio : 0.0);
     final allowedVal = min(max(allowedRatio, 0.0), 100.0);
     final blockedVal = min(max(blockedRatio, 0.0), 100.0);
 
-    data = [
-      // _ChartData(
-      //   "stats label total".i18n,
-      //   max(stats.dayAllowedRatio + stats.dayBlockedRatio, 1),
-      //   const Color(0xff808080),
-      //   ui.Gradient.sweep(
-      //     const Offset(0.5, 0.5),
-      //     colorsGray,
-      //     stops,
-      //     TileMode.clamp,
-      //     _degreeToRadian(0),
-      //     _degreeToRadian(360),
-      //   ),
-      // ),
-      _ChartData(
-        "stats label allowed".i18n,
-        allowedVal,
-        const Color(0xff33c75a),
-        ui.Gradient.sweep(
-          const Offset(0.5, 0.5),
-          colorsGreen,
-          stops,
-          TileMode.clamp,
-        ),
-      ),
-      _ChartData(
-        "stats label blocked".i18n,
-        blockedVal,
-        const Color(0xffff3b30),
-        ui.Gradient.sweep(
-          const Offset(0.5, 0.5),
-          colorsRed,
-          stops,
-          TileMode.clamp,
-        ),
-      ),
-    ];
+    allowedData = _ChartData(
+      RadialRing.allowed,
+      "stats label allowed".i18n,
+      allowedVal,
+      const Color(0xff33c75a),
+    );
+
+    blockedData = _ChartData(
+      RadialRing.blocked,
+      "stats label blocked".i18n,
+      blockedVal,
+      const Color(0xffff3b30),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SfCircularChart(
-        onCreateShader: (ChartShaderDetails chartShaderDetails) {
-          return RadialGradient(
-            center: Alignment.center,
-            colors: colorsMixed,
-            stops: stopsMixed,
-          ).createShader(chartShaderDetails.outerRect);
-        },
-        series: <CircularSeries>[
+    final ringSelection = selectedRing;
+    final allowedOpacity =
+        ringSelection == null || ringSelection == RadialRing.allowed ? 1.0 : 0.35;
+    final blockedOpacity =
+        ringSelection == null || ringSelection == RadialRing.blocked ? 1.0 : 0.35;
+
+    // Derive ring sizes from pixel targets but express as percents (Syncfusion expects %)
+    const blockedOuterRadiusPct = 92.0;
+    const targetThicknessPx = 12.0;
+    const targetGapPx = 3.0;
+    const selectedOffsetPct = 3.0;
+    const hitSlop = 6.0;
+
+    String radiusPercent(double value) => '${value.toStringAsFixed(1)}%';
+
+    double pxToPercent(double px, double maxRadius) =>
+        (px / maxRadius * 100).clamp(0, 100);
+
+    String radiusFor(RadialRing ring, double basePct) {
+      if (ringSelection == ring) {
+        return radiusPercent(min(basePct + selectedOffsetPct, 100));
+      }
+      return radiusPercent(max(basePct, 0));
+    }
+
+    RadialRing? hitTestRing(Offset localPosition, Size size) {
+      final center = Offset(size.width / 2, size.height / 2);
+      final distance = (localPosition - center).distance;
+      final maxRadius = min(size.width, size.height) / 2;
+      final thicknessPct = pxToPercent(targetThicknessPx, maxRadius);
+      final gapPct = pxToPercent(targetGapPx, maxRadius);
+      final blockedInnerPct = blockedOuterRadiusPct - thicknessPct;
+      final allowedOuterPct = blockedInnerPct - gapPct;
+      final allowedThicknessPct =
+          thicknessPct * (allowedOuterPct / blockedOuterRadiusPct).clamp(0.0, 1.0);
+      final allowedInnerPct = allowedOuterPct - allowedThicknessPct;
+
+      final blockedOuter = maxRadius * (blockedOuterRadiusPct / 100);
+      final blockedInner = maxRadius * (blockedInnerPct / 100);
+      final allowedOuter = maxRadius * (allowedOuterPct / 100);
+      final allowedInner = maxRadius * (allowedInnerPct / 100);
+
+      if (distance >= blockedInner - hitSlop && distance <= blockedOuter + hitSlop) {
+        return RadialRing.blocked;
+      }
+      if (distance >= allowedInner - hitSlop && distance <= allowedOuter + hitSlop) {
+        return RadialRing.allowed;
+      }
+      return null;
+    }
+
+    Shader ringShader(RadialRing ring, Rect rect) {
+      final colors = ring == RadialRing.allowed ? colorsGreen : colorsRed;
+      return ui.Gradient.radial(
+        rect.center,
+        rect.width / 2,
+        colors,
+        stops,
+        TileMode.clamp,
+      );
+    }
+
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = Size(constraints.maxWidth, constraints.maxHeight);
+      final maxRadius = min(size.width, size.height) / 2;
+      final thicknessPct = pxToPercent(targetThicknessPx, maxRadius);
+      final gapPct = pxToPercent(targetGapPx, maxRadius);
+      final blockedInnerPct = blockedOuterRadiusPct - thicknessPct;
+      final allowedOuterPct = blockedInnerPct - gapPct;
+      final allowedThicknessPct =
+          thicknessPct * (allowedOuterPct / blockedOuterRadiusPct).clamp(0.0, 1.0);
+      final allowedInnerPct = allowedOuterPct - allowedThicknessPct;
+
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          SfCircularChart(series: <CircularSeries>[
           // Renders radial bar chart
           RadialBarSeries<_ChartData, String>(
-            dataSource: data,
+            dataSource: [blockedData],
             maximumValue: 100,
             xValueMapper: (_ChartData data, _) => data.x,
             yValueMapper: (_ChartData data, _) => data.y,
             pointColorMapper: (_ChartData data, _) => data.color,
-            //pointShaderMapper: (_ChartData data, _, Color color, Rect rect) => data.shader,
+            pointShaderMapper: (dynamic data, _, Color color, Rect rect) =>
+                ringShader((data as _ChartData).ring, rect),
             cornerStyle: CornerStyle.bothFlat,
             useSeriesColor: true,
             trackOpacity: 0.1,
             gap: '3%',
-            innerRadius: '30%',
-            radius: '95%',
+            innerRadius: radiusFor(RadialRing.blocked, blockedInnerPct),
+            radius: radiusFor(RadialRing.blocked, blockedOuterRadiusPct),
             animationDuration: 1200,
-          )
-        ]);
+            opacity: blockedOpacity,
+          ),
+          RadialBarSeries<_ChartData, String>(
+            dataSource: [allowedData],
+            maximumValue: 100,
+            xValueMapper: (_ChartData data, _) => data.x,
+            yValueMapper: (_ChartData data, _) => data.y,
+            pointColorMapper: (_ChartData data, _) => data.color,
+            pointShaderMapper: (dynamic data, _, Color color, Rect rect) =>
+                ringShader((data as _ChartData).ring, rect),
+            cornerStyle: CornerStyle.bothFlat,
+            useSeriesColor: true,
+            trackOpacity: 0.1,
+            gap: '3%',
+            innerRadius: radiusFor(RadialRing.allowed, allowedInnerPct),
+            radius: radiusFor(RadialRing.allowed, allowedOuterPct),
+            animationDuration: 1200,
+            opacity: allowedOpacity,
+          ),
+        ]),
+        Positioned.fill(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTapDown: (details) {
+              if (onRingTap == null) return;
+              final ring = hitTestRing(details.localPosition, size);
+              if (ring != null) {
+                onRingTap!(ring);
+              }
+            },
+          ),
+        ),
+      ],
+    );
+    });
   }
 }
 
@@ -149,10 +230,10 @@ Float64List _resolveTransform(Rect bounds, TextDirection textDirection) {
 }
 
 class _ChartData {
-  _ChartData(this.x, this.y, this.color, this.shader);
+  _ChartData(this.ring, this.x, this.y, this.color);
 
+  final RadialRing ring;
   final String x;
   final double y;
   final Color color;
-  final Shader shader;
 }

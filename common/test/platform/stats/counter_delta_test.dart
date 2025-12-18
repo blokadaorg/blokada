@@ -30,6 +30,7 @@ void main() {
       // - Allowed delta: (53,879 - 53,970) / 53,970 * 100 = -0.16... => 0% (rounded)
       expect(delta.blockedPercent, equals(115));
       expect(delta.allowedPercent, equals(0));
+      expect(delta.hasComparison, isTrue);
     });
 
     test('computes daily counters (last 24h vs previous 24h) from fixture', () {
@@ -65,6 +66,7 @@ void main() {
       // - Blocked prev=1,979, curr=2,750 => +39% (rounded)
       expect(delta.allowedPercent, equals(48));
       expect(delta.blockedPercent, equals(39));
+      expect(delta.hasComparison, isTrue);
     });
 
     test('returns 0 when baseline is zero', () {
@@ -76,6 +78,19 @@ void main() {
 
       expect(delta.allowedPercent, equals(0));
       expect(delta.blockedPercent, equals(0));
+      expect(delta.hasComparison, isTrue);
+    });
+
+    test('hasComparison false yields empty delta', () {
+      final delta = computeCounterDelta(
+        previous: const StatsCounters(allowed: 1, blocked: 1, total: 2),
+        current: const StatsCounters(allowed: 2, blocked: 2, total: 4),
+        hasComparison: false,
+      );
+
+      expect(delta.allowedPercent, equals(0));
+      expect(delta.blockedPercent, equals(0));
+      expect(delta.hasComparison, isFalse);
     });
   });
 
