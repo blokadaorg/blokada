@@ -11,6 +11,9 @@ class MiniCardChart extends StatelessWidget {
   final Color color;
   final bool animate;
   final double? height;
+  final List<int>? seriesValues;
+  final DateTime? seriesEnd;
+  final Duration? seriesStep;
 
   const MiniCardChart({
     super.key,
@@ -18,14 +21,26 @@ class MiniCardChart extends StatelessWidget {
     required this.color,
     this.animate = true,
     this.height,
+    this.seriesValues,
+    this.seriesEnd,
+    this.seriesStep,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasSeriesOverride = seriesValues != null && seriesValues!.isNotEmpty;
     return GestureDetector(
       //decoration: BoxDecoration(color: Colors.greenAccent),
-      child: (stats.totalAllowed > 0)
-          ? _ColumnChart(stats: stats, color: color, animate: animate, height: height)
+      child: (stats.totalAllowed > 0 || hasSeriesOverride)
+          ? _ColumnChart(
+              stats: stats,
+              color: color,
+              animate: animate,
+              height: height,
+              seriesValues: seriesValues,
+              seriesEnd: seriesEnd,
+              seriesStep: seriesStep,
+            )
           : SizedBox(
               height: height ?? 90,
               //constraints: const BoxConstraints(maxHeight: 90),
@@ -47,6 +62,9 @@ class _ColumnChart extends StatelessWidget {
   final UiStats stats;
   final bool animate;
   final double? height;
+  final List<int>? seriesValues;
+  final DateTime? seriesEnd;
+  final Duration? seriesStep;
 
   _ColumnChart({
     Key? key,
@@ -54,6 +72,9 @@ class _ColumnChart extends StatelessWidget {
     required this.color,
     required this.animate,
     this.height,
+    this.seriesValues,
+    this.seriesEnd,
+    this.seriesStep,
   }) : super(key: key) {
     _compute();
   }
@@ -63,30 +84,38 @@ class _ColumnChart extends StatelessWidget {
   late double maxGreen;
   late double oldestEntry;
   late DateTime latestTimestamp;
+  late Duration step;
+  late List<int> values;
+
+  Duration scaleStep(int multiplier) =>
+      Duration(seconds: step.inSeconds * multiplier);
 
   void _compute() {
+    values = seriesValues ?? stats.allowedHistogram;
     latestTimestamp =
-        DateTime.fromMillisecondsSinceEpoch(stats.latestTimestamp);
+        seriesEnd ?? DateTime.fromMillisecondsSinceEpoch(stats.latestTimestamp);
+    step = seriesStep ?? const Duration(hours: 1);
 
-    dataGreen = stats.allowedHistogram
+    dataGreen = values
         .asMap()
         .entries
         .map((entry) => _ChartData(
-            latestTimestamp.subtract(Duration(hours: 23 - entry.key)),
+            latestTimestamp.subtract(scaleStep(values.length - 1 - entry.key)),
             entry.value * 1))
         .toList();
 
     maxGreen = 10; // Max Y axis value
     //minGreen = 1000;
     minGreen = 0;
-    oldestEntry = -24; // Min X axis value
-    for (var i = 0; i < 24 && i < stats.allowedHistogram.length; i++) {
-      final green = stats.allowedHistogram[i];
-      final red = stats.blockedHistogram[i];
+    oldestEntry = -values.length.toDouble(); // Min X axis value
+    for (var i = 0; i < values.length; i++) {
+      final green = values[i];
       if (green * 1.05 > maxGreen) maxGreen = green * 1.05;
       if (green * 0.8 < minGreen) minGreen = max(0, green * 0.8);
       // Skip consecutive zero bars at the beginning and shrink scale
-      if (maxGreen == 0 && oldestEntry.abs() == (24 - i) && oldestEntry < -6)
+      if (maxGreen == 0 &&
+          oldestEntry.abs() == (values.length - i) &&
+          oldestEntry < -6)
         oldestEntry += 1;
     }
   }
@@ -108,7 +137,7 @@ class _ColumnChart extends StatelessWidget {
         margin: const EdgeInsets.all(0),
         plotAreaBorderWidth: 0,
         primaryXAxis: DateTimeAxis(
-          minimum: latestTimestamp.subtract(Duration(hours: 23)),
+          minimum: latestTimestamp.subtract(scaleStep(values.length - 1)),
           maximum: latestTimestamp,
           interval: (oldestEntry.abs() / 4).ceilToDouble(),
           isVisible: false,

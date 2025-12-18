@@ -12,6 +12,7 @@ class PrivacyPulseCharts extends StatelessWidget {
   final Widget? trailing;
   final StatsCounters? counters;
   final CounterDelta? counterDelta;
+  final DailySeries? sparklineSeries;
 
   const PrivacyPulseCharts({
     Key? key,
@@ -19,6 +20,7 @@ class PrivacyPulseCharts extends StatelessWidget {
     this.trailing,
     this.counters,
     this.counterDelta,
+    this.sparklineSeries,
   }) : super(key: key);
 
   @override
@@ -68,7 +70,12 @@ class PrivacyPulseCharts extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment
-        HorizontalRadialSegment(stats: stats, counters: counters, counterDelta: counterDelta),
+        HorizontalRadialSegment(
+          stats: stats,
+          counters: counters,
+          counterDelta: counterDelta,
+          sparklineSeries: sparklineSeries,
+        ),
       ],
     );
   }

@@ -23,8 +23,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   static const Duration _cacheTtl = Duration(seconds: 10);
   api.JsonStatsEndpoint? _lastDayEndpoint;
   api.JsonStatsEndpoint? _lastWeekEndpoint;
+  api.JsonStatsEndpoint? _lastRolling2wEndpoint;
   DateTime? _lastDayFetch;
   DateTime? _lastWeekFetch;
+  DateTime? _lastRolling2wFetch;
 
   StatsStoreBase() {}
 
@@ -146,7 +148,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     }
 
     // Weekly: use 2w/24h buckets and slice into current vs previous periods.
-    final rolling = await _api.getStats("2w", "24h", targetDevice, m);
+    final rolling = await _fetchRolling2w(m, targetDevice, force: force);
     if (range == "7d") {
       return buildPeriodCountersFromRollingStats(rolling, days: 7);
     }
@@ -156,6 +158,19 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       previous: StatsCounters.empty(),
       hasComparison: false,
     );
+  }
+
+  Future<DailySeries> allowedDailySeries(
+      Marker m, {
+        int days = 7,
+        bool force = false,
+      }) async {
+    final deviceName = _deviceNameOrNull(m);
+    if (deviceName == null) {
+      return DailySeries.empty(Duration(days: 1));
+    }
+    final rolling = await _fetchRolling2w(m, deviceName, force: force);
+    return buildAllowedDailySeriesFromRollingStats(rolling, days: days);
   }
 
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
@@ -207,6 +222,20 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       return null;
     }
     return deviceName;
+  }
+
+  Future<api.JsonStatsEndpoint> _fetchRolling2w(
+    Marker m,
+    String deviceName, {
+    bool force = false,
+  }) async {
+    if (!force && _shouldUseCache(_lastRolling2wFetch) && _lastRolling2wEndpoint != null) {
+      return _lastRolling2wEndpoint!;
+    }
+
+    _lastRolling2wEndpoint = await _api.getStats("2w", "24h", deviceName, m);
+    _lastRolling2wFetch = DateTime.now();
+    return _lastRolling2wEndpoint!;
   }
 
   @action
@@ -599,6 +628,56 @@ class _BucketPoint {
   final int value;
 
   _BucketPoint({required this.timestamp, required this.value});
+}
+
+class DailySeries {
+  final List<int> values;
+  final DateTime end;
+  final Duration step;
+
+  const DailySeries({
+    required this.values,
+    required this.end,
+    required this.step,
+  });
+
+  static DailySeries empty(Duration step) =>
+      DailySeries(values: const [], end: DateTime.fromMillisecondsSinceEpoch(0, isUtc: true), step: step);
+}
+
+@visibleForTesting
+DailySeries buildAllowedDailySeriesFromRollingStats(
+  api.JsonStatsEndpoint endpoint, {
+  required int days,
+}) {
+  final allowedByDay = <int, int>{};
+  for (final metric in endpoint.stats.metrics) {
+    final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+    if (!isAllowed) continue;
+    for (final d in metric.dps) {
+      final ts = d.timestamp;
+      final value = d.value.round();
+      allowedByDay[ts] = (allowedByDay[ts] ?? 0) + value;
+    }
+  }
+
+  if (allowedByDay.isEmpty) {
+    return DailySeries.empty(const Duration(days: 1));
+  }
+
+  final sortedTimestamps = allowedByDay.keys.toList()..sort();
+  final endTimestamp = sortedTimestamps.last;
+  final secondsPerDay = const Duration(days: 1).inSeconds;
+  final startTimestamp = endTimestamp - (days - 1) * secondsPerDay;
+  final values = <int>[];
+  for (var i = 0; i < days; i++) {
+    final ts = startTimestamp + (i * secondsPerDay);
+    values.add(allowedByDay[ts] ?? 0);
+  }
+  final end =
+      DateTime.fromMillisecondsSinceEpoch(endTimestamp * 1000, isUtc: true);
+
+  return DailySeries(values: values, end: end, step: const Duration(days: 1));
 }
 
 @visibleForTesting

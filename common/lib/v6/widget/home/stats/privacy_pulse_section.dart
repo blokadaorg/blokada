@@ -60,6 +60,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final Map<ToplistRange, List<ToplistDelta>> _blockedDeltas = {};
   final Map<ToplistRange, List<ToplistDelta>> _allowedDeltas = {};
   final Map<ToplistRange, CounterDelta> _counterDeltas = {};
+  DailySeries? _weeklySparkline;
   bool _weeklyReportFetched = false;
 
   bool get _isFreemium {
@@ -90,6 +91,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         });
         unawaited(_refreshDeltas());
         unawaited(_updateCounters());
+        unawaited(_updateWeeklySparkline());
         if (!_toplistsFetched) {
           _toplistsFetched = true;
           unawaited(_fetchToplists());
@@ -169,10 +171,20 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     });
   }
 
+  Future<void> _updateWeeklySparkline({bool force = false}) async {
+    if (_toplistRange != ToplistRange.weekly) return;
+    final series = await _store.allowedDailySeries(Markers.stats, days: 7, force: force);
+    if (!mounted) return;
+    setState(() {
+      _weeklySparkline = series;
+    });
+  }
+
   Future<void> _pullToRefresh() async {
     return await log(Markers.userTap).trace("privacyPulsePullToRefresh", (m) async {
       await _kickoffStatsFetch(force: true);
       await _updateCounters(force: true);
+      await _updateWeeklySparkline(force: true);
       await _refreshDeltas(rangeOverride: _toplistRange, force: true);
       // Temporarily disabled weekly report refresh (kept for re-enable later).
       // await _weeklyReport.refreshAndPick(m);
@@ -193,6 +205,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         _toplistRange = range;
       });
       await _updateCounters(force: true);
+      await _updateWeeklySparkline(force: true);
       await _refreshDeltas(rangeOverride: range, force: true);
       await _fetchToplists(rangeOverride: range);
       return;
@@ -267,6 +280,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                                 stats: stats,
                                 counters: _counters,
                                 counterDelta: _counterDeltas[_toplistRange],
+                                sparklineSeries: _toplistRange == ToplistRange.weekly
+                                    ? _weeklySparkline
+                                    : null,
                                 trailing: _buildToplistRangeToggle(context),
                               ),
                             ),

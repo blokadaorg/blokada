@@ -13,8 +13,15 @@ class HorizontalRadialSegment extends StatefulWidget {
   final UiStats stats;
   final StatsCounters? counters;
   final CounterDelta? counterDelta;
+  final DailySeries? sparklineSeries;
 
-  const HorizontalRadialSegment({Key? key, required this.stats, this.counters, this.counterDelta})
+  const HorizontalRadialSegment({
+    Key? key,
+    required this.stats,
+    this.counters,
+    this.counterDelta,
+    this.sparklineSeries,
+  })
       : super(key: key);
 
   @override
@@ -176,6 +183,9 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                   color: Color(0xff33c75a),
                   animate: false,
                   height: 42,
+                  seriesValues: widget.sparklineSeries?.values,
+                  seriesEnd: widget.sparklineSeries?.end,
+                  seriesStep: widget.sparklineSeries?.step,
                 ),
               ),
             ],

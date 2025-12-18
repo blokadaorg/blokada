@@ -2,6 +2,8 @@ import 'package:common/family/module/stats/stats.dart';
 import 'package:common/platform/stats/api.dart' as api;
 import 'package:common/platform/stats/stats.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'dart:convert';
+import 'dart:io';
 
 void main() {
   group('computeStatsBaselines', () {
@@ -282,6 +284,55 @@ void main() {
         uiStats.dayAllowedRatio,
         closeTo(23.91304347826087, 1e-9),
       );
+    });
+  });
+
+  group('sparkline series', () {
+    test('builds 7d allowed series from rolling 2w stats', () {
+      final raw = File('test/platform/stats/fixtures/stats_2w_iphone.json').readAsStringSync();
+      final decoded = jsonDecode(raw) as Map<String, dynamic>;
+      final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
+
+      final series = buildAllowedDailySeriesFromRollingStats(endpoint, days: 7);
+
+      expect(series.values, equals([8572, 7713, 8404, 7561, 7877, 7826, 5926]));
+      expect(series.values.length, equals(7));
+      expect(series.step, equals(const Duration(days: 1)));
+      expect(series.end.millisecondsSinceEpoch, equals(1765843200 * 1000));
+    });
+
+    test('pads missing days with zeros', () {
+      final raw = File('test/platform/stats/fixtures/stats_2w_iphone.json').readAsStringSync();
+      final decoded = jsonDecode(raw) as Map<String, dynamic>;
+      final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
+
+      const missingTimestamp = 1765584000;
+      for (final metric in endpoint.stats.metrics) {
+        final isAllowed = metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+        if (!isAllowed) continue;
+        metric.dps = metric.dps.where((d) => d.timestamp != missingTimestamp).toList();
+      }
+
+      final series = buildAllowedDailySeriesFromRollingStats(endpoint, days: 7);
+
+      expect(series.values, equals([8572, 7713, 8404, 0, 7877, 7826, 5926]));
+      expect(series.values.length, equals(7));
+      expect(series.end.millisecondsSinceEpoch, equals(1765843200 * 1000));
+    });
+
+    test('returns empty series when no allowed data exists', () {
+      final raw = File('test/platform/stats/fixtures/stats_2w_iphone.json').readAsStringSync();
+      final decoded = jsonDecode(raw) as Map<String, dynamic>;
+      final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
+
+      endpoint.stats.metrics = endpoint.stats.metrics
+          .where((metric) => metric.tags.action == "blocked")
+          .toList();
+
+      final series = buildAllowedDailySeriesFromRollingStats(endpoint, days: 7);
+
+      expect(series.values, isEmpty);
+      expect(series.end.millisecondsSinceEpoch, equals(0));
     });
   });
 }
