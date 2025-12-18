@@ -724,27 +724,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             _buildInformationCard(),
           ],
 
-          // Recents and Subdomains section (only show if fetchToplist is true)
+          // Subdomains and recents section (only show if fetchToplist is true)
           if (widget.fetchToplist) ...[
-            // Recents list
-            if (widget.entry.action == UiJournalAction.block)
-              _buildRecentSection(
-                title: "privacy pulse recents header".i18n,
-                entries: _recentBlockedEntries,
-                isLoading: _recentBlockedLoading,
-                action: UiJournalAction.block,
-              )
-            else
-              _buildRecentSection(
-                title: "privacy pulse recents header".i18n,
-                entries: _recentAllowedEntries,
-                isLoading: _recentAllowedLoading,
-                action: UiJournalAction.allow,
-              ),
-
             // Subdomains section header
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
                 "privacy pulse toplists header".i18n,
                 style: TextStyle(
@@ -761,6 +745,23 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
             // Subdomains list
             _buildSubdomainsList(),
+            const SizedBox(height: 16),
+
+            // Recents list
+            if (widget.entry.action == UiJournalAction.block)
+              _buildRecentSection(
+                title: "privacy pulse recents header".i18n,
+                entries: _recentBlockedEntries,
+                isLoading: _recentBlockedLoading,
+                action: UiJournalAction.block,
+              )
+            else
+              _buildRecentSection(
+                title: "privacy pulse recents header".i18n,
+                entries: _recentAllowedEntries,
+                isLoading: _recentAllowedLoading,
+                action: UiJournalAction.allow,
+              ),
           ],
           const SizedBox(height: 40), // Bottom padding like original
         ],
