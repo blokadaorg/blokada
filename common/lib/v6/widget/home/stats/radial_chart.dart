@@ -4,13 +4,16 @@ import 'dart:ui' as ui;
 
 import 'package:common/core/core.dart';
 import 'package:common/family/module/stats/stats.dart';
+import 'package:common/platform/stats/delta_store.dart';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class RadialChart extends StatelessWidget {
   final UiStats stats;
+  final CounterDelta? counterDelta;
 
-  RadialChart({Key? key, required this.stats}) : super(key: key) {
+  RadialChart({Key? key, required this.stats, this.counterDelta}) : super(key: key) {
     _convert();
   }
 
@@ -53,9 +56,18 @@ class RadialChart extends StatelessWidget {
     0.7,
   ];
 
+  @visibleForTesting
+  static double gaugeFillFromDelta(int percent) {
+    final fill = 50 + (percent / 2);
+    return fill.clamp(0, 100).toDouble();
+  }
+
   void _convert() {
-    final allowedVal = min(max(stats.dayAllowedRatio, 1.0), 100.0);
-    final blockedVal = min(max(stats.dayBlockedRatio, 1.0), 100.0);
+    final delta = counterDelta;
+    final allowedRatio = delta != null ? gaugeFillFromDelta(delta.allowedPercent) : stats.dayAllowedRatio;
+    final blockedRatio = delta != null ? gaugeFillFromDelta(delta.blockedPercent) : stats.dayBlockedRatio;
+    final allowedVal = min(max(allowedRatio, 0.0), 100.0);
+    final blockedVal = min(max(blockedRatio, 0.0), 100.0);
 
     data = [
       // _ChartData(

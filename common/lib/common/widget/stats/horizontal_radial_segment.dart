@@ -76,16 +76,19 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
         // Radial chart - fixed width
         ClipRect(
           child: Center(
-            child: Transform.scale(
-              scale: 1.3, // Scale up to reduce apparent padding
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: RadialChart(stats: widget.stats),
+              child: Transform.scale(
+                scale: 1.3, // Scale up to reduce apparent padding
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: RadialChart(
+                    stats: widget.stats,
+                    counterDelta: widget.counterDelta,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
         SizedBox(width: 16),
         // Right side content - remaining space
         Expanded(
