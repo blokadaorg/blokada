@@ -25,6 +25,7 @@ class DomainDetailSection extends StatefulWidget {
   final int level;
   final String domain;
   final bool fetchToplist;
+  final String range; // "24h" or "7d"
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
   const DomainDetailSection({
@@ -34,6 +35,7 @@ class DomainDetailSection extends StatefulWidget {
     required this.level,
     required this.domain,
     this.fetchToplist = true,
+    this.range = "24h",
     this.subdomainEntries,
   });
 
@@ -428,7 +430,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             domain: widget.domain,
             action: "blocked",
             limit: 12,
-            range: "24h",
+            range: widget.range,
           );
 
           log(m).pair("blocked_buckets", response.toplist.length);
@@ -459,7 +461,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             domain: widget.domain,
             action: "allowed",
             limit: 10,
-            range: "24h",
+            range: widget.range,
           );
 
           final fallthroughResponse = await _toplists.fetch(
@@ -469,7 +471,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             domain: widget.domain,
             action: "fallthrough",
             limit: 10,
-            range: "24h",
+            range: widget.range,
           );
 
           log(m).pair("allowed_buckets", allowedResponse.toplist.length);
@@ -1090,6 +1092,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'mainEntry': subdomainAsMain,
             'level': 3, // Fetch level 3 (exact hosts)
             'domain': subdomain.domainName, // Use subdomain as the domain context
+            'range': widget.range,
           });
         }
         // Level 3: Navigate to DomainDetailSection with level 4
@@ -1106,6 +1109,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'level': 4, // Fetch level 4 (if any more subdomains)
             'domain': subdomain.domainName,
             'fetchToplist': false, // Don't fetch at level 4 (final level)
+            'range': widget.range,
           });
         }
         // Level 4+: Do nothing (shouldn't happen, but just in case)

@@ -259,6 +259,7 @@ class TopDomainsState extends State<TopDomains> {
           'mainEntry': mainEntry,
           'level': 2, // Fetch level 2 (subdomains under this eTLD+1)
           'domain': domainName, // Domain to fetch subdomains for
+          'range': widget.range == ToplistRange.weekly ? "7d" : "24h",
         });
       },
       child: Padding(

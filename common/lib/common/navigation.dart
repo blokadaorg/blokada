@@ -132,6 +132,8 @@ class Navigation with Logging {
         final domain = args['domain'] as String? ?? mainEntry.domainName;
         final fetchToplist = args['fetchToplist'] as bool? ?? true;
 
+        final range = args['range'] as String? ?? "24h";
+
         return StandardRoute(
           settings: settings,
           builder: (context) => WithTopBar(
@@ -143,6 +145,7 @@ class Navigation with Logging {
               level: level,
               domain: domain,
               fetchToplist: fetchToplist,
+              range: range,
             ),
           ),
         );
