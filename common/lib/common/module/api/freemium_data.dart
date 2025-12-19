@@ -153,7 +153,7 @@ class FreemiumDataProvider {
   String _getDeviceData() {
     // Return consistent device data that matches what DeviceStore expects
     final device = <String, dynamic>{
-      'device_tag': 'b269cb',
+      'device_tag': '000000',
       'lists': [
         '05ea377c9a64cba97bf8a6f38cb3a7fa',
       ],

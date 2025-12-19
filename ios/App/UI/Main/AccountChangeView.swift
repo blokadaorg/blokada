@@ -157,7 +157,7 @@ struct AccountChangeScanView: View {
     var body: some View {
         return ZStack {
             // Use CodeScanner for iOS devices
-            CodeScannerView(codeTypes: [.qr], simulatedData: "mockedmocked", completion: self.handleScan)
+            CodeScannerView(codeTypes: [.qr], simulatedData: "", completion: self.handleScan)
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
