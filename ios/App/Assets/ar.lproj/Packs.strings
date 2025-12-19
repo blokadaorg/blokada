@@ -10,102 +10,102 @@
 //  @author Karol Gusak
 //
 
-"Ads and trackers blocking list" = "قائمة حظر الإعلانات والمُتعقِّبين";
-"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "هذا النظام النَشِط مصمَّم للأنظمة الشبيهة بـ Unix، يحصل على قائمة من النطاقات التي تخدم الإعلانات، يتتّبع البرامج النصيّة و البرمجيّات الضارة من مصادر متعدّدة مشهورة و ينشئ ملف مضيف يمنع نظامك من الإتصال بها. تنبيه، تثبيت التكوين \"Social\" قد يجعل تطبيقاتك الإجتماعيّة، مثل ماسنجر، لا يعمل بشكل طبيعي.";
-"Popular for adblocking" = "مشهور بحظر الإعلانات";
-"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "يَدمج و يوسِّع ملفّات المضيفين من العديد من المصادر المختارة بشكلٍ جيّد. يمكِنك إختيار ملحقات لحظْر الروابط الإباحيّة، وسائل التواصل الإجتماعي و غيرها من الفئات.";
-"Alternative blocklist with advanced features" = "قائمة حظر بديلة مع ميّزات متقدِّمة";
-"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "قائمة حظْر مع ملحقات فريدة للاختيار منها. كُن على عِلْم بأنّها أكثر عدوانيّة، و قد تَمنَع عمل التطبيقات أو المواقع. و تَحظر graph.facebook.com و mqtt-mini.facebook.com. يُمكِنك النظر في إدراجهم في القائمة البيضاء في قسم النشاط، في حالة مواجهة مشاكل مع تطبيقات الفيسبوك.";
-"Adblocking for your mobile device" = "حَظْر الإعلانات لجهازك المحمول";
-"A special blocklist containing mobile ad providers." = "قائمة حظر خاصّة تحتوي على مزوّدي إعلانات الجوال.";
-"Protects against cyber attacks" = "للحماية من الهجمات الإلكترونيّة";
-"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "قائمة حَظْر لتصفية مواقع التصيُّد الإحتيالي. التصيُّد ممارسة سيئة تقوم على إعادة التوجيه إلى مواقع مزيّفة، و التي تبدو بالضبط مثل الأصل، من أجل خداع الزوّار، و سرقة المعلومات الحسّاسة. تثبيت قائمة الحظْر هذه سيساعدك على منع مثل هذه الحالات.";
-"A new and expanding tracker database" = "قاعدة بيانات تعقُّب جديدة و موسّعة";
-"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar هي مجموعة بيانات الأفضل في فئتها حول المُتتبّعات التي يَتمّ إنشاؤها و صيانتها تلقائياً من خلال المسح والتحليل المستمر. راجع معلومات المالك للحصول على التفاصيل.";
-"Curated blocklist to block trackers and advertisements" = "قائمة الحظر المنظَّمة لمنع المتعقّبات و الإعلانات";
-"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "هذه قائمة حظر منتقاة و مُحافظة عليها جيّداً لمنع الإعلانات و التتبّع و أكثر! يتمّ تحديثها بانتظام.";
-"Analyzes privacy concerns in Android applications" = "تحليل مخاوف الخصوصيّة في تطبيقات أندرويد";
-"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "تستند قائمة الحظر هذه على مشروع الخصوصيّة Exodus ، الذي يُحلِّل تطبيقات أندرويد و يبحث عن أجهزة التتبع المُضمَّنة. المتعقِّب هو جزء من برنامج يهدف إلى جمع بيانات عنك أو عن ما تفعله. هذه قائمة صغيرة جدّاً ، لذا يجب عليك أيضاً تفعيل إحدى القوائم الأكثر شيوعاً (مثل Energized).";
-"A good general purpose blocklist" = "قائمة حَظْر جيدة للأغراض العامة";
-"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "حَظْر الإعلانات ، و التصيُّد الإحتيالي ، و البرامج الضّارة ، و برامج التجسّس ، و برامج الفدية ، و الإحتيال ، و القياس عن بُعد ، و التحليلات ، و التعقُّب (عند عدم الحاجة إلى الوظائف المناسبة) يجب ألّا تتدخَّل في التطبيقات و الخدمات العاديّة.";
-"A blocklist for ads and tracking, updated regularly" = "قائمة حظر للإعلانات و التتبُّع ، يتمّ تحديثها بانتظام";
-"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "خيار جيّد كقائمة الحظر الأساسيّة. إنها متوازنة ، متوسّطة الحجم، و يتمّ تحديثها باستمرار.";
+"Ads and trackers blocking list" = "قائمة حظر الإعلانات وأدوات التتبّع";
+"This Energized System is designed for Unix-like systems, gets a list of domains that serve ads, tracking scripts and malware from multiple reputable sources and creates a hosts file that prevents your system from connecting to them. Beware, installing \"Social\" configuration may make your social apps, like Messenger, misbehave." = "تم تصميم نظام Energized هذا للأنظمة الشبيهة بيونكس، حيث يحصل على قائمة من النطاقات التي تقدم إعلانات، وسكربتات تتبّع، وبرمجيات خبيثة من مصادر موثوقة متعددة وينشئ ملف hosts يمنع نظامك من الاتصال بها. يرجى الانتباه أن تفعيل إعداد \"الشبكات الاجتماعية\" قد يؤدي إلى خلل في بعض تطبيقات التواصل الاجتماعي مثل Messenger.";
+"Popular for adblocking" = "شائع في حظر الإعلانات";
+"Consolidating and Extending hosts files from several well-curated sources. You can optionally pick extensions to block Porn, Social Media, and other categories." = "دمج وتوسيع ملفات hosts من عدة مصادر موثوقة ومنتقاة. يمكنك اختيار امتدادات إضافية لحظر المواقع الإباحية، ومواقع التواصل الاجتماعي، وفئات أخرى اختياريًا.";
+"Alternative blocklist with advanced features" = "قائمة بديلة للحظر مع ميزات متقدمة";
+"A blocklist with unique extensions to choose from. Be aware it is more aggressive, and may break apps or sites. It blocks graph.facebook.com and mqtt-mini.facebook.com. You may consider whitelisting them in the Activity section, in case you experience problems with Facebook apps." = "قائمة حظر تحتوي على امتدادات فريدة للاختيار من بينها. انتبه فهي أكثر صرامة، وقد تتسبب بتعطّل تطبيقات أو مواقع. تحظر graph.facebook.com وmqtt-mini.facebook.com. بإمكانك التفكير بإضافتها إلى القائمة البيضاء في قسم النشاط إذا واجهت مشاكل مع تطبيقات فيسبوك.";
+"Adblocking for your mobile device" = "حظر الإعلانات لهاتفك المحمول";
+"A special blocklist containing mobile ad providers." = "قائمة حظر خاصة تحتوي مزودي إعلانات الهواتف المحمولة.";
+"Protects against cyber attacks" = "يحمي ضد الهجمات الإلكترونية";
+"A blocklist to filter phishing websites. Phishing is a malpractice based on redirecting to fake websites, which look exactly like the original ones, in order to trick visitors, and steal sensitive information. Installing this blocklist will help you prevent such situations." = "قائمة حظر لتصفية مواقع التصيد الاحتيالي. التصيد هو ممارسة سيئة تقوم على إعادة تحويل الضحية إلى مواقع وهمية تشبه المواقع الأصلية بهدف خداع الزوار وسرقة معلوماتهم الحساسة. تثبيت قائمة الحظر هذه سيساعدك في منع تلك الحالات.";
+"A new and expanding tracker database" = "قاعدة بيانات متعقّبات جديدة ومتنامية";
+"DuckDuckGo Tracker Radar is a best-in-class data set about trackers that is automatically generated and maintained through continuous crawling and analysis. See the author information for details." = "DuckDuckGo Tracker Radar هو أفضل مجموعة بيانات حول أدوات التتبع، يتم إنشاؤها وصيانتها تلقائيًا من خلال الزحف والتحليل المستمر. راجع معلومات المؤلف للتفاصيل.";
+"Curated blocklist to block trackers and advertisements" = "قائمة حظر منسقة لحظر أدوات التتبّع والإعلانات";
+"This is a curated and well-maintained blocklist to block ads, tracking, and more! Updated regularly." = "هذه قائمة حظر منسقة وذات صيانة جيدة لحظر الإعلانات والتتبّع وأكثر من ذلك! يتم تحديثها بانتظام.";
+"Analyzes privacy concerns in Android applications" = "يحلل مخاطر الخصوصية في تطبيقات أندرويد";
+"This blocklist is based on The Exodus Privacy project, which analyses Android applications and looks for embedded trackers. A tracker is a piece of software meant to collect data about you, or what you do. This is a very small list, so you should also activate one of the more popular lists (like Energized)." = "تعتمد قائمة الحظر هذه على مشروع Exodus Privacy، والذي يحلل تطبيقات أندرويد ويبحث عن أدوات تتبع مدمجة بداخلها. أداة التتبع هي برنامج يجمع بيانات عنك أو عن نشاطاتك. هذه قائمة صغيرة جدًا، لذا يُنصح بتفعيل إحدى القوائم الأكثر شعبية (مثل Energized) أيضًا.";
+"A good general purpose blocklist" = "قائمة حظر جيدة للأغراض العامة";
+"Blocks ads, phishing, malware, spyware, ransomware, scam, telemetry, analytics, tracking (where not needed for proper functionality). Should not interfere with normal apps and services." = "تحظر الإعلانات، الاحتيال، البرمجيات الخبيثة، برامج التجسس، برامج الفدية، النصب، القياس عن بعد، التحليلات، والتتبع (عند عدم الحاجة لها لوظائف التطبيق أو الموقع). لا يجب أن تؤثر سلبًا على التطبيقات أو الخدمات العادية.";
+"A blocklist for ads and tracking, updated regularly" = "قائمة حظر للإعلانات والتتبع يتم تحديثها بانتظام";
+"This is a good choice as the primary blocklist. It's well balanced, medium size, and frequently updated." = "هذا خيار جيد كقائمة الحظر الأساسية. متوازنة بشكل جيد، بحجم متوسط، وتُحدّث بشكل متكرر.";
 "A collection of blocklists for various use cases." = "مجموعة من قوائم الحظر لمختلف حالات الاستخدام.";
-"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسّس المشروع أراد شيئاً يتمتّع بقدر أكبر من التحكّم في ما يتمّ حظْره.";
-"A blocklist based on spam reports" = "قائمة حظْر تستند إلى تقارير البريد المزعج";
-"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى و اختبار الإختراق و حماية العلامة التجاريّة. تستند هذه القائمة على التقارير الواردة من الشركات.";
-"A comprehensive lists to block ads and tracking" = "قوائم شاملة لمنع الإعلانات و التعقّب";
-"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock هي قائمة من النطاقات التي تخدم الإعلانات، و التعقّب و البرامج النصيّة و البرمجيات الخبيثة. و تمنع جهازك من الاتصال بها.";
-"A general purpose, medium weight list" = "قائمة متوسّطة الوزن للأغراض العامّة";
-"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "تحظر هذه القائمة المحتوى الخبيث و المخادع الضار ، مثل الإعلان و التتبّع و القياس عن بُعد و الإحتيال و خوادم البرامج الضارّة. لا تحظر هذه القائمة المواد الإباحيّة أو وسائل التواصل الاجتماعي أو ما يُسمّى بمواقع الأخبار المزيّفة. يهدف CPBL إلى توفير قوائم الحظر التي توفّر حماية شاملة ، مع الحفاظ على حجمها و نطاقها المعقول.";
-"A reasonably balanced ad blocking hosts file" = "ملف مضيفات متوازنة بشكل معقول لحظر الإعلانات";
-"This is a well known, general purpose blocklist of small size, updated regularly." = "هذه قائمة حظر معروفة جيّداً للأغراض العامّة و صغيرة الحجم ، يتمّ تحديثها بانتظام.";
-"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "حماية البيانات الخاصّة بك من أن يتم بيعها بالمزاد لمن يدفع أعلى سعر. الرجاء اختيار التكوين الخفيف أوّلاً. إذا لم يكن ذلك جيّداً بما يكفي بالنسبة لك ، فجرّب Pro بدلاً من ذلك.";
-"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "هذه القائمة الشاملة تعمل على حظر الإعلانات و إعلانات تطبيقات الجوّال بشكل أساسي. من المفترض ألا تتداخل مع التطبيقات و الخدمات العادية.";
-"A blocklist based on malware database" = "قائمة حظر تستند على قاعدة بيانات البرامج الضّارة";
-"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "قائمة حظر بالمواقع الإلكترونيّة الخبيثة التي يتمّ استخدامها لتوزيع البرامج الضارة ، تستند على urlhaus.abuse.ch.";
-"A blocklist from the maker of the adblocker test" = "قائمة حظر من صانع اختبار مانع الإعلانات";
-"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "هذه قائمة الحظر الرسميّة من d3ward ، صانع موقع اختبار Adblocker الشهير. من المفترض أن تحقق درجة 100٪ في الاختبار. ضع في اعتبارك ، هذه قائمة الحدّ الأدنى. قد ترغب في استخدامها مع قائمة حظر أُخرى نشطة. إذا كنت ترغب في إجراء الاختبار ، فما عليك سوى زيارة go.blokada.org/test";
+"These lists were created because the founder of the project wanted something with a little more control over what is being blocked." = "تم إنشاء هذه القوائم لأن مؤسس المشروع أراد المزيد من التحكم في ما يتم حظره.";
+"A blocklist based on spam reports" = "قائمة حظر مبنية على تقارير الرسائل المزعجة";
+"Spam404 is a service that helps online companies with content monitoring, penetration testing and brand protection. This list is based on the reports received from companies." = "Spam404 هي خدمة تساعد الشركات عبر الإنترنت في مراقبة المحتوى، واختبار الاختراق، وحماية العلامة التجارية. هذه القائمة مبنية على تقارير الشركات.";
+"A comprehensive lists to block ads and tracking" = "قائمة شاملة لحظر الإعلانات وأدوات التتبع";
+"hBlock is a list with domains that serve ads, tracking scripts and malware. It prevents your device from connecting to them." = "hBlock هي قائمة تحتوي على نطاقات تقدم الإعلانات وسكربتات التتبّع والبرمجيات الخبيثة. تمنع جهازك من الاتصال بتلك النطاقات.";
+"A general purpose, medium weight list" = "قائمة متوسطة وقابلة للاستخدام العام";
+"This list blocks malicious and harmfully deceptive content, like advertising, tracking, telemetry, scam, and malware servers. This list does not block porn, social media, or so-called fake news domains. CPBL aims to provide block lists that offer comprehensive protection, while remaining reasonable in size and scope." = "تحظر هذه القائمة المحتوى الضار والخادع مثل الإعلانات، والتتبع، والقياس عن بعد، والنصب، وسيرفرات البرمجيات الخبيثة. لا تحظر هذه القائمة المواقع الإباحية أو مواقع التواصل الاجتماعي أو ما يسمى بمواقع الأخبار المزيفة. تهدف CPBL لتوفير قوائم حظر بحماية شاملة مع الحفاظ على حجم ونطاق معقولين.";
+"A reasonably balanced ad blocking hosts file" = "ملف hosts لحظر الإعلانات بشكل متوازن ومعقول";
+"This is a well known, general purpose blocklist of small size, updated regularly." = "هذه قائمة حظر صغيرة شهيرة للأغراض العامة، تُحدّث بانتظام.";
+"Protect your data & eyeballs from being auctioned to the highest bidder. Please choose Light configuration first. If it is not good enough for you, try Pro instead." = "احمِ بياناتك وأسلوب تصفحك من أن يتم عرضهما في مزاد لأعلى مزايد. يرجى اختيار إعداد Light أولًا. إذا لم يكن كافيًا بالنسبة لك، جرب إعداد Pro.";
+"This universal list primarily blocks ads, and mobile app ads. Should not interfere with normal apps and services." = "هذه القائمة العامة تحظر الإعلانات بشكل رئيسي وإعلانات تطبيقات الجوال. لا يجب أن تؤثر على التطبيقات أو الخدمات الاعتيادية.";
+"A blocklist based on malware database" = "قائمة للحظر مبنية على قاعدة بيانات برمجيات خبيثة";
+"A blocklist of malicious websites that are being used for malware distribution, based on urlhaus.abuse.ch." = "قائمة حظر لمواقع الويب الخبيثة التي تُستخدم في نشر البرمجيات الخبيثة، بناءً على urlhaus.abuse.ch.";
+"A blocklist from the maker of the adblocker test" = "قائمة حظر من مطوّر اختبار مانع الإعلانات";
+"This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "هذه هي قائمة الحظر الرسمية من d3ward، مطوّر موقع اختبار مانع الإعلانات الشهير. تهدف لتحقيق نتيجة 100٪ في الاختبار. لاحظ أن هذه القائمة هي الحد الأدنى. قد ترغب في استخدامها مع قائمة حظر أخرى فعالة. إذا أردت إجراء الاختبار، فقط قم بزيارة go.blokada.org/test";
 // Family packs (shields) below
 // Name of the Ads shield
-"Ads" = "الإعلانات";
-"Blocks advertisements and tracking" = "كتل الإعلانات والتتبع";
-"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "القضاء على الإعلانات الاقتحامية وتتبع الويب. يعزز سرعة التصفح ويحمي خصوصية المستخدم.";
+"Ads" = "إعلانات";
+"Blocks advertisements and tracking" = "يحظر الإعلانات وأدوات التتبّع";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "يقوم بإزالة الإعلانات المزعجة وتتبع الويب. يعزز سرعة التصفح ويحمي خصوصية المستخدم.";
 // Name of the Malware shield
-"Malware" = "Malware";
-"Protects against malicious software" = "الحماية من البرمجيات الضارة";
-"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "يدافع ضد البرمجيات الخبيثة والمواقع الضارة. يوفر درعا آمنا ضد طائفة من التهديدات الإلكترونية.";
+"Malware" = "برمجيات خبيثة";
+"Protects against malicious software" = "يحمي من البرمجيات الخبيثة";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "يدافع ضد البرمجيات الخبيثة والمواقع الضارة. يوفر درعًا آمنًا ضد مجموعة من التهديدات الإلكترونية.";
 // Name of the Porn shield
 "Adult Content" = "محتوى للبالغين";
-"Blocks adult and pornographic content" = "حظر المحتوى الكباري والإباحي للكبار";
-"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "هذا الفلتر يستهدف محتوى الكبار للحصول على تجربة أكثر أماناً على الإنترنت. يحمي المستخدمين من المواد الواضحة والمخاطر المحتملة.";
+"Blocks adult and pornographic content" = "يحظر المحتوى الإباحي والفاضح";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "يستهدف هذا الفلتر المحتوى المخصص للبالغين لتجربة إنترنت أكثر أمانًا. يحمي المستخدمين من المواد الفاضحة والمخاطر المحتملة.";
 // Name of the Dating shield
-"Dating" = "تاريخ";
-"Blocks dating and relationship-seeking websites" = "مواقع التواريخ و البحث عن العلاقات";
-"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "مصممة لتقييد منصات التواريخ عبر الإنترنت. توفر الحماية من التشتت والتفاعلات غير المرغوب فيها.";
+"Dating" = "مواعدة";
+"Blocks dating and relationship-seeking websites" = "يحظر مواقع المواعدة والبحث عن العلاقات";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "مصمم لتقييد منصات المواعدة عبر الإنترنت. يوفر حماية من مصادر التشتت والتفاعلات غير المرغوب فيها.";
 // Name of the Gambling shield
-"Gambling" = "المقامرة";
-"Blocks gambling-related content and websites" = "حظر المحتويات والمواقع المتعلقة بالألعاب";
-"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "يحرم من الوصول إلى منصات القمار والمحتوى. يساعد في منع الإدمان وضمان السلامة المالية.";
+"Gambling" = "مقامرة";
+"Blocks gambling-related content and websites" = "يحظر محتوى ومواقع المقامرة";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "يمنع الوصول إلى منصات ومحتوى المقامرة. يساعد في الوقاية من الإدمان وضمان الأمان المالي.";
 // Name of the Piracy shield
-"Piracy" = "القرصنة";
-"Blocks piracy websites and related content" = "منع مواقع القرصنة وما يتصل بها من محتوى";
-"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "تمنع مواقع القرصنة غير المأذون بها والمنصات ذات الصلة بها. تحمي الملكية الفكرية وتقلل من مخاطر التنزيل الضارة.";
+"Piracy" = "قرصنة";
+"Blocks piracy websites and related content" = "يحظر مواقع وخدمات القرصنة والمحتوى المرتبط بها";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "يحظر مواقع القرصنة غير المصرح بها والمنصات ذات الصلة. يحمي الملكية الفكرية ويقلل من مخاطر التحميل الضار.";
 // Name of the Video streaming shield
-"Video streaming" = "بث الفيديو";
-"Blocks popular video streaming platforms" = "حظر منصات بث الفيديو الشائعة";
-"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "تقييد الوصول إلى أعلى خدمات بث الفيديو. مصمم للمستخدمين الراغبين في إدارة عادات العرض وحفظ عرض الترددات.";
+"Video streaming" = "بث فيديو";
+"Blocks popular video streaming platforms" = "يحظر منصات بث الفيديو الشهيرة";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "يقلل إمكانية الوصول إلى أشهر خدمات بث الفيديو. مُخصص للمستخدمين الراغبين في إدارة عادات المشاهدة وتوفير النطاق الترددي.";
 // Name of the Streaming apps shield
-"Streaming" = "البث المباشر";
-"Blocks streaming apps and related content" = "حظر تطبيقات البث والمحتوى ذي الصلة";
-"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "يميز مجموعة منتقاة من تطبيقات البث الشائعة. يسمح بالتحكم في استهلاك الوسائط.";
+"Streaming" = "البث";
+"Blocks streaming apps and related content" = "يحظر تطبيقات البث والمحتوى المرتبط بها";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "يحتوي على مجموعة من أشهر تطبيقات البث. يوفر تحكمًا دقيقًا في استهلاك الوسائط.";
 // Name of the Social media shield
 "Social media" = "وسائل التواصل الاجتماعي";
-"Restricts access to social networking platforms" = "تقييد الوصول إلى منصات الشبكات الاجتماعية";
-"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "الحد من الوصول إلى مختلف مناهج وسائط الإعلام الاجتماعية - المثالية لتعزيز التركيز على العمل وتخفيف استخدام الأطفال.";
+"Restricts access to social networking platforms" = "يقيّد الوصول إلى منصات التواصل الاجتماعي";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "يحد من الوصول إلى مختلف منصات التواصل الاجتماعي. مثالي لتحسين التركيز في العمل وتنظيم استخدام الأطفال.";
 // Name of the Chat apps shield
 "Chat apps" = "تطبيقات الدردشة";
-"Restricts popular messaging and chat applications" = "تقييد تطبيقات الرسائل والدردشة الشائعة";
-"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "هذا الدرع مصمم لمنع تطبيقات الرسائل والدردشة المستخدمة على نطاق واسع. مثالي لأولئك الذين يرغبون في التحكم بقنوات اتصالاتهم.";
+"Restricts popular messaging and chat applications" = "يقيّد تطبيقات المراسلة والدردشة الشهيرة";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "هذا الدرع مصمم لحظر تطبيقات المراسلة والدردشة الأكثر انتشارًا. مناسب لمن يرغب في التحكم بقنوات التواصل الخاصة به.";
 // Name of the Gaming shield
-"Gaming" = "ألعاب";
-"Blocks gaming platforms and related content" = "حظر منصات الألعاب والمحتوى ذي الصلة";
-"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "تقيد مواقع الألعاب على الإنترنت وما يتصل بها من تشتيت. مصممة للمستخدمين الذين يريدون أسلوب حياة رقمي متوازن.";
+"Gaming" = "ألعاب إلكترونية";
+"Blocks gaming platforms and related content" = "يحظر منصات الألعاب والمحتوى المرتبط بها";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "يقيّد مواقع الألعاب عبر الإنترنت ومصادر التشتت. صُمم للمستخدمين الباحثين عن توازن في الحياة الرقمية.";
 // Name of the Games shield
 "Games" = "ألعاب";
-"Restricts access to popular games" = "تقييد الوصول إلى الألعاب الشهيرة";
-"Showcases top gaming applications. Ideal for users desiring precise game access control." = "عرض تطبيقات الألعاب العليا. مثالي للمستخدمين الذين يرغبون في التحكم بدقة في دخول اللعبة.";
+"Restricts access to popular games" = "يقيّد الوصول إلى الألعاب الشهيرة";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "يعرض أبرز تطبيقات الألعاب. مثالي لمن يرغب في تحكم دقيق في الوصول للألعاب.";
 // Name of the Online shopping apps shield
 "Online shopping" = "التسوق عبر الإنترنت";
-"Blocks leading e-commerce and shopping applications" = "حظر تطبيقات التجارة الإلكترونية والتسوق";
-"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "هذا الدرع يمنع الوصول إلى تطبيقات التسوق الشائعة. إنه يساعد المستخدمين في كبح عمليات شراء أو تشتيت النوافذ.";
+"Blocks leading e-commerce and shopping applications" = "يحظر تطبيقات التسوق والتجارة الإلكترونية الرائدة";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "يمنع هذا الدرع الوصول إلى تطبيقات التسوق الشائعة. يساعد المستخدمين على الحد من الشراء الفوري أو مصادر التشتت.";
 // Name of the Miscellaneous apps shield
 "Other apps" = "تطبيقات أخرى";
-"A selection of various popular applications" = "مجموعة مختارة من التطبيقات الشائعة المختلفة";
-"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "يوفر هذا الدرع قائمة من التطبيقات الشائعة من مختلف الأنواع. تم إنشاؤها للمستخدمين بهدف التحكم في التطبيق بشكل أكثر شمولا.";
+"A selection of various popular applications" = "تشكيلة متنوعة من التطبيقات الشهيرة";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "يقدم هذا الدرع قائمة بتطبيقات متنوعة وشهيرة. مُخصص للمستخدمين الذين يسعون للتحكم الشامل في التطبيقات.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "البحث الآمن";
-"Enable safe search to filter out inappropriate search results in search engines." = "فعّل البحث الآمن لتصفية نتائج البحث غير الملائمة في محركات البحث.";
+"Safe search" = "بحث آمن";
+"Enable safe search to filter out inappropriate search results in search engines." = "فعّل البحث الآمن لتصفية النتائج غير الملائمة في محركات البحث.";
 // Filter name, the basic choice
 "Primary" = "أساسي";
 // Filter name, additional choice
@@ -115,4 +115,4 @@
 // Filter name, blocks torrent sites
 "Torrent" = "تورنت";
 // Filter name, blocks online gaming
-"Online gaming" = "الألعاب عبر الإنترنت";
+"Online gaming" = "ألعاب على الإنترنت";

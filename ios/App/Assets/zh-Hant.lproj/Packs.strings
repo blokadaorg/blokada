@@ -48,71 +48,71 @@
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "這是 d3ward，也就是知名濾廣告工具測試站作者的官方阻擋清單。其主要用途是用來在測試中獲得 100 分的成績。注意，這清單內容不多，可能會需要與其他啟用的阻擋清單相互搭配。若要進行測試，請前往 go.blokada.org/test";
 // Family packs (shields) below
 // Name of the Ads shield
-"Ads" = "Ads";
-"Blocks advertisements and tracking" = "Blocks advertisements and tracking";
-"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy.";
+"Ads" = "廣告";
+"Blocks advertisements and tracking" = "封鎖廣告和追蹤";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "消除侵入式廣告與網路追蹤。提升瀏覽速度並保護使用者隱私。";
 // Name of the Malware shield
-"Malware" = "Malware";
-"Protects against malicious software" = "Protects against malicious software";
-"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.";
+"Malware" = "惡意軟體";
+"Protects against malicious software" = "防護惡意軟體攻擊";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "防禦惡意軟體和有害網站。為您提供對抗各種網路威脅的安全防護。";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
-"Blocks adult and pornographic content" = "Blocks adult and pornographic content";
-"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.";
+"Adult Content" = "成人內容";
+"Blocks adult and pornographic content" = "封鎖成人與色情內容";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "此過濾器針對成人內容，提供更安全的線上體驗。保護使用者免受露骨內容與潛在風險。";
 // Name of the Dating shield
-"Dating" = "Dating";
-"Blocks dating and relationship-seeking websites" = "Blocks dating and relationship-seeking websites";
-"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions.";
+"Dating" = "交友";
+"Blocks dating and relationship-seeking websites" = "封鎖交友及尋找伴侶的網站";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "專為限制線上交友平台而設計。可防止潛在干擾與不必要的互動。";
 // Name of the Gambling shield
-"Gambling" = "Gambling";
-"Blocks gambling-related content and websites" = "Blocks gambling-related content and websites";
-"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety.";
+"Gambling" = "賭博";
+"Blocks gambling-related content and websites" = "封鎖與賭博相關的內容與網站";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "拒絕存取賭博平台及其內容。協助防止成癮並保障財務安全。";
 // Name of the Piracy shield
-"Piracy" = "Piracy";
-"Blocks piracy websites and related content" = "Blocks piracy websites and related content";
-"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks.";
+"Piracy" = "盜版";
+"Blocks piracy websites and related content" = "封鎖盜版網站與相關內容";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "封鎖未授權的盜版網站與平台。保護智慧財產權並減少有害下載風險。";
 // Name of the Video streaming shield
-"Video streaming" = "Video streaming";
-"Blocks popular video streaming platforms" = "Blocks popular video streaming platforms";
-"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth.";
+"Video streaming" = "影片串流";
+"Blocks popular video streaming platforms" = "封鎖熱門影片串流平台";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "限制存取熱門影片串流服務。適合想要管理觀看習慣及節省頻寬的使用者。";
 // Name of the Streaming apps shield
-"Streaming" = "Streaming";
-"Blocks streaming apps and related content" = "Blocks streaming apps and related content";
-"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Features a curated selection of popular streaming apps. Allows granular control over media consumption.";
+"Streaming" = "串流";
+"Blocks streaming apps and related content" = "封鎖串流應用程式及相關內容";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "精選熱門串流應用程式。允許對媒體消費進行細緻控制。";
 // Name of the Social media shield
-"Social media" = "Social media";
-"Restricts access to social networking platforms" = "Restricts access to social networking platforms";
-"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage.";
+"Social media" = "社群媒體";
+"Restricts access to social networking platforms" = "限制對社群網路平台的存取";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "限制對各種社群媒體平台的存取。適合增強工作專注與調節兒童使用習慣。";
 // Name of the Chat apps shield
-"Chat apps" = "Chat apps";
-"Restricts popular messaging and chat applications" = "Restricts popular messaging and chat applications";
-"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels.";
+"Chat apps" = "聊天應用程式";
+"Restricts popular messaging and chat applications" = "限制熱門即時通訊及聊天應用程式";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "本防護專為阻擋廣泛使用的即時通訊與聊天應用程式而設計。非常適合想要控制通訊管道的使用者。";
 // Name of the Gaming shield
-"Gaming" = "Gaming";
-"Blocks gaming platforms and related content" = "Blocks gaming platforms and related content";
-"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle.";
+"Gaming" = "遊戲";
+"Blocks gaming platforms and related content" = "封鎖遊戲平台及相關內容";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "限制線上遊戲網站及相關干擾。專為追求數位生活平衡的使用者設計。";
 // Name of the Games shield
-"Games" = "Games";
-"Restricts access to popular games" = "Restricts access to popular games";
-"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Showcases top gaming applications. Ideal for users desiring precise game access control.";
+"Games" = "遊戲";
+"Restricts access to popular games" = "限制對熱門遊戲的存取";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "展示頂尖遊戲應用程式。非常適合需要精確控制遊戲存取的使用者。";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
-"Blocks leading e-commerce and shopping applications" = "Blocks leading e-commerce and shopping applications";
-"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.";
+"Online shopping" = "線上購物";
+"Blocks leading e-commerce and shopping applications" = "封鎖主流電商與購物應用程式";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "本防護可防止存取常見購物應用程式。協助使用者克制衝動消費或減少分心。";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
-"A selection of various popular applications" = "A selection of various popular applications";
-"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.";
+"Other apps" = "其他應用程式";
+"A selection of various popular applications" = "各種熱門應用程式精選";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "此防護提供各類型熱門應用程式列表。專為追求更全面應用程式管控的使用者打造。";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Safe search" = "安全搜尋";
+"Enable safe search to filter out inappropriate search results in search engines." = "啟用安全搜尋以過濾搜尋引擎中的不當搜尋結果。";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "主要";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "擴展";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "檔案寄存";
 // Filter name, blocks torrent sites
-"Torrent" = "Torrent";
+"Torrent" = "種子";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "線上遊戲";

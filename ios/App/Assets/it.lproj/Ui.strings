@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Mostrando per: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Solo Partita Esatta";
+"activity filter exact match" = "Solo Corrispondenza Esatta";
 "activity empty text" = "Usa il tuo dispositivo e torna qui più tardi, per vedere dove si è connesso.";
 "activity device filter show all" = "Tutti i dispositivi";
 "activity retention header" = "Vuoi che conserviamo la tua attività?";
@@ -773,45 +773,45 @@
 "bypass dialog add brief" = "Inizia a digitare per cercare le app.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essenziale";
-"freemium home status desc safari" = "La protezione essenziale è attiva in Safari. Passa alla versione completa per coprire tutte le app.";
+"freemium home status header" = "Base";
+"freemium home status desc safari" = "La protezione base è attiva in Safari. Passa alla versione completa per coprire tutte le app.";
 
-"freemium stats cta header" = "Sblocca il controllo completo del tracciamento";
-"freemium stats cta desc" = "Scopri quali tracker ti raggiungono — e blocca tutto.";
+"freemium stats cta header" = "Sblocca il controllo completo";
+"freemium stats cta desc" = "Scopri quali tracker ti spiano — e blocca tutto.";
 "freemium filters cta header" = "Sblocca le liste di blocco avanzate";
 "freemium filters cta desc" = "Aggiorna il piano per attivare la protezione avanzata e liste di blocco extra.";
 "freemium activity cta header" = "Sblocca le tue statistiche";
 "freemium activity cta desc" = "Passa a Plus per accedere a statistiche e approfondimenti dettagliati.";
 
 "freemium sheet safari header" = "Inizia a bloccare gli annunci su Safari";
-"freemium sheet safari desc" = "Attiva la nostra estensione su Safari per ottenere una protezione essenziale durante la navigazione. Blocca gli annunci fastidiosi — inclusi quelli video su YouTube — per un’esperienza web più pulita e veloce.";
+"freemium sheet safari desc" = "Attiva la nostra estensione su Safari per ottenere una protezione base durante la navigazione. Blocca gli annunci fastidiosi — inclusi quelli video su YouTube — per un’esperienza web più pulita e veloce.";
 "freemium sheet safari cta" = "Apri Safari";
 
-"dialog title activity rule" = "Come dovrebbe Blokada gestire il traffico verso %@?";
+"dialog title activity rule" = "In che modo Blokada dovrebbe gestire il traffico verso %@?";
 "dialog exception add title" = "Aggiungi un'eccezione";
-"dialog exception add text" = "Inserisci un hostname da aggiungere alle tue eccezioni. Puoi usare * come wildcard, ad esempio *.example.com.";
+"dialog exception add text" = "Inserisci un hostname da aggiungere alle tue eccezioni. Puoi usare * come carattere jolly, ad esempio *.example.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Dettagli dominio";
+"domain details section header" = "Dettagli";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Le tue regole personalizzate";
+"domain details rules section header" = "Regole personalizzate";
 "domain details add rule action" = "Aggiungi una regola";
 "domain details add rule brief" = "Crea una regola per questo dominio.";
 // A button do edit rule that has been found for given domain
 "domain details edit rule action" = "Modifica la regola corrispondente";
 // A short text for matching rule, like "Matches *.example.com"
 "domain details edit rule brief" = "Si applica a %@.";
-"domain details action search subdomains" = "Cerca Sottodomini";
+"domain details action search subdomains" = "Cerca sottodomini";
 // Just one word header for Subdomains section
 "domain details header subdomains" = "Sottodomini";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Sono state bloccate %@ richieste a %@.";
-"domain details summary allowed basic" = "Sono state permesse %@ richieste a %@.";
-"domain details summary blocked basic customlist" = "Le tue regole hanno bloccato %@ richieste a %@.";
-"domain details summary allowed basic customlist" = "Le tue regole hanno permesso %@ richieste a %@.";
-"domain details summary blocked basic list" = "Sono state bloccate %@ richieste a %@ usando %@.";
-"domain details summary allowed basic list" = "Sono state permesse %@ richieste a %@ usando %@.";
+"domain details summary blocked basic" = "Sono state bloccate %@ richieste da %@.";
+"domain details summary allowed basic" = "Sono state permesse %@ richieste da %@.";
+"domain details summary blocked basic customlist" = "Le tue regole hanno bloccato %@ richieste da %@.";
+"domain details summary allowed basic customlist" = "Le tue regole hanno permesso %@ richieste da %@.";
+"domain details summary blocked basic list" = "Sono state bloccate %@ richieste da %@ usando %@.";
+"domain details summary allowed basic list" = "Sono state permesse %@ richieste da %@ usando %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
 "domain details summary blocked subdomain" = "Sono state bloccate %@ richieste ai sottodomini di %@.";
@@ -822,20 +822,19 @@
 "domain details summary allowed subdomain list" = "Sono state permesse %@ richieste ai sottodomini di %@ usando %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Sono state bloccate %@ richieste a %@ e %@ richieste ai suoi sottodomini.";
-"domain details summary allowed both" = "Sono state permesse %@ richieste a %@ e %@ richieste ai suoi sottodomini.";
-"domain details summary blocked both customlist" = "Le tue regole hanno bloccato %@ richieste a %@ e %@ richieste ai suoi sottodomini.";
-"domain details summary allowed both customlist" = "Le tue regole hanno permesso %@ richieste a %@ e %@ richieste ai suoi sottodomini.";
-"domain details summary blocked both list" = "Sono state bloccate %@ richieste a %@ e %@ richieste ai suoi sottodomini usando %@.";
-"domain details summary allowed both list" = "Sono state permesse %@ richieste a %@ e %@ richieste ai suoi sottodomini usando %@.";
+"domain details summary blocked both" = "Sono state bloccate %@ richieste da %@ e %@ ai suoi sottodomini.";
+"domain details summary allowed both" = "Sono state permesse %@ richieste da %@ e %@ ai suoi sottodomini.";
+"domain details summary blocked both customlist" = "Le tue regole hanno bloccato %@ richieste da %@ e %@ ai suoi sottodomini.";
+"domain details summary allowed both customlist" = "Le tue regole hanno permesso %@ richieste da %@ e %@ ai suoi sottodomini.";
+"domain details summary blocked both list" = "Sono state bloccate %@ richieste da %@ e %@ ai suoi sottodomini usando %@.";
+"domain details summary allowed both list" = "Sono state permesse %@ richieste da %@ e %@ ai suoi sottodomini usando %@.";
 
 // Param: domain name
 "domain details summary none" = "Nessuna richiesta a %@ o ai suoi sottodomini.";
 
 // A rule name to use default configuration
 "dialog rule auto" = "Usa protezione automatica";
-"dialog rule auto desc" = "Blocca o consenti questo dominio secondo i filtri selezionati.
-(Impostazione predefinita)";
+"dialog rule auto desc" = "Blocca o consenti questo dominio secondo i filtri selezionati.\n(Impostazione predefinita)";
 
 "dialog rule domain block" = "Blocca sempre questo dominio";
 // Param: domain name
@@ -851,17 +850,17 @@
 
 "dialog rule subdomains allow" = "Consenti sempre questo dominio e i suoi sottodomini";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Permetti traffico ad %@ e ogni sottodominio sotto di esso.";
+"dialog rule subdomains desc allow" = "Permetti traffico verso %@ e ad ogni suo sottodominio.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
 "privacy pulse section header" = "Pulse";
-"privacy pulse brief" = "Vedere le attività recenti e lo stato di protezione di questo dispositivo.";
+"privacy pulse brief" = "Vedi le attività recenti e lo stato di protezione di questo dispositivo.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Principali domini";
+"privacy pulse toplists header" = "Domini principali";
 // A header for Recent Activity section (shows user activity)
 "privacy pulse recents header" = "Attività recenti";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "24h";
+"privacy pulse timespan 24h" = "24 ore";
 // Action to show all entries. Keep it very short. Can be 'More'.
 "privacy pulse timespan show all" = "Mostra tutto";
 // A tab name for Blocked entries

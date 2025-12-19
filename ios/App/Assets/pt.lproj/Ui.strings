@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Revoke";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Adicionar";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Fale conosco";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Finalizar";
+"support placeholder" = "Pergunte sobre qualquer coisa que queira saber!";
+"support error generic" = "Desculpe, não entendi. Pode repetir?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "Por favor reinicie o aplicativo para que as alterações tenham efeito.";
 "universal status redirect" = "Continuar com a aplicação Blokada";
 "universal status confirm" = "Tem certeza que deseja continuar?";
-"universal status loading" = "Loading...";
+"universal status loading" = "A carregar...";
 
 "alert error header" = "Opa!";
 "alert vpn expired header" = "BLOKADA+ expirado";
@@ -166,9 +166,9 @@
 "home power action turn on" = "Ativar";
 "home power action turn off" = "Desativar";
 "home power action pause" = "Pausar por 5 min";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Pausar por 5 minutos";
+"home power action off all" = "Desativar toda a proteção";
+"home power pause status active" = "O bloqueio de anúncios está ativo";
 
 "home status paused" = "Pausado";
 "home status active" = "Ativo";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Mostrando para: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "Somente correspondência exata";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver a onde o seu dispositivo se conecta.";
 "activity device filter show all" = "Todos os dispositivos";
 "activity retention header" = "Devemos armazenar sua atividade?";
@@ -282,7 +282,7 @@
 "account action inbox" = "Recebidas";
 "account action logout" = "Restaurar compra";
 "account action logout only" = "Efetuar logout";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Restaurar ID da conta";
 "account action create" = "Gerar nova conta";
 "account action about" = "Sobre";
 "account action tap to show" = "Toque para mostrar";
@@ -370,7 +370,7 @@
 "payment action terms" = "Termos de Serviço";
 "payment action policy" = "Política de Privacidade";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Aplicar código de oferta";
 "payment alert error header" = "Uma mensagem da App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Você está salvando %@";
@@ -666,20 +666,20 @@
 "family perms setting ios automatic" = "Automático";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Conexões";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Mais configurações de conexão";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "DNS privado";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Nome do host do provedor de DNS privado";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(ou similar)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(nem sempre presente)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "Por fim, toque e segure o campo de texto para colar a configuração necessária.";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "Motivo";
@@ -750,14 +750,15 @@
 
 "family account restore desc" = "Introduza o ID da sua conta para recuperar as suas compras.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Sua conta foi restaurada com sucesso. Bem-vindo(a) de volta!";
 
 "notification new message title" = "Nova mensagem";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "Sem mais anúncios.
+Sério.";
+"onboard desc" = "Bloqueie anúncios e rastreadores em todos os lugares com nosso app premium. Aproveite navegação mais rápida, mais privacidade e menor uso de dados.";
+"onboard terms" = "Ao continuar, você aceita nossos Termos de Serviço e confirma o recebimento de nossa Política de Privacidade.";
 
 "onboard safari header" = "Quer bloquear anúncios em vídeo?";
 "onboard safari brief" = "Ative nossa extensão no Safari para bloquear anúncios em vídeo durante a navegação.";
@@ -766,106 +767,107 @@
 "onboard safari skip" = "Pular por enquanto";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "Ignorar VPN";
+"bypass info" = "Alguns aplicativos podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de ignorados para enviar seu tráfego fora do túnel da VPN, o que pode ajudar na conectividade, mas reduz a privacidade. O app também inclui algumas entradas de ignorados já integradas para compatibilidade. Nota: se o seu dispositivo possui a opção 'Bloquear conexões sem VPN' ativada, os apps ignorados não terão acesso à internet.";
+"bypass none" = "Nenhum aplicativo adicionado. Use o botão Adicionar no topo para incluir novos aplicativos nesta lista.";
+"bypass action add" = "Adicionar app";
+"bypass dialog add brief" = "Comece a digitar para pesquisar apps.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Essenciais";
+"freemium home status desc safari" = "A proteção essencial está ativa no Safari. Faça upgrade para liberar cobertura total para todos os apps.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Desbloqueie controle total de rastreamento";
+"freemium stats cta desc" = "Veja quais rastreadores estão chegando até você — e bloqueie-os.";
+"freemium filters cta header" = "Desbloqueie listas avançadas de bloqueio";
+"freemium filters cta desc" = "Faça upgrade do seu plano para habilitar proteção avançada e listas extras de bloqueio.";
+"freemium activity cta header" = "Desbloqueie suas estatísticas";
+"freemium activity cta desc" = "Faça upgrade para o Plus e acesse estatísticas e informações detalhadas.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Comece a bloquear anúncios no Safari";
+"freemium sheet safari desc" = "Habilite nossa extensão no Safari para obter proteção essencial enquanto navega. Ela bloqueia anúncios irritantes — incluindo anúncios em vídeo no YouTube — para que você aproveite uma web mais limpa e rápida.";
+"freemium sheet safari cta" = "Abrir Safari";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "Como a Blokada deve tratar o tráfego para %@?";
+"dialog exception add title" = "Adicionar uma exceção";
+"dialog exception add text" = "Insira um nome de host para adicionar às suas exceções. Você pode usar * como coringa, por exemplo *.exemplo.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "Detalhes do domínio";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "Suas regras personalizadas";
+"domain details add rule action" = "Adicionar uma regra";
+"domain details add rule brief" = "Crie uma regra para este domínio.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "Editar regra correspondente";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "Aplica-se a %@.";
+"domain details action search subdomains" = "Pesquisar subdomínios";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Subdomínios";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "Bloqueado(s) %{count} pedido(s) para %@.";
+"domain details summary allowed basic" = "Permitido(s) %{count} pedido(s) para %@.";
+"domain details summary blocked basic customlist" = "Suas regras bloquearam %{count} pedido(s) para %@.";
+"domain details summary allowed basic customlist" = "Suas regras permitiram %{count} pedido(s) para %@.";
+"domain details summary blocked basic list" = "Bloqueado(s) %{count} pedido(s) para %@ usando %@.";
+"domain details summary allowed basic list" = "Permitido(s) %{count} pedido(s) para %@ usando %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "Bloqueado(s) %{count} pedido(s) para subdomínios de %@.";
+"domain details summary allowed subdomain" = "Permitido(s) %{count} pedido(s) para subdomínios de %@.";
+"domain details summary blocked subdomain customlist" = "Suas regras bloquearam %{count} pedido(s) para subdomínios de %@.";
+"domain details summary allowed subdomain customlist" = "Suas regras permitiram %{count} pedido(s) para subdomínios de %@.";
+"domain details summary blocked subdomain list" = "Bloqueado(s) %{count} pedido(s) para subdomínios de %@ usando %@.";
+"domain details summary allowed subdomain list" = "Permitido(s) %{count} pedido(s) para subdomínios de %@ usando %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "Bloqueado(s) %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios.";
+"domain details summary allowed both" = "Permitido(s) %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios.";
+"domain details summary blocked both customlist" = "Suas regras bloquearam %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios.";
+"domain details summary allowed both customlist" = "Suas regras permitiram %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios.";
+"domain details summary blocked both list" = "Bloqueado(s) %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios usando %@.";
+"domain details summary allowed both list" = "Permitido(s) %{count} pedido(s) para %@ e %{subcount} pedido(s) para seus subdomínios usando %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "Nenhum pedido para %@ ou seus subdomínios.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "Usar proteção automática";
+"dialog rule auto desc" = "Bloqueie ou permita este domínio de acordo com os filtros selecionados.
+(Configuração padrão)";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "Bloquear sempre este domínio";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "Ignore os filtros e bloqueie sempre o tráfego para %@.";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "Permitir sempre este domínio";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "Ignore os filtros e permita sempre o tráfego para %@.";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "Bloquear sempre este domínio e seus subdomínios";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "Bloqueie o tráfego para %@ e todos os seus subdomínios.";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "Permitir sempre este domínio e seus subdomínios";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "Permita o tráfego para %@ e todos os seus subdomínios.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "Pulse de Privacidade";
+"privacy pulse brief" = "Veja a atividade recente e o status de proteção deste dispositivo.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "Principais domínios";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Atividade Recente";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "Últimas 24 h";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "Ver tudo";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Bloqueada";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Permitida";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "Nada para mostrar ainda";

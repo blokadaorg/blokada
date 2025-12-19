@@ -97,23 +97,23 @@ Pornô, Redes Sociais e outras categorias.";
 "Restricts access to popular games" = "Restringir acesso a jogos populares";
 "Showcases top gaming applications. Ideal for users desiring precise game access control." = "Mostrar os melhores jogos aplicativos. Ideal para usuários que desejarem o controle preciso de acesso ao jogo.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
+"Online shopping" = "Compras online";
 "Blocks leading e-commerce and shopping applications" = "Bloqueia líderes de e-commerce e aplicativos de compras";
 "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Este escudo impede o acesso a aplicativos de compras comuns. Ele ajuda os usuários em controlar compras de impulso ou distrações.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
+"Other apps" = "Outros apps";
 "A selection of various popular applications" = "Uma seleção de várias aplicações populares";
 "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Este escudo fornece uma lista de aplicativos populares de vários tipos. É criado para usuários buscando um controle de aplicativos mais abrangente.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Safe search" = "Pesquisa segura";
+"Enable safe search to filter out inappropriate search results in search engines." = "Ative a pesquisa segura para filtrar resultados de pesquisa inadequados nos mecanismos de busca.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "Principal";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Estendido";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "Hospedagem de arquivos";
 // Filter name, blocks torrent sites
 "Torrent" = "Torrent";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "Jogos online";

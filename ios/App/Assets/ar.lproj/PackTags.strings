@@ -11,55 +11,55 @@
 //
 // One of the tags used for searching blocklists
 
-"recommended" = "يُنصح به";
+"recommended" = "موصى به";
 // One of the tags used for searching blocklists
 "official" = "رسمي";
 // One of the tags used for searching blocklists
-"adblocking" = "حَظْر الإعلانات";
+"adblocking" = "حظر الإعلانات";
 // One of the tags used for searching blocklists
-"tracking" = "تَتبُّع";
+"tracking" = "تتبُّع";
 // One of the tags used for searching blocklists
-"privacy" = "الخصوصيّة";
+"privacy" = "الخصوصية";
 // One of the tags used for searching blocklists
 "adult" = "للبالغين";
 // One of the tags used for searching blocklists
-"porn" = "الإباحيّة";
+"porn" = "إباحي";
 // One of the tags used for searching blocklists
-"social" = "التواصل الاجتماعي";
+"social" = "اجتماعي";
 // One of the tags used for searching blocklists
 "regional" = "إقليمي";
 // One of the tags used for searching blocklists
-"fake news" = "أخبار مزيَّفة";
+"fake news" = "أخبار زائفة";
 // One of the tags used for searching blocklists
-"gambling" = "القمار";
+"gambling" = "مقامرة";
 // One of the tags used for searching blocklists
 "youtube" = "يوتيوب";
 // One of the tags used for searching blocklists
-"phishing" = "التصيُّد الإحتيالي";
+"phishing" = "تصيد احتيالي";
 // One of the tags used for searching blocklists
-"security" = "الحماية";
+"security" = "أمني";
 // Family tags below
 // One of the tags used for searching blocklists
-"malware" = "malware";
+"malware" = "برمجيات خبيثة";
 // One of the tags used for searching blocklists
-"spam" = "البريد المزعج";
+"spam" = "بريد عشوائي";
 // One of the tags used for searching blocklists
-"dating" = "تاريخ";
+"dating" = "مواعدة";
 // One of the tags used for searching blocklists
-"piracy" = "القرصنة";
+"piracy" = "قرصنة";
 // One of the tags used for searching blocklists
 "torrent" = "تورنت";
 // One of the tags used for searching blocklists
-"streaming" = "التدفق";
+"streaming" = "بث مباشر";
 // One of the tags used for searching blocklists
 "apps" = "تطبيقات";
 // One of the tags used for searching blocklists
 "chat" = "دردشة";
 // One of the tags used for searching blocklists
-"gaming" = "ألعاب";
+"gaming" = "ألعاب إلكترونية";
 // One of the tags used for searching blocklists
 "games" = "ألعاب";
 // One of the tags used for searching blocklists
-"e-commerce" = "التجارة الإلكترونية";
+"e-commerce" = "تجارة إلكترونية";
 // One of the tags used for searching blocklists
-"other" = "اخرى";
+"other" = "غير ذلك";

@@ -13,7 +13,7 @@
 "error device offline" = "O seu dispositivo está offline";
 "error account inactive" = "Sua conta está inativa. Por favor, ative sua conta para continuar a usar o BLOKADA+.";
 "error account inactive generic" = "Sua conta está inativa. Por favor, ative sua conta para continuar usando o Blokada.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "Esta não parece ser uma conta ativa válida. Se você acredita que isto foi um erro, por favor entre em contato conosco.";
 "error account invalid" = "O ID dessa conta parece inválido.";
 "error creating account" = "Não foi possível criar uma conta nova. Por favor, tente novamente mais tarde.";
 "error fetching data" = "Esta ação não pôde ser concluída. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
@@ -44,7 +44,7 @@
 "universal action cancel" = "Cancelar";
 "universal action close" = "Fechar";
 "universal action done" = "Concluído";
-"universal action edit" = "Edit";
+"universal action edit" = "Editar";
 "universal action try again" = "Tente novamente";
 "universal action learn more" = "Saiba mais";
 "universal action help" = "Ajuda";
@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Revogar";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Adicionar";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Converse conosco";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Encerrar";
+"support placeholder" = "Pergunte sobre tudo que quiser saber!";
+"support error generic" = "Desculpe, não entendi. Pode repetir?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "Por favor, reinicie o programa para que as alterações entrem em vigor.";
 "universal status redirect" = "Continuar com o Aplicativo do Blokada";
 "universal status confirm" = "Tem certeza que deseja continuar?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Carregando...";
 
 "alert error header" = "Eita!";
 "alert vpn expired header" = "O BLOKADA+ expirou";
@@ -166,9 +166,9 @@
 "home power action turn on" = "Ativar";
 "home power action turn off" = "Desativar";
 "home power action pause" = "Pausar por 5 min";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Pausar por 5 minutos";
+"home power action off all" = "Desativar toda a proteção";
+"home power pause status active" = "Bloqueio de anúncios está ativo";
 
 "home status paused" = "Em pausa";
 "home status active" = "Ativo";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Mostrando para: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "Apenas Correspondência Exata";
 "activity empty text" = "Tente usar o seu dispositivo e volte aqui mais tarde, para ver onde o seu dispositivo se conecta.";
 "activity device filter show all" = "Todos os dispositivos";
 "activity retention header" = "Devemos armazenar sua atividade?";
@@ -282,7 +282,7 @@
 "account action inbox" = "Caixa de entrada";
 "account action logout" = "Restaurar compras";
 "account action logout only" = "Encerrar sessão";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Restaurar ID da Conta";
 "account action create" = "Gerar nova conta";
 "account action about" = "Sobre";
 "account action tap to show" = "Toque para visualizar";
@@ -370,7 +370,7 @@
 "payment action terms" = "Termos de Serviço";
 "payment action policy" = "Política de Privacidade";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Aplicar código de oferta";
 "payment alert error header" = "Uma mensagem da App Store";
 // As in saving money: You are saving $5
 "payment save text" = "Você está salvando %@";
@@ -426,7 +426,7 @@
 
 "payment cancel footer" = "A assinatura é renovada automaticamente antes do término do período de faturamento atual. Você pode cancelar a qualquer momento nas Configurações.";
 "payment cancel footer trial short" = "Cancele durante os próximos %@ dias, e você não será cobrado.";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment trial brief" = "Pague após %@ dias. A assinatura será renovada automaticamente a cada ano até ser cancelada.";
 
 "location region worldwide" = "Todos os lugares";
 "location region america" = "América";
@@ -531,7 +531,7 @@
 "family rename device" = "Renomear dispositivo";
 "family label this device" = "Este dispositivo (%@)";
 "family onboard header" = "Bem-vindo ao Blokada Família!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Bem-vindo(a) ao %s!";
 "family onboard body" = "Siga as instruções na tela para configurar o seu primeiro dispositivo.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -545,15 +545,15 @@
 "family status ready body" = "Adicione seu primeiro dispositivo agora";
 "family status perms header" = "Quase lá!";
 "family status perms body" = "Por favor, conceda as permissões necessárias";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Toque para finalizar o procedimento de configuração";
 "family status expired header" = "Conta expirada";
 "family status expired body" = "Por favor ative sua conta para continuar";
 "family status linked header" = "O aplicativo está vinculado!";
 "family status locked header" = "O app está bloqueado";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Bloquear com PIN";
+"family settings lock enter" = "Digite seu novo PIN";
+"family settings lock remove" = "Remover PIN";
 
 "family payment slug" = "Proteja toda a sua família com uma assinatura. Monitore e proteja todos os dispositivos familiares de conteúdos indesejados.";
 "family payment features devices header" = "Monitoramento do dispositivo familiar";
@@ -593,279 +593,279 @@
 "toplist tld unknown" = "desconhecido";
 
 "family notification subtitle" = "A proteção familiar está desativada";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Este dispositivo já está vinculado. Por favor, desvincule-o usando o app principal e tente novamente.";
+"family profile dialog header" = "Selecione um perfil para usar com %@.";
+"family profile dialog header this" = "Selecione um perfil para usar neste dispositivo.";
+"family profile add" = "Qual perfil você gostaria de adicionar?";
+"family profile template" = "Escolha um modelo para começar.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Responsável";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "Responsável";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Criança";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Criança";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Personalizado";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Personalizado";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Adicionar novo perfil";
+"family profile action delete" = "Remover este perfil";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Este perfil está sendo usado no momento. Certifique-se de que nenhum dispositivo esteja usando antes de excluí-lo.";
+"family profile error" = "Falha ao excluir este perfil.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "Perfil %@";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Selecionar perfil";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "ESTATÍSTICAS";
+"family device brief statistics" = "Veja a atividade recente deste dispositivo.";
+"family device label settings" = "CONFIGURAÇÕES DO DISPOSITIVO";
+"family device brief settings alt" = "Gerencie as configurações de bloqueio deste dispositivo.";
+"family device action link" = "Vincular este dispositivo novamente";
+"family device action delete" = "Excluir este dispositivo";
+"family device delete confirm" = "Tem certeza de que deseja excluir %@? Isso irá desvincular o dispositivo da sua conta.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Adicionar um dispositivo";
+"family device header link" = "Vincular um dispositivo";
 
-"family device label internet" = "INTERNET CONTROL";
-"family device brief internet" = "Manage Internet access for this device.";
-"family device label internet on" = "Filter Content";
-"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
-"family device label internet off" = "Allow All";
-"family device brief internet off" = "No content is blocked. The Internet is fully open.";
-"family device label internet block" = "Block All";
-"family device brief internet block" = "Stops all Internet access on the device.";
+"family device label internet" = "CONTROLE DE INTERNET";
+"family device brief internet" = "Gerencie o acesso à Internet deste dispositivo.";
+"family device label internet on" = "Filtrar Conteúdo";
+"family device brief internet on" = "Bloqueia sites nocivos e inadequados de acordo com seus filtros e listas de bloqueio.";
+"family device label internet off" = "Permitir Tudo";
+"family device brief internet off" = "Nenhum conteúdo está bloqueado. A Internet está completamente aberta.";
+"family device label internet block" = "Bloquear Tudo";
+"family device brief internet block" = "Bloqueia todo o acesso à Internet no dispositivo.";
 
 
-"family perms header" = "One more thing";
+"family perms header" = "Mais uma coisa";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Ative \"%@\" nas Configurações navegando conforme mostrado abaixo.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Geral";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN e Gerenciamento do Dispositivo";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automático";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Conexões";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Mais configurações de conexão";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "DNS Privado";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Hostname do provedor de DNS Privado";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(ou semelhante)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(nem sempre presente)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
-
-// A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family perms copy android" = "Por fim, toque e segure o campo de texto para colar a configuração necessária.";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label reason" = "Motivo";
+
+// A label for which blocklist was used to block domain. Keep super short.
+"family stats label blocklist" = "Lista de bloqueio";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Perfil";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Listas de bloqueio";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Listas de bloqueio no perfil";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ selecionado(s)";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Pausar bloqueio";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Desconhecido";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Nenhuma";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Mostrar os mais comuns primeiro";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Remover das Minhas exceções";
+"family stats exceptions add" = "Adicionar às Minhas exceções";
+"family stats title" = "Minhas exceções";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Escaneie o código QR abaixo para adicionar um dispositivo à sua família. Esta tela será fechada automaticamente assim que o dispositivo for detectado.";
+"family link description again" = "Escaneie o código QR abaixo para vincular um dispositivo novamente. Esta tela será fechada automaticamente assim que o dispositivo for detectado.";
+"family qr brief" = "Escaneie o código QR exibido no dispositivo responsável";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "Detalhes";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Novo perfil";
+"family dialog title rename profile" = "Renomear perfil";
+"family dialog title new device" = "Novo dispositivo";
+"family dialog title rename device" = "Renomear dispositivo";
+"family dialog brief profile" = "Digite um nome para este perfil.";
+"family dialog brief device" = "Digite um nome para este dispositivo.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Nenhum resultado encontrado para seus critérios de busca";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "bloqueado %@ vez(es)";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "permitido %@ vez(es)";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Gerencie este dispositivo usando o dispositivo responsável.";
+"family status qr body" = "Escaneie o código QR para vincular este dispositivo.";
+"family status active header" = "Ativo!";
+"family status active body" = "Toque no dispositivo para mais detalhes.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Vincular";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Desbloquear";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Digite seu ID de conta para restaurar suas compras.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Sua conta foi restaurada com sucesso. Bem-vindo(a) de volta!";
 
-"notification new message title" = "New message";
+"notification new message title" = "Nova mensagem";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "Sem mais anúncios.\nSério.";
+"onboard desc" = "Bloqueie anúncios e rastreadores em todos os lugares com nosso app premium. Aproveite navegação mais rápida, mais privacidade e menor uso de dados.";
+"onboard terms" = "Ao continuar, você aceita nossos Termos de Serviço e reconhece o recebimento da nossa Política de Privacidade.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Quer bloquear anúncios em vídeos?";
+"onboard safari brief" = "Ative nossa extensão no Safari para bloquear anúncios em vídeos durante a navegação.";
+"onboard safari step 2" = "Gerenciar Extensões";
+"onboard safari cta" = "Abra o YouTube no Safari";
+"onboard safari skip" = "Pular por agora";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "Ignorar VPN";
+"bypass info" = "Alguns apps podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de exceções para que o tráfego deles seja enviado fora do túnel VPN, o que pode ajudar na conectividade, mas reduz a privacidade. O app também inclui algumas exceções pré-definidas para compatibilidade. Observação: se o seu dispositivo tiver a configuração \"Bloquear conexões sem VPN\" ativada, os apps ignorados não terão acesso à internet.";
+"bypass none" = "Nenhum app adicionado. Use o botão Adicionar no topo para incluir novos apps nesta lista.";
+"bypass action add" = "Adicionar app";
+"bypass dialog add brief" = "Comece a digitar para buscar apps.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Essenciais";
+"freemium home status desc safari" = "A proteção essencial está ativa no Safari. Faça upgrade para liberar cobertura total para todos os apps.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Desbloqueie o controle total de rastreamento";
+"freemium stats cta desc" = "Veja quais rastreadores estão alcançando você - e bloqueie-os.";
+"freemium filters cta header" = "Desbloquear listas avançadas de bloqueio";
+"freemium filters cta desc" = "Faça upgrade no seu plano para ativar proteção avançada e listas extras de bloqueio.";
+"freemium activity cta header" = "Desbloqueie suas estatísticas";
+"freemium activity cta desc" = "Faça upgrade para Plus e acesse estatísticas detalhadas e análises.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Comece a bloquear anúncios no Safari";
+"freemium sheet safari desc" = "Ative nossa extensão no Safari para obter proteção essencial enquanto navega. Ela bloqueia anúncios irritantes — incluindo anúncios em vídeo no YouTube — para que você tenha uma internet mais limpa e rápida.";
+"freemium sheet safari cta" = "Abrir Safari";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "Como o Blokada deve lidar com o tráfego para %@?";
+"dialog exception add title" = "Adicionar Exceção";
+"dialog exception add text" = "Digite um nome de host para adicionar às suas exceções. Você pode usar * como coringa, por exemplo *.exemplo.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "Detalhes do Domínio";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "Suas Regras Personalizadas";
+"domain details add rule action" = "Adicionar Regra";
+"domain details add rule brief" = "Crie uma regra para este domínio.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "Editar Regra Correspondente";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "Aplicado para %@.";
+"domain details action search subdomains" = "Buscar Subdomínios";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Subdomínios";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@.";
+"domain details summary allowed basic" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@.";
+"domain details summary blocked basic customlist" = "Suas regras bloquearam %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@.";
+"domain details summary allowed basic customlist" = "Suas regras permitiram %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@.";
+"domain details summary blocked basic list" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ usando %@.";
+"domain details summary allowed basic list" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ usando %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@.";
+"domain details summary allowed subdomain" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@.";
+"domain details summary blocked subdomain customlist" = "Suas regras bloquearam %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@.";
+"domain details summary allowed subdomain customlist" = "Suas regras permitiram %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@.";
+"domain details summary blocked subdomain list" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@ usando %@.";
+"domain details summary allowed subdomain list" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para subdomínios de %@ usando %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios.";
+"domain details summary allowed both" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios.";
+"domain details summary blocked both customlist" = "Suas regras bloquearam %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios.";
+"domain details summary allowed both customlist" = "Suas regras permitiram %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios.";
+"domain details summary blocked both list" = "Bloqueado %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios usando %@.";
+"domain details summary allowed both list" = "Permitido %{var, plural, one{%{value} solicitação} other{%{value} solicitações}} para %@ e %{var2, plural, one{%{value2} solicitação} other{%{value2} solicitações}} para seus subdomínios usando %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "Nenhuma solicitação para %@ ou seus subdomínios.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "Usar Proteção Automática";
+"dialog rule auto desc" = "Bloquear ou permitir este domínio de acordo com os filtros selecionados.\n(Configuração padrão)";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "Sempre Bloquear Este Domínio";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "Ignorar filtros e sempre bloquear o tráfego para %@.";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "Sempre Permitir Este Domínio";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "Ignorar filtros e sempre permitir o tráfego para %@.";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "Sempre Bloquear Este Domínio e Seus Subdomínios";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "Bloquear o tráfego para %@ e todos os seus subdomínios.";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "Sempre Permitir Este Domínio e Seus Subdomínios";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "Permitir o tráfego para %@ e todos os seus subdomínios.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "Pulso de Privacidade";
+"privacy pulse brief" = "Veja a atividade recente e o status de proteção deste dispositivo.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "Principais domínios";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Atividade Recente";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "Últimas 24 h";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "Ver Tudo";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Bloqueado";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Permitido";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "Nada para mostrar ainda";

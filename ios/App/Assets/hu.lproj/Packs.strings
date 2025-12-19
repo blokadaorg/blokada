@@ -48,71 +48,71 @@
 "This is the official blocklist from d3ward, the maker of the popular adblocker testing website. It is meant to achieve 100% score in the test. Keep in mind, this is a minimum list. You may want to use it together with another blocklist activated. If you wish to perform the test, just visit go.blokada.org/test" = "Ez d3ward hivatalos blokklistája, a népszerű adblock tesztelő oldal készítőjétől. 100%-os pontszámot kell, hogy elérjen a teszten. Tartsuk azonban észben, hogy ez egy minimum lista. Érdemes egy másik blokklistával együtt használni. Ha el akarod indítani a tesztet, menj a go.blokada.org/test címre.";
 // Family packs (shields) below
 // Name of the Ads shield
-"Ads" = "Ads";
-"Blocks advertisements and tracking" = "Blocks advertisements and tracking";
-"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy.";
+"Ads" = "Hirdetések";
+"Blocks advertisements and tracking" = "Blokkolja a hirdetéseket és a követést";
+"Eliminates intrusive advertisements and web tracking. Enhances browsing speed and safeguards user privacy." = "Eltávolítja a zavaró hirdetéseket és a webes követést. Növeli a böngészési sebességet és megóvja a felhasználók magánéletét.";
 // Name of the Malware shield
-"Malware" = "Malware";
-"Protects against malicious software" = "Protects against malicious software";
-"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats.";
+"Malware" = "Kártékony szoftverek";
+"Protects against malicious software" = "Véd a kártékony szoftverek ellen";
+"Defends against malicious software and harmful websites. Provides a secure shield against a spectrum of cyber threats." = "Megvéd a kártékony szoftverektől és káros weboldalaktól. Biztonságos védelmet nyújt a kibertámadások széles körével szemben.";
 // Name of the Porn shield
-"Adult Content" = "Adult Content";
-"Blocks adult and pornographic content" = "Blocks adult and pornographic content";
-"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks.";
+"Adult Content" = "Felnőtt tartalom";
+"Blocks adult and pornographic content" = "Blokkolja a felnőtt és pornográf tartalmat";
+"This filter targets adult content for a safer online experience. It shields users from explicit materials and potential risks." = "Ez a szűrő a felnőtt tartalmat célozza a biztonságosabb online élmény érdekében. Megvédi a felhasználókat a kifejezetten explicit anyagoktól és potenciális kockázatoktól.";
 // Name of the Dating shield
-"Dating" = "Dating";
-"Blocks dating and relationship-seeking websites" = "Blocks dating and relationship-seeking websites";
-"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions.";
+"Dating" = "Társkeresés";
+"Blocks dating and relationship-seeking websites" = "Blokkolja a társkereső és párkereső webhelyeket";
+"Designed to restrict online dating platforms. It offers protection against potential distractions and unwanted interactions." = "Kifejezetten az online társkereső oldalak elérésének korlátozására készült. Védelmet nyújt a potenciális zavaró tényezők és nem kívánt kapcsolatok ellen.";
 // Name of the Gambling shield
-"Gambling" = "Gambling";
-"Blocks gambling-related content and websites" = "Blocks gambling-related content and websites";
-"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety.";
+"Gambling" = "Szerencsejáték";
+"Blocks gambling-related content and websites" = "Blokkolja a szerencsejátékkal kapcsolatos tartalmat és webhelyeket";
+"Denies access to gambling platforms and content. Helps in preventing addiction and ensuring financial safety." = "Megtagadja a hozzáférést a szerencsejáték platformokhoz és tartalomhoz. Segít a függőség megelőzésében és a pénzügyi biztonság megőrzésében.";
 // Name of the Piracy shield
-"Piracy" = "Piracy";
-"Blocks piracy websites and related content" = "Blocks piracy websites and related content";
-"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks.";
+"Piracy" = "Kalózkodás";
+"Blocks piracy websites and related content" = "Blokkolja a kalóz webhelyeket és kapcsolódó tartalmakat";
+"Blocks unauthorized piracy sites and related platforms. Safeguards intellectual property and reduces harmful download risks." = "Blokkolja az engedély nélküli kalóz oldalakat és kapcsolódó platformokat. Védi a szellemi tulajdont és csökkenti a káros letöltési kockázatokat.";
 // Name of the Video streaming shield
-"Video streaming" = "Video streaming";
-"Blocks popular video streaming platforms" = "Blocks popular video streaming platforms";
-"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth.";
+"Video streaming" = "Videóstreaming";
+"Blocks popular video streaming platforms" = "Blokkolja a népszerű videó streaming platformokat";
+"Curbs access to top video streaming services. Crafted for users wanting to manage viewing habits and save bandwidth." = "Korlátozza a vezető videó streaming szolgáltatásokhoz való hozzáférést. Azoknak készült, akik szeretnék szabályozni a nézési szokásokat és sávszélességet megtakarítani.";
 // Name of the Streaming apps shield
 "Streaming" = "Streaming";
-"Blocks streaming apps and related content" = "Blocks streaming apps and related content";
-"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Features a curated selection of popular streaming apps. Allows granular control over media consumption.";
+"Blocks streaming apps and related content" = "Blokkolja a streaming appokat és kapcsolódó tartalmat";
+"Features a curated selection of popular streaming apps. Allows granular control over media consumption." = "Népszerű streaming appok válogatott listáját tartalmazza. Lehetővé teszi a médiafogyasztás részletes szabályozását.";
 // Name of the Social media shield
-"Social media" = "Social media";
-"Restricts access to social networking platforms" = "Restricts access to social networking platforms";
-"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage.";
+"Social media" = "Közösségi média";
+"Restricts access to social networking platforms" = "Korlátozza a közösségi hálózatokhoz való hozzáférést";
+"Limits access to various social media platforms. Ideal for enhancing work focus and moderating children's usage." = "Korlátozza a különböző közösségi média platformok elérését. Ideális a munkahelyi fókusz növelésére és a gyermekek használatának mérséklésére.";
 // Name of the Chat apps shield
-"Chat apps" = "Chat apps";
-"Restricts popular messaging and chat applications" = "Restricts popular messaging and chat applications";
-"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels.";
+"Chat apps" = "Chat appok";
+"Restricts popular messaging and chat applications" = "Korlátozza a népszerű üzenetküldő és chat alkalmazásokat";
+"This shield is designed to block widely-used messaging and chat apps. Perfect for those wanting to control their communication channels." = "Ez a pajzs a széles körben használt üzenetküldő és chat appok blokkolására szolgál. Tökéletes azoknak, akik szabályozni szeretnék kommunikációs csatornáikat.";
 // Name of the Gaming shield
-"Gaming" = "Gaming";
-"Blocks gaming platforms and related content" = "Blocks gaming platforms and related content";
-"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle.";
+"Gaming" = "Játékok";
+"Blocks gaming platforms and related content" = "Blokkolja a játékplatformokat és kapcsolódó tartalmat";
+"Restricts online gaming sites and related distractions. Designed for users wanting a balanced digital lifestyle." = "Korlátozza az online játékoldalakat és zavaró tényezőket. Azok számára, akik kiegyensúlyozott digitális életmódra törekednek.";
 // Name of the Games shield
-"Games" = "Games";
-"Restricts access to popular games" = "Restricts access to popular games";
-"Showcases top gaming applications. Ideal for users desiring precise game access control." = "Showcases top gaming applications. Ideal for users desiring precise game access control.";
+"Games" = "Játékok";
+"Restricts access to popular games" = "Korlátozza a népszerű játékok elérését";
+"Showcases top gaming applications. Ideal for users desiring precise game access control." = "A legnépszerűbb játékalkalmazásokat mutatja be. Ideális azoknak, akik pontosan szeretnék vezérelni a játékokhoz való hozzáférést.";
 // Name of the Online shopping apps shield
-"Online shopping" = "Online shopping";
-"Blocks leading e-commerce and shopping applications" = "Blocks leading e-commerce and shopping applications";
-"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions.";
+"Online shopping" = "Online vásárlás";
+"Blocks leading e-commerce and shopping applications" = "Blokkolja a vezető e-kereskedelmi és vásárlási appokat";
+"This shield prevents access to the common shopping apps. It aids users in curbing impulse purchases or distractions." = "Ez a pajzs megakadályozza a legismertebb vásárlási appokhoz való hozzáférést. Segíti a felhasználókat az impulzusvásárlás vagy zavaró tényezők csökkentésében.";
 // Name of the Miscellaneous apps shield
-"Other apps" = "Other apps";
-"A selection of various popular applications" = "A selection of various popular applications";
-"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control.";
+"Other apps" = "Egyéb appok";
+"A selection of various popular applications" = "A különféle népszerű appok válogatása";
+"This shield provides a list of popular apps of various type. It's created for users aiming for a more comprehensive app control." = "Ez a pajzs különféle típusú népszerű appok listáját tartalmazza. Azoknak készült, akik átfogóbb alkalmazásvezérlésre törekednek.";
 // Name of the Safe Search shield (for search engines safe search feature)
-"Safe search" = "Safe search";
-"Enable safe search to filter out inappropriate search results in search engines." = "Enable safe search to filter out inappropriate search results in search engines.";
+"Safe search" = "Biztonságos keresés";
+"Enable safe search to filter out inappropriate search results in search engines." = "Aktiváld a biztonságos keresést, hogy kiszűrje a nem megfelelő keresési találatokat a keresőmotorokban.";
 // Filter name, the basic choice
-"Primary" = "Primary";
+"Primary" = "Alapértelmezett";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Kiterjesztett";
 // Filter name, blocks file hosting sites
-"File hosting" = "File hosting";
+"File hosting" = "Fájlmegosztás";
 // Filter name, blocks torrent sites
 "Torrent" = "Torrent";
 // Filter name, blocks online gaming
-"Online gaming" = "Online gaming";
+"Online gaming" = "Online játék";

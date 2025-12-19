@@ -40,26 +40,26 @@
 "security" = "biztonság";
 // Family tags below
 // One of the tags used for searching blocklists
-"malware" = "malware";
+"malware" = "kártevő programok (malware)";
 // One of the tags used for searching blocklists
 "spam" = "spam";
 // One of the tags used for searching blocklists
-"dating" = "dating";
+"dating" = "társkeresés";
 // One of the tags used for searching blocklists
-"piracy" = "piracy";
+"piracy" = "kalózkodás";
 // One of the tags used for searching blocklists
 "torrent" = "torrent";
 // One of the tags used for searching blocklists
-"streaming" = "streaming";
+"streaming" = "streamelés";
 // One of the tags used for searching blocklists
-"apps" = "apps";
+"apps" = "appok";
 // One of the tags used for searching blocklists
-"chat" = "chat";
+"chat" = "csevegés";
 // One of the tags used for searching blocklists
-"gaming" = "gaming";
+"gaming" = "játék";
 // One of the tags used for searching blocklists
-"games" = "games";
+"games" = "játékok";
 // One of the tags used for searching blocklists
-"e-commerce" = "e-commerce";
+"e-commerce" = "e-kereskedelem";
 // One of the tags used for searching blocklists
-"other" = "other";
+"other" = "egyéb";

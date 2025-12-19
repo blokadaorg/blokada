@@ -569,7 +569,7 @@
     <string name="freemium_sheet_safari_header">Zacznij blokować reklamy w Safari</string>
     <string name="freemium_sheet_safari_desc">Włącz nasze rozszerzenie w Safari, aby uzyskać podstawową ochronę podczas przeglądania. Blokuje irytujące reklamy — w tym reklamy wideo na YouTube — i ciesz się lepszym i szybszym przeglądaniem sieci.</string>
     <string name="freemium_sheet_safari_cta">Otwórz Safari</string>
-    <string name="dialog_title_activity_rule">Co powinno się stać z ruchem do %1$s?</string>
+    <string name="dialog_title_activity_rule">Jak Blokada powinna obsłużyć ruch do %1$s?</string>
     <string name="dialog_exception_add_title">Dodaj wyjątek</string>
     <string name="dialog_exception_add_text">Wprowadź nazwę hosta, aby dodać do swoich wyjątków. Możesz użyć * jako karty wieloznacznej, na przykład *.example.com.</string>
     <string name="domain_details_section_header">Szczegóły</string>

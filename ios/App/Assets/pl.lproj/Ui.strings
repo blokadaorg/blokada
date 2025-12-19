@@ -787,7 +787,7 @@
 "freemium sheet safari desc" = "Włącz nasze rozszerzenie w Safari, aby uzyskać podstawową ochronę podczas przeglądania. Blokuje irytujące reklamy — w tym reklamy wideo na YouTube — i ciesz się lepszym i szybszym przeglądaniem sieci.";
 "freemium sheet safari cta" = "Otwórz Safari";
 
-"dialog title activity rule" = "Co powinno się stać z ruchem do %@?";
+"dialog title activity rule" = "Jak Blokada powinna obsłużyć ruch do %@?";
 "dialog exception add title" = "Dodaj wyjątek";
 "dialog exception add text" = "Wprowadź nazwę hosta, aby dodać do swoich wyjątków. Możesz użyć * jako karty wieloznacznej, na przykład *.example.com.";
 

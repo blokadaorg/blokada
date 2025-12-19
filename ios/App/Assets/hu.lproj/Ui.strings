@@ -12,8 +12,8 @@
 
 "error device offline" = "A készüléked offline állapotban van";
 "error account inactive" = "Fiókod inaktív. Kérjük, aktiváld fiókodat a BLOKADA+ használatának folytatása érdekében.";
-"error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive generic" = "A fiókod inaktív. Kérjük, aktiváld a fiókodat a Blokada további használatához.";
+"error account inactive after restore" = "Ez nem tűnik érvényes, aktív fióknak. Ha úgy gondolod, ez tévedés, vedd fel velünk a kapcsolatot.";
 "error account invalid" = "Ez az ID helytelennek tűnik.";
 "error creating account" = "Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.";
 "error fetching data" = "Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.";
@@ -33,8 +33,8 @@
 "error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
 "error unknown" = "Egy hiba lépett fel. Bizonyosodjon meg arról, hogy online, és próbálkozzon újra. Ha a hiba továbbra is fennáll, nyomjon rá a segítség ikonra felül.";
 "error multiple apps" = "Egynél több Blokada alkalmazás van a készülékeden. Ez kapcsolódási problémákat okozhat. Szeretnéd ezt most orvosolni?";
-"error locked" = "This action is unavailable when the app is in a locked state. Please unlock the app to proceed.";
-"error lock invalid" = "A valid PIN must be exactly 4 digits. Please try again.";
+"error locked" = "Ez a művelet zárolt állapotban nem érhető el. A folytatáshoz oldd fel az alkalmazást.";
+"error lock invalid" = "Az érvényes PIN pontosan 4 számjegyű lehet. Kérjük, próbáld újra.";
 
 "conn isssues header" = "Kapcsolódási problémák";
 "conn isssues slug" = "Kapcsolódási problémák. Kérjük, ellenőrizd a konfigurációt. Koppints a részletekért.";
@@ -44,7 +44,7 @@
 "universal action cancel" = "Mégse";
 "universal action close" = "Bezárás";
 "universal action done" = "Kész";
-"universal action edit" = "Edit";
+"universal action edit" = "Szerkesztés";
 "universal action try again" = "Próbálja újra";
 "universal action learn more" = "További információ";
 "universal action help" = "Segítség";
@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Visszavon";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Hozzáadás";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Beszélj velünk!";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Vége";
+"support placeholder" = "Kérdezz bármit, amit tudni szeretnél!";
+"support error generic" = "Sajnálom, nem értem. Meg tudod ismételni?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "Kérjük indítsa újra az app-ot a módosítások érvénybe lépéséhez.";
 "universal status redirect" = "Folytatás a Blokada alkalmazással";
 "universal status confirm" = "Biztosan folytatja?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Betöltés...";
 
 "alert error header" = "Hoppá!";
 "alert vpn expired header" = "BLOKADA+ lejárt";
@@ -166,9 +166,9 @@
 "home power action turn on" = "Bekapcsolás";
 "home power action turn off" = "Kikapcsolás";
 "home power action pause" = "Szünetelés 5 percig";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Szünet 5 percre";
+"home power action off all" = "Minden védelem kikapcsolása";
+"home power pause status active" = "A reklámszűrés aktív";
 
 "home status paused" = "Szünetelve";
 "home status active" = "Aktív";
@@ -201,7 +201,7 @@
 "pack category active" = "Aktív";
 "pack category all" = "Összes";
 
-"shields section header" = "Shields";
+"shields section header" = "Pajzsok";
 
 "location choice header" = "Válassz ki egy helyet";
 
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "A következő eszköznél: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "Csak pontos egyezés";
 "activity empty text" = "Próbálja használni eszközét, majd jöjjön vissza ha látja hogy hova csatlakozott.";
 "activity device filter show all" = "Minden eszköz";
 "activity retention header" = "Tároljuk a tevékenységed?";
@@ -267,7 +267,7 @@
 // A short one word action to block a hostname.
 "userdenied action block" = "Blokkolás";
 // Opens the Exceptions screen (where all user defined custom rules are)
-"userdefined action open" = "Open Exceptions";
+"userdefined action open" = "Kivételek megnyitása";
 
 "account section header settings" = "Beállítások";
 "account status text" = "A BLOKADA %@ fiókod aktív eddig: %@.";
@@ -282,7 +282,7 @@
 "account action inbox" = "Bejövő";
 "account action logout" = "Vásárlás visszaállítása";
 "account action logout only" = "Kijelentkezés";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Fiókazonosító visszaállítása";
 "account action create" = "Új fiók generálása";
 "account action about" = "Névjegy";
 "account action tap to show" = "Érintsd meg a megjelenítéshez";
@@ -370,7 +370,7 @@
 "payment action terms" = "Felhasználási feltételek";
 "payment action policy" = "Adatvédelmi irányelvek";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Ajánlatkód beváltása";
 "payment alert error header" = "Egy üzenet az App Store-ból";
 // As in saving money: You are saving $5
 "payment save text" = "Ezzel %@-t takarít meg";
@@ -419,14 +419,14 @@
 "payment plan slugline cloud detail" = "(tartalmazza a Blokada Cloud-ot is)";
 "payment plan slugline plus" = "További védelem VPN-nel";
 "payment plan cta trial" = "Próbálja ki a 7 napos próbaidőszakot";
-"payment plan cta trial length" = "Start %@-Day Free Trial";
+"payment plan cta trial length" = "%@ napos ingyenes próba indítása";
 "payment plan cta monthly" = "Havi fizetés";
 "payment plan cta annual" = "Évi fizetés";
 "payment plan current" = "(jelenlegi csomag)";
 
-"payment cancel footer" = "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.";
-"payment cancel footer trial short" = "Cancel during the next %@ days, and you won’t be charged.";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment cancel footer" = "Az előfizetés a jelenlegi számlázási időszak vége előtt automatikusan megújul. Bármikor lemondhatod a Beállításokban.";
+"payment cancel footer trial short" = "Lemondás a következő %@ napban, és nem kerül sor terhelésre.";
+"payment trial brief" = "%@ nap múlva fizetendő. Az előfizetés automatikusan megújul évente, amíg le nem mondod.";
 
 "location region worldwide" = "Bárhol";
 "location region america" = "Amerika";
@@ -479,7 +479,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "Összesen";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "Elmúlt 24 óra";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "Mindig";
 
@@ -488,9 +488,9 @@
 "dnsprofile action open settings" = "Beállítások megnyitása";
 "dnsprofile desc android" = "A Beállítások appban keresd meg a Privát DNS részt, majd illeszd be a hostnevet (hosszú koppintás).";
 "dnsprofile desc android copy" = "Másold ki a Blokada Cloud hostnevét, hogy beilleszthesd a Beállításokba.";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "A Beállítások alkalmazásban navigálj ide:";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "Általános → VPN, DNS és Eszközkezelés → DNS, majd válaszd a Blokadát.";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "Majdnem kész!";
@@ -510,362 +510,363 @@
 "advanced section header packs" = "Tiltólista";
 "app settings section header" = "Ez az eszköz";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "A Blokada zárolva van. A feloldáshoz add meg a PIN-kódot";
+"lock status unlocked has pin" = "A módosításhoz add meg a PIN-kódot";
+"lock status unlocked" = "Állítsd be a PIN-kódodat a Blokada zárolásához";
 
-"crash body" = "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.";
+"crash body" = "A Blokada váratlanul leállt, elnézést kérünk a kellemetlenségért. Ha megosztod velünk a naplófájlt, ezzel minden felhasználó számára javítod az élményt. Kérjük, segíts nekünk gyorsan azonosítani és megoldani a problémát.";
 
-"universal status waiting for data" = "Waiting for data";
-"universal action disable" = "Disable";
+"universal status waiting for data" = "Adatokra várakozás";
+"universal action disable" = "Letiltás";
 
 // Translate just Unlock if the original is longer than 16 characters
-"lock action slide unlock" = "Slide to unlock";
+"lock action slide unlock" = "Feloldáshoz húzd el";
 // The app will use this version if the Slide to unlock is too long
-"lock action slide unlock short" = "Slide";
-"lock status too many attempts" = "Too many wrong attempts. Try again later";
-"lock status enter to confirm" = "Enter the pin code again to confirm";
-"lock status enter or wait" = "Enter new pin code, or wait to lock...";
-"lock change pin" = "Change pin";
+"lock action slide unlock short" = "Csúsztatás";
+"lock status too many attempts" = "Túl sok hibás próbálkozás. Próbáld meg később újra";
+"lock status enter to confirm" = "A megerősítéshez add meg újra a PIN-kódot";
+"lock status enter or wait" = "Adj meg új PIN-kódot, vagy várj a zárolásig...";
+"lock change pin" = "PIN módosítása";
 
-"family rename device" = "Rename device";
-"family label this device" = "This device (%@)";
-"family onboard header" = "Welcome to Blokada Family!";
-"family onboard header brand" = "Welcome to %s!";
-"family onboard body" = "Follow the instructions on screen to set up your first device.";
+"family rename device" = "Eszköz átnevezése";
+"family label this device" = "Ez az eszköz (%@)";
+"family onboard header" = "Üdvözlünk a Blokada Family-ben!";
+"family onboard header brand" = "Üdvözlünk a(z) %s-n!";
+"family onboard body" = "Kövesd a képernyőn látható utasításokat az első eszköz beállításához.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
 "family cta action activate" = "Aktiválás";
-"family cta action add device" = "Add a device";
-"family cta action finish setup" = "Finish setup";
+"family cta action add device" = "Eszköz hozzáadása";
+"family cta action finish setup" = "Beállítás befejezése";
 
-"family status fresh header" = "Hi there!";
-"family status fresh body" = "Activate or restore your account to continue";
-"family status ready header" = "App is ready!";
-"family status ready body" = "Add your first device now";
+"family status fresh header" = "Szia!";
+"family status fresh body" = "A folytatáshoz aktiváld vagy állítsd vissza a fiókodat";
+"family status ready header" = "Az alkalmazás készen áll!";
+"family status ready body" = "Add hozzá most az első eszközt";
 "family status perms header" = "Majdnem kész!";
-"family status perms body" = "Please grant the necessary permissions";
-"family status perms body alt" = "Tap to finish the setup procedure";
-"family status expired header" = "Account expired";
-"family status expired body" = "Please activate your account to continue";
-"family status linked header" = "App is linked!";
-"family status locked header" = "App is locked";
+"family status perms body" = "Add meg a szükséges engedélyeket";
+"family status perms body alt" = "Érintsd meg a beállítás befejezéséhez";
+"family status expired header" = "A fiók lejárt";
+"family status expired body" = "Folytatáshoz kérjük, aktiváld a fiókodat";
+"family status linked header" = "Az alkalmazás összekapcsolva!";
+"family status locked header" = "Az alkalmazás zárolva";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Zárolás PIN-kóddal";
+"family settings lock enter" = "Add meg az új PIN-kódodat";
+"family settings lock remove" = "PIN eltávolítása";
 
-"family payment slug" = "Protect your entire family with one subscription. Monitor and protect all family devices from unwanted content.";
-"family payment features devices header" = "Family Device Monitoring";
-"family payment features devices body" = "Manage and monitor all your devices through a single app. Control access and content filtering directly from your device.";
-"family payment features performance body" = "Maintain a swift and responsive device while ensuring your internet connection remains at peak speeds, all thanks to our proven technology.";
-"family payment features dns body" = "Enhance privacy across all your devices with DNS encryption. Blokada utilizes cutting-edge protocols to ensure your internet traffic remains confidential.";
-"family payment features battery body" = "Activating Blokada won't drain your battery. It might actually help it last longer by blocking unnecessary background activities.";
+"family payment slug" = "Védd meg az egész családodat egyetlen előfizetéssel. Figyeld és védd az összes családi eszközt a nem kívánt tartalomtól.";
+"family payment features devices header" = "Családi eszközfelügyelet";
+"family payment features devices body" = "Kezeld és felügyeld az összes eszközt egyetlen alkalmazásból. Szabályozd a hozzáférést és a tartalomszűrést közvetlenül a saját eszközödről.";
+"family payment features performance body" = "Tartsd meg készüléked gyorsaságát és reakcióképességét, miközben az internetkapcsolatod csúcssebességen marad – mindez a bevált technológiánknak köszönhetően.";
+"family payment features dns body" = "Növeld az adatvédelmet minden eszközön DNS-titkosítással. A Blokada élvonalbeli protokollokat használ, hogy az internetes forgalmad bizalmas maradjon.";
+"family payment features battery body" = "A Blokada aktiválása nem meríti le az akkumulátort. Valójában akár tovább is bírhatod, mivel szükségtelen háttérfolyamatokat blokkol.";
 
-"family account attach header" = "Attach device";
-"family account attach body" = "To link this device to the parent device, complete the setup process. Once linked, this device will be locked, allowing you to configure and monitor it from the parent device.";
-"family account qr header" = "Scan QR code";
-"family account qr body" = "Scan the QR code from the parent device, in order to initiate the linking process.";
+"family account attach header" = "Eszköz csatolása";
+"family account attach body" = "Az eszköz szülő készülékhez történő kapcsolásához fejezd be a beállítási folyamatot. Miután összekapcsoltad, az eszköz zárolásra kerül, és konfigurálhatod vagy felügyelheted a szülői eszközről.";
+"family account qr header" = "QR-kód beolvasása";
+"family account qr body" = "A QR-kód beolvasásával a szülői készülékről elindíthatod az összekapcsolási folyamatot.";
 // A button to scan QR code
-"family account qr action button" = "Scan";
+"family account qr action button" = "Beolvasás";
 
-"family account link header" = "Link device";
-"family account link name" = "Set device name";
-"family account link qr header" = "Scan this QR code";
-"family account link qr body" = "This screen will close automatically once the new device has been detected.";
+"family account link header" = "Eszköz összekapcsolása";
+"family account link name" = "Eszköznév beállítása";
+"family account link qr header" = "Olvasd be ezt a QR-kódot";
+"family account link qr body" = "Ez a képernyő automatikusan bezár, miután az új eszköz felismerésre került.";
 
 // A button to unlink linked device
-"family account cta unlink" = "Unlink";
+"family account cta unlink" = "Leválasztás";
 
-"family account decide header" = "Add device";
-"family account decide link header" = "Link a device";
-"family account decide link body" = "In Blokada, you simply scan a QR code to link and manage another device.";
-"family account decide separator" = "- or -";
-"family account decide this header" = "Use this device";
-"family account decide this body" = "Alternatively, you may simply configure Blokada to work on this device, and set the pin to lock the app.";
+"family account decide header" = "Eszköz hozzáadása";
+"family account decide link header" = "Eszköz összekapcsolása";
+"family account decide link body" = "A Blokadában egyszerűen olvass be egy QR-kódot egy másik eszköz összekapcsolásához és kezeléséhez.";
+"family account decide separator" = "- vagy -";
+"family account decide this header" = "Ez az eszköz használata";
+"family account decide this body" = "Alternatívaként beállíthatod a Blokadát ezen az eszközön, és PIN-kódot adhatsz meg az alkalmazás zárolásához.";
 
-"family shields header" = "Activate shields to block access to selected content on your supervised devices.";
-"family shields custom slug" = "Manage your own custom entries to block or allow.";
+"family shields header" = "Aktiváld a pajzsokat, hogy felügyelt eszközeiden szűrd a nem kívánt tartalmakat.";
+"family shields custom slug" = "Kezeld saját egyéni szabályaidat tiltáshoz vagy engedélyezéshez.";
 
 // When a company name is other than the big ones
-"toplist company other" = "Other";
+"toplist company other" = "Egyéb";
 // When a domain is unknown
-"toplist tld unknown" = "unknown";
+"toplist tld unknown" = "ismeretlen";
 
-"family notification subtitle" = "Family protection is off";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
-
-// A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family notification subtitle" = "A családi védelem ki van kapcsolva";
+"family fault link already" = "Ez az eszköz már össze van kapcsolva. Kérjük, válaszd le a szülői alkalmazásban, majd próbáld újra.";
+"family profile dialog header" = "Válassz profilt ehhez: %@.";
+"family profile dialog header this" = "Válassz profilt ehhez az eszközhöz.";
+"family profile add" = "Melyik profilt szeretnéd hozzáadni?";
+"family profile template" = "Kezdéshez válassz egy sablont.";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"family profile name parent" = "Szülő";
+
+// A name of a configuration profile, for parent device
+"Parent" = "Szülő";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Gyermek";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Gyermek";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Egyedi";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Egyedi";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Új profil hozzáadása";
+"family profile action delete" = "Profil eltávolítása";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Ez a profil jelenleg használatban van. Győződj meg róla, hogy egyik eszköz sem használja, mielőtt törlöd.";
+"family profile error" = "Nem sikerült törölni ezt a profilt.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ profil";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Profil kiválasztása";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "STATISZTIKA";
+"family device brief statistics" = "Tekintsd meg az eszköz legutóbbi tevékenységét.";
+"family device label settings" = "ESZKÖZ BEÁLLÍTÁSOK";
+"family device brief settings alt" = "Kezeld a blokkolási beállításokat ehhez az eszközhöz.";
+"family device action link" = "Eszköz ismételt összekapcsolása";
+"family device action delete" = "Eszköz törlése";
+"family device delete confirm" = "Biztosan törlöd %@-t? Ezzel az eszköz leválasztásra kerül a fiókodból.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Eszköz hozzáadása";
+"family device header link" = "Eszköz összekapcsolása";
 
-"family device label internet" = "INTERNET CONTROL";
-"family device brief internet" = "Manage Internet access for this device.";
-"family device label internet on" = "Filter Content";
-"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
-"family device label internet off" = "Allow All";
-"family device brief internet off" = "No content is blocked. The Internet is fully open.";
-"family device label internet block" = "Block All";
-"family device brief internet block" = "Stops all Internet access on the device.";
+"family device label internet" = "INTERNETVEZÉRLÉS";
+"family device brief internet" = "Kezeld az internet-hozzáférést ehhez az eszközhöz.";
+"family device label internet on" = "Tartalomszűrés";
+"family device brief internet on" = "A szűrők és a tiltólisták alapján blokkolja a káros és nem megfelelő oldalakat.";
+"family device label internet off" = "Mindent enged";
+"family device brief internet off" = "Nincs tartalom blokkolva. Az internet teljesen nyitott.";
+"family device label internet block" = "Mindent blokkol";
+"family device brief internet block" = "Minden internet-hozzáférést leállít ezen az eszközön.";
 
 
-"family perms header" = "One more thing";
+"family perms header" = "Még egy dolog";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Aktiváld a(z) '%@'-t a Beállításokban az alábbi útmutató szerint.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Általános";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN és eszközkezelés";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automatikus";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Kapcsolatok";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "További kapcsolatbeállítások";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "Privát DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Privát DNS szolgáltató hosztneve";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(vagy hasonló)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(nem mindig érhető el)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
-
-// A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family perms copy android" = "Végül nyomj hosszan a szövegmezőre a konfiguráció beillesztéséhez.";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label reason" = "Ok";
+
+// A label for which blocklist was used to block domain. Keep super short.
+"family stats label blocklist" = "Tiltólista";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Profil";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Tiltólisták";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Tiltólisták a profilban";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ kijelölve";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Blokkolás szüneteltetése";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Ismeretlen";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Nincs";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "A leggyakoribbakat mutasd elöl";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Eltávolítás a Saját kivételek közül";
+"family stats exceptions add" = "Hozzáadás a Saját kivételekhez";
+"family stats title" = "Saját kivételek";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Olvasd be az alábbi QR-kódot, hogy eszközt adhass hozzá a családodhoz. Ez a képernyő automatikusan bezár, amikor az eszköz felismerésre kerül.";
+"family link description again" = "Olvasd be az alábbi QR-kódot az eszköz újbóli összekapcsolásához. Ez a képernyő automatikusan bezár, amikor az eszköz felismerésre kerül.";
+"family qr brief" = "Olvasd be a szülői eszközön megjelenített QR-kódot";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "Részletek";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Új profil";
+"family dialog title rename profile" = "Profil átnevezése";
+"family dialog title new device" = "Új eszköz";
+"family dialog title rename device" = "Eszköz átnevezése";
+"family dialog brief profile" = "Adj nevet ennek a profilnak.";
+"family dialog brief device" = "Adj nevet ennek az eszköznek.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "A keresési feltételeknek nem felel meg egy találat sem";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "%@ alkalommal lett blokkolva";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "%@ alkalommal lett engedélyezve";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Kezeld ezt az eszközt a szülői eszközről.";
+"family status qr body" = "Olvasd be a QR-kódot az eszköz összekapcsolásához.";
+"family status active header" = "Aktív!";
+"family status active body" = "További részletekért érintsd meg az eszközt.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Kapcsolás";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Feloldás";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Add meg a fiókazonosítódat a vásárlások visszaállításához.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "A fiókod sikeresen vissza lett állítva. Üdv újra!";
 
-"notification new message title" = "New message";
+"notification new message title" = "Új üzenet";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "Nincs több reklám.\nKomolyan.";
+"onboard desc" = "Blokkolj hirdetéseket és követőket mindenhol prémium alkalmazásunkkal. Élvezd a gyorsabb böngészést, jobb adatvédelmet és kevesebb adatforgalmat.";
+"onboard terms" = "A folytatással elfogadod a Felhasználási feltételeinket, és tudomásul veszed az Adatvédelmi tájékoztató átvételét.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Szeretnél videóhirdetéseket blokkolni?";
+"onboard safari brief" = "Engedélyezd a Safari bővítményünket, hogy böngészés közben blokkolhasd a videóhirdetéseket.";
+"onboard safari step 2" = "Bővítmények kezelése";
+"onboard safari cta" = "Nyisd meg a YouTube-ot Safariban";
+"onboard safari skip" = "Kihagyás most";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPN-kikerülés";
+"bypass info" = "Előfordulhat, hogy egyes alkalmazások nem működnek megfelelően VPN-nel. Felveheted őket a kikerülési listára, hogy forgalmuk a VPN-alagúton kívülre kerüljön, ami javíthat a kapcsolaton, de csökkenti az adatvédelmet. Az app néhány beépített kikerülési bejegyzést is tartalmaz a kompatibilitás érdekében. Megjegyzés: ha eszközödön be van kapcsolva a \"Kapcsolatok blokkolása VPN nélkül\" beállítás, a kikerült alkalmazások nem férnek hozzá az internethez.";
+"bypass none" = "Nincs hozzáadott alkalmazás. Új alkalmazás hozzáadásához használd a felső Hozzáadás gombot.";
+"bypass action add" = "Alkalmazás hozzáadása";
+"bypass dialog add brief" = "Kezdj el gépelni az alkalmazások kereséséhez.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Alap";
+"freemium home status desc safari" = "Alapvető védelem aktív a Safariban. Váltson nagyobb lefedettségre minden alkalmazásban a frissítéshez.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Teljes nyomkövetés-vezérlés feloldása";
+"freemium stats cta desc" = "Lásd, mely követők érnek el – és blokkolhatod is őket.";
+"freemium filters cta header" = "Speciális tiltólisták feloldása";
+"freemium filters cta desc" = "Frissítsd a csomagod, hogy engedélyezd a fejlett védelmet és extra tiltólistákat.";
+"freemium activity cta header" = "Statisztikád feloldása";
+"freemium activity cta desc" = "Frissítés a Plus csomagra a részletes statisztikák és betekintések eléréséhez.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Kezdd el a hirdetések blokkolását a Safariban";
+"freemium sheet safari desc" = "Engedélyezd bővítményünket Safariban, hogy alapvető védelmet kapj böngészés közben. Blokkolja a zavaró hirdetéseket – beleértve a YouTube videóhirdetéseket is –, így tisztább, gyorsabb webes élményt kapsz.";
+"freemium sheet safari cta" = "Safari megnyitása";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "Hogyan kezelje a Blokada a(z) %@ forgalmat?";
+"dialog exception add title" = "Kivétel hozzáadása";
+"dialog exception add text" = "Adj meg egy hosztnevet, amit szeretnél hozzáadni a kivételekhez. Használhatsz * karaktert helyettesítőként, például: *.example.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "Domaindetalok";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "Saját szabályaid";
+"domain details add rule action" = "Szabály hozzáadása";
+"domain details add rule brief" = "Hozz létre egy szabályt ehhez a tartományhoz.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "Egyező szabály szerkesztése";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "Alkalmazva erre: %@.";
+"domain details action search subdomains" = "Aldomainek keresése";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Aldomainek";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "%@ kérés blokkolva %@-hoz.";
+"domain details summary allowed basic" = "%@ kérés engedélyezve %@-hoz.";
+"domain details summary blocked basic customlist" = "A szabályaid %@ kérést blokkoltak %@-hoz.";
+"domain details summary allowed basic customlist" = "A szabályaid %@ kérést engedélyeztek %@-hoz.";
+"domain details summary blocked basic list" = "%@ kérés blokkolva %@-hoz, így: %@.";
+"domain details summary allowed basic list" = "%@ kérés engedélyezve %@-hoz, így: %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "%@ kérést blokkoltunk %@ aldoménjeihez.";
+"domain details summary allowed subdomain" = "%@ kérést engedélyeztünk %@ aldoménjeihez.";
+"domain details summary blocked subdomain customlist" = "A szabályaid %@ kérést blokkoltak %@ aldoménjeihez.";
+"domain details summary allowed subdomain customlist" = "A szabályaid %@ kérést engedélyeztek %@ aldoménjeihez.";
+"domain details summary blocked subdomain list" = "%@ kérést blokkoltunk %@ aldoménjeihez, így: %@.";
+"domain details summary allowed subdomain list" = "%@ kérést engedélyeztünk %@ aldoménjeihez, így: %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "%@ kérést blokkoltunk %@-hoz és %@ kérést az aldoménjeihez.";
+"domain details summary allowed both" = "%@ kérést engedélyeztünk %@-hoz és %@ kérést az aldoménjeihez.";
+"domain details summary blocked both customlist" = "A szabályaid %@ kérést blokkoltak %@-hoz és %@ kérést az aldoménjeihez.";
+"domain details summary allowed both customlist" = "A szabályaid %@ kérést engedélyeztek %@-hoz és %@ kérést az aldoménjeihez.";
+"domain details summary blocked both list" = "%@ kérést blokkoltunk %@-hoz és %@ kérést az aldoménjeihez, így: %@.";
+"domain details summary allowed both list" = "%@ kérést engedélyeztünk %@-hoz és %@ kérést az aldoménjeihez, így: %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "Nincs kérés %@ vagy annak aldoménjei felé.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "Automatikus védelem használata";
+"dialog rule auto desc" = "Blokkolja vagy engedélyezi ezt a tartományt a kiválasztott szűrőknek megfelelően.
+(Alapértelmezett beállítás)";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "Mindig blokkolja ezt a tartományt";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "Minden szűrő figyelmen kívül hagyása, a(z) %@ forgalom mindig blokkolva lesz.";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "Mindig engedélyezi ezt a tartományt";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "Minden szűrő figyelmen kívül hagyása, a(z) %@ forgalom mindig engedélyezve lesz.";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "Mindig blokkolja ezt a tartományt és annak aldoménjeit";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "Blokkolja a(z) %@-t és minden aldoményt alatta.";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "Mindig engedélyezi ezt a tartományt és annak aldoménjeit";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "Engedélyezze a(z) %@-t és minden aldoményt alatta.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "Adatvédelmi Pulzus";
+"privacy pulse brief" = "Nézd meg az eszköz legutóbbi tevékenységét és védelmi állapotát.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "Legnépszerűbb domainek";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Legutóbbi tevékenység";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "Elmúlt 24 óra";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "Összes megtekintése";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Blokkolva";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Engedélyezve";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "Nincs még megjeleníthető adat";

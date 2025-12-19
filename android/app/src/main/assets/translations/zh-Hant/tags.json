@@ -19,10 +19,10 @@
     "piracy": "盜版",
     "torrent": "種子站",
     "streaming": "串流",
-    "apps": "apps",
-    "chat": "chat",
-    "gaming": "gaming",
-    "games": "games",
-    "e-commerce": "e-commerce",
-    "other": "other"
+    "apps": "應用程式",
+    "chat": "聊天",
+    "gaming": "遊戲",
+    "games": "遊戲",
+    "e-commerce": "電子商務",
+    "other": "其他"
 } }

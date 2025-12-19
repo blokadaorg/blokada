@@ -109,7 +109,7 @@
 // Filter name, the basic choice
 "Primary" = "Primair";
 // Filter name, additional choice
-"Extended" = "Extended";
+"Extended" = "Uitgebreid";
 // Filter name, blocks file hosting sites
 "File hosting" = "Bestands hosting";
 // Filter name, blocks torrent sites

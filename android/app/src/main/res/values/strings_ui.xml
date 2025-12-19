@@ -614,6 +614,7 @@
     <string name="privacy_pulse_toplists_header">Top domains</string>
     <string name="privacy_pulse_recents_header">Recent Activity</string>
     <string name="privacy_pulse_timespan_twofourh">Last 24 h</string>
+    <string name="privacy_pulse_timespan_onew">1 week</string>
     <string name="privacy_pulse_timespan_show_all">See All</string>
     <string name="privacy_pulse_tab_blocked">Blocked</string>
     <string name="privacy_pulse_tab_allowed">Allowed</string>

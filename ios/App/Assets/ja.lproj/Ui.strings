@@ -13,7 +13,7 @@
 "error device offline" = "インターネットに接続されていません";
 "error account inactive" = "あなたのアカウントはアクティベートされていません。BLOKADA+ を使用するにはアカウントをアクティベートしてください。";
 "error account inactive generic" = "あなたのアカウントはアクティベートされていません。Blokada を使用するにはアカウントをアクティベートしてください。";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "有効なアクティブアカウントではないようです。誤りと思われる場合はお問い合わせください。";
 "error account invalid" = "アカウント ID を確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
 "error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "取り消す";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "追加";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "チャットで問い合わせ";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "終了";
+"support placeholder" = "知りたいことを何でも質問してください！";
+"support error generic" = "申し訳ありません、理解できませんでした。もう一度お願いします。";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "変更を反映するにはアプリを再起動してください";
 "universal status redirect" = "Blokada アプリで続ける";
 "universal status confirm" = "続行しますか？";
-"universal status loading" = "Loading...";
+"universal status loading" = "読み込み中...";
 
 "alert error header" = "エラーが発生しました！";
 "alert vpn expired header" = "BLOKADA+ の有効期限が終了しました";
@@ -166,9 +166,9 @@
 "home power action turn on" = "有効にする";
 "home power action turn off" = "停止";
 "home power action pause" = "5 分間停止";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "5分間一時停止";
+"home power action off all" = "すべての保護をオフ";
+"home power pause status active" = "広告ブロックが有効です";
 
 "home status paused" = "停止しています";
 "home status active" = "有効";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "表示: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "完全一致のみ";
 "activity empty text" = "端末を使用してみて、後でここに戻って、端末の接続先を確認してください。";
 "activity device filter show all" = "すべての端末";
 "activity retention header" = "アクティビティを保存しますか？";
@@ -282,7 +282,7 @@
 "account action inbox" = "受信トレイ";
 "account action logout" = "購入を復元";
 "account action logout only" = "ログアウト";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "アカウントIDを復元";
 "account action create" = "新しいアカウントを生成";
 "account action about" = "アプリについて";
 "account action tap to show" = "タップして表示";
@@ -370,7 +370,7 @@
 "payment action terms" = "利用規約";
 "payment action policy" = "プライバシーポリシー";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "オファーコードを適用";
 "payment alert error header" = "App Store からのメッセージ";
 // As in saving money: You are saving $5
 "payment save text" = "%@ 引き";
@@ -427,7 +427,7 @@
 
 "payment cancel footer" = "サブスクリプションは支払い済みの期間が終了する前に自動更新されます。いつでも設定からキャンセルできます。";
 "payment cancel footer trial short" = "次の %@ 日間はキャンセルします。課金されません。";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment trial brief" = "%@日後に支払い。サブスクリプションはキャンセルされるまで毎年自動更新されます。";
 
 "location region worldwide" = "ワールドワイド";
 "location region america" = "アメリカ";
@@ -546,15 +546,15 @@
 "family status ready body" = "最初の端末を追加しましょう";
 "family status perms header" = "もう少しで完了です";
 "family status perms body" = "必要な権限を許可してください";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "タップしてセットアップを完了してください";
 "family status expired header" = "アカウントの有効期限が切れています";
 "family status expired body" = "アカウントをアクティベートして続行してください";
 "family status linked header" = "アプリがリンクされました！";
 "family status locked header" = "アプリがロックされました";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "PINでロック";
+"family settings lock enter" = "新しいPINを入力してください";
+"family settings lock remove" = "PINを削除";
 
 "family payment slug" = "一つのサブスクリプションで家族を保護できます。家族全員の端末をモニターし、望まない接続から保護しましょう。";
 "family payment features devices header" = "家族の端末をモニター";
@@ -594,51 +594,51 @@
 "toplist tld unknown" = "不明";
 
 "family notification subtitle" = "ファミリー保護はオフです";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "このデバイスはすでにリンクされています。親アプリからリンク解除し、再度お試しください。";
+"family profile dialog header" = "%@に使用するプロフィールを選択してください。";
+"family profile dialog header this" = "このデバイスに使用するプロフィールを選択してください。";
+"family profile add" = "追加したいプロフィールを選んでください。";
+"family profile template" = "始めるにはテンプレートを選択してください。";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "親";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "親";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "子";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "子";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "カスタム";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "カスタム";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "新しいプロフィールを追加";
+"family profile action delete" = "このプロフィールを削除";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "このプロフィールは現在使用中です。削除前にどのデバイスも使用していないことを確認してください。";
+"family profile error" = "このプロフィールの削除に失敗しました。";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ プロフィール";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "プロフィールを選択";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "統計";
+"family device brief statistics" = "このデバイスの最近のアクティビティを確認できます。";
+"family device label settings" = "デバイス設定";
+"family device brief settings alt" = "このデバイスのブロック設定を管理します。";
+"family device action link" = "このデバイスを再度リンクする";
+"family device action delete" = "このデバイスを削除";
+"family device delete confirm" = "%@ を本当に削除しますか？この操作でデバイスはアカウントからリンク解除されます。";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "デバイスを追加";
+"family device header link" = "デバイスをリンク";
 
 "family device label internet" = "インターネット制御";
 "family device brief internet" = "このデバイスのインターネットアクセスを管理します。";
@@ -650,16 +650,16 @@
 "family device brief internet block" = "このデバイスのインターネットアクセスをすべて停止します。";
 
 
-"family perms header" = "One more thing";
+"family perms header" = "もうひとつだけ";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "「%@」を設定で下記の通り有効にしてください。";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "一般";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPNとデバイス管理";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
@@ -667,20 +667,20 @@
 "family perms setting ios automatic" = "自動";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "接続";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "その他の接続設定";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "プライベートDNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "プライベートDNSプロバイダーのホスト名";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "（または類似）";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "（必ずしも表示されない場合があります）";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
+"family perms copy android" = "最後に、必要な設定を貼り付けるためにテキストフィールドを長押ししてください。";
 
 // A label for which blocklist was used to block domain. Keep super short.
 "family stats label reason" = "備考";
@@ -695,70 +695,70 @@
 "family stats label blocklists" = "ブロックリスト";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "プロフィール内のブロックリスト";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@件選択済み";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "ブロックを一時停止";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "不明";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "なし";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "最も多い順に表示";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "マイ例外から削除";
+"family stats exceptions add" = "マイ例外に追加";
+"family stats title" = "マイ例外";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "下のQRコードをスキャンしてデバイスをファミリーに追加してください。デバイスが検出されるとこの画面は自動的に閉じます。";
+"family link description again" = "下のQRコードをスキャンしてデバイスを再度リンクしてください。デバイスが検出されるとこの画面は自動的に閉じます。";
+"family qr brief" = "親デバイスに表示されているQRコードをスキャンしてください";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "詳細";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "新しいプロフィール";
+"family dialog title rename profile" = "プロフィール名を変更";
+"family dialog title new device" = "新しいデバイス";
+"family dialog title rename device" = "デバイス名を変更";
+"family dialog brief profile" = "このプロフィールの名前を入力してください。";
+"family dialog brief device" = "このデバイスの名前を入力してください。";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "検索条件に一致するものが見つかりません";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "%@回ブロックされました";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "%@回許可されました";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "親デバイスでこのデバイスを管理してください。";
+"family status qr body" = "QRコードをスキャンしてこのデバイスをリンクしてください。";
+"family status active header" = "アクティブ！";
+"family status active body" = "詳細を確認するにはデバイスをタップしてください。";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "リンク";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "ロック解除";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "アカウントIDを入力して購入履歴を復元してください。";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "アカウントが正常に復元されました。お帰りなさい！";
 
-"notification new message title" = "New message";
+"notification new message title" = "新しいメッセージ";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "広告がもう表示されません。\n本当に。";
+"onboard desc" = "プレミアムアプリでどこでも広告やトラッカーをブロック。より速いブラウジング、優れたプライバシー、データ使用量削減をお楽しみください。";
+"onboard terms" = "続行することで、利用規約に同意し、プライバシーポリシーの受領を認識したことになります。";
 
 "onboard safari header" = "動画広告をブロックしますか？";
 "onboard safari brief" = "Safariで拡張機能を有効にして、閲覧中の動画広告をブロックしてください。";
@@ -767,106 +767,106 @@
 "onboard safari skip" = "今はスキップ";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPNバイパス";
+"bypass info" = "一部のアプリはVPNとの動作が正しくない場合があります。これらはバイパスリストに追加して、トラフィックをVPNトンネルの外に送信することができます。これにより接続性が向上する可能性がありますが、プライバシーは低下します。アプリには互換性のために組み込みのバイパス項目も含まれています。注記: お使いのデバイスで「VPNなしの接続をブロック」設定が有効な場合、バイパスしたアプリはインターネットに接続できません。";
+"bypass none" = "追加されたアプリはありません。リストに新しいアプリを追加するには、上部の「追加」ボタンを使用してください。";
+"bypass action add" = "アプリを追加";
+"bypass dialog add brief" = "入力を開始してアプリを検索してください。";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "エッセンシャル";
+"freemium home status desc safari" = "Safariでエッセンシャル保護が有効です。フルカバレッジをアンロックするにはアップグレードしてください。";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "トラッキングコントロールを全てアンロック";
+"freemium stats cta desc" = "どのトラッカーが届いているか確認し、ブロックできます。";
+"freemium filters cta header" = "高度なブロックリストを解除";
+"freemium filters cta desc" = "高度な保護と追加のブロックリストを有効にするにはプランをアップグレードしてください。";
+"freemium activity cta header" = "統計情報をアンロック";
+"freemium activity cta desc" = "詳細な統計情報とインサイトにアクセスするにはPlusにアップグレードしてください。";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Safariで広告ブロックを開始";
+"freemium sheet safari desc" = "Safariで拡張機能を有効にして、ブラウジング中にエッセンシャル保護を得ましょう。YouTubeのビデオ広告を含む煩わしい広告をブロックするので、よりクリーンで速いウェブ体験を楽しめます。";
+"freemium sheet safari cta" = "Safariを開く";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "%@へのトラフィックをBlokadaでどのように処理しますか？";
+"dialog exception add title" = "例外を追加";
+"dialog exception add text" = "例外に追加するホスト名を入力してください。ワイルドカードとして*を利用できます（例：*.example.com）。";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "ドメイン詳細";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "カスタムルール";
+"domain details add rule action" = "ルールを追加";
+"domain details add rule brief" = "このドメインに対するルールを作成します。";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "一致するルールを編集";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "%@に適用されます。";
+"domain details action search subdomains" = "サブドメインを検索";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "サブドメイン";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "%@へのリクエスト%@件をブロックしました。";
+"domain details summary allowed basic" = "%@へのリクエスト%@件を許可しました。";
+"domain details summary blocked basic customlist" = "あなたのルールが%@へのリクエスト%@件をブロックしました。";
+"domain details summary allowed basic customlist" = "あなたのルールが%@へのリクエスト%@件を許可しました。";
+"domain details summary blocked basic list" = "%@を使って%@へのリクエスト%@件をブロックしました。";
+"domain details summary allowed basic list" = "%@を使って%@へのリクエスト%@件を許可しました。";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "%@のサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed subdomain" = "%@のサブドメインへのリクエスト%@件を許可しました。";
+"domain details summary blocked subdomain customlist" = "あなたのルールが%@のサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed subdomain customlist" = "あなたのルールが%@のサブドメインへのリクエスト%@件を許可しました。";
+"domain details summary blocked subdomain list" = "%@を使って%@のサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed subdomain list" = "%@を使って%@のサブドメインへのリクエスト%@件を許可しました。";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed both" = "%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件を許可しました。";
+"domain details summary blocked both customlist" = "あなたのルールが%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed both customlist" = "あなたのルールが%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件を許可しました。";
+"domain details summary blocked both list" = "%@を使って%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件をブロックしました。";
+"domain details summary allowed both list" = "%@を使って%@へのリクエスト%@件とそのサブドメインへのリクエスト%@件を許可しました。";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "%@およびそのサブドメインへのリクエストはありません。";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "自動保護を使用";
+"dialog rule auto desc" = "選択したフィルターに従ってこのドメインをブロックまたは許可します。\n（デフォルト設定）";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "このドメインを常にブロック";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "フィルターを無視して%@へのトラフィックを常にブロックします。";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "このドメインを常に許可";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "フィルターを無視して%@へのトラフィックを常に許可します。";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "このドメインおよびそのサブドメインを常にブロック";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "%@および全てのサブドメインへのトラフィックをブロックします。";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "このドメインおよびそのサブドメインを常に許可";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "%@および全てのサブドメインへのトラフィックを許可します。";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "プライバシーパルス";
+"privacy pulse brief" = "このデバイスの最近のアクティビティと保護状況を確認できます。";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "トップドメイン";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "最近のアクティビティ";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "過去24時間";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "すべて表示";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "ブロック済み";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "許可済み";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "まだ表示するものがありません";

@@ -52,14 +52,14 @@
 // One of the tags used for searching blocklists
 "streaming" = "串流";
 // One of the tags used for searching blocklists
-"apps" = "apps";
+"apps" = "應用程式";
 // One of the tags used for searching blocklists
-"chat" = "chat";
+"chat" = "聊天";
 // One of the tags used for searching blocklists
-"gaming" = "gaming";
+"gaming" = "遊戲";
 // One of the tags used for searching blocklists
-"games" = "games";
+"games" = "遊戲";
 // One of the tags used for searching blocklists
-"e-commerce" = "e-commerce";
+"e-commerce" = "電子商務";
 // One of the tags used for searching blocklists
-"other" = "other";
+"other" = "其他";

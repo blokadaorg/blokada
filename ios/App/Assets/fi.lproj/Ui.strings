@@ -13,7 +13,7 @@
 "error device offline" = "Laitteesi on offline-tilassa";
 "error account inactive" = "Tilisi on toimeton. Aktivoi tilisi jatkaaksesi BLOKADA+:n käyttöä.";
 "error account inactive generic" = "Tilisi ei ole aktiivinen. Ole hyvä ja aktivoi tilisi jatkaaksesi Blokadan käyttöä.";
-"error account inactive after restore" = "This does not seem to be a valid active account. If you believe this is a mistake, please contact us.";
+"error account inactive after restore" = "Tämä ei vaikuta olevan voimassa oleva tili. Jos uskot tämän olevan virhe, ota yhteyttä meihin.";
 "error account invalid" = "Tämä tilitunnus näyttää olevan virheellinen.";
 "error creating account" = "Uutta tiliä ei voitu luoda. Yritä uudelleen myöhemmin.";
 "error fetching data" = "Tätä toimintoa ei voitu suorittaa. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.";
@@ -44,7 +44,7 @@
 "universal action cancel" = "Peruuta";
 "universal action close" = "Sulje";
 "universal action done" = "Valmis";
-"universal action edit" = "Edit";
+"universal action edit" = "Muokkaa";
 "universal action try again" = "Yritä uudelleen";
 "universal action learn more" = "Lue lisää";
 "universal action help" = "Ohje";
@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "Revoke";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "Lisää";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "Chattaa kanssamme";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "Lopeta";
+"support placeholder" = "Kysy mistä tahansa mitä haluat tietää!";
+"support error generic" = "Valitettavasti en ymmärtänyt, voitko toistaa?";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "Käynnistä ohjelma uudelleen, jotta muutokset astuvat voimaan.";
 "universal status redirect" = "Jatka Blokada-sovelluksella";
 "universal status confirm" = "Oletko varma, että haluat jatkaa?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Ladataan...";
 
 "alert error header" = "Hups!";
 "alert vpn expired header" = "BLOKADA+ erääntyi";
@@ -166,9 +166,9 @@
 "home power action turn on" = "Ota käyttöön";
 "home power action turn off" = "Kytke pois";
 "home power action pause" = "Pysäytä viideksi minuutiksi";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "Keskeytä 5 minuutiksi";
+"home power action off all" = "Poista kaikki suojaus käytöstä";
+"home power pause status active" = "Mainosten esto on aktiivinen";
 
 "home status paused" = "Keskeytetty";
 "home status active" = "Aktiivinen";
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "Näytetään kohteet: %@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "Vain tarkka osuma";
 "activity empty text" = "Kokeile käyttää laitettasi ja palaa tänne myöhemmin nähdäksesi, mihin laitteesi yhdistää.";
 "activity device filter show all" = "Kaikki laitteet";
 "activity retention header" = "Pitäisikö meidän tallentaa toimintasi?";
@@ -282,7 +282,7 @@
 "account action inbox" = "Saapuneet";
 "account action logout" = "Palauta ostos";
 "account action logout only" = "Kirjaudu ulos";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "Palauta tili-ID";
 "account action create" = "Luo uusi tili";
 "account action about" = "Tietoa";
 "account action tap to show" = "Napauta näyttääksesi";
@@ -370,7 +370,7 @@
 "payment action terms" = "Käyttöehdot";
 "payment action policy" = "Tietosuojakäytäntö";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "Hyödynnä tarjouskoodi";
 "payment alert error header" = "Viesti App Storesta";
 // As in saving money: You are saving $5
 "payment save text" = "Säästät %@";
@@ -426,7 +426,7 @@
 
 "payment cancel footer" = "Tilaus uudistetaan automaattisesti ennen kuin nykyinen laskutusaika päättyy. Voit peruuttaa milloin tahansa Asetuksissa.";
 "payment cancel footer trial short" = "Peruuta seuraavien %@ päivän aikana ja sinua ei veloiteta.";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment trial brief" = "Maksa %@ päivän kuluttua. Tilauksesi uusiutuu automaattisesti vuosittain, kunnes peruutat sen.";
 
 "location region worldwide" = "Kaikkialla";
 "location region america" = "Amerikka";
@@ -450,7 +450,7 @@
 "setup comment wireguard" = "Huomautus: VPN-konfiguraatio käyttää oletusarvoisesti Blokada Cloudia. Valitse toinen DNS-asetus, jos haluat valita valinnan. 'WireGuard' ja 'WireGuard' logo ovat Jason A. Donenfeldin rekisteröityjä tavaramerkkejä.";
 "setup comment native apps" = "Huomautus: Android-sovellus ei tue vielä Blokada Cloudia. Työskentelemme päivityksen parissa.";
 // A header when listing a bunch of steps to perform (Step 1, Step 2, etc).
-"setup step" = "Step %@: %@";
+"setup step" = "Vaihe %@: %@";
 "setup option label recommended" = "Suositeltu: %@";
 "setup option label alternative" = "Vaihtoehto: %@";
 "setup name label unnamed" = "(Päivitys)";
@@ -531,7 +531,7 @@
 "family rename device" = "Nimeä laite uudelleen";
 "family label this device" = "Tämä laite (%@)";
 "family onboard header" = "Tervetuloa Blokada-perheeseen!";
-"family onboard header brand" = "Welcome to %s!";
+"family onboard header brand" = "Tervetuloa kohteeseen %s!";
 "family onboard body" = "Noudata näytöllä olevia ohjeita määrittääksesi ensimmäisen laitteen.";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
@@ -545,15 +545,15 @@
 "family status ready body" = "Lisää ensimmäinen laitteesi nyt";
 "family status perms header" = "Melkein valmis!";
 "family status perms body" = "Anna tarvittavat käyttöoikeudet";
-"family status perms body alt" = "Tap to finish the setup procedure";
+"family status perms body alt" = "Napauta viimeistelläksesi asennuksen";
 "family status expired header" = "Tili vanhentunut";
 "family status expired body" = "Ole hyvä ja aktivoi tilisi jatkaaksesi";
 "family status linked header" = "Sovellus on linkitetty!";
 "family status locked header" = "Sovellus on lukittu";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "Lukitse pin-koodilla";
+"family settings lock enter" = "Syötä uusi pin-koodisi";
+"family settings lock remove" = "Poista pin-koodi";
 
 "family payment slug" = "Suojaa koko perheesi yhdellä tilauksella. Tarkkaile ja suojaa kaikkia perheen laitteita ei-toivotulta sisällöltä.";
 "family payment features devices header" = "Perhelaitteen Seuranta";
@@ -593,279 +593,279 @@
 "toplist tld unknown" = "tuntematon";
 
 "family notification subtitle" = "Perheiden suojelu on pois päältä";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
+"family fault link already" = "Tämä laite on jo yhdistetty. Poista linkitys vanhemman sovelluksella ja yritä uudelleen.";
+"family profile dialog header" = "Valitse profiili käytettäväksi kohteelle %@.";
+"family profile dialog header this" = "Valitse profiili tämän laitteen käyttöön.";
+"family profile add" = "Minkä profiilin haluat lisätä?";
+"family profile template" = "Valitse malli aloittaaksesi.";
 
 // A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family profile name parent" = "Vanhempi";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"Parent" = "Vanhempi";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "Lapsi";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "Lapsi";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "Mukautettu";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "Mukautettu";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "Lisää uusi profiili";
+"family profile action delete" = "Poista tämä profiili";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "Tämä profiili on tällä hetkellä käytössä. Varmista, ettei mikään laite käytä sitä ennen poistamista.";
+"family profile error" = "Profiilin poistaminen epäonnistui.";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@-profiili";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "Valitse profiili";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "TILASTOT";
+"family device brief statistics" = "Katso tämän laitteen viimeaikainen toiminta.";
+"family device label settings" = "LAITTEEN ASETUKSET";
+"family device brief settings alt" = "Hallitse tämän laitteen estoasetuksia.";
+"family device action link" = "Yhdistä tämä laite uudelleen";
+"family device action delete" = "Poista tämä laite";
+"family device delete confirm" = "Haluatko varmasti poistaa kohteen %@? Tämä poistaa laitteen linkityksen tililtäsi.";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "Lisää laite";
+"family device header link" = "Yhdistä laite";
 
-"family device label internet" = "INTERNET CONTROL";
-"family device brief internet" = "Manage Internet access for this device.";
-"family device label internet on" = "Filter Content";
-"family device brief internet on" = "Blocks harmful and inappropriate sites according to your filters and blocklists.";
-"family device label internet off" = "Allow All";
-"family device brief internet off" = "No content is blocked. The Internet is fully open.";
-"family device label internet block" = "Block All";
-"family device brief internet block" = "Stops all Internet access on the device.";
+"family device label internet" = "INTERNETIN HALLINTA";
+"family device brief internet" = "Hallitse tämän laitteen internetin käyttöoikeuksia.";
+"family device label internet on" = "Suodata sisältöä";
+"family device brief internet on" = "Estää haitalliset ja sopimattomat sivustot valitsemiisi suodattimiin ja estolistoihin perustuen.";
+"family device label internet off" = "Salli kaikki";
+"family device brief internet off" = "Sisältöä ei estetä. Internet on täysin avoin.";
+"family device label internet block" = "Estä kaikki";
+"family device brief internet block" = "Estää kaiken internetin käytön laitteella.";
 
 
-"family perms header" = "One more thing";
+"family perms header" = "Vielä yksi asia";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "Ota '%@' käyttöön Asetuksissa seuraavan ohjeen mukaan.";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "Yleiset";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN & Laitteiden hallinta";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "Automaattinen";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "Yhteydet";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "Lisää yhteysasetuksia";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "Yksityinen DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "Yksityisen DNS-palveluntarjoajan isäntänimi";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "(tai vastaava)";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "(ei aina käytettävissä)";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
-
-// A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family perms copy android" = "Lopuksi napauta ja pidä tekstikenttää liittääksesi tarvittava kokoonpano.";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label reason" = "Syy";
+
+// A label for which blocklist was used to block domain. Keep super short.
+"family stats label blocklist" = "Estolista";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "Profiili";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "Estolistat";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "Estolistat profiilissa";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "%@ valittu";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "Keskeytä esto";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "Tuntematon";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "Ei mitään";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "Näytä yleisimmät ensin";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "Poista Oma poikkeukset -listalta";
+"family stats exceptions add" = "Lisää Oma poikkeukset -listalle";
+"family stats title" = "Omat poikkeukset";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "Skannaa alla oleva QR-koodi lisätäksesi laitteen perheeseesi. Tämä näyttö sulkeutuu automaattisesti laitteen tunnistuksen jälkeen.";
+"family link description again" = "Skannaa alla oleva QR-koodi yhdistääksesi laitteen uudelleen. Tämä näyttö sulkeutuu automaattisesti laitteen tunnistuksen jälkeen.";
+"family qr brief" = "Skannaa vanhemman laitteessa näkyvä QR-koodi";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "Tiedot";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "Uusi profiili";
+"family dialog title rename profile" = "Nimeä profiili uudelleen";
+"family dialog title new device" = "Uusi laite";
+"family dialog title rename device" = "Nimeä laite uudelleen";
+"family dialog brief profile" = "Anna tälle profiilille nimi.";
+"family dialog brief device" = "Anna tälle laitteelle nimi.";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "Haullasi ei löytynyt tuloksia";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "estetty %@ kertaa";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "sallittu %@ kertaa";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "Hallitse tätä laitetta vanhemman laitteella.";
+"family status qr body" = "Skannaa QR-koodi yhdistääksesi tämän laitteen.";
+"family status active header" = "Aktiivinen!";
+"family status active body" = "Napauta laitetta saadaksesi lisätietoja.";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "Yhdistä";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "Avaa lukitus";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "Syötä tilitunnuksesi palauttaaksesi ostokset.";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "Tilisi on palautettu onnistuneesti. Tervetuloa takaisin!";
 
-"notification new message title" = "New message";
+"notification new message title" = "Uusi viesti";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "Ei enää mainoksia.\nIhan oikeasti.";
+"onboard desc" = "Estä mainokset ja seuranta kaikkialla premium-sovelluksellamme. Nauti nopeammasta selaamisesta, paremmasta yksityisyydestä ja pienemmästä datankulutuksesta.";
+"onboard terms" = "Jatkamalla hyväksyt Käyttöehdot ja vahvistat vastaanottaneesi Tietosuojakäytännön.";
 
-"onboard safari header" = "Want to block video ads?";
-"onboard safari brief" = "Enable our extension in Safari to block video ads while browsing.";
-"onboard safari step 2" = "Manage Extensions";
-"onboard safari cta" = "Open YouTube in Safari";
-"onboard safari skip" = "Skip for now";
+"onboard safari header" = "Haluatko estää videomainokset?";
+"onboard safari brief" = "Ota laajennuksemme käyttöön Safarissa estääksesi videomainoksia selatessasi.";
+"onboard safari step 2" = "Hallitse laajennuksia";
+"onboard safari cta" = "Avaa YouTube Safarissa";
+"onboard safari skip" = "Ohita toistaiseksi";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPN-ohitus";
+"bypass info" = "Kaikki sovellukset eivät välttämättä toimi oikein VPN:n kanssa. Voit lisätä ne ohituslistalle, jolloin niiden liikenne ohjataan VPN-tunnelin ulkopuolelle. Tämä voi auttaa yhteysongelmiin mutta heikentää yksityisyyttä. Sovellus sisältää myös joitain sisäänrakennettuja ohituksia yhteensopivuuden vuoksi. Huom: Jos laitteessasi on 'Estä yhteydet ilman VPN:ää' -asetus päällä, ohitetuilla sovelluksilla ei ole internet-yhteyttä.";
+"bypass none" = "Sovelluksia ei lisätty. Lisää uusia sovelluksia tähän listaan ylhäällä olevasta Lisää-painikkeesta.";
+"bypass action add" = "Lisää sovellus";
+"bypass dialog add brief" = "Aloita kirjoittamalla sovelluksen nimi hakua varten.";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "Perus";
+"freemium home status desc safari" = "Perustason suojaus on aktiivinen Safarissa. Päivitä saadaksesi täydellisen suojauksen kaikille sovelluksille.";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "Avaa kaikki seurannan estot";
+"freemium stats cta desc" = "Katso, mitkä seurantalaitteet tavoittavat sinut ja estä ne.";
+"freemium filters cta header" = "Avaa edistyneet estolistat";
+"freemium filters cta desc" = "Päivitä suunnitelmasi ottaaksesi käyttöön edistyneen suojauksen ja lisäestolistat.";
+"freemium activity cta header" = "Avaa tilastosi";
+"freemium activity cta desc" = "Päivitä Plus-versioon nähdäksesi yksityiskohtaiset tilastot ja havainnot.";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "Aloita mainosten esto Safarissa";
+"freemium sheet safari desc" = "Ota laajennuksemme käyttöön Safarissa saadaksesi perustason suojauksen selaillessasi. Se estää ärsyttävät mainokset — myös YouTuben videomainokset — jotta voit nauttia puhtaammasta ja nopeammasta verkkokokemuksesta.";
+"freemium sheet safari cta" = "Avaa Safari";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "Miten Blokadan tulisi käsitellä liikennettä kohteeseen %@?";
+"dialog exception add title" = "Lisää poikkeus";
+"dialog exception add text" = "Syötä isäntänimi lisätäksesi sen poikkeuksiin. Voit käyttää *-merkkiä jokerina, esimerkiksi *.example.com.";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "Toimialuetiedot";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "Omat mukautetut säännöt";
+"domain details add rule action" = "Lisää sääntö";
+"domain details add rule brief" = "Luo tälle toimialueelle sääntö.";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "Muokkaa vastaavaa sääntöä";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "Koskee kohdetta %@.";
+"domain details action search subdomains" = "Etsi alitoimialueista";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "Alitoimialueet";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "Estetty %@ pyyntö(ä) kohteeseen %@.";
+"domain details summary allowed basic" = "Sallittu %@ pyyntö(ä) kohteeseen %@.";
+"domain details summary blocked basic customlist" = "Sääntösi estivät %@ pyyntö(ä) kohteeseen %@.";
+"domain details summary allowed basic customlist" = "Sääntösi sallivat %@ pyyntö(ä) kohteeseen %@.";
+"domain details summary blocked basic list" = "Estetty %@ pyyntö(ä) kohteeseen %@ käyttäen %@.";
+"domain details summary allowed basic list" = "Sallittu %@ pyyntö(ä) kohteeseen %@ käyttäen %@.";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "Estetty %@ pyyntö(ä) alitoimialueisiin kohteessa %@.";
+"domain details summary allowed subdomain" = "Sallittu %@ pyyntö(ä) alitoimialueisiin kohteessa %@.";
+"domain details summary blocked subdomain customlist" = "Sääntösi estivät %@ pyyntö(ä) alitoimialueisiin kohteessa %@.";
+"domain details summary allowed subdomain customlist" = "Sääntösi sallivat %@ pyyntö(ä) alitoimialueisiin kohteessa %@.";
+"domain details summary blocked subdomain list" = "Estetty %@ pyyntö(ä) alitoimialueisiin kohteessa %@ käyttäen %@.";
+"domain details summary allowed subdomain list" = "Sallittu %@ pyyntö(ä) alitoimialueisiin kohteessa %@ käyttäen %@.";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "Estetty %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin.";
+"domain details summary allowed both" = "Sallittu %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin.";
+"domain details summary blocked both customlist" = "Sääntösi estivät %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin.";
+"domain details summary allowed both customlist" = "Sääntösi sallivat %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin.";
+"domain details summary blocked both list" = "Estetty %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin käyttäen %@.";
+"domain details summary allowed both list" = "Sallittu %@ pyyntö(ä) kohteeseen %@ ja %@ pyyntö(ä) sen alitoimialueisiin käyttäen %@.";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "Ei pyyntöjä kohteeseen %@ tai sen alitoimialueisiin.";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "Käytä automaattista suojausta";
+"dialog rule auto desc" = "Estä tai salli tämä toimialue valitsemasi suodattimien mukaan.\n(Oletusasetus)";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "Estä tämä toimialue aina";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "Ohita suodattimet ja estä liikenne kohteeseen %@ aina.";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "Salli tämä toimialue aina";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "Ohita suodattimet ja salli liikenne kohteeseen %@ aina.";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "Estä tämä toimialue ja sen alitoimialueet aina";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "Estä liikenne kohteeseen %@ ja kaikkiin sen alitoimialueisiin.";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "Salli tämä toimialue ja sen alitoimialueet aina";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "Salli liikenne kohteeseen %@ ja kaikkiin sen alitoimialueisiin.";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "Pulse";
+"privacy pulse brief" = "Katso viimeaikaiset tapahtumat ja laitteen suojauksen tila.";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "Suosituimmat toimialueet";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "Viimeaikainen toiminta";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "Viimeiset 24 h";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "Näytä kaikki";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "Estetty";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "Sallittu";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "Ei vielä näytettävää";

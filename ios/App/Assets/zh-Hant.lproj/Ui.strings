@@ -12,7 +12,7 @@
 
 "error device offline" = "您的裝置已離線";
 "error account inactive" = "您未啟用帳號。請啟用帳號，以便繼續使用 BLOKADA+。";
-"error account inactive generic" = "Your account is inactive. Please activate your account in order to continue using Blokada.";
+"error account inactive generic" = "您的帳戶目前為非啟用狀態。請啟用帳戶以繼續使用 Blokada。";
 "error account inactive after restore" = "這似乎不是有效的帳號。如果您認為其中有誤，請聯絡我們。";
 "error account invalid" = "此帳號 ID 似乎無效。";
 "error creating account" = "無法建立新帳號。請稍候再試。";
@@ -33,8 +33,8 @@
 "error location failed fetching" = "無法取得地點。";
 "error unknown" = "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
 "error multiple apps" = "您的裝置上有超過一款 Blokada app。這可能導致連線問題。是否想要立即修正？";
-"error locked" = "This action is unavailable when the app is in a locked state. Please unlock the app to proceed.";
-"error lock invalid" = "A valid PIN must be exactly 4 digits. Please try again.";
+"error locked" = "應用程式處於鎖定狀態時無法執行此操作。請先解鎖應用程式以繼續。";
+"error lock invalid" = "有效的 PIN 必須為正好 4 位數字。請再試一次。";
 
 "conn isssues header" = "連線問題";
 "conn isssues slug" = "連線問題。請檢查設定。點一下檢視詳細資訊。";
@@ -44,7 +44,7 @@
 "universal action cancel" = "取消";
 "universal action close" = "關閉";
 "universal action done" = "完成";
-"universal action edit" = "Edit";
+"universal action edit" = "編輯";
 "universal action try again" = "重試";
 "universal action learn more" = "了解更多";
 "universal action help" = "協助";
@@ -77,14 +77,14 @@
 // A verb "to revoke permissions"
 "universal action revoke" = "撤銷";
 // A verb "to add new item to list"
-"universal action add" = "Add";
+"universal action add" = "新增";
 
 // Action to open chat
-"support action chat" = "Chat with us";
+"support action chat" = "與我們聊天";
 // Action to end chat. Keep it super short
-"support action end" = "End";
-"support placeholder" = "Ask about anything you want to know!";
-"support error generic" = "Sorry did not understand, can you repeat?";
+"support action end" = "結束";
+"support placeholder" = "歡迎自由提問任何想知道的事！";
+"support error generic" = "抱歉，未能理解，您能重複一次嗎？";
 // Its ok to leave it as it is
 "support name bot" = "Blocka Bot";
 
@@ -107,7 +107,7 @@
 "universal status restart required" = "請重新啟動 APP 以套用變更。";
 "universal status redirect" = "使用 Blokada 應用程式繼續";
 "universal status confirm" = "你確定要繼續嗎？";
-"universal status loading" = "Loading...";
+"universal status loading" = "載入中...";
 
 "alert error header" = "哎呀！";
 "alert vpn expired header" = "BLOKADA+ 已到期";
@@ -166,9 +166,9 @@
 "home power action turn on" = "開啟";
 "home power action turn off" = "關閉";
 "home power action pause" = "暫停 5 分鐘";
-"home power action pause five" = "Pause for 5 Minutes";
-"home power action off all" = "Turn Off All Protection";
-"home power pause status active" = "Ad Blocking is Active";
+"home power action pause five" = "暫停 5 分鐘";
+"home power action off all" = "關閉全部防護";
+"home power pause status active" = "廣告封鎖已啟用";
 
 "home status paused" = "已暫停";
 "home status active" = "運作中";
@@ -201,7 +201,7 @@
 "pack category active" = "啟用";
 "pack category all" = "全部";
 
-"shields section header" = "Shields";
+"shields section header" = "防護盾";
 
 "location choice header" = "選擇位置";
 
@@ -246,7 +246,7 @@
 // A short message "Showing for: Device A"
 "activity filter showing for" = "正在顯示：%@";
 // A switch to enable exact search matching (vs fuzzy match). Keep it 2-3 words
-"activity filter exact match" = "Exact Match Only";
+"activity filter exact match" = "只限完全符合";
 "activity empty text" = "嘗試使用您的裝置，稍後再回來看看您的裝置連線到哪裡。";
 "activity device filter show all" = "所有裝置";
 "activity retention header" = "我們應該儲存您的活動嗎？";
@@ -282,7 +282,7 @@
 "account action inbox" = "Inbox";
 "account action logout" = "復原購買";
 "account action logout only" = "登出";
-"account action logout new" = "Restore Account ID";
+"account action logout new" = "恢復帳戶 ID";
 "account action create" = "生成新帳號";
 "account action about" = "關於";
 "account action tap to show" = "點一下顯示";
@@ -370,7 +370,7 @@
 "payment action terms" = "服務條款";
 "payment action policy" = "隱私權政策";
 // A button to use offer code to redeem offer
-"payment action offer" = "Apply Offer Code";
+"payment action offer" = "套用優惠代碼";
 "payment alert error header" = "來自 App Store 的訊息";
 // As in saving money: You are saving $5
 "payment save text" = "您省下了 %@";
@@ -419,14 +419,14 @@
 "payment plan slugline cloud detail" = "（包含 Blokada Cloud）";
 "payment plan slugline plus" = "使用 VPN 獲得增強保護";
 "payment plan cta trial" = "開始 7 天免費試用期";
-"payment plan cta trial length" = "Start %@-Day Free Trial";
+"payment plan cta trial length" = "開始 %@ 天免費試用";
 "payment plan cta monthly" = "訂閱月付方案";
 "payment plan cta annual" = "訂閱年付方案";
 "payment plan current" = "（目前方案）";
 
-"payment cancel footer" = "The subscription is auto-renewed before the current billing period ends. You can cancel anytime in Settings.";
-"payment cancel footer trial short" = "Cancel during the next %@ days, and you won’t be charged.";
-"payment trial brief" = "Pay after %@ days. Subscription auto-renews every year until canceled.";
+"payment cancel footer" = "訂閱會在當前計費週期結束前自動續訂。您可以隨時在「設定」中取消。";
+"payment cancel footer trial short" = "在接下來 %@ 天內取消，您將不會被收費。";
+"payment trial brief" = "%@ 天後付款。訂閱每年自動續訂，直到取消為止。";
 
 "location region worldwide" = "到處";
 "location region america" = "美洲";
@@ -479,7 +479,7 @@
 // A short one-word label for the counter of total requests.
 "stats label total" = "總共";
 // A short header for the stats section of last 24h.
-"stats header day" = "Last 24h";
+"stats header day" = "最近 24 小時";
 // A short header for the stats section of the all time stats.
 "stats header all time" = "所有時間";
 
@@ -488,9 +488,9 @@
 "dnsprofile action open settings" = "開啟設定";
 "dnsprofile desc android" = "在「設定」app 中，找到「私人 DNS」區塊，然後（長按）貼上您的主機名稱。";
 "dnsprofile desc android copy" = "複製您的 Blokada Cloud 主機名稱，然後在「設定」中貼上。";
-"dnsprofile notification subtitle" = "In the Settings app, navigate to:";
+"dnsprofile notification subtitle" = "在「設定」應用程式中，請依序前往：";
 // A helpful message during onboarding to help user find the right settings to change
-"dnsprofile notification body" = "General → VPN, DNS & Device Management → DNS and select Blokada.";
+"dnsprofile notification body" = "一般 → VPN、DNS 與裝置管理 → DNS 並選擇 Blokada。";
 
 // A short header text displayed to user when permissions still have to be granted. Keep it very short.
 "activated header" = "快完成了！";
@@ -510,134 +510,134 @@
 "advanced section header packs" = "阻擋清單";
 "app settings section header" = "這台裝置";
 
-"lock status locked" = "Blokada is locked. Enter the pin code to unlock";
-"lock status unlocked has pin" = "Enter the pin code to change it";
-"lock status unlocked" = "Set your pin code to lock Blokada";
+"lock status locked" = "Blokada 已鎖定。請輸入 PIN 碼以解鎖";
+"lock status unlocked has pin" = "輸入 PIN 碼以變更";
+"lock status unlocked" = "設定您的 PIN 碼來鎖定 Blokada";
 
-"crash body" = "Blokada has unexpectedly stopped, and we're sorry for the inconvenience. By sharing the log file with us, you're enhancing the experience for all users. Please help us identify and fix this issue promptly.";
+"crash body" = "Blokada 已意外停止運作，對造成的不便我們深感抱歉。與我們分享日誌檔案有助於提升所有使用者的體驗。請協助我們盡快找出並修復此問題。";
 
-"universal status waiting for data" = "Waiting for data";
-"universal action disable" = "Disable";
+"universal status waiting for data" = "等待資料";
+"universal action disable" = "停用";
 
 // Translate just Unlock if the original is longer than 16 characters
-"lock action slide unlock" = "Slide to unlock";
+"lock action slide unlock" = "滑動以解鎖";
 // The app will use this version if the Slide to unlock is too long
-"lock action slide unlock short" = "Slide";
-"lock status too many attempts" = "Too many wrong attempts. Try again later";
-"lock status enter to confirm" = "Enter the pin code again to confirm";
-"lock status enter or wait" = "Enter new pin code, or wait to lock...";
-"lock change pin" = "Change pin";
+"lock action slide unlock short" = "滑動";
+"lock status too many attempts" = "嘗試錯誤次數過多，請稍後再試";
+"lock status enter to confirm" = "請再次輸入 PIN 碼以確認";
+"lock status enter or wait" = "請輸入新 PIN 碼，或等待鎖定...";
+"lock change pin" = "更改 PIN 碼";
 
-"family rename device" = "Rename device";
-"family label this device" = "This device (%@)";
-"family onboard header" = "Welcome to Blokada Family!";
-"family onboard header brand" = "Welcome to %s!";
-"family onboard body" = "Follow the instructions on screen to set up your first device.";
+"family rename device" = "重新命名裝置";
+"family label this device" = "此裝置（%@）";
+"family onboard header" = "歡迎加入 Blokada 家庭！";
+"family onboard header brand" = "歡迎使用 %s！";
+"family onboard body" = "請依照螢幕上的指示來設定您的第一台裝置。";
 
 // Displayed when starting the app for the first time, action to activate app, can be "Start"
 "family cta action activate" = "啟用";
-"family cta action add device" = "Add a device";
-"family cta action finish setup" = "Finish setup";
+"family cta action add device" = "新增裝置";
+"family cta action finish setup" = "完成設定";
 
-"family status fresh header" = "Hi there!";
-"family status fresh body" = "Activate or restore your account to continue";
-"family status ready header" = "App is ready!";
-"family status ready body" = "Add your first device now";
+"family status fresh header" = "您好！";
+"family status fresh body" = "請啟用或恢復您的帳戶以繼續";
+"family status ready header" = "應用程式已準備好！";
+"family status ready body" = "立即新增您的第一台裝置";
 "family status perms header" = "快完成了！";
-"family status perms body" = "Please grant the necessary permissions";
-"family status perms body alt" = "Tap to finish the setup procedure";
-"family status expired header" = "Account expired";
-"family status expired body" = "Please activate your account to continue";
-"family status linked header" = "App is linked!";
-"family status locked header" = "App is locked";
+"family status perms body" = "請授予必要的權限";
+"family status perms body alt" = "點擊以完成設置程序";
+"family status expired header" = "帳戶已過期";
+"family status expired body" = "請啟用您的帳戶以繼續";
+"family status linked header" = "應用程式已連結！";
+"family status locked header" = "應用程式已鎖定";
 
-"family settings lock pin" = "Lock with pin";
-"family settings lock enter" = "Enter your new pin";
-"family settings lock remove" = "Remove pin";
+"family settings lock pin" = "使用 PIN 鎖定";
+"family settings lock enter" = "請輸入您的新 PIN 碼";
+"family settings lock remove" = "移除 PIN 碼";
 
-"family payment slug" = "Protect your entire family with one subscription. Monitor and protect all family devices from unwanted content.";
-"family payment features devices header" = "Family Device Monitoring";
-"family payment features devices body" = "Manage and monitor all your devices through a single app. Control access and content filtering directly from your device.";
-"family payment features performance body" = "Maintain a swift and responsive device while ensuring your internet connection remains at peak speeds, all thanks to our proven technology.";
-"family payment features dns body" = "Enhance privacy across all your devices with DNS encryption. Blokada utilizes cutting-edge protocols to ensure your internet traffic remains confidential.";
-"family payment features battery body" = "Activating Blokada won't drain your battery. It might actually help it last longer by blocking unnecessary background activities.";
+"family payment slug" = "只需一個訂閱，即可保護您全家的安全。監控並防護所有家庭裝置，免於不良內容。";
+"family payment features devices header" = "家庭裝置監控";
+"family payment features devices body" = "透過單一應用程式管理並監控您所有的裝置。可直接從您的裝置控制存取權與內容過濾。";
+"family payment features performance body" = "確保您的裝置運作高速且反應靈敏，同時確保網路連線維持高峰速度，全靠我們經過驗證的技術。";
+"family payment features dns body" = "透過 DNS 加密提升所有裝置的隱私保護。Blokada 採用先進協議，確保您的網路流量保持機密。";
+"family payment features battery body" = "啟用 Blokada 不會耗盡您的電池。實際上，可能還能通過阻擋不必要的背景活動幫助延長電池壽命。";
 
-"family account attach header" = "Attach device";
-"family account attach body" = "To link this device to the parent device, complete the setup process. Once linked, this device will be locked, allowing you to configure and monitor it from the parent device.";
-"family account qr header" = "Scan QR code";
-"family account qr body" = "Scan the QR code from the parent device, in order to initiate the linking process.";
+"family account attach header" = "連結裝置";
+"family account attach body" = "要將此裝置與家長裝置連結，請完成設定程序。連結後，該裝置會被鎖定，您可以從家長裝置進行設定和監控。";
+"family account qr header" = "掃描 QR 碼";
+"family account qr body" = "請從家長裝置掃描 QR 碼以開始連結流程。";
 // A button to scan QR code
-"family account qr action button" = "Scan";
+"family account qr action button" = "掃描";
 
-"family account link header" = "Link device";
-"family account link name" = "Set device name";
-"family account link qr header" = "Scan this QR code";
-"family account link qr body" = "This screen will close automatically once the new device has been detected.";
+"family account link header" = "連結裝置";
+"family account link name" = "設定裝置名稱";
+"family account link qr header" = "掃描此 QR 碼";
+"family account link qr body" = "偵測到新裝置後，此畫面將自動關閉。";
 
 // A button to unlink linked device
-"family account cta unlink" = "Unlink";
+"family account cta unlink" = "取消連結";
 
-"family account decide header" = "Add device";
-"family account decide link header" = "Link a device";
-"family account decide link body" = "In Blokada, you simply scan a QR code to link and manage another device.";
-"family account decide separator" = "- or -";
-"family account decide this header" = "Use this device";
-"family account decide this body" = "Alternatively, you may simply configure Blokada to work on this device, and set the pin to lock the app.";
+"family account decide header" = "新增裝置";
+"family account decide link header" = "連結裝置";
+"family account decide link body" = "在 Blokada 中，只要掃描 QR 碼即可連結並管理其他裝置。";
+"family account decide separator" = "- 或 -";
+"family account decide this header" = "使用此裝置";
+"family account decide this body" = "或是，您也可以將 Blokada 設定於此裝置上，並設定 PIN 來鎖定應用程式。";
 
-"family shields header" = "Activate shields to block access to selected content on your supervised devices.";
-"family shields custom slug" = "Manage your own custom entries to block or allow.";
+"family shields header" = "啟用防護盾以封鎖受監控裝置的選定內容。";
+"family shields custom slug" = "管理您自訂的封鎖或允許項目。";
 
 // When a company name is other than the big ones
-"toplist company other" = "Other";
+"toplist company other" = "其他";
 // When a domain is unknown
-"toplist tld unknown" = "unknown";
+"toplist tld unknown" = "未知";
 
-"family notification subtitle" = "Family protection is off";
-"family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
-"family profile dialog header" = "Select a profile to use for %@.";
-"family profile dialog header this" = "Select a profile to use for this device.";
-"family profile add" = "Which profile would you like to add?";
-"family profile template" = "Choose a template to get started.";
-
-// A name of a configuration profile, for parent device
-"family profile name parent" = "Parent";
+"family notification subtitle" = "家庭防護已關閉";
+"family fault link already" = "此裝置已連結。請利用家長端應用程式取消連結再重試。";
+"family profile dialog header" = "選擇要用於 %@ 的設定檔。";
+"family profile dialog header this" = "選擇要用於此裝置的設定檔。";
+"family profile add" = "您想新增哪一個設定檔？";
+"family profile template" = "選擇一個範本開始使用。";
 
 // A name of a configuration profile, for parent device
-"Parent" = "Parent";
+"family profile name parent" = "家長";
+
+// A name of a configuration profile, for parent device
+"Parent" = "家長";
 
 // A name of a configuration profile, for child device
-"family profile name child" = "Child";
+"family profile name child" = "小孩";
 
 // A name of a configuration profile, for child device
-"Child" = "Child";
+"Child" = "小孩";
 
 // A name of a custom configuration profile template
-"family profile name custom" = "Custom";
+"family profile name custom" = "自訂";
 
 // A name of a custom configuration profile template
-"Custom" = "Custom";
+"Custom" = "自訂";
 
-"family profile action add" = "Add new profile";
-"family profile action delete" = "Remove this profile";
+"family profile action add" = "新增設定檔";
+"family profile action delete" = "移除此設定檔";
 
-"family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error" = "Failed to delete this profile.";
+"family profile error use" = "此設定檔目前正在使用中。請確保沒有裝置正在使用再行刪除。";
+"family profile error" = "刪除此設定檔失敗。";
 
 // A name template for profile, like "Child Profile"
-"family profile template name" = "%@ Profile";
+"family profile template name" = "%@ 設定檔";
 
-"family profile action select" = "Select profile";
+"family profile action select" = "選擇設定檔";
 
-"family device label statistics" = "STATISTICS";
-"family device brief statistics" = "See the recent activity of this device.";
-"family device label settings" = "DEVICE SETTINGS";
-"family device brief settings alt" = "Manage blocking settings for this device.";
-"family device action link" = "Link this device again";
-"family device action delete" = "Delete this device";
-"family device delete confirm" = "Are you sure you want to delete %@? This will unlink the device from your account.";
+"family device label statistics" = "統計資料";
+"family device brief statistics" = "查看此裝置的最新活動。";
+"family device label settings" = "裝置設定";
+"family device brief settings alt" = "管理此裝置的封鎖設定。";
+"family device action link" = "再次連結此裝置";
+"family device action delete" = "刪除此裝置";
+"family device delete confirm" = "確定要刪除 %@ 嗎？此操作將會從您的帳戶中取消連結該裝置。";
 
-"family device header add" = "Add a device";
-"family device header link" = "Link a device";
+"family device header add" = "新增裝置";
+"family device header link" = "連結裝置";
 
 "family device label internet" = "網路控制";
 "family device brief internet" = "管理此裝置的網路存取權限。";
@@ -649,115 +649,116 @@
 "family device brief internet block" = "停止此裝置的所有網路存取。";
 
 
-"family perms header" = "One more thing";
+"family perms header" = "還有一件事";
 
 // Param is just Blokada Family
-"family perms brief alt" = "Activate '%@' in Settings by navigating as shown below.";
+"family perms brief alt" = "在設定中啟用「%@」，請依下方方式操作。";
 
 // DNS activation on iOS, in Settings app
-"family perms setting ios general" = "General";
+"family perms setting ios general" = "一般";
 
 // DNS activation on iOS, in Settings -> General
-"family perms setting ios vpn" = "VPN & Device Management";
+"family perms setting ios vpn" = "VPN 與裝置管理";
 
 // DNS activation on iOS, in Settings -> General -> VPN
 "family perms setting ios dns" = "DNS";
 // DNS activation on iOS, in Settings -> General -> VPN
-"family perms setting ios automatic" = "Automatic";
+"family perms setting ios automatic" = "自動化";
 
 // A section name in system preferences
-"family perms setting android connections" = "Connections";
+"family perms setting android connections" = "連線";
 // A section name in system preferences
-"family perms setting android more" = "More connection settings";
+"family perms setting android more" = "更多連線設定";
 // A section name in system preferences
-"family perms setting android dns" = "Private DNS";
+"family perms setting android dns" = "私人 DNS";
 // A section name in system preferences
-"family perms setting android host" = "Private DNS provider hostname";
+"family perms setting android host" = "私人 DNS 提供者主機名稱";
 
 // Used in context, 'go to section named X, or similar'
-"family perms setting android similar" = "(or similar)";
+"family perms setting android similar" = "（或類似選項）";
 // Used in context 'go to section named X (not always present)'
-"family perms setting android optional" = "(not always present)";
+"family perms setting android optional" = "（不一定存在）";
 
-"family perms copy android" = "Finally, tap and hold the text field to paste the necessary configuration.";
-
-// A label for which blocklist was used to block domain. Keep super short.
-"family stats label reason" = "Reason";
+"family perms copy android" = "最後，請長按文字欄以貼上必要的設定。";
 
 // A label for which blocklist was used to block domain. Keep super short.
-"family stats label blocklist" = "Blocklist";
+"family stats label reason" = "原因";
+
+// A label for which blocklist was used to block domain. Keep super short.
+"family stats label blocklist" = "封鎖清單";
 
 // A label for which config profile was used to block domain. Keep super short.
-"family stats label profile" = "Profile";
+"family stats label profile" = "設定檔";
 
 // A label for the number of blocklists selected
-"family stats label blocklists" = "Blocklists";
+"family stats label blocklists" = "封鎖清單";
 
 // A label for the number of blocklists selected
-"family stats label blocklists alt" = "Blocklists in profile";
+"family stats label blocklists alt" = "設定檔中的封鎖清單";
 
 // How many blocklists are selected "5 selected"
-"family stats label blocklists count" = "%@ selected";
+"family stats label blocklists count" = "已選擇 %@ 項";
 
-"family stats label pause" = "Pause blocking";
+"family stats label pause" = "暫停封鎖";
 
 // Shown when profile is unknown. Keep it short.
-"family stats label profile unknown" = "Unknown";
+"family stats label profile unknown" = "未知";
 
 // Shown when no blocklist was applied
-"family stats label none" = "None";
+"family stats label none" = "無";
 
 // An option to sort activity by most common entry first (not by date)
-"family stats filter most common" = "Show most common first";
+"family stats filter most common" = "優先顯示最常見項目";
 
 // "My exceptions" is a list of user configured custom blocking rules.
-"family stats exceptions remove" = "Remove from My exceptions";
-"family stats exceptions add" = "Add to My exceptions";
-"family stats title" = "My exceptions";
+"family stats exceptions remove" = "從我的例外清單中移除";
+"family stats exceptions add" = "加入我的例外清單";
+"family stats title" = "我的例外清單";
 
-"family link description new" = "Scan the QR code below to add a device to your family. This screen will close automatically once the device is detected.";
-"family link description again" = "Scan the QR code below to link a device again. This screen will close automatically once the device is detected.";
-"family qr brief" = "Scan the QR code displayed on the parent device";
+"family link description new" = "掃描下方 QR 碼以將裝置加入您的家庭。偵測到裝置後，此畫面將自動關閉。";
+"family link description again" = "掃描下方 QR 碼以再次連結裝置。偵測到裝置後，此畫面將自動關閉。";
+"family qr brief" = "掃描家長裝置顯示的 QR 碼";
 
 // A section name for details of device activity
-"family device title details" = "Details";
+"family device title details" = "詳細資訊";
 
-"family dialog title new profile" = "New profile";
-"family dialog title rename profile" = "Rename profile";
-"family dialog title new device" = "New device";
-"family dialog title rename device" = "Rename device";
-"family dialog brief profile" = "Enter a name for this profile.";
-"family dialog brief device" = "Enter a name for this device.";
+"family dialog title new profile" = "新的設定檔";
+"family dialog title rename profile" = "重新命名設定檔";
+"family dialog title new device" = "新裝置";
+"family dialog title rename device" = "重新命名裝置";
+"family dialog brief profile" = "請輸入這個設定檔的名稱。";
+"family dialog brief device" = "請輸入這個裝置的名稱。";
 
-"family search empty" = "No matches found for your search criteria";
+"family search empty" = "找不到符合您搜尋條件的結果";
 
 // How many times this host has been blocked
-"family activity blocked times" = "blocked %@ times";
+"family activity blocked times" = "已封鎖 %@ 次";
 
 // How many times this host has been allowed
-"family activity allowed times" = "allowed %@ times";
+"family activity allowed times" = "已允許 %@ 次";
 
-"family status linked body" = "Manage this device using the parent device.";
-"family status qr body" = "Scan the QR code to link this device.";
-"family status active header" = "Active!";
-"family status active body" = "Tap on the device for more details.";
+"family status linked body" = "請使用家長裝置管理這台裝置。";
+"family status qr body" = "請掃描 QR 碼來連結此裝置。";
+"family status active header" = "啟用中！";
+"family status active body" = "點擊裝置以獲取更多詳細資訊。";
 
 // A button to link this device to parent device
-"family cta action link" = "Link";
+"family cta action link" = "連結";
 
 // A button to unlock this device
-"family cta action unlock" = "Unlock";
+"family cta action unlock" = "解鎖";
 
-"family account restore desc" = "Enter your account ID to restore your purchases.";
+"family account restore desc" = "輸入您的帳戶 ID 以恢復購買項目。";
 
-"generic account active" = "Your account has been successfully restored. Welcome back!";
+"generic account active" = "您的帳戶已成功恢復。歡迎回來！";
 
-"notification new message title" = "New message";
+"notification new message title" = "新訊息";
 
 
-"onboard header" = "No more ads.\nSeriously.";
-"onboard desc" = "Block ads and trackers everywhere with our premium app. Enjoy faster browsing, better privacy, and reduced data usage.";
-"onboard terms" = "By continuing you accept our Terms of Service and acknowledge receipt of our Privacy Policy.";
+"onboard header" = "沒有更多廣告。
+認真的。";
+"onboard desc" = "使用我們的高級應用程式，隨處封鎖廣告與追蹤器。享受更快的瀏覽、更佳的隱私和更低的數據用量。";
+"onboard terms" = "繼續操作即表示您同意我們的服務條款並確認收到我們的隱私政策。";
 
 "onboard safari header" = "想封鎖影片廣告嗎？";
 "onboard safari brief" = "啟用我們在 Safari 的擴充功能，在瀏覽時封鎖影片廣告。";
@@ -766,106 +767,107 @@
 "onboard safari skip" = "暫時略過";
 
 // A section to configure apps that should bypass (skip) VPN
-"bypass section header" = "VPN Bypass";
-"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. The app also includes a few built-in bypass entries for compatibility. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
-"bypass none" = "No apps added. Use the Add button at the top to add new apps to this list.";
-"bypass action add" = "Add app";
-"bypass dialog add brief" = "Start typing to search apps.";
+"bypass section header" = "VPN 例外繞過";
+"bypass info" = "某些應用程式在 VPN 下可能無法正常運作。您可以將它們加入繞過清單，使其流量不經 VPN 隧道傳輸，有助於連接但會減少隱私防護。應用程式也包含少數內建繞過項以確保相容性。注意：若您的裝置啟用了「封鎖沒有 VPN 的連線」，被繞過的應用程式將無法上網。";
+"bypass none" = "尚未新增應用程式。請點擊上方「新增」按鈕新增應用程式至此清單。";
+"bypass action add" = "新增應用程式";
+"bypass dialog add brief" = "開始輸入以搜尋應用程式。";
 
 // A one-word header to show when app is in freemium status. Can use a synonym: Primary, Basic, make it short.
-"freemium home status header" = "Essentials";
-"freemium home status desc safari" = "Essential protection is active in Safari. Upgrade to unlock full coverage for all apps.";
+"freemium home status header" = "基礎";
+"freemium home status desc safari" = "Safari 已啟用基礎防護。升級即可解鎖所有應用程式的全面防護。";
 
-"freemium stats cta header" = "Unlock full tracking control";
-"freemium stats cta desc" = "See which trackers are reaching you - and block them.";
-"freemium filters cta header" = "Unlock advanced blocklists";
-"freemium filters cta desc" = "Upgrade your plan to enable advanced protection and extra blocklists.";
-"freemium activity cta header" = "Unlock your stats";
-"freemium activity cta desc" = "Upgrade to Plus to access detailed statistics and insights.";
+"freemium stats cta header" = "解鎖全面追蹤控制";
+"freemium stats cta desc" = "查看有哪些追蹤器正在追蹤你－並封鎖它們。";
+"freemium filters cta header" = "解鎖進階封鎖清單";
+"freemium filters cta desc" = "升級方案以啟用進階防護並獲得額外封鎖清單。";
+"freemium activity cta header" = "解鎖您的統計資料";
+"freemium activity cta desc" = "升級至 Plus，以存取詳細的統計資料與洞察分析。";
 
-"freemium sheet safari header" = "Start blocking ads in Safari";
-"freemium sheet safari desc" = "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.";
-"freemium sheet safari cta" = "Open Safari";
+"freemium sheet safari header" = "在 Safari 上開始封鎖廣告";
+"freemium sheet safari desc" = "在 Safari 啟用我們的延伸功能，便能在瀏覽時獲得必備防護。它會封鎖煩人的廣告－包含 YouTube 上的影片廣告－讓您享受更乾淨、更快速的網頁體驗。";
+"freemium sheet safari cta" = "開啟 Safari";
 
-"dialog title activity rule" = "How Should Blokada Handle Traffic to %@?";
-"dialog exception add title" = "Add an Exception";
-"dialog exception add text" = "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.";
+"dialog title activity rule" = "Blokada 應該如何處理 %@ 的流量？";
+"dialog exception add title" = "新增例外條件";
+"dialog exception add text" = "請輸入要加入例外清單的主機名稱。您可以使用 * 作為萬用字元，例如 *.example.com。";
 
 // Keep it very short. Can be just 'Details'.
-"domain details section header" = "Domain Details";
+"domain details section header" = "網域詳細資訊";
 // A button to add a new rule to block / allow domain
-"domain details rules section header" = "Your Custom Rules";
-"domain details add rule action" = "Add a Rule";
-"domain details add rule brief" = "Create a rule for this domain.";
+"domain details rules section header" = "您的自訂規則";
+"domain details add rule action" = "新增規則";
+"domain details add rule brief" = "為此網域建立一條規則。";
 // A button do edit rule that has been found for given domain
-"domain details edit rule action" = "Edit Matching Rule";
+"domain details edit rule action" = "編輯符合規則";
 // A short text for matching rule, like "Matches *.example.com"
-"domain details edit rule brief" = "Applies to %@.";
-"domain details action search subdomains" = "Search Subdomains";
+"domain details edit rule brief" = "適用於 %@。";
+"domain details action search subdomains" = "搜尋子網域";
 // Just one word header for Subdomains section
-"domain details header subdomains" = "Subdomains";
+"domain details header subdomains" = "子網域";
 
 // Example: 29 request(s) to apple.com were blocked
-"domain details summary blocked basic" = "Blocked %@ request(s) to %@.";
-"domain details summary allowed basic" = "Allowed %@ request(s) to %@.";
-"domain details summary blocked basic customlist" = "Your rules blocked %@ request(s) to %@.";
-"domain details summary allowed basic customlist" = "Your rules allowed %@ request(s) to %@.";
-"domain details summary blocked basic list" = "Blocked %@ request(s) to %@ using %@.";
-"domain details summary allowed basic list" = "Allowed %@ request(s) to %@ using %@.";
+"domain details summary blocked basic" = "已封鎖 %@ 次對 %@ 的請求。";
+"domain details summary allowed basic" = "已允許 %@ 次對 %@ 的請求。";
+"domain details summary blocked basic customlist" = "您的規則已封鎖 %@ 次對 %@ 的請求。";
+"domain details summary allowed basic customlist" = "您的規則已允許 %@ 次對 %@ 的請求。";
+"domain details summary blocked basic list" = "已使用 %@ 封鎖 %@ 次對 %@ 的請求。";
+"domain details summary allowed basic list" = "已使用 %@ 允許 %@ 次對 %@ 的請求。";
 
 // Example: 29 request(s) to subdomains of apple.com were blocked
-"domain details summary blocked subdomain" = "Blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain" = "Allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain customlist" = "Your rules blocked %@ request(s) to subdomains of %@.";
-"domain details summary allowed subdomain customlist" = "Your rules allowed %@ request(s) to subdomains of %@.";
-"domain details summary blocked subdomain list" = "Blocked %@ request(s) to subdomains of %@ using %@.";
-"domain details summary allowed subdomain list" = "Allowed %@ request(s) to subdomains of %@ using %@.";
+"domain details summary blocked subdomain" = "已封鎖 %@ 次對 %@ 子網域的請求。";
+"domain details summary allowed subdomain" = "已允許 %@ 次對 %@ 子網域的請求。";
+"domain details summary blocked subdomain customlist" = "您的規則已封鎖 %@ 次對 %@ 子網域的請求。";
+"domain details summary allowed subdomain customlist" = "您的規則已允許 %@ 次對 %@ 子網域的請求。";
+"domain details summary blocked subdomain list" = "已使用 %@ 封鎖 %@ 次對 %@ 子網域的請求。";
+"domain details summary allowed subdomain list" = "已使用 %@ 允許 %@ 次對 %@ 子網域的請求。";
 
 // Example: 29 request(s) to apple.com were blocked and 33 request(s) to its subdomains were also blocked
-"domain details summary blocked both" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both customlist" = "Your rules blocked %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary allowed both customlist" = "Your rules allowed %@ request(s) to %@ and %@ request(s) to its subdomains.";
-"domain details summary blocked both list" = "Blocked %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
-"domain details summary allowed both list" = "Allowed %@ request(s) to %@ and %@ request(s) to its subdomains using %@.";
+"domain details summary blocked both" = "已封鎖 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
+"domain details summary allowed both" = "已允許 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
+"domain details summary blocked both customlist" = "您的規則已封鎖 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
+"domain details summary allowed both customlist" = "您的規則已允許 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
+"domain details summary blocked both list" = "已使用 %@ 封鎖 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
+"domain details summary allowed both list" = "已使用 %@ 允許 %@ 次對 %@ 及 %@ 次對其子網域的請求。";
 
 // Param: domain name
-"domain details summary none" = "No requests to %@ or its subdomains.";
+"domain details summary none" = "沒有任何對 %@ 或其子網域的請求。";
 
 // A rule name to use default configuration
-"dialog rule auto" = "Use Automatic Protection";
-"dialog rule auto desc" = "Block or allow this domain according to your selected filters.\n(Default setting)";
+"dialog rule auto" = "使用自動防護";
+"dialog rule auto desc" = "依照您選擇的過濾器，封鎖或允許此網域。
+（預設設定）";
 
-"dialog rule domain block" = "Always Block This Domain";
+"dialog rule domain block" = "永遠封鎖此網域";
 // Param: domain name
-"dialog rule domain desc block" = "Ignore filters and always block traffic to %@.";
+"dialog rule domain desc block" = "忽略過濾器，永遠封鎖對 %@ 的流量。";
 
-"dialog rule domain allow" = "Always Allow This Domain";
+"dialog rule domain allow" = "永遠允許此網域";
 // Param: domain name
-"dialog rule domain desc allow" = "Ignore filters and always allow traffic to %@.";
+"dialog rule domain desc allow" = "忽略過濾器，永遠允許對 %@ 的流量。";
 
-"dialog rule subdomains block" = "Always Block This Domain and Its Subdomains";
+"dialog rule subdomains block" = "永遠封鎖此網域及其子網域";
 // Param: domain name
-"dialog rule subdomains desc block" = "Block traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc block" = "封鎖對 %@ 及其所有子網域的流量。";
 
-"dialog rule subdomains allow" = "Always Allow This Domain and Its Subdomains";
+"dialog rule subdomains allow" = "永遠允許此網域及其子網域";
 // Param: domain name
-"dialog rule subdomains desc allow" = "Allow traffic to %@ and every subdomain beneath it.";
+"dialog rule subdomains desc allow" = "允許對 %@ 及其所有子網域的流量。";
 
 // A header / button for the Privacy Pulse section. Keep it very short. Can translate to just 'Pulse'
-"privacy pulse section header" = "Privacy Pulse";
-"privacy pulse brief" = "See recent activity and the protection status of this device.";
+"privacy pulse section header" = "隱私脈搏";
+"privacy pulse brief" = "查看此裝置的近期活動和防護狀態。";
 // A header for Toplists section
-"privacy pulse toplists header" = "Top domains";
+"privacy pulse toplists header" = "熱門網域";
 // A header for Recent Activity section (shows user activity)
-"privacy pulse recents header" = "Recent Activity";
+"privacy pulse recents header" = "近期活動";
 // A timespan duration indicator, keep super short
-"privacy pulse timespan 24h" = "Last 24 h";
+"privacy pulse timespan 24h" = "最近 24 小時";
 // Action to show all entries. Keep it very short. Can be 'More'.
-"privacy pulse timespan show all" = "See All";
+"privacy pulse timespan show all" = "查看全部";
 // A tab name for Blocked entries
-"privacy pulse tab blocked" = "Blocked";
+"privacy pulse tab blocked" = "已封鎖";
 // A tab name for Allowed entries
-"privacy pulse tab allowed" = "Allowed";
+"privacy pulse tab allowed" = "已允許";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
-"privacy pulse empty" = "Nothing to show yet";
+"privacy pulse empty" = "尚無可顯示內容";
