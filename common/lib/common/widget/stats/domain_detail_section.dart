@@ -357,6 +357,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   bool _hasScheduledFetch = false;
+  Animation<double>? _routeAnimation;
+  void Function(AnimationStatus status)? _animationListener;
 
   @override
   void initState() {
@@ -384,21 +386,69 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Schedule fetch to run after route animation completes
-    if (!_hasScheduledFetch && widget.fetchToplist) {
-      _hasScheduledFetch = true;
-      final route = ModalRoute.of(context);
-      if (route != null && route.animation != null) {
-        // Listen for animation completion
-        route.animation!.addStatusListener((status) {
+    _scheduleSubdomainFetch();
+  }
+
+  @override
+  void didUpdateWidget(covariant DomainDetailSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final entryChanged = widget.entry.domainName != oldWidget.entry.domainName ||
+        widget.entry.action != oldWidget.entry.action ||
+        widget.entry.requests != oldWidget.entry.requests;
+    final navigationChanged = widget.level != oldWidget.level ||
+        widget.domain != oldWidget.domain ||
+        widget.range != oldWidget.range ||
+        widget.fetchToplist != oldWidget.fetchToplist;
+
+    if (entryChanged || navigationChanged) {
+      _resetForNewSelection();
+      if (widget.fetchToplist) {
+        _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
+        _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
+        _fetchRecentActivity();
+      }
+      _scheduleSubdomainFetch();
+    }
+  }
+
+  void _resetForNewSelection() {
+    _hasScheduledFetch = false;
+    _isLoading = widget.fetchToplist;
+    _allSubdomains = [];
+    _filteredSubdomains = [];
+    _parentCount = 0;
+    _recentBlockedEntries = [];
+    _recentAllowedEntries = [];
+    _searchController.text = "";
+  }
+
+  void _scheduleSubdomainFetch() {
+    if (_hasScheduledFetch || !widget.fetchToplist) return;
+
+    // Remove any previous listener to avoid multiple triggers
+    if (_animationListener != null && _routeAnimation != null) {
+      _routeAnimation!.removeStatusListener(_animationListener!);
+    }
+
+    _hasScheduledFetch = true;
+    final route = ModalRoute.of(context);
+    _routeAnimation = route?.animation;
+
+    if (_routeAnimation != null) {
+      if (_routeAnimation!.status == AnimationStatus.completed) {
+        _fetchSubdomains();
+      } else {
+        _animationListener = (status) {
           if (status == AnimationStatus.completed && mounted) {
             _fetchSubdomains();
           }
-        });
-      } else {
-        // Fallback if no animation (shouldn't happen)
-        _fetchSubdomains();
+        };
+        _routeAnimation!.addStatusListener(_animationListener!);
       }
+    } else {
+      // Fallback if no animation (shouldn't happen)
+      _fetchSubdomains();
     }
   }
 
@@ -659,6 +709,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   @override
   void dispose() {
+    if (_animationListener != null && _routeAnimation != null) {
+      _routeAnimation!.removeStatusListener(_animationListener!);
+    }
     _searchController.removeListener(_filterSubdomains);
     _searchController.dispose();
     super.dispose();
