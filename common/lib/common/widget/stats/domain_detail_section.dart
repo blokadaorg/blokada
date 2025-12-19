@@ -838,17 +838,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           ),
           const SizedBox(height: 8),
 
-          // Subtitle with stats
-          Text(
-            _getSubtitleText(),
-            style: TextStyle(
-              fontSize: 16,
-              color: context.theme.textSecondary,
-            ),
-            textAlign: TextAlign.left,
-            softWrap: true,
-            overflow: TextOverflow.visible,
-          ),
+          // Subtitle with stats (reserve space to avoid layout jump)
+          _buildSubtitle(),
         ],
       ),
     );
@@ -884,6 +875,28 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSubtitle() {
+    const fontSize = 16.0;
+    const lineHeight = 1.3;
+    const minLines = 2;
+    final minHeight = fontSize * lineHeight * minLines;
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: minHeight),
+      child: Text(
+        _getSubtitleText(),
+        style: TextStyle(
+          fontSize: fontSize,
+          height: lineHeight,
+          color: context.theme.textSecondary,
+        ),
+        textAlign: TextAlign.left,
+        softWrap: true,
+        overflow: TextOverflow.visible,
       ),
     );
   }

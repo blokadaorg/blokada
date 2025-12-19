@@ -137,11 +137,13 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
           final mainEntry = args['mainEntry'] as UiJournalMainEntry;
           final level = args['level'] as int? ?? 2;  // Default to level 2
           final domain = args['domain'] as String? ?? mainEntry.domainName;
+          final range = args['range'] as String?; // e.g. "24h" or "7d"
 
           return DomainDetailSection(
             entry: mainEntry,
             level: level,
             domain: domain,
+            range: range ?? "24h",
           );
         }
         // Normal entry from journal - use StatsDetailSection
