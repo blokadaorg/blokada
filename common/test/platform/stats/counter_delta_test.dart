@@ -62,11 +62,41 @@ void main() {
       );
 
       // Expected from fixture (percent change relative to previous window's same metric):
-      // - Allowed prev=4,957, curr=7,320 => +48% (rounded)
-      // - Blocked prev=1,979, curr=2,750 => +39% (rounded)
-      expect(delta.allowedPercent, equals(48));
-      expect(delta.blockedPercent, equals(39));
+      // - Allowed prev=4,857, curr=7,047 => +45% (rounded)
+      // - Blocked prev=2,021, curr=2,610 => +29% (rounded)
+      expect(delta.allowedPercent, equals(45));
+      expect(delta.blockedPercent, equals(29));
       expect(delta.hasComparison, isTrue);
+    });
+
+    test('includes current hour counters for new user fixture', () {
+      final raw = File('test/platform/stats/fixtures/stats_48h_new_user.json').readAsStringSync();
+      final decoded = jsonDecode(raw) as Map<String, dynamic>;
+      final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
+
+      var latestTimestamp = 0;
+      for (final metric in endpoint.stats.metrics) {
+        for (final dp in metric.dps) {
+          if (dp.timestamp > latestTimestamp) latestTimestamp = dp.timestamp;
+        }
+      }
+
+      final referenceTime =
+          DateTime.fromMillisecondsSinceEpoch((latestTimestamp + 1800) * 1000, isUtc: true);
+
+      final daily = buildHourlyPeriodCountersFromRollingStats(
+        endpoint,
+        hours: 24,
+        referenceTime: referenceTime,
+      );
+
+      expect(daily.current.allowed, equals(17));
+      expect(daily.current.blocked, equals(10));
+      expect(daily.current.total, equals(27));
+      expect(daily.previous.allowed, equals(0));
+      expect(daily.previous.blocked, equals(0));
+      expect(daily.previous.total, equals(0));
+      expect(daily.hasComparison, isFalse);
     });
 
     test('returns 0 when baseline is zero', () {

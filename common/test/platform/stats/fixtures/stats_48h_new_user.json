@@ -1,0 +1,30 @@
+{
+  "total_allowed": "234",
+  "total_blocked": "28",
+  "stats": {
+    "metrics": [
+      {
+        "tags": {
+          "action": "blocked"
+        },
+        "dps": [
+          {
+            "timestamp": "1767607200",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "tags": {
+          "action": "fallthrough"
+        },
+        "dps": [
+          {
+            "timestamp": "1767607200",
+            "value": 17
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -63,12 +63,13 @@ class RadialChart extends StatelessWidget {
     final delta = counterDelta;
     final hasDelta = deltaReady && delta?.hasComparison == true;
     final statsUsable = statsReady && deltaReady;
+    final fallbackRatio = statsUsable ? gaugeFillFromDelta(0) : 0.0;
     final allowedRatio = hasDelta
         ? gaugeFillFromDelta(delta!.allowedPercent)
-        : (statsUsable ? stats.dayAllowedRatio : 0.0);
+        : fallbackRatio;
     final blockedRatio = hasDelta
         ? gaugeFillFromDelta(delta!.blockedPercent)
-        : (statsUsable ? stats.dayBlockedRatio : 0.0);
+        : fallbackRatio;
     final allowedVal = min(max(allowedRatio, 0.0), 100.0);
     final blockedVal = min(max(blockedRatio, 0.0), 100.0);
 
