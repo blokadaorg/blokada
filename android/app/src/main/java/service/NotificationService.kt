@@ -21,7 +21,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import org.blokada.R
 import utils.ExpiredFamilyNotification
 import utils.ExpiredNotification
 import utils.FamilyOnboardingNotification
@@ -46,6 +45,10 @@ val NOTIF_NEW_MESSAGE = "supportNewMessage"
 val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 val NOTIF_WEEKLY_REPORT = "weeklyReport"
 private const val WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000L
+private const val WEEKLY_REPORT_TITLE = "Weekly report"
+private const val WEEKLY_REPORT_BODY = "Your weekly report is ready."
+private const val WEEKLY_REPORT_REFRESH_TITLE = "Weekly report updated"
+private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
 
     object NotificationService {
         private val context by lazy { ContextService }
@@ -170,8 +173,8 @@ data class WeeklyReportPayload(
     }
 
     fun refreshed(ctx: Context): WeeklyReportPayload {
-        val titleValue = refreshedTitle ?: ctx.getString(R.string.notification_weekly_report_refresh_title)
-        val bodyValue = refreshedBody ?: ctx.getString(R.string.notification_weekly_report_refresh_body)
+        val titleValue = refreshedTitle ?: WEEKLY_REPORT_REFRESH_TITLE
+        val bodyValue = refreshedBody ?: WEEKLY_REPORT_REFRESH_BODY
         return WeeklyReportPayload(
             title = titleValue,
             body = bodyValue,
@@ -191,7 +194,7 @@ data class WeeklyReportPayload(
                     body = json.optString("body", null),
                     refreshedTitle = json.optString("refreshedTitle", null),
                     refreshedBody = json.optString("refreshedBody", null)
-                        .ifEmpty { ctx.getString(R.string.notification_weekly_report_refresh_body) + " (bg)" },
+                        .ifEmpty { WEEKLY_REPORT_REFRESH_BODY + " (bg)" },
                     backgroundLeadMs = json.optLong("backgroundLeadMs", WEEKLY_REPORT_BACKGROUND_LEAD_MS)
                 )
             } catch (e: Exception) {
@@ -202,10 +205,10 @@ data class WeeklyReportPayload(
 
         fun defaults(ctx: Context): WeeklyReportPayload {
             return WeeklyReportPayload(
-                ctx.getString(R.string.notification_weekly_report_title),
-                ctx.getString(R.string.notification_weekly_report_body),
-                ctx.getString(R.string.notification_weekly_report_refresh_title),
-                ctx.getString(R.string.notification_weekly_report_refresh_body) + " (bg)",
+                WEEKLY_REPORT_TITLE,
+                WEEKLY_REPORT_BODY,
+                WEEKLY_REPORT_REFRESH_TITLE,
+                WEEKLY_REPORT_REFRESH_BODY + " (bg)",
                 WEEKLY_REPORT_BACKGROUND_LEAD_MS
             )
         }

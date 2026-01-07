@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import model.BlokadaException
 import org.blokada.R
 import service.Localised
+import service.NOTIF_WEEKLY_REPORT
 import ui.MainActivity
 
 private const val IMPORTANCE_NONE = 0
@@ -226,8 +227,8 @@ class WeeklyReportNotification(
     25, NotificationChannels.BLOCKA,
     create = { ctx ->
         val b = NotificationCompat.Builder(ctx)
-        val title = titleOverride ?: ctx.getString(R.string.notification_weekly_report_title)
-        val body = bodyOverride ?: ctx.getString(R.string.notification_weekly_report_body)
+        val title = titleOverride ?: "Weekly report"
+        val body = bodyOverride ?: "Your weekly report is ready."
 
         b.setContentTitle(title)
         b.setContentText(body)
