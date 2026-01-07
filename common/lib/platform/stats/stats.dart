@@ -803,7 +803,7 @@ PeriodCounters buildHourlyPeriodCountersFromRollingStats(
   final anchorSeconds = anchor.millisecondsSinceEpoch ~/ 1000;
 
   final hourUnit = Duration(hours: 1).inSeconds;
-  final currentEnd = anchorSeconds;
+  final currentEnd = anchorSeconds + hourUnit;
   final currentStart = currentEnd - hours * hourUnit;
   final previousEnd = currentStart;
   final previousStart = previousEnd - hours * hourUnit;
