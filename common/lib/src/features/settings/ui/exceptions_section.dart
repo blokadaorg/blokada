@@ -170,7 +170,6 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disp
   }
 
   Widget _buildEmptyState(BuildContext context) {
-    final isBlocked = _selectedTab == ExceptionsTab.blocked;
     final message = "privacy pulse empty".i18n;
 
     return Padding(

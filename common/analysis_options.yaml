@@ -9,11 +9,7 @@ analyzer:
     - build/**
   errors:
     file_names: ignore
-    unused_import: ignore
-    unused_element: ignore
-    unused_field: ignore
-    unused_local_variable: ignore
-    dead_code: ignore
+    # Re-enable unused code signals to keep the codebase tidy.
     prefer_const_constructors: ignore
     prefer_const_literals_to_create_immutables: ignore
     prefer_const_declarations: ignore
@@ -27,7 +23,6 @@ analyzer:
     unreachable_switch_default: ignore
     avoid_print: ignore
     unnecessary_const: ignore
-    unnecessary_import: ignore
     prefer_const_constructors_in_immutables: ignore
     prefer_typing_uninitialized_variables: ignore
     library_private_types_in_public_api: ignore

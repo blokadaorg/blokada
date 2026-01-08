@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -17,7 +16,6 @@ class StatsStore = StatsStoreBase with _$StatsStore;
 abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<api.StatsApi>();
   late final _device = Core.get<DeviceStore>();
-  late final _accountId = Core.get<AccountId>();
   late final _toplists = Core.get<ToplistStore>();
 
   static const Duration _cacheTtl = Duration(seconds: 10);
@@ -252,7 +250,6 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     try {
       return await log(m).trace("fetchToplists", (m) async {
         try {
-          final accountId = await _accountId.fetch(m);
           final deviceName = _device.deviceAlias;
 
           // Guard: Don't fetch if deviceAlias is not set yet

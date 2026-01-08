@@ -162,5 +162,3 @@ class TracingEvent {
     }
   }
 }
-
-const _timeoutKey = "LogTracer:HangTraceCheck";

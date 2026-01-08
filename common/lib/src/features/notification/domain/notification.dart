@@ -12,7 +12,6 @@ import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:meta/meta.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx/mobx.dart' as mobx show ReactionDisposer;
 
 part 'actor.dart';
 part 'api.dart';

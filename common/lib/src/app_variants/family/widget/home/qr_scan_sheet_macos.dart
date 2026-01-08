@@ -4,7 +4,6 @@ import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
-import 'package:common/src/platform/family/family.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +17,6 @@ class QrScanSheetMacos extends StatefulWidget {
 
 class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
   late final _familyLink = Core.get<LinkActor>();
-  late final _channel = Core.get<FamilyChannel>();
   late final _linkedMode = Core.get<FamilyLinkedMode>();
 
   final _linkController = TextEditingController();

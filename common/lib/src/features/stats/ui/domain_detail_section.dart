@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:common/src/shared/ui/dialog.dart';
-import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -62,21 +61,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   bool _recentBlockedLoading = false;
   bool _recentAllowedLoading = false;
 
-  // Helper to count domain levels (dots + 1)
-  int _getDomainLevel(String domain) {
-    return domain.split('.').length;
-  }
-
-  // Extract second-level domain (e.g., "x.y.abc.apple.com" -> "abc.apple.com")
-  String _getSecondLevelDomain(String domain) {
-    final parts = domain.split('.');
-    if (parts.length <= 3) {
-      return domain; // Already second-level or TLD
-    }
-    // Take the last 3 parts for second-level domain
-    return parts.sublist(parts.length - 3).join('.');
-  }
-
   // Extract TLD domain for favicon (e.g., "ads.apple.com" -> "apple.com")
   String _getTldDomain(String domain) {
     final parts = domain.split('.');
@@ -98,26 +82,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return rules.any((r) => r.isExact);
   }
 
-  /// Trim parent domain suffix from subdomain name for display
-  /// Example: "cdn.apple.com" with parent "apple.com" -> "cdn"
-  String _trimParentSuffix(String subdomainName) {
-    final parentDomain = widget.entry.domainName;
-    final suffix = '.$parentDomain';
-
-    if (subdomainName.endsWith(suffix)) {
-      return subdomainName.substring(0, subdomainName.length - suffix.length);
-    }
-
-    // If it doesn't end with the parent, return as-is
-    return subdomainName;
-  }
-
-  /// Get only the first part of domain (before first dot)
-  /// Example: "www.apple.com" -> "www"
-  String _getFirstSubdomain(String domainName) {
-    final parts = domainName.split('.');
-    return parts.isNotEmpty ? parts[0] : domainName;
-  }
 
   String? _getBlocklistName(String? listId, UiJournalAction action) {
     if (listId == null || listId.isEmpty) {
@@ -190,7 +154,6 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final mainRequests = _parentCount; // Use parent_count from API for parent domain
     final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
 
-    String baseText;
     String? listId;
 
     // Determine the base text based on requests distribution

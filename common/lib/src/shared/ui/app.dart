@@ -34,8 +34,6 @@ class BlokadaApp extends StatelessWidget {
     const familyColor = Color(0xffe450ba);
     // const familyColor = Color(0xFFe450cd);
     // const familyColor = Color(0xffff5889);
-    const familyColor2 = Color(0xff4ae5f6);
-    const familyColor3 = Color(0xff3c8cff);
     final accentColor = Core.act.isFamily ? familyColor : plusColor;
     final freemiumColor = Color(0xFF48A9A6);
 

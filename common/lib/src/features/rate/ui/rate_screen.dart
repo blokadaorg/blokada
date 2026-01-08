@@ -5,7 +5,6 @@ import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,18 +17,13 @@ class RateScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _RateScreenState();
 }
 
-class _RateScreenState extends State<RateScreen>
-    with TickerProviderStateMixin, Logging {
-  final _stage = Core.get<StageStore>();
+class _RateScreenState extends State<RateScreen> with Logging {
   final _rate = Core.get<RateActor>();
 
   int _rating = 0;
   bool _showPlatformDialog = false;
 
   final _duration = const Duration(milliseconds: 200);
-
-  late final AnimationController _ctrlShake;
-  late final Animation<Offset> _animShake;
 
   GlobalKey<BlurBackgroundState> bgStateKey = GlobalKey();
 
@@ -44,48 +38,6 @@ class _RateScreenState extends State<RateScreen>
       });
     });
 
-    _ctrlShake = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 200))
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _ctrlShake.reset();
-        }
-      });
-
-    _animShake = TweenSequence(
-      <TweenSequenceItem<Offset>>[
-        TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(
-            begin: Offset.zero,
-            end: const Offset(0.03, 0.0),
-          )..chain(CurveTween(curve: Curves.linear)),
-          weight: 1.0,
-        ),
-        TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(
-            begin: const Offset(0.03, 0.0),
-            end: const Offset(-0.03, 0.0),
-          )..chain(CurveTween(curve: Curves.linear)),
-          weight: 2.0,
-        ),
-        TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(
-            begin: const Offset(-0.05, 0.0),
-            end: Offset.zero,
-          )..chain(CurveTween(curve: Curves.linear)),
-          weight: 1.0,
-        ),
-      ],
-    ).animate(CurvedAnimation(
-      parent: _ctrlShake,
-      curve: Curves.linear,
-    ));
-  }
-
-  @override
-  void dispose() {
-    _ctrlShake.dispose();
-    super.dispose();
   }
 
   _close() => _rate.onUserTapRate(_rating, _showPlatformDialog);

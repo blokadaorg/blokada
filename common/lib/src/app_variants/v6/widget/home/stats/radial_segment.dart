@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/stats/stats.dart';
@@ -58,7 +57,6 @@ class RadialSegmentState extends State<RadialSegment> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -137,16 +135,6 @@ class RadialSegmentState extends State<RadialSegment> {
   }
 }
 
-String _formatCounter(int counter) {
-  if (counter >= 1000000) {
-    return "${(counter / 1000000.0).toStringAsFixed(2)}M";
-    //} else if (counter >= 1000) {
-    //  return "${(counter / 1000.0).toStringAsFixed(1)}K";
-  } else {
-    return "$counter";
-  }
-}
-
 class _ColumnChart extends StatelessWidget {
   final UiStats stats;
 
@@ -195,7 +183,6 @@ class _ColumnChart extends StatelessWidget {
     oldestEntry = -24; // Min X axis value
     for (var i = 0; i < 24 && i < stats.allowedHistogram.length; i++) {
       final green = stats.allowedHistogram[i];
-      final red = stats.blockedHistogram[i];
       if (green * 1.05 > maxGreen) maxGreen = green * 1.05;
       if (green * 0.8 < minGreen) minGreen = max(0, green * 0.8);
       // Skip consecutive zero bars at the beginning and shrink scale

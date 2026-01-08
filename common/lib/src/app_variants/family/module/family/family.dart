@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
-import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/auth/auth.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';

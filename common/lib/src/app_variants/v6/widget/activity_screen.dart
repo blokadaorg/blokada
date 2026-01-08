@@ -25,7 +25,6 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   final _device = Core.get<DeviceStore>();
   late final _filter = Core.get<JournalFilterValue>();
   late final _account = Core.get<AccountStore>();
-  late final _journal = Core.get<JournalActor>();
 
   var _showStats = false;
 

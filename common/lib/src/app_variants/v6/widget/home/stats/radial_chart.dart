@@ -1,12 +1,10 @@
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 enum RadialRing { allowed, blocked }
@@ -33,7 +31,6 @@ class RadialChart extends StatelessWidget {
 
   late _ChartData allowedData;
   late _ChartData blockedData;
-  CircularSeriesController? _chartSeriesController;
 
   List<Color> colorsRed = <Color>[
     const Color(0xffff7a6c),
@@ -219,15 +216,6 @@ class RadialChart extends StatelessWidget {
     );
     });
   }
-}
-
-// Convert degree to radian
-double _degreeToRadian(int deg) => deg * (3.141592653589793 / 180);
-
-// Rotate the sweep gradient according to the start angle
-Float64List _resolveTransform(Rect bounds, TextDirection textDirection) {
-  final GradientTransform transform = GradientRotation(_degreeToRadian(-90));
-  return transform.transform(bounds, textDirection: textDirection)!.storage;
 }
 
 class _ChartData {

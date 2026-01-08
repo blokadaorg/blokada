@@ -1,4 +1,3 @@
-import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -8,7 +7,6 @@ import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/widget/home/big_icon.dart';
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:common/src/platform/stage/stage.dart';
@@ -35,17 +33,6 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
     log(Markers.userTap).trace("tappedCloseOverlay", (m) async {
       await _stage.dismissModal(m);
       await _onboard.markIntroSeen(m);
-    });
-  }
-
-  _openTos(bool tos) async {
-    log(Markers.userTap).trace("tappedTosLink", (m) async {
-      if (tos) {
-        await _stage.openLink(LinkId.tos, m);
-      } else {
-        final link = Core.act.isFamily ? LinkId.privacy : LinkId.privacyCloud;
-        await _stage.openLink(link, m);
-      }
     });
   }
 
@@ -150,54 +137,4 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
     );
   }
 
-  Widget _buildTosPrivacyText(BuildContext context, String text,
-      {TextAlign textAlign = TextAlign.center}) {
-    // Define a regex pattern to find text between * markers
-    final pattern = RegExp(r'\*(.*?)\*');
-    final matches = pattern.allMatches(text);
-
-    // If we don't have exactly two matches (for two links), return simple text
-    if (matches.length != 2) {
-      return Text(
-        text.replaceAll('*', ''), // Remove markers
-        textAlign: textAlign,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
-      );
-    }
-
-    // Extract link texts and their positions
-    final tosLink = matches.elementAt(0).group(1)!;
-    final privacyLink = matches.elementAt(1).group(1)!;
-
-    // Split text into parts
-    final parts = text.split('*');
-
-    return RichText(
-      textAlign: textAlign,
-      text: TextSpan(
-        style: const TextStyle(color: Colors.white, fontSize: 12),
-        children: [
-          TextSpan(text: parts[0]), // Text before first link
-          TextSpan(
-            text: tosLink,
-            style: TextStyle(
-              color: context.theme.accent,
-              decoration: TextDecoration.underline,
-            ),
-            recognizer: TapGestureRecognizer()..onTap = () => _openTos(true),
-          ),
-          TextSpan(text: parts[2]), // Text between links
-          TextSpan(
-            text: privacyLink,
-            style: TextStyle(
-              color: context.theme.accent,
-              decoration: TextDecoration.underline,
-            ),
-            recognizer: TapGestureRecognizer()..onTap = () => _openTos(false),
-          ),
-          TextSpan(text: parts[4]), // Text after second link
-        ],
-      ),
-    );
-  }
 }

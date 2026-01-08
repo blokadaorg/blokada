@@ -166,22 +166,6 @@ class FreemiumDataProvider {
     return jsonEncode(device);
   }
 
-
-  List<Map<String, dynamic>> _generateHourlyActivity(DateTime now, int hours) {
-    final activity = <Map<String, dynamic>>[];
-
-    for (int i = hours - 1; i >= 0; i--) {
-      final timestamp = now.subtract(Duration(hours: i));
-      activity.add({
-        'timestamp': timestamp.toIso8601String(),
-        'blocked': 20 + _random.nextInt(80),
-        'allowed': 100 + _random.nextInt(200),
-      });
-    }
-
-    return activity;
-  }
-
   List<Map<String, dynamic>> _generateJournalActivity(DateTime now, int count) {
     final activity = <Map<String, dynamic>>[];
     final domains = [

@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
-import 'package:common/src/util/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -125,11 +124,6 @@ class _ColumnChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _compute();
-
-    List<Color> colorsGreen = <Color>[
-      color,
-      color.darken(20),
-    ];
 
     return Container(
       constraints: BoxConstraints(maxHeight: height ?? 90),

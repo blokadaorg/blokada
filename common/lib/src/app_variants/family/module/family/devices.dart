@@ -119,10 +119,6 @@ class FamilyDevices {
         .firstOrNull;
   }
 
-  _findThisDevice() {
-    return IterableExtension(entries.where((e) => e.thisDevice)).firstOrNull;
-  }
-
   @override
   String toString() {
     return 'FamilyDevices{entries: ${entries.length}, hasDevices: $hasDevices, hasThisDevice: $hasThisDevice}';

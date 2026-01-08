@@ -9,8 +9,6 @@ class LinkActor with Logging, Actor {
   late final _device = Core.get<DeviceActor>();
   late final _auth = Core.get<AuthActor>();
   late final _thisDevice = Core.get<ThisDevice>();
-  late final _modal = Core.get<CurrentModalValue>();
-  late final _topBarController = Core.get<TopBarController>();
 
   late final linkedMode = Core.get<FamilyLinkedMode>();
 

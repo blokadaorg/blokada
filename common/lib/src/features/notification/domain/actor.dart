@@ -11,7 +11,6 @@ class NotificationActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
-  WeeklyReportActor? _weeklyReport;
   var _pendingPrivacyPulseNav = false;
 
   late final _channel = Core.get<NotificationChannel>();
@@ -24,9 +23,6 @@ class NotificationActor with Logging, Actor {
 
   @override
   onStart(Marker m) async {
-    if (!Core.act.isFamily) {
-      _weeklyReport = Core.get<WeeklyReportActor>();
-    }
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, sendAppleTokenAsync);
   }

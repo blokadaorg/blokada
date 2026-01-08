@@ -10,7 +10,6 @@ import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
 class HomeCounter extends StatefulWidget {
@@ -30,7 +29,6 @@ class _HomeCounterState extends State<HomeCounter>
 
   double counter = 0.0;
   double lastCounter = -1.0;
-  Future<void>? _pendingFetch;
   late final AnimationController _ticker;
   bool _tickerRunning = false;
   mobx.ReactionDisposer? _deviceAliasDisposer;
@@ -40,7 +38,7 @@ class _HomeCounterState extends State<HomeCounter>
   void initState() {
     super.initState();
 
-    _pendingFetch = _stats.fetchDay(Markers.stats);
+    _stats.fetchDay(Markers.stats);
 
     // Track the current alias to avoid double-fetching when it's already set
     _lastFetchedAlias = _device.deviceAlias;

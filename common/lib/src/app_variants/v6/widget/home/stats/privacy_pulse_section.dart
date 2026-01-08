@@ -61,7 +61,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   final Map<ToplistRange, List<ToplistDelta>> _allowedDeltas = {};
   final Map<ToplistRange, CounterDelta> _counterDeltas = {};
   DailySeries? _weeklySparkline;
-  bool _weeklyReportFetched = false;
   bool _hasStats = false;
   final Map<ToplistRange, bool> _deltaReady = {
     ToplistRange.daily: false,

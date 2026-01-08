@@ -240,20 +240,6 @@ UiStats _convertStats(
       latestTimestamp: latestTimestamp);
 }
 
-_convertToplist(JsonToplistEndpoint toplist) {
-  final result = <UiToplistEntry>[];
-  for (var metric in toplist.toplist.metrics) {
-    final action = metric.tags.action;
-    final isAllowed = action == "fallthrough" || action == "allowed";
-    final firstDps = metric.dps.first;
-    final c = (metric.tags.company == "unknown") ? null : metric.tags.company;
-    result.add(
-        UiToplistEntry(c, metric.tags.tld, !isAllowed, firstDps.value.round()));
-  }
-  //result.sort((a, b) => b.value.compareTo(a.value));
-  return result;
-}
-
 List<UiToplistEntry> _convertToplistV2(platform_stats.JsonToplistV2Response response) {
   final result = <UiToplistEntry>[];
   for (var bucket in response.toplist) {

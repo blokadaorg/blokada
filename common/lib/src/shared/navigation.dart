@@ -72,7 +72,6 @@ class Navigation with Logging {
   late final _custom = Core.get<CustomlistActor>();
   late final _support = Core.get<SupportActor>();
   late final _bypass = Core.get<BypassAddDialog>();
-  late final _journal = Core.get<JournalActor>();
 
   static late bool isTabletMode;
 

@@ -127,16 +127,4 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
     }
   }
 
-  List<Widget> _buildFooter(BuildContext context) {
-    return [
-      const SizedBox(height: 8),
-      Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text("family profile action delete".i18n,
-            style: const TextStyle(
-                color: Colors.red, fontSize: 16, fontWeight: FontWeight.w500)),
-      ),
-      const SizedBox(height: 48),
-    ];
-  }
 }

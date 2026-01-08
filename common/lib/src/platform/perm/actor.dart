@@ -23,8 +23,6 @@ class PlatformPermActor with Logging, Actor {
     return _device.deviceTag != null && _dnsEnabledFor.present == _device.deviceTag;
   }
 
-  int _privateDnsTagChangeCounter = 0;
-
   DeviceTag? _previousTag;
   String? _previousAlias;
 
@@ -51,12 +49,6 @@ class PlatformPermActor with Logging, Actor {
         await _dnsEnabledFor.change(m, null);
         await _app.cloudPermEnabled(m, false);
       }
-    });
-  }
-
-  Future<void> incrementPrivateDnsTagChangeCounter(Marker m) async {
-    return await log(m).trace("incrementPrivateDnsTagChangeCounter", (m) async {
-      _privateDnsTagChangeCounter += 1;
     });
   }
 
@@ -92,7 +84,6 @@ class PlatformPermActor with Logging, Actor {
           tag != _previousTag ||
           _previousAlias == null ||
           _previousAlias != _device.deviceAlias) {
-        incrementPrivateDnsTagChangeCounter;
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
 

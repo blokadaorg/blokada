@@ -28,20 +28,6 @@ class _TabState extends State<TabWidget> with Disposables {
     //_stage.addOnValue(routeChanged, _updateRoute);
   }
 
-  _updateRoute(StageRouteState route, Marker m) async {
-    setState(() {
-      if (_stage.route.isTab(StageTab.home)) {
-        _active = StageTab.home;
-      } else if (_stage.route.isTab(StageTab.activity)) {
-        _active = StageTab.activity;
-      } else if (_stage.route.isTab(StageTab.advanced)) {
-        _active = StageTab.advanced;
-      } else if (_stage.route.isTab(StageTab.settings)) {
-        _active = StageTab.settings;
-      }
-    });
-  }
-
   _tap(StageTab tab) async {
     // Instant UI feedback
     setState(() {

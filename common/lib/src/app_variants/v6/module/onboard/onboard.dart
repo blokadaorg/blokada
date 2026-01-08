@@ -21,8 +21,6 @@ class V6OnboardActor with Actor, Logging {
   late final _payment = Core.get<PaymentActor>();
   late final _modal = Core.get<CurrentModalValue>();
 
-  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
-
   @override
   onCreate(Marker m) async {}
 

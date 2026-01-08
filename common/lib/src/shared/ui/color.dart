@@ -73,19 +73,6 @@ RGB _hslToRgb(double hue, double saturation, double lightness) {
   return RGB(r, g, b);
 }
 
-Color _genColorRgb(String id) {
-  final bytes = utf8.encode(id);
-  final hash = sha256.convert(bytes);
-  final hashBytes = hash.bytes;
-
-  // Combine pairs of bytes for R, G, B
-  final r = ((hashBytes[0] << 8) + hashBytes[1]) % 256;
-  final g = ((hashBytes[2] << 8) + hashBytes[3]) % 256;
-  final b = ((hashBytes[4] << 8) + hashBytes[5]) % 256;
-
-  return Color.fromRGBO(r, g, b, 1);
-}
-
 extension ColorExtension on Color {
   /// Convert the color to a darken color based on the [percent]
   Color darken([int percent = 40]) {

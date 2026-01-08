@@ -710,20 +710,13 @@ class WeeklyReportRepository with Logging {
 }
 
 class WeeklyReportActor with Logging, Actor {
-  late final _notification = Core.get<NotificationActor>();
-  late final _scheduledAt = Core.get<WeeklyReportScheduleValue>();
   late final _repository = WeeklyReportRepository();
   late final _lastDismissed = WeeklyReportLastDismissedValue();
-  late final _lastScheduled = WeeklyReportLastScheduledValue();
-  late final _lastNotified = WeeklyReportLastNotifiedValue();
-  late final _deviceStore = Core.get<DeviceStore>();
   late final _pendingEvent = Core.get<WeeklyReportPendingEventValue>();
 
   final Observable<WeeklyReportEvent?> currentEvent = Observable(null);
   final Observable<bool> hasUnseen = Observable(false);
   final Observable<bool> isLoading = Observable(false);
-
-  DateTime? _currentPickedAt;
 
   late final List<WeeklyReportEventSource> _sources;
 
@@ -738,7 +731,6 @@ class WeeklyReportActor with Logging, Actor {
     runInAction(() {
       currentEvent.value = event;
       hasUnseen.value = event != null;
-      _currentPickedAt = event != null ? (pickedAt ?? DateTime.now().toUtc()) : null;
     });
   }
 
@@ -754,28 +746,6 @@ class WeeklyReportActor with Logging, Actor {
     if (pending == null) return false;
     _setCurrent(pending.event, pickedAt: pending.pickedAt);
     return true;
-  }
-
-  Future<void> _storePendingEvent(Marker m, WeeklyReportEvent? event) async {
-    if (event == null) {
-      log(m).t('weeklyReport:pending:clear:noneEvent');
-      await _pendingEvent.change(m, null);
-      return;
-    }
-    final existing = await _pendingEvent.fetch(m);
-    if (existing != null && existing.event.id == event.id) {
-      log(m).t('weeklyReport:pending:keep:sameEvent');
-      return;
-    }
-    final pending = WeeklyReportPendingEvent(
-      event: event,
-      pickedAt: DateTime.now().toUtc(),
-    );
-    log(m)
-      ..t('weeklyReport:pending:set')
-      ..pair('eventId', event.id)
-      ..pair('pickedAt', pending.pickedAt.toIso8601String());
-    await _pendingEvent.change(m, pending);
   }
 
   @override
@@ -866,69 +836,4 @@ class WeeklyReportActor with Logging, Actor {
     return WeeklyReportPick(filtered.first, window.anchor);
   }
 
-  Future<void> _ensureScheduled(Marker m, {WeeklyReportEvent? eventOverride}) async {
-    if (!weeklyReportGenerationEnabled) {
-      log(m).t('weeklyReport:disabled:schedule');
-      return;
-    }
-
-    await log(m).trace('weeklyReport:onAppOpen', (m) async {
-      final now = DateTime.now();
-      final stored = await _scheduledAt.fetch(m);
-      final target = _pickTarget(now, stored);
-      WeeklyReportEvent? event = eventOverride;
-      if (event == null) {
-        final pick = await _generatePick(m);
-        event = pick?.event;
-      }
-      final payload = WeeklyReportContentPayload.fromEvent(event);
-
-      log(m)
-        ..pair('storedAt', stored?.toIso8601String())
-        ..pair('scheduledAt', target.toIso8601String())
-        ..pair('hasEvent', event != null);
-
-      final lastNotified = await _lastNotified.fetch(m);
-      if (lastNotified != null && lastNotified == payload.eventId) {
-        log(m).t('weeklyReport:notificationSkippedAlreadyNotified');
-        return;
-      }
-
-      final scheduleKey = '${payload.eventId}:${target.toIso8601String()}';
-      final lastScheduled = await _lastScheduled.fetch(m);
-      if (lastScheduled == scheduleKey) {
-        log(m).t('weeklyReport:notificationSkipped');
-        return;
-      }
-
-      await _scheduledAt.change(m, target);
-      await _storePendingEvent(m, event);
-      await _logBackgroundSchedule(m, target, payload);
-      await _notification.showWithBody(
-        NotificationId.weeklyReport,
-        m,
-        jsonEncode(payload.toJson()),
-        when: target,
-      );
-      await _lastScheduled.change(m, scheduleKey);
-      await _lastNotified.change(m, payload.eventId);
-    });
-  }
-
-  Future<void> _logBackgroundSchedule(
-    Marker m,
-    DateTime target,
-    WeeklyReportContentPayload payload,
-  ) async {
-    final backgroundAt = target.subtract(payload.backgroundLead);
-    log(m)
-      ..pair('backgroundLeadMs', payload.backgroundLead.inMilliseconds)
-      ..pair('backgroundAt', backgroundAt.toIso8601String());
-  }
-
-  DateTime _pickTarget(DateTime now, DateTime? stored) {
-    if (stored == null) return now.add(weeklyReportInterval);
-    if (stored.isAfter(now)) return stored;
-    return now.add(weeklyReportInterval);
-  }
 }
