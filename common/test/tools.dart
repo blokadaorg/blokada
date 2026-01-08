@@ -1,7 +1,8 @@
-import 'package:common/core/core.dart';
-import 'package:common/platform/core/core.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_test/flutter_test.dart';
+// ignore_for_file: implementation_imports
 import 'package:test_api/src/backend/invoker.dart';
 
 withTrace(Future Function(Marker m) fn) async {

@@ -7,13 +7,16 @@ OUTPUT_DIR := build/pigeon/
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: test clean pub gen-android gen-ios runner \
+.PHONY: test analyze clean pub gen-android gen-ios runner \
 	lib lib-debug \
         build-android build-ios build \
 	other-lib-ios-debug other-build-web
 
 test:
 	$(FLUTTER) test
+
+analyze:
+	$(FLUTTER) analyze
 
 clean:
 	$(FLUTTER) clean

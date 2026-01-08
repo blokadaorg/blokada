@@ -6,6 +6,12 @@ It contains the new Home screen with the analytics.
 
 Want to see it in action? **Get Blokada 6 [on Google Play Store](https://go.blokada.org/play_cloud) or [on Apple App Store](https://go.blokada.org/appstore)**.
 
+## Module layout
+
+- Feature-first: code lives under `lib/src/features` (including tiered features like `plus`), variant overrides under `lib/src/app_variants/{v6,family}`, and shared UI under `lib/src/shared`.
+- Platform/Pigeon bindings are generated into `lib/src/platform/**/channel.pg.dart`; `lib/platform/**` is intentionally removed.
+- Public surface is re-exported from `lib/common.dart` (Modules, core Act types, navigation, and app shell). Keep `lib/src/**` internal for package consumers.
+
 ## Getting started
 
 The Blokada community welcomes everyone! before you ask a question, please get yourself familiar with the existing content.

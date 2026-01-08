@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:common/core/core.dart';
-import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/api.dart';
-import 'package:common/platform/app/app.dart';
-import 'package:common/platform/app/channel.pg.dart';
-import 'package:common/platform/device/device.dart';
-import 'package:common/platform/perm/perm.dart';
-import 'package:common/platform/stage/stage.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/api.dart';
+import 'package:common/src/platform/app/app.dart';
+import 'package:common/src/platform/app/channel.pg.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/platform/perm/perm.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

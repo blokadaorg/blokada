@@ -1,4 +1,4 @@
-import 'package:common/v6/widget/home/stats/radial_chart.dart';
+import 'package:common/src/app_variants/v6/widget/home/stats/radial_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

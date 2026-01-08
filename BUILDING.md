@@ -48,6 +48,8 @@ $ cd common/
 $ fvm install && fvm use
 $ fvm flutter config --jdk-dir <java-path>
 $ fvm flutter doctor
+$ make analyze   # static analysis for the Flutter module
+$ make test      # flutter tests for the Flutter module
 
 $ make regen-ios
 ```
@@ -68,3 +70,8 @@ $ pod install --repo-update
 ```
 
 Now see fastlane/README.md for more details on how to build the apps.
+
+## Notes for the Flutter module
+- The Flutter module lives at `blokada/common`.
+- Pigeon Dart outputs are generated under `lib/src/platform/**/channel.pg.dart`; the old `lib/platform/**` path is removed.
+- Use the Make targets above (`make analyze`, `make test`, `make build-*`) instead of calling Flutter commands directly.

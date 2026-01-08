@@ -1,0 +1,176 @@
+import 'package:common/src/features/safari/domain/safari.dart';
+import 'package:common/src/shared/ui/minicard/minicard.dart';
+import 'package:common/src/features/safari/ui/safari_setting_guide.dart';
+import 'package:common/src/shared/ui/theme.dart';
+import 'package:common/src/core/core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class SafariOnboardYtSheetIos extends StatefulWidget {
+  const SafariOnboardYtSheetIos({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => SafariOnboardYtSheetIosState();
+}
+
+class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
+  final _actor = Core.get<SafariActor>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: context.theme.bgColorCard,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 24),
+                      Text(
+                        "onboard safari header".i18n,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontWeight: FontWeight.w700),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Text(
+                          "onboard safari brief".i18n,
+                          softWrap: true,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(color: context.theme.textSecondary),
+                        ),
+                      ),
+                      const SizedBox(height: 24), // Replaces Spacer
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "1.",
+                              style: TextStyle(color: context.theme.textSecondary),
+                            ),
+                            SafariSettingGuideWidget(
+                              title: "youtube.com",
+                              icon: CupertinoIcons.textformat,
+                              centerTitle: true,
+                              widgetRight: Icon(
+                                size: 16,
+                                Icons.refresh,
+                                color: context.theme.textPrimary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "2.",
+                              style: TextStyle(color: context.theme.textSecondary),
+                            ),
+                            SafariSettingGuideWidget(
+                              title: "onboard safari step 2".i18n,
+                              widgetRight: Icon(
+                                size: 16,
+                                Icons.extension_outlined,
+                                color: context.theme.textPrimary,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              "3.",
+                              style: TextStyle(color: context.theme.textSecondary),
+                            ),
+                            SafariSettingGuideWidget(
+                              title: "Blokada",
+                              iconReplacement: const Image(
+                                image: AssetImage('assets/images/v6-appicon.png'),
+                                width: 24,
+                              ),
+                              widgetRight: Transform.scale(
+                                scale: 0.8,
+                                child: Transform.translate(
+                                  offset: const Offset(12, 0),
+                                  child: CupertinoSwitch(value: true, onChanged: (_) => {}),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 24), // Replaces Spacer
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: MiniCard(
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          _actor.openSafariSetup();
+                        },
+                        color: context.theme.accent,
+                        child: SizedBox(
+                          height: 32,
+                          child: Center(
+                            child: Text(
+                              "onboard safari cta".i18n,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: MiniCard(
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          _actor.markOptionalOnboardSeen(Markers.userTap);
+                        },
+                        color: context.theme.bgColor,
+                        child: SizedBox(
+                          height: 32,
+                          child: Center(
+                            child: Text(
+                              "onboard safari skip".i18n,
+                              style: TextStyle(
+                                color: context.theme.textPrimary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

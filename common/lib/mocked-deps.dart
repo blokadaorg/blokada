@@ -1,8 +1,8 @@
-import 'package:common/core/core.dart';
-import 'package:common/family/module/device_v3/device.dart';
-import 'package:common/family/module/family/family.dart';
-import 'package:common/family/module/profile/profile.dart';
-import 'package:common/family/module/stats/stats.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/app_variants/family/module/device_v3/device.dart';
+import 'package:common/src/app_variants/family/module/family/family.dart';
+import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

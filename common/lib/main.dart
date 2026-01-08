@@ -1,12 +1,12 @@
 import 'dart:io' as io;
 
-import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/app.dart';
-import 'package:common/common/widget/top_bar.dart';
-import 'package:common/core/core.dart';
-import 'package:common/family/widget/main_screen.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/app.dart';
+import 'package:common/src/shared/ui/top_bar.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
-import 'package:common/v6/widget/main_screen.dart';
+import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,9 +1,9 @@
 // import 'dart:convert';
 //
-// import 'package:common/core/core.dart';
-// import 'package:common/platform/account/account.dart';
-// import 'package:common/platform/http/http.dart';
-// import 'package:common/platform/journal/json.dart';
+// import 'package:common/src/core/core.dart';
+// import 'package:common/src/platform/account/account.dart';
+// import 'package:common/src/platform/http/http.dart';
+// import 'package:common/src/platform/journal/json.dart';
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:mockito/annotations.dart';
 // import 'package:mockito/mockito.dart';

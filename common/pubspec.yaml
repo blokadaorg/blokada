@@ -71,7 +71,8 @@ dev_dependencies:
   dependency_validator: ^3.0.0
   mobx_codegen: ^2.0.7+3
   pigeon: ^12.0.0
-  mockito: ^5.3.2
+  web_socket_channel: ^3.0.3
+  test_api: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

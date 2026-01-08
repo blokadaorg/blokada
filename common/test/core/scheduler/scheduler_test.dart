@@ -1,4 +1,4 @@
-import 'package:common/core/core.dart';
+import 'package:common/src/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -155,6 +155,9 @@ void main() {
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 2)));
         await subject.eventTriggered(m, Event.appForeground, value: "1");
         verify(timer.setTimer(const Duration(seconds: 0))).called(1);
+
+        expect(job1Called, 0);
+        expect(job2Called, 0);
       });
     });
   });

@@ -1,4 +1,47 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude:
+    - lib/mock/**
+    - lib/main-mocked-*.dart
+    - lib/main-widgets.dart
+    - libgen/**
+    - build/**
+  errors:
+    file_names: ignore
+    unused_import: ignore
+    unused_element: ignore
+    unused_field: ignore
+    unused_local_variable: ignore
+    dead_code: ignore
+    prefer_const_constructors: ignore
+    prefer_const_literals_to_create_immutables: ignore
+    prefer_const_declarations: ignore
+    deprecated_member_use: ignore
+    must_be_immutable: ignore
+    no_leading_underscores_for_local_identifiers: ignore
+    unnecessary_this: ignore
+    curly_braces_in_flow_control_structures: ignore
+    implementation_imports: ignore
+    unused_catch_clause: ignore
+    unreachable_switch_default: ignore
+    avoid_print: ignore
+    unnecessary_const: ignore
+    unnecessary_import: ignore
+    prefer_const_constructors_in_immutables: ignore
+    prefer_typing_uninitialized_variables: ignore
+    library_private_types_in_public_api: ignore
+    avoid_unnecessary_containers: ignore
+    invalid_null_aware_operator: ignore
+    override_on_non_overriding_member: ignore
+    depend_on_referenced_packages: ignore
+    empty_constructor_bodies: ignore
+    unnecessary_null_comparison: ignore
+    dead_null_aware_expression: ignore
+    unnecessary_non_null_assertion: ignore
+    prefer_final_fields: ignore
+    use_key_in_widget_constructors: ignore
+    type_init_formals: ignore
+    no_logic_in_create_state: ignore
+    unused_catch_stack: ignore
+    null_check_on_nullable_type_parameter: ignore

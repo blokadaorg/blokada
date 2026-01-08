@@ -10,7 +10,7 @@ def run_pigeon(file, output_base, generate_android, base_cmd):
     """
     Runs the pigeon command for the given schema file.
     Generates:
-      - Dart output always (goes to lib/platform...).
+      - Dart output always (goes to lib/src/platform...).
       - Either Android or iOS native files based on generate_android.
     """
     base = os.path.basename(file)
@@ -28,7 +28,7 @@ def run_pigeon(file, output_base, generate_android, base_cmd):
     command = base_cmd_list + [
         "run", "pigeon",
         "--input", file,
-        "--dart_out", f"lib/platform{dart_path}/channel.pg.dart"
+        "--dart_out", f"lib/src/platform{dart_path}/channel.pg.dart"
     ]
 
     # Append native-specific output based on the flag.

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:common/core/core.dart';
-import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/api.dart';
-import 'package:common/platform/stage/stage.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/api.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
