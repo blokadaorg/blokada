@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:common/platform/stats/api.dart';
+import 'package:common/src/platform/stats/api.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../fixtures.dart';
@@ -10,7 +10,7 @@ void main() {
     const body = Fixtures.apiResponseMetrics;
     final data = json.decode(body);
     final metrics = JsonMetrics.fromJson(data);
-    expect(metrics.tags!.action, "blocked");
-    expect(metrics.dps![1].value, 2);
+    expect(metrics.tags.action, "blocked");
+    expect(metrics.dps[1].value, 2);
   });
 }

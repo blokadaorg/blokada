@@ -1,5 +1,5 @@
 /**
- * Automation identifiers mirrored from `common/lib/common/automation/ids.dart`.
+ * Automation identifiers mirrored from `common/lib/src/shared/automation/ids.dart`.
  * Keep this list in sync with the Flutter constants so selectors stay stable
  * regardless of framework implementation details.
  */

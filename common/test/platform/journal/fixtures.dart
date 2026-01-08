@@ -1,4 +1,4 @@
-// import 'package:common/platform/journal/json.dart';
+// import 'package:common/src/platform/journal/json.dart';
 //
 // const fixtureJournalEndpoint = '''{"activity":
 // [

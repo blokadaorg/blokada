@@ -1,0 +1,105 @@
+import 'dart:convert';
+
+import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:dartx/dartx.dart';
+
+class PrivateDnsCheck with Actor, Logging {
+  late final _api = Core.get<Api>();
+
+  void onRegister() {
+    Core.register<PrivateDnsCheck>(this);
+  }
+
+  bool isCorrect(Marker m, String line, DeviceTag tag, String alias) {
+    if (line.contains("%")) {
+      line = line.urlDecode;
+    }
+
+    log(m).pair("current dns", line);
+
+    var expected = _getIosPrivateDnsStringV6(m, tag, alias);
+
+    if (Core.act.isAndroid && Core.act.flavor == Flavor.family) {
+      expected = getAndroidPrivateDnsStringFamily(m, tag);
+    } else if (Core.act.isAndroid) {
+      expected = getAndroidPrivateDnsString(m, tag, alias);
+    } else if (Core.act.flavor == Flavor.family) {
+      expected = _getIosPrivateDnsStringFamily(m, tag, alias);
+    }
+
+    log(m).pair("expects dns", expected);
+
+    return line == expected;
+  }
+
+  Future<bool> checkPrivateDnsEnabledWithApi(Marker m, DeviceTag deviceTag) async {
+    try {
+      final params = {
+        ApiParam.deviceTag: deviceTag,
+      };
+
+      final response = await _api.get(
+        ApiEndpoint.getStatusTest,
+        m,
+        params: params,
+      );
+
+      final json = jsonDecode(response);
+      return json['blokada_dns'] == true;
+    } catch (e) {
+      log(m).e(msg: "checkPrivateDnsEnabledWithApi", err: e);
+      return false;
+    }
+  }
+
+  String _getIosPrivateDnsStringV6(Marker m, DeviceTag tag, String alias) {
+    try {
+      final name = _escapeAlias(alias);
+      return "https://cloud.blokada.org/$tag/$name";
+    } catch (e) {
+      log(m).e(msg: "getIosPrivatDnsString", err: e);
+      return "";
+    }
+  }
+
+  String _getIosPrivateDnsStringFamily(Marker m, DeviceTag tag, String alias) {
+    try {
+      return "https://cloud.blokada.org/$tag";
+    } catch (e) {
+      log(m).e(msg: "getIosPrivatDnsStringFamily", err: e);
+      return "";
+    }
+  }
+
+  String getAndroidPrivateDnsString(Marker m, DeviceTag tag, String alias) {
+    try {
+      final name = _sanitizeAlias(alias);
+      return "$name-$tag.cloud.blokada.org";
+    } catch (e) {
+      log(m).e(msg: "getAndroidPrivateDnsString", err: e);
+      return "";
+    }
+  }
+
+  String getAndroidPrivateDnsStringFamily(Marker m, DeviceTag tag) {
+    try {
+      return "$tag.cloud.blokada.org";
+    } catch (e) {
+      log(m).e(msg: "getAndroidPrivateDnsStringFamily", err: e);
+      return "";
+    }
+  }
+
+  String _sanitizeAlias(String alias) {
+    var a = alias.trim().replaceAll(" ", "--");
+    if (a.length > 56) a = a.substring(0, 56);
+    return a;
+  }
+
+  String _escapeAlias(String alias) {
+    // TODO: implement
+    return alias.trim();
+  }
+}

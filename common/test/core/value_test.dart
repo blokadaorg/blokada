@@ -1,4 +1,4 @@
-import 'package:common/core/core.dart';
+import 'package:common/src/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tools.dart';

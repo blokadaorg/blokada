@@ -21,3 +21,7 @@ automation/appium/wdio/.npmrc
 !.appiumrc.yaml
 
 *.log
+
+# iOS build artifacts
+ios/*.ipa
+ios/*.dSYM.zip

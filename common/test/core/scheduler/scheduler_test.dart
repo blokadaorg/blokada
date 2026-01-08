@@ -1,4 +1,4 @@
-import 'package:common/core/core.dart';
+import 'package:common/src/core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -79,24 +79,24 @@ void main() {
 
         // 1 second passed, should not reschedule but skip the job
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 1)));
-        timerCallback.last();
+        await timerCallback.last();
 
         verify(timer.setTimer(null)).called(1);
 
         // Event itself should trigger the callback too and set the timer
         shouldCall = true;
         await subject.eventTriggered(m, Event.appForeground, value: "1");
-        //expect(called, 1); // Now its async
         verify(timer.setTimer(const Duration(seconds: 0))).called(1);
 
         // more time passed, conditions ok, should exec job also
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 2)));
-        timerCallback.last();
-        //expect(called, 2);
+        await timerCallback.last();
+        expect(called, 1);
 
         // another execution
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 3)));
-        timerCallback.last();
+        await timerCallback.last();
+        expect(called, 2);
       });
     });
 
@@ -108,7 +108,6 @@ void main() {
 
         final subject = Scheduler(timer: timer);
 
-        bool shouldCall = false;
         int job1Called = 0;
 
         final inForeground = Job(
@@ -117,7 +116,6 @@ void main() {
           every: const Duration(seconds: 1),
           when: [Condition(Event.appForeground, value: "1")],
           callback: (m) async {
-            if (!shouldCall) throw Exception("Should not exec job");
             job1Called++;
             return true;
           },
@@ -129,7 +127,6 @@ void main() {
           m,
           every: const Duration(seconds: 4),
           callback: (m) async {
-            if (!shouldCall) throw Exception("Should not exec job");
             job2Called++;
             return true;
           },
@@ -155,6 +152,9 @@ void main() {
         when(timer.now()).thenReturn(now.add(const Duration(seconds: 2)));
         await subject.eventTriggered(m, Event.appForeground, value: "1");
         verify(timer.setTimer(const Duration(seconds: 0))).called(1);
+
+        expect(job1Called, 0);
+        expect(job2Called, 0);
       });
     });
   });

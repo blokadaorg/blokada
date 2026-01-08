@@ -1,10 +1,10 @@
-import 'package:common/common/module/notification/notification.dart';
-import 'package:common/core/core.dart';
-import 'package:common/platform/account/account.dart';
-import 'package:common/platform/account/api.dart';
-import 'package:common/platform/account/refresh/refresh.dart';
-import 'package:common/platform/stage/stage.dart';
-import 'package:common/plus/plus.dart';
+import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/api.dart';
+import 'package:common/src/platform/account/refresh/refresh.dart';
+import 'package:common/src/platform/stage/stage.dart';
+import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

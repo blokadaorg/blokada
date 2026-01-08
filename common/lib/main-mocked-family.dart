@@ -1,15 +1,15 @@
-import 'package:common/common/navigation.dart';
-import 'package:common/common/widget/app.dart';
-import 'package:common/common/widget/top_bar.dart';
-import 'package:common/core/core.dart';
-import 'package:common/family/widget/main_screen.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/app.dart';
+import 'package:common/src/shared/ui/top_bar.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/mocked-deps.dart';
 import 'package:common/modules.dart';
-import 'package:common/platform/stage/stage.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 
-import 'platform/command/channel.pg.dart';
-import 'platform/command/command.dart';
+import 'package:common/src/platform/command/channel.pg.dart';
+import 'package:common/src/platform/command/command.dart';
 
 void main() async {
   // Needed for the MethodChannels

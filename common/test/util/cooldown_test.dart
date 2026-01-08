@@ -1,4 +1,4 @@
-import 'package:common/util/cooldown.dart';
+import 'package:common/src/util/cooldown.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../tools.dart';

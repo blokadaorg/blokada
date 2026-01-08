@@ -62,4 +62,4 @@ Reusable flows and helpers live under `automation/appium/wdio/src/flows/` and `a
 - Use `driver.execute('mobile: ...')` helpers for Settings navigation (DNS/VPN flows).  
 - Once stable, wire `make appium-test` into CI with a dedicated device lane.  
 - When the app exposes stable accessibility identifiers, update selectors to drop the localization fallbacks.
-- Mirror any new automation targets in Flutter by adding identifiers to `common/lib/common/automation/ids.dart` and wiring them through `Semantics` widgets.
+- Mirror any new automation targets in Flutter by adding identifiers to `common/lib/src/shared/automation/ids.dart` and wiring them through `Semantics` widgets.

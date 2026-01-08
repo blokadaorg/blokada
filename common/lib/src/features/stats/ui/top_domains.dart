@@ -1,0 +1,385 @@
+import 'dart:async';
+
+import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/common_card.dart';
+import 'package:common/src/shared/ui/common_clickable.dart';
+import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/theme.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/stats.dart';
+import 'package:common/src/platform/stats/delta_store.dart';
+import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+enum ToplistRange { daily, weekly }
+
+class TopDomains extends StatefulWidget {
+  final Key? headerKey;
+  final WeeklyReportToplistHighlight? highlight;
+  final ToplistRange range;
+  final List<ToplistDelta>? blockedDeltas;
+  final List<ToplistDelta>? allowedDeltas;
+  final Future<void> Function(ToplistRange) onRangeChanged;
+  const TopDomains({
+    super.key,
+    this.headerKey,
+    this.highlight,
+    required this.range,
+    this.blockedDeltas,
+    this.allowedDeltas,
+    required this.onRangeChanged,
+  });
+
+  @override
+  State<StatefulWidget> createState() => TopDomainsState();
+}
+
+enum ToplistTab { blocked, allowed }
+
+class TopDomainsState extends State<TopDomains> {
+  ToplistTab _selectedTab = ToplistTab.blocked;
+  late final _statsStore = Core.get<StatsStore>();
+
+  List<UiToplistEntry> get _blockedDomains {
+    final stats = _statsStore.stats;
+    return stats.toplist.where((entry) => entry.blocked).take(12).toList();
+  }
+
+  List<UiToplistEntry> get _allowedDomains {
+    final stats = _statsStore.stats;
+    return stats.toplist.where((entry) => !entry.blocked).take(12).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _syncSelectedTab();
+  }
+
+  @override
+  void didUpdateWidget(covariant TopDomains oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.highlight != widget.highlight) {
+      _syncSelectedTab();
+    }
+  }
+
+  void _syncSelectedTab() {
+    final highlight = widget.highlight;
+    if (highlight == null) return;
+    setState(() {
+      _selectedTab = highlight.blocked ? ToplistTab.blocked : ToplistTab.allowed;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final highlight = widget.highlight;
+    final highlightName = highlight?.name.toLowerCase();
+    final highlightBlocked = highlight?.blocked;
+    final isWeeklyMode = widget.range == ToplistRange.weekly;
+
+    return Observer(
+      builder: (context) {
+        final currentDomains =
+            _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
+        final deltas =
+            _selectedTab == ToplistTab.blocked ? widget.blockedDeltas : widget.allowedDeltas;
+        final isLoading = _statsStore.toplistsLoading;
+        final highlightVisible = highlight != null &&
+            isWeeklyMode &&
+            !isLoading &&
+            highlightBlocked == (_selectedTab == ToplistTab.blocked);
+        String _normalized(UiToplistEntry e) =>
+            (e.company ?? e.tld ?? '').toLowerCase();
+        final deltaMap = <String, ToplistDelta>{};
+        if (deltas != null) {
+          for (final d in deltas) {
+            if (d.type == ToplistDeltaType.same) continue;
+            deltaMap[d.name.toLowerCase()] = d;
+          }
+        }
+        final limitedDeltas = <String, ToplistDelta>{};
+        for (final entry in currentDomains) {
+          if (limitedDeltas.length >= 3) break;
+          final d = deltaMap[_normalized(entry)];
+          if (d != null) {
+            limitedDeltas[_normalized(entry)] = d;
+          }
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title header
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: Row(
+                key: widget.headerKey,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "privacy pulse toplists header".i18n,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: context.theme.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    widget.range == ToplistRange.daily ? "24 h" : "7 d",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: context.theme.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Combined card with segmented control and list
+            CommonCard(
+              padding: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  // Segmented control inside card
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: CupertinoSlidingSegmentedControl<ToplistTab>(
+                        groupValue: _selectedTab,
+                        onValueChanged: (ToplistTab? value) {
+                          if (value != null) {
+                            setState(() => _selectedTab = value);
+                          }
+                        },
+                        children: {
+                          ToplistTab.blocked: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.xmark_shield_fill,
+                                  color: Colors.red,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "privacy pulse tab blocked".i18n,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          ToplistTab.allowed: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.checkmark_shield_fill,
+                                  color: Colors.green,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "privacy pulse tab allowed".i18n,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        },
+                      ),
+                    ),
+                  ),
+
+                  const CommonDivider(),
+
+                  // Domain list, loading state, or empty state
+                  if (_statsStore.toplistsLoading)
+                    _buildLoadingState()
+                  else if (currentDomains.isEmpty)
+                    _buildEmptyState()
+                  else
+                    for (int i = 0; i < currentDomains.length; i++) ...{
+                      _buildDomainItem(
+                        currentDomains[i],
+                        delta: limitedDeltas[_normalized(currentDomains[i])],
+                        isHighlighted: highlightVisible &&
+                            _normalized(currentDomains[i]) == highlightName,
+                      ),
+                      if (i < currentDomains.length - 1) const CommonDivider(),
+                    },
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _buildDomainItem(UiToplistEntry entry,
+      {ToplistDelta? delta, bool isHighlighted = false}) {
+    final domainName = entry.company ?? entry.tld ?? "Unknown";
+
+    return CommonClickable(
+      onTap: () {
+        // Convert toplist entry to UiJournalMainEntry for navigation
+        final mainEntry = UiJournalMainEntry(
+          domainName: domainName,
+          requests: entry.value,
+          action: entry.blocked ? UiJournalAction.block : UiJournalAction.allow,
+          listId: null,
+        );
+
+        Navigation.open(Paths.deviceStatsDetail, arguments: {
+          'mainEntry': mainEntry,
+          'level': 2, // Fetch level 2 (subdomains under this eTLD+1)
+          'domain': domainName, // Domain to fetch subdomains for
+          'range': widget.range == ToplistRange.weekly ? "7d" : "24h",
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 0, right: 12, top: 4, bottom: 4),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Row(
+            children: [
+              if (delta != null && delta.type != ToplistDeltaType.same) ...[
+                SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: Center(
+                    child: Icon(
+                      _iconForDelta(delta),
+                      color: _colorForDelta(delta, context),
+                      size: delta?.type == ToplistDeltaType.newEntry ? 9 : 18,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+              ] else ...[
+                const SizedBox(width: 18),
+                const SizedBox(width: 8),
+              ],
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        middleEllipsis(
+                          domainName,
+                          maxLength:
+                              delta != null && delta.type == ToplistDeltaType.newEntry ? 18 : 24,
+                        ),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: context.theme.textPrimary,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                    if (delta != null && delta.type == ToplistDeltaType.newEntry) ...[
+                      const SizedBox(width: 6),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          "NEW",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: context.theme.cloud,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              Text(
+                entry.value.toString(),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textSecondary,
+                ),
+              ),
+              SizedBox(width: 8),
+              Icon(
+                CupertinoIcons.chevron_right,
+                color: context.theme.textSecondary,
+                size: 16,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  IconData _iconForDelta(ToplistDelta delta) {
+    switch (delta.type) {
+      case ToplistDeltaType.up:
+        return CupertinoIcons.arrowtriangle_up_fill;
+      case ToplistDeltaType.down:
+        return CupertinoIcons.arrowtriangle_down_fill;
+      case ToplistDeltaType.newEntry:
+        return CupertinoIcons.circle_fill;
+      case ToplistDeltaType.same:
+      default:
+        return CupertinoIcons.minus;
+    }
+  }
+
+  Color _colorForDelta(ToplistDelta delta, BuildContext context) {
+    switch (delta.type) {
+      case ToplistDeltaType.up:
+        return context.theme.cloud;
+      case ToplistDeltaType.down:
+        return context.theme.cloud;
+      case ToplistDeltaType.newEntry:
+        return context.theme.cloud;
+      case ToplistDeltaType.same:
+      default:
+        return context.theme.textSecondary;
+    }
+  }
+
+  Widget _buildEmptyState() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+      child: Center(
+        child: Text(
+          "privacy pulse empty".i18n,
+          style: TextStyle(
+            color: context.theme.textSecondary,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+}

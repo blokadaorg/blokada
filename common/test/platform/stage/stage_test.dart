@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:common/core/core.dart';
-import 'package:common/platform/stage/channel.pg.dart';
-import 'package:common/platform/stage/stage.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/stage/channel.pg.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 

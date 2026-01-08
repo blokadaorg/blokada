@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:common/platform/stats/api.dart' as api;
-import 'package:common/platform/stats/delta_store.dart';
-import 'package:common/platform/stats/stats.dart';
-import 'package:common/family/module/stats/stats.dart' as family_stats;
+import 'package:common/src/platform/stats/api.dart' as api;
+import 'package:common/src/platform/stats/delta_store.dart';
+import 'package:common/src/platform/stats/stats.dart';
+import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

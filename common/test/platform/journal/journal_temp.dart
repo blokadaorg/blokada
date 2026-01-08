@@ -1,9 +1,9 @@
-// import 'package:common/core/core.dart';
-// import 'package:common/platform/device/device.dart';
-// import 'package:common/platform/env/env.dart';
-// import 'package:common/platform/journal/journal.dart';
-// import 'package:common/platform/journal/json.dart';
-// import 'package:common/platform/stage/stage.dart';
+// import 'package:common/src/core/core.dart';
+// import 'package:common/src/platform/device/device.dart';
+// import 'package:common/src/platform/env/env.dart';
+// import 'package:common/src/platform/journal/journal.dart';
+// import 'package:common/src/platform/journal/json.dart';
+// import 'package:common/src/platform/stage/stage.dart';
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:mockito/annotations.dart';
 // import 'package:mockito/mockito.dart';
