@@ -13,6 +13,12 @@
 import UIKit
 import Factory
 import BackgroundTasks
+#if canImport(FirebaseCore)
+import FirebaseCore
+#endif
+#if canImport(FirebaseMessaging)
+import FirebaseMessaging
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,6 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         LoggerSaver.cleanup()
+
+#if canImport(FirebaseCore) && canImport(FirebaseMessaging)
+        if !flutter.isFlavorFamily {
+            FirebaseApp.configure()
+            Messaging.messaging().delegate = self
+        }
+#endif
 
         NSSetUncaughtExceptionHandler { exception in
             (UIApplication.shared.delegate as? AppDelegate)?.handleException(exception: exception)
@@ -148,6 +161,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
         common.onAppleTokenReceived(deviceToken)
+#if canImport(FirebaseMessaging)
+        if !flutter.isFlavorFamily {
+            Messaging.messaging().apnsToken = deviceToken
+        }
+#endif
     }
 
     // Notification registration callback: failure
@@ -203,6 +221,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 }
+
+#if canImport(FirebaseMessaging)
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let token = fcmToken, !token.isEmpty else {
+            commands.execute(.warning, "FCM registration token is empty")
+            return
+        }
+
+        commands.execute(.info, "FCM registration token: \(token)")
+    }
+}
+#endif
 
 // Copied from WG - not sure if important
 extension AppDelegate {

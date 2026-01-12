@@ -14,6 +14,8 @@ target 'Dev' do
   use_frameworks!
 
   # Pods for Dev
+  pod 'FirebaseCore'
+  pod 'FirebaseMessaging'
   install_all_flutter_pods(flutter_application_path)
 end
 
@@ -22,6 +24,8 @@ target 'Prod' do
   use_frameworks!
 
   # Pods for Prod
+  pod 'FirebaseCore'
+  pod 'FirebaseMessaging'
   install_all_flutter_pods(flutter_application_path)
 end
 
@@ -30,6 +34,8 @@ target 'Mocked' do
   use_frameworks!
 
   # Pods for Mocked
+  pod 'FirebaseCore'
+  pod 'FirebaseMessaging'
   install_all_flutter_pods(flutter_application_path)
 end
 
