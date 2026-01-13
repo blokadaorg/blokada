@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "491763298787",
+    "firebase_url": "https://blokada-vpn.firebaseio.com",
+    "project_id": "blokada-vpn",
+    "storage_bucket": "blokada-vpn.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491763298787:android:1d07dfe3a04cd096ae70d6",
+        "android_client_info": {
+          "package_name": "org.blokada.sex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491763298787-c77tljdt7q8vd5gg16sphuq1brnsg9l3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzpbH_fC6ja1zzgL64WDCNyBOPp8sDnkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491763298787-c77tljdt7q8vd5gg16sphuq1brnsg9l3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

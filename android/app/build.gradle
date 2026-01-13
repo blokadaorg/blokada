@@ -17,6 +17,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
+apply plugin: 'com.google.gms.google-services'
 
 kotlin {
     jvmToolchain 17
@@ -212,6 +213,10 @@ dependencies {
     sixImplementation platform('io.adapty:adapty-bom:3.10.0')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
+
+    // Firebase Cloud Messaging (v6 only)
+    sixImplementation platform('com.google.firebase:firebase-bom:33.7.0')
+    sixImplementation 'com.google.firebase:firebase-messaging-ktx'
 
     // test deps
     testImplementation 'junit:junit:4.13.2'

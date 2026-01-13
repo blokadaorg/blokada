@@ -54,6 +54,7 @@ import service.BlocklistService
 import service.ConnectivityService
 import service.ContextService
 import service.DozeService
+import service.FcmService
 import service.FlutterService
 import service.PersistenceService
 import utils.cause
@@ -102,6 +103,9 @@ class MainApplication : Application(), ViewModelStoreOwner {
         perm = PermBinding
         plus = PlusBinding
         payment = PaymentBinding
+
+        // Initialize FCM for v6 flavor
+        FcmService.setup()
     }
 
     private fun setupEvents() {
