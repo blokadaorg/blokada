@@ -1,5 +1,6 @@
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:common/src/shared/i18n/locales.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/gestures.dart';
@@ -46,29 +47,7 @@ class BlokadaApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-        Locale('bg'),
-        Locale('cs'),
-        Locale('de'),
-        Locale('es'),
-        Locale('fi'),
-        Locale('fr'),
-        Locale('hi'),
-        Locale('hu'),
-        Locale('id'),
-        Locale('it'),
-        Locale('ja'),
-        Locale('nl'),
-        Locale('pl'),
-        Locale('pt', 'BR'),
-        Locale('ro'),
-        Locale('ru'),
-        Locale('sv'),
-        Locale('tr'),
-        Locale('zh'),
-      ],
+      supportedLocales: supportedLocales,
       title: 'Blokada',
       themeMode: ThemeMode.system,
       theme: FlexThemeData.light(

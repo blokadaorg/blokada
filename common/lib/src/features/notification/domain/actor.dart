@@ -11,6 +11,7 @@ class NotificationActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
+  late final _device = Core.get<DeviceStore>();
   var _pendingPrivacyPulseNav = false;
 
   late final _channel = Core.get<NotificationChannel>();
@@ -20,11 +21,15 @@ class NotificationActor with Logging, Actor {
   late final _scheduler = Core.get<Scheduler>();
 
   String? _appleToken;
+  String? _fcmToken;
+  String? _lastSentFcmKey;
 
   @override
   onStart(Marker m) async {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, sendAppleTokenAsync);
+    _account.addOn(accountChanged, sendFcmTokenAsync);
+    _device.addOn(deviceChanged, sendFcmTokenAsync);
   }
 
   showWithBody(NotificationId id, Marker m, String body, {DateTime? when}) async {
@@ -83,6 +88,22 @@ class NotificationActor with Logging, Actor {
     ));
   }
 
+  sendFcmTokenAsync(Marker m) async {
+    if (Core.act.isFamily) return;
+    if (_fcmToken == null) return;
+    final deviceTag = _device.deviceTag;
+    final accountId = _account.account?.id;
+    if (deviceTag == null || accountId == null) return;
+    if (_lastSentFcmKey == _buildFcmKey(accountId, deviceTag, _fcmToken!)) return;
+
+    _scheduler.addOrUpdate(Job(
+      "sendFcmToken",
+      m,
+      before: DateTime.now(),
+      callback: sendFcmToken,
+    ));
+  }
+
   Future<bool> sendAppleToken(Marker m) async {
     final publicKey = await _publicKey.fetch(m);
     await _json.postToken(publicKey, _appleToken!, m);
@@ -90,8 +111,75 @@ class NotificationActor with Logging, Actor {
     return false;
   }
 
+  Future<bool> sendFcmToken(Marker m) async {
+    final token = _fcmToken;
+    final deviceTag = _device.currentDeviceTag;
+    final accountId = _account.account?.id;
+    if (token == null || accountId == null) return false;
+    if (_lastSentFcmKey == _buildFcmKey(accountId, deviceTag, token)) return false;
+
+    await _json.postFcmToken(
+      deviceTag,
+      token,
+      _fcmPlatform(),
+      _resolveLocales(),
+      m,
+    );
+
+    _lastSentFcmKey = _buildFcmKey(accountId, deviceTag, token);
+    return false;
+  }
+
   saveAppleToken(String appleToken) async {
     _appleToken = appleToken;
+  }
+
+  saveFcmToken(String token) async {
+    _fcmToken = token;
+  }
+
+  String _buildFcmKey(String accountId, String deviceTag, String token) {
+    return "$accountId|$deviceTag|$token";
+  }
+
+  String _fcmPlatform() {
+    if (Platform.isAndroid) return "android";
+    return "ios";
+  }
+
+  List<String> _resolveLocales() {
+    final mapped = <String>[];
+    for (final locale in ui.PlatformDispatcher.instance.locales) {
+      final tag = _mapLocale(locale);
+      if (tag != null && !mapped.contains(tag)) {
+        mapped.add(tag);
+      }
+    }
+    if (mapped.isNotEmpty) return mapped;
+
+    final fallback = _mapLocale(I18n.locale);
+    if (fallback != null) return [fallback];
+    return [supportedLocales.first.toLanguageTag()];
+  }
+
+  String? _mapLocale(ui.Locale locale) {
+    final exact = supportedLocales.firstWhereOrNull(
+      (it) => it.languageCode == locale.languageCode &&
+          it.countryCode == locale.countryCode,
+    );
+    if (exact != null) return exact.toLanguageTag();
+
+    final languageOnly = supportedLocales.firstWhereOrNull(
+      (it) => it.languageCode == locale.languageCode &&
+          (it.countryCode == null || it.countryCode!.isEmpty),
+    );
+    if (languageOnly != null) return languageOnly.toLanguageTag();
+
+    final byLanguage =
+        supportedLocales.firstWhereOrNull((it) => it.languageCode == locale.languageCode);
+    if (byLanguage != null) return byLanguage.toLanguageTag();
+
+    return null;
   }
 
   notificationTapped(Marker m, String notificationId) async {

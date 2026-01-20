@@ -230,7 +230,7 @@ extension AppDelegate: MessagingDelegate {
             return
         }
 
-        commands.execute(.info, "FCM registration token: \(token)")
+        commands.execute(.fcmNotificationToken, token)
     }
 }
 #endif

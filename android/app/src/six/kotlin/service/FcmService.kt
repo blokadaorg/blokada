@@ -48,7 +48,7 @@ object FcmService {
 
     internal fun logToken(token: String) {
         GlobalScope.launch {
-            CommandBinding.execute(CommandName.INFO, "FCM registration token: $token")
+            CommandBinding.execute(CommandName.FCMNOTIFICATIONTOKEN, token)
         }
     }
 }

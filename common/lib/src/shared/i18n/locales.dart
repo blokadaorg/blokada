@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+
+const List<Locale> supportedLocales = [
+  Locale('en'),
+  Locale('ar'),
+  Locale('bg'),
+  Locale('cs'),
+  Locale('de'),
+  Locale('es'),
+  Locale('fi'),
+  Locale('fr'),
+  Locale('hi'),
+  Locale('hu'),
+  Locale('id'),
+  Locale('it'),
+  Locale('ja'),
+  Locale('nl'),
+  Locale('pl'),
+  Locale('pt', 'BR'),
+  Locale('ro'),
+  Locale('ru'),
+  Locale('sv'),
+  Locale('tr'),
+  Locale('zh'),
+];

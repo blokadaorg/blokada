@@ -40,6 +40,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "TOGGLELISTBYTAG",
     "NOTIFICATIONTAPPED",
     "APPLENOTIFICATIONTOKEN",
+    "FCMNOTIFICATIONTOKEN",
     "NEWPLUS",
     "VPNSTATUS",
     commandLogLevel.toUpperCase(),
