@@ -4,6 +4,38 @@ const Duration weeklyReportInterval = Duration(minutes: 10);
 const Duration weeklyReportBackgroundLead = Duration(minutes: 2);
 const bool weeklyReportGenerationEnabled = false; // Temporary kill switch for weekly reports.
 
+const weeklyReportTitleKey = 'notification weekly report title';
+const weeklyReportBodyKey = 'notification weekly report body';
+const weeklyReportRefreshedTitleKey = 'notification weekly report refreshed title';
+const weeklyReportRefreshedBodyKey = 'notification weekly report refreshed body';
+const weeklyReportCtaKey = 'notification weekly report cta';
+
+const weeklyReportBlockedIncreasedTitleKey =
+    'notification weekly report blocked increased title';
+const weeklyReportBlockedDecreasedTitleKey =
+    'notification weekly report blocked decreased title';
+const weeklyReportAllowedIncreasedTitleKey =
+    'notification weekly report allowed increased title';
+const weeklyReportAllowedDecreasedTitleKey =
+    'notification weekly report allowed decreased title';
+const weeklyReportBlockedTotalsBodyKey = 'notification weekly report blocked totals body';
+const weeklyReportAllowedTotalsBodyKey = 'notification weekly report allowed totals body';
+
+const weeklyReportBlockedToplistNewTitleKey =
+    'notification weekly report blocked toplist new title';
+const weeklyReportAllowedToplistNewTitleKey =
+    'notification weekly report allowed toplist new title';
+const weeklyReportBlockedToplistUpTitleKey =
+    'notification weekly report blocked toplist up title';
+const weeklyReportAllowedToplistUpTitleKey =
+    'notification weekly report allowed toplist up title';
+const weeklyReportBlockedToplistDownTitleKey =
+    'notification weekly report blocked toplist down title';
+const weeklyReportAllowedToplistDownTitleKey =
+    'notification weekly report allowed toplist down title';
+const weeklyReportToplistNewBodyKey = 'notification weekly report toplist new body';
+const weeklyReportToplistMoveBodyKey = 'notification weekly report toplist move body';
+
 class WeeklyReportScheduleValue extends StringifiedPersistedValue<DateTime> {
   WeeklyReportScheduleValue() : super('notification:weekly_report:scheduled_at');
 
@@ -52,8 +84,10 @@ class WeeklyReportEvent {
   final double score;
   final DateTime generatedAt;
   final String? ctaLabel;
-  final String? timeLabel;
   final WeeklyReportToplistHighlight? toplistHighlight;
+  final String? deltaLabel;
+  final bool? deltaIncreased;
+  final double? deltaPercent;
 
   WeeklyReportEvent({
     required this.id,
@@ -64,8 +98,10 @@ class WeeklyReportEvent {
     required this.score,
     required this.generatedAt,
     this.ctaLabel,
-    this.timeLabel,
     this.toplistHighlight,
+    this.deltaLabel,
+    this.deltaIncreased,
+    this.deltaPercent,
   });
 
   Map<String, dynamic> toJson() {
@@ -78,8 +114,10 @@ class WeeklyReportEvent {
       'score': score,
       'generatedAt': generatedAt.toIso8601String(),
       'ctaLabel': ctaLabel,
-      'timeLabel': timeLabel,
       'toplistHighlight': toplistHighlight?.toJson(),
+      'deltaLabel': deltaLabel,
+      'deltaIncreased': deltaIncreased,
+      'deltaPercent': deltaPercent,
     };
   }
 
@@ -95,11 +133,13 @@ class WeeklyReportEvent {
       score: (json['score'] as num).toDouble(),
       generatedAt: DateTime.parse(json['generatedAt']),
       ctaLabel: json['ctaLabel'],
-      timeLabel: json['timeLabel'],
       toplistHighlight: json['toplistHighlight'] != null
           ? WeeklyReportToplistHighlight.fromJson(
               Map<String, dynamic>.from(json['toplistHighlight']))
           : null,
+      deltaLabel: json['deltaLabel'],
+      deltaIncreased: json['deltaIncreased'],
+      deltaPercent: (json['deltaPercent'] as num?)?.toDouble(),
     );
   }
 }
@@ -133,8 +173,8 @@ class WeeklyReportContentPayload {
 
   static WeeklyReportContentPayload fromEvent(WeeklyReportEvent? event) =>
       WeeklyReportContentPayload(
-        title: event?.title ?? 'Weekly privacy report',
-        body: event?.body ?? 'See this week\'s highlights from your protection.',
+        title: event?.title ?? weeklyReportTitleKey.i18n,
+        body: event?.body ?? weeklyReportBodyKey.i18n,
         backgroundLead: weeklyReportBackgroundLead,
         eventId: event?.id ?? 'none',
       );
@@ -372,8 +412,8 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
     final id = 'totals:$key:${window.anchor.toIso8601String()}';
 
-    final title = '$label $direction';
-    final body = '$label traffic is $sign$percent% compared to last week.';
+    final title = _totalsTitle(label, increased);
+    final body = _totalsBody(label, '$sign$percent');
 
     return WeeklyReportEvent(
       id: id,
@@ -383,10 +423,30 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
       icon: icon,
       score: absDelta,
       generatedAt: window.anchor,
-      ctaLabel: 'View report',
-      timeLabel: 'This week',
+      ctaLabel: weeklyReportCtaKey.i18n,
       toplistHighlight: null,
+      deltaLabel: key,
+      deltaIncreased: increased,
+      deltaPercent: absDelta,
     );
+  }
+
+  String _totalsTitle(String label, bool increased) {
+    if (label == 'Blocked') {
+      return increased
+          ? weeklyReportBlockedIncreasedTitleKey.i18n
+          : weeklyReportBlockedDecreasedTitleKey.i18n;
+    }
+    return increased
+        ? weeklyReportAllowedIncreasedTitleKey.i18n
+        : weeklyReportAllowedDecreasedTitleKey.i18n;
+  }
+
+  String _totalsBody(String label, String value) {
+    if (label == 'Blocked') {
+      return weeklyReportBlockedTotalsBodyKey.i18n.withParams([value]);
+    }
+    return weeklyReportAllowedTotalsBodyKey.i18n.withParams([value]);
   }
 
   double _percentChange(int previous, int current) {
@@ -428,14 +488,16 @@ class ToplistMovementSource implements WeeklyReportEventSource {
       if (delta.type == ToplistDeltaType.newEntry) {
         results.add(WeeklyReportEvent(
           id: id,
-          title: blocked ? 'New tracker in top list' : 'New domain in top list',
-          body: '${delta.name} is now #$currentRank this week.',
+          title: blocked
+              ? weeklyReportBlockedToplistNewTitleKey.i18n
+              : weeklyReportAllowedToplistNewTitleKey.i18n,
+          body: weeklyReportToplistNewBodyKey.i18n
+              .withParams([delta.name, currentRank.toString()]),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: 80 - currentRank * 5,
           generatedAt: anchor,
-          ctaLabel: 'View report',
-          timeLabel: 'This week',
+          ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
             name: delta.name,
             blocked: blocked,
@@ -447,14 +509,19 @@ class ToplistMovementSource implements WeeklyReportEventSource {
         final movedBy = prevRank - currentRank;
         results.add(WeeklyReportEvent(
           id: id,
-          title: blocked ? 'Tracker activity increased' : 'Domain moved up',
-          body: '${delta.name} moved to #$currentRank (was #$prevRank) this week.',
+          title: blocked
+              ? weeklyReportBlockedToplistUpTitleKey.i18n
+              : weeklyReportAllowedToplistUpTitleKey.i18n,
+          body: weeklyReportToplistMoveBodyKey.i18n.withParams([
+            delta.name,
+            currentRank.toString(),
+            prevRank.toString(),
+          ]),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: (50 + movedBy * 5 - currentRank).toDouble(),
           generatedAt: anchor,
-          ctaLabel: 'View report',
-          timeLabel: 'This week',
+          ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
             name: delta.name,
             blocked: blocked,
@@ -465,14 +532,19 @@ class ToplistMovementSource implements WeeklyReportEventSource {
       } else if (delta.type == ToplistDeltaType.down && prevRank != null) {
         results.add(WeeklyReportEvent(
           id: id,
-          title: blocked ? 'Tracker activity decreased' : 'Domain moved down',
-          body: '${delta.name} moved to #$currentRank (was #$prevRank) this week.',
+          title: blocked
+              ? weeklyReportBlockedToplistDownTitleKey.i18n
+              : weeklyReportAllowedToplistDownTitleKey.i18n,
+          body: weeklyReportToplistMoveBodyKey.i18n.withParams([
+            delta.name,
+            currentRank.toString(),
+            prevRank.toString(),
+          ]),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: (30 - currentRank).toDouble(),
           generatedAt: anchor,
-          ctaLabel: 'View report',
-          timeLabel: 'This week',
+          ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
             name: delta.name,
             blocked: blocked,
@@ -780,6 +852,29 @@ class WeeklyReportActor with Logging, Actor {
       logger.t('weeklyReport:noEvent');
     }
     return pick?.event;
+  }
+
+  Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
+    return await log(m).trace('weeklyReport:notificationGenerate', (m) async {
+      await _hydratePendingEvent(m);
+      _setLoading(true);
+      final pick = await _generatePick(m);
+      _setCurrent(pick?.event);
+      _setLoading(false);
+      final logger = log(m);
+      if (pick?.event != null) {
+        logger
+          ..t('weeklyReport:eventGenerated')
+          ..pair('eventId', pick!.event.id)
+          ..pair('title', pick.event.title)
+          ..pair('type', pick.event.type.name)
+          ..pair('score', pick.event.score)
+          ..pair('generatedAt', pick.generatedAt.toIso8601String());
+      } else {
+        logger.t('weeklyReport:noEvent');
+      }
+      return pick?.event;
+    });
   }
 
   Future<void> dismissCurrent(Marker m) async {

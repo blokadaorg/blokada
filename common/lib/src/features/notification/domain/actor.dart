@@ -12,6 +12,7 @@ class NotificationActor with Logging, Actor {
   late final _account = Core.get<AccountStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
+  late final _weeklyReport = Core.get<WeeklyReportActor>();
   var _pendingPrivacyPulseNav = false;
 
   late final _channel = Core.get<NotificationChannel>();
@@ -212,12 +213,15 @@ class NotificationActor with Logging, Actor {
       if (event.type != "weekly_update") return;
 
       final when = _resolveScheduleHint(event.scheduleHint);
-      await showWithBody(
-        NotificationId.weeklyReport,
-        m,
-        _mockWeeklyReportBody(),
-        when: when,
-      );
+      await log(m).trace('weeklyReport:fcmHandle', (m) async {
+        final reportEvent = await _weeklyReport.refreshAndPickForNotification(m);
+        if (reportEvent == null) {
+          log(m).w('weeklyReport:notification:noEvent');
+          return;
+        }
+        final body = _buildWeeklyReportBody(reportEvent);
+        await showWithBody(NotificationId.weeklyReport, m, body, when: when);
+      });
     });
   }
 
@@ -234,13 +238,17 @@ class NotificationActor with Logging, Actor {
     return null;
   }
 
-  String _mockWeeklyReportBody() {
+  String _buildWeeklyReportBody(WeeklyReportEvent event) {
+    final title = event.title;
+    final body = event.body;
+    final refreshedTitle = weeklyReportRefreshedTitleKey.i18n;
+    final refreshedBody = weeklyReportRefreshedBodyKey.i18n;
     return jsonEncode({
-      "title": "Weekly privacy report",
-      "body": "See this week's highlights from your protection.",
-      "refreshedTitle": "Traffic increased refresh",
-      "refreshedBody": "Your traffic increased by 4% this week (bg)",
-      "backgroundLeadMs": 3600000,
+      "title": title,
+      "body": body,
+      "refreshedTitle": refreshedTitle,
+      "refreshedBody": refreshedBody,
+      "backgroundLeadMs": weeklyReportBackgroundLead.inMilliseconds,
     });
   }
 
