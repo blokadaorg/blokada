@@ -12,6 +12,7 @@ class NotificationCommand with Command, Logging {
           fn: cmdAppleNotificationToken, argsNum: 1),
       registerCommand("fcmNotificationToken",
           fn: cmdFcmNotificationToken, argsNum: 1),
+      registerCommand("fcmEvent", fn: cmdFcmEvent, argsNum: 1),
     ];
   }
 
@@ -28,5 +29,10 @@ class NotificationCommand with Command, Logging {
   Future<void> cmdFcmNotificationToken(Marker m, dynamic args) async {
     final token = args[0] as String;
     await _actor.saveFcmToken(token);
+  }
+
+  Future<void> cmdFcmEvent(Marker m, dynamic args) async {
+    final payload = args[0] as String;
+    await _actor.handleFcmEvent(m, payload);
   }
 }

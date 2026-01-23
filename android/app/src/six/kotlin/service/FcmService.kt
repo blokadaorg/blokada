@@ -61,4 +61,17 @@ class FcmMessagingService : FirebaseMessagingService() {
             Logger.w("FcmService", "FCM registration token is empty (refresh)")
         }
     }
+
+    override fun onMessageReceived(message: com.google.firebase.messaging.RemoteMessage) {
+        val data = message.data
+        if (data.isEmpty()) {
+            Logger.w("FcmService", "FCM message has no data payload")
+            return
+        }
+
+        val json = org.json.JSONObject(data as Map<*, *>).toString()
+        GlobalScope.launch {
+            CommandBinding.execute(CommandName.FCMEVENT, json)
+        }
+    }
 }

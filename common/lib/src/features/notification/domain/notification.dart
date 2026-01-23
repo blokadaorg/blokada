@@ -20,6 +20,7 @@ import 'package:i18n_extension/i18n_extension.dart';
 part 'actor.dart';
 part 'api.dart';
 part 'command.dart';
+part 'event.dart';
 part 'model.dart';
 part 'weekly_report.dart';
 

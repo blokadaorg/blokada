@@ -202,6 +202,60 @@ class NotificationActor with Logging, Actor {
     });
   }
 
+  handleFcmEvent(Marker m, String payload) async {
+    return await log(m).trace("handleFcmEvent", (m) async {
+      if (Core.act.isFamily) return;
+      final data = _parseFcmPayload(payload);
+      if (data == null) return;
+
+      final event = FcmEvent.fromJson(data);
+      if (event.type != "weekly_update") return;
+
+      final when = _resolveScheduleHint(event.scheduleHint);
+      await showWithBody(
+        NotificationId.weeklyReport,
+        m,
+        _mockWeeklyReportBody(),
+        when: when,
+      );
+    });
+  }
+
+  Map<String, dynamic>? _parseFcmPayload(String payload) {
+    try {
+      final decoded = jsonDecode(payload);
+      if (decoded is Map<String, dynamic>) return decoded;
+      if (decoded is Map) {
+        return decoded.map((key, value) => MapEntry(key.toString(), value));
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
+  }
+
+  String _mockWeeklyReportBody() {
+    return jsonEncode({
+      "title": "Weekly privacy report",
+      "body": "See this week's highlights from your protection.",
+      "refreshedTitle": "Traffic increased refresh",
+      "refreshedBody": "Your traffic increased by 4% this week (bg)",
+      "backgroundLeadMs": 3600000,
+    });
+  }
+
+  DateTime? _resolveScheduleHint(String? scheduleHint) {
+    if (scheduleHint == null) return null;
+    final hour = int.tryParse(scheduleHint);
+    if (hour == null || hour < 0 || hour > 23) return null;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day, hour);
+    if (today.isAfter(now)) return today;
+
+    return today.add(const Duration(days: 1));
+  }
+
   _addCapped(NotificationEvent event) {
     final notifications = _notifications.now.toList();
     notifications.add(event);

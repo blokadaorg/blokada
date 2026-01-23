@@ -50,6 +50,7 @@ enum CommandName {
   notificationTapped,
   appleNotificationToken,
   fcmNotificationToken,
+  fcmEvent,
 
   // Payment (temporary)
   paymentHandleSuccess,

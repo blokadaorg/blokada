@@ -153,6 +153,12 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
         commands.execute(.remoteNotification)
+
+        if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
+           let json = String(data: data, encoding: .utf8) {
+            commands.execute(.fcmEvent, json)
+        }
+
         completionHandler(.newData)
     }
 
