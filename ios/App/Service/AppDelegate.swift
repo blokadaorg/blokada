@@ -176,6 +176,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         common.onAppleTokenFailed(error)
     }
 
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        commands.execute(.remoteNotification)
+
+        if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
+           let json = String(data: data, encoding: .utf8) {
+            commands.execute(.fcmEvent, json)
+        }
+
+        completionHandler(.newData)
+    }
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Use the methods in SceneDelegate instead
     }

@@ -147,21 +147,6 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
     }
 
     // Push notification arrived (either in foreground or background)
-    func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
-    ) {
-        commands.execute(.remoteNotification)
-
-        if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
-           let json = String(data: data, encoding: .utf8) {
-            commands.execute(.fcmEvent, json)
-        }
-
-        completionHandler(.newData)
-    }
-
     // Called when a notification received while in foreground
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
