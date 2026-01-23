@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="notification_weekly_report_title">Your weekly report</string>
-    <string name="notification_weekly_report_body">Open Blokada to see your weekly report.</string>
-    <string name="notification_weekly_report_refresh_title">Your weekly report is ready</string>
-    <string name="notification_weekly_report_refresh_body">Open Blokada to view the latest details.</string>
-</resources>

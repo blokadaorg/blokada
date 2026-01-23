@@ -253,15 +253,8 @@ class NotificationActor with Logging, Actor {
   }
 
   DateTime? _resolveScheduleHint(String? scheduleHint) {
-    if (scheduleHint == null) return null;
-    final hour = int.tryParse(scheduleHint);
-    if (hour == null || hour < 0 || hour > 23) return null;
-
     final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day, hour);
-    if (today.isAfter(now)) return today;
-
-    return today.add(const Duration(days: 1));
+    return now.add(const Duration(minutes: 2));
   }
 
   _addCapped(NotificationEvent event) {

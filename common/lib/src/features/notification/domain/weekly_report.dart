@@ -444,9 +444,9 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
 
   String _totalsBody(String label, String value) {
     if (label == 'Blocked') {
-      return weeklyReportBlockedTotalsBodyKey.i18n.withParams([value]);
+      return weeklyReportBlockedTotalsBodyKey.i18n.withParams(value);
     }
-    return weeklyReportAllowedTotalsBodyKey.i18n.withParams([value]);
+    return weeklyReportAllowedTotalsBodyKey.i18n.withParams(value);
   }
 
   double _percentChange(int previous, int current) {
@@ -492,7 +492,7 @@ class ToplistMovementSource implements WeeklyReportEventSource {
               ? weeklyReportBlockedToplistNewTitleKey.i18n
               : weeklyReportAllowedToplistNewTitleKey.i18n,
           body: weeklyReportToplistNewBodyKey.i18n
-              .withParams([delta.name, currentRank.toString()]),
+              .withParams(delta.name, currentRank.toString()),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: 80 - currentRank * 5,
@@ -512,11 +512,11 @@ class ToplistMovementSource implements WeeklyReportEventSource {
           title: blocked
               ? weeklyReportBlockedToplistUpTitleKey.i18n
               : weeklyReportAllowedToplistUpTitleKey.i18n,
-          body: weeklyReportToplistMoveBodyKey.i18n.withParams([
+          body: weeklyReportToplistMoveBodyKey.i18n.withParams(
             delta.name,
             currentRank.toString(),
             prevRank.toString(),
-          ]),
+          ),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: (50 + movedBy * 5 - currentRank).toDouble(),
@@ -535,11 +535,11 @@ class ToplistMovementSource implements WeeklyReportEventSource {
           title: blocked
               ? weeklyReportBlockedToplistDownTitleKey.i18n
               : weeklyReportAllowedToplistDownTitleKey.i18n,
-          body: weeklyReportToplistMoveBodyKey.i18n.withParams([
+          body: weeklyReportToplistMoveBodyKey.i18n.withParams(
             delta.name,
             currentRank.toString(),
             prevRank.toString(),
-          ]),
+          ),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: (30 - currentRank).toDouble(),
@@ -791,6 +791,7 @@ class WeeklyReportActor with Logging, Actor {
   final Observable<bool> isLoading = Observable(false);
 
   late final List<WeeklyReportEventSource> _sources;
+  static const bool weeklyReportForceMockEvent = true;
 
   WeeklyReportActor() {
     _sources = [
@@ -895,7 +896,9 @@ class WeeklyReportActor with Logging, Actor {
       return WeeklyReportPick(pending.event, pending.pickedAt);
     }
     WeeklyReportWindow? window = await _repository.load(m);
-    if (window == null) return null;
+    if (window == null) {
+      return weeklyReportForceMockEvent ? _buildMockPick() : null;
+    }
 
     final events = <WeeklyReportEvent>[];
     for (final source in _sources) {
@@ -907,7 +910,9 @@ class WeeklyReportActor with Logging, Actor {
       }
     }
 
-    if (events.isEmpty) return null;
+    if (events.isEmpty) {
+      return weeklyReportForceMockEvent ? _buildMockPick() : null;
+    }
     events.sort((a, b) => b.score.compareTo(a.score));
     final dismissed = await _lastDismissed.fetch(m);
 
@@ -918,7 +923,7 @@ class WeeklyReportActor with Logging, Actor {
 
     if (filtered.isEmpty) {
       log(m).i('No weekly report event to show (seen or dismissed already)');
-      return null;
+      return weeklyReportForceMockEvent ? _buildMockPick() : null;
     }
 
     if (filtered.length != events.length) {
@@ -929,6 +934,33 @@ class WeeklyReportActor with Logging, Actor {
     }
 
     return WeeklyReportPick(filtered.first, window.anchor);
+  }
+
+  WeeklyReportPick _buildMockPick() {
+    final now = DateTime.now().toUtc();
+    final title = weeklyReportBlockedToplistNewTitleKey.i18n;
+    final body =
+        weeklyReportToplistNewBodyKey.i18n.withParams('tracker.example', '2');
+    final event = WeeklyReportEvent(
+      id: 'mock:${now.toIso8601String()}',
+      title: title,
+      body: body,
+      type: WeeklyReportEventType.toplistChange,
+      icon: WeeklyReportIcon.shield,
+      score: 80,
+      generatedAt: now,
+      ctaLabel: weeklyReportCtaKey.i18n,
+      toplistHighlight: WeeklyReportToplistHighlight(
+        name: 'tracker.example',
+        blocked: true,
+        newRank: 2,
+        previousRank: null,
+      ),
+      deltaLabel: null,
+      deltaIncreased: null,
+      deltaPercent: null,
+    );
+    return WeeklyReportPick(event, now);
   }
 
 }
