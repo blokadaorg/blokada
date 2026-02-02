@@ -51,6 +51,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   var stats = UiStats.empty();
   bool _toplistsFetched = false;
   WeeklyReportEvent? _weeklyEvent;
+  WeeklyReportToplistHighlight? _weeklyHighlight;
   final List<mobx.ReactionDisposer> _disposers = [];
   final _topDomainsHeaderKey = GlobalKey();
   ToplistRange _toplistRange = ToplistRange.daily;
@@ -107,6 +108,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     _disposers.add(mobx.autorun((_) {
       setState(() {
         _weeklyEvent = _weeklyReport.currentEvent.value;
+        final highlight = _weeklyEvent?.toplistHighlight;
+        if (highlight != null) {
+          _weeklyHighlight = highlight;
+        }
       });
     }));
   }
@@ -301,7 +306,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           const SizedBox(height: 12),
                           TopDomains(
                             headerKey: _topDomainsHeaderKey,
-                            highlight: _weeklyEvent?.toplistHighlight,
+                            highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
                             range: _toplistRange,
                             blockedDeltas: _blockedDeltas[_toplistRange],
                             allowedDeltas: _allowedDeltas[_toplistRange],
@@ -334,7 +339,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   void _handleWeeklyReportTap() {
     if (_weeklyEvent?.type != WeeklyReportEventType.toplistChange) return;
-    unawaited(_scrollAndEnsureWeeklyHighlight());
+    unawaited(_scrollAndEnsureWeeklyHighlight().then((_) {
+      _dismissWeeklyReport(keepHighlight: true);
+    }));
   }
 
   Widget _buildToplistRangeToggle(BuildContext context) {
@@ -453,10 +460,13 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     }
   }
 
-  void _dismissWeeklyReport() {
+  void _dismissWeeklyReport({bool keepHighlight = false}) {
     _weeklyReport.dismissCurrent(Markers.userTap);
     setState(() {
       _weeklyEvent = null;
+      if (!keepHighlight) {
+        _weeklyHighlight = null;
+      }
     });
   }
 
