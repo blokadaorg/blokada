@@ -58,6 +58,10 @@ class WeeklyReportLastNotifiedValue extends StringPersistedValue {
   WeeklyReportLastNotifiedValue() : super('notification:weekly_report:last_notified');
 }
 
+class WeeklyReportOptOutValue extends BoolPersistedValue {
+  WeeklyReportOptOutValue() : super('notification:weekly_report:opt_out');
+}
+
 class WeeklyReportPendingEventValue
     extends JsonPersistedValue<WeeklyReportPendingEvent> {
   WeeklyReportPendingEventValue()
@@ -815,6 +819,7 @@ class WeeklyReportActor with Logging, Actor {
   late final _repository = WeeklyReportRepository();
   late final _lastDismissed = WeeklyReportLastDismissedValue();
   late final _pendingEvent = Core.get<WeeklyReportPendingEventValue>();
+  late final _optOut = Core.get<WeeklyReportOptOutValue>();
 
   final Observable<WeeklyReportEvent?> currentEvent = Observable(null);
   final Observable<bool> hasUnseen = Observable(false);
@@ -865,6 +870,14 @@ class WeeklyReportActor with Logging, Actor {
       return null;
     }
 
+    final optOut = await _optOut.now();
+    if (optOut) {
+      log(m).t('weeklyReport:optOut');
+      _setCurrent(null);
+      await _pendingEvent.change(m, null);
+      return null;
+    }
+
     await _hydratePendingEvent(m);
     _setLoading(true);
     final pick = await _generatePick(m);
@@ -887,6 +900,12 @@ class WeeklyReportActor with Logging, Actor {
 
   Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
     return await log(m).trace('weeklyReport:notificationGenerate', (m) async {
+      final optOut = await _optOut.now();
+      if (optOut) {
+        log(m).t('weeklyReport:optOut:notification');
+        await _pendingEvent.change(m, null);
+        return null;
+      }
       await _hydratePendingEvent(m);
       _setLoading(true);
       final pick = await _generatePick(m);
@@ -924,6 +943,12 @@ class WeeklyReportActor with Logging, Actor {
     if (pending != null) {
       log(m).t('weeklyReport:reusePending');
       return WeeklyReportPick(pending.event, pending.pickedAt);
+    }
+    final optOut = await _optOut.now();
+    if (optOut) {
+      log(m).t('weeklyReport:optOut:skipGenerate');
+      await _pendingEvent.change(m, null);
+      return null;
     }
     WeeklyReportWindow? window = await _repository.load(m);
     if (window == null) {

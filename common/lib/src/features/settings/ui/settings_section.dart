@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:input_code_field/input_code_field.dart';
 
 import 'package:common/src/features/lock/domain/lock.dart';
+import 'package:common/src/features/notification/domain/notification.dart';
 
 class SettingsSection extends StatefulWidget {
   final bool isHeader;
@@ -44,13 +45,26 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
 
   late final _lock = Core.get<LockActor>();
   late final _hasPin = Core.get<HasPin>();
+  late final _weeklyOptOut = Core.get<WeeklyReportOptOutValue>();
+
+  bool _weeklyReportEnabled = true;
 
   @override
   void initState() {
     super.initState();
     disposeLater(_unread.onChange.listen(rebuild));
     disposeLater(_hasPin.onChange.listen(rebuild));
+    disposeLater(_weeklyOptOut.onChange.listen((update) {
+      setState(() {
+        _weeklyReportEnabled = !update.now;
+      });
+    }));
     _unread.fetch(Markers.ui);
+    _weeklyOptOut.fetch(Markers.ui).then((value) {
+      setState(() {
+        _weeklyReportEnabled = !value;
+      });
+    });
   }
 
   @override
@@ -213,6 +227,41 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     ),
                   ],
                 ),
+          const SizedBox(height: 32),
+          SectionLabel(text: "Notifications"),
+          CommonCard(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Weekly privacy report",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        "Send a weekly summary of tracker activity",
+                        style: TextStyle(fontSize: 13),
+                      ),
+                    ],
+                  ),
+                ),
+                CupertinoSwitch(
+                  activeColor: context.theme.accent,
+                  value: _weeklyReportEnabled,
+                  onChanged: (bool value) async {
+                    setState(() {
+                      _weeklyReportEnabled = value;
+                    });
+                    await _weeklyOptOut.change(Markers.userTap, !value);
+                  },
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 40),
           SectionLabel(text: "account section header my subscription".i18n.capitalize()),
           CommonCard(

@@ -50,6 +50,7 @@ class NotificationModule with Module {
       await register(WeeklyReportScheduleValue());
       await register(WeeklyReportLastNotifiedValue());
       await register(WeeklyReportPendingEventValue());
+      await register(WeeklyReportOptOutValue());
       await register(WeeklyReportActor());
     }
     await register(NotificationCommand());
