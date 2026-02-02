@@ -836,6 +836,16 @@ class WeeklyReportActor with Logging, Actor {
     ];
   }
 
+  Future<bool> _isOptedOut(Marker m) async {
+    try {
+      final cached = _optOut.present;
+      if (cached != null) return cached;
+      return await _optOut.fetch(m);
+    } catch (_) {
+      return false;
+    }
+  }
+
   void _setCurrent(WeeklyReportEvent? event, {DateTime? pickedAt}) {
     runInAction(() {
       currentEvent.value = event;
@@ -871,7 +881,7 @@ class WeeklyReportActor with Logging, Actor {
       return null;
     }
 
-    final optOut = await _optOut.now();
+    final optOut = await _isOptedOut(m);
     if (optOut) {
       log(m).t('weeklyReport:optOut');
       _setCurrent(null);
@@ -901,7 +911,7 @@ class WeeklyReportActor with Logging, Actor {
 
   Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
     return await log(m).trace('weeklyReport:notificationGenerate', (m) async {
-      final optOut = await _optOut.now();
+      final optOut = await _isOptedOut(m);
       if (optOut) {
         log(m).t('weeklyReport:optOut:notification');
         await _pendingEvent.change(m, null);
@@ -945,7 +955,7 @@ class WeeklyReportActor with Logging, Actor {
       log(m).t('weeklyReport:reusePending');
       return WeeklyReportPick(pending.event, pending.pickedAt);
     }
-    final optOut = await _optOut.now();
+    final optOut = await _isOptedOut(m);
     if (optOut) {
       log(m).t('weeklyReport:optOut:skipGenerate');
       await _pendingEvent.change(m, null);

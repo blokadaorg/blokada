@@ -342,9 +342,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   void _handleWeeklyReportTap() {
     if (_weeklyEvent?.type != WeeklyReportEventType.toplistChange) return;
-    unawaited(_scrollAndEnsureWeeklyHighlight().then((_) {
-      _dismissWeeklyReport(keepHighlight: true);
-    }));
+    // Remove the card first to avoid layout jank, then scroll once the frame is updated.
+    _dismissWeeklyReport(keepHighlight: true);
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await _scrollAndEnsureWeeklyHighlight();
+    });
   }
 
   Widget _buildToplistRangeToggle(BuildContext context) {

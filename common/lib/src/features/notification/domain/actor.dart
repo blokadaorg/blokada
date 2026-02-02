@@ -15,6 +15,7 @@ class NotificationActor with Logging, Actor {
   late final _weeklyReport = Core.get<WeeklyReportActor>();
   var _pendingPrivacyPulseNav = false;
   Object? _pendingPrivacyPulseArgs;
+  Timer? _bgTestFcmTimer;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -64,6 +65,18 @@ class NotificationActor with Logging, Actor {
   }
 
   onRouteChanged(StageRouteState route, Marker m) async {
+    // If we moved to background, schedule a synthetic weekly FCM event after 10s for testing.
+    if (!route.isForeground()) {
+      _bgTestFcmTimer?.cancel();
+      _bgTestFcmTimer = Timer(const Duration(seconds: 10), () {
+        final payload = jsonEncode({"type": "weekly_update"});
+        unawaited(handleFcmEvent(Markers.platform, payload));
+      });
+      return;
+    } else {
+      _bgTestFcmTimer?.cancel();
+    }
+
     if (!route.isBecameForeground()) return;
 
     return await log(m).trace("dismissNotifications", (m) async {

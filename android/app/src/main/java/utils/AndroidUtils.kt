@@ -28,11 +28,18 @@ import model.Uri
 import service.ContextService
 import androidx.core.net.toUri
 
-fun Context.getPendingIntentForActivity(intent: Intent, flags: Int): PendingIntent {
+fun Context.getPendingIntentForActivity(
+    intent: Intent,
+    flags: Int,
+    requestCode: Int? = null
+): PendingIntent {
+    // Use a stable, intent-specific request code so extras aren't lost when PendingIntents are reused.
+    val code = requestCode ?: intent.hashCode()
+    val baseFlags = flags or PendingIntent.FLAG_UPDATE_CURRENT
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        PendingIntent.getActivity(this, 0, intent, flags or PendingIntent.FLAG_IMMUTABLE)
+        PendingIntent.getActivity(this, code, intent, baseFlags or PendingIntent.FLAG_IMMUTABLE)
     } else {
-        PendingIntent.getActivity(this, 0, intent, flags)
+        PendingIntent.getActivity(this, code, intent, baseFlags)
     }
 }
 
