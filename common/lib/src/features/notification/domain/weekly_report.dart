@@ -207,7 +207,8 @@ class WeeklyReportContentPayload {
 
   static WeeklyReportContentPayload fromEvent(WeeklyReportEvent? event) =>
       WeeklyReportContentPayload(
-        title: event?.title ?? weeklyReportTitleKey.i18n,
+        // Always use the generic weekly report title for notifications.
+        title: weeklyReportTitleKey.i18n,
         body: event?.body ?? weeklyReportBodyKey.i18n,
         backgroundLead: weeklyReportBackgroundLead,
         eventId: event?.id ?? 'none',

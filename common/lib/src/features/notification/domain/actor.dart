@@ -244,7 +244,8 @@ class NotificationActor with Logging, Actor {
   }
 
   String _buildWeeklyReportBody(WeeklyReportEvent event) {
-    final title = event.title;
+    // Always show the generic weekly report title in the notification UI.
+    final title = weeklyReportTitleKey.i18n;
     final body = event.body;
     final refreshedTitle = weeklyReportRefreshedTitleKey.i18n;
     final refreshedBody = weeklyReportRefreshedBodyKey.i18n;
