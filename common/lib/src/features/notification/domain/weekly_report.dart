@@ -142,6 +142,36 @@ class WeeklyReportEvent {
       deltaPercent: (json['deltaPercent'] as num?)?.toDouble(),
     );
   }
+
+  WeeklyReportEvent copyWith({
+    String? id,
+    String? title,
+    String? body,
+    WeeklyReportEventType? type,
+    WeeklyReportIcon? icon,
+    double? score,
+    DateTime? generatedAt,
+    String? ctaLabel,
+    WeeklyReportToplistHighlight? toplistHighlight,
+    String? deltaLabel,
+    bool? deltaIncreased,
+    double? deltaPercent,
+  }) {
+    return WeeklyReportEvent(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      type: type ?? this.type,
+      icon: icon ?? this.icon,
+      score: score ?? this.score,
+      generatedAt: generatedAt ?? this.generatedAt,
+      ctaLabel: ctaLabel ?? this.ctaLabel,
+      toplistHighlight: toplistHighlight ?? this.toplistHighlight,
+      deltaLabel: deltaLabel ?? this.deltaLabel,
+      deltaIncreased: deltaIncreased ?? this.deltaIncreased,
+      deltaPercent: deltaPercent ?? this.deltaPercent,
+    );
+  }
 }
 
 class WeeklyReportPick {
@@ -933,7 +963,10 @@ class WeeklyReportActor with Logging, Actor {
         ..pair('remainingTop', filtered.first.id);
     }
 
-    return WeeklyReportPick(filtered.first, window.anchor);
+    // Use the pick time for UI freshness while keeping the anchor in IDs.
+    final pickedAt = DateTime.now().toUtc();
+    final pickedEvent = filtered.first.copyWith(generatedAt: pickedAt);
+    return WeeklyReportPick(pickedEvent, pickedAt);
   }
 
   WeeklyReportPick _buildMockPick() {
