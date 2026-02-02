@@ -3,6 +3,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';
 import 'package:common/src/features/stats/ui/stats_detail_section.dart';
+import 'package:common/src/features/stats/ui/top_domains.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 class PrivacyPulseScreen extends StatefulWidget {
-  const PrivacyPulseScreen({Key? key}) : super(key: key);
+  final ToplistRange? initialToplistRange;
+
+  const PrivacyPulseScreen({Key? key, this.initialToplistRange}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PrivacyPulseScreenState();
@@ -76,6 +79,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
       return PrivacyPulseSection(
         autoRefresh: true,
         controller: ScrollController(),
+        initialRange: widget.initialToplistRange,
       );
     } else {
       return const Row(
@@ -107,6 +111,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
             child: PrivacyPulseSection(
               autoRefresh: true,
               controller: ScrollController(),
+              initialRange: widget.initialToplistRange,
             ),
           ),
           Expanded(

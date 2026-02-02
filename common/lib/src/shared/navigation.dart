@@ -8,6 +8,7 @@ import 'package:common/src/features/settings/ui/exceptions_section.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/settings/ui/settings_screen.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';
+import 'package:common/src/features/stats/ui/top_domains.dart';
 import 'package:common/src/features/stats/ui/stats_filter.dart';
 import 'package:common/src/features/stats/ui/stats_section.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
@@ -237,7 +238,23 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.privacyPulse.path) {
-      return StandardRoute(settings: settings, builder: (context) => const PrivacyPulseScreen());
+      ToplistRange? initialRange;
+      final args = settings.arguments;
+      if (args is Map) {
+        final rangeArg = args['toplistRange'];
+        if (rangeArg is ToplistRange) {
+          initialRange = rangeArg;
+        } else if (rangeArg is String) {
+          if (rangeArg == "weekly") initialRange = ToplistRange.weekly;
+          if (rangeArg == "daily") initialRange = ToplistRange.daily;
+        }
+      }
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => PrivacyPulseScreen(
+          initialToplistRange: initialRange,
+        ),
+      );
     }
 
     if (settings.name == Paths.advanced.path) {

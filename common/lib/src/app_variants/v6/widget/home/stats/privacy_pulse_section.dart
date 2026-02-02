@@ -29,11 +29,13 @@ import 'package:common/src/features/stats/ui/totalcounter.dart';
 class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
   final ScrollController controller;
+  final ToplistRange? initialRange;
 
   const PrivacyPulseSection({
     Key? key,
     required this.autoRefresh,
     required this.controller,
+    this.initialRange,
   }) : super(key: key);
 
   @override
@@ -75,6 +77,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   @override
   void initState() {
     super.initState();
+    _toplistRange = widget.initialRange ?? ToplistRange.daily;
     if (widget.autoRefresh) {
       mobx.autorun((_) {
         setState(() {
