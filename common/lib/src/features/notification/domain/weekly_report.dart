@@ -827,7 +827,7 @@ class WeeklyReportActor with Logging, Actor {
   final Observable<bool> isLoading = Observable(false);
 
   late final List<WeeklyReportEventSource> _sources;
-  static const bool weeklyReportForceMockEvent = true;
+  static const bool weeklyReportForceMockEvent = false;
 
   WeeklyReportActor() {
     _sources = [
