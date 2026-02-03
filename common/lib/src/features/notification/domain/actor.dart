@@ -86,7 +86,10 @@ class NotificationActor with Logging, Actor {
         _pendingPrivacyPulseNav = false;
         final args = _pendingPrivacyPulseArgs;
         _pendingPrivacyPulseArgs = null;
-        Navigation.open(Paths.privacyPulse, arguments: args);
+        final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
+        if (!isOnPrivacyPulse) {
+          Navigation.open(Paths.privacyPulse, arguments: args);
+        }
       }
     });
   }
@@ -204,6 +207,7 @@ class NotificationActor with Logging, Actor {
       final id = NotificationId.values.firstWhereOrNull((it) => it.name == notificationId);
 
       log(m).pair("id", id);
+      final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
         // await sleepAsync(const Duration(seconds: 1));
         // await _stage.setRoute(Paths.settings.path, m);
@@ -211,7 +215,7 @@ class NotificationActor with Logging, Actor {
         // await _stage.setRoute(Paths.support.path, m);
       } else if (id == NotificationId.weeklyReport) {
         final args = {'toplistRange': ToplistRange.weekly};
-        if (_stage.route.isForeground()) {
+        if (_stage.route.isForeground() && !isOnPrivacyPulse) {
           Navigation.open(Paths.privacyPulse, arguments: args);
         } else {
           _pendingPrivacyPulseNav = true;

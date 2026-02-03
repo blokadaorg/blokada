@@ -253,6 +253,10 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
     if (route is StandardRoute) {
       final s = route.settings;
       String title;
+      final path = _pathFromName(s.name);
+      if (path != null) {
+        Navigation.lastPath = path;
+      }
 
       if (s.name == Paths.device.path) {
         final device = s.arguments as FamilyDevice;
@@ -321,11 +325,24 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
       return;
     }
 
+    final prevPath = _pathFromName(previousRoute?.settings.name);
+    if (prevPath != null) {
+      Navigation.lastPath = prevPath;
+    }
+
     // Clicked back button without swiping (let the anim finish first)
     Future.delayed(const Duration(milliseconds: 600), () {
       _pop();
       notifyListeners();
     });
+  }
+
+  Paths? _pathFromName(String? name) {
+    if (name == null) return null;
+    for (final p in Paths.values) {
+      if (p.path == name) return p;
+    }
+    return null;
   }
 
   manualPush(String title) {

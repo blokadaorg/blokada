@@ -78,9 +78,13 @@ class Navigation with Logging {
 
   static Function(Paths, Object?) openInTablet = (_, __) {};
   static Function(Paths? path) onNavigated = (_) {};
+  // Track last navigated path directly from Navigation; StageStore is being phased out and
+  // should not be treated as the source of truth for current UI route.
+  static Paths? lastPath;
 
   static open(Paths path, {Object? arguments}) async {
     onNavigated(path);
+    lastPath = path;
     if (isTabletMode && path.openInTablet) {
       openInTablet(path, arguments);
       return;
