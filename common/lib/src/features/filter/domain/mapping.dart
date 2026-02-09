@@ -7,95 +7,21 @@ part of 'filter.dart';
 
 class KnownFilters {
   final bool isFamily;
-  final bool isIos;
 
-  KnownFilters({required this.isFamily, required this.isIos});
+  KnownFilters({required this.isFamily});
 
-  List<Filter> get() => _getKnownFilters(isFamily, isIos);
+  List<Filter> get() => _getKnownFilters(isFamily);
 }
 
-List<Filter> _getKnownFilters(bool isFamily, bool isIos) {
+List<Filter> _getKnownFilters(bool isFamily) {
   if (isFamily) {
     return _family;
-  } else if (isIos) {
-    return _v6iOS;
   } else {
-    return _v6Android;
+    return _v6Filters;
   }
 }
 
-final _v6iOS = [
-  Filter("oisd", [
-    Option("small", FilterAction.list, ["oisd/small"]),
-    Option("big", FilterAction.list, ["oisd/big"]),
-    Option("nsfw", FilterAction.list, ["oisd/nsfw"]),
-  ]),
-  Filter("stevenblack", [
-    Option("unified", FilterAction.list, ["stevenblack/unified"]),
-    Option("fake news", FilterAction.list, ["stevenblack/fake news"]),
-    Option("adult", FilterAction.list, ["stevenblack/adult"]),
-    Option("social", FilterAction.list, ["stevenblack/social"]),
-    Option("gambling", FilterAction.list, ["stevenblack/gambling"]),
-  ]),
-  Filter("goodbyeads", [
-    Option("standard", FilterAction.list, ["goodbyeads/standard"]),
-    Option("youtube", FilterAction.list, ["goodbyeads/youtube"]),
-    Option("spotify", FilterAction.list, ["goodbyeads/spotify"]),
-  ]),
-  Filter("adaway", [
-    Option("standard", FilterAction.list, ["adaway/standard"]),
-  ]),
-  Filter("phishingarmy", [
-    Option("standard", FilterAction.list, ["phishingarmy/standard"]),
-    Option("extended", FilterAction.list, ["phishingarmy/extended"]),
-  ]),
-  Filter("ddgtrackerradar", [
-    Option("standard", FilterAction.list, ["ddgtrackerradar/standard"]),
-  ]),
-  Filter("blacklist", [
-    Option("adservers", FilterAction.list, ["blacklist/adservers"]),
-    Option("facebook", FilterAction.list, ["blacklist/facebook"]),
-  ]),
-  Filter("developerdan", [
-    Option("ads and tracking", FilterAction.list, ["developerdan/ads and tracking"]),
-    Option("facebook", FilterAction.list, ["developerdan/facebook"]),
-    Option("amp", FilterAction.list, ["developerdan/amp"]),
-    Option("hate and junk", FilterAction.list, ["developerdan/hate and junk"]),
-  ]),
-  Filter("blocklist", [
-    Option("ads", FilterAction.list, ["blocklist/ads"]),
-    Option("facebook", FilterAction.list, ["blocklist/facebook"]),
-    Option("malware", FilterAction.list, ["blocklist/malware"]),
-    Option("phishing", FilterAction.list, ["blocklist/phishing"]),
-    Option("tracking", FilterAction.list, ["blocklist/tracking"]),
-    Option("youtube", FilterAction.list, ["blocklist/youtube"]),
-  ]),
-  Filter("spam404", [
-    Option("standard", FilterAction.list, ["spam404/standard"]),
-  ]),
-  Filter("hblock", [
-    Option("standard", FilterAction.list, ["hblock/standard"]),
-  ]),
-  Filter("cpbl", [
-    Option("standard", FilterAction.list, ["cpbl/standard"]),
-    Option("mini", FilterAction.list, ["cpbl/mini"]),
-  ]),
-  Filter("danpollock", [
-    Option("standard", FilterAction.list, ["danpollock/standard"]),
-  ]),
-  Filter("urlhaus", [
-    Option("standard", FilterAction.list, ["urlhaus/standard"]),
-  ]),
-  Filter("1hosts", [
-    Option("lite", FilterAction.list, ["1hosts/lite (wildcards)"]),
-    Option("pro", FilterAction.list, ["1hosts/pro (wildcards)"]),
-  ]),
-  Filter("d3host", [
-    Option("standard", FilterAction.list, ["d3host/standard"]),
-  ]),
-];
-
-final _v6Android = [
+final _v6Filters = [
   Filter("oisd", [
     Option("small", FilterAction.list, ["oisd/small"]),
     Option("big", FilterAction.list, ["oisd/big"]),

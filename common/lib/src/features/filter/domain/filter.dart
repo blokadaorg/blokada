@@ -28,7 +28,6 @@ class FilterModule with Module {
   onCreateModule() async {
     await register(KnownFilters(
       isFamily: Core.act.isFamily,
-      isIos: Core.act.isIos,
     ));
     await register(DefaultFilters(Core.act.isFamily));
 

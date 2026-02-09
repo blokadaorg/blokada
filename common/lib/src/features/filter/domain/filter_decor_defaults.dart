@@ -1,8 +1,8 @@
 part of 'filter.dart';
 
-final filterDecorDefaults = _v6 + _familyDecor;
+final filterDecorDefaults = _v6Decor + _familyDecor;
 
-final _v6 = [
+final _v6Decor = [
   FilterDecor(
     filterName: "oisd",
     // tags: [
