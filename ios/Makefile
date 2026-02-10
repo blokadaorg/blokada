@@ -1,5 +1,9 @@
 # Define common variables
-FASTLANE := fastlane
+BUNDLE := bundle
+BUNDLE_EXEC := $(BUNDLE) exec
+
+FASTLANE := $(BUNDLE_EXEC) fastlane
+POD := $(BUNDLE_EXEC) pod
 
 # Make shell exit on any command failure
 .SHELLFLAGS := -ec
@@ -17,32 +21,37 @@ FASTLANE := fastlane
 # Build everything from scratch (release)
 build:
 	export LANG=en_US.UTF-8
-	pod repo update
-	pod install --repo-update
+	$(BUNDLE) check || $(BUNDLE) install
+	$(POD) repo update
+	$(POD) install --repo-update
 	$(MAKE) ipa-family
 	$(MAKE) ipa-six
 
 # Build .ipa of family (release) - with pods
 build-family:
 	export LANG=en_US.UTF-8
-	pod repo update
-	pod install --repo-update
+	$(BUNDLE) check || $(BUNDLE) install
+	$(POD) repo update
+	$(POD) install --repo-update
 	$(MAKE) ipa-family
 
 # Build .ipa of six (release) - with pods
 build-six:
 	export LANG=en_US.UTF-8
-	pod repo update
-	pod install --repo-update
+	$(BUNDLE) check || $(BUNDLE) install
+	$(POD) repo update
+	$(POD) install --repo-update
 	$(MAKE) ipa-six
 
 # Build .ipa of family (release)
 ipa-family:
+	$(BUNDLE) check || $(BUNDLE) install
 	$(FASTLANE) build_ios_family
 
 # Build .ipa of six (release)
 ipa-six:
 	$(MAKE) -C BlockaWebExtension gen-rules
+	$(BUNDLE) check || $(BUNDLE) install
 	$(FASTLANE) build_ios_six
 
 # Build .ipa of six - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
@@ -58,7 +67,8 @@ build-family-debug:
 # Regenerate Podfile.lock
 pods:
 	rm -rf Podfile.lock
-	pod install --repo-update
+	$(BUNDLE) check || $(BUNDLE) install
+	$(POD) install --repo-update
 
 # Build, install and run six flavor on connected device with console output
 # Usage: make run-six [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]

@@ -1,4 +1,6 @@
 source "https://rubygems.org"
 
 gem 'abbrev'
+gem "logger"
+gem "cocoapods"
 gem "fastlane"
