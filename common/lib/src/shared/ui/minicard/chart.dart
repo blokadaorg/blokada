@@ -13,6 +13,7 @@ class MiniCardChart extends StatelessWidget {
   final List<int>? seriesValues;
   final DateTime? seriesEnd;
   final Duration? seriesStep;
+  final double minYAxisMax;
 
   const MiniCardChart({
     super.key,
@@ -23,6 +24,7 @@ class MiniCardChart extends StatelessWidget {
     this.seriesValues,
     this.seriesEnd,
     this.seriesStep,
+    this.minYAxisMax = 50,
   });
 
   @override
@@ -39,6 +41,7 @@ class MiniCardChart extends StatelessWidget {
               seriesValues: seriesValues,
               seriesEnd: seriesEnd,
               seriesStep: seriesStep,
+              minYAxisMax: minYAxisMax,
             )
           : SizedBox(
               height: height ?? 90,
@@ -64,6 +67,7 @@ class _ColumnChart extends StatelessWidget {
   final List<int>? seriesValues;
   final DateTime? seriesEnd;
   final Duration? seriesStep;
+  final double minYAxisMax;
 
   _ColumnChart({
     Key? key,
@@ -74,6 +78,7 @@ class _ColumnChart extends StatelessWidget {
     this.seriesValues,
     this.seriesEnd,
     this.seriesStep,
+    required this.minYAxisMax,
   }) : super(key: key) {
     _compute();
   }
@@ -138,8 +143,8 @@ class _ColumnChart extends StatelessWidget {
         ),
         primaryYAxis: NumericAxis(
           minimum: -10,
-          maximum: max(maxGreen, 50),
-          interval: (maxGreen ~/ 3).toDouble(),
+          maximum: max(maxGreen, minYAxisMax),
+          interval: (max(maxGreen, minYAxisMax) / 3).ceilToDouble(),
           majorGridLines: const MajorGridLines(width: 0),
           isVisible: false,
         ),

@@ -9,9 +9,13 @@ import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/domain_name_text.dart';
+import 'package:common/src/shared/ui/minicard/chart.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
 import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/platform/stats/api.dart' as stats_api;
+import 'package:common/src/platform/stats/stats.dart' as stats;
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +52,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _allSubdomains = [];
   bool _isLoading = true;
   int _parentCount = 0; // Count for parent domain itself
+  int? _statsRequestsCount; // Stats-based count for current domain/action in selected range
+  bool _statsRequestsLoading = false;
+  int _statsRequestsFetchGeneration = 0;
+  DateTime? _statsRequestsLastFetchAt;
+  String? _statsRequestsLastKey;
+  List<int> _statsTimelineValues = const [];
+  DateTime? _statsTimelineEnd;
+  Duration _statsTimelineStep = const Duration(hours: 1);
 
   late final _filter = Core.get<FilterActor>();
   late final _journal = Core.get<JournalActor>();
@@ -55,6 +67,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   late final _customlistValue = Core.get<CustomListsValue>();
   late final _toplists = Core.get<ToplistStore>();
   late final _device = Core.get<DeviceStore>();
+  late final _statsApi = Core.get<stats_api.StatsApi>();
 
   List<UiJournalEntry> _recentBlockedEntries = [];
   List<UiJournalEntry> _recentAllowedEntries = [];
@@ -104,7 +117,10 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
     // If fetchToplist is false, use widget.entry.requests directly
     if (!widget.fetchToplist) {
-      final requests = widget.entry.requests;
+      if (_statsRequestsLoading && _statsRequestsCount == null) {
+        return "Loading...";
+      }
+      final requests = _statsRequestsCount ?? widget.entry.requests;
 
       // Add blocklist info if domain was blocked and we have a listId
       if (widget.entry.action == UiJournalAction.block &&
@@ -328,6 +344,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     super.initState();
     _searchController.addListener(_filterSubdomains);
 
+    _maybeFetchStatsRequestsCount();
+
     if (widget.fetchToplist) {
       _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
       _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
@@ -366,6 +384,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
     if (entryChanged || navigationChanged) {
       _resetForNewSelection();
+      _maybeFetchStatsRequestsCount(force: true);
       if (widget.fetchToplist) {
         _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
         _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
@@ -381,9 +400,132 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     _allSubdomains = [];
     _filteredSubdomains = [];
     _parentCount = 0;
+    _statsRequestsCount = null;
+    _statsRequestsLoading = false;
+    _statsTimelineValues = const [];
+    _statsTimelineEnd = null;
+    _statsTimelineStep = const Duration(hours: 1);
     _recentBlockedEntries = [];
     _recentAllowedEntries = [];
     _searchController.text = "";
+  }
+
+  List<int> _buildHourlySeries(
+    stats_api.JsonStatsEndpoint endpoint, {
+    required bool wantAllowed,
+    int hours = 24,
+    DateTime? referenceTime,
+  }) {
+    final valuesByTimestamp = <int, int>{};
+    for (final metric in endpoint.stats.metrics) {
+      final isAllowedMetric =
+          metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+      if (wantAllowed != isAllowedMetric) continue;
+      for (final d in metric.dps) {
+        final ts = d.timestamp;
+        valuesByTimestamp[ts] = (valuesByTimestamp[ts] ?? 0) + d.value.round();
+      }
+    }
+
+    final now = (referenceTime ?? DateTime.now().toUtc());
+    final anchor = DateTime.utc(now.year, now.month, now.day, now.hour);
+    final anchorSeconds = anchor.millisecondsSinceEpoch ~/ 1000;
+    final hourUnit = const Duration(hours: 1).inSeconds;
+    final currentEnd = anchorSeconds + hourUnit;
+    final currentStart = currentEnd - hours * hourUnit;
+
+    final series = List<int>.filled(hours, 0);
+    for (var i = 0; i < hours; i++) {
+      final ts = currentStart + (i * hourUnit);
+      series[i] = valuesByTimestamp[ts] ?? 0;
+    }
+
+    _statsTimelineEnd =
+        DateTime.fromMillisecondsSinceEpoch(anchorSeconds * 1000, isUtc: true);
+    _statsTimelineStep = const Duration(hours: 1);
+    return series;
+  }
+
+  Future<void> _maybeFetchStatsRequestsCount({bool force = false}) async {
+    // Only needed when the count comes from limited journal data (fetchToplist == false),
+    // or when caller has no meaningful count (e.g. exceptions navigation).
+    final needsStats = !widget.fetchToplist || widget.entry.requests == 0;
+    if (!needsStats) return;
+
+    final deviceName = _device.deviceAlias.trim();
+    if (deviceName.isEmpty) return;
+    final domain = widget.entry.domainName.trim();
+    if (domain.isEmpty) return;
+
+    final range = widget.range;
+    final action = widget.entry.action;
+    final key = "$deviceName|$domain|$range|$action";
+
+    if (!force &&
+        _statsRequestsLastKey == key &&
+        _statsRequestsLastFetchAt != null &&
+        DateTime.now().difference(_statsRequestsLastFetchAt!) <
+            const Duration(seconds: 10)) {
+      return;
+    }
+
+    final token = ++_statsRequestsFetchGeneration;
+    _statsRequestsLastKey = key;
+    _statsRequestsLastFetchAt = DateTime.now();
+    if (mounted) {
+      setState(() {
+        _statsRequestsLoading = _statsRequestsCount == null;
+      });
+    } else {
+      _statsRequestsLoading = _statsRequestsCount == null;
+    }
+
+    try {
+      String since;
+      String downsample;
+      if (range == "7d") {
+        since = "2w";
+        downsample = "24h";
+      } else {
+        since = "48h";
+        downsample = "1h";
+      }
+
+      final endpoint = await _statsApi.getStats(
+        since,
+        downsample,
+        deviceName,
+        Markers.stats,
+        domain: domain,
+      );
+
+      final counters = range == "7d"
+          ? stats.buildPeriodCountersFromRollingStats(endpoint, days: 7).current
+          : stats.buildHourlyPeriodCountersFromRollingStats(endpoint, hours: 24).current;
+
+      final requests =
+          action == UiJournalAction.block ? counters.blocked : counters.allowed;
+
+      if (!mounted || token != _statsRequestsFetchGeneration) return;
+      setState(() {
+        _statsRequestsCount = requests;
+        if (range != "7d") {
+          _statsTimelineValues =
+              _buildHourlySeries(endpoint, wantAllowed: action == UiJournalAction.allow);
+        } else {
+          _statsTimelineValues = const [];
+          _statsTimelineEnd = null;
+        }
+        _statsRequestsLoading = false;
+      });
+    } catch (e, s) {
+      log(Markers.stats)
+          .e(msg: "Failed to fetch stats request count for domain", err: e, stack: s);
+      if (!mounted || token != _statsRequestsFetchGeneration) return;
+      setState(() {
+        _statsRequestsLoading = false;
+      });
+    }
   }
 
   void _scheduleSubdomainFetch() {
@@ -1320,6 +1462,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildInformationCard() {
+    final count = _statsRequestsCount ?? widget.entry.requests;
+    final countText =
+        (_statsRequestsLoading && _statsRequestsCount == null) ? "..." : count.toString();
+    final showTimeline = !widget.fetchToplist && widget.range != "7d";
+    final timelineReady = _statsTimelineValues.isNotEmpty && _statsTimelineEnd != null;
+    final timelineColor = widget.entry.action == UiJournalAction.block
+        ? const Color(0xffff3b30)
+        : const Color(0xff33c75a);
     return CommonCard(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -1335,8 +1485,41 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Request count
             _buildInfoRow(
               label: "activity number of occurrences".i18n,
-              value: widget.entry.requests.toString(),
+              value: countText,
             ),
+            if (showTimeline) ...[
+              const SizedBox(height: 16),
+              Text(
+                "stats requests subheader".i18n,
+                style: TextStyle(
+                  color: context.theme.textSecondary,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(height: 8),
+              if (_statsRequestsLoading && !timelineReady)
+                const SizedBox(
+                  height: 42,
+                  child: Center(
+                    child: SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                )
+              else if (timelineReady)
+                MiniCardChart(
+                  stats: family_stats.UiStats.empty(),
+                  color: timelineColor,
+                  animate: false,
+                  height: 42,
+                  minYAxisMax: 10,
+                  seriesValues: _statsTimelineValues,
+                  seriesEnd: _statsTimelineEnd,
+                  seriesStep: _statsTimelineStep,
+                ),
+            ],
           ],
         ),
       ),

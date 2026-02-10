@@ -288,26 +288,32 @@ class StatsApi {
   late final _marshal = StatsMarshal();
 
   Future<JsonStatsEndpoint> getStats(
-      String since, String downsample, String deviceName, Marker m) async {
-    return _fetchStats(since, downsample, deviceName, m);
+      String since, String downsample, String deviceName, Marker m,
+      {String? domain}) async {
+    return _fetchStats(since, downsample, deviceName, m, domain: domain);
   }
 
   Future<JsonStatsEndpoint> getStatsForDevice(
-      String since, String downsample, String deviceName, Marker m) async {
-    return _fetchStats(since, downsample, deviceName, m);
+      String since, String downsample, String deviceName, Marker m,
+      {String? domain}) async {
+    return _fetchStats(since, downsample, deviceName, m, domain: domain);
   }
 
   Future<JsonStatsEndpoint> _fetchStats(
-      String since, String downsample, String deviceName, Marker m) async {
+      String since, String downsample, String deviceName, Marker m,
+      {String? domain}) async {
     if (deviceName.trim().isEmpty) {
       throw ArgumentError("deviceName is required for stats requests");
     }
     final encoded = Uri.encodeComponent(deviceName);
+    final encodedDomain =
+        (domain != null && domain.trim().isNotEmpty) ? Uri.encodeComponent(domain) : "";
 
     final result = await _api.get(ApiEndpoint.getStatsV2, m, params: {
       ApiParam.statsSince: since,
       ApiParam.statsDownsample: downsample,
       ApiParam.statsDeviceName: encoded,
+      ApiParam.statsDomain: encodedDomain,
     });
 
     return _marshal.toStatsEndpoint(result);
