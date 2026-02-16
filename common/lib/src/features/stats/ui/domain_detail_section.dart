@@ -12,7 +12,8 @@ import 'package:common/src/shared/ui/domain_name_text.dart';
 import 'package:common/src/shared/ui/minicard/chart.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
+import 'package:common/src/app_variants/family/module/stats/stats.dart'
+    as family_stats;
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/api.dart' as stats_api;
 import 'package:common/src/platform/stats/stats.dart' as stats;
@@ -28,6 +29,8 @@ class DomainDetailSection extends StatefulWidget {
   final int level;
   final String domain;
   final bool fetchToplist;
+  final bool showToplistSection;
+  final bool showRecentSection;
   final String range; // "24h" or "7d"
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
@@ -38,9 +41,12 @@ class DomainDetailSection extends StatefulWidget {
     required this.level,
     required this.domain,
     this.fetchToplist = true,
+    bool? showToplistSection,
+    bool? showRecentSection,
     this.range = "24h",
     this.subdomainEntries,
-  });
+  })  : showToplistSection = showToplistSection ?? fetchToplist,
+        showRecentSection = showRecentSection ?? fetchToplist;
 
   @override
   State<StatefulWidget> createState() => DomainDetailSectionState();
@@ -52,7 +58,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _allSubdomains = [];
   bool _isLoading = true;
   int _parentCount = 0; // Count for parent domain itself
-  int? _statsRequestsCount; // Stats-based count for current domain/action in selected range
+  int?
+      _statsRequestsCount; // Stats-based count for current domain/action in selected range
   bool _statsRequestsLoading = false;
   int _statsRequestsFetchGeneration = 0;
   DateTime? _statsRequestsLastFetchAt;
@@ -95,13 +102,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     return rules.any((r) => r.isExact);
   }
 
-
   String? _getBlocklistName(String? listId, UiJournalAction action) {
     if (listId == null || listId.isEmpty) {
       return null;
     }
     if (listId.length < 16) {
-      return action == UiJournalAction.block ? "Your blocked rules" : "Your allowed rules";
+      return action == UiJournalAction.block
+          ? "Your blocked rules"
+          : "Your allowed rules";
     }
 
     final listName = _filter.getFilterContainingList(listId);
@@ -139,8 +147,10 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           }
         } else {
           // Get the blocklist name
-          final listName = _filter.getFilterContainingList(widget.entry.listId!);
-          if (listName != "family stats label none".i18n && listName != "family stats title".i18n) {
+          final listName =
+              _filter.getFilterContainingList(widget.entry.listId!);
+          if (listName != "family stats label none".i18n &&
+              listName != "family stats title".i18n) {
             if (widget.entry.action == UiJournalAction.block) {
               return "domain details summary blocked basic list"
                   .i18n
@@ -156,9 +166,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
       // Basic text without list info
       if (widget.entry.action == UiJournalAction.block) {
-        return "domain details summary blocked basic".i18n.withParams(requests, domainDisplay);
+        return "domain details summary blocked basic"
+            .i18n
+            .withParams(requests, domainDisplay);
       } else {
-        return "domain details summary allowed basic".i18n.withParams(requests, domainDisplay);
+        return "domain details summary allowed basic"
+            .i18n
+            .withParams(requests, domainDisplay);
       }
     }
 
@@ -167,8 +181,10 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       return "Loading...";
     }
 
-    final mainRequests = _parentCount; // Use parent_count from API for parent domain
-    final subdomainRequests = _allSubdomains.fold(0, (sum, e) => sum + e.requests);
+    final mainRequests =
+        _parentCount; // Use parent_count from API for parent domain
+    final subdomainRequests =
+        _allSubdomains.fold(0, (sum, e) => sum + e.requests);
 
     String? listId;
 
@@ -178,7 +194,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       // Use the first subdomain's listId if available
       listId = _allSubdomains.firstOrNull?.listId;
 
-      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+      if (widget.entry.action == UiJournalAction.block &&
+          listId != null &&
+          listId.isNotEmpty) {
         // Check if it's a user rule (short ID)
         if (listId.length < 16) {
           if (widget.entry.action == UiJournalAction.block) {
@@ -229,7 +247,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       // Only main domain has requests
       listId = widget.entry.listId;
 
-      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+      if (widget.entry.action == UiJournalAction.block &&
+          listId != null &&
+          listId.isNotEmpty) {
         // Check if it's a user rule (short ID)
         if (listId.length < 16) {
           if (widget.entry.action == UiJournalAction.block) {
@@ -280,7 +300,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       // Both have requests
       listId = widget.entry.listId;
 
-      if (widget.entry.action == UiJournalAction.block && listId != null && listId.isNotEmpty) {
+      if (widget.entry.action == UiJournalAction.block &&
+          listId != null &&
+          listId.isNotEmpty) {
         // Check if it's a user rule (short ID)
         if (listId.length < 16) {
           if (widget.entry.action == UiJournalAction.block) {
@@ -298,12 +320,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             if (widget.entry.action == UiJournalAction.block) {
               return "domain details summary blocked both list"
                   .i18n
-                  .withParams(mainRequests, domainDisplay, subdomainRequests, false)
+                  .withParams(
+                      mainRequests, domainDisplay, subdomainRequests, false)
                   .withParams(listName);
             } else {
               return "domain details summary allowed both list"
                   .i18n
-                  .withParams(mainRequests, domainDisplay, subdomainRequests, false)
+                  .withParams(
+                      mainRequests, domainDisplay, subdomainRequests, false)
                   .withParams(listName);
             }
           } else {
@@ -346,7 +370,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
     _maybeFetchStatsRequestsCount();
 
-    if (widget.fetchToplist) {
+    if (widget.showRecentSection) {
       _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
       _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
       _fetchRecentActivity();
@@ -374,18 +398,21 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   void didUpdateWidget(covariant DomainDetailSection oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final entryChanged = widget.entry.domainName != oldWidget.entry.domainName ||
-        widget.entry.action != oldWidget.entry.action ||
-        widget.entry.requests != oldWidget.entry.requests;
+    final entryChanged =
+        widget.entry.domainName != oldWidget.entry.domainName ||
+            widget.entry.action != oldWidget.entry.action ||
+            widget.entry.requests != oldWidget.entry.requests;
     final navigationChanged = widget.level != oldWidget.level ||
         widget.domain != oldWidget.domain ||
         widget.range != oldWidget.range ||
-        widget.fetchToplist != oldWidget.fetchToplist;
+        widget.fetchToplist != oldWidget.fetchToplist ||
+        widget.showToplistSection != oldWidget.showToplistSection ||
+        widget.showRecentSection != oldWidget.showRecentSection;
 
     if (entryChanged || navigationChanged) {
       _resetForNewSelection();
       _maybeFetchStatsRequestsCount(force: true);
-      if (widget.fetchToplist) {
+      if (widget.showRecentSection) {
         _recentBlockedLoading = widget.entry.action == UiJournalAction.block;
         _recentAllowedLoading = widget.entry.action == UiJournalAction.allow;
         _fetchRecentActivity();
@@ -396,7 +423,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   void _resetForNewSelection() {
     _hasScheduledFetch = false;
-    _isLoading = widget.fetchToplist;
+    _isLoading = widget.showToplistSection;
     _allSubdomains = [];
     _filteredSubdomains = [];
     _parentCount = 0;
@@ -418,8 +445,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }) {
     final valuesByTimestamp = <int, int>{};
     for (final metric in endpoint.stats.metrics) {
-      final isAllowedMetric =
-          metric.tags.action == "allowed" || metric.tags.action == "fallthrough";
+      final isAllowedMetric = metric.tags.action == "allowed" ||
+          metric.tags.action == "fallthrough";
       if (wantAllowed != isAllowedMetric) continue;
       for (final d in metric.dps) {
         final ts = d.timestamp;
@@ -501,7 +528,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
       final counters = range == "7d"
           ? stats.buildPeriodCountersFromRollingStats(endpoint, days: 7).current
-          : stats.buildHourlyPeriodCountersFromRollingStats(endpoint, hours: 24).current;
+          : stats
+              .buildHourlyPeriodCountersFromRollingStats(endpoint, hours: 24)
+              .current;
 
       final requests =
           action == UiJournalAction.block ? counters.blocked : counters.allowed;
@@ -510,8 +539,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       setState(() {
         _statsRequestsCount = requests;
         if (range != "7d") {
-          _statsTimelineValues =
-              _buildHourlySeries(endpoint, wantAllowed: action == UiJournalAction.allow);
+          _statsTimelineValues = _buildHourlySeries(endpoint,
+              wantAllowed: action == UiJournalAction.allow);
         } else {
           _statsTimelineValues = const [];
           _statsTimelineEnd = null;
@@ -519,8 +548,10 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         _statsRequestsLoading = false;
       });
     } catch (e, s) {
-      log(Markers.stats)
-          .e(msg: "Failed to fetch stats request count for domain", err: e, stack: s);
+      log(Markers.stats).e(
+          msg: "Failed to fetch stats request count for domain",
+          err: e,
+          stack: s);
       if (!mounted || token != _statsRequestsFetchGeneration) return;
       setState(() {
         _statsRequestsLoading = false;
@@ -529,7 +560,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   void _scheduleSubdomainFetch() {
-    if (_hasScheduledFetch || !widget.fetchToplist) return;
+    if (_hasScheduledFetch || !widget.showToplistSection) return;
 
     // Remove any previous listener to avoid multiple triggers
     if (_animationListener != null && _routeAnimation != null) {
@@ -630,7 +661,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           );
 
           log(m).pair("allowed_buckets", allowedResponse.toplist.length);
-          log(m).pair("fallthrough_buckets", fallthroughResponse.toplist.length);
+          log(m)
+              .pair("fallthrough_buckets", fallthroughResponse.toplist.length);
 
           // Merge allowed entries and parent counts
           for (var bucket in allowedResponse.toplist) {
@@ -645,7 +677,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               log(m).pair("allowed_entry_count", entry.count);
               log(m).pair("allowed_entry_isRoot", entry.isRoot);
               if (entry.isRoot == true) continue;
-              subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
+              subdomains[entry.name] =
+                  (subdomains[entry.name] ?? 0) + entry.count;
             }
           }
 
@@ -662,7 +695,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               log(m).pair("fallthrough_entry_count", entry.count);
               log(m).pair("fallthrough_entry_isRoot", entry.isRoot);
               if (entry.isRoot == true) continue;
-              subdomains[entry.name] = (subdomains[entry.name] ?? 0) + entry.count;
+              subdomains[entry.name] =
+                  (subdomains[entry.name] ?? 0) + entry.count;
             }
           }
 
@@ -726,7 +760,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   Future<void> _fetchRecentActivity() async {
     await log(Markers.stats).trace("fetchRecentDomainActivity", (m) async {
       final wildcardDomain = _buildWildcardDomain(widget.domain);
-      final deviceName = _device.deviceAlias.isNotEmpty ? _device.deviceAlias : null;
+      final deviceName =
+          _device.deviceAlias.isNotEmpty ? _device.deviceAlias : null;
       final deviceTag = _device.deviceTag;
 
       if (wildcardDomain.isEmpty) {
@@ -829,7 +864,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         _filteredSubdomains = _allSubdomains;
       } else {
         _filteredSubdomains = _allSubdomains
-            .where((subdomain) => subdomain.domainName.toLowerCase().contains(query))
+            .where((subdomain) =>
+                subdomain.domainName.toLowerCase().contains(query))
             .toList();
       }
     });
@@ -884,8 +920,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             _buildInformationCard(),
           ],
 
-          // Subdomains and recents section (only show if fetchToplist is true)
-          if (widget.fetchToplist) ...[
+          // Subdomains section
+          if (widget.showToplistSection) ...[
             // Subdomains section header
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -906,8 +942,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Subdomains list
             _buildSubdomainsList(),
             const SizedBox(height: 16),
+          ],
 
-            // Recents list
+          // Recents list
+          if (widget.showRecentSection && !widget.showToplistSection)
+            const SizedBox(height: 16),
+          if (widget.showRecentSection)
             if (widget.entry.action == UiJournalAction.block)
               _buildRecentSection(
                 title: "privacy pulse recents header".i18n,
@@ -922,7 +962,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 isLoading: _recentAllowedLoading,
                 action: UiJournalAction.allow,
               ),
-          ],
+          if (widget.showRecentSection) const SizedBox(height: 16),
           const SizedBox(height: 40), // Bottom padding like original
         ],
       ),
@@ -1086,7 +1126,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             )),
 
         // Add button (only show if no exact rule exists)
-        if (!hasExactRule) _buildAddRuleButton(hasParentRules: relevantRules.isNotEmpty),
+        if (!hasExactRule)
+          _buildAddRuleButton(hasParentRules: relevantRules.isNotEmpty),
       ],
     );
   }
@@ -1262,7 +1303,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           Navigation.open(Paths.deviceStatsDetail, arguments: {
             'mainEntry': subdomainAsMain,
             'level': 3, // Fetch level 3 (exact hosts)
-            'domain': subdomain.domainName, // Use subdomain as the domain context
+            'domain':
+                subdomain.domainName, // Use subdomain as the domain context
             'range': widget.range,
           });
         }
@@ -1338,7 +1380,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             builder: (context) {
               if (isLoading && entries.isEmpty) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -1347,7 +1390,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
               if (entries.isEmpty) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Center(
                     child: Text(
                       "privacy pulse empty".i18n,
@@ -1376,8 +1420,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildRecentItem(UiJournalEntry entry) {
-    final relativeTime =
-        entry.timestampText.isNotEmpty ? entry.timestampText : timeago.format(entry.timestamp);
+    final relativeTime = entry.timestampText.isNotEmpty
+        ? entry.timestampText
+        : timeago.format(entry.timestamp);
     //final blocklistName = _getBlocklistName(entry.listId, entry.action);
     //final subtitle = blocklistName != null ? "$relativeTime • $blocklistName" : relativeTime;
     final subtitle = relativeTime;
@@ -1463,10 +1508,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
 
   Widget _buildInformationCard() {
     final count = _statsRequestsCount ?? widget.entry.requests;
-    final countText =
-        (_statsRequestsLoading && _statsRequestsCount == null) ? "..." : count.toString();
+    final countText = (_statsRequestsLoading && _statsRequestsCount == null)
+        ? "..."
+        : count.toString();
     final showTimeline = !widget.fetchToplist && widget.range != "7d";
-    final timelineReady = _statsTimelineValues.isNotEmpty && _statsTimelineEnd != null;
+    final timelineReady =
+        _statsTimelineValues.isNotEmpty && _statsTimelineEnd != null;
     final timelineColor = widget.entry.action == UiJournalAction.block
         ? const Color(0xffff3b30)
         : const Color(0xff33c75a);

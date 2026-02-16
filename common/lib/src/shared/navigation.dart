@@ -99,7 +99,8 @@ class Navigation with Logging {
     if (settings.name == Paths.device.path) {
       final device = settings.arguments as FamilyDevice;
       return StandardRoute(
-          settings: settings, builder: (context) => DeviceScreen(tag: device.device.deviceTag));
+          settings: settings,
+          builder: (context) => DeviceScreen(tag: device.device.deviceTag));
     }
 
     if (settings.name == Paths.deviceStats.path) {
@@ -110,7 +111,8 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "activity section header".i18n,
           topBarTrailing: _getStatsAction(context, device.device.deviceTag),
-          child: StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
+          child:
+              StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
         ),
       );
     }
@@ -135,6 +137,8 @@ class Navigation with Logging {
         final level = args['level'] as int? ?? 2;
         final domain = args['domain'] as String? ?? mainEntry.domainName;
         final fetchToplist = args['fetchToplist'] as bool? ?? true;
+        final showToplistSection = args['showToplistSection'] as bool?;
+        final showRecentSection = args['showRecentSection'] as bool?;
 
         final range = args['range'] as String? ?? "24h";
 
@@ -149,6 +153,8 @@ class Navigation with Logging {
               level: level,
               domain: domain,
               fetchToplist: fetchToplist,
+              showToplistSection: showToplistSection,
+              showRecentSection: showRecentSection,
               range: range,
             ),
           ),
@@ -181,7 +187,8 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.settings.path) {
-      return StandardRoute(settings: settings, builder: (context) => const SettingsScreen());
+      return StandardRoute(
+          settings: settings, builder: (context) => const SettingsScreen());
     }
 
     if (settings.name == Paths.settingsExceptions.path) {
@@ -238,7 +245,8 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.activity.path) {
-      return StandardRoute(settings: settings, builder: (context) => const ActivityScreen());
+      return StandardRoute(
+          settings: settings, builder: (context) => const ActivityScreen());
     }
 
     if (settings.name == Paths.privacyPulse.path) {
@@ -262,7 +270,8 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.advanced.path) {
-      return StandardRoute(settings: settings, builder: (context) => const AdvancedScreen());
+      return StandardRoute(
+          settings: settings, builder: (context) => const AdvancedScreen());
     }
 
     return StandardRoute(settings: settings, builder: (context) => homeContent);
@@ -296,7 +305,8 @@ class Navigation with Logging {
             if (domain.isEmpty) return;
 
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
+              await _custom.addOrRemove(domain, isWildcard, m,
+                  gotBlocked: !blocked);
             });
           });
         },

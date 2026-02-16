@@ -134,14 +134,20 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
         if (_arguments is Map) {
           final args = _arguments as Map;
           final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-          final level = args['level'] as int? ?? 2;  // Default to level 2
+          final level = args['level'] as int? ?? 2; // Default to level 2
           final domain = args['domain'] as String? ?? mainEntry.domainName;
+          final fetchToplist = args['fetchToplist'] as bool? ?? true;
+          final showToplistSection = args['showToplistSection'] as bool?;
+          final showRecentSection = args['showRecentSection'] as bool?;
           final range = args['range'] as String?; // e.g. "24h" or "7d"
 
           return DomainDetailSection(
             entry: mainEntry,
             level: level,
             domain: domain,
+            fetchToplist: fetchToplist,
+            showToplistSection: showToplistSection,
+            showRecentSection: showRecentSection,
             range: range ?? "24h",
           );
         }

@@ -21,7 +21,8 @@ class ExceptionsSection extends StatefulWidget {
 
 enum ExceptionsTab { blocked, allowed }
 
-class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disposables {
+class ExceptionsSectionState extends State<ExceptionsSection>
+    with Logging, Disposables {
   late final _custom = Core.get<CustomlistActor>();
   late final _lists = Core.get<CustomListsValue>();
 
@@ -69,7 +70,8 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disp
 
   @override
   Widget build(BuildContext context) {
-    final currentEntries = _selectedTab == ExceptionsTab.blocked ? _denied : _allowed;
+    final currentEntries =
+        _selectedTab == ExceptionsTab.blocked ? _denied : _allowed;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -96,7 +98,8 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disp
                       },
                       children: {
                         ExceptionsTab.blocked: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -117,7 +120,8 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disp
                           ),
                         ),
                         ExceptionsTab.allowed: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -214,6 +218,9 @@ class ExceptionsSectionState extends State<ExceptionsSection> with Logging, Disp
       'mainEntry': mainEntry,
       'level': 2,
       'domain': domain,
+      'fetchToplist': false,
+      'showToplistSection': false,
+      'showRecentSection': true,
     });
   }
 }
