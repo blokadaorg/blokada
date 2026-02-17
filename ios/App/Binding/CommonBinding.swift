@@ -355,9 +355,9 @@ class CommonBinding: CommonOps {
         .sink(onFailure: { err in
             completion(.failure(err))
         }, onSuccess: {
-            // Success is emitted only once the notification is triggerred
+            completion(.success(()))
         })
-        completion(.success(()))
+        .store(in: &cancellables)
     }
     
     func doDismissAll(completion: @escaping (Result<Void, Error>) -> Void) {
@@ -438,11 +438,6 @@ class CommonBinding: CommonOps {
                 }
             }
         }
-        .flatMap { _ in
-            self.writeNotification.first { it in it == id }
-            .map { _ in true }
-        }
-
         .eraseToAnyPublisher()
     }
 

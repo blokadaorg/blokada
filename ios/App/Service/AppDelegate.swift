@@ -185,10 +185,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
            let json = String(data: data, encoding: .utf8) {
-            commands.execute(.fcmEvent, json)
+            commands.executeWithCompletion(.fcmEvent, json) { result in
+                switch result {
+                case .success:
+                    completionHandler(.newData)
+                case .failure:
+                    completionHandler(.failed)
+                }
+            }
+            return
         }
 
-        completionHandler(.newData)
+        completionHandler(.noData)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

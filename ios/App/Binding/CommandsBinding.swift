@@ -63,6 +63,21 @@ class CommandsBinding: CommandOps {
         }
     }
 
+    func executeWithCompletion(_ command: CommandName, _ p1: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        if canAcceptCommands {
+            cmd.onCommandWithParam(command: "\(command)", p1: p1, m: 2) { result in
+                switch result {
+                    case .success:
+                    return completion(.success(()))
+                    case .failure(let error):
+                    return completion(.failure(error))
+                }
+            }
+        } else {
+            completion(.failure("not accepting commands yet"))
+        }
+    }
+
     func execute(_ command: CommandName, _ p1: String) {
         if canAcceptCommands {
             cmd.onCommandWithParam(command: "\(command)", p1: p1, m: 2) { _ in }
