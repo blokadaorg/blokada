@@ -104,6 +104,8 @@ enum ApiEndpoint {
   deleteCustomListV2("v2/customlist", type: "DELETE", params: [ApiParam.accountId]),
   postNotificationToken("v2/apple/device", type: "POST", params: [ApiParam.accountId]),
   postFcmNotificationToken("v2/notification/token", type: "POST", params: [ApiParam.accountId]),
+  getNotificationConfigV2("v2/notification/config", params: [ApiParam.accountId]),
+  putNotificationConfigV2("v2/notification/config", type: "PUT"),
   postCheckoutGplayV2("v2/gplay/checkout", type: "POST", params: [ApiParam.accountId]),
   postCheckoutAppleV2("v2/apple/checkout", type: "POST", params: [ApiParam.accountId]),
   ;

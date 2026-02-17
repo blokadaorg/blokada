@@ -42,6 +42,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _command = Core.get<CommandStore>();
   late final _unread = Core.get<SupportUnread>();
   late final _rate = Core.get<RateActor>();
+  late final _notification = Core.get<NotificationActor>();
 
   late final _lock = Core.get<LockActor>();
   late final _hasPin = Core.get<HasPin>();
@@ -253,10 +254,18 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                   activeColor: context.theme.accent,
                   value: _weeklyReportEnabled,
                   onChanged: (bool value) async {
+                    final previous = _weeklyReportEnabled;
                     setState(() {
                       _weeklyReportEnabled = value;
                     });
-                    await _weeklyOptOut.change(Markers.userTap, !value);
+                    try {
+                      await _notification.setWeeklyReportEnabled(Markers.userTap, value);
+                    } catch (_) {
+                      if (!mounted) return;
+                      setState(() {
+                        _weeklyReportEnabled = previous;
+                      });
+                    }
                   },
                 ),
               ],

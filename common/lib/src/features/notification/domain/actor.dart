@@ -19,6 +19,8 @@ class NotificationActor with Logging, Actor {
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
   late final _notifications = Core.get<NotificationsValue>();
+  late final WeeklyReportOptOutValue? _weeklyOptOut =
+      Core.act.isFamily ? null : Core.get<WeeklyReportOptOutValue>();
 
   late final _scheduler = Core.get<Scheduler>();
 
@@ -32,6 +34,10 @@ class NotificationActor with Logging, Actor {
     _account.addOn(accountChanged, sendAppleTokenAsync);
     _account.addOn(accountChanged, sendFcmTokenAsync);
     _device.addOn(deviceChanged, sendFcmTokenAsync);
+    if (!Core.act.isFamily) {
+      _account.addOn(accountChanged, syncNotificationConfigFromBackendAsync);
+      _account.addOn(accountIdChanged, syncNotificationConfigFromBackendAsync);
+    }
   }
 
   showWithBody(NotificationId id, Marker m, String body, {DateTime? when}) async {
@@ -143,6 +149,33 @@ class NotificationActor with Logging, Actor {
 
   saveFcmToken(String token) async {
     _fcmToken = token;
+  }
+
+  Future<void> syncNotificationConfigFromBackend(Marker m) async {
+    final weeklyOptOut = _weeklyOptOut;
+    if (weeklyOptOut == null) return;
+    if (_account.account == null) return;
+    final cfg = await _json.getConfig(m);
+    await weeklyOptOut.change(m, cfg.optOut);
+  }
+
+  Future<void> syncNotificationConfigFromBackendAsync(Marker m) async {
+    await syncNotificationConfigFromBackend(m);
+  }
+
+  Future<void> setWeeklyReportEnabled(Marker m, bool enabled) async {
+    final weeklyOptOut = _weeklyOptOut;
+    if (weeklyOptOut == null) return;
+
+    final optOut = !enabled;
+    final previous = await weeklyOptOut.now();
+    await weeklyOptOut.change(m, optOut);
+    try {
+      await _json.putConfig(optOut, m);
+    } catch (_) {
+      await weeklyOptOut.change(m, previous);
+      rethrow;
+    }
   }
 
   String _buildFcmKey(String accountId, String deviceTag, String token) {
