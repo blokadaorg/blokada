@@ -398,14 +398,18 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   @override
   Future<List<WeeklyReportEvent>> generate(WeeklyReportWindow window, Marker m) async {
     final results = <WeeklyReportEvent>[];
-    final blockedDelta =
-        _percentChange(window.previous.totals.blocked, window.current.totals.blocked);
-    final allowedDelta =
-        _percentChange(window.previous.totals.allowed, window.current.totals.allowed);
+    final previousBlocked = window.previous.totals.blocked;
+    final currentBlocked = window.current.totals.blocked;
+    final previousAllowed = window.previous.totals.allowed;
+    final currentAllowed = window.current.totals.allowed;
+    final blockedDelta = _percentChange(previousBlocked, currentBlocked);
+    final allowedDelta = _percentChange(previousAllowed, currentAllowed);
 
     final blockedEvent = _buildEvent(
       window,
       label: 'Blocked',
+      previous: previousBlocked,
+      current: currentBlocked,
       delta: blockedDelta,
       positiveIsIncrease: false,
       key: 'blocked',
@@ -417,6 +421,8 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final allowedEvent = _buildEvent(
       window,
       label: 'Allowed',
+      previous: previousAllowed,
+      current: currentAllowed,
       delta: allowedDelta,
       positiveIsIncrease: true,
       key: 'allowed',
@@ -431,6 +437,8 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   WeeklyReportEvent? _buildEvent(
     WeeklyReportWindow window, {
     required String label,
+    required int previous,
+    required int current,
     required double delta,
     required bool positiveIsIncrease,
     required String key,
@@ -445,10 +453,11 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final icon =
         increased == positiveIsIncrease ? WeeklyReportIcon.trendUp : WeeklyReportIcon.trendDown;
     final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
+    final multiplier = _multiplierLabel(previous, current);
     final id = 'totals:$key:${window.anchor.toIso8601String()}';
 
     final title = _totalsTitle(label, increased);
-    final body = _totalsBody(label, '$sign$percent');
+    final body = _totalsBody(label, increased && multiplier != null ? multiplier : '$sign$percent');
 
     return WeeklyReportEvent(
       id: id,
@@ -490,6 +499,13 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
       return 100;
     }
     return ((current - previous) / previous) * 100;
+  }
+
+  String? _multiplierLabel(int previous, int current) {
+    if (previous <= 0 || current <= previous) return null;
+    final multiplier = current / previous;
+    if (multiplier < 2) return null;
+    return '${multiplier.ceil()}x';
   }
 }
 
