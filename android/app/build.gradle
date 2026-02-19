@@ -223,3 +223,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
+
+// Family flavor does not use Firebase; disable google-services processing for family variants.
+afterEvaluate {
+    tasks.matching { it.name ==~ /processFamily.*GoogleServices/ }.configureEach {
+        enabled = false
+    }
+}
