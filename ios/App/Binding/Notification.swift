@@ -53,26 +53,6 @@ struct WeeklyReportPayload: Codable {
         guard let json = json, let data = json.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(WeeklyReportPayload.self, from: data)
     }
-
-    static func defaults() -> WeeklyReportPayload {
-        WeeklyReportPayload(
-            title: "Weekly privacy report",
-            body: "See this week's highlights from your protection.",
-            refreshedTitle: "Traffic increased refresh",
-            refreshedBody: "Your traffic increased by 4% this week (bg)",
-            backgroundLeadMs: WEEKLY_REPORT_BACKGROUND_LEAD_MS
-        )
-    }
-
-    static func updated() -> WeeklyReportPayload {
-        WeeklyReportPayload(
-            title: "Traffic increased",
-            body: "Your traffic increased by 420% this week",
-            refreshedTitle: "Traffic increased refresh",
-            refreshedBody: "Your traffic increased by 4% this week (bg)",
-            backgroundLeadMs: WEEKLY_REPORT_BACKGROUND_LEAD_MS
-        )
-    }
 }
 
 func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificationContent {
@@ -120,9 +100,17 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
         }
         content.badge = NSNumber(value: 1)
     } else if id == NOTIF_WEEKLY_REPORT {
-        let payload = WeeklyReportPayload.from(json: body) ?? WeeklyReportPayload.defaults()
-        content.title = payload.title ?? "Weekly privacy report"
-        content.body = payload.body ?? "See this week's highlights from your protection."
+        guard let payload = WeeklyReportPayload.from(json: body),
+              let title = payload.title, !title.isEmpty,
+              let notificationBody = payload.body, !notificationBody.isEmpty else {
+            content.title = ""
+            content.body = ""
+            content.userInfo = ["id": id]
+            content.sound = .default
+            return content
+        }
+        content.title = title
+        content.body = notificationBody
     } else if id == NOTIF_WEEKLY_REFRESH {
         content.title = "Update your filters"
         content.body = "Tap to update your ad-block filters and stay safe from websites and apps that are most likely to cause you harm."

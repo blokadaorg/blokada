@@ -403,9 +403,18 @@ class CommonBinding: CommonOps {
             return Future<Ignored, Error> { promise in promise(.success(true)) }
                 .eraseToAnyPublisher()
         }
-        let weeklyPayload = id == NOTIF_WEEKLY_REPORT
-            ? (WeeklyReportPayload.from(json: body) ?? WeeklyReportPayload.defaults())
-            : nil
+
+        if id == NOTIF_WEEKLY_REPORT {
+            guard let payload = WeeklyReportPayload.from(json: body),
+                  !(payload.title?.isEmpty ?? true),
+                  !(payload.body?.isEmpty ?? true) else {
+                return Future<Ignored, Error> { promise in
+                    promise(.failure("invalid weekly report payload"))
+                }
+                .eraseToAnyPublisher()
+            }
+        }
+
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         let date = calendar.dateComponents(

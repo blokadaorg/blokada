@@ -45,8 +45,6 @@ val NOTIF_NEW_MESSAGE = "supportNewMessage"
 val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 val NOTIF_WEEKLY_REPORT = "weeklyReport"
 private const val WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000L
-private const val WEEKLY_REPORT_TITLE = "Weekly report"
-private const val WEEKLY_REPORT_BODY = "Your weekly report is ready."
 private const val WEEKLY_REPORT_REFRESH_TITLE = "Weekly report updated"
 private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
 
@@ -74,11 +72,17 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
             Log.d("NotificationService", "Skipping weekly report scheduling on family flavor")
             return
         }
+        if (notificationId == NOTIF_WEEKLY_REPORT) {
+            val payload = WeeklyReportPayload.fromJson(body)
+            if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
+                Log.e("NotificationService", "Skipping weekly report scheduling due to invalid payload")
+                return
+            }
+        }
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
         intent.putExtra("id", notificationId)
         if (body != null) intent.putExtra("body", body)
-        val parsedPayload = WeeklyReportPayload.fromJson(ctx, body)
         val pendingIntent = PendingIntent.getBroadcast(
             ctx,
             notificationId.hashCode(),
@@ -144,9 +148,13 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             NOTIF_NEW_MESSAGE -> NewMessageNotification(intent.getStringExtra("body"))
             NOTIF_QUICKSETTINGS -> QuickSettingsNotification()
             NOTIF_WEEKLY_REPORT -> {
-                val payload = WeeklyReportPayload.fromJson(context, intent.getStringExtra("body"))
-                val content = payload ?: WeeklyReportPayload.defaults(context)
-                WeeklyReportNotification(content.title, content.body)
+                val payload = WeeklyReportPayload.fromJson(intent.getStringExtra("body"))
+                if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
+                    Log.e("NotificationService", "Skipping weekly report display due to invalid payload")
+                    null
+                } else {
+                    WeeklyReportNotification(payload.title, payload.body)
+                }
             }
             else -> null
         }
@@ -185,7 +193,7 @@ data class WeeklyReportPayload(
     }
 
     companion object {
-        fun fromJson(ctx: Context, body: String?): WeeklyReportPayload? {
+        fun fromJson(body: String?): WeeklyReportPayload? {
             if (body == null) return null
             return try {
                 val json = JSONObject(body)
@@ -199,18 +207,8 @@ data class WeeklyReportPayload(
                 )
             } catch (e: Exception) {
                 Log.e("NotificationService", "Failed to parse weekly report payload: ${e.message}")
-                defaults(ctx)
+                null
             }
-        }
-
-        fun defaults(ctx: Context): WeeklyReportPayload {
-            return WeeklyReportPayload(
-                WEEKLY_REPORT_TITLE,
-                WEEKLY_REPORT_BODY,
-                WEEKLY_REPORT_REFRESH_TITLE,
-                WEEKLY_REPORT_REFRESH_BODY + " (bg)",
-                WEEKLY_REPORT_BACKGROUND_LEAD_MS
-            )
         }
     }
 }
