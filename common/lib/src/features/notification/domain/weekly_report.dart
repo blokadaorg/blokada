@@ -500,9 +500,10 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
     final multiplier = _multiplierLabel(previous, current);
     final id = 'totals:$key:${anchor.toIso8601String()}';
+    final value = increased && multiplier != null ? multiplier : '$sign$percent%';
 
     final title = _totalsTitle(label, increased);
-    final body = _totalsBody(label, increased && multiplier != null ? multiplier : '$sign$percent');
+    final body = _totalsBody(label, value);
 
     return WeeklyReportEvent(
       id: id,
