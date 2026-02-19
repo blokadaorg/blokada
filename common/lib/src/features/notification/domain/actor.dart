@@ -222,7 +222,10 @@ class NotificationActor with Logging, Actor {
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
       } else if (id == NotificationId.weeklyReport) {
-        final args = {'toplistRange': ToplistRange.weekly};
+        final args = {
+          'toplistRange': ToplistRange.weekly,
+          'fromWeeklyNotification': true,
+        };
         if (!isOnPrivacyPulse) {
           await _openPrivacyPulseWithRetry(m, args);
         }

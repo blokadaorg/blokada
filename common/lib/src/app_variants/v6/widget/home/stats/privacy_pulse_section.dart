@@ -30,12 +30,14 @@ class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
   final ScrollController controller;
   final ToplistRange? initialRange;
+  final bool fromWeeklyNotification;
 
   const PrivacyPulseSection({
     Key? key,
     required this.autoRefresh,
     required this.controller,
     this.initialRange,
+    this.fromWeeklyNotification = false,
   }) : super(key: key);
 
   @override
@@ -69,6 +71,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     ToplistRange.daily: false,
     ToplistRange.weekly: false,
   };
+  bool _skippedInitialWeeklyDeltaRefresh = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -98,9 +101,19 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
           //   await _weeklyReport.refreshAndPick(Markers.stats);
           // }
         });
-        unawaited(_refreshDeltas());
-        unawaited(_updateCounters());
-        unawaited(_updateWeeklySparkline());
+
+        final fromWeeklyNotificationEntry =
+            widget.fromWeeklyNotification && _toplistRange == ToplistRange.weekly;
+        if (fromWeeklyNotificationEntry && !_skippedInitialWeeklyDeltaRefresh) {
+          _skippedInitialWeeklyDeltaRefresh = true;
+          log(Markers.stats).t('weeklyReport:privacyPulse:skipInitialDeltaRefresh');
+          unawaited(_updateCounters());
+        } else {
+          unawaited(_refreshDeltas());
+          unawaited(_updateCounters());
+          unawaited(_updateWeeklySparkline());
+        }
+
         if (!_toplistsFetched) {
           _toplistsFetched = true;
           unawaited(_fetchToplists());
