@@ -13,8 +13,6 @@ class NotificationActor with Logging, Actor {
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
-  var _pendingPrivacyPulseNav = false;
-  Object? _pendingPrivacyPulseArgs;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -74,16 +72,6 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
-
-      if (_pendingPrivacyPulseNav) {
-        _pendingPrivacyPulseNav = false;
-        final args = _pendingPrivacyPulseArgs;
-        _pendingPrivacyPulseArgs = null;
-        final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
-        if (!isOnPrivacyPulse) {
-          Navigation.open(Paths.privacyPulse, arguments: args);
-        }
-      }
     });
   }
 
@@ -235,14 +223,30 @@ class NotificationActor with Logging, Actor {
         // await _stage.setRoute(Paths.support.path, m);
       } else if (id == NotificationId.weeklyReport) {
         final args = {'toplistRange': ToplistRange.weekly};
-        if (_stage.route.isForeground() && !isOnPrivacyPulse) {
-          Navigation.open(Paths.privacyPulse, arguments: args);
-        } else {
-          _pendingPrivacyPulseNav = true;
-          _pendingPrivacyPulseArgs = args;
+        if (!isOnPrivacyPulse) {
+          await _openPrivacyPulseWithRetry(m, args);
         }
       }
     });
+  }
+
+  Future<void> _openPrivacyPulseWithRetry(Marker m, Object? args) async {
+    const attempts = 5;
+    const delay = Duration(milliseconds: 250);
+
+    for (var i = 0; i < attempts; i++) {
+      try {
+        await Navigation.open(Paths.privacyPulse, arguments: args);
+        return;
+      } catch (e, s) {
+        final isLastAttempt = i == attempts - 1;
+        if (isLastAttempt) {
+          log(m).e(msg: "Failed to open Privacy Pulse from notification tap", err: e, stack: s);
+          return;
+        }
+        await sleepAsync(delay);
+      }
+    }
   }
 
   handleFcmEvent(Marker m, String payload) async {
