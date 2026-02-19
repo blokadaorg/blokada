@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
-import 'package:common/src/shared/navigation.dart' show maxContentWidth, getTopPadding;
+import 'package:common/src/shared/navigation.dart'
+    show maxContentWidth, getTopPadding;
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -30,14 +31,12 @@ class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
   final ScrollController controller;
   final ToplistRange? initialRange;
-  final bool fromWeeklyNotification;
 
   const PrivacyPulseSection({
     Key? key,
     required this.autoRefresh,
     required this.controller,
     this.initialRange,
-    this.fromWeeklyNotification = false,
   }) : super(key: key);
 
   @override
@@ -71,7 +70,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     ToplistRange.daily: false,
     ToplistRange.weekly: false,
   };
-  bool _skippedInitialWeeklyDeltaRefresh = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -94,25 +92,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     _disposers.add(mobx.autorun((_) {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty) {
-        _kickoffStatsFetch().then((_) async {
-          // Temporarily disabled weekly report fetch (kept for re-enable later).
-          // if (!_weeklyReportFetched) {
-          //   _weeklyReportFetched = true;
-          //   await _weeklyReport.refreshAndPick(Markers.stats);
-          // }
-        });
+        _kickoffStatsFetch();
 
-        final fromWeeklyNotificationEntry =
-            widget.fromWeeklyNotification && _toplistRange == ToplistRange.weekly;
-        if (fromWeeklyNotificationEntry && !_skippedInitialWeeklyDeltaRefresh) {
-          _skippedInitialWeeklyDeltaRefresh = true;
-          log(Markers.stats).t('weeklyReport:privacyPulse:skipInitialDeltaRefresh');
-          unawaited(_updateCounters());
-        } else {
-          unawaited(_refreshDeltas());
-          unawaited(_updateCounters());
-          unawaited(_updateWeeklySparkline());
-        }
+        unawaited(_refreshDeltas());
+        unawaited(_updateCounters());
+        unawaited(_updateWeeklySparkline());
 
         if (!_toplistsFetched) {
           _toplistsFetched = true;
@@ -185,8 +169,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         deviceName: deviceName, range: label, force: false);
     if (!mounted) return;
     setState(() {
-      _blockedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: true);
-      _allowedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: false);
+      _blockedDeltas[range] =
+          _deltaStore.deltasFor(deviceName, label, blocked: true);
+      _allowedDeltas[range] =
+          _deltaStore.deltasFor(deviceName, label, blocked: false);
       _counterDeltas[range] = _deltaStore.counterDeltaFor(deviceName, label);
       _deltaReady[range] = true;
     });
@@ -194,7 +180,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   Future<void> _updateCounters({bool force = false}) async {
     final rangeLabel = _toplistRange == ToplistRange.daily ? "24h" : "7d";
-    final counters = await _store.countersForRange(rangeLabel, Markers.stats, force: force);
+    final counters =
+        await _store.countersForRange(rangeLabel, Markers.stats, force: force);
     if (!mounted) return;
     setState(() {
       _counters = counters;
@@ -203,7 +190,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   Future<void> _updateWeeklySparkline({bool force = false}) async {
     if (_toplistRange != ToplistRange.weekly) return;
-    final series = await _store.allowedDailySeries(Markers.stats, days: 7, force: force);
+    final series =
+        await _store.allowedDailySeries(Markers.stats, days: 7, force: force);
     if (!mounted) return;
     setState(() {
       _weeklySparkline = series;
@@ -211,13 +199,12 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
   }
 
   Future<void> _pullToRefresh() async {
-    return await log(Markers.userTap).trace("privacyPulsePullToRefresh", (m) async {
+    return await log(Markers.userTap).trace("privacyPulsePullToRefresh",
+        (m) async {
       await _kickoffStatsFetch(force: true);
       await _updateCounters(force: true);
       await _updateWeeklySparkline(force: true);
       await _refreshDeltas(rangeOverride: _toplistRange);
-      // Temporarily disabled weekly report refresh (kept for re-enable later).
-      // await _weeklyReport.refreshAndPick(m);
       await _journal.fetch(m, tag: null);
       await _store.fetchToplists(
         m,
@@ -279,10 +266,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           if (_weeklyEvent != null) ...[
                             Builder(builder: (context) {
                               final event = _weeklyEvent!;
-                              final isToplist =
-                                  event.type == WeeklyReportEventType.toplistChange;
-                              final timeLabel =
-                                  timeago.format(event.generatedAt, allowFromNow: true);
+                              final isToplist = event.type ==
+                                  WeeklyReportEventType.toplistChange;
+                              final timeLabel = timeago.format(
+                                  event.generatedAt,
+                                  allowFromNow: true);
                               return WeeklyReportCard(
                                 title: event.title,
                                 content: Text(
@@ -296,25 +284,28 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                                 time: timeLabel,
                                 icon: _iconFor(event.icon),
                                 iconColor: context.theme.accent,
-                                onTap: isToplist ? _handleWeeklyReportTap : null,
+                                onTap:
+                                    isToplist ? _handleWeeklyReportTap : null,
                                 onDismiss: () => _dismissWeeklyReport(),
                               );
                             }),
                             const SizedBox(height: 16),
                           ],
                           MiniCard(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 8),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: PrivacyPulseCharts(
                                 stats: stats,
-                              counters: _counters,
-                              counterDelta: _counterDeltas[_toplistRange],
-                              statsReady: _hasStats,
-                              deltaReady: _deltaReady[_toplistRange] ?? false,
-                              sparklineSeries: _toplistRange == ToplistRange.weekly
-                                  ? _weeklySparkline
-                                  : null,
+                                counters: _counters,
+                                counterDelta: _counterDeltas[_toplistRange],
+                                statsReady: _hasStats,
+                                deltaReady: _deltaReady[_toplistRange] ?? false,
+                                sparklineSeries:
+                                    _toplistRange == ToplistRange.weekly
+                                        ? _weeklySparkline
+                                        : null,
                                 trailing: _buildToplistRangeToggle(context),
                               ),
                             ),
@@ -322,7 +313,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           const SizedBox(height: 12),
                           TopDomains(
                             headerKey: _topDomainsHeaderKey,
-                            highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
+                            highlight: _weeklyHighlight ??
+                                _weeklyEvent?.toplistHighlight,
                             range: _toplistRange,
                             blockedDeltas: _blockedDeltas[_toplistRange],
                             allowedDeltas: _allowedDeltas[_toplistRange],
@@ -404,7 +396,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     }
   }
 
-  Future<void> _scrollToTopDomains({int attempt = 0, bool force = false}) async {
+  Future<void> _scrollToTopDomains(
+      {int attempt = 0, bool force = false}) async {
     if (!force && _toplistRange != ToplistRange.weekly) {
       log(Markers.userTap).t('weeklyReport:scroll:wrongRange');
       return;

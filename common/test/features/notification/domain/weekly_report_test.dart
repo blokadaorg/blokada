@@ -24,6 +24,7 @@ void main() {
       expect(result.current.allowed, equals(77)); // 8+..+14
       expect(result.previous.blocked, equals(56)); // 2*(1+..+7)
       expect(result.current.blocked, equals(154)); // 2*(8+..+14)
+      expect(result.hasComparison, isTrue);
       expect(
         result.anchor,
         DateTime.fromMillisecondsSinceEpoch(timestamps[7] * 1000, isUtc: true),
@@ -52,18 +53,39 @@ void main() {
       expect(result.current.allowed, equals(30)); // missing day counts as zero
       expect(result.current.blocked, equals(70));
       expect(result.previous.blocked, equals(70));
+      expect(result.hasComparison, isTrue);
+    });
+
+    test('marks incomplete data as no weekly comparison', () {
+      final timestamps = _generateTimestamps(days: 8);
+      final allowed = <int, int>{};
+      final blocked = <int, int>{};
+      for (var i = 0; i < timestamps.length; i++) {
+        allowed[timestamps[i]] = 5;
+        blocked[timestamps[i]] = 10;
+      }
+
+      final stats = _buildStats({
+        'allowed': allowed,
+        'blocked': blocked,
+      });
+
+      final result = splitWeeklyTotalsFromStats(stats);
+
+      expect(result.hasComparison, isFalse);
     });
   });
 }
 
-platform_stats.JsonStatsEndpoint _buildStats(Map<String, Map<int, int>> buckets) {
+platform_stats.JsonStatsEndpoint _buildStats(
+    Map<String, Map<int, int>> buckets) {
   final metrics = <platform_stats.JsonMetrics>[];
   buckets.forEach((action, values) {
     metrics.add(platform_stats.JsonMetrics(
       tags: platform_stats.JsonTags(action: action),
       dps: values.entries
-          .map((entry) =>
-              platform_stats.JsonDps(timestamp: entry.key, value: entry.value.toDouble()))
+          .map((entry) => platform_stats.JsonDps(
+              timestamp: entry.key, value: entry.value.toDouble()))
           .toList(),
     ));
   });
@@ -75,11 +97,11 @@ platform_stats.JsonStatsEndpoint _buildStats(Map<String, Map<int, int>> buckets)
   );
 }
 
-List<int> _generateTimestamps() {
+List<int> _generateTimestamps({int days = 14}) {
   const secondsPerDay = 24 * 60 * 60;
   final latest = DateTime.utc(2025, 1, 20).millisecondsSinceEpoch ~/ 1000;
   final timestamps = <int>[];
-  for (var i = 13; i >= 0; i--) {
+  for (var i = days - 1; i >= 0; i--) {
     timestamps.add(latest - i * secondsPerDay);
   }
   return timestamps;

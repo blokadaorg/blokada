@@ -251,7 +251,6 @@ class Navigation with Logging {
 
     if (settings.name == Paths.privacyPulse.path) {
       ToplistRange? initialRange;
-      bool fromWeeklyNotification = false;
       final args = settings.arguments;
       if (args is Map) {
         final rangeArg = args['toplistRange'];
@@ -261,16 +260,11 @@ class Navigation with Logging {
           if (rangeArg == "weekly") initialRange = ToplistRange.weekly;
           if (rangeArg == "daily") initialRange = ToplistRange.daily;
         }
-        final fromNotificationArg = args['fromWeeklyNotification'];
-        if (fromNotificationArg is bool) {
-          fromWeeklyNotification = fromNotificationArg;
-        }
       }
       return StandardRoute(
         settings: settings,
         builder: (context) => PrivacyPulseScreen(
           initialToplistRange: initialRange,
-          fromWeeklyNotification: fromWeeklyNotification,
         ),
       );
     }

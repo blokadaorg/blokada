@@ -5,6 +5,7 @@ import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/stats/api.dart' as api;
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
+import 'package:common/src/platform/stats/weekly_comparison.dart';
 import 'package:meta/meta.dart';
 
 enum ToplistDeltaType { up, down, newEntry, same }
@@ -29,21 +30,29 @@ class CounterDelta {
   final int allowedPercent;
   final int blockedPercent;
   final bool hasComparison;
+  final String allowedLabel;
+  final String blockedLabel;
 
   const CounterDelta({
     required this.allowedPercent,
     required this.blockedPercent,
     required this.hasComparison,
+    this.allowedLabel = '',
+    this.blockedLabel = '',
   });
 
-  static CounterDelta empty() =>
-      const CounterDelta(allowedPercent: 0, blockedPercent: 0, hasComparison: false);
+  static CounterDelta empty() => const CounterDelta(
+        allowedPercent: 0,
+        blockedPercent: 0,
+        hasComparison: false,
+        allowedLabel: '',
+        blockedLabel: '',
+      );
 }
 
 @visibleForTesting
 int percentChange(int previous, int current) {
-  if (previous == 0) return 0;
-  return (((current - previous) / previous) * 100).round();
+  return compareWeeklyTotals(previous, current).roundedPercent;
 }
 
 @visibleForTesting
@@ -53,10 +62,16 @@ CounterDelta computeCounterDelta({
   required bool hasComparison,
 }) {
   if (!hasComparison) return CounterDelta.empty();
+  final allowedComparison =
+      compareWeeklyTotals(previous.allowed, current.allowed);
+  final blockedComparison =
+      compareWeeklyTotals(previous.blocked, current.blocked);
   return CounterDelta(
-    allowedPercent: percentChange(previous.allowed, current.allowed),
-    blockedPercent: percentChange(previous.blocked, current.blocked),
+    allowedPercent: allowedComparison.roundedPercent,
+    blockedPercent: blockedComparison.roundedPercent,
     hasComparison: hasComparison,
+    allowedLabel: allowedComparison.formatForCounterLabel(),
+    blockedLabel: blockedComparison.formatForCounterLabel(),
   );
 }
 
@@ -74,10 +89,14 @@ class StatsDeltaStore with Logging, Actor {
   }
 
   Future<void> refresh(Marker m,
-      {required String deviceName, required String range, bool force = false}) async {
+      {required String deviceName,
+      required String range,
+      bool force = false}) async {
     final key = _DeltaKey(deviceName: deviceName, range: range);
     final existing = _snapshots[key];
-    if (!force && existing != null && DateTime.now().difference(existing.updatedAt) < defaultTtl) {
+    if (!force &&
+        existing != null &&
+        DateTime.now().difference(existing.updatedAt) < defaultTtl) {
       return;
     }
 
@@ -153,7 +172,8 @@ class StatsDeltaStore with Logging, Actor {
     final countersPeriod =
         await _stats.countersPeriods(range, deviceName, m, force: force);
 
-    final allowedMergedCurrent = _mergeAllowed(allowedCurrent, fallthroughCurrent);
+    final allowedMergedCurrent =
+        _mergeAllowed(allowedCurrent, fallthroughCurrent);
     final allowedMergedPrev = _mergeAllowed(allowedPrev, fallthroughPrev);
     final blockedEntriesCurrent = _convertToplist(blockedCurrent);
     final blockedEntriesPrev = _convertToplist(blockedPrev);
@@ -191,13 +211,15 @@ class StatsDeltaStore with Logging, Actor {
     return DateTime.utc(dt.year, dt.month, dt.day);
   }
 
-  List<ToplistDelta> deltasFor(String deviceName, String range, {required bool blocked}) {
+  List<ToplistDelta> deltasFor(String deviceName, String range,
+      {required bool blocked}) {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
     if (pair == null || pair.current == null || !pair.hasComparison) return [];
 
     // If no previous snapshot, treat all current entries as new
     if (pair.previous == null) {
-      final currentList = blocked ? pair.current!.blocked : pair.current!.allowed;
+      final currentList =
+          blocked ? pair.current!.blocked : pair.current!.allowed;
       final deltas = <ToplistDelta>[];
       for (var i = 0; i < currentList.length; i++) {
         final entry = currentList[i];
@@ -214,11 +236,13 @@ class StatsDeltaStore with Logging, Actor {
     }
 
     final currentList = blocked ? pair.current!.blocked : pair.current!.allowed;
-    final previousList = blocked ? pair.previous!.blocked : pair.previous!.allowed;
+    final previousList =
+        blocked ? pair.previous!.blocked : pair.previous!.allowed;
 
     final previousRanks = <String, int>{};
     for (var i = 0; i < previousList.length; i++) {
-      final name = (previousList[i].company ?? previousList[i].tld ?? "").toLowerCase();
+      final name =
+          (previousList[i].company ?? previousList[i].tld ?? "").toLowerCase();
       previousRanks[name] = i + 1;
     }
 
@@ -232,7 +256,9 @@ class StatsDeltaStore with Logging, Actor {
           ? ToplistDeltaType.newEntry
           : (prevRank > newRank
               ? ToplistDeltaType.up
-              : (prevRank < newRank ? ToplistDeltaType.down : ToplistDeltaType.same));
+              : (prevRank < newRank
+                  ? ToplistDeltaType.down
+                  : ToplistDeltaType.same));
       deltas.add(ToplistDelta(
         name: entry.company ?? entry.tld ?? "",
         blocked: blocked,
@@ -247,7 +273,8 @@ class StatsDeltaStore with Logging, Actor {
 
   CounterDelta counterDeltaFor(String deviceName, String range) {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
-    if (pair == null || pair.current == null || pair.previous == null) return CounterDelta.empty();
+    if (pair == null || pair.current == null || pair.previous == null)
+      return CounterDelta.empty();
     if (!pair.hasComparison) return CounterDelta.empty();
     return computeCounterDelta(
       previous: pair.previous!.counters,
@@ -256,8 +283,8 @@ class StatsDeltaStore with Logging, Actor {
     );
   }
 
-  List<UiToplistEntry> _mergeAllowed(
-      api.JsonToplistV2Response allowed, api.JsonToplistV2Response fallthrough) {
+  List<UiToplistEntry> _mergeAllowed(api.JsonToplistV2Response allowed,
+      api.JsonToplistV2Response fallthrough) {
     final entries = <UiToplistEntry>[];
     entries.addAll(_convertToplist(allowed, blocked: false));
     entries.addAll(_convertToplist(fallthrough, blocked: false));
@@ -274,13 +301,16 @@ class StatsDeltaStore with Logging, Actor {
     return merged;
   }
 
-  List<UiToplistEntry> _convertToplist(api.JsonToplistV2Response response, {bool? blocked}) {
+  List<UiToplistEntry> _convertToplist(api.JsonToplistV2Response response,
+      {bool? blocked}) {
     final result = <UiToplistEntry>[];
     for (var bucket in response.toplist) {
-      final isAllowed = bucket.action == "fallthrough" || bucket.action == "allowed";
+      final isAllowed =
+          bucket.action == "fallthrough" || bucket.action == "allowed";
       final isBlocked = blocked ?? !isAllowed;
       for (var entry in bucket.entries) {
-        result.add(UiToplistEntry(entry.name, entry.name, isBlocked, entry.count));
+        result.add(
+            UiToplistEntry(entry.name, entry.name, isBlocked, entry.count));
       }
     }
     result.sort((a, b) => b.value.compareTo(a.value));
@@ -296,7 +326,9 @@ class _DeltaKey {
 
   @override
   bool operator ==(Object other) {
-    return other is _DeltaKey && deviceName == other.deviceName && range == other.range;
+    return other is _DeltaKey &&
+        deviceName == other.deviceName &&
+        range == other.range;
   }
 
   @override
@@ -308,7 +340,8 @@ class _Snapshot {
   final List<UiToplistEntry> allowed;
   final StatsCounters counters;
 
-  _Snapshot({required this.blocked, required this.allowed, required this.counters});
+  _Snapshot(
+      {required this.blocked, required this.allowed, required this.counters});
 }
 
 class _SnapshotPair {

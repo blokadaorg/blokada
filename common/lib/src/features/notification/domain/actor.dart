@@ -224,7 +224,6 @@ class NotificationActor with Logging, Actor {
       } else if (id == NotificationId.weeklyReport) {
         final args = {
           'toplistRange': ToplistRange.weekly,
-          'fromWeeklyNotification': true,
         };
         if (!isOnPrivacyPulse) {
           await _openPrivacyPulseWithRetry(m, args);

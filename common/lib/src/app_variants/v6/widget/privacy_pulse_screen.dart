@@ -14,12 +14,10 @@ import 'package:mobx/mobx.dart';
 
 class PrivacyPulseScreen extends StatefulWidget {
   final ToplistRange? initialToplistRange;
-  final bool fromWeeklyNotification;
 
   const PrivacyPulseScreen({
     Key? key,
     this.initialToplistRange,
-    this.fromWeeklyNotification = false,
   })
       : super(key: key);
 
@@ -86,7 +84,6 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         autoRefresh: true,
         controller: ScrollController(),
         initialRange: widget.initialToplistRange,
-        fromWeeklyNotification: widget.fromWeeklyNotification,
       );
     } else {
       return const Row(
@@ -119,7 +116,6 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
               autoRefresh: true,
               controller: ScrollController(),
               initialRange: widget.initialToplistRange,
-              fromWeeklyNotification: widget.fromWeeklyNotification,
             ),
           ),
           Expanded(
