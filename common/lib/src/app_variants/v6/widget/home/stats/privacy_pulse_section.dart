@@ -173,7 +173,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     });
   }
 
-  Future<void> _refreshDeltas({ToplistRange? rangeOverride, bool force = false}) async {
+  Future<void> _refreshDeltas({ToplistRange? rangeOverride}) async {
     final range = rangeOverride ?? _toplistRange;
     setState(() {
       _deltaReady[range] = false;
@@ -215,7 +215,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       await _kickoffStatsFetch(force: true);
       await _updateCounters(force: true);
       await _updateWeeklySparkline(force: true);
-      await _refreshDeltas(rangeOverride: _toplistRange, force: true);
+      await _refreshDeltas(rangeOverride: _toplistRange);
       // Temporarily disabled weekly report refresh (kept for re-enable later).
       // await _weeklyReport.refreshAndPick(m);
       await _journal.fetch(m, tag: null);
@@ -236,7 +236,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       });
       await _updateCounters(force: true);
       await _updateWeeklySparkline(force: true);
-      await _refreshDeltas(rangeOverride: range, force: true);
+      await _refreshDeltas(rangeOverride: range);
       await _fetchToplists(rangeOverride: range);
       return;
     }
