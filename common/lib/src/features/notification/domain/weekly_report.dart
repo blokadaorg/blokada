@@ -388,7 +388,50 @@ WeeklyTotalsSplitResult splitWeeklyTotalsFromStats(platform_stats.JsonStatsEndpo
 abstract class WeeklyReportEventSource {
   String get name;
 
-  Future<List<WeeklyReportEvent>> generate(WeeklyReportWindow window, Marker m);
+  Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m);
+}
+
+class WeeklyReportToplistWindow {
+  final List<WeeklyReportTopEntry> currentBlocked;
+  final List<WeeklyReportTopEntry> previousBlocked;
+  final List<WeeklyReportTopEntry> currentAllowed;
+  final List<WeeklyReportTopEntry> previousAllowed;
+
+  WeeklyReportToplistWindow({
+    required this.currentBlocked,
+    required this.previousBlocked,
+    required this.currentAllowed,
+    required this.previousAllowed,
+  });
+}
+
+class WeeklyReportGenerationContext {
+  final WeeklyReportRepository _repository;
+
+  WeeklyTotalsSplitResult? _totals;
+  bool _totalsLoaded = false;
+  WeeklyReportToplistWindow? _toplists;
+  bool _toplistsLoaded = false;
+
+  WeeklyReportGenerationContext(this._repository);
+
+  Future<WeeklyTotalsSplitResult?> totals(Marker m) async {
+    if (_totalsLoaded) return _totals;
+    _totalsLoaded = true;
+    _totals = await _repository.loadTotals(m);
+    return _totals;
+  }
+
+  Future<WeeklyReportToplistWindow?> toplists(Marker m) async {
+    if (_toplistsLoaded) return _toplists;
+    _toplistsLoaded = true;
+
+    final totalsResult = await totals(m);
+    if (totalsResult == null) return null;
+
+    _toplists = await _repository.loadToplists(m, anchor: totalsResult.anchor);
+    return _toplists;
+  }
 }
 
 class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
@@ -396,17 +439,20 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   String get name => 'totals_delta';
 
   @override
-  Future<List<WeeklyReportEvent>> generate(WeeklyReportWindow window, Marker m) async {
+  Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m) async {
+    final totalsResult = await context.totals(m);
+    if (totalsResult == null) return [];
+
     final results = <WeeklyReportEvent>[];
-    final previousBlocked = window.previous.totals.blocked;
-    final currentBlocked = window.current.totals.blocked;
-    final previousAllowed = window.previous.totals.allowed;
-    final currentAllowed = window.current.totals.allowed;
+    final previousBlocked = totalsResult.previous.blocked;
+    final currentBlocked = totalsResult.current.blocked;
+    final previousAllowed = totalsResult.previous.allowed;
+    final currentAllowed = totalsResult.current.allowed;
     final blockedDelta = _percentChange(previousBlocked, currentBlocked);
     final allowedDelta = _percentChange(previousAllowed, currentAllowed);
 
     final blockedEvent = _buildEvent(
-      window,
+      totalsResult.anchor,
       label: 'Blocked',
       previous: previousBlocked,
       current: currentBlocked,
@@ -419,7 +465,7 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     }
 
     final allowedEvent = _buildEvent(
-      window,
+      totalsResult.anchor,
       label: 'Allowed',
       previous: previousAllowed,
       current: currentAllowed,
@@ -435,7 +481,7 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   }
 
   WeeklyReportEvent? _buildEvent(
-    WeeklyReportWindow window, {
+    DateTime anchor, {
     required String label,
     required int previous,
     required int current,
@@ -448,13 +494,12 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     if (absDelta < 1) return null;
 
     final increased = delta > 0;
-    final direction = increased ? 'increased' : 'decreased';
     final sign = increased ? '+' : '-';
     final icon =
         increased == positiveIsIncrease ? WeeklyReportIcon.trendUp : WeeklyReportIcon.trendDown;
     final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
     final multiplier = _multiplierLabel(previous, current);
-    final id = 'totals:$key:${window.anchor.toIso8601String()}';
+    final id = 'totals:$key:${anchor.toIso8601String()}';
 
     final title = _totalsTitle(label, increased);
     final body = _totalsBody(label, increased && multiplier != null ? multiplier : '$sign$percent');
@@ -466,7 +511,7 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
       type: WeeklyReportEventType.totalsDelta,
       icon: icon,
       score: absDelta,
-      generatedAt: window.anchor,
+      generatedAt: anchor,
       ctaLabel: weeklyReportCtaKey.i18n,
       toplistHighlight: null,
       deltaLabel: key,
@@ -510,53 +555,74 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
 }
 
 class ToplistMovementSource implements WeeklyReportEventSource {
-  late final _deltaStore = Core.get<StatsDeltaStore>();
-  late final _deviceStore = Core.get<DeviceStore>();
-
   @override
   String get name => 'toplist_movement';
 
   @override
-  Future<List<WeeklyReportEvent>> generate(WeeklyReportWindow window, Marker m) async {
-    final deviceName = _deviceStore.deviceAlias;
-    if (deviceName.isEmpty) return [];
-    await _deltaStore.refresh(m, deviceName: deviceName, range: "7d", force: true);
+  Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m) async {
+    final totals = await context.totals(m);
+    final toplists = await context.toplists(m);
+    if (totals == null || toplists == null) return [];
+
     final events = <WeeklyReportEvent>[];
-    events.addAll(_fromDeltas(deviceName, blocked: true, anchor: window.anchor));
-    events.addAll(_fromDeltas(deviceName, blocked: false, anchor: window.anchor));
+    events.addAll(_fromToplists(
+      current: toplists.currentBlocked,
+      previous: toplists.previousBlocked,
+      blocked: true,
+      anchor: totals.anchor,
+    ));
+    events.addAll(_fromToplists(
+      current: toplists.currentAllowed,
+      previous: toplists.previousAllowed,
+      blocked: false,
+      anchor: totals.anchor,
+    ));
     return events;
   }
 
-  List<WeeklyReportEvent> _fromDeltas(String deviceName,
-      {required bool blocked, required DateTime anchor}) {
-    final deltas = _deltaStore.deltasFor(deviceName, "7d", blocked: blocked);
+  List<WeeklyReportEvent> _fromToplists({
+    required List<WeeklyReportTopEntry> current,
+    required List<WeeklyReportTopEntry> previous,
+    required bool blocked,
+    required DateTime anchor,
+  }) {
+    final previousByName = <String, WeeklyReportTopEntry>{};
+    for (final entry in previous) {
+      previousByName[entry.name.toLowerCase()] = entry;
+    }
+
     final results = <WeeklyReportEvent>[];
-    for (final delta in deltas) {
-      final currentRank = delta.newRank;
-      final prevRank = delta.previousRank;
+    for (final entry in current) {
+      final currentRank = entry.rank + 1;
+      final prev = previousByName[entry.name.toLowerCase()];
+      final prevRank = prev != null ? prev.rank + 1 : null;
       final id =
-          'toplist:${blocked ? 'blocked' : 'allowed'}:${delta.name}:${anchor.toIso8601String()}';
-      if (delta.type == ToplistDeltaType.newEntry) {
+          'toplist:${blocked ? 'blocked' : 'allowed'}:${entry.name}:${anchor.toIso8601String()}';
+
+      if (prevRank == null) {
         results.add(WeeklyReportEvent(
           id: id,
           title: blocked
               ? weeklyReportBlockedToplistNewTitleKey.i18n
               : weeklyReportAllowedToplistNewTitleKey.i18n,
           body: weeklyReportToplistNewBodyKey.i18n
-              .withParams(delta.name, currentRank.toString()),
+              .withParams(entry.name, currentRank.toString()),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: 80 - currentRank * 5,
           generatedAt: anchor,
           ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
-            name: delta.name,
+            name: entry.name,
             blocked: blocked,
             newRank: currentRank,
             previousRank: null,
           ),
         ));
-      } else if (delta.type == ToplistDeltaType.up && prevRank != null) {
+        continue;
+      }
+
+      if (prevRank > currentRank) {
         final movedBy = prevRank - currentRank;
         results.add(WeeklyReportEvent(
           id: id,
@@ -564,7 +630,7 @@ class ToplistMovementSource implements WeeklyReportEventSource {
               ? weeklyReportBlockedToplistUpTitleKey.i18n
               : weeklyReportAllowedToplistUpTitleKey.i18n,
           body: weeklyReportToplistMoveBodyKey.i18n.withParams(
-            delta.name,
+            entry.name,
             currentRank.toString(),
             prevRank.toString(),
           ),
@@ -574,20 +640,23 @@ class ToplistMovementSource implements WeeklyReportEventSource {
           generatedAt: anchor,
           ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
-            name: delta.name,
+            name: entry.name,
             blocked: blocked,
             newRank: currentRank,
             previousRank: prevRank,
           ),
         ));
-      } else if (delta.type == ToplistDeltaType.down && prevRank != null) {
+        continue;
+      }
+
+      if (prevRank < currentRank) {
         results.add(WeeklyReportEvent(
           id: id,
           title: blocked
               ? weeklyReportBlockedToplistDownTitleKey.i18n
               : weeklyReportAllowedToplistDownTitleKey.i18n,
           body: weeklyReportToplistMoveBodyKey.i18n.withParams(
-            delta.name,
+            entry.name,
             currentRank.toString(),
             prevRank.toString(),
           ),
@@ -597,7 +666,7 @@ class ToplistMovementSource implements WeeklyReportEventSource {
           generatedAt: anchor,
           ctaLabel: weeklyReportCtaKey.i18n,
           toplistHighlight: WeeklyReportToplistHighlight(
-            name: delta.name,
+            name: entry.name,
             blocked: blocked,
             newRank: currentRank,
             previousRank: prevRank,
@@ -612,38 +681,46 @@ class ToplistMovementSource implements WeeklyReportEventSource {
 
 class WeeklyReportRepository with Logging {
   late final _statsApi = Core.get<platform_stats.StatsApi>();
-  late final _accountId = Core.get<AccountId>();
   late final _deviceStore = Core.get<DeviceStore>();
   late final _toplists = Core.get<ToplistStore>();
 
-  Future<WeeklyReportWindow?> load(Marker m) async {
-    return await log(m).trace('weeklyReport:load', (m) async {
+  Future<WeeklyTotalsSplitResult?> loadTotals(Marker m) async {
+    return await log(m).trace('weeklyReport:loadTotals', (m) async {
       final deviceName = _deviceStore.deviceAlias;
       if (deviceName.isEmpty) {
-        log(m).w('deviceAlias not ready, skipping weekly report fetch');
+        log(m).w('deviceAlias not ready, skipping weekly report totals fetch');
         return null;
       }
 
-      final platform_stats.JsonStatsEndpoint rollingStats;
       try {
-        rollingStats = await _statsApi.getStatsForDevice("2w", "24h", deviceName, m);
+        final rollingStats = await _statsApi.getStatsForDevice("2w", "24h", deviceName, m);
+        final totalsSplit = splitWeeklyTotalsFromStats(rollingStats);
+        log(m)
+          ..pair('totalsBlockedCurrent', totalsSplit.current.blocked)
+          ..pair('totalsBlockedPrevious', totalsSplit.previous.blocked)
+          ..pair('totalsAllowedCurrent', totalsSplit.current.allowed)
+          ..pair('totalsAllowedPrevious', totalsSplit.previous.allowed);
+        return totalsSplit;
       } catch (e) {
-        log(m).e(msg: 'Failed to fetch stats for weekly report: $e');
+        log(m).e(msg: 'Failed to fetch stats for weekly report totals: $e');
+        return null;
+      }
+    });
+  }
+
+  Future<WeeklyReportToplistWindow?> loadToplists(Marker m, {required DateTime anchor}) async {
+    return await log(m).trace('weeklyReport:loadToplists', (m) async {
+      final deviceName = _deviceStore.deviceAlias;
+      if (deviceName.isEmpty) {
+        log(m).w('deviceAlias not ready, skipping weekly report toplist fetch');
         return null;
       }
 
-      final totalsSplit = splitWeeklyTotalsFromStats(rollingStats);
-      final currentTotals = totalsSplit.current;
-      final previousTotals = totalsSplit.previous;
-      final normalizedAnchor = totalsSplit.anchor;
-      final previousEndIso = totalsSplit.anchor.toIso8601String();
-      final currentEndIso =
-          totalsSplit.anchor.add(const Duration(days: 7)).toIso8601String();
+      final previousEndIso = anchor.toIso8601String();
+      final currentEndIso = anchor.add(const Duration(days: 7)).toIso8601String();
 
-      final accountId = await _accountId.fetch(m);
       final currentBlocked = await _fetchToplist(
         m,
-        accountId: accountId,
         deviceName: deviceName,
         action: "blocked",
         range: "7d",
@@ -651,7 +728,6 @@ class WeeklyReportRepository with Logging {
       );
       final previousBlocked = await _fetchToplist(
         m,
-        accountId: accountId,
         deviceName: deviceName,
         action: "blocked",
         range: "7d",
@@ -660,46 +736,28 @@ class WeeklyReportRepository with Logging {
 
       final currentAllowed = await _fetchAllowedToplist(
         m,
-        accountId: accountId,
         deviceName: deviceName,
         range: "7d",
         end: currentEndIso,
       );
       final previousAllowed = await _fetchAllowedToplist(
         m,
-        accountId: accountId,
         deviceName: deviceName,
         range: "7d",
         end: previousEndIso,
       );
 
-      final window = WeeklyReportWindow(
-        current: WeeklyReportPeriod(
-          totals: currentTotals,
-          blockedToplist: currentBlocked,
-          allowedToplist: currentAllowed,
-        ),
-        previous: WeeklyReportPeriod(
-          totals: previousTotals,
-          blockedToplist: previousBlocked,
-          allowedToplist: previousAllowed,
-        ),
-        anchor: normalizedAnchor,
+      return WeeklyReportToplistWindow(
+        currentBlocked: currentBlocked,
+        previousBlocked: previousBlocked,
+        currentAllowed: currentAllowed,
+        previousAllowed: previousAllowed,
       );
-
-      log(m)
-        ..pair('totalsBlockedCurrent', currentTotals.blocked)
-        ..pair('totalsBlockedPrevious', previousTotals.blocked)
-        ..pair('totalsAllowedCurrent', currentTotals.allowed)
-        ..pair('totalsAllowedPrevious', previousTotals.allowed);
-
-      return window;
     });
   }
 
   Future<List<WeeklyReportTopEntry>> _fetchAllowedToplist(
     Marker m, {
-    required String accountId,
     required String deviceName,
     required String range,
     required String? end,
@@ -741,7 +799,6 @@ class WeeklyReportRepository with Logging {
 
   Future<List<WeeklyReportTopEntry>> _fetchToplist(
     Marker m, {
-    required String accountId,
     required String deviceName,
     required String action,
     required String range,
@@ -977,47 +1034,50 @@ class WeeklyReportActor with Logging, Actor {
       await _pendingEvent.change(m, null);
       return null;
     }
-    WeeklyReportWindow? window = await _repository.load(m);
-    if (window == null) {
-      return weeklyReportForceMockEvent ? _buildMockPick() : null;
-    }
 
-    final events = <WeeklyReportEvent>[];
+    final context = WeeklyReportGenerationContext(_repository);
+    final dismissed = await _lastDismissed.fetch(m);
+    WeeklyReportEvent? picked;
+    int skippedDismissed = 0;
+
     for (final source in _sources) {
       try {
-        final generated = await source.generate(window, m);
-        events.addAll(generated);
+        final generated = await source.generate(context, m);
+        if (generated.isEmpty) continue;
+
+        generated.sort((a, b) => b.score.compareTo(a.score));
+        final filtered = generated.where((event) => dismissed == null || event.id != dismissed);
+        final candidate = filtered.firstOrNull;
+        skippedDismissed += generated.length - filtered.length;
+
+        if (candidate != null) {
+          picked = candidate;
+          break;
+        }
       } catch (e, s) {
         log(m).w('WeeklyReport source ${source.name} failed: $e');
       }
     }
 
-    if (events.isEmpty) {
-      return weeklyReportForceMockEvent ? _buildMockPick() : null;
-    }
-    events.sort((a, b) => b.score.compareTo(a.score));
-    final dismissed = await _lastDismissed.fetch(m);
-
-    final filtered = events.where((event) {
-      if (dismissed != null && event.id == dismissed) return false;
-      return true;
-    }).toList();
-
-    if (filtered.isEmpty) {
-      log(m).i('No weekly report event to show (seen or dismissed already)');
+    if (picked == null) {
+      if (skippedDismissed > 0) {
+        log(m).t('weeklyReport:filteredSeenOrDismissed');
+      } else {
+        log(m).i('No weekly report event to show');
+      }
       return weeklyReportForceMockEvent ? _buildMockPick() : null;
     }
 
-    if (filtered.length != events.length) {
+    if (skippedDismissed > 0) {
       final logger = log(m)..t('weeklyReport:filteredSeenOrDismissed');
       logger
-        ..pair('skipped', events.length - filtered.length)
-        ..pair('remainingTop', filtered.first.id);
+        ..pair('skipped', skippedDismissed)
+        ..pair('remainingTop', picked.id);
     }
 
     // Use the pick time for UI freshness while keeping the anchor in IDs.
     final pickedAt = DateTime.now().toUtc();
-    final pickedEvent = filtered.first.copyWith(generatedAt: pickedAt);
+    final pickedEvent = picked.copyWith(generatedAt: pickedAt);
     return WeeklyReportPick(pickedEvent, pickedAt);
   }
 
