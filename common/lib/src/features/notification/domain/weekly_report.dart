@@ -20,6 +20,10 @@ const weeklyReportAllowedDecreasedTitleKey =
     'notification weekly report allowed decreased title';
 const weeklyReportBlockedTotalsBodyKey = 'notification weekly report blocked totals body';
 const weeklyReportAllowedTotalsBodyKey = 'notification weekly report allowed totals body';
+const weeklyReportBlockedTotalsBodyNoPercentKey =
+    'notification weekly report blocked totals body nopercent';
+const weeklyReportAllowedTotalsBodyNoPercentKey =
+    'notification weekly report allowed totals body nopercent';
 
 const weeklyReportBlockedToplistNewTitleKey =
     'notification weekly report blocked toplist new title';
@@ -500,10 +504,11 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
     final multiplier = _multiplierLabel(previous, current);
     final id = 'totals:$key:${anchor.toIso8601String()}';
-    final value = increased && multiplier != null ? multiplier : '$sign$percent%';
+    final useMultiplier = increased && multiplier != null;
+    final value = useMultiplier ? multiplier : '$sign$percent';
 
     final title = _totalsTitle(label, increased);
-    final body = _totalsBody(label, value);
+    final body = _totalsBody(label, value, usePercentKey: !useMultiplier);
 
     return WeeklyReportEvent(
       id: id,
@@ -532,11 +537,15 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
         : weeklyReportAllowedDecreasedTitleKey.i18n;
   }
 
-  String _totalsBody(String label, String value) {
+  String _totalsBody(String label, String value, {required bool usePercentKey}) {
     if (label == 'Blocked') {
-      return weeklyReportBlockedTotalsBodyKey.i18n.withParams(value);
+      return usePercentKey
+          ? weeklyReportBlockedTotalsBodyKey.i18n.withParams(value)
+          : weeklyReportBlockedTotalsBodyNoPercentKey.i18n.withParams(value);
     }
-    return weeklyReportAllowedTotalsBodyKey.i18n.withParams(value);
+    return usePercentKey
+        ? weeklyReportAllowedTotalsBodyKey.i18n.withParams(value)
+        : weeklyReportAllowedTotalsBodyNoPercentKey.i18n.withParams(value);
   }
 
   double _percentChange(int previous, int current) {
