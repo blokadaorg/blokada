@@ -302,8 +302,7 @@ class NotificationActor with Logging, Actor {
   }
 
   DateTime? _resolveScheduleHint(String? scheduleHint) {
-    final now = DateTime.now();
-    return now.add(const Duration(minutes: 2));
+    return resolveNotificationScheduleHint(scheduleHint, DateTime.now());
   }
 
   _addCapped(NotificationEvent event) {
@@ -323,4 +322,22 @@ class NotificationActor with Logging, Actor {
       await _channel.doDismissAll();
     }
   }
+}
+
+DateTime? resolveNotificationScheduleHint(String? scheduleHint, DateTime now) {
+  final trimmed = scheduleHint?.trim();
+  if (trimmed == null || trimmed.isEmpty) return null;
+
+  final hour = int.tryParse(trimmed);
+  if (hour == null || hour < 0 || hour > 23) return null;
+
+  final localNow = now.toLocal();
+  final todayAtHour = DateTime(
+    localNow.year,
+    localNow.month,
+    localNow.day,
+    hour,
+  );
+  if (todayAtHour.isAfter(localNow)) return todayAtHour;
+  return todayAtHour.add(const Duration(days: 1));
 }
