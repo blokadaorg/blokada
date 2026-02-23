@@ -13,6 +13,8 @@ class NotificationActor with Logging, Actor {
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
+  var _pendingPrivacyPulseNav = false;
+  Object? _pendingPrivacyPulseArgs;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -72,6 +74,15 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
+      if (_pendingPrivacyPulseNav) {
+        _pendingPrivacyPulseNav = false;
+        final args = _pendingPrivacyPulseArgs;
+        _pendingPrivacyPulseArgs = null;
+        final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
+        if (!isOnPrivacyPulse) {
+          await _openPrivacyPulseWithRetry(m, args);
+        }
+      }
     });
   }
 
@@ -226,7 +237,12 @@ class NotificationActor with Logging, Actor {
           'toplistRange': ToplistRange.weekly,
         };
         if (!isOnPrivacyPulse) {
-          await _openPrivacyPulseWithRetry(m, args);
+          if (_stage.route.isForeground()) {
+            await _openPrivacyPulseWithRetry(m, args);
+          } else {
+            _pendingPrivacyPulseNav = true;
+            _pendingPrivacyPulseArgs = args;
+          }
         }
       }
     });

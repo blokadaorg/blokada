@@ -4,6 +4,7 @@ import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/stage/stage.dart';
+import 'package:common/src/shared/navigation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -94,6 +95,51 @@ void main() {
         final scheduledAt = DateTime.parse(captured[0] as String).toLocal();
         expect(scheduledAt.isAfter(start), isTrue);
         expect(scheduledAt.difference(start), lessThan(const Duration(seconds: 20)));
+      });
+    });
+
+    test("notification tap queues privacy pulse navigation while app is backgrounded", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+
+        expect(Navigation.lastPath, isNull);
+      });
+    });
+
+    test("notification tap opens privacy pulse after app becomes foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+
+        expect(Navigation.lastPath, Paths.privacyPulse);
       });
     });
   });
