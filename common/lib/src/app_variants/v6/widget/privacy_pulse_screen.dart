@@ -18,8 +18,7 @@ class PrivacyPulseScreen extends StatefulWidget {
   const PrivacyPulseScreen({
     Key? key,
     this.initialToplistRange,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PrivacyPulseScreenState();

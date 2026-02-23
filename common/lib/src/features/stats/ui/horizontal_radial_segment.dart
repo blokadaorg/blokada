@@ -64,10 +64,8 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
     FontWeight fontWeight = FontWeight.w500,
     double fontSize = 12,
   }) {
-    final display = label ??
-        (percent == null || percent == 0
-            ? ""
-            : "${percent > 0 ? "+" : ""}$percent%");
+    final display =
+        label ?? (percent == null || percent == 0 ? "" : "${percent > 0 ? "+" : ""}$percent%");
     return Padding(
       padding: const EdgeInsets.only(top: 2.0),
       child: Text(
@@ -95,10 +93,8 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   Widget build(BuildContext context) {
     _calculate();
     final selectedRing = _selectedRing;
-    final blockedOpacity =
-        selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
-    final allowedOpacity =
-        selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
+    final blockedOpacity = selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
+    final allowedOpacity = selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
     final blockedDeltaWeight =
         selectedRing == RadialRing.blocked ? FontWeight.w700 : FontWeight.w500;
     final allowedDeltaWeight =
@@ -204,8 +200,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
               ),
               // Delta badges below counters
               Padding(
-                padding:
-                    const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
+                padding: const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
                 child: Row(
                   children: [
                     Expanded(

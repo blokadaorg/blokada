@@ -192,13 +192,13 @@ class NotificationActor with Logging, Actor {
 
   String? _mapLocale(ui.Locale locale) {
     final exact = supportedLocales.firstWhereOrNull(
-      (it) => it.languageCode == locale.languageCode &&
-          it.countryCode == locale.countryCode,
+      (it) => it.languageCode == locale.languageCode && it.countryCode == locale.countryCode,
     );
     if (exact != null) return exact.toLanguageTag();
 
     final languageOnly = supportedLocales.firstWhereOrNull(
-      (it) => it.languageCode == locale.languageCode &&
+      (it) =>
+          it.languageCode == locale.languageCode &&
           (it.countryCode == null || it.countryCode!.isEmpty),
     );
     if (languageOnly != null) return languageOnly.toLanguageTag();

@@ -77,15 +77,14 @@ void main() {
   });
 }
 
-platform_stats.JsonStatsEndpoint _buildStats(
-    Map<String, Map<int, int>> buckets) {
+platform_stats.JsonStatsEndpoint _buildStats(Map<String, Map<int, int>> buckets) {
   final metrics = <platform_stats.JsonMetrics>[];
   buckets.forEach((action, values) {
     metrics.add(platform_stats.JsonMetrics(
       tags: platform_stats.JsonTags(action: action),
       dps: values.entries
-          .map((entry) => platform_stats.JsonDps(
-              timestamp: entry.key, value: entry.value.toDouble()))
+          .map((entry) =>
+              platform_stats.JsonDps(timestamp: entry.key, value: entry.value.toDouble()))
           .toList(),
     ));
   });

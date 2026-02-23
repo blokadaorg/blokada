@@ -105,8 +105,7 @@ stats_api.JsonToplistV2Response _toplistResponse({
 
 void main() {
   group('WeeklyReportActor notification request budget', () {
-    test('falls back to weekly toplists when totals do not trigger an event',
-        () async {
+    test('falls back to weekly toplists when totals do not trigger an event', () async {
       await withTrace((m) async {
         await CoreModule().create();
         final api = _CountingApi(_buildRolling2wStatsJson(
@@ -124,8 +123,7 @@ void main() {
         when(device.deviceAlias).thenReturn('device-1');
         Core.register<DeviceStore>(device);
 
-        Core.register<WeeklyReportPendingEventValue>(
-            WeeklyReportPendingEventValue());
+        Core.register<WeeklyReportPendingEventValue>(WeeklyReportPendingEventValue());
         Core.register<WeeklyReportOptOutValue>(WeeklyReportOptOutValue());
 
         final actor = WeeklyReportActor();
@@ -136,16 +134,14 @@ void main() {
         expect(api.calls, equals([ApiEndpoint.getStatsV2]));
         expect(api.paramsLog.single[ApiParam.statsSince], equals('2w'));
         expect(api.paramsLog.single[ApiParam.statsDownsample], equals('24h'));
-        expect(
-            api.paramsLog.single.containsKey(ApiParam.toplistRange), isFalse);
+        expect(api.paramsLog.single.containsKey(ApiParam.toplistRange), isFalse);
         expect(toplists.calls.length, equals(6));
         expect(toplists.calls.every((c) => c.range == '7d'), isTrue);
         expect(toplists.calls.any((c) => c.range == '24h'), isFalse);
       });
     });
 
-    test('uses weekly totals request only when totals event is triggered',
-        () async {
+    test('uses weekly totals request only when totals event is triggered', () async {
       await withTrace((m) async {
         await CoreModule().create();
         final api = _CountingApi(_buildRolling2wStatsJson(
@@ -163,8 +159,7 @@ void main() {
         when(device.deviceAlias).thenReturn('device-1');
         Core.register<DeviceStore>(device);
 
-        Core.register<WeeklyReportPendingEventValue>(
-            WeeklyReportPendingEventValue());
+        Core.register<WeeklyReportPendingEventValue>(WeeklyReportPendingEventValue());
         Core.register<WeeklyReportOptOutValue>(WeeklyReportOptOutValue());
 
         final actor = WeeklyReportActor();
@@ -175,14 +170,12 @@ void main() {
         expect(api.calls, equals([ApiEndpoint.getStatsV2]));
         expect(api.paramsLog.single[ApiParam.statsSince], equals('2w'));
         expect(api.paramsLog.single[ApiParam.statsDownsample], equals('24h'));
-        expect(
-            api.paramsLog.single.containsKey(ApiParam.toplistRange), isFalse);
+        expect(api.paramsLog.single.containsKey(ApiParam.toplistRange), isFalse);
         expect(toplists.calls, isEmpty);
       });
     });
 
-    test('does not generate weekly events without full 14-day comparison',
-        () async {
+    test('does not generate weekly events without full 14-day comparison', () async {
       await withTrace((m) async {
         await CoreModule().create();
         final api = _CountingApi(_buildRollingStatsJson(
@@ -201,8 +194,7 @@ void main() {
         when(device.deviceAlias).thenReturn('device-1');
         Core.register<DeviceStore>(device);
 
-        Core.register<WeeklyReportPendingEventValue>(
-            WeeklyReportPendingEventValue());
+        Core.register<WeeklyReportPendingEventValue>(WeeklyReportPendingEventValue());
         Core.register<WeeklyReportOptOutValue>(WeeklyReportOptOutValue());
 
         final actor = WeeklyReportActor();

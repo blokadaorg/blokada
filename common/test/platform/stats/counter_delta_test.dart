@@ -5,15 +5,13 @@ import 'package:common/src/platform/stats/api.dart' as api;
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/weekly_comparison.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart'
-    as family_stats;
+import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('counter deltas from rolling 2w stats', () {
     test('computes weekly counters (7d vs previous 7d) from fixture', () {
-      final raw = File('test/platform/stats/fixtures/stats_2w_iphone.json')
-          .readAsStringSync();
+      final raw = File('test/platform/stats/fixtures/stats_2w_iphone.json').readAsStringSync();
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
       final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
 
@@ -37,8 +35,7 @@ void main() {
     });
 
     test('computes daily counters (last 24h vs previous 24h) from fixture', () {
-      final raw = File('test/platform/stats/fixtures/stats_48h_iphone.json')
-          .readAsStringSync();
+      final raw = File('test/platform/stats/fixtures/stats_48h_iphone.json').readAsStringSync();
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
       final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
 
@@ -49,9 +46,8 @@ void main() {
           if (dp.timestamp > latestTimestamp) latestTimestamp = dp.timestamp;
         }
       }
-      final referenceTime = DateTime.fromMillisecondsSinceEpoch(
-          (latestTimestamp + 3600) * 1000,
-          isUtc: true);
+      final referenceTime =
+          DateTime.fromMillisecondsSinceEpoch((latestTimestamp + 3600) * 1000, isUtc: true);
 
       final daily = buildHourlyPeriodCountersFromRollingStats(
         endpoint,
@@ -75,8 +71,7 @@ void main() {
     });
 
     test('includes current hour counters for new user fixture', () {
-      final raw = File('test/platform/stats/fixtures/stats_48h_new_user.json')
-          .readAsStringSync();
+      final raw = File('test/platform/stats/fixtures/stats_48h_new_user.json').readAsStringSync();
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
       final endpoint = api.JsonStatsEndpoint.fromJson(decoded);
 
@@ -87,9 +82,8 @@ void main() {
         }
       }
 
-      final referenceTime = DateTime.fromMillisecondsSinceEpoch(
-          (latestTimestamp + 1800) * 1000,
-          isUtc: true);
+      final referenceTime =
+          DateTime.fromMillisecondsSinceEpoch((latestTimestamp + 1800) * 1000, isUtc: true);
 
       final daily = buildHourlyPeriodCountersFromRollingStats(
         endpoint,
@@ -156,15 +150,12 @@ void main() {
   });
 
   group('activity circles data window', () {
-    test('computeStatsBaselines uses last 24h even when day endpoint spans 48h',
-        () {
-      final raw48h = File('test/platform/stats/fixtures/stats_48h_iphone.json')
-          .readAsStringSync();
+    test('computeStatsBaselines uses last 24h even when day endpoint spans 48h', () {
+      final raw48h = File('test/platform/stats/fixtures/stats_48h_iphone.json').readAsStringSync();
       final decoded48h = jsonDecode(raw48h) as Map<String, dynamic>;
       final hourly48h = api.JsonStatsEndpoint.fromJson(decoded48h);
 
-      final raw2w = File('test/platform/stats/fixtures/stats_2w_iphone.json')
-          .readAsStringSync();
+      final raw2w = File('test/platform/stats/fixtures/stats_2w_iphone.json').readAsStringSync();
       final decoded2w = jsonDecode(raw2w) as Map<String, dynamic>;
       final daily2w = api.JsonStatsEndpoint.fromJson(decoded2w);
 
@@ -174,20 +165,16 @@ void main() {
           if (dp.timestamp > latestTimestamp) latestTimestamp = dp.timestamp;
         }
       }
-      final referenceTime = DateTime.fromMillisecondsSinceEpoch(
-          (latestTimestamp + 3600) * 1000,
-          isUtc: true);
+      final referenceTime =
+          DateTime.fromMillisecondsSinceEpoch((latestTimestamp + 3600) * 1000, isUtc: true);
 
-      final baselines = computeStatsBaselines(hourly48h, daily2w,
-          referenceTime: referenceTime);
+      final baselines = computeStatsBaselines(hourly48h, daily2w, referenceTime: referenceTime);
       expect(baselines.allowedHistogram.length, equals(24));
       expect(baselines.blockedHistogram.length, equals(24));
 
       // Sanity: totals represented by histograms should be >0 for this fixture.
-      final allowedTotal =
-          baselines.allowedHistogram.fold<int>(0, (sum, value) => sum + value);
-      final blockedTotal =
-          baselines.blockedHistogram.fold<int>(0, (sum, value) => sum + value);
+      final allowedTotal = baselines.allowedHistogram.fold<int>(0, (sum, value) => sum + value);
+      final blockedTotal = baselines.blockedHistogram.fold<int>(0, (sum, value) => sum + value);
       expect(allowedTotal, greaterThan(0));
       expect(blockedTotal, greaterThan(0));
 
