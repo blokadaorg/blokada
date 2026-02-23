@@ -256,21 +256,38 @@ abstract class AccountRefreshStoreBase
   }
 
   @action
-  Future<void> onRemoteNotification(Marker m) async {
-    return await log(m).trace("onRemoteNotification", (m) async {
-      // We use remote notifications pushed from the cloud to let the client
-      // know that the account has been extended.
+  Future<void> onAccountExpiryEvent(Marker m) async {
+    return await log(m).trace("onAccountExpiryEvent", (m) async {
+      // Account-expiry FCM events signal that account state changed remotely.
       await _account.fetch(m);
       await syncAccount(_account.account, m);
+      await _maybeShowImmediateAccountExpiryNotification(m);
     });
   }
 
-  void _updateTimer(Marker m) async {
-    final id = Core.act.isFamily
+  Future<void> _maybeShowImmediateAccountExpiryNotification(Marker m) async {
+    if (_shouldSkipExpiryNotification()) return;
+
+    final activeUntil = _account.account?.jsonAccount.activeUntil;
+    final scheduledAt = resolveAccountExpirySchedule(activeUntil, DateTime.now());
+    if (scheduledAt != null) return;
+
+    await _notification.show(_accountExpiryNotificationId(), m);
+  }
+
+  NotificationId _accountExpiryNotificationId() {
+    return Core.act.isFamily
         ? NotificationId.accountExpiredFamily
         : NotificationId.accountExpired;
+  }
 
-    final shouldSkipNotification = Core.act.isFamily && _linkedMode.now;
+  bool _shouldSkipExpiryNotification() {
+    return Core.act.isFamily && _linkedMode.now;
+  }
+
+  void _updateTimer(Marker m) async {
+    final id = _accountExpiryNotificationId();
+    final shouldSkipNotification = _shouldSkipExpiryNotification();
 
     DateTime? expDate = expiration.getNextDate();
 
@@ -300,4 +317,15 @@ abstract class AccountRefreshStoreBase
   _saveMetadata(Marker m) async {
     await _persistence.save(m, _keyRefresh, jsonEncode(_metadata.toJson()));
   }
+}
+
+DateTime? resolveAccountExpirySchedule(String? activeUntil, DateTime now) {
+  final value = activeUntil?.trim();
+  if (value == null || value.isEmpty) return null;
+
+  final parsed = DateTime.tryParse(value);
+  if (parsed == null) return null;
+  if (!parsed.isAfter(now)) return null;
+
+  return parsed;
 }

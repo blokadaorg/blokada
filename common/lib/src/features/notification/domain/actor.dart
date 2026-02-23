@@ -10,6 +10,7 @@ class NotificationActor with Logging, Actor {
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
+  late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
@@ -274,6 +275,12 @@ class NotificationActor with Logging, Actor {
       if (data == null) return;
 
       final event = FcmEvent.fromJson(data);
+      if (event.type == "account_expiry") {
+        await _accountRefresh.onAccountExpiryEvent(m);
+        log(m).i("accountExpiry:fcmHandle");
+        log(m).pair("event_id", event.eventId);
+        return;
+      }
       if (event.type != "weekly_update") return;
 
       final when = _resolveScheduleHint(event.scheduleHint);

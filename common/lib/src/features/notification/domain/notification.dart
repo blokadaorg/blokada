@@ -9,6 +9,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/i18n/locales.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart' hide AccountId;
+import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
 import 'package:common/src/platform/stage/stage.dart';

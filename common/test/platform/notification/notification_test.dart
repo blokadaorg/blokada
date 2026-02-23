@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -98,6 +99,33 @@ void main() {
       });
     });
 
+    test("handleFcmEvent handles account expiry without weekly notification", () async {
+      await withTrace((m) async {
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register(NotificationsValue());
+        final accountRefresh = _FakeAccountRefreshStore();
+        Core.register<AccountRefreshStore>(accountRefresh);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        final payload = jsonEncode({
+          "v": "1",
+          "type": "account_expiry",
+          "event_id": "evt-account-expiry",
+        });
+
+        await store.handleFcmEvent(m, payload);
+
+        expect(accountRefresh.onAccountExpiryEvents, 1);
+        verifyNever(ops.doShow(any, any, any));
+      });
+    });
+
     test("notification tap queues privacy pulse navigation while app is backgrounded", () async {
       await withTrace((m) async {
         final stage = MockStageStore();
@@ -186,5 +214,14 @@ class _FakeWeeklyReportActor extends WeeklyReportActor {
   @override
   Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
     return event;
+  }
+}
+
+class _FakeAccountRefreshStore extends Mock implements AccountRefreshStore {
+  int onAccountExpiryEvents = 0;
+
+  @override
+  Future<void> onAccountExpiryEvent(Marker m) async {
+    onAccountExpiryEvents++;
   }
 }
