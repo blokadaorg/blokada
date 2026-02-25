@@ -618,4 +618,25 @@
     <string name="privacy_pulse_tab_blocked">Bloccate</string>
     <string name="privacy_pulse_tab_allowed">Consentite</string>
     <string name="privacy_pulse_empty">Niente da mostrare per ora</string>
+    <string name="notification_weekly_report_title">Resoconto Privacy</string>
+    <string name="notification_weekly_report_body">Apri Blokada per controllare il tuo resoconto settimanale.</string>
+    <string name="notification_weekly_report_refreshed_title">Il tuo resoconto settimanale è pronto</string>
+    <string name="notification_weekly_report_refreshed_body">Apri Blokada per controllare i dettagli recenti.</string>
+    <string name="notification_weekly_report_cta">Vedi resoconto</string>
+    <string name="notification_weekly_report_blocked_increased_title">Attività dei tracker aumentata</string>
+    <string name="notification_weekly_report_blocked_decreased_title">Attività dei tracker diminuita</string>
+    <string name="notification_weekly_report_allowed_increased_title">Traffico consentito aumentato</string>
+    <string name="notification_weekly_report_allowed_decreased_title">Traffico consentito diminuito</string>
+    <string name="notification_weekly_report_blocked_totals_body">Il traffico bloccato è del %s% rispetto la scorsa settimana.</string>
+    <string name="notification_weekly_report_allowed_totals_body">Il traffico consentito è del %s% rispetto la scorsa settimana.</string>
+    <string name="notification_weekly_report_blocked_totals_body_nopercent">Il traffico bloccato è del %s rispetto la scorsa settimana.</string>
+    <string name="notification_weekly_report_allowed_totals_body_nopercent">Il traffico consentito è di %s rispetto la scorsa settimana.</string>
+    <string name="notification_weekly_report_blocked_toplist_new_title">Nuovo tracker in cima alla lista</string>
+    <string name="notification_weekly_report_allowed_toplist_new_title">Nuovo dominio in cima alla lista</string>
+    <string name="notification_weekly_report_blocked_toplist_up_title">Attività dei tracker aumentata</string>
+    <string name="notification_weekly_report_allowed_toplist_up_title">Dominio spostato in alto</string>
+    <string name="notification_weekly_report_blocked_toplist_down_title">Attività dei tracker diminuita</string>
+    <string name="notification_weekly_report_allowed_toplist_down_title">Dominio spostato in basso</string>
+    <string name="notification_weekly_report_toplist_new_body">%s è adesso #%s questa settimana.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s è passato al #%s (era #%s) questa settimana.</string>
 </resources>

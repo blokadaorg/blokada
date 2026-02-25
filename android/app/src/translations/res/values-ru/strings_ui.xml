@@ -618,4 +618,25 @@
     <string name="privacy_pulse_tab_blocked">Заблокировано</string>
     <string name="privacy_pulse_tab_allowed">Разрешено</string>
     <string name="privacy_pulse_empty">Пока нечего показывать</string>
+    <string name="notification_weekly_report_title">Отчет о защите персональных данных</string>
+    <string name="notification_weekly_report_body">Откройте Blokada для просмотра еженедельного отчета.</string>
+    <string name="notification_weekly_report_refreshed_title">Ваш еженедельный отчет готов</string>
+    <string name="notification_weekly_report_refreshed_body">Откройте Blokada, чтобы узнать последние детали.</string>
+    <string name="notification_weekly_report_cta">Просмотр отчета</string>
+    <string name="notification_weekly_report_blocked_increased_title">Активность трекеров увеличилась</string>
+    <string name="notification_weekly_report_blocked_decreased_title">Активность трекеров снизилась</string>
+    <string name="notification_weekly_report_allowed_increased_title">Разрешенный трафик увеличился</string>
+    <string name="notification_weekly_report_allowed_decreased_title">Разрешенный трафик уменьшился</string>
+    <string name="notification_weekly_report_blocked_totals_body">Заблокированный трафик составляет %s% по сравнению с прошлой неделей.</string>
+    <string name="notification_weekly_report_allowed_totals_body">Разрешенный трафик составляет %s% по сравнению с прошлой неделей.</string>
+    <string name="notification_weekly_report_blocked_totals_body_nopercent">Заблокированный трафик составляет %s по сравнению с прошлой неделей.</string>
+    <string name="notification_weekly_report_allowed_totals_body_nopercent">Разрешенный трафик составляет %s по сравнению с прошлой неделей.</string>
+    <string name="notification_weekly_report_blocked_toplist_new_title">Новый трекер в топ-листе</string>
+    <string name="notification_weekly_report_allowed_toplist_new_title">Новый домен в топ-листе</string>
+    <string name="notification_weekly_report_blocked_toplist_up_title">Активность трекеров увеличилась</string>
+    <string name="notification_weekly_report_allowed_toplist_up_title">Домен поднялся в списке лидеров</string>
+    <string name="notification_weekly_report_blocked_toplist_down_title">Активность трекеров снизилась</string>
+    <string name="notification_weekly_report_allowed_toplist_down_title">Домен опустился в списке лидеров</string>
+    <string name="notification_weekly_report_toplist_new_body">%s теперь занимает %s место на этой неделе.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s переместился на #%s (был #%s) на этой неделе.</string>
 </resources>

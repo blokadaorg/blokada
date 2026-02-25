@@ -618,4 +618,25 @@
     <string name="privacy_pulse_tab_blocked">Diblokir</string>
     <string name="privacy_pulse_tab_allowed">Diizinkan</string>
     <string name="privacy_pulse_empty">Belum ada yang bisa ditampilkan</string>
+    <string name="notification_weekly_report_title">Laporan Privasi Shield</string>
+    <string name="notification_weekly_report_body">Buka Blokada untuk melihat laporan mingguan Anda.</string>
+    <string name="notification_weekly_report_refreshed_title">Laporan mingguan Anda sudah siap</string>
+    <string name="notification_weekly_report_refreshed_body">Buka Blokada untuk melihat detail terbaru.</string>
+    <string name="notification_weekly_report_cta">Lihat laporan</string>
+    <string name="notification_weekly_report_blocked_increased_title">Aktivitas pelacak meningkat</string>
+    <string name="notification_weekly_report_blocked_decreased_title">Aktivitas pelacak menurun</string>
+    <string name="notification_weekly_report_allowed_increased_title">Lalu lintas yang diizinkan meningkat</string>
+    <string name="notification_weekly_report_allowed_decreased_title">Lalu lintas yang diizinkan menurun</string>
+    <string name="notification_weekly_report_blocked_totals_body">Blocked traffic is %s% compared to last week.</string>
+    <string name="notification_weekly_report_allowed_totals_body">Allowed traffic is %s% compared to last week.</string>
+    <string name="notification_weekly_report_blocked_totals_body_nopercent">Blocked traffic is %s compared to last week.</string>
+    <string name="notification_weekly_report_allowed_totals_body_nopercent">Allowed traffic is %s compared to last week.</string>
+    <string name="notification_weekly_report_blocked_toplist_new_title">Pelacak baru di daftar teratas</string>
+    <string name="notification_weekly_report_allowed_toplist_new_title">Domain baru di daftar teratas</string>
+    <string name="notification_weekly_report_blocked_toplist_up_title">Aktivitas pelacak meningkat</string>
+    <string name="notification_weekly_report_allowed_toplist_up_title">Domain dipindahkan ke atas</string>
+    <string name="notification_weekly_report_blocked_toplist_down_title">Aktivitas pelacak menurun</string>
+    <string name="notification_weekly_report_allowed_toplist_down_title">Domain dipindahkan ke bawah</string>
+    <string name="notification_weekly_report_toplist_new_body">%s sekarang menjadi #%s minggu ini.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s dipindahkan ke #%s (sebelumnya #%s) minggu ini.</string>
 </resources>
