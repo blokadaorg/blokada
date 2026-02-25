@@ -147,8 +147,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _stage.modalDismissed(m);
       case CommandName.back:
         return await _stage.back();
-      case CommandName.remoteNotification:
-        return await _accountRefresh.onRemoteNotification(m);
       case CommandName.crashLog:
         //return await _tracer.checkForCrashLog(force: true, m);
         return;

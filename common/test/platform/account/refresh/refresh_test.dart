@@ -146,5 +146,126 @@ void main() {
         verify(account.fetch(any)).called(1);
       });
     });
+
+    test("onAccountExpiryEvent keeps scheduled delivery for future expiry", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        final futureExpiry = DateTime.fromMillisecondsSinceEpoch(
+          DateTime.now().toUtc().millisecondsSinceEpoch +
+              const Duration(hours: 6).inMilliseconds,
+          isUtc: true,
+        );
+        account.account = _accountState(
+          activeUntil: futureExpiry,
+          type: AccountType.cloud,
+          active: true,
+        );
+        when(account.fetch(any)).thenAnswer((_) async {});
+        Core.register<AccountStore>(account);
+
+        final notification = MockNotificationActor();
+        Core.register<NotificationActor>(notification);
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<Persistence>(MockPersistence());
+        Core.register<PlusActor>(MockPlusActor());
+
+        final subject = AccountRefreshStore();
+        await subject.onAccountExpiryEvent(m);
+
+        final captured = verify(notification.show(
+          NotificationId.accountExpired,
+          any,
+          when: captureAnyNamed('when'),
+        )).captured;
+        expect(captured, hasLength(1));
+
+        final scheduledAt = captured.first as DateTime;
+        expect(scheduledAt.toUtc(), futureExpiry.toUtc());
+      });
+    });
+
+    test("onAccountExpiryEvent delivers immediate notification when already expired", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        final expiredAt = DateTime.fromMillisecondsSinceEpoch(
+          DateTime.now().toUtc().millisecondsSinceEpoch -
+              const Duration(hours: 1).inMilliseconds,
+          isUtc: true,
+        );
+        account.account = _accountState(
+          activeUntil: expiredAt,
+          type: AccountType.libre,
+          active: false,
+        );
+        when(account.fetch(any)).thenAnswer((_) async {});
+        Core.register<AccountStore>(account);
+
+        final notification = MockNotificationActor();
+        Core.register<NotificationActor>(notification);
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<Persistence>(MockPersistence());
+        Core.register<PlusActor>(MockPlusActor());
+
+        final subject = AccountRefreshStore();
+        await subject.onAccountExpiryEvent(m);
+
+        verify(notification.show(NotificationId.accountExpired, any)).called(1);
+        verifyNever(notification.show(
+          NotificationId.accountExpired,
+          any,
+          when: anyNamed('when'),
+        ));
+      });
+    });
   });
+
+  group("resolveAccountExpirySchedule", () {
+    final now = DateTime.utc(2026, 2, 24, 10, 0, 0);
+
+    test("returns date when active_until is in the future", () {
+      final scheduled = resolveAccountExpirySchedule("2026-02-24T12:00:00Z", now);
+      expect(scheduled?.toUtc(), DateTime.utc(2026, 2, 24, 12, 0, 0));
+    });
+
+    test("returns null when active_until is now or in the past", () {
+      expect(resolveAccountExpirySchedule("2026-02-24T10:00:00Z", now), isNull);
+      expect(resolveAccountExpirySchedule("2026-02-24T09:59:59Z", now), isNull);
+    });
+
+    test("returns null when active_until is absent or invalid", () {
+      expect(resolveAccountExpirySchedule(null, now), isNull);
+      expect(resolveAccountExpirySchedule("", now), isNull);
+      expect(resolveAccountExpirySchedule("invalid", now), isNull);
+    });
+  });
+}
+
+AccountState _accountState({
+  required DateTime activeUntil,
+  required AccountType type,
+  required bool active,
+}) {
+  return AccountState(
+    Fixtures.accountId,
+    JsonAccount(
+      id: Fixtures.accountId,
+      activeUntil: activeUntil.toIso8601String(),
+      type: type.name,
+      active: active,
+    ),
+  );
+}
+
+class _TestAccountStore extends MockAccountStore {
+  AccountState? _account;
+
+  @override
+  AccountState? get account => _account;
+
+  @override
+  set account(AccountState? value) {
+    _account = value;
+  }
 }

@@ -5,6 +5,7 @@ import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/stats/api.dart' as api;
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
+import 'package:common/src/platform/stats/weekly_comparison.dart';
 import 'package:meta/meta.dart';
 
 enum ToplistDeltaType { up, down, newEntry, same }
@@ -29,21 +30,29 @@ class CounterDelta {
   final int allowedPercent;
   final int blockedPercent;
   final bool hasComparison;
+  final String allowedLabel;
+  final String blockedLabel;
 
   const CounterDelta({
     required this.allowedPercent,
     required this.blockedPercent,
     required this.hasComparison,
+    this.allowedLabel = '',
+    this.blockedLabel = '',
   });
 
-  static CounterDelta empty() =>
-      const CounterDelta(allowedPercent: 0, blockedPercent: 0, hasComparison: false);
+  static CounterDelta empty() => const CounterDelta(
+        allowedPercent: 0,
+        blockedPercent: 0,
+        hasComparison: false,
+        allowedLabel: '',
+        blockedLabel: '',
+      );
 }
 
 @visibleForTesting
 int percentChange(int previous, int current) {
-  if (previous == 0) return 0;
-  return (((current - previous) / previous) * 100).round();
+  return compareWeeklyTotals(previous, current).roundedPercent;
 }
 
 @visibleForTesting
@@ -53,10 +62,14 @@ CounterDelta computeCounterDelta({
   required bool hasComparison,
 }) {
   if (!hasComparison) return CounterDelta.empty();
+  final allowedComparison = compareWeeklyTotals(previous.allowed, current.allowed);
+  final blockedComparison = compareWeeklyTotals(previous.blocked, current.blocked);
   return CounterDelta(
-    allowedPercent: percentChange(previous.allowed, current.allowed),
-    blockedPercent: percentChange(previous.blocked, current.blocked),
+    allowedPercent: allowedComparison.roundedPercent,
+    blockedPercent: blockedComparison.roundedPercent,
     hasComparison: hasComparison,
+    allowedLabel: allowedComparison.formatForCounterLabel(),
+    blockedLabel: blockedComparison.formatForCounterLabel(),
   );
 }
 
@@ -150,8 +163,7 @@ class StatsDeltaStore with Logging, Actor {
       force: force,
     );
 
-    final countersPeriod =
-        await _stats.countersPeriods(range, deviceName, m, force: force);
+    final countersPeriod = await _stats.countersPeriods(range, deviceName, m, force: force);
 
     final allowedMergedCurrent = _mergeAllowed(allowedCurrent, fallthroughCurrent);
     final allowedMergedPrev = _mergeAllowed(allowedPrev, fallthroughPrev);

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:common/src/platform/stats/api.dart' as api;
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
+import 'package:common/src/platform/stats/weekly_comparison.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
 import 'package:flutter_test/flutter_test.dart';
 
@@ -122,6 +123,30 @@ void main() {
       expect(delta.blockedPercent, equals(0));
       expect(delta.hasComparison, isFalse);
     });
+
+    test('uses multiplier-style labels for large weekly increases', () {
+      final delta = computeCounterDelta(
+        previous: const StatsCounters(allowed: 10, blocked: 20, total: 30),
+        current: const StatsCounters(allowed: 21, blocked: 30, total: 51),
+        hasComparison: true,
+      );
+
+      expect(delta.allowedLabel, equals('3x'));
+      expect(delta.blockedLabel, equals('+50%'));
+    });
+  });
+
+  group('weekly comparison labels', () {
+    test('formats notification values with multiplier and rounded percent', () {
+      final increased = compareWeeklyTotals(10, 25);
+      final decreased = compareWeeklyTotals(20, 10);
+      final slightDecrease = compareWeeklyTotals(200, 181); // -9.5%
+
+      expect(increased.formatForNotification(), equals('3x'));
+      expect(decreased.formatForNotification(), equals('-50'));
+      expect(slightDecrease.formatForNotification(), equals('-10'));
+      expect(slightDecrease.formatForCounterLabel(), equals('-10%'));
+    });
   });
 
   group('activity circles data window', () {
@@ -148,10 +173,8 @@ void main() {
       expect(baselines.blockedHistogram.length, equals(24));
 
       // Sanity: totals represented by histograms should be >0 for this fixture.
-      final allowedTotal =
-          baselines.allowedHistogram.fold<int>(0, (sum, value) => sum + value);
-      final blockedTotal =
-          baselines.blockedHistogram.fold<int>(0, (sum, value) => sum + value);
+      final allowedTotal = baselines.allowedHistogram.fold<int>(0, (sum, value) => sum + value);
+      final blockedTotal = baselines.blockedHistogram.fold<int>(0, (sum, value) => sum + value);
       expect(allowedTotal, greaterThan(0));
       expect(blockedTotal, greaterThan(0));
 

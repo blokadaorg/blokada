@@ -30,14 +30,12 @@ class PrivacyPulseSection extends StatefulWidget {
   final bool autoRefresh;
   final ScrollController controller;
   final ToplistRange? initialRange;
-  final bool fromWeeklyNotification;
 
   const PrivacyPulseSection({
     Key? key,
     required this.autoRefresh,
     required this.controller,
     this.initialRange,
-    this.fromWeeklyNotification = false,
   }) : super(key: key);
 
   @override
@@ -71,7 +69,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     ToplistRange.daily: false,
     ToplistRange.weekly: false,
   };
-  bool _skippedInitialWeeklyDeltaRefresh = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -94,25 +91,11 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     _disposers.add(mobx.autorun((_) {
       final deviceAlias = _deviceStore.deviceAlias;
       if (deviceAlias.isNotEmpty) {
-        _kickoffStatsFetch().then((_) async {
-          // Temporarily disabled weekly report fetch (kept for re-enable later).
-          // if (!_weeklyReportFetched) {
-          //   _weeklyReportFetched = true;
-          //   await _weeklyReport.refreshAndPick(Markers.stats);
-          // }
-        });
+        _kickoffStatsFetch();
 
-        final fromWeeklyNotificationEntry =
-            widget.fromWeeklyNotification && _toplistRange == ToplistRange.weekly;
-        if (fromWeeklyNotificationEntry && !_skippedInitialWeeklyDeltaRefresh) {
-          _skippedInitialWeeklyDeltaRefresh = true;
-          log(Markers.stats).t('weeklyReport:privacyPulse:skipInitialDeltaRefresh');
-          unawaited(_updateCounters());
-        } else {
-          unawaited(_refreshDeltas());
-          unawaited(_updateCounters());
-          unawaited(_updateWeeklySparkline());
-        }
+        unawaited(_refreshDeltas());
+        unawaited(_updateCounters());
+        unawaited(_updateWeeklySparkline());
 
         if (!_toplistsFetched) {
           _toplistsFetched = true;
@@ -158,8 +141,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
 
   Future<void> _fetchToplists({ToplistRange? rangeOverride}) {
     final selectedRange = rangeOverride ?? _toplistRange;
-    final future =
-        log(Markers.userTap).trace("privacyPulseFetchToplists", (m) async {
+    final future = log(Markers.userTap).trace("privacyPulseFetchToplists", (m) async {
       await _store.fetchToplists(
         m,
         range: selectedRange == ToplistRange.daily ? "24h" : "7d",
@@ -181,8 +163,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     final deviceName = _deviceStore.deviceAlias;
     if (deviceName.isEmpty) return;
     final label = range == ToplistRange.daily ? "24h" : "7d";
-    await _deltaStore.refresh(Markers.stats,
-        deviceName: deviceName, range: label, force: false);
+    await _deltaStore.refresh(Markers.stats, deviceName: deviceName, range: label, force: false);
     if (!mounted) return;
     setState(() {
       _blockedDeltas[range] = _deltaStore.deltasFor(deviceName, label, blocked: true);
@@ -216,8 +197,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       await _updateCounters(force: true);
       await _updateWeeklySparkline(force: true);
       await _refreshDeltas(rangeOverride: _toplistRange);
-      // Temporarily disabled weekly report refresh (kept for re-enable later).
-      // await _weeklyReport.refreshAndPick(m);
       await _journal.fetch(m, tag: null);
       await _store.fetchToplists(
         m,
@@ -279,8 +258,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           if (_weeklyEvent != null) ...[
                             Builder(builder: (context) {
                               final event = _weeklyEvent!;
-                              final isToplist =
-                                  event.type == WeeklyReportEventType.toplistChange;
+                              final isToplist = event.type == WeeklyReportEventType.toplistChange;
                               final timeLabel =
                                   timeago.format(event.generatedAt, allowFromNow: true);
                               return WeeklyReportCard(
@@ -308,13 +286,12 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                               padding: const EdgeInsets.all(16.0),
                               child: PrivacyPulseCharts(
                                 stats: stats,
-                              counters: _counters,
-                              counterDelta: _counterDeltas[_toplistRange],
-                              statsReady: _hasStats,
-                              deltaReady: _deltaReady[_toplistRange] ?? false,
-                              sparklineSeries: _toplistRange == ToplistRange.weekly
-                                  ? _weeklySparkline
-                                  : null,
+                                counters: _counters,
+                                counterDelta: _counterDeltas[_toplistRange],
+                                statsReady: _hasStats,
+                                deltaReady: _deltaReady[_toplistRange] ?? false,
+                                sparklineSeries:
+                                    _toplistRange == ToplistRange.weekly ? _weeklySparkline : null,
                                 trailing: _buildToplistRangeToggle(context),
                               ),
                             ),
@@ -447,8 +424,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       final renderObject = keyContext.findRenderObject();
       final viewport = RenderAbstractViewport.of(renderObject);
       if (renderObject != null && viewport != null) {
-        final target =
-            viewport.getOffsetToReveal(renderObject, 0).offset - topOffset;
+        final target = viewport.getOffsetToReveal(renderObject, 0).offset - topOffset;
         final clamped = target.clamp(
           widget.controller.position.minScrollExtent,
           widget.controller.position.maxScrollExtent,

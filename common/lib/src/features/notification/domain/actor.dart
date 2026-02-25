@@ -10,9 +10,13 @@ class NotificationActor with Logging, Actor {
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
+  late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
+  var _pendingPrivacyPulseNav = false;
+  Object? _pendingPrivacyPulseArgs;
+  var _privacyPulseNavInFlight = false;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -35,6 +39,9 @@ class NotificationActor with Logging, Actor {
     if (!Core.act.isFamily) {
       _account.addOn(accountChanged, syncNotificationConfigFromBackendAsync);
       _account.addOn(accountIdChanged, syncNotificationConfigFromBackendAsync);
+    }
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingPrivacyPulse(m, trigger: "onStart");
     }
   }
 
@@ -72,6 +79,7 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
+      await _tryOpenPendingPrivacyPulse(m, trigger: "routeChanged");
     });
   }
 
@@ -192,13 +200,13 @@ class NotificationActor with Logging, Actor {
 
   String? _mapLocale(ui.Locale locale) {
     final exact = supportedLocales.firstWhereOrNull(
-      (it) => it.languageCode == locale.languageCode &&
-          it.countryCode == locale.countryCode,
+      (it) => it.languageCode == locale.languageCode && it.countryCode == locale.countryCode,
     );
     if (exact != null) return exact.toLanguageTag();
 
     final languageOnly = supportedLocales.firstWhereOrNull(
-      (it) => it.languageCode == locale.languageCode &&
+      (it) =>
+          it.languageCode == locale.languageCode &&
           (it.countryCode == null || it.countryCode!.isEmpty),
     );
     if (languageOnly != null) return languageOnly.toLanguageTag();
@@ -224,13 +232,39 @@ class NotificationActor with Logging, Actor {
       } else if (id == NotificationId.weeklyReport) {
         final args = {
           'toplistRange': ToplistRange.weekly,
-          'fromWeeklyNotification': true,
         };
         if (!isOnPrivacyPulse) {
-          await _openPrivacyPulseWithRetry(m, args);
+          _pendingPrivacyPulseNav = true;
+          _pendingPrivacyPulseArgs = args;
+          if (_stage.route.isForeground()) {
+            await _tryOpenPendingPrivacyPulse(m, trigger: "notificationTapped");
+          }
         }
       }
     });
+  }
+
+  Future<void> _tryOpenPendingPrivacyPulse(Marker m, {required String trigger}) async {
+    if (!_pendingPrivacyPulseNav) return;
+    if (_privacyPulseNavInFlight) return;
+
+    final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
+    if (isOnPrivacyPulse) {
+      _pendingPrivacyPulseNav = false;
+      _pendingPrivacyPulseArgs = null;
+      return;
+    }
+
+    _privacyPulseNavInFlight = true;
+    final args = _pendingPrivacyPulseArgs;
+    _pendingPrivacyPulseNav = false;
+    _pendingPrivacyPulseArgs = null;
+    try {
+      await _openPrivacyPulseWithRetry(m, args);
+    } finally {
+      _privacyPulseNavInFlight = false;
+      log(m).pair("privacyPulseNavTrigger", trigger);
+    }
   }
 
   Future<void> _openPrivacyPulseWithRetry(Marker m, Object? args) async {
@@ -259,6 +293,12 @@ class NotificationActor with Logging, Actor {
       if (data == null) return;
 
       final event = FcmEvent.fromJson(data);
+      if (event.type == "account_expiry") {
+        await _accountRefresh.onAccountExpiryEvent(m);
+        log(m).i("accountExpiry:fcmHandle");
+        log(m).pair("event_id", event.eventId);
+        return;
+      }
       if (event.type != "weekly_update") return;
 
       final when = _resolveScheduleHint(event.scheduleHint);
@@ -303,8 +343,7 @@ class NotificationActor with Logging, Actor {
   }
 
   DateTime? _resolveScheduleHint(String? scheduleHint) {
-    final now = DateTime.now();
-    return now.add(const Duration(minutes: 2));
+    return resolveNotificationScheduleHint(scheduleHint, DateTime.now());
   }
 
   _addCapped(NotificationEvent event) {
@@ -324,4 +363,22 @@ class NotificationActor with Logging, Actor {
       await _channel.doDismissAll();
     }
   }
+}
+
+DateTime? resolveNotificationScheduleHint(String? scheduleHint, DateTime now) {
+  final trimmed = scheduleHint?.trim();
+  if (trimmed == null || trimmed.isEmpty) return null;
+
+  final hour = int.tryParse(trimmed);
+  if (hour == null || hour < 0 || hour > 23) return null;
+
+  final localNow = now.toLocal();
+  final todayAtHour = DateTime(
+    localNow.year,
+    localNow.month,
+    localNow.day,
+    hour,
+  );
+  if (todayAtHour.isAfter(localNow)) return todayAtHour;
+  return todayAtHour.add(const Duration(days: 1));
 }

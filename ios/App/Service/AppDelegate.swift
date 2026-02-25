@@ -181,8 +181,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
-        commands.execute(.remoteNotification)
-
         if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
            let json = String(data: data, encoding: .utf8) {
             commands.executeWithCompletion(.fcmEvent, json) { result in

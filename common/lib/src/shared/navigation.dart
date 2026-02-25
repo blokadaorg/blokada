@@ -99,8 +99,7 @@ class Navigation with Logging {
     if (settings.name == Paths.device.path) {
       final device = settings.arguments as FamilyDevice;
       return StandardRoute(
-          settings: settings,
-          builder: (context) => DeviceScreen(tag: device.device.deviceTag));
+          settings: settings, builder: (context) => DeviceScreen(tag: device.device.deviceTag));
     }
 
     if (settings.name == Paths.deviceStats.path) {
@@ -111,8 +110,7 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: "activity section header".i18n,
           topBarTrailing: _getStatsAction(context, device.device.deviceTag),
-          child:
-              StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
+          child: StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
         ),
       );
     }
@@ -187,8 +185,7 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.settings.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const SettingsScreen());
+      return StandardRoute(settings: settings, builder: (context) => const SettingsScreen());
     }
 
     if (settings.name == Paths.settingsExceptions.path) {
@@ -245,13 +242,11 @@ class Navigation with Logging {
     }
 
     if (settings.name == Paths.activity.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const ActivityScreen());
+      return StandardRoute(settings: settings, builder: (context) => const ActivityScreen());
     }
 
     if (settings.name == Paths.privacyPulse.path) {
       ToplistRange? initialRange;
-      bool fromWeeklyNotification = false;
       final args = settings.arguments;
       if (args is Map) {
         final rangeArg = args['toplistRange'];
@@ -261,23 +256,17 @@ class Navigation with Logging {
           if (rangeArg == "weekly") initialRange = ToplistRange.weekly;
           if (rangeArg == "daily") initialRange = ToplistRange.daily;
         }
-        final fromNotificationArg = args['fromWeeklyNotification'];
-        if (fromNotificationArg is bool) {
-          fromWeeklyNotification = fromNotificationArg;
-        }
       }
       return StandardRoute(
         settings: settings,
         builder: (context) => PrivacyPulseScreen(
           initialToplistRange: initialRange,
-          fromWeeklyNotification: fromWeeklyNotification,
         ),
       );
     }
 
     if (settings.name == Paths.advanced.path) {
-      return StandardRoute(
-          settings: settings, builder: (context) => const AdvancedScreen());
+      return StandardRoute(settings: settings, builder: (context) => const AdvancedScreen());
     }
 
     return StandardRoute(settings: settings, builder: (context) => homeContent);
@@ -311,8 +300,7 @@ class Navigation with Logging {
             if (domain.isEmpty) return;
 
             log(Markers.userTap).trace("addCustom", (m) async {
-              await _custom.addOrRemove(domain, isWildcard, m,
-                  gotBlocked: !blocked);
+              await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
             });
           });
         },

@@ -2,7 +2,6 @@ part of 'notification.dart';
 
 const Duration weeklyReportInterval = Duration(minutes: 10);
 const Duration weeklyReportBackgroundLead = Duration(minutes: 2);
-const bool weeklyReportGenerationEnabled = false; // Temporary kill switch for weekly reports.
 
 const weeklyReportTitleKey = 'notification weekly report title';
 const weeklyReportBodyKey = 'notification weekly report body';
@@ -10,14 +9,10 @@ const weeklyReportRefreshedTitleKey = 'notification weekly report refreshed titl
 const weeklyReportRefreshedBodyKey = 'notification weekly report refreshed body';
 const weeklyReportCtaKey = 'notification weekly report cta';
 
-const weeklyReportBlockedIncreasedTitleKey =
-    'notification weekly report blocked increased title';
-const weeklyReportBlockedDecreasedTitleKey =
-    'notification weekly report blocked decreased title';
-const weeklyReportAllowedIncreasedTitleKey =
-    'notification weekly report allowed increased title';
-const weeklyReportAllowedDecreasedTitleKey =
-    'notification weekly report allowed decreased title';
+const weeklyReportBlockedIncreasedTitleKey = 'notification weekly report blocked increased title';
+const weeklyReportBlockedDecreasedTitleKey = 'notification weekly report blocked decreased title';
+const weeklyReportAllowedIncreasedTitleKey = 'notification weekly report allowed increased title';
+const weeklyReportAllowedDecreasedTitleKey = 'notification weekly report allowed decreased title';
 const weeklyReportBlockedTotalsBodyKey = 'notification weekly report blocked totals body';
 const weeklyReportAllowedTotalsBodyKey = 'notification weekly report allowed totals body';
 const weeklyReportBlockedTotalsBodyNoPercentKey =
@@ -29,10 +24,8 @@ const weeklyReportBlockedToplistNewTitleKey =
     'notification weekly report blocked toplist new title';
 const weeklyReportAllowedToplistNewTitleKey =
     'notification weekly report allowed toplist new title';
-const weeklyReportBlockedToplistUpTitleKey =
-    'notification weekly report blocked toplist up title';
-const weeklyReportAllowedToplistUpTitleKey =
-    'notification weekly report allowed toplist up title';
+const weeklyReportBlockedToplistUpTitleKey = 'notification weekly report blocked toplist up title';
+const weeklyReportAllowedToplistUpTitleKey = 'notification weekly report allowed toplist up title';
 const weeklyReportBlockedToplistDownTitleKey =
     'notification weekly report blocked toplist down title';
 const weeklyReportAllowedToplistDownTitleKey =
@@ -66,10 +59,8 @@ class WeeklyReportOptOutValue extends BoolPersistedValue {
   WeeklyReportOptOutValue() : super('notification:weekly_report:opt_out');
 }
 
-class WeeklyReportPendingEventValue
-    extends JsonPersistedValue<WeeklyReportPendingEvent> {
-  WeeklyReportPendingEventValue()
-      : super('notification:weekly_report:pending_event', secure: true);
+class WeeklyReportPendingEventValue extends JsonPersistedValue<WeeklyReportPendingEvent> {
+  WeeklyReportPendingEventValue() : super('notification:weekly_report:pending_event', secure: true);
 
   @override
   Map<String, dynamic> toJson(WeeklyReportPendingEvent value) => value.toJson();
@@ -319,11 +310,13 @@ class WeeklyTotalsSplitResult {
   final WeeklyReportTotals current;
   final WeeklyReportTotals previous;
   final DateTime anchor;
+  final bool hasComparison;
 
   WeeklyTotalsSplitResult({
     required this.current,
     required this.previous,
     required this.anchor,
+    required this.hasComparison,
   });
 }
 
@@ -331,7 +324,6 @@ class WeeklyTotalsSplitResult {
 WeeklyTotalsSplitResult splitWeeklyTotalsFromStats(platform_stats.JsonStatsEndpoint stats) {
   const daysPerWeek = 7;
   const totalDays = daysPerWeek * 2;
-  const secondsPerDay = 24 * 60 * 60;
 
   final allowedByDay = <int, int>{};
   final blockedByDay = <int, int>{};
@@ -359,13 +351,17 @@ WeeklyTotalsSplitResult splitWeeklyTotalsFromStats(platform_stats.JsonStatsEndpo
       current: const WeeklyReportTotals(allowed: 0, blocked: 0),
       previous: const WeeklyReportTotals(allowed: 0, blocked: 0),
       anchor: anchor,
+      hasComparison: false,
     );
   }
 
   final latest = timestamps.reduce((a, b) => a > b ? a : b);
+  final usesMillis = latest > 10000000000;
+  final dayUnit = usesMillis ? Duration(days: 1).inMilliseconds : Duration(days: 1).inSeconds;
+
   final timeline = <int>[];
   for (int i = totalDays - 1; i >= 0; i--) {
-    timeline.add(latest - i * secondsPerDay);
+    timeline.add(latest - i * dayUnit);
   }
 
   final previousDays = timeline.sublist(0, daysPerWeek);
@@ -380,12 +376,20 @@ WeeklyTotalsSplitResult splitWeeklyTotalsFromStats(platform_stats.JsonStatsEndpo
   final previousBlocked = sumForDays(blockedByDay, previousDays);
 
   final boundaryTimestamp = currentDays.first;
-  final anchor = DateTime.fromMillisecondsSinceEpoch(boundaryTimestamp * 1000, isUtc: true);
+  final anchor = usesMillis
+      ? DateTime.fromMillisecondsSinceEpoch(boundaryTimestamp, isUtc: true)
+      : DateTime.fromMillisecondsSinceEpoch(boundaryTimestamp * 1000, isUtc: true);
+  final uniqueDays = <int>{};
+  for (final ts in timestamps) {
+    uniqueDays.add(ts ~/ dayUnit);
+  }
+  final hasComparison = uniqueDays.length >= totalDays;
 
   return WeeklyTotalsSplitResult(
     current: WeeklyReportTotals(allowed: currentAllowed, blocked: currentBlocked),
     previous: WeeklyReportTotals(allowed: previousAllowed, blocked: previousBlocked),
     anchor: anchor,
+    hasComparison: hasComparison,
   );
 }
 
@@ -446,21 +450,26 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m) async {
     final totalsResult = await context.totals(m);
     if (totalsResult == null) return [];
+    if (!totalsResult.hasComparison) return [];
 
     final results = <WeeklyReportEvent>[];
     final previousBlocked = totalsResult.previous.blocked;
     final currentBlocked = totalsResult.current.blocked;
     final previousAllowed = totalsResult.previous.allowed;
     final currentAllowed = totalsResult.current.allowed;
-    final blockedDelta = _percentChange(previousBlocked, currentBlocked);
-    final allowedDelta = _percentChange(previousAllowed, currentAllowed);
+    final blockedComparison = weekly_comparison.compareWeeklyTotals(
+      previousBlocked,
+      currentBlocked,
+    );
+    final allowedComparison = weekly_comparison.compareWeeklyTotals(
+      previousAllowed,
+      currentAllowed,
+    );
 
     final blockedEvent = _buildEvent(
       totalsResult.anchor,
       label: 'Blocked',
-      previous: previousBlocked,
-      current: currentBlocked,
-      delta: blockedDelta,
+      comparison: blockedComparison,
       positiveIsIncrease: false,
       key: 'blocked',
     );
@@ -471,9 +480,7 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
     final allowedEvent = _buildEvent(
       totalsResult.anchor,
       label: 'Allowed',
-      previous: previousAllowed,
-      current: currentAllowed,
-      delta: allowedDelta,
+      comparison: allowedComparison,
       positiveIsIncrease: true,
       key: 'allowed',
     );
@@ -487,28 +494,23 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
   WeeklyReportEvent? _buildEvent(
     DateTime anchor, {
     required String label,
-    required int previous,
-    required int current,
-    required double delta,
+    required weekly_comparison.WeeklyComparison comparison,
     required bool positiveIsIncrease,
     required String key,
   }) {
     // Avoid noise on tiny changes
-    final absDelta = delta.abs();
+    final absDelta = comparison.absolutePercent;
     if (absDelta < 1) return null;
 
-    final increased = delta > 0;
-    final sign = increased ? '+' : '-';
+    final increased = comparison.increased;
     final icon =
         increased == positiveIsIncrease ? WeeklyReportIcon.trendUp : WeeklyReportIcon.trendDown;
-    final percent = absDelta.toStringAsFixed(absDelta >= 10 ? 0 : 1);
-    final multiplier = _multiplierLabel(previous, current);
     final id = 'totals:$key:${anchor.toIso8601String()}';
-    final useMultiplier = increased && multiplier != null;
-    final value = useMultiplier ? multiplier : '$sign$percent';
+    final usePercentKey = !(increased && comparison.multiplierLabel != null);
+    final value = comparison.formatForNotification();
 
     final title = _totalsTitle(label, increased);
-    final body = _totalsBody(label, value, usePercentKey: !useMultiplier);
+    final body = _totalsBody(label, value, usePercentKey: usePercentKey);
 
     return WeeklyReportEvent(
       id: id,
@@ -547,21 +549,6 @@ class WeeklyTotalsDeltaSource implements WeeklyReportEventSource {
         ? weeklyReportAllowedTotalsBodyKey.i18n.withParams(value)
         : weeklyReportAllowedTotalsBodyNoPercentKey.i18n.withParams(value);
   }
-
-  double _percentChange(int previous, int current) {
-    if (previous == 0) {
-      if (current == 0) return 0;
-      return 100;
-    }
-    return ((current - previous) / previous) * 100;
-  }
-
-  String? _multiplierLabel(int previous, int current) {
-    if (previous <= 0 || current <= previous) return null;
-    final multiplier = current / previous;
-    if (multiplier < 2) return null;
-    return '${multiplier.ceil()}x';
-  }
 }
 
 class ToplistMovementSource implements WeeklyReportEventSource {
@@ -571,8 +558,13 @@ class ToplistMovementSource implements WeeklyReportEventSource {
   @override
   Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m) async {
     final totals = await context.totals(m);
+    if (totals == null) return [];
+    // Keep toplist notifications meaningful for newer accounts: require at least
+    // some previous-week activity, but do not require a full 14-day comparison window.
+    final hadPreviousWeekActivity = totals.previous.allowed > 0 || totals.previous.blocked > 0;
+    if (!hadPreviousWeekActivity) return [];
     final toplists = await context.toplists(m);
-    if (totals == null || toplists == null) return [];
+    if (toplists == null) return [];
 
     final events = <WeeklyReportEvent>[];
     events.addAll(_fromToplists(
@@ -615,8 +607,7 @@ class ToplistMovementSource implements WeeklyReportEventSource {
           title: blocked
               ? weeklyReportBlockedToplistNewTitleKey.i18n
               : weeklyReportAllowedToplistNewTitleKey.i18n,
-          body: weeklyReportToplistNewBodyKey.i18n
-              .withParams(entry.name, currentRank.toString()),
+          body: weeklyReportToplistNewBodyKey.i18n.withParams(entry.name, currentRank.toString()),
           type: WeeklyReportEventType.toplistChange,
           icon: blocked ? WeeklyReportIcon.shield : WeeklyReportIcon.chart,
           score: 80 - currentRank * 5,
@@ -903,30 +894,19 @@ class WeeklyReportActor with Logging, Actor {
   late final _repository = WeeklyReportRepository();
   late final _lastDismissed = WeeklyReportLastDismissedValue();
   late final _pendingEvent = Core.get<WeeklyReportPendingEventValue>();
-  late final _optOut = Core.get<WeeklyReportOptOutValue>();
 
   final Observable<WeeklyReportEvent?> currentEvent = Observable(null);
   final Observable<bool> hasUnseen = Observable(false);
   final Observable<bool> isLoading = Observable(false);
 
-  late final List<WeeklyReportEventSource> _sources;
+  late final List<WeeklyReportEventSource> _notificationSources;
   static const bool weeklyReportForceMockEvent = false;
 
   WeeklyReportActor() {
-    _sources = [
+    _notificationSources = [
       WeeklyTotalsDeltaSource(),
       ToplistMovementSource(),
     ];
-  }
-
-  Future<bool> _isOptedOut(Marker m) async {
-    try {
-      final cached = _optOut.present;
-      if (cached != null) return cached;
-      return await _optOut.fetch(m);
-    } catch (_) {
-      return false;
-    }
   }
 
   void _setCurrent(WeeklyReportEvent? event, {DateTime? pickedAt}) {
@@ -952,54 +932,12 @@ class WeeklyReportActor with Logging, Actor {
 
   @override
   onStart(Marker m) async {
-    // Weekly report generation is now triggered explicitly from the Privacy Pulse screen.
+    // Weekly report generation is triggered from FCM weekly_update events.
     if (Core.act.isFamily) return;
-  }
-
-  Future<WeeklyReportEvent?> refreshAndPick(Marker m) async {
-    if (!weeklyReportGenerationEnabled) {
-      log(m).t('weeklyReport:disabled:generate');
-      _setCurrent(null);
-      await _pendingEvent.change(m, null);
-      return null;
-    }
-
-    final optOut = await _isOptedOut(m);
-    if (optOut) {
-      log(m).t('weeklyReport:optOut');
-      _setCurrent(null);
-      await _pendingEvent.change(m, null);
-      return null;
-    }
-
-    await _hydratePendingEvent(m);
-    _setLoading(true);
-    final pick = await _generatePick(m);
-    _setCurrent(pick?.event);
-    _setLoading(false);
-    final logger = log(m);
-    if (pick?.event != null) {
-      logger
-        ..t('weeklyReport:eventGenerated')
-        ..pair('eventId', pick!.event.id)
-        ..pair('title', pick.event.title)
-        ..pair('type', pick.event.type.name)
-        ..pair('score', pick.event.score)
-        ..pair('generatedAt', pick.generatedAt.toIso8601String());
-    } else {
-      logger.t('weeklyReport:noEvent');
-    }
-    return pick?.event;
   }
 
   Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
     return await log(m).trace('weeklyReport:notificationGenerate', (m) async {
-      final optOut = await _isOptedOut(m);
-      if (optOut) {
-        log(m).t('weeklyReport:optOut:notification');
-        await _pendingEvent.change(m, null);
-        return null;
-      }
       await _hydratePendingEvent(m);
       _setLoading(true);
       final pick = await _generatePick(m);
@@ -1032,17 +970,13 @@ class WeeklyReportActor with Logging, Actor {
     await _pendingEvent.change(m, null);
   }
 
-  Future<WeeklyReportPick?> _generatePick(Marker m) async {
+  Future<WeeklyReportPick?> _generatePick(
+    Marker m,
+  ) async {
     final pending = await _pendingEvent.fetch(m);
     if (pending != null) {
       log(m).t('weeklyReport:reusePending');
       return WeeklyReportPick(pending.event, pending.pickedAt);
-    }
-    final optOut = await _isOptedOut(m);
-    if (optOut) {
-      log(m).t('weeklyReport:optOut:skipGenerate');
-      await _pendingEvent.change(m, null);
-      return null;
     }
 
     final context = WeeklyReportGenerationContext(_repository);
@@ -1050,7 +984,7 @@ class WeeklyReportActor with Logging, Actor {
     WeeklyReportEvent? picked;
     int skippedDismissed = 0;
 
-    for (final source in _sources) {
+    for (final source in _notificationSources) {
       try {
         final generated = await source.generate(context, m);
         if (generated.isEmpty) continue;
@@ -1094,8 +1028,7 @@ class WeeklyReportActor with Logging, Actor {
   WeeklyReportPick _buildMockPick() {
     final now = DateTime.now().toUtc();
     final title = weeklyReportBlockedToplistNewTitleKey.i18n;
-    final body =
-        weeklyReportToplistNewBodyKey.i18n.withParams('tracker.example', '2');
+    final body = weeklyReportToplistNewBodyKey.i18n.withParams('tracker.example', '2');
     final event = WeeklyReportEvent(
       id: 'mock:${now.toIso8601String()}',
       title: title,
@@ -1117,5 +1050,4 @@ class WeeklyReportActor with Logging, Actor {
     );
     return WeeklyReportPick(event, now);
   }
-
 }

@@ -25,8 +25,7 @@ class HorizontalRadialSegment extends StatefulWidget {
     this.sparklineSeries,
     this.statsReady = true,
     this.deltaReady = true,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => HorizontalRadialSegmentState();
@@ -59,12 +58,14 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
 
   Widget _buildDeltaText(
     int? percent, {
+    String? label,
     required bool negativeGood,
     Color? color,
     FontWeight fontWeight = FontWeight.w500,
     double fontSize = 12,
   }) {
-    final display = percent == null || percent == 0 ? "" : "${percent > 0 ? "+" : ""}$percent%";
+    final display =
+        label ?? (percent == null || percent == 0 ? "" : "${percent > 0 ? "+" : ""}$percent%");
     return Padding(
       padding: const EdgeInsets.only(top: 2.0),
       child: Text(
@@ -92,16 +93,12 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   Widget build(BuildContext context) {
     _calculate();
     final selectedRing = _selectedRing;
-    final blockedOpacity =
-        selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
-    final allowedOpacity =
-        selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
-    final blockedDeltaWeight = selectedRing == RadialRing.blocked
-        ? FontWeight.w700
-        : FontWeight.w500;
-    final allowedDeltaWeight = selectedRing == RadialRing.allowed
-        ? FontWeight.w700
-        : FontWeight.w500;
+    final blockedOpacity = selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
+    final allowedOpacity = selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
+    final blockedDeltaWeight =
+        selectedRing == RadialRing.blocked ? FontWeight.w700 : FontWeight.w500;
+    final allowedDeltaWeight =
+        selectedRing == RadialRing.allowed ? FontWeight.w700 : FontWeight.w500;
     final blockedDeltaSize = selectedRing == RadialRing.blocked ? 13.0 : 12.0;
     final allowedDeltaSize = selectedRing == RadialRing.allowed ? 13.0 : 12.0;
     return Row(
@@ -214,6 +211,9 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           widget.counterDelta?.hasComparison == true
                               ? widget.counterDelta?.blockedPercent
                               : null,
+                          label: widget.counterDelta?.hasComparison == true
+                              ? widget.counterDelta?.blockedLabel
+                              : null,
                           negativeGood: false,
                           color: context.theme.textSecondary,
                           fontWeight: blockedDeltaWeight,
@@ -229,6 +229,9 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                         child: _buildDeltaText(
                           widget.counterDelta?.hasComparison == true
                               ? widget.counterDelta?.allowedPercent
+                              : null,
+                          label: widget.counterDelta?.hasComparison == true
+                              ? widget.counterDelta?.allowedLabel
                               : null,
                           negativeGood: true,
                           color: context.theme.textSecondary,
