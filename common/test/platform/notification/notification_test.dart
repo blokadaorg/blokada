@@ -4,6 +4,7 @@ import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
+import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -132,6 +133,7 @@ void main() {
         when(stage.route).thenReturn(StageRouteState.init());
         Core.register<StageStore>(stage);
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
@@ -168,6 +170,71 @@ void main() {
         await store.onRouteChanged(StageRouteState.init().newFg(), m);
 
         expect(Navigation.lastPath, Paths.privacyPulse);
+      });
+    });
+
+    test("notification tap opens privacy pulse on actor start if app is already foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        var route = StageRouteState.init();
+        when(stage.route).thenAnswer((_) => route);
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        var opened = 0;
+        Navigation.onNavigated = (_) {
+          opened++;
+        };
+
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+        expect(Navigation.lastPath, isNull);
+
+        route = StageRouteState.init().newFg();
+        await store.onStart(m);
+
+        expect(opened, 1);
+        expect(Navigation.lastPath, Paths.privacyPulse);
+        Navigation.onNavigated = (_) {};
+      });
+    });
+
+    test("notification tap does not queue privacy pulse navigation when already on privacy pulse",
+        () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = Paths.privacyPulse;
+        var opened = 0;
+        Navigation.onNavigated = (_) {
+          opened++;
+        };
+
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+        Navigation.lastPath = null;
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+
+        expect(opened, 0);
+        expect(Navigation.lastPath, isNull);
+        Navigation.onNavigated = (_) {};
       });
     });
   });
@@ -225,3 +292,5 @@ class _FakeAccountRefreshStore extends Mock implements AccountRefreshStore {
     onAccountExpiryEvents++;
   }
 }
+
+class _MockDeviceStore extends Mock implements DeviceStore {}

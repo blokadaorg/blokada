@@ -16,6 +16,7 @@ class NotificationActor with Logging, Actor {
   late final _weeklyReport = Core.get<WeeklyReportActor>();
   var _pendingPrivacyPulseNav = false;
   Object? _pendingPrivacyPulseArgs;
+  var _privacyPulseNavInFlight = false;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -38,6 +39,9 @@ class NotificationActor with Logging, Actor {
     if (!Core.act.isFamily) {
       _account.addOn(accountChanged, syncNotificationConfigFromBackendAsync);
       _account.addOn(accountIdChanged, syncNotificationConfigFromBackendAsync);
+    }
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingPrivacyPulse(m, trigger: "onStart");
     }
   }
 
@@ -75,15 +79,7 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
-      if (_pendingPrivacyPulseNav) {
-        _pendingPrivacyPulseNav = false;
-        final args = _pendingPrivacyPulseArgs;
-        _pendingPrivacyPulseArgs = null;
-        final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
-        if (!isOnPrivacyPulse) {
-          await _openPrivacyPulseWithRetry(m, args);
-        }
-      }
+      await _tryOpenPendingPrivacyPulse(m, trigger: "routeChanged");
     });
   }
 
@@ -238,15 +234,37 @@ class NotificationActor with Logging, Actor {
           'toplistRange': ToplistRange.weekly,
         };
         if (!isOnPrivacyPulse) {
+          _pendingPrivacyPulseNav = true;
+          _pendingPrivacyPulseArgs = args;
           if (_stage.route.isForeground()) {
-            await _openPrivacyPulseWithRetry(m, args);
-          } else {
-            _pendingPrivacyPulseNav = true;
-            _pendingPrivacyPulseArgs = args;
+            await _tryOpenPendingPrivacyPulse(m, trigger: "notificationTapped");
           }
         }
       }
     });
+  }
+
+  Future<void> _tryOpenPendingPrivacyPulse(Marker m, {required String trigger}) async {
+    if (!_pendingPrivacyPulseNav) return;
+    if (_privacyPulseNavInFlight) return;
+
+    final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
+    if (isOnPrivacyPulse) {
+      _pendingPrivacyPulseNav = false;
+      _pendingPrivacyPulseArgs = null;
+      return;
+    }
+
+    _privacyPulseNavInFlight = true;
+    final args = _pendingPrivacyPulseArgs;
+    _pendingPrivacyPulseNav = false;
+    _pendingPrivacyPulseArgs = null;
+    try {
+      await _openPrivacyPulseWithRetry(m, args);
+    } finally {
+      _privacyPulseNavInFlight = false;
+      log(m).pair("privacyPulseNavTrigger", trigger);
+    }
   }
 
   Future<void> _openPrivacyPulseWithRetry(Marker m, Object? args) async {
