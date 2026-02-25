@@ -869,3 +869,30 @@
 "privacy pulse tab allowed" = "Разрешено";
 // A generic text used in various contexts, like recently blocked / allowed lists etc.
 "privacy pulse empty" = "Пока нечего показывать";
+
+
+"notification weekly report title" = "Отчет о защите персональных данных";
+"notification weekly report body" = "Откройте Blokada для просмотра еженедельного отчета.";
+"notification weekly report refreshed title" = "Ваш еженедельный отчет готов";
+"notification weekly report refreshed body" = "Откройте Blokada, чтобы узнать последние детали.";
+"notification weekly report cta" = "Просмотр отчета";
+
+"notification weekly report blocked increased title" = "Активность трекеров увеличилась";
+"notification weekly report blocked decreased title" = "Активность трекеров снизилась";
+"notification weekly report allowed increased title" = "Разрешенный трафик увеличился";
+"notification weekly report allowed decreased title" = "Разрешенный трафик уменьшился";
+
+"notification weekly report blocked totals body" = "Заблокированный трафик составляет %s% по сравнению с прошлой неделей.";
+"notification weekly report allowed totals body" = "Разрешенный трафик составляет %s% по сравнению с прошлой неделей.";
+"notification weekly report blocked totals body nopercent" = "Заблокированный трафик составляет %s по сравнению с прошлой неделей.";
+"notification weekly report allowed totals body nopercent" = "Разрешенный трафик составляет %s по сравнению с прошлой неделей.";
+
+"notification weekly report blocked toplist new title" = "Новый трекер в топ-листе";
+"notification weekly report allowed toplist new title" = "Новый домен в топ-листе";
+"notification weekly report blocked toplist up title" = "Активность трекеров увеличилась";
+"notification weekly report allowed toplist up title" = "Домен поднялся в списке лидеров";
+"notification weekly report blocked toplist down title" = "Активность трекеров снизилась";
+"notification weekly report allowed toplist down title" = "Домен опустился в списке лидеров";
+
+"notification weekly report toplist new body" = "%s теперь занимает %s место на этой неделе.";
+"notification weekly report toplist move body" = "%s переместился на #%s (был #%s) на этой неделе.";
