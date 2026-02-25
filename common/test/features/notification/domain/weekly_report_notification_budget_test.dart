@@ -175,11 +175,44 @@ void main() {
       });
     });
 
-    test('does not generate weekly events without full 14-day comparison', () async {
+    test('can generate toplist events without full 14-day comparison when previous week has activity',
+        () async {
       await withTrace((m) async {
         await CoreModule().create();
         final api = _CountingApi(_buildRollingStatsJson(
           days: 8,
+          previousAllowedPerDay: 10,
+          currentAllowedPerDay: 40,
+          previousBlockedPerDay: 20,
+          currentBlockedPerDay: 20,
+        ));
+        Core.register<Api>(api);
+        Core.register<stats_api.StatsApi>(stats_api.StatsApi());
+        final toplists = _CountingToplistStore();
+        Core.register<ToplistStore>(toplists);
+
+        final device = MockDeviceStore();
+        when(device.deviceAlias).thenReturn('device-1');
+        Core.register<DeviceStore>(device);
+
+        Core.register<WeeklyReportPendingEventValue>(WeeklyReportPendingEventValue());
+        Core.register<WeeklyReportOptOutValue>(WeeklyReportOptOutValue());
+
+        final actor = WeeklyReportActor();
+        final event = await actor.refreshAndPickForNotification(m);
+
+        expect(event, isNotNull);
+        expect(event!.type, equals(WeeklyReportEventType.toplistChange));
+        expect(api.calls, equals([ApiEndpoint.getStatsV2]));
+        expect(toplists.calls, isNotEmpty);
+      });
+    });
+
+    test('does not generate weekly events without previous-week activity', () async {
+      await withTrace((m) async {
+        await CoreModule().create();
+        final api = _CountingApi(_buildRollingStatsJson(
+          days: 7,
           previousAllowedPerDay: 10,
           currentAllowedPerDay: 40,
           previousBlockedPerDay: 20,

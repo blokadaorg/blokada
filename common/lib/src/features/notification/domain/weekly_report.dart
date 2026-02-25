@@ -559,7 +559,10 @@ class ToplistMovementSource implements WeeklyReportEventSource {
   Future<List<WeeklyReportEvent>> generate(WeeklyReportGenerationContext context, Marker m) async {
     final totals = await context.totals(m);
     if (totals == null) return [];
-    if (!totals.hasComparison) return [];
+    // Keep toplist notifications meaningful for newer accounts: require at least
+    // some previous-week activity, but do not require a full 14-day comparison window.
+    final hadPreviousWeekActivity = totals.previous.allowed > 0 || totals.previous.blocked > 0;
+    if (!hadPreviousWeekActivity) return [];
     final toplists = await context.toplists(m);
     if (toplists == null) return [];
 
