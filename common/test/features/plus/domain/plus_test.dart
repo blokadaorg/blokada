@@ -211,6 +211,57 @@ void main() {
         verify(lease.fetch(any, noRetry: true));
       });
     });
+
+    test("reactToAppPauseIgnoresPlusWhenAccountIsNotPlus", () async {
+      await withTrace((m) async {
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence);
+
+        final device = MockDeviceStore();
+        when(device.currentDeviceTag).thenReturn("some device tag");
+        Core.register<DeviceStore>(device);
+
+        final app = MockAppStore();
+        when(app.conditions).thenReturn(AppStatusStrategy(accountIsPlus: false));
+        Core.register<AppStore>(app);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<GatewayActor>(MockGatewayActor());
+        Core.register<KeypairActor>(MockKeypairActor());
+        Core.register<LeaseActor>(MockLeaseActor());
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register(BypassedPackagesValue());
+
+        final currentGateway = CurrentGatewayValue();
+        await currentGateway.change(m, fixtureGatewayEntries.first.toGateway);
+        Core.register(currentGateway);
+
+        final currentKeypair = CurrentKeypairValue();
+        await currentKeypair.change(m, Fixtures.keypair);
+        Core.register(currentKeypair);
+
+        final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, fixtureLeaseEntries.first.toLease);
+        Core.register(currentLease);
+
+        final vpnStatus = CurrentVpnStatusValue();
+        vpnStatus.now = VpnStatus.deactivated;
+        Core.register(vpnStatus);
+
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
+
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+        await plusEnabled.change(m, true);
+
+        final subject = PlusActor();
+        await subject.reactToAppPause(true, m);
+
+        verifyNever(vpn.turnVpnOn(any));
+      });
+    });
   });
 
   group("storeErrors", () {

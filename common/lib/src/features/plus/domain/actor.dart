@@ -181,6 +181,7 @@ class PlusActor with Logging, Actor {
   reactToAppPause(bool appActive, Marker m) async {
     return await log(m).trace("reactToAppPause", (m) async {
       final plusEnabled = await _plusEnabled.now();
+      if (!_app.conditions.accountIsPlus) return;
       if (appActive && plusEnabled && !_vpnStatus.now.isActive()) {
         await switchPlus(true, m);
       } else if (!appActive && (plusEnabled || _vpnStatus.now.isActive())) {
@@ -191,8 +192,8 @@ class PlusActor with Logging, Actor {
 
   reactToAppStatus(Marker m) async {
     final plusEnabled = await _plusEnabled.now();
+    if (!_app.conditions.accountIsPlus || _isSwitching) return;
     if (plusEnabled &&
-        !_isSwitching &&
         _app.status == AppStatus.activatedCloud &&
         _vpnStatus.now == VpnStatus.deactivated) {
       // If VPN was on, but is not (for example after app restart), bring it up.
