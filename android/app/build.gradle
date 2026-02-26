@@ -51,6 +51,10 @@ android {
         versionName "dev"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -83,9 +87,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a'
-            }
         }
 
         beta {
