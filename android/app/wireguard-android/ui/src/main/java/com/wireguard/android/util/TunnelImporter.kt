@@ -18,7 +18,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import org.blokada.R
-import org.pcap4j.util.IpV4Helper.fragment
 import ui.MainApplication
 import ui.MainApplication.Companion.getTunnelManager
 import java.io.BufferedReader
