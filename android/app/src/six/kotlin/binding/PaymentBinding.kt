@@ -98,7 +98,14 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
 
         Adapty.setOnProfileUpdatedListener { profile ->
-            _scope.launch { maybeRestoreSubscription() }
+            _scope.launch {
+                try {
+                    maybeRestoreSubscription()
+                } catch (e: Throwable) {
+                    // Profile update callbacks are best-effort; do not crash app on backend errors.
+                    logError("Failed profile-updated restore, ignore", e)
+                }
+            }
         }
 
         callback(Result.success(Unit))
