@@ -191,12 +191,6 @@ dependencies {
     debugImplementation 'org.blokada.flutter.common:flutter_debug:1.0'
     releaseImplementation 'org.blokada.flutter.common:flutter_release:1.0'
 
-    // engine deps
-    implementation 'org.pcap4j:pcap4j-core:1.7.7'
-    implementation 'org.pcap4j:pcap4j-packetfactory-propertiesbased:1.7.7'
-    implementation 'dnsjava:dnsjava:2.1.9'
-    implementation 'org.slf4j:slf4j-nop:1.6.1'
-
     // wireguard deps
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
