@@ -16,7 +16,6 @@ import androidx.fragment.app.DialogFragment
 import binding.StageBinding
 import model.BlokadaException
 import ui.home.LocationFragment
-import ui.home.ScanQrFragment
 
 enum class Sheet {
     Help, // Help Screen (contact us)
@@ -36,7 +35,12 @@ object SheetService {
     fun showSheet(sheet: Sheet) {
         val fragment = when (sheet) {
             Sheet.Location -> LocationFragment.newInstance()
-            Sheet.AccountChange -> ScanQrFragment.newInstance()
+            Sheet.AccountChange -> {
+                // QR account change is a Family-only flow. For six flavor, complete
+                // the modal lifecycle immediately so callers are not left waiting.
+                stage.modalDismissed()
+                return
+            }
             else -> throw BlokadaException("unsupported sheet")
         }
         this.fragment = fragment
