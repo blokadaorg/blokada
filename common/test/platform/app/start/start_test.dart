@@ -4,9 +4,11 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/app/app.dart';
+import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/app/start/start.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/perm/perm.dart';
+import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/features/plus/domain/vpn/vpn.dart';
 import 'package:common/src/features/plus/domain/plus.dart';
@@ -133,6 +135,41 @@ void main() {
 
         verify(app.appPaused(false, m)).called(1);
         verify(device.setCloudEnabled(m, true)).called(1);
+      });
+    });
+
+    test("onAppStatusSkipsPlusLocationForNonPlusAccount", () async {
+      await withTrace((m) async {
+        final app = MockAppStore();
+        final conditions = AppStatusStrategy(
+          accountIsCloud: true,
+          accountIsPlus: false,
+          plusPermEnabled: true,
+        );
+        when(app.conditions).thenReturn(conditions);
+        when(app.status).thenReturn(AppStatus.deactivated);
+        Core.register<AppStore>(app);
+
+        Core.register<PlusActor>(MockPlusActor());
+
+        final account = MockAccountStore();
+        when(account.type).thenReturn(AccountType.cloud);
+        Core.register<AccountStore>(account);
+
+        final stage = MockStageStore();
+        Core.register<StageStore>(stage);
+
+        final timer = MockScheduler();
+        Core.register<Scheduler>(timer);
+
+        final ping = MockBlockawebPingValue();
+        when(ping.isPingValidAndActive(any)).thenReturn(false);
+        Core.register<BlockawebPingValue>(ping);
+
+        final subject = AppStartStore();
+        await subject.onAppStatus(m);
+
+        verifyNever(stage.showModal(StageModal.plusLocationSelect, any));
       });
     });
 
