@@ -8,8 +8,6 @@ class NotificationCommand with Command, Logging {
     return [
       registerCommand("notificationTapped",
           fn: cmdNotificationTapped, argsNum: 1),
-      registerCommand("appleNotificationToken",
-          fn: cmdAppleNotificationToken, argsNum: 1),
       registerCommand("fcmNotificationToken",
           fn: cmdFcmNotificationToken, argsNum: 1),
       registerCommand("fcmEvent", fn: cmdFcmEvent, argsNum: 1),
@@ -19,11 +17,6 @@ class NotificationCommand with Command, Logging {
   Future<void> cmdNotificationTapped(Marker m, dynamic args) async {
     final id = args[0] as String;
     await _actor.notificationTapped(m, id);
-  }
-
-  Future<void> cmdAppleNotificationToken(Marker m, dynamic args) async {
-    final token = args[0] as String;
-    await _actor.saveAppleToken(token);
   }
 
   Future<void> cmdFcmNotificationToken(Marker m, dynamic args) async {

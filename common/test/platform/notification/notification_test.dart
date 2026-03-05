@@ -20,6 +20,16 @@ import '../../tools.dart';
 import 'notification_test.mocks.dart';
 
 void main() {
+  group("command", () {
+    test("does not register legacy apple token command", () {
+      final command = NotificationCommand();
+      final names = command.onRegisterCommands().map((it) => it.name).toList();
+
+      expect(names, contains("FCMNOTIFICATIONTOKEN"));
+      expect(names, isNot(contains("APPLENOTIFICATIONTOKEN")));
+    });
+  });
+
   group("binder", () {
     test("onNotificationEvent", () async {
       await withTrace((m) async {
