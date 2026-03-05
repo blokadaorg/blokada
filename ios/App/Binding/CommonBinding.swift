@@ -337,12 +337,6 @@ class CommonBinding: CommonOps {
         self.delegate = delegate
     }
 
-    func onAppleTokenReceived(_ appleToken: Data) {
-        // Convert binary data to hex representation
-        let token = appleToken.base64EncodedString()
-        commands.execute(.appleNotificationToken, token)
-    }
-
     func onAppleTokenFailed(_ err: Error) {
         commands.execute(.warning, "Failed registering for remote notifications: \(err)")
     }

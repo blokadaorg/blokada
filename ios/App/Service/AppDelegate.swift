@@ -160,7 +160,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
-        common.onAppleTokenReceived(deviceToken)
 #if canImport(FirebaseMessaging)
         if !flutter.isFlavorFamily {
             Messaging.messaging().apnsToken = deviceToken

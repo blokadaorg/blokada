@@ -11,7 +11,6 @@ class NotificationActor with Logging, Actor {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
-  late final _publicKey = Core.get<PublicKeyProvidedValue>();
   late final _device = Core.get<DeviceStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
   var _pendingPrivacyPulseNav = false;
@@ -26,14 +25,12 @@ class NotificationActor with Logging, Actor {
 
   late final _scheduler = Core.get<Scheduler>();
 
-  String? _appleToken;
   String? _fcmToken;
   String? _lastSentFcmKey;
 
   @override
   onStart(Marker m) async {
     _stage.addOnValue(routeChanged, onRouteChanged);
-    _account.addOn(accountChanged, sendAppleTokenAsync);
     _account.addOn(accountChanged, sendFcmTokenAsync);
     _device.addOn(deviceChanged, sendFcmTokenAsync);
     if (!Core.act.isFamily) {
@@ -83,20 +80,6 @@ class NotificationActor with Logging, Actor {
     });
   }
 
-  sendAppleTokenAsync(Marker m) async {
-    if (Core.act.isFamily) return;
-    if (_appleToken == null) return;
-
-    // Use scheduler to make sure this does not deadlock
-    // (we are in accountChanged callback)
-    _scheduler.addOrUpdate(Job(
-      "sendAppleToken",
-      m,
-      before: DateTime.now(),
-      callback: sendAppleToken,
-    ));
-  }
-
   sendFcmTokenAsync(Marker m) async {
     if (Core.act.isFamily) return;
     if (_fcmToken == null) return;
@@ -111,13 +94,6 @@ class NotificationActor with Logging, Actor {
       before: DateTime.now(),
       callback: sendFcmToken,
     ));
-  }
-
-  Future<bool> sendAppleToken(Marker m) async {
-    final publicKey = await _publicKey.fetch(m);
-    await _json.postToken(publicKey, _appleToken!, m);
-    _appleToken = null;
-    return false;
   }
 
   Future<bool> sendFcmToken(Marker m) async {
@@ -137,10 +113,6 @@ class NotificationActor with Logging, Actor {
 
     _lastSentFcmKey = _buildFcmKey(accountId, deviceTag, token);
     return false;
-  }
-
-  saveAppleToken(String appleToken) async {
-    _appleToken = appleToken;
   }
 
   saveFcmToken(String token) async {
