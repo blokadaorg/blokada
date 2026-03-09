@@ -4,6 +4,10 @@ BUNDLE_EXEC := $(BUNDLE) exec
 
 FASTLANE := $(BUNDLE_EXEC) fastlane
 POD := $(BUNDLE_EXEC) pod
+XCODEBUILD := xcodebuild
+XCODE_WORKSPACE := IOS.xcworkspace
+CHECK_SCHEME ?= Dev
+CHECK_CONFIG ?= Debug
 
 # Make shell exit on any command failure
 .SHELLFLAGS := -ec
@@ -11,11 +15,19 @@ POD := $(BUNDLE_EXEC) pod
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: build build-family build-six build-six-debug build-family-debug ipa-family ipa-six pods run-six run-family appium-install-six
+.PHONY: build build-family build-six build-six-debug build-family-debug ipa-family ipa-six pods check run-six run-family appium-install-six
 
 # Note: for all targets in this Makefile, the common lib has to be
 # ready beforehand. This is handled when running make targets from
 # the root directory instead.
+
+define xcode-build
+	$(XCODEBUILD) $(strip $(1)) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(2)) -configuration $(strip $(3)) $(if $(strip $(4)),-destination '$(strip $(4))') $(strip $(5))
+endef
+
+define xcode-build-dir
+$(XCODEBUILD) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(1)) -configuration $(strip $(2)) -showBuildSettings | awk -F'= ' '/CONFIGURATION_BUILD_DIR/{print $$2; exit}'
+endef
 
 
 # Build everything from scratch (release)
@@ -57,18 +69,25 @@ ipa-six:
 # Build .ipa of six - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
 build-six-debug:
 	$(MAKE) -C BlockaWebExtension gen-rules
-	xcodebuild -workspace IOS.xcworkspace -scheme Dev -configuration $(or $(CONFIG),Debug) build
+	$(call xcode-build,build,Dev,$(or $(CONFIG),Debug),,)
 
 # Build .ipa of family - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
 build-family-debug:
 	$(MAKE) -C BlockaWebExtension gen-rules
-	xcodebuild -workspace IOS.xcworkspace -scheme FamilyDev -configuration $(or $(CONFIG),Debug) build
+	$(call xcode-build,build,FamilyDev,$(or $(CONFIG),Debug),,)
 
 # Regenerate Podfile.lock
 pods:
 	rm -rf Podfile.lock
 	$(BUNDLE) check || $(BUNDLE) install
 	$(POD) install --repo-update
+
+# Compile the iOS app without launching it, to catch broken imports,
+# generated bindings, and signature mismatches.
+# Usage: make check [CHECK_SCHEME="Dev"] [CHECK_CONFIG="Debug"]
+check:
+	$(BUNDLE) check || $(BUNDLE) install
+	$(call xcode-build,build,$(CHECK_SCHEME),$(CHECK_CONFIG),generic/platform=iOS Simulator,CODE_SIGNING_ALLOWED=NO ARCHS=arm64 ONLY_ACTIVE_ARCH=YES)
 
 # Build, install and run six flavor on connected device with console output
 # Usage: make run-six [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
@@ -114,7 +133,7 @@ define deploy-app
 		DEVICE_NAME_FOUND=$$DEVICE_UDID; \
 	fi; \
 	echo "📱 Target device: $$DEVICE_NAME_FOUND"; \
-	APP_DIR=$$(xcodebuild -workspace IOS.xcworkspace -scheme $(1) -configuration $(CONFIG) -showBuildSettings | awk -F'= ' '/CONFIGURATION_BUILD_DIR/{print $$2; exit}'); \
+	APP_DIR=$$($(call xcode-build-dir,$(1),$(CONFIG))); \
 	echo "🧹 Removing existing installation (if any)..."; \
 	xcrun devicectl device uninstall app --device $$DEVICE_IDENTIFIER $(3) >/dev/null 2>&1 || true; \
 	echo "📦 Installing $(2) to $$DEVICE_NAME_FOUND"; \
