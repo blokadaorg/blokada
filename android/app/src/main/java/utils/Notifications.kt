@@ -19,6 +19,7 @@ import model.BlokadaException
 import org.blokada.R
 import service.Localised
 import service.NOTIF_WEEKLY_REPORT
+import service.NOTIF_ACTIVITY_LOGGING_REMINDER
 import ui.MainActivity
 
 private const val IMPORTANCE_NONE = 0
@@ -239,6 +240,29 @@ class WeeklyReportNotification(
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
         intentActivity.putExtra("notificationId", NOTIF_WEEKLY_REPORT)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+class ActivityLoggingReminderNotification(
+    private val bodyOverride: String?
+) : NotificationPrototype(
+    26, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        val title = "Privacy Pulse"
+        val body = bodyOverride ?: "Enable activity logging to receive your weekly Privacy Pulse reports."
+
+        b.setContentTitle(title)
+        b.setContentText(body)
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(body))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        intentActivity.putExtra("notificationId", NOTIF_ACTIVITY_LOGGING_REMINDER)
         val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }

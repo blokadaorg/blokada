@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/i18n/locales.dart';
 import 'package:common/src/core/core.dart';
@@ -31,6 +32,7 @@ part 'weekly_report.dart';
 mixin NotificationChannel {
   Future<void> doShow(String notificationId, String atWhen, String? body);
   Future<void> doDismissAll();
+  Future<void> doCancel(String notificationId);
 }
 
 class NotificationsValue extends Value<List<NotificationEvent>> {

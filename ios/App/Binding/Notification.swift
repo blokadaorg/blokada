@@ -25,6 +25,7 @@ let NOTIF_ACC_EXP_FAMILY = "accountExpiredFamily"
 let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 let NOTIF_WEEKLY_REFRESH = "weeklyRefresh"
 let NOTIF_WEEKLY_REPORT = "weeklyReport"
+let NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
 let WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000
 
 struct WeeklyReportPayload: Codable {
@@ -114,6 +115,9 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
     } else if id == NOTIF_WEEKLY_REFRESH {
         content.title = "Update your filters"
         content.body = "Tap to update your ad-block filters and stay safe from websites and apps that are most likely to cause you harm."
+    } else if id == NOTIF_ACTIVITY_LOGGING_REMINDER {
+        content.title = "Privacy Pulse"
+        content.body = body ?? "Enable activity logging to receive your weekly Privacy Pulse reports."
     } else {
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle

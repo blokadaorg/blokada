@@ -359,6 +359,12 @@ class CommonBinding: CommonOps {
         completion(.success(()))
     }
 
+    func doCancel(notificationId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        center.removePendingNotificationRequests(withIdentifiers: [notificationId])
+        center.removeDeliveredNotifications(withIdentifiers: [notificationId])
+        completion(.success(()))
+    }
+
     func getPermissions() -> AnyPublisher<Granted, Error> {
         return Future<Granted, Error> { promise in
             self.center.getNotificationSettings { settings in

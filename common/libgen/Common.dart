@@ -32,6 +32,9 @@ abstract class CommonOps {
   @async
   void doDismissAll();
 
+  @async
+  void doCancel(String notificationId);
+
   // -- Config
   @async
   void doConfigChanged(bool skipBypassList);

@@ -81,6 +81,11 @@ object CommonBinding : CommonOps {
         callback(Result.success(Unit))
     }
 
+    override fun doCancel(notificationId: String, callback: (Result<Unit>) -> Unit) {
+        notification.cancel(notificationId)
+        callback(Result.success(Unit))
+    }
+
     // Rate
 
     var onShowRateDialog: () -> Unit = { }

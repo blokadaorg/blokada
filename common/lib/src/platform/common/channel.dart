@@ -1,12 +1,7 @@
 part of 'common.dart';
 
 abstract class CommonChannel
-    with
-        RateChannel,
-        EnvChannel,
-        LinkChannel,
-        HttpChannel,
-        NotificationChannel, ConfigChannel {}
+    with RateChannel, EnvChannel, LinkChannel, HttpChannel, NotificationChannel, ConfigChannel {}
 
 class PlatformCommonChannel extends CommonChannel {
   late final _ops = CommonOps();
@@ -37,11 +32,8 @@ class PlatformCommonChannel extends CommonChannel {
   // LinkChannel
 
   @override
-  Future<void> doLinksChanged(Map<LinkId, String> links) async =>
-      await _ops.doLinksChanged(
-        links.entries
-            .map((e) => OpsLink(id: e.key.name, url: e.value))
-            .toList(),
+  Future<void> doLinksChanged(Map<LinkId, String> links) async => await _ops.doLinksChanged(
+        links.entries.map((e) => OpsLink(id: e.key.name, url: e.value)).toList(),
       );
 
   // HttpChannel
@@ -62,6 +54,9 @@ class PlatformCommonChannel extends CommonChannel {
 
   @override
   Future<void> doDismissAll() => _ops.doDismissAll();
+
+  @override
+  Future<void> doCancel(String notificationId) => _ops.doCancel(notificationId);
 
   @override
   Future<void> doShow(String notificationId, String atWhen, String? body) =>
@@ -103,8 +98,7 @@ class NoOpCommonChannel extends CommonChannel {
   // HttpChannel
 
   @override
-  Future<String> doGet(String url) =>
-      throw Exception("Mock http not implemented");
+  Future<String> doGet(String url) => throw Exception("Mock http not implemented");
 
   @override
   Future<String> doRequest(String url, String? payload, String type) =>
@@ -121,8 +115,10 @@ class NoOpCommonChannel extends CommonChannel {
   Future<void> doDismissAll() => Future.value();
 
   @override
-  Future<void> doShow(String notificationId, String atWhen, String? body) =>
-      Future.value();
+  Future<void> doCancel(String notificationId) => Future.value();
+
+  @override
+  Future<void> doShow(String notificationId, String atWhen, String? body) => Future.value();
 
   @override
   Future<void> doConfigChanged(bool skipBypassList) => Future.value();

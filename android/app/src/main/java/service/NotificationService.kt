@@ -29,6 +29,7 @@ import utils.NotificationChannels
 import utils.NotificationPrototype
 import utils.OnboardingNotification
 import utils.QuickSettingsNotification
+import utils.ActivityLoggingReminderNotification
 import utils.WeeklyReportNotification
 import java.util.Calendar
 import java.util.Date
@@ -44,6 +45,7 @@ val NOTIF_ONBOARDING_FAMILY = "onboardingDnsAdviceFamily"
 val NOTIF_NEW_MESSAGE = "supportNewMessage"
 val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 val NOTIF_WEEKLY_REPORT = "weeklyReport"
+val NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
 private const val WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000L
 private const val WEEKLY_REPORT_REFRESH_TITLE = "Weekly report updated"
 private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
@@ -101,6 +103,22 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
         notificationManager.cancelAll()
     }
 
+    fun cancel(notificationId: String) {
+        val ctx = context.requireAppContext()
+        val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
+        intent.putExtra("id", notificationId)
+        val pendingIntent = PendingIntent.getBroadcast(
+            ctx,
+            notificationId.hashCode(),
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        alarmManager.cancel(pendingIntent)
+        pendingIntent.cancel()
+
+        notificationIntId(notificationId)?.let(notificationManager::cancel)
+    }
+
     fun show(notification: NotificationPrototype) {
         val builder = notification.create(context.requireContext())
         if (useChannels) builder.setChannelId(notification.channel.name)
@@ -156,10 +174,28 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
                     WeeklyReportNotification(payload.title, payload.body)
                 }
             }
+            NOTIF_ACTIVITY_LOGGING_REMINDER ->
+                ActivityLoggingReminderNotification(intent.getStringExtra("body"))
             else -> null
         }
 
         if (n != null) notification.show(n)
+    }
+}
+
+private fun notificationIntId(notificationId: String): Int? {
+    return when (notificationId) {
+        NOTIF_ACC_EXP -> 4
+        NOTIF_ACC_EXP_FAM -> 5
+        NOTIF_LEASE_EXP -> 22
+        NOTIF_PAUSE -> 23
+        NOTIF_ONBOARDING -> 6
+        NOTIF_ONBOARDING_FAMILY -> 7
+        NOTIF_NEW_MESSAGE -> 8
+        NOTIF_QUICKSETTINGS -> 9
+        NOTIF_WEEKLY_REPORT -> 25
+        NOTIF_ACTIVITY_LOGGING_REMINDER -> 26
+        else -> null
     }
 }
 
