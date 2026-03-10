@@ -27,9 +27,6 @@ class WeeklyComparison {
   }
 
   String formatForCounterLabel() {
-    if (increased && multiplierLabel != null) {
-      return multiplierLabel!;
-    }
     final rounded = roundedPercent;
     if (rounded == 0) return '';
     final sign = rounded > 0 ? '+' : '';
