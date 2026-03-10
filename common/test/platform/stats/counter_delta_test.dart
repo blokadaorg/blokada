@@ -124,14 +124,14 @@ void main() {
       expect(delta.hasComparison, isFalse);
     });
 
-    test('uses multiplier-style labels for large weekly increases', () {
+    test('uses percentage labels for counter deltas even on large weekly increases', () {
       final delta = computeCounterDelta(
         previous: const StatsCounters(allowed: 10, blocked: 20, total: 30),
         current: const StatsCounters(allowed: 21, blocked: 30, total: 51),
         hasComparison: true,
       );
 
-      expect(delta.allowedLabel, equals('3x'));
+      expect(delta.allowedLabel, equals('+110%'));
       expect(delta.blockedLabel, equals('+50%'));
     });
   });
@@ -146,6 +146,12 @@ void main() {
       expect(decreased.formatForNotification(), equals('-50'));
       expect(slightDecrease.formatForNotification(), equals('-10'));
       expect(slightDecrease.formatForCounterLabel(), equals('-10%'));
+    });
+
+    test('formats counter labels as percentages for large increases', () {
+      final increased = compareWeeklyTotals(10, 25);
+
+      expect(increased.formatForCounterLabel(), equals('+150%'));
     });
   });
 
