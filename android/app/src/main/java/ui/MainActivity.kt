@@ -30,6 +30,7 @@ import org.blokada.R
 import service.ContextService
 import service.NetworkMonitorPermissionService
 import service.SheetService
+import service.StartupContextService
 import service.TranslationService
 import service.VpnPermissionService
 import ui.home.FlutterHomeFragment
@@ -85,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent) {
         val notificationId = intent.getStringExtra("notificationId")
         if (notificationId != null) {
+            StartupContextService.markNotificationTap(notificationId)
             lifecycleScope.launch {
                 commands.execute(CommandName.NOTIFICATIONTAPPED, notificationId)
             }
@@ -95,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         context.setActivityContext(this)
+        StartupContextService.markForegroundInteractive()
         stage.setForeground()
 
         // Avoid multiple consecutive quick onResume events

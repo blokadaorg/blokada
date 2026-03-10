@@ -70,6 +70,7 @@ class FcmMessagingService : FirebaseMessagingService() {
         }
 
         val json = org.json.JSONObject(data as Map<*, *>).toString()
+        StartupContextService.markBackgroundTask(json, data["type"])
         GlobalScope.launch {
             CommandBinding.execute(CommandName.FCMEVENT, json)
         }

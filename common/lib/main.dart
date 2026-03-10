@@ -7,6 +7,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
 import 'package:common/src/app_variants/v6/widget/main_screen.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ void main() async {
 
   final PlatformType platform =
       io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
+  final launchContext = await AppLaunchContext.load(Markers.start);
 
   final modules = Modules();
   if (kReleaseMode) {
@@ -38,7 +40,11 @@ void main() async {
     jsonUrl = "https://family.api.blocka.net";
   }
 
-  modules.start(Markers.start);
+  await modules.start(Markers.start, launchContext: launchContext);
+
+  if (!launchContext.allowRunApp) {
+    return;
+  }
 
   // final ws = DevWebsocket();
   // depend(ws);
