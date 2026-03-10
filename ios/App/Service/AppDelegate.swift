@@ -180,19 +180,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
+        BlockaLogger.w("FCM", "Received remote notification callback with appState=\(application.applicationState.rawValue)")
+
         if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
            let json = String(data: data, encoding: .utf8) {
             commands.executeWithCompletion(.fcmEvent, json) { result in
                 switch result {
                 case .success:
+                    BlockaLogger.w("FCM", "Completed fcmEvent command dispatch")
                     completionHandler(.newData)
-                case .failure:
+                case .failure(let error):
+                    BlockaLogger.e("FCM", "Failed fcmEvent command dispatch: \(error)")
                     completionHandler(.failed)
                 }
             }
             return
         }
 
+        BlockaLogger.w("FCM", "Remote notification payload could not be serialized")
         completionHandler(.noData)
     }
 
