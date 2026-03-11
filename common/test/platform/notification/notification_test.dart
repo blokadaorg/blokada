@@ -408,6 +408,38 @@ void main() {
         expect(Navigation.lastPath, Paths.settingsRetention);
       });
     });
+
+    test("activity logging reminder tap defers navigation until app is foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        Navigation.isTabletMode = true;
+        Navigation.openInTablet = (path, arguments) {
+          Navigation.lastPath = path;
+        };
+
+        await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
+        expect(Navigation.lastPath, isNull);
+
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+
+        expect(Navigation.lastPath, Paths.settingsRetention);
+      });
+    });
   });
 
   group("resolveNotificationScheduleHint", () {

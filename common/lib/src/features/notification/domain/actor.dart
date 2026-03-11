@@ -18,9 +18,9 @@ class NotificationActor with Logging, Actor {
   late final _device = Core.get<DeviceStore>();
   late final _payment = Core.get<PaymentActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
-  var _pendingPrivacyPulseNav = false;
-  Object? _pendingPrivacyPulseArgs;
-  var _privacyPulseNavInFlight = false;
+  Paths? _pendingNotificationPath;
+  Object? _pendingNotificationArgs;
+  var _notificationNavInFlight = false;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -45,7 +45,7 @@ class NotificationActor with Logging, Actor {
       _account.addOn(accountIdChanged, syncNotificationConfigFromBackendAsync);
     }
     if (_stage.route.isForeground()) {
-      await _tryOpenPendingPrivacyPulse(m, trigger: "onStart");
+      await _tryOpenPendingNotification(m, trigger: "onStart");
     }
   }
 
@@ -87,7 +87,7 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
-      await _tryOpenPendingPrivacyPulse(m, trigger: "routeChanged");
+      await _tryOpenPendingNotification(m, trigger: "routeChanged");
     });
   }
 
@@ -213,57 +213,76 @@ class NotificationActor with Logging, Actor {
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
       } else if (id == NotificationId.activityLoggingReminder) {
-        await Navigation.open(Paths.settingsRetention);
+        await _queueNotificationNavigation(
+          m,
+          path: Paths.settingsRetention,
+          trigger: "notificationTapped",
+        );
       } else if (id == NotificationId.weeklyReport) {
         final args = {
           'toplistRange': ToplistRange.weekly,
         };
         if (!isOnPrivacyPulse) {
-          _pendingPrivacyPulseNav = true;
-          _pendingPrivacyPulseArgs = args;
-          if (_stage.route.isForeground()) {
-            await _tryOpenPendingPrivacyPulse(m, trigger: "notificationTapped");
-          }
+          await _queueNotificationNavigation(
+            m,
+            path: Paths.privacyPulse,
+            args: args,
+            trigger: "notificationTapped",
+          );
         }
       }
     });
   }
 
-  Future<void> _tryOpenPendingPrivacyPulse(Marker m, {required String trigger}) async {
-    if (!_pendingPrivacyPulseNav) return;
-    if (_privacyPulseNavInFlight) return;
-
-    final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
-    if (isOnPrivacyPulse) {
-      _pendingPrivacyPulseNav = false;
-      _pendingPrivacyPulseArgs = null;
-      return;
-    }
-
-    _privacyPulseNavInFlight = true;
-    final args = _pendingPrivacyPulseArgs;
-    _pendingPrivacyPulseNav = false;
-    _pendingPrivacyPulseArgs = null;
-    try {
-      await _openPrivacyPulseWithRetry(m, args);
-    } finally {
-      _privacyPulseNavInFlight = false;
-      log(m).pair("privacyPulseNavTrigger", trigger);
+  Future<void> _queueNotificationNavigation(
+    Marker m, {
+    required Paths path,
+    Object? args,
+    required String trigger,
+  }) async {
+    _pendingNotificationPath = path;
+    _pendingNotificationArgs = args;
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingNotification(m, trigger: trigger);
     }
   }
 
-  Future<void> _openPrivacyPulseWithRetry(Marker m, Object? args) async {
+  Future<void> _tryOpenPendingNotification(Marker m, {required String trigger}) async {
+    final path = _pendingNotificationPath;
+    if (path == null) return;
+    if (_notificationNavInFlight) return;
+
+    if (Navigation.lastPath == path) {
+      _pendingNotificationPath = null;
+      _pendingNotificationArgs = null;
+      return;
+    }
+
+    _notificationNavInFlight = true;
+    final args = _pendingNotificationArgs;
+    _pendingNotificationPath = null;
+    _pendingNotificationArgs = null;
+    try {
+      await _openNotificationWithRetry(m, path, args);
+    } finally {
+      _notificationNavInFlight = false;
+      log(m).pair("notificationNavTrigger", trigger);
+      log(m).pair("notificationNavPath", path);
+    }
+  }
+
+  Future<void> _openNotificationWithRetry(Marker m, Paths path, Object? args) async {
     const attempts = 5;
     const delay = Duration(milliseconds: 250);
 
     for (var i = 0; i < attempts; i++) {
       try {
-        await Navigation.open(Paths.privacyPulse, arguments: args);
+        await Navigation.open(path, arguments: args);
         return;
       } catch (e, s) {
         final isLastAttempt = i == attempts - 1;
         if (isLastAttempt) {
-          log(m).e(msg: "Failed to open Privacy Pulse from notification tap", err: e, stack: s);
+          log(m).e(msg: "Failed to open notification destination", err: e, stack: s);
           return;
         }
         await sleepAsync(delay);
