@@ -297,6 +297,14 @@ class NotificationActor with Logging, Actor {
       if (data == null) return;
 
       final event = FcmEvent.fromJson(data);
+      if (_account.account == null) {
+        log(m)
+          ..w('Skipping background notification event without account context')
+          ..pair('eventType', event.type)
+          ..pair('eventId', event.eventId);
+        return;
+      }
+
       if (event.type == "account_expiry") {
         await _accountRefresh.onAccountExpiryEvent(m);
         log(m).i("accountExpiry:fcmHandle");
