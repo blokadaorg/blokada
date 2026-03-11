@@ -76,7 +76,7 @@ object CommonBinding : CommonOps {
         callback(Result.success(Unit))
     }
 
-    override fun doDismissAll(callback: (Result<Unit>) -> Unit) {
+    override fun doDismissDeliveredAll(callback: (Result<Unit>) -> Unit) {
         notification.dismissAll()
         callback(Result.success(Unit))
     }

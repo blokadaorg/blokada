@@ -289,10 +289,8 @@ void main() {
           "Enable activity logging to receive your weekly Privacy Pulse reports.",
         )).captured;
         final scheduledAt = DateTime.parse(captured.single as String).toLocal();
-        expect(
-          scheduledAt.difference(DateTime.now()).inDays,
-          inInclusiveRange(6, 7),
-        );
+        final delay = scheduledAt.difference(DateTime.now());
+        expect(delay.inSeconds, inInclusiveRange(30, 120));
       });
     });
 

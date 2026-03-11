@@ -370,7 +370,7 @@ class NotificationActor with Logging, Actor {
       await _channel.doShow(event.id.name, event.when!.toUtc().toIso8601String(), event.body);
     } else if (event.type == NotificationEventType.dismiss) {
       if (event.id == NotificationId.all) {
-        await _channel.doDismissAll();
+        await _channel.doDismissDeliveredAll();
       } else {
         await _channel.doCancel(event.id.name);
       }

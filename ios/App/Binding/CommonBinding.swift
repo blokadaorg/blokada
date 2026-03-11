@@ -354,8 +354,8 @@ class CommonBinding: CommonOps {
         .store(in: &cancellables)
     }
     
-    func doDismissAll(completion: @escaping (Result<Void, Error>) -> Void) {
-        clearAllNotifications()
+    func doDismissDeliveredAll(completion: @escaping (Result<Void, Error>) -> Void) {
+        clearDeliveredNotifications()
         completion(.success(()))
     }
 
@@ -450,9 +450,8 @@ class CommonBinding: CommonOps {
         .eraseToAnyPublisher()
     }
 
-    func clearAllNotifications() {
+    func clearDeliveredNotifications() {
         center.removeAllDeliveredNotifications()
-        center.removeAllPendingNotificationRequests()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 

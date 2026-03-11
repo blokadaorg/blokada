@@ -31,7 +31,7 @@ part 'weekly_report.dart';
 @PlatformProvided()
 mixin NotificationChannel {
   Future<void> doShow(String notificationId, String atWhen, String? body);
-  Future<void> doDismissAll();
+  Future<void> doDismissDeliveredAll();
   Future<void> doCancel(String notificationId);
 }
 

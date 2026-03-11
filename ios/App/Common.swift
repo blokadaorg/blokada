@@ -160,7 +160,7 @@ protocol CommonOps {
   func doShowRateDialog(completion: @escaping (Result<Void, Error>) -> Void)
   func doLinksChanged(links: [OpsLink], completion: @escaping (Result<Void, Error>) -> Void)
   func doShow(notificationId: String, atWhen: String, body: String?, completion: @escaping (Result<Void, Error>) -> Void)
-  func doDismissAll(completion: @escaping (Result<Void, Error>) -> Void)
+  func doDismissDeliveredAll(completion: @escaping (Result<Void, Error>) -> Void)
   func doConfigChanged(skipBypassList: Bool, completion: @escaping (Result<Void, Error>) -> Void)
   func doShareText(text: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -293,10 +293,10 @@ class CommonOpsSetup {
     } else {
       doShowChannel.setMessageHandler(nil)
     }
-    let doDismissAllChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.common.CommonOps.doDismissAll", binaryMessenger: binaryMessenger, codec: codec)
+    let doDismissDeliveredAllChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.common.CommonOps.doDismissDeliveredAll", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      doDismissAllChannel.setMessageHandler { _, reply in
-        api.doDismissAll() { result in
+      doDismissDeliveredAllChannel.setMessageHandler { _, reply in
+        api.doDismissDeliveredAll() { result in
           switch result {
             case .success:
               reply(wrapResult(nil))
@@ -306,7 +306,7 @@ class CommonOpsSetup {
         }
       }
     } else {
-      doDismissAllChannel.setMessageHandler(nil)
+      doDismissDeliveredAllChannel.setMessageHandler(nil)
     }
     let doConfigChangedChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.common.CommonOps.doConfigChanged", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

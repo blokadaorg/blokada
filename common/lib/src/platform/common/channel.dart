@@ -53,7 +53,7 @@ class PlatformCommonChannel extends CommonChannel {
   // NotificationChannel
 
   @override
-  Future<void> doDismissAll() => _ops.doDismissAll();
+  Future<void> doDismissDeliveredAll() => _ops.doDismissDeliveredAll();
 
   @override
   Future<void> doCancel(String notificationId) => _ops.doCancel(notificationId);
@@ -112,7 +112,7 @@ class NoOpCommonChannel extends CommonChannel {
   // NotificationChannel
 
   @override
-  Future<void> doDismissAll() => Future.value();
+  Future<void> doDismissDeliveredAll() => Future.value();
 
   @override
   Future<void> doCancel(String notificationId) => Future.value();
