@@ -8,9 +8,8 @@ class NotificationEvent {
 
   NotificationEvent.shown(this.id, this.when, {this.body}) : type = NotificationEventType.show;
 
-  NotificationEvent.dismissed()
-      : id = NotificationId.all,
-        type = NotificationEventType.dismiss,
+  NotificationEvent.dismissed({this.id = NotificationId.all})
+      : type = NotificationEventType.dismiss,
         when = null,
         body = null;
 }
@@ -22,6 +21,7 @@ enum NotificationId {
   supportNewMessage,
   weeklyReport,
   weeklyRefresh,
+  activityLoggingReminder,
 }
 
 enum NotificationEventType {

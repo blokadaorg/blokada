@@ -94,7 +94,6 @@ flutter:
     - assets/translations/ui/
     - assets/translations/packs/
     - assets/translations/packtags/
-    - assets/videos/
     - assets/fallbacks/
 
   # An image asset can refer to one or more resolution-specific "variants", see

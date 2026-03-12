@@ -7,15 +7,20 @@ part of 'notification.dart';
 /// we can do stuff in foreground (like refresh account).
 
 class NotificationActor with Logging, Actor {
+  static const _activityLoggingReminderDelay = Duration(minutes: 1);
+  static const _activityLoggingReminderBody =
+      "Enable activity logging to receive your weekly Privacy Pulse reports.";
+
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
   late final _device = Core.get<DeviceStore>();
+  late final _payment = Core.get<PaymentActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
-  var _pendingPrivacyPulseNav = false;
-  Object? _pendingPrivacyPulseArgs;
-  var _privacyPulseNavInFlight = false;
+  Paths? _pendingNotificationPath;
+  Object? _pendingNotificationArgs;
+  var _notificationNavInFlight = false;
 
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
@@ -33,12 +38,14 @@ class NotificationActor with Logging, Actor {
     _stage.addOnValue(routeChanged, onRouteChanged);
     _account.addOn(accountChanged, sendFcmTokenAsync);
     _device.addOn(deviceChanged, sendFcmTokenAsync);
+    _device.addOn(deviceChanged, _onDeviceChanged);
+    _payment.addOnValue(paymentSuccessful, _onPaymentSuccessful);
     if (!Core.act.isFamily) {
       _account.addOn(accountChanged, syncNotificationConfigFromBackendAsync);
       _account.addOn(accountIdChanged, syncNotificationConfigFromBackendAsync);
     }
     if (_stage.route.isForeground()) {
-      await _tryOpenPendingPrivacyPulse(m, trigger: "onStart");
+      await _tryOpenPendingNotification(m, trigger: "onStart");
     }
   }
 
@@ -65,8 +72,12 @@ class NotificationActor with Logging, Actor {
 
   // Only dismisses all notifications for now
   dismiss(Marker m, {NotificationId id = NotificationId.all}) async {
-    return await log(m).trace("dismissAll", (m) async {
-      _addCapped(NotificationEvent.dismissed());
+    return await log(m).trace("dismiss", (m) async {
+      if (id == NotificationId.all) {
+        _addCapped(NotificationEvent.dismissed());
+      } else {
+        _addCapped(NotificationEvent.dismissed(id: id));
+      }
       await _updateChannel();
     });
   }
@@ -76,7 +87,7 @@ class NotificationActor with Logging, Actor {
 
     return await log(m).trace("dismissNotifications", (m) async {
       await dismiss(m);
-      await _tryOpenPendingPrivacyPulse(m, trigger: "routeChanged");
+      await _tryOpenPendingNotification(m, trigger: "routeChanged");
     });
   }
 
@@ -201,56 +212,77 @@ class NotificationActor with Logging, Actor {
         // await _stage.setRoute(Paths.settings.path, m);
         // await sleepAsync(const Duration(seconds: 3));
         // await _stage.setRoute(Paths.support.path, m);
+      } else if (id == NotificationId.activityLoggingReminder) {
+        await _queueNotificationNavigation(
+          m,
+          path: Paths.settingsRetention,
+          trigger: "notificationTapped",
+        );
       } else if (id == NotificationId.weeklyReport) {
         final args = {
           'toplistRange': ToplistRange.weekly,
         };
         if (!isOnPrivacyPulse) {
-          _pendingPrivacyPulseNav = true;
-          _pendingPrivacyPulseArgs = args;
-          if (_stage.route.isForeground()) {
-            await _tryOpenPendingPrivacyPulse(m, trigger: "notificationTapped");
-          }
+          await _queueNotificationNavigation(
+            m,
+            path: Paths.privacyPulse,
+            args: args,
+            trigger: "notificationTapped",
+          );
         }
       }
     });
   }
 
-  Future<void> _tryOpenPendingPrivacyPulse(Marker m, {required String trigger}) async {
-    if (!_pendingPrivacyPulseNav) return;
-    if (_privacyPulseNavInFlight) return;
-
-    final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
-    if (isOnPrivacyPulse) {
-      _pendingPrivacyPulseNav = false;
-      _pendingPrivacyPulseArgs = null;
-      return;
-    }
-
-    _privacyPulseNavInFlight = true;
-    final args = _pendingPrivacyPulseArgs;
-    _pendingPrivacyPulseNav = false;
-    _pendingPrivacyPulseArgs = null;
-    try {
-      await _openPrivacyPulseWithRetry(m, args);
-    } finally {
-      _privacyPulseNavInFlight = false;
-      log(m).pair("privacyPulseNavTrigger", trigger);
+  Future<void> _queueNotificationNavigation(
+    Marker m, {
+    required Paths path,
+    Object? args,
+    required String trigger,
+  }) async {
+    _pendingNotificationPath = path;
+    _pendingNotificationArgs = args;
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingNotification(m, trigger: trigger);
     }
   }
 
-  Future<void> _openPrivacyPulseWithRetry(Marker m, Object? args) async {
+  Future<void> _tryOpenPendingNotification(Marker m, {required String trigger}) async {
+    final path = _pendingNotificationPath;
+    if (path == null) return;
+    if (_notificationNavInFlight) return;
+
+    if (Navigation.lastPath == path) {
+      _pendingNotificationPath = null;
+      _pendingNotificationArgs = null;
+      return;
+    }
+
+    _notificationNavInFlight = true;
+    final args = _pendingNotificationArgs;
+    _pendingNotificationPath = null;
+    _pendingNotificationArgs = null;
+    try {
+      await _openNotificationWithRetry(m, path, args);
+    } finally {
+      _notificationNavInFlight = false;
+      log(m).pair("notificationNavTrigger", trigger);
+      log(m).pair("notificationNavPath", path);
+    }
+  }
+
+  Future<void> _openNotificationWithRetry(Marker m, Paths path, Object? args) async {
     const attempts = 5;
     const delay = Duration(milliseconds: 250);
 
     for (var i = 0; i < attempts; i++) {
       try {
-        await Navigation.open(Paths.privacyPulse, arguments: args);
+        await Navigation.open(path, arguments: args);
         return;
       } catch (e, s) {
         final isLastAttempt = i == attempts - 1;
         if (isLastAttempt) {
-          log(m).e(msg: "Failed to open Privacy Pulse from notification tap", err: e, stack: s);
+          log(m).e(msg: "Failed to open notification destination", err: e, stack: s);
           return;
         }
         await sleepAsync(delay);
@@ -318,6 +350,30 @@ class NotificationActor with Logging, Actor {
     return resolveNotificationScheduleHint(scheduleHint, DateTime.now());
   }
 
+  Future<void> _onPaymentSuccessful(bool restore, Marker m) async {
+    if (restore || Core.act.isFamily) return;
+
+    await log(m).trace("activityLoggingReminder:onPaymentSuccessful", (m) async {
+      await _device.fetch(m, force: true);
+      if (_device.retention?.isEnabled() ?? false) {
+        await dismiss(m, id: NotificationId.activityLoggingReminder);
+        return;
+      }
+
+      await showWithBody(
+        NotificationId.activityLoggingReminder,
+        m,
+        _activityLoggingReminderBody,
+        when: DateTime.now().add(_activityLoggingReminderDelay),
+      );
+    });
+  }
+
+  Future<void> _onDeviceChanged(Marker m) async {
+    if (!(_device.retention?.isEnabled() ?? false)) return;
+    await dismiss(m, id: NotificationId.activityLoggingReminder);
+  }
+
   _addCapped(NotificationEvent event) {
     final notifications = _notifications.now.toList();
     notifications.add(event);
@@ -332,7 +388,11 @@ class NotificationActor with Logging, Actor {
     if (event.type == NotificationEventType.show) {
       await _channel.doShow(event.id.name, event.when!.toUtc().toIso8601String(), event.body);
     } else if (event.type == NotificationEventType.dismiss) {
-      await _channel.doDismissAll();
+      if (event.id == NotificationId.all) {
+        await _channel.doDismissDeliveredAll();
+      } else {
+        await _channel.doCancel(event.id.name);
+      }
     }
   }
 }

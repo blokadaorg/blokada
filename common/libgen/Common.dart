@@ -30,7 +30,10 @@ abstract class CommonOps {
   void doShow(String notificationId, String atWhen, String? body);
 
   @async
-  void doDismissAll();
+  void doDismissDeliveredAll();
+
+  @async
+  void doCancel(String notificationId);
 
   // -- Config
   @async

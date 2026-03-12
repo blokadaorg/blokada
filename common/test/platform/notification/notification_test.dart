@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
@@ -35,6 +36,7 @@ void main() {
       await withTrace((m) async {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<StageStore>(MockStageStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
 
         Core.register(NotificationsValue());
 
@@ -55,6 +57,7 @@ void main() {
       await withTrace((m) async {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<StageStore>(MockStageStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
@@ -85,6 +88,7 @@ void main() {
       await withTrace((m) async {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<StageStore>(MockStageStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
@@ -114,6 +118,7 @@ void main() {
       await withTrace((m) async {
         Core.register<AccountStore>(MockAccountStore());
         Core.register<StageStore>(MockStageStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         final accountRefresh = _FakeAccountRefreshStore();
         Core.register<AccountRefreshStore>(accountRefresh);
@@ -143,6 +148,7 @@ void main() {
         when(stage.route).thenReturn(StageRouteState.init());
         Core.register<StageStore>(stage);
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register<DeviceStore>(_MockDeviceStore());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
@@ -166,6 +172,7 @@ void main() {
         when(stage.route).thenReturn(StageRouteState.init());
         Core.register<StageStore>(stage);
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
@@ -183,13 +190,15 @@ void main() {
       });
     });
 
-    test("notification tap opens privacy pulse on actor start if app is already foreground", () async {
+    test("notification tap opens privacy pulse on actor start if app is already foreground",
+        () async {
       await withTrace((m) async {
         final stage = MockStageStore();
         var route = StageRouteState.init();
         when(stage.route).thenAnswer((_) => route);
         Core.register<StageStore>(stage);
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register<DeviceStore>(_MockDeviceStore());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
@@ -224,6 +233,7 @@ void main() {
         when(stage.route).thenReturn(StageRouteState.init());
         Core.register<StageStore>(stage);
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
@@ -245,6 +255,189 @@ void main() {
         expect(opened, 0);
         expect(Navigation.lastPath, isNull);
         Navigation.onNavigated = (_) {};
+      });
+    });
+
+    test("non-restore payment schedules activity logging reminder when retention is disabled",
+        () async {
+      await withTrace((m) async {
+        Navigation.isTabletMode = false;
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        final payment = _FakePaymentActor();
+        final device = _FakeDeviceStore()..retentionValue = "";
+
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(device);
+        Core.register<PaymentActor>(payment);
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.onStart(m);
+        await payment.emitValue(paymentSuccessful, false, m);
+
+        final captured = verify(ops.doShow(
+          NotificationId.activityLoggingReminder.name,
+          captureAny,
+          "Enable activity logging to receive your weekly Privacy Pulse reports.",
+        )).captured;
+        final scheduledAt = DateTime.parse(captured.single as String).toLocal();
+        final delay = scheduledAt.difference(DateTime.now());
+        expect(delay.inSeconds, inInclusiveRange(30, 120));
+      });
+    });
+
+    test("restore payment does not schedule activity logging reminder", () async {
+      await withTrace((m) async {
+        Navigation.isTabletMode = false;
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        final payment = _FakePaymentActor();
+        final device = _FakeDeviceStore()..retentionValue = "";
+
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(device);
+        Core.register<PaymentActor>(payment);
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.onStart(m);
+        await payment.emitValue(paymentSuccessful, true, m);
+
+        verifyNever(ops.doShow(NotificationId.activityLoggingReminder.name, any, any));
+      });
+    });
+
+    test("enabled retention does not schedule activity logging reminder", () async {
+      await withTrace((m) async {
+        Navigation.isTabletMode = false;
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        final payment = _FakePaymentActor();
+        final device = _FakeDeviceStore()..retentionValue = "24h";
+
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(device);
+        Core.register<PaymentActor>(payment);
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.onStart(m);
+        await payment.emitValue(paymentSuccessful, false, m);
+
+        verifyNever(ops.doShow(NotificationId.activityLoggingReminder.name, any, any));
+        verify(ops.doCancel(NotificationId.activityLoggingReminder.name)).called(1);
+      });
+    });
+
+    test("enabling retention cancels pending activity logging reminder", () async {
+      await withTrace((m) async {
+        Navigation.isTabletMode = false;
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        final payment = _FakePaymentActor();
+        final device = _FakeDeviceStore()..retentionValue = "";
+
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(device);
+        Core.register<PaymentActor>(payment);
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.onStart(m);
+        await payment.emitValue(paymentSuccessful, false, m);
+        device.retentionValue = "24h";
+        await device.emit(deviceChanged, "device-tag", m);
+
+        verify(ops.doCancel(NotificationId.activityLoggingReminder.name)).called(1);
+      });
+    });
+
+    test("activity logging reminder tap opens retention settings", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        Navigation.isTabletMode = true;
+        Navigation.openInTablet = (path, arguments) {
+          Navigation.lastPath = path;
+        };
+
+        await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
+
+        expect(Navigation.lastPath, Paths.settingsRetention);
+      });
+    });
+
+    test("activity logging reminder tap defers navigation until app is foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        Navigation.isTabletMode = true;
+        Navigation.openInTablet = (path, arguments) {
+          Navigation.lastPath = path;
+        };
+
+        await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
+        expect(Navigation.lastPath, isNull);
+
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+
+        expect(Navigation.lastPath, Paths.settingsRetention);
       });
     });
   });
@@ -304,3 +497,23 @@ class _FakeAccountRefreshStore extends Mock implements AccountRefreshStore {
 }
 
 class _MockDeviceStore extends Mock implements DeviceStore {}
+
+class _FakePaymentActor extends PaymentActor {
+  _FakePaymentActor() {
+    willAcceptOnValue(paymentSuccessful, [paymentClosed]);
+  }
+}
+
+class _FakeDeviceStore extends Mock with Logging, Emitter implements DeviceStore {
+  String? retentionValue;
+
+  _FakeDeviceStore() {
+    willAcceptOn([deviceChanged]);
+  }
+
+  @override
+  String? get retention => retentionValue;
+
+  @override
+  Future<void> fetch(Marker m, {bool force = false}) async {}
+}
