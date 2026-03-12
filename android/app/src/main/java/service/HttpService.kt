@@ -30,7 +30,11 @@ object HttpService {
     private val env = EnvironmentService
     private val log = Logger("Http")
     private const val DNS_CACHE_TTL_MS = 10 * 60 * 1000L
-    private val firstPartyHosts = setOf("api.blocka.net", "family.api.blocka.net")
+    private val firstPartyHosts = setOf(
+        "api.blocka.net",
+        "family.api.blocka.net",
+        "support.blocka.net"
+    )
 
     private val httpClient = OkHttpClient.Builder().apply {
         addNetworkInterceptor { chain ->
@@ -121,11 +125,11 @@ object HttpService {
 
             val resolved = tryResolve(hostname)
             if (resolved.isNotEmpty()) {
-                ResolutionCache.store(hostname, resolved)
+                ResolutionCache.store(hostname, networkHandle(), resolved)
                 return resolved
             }
 
-            val cached = ResolutionCache.load(hostname)
+            val cached = ResolutionCache.load(hostname, networkHandle())
             if (cached.isNotEmpty()) {
                 HttpService.log.w("Using cached DNS entries for $hostname")
                 return cached
@@ -142,29 +146,37 @@ object HttpService {
                 emptyList()
             }
         }
+
+        private fun networkHandle(): Long? = network?.networkHandle
     }
 
     private object ResolutionCache {
-        private val entries = mutableMapOf<String, CacheEntry>()
+        private val entries = mutableMapOf<CacheKey, CacheEntry>()
 
         @Synchronized
-        fun store(hostname: String, addresses: List<InetAddress>) {
-            entries[hostname] = CacheEntry(
+        fun store(hostname: String, networkHandle: Long?, addresses: List<InetAddress>) {
+            entries[CacheKey(hostname, networkHandle)] = CacheEntry(
                 addresses = addresses,
                 expiresAt = System.currentTimeMillis() + DNS_CACHE_TTL_MS
             )
         }
 
         @Synchronized
-        fun load(hostname: String): List<InetAddress> {
-            val entry = entries[hostname] ?: return emptyList()
+        fun load(hostname: String, networkHandle: Long?): List<InetAddress> {
+            val key = CacheKey(hostname, networkHandle)
+            val entry = entries[key] ?: return emptyList()
             if (entry.expiresAt < System.currentTimeMillis()) {
-                entries.remove(hostname)
+                entries.remove(key)
                 return emptyList()
             }
             return entry.addresses
         }
     }
+
+    private data class CacheKey(
+        val hostname: String,
+        val networkHandle: Long?
+    )
 
     private data class CacheEntry(
         val addresses: List<InetAddress>,
