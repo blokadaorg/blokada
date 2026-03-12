@@ -62,6 +62,7 @@ object ConnectivityService {
         @Synchronized get
 
     // Hold on to data we get from the async callbacks, as per docs mixing them with sync calls is not ok
+    private val networks = mutableMapOf<NetworkHandle, Network>()
     private val networkDescriptors = mutableMapOf<NetworkHandle, NetworkDescriptor>()
     private val networkLinks = mutableMapOf<NetworkHandle, LinkProperties>()
 
@@ -136,6 +137,7 @@ object ConnectivityService {
 
     // Ensures we keep the best description of given network we can have.
     private fun describeNetwork(network: Network, cap: NetworkCapabilities): NetworkDescriptor? {
+        networks[network.networkHandle] = network
         val existing = networkDescriptors[network.networkHandle]
         return try {
             val descriptor = NetworkDescriptor.fromNetwork(network, cap)
@@ -201,6 +203,7 @@ object ConnectivityService {
         val descriptor = networkDescriptors[network.networkHandle]
         log.v("Network lost: ${network.networkHandle} = $descriptor")
 
+        networks.remove(network.networkHandle)
         networkDescriptors.remove(network.networkHandle)
         networkLinks.remove(network.networkHandle)
 
@@ -283,6 +286,10 @@ object ConnectivityService {
             networkLinks[active]?.dnsServers?.filterIsInstance<java.net.Inet4Address>()
                 ?: emptyList()
         } ?: emptyList()
+    }
+
+    fun getUnderlyingNetwork(): Network? {
+        return defaultRouteNetwork?.let(networks::get)
     }
 
     fun isDeviceInOfflineMode(): Boolean {
