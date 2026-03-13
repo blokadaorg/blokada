@@ -15,19 +15,15 @@ CHECK_CONFIG ?= Debug
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: build build-family build-six build-six-debug build-family-debug ipa-family ipa-six pods check run-six run-family appium-install-six
+.PHONY: build build-family build-six build-six-debug build-family-debug \
+	ipa-family ipa-six pods check run-six run-family appium-install-six \
+	print-build-dir-six print-build-dir-family
 
 # Note: for all targets in this Makefile, the common lib has to be
 # ready beforehand. This is handled when running make targets from
 # the root directory instead.
 
-define xcode-build
-	$(XCODEBUILD) $(strip $(1)) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(2)) -configuration $(strip $(3)) $(if $(strip $(4)),-destination '$(strip $(4))') $(strip $(5))
-endef
-
-define xcode-build-dir
-$(XCODEBUILD) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(1)) -configuration $(strip $(2)) -showBuildSettings | awk -F'= ' '/CONFIGURATION_BUILD_DIR/{print $$2; exit}'
-endef
+include make/run-helpers.mk
 
 
 # Build everything from scratch (release)
@@ -69,12 +65,18 @@ ipa-six:
 # Build .ipa of six - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
 build-six-debug:
 	$(MAKE) -C BlockaWebExtension gen-rules
-	$(call xcode-build,build,Dev,$(or $(CONFIG),Debug),,)
+	$(call xcode-build,build,Dev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION),)
 
 # Build .ipa of family - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
 build-family-debug:
 	$(MAKE) -C BlockaWebExtension gen-rules
-	$(call xcode-build,build,FamilyDev,$(or $(CONFIG),Debug),,)
+	$(call xcode-build,build,FamilyDev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION),)
+
+print-build-dir-six:
+	@$(call xcode-build-dir,Dev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION))
+
+print-build-dir-family:
+	@$(call xcode-build-dir,FamilyDev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION))
 
 # Regenerate Podfile.lock
 pods:
@@ -89,57 +91,21 @@ check:
 	$(BUNDLE) check || $(BUNDLE) install
 	$(call xcode-build,build,$(CHECK_SCHEME),$(CHECK_CONFIG),generic/platform=iOS Simulator,CODE_SIGNING_ALLOWED=NO ARCHS=arm64 ONLY_ACTIVE_ARCH=YES)
 
-# Build, install and run six flavor on connected device with console output
-# Usage: make run-six [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
-# Default: CONFIG=Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
-run-six: CONFIG?=Release
-run-six: build-six-debug
-	$(call deploy-app,Dev,Dev.app,net.blocka.app,launch,$(DEVICE_NAME))
+# Build, install and run six flavor on an auto-selected physical iPhone/iPad.
+# Usage: make run-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+# Default: uses the first paired iPhone/iPad when IOS_DEVICE_NAME is not provided.
+# Default config: Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
+run-six:
+	$(call run-app,Dev,Dev.app,net.blocka.app,build-six-debug,print-build-dir-six,launch,no,$(if $(CONFIG),$(CONFIG),Release))
 
-# Build, install and run family flavor on connected device with console output
-# Usage: make run-family [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
-# Default: CONFIG=Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
-run-family: CONFIG?=Release
-run-family: build-family-debug
-	$(call deploy-app,FamilyDev,FamilyDev.app,net.blocka.app.family,launch,$(DEVICE_NAME))
+# Build, install and run family flavor on an auto-selected physical iPhone/iPad.
+# Usage: make run-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+# Default: uses the first paired iPhone/iPad when IOS_DEVICE_NAME is not provided.
+# Default config: Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
+run-family:
+	$(call run-app,FamilyDev,FamilyDev.app,net.blocka.app.family,build-family-debug,print-build-dir-family,launch,no,$(if $(CONFIG),$(CONFIG),Release))
 
-# Build and install the six flavor without launching, primed for Appium runs
-appium-install-six: CONFIG?=Release
-appium-install-six: build-six-debug
-	$(call deploy-app,Dev,Dev.app,net.blocka.app,install,)
-
-# Shared function to discover device, install the app, and optionally launch it.
-# Usage: $(call deploy-app,SCHEME,APP_NAME,BUNDLE_ID,install|launch,REQUESTED_NAME)
-define deploy-app
-	@set -euo pipefail; \
-	DEVICES_JSON=$$(xcrun devicectl -q list devices --json-output /dev/stdout 2>&1 | sed '/ERROR:/,$$d'); \
-	REQUESTED_NAME="$${IOS_DEVICE_NAME:-$(strip $(5))}"; \
-	DEVICE_UDID="$${IOS_UDID:-}"; \
-	if [ -z "$$DEVICE_UDID" ]; then \
-		if [ -n "$$REQUESTED_NAME" ]; then \
-			DEVICE_UDID=$$(echo "$$DEVICES_JSON" | jq -r ".result.devices[] | select(.deviceProperties.name == \"$$REQUESTED_NAME\" and .hardwareProperties.platform == \"iOS\" and .connectionProperties.pairingState == \"paired\") | .hardwareProperties.udid" | head -n 1 2>/dev/null); \
-		else \
-			DEVICE_UDID=$$(echo "$$DEVICES_JSON" | jq -r '.result.devices[] | select((.hardwareProperties.deviceType == "iPhone" or .hardwareProperties.deviceType == "iPad") and .connectionProperties.pairingState == "paired") | .hardwareProperties.udid' | head -n 1 2>/dev/null); \
-		fi; \
-	fi; \
-	DEVICE_IDENTIFIER=$$(echo "$$DEVICES_JSON" | jq -r ".result.devices[] | select(.hardwareProperties.udid == \"$$DEVICE_UDID\") | .identifier" | head -n 1 2>/dev/null); \
-	DEVICE_NAME_FOUND=$$(echo "$$DEVICES_JSON" | jq -r ".result.devices[] | select(.hardwareProperties.udid == \"$$DEVICE_UDID\") | .deviceProperties.name" 2>/dev/null); \
-	if [ -z "$$DEVICE_UDID" ] || [ -z "$$DEVICE_IDENTIFIER" ]; then \
-		echo "Error: No device found. Available devices:"; \
-		echo "$$DEVICES_JSON" | jq -r '.result.devices[] | select(.hardwareProperties.platform == "iOS" and .connectionProperties.pairingState == "paired") | "  \(.deviceProperties.name) (\(.hardwareProperties.deviceType))"' 2>/dev/null || echo "  (none found)"; \
-		exit 1; \
-	fi; \
-	if [ -z "$$DEVICE_NAME_FOUND" ]; then \
-		DEVICE_NAME_FOUND=$$DEVICE_UDID; \
-	fi; \
-	echo "📱 Target device: $$DEVICE_NAME_FOUND"; \
-	APP_DIR=$$($(call xcode-build-dir,$(1),$(CONFIG))); \
-	echo "🧹 Removing existing installation (if any)..."; \
-	xcrun devicectl device uninstall app --device $$DEVICE_IDENTIFIER $(3) >/dev/null 2>&1 || true; \
-	echo "📦 Installing $(2) to $$DEVICE_NAME_FOUND"; \
-	xcrun devicectl device install app --device $$DEVICE_IDENTIFIER "$$APP_DIR/$(2)"; \
-	if [ "$(4)" = "launch" ]; then \
-		echo "🚀 Launching $(3)"; \
-		xcrun devicectl device process launch --device $$DEVICE_UDID --terminate-existing --console $(3); \
-	fi
-endef
+# Build and install the six flavor on a physical device without launching, primed for Appium runs.
+# Usage: make appium-install-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+appium-install-six:
+	$(call run-app,Dev,Dev.app,net.blocka.app,build-six-debug,print-build-dir-six,install,no,$(if $(CONFIG),$(CONFIG),Release))
