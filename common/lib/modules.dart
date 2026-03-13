@@ -50,8 +50,17 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
+import 'package:flutter/foundation.dart';
 
 class Modules with Logging {
+  Modules({
+    Future<void> Function(Marker m, AppLaunchContext launchContext)? startCoreBootstrap,
+    Future<void> Function(Marker m)? acceptCommands,
+    Future<void> Function(Marker m)? startForegroundPhase,
+  })  : _startCoreBootstrapOverride = startCoreBootstrap,
+        _acceptCommandsOverride = acceptCommands,
+        _startForegroundPhaseOverride = startForegroundPhase;
+
   late final _appStart = Core.get<AppStartStore>();
   late final _commandStore = Core.get<CommandStore>();
   late final _accountStore = Core.get<AccountStore>();
@@ -59,6 +68,12 @@ class Modules with Logging {
   late final _accountEphemeral = Core.get<api_domain.AccountEphemeral>();
   late final _deviceStore = Core.get<DeviceStore>();
   late final _bootstrapIdentity = Core.get<BootstrapIdentityValue>();
+  final Future<void> Function(Marker m, AppLaunchContext launchContext)?
+      _startCoreBootstrapOverride;
+  final Future<void> Function(Marker m)? _acceptCommandsOverride;
+  final Future<void> Function(Marker m)? _startForegroundPhaseOverride;
+  bool _foregroundStarted = false;
+  Future<void>? _foregroundStartInFlight;
 
   create(Act act) async {
     Core.act = act;
@@ -155,14 +170,42 @@ class Modules with Logging {
     log(m).pair('launchReason', launchContext.reason.name);
     log(m).pair('bootstrapProfile', launchContext.profile.name);
 
-    await _startCoreBootstrap(m, launchContext);
-    await _commandStore.acceptCommands(m);
+    await (_startCoreBootstrapOverride?.call(m, launchContext) ??
+        _startCoreBootstrap(m, launchContext));
+    await (_acceptCommandsOverride?.call(m) ?? _commandStore.acceptCommands(m));
 
     if (!launchContext.allowRunApp) {
       log(m).t("Background bootstrap completed");
       return;
     }
 
+    await startForeground(m);
+  }
+
+  Future<void> startForeground(Marker m) async {
+    if (_foregroundStarted) {
+      log(m).t("Foreground modules already started");
+      return;
+    }
+
+    final inFlight = _foregroundStartInFlight;
+    if (inFlight != null) {
+      await inFlight;
+      return;
+    }
+
+    final future = _startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m);
+    _foregroundStartInFlight = future;
+
+    try {
+      await future;
+      _foregroundStarted = true;
+    } finally {
+      _foregroundStartInFlight = null;
+    }
+  }
+
+  Future<void> _startForegroundModules(Marker m) async {
     log(m).t("Starting foreground modules...");
 
     for (var mod in _modules) {
@@ -235,4 +278,10 @@ class Modules with Logging {
     await module.create();
     _add(module);
   }
+
+  @visibleForTesting
+  bool get foregroundStarted => _foregroundStarted;
+
+  @visibleForTesting
+  bool get foregroundStartInFlight => _foregroundStartInFlight != null;
 }

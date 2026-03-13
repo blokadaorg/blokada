@@ -5,6 +5,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/mocked-deps.dart';
 import 'package:common/modules.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +20,12 @@ void main() async {
 
   const flavor = Flavor.family;
   final modules = Modules();
-  await modules.create(
-      ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
+  await modules.create(ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
   attachMockedDeps();
-  modules.start(Markers.start);
+  await modules.start(
+    Markers.start,
+    launchContext: AppLaunchContext.foregroundInteractive,
+  );
 
   final CommandStore command = Core.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);

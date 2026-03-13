@@ -8,6 +8,7 @@ import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
 import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:common/src/platform/app/launch_context.dart';
+import 'package:common/src/platform/app/startup_promotion_gate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,20 +21,17 @@ void main() async {
 
   const channel = MethodChannel('org.blokada/flavor');
 
-  final Flavor flavor = await channel.invokeMethod('getFlavor') == "family"
-      ? Flavor.family
-      : Flavor.v6;
+  final Flavor flavor =
+      await channel.invokeMethod('getFlavor') == "family" ? Flavor.family : Flavor.v6;
 
-  final PlatformType platform =
-      io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
+  final PlatformType platform = io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
   final launchContext = await AppLaunchContext.load(Markers.start);
 
   final modules = Modules();
   if (kReleaseMode) {
     await modules.create(ActScreenplay(ActScenario.prod, flavor, platform));
   } else {
-    await modules
-        .create(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
+    await modules.create(ActScreenplay(ActScenario.prodWithToys, flavor, platform));
   }
 
   if (flavor == Flavor.family) {
@@ -42,20 +40,29 @@ void main() async {
 
   await modules.start(Markers.start, launchContext: launchContext);
 
-  if (!launchContext.allowRunApp) {
-    return;
-  }
-
   // final ws = DevWebsocket();
   // depend(ws);
   // ws.handle();
 
+  final home = _buildHome(flavor);
+
+  runApp(
+    BlokadaApp(
+      content: StartupPromotionGate(
+        launchContext: launchContext,
+        startForeground: modules.startForeground,
+        child: home,
+      ),
+      isFamily: flavor == Flavor.family,
+    ),
+  );
+}
+
+Widget _buildHome(Flavor flavor) {
   final ctrl = Core.get<TopBarController>();
   final nav = NavigationPopObserver();
 
-  final home = (flavor == Flavor.family)
+  return (flavor == Flavor.family)
       ? FamilyMainScreen(ctrl: ctrl, nav: nav)
       : V6MainScreen(ctrl: ctrl, nav: nav);
-
-  runApp(BlokadaApp(content: home, isFamily: flavor == Flavor.family));
 }

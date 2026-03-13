@@ -3,6 +3,7 @@ import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/modules.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,11 @@ void main() async {
 
   const flavor = Flavor.v6;
   final modules = Modules();
-  await modules.create(
-      ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
-  modules.start(Markers.start);
+  await modules.create(ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
+  await modules.start(
+    Markers.start,
+    launchContext: AppLaunchContext.foregroundInteractive,
+  );
 
   final CommandStore command = Core.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);
