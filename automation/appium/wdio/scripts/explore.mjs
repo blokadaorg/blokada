@@ -10,7 +10,7 @@ import {
   terminateWebDriverAgent
 } from "./lib/appium-runtime.mjs";
 import { buildCapabilities, getRemoteOptions } from "./lib/capabilities.mjs";
-import { resolveTargetDevice } from "./lib/devices.mjs";
+import { resolveTargetDevice } from "../../../shared/lib/devices.mjs";
 import { runExplorerCommand } from "./lib/explorer-commands.mjs";
 import { getProjectPaths } from "./lib/paths.mjs";
 import {

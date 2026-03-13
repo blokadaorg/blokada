@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { resolveTargetDevice } from "./lib/devices.mjs";
+import { resolveTargetDevice } from "../../../shared/lib/devices.mjs";
 
 async function main() {
   try {

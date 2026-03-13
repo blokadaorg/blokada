@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { ensureAppiumRuntime } from "./lib/appium-runtime.mjs";
-import { resolveTargetDevice, shellQuote } from "./lib/devices.mjs";
+import { resolveTargetDevice, shellQuote } from "../../../shared/lib/devices.mjs";
 import { getProjectPaths } from "./lib/paths.mjs";
 
 const outputJson = process.argv.includes("--json");

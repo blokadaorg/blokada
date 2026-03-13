@@ -6,7 +6,7 @@ import {
   parseDevices,
   pickNamedDevice,
   shellQuote
-} from "../lib/devices.mjs";
+} from "../../../../shared/lib/devices.mjs";
 
 test("parseDevices extracts xcdevice rows", () => {
   const output = [
