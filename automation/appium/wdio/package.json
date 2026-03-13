@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "appium:ensure": "node scripts/check-driver.mjs",
+    "explore": "node scripts/explore.mjs --jsonl",
+    "test:unit": "node --test scripts/tests/*.test.mjs",
     "wdio": "wdio run wdio.conf.ts",
     "test": "npm run wdio",
     "lint": "echo \"No lint configured\""
   },
   "dependencies": {
-    "@wdio/appium-service": "^9.20.0",
     "@wdio/cli": "^9.0.5",
     "@wdio/globals": "^9.17.0",
     "@wdio/local-runner": "^9.20.0",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@types/chai": "^5.2.2",
     "@types/node": "^20.11.30",
+    "appium": "^3.2.2",
     "chai": "^6.2.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

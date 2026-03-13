@@ -16,6 +16,7 @@ blokada-appstore.json
 
 # Appium / WDIO artifacts
 automation/appium/output/
+automation/appium/.appium/
 automation/appium/wdio/node_modules/
 automation/appium/wdio/.npmrc
 !.appiumrc.yaml
@@ -25,3 +26,7 @@ automation/appium/wdio/.npmrc
 # iOS build artifacts
 ios/*.ipa
 ios/*.dSYM.zip
+
+# Track repo-local skills even if .agents is globally ignored
+!.agents/skills/
+!.agents/skills/**

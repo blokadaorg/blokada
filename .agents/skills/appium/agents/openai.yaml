@@ -1,0 +1,4 @@
+interface:
+  display_name: "Appium"
+  short_description: "Stream dynamic Appium device inspection"
+  default_prompt: "Use $appium to inspect and navigate the live app through the repo-local Appium machine session."
