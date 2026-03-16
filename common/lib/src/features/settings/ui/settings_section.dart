@@ -42,11 +42,13 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _command = Core.get<CommandStore>();
   late final _unread = Core.get<SupportUnread>();
   late final _rate = Core.get<RateActor>();
-  late final _notification = Core.get<NotificationActor>();
+  late final NotificationActor? _notification =
+      Core.act.isFamily ? null : Core.get<NotificationActor>();
 
   late final _lock = Core.get<LockActor>();
   late final _hasPin = Core.get<HasPin>();
-  late final _weeklyOptOut = Core.get<WeeklyReportOptOutValue>();
+  late final WeeklyReportOptOutValue? _weeklyOptOut =
+      Core.act.isFamily ? null : Core.get<WeeklyReportOptOutValue>();
 
   bool _weeklyReportEnabled = true;
 
@@ -55,17 +57,20 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
     super.initState();
     disposeLater(_unread.onChange.listen(rebuild));
     disposeLater(_hasPin.onChange.listen(rebuild));
-    disposeLater(_weeklyOptOut.onChange.listen((update) {
-      setState(() {
-        _weeklyReportEnabled = !update.now;
-      });
-    }));
     _unread.fetch(Markers.ui);
-    _weeklyOptOut.fetch(Markers.ui).then((value) {
-      setState(() {
-        _weeklyReportEnabled = !value;
+    final weeklyOptOut = _weeklyOptOut;
+    if (weeklyOptOut != null) {
+      disposeLater(weeklyOptOut.onChange.listen((update) {
+        setState(() {
+          _weeklyReportEnabled = !update.now;
+        });
+      }));
+      weeklyOptOut.fetch(Markers.ui).then((value) {
+        setState(() {
+          _weeklyReportEnabled = !value;
+        });
       });
-    });
+    }
   }
 
   @override
@@ -228,49 +233,51 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     ),
                   ],
                 ),
-          const SizedBox(height: 32),
-          SectionLabel(text: "Notifications"),
-          CommonCard(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Weekly privacy report",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "Send a weekly summary of tracker activity",
-                        style: TextStyle(fontSize: 13),
-                      ),
-                    ],
+          if (!Core.act.isFamily) ...[
+            const SizedBox(height: 32),
+            SectionLabel(text: "Notifications"),
+            CommonCard(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Weekly privacy report",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "Send a weekly summary of tracker activity",
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                CupertinoSwitch(
-                  activeColor: context.theme.accent,
-                  value: _weeklyReportEnabled,
-                  onChanged: (bool value) async {
-                    final previous = _weeklyReportEnabled;
-                    setState(() {
-                      _weeklyReportEnabled = value;
-                    });
-                    try {
-                      await _notification.setWeeklyReportEnabled(Markers.userTap, value);
-                    } catch (_) {
-                      if (!mounted) return;
+                  CupertinoSwitch(
+                    activeColor: context.theme.accent,
+                    value: _weeklyReportEnabled,
+                    onChanged: (bool value) async {
+                      final previous = _weeklyReportEnabled;
                       setState(() {
-                        _weeklyReportEnabled = previous;
+                        _weeklyReportEnabled = value;
                       });
-                    }
-                  },
-                ),
-              ],
+                      try {
+                        await _notification!.setWeeklyReportEnabled(Markers.userTap, value);
+                      } catch (_) {
+                        if (!mounted) return;
+                        setState(() {
+                          _weeklyReportEnabled = previous;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 40),
           SectionLabel(text: "account section header my subscription".i18n.capitalize()),
           CommonCard(
