@@ -109,6 +109,7 @@ android {
         family {
             // Blokada Family that lands on Google Play.
             applicationId "org.blokada.family"
+            proguardFile 'proguard-family.pro'
         }
     }
 
