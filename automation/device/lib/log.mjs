@@ -14,6 +14,7 @@ const DEFAULT_LINES = 200;
 const MAX_LINES = 1000;
 const TIMESTAMP_REGEX = /\b(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\b/;
 const SECTION_START_REGEX = /^\s*[A-Z]+\s+┌/;
+const SYSTEM_CRASH_LOGS_DOMAIN = "systemCrashLogs";
 
 function formatError(error, fallback) {
   if (!(error instanceof Error)) {
@@ -46,6 +47,10 @@ function makeLocalDate(timestamp) {
 
 export function getDeviceLogOutputDir() {
   return resolve(repoRoot, "automation", "device", "output", "logs");
+}
+
+export function getDeviceCrashOutputDir() {
+  return resolve(repoRoot, "automation", "device", "output", "crashlogs");
 }
 
 export function normalizeWindow(window = DEFAULT_WINDOW) {
@@ -81,6 +86,37 @@ export function getShareLogPrefix(bundleId = "net.blocka.app") {
 
 export function getDeviceLogArtifactBaseName(bundleId, window) {
   return `${getShareLogPrefix(bundleId)}-${normalizeWindow(window)}`;
+}
+
+export function getCrashReportPrefix(bundleId = "net.blocka.app") {
+  if (bundleId === "net.blocka.app.family" || bundleId.endsWith(".family")) {
+    return "FamilyDev-";
+  }
+
+  if (bundleId === "net.blocka.app") {
+    return "Dev-";
+  }
+
+  throw new Error(
+    `Unsupported bundle id '${bundleId}' for crash-report lookup. Only Blokada 6 and Blokada Family are supported.`
+  );
+}
+
+export function selectNewestCrashReport(files, bundleId) {
+  const prefix = getCrashReportPrefix(bundleId);
+  const matches = files.filter((file) => {
+    const name = file?.name ?? file?.relativePath ?? "";
+    const isDirectory = file?.resources?.isDirectory === true;
+    return !isDirectory && name.startsWith(prefix) && name.endsWith(".ips");
+  });
+
+  matches.sort((left, right) => {
+    const leftDate = Date.parse(left?.metadata?.lastModDate ?? "") || 0;
+    const rightDate = Date.parse(right?.metadata?.lastModDate ?? "") || 0;
+    return rightDate - leftDate;
+  });
+
+  return matches[0];
 }
 
 export function selectNewestLogFile(files, bundleId) {
@@ -218,30 +254,51 @@ async function listAppGroupFiles(device, execFileSyncImpl = execFileSync) {
   return payload?.result?.files ?? [];
 }
 
-async function copyRemoteFile(device, sourceFile, destination, execFileSyncImpl = execFileSync) {
+async function listSystemCrashLogs(device, execFileSyncImpl = execFileSync) {
+  const payload = await runDevicectlJson(
+    [
+      "devicectl",
+      "device",
+      "info",
+      "files",
+      "--device",
+      device.udid,
+      "--domain-type",
+      SYSTEM_CRASH_LOGS_DOMAIN,
+      "--subdirectory",
+      "."
+    ],
+    execFileSyncImpl
+  );
+
+  return payload?.result?.files ?? [];
+}
+
+async function copyRemoteFile(
+  device,
+  sourceFile,
+  destination,
+  execFileSyncImpl = execFileSync,
+  domainType = "appGroupDataContainer",
+  domainIdentifier = domainType === "appGroupDataContainer" ? APP_GROUP_ID : undefined
+) {
+  const args = [
+    "devicectl",
+    "device",
+    "copy",
+    "from",
+    "--device",
+    device.udid,
+    "--domain-type",
+    domainType
+  ];
+  if (domainIdentifier) {
+    args.push("--domain-identifier", domainIdentifier);
+  }
+  args.push("--source", sourceFile, "--destination", destination);
+
   try {
-    execFileSyncImpl(
-      "xcrun",
-      [
-        "devicectl",
-        "device",
-        "copy",
-        "from",
-        "--device",
-        device.udid,
-        "--domain-type",
-        "appGroupDataContainer",
-        "--domain-identifier",
-        APP_GROUP_ID,
-        "--source",
-        sourceFile,
-        "--destination",
-        destination
-      ],
-      {
-        encoding: "utf8"
-      }
-    );
+    execFileSyncImpl("xcrun", args, { encoding: "utf8" });
   } catch (error) {
     throw new Error(formatError(error, `Failed to copy '${sourceFile}' from device.`));
   }
@@ -300,5 +357,50 @@ export async function pullRecentDeviceLog(options) {
     sourceFile: sourceFile.relativePath,
     text: filtered.text,
     window: filtered.window
+  };
+}
+
+export async function pullRecentCrashReport(options) {
+  const {
+    bundleId = "net.blocka.app",
+    device,
+    execFileSyncImpl = execFileSync,
+    outputDir = getDeviceCrashOutputDir(),
+    save = true
+  } = options;
+
+  if (!device?.udid) {
+    throw new Error("Missing device information for crash-report retrieval.");
+  }
+
+  const files = await listSystemCrashLogs(device, execFileSyncImpl);
+  const sourceFile = selectNewestCrashReport(files, bundleId);
+
+  if (!sourceFile?.name) {
+    throw new Error(
+      `No crash report matching '${getCrashReportPrefix(bundleId)}*.ips' was found in ${SYSTEM_CRASH_LOGS_DOMAIN}.`
+    );
+  }
+
+  await mkdir(outputDir, { recursive: true });
+
+  const artifactPath = resolve(outputDir, sourceFile.name);
+  await copyRemoteFile(
+    device,
+    sourceFile.name,
+    artifactPath,
+    execFileSyncImpl,
+    SYSTEM_CRASH_LOGS_DOMAIN
+  );
+  const text = await readFile(artifactPath, "utf8");
+
+  if (!save) {
+    await rm(artifactPath, { force: true });
+  }
+
+  return {
+    artifactPath: save ? artifactPath : undefined,
+    sourceFile: sourceFile.name,
+    text
   };
 }

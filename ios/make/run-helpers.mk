@@ -1,5 +1,23 @@
+define xcode-build-command
+$(XCODEBUILD) $(strip $(1)) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(2)) -configuration $(strip $(3)) $(if $(strip $(4)),-destination '$(strip $(4))') $(strip $(5))
+endef
+
 define xcode-build
-	$(XCODEBUILD) $(strip $(1)) -workspace $(XCODE_WORKSPACE) -scheme $(strip $(2)) -configuration $(strip $(3)) $(if $(strip $(4)),-destination '$(strip $(4))') $(strip $(5))
+	@if [ "$${SHOW_XCODE_LOG:-1}" = "0" ]; then \
+		LOG_FILE="$${XCODE_LOG_FILE:-$$(mktemp -t blokada-xcodebuild.XXXXXX.log)}"; \
+		echo "🔨 Xcode $(strip $(1)) $(strip $(2)) ($(strip $(3)))"; \
+		if $(call xcode-build-command,$(1),$(2),$(3),$(4),$(5)) >"$$LOG_FILE" 2>&1; then \
+			echo "✅ Xcode $(strip $(1)) finished"; \
+			if [ -z "$${XCODE_LOG_FILE:-}" ]; then rm -f "$$LOG_FILE"; fi; \
+		else \
+			STATUS=$$?; \
+			echo "❌ Xcode $(strip $(1)) failed; full log follows"; \
+			cat "$$LOG_FILE"; \
+			exit "$$STATUS"; \
+		fi; \
+	else \
+		$(call xcode-build-command,$(1),$(2),$(3),$(4),$(5)); \
+	fi
 endef
 
 define xcode-build-dir
