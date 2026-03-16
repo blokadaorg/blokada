@@ -33,6 +33,7 @@ ADAPTY_VER := 3_8.0
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
+	appium-explore-session \
 	appium-test \
 
 translate:
@@ -95,23 +96,31 @@ appium-test:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
 	npm install >/dev/null 2>&1 && \
-	if ! command -v appium >/dev/null 2>&1; then \
-		echo "Appium CLI not found. Install with 'npm install -g appium'."; \
-		exit 1; \
-	fi; \
-	node scripts/check-driver.mjs; \
-	UDID=$${IOS_UDID:-$$(IOS_AUTO_SELECT_FIRST=1 node scripts/select-device.mjs)} && \
-	DEVICE_NAME=$${IOS_DEVICE_NAME:-$$(xcrun devicectl -q list devices --json-output /dev/stdout 2>/dev/null | jq -r ".result.devices[] | select(.hardwareProperties.udid == \"$$UDID\") | .deviceProperties.name" | head -n 1 2>/dev/null)} && \
+	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
-	export IOS_UDID="$$UDID"; \
-	if [ -n "$$DEVICE_NAME" ]; then \
-		export IOS_DEVICE_NAME="$$DEVICE_NAME"; \
+	if [ -n "$${APP_BUNDLE_ID:-}" ]; then \
+		export APP_BUNDLE_ID="$${APP_BUNDLE_ID}"; \
+	fi; \
+	$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	node scripts/run-wdio.mjs
+
+# Start a long-lived machine-oriented Appium explorer session against a connected iOS device.
+# Usage: make appium-explore-session [IOS_DEVICE_NAME="device name"] [APP_INSTALL=0]
+appium-explore-session:
+	@set -euo pipefail; \
+	cd automation/appium/wdio && \
+	npm install >/dev/null 2>&1 && \
+	eval "$$(node scripts/setup-session.mjs)"; \
+	if [ "$${APP_INSTALL:-1}" != "0" ]; then \
+		$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
 	fi; \
 	if [ -n "$${APP_BUNDLE_ID:-}" ]; then \
 		export APP_BUNDLE_ID="$${APP_BUNDLE_ID}"; \
 	fi; \
-	$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$UDID" IOS_DEVICE_NAME="$$DEVICE_NAME"; \
-	npx wdio run wdio.conf.ts
+	if [ -n "$${SHOW_XCODE_LOG:-}" ]; then \
+		export SHOW_XCODE_LOG="$${SHOW_XCODE_LOG}"; \
+	fi; \
+	node scripts/explore.mjs --jsonl
 
 
 # Set version in proper files for all apps (use NAME and CODE params, or env vars)
