@@ -160,6 +160,7 @@ class BootstrapIdentity {
   final String accountType;
   final String? activeUntil;
   final String deviceTag;
+  final String? deviceAlias;
   final DateTime updatedAt;
 
   const BootstrapIdentity({
@@ -167,17 +168,24 @@ class BootstrapIdentity {
     required this.accountType,
     required this.activeUntil,
     required this.deviceTag,
+    required this.deviceAlias,
     required this.updatedAt,
   });
 
   Map<String, dynamic> toJson() {
-    return {
+    final json = {
       'accountId': accountId,
       'accountType': accountType,
       'activeUntil': activeUntil,
       'deviceTag': deviceTag,
       'updatedAt': updatedAt.toUtc().toIso8601String(),
     };
+
+    if ((deviceAlias ?? '').isNotEmpty) {
+      json['deviceAlias'] = deviceAlias;
+    }
+
+    return json;
   }
 
   factory BootstrapIdentity.fromJson(Map<String, dynamic> json) {
@@ -186,6 +194,7 @@ class BootstrapIdentity {
       accountType: json['accountType'] as String,
       activeUntil: json['activeUntil'] as String?,
       deviceTag: json['deviceTag'] as String,
+      deviceAlias: json['deviceAlias'] as String?,
       updatedAt: DateTime.parse(json['updatedAt'] as String).toUtc(),
     );
   }

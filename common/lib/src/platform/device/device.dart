@@ -162,7 +162,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       log(m).i("setLists noop, skipping device refresh");
       return;
     }
-    
+
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
       await _api.putDevice(m, lists: lists);
@@ -176,6 +176,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     // TODO: refactor
     if (!Core.act.isFamily) {
       deviceAlias = deviceName!;
+      await _publishBootstrapIdentity(m);
       return;
     }
   }
@@ -222,6 +223,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       return false;
     }
     deviceTag = identity.deviceTag;
+    if ((identity.deviceAlias ?? '').isNotEmpty) {
+      deviceAlias = identity.deviceAlias!;
+    }
     _lastAccountId = identity.accountId;
     log(m).i("Restored deviceTag from bootstrap identity");
     return true;
@@ -234,6 +238,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       return;
     }
 
+    final cachedAlias = _bootstrapIdentity.present?.deviceAlias;
+    final alias = deviceAlias.isEmpty ? cachedAlias : deviceAlias;
+
     await _bootstrapIdentity.change(
       m,
       BootstrapIdentity(
@@ -241,6 +248,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
         accountType: account.type.name,
         activeUntil: account.jsonAccount.activeUntil,
         deviceTag: tag,
+        deviceAlias: (alias?.isEmpty ?? true) ? null : alias,
         updatedAt: DateTime.now().toUtc(),
       ),
     );
