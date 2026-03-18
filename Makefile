@@ -98,24 +98,19 @@ appium-test:
 	npm install >/dev/null 2>&1 && \
 	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
-	if [ -n "$${APP_BUNDLE_ID:-}" ]; then \
-		export APP_BUNDLE_ID="$${APP_BUNDLE_ID}"; \
-	fi; \
-	$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
 	node scripts/run-wdio.mjs
 
 # Start a long-lived machine-oriented Appium explorer session against a connected iOS device.
-# Usage: make appium-explore-session [IOS_DEVICE_NAME="device name"] [APP_INSTALL=0]
+# Usage: make appium-explore-session [IOS_DEVICE_NAME="device name"] [APP_FLAVOR="six|family"] [APP_INSTALL=0]
 appium-explore-session:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
 	npm install >/dev/null 2>&1 && \
+	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
 	eval "$$(node scripts/setup-session.mjs)"; \
 	if [ "$${APP_INSTALL:-1}" != "0" ]; then \
-		$(MAKE) -C ../../../ios appium-install-six IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
-	fi; \
-	if [ -n "$${APP_BUNDLE_ID:-}" ]; then \
-		export APP_BUNDLE_ID="$${APP_BUNDLE_ID}"; \
+		$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
 	fi; \
 	if [ -n "$${SHOW_XCODE_LOG:-}" ]; then \
 		export SHOW_XCODE_LOG="$${SHOW_XCODE_LOG}"; \

@@ -9,7 +9,11 @@ import {
   ensureLocalAppiumServer,
   terminateWebDriverAgent
 } from "./lib/appium-runtime.mjs";
-import { buildCapabilities, getRemoteOptions } from "./lib/capabilities.mjs";
+import {
+  buildCapabilities,
+  getInteractiveSessionSettings,
+  getRemoteOptions
+} from "./lib/capabilities.mjs";
 import { resolveTargetDevice } from "../../../shared/lib/devices.mjs";
 import { runExplorerCommand } from "./lib/explorer-commands.mjs";
 import { getProjectPaths } from "./lib/paths.mjs";
@@ -125,6 +129,7 @@ async function main() {
 
   try {
     driver = await remote(getRemoteOptions(process.env));
+    await driver.updateSettings(getInteractiveSessionSettings(process.env));
     await runJsonlSession(driver, context);
   } finally {
     await cleanup();

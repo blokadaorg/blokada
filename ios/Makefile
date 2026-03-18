@@ -16,7 +16,7 @@ CHECK_CONFIG ?= Debug
 .DEFAULT_GOAL := build
 
 .PHONY: build build-family build-six build-six-debug build-family-debug \
-	ipa-family ipa-six pods check run-six run-family appium-install-six \
+	ipa-family ipa-six pods check run-six run-family appium-install-six appium-install-family \
 	print-build-dir-six print-build-dir-family
 
 # Note: for all targets in this Makefile, the common lib has to be
@@ -64,7 +64,7 @@ ipa-six:
 
 # Build .ipa of six - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
 build-six-debug:
-	$(MAKE) -C BlockaWebExtension gen-rules
+	@$(MAKE) --no-print-directory -s -C BlockaWebExtension gen-rules
 	$(call xcode-build,build,Dev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION),)
 
 # Build .ipa of family - configurable configuration (defaults to Debug, overridden by CONFIG parameter)
@@ -109,3 +109,8 @@ run-family:
 # Usage: make appium-install-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 appium-install-six:
 	$(call run-app,Dev,Dev.app,net.blocka.app,build-six-debug,print-build-dir-six,install,no,$(if $(CONFIG),$(CONFIG),Release))
+
+# Build and install the family flavor on a physical device without launching, primed for Appium runs.
+# Usage: make appium-install-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+appium-install-family:
+	$(call run-app,FamilyDev,FamilyDev.app,net.blocka.app.family,build-family-debug,print-build-dir-family,install,no,$(if $(CONFIG),$(CONFIG),Release))

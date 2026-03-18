@@ -7,9 +7,12 @@ import { join } from "node:path";
 
 import {
   filterLogText,
+  getCrashReportPrefix,
   getDeviceLogArtifactBaseName,
   getShareLogPrefix,
+  pullRecentCrashReport,
   pullRecentDeviceLog,
+  selectNewestCrashReport,
   selectNewestLogFile
 } from "../lib/log.mjs";
 
@@ -24,6 +27,15 @@ test("getDeviceLogArtifactBaseName is stable per bundle and window", () => {
   assert.equal(
     getDeviceLogArtifactBaseName("net.blocka.app.family", "today"),
     "blokada-iFx-today"
+  );
+});
+
+test("getCrashReportPrefix only supports known in-project bundle ids", () => {
+  assert.equal(getCrashReportPrefix("net.blocka.app"), "Dev-");
+  assert.equal(getCrashReportPrefix("net.blocka.app.family"), "FamilyDev-");
+  assert.throws(
+    () => getCrashReportPrefix("com.example.app"),
+    /Only Blokada 6 and Blokada Family are supported/
   );
 });
 
@@ -53,6 +65,31 @@ test("selectNewestLogFile chooses the newest matching share log", () => {
   );
 
   assert.equal(selected.relativePath, "blokada-i6xD.log");
+});
+
+test("selectNewestCrashReport chooses the newest matching crash artifact", () => {
+  const selected = selectNewestCrashReport(
+    [
+      {
+        name: "Dev-2026-03-16-120000.ips",
+        metadata: { lastModDate: "2026-03-16T12:00:00.000Z" },
+        resources: { isDirectory: false }
+      },
+      {
+        name: "Dev-2026-03-16-130000.ips",
+        metadata: { lastModDate: "2026-03-16T13:00:00.000Z" },
+        resources: { isDirectory: false }
+      },
+      {
+        name: "OtherApp-2026-03-16-140000.ips",
+        metadata: { lastModDate: "2026-03-16T14:00:00.000Z" },
+        resources: { isDirectory: false }
+      }
+    ],
+    "net.blocka.app"
+  );
+
+  assert.equal(selected.name, "Dev-2026-03-16-130000.ips");
 });
 
 test("filterLogText keeps full sections for the recent hour", () => {
@@ -133,7 +170,7 @@ test("pullRecentDeviceLog saves full and filtered artifacts", async () => {
   const calls = [];
   const result = await pullRecentDeviceLog({
     bundleId: "net.blocka.app",
-    device: { name: "Johnny", udid: "abc" },
+    device: { name: "Example iPhone", udid: "abc" },
     execFileSyncImpl(command, args) {
       calls.push([command, args]);
 
@@ -179,6 +216,25 @@ test("pullRecentDeviceLog saves full and filtered artifacts", async () => {
   assert.match(result.artifactPath, /blokada-i6x-1h\.log$/);
   assert.equal(await readFile(result.fullArtifactPath, "utf8"), copiedText);
   assert.equal(await readFile(result.artifactPath, "utf8"), result.text);
+  assert.deepEqual(
+    calls[1][1],
+    [
+      "devicectl",
+      "device",
+      "copy",
+      "from",
+      "--device",
+      "abc",
+      "--domain-type",
+      "appGroupDataContainer",
+      "--domain-identifier",
+      "group.net.blocka.app",
+      "--source",
+      "blokada-i6xR.log",
+      "--destination",
+      result.fullArtifactPath
+    ]
+  );
 });
 
 test("pullRecentDeviceLog errors when no matching share log exists", async () => {
@@ -187,7 +243,7 @@ test("pullRecentDeviceLog errors when no matching share log exists", async () =>
     () =>
       pullRecentDeviceLog({
         bundleId: "net.blocka.app",
-        device: { name: "Johnny", udid: "abc" },
+        device: { name: "Example iPhone", udid: "abc" },
         execFileSyncImpl(command, args) {
           if (!(args[1] === "device" && args[2] === "info")) {
             throw new Error("unexpected call");
@@ -224,7 +280,7 @@ test("pullRecentDeviceLog surfaces copy failures clearly", async () => {
     () =>
       pullRecentDeviceLog({
         bundleId: "net.blocka.app",
-        device: { name: "Johnny", udid: "abc" },
+        device: { name: "Example iPhone", udid: "abc" },
         execFileSyncImpl(command, args) {
           if (args[1] === "device" && args[2] === "info") {
             const jsonPath = args[args.length - 1];
@@ -254,5 +310,70 @@ test("pullRecentDeviceLog surfaces copy failures clearly", async () => {
         outputDir
       }),
     /permission denied/
+  );
+});
+
+test("pullRecentCrashReport copies the newest crash artifact from systemCrashLogs", async () => {
+  const outputDir = await mkdtemp(join(tmpdir(), "device-crash-"));
+  const copiedText = '{"crash":"report"}';
+  const calls = [];
+
+  const result = await pullRecentCrashReport({
+    bundleId: "net.blocka.app",
+    device: { name: "Example iPhone", udid: "abc" },
+    execFileSyncImpl(command, args) {
+      calls.push([command, args]);
+
+      if (args[1] === "device" && args[2] === "info") {
+        const jsonPath = args[args.length - 1];
+        writeFileSync(
+          jsonPath,
+          JSON.stringify({
+            result: {
+              files: [
+                {
+                  name: "Dev-2026-03-16-125626.ips",
+                  metadata: { lastModDate: "2026-03-16T12:56:26.000Z" },
+                  resources: { isDirectory: false }
+                }
+              ]
+            }
+          }),
+          { encoding: "utf8" }
+        );
+        return "";
+      }
+
+      if (args[1] === "device" && args[2] === "copy") {
+        const destination = args[args.indexOf("--destination") + 1];
+        writeFileSync(destination, copiedText, { encoding: "utf8" });
+        return "";
+      }
+
+      throw new Error(`Unexpected devicectl call: ${args.join(" ")}`);
+    },
+    outputDir,
+    save: true
+  });
+
+  assert.equal(result.sourceFile, "Dev-2026-03-16-125626.ips");
+  assert.match(result.artifactPath, /Dev-2026-03-16-125626\.ips$/);
+  assert.equal(await readFile(result.artifactPath, "utf8"), copiedText);
+  assert.deepEqual(
+    calls[1][1],
+    [
+      "devicectl",
+      "device",
+      "copy",
+      "from",
+      "--device",
+      "abc",
+      "--domain-type",
+      "systemCrashLogs",
+      "--source",
+      "Dev-2026-03-16-125626.ips",
+      "--destination",
+      result.artifactPath
+    ]
   );
 });
