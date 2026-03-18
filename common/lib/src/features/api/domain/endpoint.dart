@@ -5,7 +5,7 @@ typedef Headers = Map<String, String>;
 
 class HttpRequest {
   final ApiEndpoint endpoint;
-  final int retries;
+  final int attempts;
   String? payload;
   late String url;
   late Headers headers;
@@ -13,7 +13,7 @@ class HttpRequest {
   HttpRequest(
     this.endpoint, {
     this.payload,
-    this.retries = 2,
+    this.attempts = 3,
   });
 }
 

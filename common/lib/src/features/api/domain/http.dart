@@ -24,7 +24,7 @@ class Http with Logging {
         log(m).i("Api call: ${payload.endpoint}");
         log(m).log(attr: {"url": payload.url}, sensitive: true);
         log(m).log(attr: {"payload": payload.payload}, sensitive: true);
-        return _call(payload, payload.retries, m);
+        return _call(payload, payload.attempts, m);
       } on HttpCodeException catch (e) {
         throw HttpCodeException(
             e.code, "Api ${payload.endpoint} failed: ${e.message}");
@@ -34,14 +34,14 @@ class Http with Logging {
     });
   }
 
-  Future<String> _call(HttpRequest request, int retries, Marker m) async {
+  Future<String> _call(HttpRequest request, int attemptsRemaining, Marker m) async {
     try {
       return await _doOps(request, m);
     } catch (e) {
       if (e is HttpCodeException && !e.shouldRetry()) rethrow;
-      if (retries - 1 > 0) {
+      if (attemptsRemaining - 1 > 0) {
         await _sleep();
-        return await _call(request, retries - 1, m);
+        return await _call(request, attemptsRemaining - 1, m);
       } else {
         rethrow;
       }
@@ -49,7 +49,7 @@ class Http with Logging {
   }
 
   _prepare(HttpRequest request, QueryParams params, Headers headers) async {
-    if (request.retries < 0) throw Exception("invalid retries param");
+    if (request.attempts < 1) throw Exception("invalid attempts param");
     // if (request.endpoint.type != "GET" && request.payload == null) {
     //   throw Exception("missing payload");
     // }
