@@ -37,7 +37,7 @@ void main() {
       });
     });
 
-    test('foreground start immediately runs the foreground phase', () async {
+    test('foreground start defers the foreground phase until requested', () async {
       await withTrace((m) async {
         final calls = <String>[];
         final modules = Modules(
@@ -56,6 +56,12 @@ void main() {
           m,
           launchContext: AppLaunchContext.foregroundInteractive,
         );
+
+        expect(calls, ['core:foreground', 'accept']);
+        expect(modules.foregroundStarted, isFalse);
+        expect(modules.foregroundStartInFlight, isFalse);
+
+        await modules.startForeground(m);
 
         expect(calls, ['core:foreground', 'accept', 'foreground']);
         expect(modules.foregroundStarted, isTrue);

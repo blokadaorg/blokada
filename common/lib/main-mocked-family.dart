@@ -26,6 +26,7 @@ void main() async {
     Markers.start,
     launchContext: AppLaunchContext.foregroundInteractive,
   );
+  await modules.startForeground(Markers.start);
 
   final CommandStore command = Core.get<CommandStore>();
   command.onCommandWithParam(CommandName.route.name, "home", Markers.start);

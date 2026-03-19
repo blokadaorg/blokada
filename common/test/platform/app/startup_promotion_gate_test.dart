@@ -59,6 +59,7 @@ void main() {
     });
 
     testWidgets('foreground launch renders child immediately', (tester) async {
+      final completer = Completer<void>();
       var startCalls = 0;
 
       await tester.pumpWidget(
@@ -68,15 +69,24 @@ void main() {
               launchContext: AppLaunchContext.foregroundInteractive,
               startForeground: (m) async {
                 startCalls += 1;
+                await completer.future;
               },
               child: const Text('home')),
         ),
       );
-      await tester.pump();
 
       expect(find.text('home'), findsOneWidget);
       expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
       expect(startCalls, 0);
+
+      await tester.pump();
+
+      expect(find.text('home'), findsOneWidget);
+      expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
+      expect(startCalls, 1);
+
+      completer.complete();
+      await tester.pump();
     });
   });
 }

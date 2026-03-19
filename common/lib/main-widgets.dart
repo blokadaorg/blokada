@@ -20,6 +20,7 @@ void main() async {
     Markers.start,
     launchContext: AppLaunchContext.foregroundInteractive,
   );
+  await modules.startForeground(Markers.start);
 
   final ws = DevWebsocket();
   Core.register(ws);

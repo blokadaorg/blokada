@@ -179,7 +179,7 @@ class Modules with Logging {
       return;
     }
 
-    await startForeground(m);
+    log(m).t("Foreground bootstrap completed");
   }
 
   Future<void> startForeground(Marker m) async {

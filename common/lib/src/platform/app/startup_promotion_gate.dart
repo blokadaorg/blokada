@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/launch_context.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class StartupPromotionGate extends StatefulWidget {
   State<StartupPromotionGate> createState() => _StartupPromotionGateState();
 }
 
-class _StartupPromotionGateState extends State<StartupPromotionGate> with WidgetsBindingObserver {
+class _StartupPromotionGateState extends State<StartupPromotionGate>
+    with WidgetsBindingObserver, Logging {
   late bool _ready = widget.launchContext.allowRunApp;
   bool _promotionStarted = false;
 
@@ -29,6 +32,7 @@ class _StartupPromotionGateState extends State<StartupPromotionGate> with Widget
     super.initState();
 
     if (_ready) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _startForegroundAfterMount());
       return;
     }
 
@@ -53,6 +57,14 @@ class _StartupPromotionGateState extends State<StartupPromotionGate> with Widget
   void _promoteIfResumed() {
     if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
       _promote();
+    }
+  }
+
+  Future<void> _startForegroundAfterMount() async {
+    try {
+      await widget.startForeground(Markers.start);
+    } catch (e, s) {
+      log(Markers.start).e(msg: "foreground startup failed after mount", err: e, stack: s);
     }
   }
 
