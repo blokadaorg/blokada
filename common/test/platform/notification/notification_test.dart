@@ -4,6 +4,7 @@ import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -55,7 +56,7 @@ void main() {
 
     test("handleFcmEvent uses schedule hint hour when provided", () async {
       await withTrace((m) async {
-        Core.register<AccountStore>(MockAccountStore());
+        Core.register<AccountStore>(_accountStoreWithAccount());
         Core.register<StageStore>(MockStageStore());
         Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
@@ -86,7 +87,7 @@ void main() {
 
     test("handleFcmEvent schedules immediately when hint is missing", () async {
       await withTrace((m) async {
-        Core.register<AccountStore>(MockAccountStore());
+        Core.register<AccountStore>(_accountStoreWithAccount());
         Core.register<StageStore>(MockStageStore());
         Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
@@ -116,7 +117,7 @@ void main() {
 
     test("handleFcmEvent handles account expiry without weekly notification", () async {
       await withTrace((m) async {
-        Core.register<AccountStore>(MockAccountStore());
+        Core.register<AccountStore>(_accountStoreWithAccount());
         Core.register<StageStore>(MockStageStore());
         Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
@@ -138,6 +139,61 @@ void main() {
         await store.handleFcmEvent(m, payload);
 
         expect(accountRefresh.onAccountExpiryEvents, 1);
+        verifyNever(ops.doShow(any, any, any));
+      });
+    });
+
+    test("handleFcmEvent skips weekly update when account is unavailable", () async {
+      await withTrace((m) async {
+        Core.register<AccountStore>(AccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register(NotificationsValue());
+        final weeklyReport = _FakeWeeklyReportActor(_weeklyEvent());
+        Core.register<WeeklyReportActor>(weeklyReport);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        final payload = jsonEncode({
+          "v": "1",
+          "type": "weekly_update",
+          "event_id": "evt-1",
+        });
+
+        await store.handleFcmEvent(m, payload);
+
+        expect(weeklyReport.refreshCalls, 0);
+        verifyNever(ops.doShow(any, any, any));
+      });
+    });
+
+    test("handleFcmEvent skips account expiry when account is unavailable", () async {
+      await withTrace((m) async {
+        Core.register<AccountStore>(AccountStore());
+        Core.register<StageStore>(MockStageStore());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+        final accountRefresh = _FakeAccountRefreshStore();
+        Core.register<AccountRefreshStore>(accountRefresh);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        final payload = jsonEncode({
+          "v": "1",
+          "type": "account_expiry",
+          "event_id": "evt-account-expiry",
+        });
+
+        await store.handleFcmEvent(m, payload);
+
+        expect(accountRefresh.onAccountExpiryEvents, 0);
         verifyNever(ops.doShow(any, any, any));
       });
     });
@@ -476,13 +532,29 @@ WeeklyReportEvent _weeklyEvent() {
   );
 }
 
+AccountStore _accountStoreWithAccount() {
+  final store = AccountStore();
+  store.account = AccountState(
+    "acc-1",
+    JsonAccount(
+      id: "acc-1",
+      activeUntil: "2026-03-10T10:00:00.000Z",
+      active: true,
+      type: "plus",
+    ),
+  );
+  return store;
+}
+
 class _FakeWeeklyReportActor extends WeeklyReportActor {
   final WeeklyReportEvent event;
+  int refreshCalls = 0;
 
   _FakeWeeklyReportActor(this.event);
 
   @override
   Future<WeeklyReportEvent?> refreshAndPickForNotification(Marker m) async {
+    refreshCalls++;
     return event;
   }
 }

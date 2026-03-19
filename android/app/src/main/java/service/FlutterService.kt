@@ -26,6 +26,7 @@ object FlutterService {
     fun setup() {
         engine = FlutterEngine(ctx.requireAppContext())
         Flavor.attach(engine.dartExecutor.binaryMessenger)
+        StartupContextService.attach(engine.dartExecutor.binaryMessenger)
         BackNav.attach(engine.dartExecutor.binaryMessenger)
         engine.dartExecutor.executeDartEntrypoint(
             DartExecutor.DartEntrypoint.createDefault()

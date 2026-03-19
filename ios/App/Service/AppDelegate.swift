@@ -184,6 +184,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
            let json = String(data: data, encoding: .utf8) {
+            StartupContext.shared.markBackgroundTask(
+                payload: json,
+                eventType: userInfo["type"] as? String
+            )
             commands.executeWithCompletion(.fcmEvent, json) { result in
                 switch result {
                 case .success:

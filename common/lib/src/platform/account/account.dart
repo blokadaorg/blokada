@@ -139,10 +139,16 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> load(Marker m) async {
     return await log(m).trace("load", (m) async {
-      final accJson = await _persistence.loadJson(m, _keyAccount, isBackup: true);
-      final jsonAccount = JsonAccount.fromJson(accJson);
-      _ensureValidAccountId(jsonAccount.id);
-      await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
+      final account = await _readPersistedAccount(m);
+      await _changeAccount(account, m);
+    });
+  }
+
+  @action
+  Future<void> restoreCachedForBootstrap(Marker m) async {
+    return await log(m).trace("restoreCachedForBootstrap", (m) async {
+      account = await _readPersistedAccount(m);
+      _previousAccountId = account!.id;
     });
   }
 
@@ -256,5 +262,13 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
     } else if (type == AccountType.plus && Core.act.isFamily) {
       throw InvalidAccountId();
     }
+  }
+
+  Future<AccountState> _readPersistedAccount(Marker m) async {
+    final accJson = await _persistence.loadJson(m, _keyAccount, isBackup: true);
+    final jsonAccount = JsonAccount.fromJson(accJson);
+    _ensureValidAccountId(jsonAccount.id);
+    _ensureValidAccountType(jsonAccount);
+    return AccountState(jsonAccount.id, jsonAccount);
   }
 }

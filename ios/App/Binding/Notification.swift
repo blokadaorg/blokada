@@ -162,6 +162,7 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
 
         print("Notification tapped with info: \(userInfo)")
         if let id = userInfo["id"] as? String {
+            StartupContext.shared.markNotificationTap(notificationId: id)
             commands.execute(.notificationTapped, id)
         } else {
             print("No custom data found.")

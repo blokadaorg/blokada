@@ -1,5 +1,5 @@
 import 'package:common/src/features/account/domain/account.dart';
-import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/features/api/domain/api.dart' as api_domain;
 import 'package:common/src/features/config/domain/config.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/env/domain/env.dart';
@@ -41,6 +41,7 @@ import 'package:common/src/app_variants/v6/widget/home/home.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/app/app.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/platform/app/start/start.dart';
 import 'package:common/src/platform/command/command.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -49,9 +50,30 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
+import 'package:flutter/foundation.dart';
 
 class Modules with Logging {
+  Modules({
+    Future<void> Function(Marker m, AppLaunchContext launchContext)? startCoreBootstrap,
+    Future<void> Function(Marker m)? acceptCommands,
+    Future<void> Function(Marker m)? startForegroundPhase,
+  })  : _startCoreBootstrapOverride = startCoreBootstrap,
+        _acceptCommandsOverride = acceptCommands,
+        _startForegroundPhaseOverride = startForegroundPhase;
+
   late final _appStart = Core.get<AppStartStore>();
+  late final _commandStore = Core.get<CommandStore>();
+  late final _accountStore = Core.get<AccountStore>();
+  late final _accountId = Core.get<api_domain.AccountId>();
+  late final _accountEphemeral = Core.get<api_domain.AccountEphemeral>();
+  late final _deviceStore = Core.get<DeviceStore>();
+  late final _bootstrapIdentity = Core.get<BootstrapIdentityValue>();
+  final Future<void> Function(Marker m, AppLaunchContext launchContext)?
+      _startCoreBootstrapOverride;
+  final Future<void> Function(Marker m)? _acceptCommandsOverride;
+  final Future<void> Function(Marker m)? _startForegroundPhaseOverride;
+  bool _foregroundStarted = false;
+  Future<void>? _foregroundStartInFlight;
 
   create(Act act) async {
     Core.act = act;
@@ -65,7 +87,7 @@ class Modules with Logging {
     await _registerModule(EnvModule());
     await _registerModule(LockModule());
     await _registerModule(NotificationModule());
-    await _registerModule(ApiModule());
+    await _registerModule(api_domain.ApiModule());
 
     if (!Core.act.isFamily) {
       await _registerModule(OnboardModule());
@@ -121,6 +143,7 @@ class Modules with Logging {
     StatsStore().onRegister();
     ToplistStore().onRegister();
     StatsDeltaStore().onRegister();
+    BootstrapIdentityValue().onRegister();
 
     if (Core.act.isFamily) {
       await _registerModule(FamilyModule());
@@ -142,8 +165,48 @@ class Modules with Logging {
     Core.register<TopBarController>(TopBarController());
   }
 
-  start(Marker m) async {
-    log(m).t("Starting modules...");
+  start(Marker m, {required AppLaunchContext launchContext}) async {
+    Core.register<AppLaunchContext>(launchContext);
+    log(m).pair('launchReason', launchContext.reason.name);
+    log(m).pair('bootstrapProfile', launchContext.profile.name);
+
+    await (_startCoreBootstrapOverride?.call(m, launchContext) ??
+        _startCoreBootstrap(m, launchContext));
+    await (_acceptCommandsOverride?.call(m) ?? _commandStore.acceptCommands(m));
+
+    if (!launchContext.allowRunApp) {
+      log(m).t("Background bootstrap completed");
+      return;
+    }
+
+    log(m).t("Foreground bootstrap completed");
+  }
+
+  Future<void> startForeground(Marker m) async {
+    if (_foregroundStarted) {
+      log(m).t("Foreground modules already started");
+      return;
+    }
+
+    final inFlight = _foregroundStartInFlight;
+    if (inFlight != null) {
+      await inFlight;
+      return;
+    }
+
+    final future = _startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m);
+    _foregroundStartInFlight = future;
+
+    try {
+      await future;
+      _foregroundStarted = true;
+    } finally {
+      _foregroundStartInFlight = null;
+    }
+  }
+
+  Future<void> _startForegroundModules(Marker m) async {
+    log(m).t("Starting foreground modules...");
 
     for (var mod in _modules) {
       await log(m).trace("${mod.runtimeType}", (m) async {
@@ -170,6 +233,37 @@ class Modules with Logging {
     log(m).t("All modules started");
   }
 
+  Future<void> _startCoreBootstrap(Marker m, AppLaunchContext launchContext) async {
+    await Core.get<EnvActor>().start(m);
+
+    if (launchContext.allowCachedIdentityLoad) {
+      try {
+        if (launchContext.profile == BootstrapProfile.background) {
+          await _accountStore.restoreCachedForBootstrap(m);
+        } else {
+          await _accountStore.load(m);
+        }
+        final account = _accountStore.account;
+        if (account != null) {
+          await _accountId.change(m, account.id);
+          await _accountEphemeral.change(m, account);
+        }
+      } catch (e) {
+        log(m).w("Cached account unavailable for bootstrap: $e");
+      }
+
+      try {
+        final identity = await _bootstrapIdentity.fetch(m);
+        await _deviceStore.restoreBootstrapIdentity(identity, m);
+      } catch (e) {
+        log(m).w("Bootstrap identity unavailable: $e");
+      }
+    }
+
+    await _deviceStore.start(m);
+    await Core.get<AccountActor>().start(m);
+  }
+
   final _modules = <Module>[];
   _add(Module module) {
     _modules.add(module);
@@ -184,4 +278,10 @@ class Modules with Logging {
     await module.create();
     _add(module);
   }
+
+  @visibleForTesting
+  bool get foregroundStarted => _foregroundStarted;
+
+  @visibleForTesting
+  bool get foregroundStartInFlight => _foregroundStartInFlight != null;
 }

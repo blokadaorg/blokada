@@ -31,6 +31,7 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
     super.initState();
     //WidgetsBinding.instance.addObserver(this);
     disposeLater(_modalWidget.onChange.listen(rebuild));
+    WidgetsBinding.instance.addPostFrameCallback((_) => rebuild(null));
   }
 
   @override
@@ -68,7 +69,7 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
   Widget build(BuildContext context) => Container();
 }
 
-_showSheet(BuildContext context, {required WidgetBuilder builder}) async {
+Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) async {
   final screenWidth = MediaQuery.of(context).size.width;
 
   if (screenWidth > maxSheetWidth) {

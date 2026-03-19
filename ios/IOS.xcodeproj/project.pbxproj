@@ -23,6 +23,12 @@
 		4E08FEBF2CFF19CA006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
 		4E08FEC02CFF19DB006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
 		4E08FEC12CFF19E4006433EE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E61D8E627B2DA7F00C98D36 /* MainView.swift */; };
+		4E0A3B102E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
+		4E0A3B112E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
+		4E0A3B122E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
+		4E0A3B132E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
+		4E0A3B142E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
+		4E0A3B152E7BAE9100C0D001 /* StartupContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */; };
 		4E0F2B5027688C3700444933 /* TaskerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F2B4F27688C3700444933 /* TaskerTests.swift */; };
 		4E118DF62463ED24005112C1 /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
 		4E118DF72463ED24005112C1 /* Swift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E118DF52463ED24005112C1 /* Swift+Extensions.swift */; };
@@ -791,6 +797,7 @@
 		4E02E30D2A56DA620014E884 /* NetworkCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
+		4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupContext.swift; sourceTree = "<group>"; };
 		4E0F2B4F27688C3700444933 /* TaskerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskerTests.swift; sourceTree = "<group>"; };
 		4E118DF52463ED24005112C1 /* Swift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Extensions.swift"; sourceTree = "<group>"; };
 		4E118DF824640356005112C1 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
@@ -1589,6 +1596,7 @@
 				4EEC496C2A543B0E001EF934 /* CommandsBinding.swift */,
 				4E2F2A142760BE6F005A59F5 /* NavModel.swift */,
 				4E59B8D129EEDBEF005ECD5F /* Notification.swift */,
+				4E0A3B162E7BAE9100C0D001 /* StartupContext.swift */,
 				4E2F2A25276371C6005A59F5 /* AppBinding.swift */,
 				4EF35C942C9D77DE00699022 /* UrlBinding.swift */,
 				4ED2EE552D4104DB005389C8 /* FamilyBinding.swift */,
@@ -2594,6 +2602,7 @@
 				4E1275EE2AE7CF0D00A94994 /* FlavorResources.swift in Sources */,
 				4EF35C952C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E59B8D229EEDBEF005ECD5F /* Notification.swift in Sources */,
+				4E0A3B102E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4E23CFFB293E1F9700613D0A /* TunnelStatus.swift in Sources */,
 				4E23CFFF293E1F9700613D0A /* MockTunnels.swift in Sources */,
 				4E23D01D293E20BC00613D0A /* PeerConfiguration.swift in Sources */,
@@ -2711,6 +2720,7 @@
 				4E1276732AE7D0FC00A94994 /* NetxServiceIn.swift in Sources */,
 				4E1276772AE7D0FC00A94994 /* Resources.swift in Sources */,
 				4E12767A2AE7D0FC00A94994 /* Notification.swift in Sources */,
+				4E0A3B112E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4E12767C2AE7D0FC00A94994 /* Constants.swift in Sources */,
 				4E1276802AE7D0FC00A94994 /* Transitions.swift in Sources */,
 				4E1276822AE7D0FC00A94994 /* SplashView.swift in Sources */,
@@ -2812,6 +2822,7 @@
 				4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4E1275E82AE7CEA800A94994 /* FlavorResources.swift in Sources */,
 				4E270D642A80EB8300D3484B /* Notification.swift in Sources */,
+				4E0A3B122E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4E270D6D2A80EB8300D3484B /* Resources.swift in Sources */,
 				4E270D6E2A80EB8300D3484B /* QuickActionsService.swift in Sources */,
 				4E270D6F2A80EB8300D3484B /* CombineUtil.swift in Sources */,
@@ -2936,6 +2947,7 @@
 				4EDB13C42D143197000E2AD3 /* AccountViewModel.swift in Sources */,
 				4E7FE9AD244DC28900851E9F /* Resources.swift in Sources */,
 				4E59B8D329EEDBEF005ECD5F /* Notification.swift in Sources */,
+				4E0A3B132E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4E61D8F427B3D30400C98D36 /* ContentView.swift in Sources */,
 				4E2F2A192760E400005A59F5 /* Constants.swift in Sources */,
 				4E7FE9B5244DC28900851E9F /* Transitions.swift in Sources */,
@@ -3031,6 +3043,7 @@
 				4E1275EF2AE7CF0D00A94994 /* FlavorResources.swift in Sources */,
 				4EF35C962C9D77DE00699022 /* UrlBinding.swift in Sources */,
 				4E8651722A3C968B0060AFB1 /* Notification.swift in Sources */,
+				4E0A3B142E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4E8651762A3C968B0060AFB1 /* TunnelStatus.swift in Sources */,
 				4E8651772A3C968B0060AFB1 /* MockTunnels.swift in Sources */,
 				4E86517A2A3C968B0060AFB1 /* PeerConfiguration.swift in Sources */,
@@ -3117,6 +3130,7 @@
 				4EBF3B5B2A80E55900F637BB /* LoadingButtonView.swift in Sources */,
 				4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
 				4EBF3B652A80E55900F637BB /* Notification.swift in Sources */,
+				4E0A3B152E7BAE9100C0D001 /* StartupContext.swift in Sources */,
 				4ED2EE5A2D4104DB005389C8 /* FamilyBinding.swift in Sources */,
 				4E92C70F2C05D00E00A33170 /* ContentView.swift in Sources */,
 				4E1275E92AE7CEA800A94994 /* FlavorResources.swift in Sources */,

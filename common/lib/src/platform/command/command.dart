@@ -15,6 +15,10 @@ import 'channel.act.dart';
 import 'channel.pg.dart';
 
 class CommandStore with Logging, Actor implements CommandEvents {
+  final CommandOps? commandOps;
+
+  CommandStore({this.commandOps});
+
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _accountRefresh = Core.get<AccountRefreshStore>();
@@ -25,7 +29,12 @@ class CommandStore with Logging, Actor implements CommandEvents {
   void onRegister() {
     Core.register<CommandStore>(this);
     if (Core.act.isProd) CommandEvents.setup(this);
-    getOps().doCanAcceptCommands();
+  }
+
+  Future<void> acceptCommands(Marker m) async {
+    await log(m).trace("acceptCommands", (m) async {
+      await (commandOps ?? getOps()).doCanAcceptCommands();
+    });
   }
 
   final newCommands = [

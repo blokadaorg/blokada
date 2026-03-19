@@ -27,6 +27,7 @@ class Flutter {
 
         let flavor = Flavor()
         flavor.attach(messenger: flutterEngine.binaryMessenger)
+        StartupContext.shared.attach(messenger: flutterEngine.binaryMessenger)
         isFlavorFamily = flavor.getFlavor() == "family"
     }
 

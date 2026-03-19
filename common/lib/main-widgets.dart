@@ -1,10 +1,8 @@
-import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/features/onboard/ui/onboard_screen.dart';
-import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/platform/command/command.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -17,19 +15,18 @@ void main() async {
 
   final flavor = Flavor.v6;
   final modules = Modules();
-  await modules
-      .create(ActScreenplay(ActScenario.prod, flavor, PlatformType.iOS));
-  modules.start(Markers.start);
+  await modules.create(ActScreenplay(ActScenario.prod, flavor, PlatformType.iOS));
+  await modules.start(
+    Markers.start,
+    launchContext: AppLaunchContext.foregroundInteractive,
+  );
+  await modules.startForeground(Markers.start);
 
   final ws = DevWebsocket();
   Core.register(ws);
   ws.handle();
 
-  final ctrl = Core.get<TopBarController>();
-  final nav = NavigationPopObserver();
-
-  runApp(BlokadaApp(
-      content: OnboardingScreen(), isFamily: flavor == Flavor.family));
+  runApp(BlokadaApp(content: OnboardingScreen(), isFamily: flavor == Flavor.family));
 }
 
 class DevWebsocket {

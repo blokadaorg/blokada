@@ -26,6 +26,7 @@ class OverlaySheetState extends State<OverlaySheet>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     reactionOnStore((_) => _stage.route, (_) => rebuild());
+    WidgetsBinding.instance.addPostFrameCallback((_) => overlay());
   }
 
   @override

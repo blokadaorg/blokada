@@ -2,6 +2,7 @@ import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/util/cooldown.dart';
 import 'package:mobx/mobx.dart';
 
@@ -28,6 +29,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _stage = Core.get<StageStore>();
   late final _account = Core.get<AccountStore>();
   late final _env = Core.get<EnvActor>();
+  late final _bootstrapIdentity = Core.get<BootstrapIdentityValue>();
 
   late final _journalFilter = Core.get<JournalFilterValue>();
 
@@ -110,6 +112,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       _lastDeviceFetch = now;
       lastRefresh = now;
       _lastAccountId = _account.account?.id;
+      await _publishBootstrapIdentity(m);
 
       log(m).pair("pausedForSeconds", pausedForSeconds);
       log(m).pair("tagAfterFetch", deviceTag);
@@ -159,7 +162,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       log(m).i("setLists noop, skipping device refresh");
       return;
     }
-    
+
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
       await _api.putDevice(m, lists: lists);
@@ -173,6 +176,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     // TODO: refactor
     if (!Core.act.isFamily) {
       deviceAlias = deviceName!;
+      await _publishBootstrapIdentity(m);
       return;
     }
   }
@@ -192,6 +196,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     final id = _account.account?.id;
     if (id == null) return;
     if (id == _lastAccountId) {
+      await _publishBootstrapIdentity(m);
       log(m).i("account id unchanged, skipping device refresh");
       return;
     }
@@ -205,7 +210,48 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   Future<void> onAccountIdChanged(Marker m) async {
     final id = _account.account?.id;
     _lastAccountId = id;
+    deviceTag = null;
+    await _bootstrapIdentity.change(m, null);
     await fetch(m, force: true);
+  }
+
+  Future<bool> restoreBootstrapIdentity(BootstrapIdentity? identity, Marker m) async {
+    if (identity == null) return false;
+    final accountId = _account.account?.id;
+    if (accountId == null || identity.accountId != accountId) {
+      deviceTag = null;
+      return false;
+    }
+    deviceTag = identity.deviceTag;
+    if ((identity.deviceAlias ?? '').isNotEmpty) {
+      deviceAlias = identity.deviceAlias!;
+    }
+    _lastAccountId = identity.accountId;
+    log(m).i("Restored deviceTag from bootstrap identity");
+    return true;
+  }
+
+  Future<void> _publishBootstrapIdentity(Marker m) async {
+    final account = _account.account;
+    final tag = deviceTag;
+    if (account == null || tag == null || tag.isEmpty) {
+      return;
+    }
+
+    final cachedAlias = _bootstrapIdentity.present?.deviceAlias;
+    final alias = deviceAlias.isEmpty ? cachedAlias : deviceAlias;
+
+    await _bootstrapIdentity.change(
+      m,
+      BootstrapIdentity(
+        accountId: account.id,
+        accountType: account.type.name,
+        activeUntil: account.jsonAccount.activeUntil,
+        deviceTag: tag,
+        deviceAlias: (alias?.isEmpty ?? true) ? null : alias,
+        updatedAt: DateTime.now().toUtc(),
+      ),
+    );
   }
 
   bool _isCacheValid() {
