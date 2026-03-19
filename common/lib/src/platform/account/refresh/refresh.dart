@@ -71,8 +71,7 @@ class AccountExpiration {
   }
 
   AccountExpiration markAsInactive() {
-    return AccountExpiration(
-        status: AccountStatus.inactive, expiration: expiration);
+    return AccountExpiration(status: AccountStatus.inactive, expiration: expiration);
   }
 
   DateTime? getNextDate() {
@@ -90,8 +89,7 @@ enum AccountStatus { init, active, inactive, expiring, expired, fatal }
 
 class AccountRefreshStore = AccountRefreshStoreBase with _$AccountRefreshStore;
 
-abstract class AccountRefreshStoreBase
-    with Store, Logging, Actor, Cooldown, Emitter {
+abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _scheduler = Core.get<Scheduler>();
   late final _account = Core.get<AccountStore>();
   late final _notification = Core.get<NotificationActor>();
@@ -138,8 +136,7 @@ abstract class AccountRefreshStoreBase
       }
 
       if (!success) {
-        throw lastException ??
-            Exception("Failed to start app for unknown reason");
+        throw lastException ?? Exception("Failed to start app for unknown reason");
       }
     });
   }
@@ -148,26 +145,51 @@ abstract class AccountRefreshStoreBase
   Future<void> init(Marker m) async {
     // On app start, try loading cache, then either refresh account from api,
     // or create a new one.
+    if (_initSuccessful) throw StateError("already initialized");
+
     return await log(m).trace("init", (m) async {
-      try {
-        if (_initSuccessful) throw StateError("already initialized");
-        await _account.load(m);
-        await _account.fetch(m);
+      final cachedAccount = await _resolveCachedAccount(m);
+
+      if (cachedAccount == null) {
+        log(m).i("creating new account");
+        await _account.createAccount(m);
+        _metadata = JsonAccRefreshMeta();
+        await _persistence.delete(m, _keyRefresh);
+        await syncAccount(_account.account, m);
+      } else {
+        try {
+          await _account.fetch(m);
+        } catch (e) {
+          log(m).w("using cached account after refresh failure: $e");
+        }
+
         final metadataJson = await _persistence.load(m, _keyRefresh);
         if (metadataJson != null) {
           _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
         }
-        await syncAccount(_account.account, m);
-        lastRefresh = DateTime.now();
-        _initSuccessful = true;
-      } catch (e) {
-        log(m).i("creating new account");
-        await _account.createAccount(m);
-        await syncAccount(_account.account, m);
-        lastRefresh = DateTime.now();
-        _initSuccessful = true;
+
+        await syncAccount(_account.account ?? cachedAccount, m);
       }
+
+      lastRefresh = DateTime.now();
+      _initSuccessful = true;
     });
+  }
+
+  Future<AccountState?> _resolveCachedAccount(Marker m) async {
+    final preloadedAccount = _account.account;
+    if (preloadedAccount != null) {
+      log(m).i("using preloaded cached account");
+      return preloadedAccount;
+    }
+
+    try {
+      await _account.load(m);
+      return _account.account;
+    } catch (e) {
+      log(m).i("cached account unavailable: $e");
+      return null;
+    }
   }
 
   // This has to be called when the account is updated in AccountStore.
@@ -177,8 +199,7 @@ abstract class AccountRefreshStoreBase
       if (account == null) return;
 
       final hasExp = account.jsonAccount.activeUntil != null;
-      DateTime? exp =
-          hasExp ? DateTime.parse(account.jsonAccount.activeUntil!) : null;
+      DateTime? exp = hasExp ? DateTime.parse(account.jsonAccount.activeUntil!) : null;
       expiration = expiration.update(expiration: exp);
       _updateTimer(m);
 
@@ -188,9 +209,7 @@ abstract class AccountRefreshStoreBase
         // User upgraded
         _metadata.seenExpiredDialog = false;
         await _saveMetadata(m);
-      } else if (account.type == AccountType.libre &&
-          prev != AccountType.libre &&
-          prev != null) {
+      } else if (account.type == AccountType.libre && prev != AccountType.libre && prev != null) {
         // Expired, show dialog if not seen for this expiration
         if (!_metadata.seenExpiredDialog) {
           _metadata.seenExpiredDialog = true;
@@ -276,9 +295,7 @@ abstract class AccountRefreshStoreBase
   }
 
   NotificationId _accountExpiryNotificationId() {
-    return Core.act.isFamily
-        ? NotificationId.accountExpiredFamily
-        : NotificationId.accountExpired;
+    return Core.act.isFamily ? NotificationId.accountExpiredFamily : NotificationId.accountExpired;
   }
 
   bool _shouldSkipExpiryNotification() {
