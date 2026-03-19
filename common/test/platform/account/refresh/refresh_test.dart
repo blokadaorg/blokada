@@ -225,6 +225,36 @@ void main() {
       });
     });
 
+    test("willKeepLoadedAccountIfLoadThrowsAfterPopulatingState", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        when(account.load(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now().add(const Duration(days: 3)),
+            type: AccountType.plus,
+            active: true,
+          );
+          throw Exception("device refresh failed");
+        });
+        when(account.fetch(any)).thenAnswer((_) async {});
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verify(account.load(any)).called(1);
+        verify(account.fetch(any)).called(1);
+        verifyNever(account.createAccount(any));
+        expect(account.account?.id, Fixtures.accountId);
+        expect(subject.expiration.status, AccountStatus.active);
+      });
+    });
+
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
         Core.register<Scheduler>(MockScheduler());

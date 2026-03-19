@@ -187,6 +187,11 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       await _account.load(m);
       return _account.account;
     } catch (e) {
+      final loadedAccount = _account.account;
+      if (loadedAccount != null) {
+        log(m).w("using cached account after load side-effect failure: $e");
+        return loadedAccount;
+      }
       log(m).i("cached account unavailable: $e");
       return null;
     }
