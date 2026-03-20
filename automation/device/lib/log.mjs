@@ -10,7 +10,7 @@ const repoRoot = resolve(automationRoot, "..");
 
 const APP_GROUP_ID = "group.net.blocka.app";
 const DEFAULT_WINDOW = "1h";
-const DEFAULT_LINES = 200;
+const DEFAULT_LINES = 400;
 const MAX_LINES = 1000;
 const TIMESTAMP_REGEX = /\b(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\b/;
 const SECTION_START_REGEX = /^\s*[A-Z]+\s+┌/;

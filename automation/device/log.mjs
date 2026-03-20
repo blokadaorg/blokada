@@ -46,7 +46,7 @@ async function main() {
   const result = await pullRecentDeviceLog({
     bundleId,
     device,
-    lines: process.env.LINES ?? "200",
+    lines: process.env.LINES ?? "400",
     outputDir: getDeviceLogOutputDir(),
     save: true,
     window: process.env.WINDOW ?? "1h"
