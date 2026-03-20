@@ -28,8 +28,13 @@ mixin LoggerChannel {
 
 class FileLoggerOutput extends LogOutput {
   late final _channel = Core.get<LoggerChannel>();
+  bool _initialized = false;
 
-  FileLoggerOutput() {
+  FileLoggerOutput();
+
+  void ensureInitialized() {
+    if (_initialized) return;
+    _initialized = true;
     _channel.doUseFilename(getLogFilename());
   }
 
@@ -46,15 +51,19 @@ class FileLoggerOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    // Debug-only printout to stdout
+    emitLines(event);
+    persistBatch(event);
+  }
+
+  void emitLines(OutputEvent event) {
     for (var line in event.lines) {
       print(line);
     }
+  }
 
-    // Save batch to file
+  void persistBatch(OutputEvent event) {
+    ensureInitialized();
     if (event.level == Level.trace && Core.act.isRelease) return;
-    // Ideally this should be called with await, but the LogOutput interface
-    // does not support it
     _channel.doSaveBatch("${event.lines.join("\n")}\n");
   }
 }
