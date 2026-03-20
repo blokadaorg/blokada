@@ -179,7 +179,7 @@ class Http with Logging {
             expectedTag != null && _dnsEnabledFor.present == expectedTag,
         ...?attr,
       },
-      sensitive: true,
+      sensitive: false,
     );
   }
 }

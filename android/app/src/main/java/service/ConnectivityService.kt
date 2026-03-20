@@ -208,7 +208,7 @@ object ConnectivityService {
                 logConnectivityEvent(
                     "privateDnsChanged",
                     defaultRouteNetwork,
-                    networkDescriptors[defaultRouteNetwork],
+                    defaultRouteNetwork?.let { networkDescriptors[it] },
                     caps = defaultRouteNetwork?.let { networkCapabilities[it] },
                     link = link,
                     message = "Private DNS active"
