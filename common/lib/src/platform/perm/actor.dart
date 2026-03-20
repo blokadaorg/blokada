@@ -140,13 +140,29 @@ class PlatformPermActor with Logging, Actor {
   _recheckDnsPerm(DeviceTag tag, Marker m) async {
     // Use API check on macOS, local check on iOS/iPadOS
     final isOnMac = await _channel.isRunningOnMac();
+    String source;
+    String current = "(api-check)";
     bool isEnabled;
     if (isOnMac) {
+      source = "api";
       isEnabled = await _check.checkPrivateDnsEnabledWithApi(m, _device.deviceTag!);
     } else {
-      final current = await _channel.getPrivateDnsSetting();
+      source = "system";
+      current = await _channel.getPrivateDnsSetting();
       isEnabled = _check.isCorrect(m, current, _device.deviceTag!, _device.deviceAlias);
     }
+
+    log(m).log(
+      msg: "[NetDiag] privateDnsCheck",
+      attr: {
+        "source": source,
+        "currentDns": current,
+        "expectedTag": _device.deviceTag,
+        "deviceAlias": _device.deviceAlias,
+        "privateDnsEnabledFor": _dnsEnabledFor.present,
+        "result": isEnabled ? "enabled" : "disabled",
+      },
+    );
 
     if (isEnabled) {
       await setPrivateDnsEnabled(tag, m);

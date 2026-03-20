@@ -6,6 +6,11 @@ class Http with Logging {
   late final _accountId = Core.get<AccountId>();
   late final _userAgent = Core.get<UserAgent>();
   late final _retry = Core.get<ApiRetryDuration>();
+  late final _app = Core.get<AppStore>();
+  late final _stage = Core.get<StageStore>();
+  late final _device = Core.get<DeviceStore>();
+  late final _vpnStatus = Core.get<CurrentVpnStatusValue>();
+  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
 
   Future<String> call(
     HttpRequest payload,
@@ -24,6 +29,8 @@ class Http with Logging {
         log(m).i("Api call: ${payload.endpoint}");
         log(m).log(attr: {"url": payload.url}, sensitive: true);
         log(m).log(attr: {"payload": payload.payload}, sensitive: true);
+        _logNetDiag(m, "requestStart", payload,
+            attr: {"trigger": Markers.toName(m)});
         return _call(payload, payload.attempts, m);
       } on HttpCodeException catch (e) {
         throw HttpCodeException(
@@ -35,9 +42,17 @@ class Http with Logging {
   }
 
   Future<String> _call(HttpRequest request, int attemptsRemaining, Marker m) async {
+    final attempt = request.attempts - attemptsRemaining + 1;
     try {
       return await _doOps(request, m);
     } catch (e) {
+      _logNetDiag(m, "requestFail", request,
+          lvl: Level.warning,
+          attr: {
+            "attempt": attempt,
+            "attemptsRemaining": attemptsRemaining - 1,
+            "error": mapError(e),
+          });
       if (e is HttpCodeException && !e.shouldRetry()) rethrow;
       if (attemptsRemaining - 1 > 0) {
         await _sleep();
@@ -130,4 +145,39 @@ class Http with Logging {
       };
 
   _sleep() => Future.delayed(_retry.now);
+
+  void _logNetDiag(
+    Marker m,
+    String event,
+    HttpRequest request, {
+    Level lvl = Level.info,
+    Map<String, dynamic>? attr,
+  }) {
+    final url = request.url;
+    final uri = Uri.tryParse(url);
+    final expectedTag = _device.deviceTag;
+    final route = _stage.route.route;
+    log(m).log(
+      msg: "[NetDiag] $event",
+      lvl: lvl,
+      attr: {
+        "endpoint": request.endpoint.name,
+        "host": uri?.host ?? "(invalid)",
+        "method": request.endpoint.type,
+        "route": route.path,
+        "routeTab": route.tab.name,
+        "routePayload": route.payload,
+        "appStatus": _app.status.name,
+        "appStatusStrategy": _app.conditions.toString(),
+        "vpnStatus": _vpnStatus.now.name,
+        "deviceTag": expectedTag,
+        "deviceAlias": _device.deviceAlias,
+        "privateDnsEnabledFor": _dnsEnabledFor.present,
+        "privateDnsMatchesDevice":
+            expectedTag != null && _dnsEnabledFor.present == expectedTag,
+        ...?attr,
+      },
+      sensitive: true,
+    );
+  }
 }

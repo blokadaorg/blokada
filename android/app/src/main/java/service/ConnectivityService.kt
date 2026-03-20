@@ -63,6 +63,7 @@ object ConnectivityService {
 
     // Hold on to data we get from the async callbacks, as per docs mixing them with sync calls is not ok
     private val networkDescriptors = mutableMapOf<NetworkHandle, NetworkDescriptor>()
+    private val networkCapabilities = mutableMapOf<NetworkHandle, NetworkCapabilities>()
     private val networkLinks = mutableMapOf<NetworkHandle, LinkProperties>()
 
     private var defaultRouteNetwork: NetworkHandle? = null
@@ -74,7 +75,15 @@ object ConnectivityService {
     private val systemCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
             scope.launch(Dispatchers.Main) {
+                networkCapabilities[network.networkHandle] = caps
                 val descriptor = describeNetwork(network, caps)
+                logConnectivityEvent(
+                    "capabilitiesChanged",
+                    network.networkHandle,
+                    descriptor,
+                    caps = caps,
+                    message = "Capabilities changed"
+                )
                 if (descriptor != null) onNetworkAvailable(descriptor) // Announce for the UI to list it
                 announceActiveNetwork()
             }
@@ -82,6 +91,15 @@ object ConnectivityService {
 
         override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
             scope.launch(Dispatchers.Main) {
+                val descriptor = networkDescriptors[network.networkHandle]
+                logConnectivityEvent(
+                    "linkPropertiesChanged",
+                    network.networkHandle,
+                    descriptor,
+                    caps = networkCapabilities[network.networkHandle],
+                    link = linkProperties,
+                    message = "Link properties changed"
+                )
                 markDefaultRoute(network, linkProperties)
                 announceActiveNetwork()
             }
@@ -164,7 +182,14 @@ object ConnectivityService {
         val default = link.routes.any { it.isDefaultRoute }
 
         if (default && defaultRouteNetwork != network.networkHandle) {
-            log.v("New default route through network: ${network.networkHandle}")
+            logConnectivityEvent(
+                "defaultRouteChanged",
+                network.networkHandle,
+                networkDescriptors[network.networkHandle],
+                caps = networkCapabilities[network.networkHandle],
+                link = link,
+                message = "New default route"
+            )
             defaultRouteNetwork = network.networkHandle
             onConnectivityChanged(true)
         }
@@ -175,22 +200,32 @@ object ConnectivityService {
     private fun checkPrivateDns(link: LinkProperties) {
         when {
             Build.VERSION.SDK_INT < 28 -> {
-                log.w("privateDNS unsupported on this Android version")
+                log.w("[NetDiag] connectivityChange event=privateDnsUnsupported android=${Build.VERSION.SDK_INT}")
             }
 
             link.isPrivateDnsActive -> {
                 privateDns = link.privateDnsServerName
+                logConnectivityEvent(
+                    "privateDnsChanged",
+                    defaultRouteNetwork,
+                    networkDescriptors[defaultRouteNetwork],
+                    caps = defaultRouteNetwork?.let { networkCapabilities[it] },
+                    link = link,
+                    message = "Private DNS active"
+                )
                 onPrivateDnsChanged(link.privateDnsServerName)
             }
 
             else -> {
                 networkLinks.values.firstOrNull { it.isPrivateDnsActive }?.let {
                     privateDns = it.privateDnsServerName
-                    log.w("privateDNS active for ${it.interfaceName}: $privateDns (skipped default network)")
+                    log.w(
+                        "[NetDiag] connectivityChange event=privateDnsChanged skippedDefault=true interface=${it.interfaceName} privateDns=${it.privateDnsServerName ?: "(null)"}"
+                    )
                     onPrivateDnsChanged(it.privateDnsServerName)
                 } ?: run {
                     privateDns = null
-                    log.w("privateDNS not active")
+                    log.w("[NetDiag] connectivityChange event=privateDnsChanged privateDns=(null)")
                     onPrivateDnsChanged(null)
                 }
             }
@@ -199,9 +234,17 @@ object ConnectivityService {
 
     private fun cleanupLostNetwork(network: Network) {
         val descriptor = networkDescriptors[network.networkHandle]
-        log.v("Network lost: ${network.networkHandle} = $descriptor")
+        logConnectivityEvent(
+            "networkLost",
+            network.networkHandle,
+            descriptor,
+            caps = networkCapabilities[network.networkHandle],
+            link = networkLinks[network.networkHandle],
+            message = "Network lost"
+        )
 
         networkDescriptors.remove(network.networkHandle)
+        networkCapabilities.remove(network.networkHandle)
         networkLinks.remove(network.networkHandle)
 
         if (network.networkHandle == defaultRouteNetwork) {
@@ -217,7 +260,7 @@ object ConnectivityService {
                 val fallback = NetworkDescriptor.fallback()
                 activeNetwork = fallback
                 lastSeenRouteNetwork = null
-                log.v("Doze active")
+                log.w("[NetDiag] connectivityChange event=activeNetworkChanged reason=doze active=${fallback}")
 
                 onConnectivityChanged(false)
                 onActiveNetworkChanged(fallback)
@@ -231,7 +274,7 @@ object ConnectivityService {
                 val fallback = NetworkDescriptor.fallback()
                 activeNetwork = fallback
                 lastSeenRouteNetwork = defaultRouteNetwork
-                log.v("Lost default network, no connectivity")
+                log.w("[NetDiag] connectivityChange event=activeNetworkChanged connected=false reason=noDefaultNetwork active=$fallback")
 
                 onConnectivityChanged(false)
                 onActiveNetworkChanged(fallback)
@@ -245,7 +288,14 @@ object ConnectivityService {
                 // This is the normal case of switching networks
                 activeNetwork = descriptor
                 lastSeenRouteNetwork = defaultRouteNetwork
-                log.v("Network is now default: $defaultRouteNetwork = $descriptor")
+                logConnectivityEvent(
+                    "activeNetworkChanged",
+                    defaultRouteNetwork,
+                    descriptor,
+                    caps = defaultRouteNetwork?.let { networkCapabilities[it] },
+                    link = defaultRouteNetwork?.let { networkLinks[it] },
+                    message = "Network is now default"
+                )
 
                 onConnectivityChanged(true)
                 onConnectedBack()
@@ -263,6 +313,7 @@ object ConnectivityService {
     }
 
     fun rescan() {
+        log.i("[NetDiag] connectivityChange event=rescan start")
         // We can't use the default network callback because it returns ourselves (the VPN network).
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
@@ -301,6 +352,55 @@ object ConnectivityService {
 
     private fun LinkProperties.usesPrivateDns(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) isPrivateDnsActive else false
+    }
+
+    private fun logConnectivityEvent(
+        event: String,
+        networkHandle: NetworkHandle?,
+        descriptor: NetworkDescriptor?,
+        caps: NetworkCapabilities? = null,
+        link: LinkProperties? = null,
+        message: String
+    ) {
+        val level = when (event) {
+            "networkLost" -> "warning"
+            else -> "info"
+        }
+        val line = buildString {
+            append("[NetDiag] connectivityChange")
+            append(" event=").append(event)
+            append(" handle=").append(networkHandle ?: "(null)")
+            append(" descriptor=").append(descriptor ?: "(null)")
+            append(" defaultRoute=").append(defaultRouteNetwork ?: "(null)")
+            append(" lastSeenRoute=").append(lastSeenRouteNetwork ?: "(null)")
+            append(" active=").append(activeNetwork)
+            append(" connected=").append(defaultRouteNetwork != null)
+            append(" privateDns=").append(privateDns ?: "(null)")
+            append(" ").append(describeCapabilities(caps))
+            append(" ").append(describeLink(link))
+            append(" msg=").append(message)
+        }
+        when (level) {
+            "warning" -> log.w(line)
+            else -> log.i(line)
+        }
+    }
+
+    private fun describeCapabilities(caps: NetworkCapabilities?): String {
+        if (caps == null) return "caps=(null)"
+        val transports = mutableListOf<String>()
+        if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) transports.add("wifi")
+        if (caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) transports.add("cell")
+        if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) transports.add("eth")
+        if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) transports.add("vpn")
+
+        return "caps={transports=${transports.joinToString(",").ifBlank { "none" }},internet=${caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)},validated=${caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)},notVpn=${caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)}}"
+    }
+
+    private fun describeLink(link: LinkProperties?): String {
+        if (link == null) return "link=(null)"
+        val dns = link.dnsServers.joinToString(",") { it.hostAddress ?: "(null)" }.ifBlank { "none" }
+        return "link={iface=${link.interfaceName ?: "(null)"},defaultRoute=${link.routes.any { it.isDefaultRoute }},privateDns=${link.usesPrivateDns()},privateDnsName=${link.privateDnsServerName ?: "(null)"},dns=$dns}"
     }
 
 }
