@@ -627,10 +627,10 @@
     <string name="notification_weekly_report_blocked_decreased_title">Aktivitas pelacak menurun</string>
     <string name="notification_weekly_report_allowed_increased_title">Lalu lintas yang diizinkan meningkat</string>
     <string name="notification_weekly_report_allowed_decreased_title">Lalu lintas yang diizinkan menurun</string>
-    <string name="notification_weekly_report_blocked_totals_body">Blocked traffic is %s% compared to last week.</string>
-    <string name="notification_weekly_report_allowed_totals_body">Allowed traffic is %s% compared to last week.</string>
-    <string name="notification_weekly_report_blocked_totals_body_nopercent">Blocked traffic is %s compared to last week.</string>
-    <string name="notification_weekly_report_allowed_totals_body_nopercent">Allowed traffic is %s compared to last week.</string>
+    <string name="notification_weekly_report_blocked_totals_body">Lalu lintas yang diblokir adalah %s% dibandingkan minggu lalu.</string>
+    <string name="notification_weekly_report_allowed_totals_body">Lalu lintas yang diizinkan adalah %s% dibandingkan minggu lalu.</string>
+    <string name="notification_weekly_report_blocked_totals_body_nopercent">Lalu lintas yang diblokir adalah %s% dibandingkan minggu lalu.</string>
+    <string name="notification_weekly_report_allowed_totals_body_nopercent">Lalu lintas yang diizinkan adalah %s% dibandingkan minggu lalu.</string>
     <string name="notification_weekly_report_blocked_toplist_new_title">Pelacak baru di daftar teratas</string>
     <string name="notification_weekly_report_allowed_toplist_new_title">Domain baru di daftar teratas</string>
     <string name="notification_weekly_report_blocked_toplist_up_title">Aktivitas pelacak meningkat</string>
