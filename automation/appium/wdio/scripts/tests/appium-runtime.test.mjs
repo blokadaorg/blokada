@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  findAutomationModeProcessIds,
   findWebDriverAgentProcessIds,
   hasInstalledDriver,
   parseInstalledDrivers,
@@ -56,6 +57,25 @@ test("findWebDriverAgentProcessIds selects WDA processes only", () => {
           { processIdentifier: 101, name: "SpringBoard" },
           { processIdentifier: 202, name: "WebDriverAgentRunner-Runner" },
           { pid: 303, executable: { name: "WebDriverAgentRunner" } }
+        ]
+      }
+    })
+  );
+
+  assert.deepEqual(processIds, [202, 303]);
+});
+
+test("findAutomationModeProcessIds selects automation mode processes only", () => {
+  const processIds = findAutomationModeProcessIds(
+    JSON.stringify({
+      result: {
+        runningProcesses: [
+          { processIdentifier: 101, name: "SpringBoard" },
+          { processIdentifier: 202, name: "AutomationModeUI" },
+          {
+            pid: 303,
+            executable: "file:///System/Library/PrivateFrameworks/AutomationMode.framework/automationmode-writer"
+          }
         ]
       }
     })
