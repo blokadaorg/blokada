@@ -9,7 +9,6 @@ class Http with Logging {
   late final _app = Core.get<AppStore>();
   late final _stage = Core.get<StageStore>();
   late final _device = Core.get<DeviceStore>();
-  late final _vpnStatus = Core.get<CurrentVpnStatusValue>();
   late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
 
   Future<String> call(
@@ -157,6 +156,9 @@ class Http with Logging {
     final uri = Uri.tryParse(url);
     final expectedTag = _device.deviceTag;
     final route = _stage.route.route;
+    final vpnStatus = Core.di.isRegistered<CurrentVpnStatusValue>()
+        ? Core.get<CurrentVpnStatusValue>().now.name
+        : "(unavailable)";
     log(m).log(
       msg: "[NetDiag] $event",
       lvl: lvl,
@@ -169,7 +171,7 @@ class Http with Logging {
         "routePayload": route.payload,
         "appStatus": _app.status.name,
         "appStatusStrategy": _app.conditions.toString(),
-        "vpnStatus": _vpnStatus.now.name,
+        "vpnStatus": vpnStatus,
         "deviceTag": expectedTag,
         "deviceAlias": _device.deviceAlias,
         "privateDnsEnabledFor": _dnsEnabledFor.present,
