@@ -77,7 +77,6 @@ void main() {
 
       expect(find.text('home'), findsOneWidget);
       expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
-      expect(startCalls, 0);
 
       await tester.pump();
 

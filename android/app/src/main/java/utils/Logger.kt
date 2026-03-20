@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter
 
 open class Logger(private val component: String) {
 
+    open fun i(message: String) = Logger.i(component, message)
     open fun e(message: String) = Logger.e(component, message)
     open fun w(message: String) = Logger.w(component, message)
     open fun v(message: String) = Logger.v(component, message)
@@ -31,6 +32,12 @@ open class Logger(private val component: String) {
     companion object {
         private val scope = CoroutineScope(Dispatchers.Main)
         private val commands by lazy { CommandBinding }
+
+        fun i(component: String, message: String) {
+            scope.launch {
+                commands.execute(CommandName.INFO, "[$component] $message")
+            }
+        }
 
         fun e(component: String, message: String) {
             scope.launch {

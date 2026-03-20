@@ -88,8 +88,19 @@ class VpnActor with Logging, Actor {
 
   setActualStatus(String statusString, Marker m) async {
     return await log(m).trace("setActualStatus", (m) async {
+      final previousStatus = _actualStatus.now;
       final status = statusString.toVpnStatus();
       log(m).pair("status", status.name);
+      log(m).log(
+        msg: "[NetDiag] vpnTransition",
+        attr: {
+          "previousStatus": previousStatus.name,
+          "newStatus": status.name,
+          "targetStatus": targetStatus.name,
+          "hasActualConfig": actualConfig != null,
+          "hasTargetConfig": targetConfig != null,
+        },
+      );
 
       _actualStatus.now = status;
       if (!_actualStatus.now.isReady()) {
@@ -101,15 +112,18 @@ class VpnActor with Logging, Actor {
         // Track when we first became ready
         final now = DateTime.now();
         _lastReadyTime ??= now;
-        
+
         // Only stop ongoing timeout if we've been ready for a sustained period
         // or if we've successfully reached our target status
-        final sustainedReady = now.difference(_lastReadyTime!) >= _sustainedReadyDuration;
-        final reachedTarget = targetStatus == _actualStatus.now || targetStatus == VpnStatus.unknown;
-        
+        final sustainedReady =
+            now.difference(_lastReadyTime!) >= _sustainedReadyDuration;
+        final reachedTarget = targetStatus == _actualStatus.now ||
+            targetStatus == VpnStatus.unknown;
+
         if (sustainedReady || reachedTarget) {
           await _stopOngoingTimeout(m);
-          log(m).i("Stopping ongoing timeout - sustained: $sustainedReady, target reached: $reachedTarget");
+          log(m).i(
+              "Stopping ongoing timeout - sustained: $sustainedReady, target reached: $reachedTarget");
         } else {
           log(m).i("Brief ready state detected, keeping timeout active");
         }
