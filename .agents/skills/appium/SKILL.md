@@ -156,6 +156,7 @@ Lightweight hint only: DNS is usually under `General`, then `VPN & Device Manage
 
 Practical DNS notes from live runs:
 - On the Swedish iOS locale used in this repo, the path was `Inställningar` -> `Allmänt` -> `VPN och enhetshantering` -> `DNS`.
+- Treat DNS as a top-level system setting reached from `Settings` -> `General` -> the VPN/DNS management area. The exact row labels depend on locale, but it is not an app-specific setting under the Blokada app entry.
 - Settings search for `DNS` returned `Inga träffar` on this device even though the DNS screen existed, so a failed Settings search is not enough to conclude the path is unavailable.
 - On the `Allmänt` screen, tapping the visible text label for `VPN och enhetshantering` was unreliable; the accessibility id `ManagedConfigurationList` worked.
 - If the task is to put DNS "back", first verify the current selection on the DNS screen. If `Automatiskt` already has the checkmark, leave it unchanged instead of toggling away and back.
