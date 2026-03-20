@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
+import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -43,9 +47,7 @@ void main() {
             Fixtures.accountId,
             JsonAccount(
                 id: Fixtures.accountId,
-                activeUntil: DateTime.now()
-                    .add(const Duration(seconds: 10))
-                    .toIso8601String(),
+                activeUntil: DateTime.now().add(const Duration(seconds: 10)).toIso8601String(),
                 type: AccountType.cloud.name,
                 active: true));
         await subject.syncAccount(account, m);
@@ -70,7 +72,15 @@ void main() {
 
     test("willFetchAccountOnAppStartAndTimerFired", () async {
       await withTrace((m) async {
-        final account = MockAccountStore();
+        final account = _TestAccountStore();
+        when(account.load(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now().add(const Duration(days: 3)),
+            type: AccountType.plus,
+            active: true,
+          );
+        });
+        when(account.fetch(any)).thenAnswer((_) async {});
         Core.register<AccountStore>(account);
 
         Core.register<StageStore>(MockStageStore());
@@ -117,6 +127,171 @@ void main() {
       });
     });
 
+    test("willClearStaleRefreshMetadataWhenCreatingNewAccount", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        when(account.load(any)).thenThrow(Exception("No existing account"));
+        when(account.createAccount(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now(),
+            type: AccountType.libre,
+            active: false,
+          );
+        });
+        Core.register<AccountStore>(account);
+
+        final stage = MockStageStore();
+        final persistence = MockPersistence();
+        when(persistence.load(any, "account:refresh")).thenAnswer(
+          (_) async => jsonEncode({
+            "previousAccountType": AccountType.plus.toSimpleString(),
+            "seenExpiredDialog": false,
+          }),
+        );
+
+        Core.register<StageStore>(stage);
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(persistence);
+        Core.register<PlusActor>(MockPlusActor());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verify(account.load(any)).called(1);
+        verify(account.createAccount(any)).called(1);
+        verifyNever(account.fetch(any));
+        verify(persistence.delete(any, "account:refresh")).called(1);
+        verifyNever(persistence.load(any, "account:refresh"));
+        verifyNever(stage.showModal(StageModal.accountExpired, any));
+      });
+    });
+
+    test("willCreateNewAccountWhenCachedAccountFetchReturns400", () async {
+      await _expectInvalidCachedAccountCreatesFreshAccount(400);
+    });
+
+    test("willCreateNewAccountWhenCachedAccountFetchReturns404", () async {
+      await _expectInvalidCachedAccountCreatesFreshAccount(404);
+    });
+
+    test("willReusePreloadedCachedAccountIfRefreshFails", () async {
+      await withTrace((m) async {
+        final account = MockAccountStore();
+        final cachedAccount = AccountState(
+          Fixtures.accountId,
+          JsonAccount(
+            id: Fixtures.accountId,
+            activeUntil: DateTime.now().add(const Duration(days: 3)).toIso8601String(),
+            type: AccountType.plus.name,
+            active: true,
+          ),
+        );
+        when(account.account).thenReturn(cachedAccount);
+        when(account.fetch(any)).thenThrow(Exception("offline"));
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verifyNever(account.load(any));
+        verify(account.fetch(any)).called(1);
+        verifyNever(account.createAccount(any));
+        expect(subject.expiration.status, AccountStatus.active);
+      });
+    });
+
+    test("willKeepCachedAccountWhenFetchReturns500", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        account.account = _accountState(
+          activeUntil: DateTime.now().add(const Duration(days: 3)),
+          type: AccountType.plus,
+          active: true,
+        );
+        when(account.fetch(any)).thenThrow(HttpCodeException(500, "server"));
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verifyNever(account.load(any));
+        verify(account.fetch(any)).called(1);
+        verifyNever(account.createAccount(any));
+        expect(account.account?.id, Fixtures.accountId);
+        expect(subject.expiration.status, AccountStatus.active);
+      });
+    });
+
+    test("willKeepPersistedCachedAccountIfRefreshFails", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        when(account.load(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now().add(const Duration(days: 3)),
+            type: AccountType.plus,
+            active: true,
+          );
+        });
+        when(account.fetch(any)).thenThrow(Exception("offline"));
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verify(account.load(any)).called(1);
+        verify(account.fetch(any)).called(1);
+        verifyNever(account.createAccount(any));
+        expect(account.account?.id, Fixtures.accountId);
+        expect(subject.expiration.status, AccountStatus.active);
+      });
+    });
+
+    test("willKeepLoadedAccountIfLoadThrowsAfterPopulatingState", () async {
+      await withTrace((m) async {
+        final account = _TestAccountStore();
+        when(account.load(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now().add(const Duration(days: 3)),
+            type: AccountType.plus,
+            active: true,
+          );
+          throw Exception("device refresh failed");
+        });
+        when(account.fetch(any)).thenAnswer((_) async {});
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        await subject.init(m);
+
+        verify(account.load(any)).called(1);
+        verify(account.fetch(any)).called(1);
+        verifyNever(account.createAccount(any));
+        expect(account.account?.id, Fixtures.accountId);
+        expect(subject.expiration.status, AccountStatus.active);
+      });
+    });
+
     test("maybeRefreshWillRespectLastRefreshTime", () async {
       await withTrace((m) async {
         Core.register<Scheduler>(MockScheduler());
@@ -128,7 +303,15 @@ void main() {
         when(stage.route).thenReturn(route);
         Core.register<StageStore>(stage);
 
-        final account = MockAccountStore();
+        final account = _TestAccountStore();
+        when(account.load(any)).thenAnswer((_) async {
+          account.account = _accountState(
+            activeUntil: DateTime.now().add(const Duration(days: 3)),
+            type: AccountType.plus,
+            active: true,
+          );
+        });
+        when(account.fetch(any)).thenAnswer((_) async {});
         Core.register<AccountStore>(account);
 
         // Initial state
@@ -151,8 +334,7 @@ void main() {
       await withTrace((m) async {
         final account = _TestAccountStore();
         final futureExpiry = DateTime.fromMillisecondsSinceEpoch(
-          DateTime.now().toUtc().millisecondsSinceEpoch +
-              const Duration(hours: 6).inMilliseconds,
+          DateTime.now().toUtc().millisecondsSinceEpoch + const Duration(hours: 6).inMilliseconds,
           isUtc: true,
         );
         account.account = _accountState(
@@ -189,8 +371,7 @@ void main() {
       await withTrace((m) async {
         final account = _TestAccountStore();
         final expiredAt = DateTime.fromMillisecondsSinceEpoch(
-          DateTime.now().toUtc().millisecondsSinceEpoch -
-              const Duration(hours: 1).inMilliseconds,
+          DateTime.now().toUtc().millisecondsSinceEpoch - const Duration(hours: 1).inMilliseconds,
           isUtc: true,
         );
         account.account = _accountState(
@@ -243,19 +424,74 @@ void main() {
 }
 
 AccountState _accountState({
+  String id = Fixtures.accountId,
   required DateTime activeUntil,
   required AccountType type,
   required bool active,
 }) {
   return AccountState(
-    Fixtures.accountId,
+    id,
     JsonAccount(
-      id: Fixtures.accountId,
+      id: id,
       activeUntil: activeUntil.toIso8601String(),
       type: type.name,
       active: active,
     ),
   );
+}
+
+Future<void> _expectInvalidCachedAccountCreatesFreshAccount(int code) async {
+  await withTrace((m) async {
+    const oldAccountId = "oldaccountaa";
+    const newAccountId = "freshaccount";
+    final account = _TestAccountStore();
+    account.account = _accountState(
+      id: oldAccountId,
+      activeUntil: DateTime.now().add(const Duration(days: 3)),
+      type: AccountType.plus,
+      active: true,
+    );
+    when(account.fetch(any)).thenThrow(HttpCodeException(code, "invalid account"));
+    when(account.createAccount(any)).thenAnswer((_) async {
+      account.account = _accountState(
+        id: newAccountId,
+        activeUntil: DateTime.now(),
+        type: AccountType.libre,
+        active: false,
+      );
+    });
+    Core.register<AccountStore>(account);
+
+    final stage = MockStageStore();
+    final persistence = MockPersistence();
+    final securePersistence = MockPersistence();
+    when(persistence.load(any, "account:refresh")).thenAnswer(
+      (_) async => jsonEncode({
+        "previousAccountType": AccountType.plus.toSimpleString(),
+        "seenExpiredDialog": false,
+      }),
+    );
+
+    Core.register<StageStore>(stage);
+    Core.register<Scheduler>(MockScheduler());
+    Core.register<NotificationActor>(MockNotificationActor());
+    Core.register<Persistence>(persistence);
+    Core.register<Persistence>(securePersistence, tag: Persistence.secure);
+    Core.register<PlusActor>(MockPlusActor());
+
+    final subject = AccountRefreshStore();
+    await subject.init(m);
+
+    verifyNever(account.load(any));
+    verify(account.fetch(any)).called(1);
+    verify(account.createAccount(any)).called(1);
+    verify(securePersistence.delete(any, "account:jsonAccount", isBackup: true)).called(1);
+    verify(persistence.delete(any, "account:refresh")).called(1);
+    verifyNever(persistence.load(any, "account:refresh"));
+    verifyNever(stage.showModal(StageModal.accountExpired, any));
+    expect(account.account?.id, newAccountId);
+    expect(account.account?.type, AccountType.libre);
+  });
 }
 
 class _TestAccountStore extends MockAccountStore {
