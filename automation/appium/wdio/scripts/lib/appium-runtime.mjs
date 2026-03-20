@@ -43,11 +43,42 @@ export function parseRunningProcesses(rawOutput) {
   return payload?.result?.runningProcesses ?? [];
 }
 
+function getProcessNameCandidates(processInfo) {
+  const executable = processInfo?.executable;
+  const executableName =
+    typeof executable === "string"
+      ? executable
+      : executable?.name;
+
+  return [
+    processInfo?.name,
+    executableName
+  ]
+    .filter((value) => typeof value === "string")
+    .map((value) => String(value));
+}
+
 export function findWebDriverAgentProcessIds(rawOutput) {
   return parseRunningProcesses(rawOutput)
     .filter((processInfo) => {
-      const name = processInfo?.name ?? processInfo?.executable?.name ?? "";
-      return String(name).includes("WebDriverAgent");
+      const candidates = getProcessNameCandidates(processInfo);
+      return candidates.some((name) => String(name).includes("WebDriverAgent"));
+    })
+    .map((processInfo) =>
+      processInfo?.processIdentifier ??
+      processInfo?.pid ??
+      processInfo?.ProcessIdentifier
+    )
+    .filter((value) => Number.isInteger(value));
+}
+
+export function findAutomationModeProcessIds(rawOutput) {
+  return parseRunningProcesses(rawOutput)
+    .filter((processInfo) => {
+      const candidates = getProcessNameCandidates(processInfo);
+      return candidates.some((name) =>
+        String(name).includes("AutomationMode")
+      );
     })
     .map((processInfo) =>
       processInfo?.processIdentifier ??
@@ -155,8 +186,6 @@ export async function terminateWebDriverAgent(options = {}) {
         "processes",
         "--device",
         deviceIdentifier,
-        "--filter",
-        "name CONTAINS 'WebDriverAgent'",
         "--json-output",
         jsonPath
       ],
@@ -173,7 +202,10 @@ export async function terminateWebDriverAgent(options = {}) {
     }
 
     const processJson = await readFile(jsonPath, "utf8");
-    const processIds = findWebDriverAgentProcessIds(processJson);
+    const processIds = [
+      ...findWebDriverAgentProcessIds(processJson),
+      ...findAutomationModeProcessIds(processJson)
+    ];
 
     for (const processId of processIds) {
       const terminateResult = runDevicectl(

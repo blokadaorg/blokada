@@ -10,6 +10,7 @@ import {
   getCrashReportPrefix,
   getDeviceLogArtifactBaseName,
   getShareLogPrefix,
+  normalizeLines,
   pullRecentCrashReport,
   pullRecentDeviceLog,
   selectNewestCrashReport,
@@ -37,6 +38,13 @@ test("getCrashReportPrefix only supports known in-project bundle ids", () => {
     () => getCrashReportPrefix("com.example.app"),
     /Only Blokada 6 and Blokada Family are supported/
   );
+});
+
+test("normalizeLines defaults to 400 and caps invalid values", () => {
+  assert.equal(normalizeLines(), 400);
+  assert.equal(normalizeLines(""), 400);
+  assert.equal(normalizeLines("abc"), 400);
+  assert.equal(normalizeLines("0"), 400);
 });
 
 test("selectNewestLogFile chooses the newest matching share log", () => {
