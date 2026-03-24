@@ -11,10 +11,16 @@ export function getProjectPaths(env = process.env) {
     repoRoot,
     appiumRoot,
     wdioRoot,
+    assetsRoot: resolve(appiumRoot, "assets"),
     outputDir: resolve(appiumRoot, "output"),
     appiumHome: env.APPIUM_HOME ?? resolve(appiumRoot, ".appium"),
     appiumBinary: resolve(wdioRoot, "node_modules", ".bin", "appium"),
     appiumConfigPath: resolve(repoRoot, ".appiumrc.yaml"),
+    wdaKeyboardPatchPath: resolve(
+      appiumRoot,
+      "assets",
+      "wda-preserve-keyboard-preferences.m"
+    ),
     signingConfigPath:
       env.IOS_XCODE_CONFIG_FILE ??
       resolve(repoRoot, "ios", "App", "Config", "AppiumSigning.xcconfig")
