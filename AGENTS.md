@@ -13,6 +13,25 @@ work is handled in `common/Makefile`.
 
 Makefiles are tab indented, so be careful when editing them.
 
+## Domain Knowledge
+
+For product-specific behavior that is easy to get wrong, check `docs/domain/`
+before changing onboarding, startup, protection, subscriptions, home-state
+semantics, browser-extension flows, or flavor-specific behavior.
+
+Start with:
+
+- `docs/domain/domain-knowledge.md`
+
+Then open only the area relevant to the task:
+
+- `docs/domain/shared/` for behavior shared across flavors
+- `docs/domain/v6/` for Blokada 6-specific behavior
+- `docs/domain/family/` for Family-specific behavior
+
+Keep `AGENTS.md` as a pointer only. Durable product rules belong in
+`docs/domain/`, not duplicated here.
+
 ## Tests
 
 `make test` runs the Flutter tests located in `common/`. These require the
