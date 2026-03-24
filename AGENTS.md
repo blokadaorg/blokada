@@ -46,14 +46,13 @@ Keep `AGENTS.md` as a pointer only. Durable product rules belong in
 
 ## Tests
 
-`make test` runs the Flutter tests located in `common/`. These require the
-Flutter dependencies to be available locally.
+`make test-local` is the fast local Flutter test path. It delegates to
+`common/Makefile` and runs `fvm flutter test --no-pub`, so it assumes
+dependencies are already available locally and should not need network access
+for dependency resolution.
 
-In sandboxed environments where network trust stores cannot be modified, prefer
-running `make -C common test`. The top-level `make test` target invokes
-`fvm flutter pub get` before testing, which attempts to update dependencies and
-can fail with `CERTIFICATE_VERIFY_FAILED` when the sandbox blocks certificate
-installation.
+`make test` is the safe default path. It refreshes `pub`, Pigeon Dart outputs
+via `gen-android`, and `build_runner` before running the Flutter test suite.
 
 ## iOS Appium Smoke Test
 
