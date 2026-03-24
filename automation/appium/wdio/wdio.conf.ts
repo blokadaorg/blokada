@@ -1,8 +1,6 @@
 import type { Options } from "@wdio/types";
 
-import {
-  buildCapabilities
-} from "./scripts/lib/capabilities.mjs";
+import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
 import { getAppiumServerConfig } from "./scripts/lib/paths.mjs";
 
 const logLevel =

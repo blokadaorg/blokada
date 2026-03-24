@@ -1,10 +1,31 @@
 import { createWriteStream, existsSync } from "node:fs";
-import { mkdtemp, mkdir, readFile, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { spawn, spawnSync } from "node:child_process";
 
 import { getAppiumServerConfig, getProjectPaths } from "./paths.mjs";
+
+const WDA_KEYBOARD_PATCH_MARKER =
+  "Blokada: preserve current iOS keyboard preferences during Appium sessions.";
+const WDA_KEYBOARD_PREFERENCES_TARGET =
+  "  [FBConfiguration configureDefaultKeyboardPreferences];";
+
+export function parseBooleanFlag(value, fallback = false) {
+  if (value == null || value === "") {
+    return fallback;
+  }
+
+  const normalized = String(value).trim().toLowerCase();
+  if (["1", "true", "yes", "on"].includes(normalized)) {
+    return true;
+  }
+  if (["0", "false", "no", "off"].includes(normalized)) {
+    return false;
+  }
+
+  return fallback;
+}
 
 export function parseInstalledDrivers(rawOutput) {
   const payload = JSON.parse(rawOutput);
@@ -36,6 +57,72 @@ function runDevicectl(args, env = process.env) {
     encoding: "utf8",
     env
   });
+}
+
+function getWdaKeyboardPreferencesFilePath(env = process.env) {
+  const paths = getProjectPaths(env);
+  return resolve(
+    paths.appiumHome,
+    "node_modules",
+    "appium-xcuitest-driver",
+    "node_modules",
+    "appium-webdriveragent",
+    "WebDriverAgentRunner",
+    "UITestingUITests.m"
+  );
+}
+
+async function readWdaKeyboardPatchAsset(env = process.env) {
+  const paths = getProjectPaths(env);
+
+  if (!existsSync(paths.wdaKeyboardPatchPath)) {
+    throw new Error(
+      `Expected WebDriverAgent patch asset at ${paths.wdaKeyboardPatchPath}, but it was not found.`
+    );
+  }
+
+  return readFile(paths.wdaKeyboardPatchPath, "utf8");
+}
+
+export function patchWdaKeyboardPreferencesSource(source, replacement) {
+  if (source.includes(WDA_KEYBOARD_PATCH_MARKER)) {
+    return source;
+  }
+
+  if (!replacement?.includes(WDA_KEYBOARD_PATCH_MARKER)) {
+    throw new Error("WebDriverAgent keyboard patch asset is missing the expected marker.");
+  }
+
+  if (!source.includes(WDA_KEYBOARD_PREFERENCES_TARGET)) {
+    throw new Error("WebDriverAgent keyboard preferences hook not found.");
+  }
+
+  return source.replace(WDA_KEYBOARD_PREFERENCES_TARGET, replacement.trimEnd());
+}
+
+export async function ensurePatchedWebDriverAgent(options = {}) {
+  const {
+    env = process.env,
+    log = console.error
+  } = options;
+
+  const sourcePath = getWdaKeyboardPreferencesFilePath(env);
+  if (!existsSync(sourcePath)) {
+    throw new Error(
+      `Expected WebDriverAgent source at ${sourcePath}, but it was not found.`
+    );
+  }
+
+  const currentSource = await readFile(sourcePath, "utf8");
+  const patchAsset = await readWdaKeyboardPatchAsset(env);
+  const patchedSource = patchWdaKeyboardPreferencesSource(currentSource, patchAsset);
+  if (patchedSource === currentSource) {
+    return false;
+  }
+
+  await writeFile(sourcePath, patchedSource);
+  log("Patched repo-local WebDriverAgent to preserve iOS keyboard preferences.");
+  return true;
 }
 
 export function parseRunningProcesses(rawOutput) {
@@ -88,6 +175,113 @@ export function findAutomationModeProcessIds(rawOutput) {
     .filter((value) => Number.isInteger(value));
 }
 
+export function hasRunningWebDriverAgent(rawOutput) {
+  return findWebDriverAgentProcessIds(rawOutput).length > 0;
+}
+
+async function terminateDeviceProcesses(processIds, options = {}) {
+  const {
+    deviceIdentifier,
+    env = process.env,
+    log = console.error,
+    processLabel = "device"
+  } = options;
+
+  if (!deviceIdentifier || processIds.length === 0) {
+    return false;
+  }
+
+  for (const processId of processIds) {
+    const terminateResult = runDevicectl(
+      [
+        "device",
+        "process",
+        "terminate",
+        "--device",
+        deviceIdentifier,
+        "--pid",
+        String(processId),
+        "--kill"
+      ],
+      env
+    );
+
+    if (terminateResult.status !== 0) {
+      log(
+        terminateResult.stderr ||
+        terminateResult.stdout ||
+        `Failed to terminate ${processLabel} process ${processId}.`
+      );
+    }
+  }
+
+  return true;
+}
+
+export function isHardResetRequested(env = process.env) {
+  return parseBooleanFlag(env.APPIUM_WDA_HARD_RESET, false);
+}
+
+export function selectAutomationReuseStrategy({
+  appiumServerReady,
+  hardResetRequested,
+  runningWebDriverAgent
+}) {
+  if (hardResetRequested) {
+    return "hard-reset";
+  }
+  if (appiumServerReady) {
+    return "reuse-appium-server";
+  }
+  if (runningWebDriverAgent) {
+    return "reuse-webdriveragent";
+  }
+  return "fresh-start";
+}
+
+async function inspectRunningProcesses(options = {}) {
+  const {
+    deviceIdentifier,
+    env = process.env,
+    log = console.error
+  } = options;
+
+  if (!deviceIdentifier) {
+    return null;
+  }
+
+  const tempDir = await mkdtemp(join(tmpdir(), "appium-procs-"));
+  const jsonPath = join(tempDir, "processes.json");
+
+  try {
+    const listResult = runDevicectl(
+      [
+        "device",
+        "info",
+        "processes",
+        "--device",
+        deviceIdentifier,
+        "--json-output",
+        jsonPath
+      ],
+      env
+    );
+
+    if (listResult.status !== 0) {
+      log(
+        listResult.stderr ||
+        listResult.stdout ||
+        "Failed to inspect device processes for Appium runtime."
+      );
+      return null;
+    }
+
+    return await readFile(jsonPath, "utf8");
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 export async function ensureAppiumRuntime(options = {}) {
   const {
     env = process.env,
@@ -110,6 +304,7 @@ export async function ensureAppiumRuntime(options = {}) {
   }
 
   if (hasInstalledDriver(listResult.stdout)) {
+    await ensurePatchedWebDriverAgent({ env, log });
     return {
       appiumBinary: paths.appiumBinary,
       appiumHome: paths.appiumHome
@@ -127,6 +322,8 @@ export async function ensureAppiumRuntime(options = {}) {
       installResult.stderr || installResult.stdout || "Failed to install Appium xcuitest driver."
     );
   }
+
+  await ensurePatchedWebDriverAgent({ env, log });
 
   return {
     appiumBinary: paths.appiumBinary,
@@ -175,66 +372,55 @@ export async function terminateWebDriverAgent(options = {}) {
     return false;
   }
 
-  const tempDir = await mkdtemp(join(tmpdir(), "appium-wda-"));
-  const jsonPath = join(tempDir, "processes.json");
-
-  try {
-    const listResult = runDevicectl(
-      [
-        "device",
-        "info",
-        "processes",
-        "--device",
-        deviceIdentifier,
-        "--json-output",
-        jsonPath
-      ],
-      env
-    );
-
-    if (listResult.status !== 0) {
-      log(
-        listResult.stderr ||
-        listResult.stdout ||
-        "Failed to inspect device processes for WebDriverAgent cleanup."
-      );
-      return false;
-    }
-
-    const processJson = await readFile(jsonPath, "utf8");
-    const processIds = [
-      ...findWebDriverAgentProcessIds(processJson),
-      ...findAutomationModeProcessIds(processJson)
-    ];
-
-    for (const processId of processIds) {
-      const terminateResult = runDevicectl(
-        [
-          "device",
-          "process",
-          "terminate",
-          "--device",
-          deviceIdentifier,
-          "--pid",
-          String(processId),
-          "--kill"
-        ],
-        env
-      );
-
-      if (terminateResult.status !== 0) {
-        log(
-          terminateResult.stderr ||
-          terminateResult.stdout ||
-          `Failed to terminate WebDriverAgent process ${processId}.`
-        );
-      }
-    }
-
-    return processIds.length > 0;
-  } finally {
-    await rm(tempDir, { recursive: true, force: true });
+  const processJson = await inspectRunningProcesses({
+    deviceIdentifier,
+    env,
+    log
+  });
+  if (!processJson) {
+    return false;
   }
+
+  const processIds = [
+    ...findWebDriverAgentProcessIds(processJson),
+    ...findAutomationModeProcessIds(processJson)
+  ];
+
+  return terminateDeviceProcesses(processIds, {
+    deviceIdentifier,
+    env,
+    log,
+    processLabel: "WebDriverAgent"
+  });
+}
+
+export async function terminateWebDriverAgentRunner(options = {}) {
+  const {
+    deviceIdentifier,
+    env = process.env,
+    log = console.error
+  } = options;
+
+  if (!deviceIdentifier) {
+    return false;
+  }
+
+  const processJson = await inspectRunningProcesses({
+    deviceIdentifier,
+    env,
+    log
+  });
+  if (!processJson) {
+    return false;
+  }
+
+  const processIds = findWebDriverAgentProcessIds(processJson);
+  return terminateDeviceProcesses(processIds, {
+    deviceIdentifier,
+    env,
+    log,
+    processLabel: "WebDriverAgentRunner"
+  });
 }
 
 export async function ensureLocalAppiumServer(options = {}) {
@@ -290,6 +476,69 @@ export async function ensureLocalAppiumServer(options = {}) {
         });
       }
       output.end();
+    }
+  };
+}
+
+export async function createManagedAppiumRuntime(options = {}) {
+  const {
+    deviceIdentifier,
+    env = process.env,
+    log = console.error
+  } = options;
+
+  await ensureAppiumRuntime({ env, log });
+
+  const appiumServerReady = await isAppiumServerReady(env);
+  const processJson = await inspectRunningProcesses({
+    deviceIdentifier,
+    env,
+    log
+  });
+  const runningWebDriverAgent = processJson ? hasRunningWebDriverAgent(processJson) : false;
+  const hardResetRequested = isHardResetRequested(env);
+  const strategy = selectAutomationReuseStrategy({
+    appiumServerReady,
+    hardResetRequested,
+    runningWebDriverAgent
+  });
+
+  if (strategy === "hard-reset") {
+    log("Hard reset requested; terminating existing WebDriverAgent before startup.");
+    await terminateWebDriverAgent({
+      deviceIdentifier,
+      env,
+      log
+    });
+  } else if (strategy === "reuse-appium-server") {
+    log("Reusing existing local Appium server.");
+  } else if (strategy === "reuse-webdriveragent") {
+    log("Reusing existing WebDriverAgent on the device.");
+  }
+
+  const server = await ensureLocalAppiumServer({ env, log });
+
+  return {
+    strategy,
+    async softCleanup(options = {}) {
+      const { deleteSession } = options;
+      await deleteSession?.().catch(() => undefined);
+      await terminateWebDriverAgentRunner({
+        deviceIdentifier,
+        env,
+        log
+      }).catch(() => undefined);
+      await server.stop().catch(() => undefined);
+    },
+    async hardReset(options = {}) {
+      const { deleteSession } = options;
+      await deleteSession?.().catch(() => undefined);
+      await terminateWebDriverAgent({
+        deviceIdentifier,
+        env,
+        log
+      }).catch(() => undefined);
+      await server.stop().catch(() => undefined);
     }
   };
 }

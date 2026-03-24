@@ -4,19 +4,17 @@ import process from "node:process";
 import { spawn } from "node:child_process";
 
 import {
-  ensureLocalAppiumServer,
-  terminateWebDriverAgent
+  createManagedAppiumRuntime
 } from "./lib/appium-runtime.mjs";
 
 async function main() {
-  const server = await ensureLocalAppiumServer({ log: console.error });
+  const runtime = await createManagedAppiumRuntime({
+    deviceIdentifier: process.env.IOS_UDID,
+    log: console.error
+  });
 
   const cleanup = async () => {
-    await terminateWebDriverAgent({
-      deviceIdentifier: process.env.IOS_UDID,
-      log: console.error
-    }).catch(() => undefined);
-    await server.stop().catch(() => undefined);
+    await runtime.softCleanup();
   };
 
   const forwardSignal = (signal) => {

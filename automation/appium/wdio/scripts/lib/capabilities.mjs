@@ -1,22 +1,6 @@
 import { getAppiumServerConfig, getProjectPaths } from "./paths.mjs";
 import { resolvePrimaryBundleId } from "./app-targets.mjs";
 
-function parseBooleanEnv(value, fallback) {
-  if (value == null || value === "") {
-    return fallback;
-  }
-
-  const normalized = String(value).trim().toLowerCase();
-  if (["1", "true", "yes", "on"].includes(normalized)) {
-    return true;
-  }
-  if (["0", "false", "no", "off"].includes(normalized)) {
-    return false;
-  }
-
-  return fallback;
-}
-
 export function buildCapabilities(env = process.env) {
   const paths = getProjectPaths(env);
 
@@ -32,6 +16,7 @@ export function buildCapabilities(env = process.env) {
     "appium:showXcodeLog": env.SHOW_XCODE_LOG === "0" ? false : true,
     "appium:udid": env.IOS_UDID,
     "appium:deviceName": env.IOS_DEVICE_NAME ?? "iPhone connected via USB",
+    "appium:useNewWDA": false,
     "appium:noReset": true,
     "appium:newCommandTimeout": 240
   };
@@ -47,15 +32,5 @@ export function getRemoteOptions(env = process.env) {
     path: server.path,
     capabilities: buildCapabilities(env),
     logLevel: (env.WDIO_LOG_LEVEL ?? "warn").toLowerCase()
-  };
-}
-
-export function getInteractiveSessionSettings(env = process.env) {
-  return {
-    keyboardAutocorrection: parseBooleanEnv(
-      env.IOS_KEYBOARD_AUTOCORRECTION,
-      true
-    ),
-    keyboardPrediction: parseBooleanEnv(env.IOS_KEYBOARD_PREDICTION, true)
   };
 }

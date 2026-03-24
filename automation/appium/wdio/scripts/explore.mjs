@@ -6,12 +6,10 @@ import process from "node:process";
 import { remote } from "webdriverio";
 
 import {
-  ensureLocalAppiumServer,
-  terminateWebDriverAgent
+  createManagedAppiumRuntime
 } from "./lib/appium-runtime.mjs";
 import {
   buildCapabilities,
-  getInteractiveSessionSettings,
   getRemoteOptions
 } from "./lib/capabilities.mjs";
 import { resolveTargetDevice } from "../../../shared/lib/devices.mjs";
@@ -99,7 +97,10 @@ async function main() {
   process.env.IOS_DEVICE_NAME = device.name;
   process.env.APPIUM_HOME = paths.appiumHome;
 
-  const server = await ensureLocalAppiumServer({ log: console.error });
+  const runtime = await createManagedAppiumRuntime({
+    deviceIdentifier: device.udid,
+    log: console.error
+  });
   let driver;
   const capabilities = buildCapabilities(process.env);
   const context = {
@@ -110,12 +111,9 @@ async function main() {
   };
 
   const cleanup = async () => {
-    await driver?.deleteSession().catch(() => undefined);
-    await terminateWebDriverAgent({
-      deviceIdentifier: device.udid,
-      log: console.error
-    }).catch(() => undefined);
-    await server.stop().catch(() => undefined);
+    await runtime.softCleanup({
+      deleteSession: async () => driver?.deleteSession()
+    });
   };
 
   process.on("SIGINT", async () => {
@@ -129,7 +127,6 @@ async function main() {
 
   try {
     driver = await remote(getRemoteOptions(process.env));
-    await driver.updateSettings(getInteractiveSessionSettings(process.env));
     await runJsonlSession(driver, context);
   } finally {
     await cleanup();

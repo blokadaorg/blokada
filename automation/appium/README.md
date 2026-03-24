@@ -30,9 +30,9 @@ make appium-test
 
 Optional overrides:
 
-- `IOS_DEVICE_NAME="<device-name>" make appium-test` – pick a device by name (script matches the first connected device whose name contains the value).
-- `IOS_UDID=<udid> make appium-test` – skip the selector entirely and target a specific UDID.
-- `APP_FLAVOR=family make appium-test` – build, install, and run the Blokada Family flavor instead of Blokada 6.
+- `make appium-test IOS_DEVICE_NAME="<device-name>"` – pick a device by name (script matches the first connected device whose name contains the value).
+- `make appium-test IOS_UDID=<udid>` – skip the selector entirely and target a specific UDID.
+- `make appium-test APP_FLAVOR=family` – build, install, and run the Blokada Family flavor instead of Blokada 6.
 - `APP_BUNDLE_ID=…` – run against a different bundle id. If it does not match the selected flavor, set `APP_FLAVOR` explicitly so the install target stays correct.
 - `SHOW_XCODE_LOG=0` – suppress verbose xcodebuild output.
 - `IOS_AUTO_SELECT_FIRST=1` – skip interactivity and use the first paired physical device (enabled automatically in CI).
@@ -64,17 +64,19 @@ make appium-explore-session
 
 Optional overrides:
 
-- `IOS_DEVICE_NAME="<device-name>" make appium-explore-session` – target a specific connected device.
-- `IOS_UDID=<udid> make appium-explore-session` – force a specific device UDID.
-- `APP_FLAVOR=family make appium-explore-session` – start the session with Blokada Family as the primary app instead of Blokada 6.
-- `APP_INSTALL=0 make appium-explore-session` – skip reinstalling the app before connecting. Use this only when you already installed the current workspace build and are intentionally reusing it.
-- `IOS_AUTO_SELECT_FIRST=0 make appium-explore-session` – re-enable the interactive selector instead of auto-picking the first connected physical device.
-- `APP_BUNDLE_ID=… make appium-explore-session` – override the primary bundle id. If it is not the normal bundle for the selected flavor, set `APP_FLAVOR` explicitly as well.
-- `IOS_KEYBOARD_AUTOCORRECTION=0 make appium-explore-session` – disable keyboard autocorrection for deterministic typing.
-- `IOS_KEYBOARD_PREDICTION=0 make appium-explore-session` – disable keyboard prediction for deterministic typing.
-- `SHOW_XCODE_LOG=0 make appium-explore-session` – keep the app install path terse and only print the full Xcode build log on failure; also disables verbose WebDriverAgent logs.
+- `make appium-explore-session IOS_DEVICE_NAME="<device-name>"` – target a specific connected device.
+- `make appium-explore-session IOS_UDID=<udid>` – force a specific device UDID.
+- `make appium-explore-session APP_FLAVOR=family` – start the session with Blokada Family as the primary app instead of Blokada 6.
+- `make appium-explore-session APP_INSTALL=0` – skip reinstalling the app before connecting. Use this only when you already installed the current workspace build and are intentionally reusing it.
+- `make appium-explore-session IOS_AUTO_SELECT_FIRST=0` – re-enable the interactive selector instead of auto-picking the first connected physical device.
+- `make appium-explore-session APP_BUNDLE_ID=…` – override the primary bundle id. If it is not the normal bundle for the selected flavor, set `APP_FLAVOR` explicitly as well.
+- `make appium-explore-session SHOW_XCODE_LOG=0` – keep the app install path terse and only print the full Xcode build log on failure; also disables verbose WebDriverAgent logs.
 
 Default review behavior is to auto-pick the first connected physical device and install the current workspace build before starting the interactive session. This is preferred for startup, notification, cold-start, and recent-diff validation so the app on device matches the code under review.
+
+The repo-local Appium runtime patches WebDriverAgent startup so it preserves the device's current Auto-Correction and Predictive settings. The tests themselves must not navigate Settings to inspect or change those preferences.
+On real devices the harness also prefers reusing an existing WebDriverAgent instead of force-restarting it on every run. Normal cleanup ends the active session so `Automation Running` disappears, but leaves reusable WDA state alone to reduce repeated PIN prompts. Use `APPIUM_WDA_HARD_RESET=1` only as a recovery path when the device-side automation state is stuck.
+If you are not about to continue testing, always shut the session down rather than leaving the phone idle in automation mode. Reuse is for consecutive runs, not for leaving a personal device with the `Automation Running` banner visible.
 
 Before a long interactive session, prepare the device manually:
 
@@ -145,7 +147,8 @@ Default machine workflow:
 7. Use `ui.read` for normalized element state reads, especially switches and other controls with `value`-style state.
 8. Use `ui.focusSearch`, `ui.search`, `ui.back`, `ui.swipe`, and `ui.scroll` for dynamic exploration in Settings or either Blokada app without writing a temporary spec.
 9. Use `ui.screenshot` or `ui.source` only when you need visual or raw-hierarchy artifacts.
-10. Always finish with `session.shutdown` so the device exits automation mode cleanly.
+10. Always finish with `session.shutdown` so the device exits automation mode cleanly without forcing a full WDA reset.
+11. If you are done testing for now, do not keep the session open just to preserve reuse. Start a new session later instead of leaving the device showing `Automation Running`.
 
 `app.launch`, `app.activate`, `app.state`, and `app.terminate` accept either:
 
@@ -168,7 +171,7 @@ Recommended Settings workflow when output volume matters:
 1. Start with `ui.summary` and a small `limit`.
 2. Add `matchText` before falling back to `ui.inspect`.
 3. For manual Settings exploration, prefer `ui.inspect` with `compact: true`, `interactiveOnly: true`, and often `visibleOnly: true`.
-4. Use `APP_INSTALL=0 make appium-explore-session` for repeated harness-only iterations once the current workspace build is already installed on device.
+4. Use `make appium-explore-session APP_INSTALL=0` for repeated harness-only iterations once the current workspace build is already installed on device.
 
 Dynamic Settings workflow:
 
@@ -179,7 +182,7 @@ Dynamic Settings workflow:
 
 Hint only: DNS is usually under General, then VPN & Device Management, then DNS. The explorer intentionally does not hard-code a locale-aware Settings path catalog, so prefer live discovery from the current hierarchy.
 
-If the iPhone still shows `Automation Running` after `session.shutdown`, treat that as a cleanup bug in the harness. The intended behavior is that shutdown tears down WebDriverAgent/XCTest without requiring manual phone cleanup.
+If the iPhone still shows `Automation Running` after `session.shutdown`, treat that as a cleanup bug in the harness. The intended behavior is that shutdown ends the active session without forcing a full WDA teardown. If the device-side automation state is stuck, retry with `APPIUM_WDA_HARD_RESET=1`.
 
 If the session drops unexpectedly, first suspect device auto-lock or lost foreground automation. Unlock the device, restart the explorer session once, and only then treat it as an app or harness failure.
 
