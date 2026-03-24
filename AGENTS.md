@@ -13,6 +13,18 @@ work is handled in `common/Makefile`.
 
 Makefiles are tab indented, so be careful when editing them.
 
+## Platform Build Notes
+
+If platform bindings changed and a platform build or install step starts
+failing, rerun the matching regeneration target before retrying:
+
+- `make regen-ios` for iOS build flows
+- `make regen-android` for Android build flows
+
+This is about how generated bindings are refreshed in this repo, not about any
+specific tool such as Appium, and it commonly fixes generated-signature
+mismatches after API changes.
+
 ## Domain Knowledge
 
 For product-specific behavior that is easy to get wrong, check `docs/domain/`
