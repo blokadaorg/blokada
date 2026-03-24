@@ -16,7 +16,7 @@ ADAPTY_VER := 3_8.0
 # Default target 
 .DEFAULT_GOAL := build
  
-.PHONY: clean test build \
+.PHONY: clean test test-local build \
 	translate \
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
@@ -48,6 +48,9 @@ clean:
 test:
 	$(MAKE) -C common/ pub gen-android runner
 	$(MAKE) -C common/ test
+
+test-local:
+	$(MAKE) -C common/ test-local
 
 # Build everything from scratch
 build:
