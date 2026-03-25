@@ -29,7 +29,7 @@ class PlatformPermChannel with PermChannel {
   Future<bool> doVpnEnabled() => _platform.doVpnEnabled();
 
   @override
-  Future<String> getPrivateDnsSetting() => _platform.getPrivateDnsSetting();
+  Future<PrivateDnsState> getPrivateDnsState() => _platform.getPrivateDnsState();
 
   @override
   Future<bool> doAuthenticate() => _platform.doAuthenticate();
@@ -61,7 +61,12 @@ class NoOpPermChannel with PermChannel {
   Future<bool> doVpnEnabled() => Future.value(false);
 
   @override
-  Future<String> getPrivateDnsSetting() => Future.value("");
+  Future<PrivateDnsState> getPrivateDnsState() async {
+    return PrivateDnsState(
+      kind: PrivateDnsStateKind.unavailable,
+      serverUrl: null,
+    );
+  }
 
   @override
   Future<bool> doAuthenticate() => Future.value(true);

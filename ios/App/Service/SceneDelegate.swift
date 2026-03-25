@@ -23,7 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     @Injected(\.stage) private var foreground
     @Injected(\.commands) private var commands
 
+    private func revealHomeContent(after delay: TimeInterval = 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.homeVM.showSplash = false
+            self.homeVM.hideContent = false
+        }
+    }
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        StartupContext.shared.normalizeForUiSceneIfNeeded()
+
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -50,13 +59,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Services.dialog.setController(controller)
 
             window.makeKeyAndVisible()
+            revealHomeContent(after: 1)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.homeVM.showSplash = false
-        }
-        
-        
         // Handle universal links
         // Currently only the link_device url is supported
         guard let userActivity = connectionOptions.userActivities.first,
@@ -89,7 +94,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        homeVM.hideContent = false
+        revealHomeContent()
         StartupContext.shared.markForegroundInteractive()
         foreground.onForeground(true)
         
@@ -110,6 +115,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        StartupContext.shared.normalizeForUiSceneIfNeeded()
+        revealHomeContent()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
@@ -172,7 +179,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "macOS" : "iPad"
         BlockaLogger.w("SceneDelegate", "\(platform): Window gained focus")
-        homeVM.hideContent = false
+        revealHomeContent()
         foreground.onForeground(true)
     }
     

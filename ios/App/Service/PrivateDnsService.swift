@@ -14,12 +14,24 @@ import Foundation
 import Combine
 import NetworkExtension
 
+enum PrivateDnsProfileStateKind {
+    case enabled
+    case disabled
+    case unavailable
+}
+
+struct PrivateDnsProfileState {
+    let kind: PrivateDnsProfileStateKind
+    let serverUrl: String?
+}
+
 // Allows to check and save our Private DNS profile to be later selected by the user.
 // The UX for user is far from ideal, but the is no other way currently in iOS.
 protocol PrivateDnsServiceIn {
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error>
     func savePrivateDnsProfile(tag: String, name: String?) -> AnyPublisher<Ignored, Error>
     func getPrivateDnsServerUrl() -> AnyPublisher<String, Error>
+    func getPrivateDnsState() -> AnyPublisher<PrivateDnsProfileState, Error>
 }
 
 class PrivateDnsServiceMock: PrivateDnsServiceIn {
@@ -39,6 +51,17 @@ class PrivateDnsServiceMock: PrivateDnsServiceIn {
     
     func getPrivateDnsServerUrl() -> AnyPublisher<String, Error> {
         return Just("https://cloud.blokada.org/mock").setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
+
+    func getPrivateDnsState() -> AnyPublisher<PrivateDnsProfileState, Error> {
+        return Just(
+            PrivateDnsProfileState(
+                kind: active ? .enabled : .disabled,
+                serverUrl: "https://cloud.blokada.org/mock"
+            )
+        )
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
 
 }
@@ -73,6 +96,22 @@ class PrivateDnsService: PrivateDnsServiceIn {
                     return ""
                 }
                 return serverURL
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func getPrivateDnsState() -> AnyPublisher<PrivateDnsProfileState, Error> {
+        return getManager()
+            .map { it in
+                guard let dnsSettings = it.dnsSettings as? NEDNSOverHTTPSSettings else {
+                    return PrivateDnsProfileState(kind: .unavailable, serverUrl: nil)
+                }
+
+                let serverUrl = dnsSettings.serverURL?.absoluteString
+                return PrivateDnsProfileState(
+                    kind: it.isEnabled ? .enabled : .disabled,
+                    serverUrl: serverUrl
+                )
             }
             .eraseToAnyPublisher()
     }

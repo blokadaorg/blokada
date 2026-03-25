@@ -1,3 +1,4 @@
+import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/features/safari/domain/safari.dart';
 import 'package:common/src/core/core.dart';
@@ -170,6 +171,93 @@ void main() {
         await subject.onAppStatus(m);
 
         verifyNever(stage.showModal(StageModal.plusLocationSelect, any));
+      });
+    });
+
+    test("onAppStatusShowsDnsOnboardingWhenForegroundCheckSettlesWithoutPerms", () async {
+      await withTrace((m) async {
+        final modal = CurrentModalValue();
+        Core.register(modal);
+
+        final app = MockAppStore();
+        var conditions = AppStatusStrategy(
+          accountIsCloud: true,
+          cloudPermEnabled: false,
+          cloudPermCheckSettled: false,
+        );
+        when(app.conditions).thenAnswer((_) => conditions);
+        when(app.status).thenReturn(AppStatus.deactivated);
+        Core.register<AppStore>(app);
+
+        Core.register<PlusActor>(MockPlusActor());
+
+        final account = MockAccountStore();
+        when(account.type).thenReturn(AccountType.cloud);
+        Core.register<AccountStore>(account);
+
+        final device = MockDeviceStore();
+        when(device.cloudEnabled).thenReturn(true);
+        Core.register<DeviceStore>(device);
+
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        Core.register<StageStore>(stage);
+
+        Core.register<Scheduler>(MockScheduler());
+
+        final ping = MockBlockawebPingValue();
+        when(ping.isPingValidAndActive(any)).thenReturn(false);
+        Core.register<BlockawebPingValue>(ping);
+
+        final subject = AppStartStore();
+        await subject.onAppStatus(m);
+
+        conditions = conditions.update(cloudPermCheckSettled: true);
+        await subject.onAppStatus(m);
+
+        expect(modal.present, Modal.onboardPrivateDns);
+      });
+    });
+
+    test("onAppStatusDoesNotShowDnsOnboardingForBackgroundRoute", () async {
+      await withTrace((m) async {
+        final modal = CurrentModalValue();
+        Core.register(modal);
+
+        final app = MockAppStore();
+        final conditions = AppStatusStrategy(
+          accountIsCloud: true,
+          cloudPermEnabled: false,
+          cloudPermCheckSettled: true,
+        );
+        when(app.conditions).thenReturn(conditions);
+        when(app.status).thenReturn(AppStatus.deactivated);
+        Core.register<AppStore>(app);
+
+        Core.register<PlusActor>(MockPlusActor());
+
+        final account = MockAccountStore();
+        when(account.type).thenReturn(AccountType.cloud);
+        Core.register<AccountStore>(account);
+
+        final device = MockDeviceStore();
+        when(device.cloudEnabled).thenReturn(true);
+        Core.register<DeviceStore>(device);
+
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+
+        Core.register<Scheduler>(MockScheduler());
+
+        final ping = MockBlockawebPingValue();
+        when(ping.isPingValidAndActive(any)).thenReturn(false);
+        Core.register<BlockawebPingValue>(ping);
+
+        final subject = AppStartStore();
+        await subject.onAppStatus(m);
+
+        expect(modal.present, null);
       });
     });
 
