@@ -48,7 +48,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   bool _paused = false;
   bool _cloudPermEnabled = false;
+  bool _cloudPermCheckSettled = false;
   bool _plusPermEnabled = false;
+  bool _didShowForegroundDnsOnboarding = false;
 
   @observable
   Duration? pausedFor;
@@ -100,6 +102,27 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       } else {
         // Just lost the perms, show the perms screen
         _modal.change(m, Modal.onboardPrivateDns);
+      }
+      return;
+    }
+
+    if (_cloudPermCheckSettled != _app.conditions.cloudPermCheckSettled) {
+      _cloudPermCheckSettled = _app.conditions.cloudPermCheckSettled;
+
+      if (!_cloudPermCheckSettled) {
+        _didShowForegroundDnsOnboarding = false;
+        return;
+      }
+
+      if (_didShowForegroundDnsOnboarding) return;
+      if (_app.conditions.cloudPermEnabled) return;
+      if (!_stage.route.isForeground() || !_stage.route.isMainRoute()) return;
+      if (_device.cloudEnabled != true) return;
+      if (!_app.conditions.accountIsCloud) return;
+
+      _didShowForegroundDnsOnboarding = true;
+      if (_modal.present != Modal.onboardPrivateDns) {
+        await _modal.change(m, Modal.onboardPrivateDns);
       }
       return;
     }

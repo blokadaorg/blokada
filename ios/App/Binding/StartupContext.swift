@@ -1,5 +1,6 @@
 import Foundation
 import Flutter
+import UIKit
 
 class StartupContext {
     static let shared = StartupContext()
@@ -16,11 +17,22 @@ class StartupContext {
         channel.setMethodCallHandler { call, result in
             switch call.method {
             case "consumeLaunchContext":
+                self.normalizeForUiSceneIfNeeded()
                 result(self.currentContext)
                 self.currentContext = ["reason": "foregroundInteractive"]
             default:
                 result(FlutterMethodNotImplemented)
             }
+        }
+    }
+
+    func normalizeForUiSceneIfNeeded() {
+        guard let reason = currentContext["reason"] as? String else {
+            return
+        }
+
+        if reason == "backgroundTask" && UIApplication.shared.applicationState != .background {
+            currentContext = ["reason": "foregroundInteractive"]
         }
     }
 

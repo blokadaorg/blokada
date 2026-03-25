@@ -194,7 +194,14 @@ class Modules with Logging {
       return;
     }
 
-    final future = _startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m);
+    final future = () async {
+      final stage = Core.get<StageStore>();
+      if (!stage.route.isForeground()) {
+        await stage.setForeground(m);
+      }
+
+      await (_startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m));
+    }();
     _foregroundStartInFlight = future;
 
     try {

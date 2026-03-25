@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/perm/perm.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/platform/perm/perm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,16 +20,43 @@ class PrivateDnsSheetIos extends StatefulWidget {
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
   late final _channel = Core.get<PermChannel>();
+  late final _device = Core.get<DeviceStore>();
+  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
+
+  StreamSubscription<NullableValueUpdate<DeviceTag>>? _dnsEnabledSubscription;
+  NavigatorState? _navigator;
 
   @override
   void initState() {
     super.initState();
+    _dnsEnabledSubscription = _dnsEnabledFor.onChange.listen((_) async {
+      await _dismissIfDnsEnabled();
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _dismissIfDnsEnabled();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _navigator = Navigator.maybeOf(context);
   }
 
   @override
   void dispose() {
+    _dnsEnabledSubscription?.cancel();
     super.dispose();
+  }
+
+  Future<void> _dismissIfDnsEnabled() async {
+    if (!mounted) return;
+
+    final tag = _device.deviceTag;
+    if (tag == null || _dnsEnabledFor.present != tag) return;
+
+    await _navigator?.maybePop();
   }
 
   @override
@@ -61,8 +92,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                             "family perms brief alt".i18n.withParams(_appName),
                             softWrap: true,
                             textAlign: TextAlign.start,
-                            style:
-                                TextStyle(color: context.theme.textSecondary),
+                            style: TextStyle(color: context.theme.textSecondary),
                           ),
                         ),
                         const SizedBox(height: 24), // Replaces Spacer
@@ -73,8 +103,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                             children: [
                               Text(
                                 "1.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios general".i18n,
@@ -83,8 +112,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                               const SizedBox(height: 16),
                               Text(
                                 "2.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios vpn".i18n,
@@ -92,20 +120,17 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                               const SizedBox(height: 16),
                               Text(
                                 "3.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios dns".i18n,
                                 icon: CupertinoIcons.ellipsis,
-                                edgeText:
-                                    "family perms setting ios automatic".i18n,
+                                edgeText: "family perms setting ios automatic".i18n,
                               ),
                               const SizedBox(height: 16),
                               Text(
                                 "4.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: _appName,

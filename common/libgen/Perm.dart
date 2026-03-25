@@ -1,9 +1,20 @@
 import 'package:pigeon/pigeon.dart';
 
+enum PrivateDnsStateKind {
+  enabled,
+  disabled,
+  unavailable,
+}
+
+class PrivateDnsState {
+  late PrivateDnsStateKind kind;
+  late String? serverUrl;
+}
+
 @HostApi()
 abstract class PermOps {
   @async
-  String getPrivateDnsSetting();
+  PrivateDnsState getPrivateDnsState();
 
   @async
   bool isRunningOnMac();

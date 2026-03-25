@@ -1,4 +1,5 @@
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/device/api.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -11,6 +12,15 @@ import '../../tools.dart';
 class _MockPersistence extends Mock implements Persistence {}
 
 class _MockDeviceApi extends Mock implements DeviceApi {}
+
+class _FakeEnvActor extends EnvActor {
+  _FakeEnvActor(this._deviceName);
+
+  final String _deviceName;
+
+  @override
+  String get deviceName => _deviceName;
+}
 
 void main() {
   group('AccountStore bootstrap restore', () {
@@ -47,6 +57,7 @@ void main() {
 
         final account = AccountStore();
         Core.register<AccountStore>(account);
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final device = DeviceStore();
         Core.register<DeviceStore>(device);
@@ -119,6 +130,7 @@ void main() {
 
         final account = AccountStore();
         Core.register<AccountStore>(account);
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final device = DeviceStore();
         Core.register<DeviceStore>(device);

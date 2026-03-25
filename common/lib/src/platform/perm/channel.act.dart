@@ -18,6 +18,12 @@ PermOps getOps() {
 _actAllPermsEnabled(MockPermOps ops) {
   when(() => ops.doSetPrivateDnsEnabled(any(), any())).thenAnswer(ignore());
   when(() => ops.doAskNotificationPerms()).thenAnswer(ignore());
+  when(() => ops.getPrivateDnsState()).thenAnswer((_) async {
+    return PrivateDnsState(
+      kind: PrivateDnsStateKind.disabled,
+      serverUrl: null,
+    );
+  });
   when(() => ops.doAuthenticate()).thenAnswer((_) async {
     return true;
   });

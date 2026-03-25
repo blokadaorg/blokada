@@ -1,7 +1,7 @@
 part of 'perm.dart';
 
 mixin PermChannel {
-  Future<String> getPrivateDnsSetting();
+  Future<PrivateDnsState> getPrivateDnsState();
   Future<bool> isRunningOnMac();
   Future<void> doSetPrivateDnsEnabled(String tag, String alias);
   Future<void> doSetDns(String tag);
@@ -42,8 +42,11 @@ class PermActor with Logging, Actor {
       final isEnabled = await _check.checkPrivateDnsEnabledWithApi(m, device.deviceTag);
       await _perm.change(m, isEnabled);
     } else {
-      final current = await _channel.getPrivateDnsSetting();
-      await _perm.change(m, _check.isCorrect(m, current, device.deviceTag, device.alias));
+      final current = await _channel.getPrivateDnsState();
+      final isEnabled = current.kind == PrivateDnsStateKind.enabled &&
+          current.serverUrl != null &&
+          _check.isCorrect(m, current.serverUrl!, device.deviceTag, device.alias);
+      await _perm.change(m, isEnabled);
     }
   }
 

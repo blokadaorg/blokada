@@ -71,14 +71,54 @@ void main() {
         await subject.onAccountChanged(m);
         expect(subject.status, AppStatus.deactivated);
 
+        await subject.onDeviceChanged(m);
+        expect(subject.status, AppStatus.initializing);
+
         // Granted perms and enabled Cloud in api, now should be active
         await subject.cloudPermEnabled(m, true);
-        await subject.onDeviceChanged(m);
+        expect(subject.status, AppStatus.initializing);
+
+        await subject.cloudPermCheckSettled(m, true);
         expect(subject.status, AppStatus.activatedCloud);
 
         // Rejected perms again
         await subject.cloudPermEnabled(m, false);
         expect(subject.status, AppStatus.deactivated);
+      });
+    });
+
+    test("cloudPermCheckSettledKeepsCloudStateLoadingUntilResolved", () async {
+      await withTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AppOps>(MockAppOps());
+
+        final device = MockDeviceStore();
+        when(device.cloudEnabled).thenReturn(true);
+        when(device.pausedForSeconds).thenReturn(0);
+        Core.register<DeviceStore>(device);
+
+        final account = MockAccountStore();
+        when(account.account).thenReturn(AccountState(
+          "mockedmocked",
+          JsonAccount.fromJson(jsonDecode(fixtureJsonAccount)),
+        ));
+        when(account.isFreemium).thenReturn(false);
+        Core.register<AccountStore>(account);
+
+        final subject = AppStore();
+
+        await subject.initStarted(m);
+        await subject.initCompleted(m);
+        await subject.onAccountChanged(m);
+        await subject.onDeviceChanged(m);
+
+        expect(subject.status, AppStatus.initializing);
+
+        await subject.cloudPermEnabled(m, true);
+        expect(subject.status, AppStatus.initializing);
+
+        await subject.cloudPermCheckSettled(m, true);
+        expect(subject.status, AppStatus.activatedCloud);
       });
     });
 
@@ -109,6 +149,7 @@ void main() {
         await subject.onAccountChanged(m);
         await subject.cloudPermEnabled(m, true);
         await subject.onDeviceChanged(m);
+        await subject.cloudPermCheckSettled(m, true);
         expect(subject.status, AppStatus.activatedCloud);
 
         // Can pause, unpause

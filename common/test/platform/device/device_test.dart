@@ -1,4 +1,5 @@
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/device/api.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -24,12 +25,22 @@ final _fixtureJsonDevice = JsonDevice(
   safeSearch: false,
 );
 
+class _FakeEnvActor extends EnvActor {
+  _FakeEnvActor(this._deviceName);
+
+  final String _deviceName;
+
+  @override
+  String get deviceName => _deviceName;
+}
+
 void main() {
   group("store", () {
     test("willUpdateObservablesOnFetch", () async {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final api = MockDeviceApi();
         when(api.getDevice(any))
@@ -52,6 +63,7 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final api = MockDeviceApi();
         when(api.getDevice(any))
@@ -81,6 +93,7 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
@@ -101,6 +114,7 @@ void main() {
       await withTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
 
         final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
