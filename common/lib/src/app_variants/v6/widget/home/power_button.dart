@@ -20,6 +20,17 @@ import 'package:relative_scale/relative_scale.dart';
 
 import 'home.dart';
 
+bool shouldShowPauseTimer(AppStatus status, int remainingSeconds) {
+  return status.isInactive() && remainingSeconds > 0;
+}
+
+double pauseTimerArcValue(AppStatus status, int remainingSeconds) {
+  if (!shouldShowPauseTimer(status, remainingSeconds)) {
+    return 1.0;
+  }
+  return 1 - (remainingSeconds / 300.0);
+}
+
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);
 
@@ -65,7 +76,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   var counter = 0.3;
   var newCounter = 0.5;
 
-  int? pausedForSeconds;
   Timer? timerRefresh;
 
   @override
@@ -125,6 +135,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       ..addListener(() {
         _setState();
       });
+    animCtrlArcTimerCounter.value = pauseTimerArcValue(_app.status, _getRemainingSeconds());
 
     animCtrlLoading = AnimationController(
       vsync: this,
@@ -156,7 +167,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         _home.powerOnIsReady();
         log(Markers.root).i("app status active, power on is ready");
       }
-      pausedForSeconds = _appStart.pausedForAccurate?.inSeconds;
       _scheduleUpdateAnimations();
       _scheduleTimerRefresh();
     });
@@ -201,9 +211,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _scheduleTimerRefresh() {
     timerRefresh?.cancel();
-    if (_getRemainingSeconds() > 0) {
+    if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
       timerRefresh = Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (_getRemainingSeconds() > 0) {
+        if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
           _setState();
         } else {
           timer.cancel();
@@ -215,6 +225,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _updateAnimations() {
     final status = _app.status;
+    final remainingSeconds = _getRemainingSeconds();
+    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
     if (status.isWorking()) {
       _animateStatusRingTo(loadingCounter);
 
@@ -250,12 +262,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlCover.reverse();
     }
 
-    if (pausedForSeconds != null) {
+    if (hasPauseTimer) {
       // If the app is paused, animate the timer arc
-      animCtrlArcTimerCounter.value = 1 - (pausedForSeconds! / 300.0);
+      animCtrlArcTimerCounter.value = pauseTimerArcValue(status, remainingSeconds);
       animCtrlArcTimerCounter.forward();
     } else {
-      // If the app is not paused, reset the timer arc (to end animation value)
+      // Hide the timer arc when there is no actual pause timer.
+      animCtrlArcTimerCounter.stop();
       animCtrlArcTimerCounter.value = 1.0;
     }
   }
@@ -282,6 +295,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     final status = _app.status;
     final stats = _stats.stats;
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    final remainingSeconds = _getRemainingSeconds();
+    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
 
     return RelativeBuilder(builder: (context, height, width, sy, sx) {
       final buttonSize = math.min(sy(140), 180.0);
@@ -315,9 +330,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
                             painter: PowerButtonPainter(
-                              iconImage: (status == AppStatus.paused)
-                                  ? snapshot.data![1]
-                                  : snapshot.data![0],
+                              iconImage: hasPauseTimer ? snapshot.data![1] : snapshot.data![0],
                               alphaLoading: animLoading.value,
                               alphaCover: animCover.value,
                               alphaLibre: animLibre.value,
@@ -370,7 +383,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                           });
                         }
                       });
-                      pausedForSeconds = null;
                       _updateAnimations();
                     });
                   }
@@ -385,7 +397,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                           _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                         }
                       });
-                      pausedForSeconds = null;
                       _updateAnimations();
                     });
                   }
@@ -398,9 +409,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                   );
                 },
                 child: Center(
-                  child: _getRemainingSeconds() > 0
+                  child: hasPauseTimer
                       ? Text(
-                          _formatTime(_getRemainingSeconds()),
+                          _formatTime(remainingSeconds),
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
