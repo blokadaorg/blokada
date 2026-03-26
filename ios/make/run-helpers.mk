@@ -37,7 +37,7 @@ define run-app
 	PREFER_MAC="$(7)"; \
 	RUN_CONFIG="$(8)"; \
 	SHOW_DESTINATIONS=$$($(XCODEBUILD) -workspace $(XCODE_WORKSPACE) -scheme "$$SCHEME" -showdestinations 2>/dev/null); \
-	DEVICES_JSON=$$(xcrun devicectl -q list devices --json-output /dev/stdout 2>&1 | sed '/ERROR:/,$$d'); \
+	DEVICES_JSON=$$(xcrun devicectl -q list devices --json-output /dev/stdout 2>&1 | sed -n '/^{/,$$p' | sed '/^ERROR:/,$$d'); \
 	REQUESTED_NAME="$${IOS_DEVICE_NAME:-}"; \
 	DEVICE_UDID="$${IOS_UDID:-}"; \
 	DESTINATION_KIND=""; \
