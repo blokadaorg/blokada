@@ -4,9 +4,11 @@ import UIKit
 
 class StartupContext {
     static let shared = StartupContext()
+    static let firstFlutterFrameRenderedNotification = Notification.Name("StartupContext.firstFlutterFrameRendered")
 
     private let channelName = "org.blokada/startup"
     private var currentContext: [String: Any?] = ["reason": "foregroundInteractive"]
+    private(set) var hasSeenFirstFlutterFrame = false
 
     func attach(messenger: FlutterBinaryMessenger) {
         let channel = FlutterMethodChannel(
@@ -20,10 +22,22 @@ class StartupContext {
                 self.normalizeForUiSceneIfNeeded()
                 result(self.currentContext)
                 self.currentContext = ["reason": "foregroundInteractive"]
+            case "firstFrameRendered":
+                self.markFirstFlutterFrameRendered()
+                result(nil)
             default:
                 result(FlutterMethodNotImplemented)
             }
         }
+    }
+
+    func markFirstFlutterFrameRendered() {
+        guard !hasSeenFirstFlutterFrame else {
+            return
+        }
+
+        hasSeenFirstFlutterFrame = true
+        NotificationCenter.default.post(name: StartupContext.firstFlutterFrameRenderedNotification, object: nil)
     }
 
     func normalizeForUiSceneIfNeeded() {
