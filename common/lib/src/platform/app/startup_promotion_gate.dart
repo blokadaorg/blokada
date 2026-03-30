@@ -25,6 +25,7 @@ class _StartupPromotionGateState extends State<StartupPromotionGate>
   static const _visibleUiFallbackDelay = Duration(seconds: 1);
 
   bool _promotionStarted = false;
+  bool _promotionCompleted = false;
   Timer? _visibleUiFallbackTimer;
 
   @override
@@ -76,7 +77,7 @@ class _StartupPromotionGateState extends State<StartupPromotionGate>
   }
 
   Future<void> _promote() async {
-    if (widget.launchContext.allowRunApp || _promotionStarted) {
+    if (widget.launchContext.allowRunApp || _promotionStarted || _promotionCompleted) {
       return;
     }
 
@@ -84,6 +85,9 @@ class _StartupPromotionGateState extends State<StartupPromotionGate>
 
     try {
       await widget.startForeground(Markers.start);
+      _promotionCompleted = true;
+      _visibleUiFallbackTimer?.cancel();
+      _visibleUiFallbackTimer = null;
     } finally {
       _promotionStarted = false;
     }
