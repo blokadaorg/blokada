@@ -13,6 +13,8 @@
 package binding
 
 import channel.perm.PermOps
+import channel.perm.PrivateDnsState
+import channel.perm.PrivateDnsStateKind
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -51,8 +53,17 @@ object PermBinding : PermOps {
         PermOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
-    override fun getPrivateDnsSetting(callback: (Result<String>) -> Unit) {
-        callback(Result.success(connectivity.privateDns ?: ""))
+    override fun getPrivateDnsState(callback: (Result<PrivateDnsState>) -> Unit) {
+        val current = connectivity.privateDns
+        val state = PrivateDnsState(
+            kind = if (current.isNullOrEmpty()) {
+                PrivateDnsStateKind.DISABLED
+            } else {
+                PrivateDnsStateKind.ENABLED
+            },
+            serverUrl = current
+        )
+        callback(Result.success(state))
     }
 
     override fun doSetPrivateDnsEnabled(

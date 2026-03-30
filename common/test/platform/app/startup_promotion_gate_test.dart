@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('StartupPromotionGate', () {
-    testWidgets('background launch shows placeholder until resumed promotion completes',
+    testWidgets('background launch does not repromote while startForeground is in flight',
         (tester) async {
       final completer = Completer<void>();
       var startCalls = 0;
@@ -31,31 +31,48 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byKey(StartupPromotionGate.placeholderKey), findsOneWidget);
-      expect(find.text('home'), findsNothing);
-
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pump();
-
+      expect(find.text('home'), findsOneWidget);
       expect(startCalls, 1);
-      expect(find.byKey(StartupPromotionGate.placeholderKey), findsOneWidget);
 
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pump();
-
+      await tester.pump(const Duration(seconds: 2));
       expect(startCalls, 1);
 
       completer.complete();
       await tester.pump();
       await tester.pump();
 
-      expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
       expect(find.text('home'), findsOneWidget);
+    });
 
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    testWidgets('background launch only promotes once after a successful promotion',
+        (tester) async {
+      var startCalls = 0;
+
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: StartupPromotionGate(
+              launchContext: const AppLaunchContext(
+                reason: LaunchReason.backgroundTask,
+                profile: BootstrapProfile.background,
+              ),
+              startForeground: (m) async {
+                startCalls += 1;
+              },
+              child: const Text('home')),
+        ),
+      );
       await tester.pump();
 
       expect(startCalls, 1);
+      expect(find.text('home'), findsOneWidget);
+
+      await tester.pump(const Duration(seconds: 2));
+
+      expect(startCalls, 1);
+      expect(find.text('home'), findsOneWidget);
     });
 
     testWidgets('foreground launch renders child immediately', (tester) async {
@@ -76,12 +93,10 @@ void main() {
       );
 
       expect(find.text('home'), findsOneWidget);
-      expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
 
       await tester.pump();
 
       expect(find.text('home'), findsOneWidget);
-      expect(find.byKey(StartupPromotionGate.placeholderKey), findsNothing);
       expect(startCalls, 1);
 
       completer.complete();

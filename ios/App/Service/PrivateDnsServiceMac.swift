@@ -59,6 +59,17 @@ class PrivateDnsServiceMac: PrivateDnsServiceIn {
             }
             .eraseToAnyPublisher()
     }
+
+    func getPrivateDnsState() -> AnyPublisher<PrivateDnsProfileState, Error> {
+        return Just(
+            PrivateDnsProfileState(
+                kind: .unavailable,
+                serverUrl: nil
+            )
+        )
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
+    }
     
     // Fetch DNS profile from API
     func fetchDNSProfile(completion: @escaping (Data?) -> Void) {

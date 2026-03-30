@@ -141,15 +141,15 @@ class PermBinding: PermOps {
             .store(in: &cancellables)
     }
 
-    func getPrivateDnsSetting(completion: @escaping (Result<String, any Error>) -> Void) {
-        privateDns.isPrivateDnsProfileActive()
-        .combineLatest(privateDns.getPrivateDnsServerUrl())
+    func getPrivateDnsState(completion: @escaping (Result<PrivateDnsState, any Error>) -> Void) {
+        privateDns.getPrivateDnsState()
         .sink(
-            onValue: { (isActive, value) in
-                if !isActive {
-                    return completion(Result.success(""))
-                }
-                return completion(Result.success(value))
+            onValue: { value in
+                let state = PrivateDnsState(
+                    kind: self.mapPrivateDnsStateKind(value.kind),
+                    serverUrl: value.serverUrl
+                )
+                completion(Result.success(state))
             },
             onFailure: { err in
                 completion(Result.failure(err))
@@ -181,6 +181,17 @@ class PermBinding: PermOps {
             self.writeVpnProfilePerms.send(it)
         })
         .store(in: &cancellables)
+    }
+
+    private func mapPrivateDnsStateKind(_ kind: PrivateDnsProfileStateKind) -> PrivateDnsStateKind {
+        switch kind {
+        case .enabled:
+            return .enabled
+        case .disabled:
+            return .disabled
+        case .unavailable:
+            return .unavailable
+        }
     }
 }
 

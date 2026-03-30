@@ -19,11 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     private let homeVM = ViewModels.home
+    private let startupVisualGate = StartupVisualGate()
+    private var firstFlutterFrameObserver: NSObjectProtocol?
 
     @Injected(\.stage) private var foreground
     @Injected(\.commands) private var commands
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        StartupContext.shared.normalizeForUiSceneIfNeeded()
+
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -36,11 +40,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
 
             controller.onTransitioning = { (transitioning: Bool) in
+                guard self.startupVisualGate.hasCompletedInitialSplashRelease else {
+                    return
+                }
+
                 if transitioning {
                     self.homeVM.showSplash = transitioning
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.homeVM.showSplash = false
+                        guard self.startupVisualGate.hasCompletedInitialSplashRelease else {
+                            return
+                        }
+
+                        if !self.startupVisualGate.isContentTemporarilyHiddenForLifecycle {
+                            self.homeVM.showSplash = false
+                        }
                     }
                 }
             }
@@ -48,15 +62,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = controller
             self.window = window
             Services.dialog.setController(controller)
+            startupVisualGate.bind(homeVM: homeVM)
+            registerFirstFlutterFrameObserver()
 
             window.makeKeyAndVisible()
+            startupVisualGate.startInitialSplashRelease(
+                hasSeenFirstFlutterFrame: StartupContext.shared.hasSeenFirstFlutterFrame
+            )
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.homeVM.showSplash = false
-        }
-        
-        
         // Handle universal links
         // Currently only the link_device url is supported
         guard let userActivity = connectionOptions.userActivities.first,
@@ -89,7 +103,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        homeVM.hideContent = false
+        startupVisualGate.handleSceneDidBecomeActive()
         StartupContext.shared.markForegroundInteractive()
         foreground.onForeground(true)
         
@@ -106,10 +120,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Close the kb when leaving to bg
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 
-        homeVM.hideContent = true
+        startupVisualGate.handleSceneWillResignActive()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        StartupContext.shared.normalizeForUiSceneIfNeeded()
+        startupVisualGate.handleSceneWillEnterForeground()
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
@@ -172,7 +188,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let platform = ProcessInfo.processInfo.isiOSAppOnMac ? "macOS" : "iPad"
         BlockaLogger.w("SceneDelegate", "\(platform): Window gained focus")
-        homeVM.hideContent = false
+        startupVisualGate.handleSceneDidBecomeActive()
         foreground.onForeground(true)
     }
     
@@ -188,14 +204,124 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Close the keyboard when losing focus
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         
-        homeVM.hideContent = true
+        startupVisualGate.handleSceneWillResignActive()
         foreground.onForeground(false)
     }
     
     deinit {
+        if let observer = firstFlutterFrameObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
         // Clean up notifications
         if UIDevice.current.userInterfaceIdiom == .pad || ProcessInfo.processInfo.isiOSAppOnMac {
             NotificationCenter.default.removeObserver(self)
         }
+    }
+
+    private func registerFirstFlutterFrameObserver() {
+        if let observer = firstFlutterFrameObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        firstFlutterFrameObserver = NotificationCenter.default.addObserver(
+            forName: StartupContext.firstFlutterFrameRenderedNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.startupVisualGate.handleFirstFlutterFrame()
+        }
+    }
+}
+
+private final class StartupVisualGate {
+    private let log = BlockaLogger("StartupVisualGate")
+    private weak var homeVM: HomeViewModel?
+    private var fallbackWorkItem: DispatchWorkItem?
+
+    private(set) var hasSeenFirstFlutterFrame = false
+    private(set) var isContentTemporarilyHiddenForLifecycle = false
+    private(set) var hasCompletedInitialSplashRelease = false
+
+    private let initialSplashFallbackDelay: TimeInterval = 8
+
+    func bind(homeVM: HomeViewModel) {
+        self.homeVM = homeVM
+        applyCurrentState()
+    }
+
+    func startInitialSplashRelease(hasSeenFirstFlutterFrame: Bool) {
+        self.hasSeenFirstFlutterFrame = hasSeenFirstFlutterFrame
+        applyCurrentState()
+
+        guard !hasCompletedInitialSplashRelease else {
+            return
+        }
+
+        if hasSeenFirstFlutterFrame {
+            completeInitialSplashRelease(reason: "first-frame-already-seen")
+            return
+        }
+
+        scheduleFallbackIfNeeded()
+    }
+
+    func handleFirstFlutterFrame() {
+        hasSeenFirstFlutterFrame = true
+        completeInitialSplashRelease(reason: "flutter-first-frame")
+    }
+
+    func handleSceneDidBecomeActive() {
+        isContentTemporarilyHiddenForLifecycle = false
+        applyCurrentState()
+    }
+
+    func handleSceneWillEnterForeground() {
+        isContentTemporarilyHiddenForLifecycle = false
+        applyCurrentState()
+    }
+
+    func handleSceneWillResignActive() {
+        isContentTemporarilyHiddenForLifecycle = true
+        applyCurrentState()
+    }
+
+    private func completeInitialSplashRelease(reason: String) {
+        guard !hasCompletedInitialSplashRelease else {
+            return
+        }
+
+        fallbackWorkItem?.cancel()
+        fallbackWorkItem = nil
+        hasCompletedInitialSplashRelease = true
+        log.v("Releasing initial splash: \(reason)")
+        applyCurrentState()
+    }
+
+    private func scheduleFallbackIfNeeded() {
+        guard fallbackWorkItem == nil else {
+            return
+        }
+
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self, !self.hasCompletedInitialSplashRelease else {
+                return
+            }
+
+            self.log.w("Initial splash fallback fired before Flutter first frame")
+            self.completeInitialSplashRelease(reason: "fallback")
+        }
+
+        fallbackWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + initialSplashFallbackDelay, execute: workItem)
+    }
+
+    private func applyCurrentState() {
+        guard let homeVM = homeVM else {
+            return
+        }
+
+        homeVM.showSplash = !hasCompletedInitialSplashRelease
+        homeVM.hideContent = hasCompletedInitialSplashRelease && isContentTemporarilyHiddenForLifecycle
     }
 }

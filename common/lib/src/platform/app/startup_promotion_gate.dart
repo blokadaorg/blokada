@@ -5,8 +5,6 @@ import 'package:common/src/platform/app/launch_context.dart';
 import 'package:flutter/material.dart';
 
 class StartupPromotionGate extends StatefulWidget {
-  static const placeholderKey = Key('startup-promotion-placeholder');
-
   final AppLaunchContext launchContext;
   final Future<void> Function(Marker m) startForeground;
   final Widget child;
@@ -24,24 +22,32 @@ class StartupPromotionGate extends StatefulWidget {
 
 class _StartupPromotionGateState extends State<StartupPromotionGate>
     with WidgetsBindingObserver, Logging {
-  late bool _ready = widget.launchContext.allowRunApp;
+  static const _visibleUiFallbackDelay = Duration(seconds: 1);
+
   bool _promotionStarted = false;
+  bool _promotionCompleted = false;
+  Timer? _visibleUiFallbackTimer;
 
   @override
   void initState() {
     super.initState();
 
-    if (_ready) {
+    if (widget.launchContext.allowRunApp) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _startForegroundAfterMount());
       return;
     }
 
     WidgetsBinding.instance.addObserver(this);
-    _promoteIfResumed();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _syncVisibleFallbackAndPromote());
+    _visibleUiFallbackTimer = Timer(
+      _visibleUiFallbackDelay,
+      _syncVisibleFallbackAndPromote,
+    );
   }
 
   @override
   void dispose() {
+    _visibleUiFallbackTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -49,15 +55,17 @@ class _StartupPromotionGateState extends State<StartupPromotionGate>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
+    _syncVisibleFallbackAndPromote();
+  }
+
+  void _syncVisibleFallbackAndPromote() {
+    if (_isUiVisibleState(WidgetsBinding.instance.lifecycleState)) {
       _promote();
     }
   }
 
-  void _promoteIfResumed() {
-    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
-      _promote();
-    }
+  bool _isUiVisibleState(AppLifecycleState? state) {
+    return state == AppLifecycleState.resumed || state == AppLifecycleState.inactive;
   }
 
   Future<void> _startForegroundAfterMount() async {
@@ -69,41 +77,24 @@ class _StartupPromotionGateState extends State<StartupPromotionGate>
   }
 
   Future<void> _promote() async {
-    if (_ready || _promotionStarted) {
+    if (widget.launchContext.allowRunApp || _promotionStarted || _promotionCompleted) {
       return;
     }
 
     _promotionStarted = true;
-    var promotionCompleted = false;
 
     try {
       await widget.startForeground(Markers.start);
-      promotionCompleted = true;
-
-      if (!mounted) {
-        return;
-      }
-
-      setState(() {
-        _ready = true;
-      });
+      _promotionCompleted = true;
+      _visibleUiFallbackTimer?.cancel();
+      _visibleUiFallbackTimer = null;
     } finally {
-      if (!promotionCompleted) {
-        _promotionStarted = false;
-      }
+      _promotionStarted = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_ready) {
-      return widget.child;
-    }
-
-    return const ColoredBox(
-      key: StartupPromotionGate.placeholderKey,
-      color: Colors.transparent,
-      child: SizedBox.expand(),
-    );
+    return widget.child;
   }
 }
