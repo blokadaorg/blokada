@@ -416,7 +416,7 @@ void main() {
           m,
           route: StageRouteState.init().newFg(),
           privateDnsStates: [
-            enabledDnsState("https://cloud.blokada.org/225024/Pixel"),
+            enabledDnsState("Pixel-225024.cloud.blokada.org"),
           ],
           deviceTag: "225024",
           deviceAlias: "Pixel",
