@@ -102,6 +102,7 @@ class PlatformPermActor with Logging, Actor {
             await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
             await _recheckDnsPerm(tag, m);
           } catch (e) {
+            log(m).e(msg: "DNS permission check failed, settling", err: e);
             await _app.cloudPermCheckSettled(m, true);
             rethrow;
           }
@@ -121,6 +122,7 @@ class PlatformPermActor with Logging, Actor {
         try {
           await _recheckDnsPerm(tag, m);
         } catch (e) {
+          log(m).e(msg: "DNS permission check failed, settling", err: e);
           await _app.cloudPermCheckSettled(m, true);
           rethrow;
         }
