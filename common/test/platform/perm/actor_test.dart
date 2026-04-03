@@ -385,6 +385,75 @@ void main() {
       });
     });
   });
+
+  group("android", () {
+    test("disabled DNS settles immediately without deferral", () async {
+      await withTrace((m) async {
+        Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
+        final harness = await createHarness(
+          m,
+          route: StageRouteState.init().newFg(),
+          privateDnsStates: [disabledDnsState(null)],
+          deviceTag: "225024",
+          deviceAlias: "Pixel",
+        );
+        await harness.dnsEnabledFor.change(m, "225024");
+
+        await harness.subject.syncPerms(m);
+
+        expect(harness.channel.getPrivateDnsStateCalls, 1);
+        expect(harness.timer.nextDelay, isNull);
+        expect(harness.dnsEnabledFor.present, null);
+        expect(harness.app.conditions.cloudPermCheckSettled, isTrue);
+        expect(harness.app.status, AppStatus.deactivated);
+      });
+    });
+
+    test("enabled correct DNS settles immediately", () async {
+      await withTrace((m) async {
+        Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
+        final harness = await createHarness(
+          m,
+          route: StageRouteState.init().newFg(),
+          privateDnsStates: [
+            enabledDnsState("https://cloud.blokada.org/225024/Pixel"),
+          ],
+          deviceTag: "225024",
+          deviceAlias: "Pixel",
+        );
+
+        await harness.subject.syncPerms(m);
+
+        expect(harness.channel.getPrivateDnsStateCalls, 1);
+        expect(harness.dnsEnabledFor.present, "225024");
+        expect(harness.app.conditions.cloudPermEnabled, isTrue);
+        expect(harness.app.conditions.cloudPermCheckSettled, isTrue);
+        expect(harness.app.status, AppStatus.activatedCloud);
+      });
+    });
+
+    test("unavailable DNS settles immediately without retry on Android", () async {
+      await withTrace((m) async {
+        Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
+        final harness = await createHarness(
+          m,
+          route: StageRouteState.init().newFg(),
+          privateDnsStates: [unavailableDnsState()],
+          deviceTag: "225024",
+          deviceAlias: "Pixel",
+        );
+        await harness.dnsEnabledFor.change(m, "225024");
+
+        await harness.subject.syncPerms(m);
+
+        // Android should NOT defer — settles immediately even for unavailable
+        expect(harness.channel.getPrivateDnsStateCalls, 1);
+        expect(harness.timer.nextDelay, isNull);
+        expect(harness.app.conditions.cloudPermCheckSettled, isTrue);
+        expect(harness.app.status, AppStatus.deactivated);
+      });
+    });
+  });
 }
 
 PrivateDnsState enabledDnsState(String? serverUrl) {

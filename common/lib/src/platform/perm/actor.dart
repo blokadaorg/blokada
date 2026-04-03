@@ -98,8 +98,13 @@ class PlatformPermActor with Logging, Actor {
         await _beginForegroundDnsVerification(tag, m);
 
         if (!Core.act.isFamily) {
-          await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
-          await _recheckDnsPerm(tag, m);
+          try {
+            await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
+            await _recheckDnsPerm(tag, m);
+          } catch (e) {
+            await _app.cloudPermCheckSettled(m, true);
+            rethrow;
+          }
         }
 
         await _recheckVpnPerm(m);
@@ -113,7 +118,12 @@ class PlatformPermActor with Logging, Actor {
       final tag = _device.deviceTag;
       if (tag != null) {
         await _beginForegroundDnsVerification(tag, m);
-        await _recheckDnsPerm(tag, m);
+        try {
+          await _recheckDnsPerm(tag, m);
+        } catch (e) {
+          await _app.cloudPermCheckSettled(m, true);
+          rethrow;
+        }
         await _recheckVpnPerm(m);
       } else {
         await _app.cloudPermCheckSettled(m, true);
