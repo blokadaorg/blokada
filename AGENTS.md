@@ -44,6 +44,26 @@ Then open only the area relevant to the task:
 Keep `AGENTS.md` as a pointer only. Durable product rules belong in
 `docs/domain/`, not duplicated here.
 
+## Code Documentation
+
+All code components should carry documentation that explains why the component
+exists, not only what it does. Apply the same rule to any function or method
+whose purpose is not obvious from its name and local context.
+
+When adding new code:
+
+- add or update the relevant doc comment so it captures the component's reason
+  for existing
+- include "why" documentation for non-obvious functions and methods
+
+When modifying existing code:
+
+- bring the touched code up to this standard as part of the same change
+- update stale comments so they still explain why the code has to exist
+
+Treat this as a required maintenance rule for all newly added code and all code
+that is modified.
+
 ## Tests
 
 `make test-local` is the fast local Flutter test path. It delegates to
