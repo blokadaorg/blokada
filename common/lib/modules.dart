@@ -195,12 +195,16 @@ class Modules with Logging {
     }
 
     final future = () async {
+      // Start foreground modules first so account/device are initialized before
+      // any routeChanged listeners (e.g. DeviceStore.fetch) start running.
+      // Otherwise on a fresh install the route handlers fire HTTP requests
+      // without an account_id and hang the startup.
+      await (_startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m));
+
       final stage = Core.get<StageStore>();
       if (!stage.route.isForeground()) {
         await stage.setForeground(m);
       }
-
-      await (_startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m));
     }();
     _foregroundStartInFlight = future;
 
