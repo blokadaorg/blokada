@@ -201,8 +201,16 @@ class Modules with Logging {
       // without an account_id and hang the startup.
       await (_startForegroundPhaseOverride?.call(m) ?? _startForegroundModules(m));
 
+      // Only force the stage to foreground if the platform lifecycle has not
+      // driven it yet (cold-start race window — typically iOS where
+      // SceneDelegate.sceneDidBecomeActive has not fired by the time we get
+      // here). If the native side has already called setForeground or
+      // setBackground we trust its current state — overriding it here would
+      // re-emit a foreground transition even when the user has just navigated
+      // away (e.g. tapped "open settings" during init), causing spurious
+      // perm-checks and stale wizard re-shows.
       final stage = Core.get<StageStore>();
-      if (!stage.route.isForeground()) {
+      if (!stage.lifecycleSeen) {
         await stage.setForeground(m);
       }
     }();

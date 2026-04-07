@@ -10,16 +10,20 @@ import 'package:mockito/mockito.dart';
 import 'tools.dart';
 
 class _FakeStageStore extends Fake implements StageStore {
-  _FakeStageStore({required this.route});
+  _FakeStageStore({required this.route, this.lifecycleSeen = false});
 
   @override
   StageRouteState route;
+
+  @override
+  bool lifecycleSeen;
 
   var setForegroundCalls = 0;
 
   @override
   Future<void> setForeground(Marker m) async {
     setForegroundCalls += 1;
+    lifecycleSeen = true;
     route = route.newFg();
   }
 }
@@ -88,6 +92,33 @@ void main() {
         expect(stage.route.isForeground(), isTrue);
         expect(modules.foregroundStarted, isTrue);
         expect(modules.foregroundStartInFlight, isFalse);
+      });
+    });
+
+    test('foreground start does not force setForeground when native lifecycle has already driven the stage', () async {
+      await withTrace((m) async {
+        final stage = _FakeStageStore(
+          route: StageRouteState.init().newFg().newBg(),
+          lifecycleSeen: true,
+        );
+        Core.register<StageStore>(stage);
+        final modules = Modules(
+          startCoreBootstrap: (marker, launchContext) async {},
+          acceptCommands: (marker) async {},
+          startForegroundPhase: (marker) async {},
+        );
+
+        await modules.start(
+          m,
+          launchContext: AppLaunchContext.foregroundInteractive,
+        );
+        await modules.startForeground(m);
+
+        // Native already drove the stage (foreground then background while
+        // we were initialising), so Modules.startForeground must not call
+        // setForeground and override the user's actual current state.
+        expect(stage.setForegroundCalls, 0);
+        expect(stage.route.isForeground(), isFalse);
       });
     });
 

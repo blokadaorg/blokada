@@ -93,6 +93,12 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       _cloudPermEnabled = _app.conditions.cloudPermEnabled;
 
       if (_app.conditions.cloudPermEnabled) {
+        // Auto-dismiss the DNS onboard sheet now that DNS is correctly
+        // configured. BottomManagerSheet listens for null transitions and
+        // pops the active sheet.
+        if (_modal.present == Modal.onboardPrivateDns) {
+          await _modal.change(m, null);
+        }
         if (_device.cloudEnabled == true) {
           // Just got the perms, auto start the app
           await _scheduler.addOrUpdate(Job(_keyAutoStart, Markers.ui,

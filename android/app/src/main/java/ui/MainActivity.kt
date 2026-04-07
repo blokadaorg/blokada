@@ -162,6 +162,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        // Cancel any pending splash fallback runnable so it does not fire
+        // after the activity is gone and accidentally mark
+        // StartupContextService.hasSeenFirstFlutterFrame on a singleton that
+        // outlives this activity instance.
+        splashFallbackRunnable?.let {
+            Handler(Looper.getMainLooper()).removeCallbacks(it)
+            splashFallbackRunnable = null
+        }
         context.unsetActivityContext()
         super.onDestroy()
     }

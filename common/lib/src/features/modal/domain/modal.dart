@@ -40,14 +40,12 @@ class ModalActor with Actor {
   Future<void> onStart(Marker m) async {
     await _modal.fetch(m);
 
-    // Since our bottom sheet displaying library does not support informing
-    // us about when the sheet is closed, we use delay to reset state so that
-    // we can show another (or same) sheet.
-    _modal.onChange.listen((it) async {
-      if (it.now != null) {
-        await Future.delayed(const Duration(milliseconds: 500));
-        await _modal.change(m, null);
-      }
-    });
+    // Note: clearing of [_modal] after a sheet is dismissed is owned by
+    // BottomManagerSheet (which awaits the sheet's dismiss future and clears
+    // the value then). Previously this actor cleared the value after a fixed
+    // 500ms delay as a workaround for the missing dismiss callback, but that
+    // made the dedup checks against [_modal.present] unreliable and could
+    // lead to multiple sheets being stacked on top of each other when the
+    // same modal type was requested multiple times during cold start.
   }
 }

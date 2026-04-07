@@ -95,17 +95,10 @@ class PlatformPermActor with Logging, Actor {
         _previousTag = tag;
         _previousAlias = _device.deviceAlias;
         await _scheduler.stop(m, _iosDeferredDnsRecheckJobName);
-        await _beginForegroundDnsVerification(tag, m);
 
         if (!Core.act.isFamily) {
-          try {
-            await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
-            await _recheckDnsPerm(tag, m);
-          } catch (e) {
-            log(m).e(msg: "DNS permission check failed, settling", err: e);
-            await _app.cloudPermCheckSettled(m, true);
-            rethrow;
-          }
+          await _channel.doSetPrivateDnsEnabled(tag, _device.deviceAlias);
+          await _recheckDnsPerm(tag, m);
         }
 
         await _recheckVpnPerm(m);
@@ -118,14 +111,7 @@ class PlatformPermActor with Logging, Actor {
       await _scheduler.stop(m, _iosDeferredDnsRecheckJobName);
       final tag = _device.deviceTag;
       if (tag != null) {
-        await _beginForegroundDnsVerification(tag, m);
-        try {
-          await _recheckDnsPerm(tag, m);
-        } catch (e) {
-          log(m).e(msg: "DNS permission check failed, settling", err: e);
-          await _app.cloudPermCheckSettled(m, true);
-          rethrow;
-        }
+        await _recheckDnsPerm(tag, m);
         await _recheckVpnPerm(m);
       } else {
         await _app.cloudPermCheckSettled(m, true);
@@ -161,63 +147,76 @@ class PlatformPermActor with Logging, Actor {
   }
 
   _recheckDnsPerm(DeviceTag tag, Marker m, {int attempt = 0}) async {
-    final currentTag = _device.deviceTag;
-    if (currentTag == null || currentTag != tag) {
-      await _app.cloudPermCheckSettled(m, true);
-      return;
-    }
-
-    // Use API check on macOS, local check on iOS/iPadOS
-    final isOnMac = await _channel.isRunningOnMac();
-    String source;
-    String current = "(api-check)";
-    bool isEnabled;
-    if (isOnMac) {
-      source = "api";
-      isEnabled = await _check.checkPrivateDnsEnabledWithApi(m, _device.deviceTag!);
-    } else {
-      source = "system";
-      final dnsState = await _channel.getPrivateDnsState();
-      current = _describePrivateDnsState(dnsState);
-      if (_shouldDeferPrivateDnsState(tag, dnsState, attempt)) {
-        await _scheduleDeferredDnsRecheck(tag, attempt + 1, m);
-        log(m).log(
-          msg: "[NetDiag] privateDnsCheckDeferred",
-          attr: {
-            "source": source,
-            "attempt": attempt,
-            "currentDns": current,
-            "expectedTag": _device.deviceTag,
-            "deviceAlias": _device.deviceAlias,
-            "privateDnsEnabledFor": _dnsEnabledFor.present,
-            "result": "deferred",
-          },
-        );
+    // Guarantee that the "checking" state is always released on the way out,
+    // unless the work was deferred (iOS deferred recheck takes over the
+    // responsibility of settling later).
+    var deferred = false;
+    try {
+      final currentTag = _device.deviceTag;
+      if (currentTag == null || currentTag != tag) {
         return;
       }
-      isEnabled = _isPrivateDnsStateEnabled(m, dnsState, _device.deviceTag!, _device.deviceAlias);
+
+      // Use API check on macOS, local check on iOS/iPadOS
+      final isOnMac = await _channel.isRunningOnMac();
+      String source;
+      String current = "(api-check)";
+      bool isEnabled;
+      if (isOnMac) {
+        source = "api";
+        isEnabled = await _check.checkPrivateDnsEnabledWithApi(m, _device.deviceTag!);
+      } else {
+        source = "system";
+        final dnsState = await _channel.getPrivateDnsState();
+        current = _describePrivateDnsState(dnsState);
+        if (_shouldDeferPrivateDnsState(tag, dnsState, attempt)) {
+          // We are about to wait for the system to report a decisive state
+          // (iOS-only deferred recheck). Signal "checking" now so the home
+          // screen reflects that we don't yet know if perms are valid. The
+          // deferred job will settle this back to true when it completes.
+          await _app.cloudPermCheckSettled(m, false);
+          await _scheduleDeferredDnsRecheck(tag, attempt + 1, m);
+          deferred = true;
+          log(m).log(
+            msg: "[NetDiag] privateDnsCheckDeferred",
+            attr: {
+              "source": source,
+              "attempt": attempt,
+              "currentDns": current,
+              "expectedTag": _device.deviceTag,
+              "deviceAlias": _device.deviceAlias,
+              "privateDnsEnabledFor": _dnsEnabledFor.present,
+              "result": "deferred",
+            },
+          );
+          return;
+        }
+        isEnabled = _isPrivateDnsStateEnabled(m, dnsState, _device.deviceTag!, _device.deviceAlias);
+      }
+
+      log(m).log(
+        msg: "[NetDiag] privateDnsCheck",
+        attr: {
+          "source": source,
+          "attempt": attempt,
+          "currentDns": current,
+          "expectedTag": _device.deviceTag,
+          "deviceAlias": _device.deviceAlias,
+          "privateDnsEnabledFor": _dnsEnabledFor.present,
+          "result": isEnabled ? "enabled" : "disabled",
+        },
+      );
+
+      if (isEnabled) {
+        await setPrivateDnsEnabled(tag, m);
+      } else {
+        await setPrivateDnsDisabled(m);
+      }
+    } finally {
+      if (!deferred) {
+        await _app.cloudPermCheckSettled(m, true);
+      }
     }
-
-    log(m).log(
-      msg: "[NetDiag] privateDnsCheck",
-      attr: {
-        "source": source,
-        "attempt": attempt,
-        "currentDns": current,
-        "expectedTag": _device.deviceTag,
-        "deviceAlias": _device.deviceAlias,
-        "privateDnsEnabledFor": _dnsEnabledFor.present,
-        "result": isEnabled ? "enabled" : "disabled",
-      },
-    );
-
-    if (isEnabled) {
-      await setPrivateDnsEnabled(tag, m);
-    } else {
-      await setPrivateDnsDisabled(m);
-    }
-
-    await _app.cloudPermCheckSettled(m, true);
   }
 
   _recheckVpnPerm(Marker m) async {
@@ -305,13 +304,6 @@ class PlatformPermActor with Logging, Actor {
     return _app.conditions.accountIsCloud;
   }
 
-  Future<void> _beginForegroundDnsVerification(DeviceTag tag, Marker m) async {
-    await _app.cloudPermCheckSettled(
-      m,
-      !_shouldTrackForegroundDnsVerification(tag),
-    );
-  }
-
   Future<void> _scheduleDeferredDnsRecheck(DeviceTag tag, int attempt, Marker m) async {
     await _scheduler.addOrUpdate(
       Job(
@@ -320,6 +312,10 @@ class PlatformPermActor with Logging, Actor {
         before: _scheduler.timer.now().add(_iosDeferredDnsRecheckDelay),
         when: [Conditions.foreground],
         callback: (jobMarker) async {
+          // Guard against the conditions changing between scheduling and
+          // the deferred job firing. _recheckDnsPerm itself owns settling
+          // via its try/finally, so we only need to settle here on the
+          // short-circuit paths that never enter _recheckDnsPerm.
           final currentTag = _device.deviceTag;
           if (currentTag == null || currentTag != tag) {
             await _app.cloudPermCheckSettled(jobMarker, true);

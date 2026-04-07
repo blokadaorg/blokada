@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/perm/perm.dart';
-import 'package:common/src/platform/device/device.dart';
-import 'package:common/src/platform/perm/perm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,44 +16,14 @@ class PrivateDnsSheetIos extends StatefulWidget {
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
   late final _channel = Core.get<PermChannel>();
-  late final _device = Core.get<DeviceStore>();
-  late final _dnsEnabledFor = Core.get<PrivateDnsEnabledForValue>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
-  StreamSubscription<NullableValueUpdate<DeviceTag>>? _dnsEnabledSubscription;
-  NavigatorState? _navigator;
-
-  @override
-  void initState() {
-    super.initState();
-    _dnsEnabledSubscription = _dnsEnabledFor.onChange.listen((_) async {
-      await _dismissIfDnsEnabled();
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _dismissIfDnsEnabled();
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _navigator = Navigator.maybeOf(context);
-  }
-
-  @override
-  void dispose() {
-    _dnsEnabledSubscription?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _dismissIfDnsEnabled() async {
-    if (!mounted) return;
-
-    final tag = _device.deviceTag;
-    if (tag == null || _dnsEnabledFor.present != tag) return;
-
-    await _navigator?.maybePop();
-  }
+  // Note: auto-dismiss when DNS becomes correct is owned by the generic
+  // modal lifecycle in BottomManagerSheet — start.dart sets _modal to null
+  // when cloudPermEnabled flips true, which pops the active sheet via the
+  // stored navigator captured at show time. Having a second self-dismiss
+  // listener here would race with that path and risk popping unrelated
+  // routes pushed on top of the sheet.
 
   @override
   Widget build(BuildContext context) {
