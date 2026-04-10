@@ -4,6 +4,10 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/launch_context.dart';
 import 'package:flutter/material.dart';
 
+/// Delays foreground startup until the UI is actually visible to the user.
+/// Without this gate, `startForeground` can fire while the app is still in a
+/// background or transitioning state (common on iOS cold starts), causing
+/// permission dialogs or navigation to trigger before the user sees the screen.
 class StartupPromotionGate extends StatefulWidget {
   final AppLaunchContext launchContext;
   final Future<void> Function(Marker m) startForeground;
@@ -22,6 +26,9 @@ class StartupPromotionGate extends StatefulWidget {
 
 class _StartupPromotionGateState extends State<StartupPromotionGate>
     with WidgetsBindingObserver, Logging {
+  // Fallback for when the lifecycle state is already `resumed` before the
+  // observer is attached — didChangeAppLifecycleState never fires in that
+  // case, so without this timer the app can get stuck on the splash screen.
   static const _visibleUiFallbackDelay = Duration(seconds: 1);
 
   bool _promotionStarted = false;

@@ -220,6 +220,10 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
     });
   }
 
+  /// Holds the app in `initializing` while a deferred DNS permission recheck
+  /// is in progress. On iOS the system can briefly report "unavailable" right
+  /// after a DNS profile is installed; settling too early would flash a
+  /// "DNS not configured" onboarding sheet that immediately dismisses itself.
   @action
   Future<void> cloudPermCheckSettled(Marker m, bool settled) async {
     return await log(m).trace("cloudPermCheckSettled", (m) async {

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Notifies the native side when Flutter has rendered its first frame, so
+/// the native splash screen can be removed at the right moment instead of
+/// relying on a fixed delay that is either too short (flash of blank screen)
+/// or too long (unnecessary wait).
 class StartupFirstFrameReporter extends StatefulWidget {
   final Widget child;
 
