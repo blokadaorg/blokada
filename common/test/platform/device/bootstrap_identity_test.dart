@@ -1,6 +1,7 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
+import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/platform/device/api.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -14,6 +15,15 @@ import '../../tools.dart';
 class _MockPersistence extends Mock implements Persistence {}
 
 class _MockDeviceApi extends Mock implements DeviceApi {}
+
+class _FakeEnvActor extends EnvActor {
+  _FakeEnvActor(this._deviceName);
+
+  final String _deviceName;
+
+  @override
+  String get deviceName => _deviceName;
+}
 
 void main() {
   group('BootstrapIdentityValue', () {
@@ -73,6 +83,7 @@ void main() {
       await withTrace((m) async {
         final stage = StageStore();
         stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -108,6 +119,7 @@ void main() {
       await withTrace((m) async {
         final stage = StageStore();
         stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -136,6 +148,42 @@ void main() {
 
         expect(restored, isFalse);
         expect(store.deviceTag, isNull);
+      });
+    });
+
+    test('restores env device alias when cached bootstrap identity lacks one', () async {
+      await withTrace((m) async {
+        final stage = StageStore();
+        stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        final account = AccountStore();
+        account.account = AccountState(
+          'acc-1',
+          JsonAccount(
+            id: 'acc-1',
+            activeUntil: '2026-03-10T10:00:00.000Z',
+            active: true,
+            type: 'plus',
+          ),
+        );
+        Core.register<AccountStore>(account);
+
+        final store = DeviceStore();
+        final restored = await store.restoreBootstrapIdentity(
+          BootstrapIdentity(
+            accountId: 'acc-1',
+            accountType: 'plus',
+            activeUntil: '2026-03-10T10:00:00.000Z',
+            deviceTag: 'device-1',
+            deviceAlias: null,
+            updatedAt: DateTime.utc(2026, 3, 10, 10),
+          ),
+          m,
+        );
+
+        expect(restored, isTrue);
+        expect(store.deviceTag, 'device-1');
+        expect(store.deviceAlias, 'Example iPhone');
       });
     });
 
@@ -178,6 +226,7 @@ void main() {
 
         final stage = StageStore();
         stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -205,8 +254,7 @@ void main() {
       });
     });
 
-    test('publishes bootstrap identity without alias first, then updates it when alias is set',
-        () async {
+    test('publishes bootstrap identity with env alias on first fetch', () async {
       await withTrace((m) async {
         final persistence = _MockPersistence();
         when(() => persistence.save(any(), any(), any())).thenAnswer((_) async {});
@@ -218,6 +266,7 @@ void main() {
 
         final stage = StageStore();
         stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -249,20 +298,11 @@ void main() {
 
         final afterFetch = await bootstrapIdentity.fetch(m);
         expect(afterFetch?.deviceTag, 'device-1');
-        expect(afterFetch?.deviceAlias, isNull);
-
-        await store.setDeviceName('Renamed iPhone', m);
-
-        final afterAlias = await bootstrapIdentity.fetch(m);
-        expect(afterAlias?.deviceTag, 'device-1');
-        expect(afterAlias?.deviceAlias, 'Renamed iPhone');
+        expect(afterFetch?.deviceAlias, 'Example iPhone');
 
         final captured = verify(() => persistence.save(any(), any(), captureAny())).captured;
-        final firstSaved =
-            jsonDecode(captured[captured.length - 2] as String) as Map<String, dynamic>;
-        final lastSaved = jsonDecode(captured.last as String) as Map<String, dynamic>;
-        expect(firstSaved.containsKey('deviceAlias'), isFalse);
-        expect(lastSaved['deviceAlias'], 'Renamed iPhone');
+        final saved = jsonDecode(captured.last as String) as Map<String, dynamic>;
+        expect(saved['deviceAlias'], 'Example iPhone');
       });
     });
 
@@ -289,6 +329,7 @@ void main() {
 
         final stage = StageStore();
         stage.onRegister();
+        Core.register<EnvActor>(_FakeEnvActor(''));
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',

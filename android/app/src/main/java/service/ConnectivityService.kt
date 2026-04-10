@@ -323,6 +323,23 @@ object ConnectivityService {
         } catch (ex: Exception) {
         }
         manager.registerNetworkCallback(request, systemCallback)
+
+        // Query initial DNS state so it's available before first callback fires
+        try {
+            val activeNetwork = manager.activeNetwork
+            if (activeNetwork != null) {
+                val caps = manager.getNetworkCapabilities(activeNetwork)
+                if (caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) {
+                    val link = manager.getLinkProperties(activeNetwork)
+                    if (link != null && Build.VERSION.SDK_INT >= 28 && link.isPrivateDnsActive) {
+                        privateDns = link.privateDnsServerName
+                        log.i("[NetDiag] connectivityChange event=initialDnsQuery privateDns=${link.privateDnsServerName ?: "(null)"}")
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            log.w("[NetDiag] connectivityChange event=initialDnsQueryFailed: ${ex.message}")
+        }
     }
 
     fun getActiveNetwork(): NetworkDescriptor {

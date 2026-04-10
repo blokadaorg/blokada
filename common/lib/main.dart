@@ -8,6 +8,7 @@ import 'package:common/src/app_variants/family/widget/main_screen.dart';
 import 'package:common/modules.dart';
 import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:common/src/platform/app/launch_context.dart';
+import 'package:common/src/platform/app/startup_first_frame_reporter.dart';
 import 'package:common/src/platform/app/startup_promotion_gate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,12 @@ void main() async {
 
   runApp(
     BlokadaApp(
-      content: StartupPromotionGate(
-        launchContext: launchContext,
-        startForeground: modules.startForeground,
-        child: home,
+      content: StartupFirstFrameReporter(
+        child: StartupPromotionGate(
+          launchContext: launchContext,
+          startForeground: modules.startForeground,
+          child: home,
+        ),
       ),
       isFamily: flavor == Flavor.family,
     ),

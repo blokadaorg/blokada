@@ -20,6 +20,17 @@ import 'package:relative_scale/relative_scale.dart';
 
 import 'home.dart';
 
+bool shouldShowPauseTimer(AppStatus status, int remainingSeconds) {
+  return status.isInactive() && remainingSeconds > 0;
+}
+
+double pauseTimerArcValue(AppStatus status, int remainingSeconds) {
+  if (!shouldShowPauseTimer(status, remainingSeconds)) {
+    return 1.0;
+  }
+  return 1 - (remainingSeconds / 300.0);
+}
+
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);
 
@@ -29,8 +40,7 @@ class PowerButton extends StatefulWidget {
   }
 }
 
-class _PowerButtonState extends State<PowerButton>
-    with TickerProviderStateMixin, Logging {
+class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin, Logging {
   late final _app = Core.get<AppStore>();
   late final _appStart = Core.get<AppStartStore>();
   late final _stats = Core.get<StatsStore>();
@@ -66,64 +76,54 @@ class _PowerButtonState extends State<PowerButton>
   var counter = 0.3;
   var newCounter = 0.5;
 
-  int? pausedForSeconds;
   Timer? timerRefresh;
 
   @override
   void initState() {
     super.initState();
-    loadIcons = _loadIcons(
-        ["assets/images/ic_power.png", "assets/images/ic_pause.png"]);
+    loadIcons = _loadIcons(["assets/images/ic_power.png", "assets/images/ic_pause.png"]);
 
-    animCtrlLibre =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlPlus =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animCtrlPlus = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animPlus = Tween<double>(begin: 0, end: 1).animate(animCtrlPlus)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlCover =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    animCtrlCover = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     animCover = Tween<double>(begin: 1, end: 0).animate(animCtrlCover)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlArcStart = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
+    animCtrlArcStart = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
     animArcLoading = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.ease))
       ..addListener(() {
         _setState();
       });
 
-    animCtrlArcCounter = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
-    animArcCounter = Tween<double>(begin: counter, end: newCounter)
-        .animate(animCtrlArcCounter)
+    animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
+    animArcCounter = Tween<double>(begin: counter, end: newCounter).animate(animCtrlArcCounter)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlArcAlpha =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animCtrlArcAlpha = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlArc2Counter = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
+    animCtrlArc2Counter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
     animCtrlArc2Counter.reverseDuration = Duration(milliseconds: 500);
-    animArc2Counter = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: animCtrlArc2Counter, curve: Curves.easeOutQuad))
+    animArc2Counter = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: animCtrlArc2Counter, curve: Curves.easeOutQuad))
       ..addListener(() {
         _setState();
       });
@@ -131,11 +131,11 @@ class _PowerButtonState extends State<PowerButton>
     // Use 5 min as this is our default pause time
     animCtrlArcTimerCounter =
         AnimationController(vsync: this, duration: const Duration(minutes: 5));
-    animArcTimerCounter =
-        Tween<double>(begin: 1, end: 0).animate(animCtrlArcTimerCounter)
-          ..addListener(() {
-            _setState();
-          });
+    animArcTimerCounter = Tween<double>(begin: 1, end: 0).animate(animCtrlArcTimerCounter)
+      ..addListener(() {
+        _setState();
+      });
+    animCtrlArcTimerCounter.value = pauseTimerArcValue(_app.status, _getRemainingSeconds());
 
     animCtrlLoading = AnimationController(
       vsync: this,
@@ -152,8 +152,7 @@ class _PowerButtonState extends State<PowerButton>
           final status = _app.status;
           //log(m).i("loading animation dismissed");
           if (status.isActive()) {
-            log(Markers.root)
-                .i("loading animation dismissed, power on is ready");
+            log(Markers.root).i("loading animation dismissed, power on is ready");
             _home.powerOnIsReady();
           }
         }
@@ -164,13 +163,10 @@ class _PowerButtonState extends State<PowerButton>
       pressed = (s.isActive()) || (s.isWorking());
       // A bit of a hack to make sure the flag is flagged
       //log(m).i("app status changed");
-      if (s.isActive() &&
-          !_home.powerOnAnimationReady &&
-          animLoading.isDismissed) {
+      if (s.isActive() && !_home.powerOnAnimationReady && animLoading.isDismissed) {
         _home.powerOnIsReady();
         log(Markers.root).i("app status active, power on is ready");
       }
-      pausedForSeconds = _appStart.pausedForAccurate?.inSeconds;
       _scheduleUpdateAnimations();
       _scheduleTimerRefresh();
     });
@@ -215,9 +211,9 @@ class _PowerButtonState extends State<PowerButton>
 
   _scheduleTimerRefresh() {
     timerRefresh?.cancel();
-    if (_getRemainingSeconds() > 0) {
+    if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
       timerRefresh = Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (_getRemainingSeconds() > 0) {
+        if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
           _setState();
         } else {
           timer.cancel();
@@ -229,6 +225,8 @@ class _PowerButtonState extends State<PowerButton>
 
   _updateAnimations() {
     final status = _app.status;
+    final remainingSeconds = _getRemainingSeconds();
+    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
     if (status.isWorking()) {
       _animateStatusRingTo(loadingCounter);
 
@@ -264,12 +262,13 @@ class _PowerButtonState extends State<PowerButton>
       animCtrlCover.reverse();
     }
 
-    if (pausedForSeconds != null) {
+    if (hasPauseTimer) {
       // If the app is paused, animate the timer arc
-      animCtrlArcTimerCounter.value = 1 - (pausedForSeconds! / 300.0);
+      animCtrlArcTimerCounter.value = pauseTimerArcValue(status, remainingSeconds);
       animCtrlArcTimerCounter.forward();
     } else {
-      // If the app is not paused, reset the timer arc (to end animation value)
+      // Hide the timer arc when there is no actual pause timer.
+      animCtrlArcTimerCounter.stop();
       animCtrlArcTimerCounter.value = 1.0;
     }
   }
@@ -282,8 +281,7 @@ class _PowerButtonState extends State<PowerButton>
 
     //log.v("Animating status ring from ${animArcCounter.value} to $value, isAnimating: ${animCtrlArcCounter.isAnimating}");
     animArcCounter = Tween<double>(begin: animArcCounter.value, end: value)
-        .animate(CurvedAnimation(
-            parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
+        .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
       ..addListener(() {
         _setState();
       });
@@ -297,6 +295,8 @@ class _PowerButtonState extends State<PowerButton>
     final status = _app.status;
     final stats = _stats.stats;
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
+    final remainingSeconds = _getRemainingSeconds();
+    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
 
     return RelativeBuilder(builder: (context, height, width, sy, sx) {
       final buttonSize = math.min(sy(140), 180.0);
@@ -307,8 +307,7 @@ class _PowerButtonState extends State<PowerButton>
             height: buttonSize,
             child: FutureBuilder<List<ui.Image>>(
               future: loadIcons,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<ui.Image>> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<ui.Image>> snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
                     return const CircularProgressIndicator();
@@ -331,9 +330,7 @@ class _PowerButtonState extends State<PowerButton>
                         builder: (BuildContext context, Widget? child) {
                           return CustomPaint(
                             painter: PowerButtonPainter(
-                              iconImage: (status == AppStatus.paused)
-                                  ? snapshot.data![1]
-                                  : snapshot.data![0],
+                              iconImage: hasPauseTimer ? snapshot.data![1] : snapshot.data![0],
                               alphaLoading: animLoading.value,
                               alphaCover: animCover.value,
                               alphaLibre: animLibre.value,
@@ -344,8 +341,7 @@ class _PowerButtonState extends State<PowerButton>
                               arcTimerEnd: animArcTimerCounter.value,
                               arcCounter: [
                                 animArc2Counter.value *
-                                    math.min(
-                                        2.0, (stats.dayBlockedRatio / 100)),
+                                    math.min(2.0, (stats.dayBlockedRatio / 100)),
                                 0,
                                 0
                               ],
@@ -371,26 +367,22 @@ class _PowerButtonState extends State<PowerButton>
                 onTap: () {
                   if (!status.isWorking()) {
                     setState(() {
-                      log(Markers.userTap).trace("tappedPowerButton",
-                          (m) async {
+                      log(Markers.userTap).trace("tappedPowerButton", (m) async {
                         if (!status.isActive() || _account.isFreemium) {
                           try {
                             await _appStart.toggleApp(m);
                           } on OnboardingException catch (_) {
-                            _modal.change(
-                                Markers.userTap, Modal.onboardPrivateDns);
+                            _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                           }
                         } else {
                           // Show pause action sheet for deactivating only if not freemium
                           showPauseActionSheet(context, onSelected: (duration) {
-                            log(Markers.userTap)
-                                .trace("tappedPowerButtonDialog", (m) async {
+                            log(Markers.userTap).trace("tappedPowerButtonDialog", (m) async {
                               _appStart.toggleApp(m, duration: duration);
                             });
                           });
                         }
                       });
-                      pausedForSeconds = null;
                       _updateAnimations();
                     });
                   }
@@ -398,16 +390,13 @@ class _PowerButtonState extends State<PowerButton>
                 onLongTap: () {
                   if (!status.isWorking()) {
                     setState(() {
-                      log(Markers.userTap).trace("tappedPowerButtonLong",
-                          (m) async {
+                      log(Markers.userTap).trace("tappedPowerButtonLong", (m) async {
                         try {
                           await _appStart.toggleApp(m);
                         } on OnboardingException catch (_) {
-                          _modal.change(
-                              Markers.userTap, Modal.onboardPrivateDns);
+                          _modal.change(Markers.userTap, Modal.onboardPrivateDns);
                         }
                       });
-                      pausedForSeconds = null;
                       _updateAnimations();
                     });
                   }
@@ -420,9 +409,9 @@ class _PowerButtonState extends State<PowerButton>
                   );
                 },
                 child: Center(
-                  child: _getRemainingSeconds() > 0
+                  child: hasPauseTimer
                       ? Text(
-                          _formatTime(_getRemainingSeconds()),
+                          _formatTime(remainingSeconds),
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -434,9 +423,7 @@ class _PowerButtonState extends State<PowerButton>
                       : Icon(
                           Icons.power_settings_new_sharp,
                           size: 32,
-                          color: (status.isInactive()
-                                  ? Colors.black
-                                  : theme.textPrimary)
+                          color: (status.isInactive() ? Colors.black : theme.textPrimary)
                               .withOpacity(0.8),
                         ),
                 ),
@@ -627,46 +614,46 @@ class PowerButtonPainter extends CustomPainter {
     // ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurRadius);
 
     // ring inactive
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWidth, inactiveRingPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, inactiveRingPaint);
 
     // Filled background when active
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - edge * 1.5, innerShadowPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.5, innerShadowPaint);
 
     // ring blue
     //libreRingPaint.alpha = alphaBlue
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWidth, libreRingPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, libreRingPaint);
 
     if (isFreemium) {
       // ring freemium
-      canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-          size.width / 2 - ringWidth, freemiumRingPaint);
+      canvas.drawCircle(
+          Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, freemiumRingPaint);
     }
 
     // ring orange
     // plusRingPaint.alpha = alphaOrange
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWidth, plusRingPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, plusRingPaint);
 
     // ring loading
     // loadingRingPaint.alpha = alphaLoading
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - ringWidth, loadingRingPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, loadingRingPaint);
 
     // shadow and the off state cover
     // shadowPaint.alpha = alphaCover
     // offButtonPaint.alpha = alphaCover
     //canvas.drawCircle(Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 0.5, shadowPaint);
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2),
-        size.width / 2 - edge * 1.7, coverPaint);
+    canvas.drawCircle(
+        Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.7, coverPaint);
 
     // timer arc (in ring place)
     drawDashedArc(
         canvas,
-        Rect.fromLTWH(timerRingWidth * 2, timerRingWidth * 2,
-            size.width - timerRingWidth * 4, size.height - timerRingWidth * 4),
+        Rect.fromLTWH(timerRingWidth * 2, timerRingWidth * 2, size.width - timerRingWidth * 4,
+            size.height - timerRingWidth * 4),
         -math.pi / 2,
         -math.min(arcTimerEnd, 1.0) * math.pi * 2,
         timerArcPaint,
@@ -676,8 +663,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // loading arc and blocked counter
     canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1,
-            size.width + ringWidth * 2, size.height + ringWidth * 2),
+        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1, size.width + ringWidth * 2,
+            size.height + ringWidth * 2),
         arcStart * math.pi * 2 - math.pi / 2,
         math.min(arcEnd, 1.0) * math.pi * 2,
         false,
@@ -685,8 +672,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // counter arc total
     canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2,
-            size.width + ringWidth * 4, size.height + ringWidth * 4),
+        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2, size.width + ringWidth * 4,
+            size.height + ringWidth * 4),
         0 - math.pi / 2,
         math.min(arcCounter[0], 1.0) * math.pi * 2,
         false,
@@ -694,8 +681,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // blocked counter - the overlap
     canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1,
-            size.width + ringWidth * 2, size.height + ringWidth * 2),
+        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1, size.width + ringWidth * 2,
+            size.height + ringWidth * 2),
         0 - math.pi / 2,
         math.max(0, arcEnd - 1.0) * math.pi * 2,
         false,
@@ -703,8 +690,8 @@ class PowerButtonPainter extends CustomPainter {
 
     // counter arc total - the overlap
     canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2,
-            size.width + ringWidth * 4, size.height + ringWidth * 4),
+        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2, size.width + ringWidth * 4,
+            size.height + ringWidth * 4),
         0 - math.pi / 2,
         math.max(0, arcCounter[0] - 1.0) * math.pi * 2,
         false,

@@ -48,7 +48,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
 
   bool _paused = false;
   bool _cloudPermEnabled = false;
+  bool _cloudPermCheckSettled = false;
   bool _plusPermEnabled = false;
+  bool _didShowForegroundDnsOnboarding = false;
 
   @observable
   Duration? pausedFor;
@@ -91,6 +93,12 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       _cloudPermEnabled = _app.conditions.cloudPermEnabled;
 
       if (_app.conditions.cloudPermEnabled) {
+        // Auto-dismiss the DNS onboard sheet now that DNS is correctly
+        // configured. BottomManagerSheet listens for null transitions and
+        // pops the active sheet.
+        if (_modal.present == Modal.onboardPrivateDns) {
+          await _modal.change(m, null);
+        }
         if (_device.cloudEnabled == true) {
           // Just got the perms, auto start the app
           await _scheduler.addOrUpdate(Job(_keyAutoStart, Markers.ui,
@@ -100,6 +108,27 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       } else {
         // Just lost the perms, show the perms screen
         _modal.change(m, Modal.onboardPrivateDns);
+      }
+      return;
+    }
+
+    if (_cloudPermCheckSettled != _app.conditions.cloudPermCheckSettled) {
+      _cloudPermCheckSettled = _app.conditions.cloudPermCheckSettled;
+
+      if (!_cloudPermCheckSettled) {
+        _didShowForegroundDnsOnboarding = false;
+        return;
+      }
+
+      if (_didShowForegroundDnsOnboarding) return;
+      if (_app.conditions.cloudPermEnabled) return;
+      if (!_stage.route.isForeground() || !_stage.route.isMainRoute()) return;
+      if (_device.cloudEnabled != true) return;
+      if (!_app.conditions.accountIsCloud) return;
+
+      _didShowForegroundDnsOnboarding = true;
+      if (_modal.present != Modal.onboardPrivateDns) {
+        await _modal.change(m, Modal.onboardPrivateDns);
       }
       return;
     }

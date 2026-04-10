@@ -152,6 +152,15 @@ abstract class StageStoreBase with Store, Logging, Actor, ValueEmitter<StageRout
   bool _isForeground = false;
   Completer? _foregroundCompleter;
 
+  // True after the platform lifecycle has driven setForeground or
+  // setBackground at least once. Lets callers (e.g. Modules.startForeground)
+  // tell whether the native side has already taken ownership of the stage
+  // state, vs. being in the cold-start race window where no lifecycle event
+  // has fired yet (typically iOS where SceneDelegate has not yet called
+  // sceneDidBecomeActive when the Dart isolate finishes its bootstrap).
+  bool _lifecycleSeen = false;
+  bool get lifecycleSeen => _lifecycleSeen;
+
   StageModal? _modalToShow;
   String? _pathToShow;
   bool _showNavbar = true;
@@ -174,6 +183,7 @@ abstract class StageStoreBase with Store, Logging, Actor, ValueEmitter<StageRout
   @action
   Future<void> setForeground(Marker m) async {
     return await log(m).trace("setForeground", (m) async {
+      _lifecycleSeen = true;
       if (_foregroundCompleter != null) {
         log(m).i("waiting for previous fg/bg to finish");
         await _foregroundCompleter?.future;
@@ -192,6 +202,7 @@ abstract class StageStoreBase with Store, Logging, Actor, ValueEmitter<StageRout
   @action
   Future<void> setBackground(Marker m) async {
     return await log(m).trace("setBackground", (m) async {
+      _lifecycleSeen = true;
       if (_foregroundCompleter != null) {
         log(m).i("waiting for previous fg/bg to finish");
         await _foregroundCompleter?.future;

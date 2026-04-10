@@ -108,6 +108,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       lists = device.lists;
       retention = device.retention;
       deviceTag = device.deviceTag;
+      _hydrateAliasFromEnvIfNeeded();
       final now = DateTime.now();
       _lastDeviceFetch = now;
       lastRefresh = now;
@@ -226,6 +227,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     if ((identity.deviceAlias ?? '').isNotEmpty) {
       deviceAlias = identity.deviceAlias!;
     }
+    _hydrateAliasFromEnvIfNeeded();
     _lastAccountId = identity.accountId;
     log(m).i("Restored deviceTag from bootstrap identity");
     return true;
@@ -262,5 +264,16 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   bool _listsEqual(List<String>? a, List<String>? b) {
     if (a == null || b == null) return false;
     return Set.from(a) == Set.from(b);
+  }
+
+  void _hydrateAliasFromEnvIfNeeded() {
+    if (Core.act.isFamily || deviceAlias.isNotEmpty) {
+      return;
+    }
+
+    final alias = _env.deviceName.trim();
+    if (alias.isNotEmpty) {
+      deviceAlias = alias;
+    }
   }
 }

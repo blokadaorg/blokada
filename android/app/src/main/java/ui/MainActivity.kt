@@ -12,9 +12,14 @@
 
 package ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -69,6 +74,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        setupSplashOverlay()
+
         intent?.let {
             handleIntent(it)
         }
@@ -76,6 +83,49 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_fragment, FlutterHomeFragment())
             .commit()
+    }
+
+    private var splashFallbackRunnable: Runnable? = null
+
+    private fun setupSplashOverlay() {
+        val overlay = findViewById<View>(R.id.splash_overlay) ?: return
+        if (StartupContextService.hasSeenFirstFlutterFrame) {
+            // Activity recreate after Flutter already drew once: skip the splash entirely.
+            overlay.visibility = View.GONE
+            return
+        }
+        StartupContextService.addFirstFlutterFrameListener {
+            runOnUiThread { hideSplashOverlay(overlay) }
+        }
+
+        // Safety net mirroring iOS StartupVisualGate: if Flutter never reports a
+        // first frame (engine crash, missing reporter, etc.) release the overlay
+        // anyway so we don't sit forever blocking input.
+        val fallback = Runnable {
+            if (StartupContextService.hasSeenFirstFlutterFrame) return@Runnable
+            Logger.w("StartupContext", "Initial splash fallback fired before Flutter first frame")
+            StartupContextService.markFirstFlutterFrameRendered()
+        }
+        splashFallbackRunnable = fallback
+        Handler(Looper.getMainLooper()).postDelayed(fallback, SPLASH_FALLBACK_DELAY_MS)
+    }
+
+    private fun hideSplashOverlay(overlay: View) {
+        splashFallbackRunnable?.let {
+            Handler(Looper.getMainLooper()).removeCallbacks(it)
+            splashFallbackRunnable = null
+        }
+        if (overlay.visibility == View.GONE) return
+        overlay.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    if (isFinishing || isDestroyed) return
+                    overlay.visibility = View.GONE
+                }
+            })
+            .start()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -112,6 +162,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        // Cancel any pending splash fallback runnable so it does not fire
+        // after the activity is gone and accidentally mark
+        // StartupContextService.hasSeenFirstFlutterFrame on a singleton that
+        // outlives this activity instance.
+        splashFallbackRunnable?.let {
+            Handler(Looper.getMainLooper()).removeCallbacks(it)
+            splashFallbackRunnable = null
+        }
         context.unsetActivityContext()
         super.onDestroy()
     }
@@ -143,6 +201,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val ACTION = "action"
+        private const val SPLASH_FALLBACK_DELAY_MS: Long = 8_000
     }
 
     private fun askForReview(context: Context) {

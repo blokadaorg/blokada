@@ -18,15 +18,12 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
   late final _channel = Core.get<PermChannel>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // Note: auto-dismiss when DNS becomes correct is owned by the generic
+  // modal lifecycle in BottomManagerSheet — start.dart sets _modal to null
+  // when cloudPermEnabled flips true, which pops the active sheet via the
+  // stored navigator captured at show time. Having a second self-dismiss
+  // listener here would race with that path and risk popping unrelated
+  // routes pushed on top of the sheet.
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +58,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                             "family perms brief alt".i18n.withParams(_appName),
                             softWrap: true,
                             textAlign: TextAlign.start,
-                            style:
-                                TextStyle(color: context.theme.textSecondary),
+                            style: TextStyle(color: context.theme.textSecondary),
                           ),
                         ),
                         const SizedBox(height: 24), // Replaces Spacer
@@ -73,8 +69,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                             children: [
                               Text(
                                 "1.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios general".i18n,
@@ -83,8 +78,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                               const SizedBox(height: 16),
                               Text(
                                 "2.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios vpn".i18n,
@@ -92,20 +86,17 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                               const SizedBox(height: 16),
                               Text(
                                 "3.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: "family perms setting ios dns".i18n,
                                 icon: CupertinoIcons.ellipsis,
-                                edgeText:
-                                    "family perms setting ios automatic".i18n,
+                                edgeText: "family perms setting ios automatic".i18n,
                               ),
                               const SizedBox(height: 16),
                               Text(
                                 "4.",
-                                style: TextStyle(
-                                    color: context.theme.textSecondary),
+                                style: TextStyle(color: context.theme.textSecondary),
                               ),
                               PrivateDnsSettingGuideWidget(
                                 title: _appName,

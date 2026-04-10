@@ -37,6 +37,7 @@ class AppStatusStrategy {
   final bool initFail;
   final bool initCompleted;
   final bool cloudPermEnabled;
+  final bool cloudPermCheckSettled;
   final bool cloudEnabled;
   final bool accountIsCloud;
   final bool accountIsPlus;
@@ -54,6 +55,7 @@ class AppStatusStrategy {
     this.initFail = false,
     this.initCompleted = false,
     this.cloudPermEnabled = false,
+    this.cloudPermCheckSettled = false,
     this.cloudEnabled = false,
     this.accountIsCloud = false,
     this.accountIsPlus = false,
@@ -72,6 +74,7 @@ class AppStatusStrategy {
     bool? initFail,
     bool? initCompleted,
     bool? cloudPermEnabled,
+    bool? cloudPermCheckSettled,
     bool? cloudEnabled,
     bool? accountIsCloud,
     bool? accountIsPlus,
@@ -89,6 +92,7 @@ class AppStatusStrategy {
       initFail: initFail ?? this.initFail,
       initCompleted: initCompleted ?? this.initCompleted,
       cloudPermEnabled: cloudPermEnabled ?? this.cloudPermEnabled,
+      cloudPermCheckSettled: cloudPermCheckSettled ?? this.cloudPermCheckSettled,
       cloudEnabled: cloudEnabled ?? this.cloudEnabled,
       accountIsCloud: accountIsCloud ?? this.accountIsCloud,
       accountIsPlus: accountIsPlus ?? this.accountIsPlus,
@@ -112,6 +116,8 @@ class AppStatusStrategy {
       return AppStatus.initializing;
     } else if (reconfiguring) {
       return AppStatus.reconfiguring;
+    } else if (accountIsCloud && cloudEnabled && !cloudPermCheckSettled) {
+      return AppStatus.initializing;
     } else if (appPausedWithTimer && accountIsPlus) {
       return AppStatus.pausedPlus;
     } else if (accountIsPlus && plusActive) {
@@ -129,7 +135,7 @@ class AppStatusStrategy {
 
   @override
   toString() {
-    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, accountIsFreemium: $accountIsFreemium, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused, appPausedWithTimer: $appPausedWithTimer, freemiumEnabled: $freemiumEnabled}";
+    return "{initStarted: $initStarted, initFail: $initFail, initCompleted: $initCompleted, cloudPermEnabled: $cloudPermEnabled, cloudPermCheckSettled: $cloudPermCheckSettled, cloudEnabled: $cloudEnabled, accountIsCloud: $accountIsCloud, accountIsPlus: $accountIsPlus, accountIsFamily: $accountIsFamily, accountIsFreemium: $accountIsFreemium, plusPermEnabled: $plusPermEnabled, plusActive: $plusActive, reconfiguring: $reconfiguring, appPaused: $appPaused, appPausedWithTimer: $appPausedWithTimer, freemiumEnabled: $freemiumEnabled}";
   }
 }
 
@@ -210,6 +216,18 @@ abstract class AppStoreBase with Store, Logging, Actor, Emitter {
   Future<void> cloudPermEnabled(Marker m, bool enabled) async {
     return await log(m).trace("cloudPermEnabled", (m) async {
       conditions = conditions.update(cloudPermEnabled: enabled);
+      await _updateStatus(m);
+    });
+  }
+
+  /// Holds the app in `initializing` while a deferred DNS permission recheck
+  /// is in progress. On iOS the system can briefly report "unavailable" right
+  /// after a DNS profile is installed; settling too early would flash a
+  /// "DNS not configured" onboarding sheet that immediately dismisses itself.
+  @action
+  Future<void> cloudPermCheckSettled(Marker m, bool settled) async {
+    return await log(m).trace("cloudPermCheckSettled", (m) async {
+      conditions = conditions.update(cloudPermCheckSettled: settled);
       await _updateStatus(m);
     });
   }
