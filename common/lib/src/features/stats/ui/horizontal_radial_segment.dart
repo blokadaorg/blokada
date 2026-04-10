@@ -131,8 +131,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // First row: blocked/allowed counters
-              Expanded(
-                child: Row(
+              Row(
                   children: [
                     Expanded(
                       child: AnimatedOpacity(
@@ -197,7 +196,6 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                     ),
                   ],
                 ),
-              ),
               // Delta badges below counters
               Padding(
                 padding: const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 4),
@@ -251,8 +249,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
               ),
               SizedBox(height: 8),
               // Second row: line chart
-              Expanded(
-                child: MiniCardChart(
+              MiniCardChart(
                   stats: widget.stats,
                   color: Color(0xff33c75a),
                   animate: false,
@@ -261,7 +258,6 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                   seriesEnd: widget.sparklineSeries?.end,
                   seriesStep: widget.sparklineSeries?.step,
                 ),
-              ),
             ],
           ),
         ),
