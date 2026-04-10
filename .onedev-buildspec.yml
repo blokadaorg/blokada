@@ -1,6 +1,7 @@
 version: 40
 jobs:
 - name: publish android manually
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -50,6 +51,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish android-six on tag
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -90,7 +92,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: run tests
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -118,7 +120,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: build android
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -174,6 +176,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish android-family on tag
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -214,6 +217,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: build all android
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -261,7 +265,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: build ios
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -308,7 +312,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish ios-family on tag
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -354,7 +358,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish ios-six on tag
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -400,7 +404,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: publish ios manually
-  jobExecutor: agent
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -452,6 +456,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: fastlane match
+  jobExecutor: barebones-mini
   steps:
   - !CheckoutStep
     name: checkout
@@ -478,6 +483,7 @@ jobs:
   retryDelay: 30
   timeout: 14400
 - name: pull github
+  jobExecutor: barebones-mini
   steps:
   - !PullRepository
     name: pull
