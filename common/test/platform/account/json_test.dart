@@ -121,6 +121,25 @@ void main() {
         );
       });
     });
+
+    test("fallsBackToAfterPaywallForNonStringEssentialsOnboardingOrder", () async {
+      await withTrace((m) async {
+        final subject = JsonAccount.fromJson({
+          "id": "mockedmocked",
+          "active": false,
+          "type": "libre",
+          "attributes": {
+            "freemium": true,
+            "essentials_onboarding_order": 1,
+          }
+        });
+
+        expect(
+          subject.getEssentialsOnboardingOrder(),
+          EssentialsOnboardingOrder.afterPaywall,
+        );
+      });
+    });
   });
 
   group("errors", () {

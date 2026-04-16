@@ -62,7 +62,7 @@ class JsonAccount {
   EssentialsOnboardingOrder getEssentialsOnboardingOrder() {
     if (attributes == null) return EssentialsOnboardingOrder.afterPaywall;
     final value = attributes![_attrEssentialsOnboardingOrder];
-    return EssentialsOnboardingOrder.fromApiValue(value as String?);
+    return EssentialsOnboardingOrder.fromApiValue(value is String ? value : null);
   }
 
   DateTime getActiveUntil() {
