@@ -72,6 +72,55 @@ void main() {
         expect(json["payment_source"], "internal");
       });
     });
+
+    test("defaultsEssentialsOnboardingOrderToAfterPaywall", () async {
+      await withTrace((m) async {
+        final subject = JsonAccount.fromJson(jsonDecode(fixtureJsonAccountLibre));
+
+        expect(
+          subject.getEssentialsOnboardingOrder(),
+          EssentialsOnboardingOrder.afterPaywall,
+        );
+      });
+    });
+
+    test("parsesExplicitEssentialsOnboardingOrder", () async {
+      await withTrace((m) async {
+        final subject = JsonAccount.fromJson({
+          "id": "mockedmocked",
+          "active": false,
+          "type": "libre",
+          "attributes": {
+            "freemium": true,
+            "essentials_onboarding_order": "before_paywall",
+          }
+        });
+
+        expect(
+          subject.getEssentialsOnboardingOrder(),
+          EssentialsOnboardingOrder.beforePaywall,
+        );
+      });
+    });
+
+    test("fallsBackToAfterPaywallForInvalidEssentialsOnboardingOrder", () async {
+      await withTrace((m) async {
+        final subject = JsonAccount.fromJson({
+          "id": "mockedmocked",
+          "active": false,
+          "type": "libre",
+          "attributes": {
+            "freemium": true,
+            "essentials_onboarding_order": "unexpected_value",
+          }
+        });
+
+        expect(
+          subject.getEssentialsOnboardingOrder(),
+          EssentialsOnboardingOrder.afterPaywall,
+        );
+      });
+    });
   });
 
   group("errors", () {

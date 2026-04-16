@@ -3,6 +3,7 @@ import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/features/safari/domain/safari.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
@@ -447,6 +448,8 @@ void main() {
       "onUnpauseAppFreemiumWithInactiveSafariExtensionShouldShowPaywall",
       () async {
         await withTrace((m) async {
+          final modal = CurrentModalValue();
+          Core.register(modal);
           Core.register<Scheduler>(MockScheduler());
 
           final stage = MockStageStore();
@@ -488,6 +491,7 @@ void main() {
 
           // Should show paywall
           verify(payment.openPaymentScreen(any)).called(1);
+          expect(modal.present, null);
         });
       },
     );
@@ -530,6 +534,65 @@ void main() {
 
           // Should show paywall
           verify(payment.openPaymentScreen(any)).called(1);
+        });
+      },
+    );
+
+    test(
+      "onUnpauseAppFreemiumWithBeforePaywallOrderShowsEssentialsOnboardingFirst",
+      () async {
+        await withTrace((m) async {
+          final modal = CurrentModalValue();
+          Core.register(modal);
+          Core.register<Scheduler>(MockScheduler());
+
+          final stage = MockStageStore();
+          Core.register<StageStore>(stage);
+
+          final account = MockAccountStore();
+          when(account.type).thenAnswer((_) => AccountType.libre);
+          when(account.isFreemium).thenAnswer((_) => true);
+          when(account.account).thenReturn(
+            AccountState(
+              "mockedmocked",
+              JsonAccount(
+                id: "mockedmocked",
+                activeUntil: null,
+                active: false,
+                type: AccountType.libre.name,
+                attributes: {
+                  "freemium": true,
+                  "essentials_onboarding_order": "before_paywall",
+                },
+              ),
+            ),
+          );
+          Core.register<AccountStore>(account);
+
+          final app = MockAppStore();
+          final conditions = AppStatusStrategy(accountIsFreemium: true);
+          when(app.conditions).thenReturn(conditions);
+          Core.register<AppStore>(app);
+
+          Core.register<PlusActor>(MockPlusActor());
+
+          final perm = MockPlatformPermActor();
+          Core.register<PlatformPermActor>(perm);
+
+          final payment = MockPaymentActor();
+          Core.register<PaymentActor>(payment);
+
+          final ping = MockBlockawebPingValue();
+          when(ping.fetch(any, force: true)).thenAnswer((_) async => null);
+          when(ping.isPingValidAndActive(null)).thenReturn(false);
+          Core.register<BlockawebPingValue>(ping);
+
+          final subject = AppStartStore();
+
+          await expectLater(subject.unpauseApp(m), throwsException);
+
+          expect(modal.present, Modal.onboardSafari);
+          verifyNever(payment.openPaymentScreen(any));
         });
       },
     );
