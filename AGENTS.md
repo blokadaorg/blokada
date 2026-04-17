@@ -162,9 +162,9 @@ GitHub Actions for CI. See `make ci-*` targets for CI-specific builds.
 
 ## Domain Knowledge
 
-For product-specific behavior that is easy to get wrong, check `docs/domain/`
-before changing onboarding, startup, protection, subscriptions, home-state
-semantics, browser-extension flows, or flavor-specific behavior.
+Consult `docs/domain/` whenever a domain topic needs better understanding —
+exploring, planning, reviewing, or changing onboarding, startup, protection,
+subscriptions, home-state, browser-extension flows, or flavor-specific behavior.
 
 Start with:
 
