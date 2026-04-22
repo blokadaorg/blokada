@@ -158,14 +158,10 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         stepOrder: Long,
         callback: (Result<Unit>) -> Unit
     ) {
-        try {
-            Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
-                if (error == null) callback(Result.success(Unit))
-                else callback(Result.failure(error))
-            }
-        } catch (e: Exception) {
-            callback(Result.failure(e))
-        }
+        // Adapty Android 3.15.x no longer exposes the previous onboarding
+        // analytics helper used here. Keep the platform-channel contract intact
+        // with a best-effort no-op until we replace it with a supported API.
+        callback(Result.success(Unit))
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
@@ -404,6 +400,13 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         closePaymentScreen(true)
         logError("Failed restore", error)
         handleFailure(restore = true, temporary = false)
+    }
+
+    override fun onFinishWebPaymentNavigation(
+        product: AdaptyPaywallProduct?,
+        error: AdaptyError?,
+        context: Context
+    ) {
     }
 
 

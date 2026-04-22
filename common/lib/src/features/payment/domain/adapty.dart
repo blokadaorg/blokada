@@ -18,15 +18,18 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
     _adaptyUi.setObserver(this);
 
-    await _adapty.activate(
-      configuration: AdaptyConfiguration(apiKey: apiKey)
-        ..withCustomerUserId(accountId)
-        ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
-        ..withObserverMode(false)
-        ..withIpAddressCollectionDisabled(true)
-        ..withGoogleAdvertisingIdCollectionDisabled(true)
-        ..withAppleIdfaCollectionDisabled(true),
-    );
+    final configuration = AdaptyConfiguration(apiKey: apiKey)
+      ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
+      ..withObserverMode(false)
+      ..withIpAddressCollectionDisabled(true)
+      ..withGoogleAdvertisingIdCollectionDisabled(true)
+      ..withAppleIdfaCollectionDisabled(true);
+
+    if (accountId != null) {
+      configuration.withCustomerUserId(accountId);
+    }
+
+    await _adapty.activate(configuration: configuration);
 
     // Set Adapty fallback for any connection problems situations
     try {
@@ -44,7 +47,9 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   logOnboardingStep(String name, OnboardingStep step) async {
-    await _adapty.logShowOnboarding(name: name, screenName: step.name, screenOrder: step.order);
+    // adapty_flutter 3.15.x no longer exposes the previous onboarding logging
+    // helper. Keep this as a best-effort no-op until we decide whether to
+    // replace it with a native-only path or a different Adapty API.
   }
 
   @override
