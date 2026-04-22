@@ -6,7 +6,7 @@ import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-const maxSheetWidth = 600.0;
+const maxSheetWidth = 500.0;
 
 // Simply displays one of our predefined bottom sheets based on the Value that
 // can be modified by other parts of the app. Ensures widget context is provided.

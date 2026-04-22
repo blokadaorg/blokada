@@ -13,8 +13,8 @@ package ui
 import android.content.Context
 import kotlin.math.min
 
-private const val TABLET_PAYWALL_BREAKPOINT_DP = 600
-private const val TABLET_PAYWALL_MAX_WIDTH_DP = 600
+private const val TABLET_PAYWALL_BREAKPOINT_DP = 500
+private const val TABLET_PAYWALL_MAX_WIDTH_DP = 500
 private const val TABLET_PAYWALL_SIDE_MARGIN_DP = 24
 private const val TABLET_PAYWALL_HEIGHT_RATIO = 0.9f
 
