@@ -4,20 +4,21 @@ part of 'payment.dart';
 // We are waiting for the flutter SDK to add support for android prorate modes.
 // After that, we can drop the android SDK.
 // This is handled through flutter platform channel (the other class).
-class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObserver {
+class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywallsEventsObserver {
   late final _stage = Core.get<StageStore>();
   late final _actor = Core.get<PaymentActor>(); // Circular dep
+  late final _modal = Core.get<CurrentModalValue>();
+  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   late final _adapty = Adapty();
-  late final _adaptyUi = AdaptyUI();
 
-  AdaptyUIPaywallView? _paymentView;
-  String? _paymentViewForPlacementId;
+  AdaptyPaywall? _paymentPaywall;
+  String? _paymentPaywallForPlacementId;
+  bool _isEmbeddedPaywallVisible = false;
+  bool _isClosingEmbeddedPaywall = false;
 
   @override
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
-    _adaptyUi.setObserver(this);
-
     final configuration = AdaptyConfiguration(apiKey: apiKey)
       ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
       ..withObserverMode(false)
@@ -54,34 +55,39 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   preload(Marker m, Placement placement) async {
-    _paymentView = await _createPaywall(m, placement);
-    _paymentViewForPlacementId = placement.id;
+    _paymentPaywall = await _fetchPaywall(m, placement);
+    _paymentPaywallForPlacementId = placement.id;
   }
 
   @override
   showPaymentScreen(Marker m, Placement placement, {bool forceReload = false}) async {
-    if (forceReload || _paymentViewForPlacementId != placement.id || _paymentView == null) {
-      _paymentView = await _createPaywall(m, placement);
-      _paymentViewForPlacementId = placement.id;
+    if (forceReload || _paymentPaywallForPlacementId != placement.id || _paymentPaywall == null) {
+      _paymentPaywall = await _fetchPaywall(m, placement);
+      _paymentPaywallForPlacementId = placement.id;
     }
 
-    await _paymentView!.present();
+    _isClosingEmbeddedPaywall = false;
+    _isEmbeddedPaywallVisible = true;
+    await _modalWidget.change(m, (context) => AdaptyEmbeddedPaywallSheet(
+          channel: this,
+          paywall: _paymentPaywall!,
+        ));
+    await _modal.change(m, Modal.adaptyPaywall);
   }
 
   @override
   closePaymentScreen(bool isError, {AdaptyUIPaywallView? view}) async {
-    view?.dismiss();
-    if (view == null) _paymentView?.dismiss();
-    _paymentView = null;
-    await _actor.handleScreenClosed(Markers.ui, isError: isError);
-  }
+    final wasEmbeddedPaywallVisible = _isEmbeddedPaywallVisible;
+    _isClosingEmbeddedPaywall = true;
+    _isEmbeddedPaywallVisible = false;
 
-  Future<AdaptyUIPaywallView> _createPaywall(Marker m, Placement placement) async {
-    final paywall = await _fetchPaywall(m, placement);
-    return await _adaptyUi.createPaywallView(
-      paywall: paywall,
-      preloadProducts: false,
-    );
+    if (!wasEmbeddedPaywallVisible) {
+      await view?.dismiss();
+    }
+
+    await _modal.change(Markers.ui, null);
+    _isClosingEmbeddedPaywall = false;
+    await _actor.handleScreenClosed(Markers.ui, isError: isError);
   }
 
   Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
@@ -92,6 +98,11 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
       );
       return paywall;
     });
+  }
+
+  void handleEmbeddedPaywallDisposed() {
+    if (!_isEmbeddedPaywallVisible || _isClosingEmbeddedPaywall) return;
+    unawaited(closePaymentScreen(false));
   }
 
   @override

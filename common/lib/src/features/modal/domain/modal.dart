@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 /// Old stuff (from StageStore and Navigation) should be merged and removed.
 
 enum Modal {
+  adaptyPaywall,
   onboardPrivateDns,
   onboardSafari,
   onboardSafariYoutube,
