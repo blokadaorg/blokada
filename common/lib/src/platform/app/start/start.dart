@@ -10,6 +10,7 @@ import 'package:common/src/util/mobx.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../account/account.dart';
+import '../../account/api.dart';
 import '../../device/device.dart';
 import '../../perm/perm.dart';
 import '../app.dart';
@@ -255,6 +256,10 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       if (_account.isFreemium) {
         final pingData = await _ping.fetch(m, force: true);
         if (!_ping.isPingValidAndActive(pingData)) {
+          if (_shouldShowEssentialsOnboardBeforePaywall()) {
+            await _modal.change(m, Modal.onboardSafari);
+            throw OnboardingException();
+          }
           throw AccountTypeException();
         }
         await _app.freemiumActivated(m, true);
@@ -268,5 +273,12 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       //   throw OnboardingException();
     }
     await _device.setCloudEnabled(m, true);
+  }
+
+  bool _shouldShowEssentialsOnboardBeforePaywall() {
+    if (!Core.act.isIos || !_account.isFreemium) return false;
+    final order = _account.account?.jsonAccount.getEssentialsOnboardingOrder() ??
+        EssentialsOnboardingOrder.afterPaywall;
+    return order == EssentialsOnboardingOrder.beforePaywall;
   }
 }

@@ -122,6 +122,7 @@ class SafariActor with Actor, Logging {
     return await log(m).trace("maybeShowMandatoryOnboard", (m) async {
       if (_app.status.isActive()) return;
       if (!_accountStore.isFreemium) return;
+      if (_mandatoryOnboardOrder() != EssentialsOnboardingOrder.afterPaywall) return;
 
       final ping = await _ping.fetch(m, force: true);
       final isActive = _isPingValidAndActive(m, ping);
@@ -201,5 +202,10 @@ class SafariActor with Actor, Logging {
     final isValid = _ping.isPingValidAndActive(ping);
     log(m).pair("ping timestamp valid", isValid);
     return isValid;
+  }
+
+  EssentialsOnboardingOrder _mandatoryOnboardOrder() {
+    final account = _accountStore.account?.jsonAccount;
+    return account?.getEssentialsOnboardingOrder() ?? EssentialsOnboardingOrder.afterPaywall;
   }
 }
