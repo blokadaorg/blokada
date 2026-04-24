@@ -1,6 +1,6 @@
 part of 'payment.dart';
 
-const _adaptyTabletPaywallHeightFactor = 0.9;
+const _adaptyPaywallHeightFactor = 0.9;
 
 /// Hosts the Adapty platform view inside our own modal sheet so the app, not
 /// Adapty's presenter, controls tablet width and centering.
@@ -28,7 +28,7 @@ class _AdaptyEmbeddedPaywallSheetState extends State<AdaptyEmbeddedPaywallSheet>
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
-    final height = media.size.height * _adaptyTabletPaywallHeightFactor;
+    final height = media.size.height * _adaptyPaywallHeightFactor;
 
     return SizedBox(
       height: height,
