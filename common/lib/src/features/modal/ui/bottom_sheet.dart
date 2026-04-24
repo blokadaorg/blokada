@@ -115,7 +115,7 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
 Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) async {
   final screenWidth = MediaQuery.of(context).size.width;
 
-  if (screenWidth > maxSheetWidth) {
+  if (screenWidth >= maxSheetWidth) {
     return showCustomModalBottomSheet(
       context: context,
       duration: const Duration(milliseconds: 300),
