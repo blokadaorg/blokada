@@ -51,7 +51,8 @@ class AdaptyPaymentTabletDialogFragment : DialogFragment() {
                 "AdaptyPaymentTabletDialogFragment: closing",
                 Exception("adaptyView is null")
             )
-            parentFragmentManager.beginTransaction().remove(this).commit()
+            dismissAllowingStateLoss()
+            return
         }
     }
 
