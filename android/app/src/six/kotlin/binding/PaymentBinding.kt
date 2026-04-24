@@ -14,6 +14,7 @@ package binding
 
 import android.content.Context
 import android.util.Log
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import channel.command.CommandName
@@ -42,7 +43,9 @@ import service.ContextService
 import service.FlutterService
 import service.TranslationService
 import ui.AdaptyPaymentFragment
+import ui.AdaptyPaymentTabletDialogFragment
 import ui.MainActivity
+import ui.shouldUseCenteredAdaptyPaywall
 import utils.Intents
 
 object PaymentBinding : PaymentOps, AdaptyUiEventListener {
@@ -53,7 +56,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private val translate by lazy { TranslationService }
     private val intents by lazy { Intents }
 
-    private var _fragment: AdaptyPaymentFragment? = null
+    private var _fragment: DialogFragment? = null
     private var _retry = true
 
     private var _currentSubscription: CurrentSubscription? = null
@@ -158,14 +161,10 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         stepOrder: Long,
         callback: (Result<Unit>) -> Unit
     ) {
-        try {
-            Adapty.logShowOnboarding(name, stepName, stepOrder.toInt()) { error ->
-                if (error == null) callback(Result.success(Unit))
-                else callback(Result.failure(error))
-            }
-        } catch (e: Exception) {
-            callback(Result.failure(e))
-        }
+        // Adapty Android 3.15.x no longer exposes the previous onboarding
+        // analytics helper used here. Keep the platform-channel contract intact
+        // with a best-effort no-op until we replace it with a supported API.
+        callback(Result.success(Unit))
     }
 
     override fun doPreload(placementId: String, callback: (Result<Unit>) -> Unit) {
@@ -216,7 +215,12 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                     log("Removed existing adapty fragment")
                 }
 
-                val fragment = AdaptyPaymentFragment.newInstance(_currentView!!)
+                val fragment =
+                    if (context.requireActivity().shouldUseCenteredAdaptyPaywall()) {
+                        AdaptyPaymentTabletDialogFragment.newInstance(_currentView!!)
+                    } else {
+                        AdaptyPaymentFragment.newInstance(_currentView!!)
+                    }
                 _fragment = fragment
 
                 // Ensure the transaction completes with commitNow instead of relying on show()
@@ -404,6 +408,13 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         closePaymentScreen(true)
         logError("Failed restore", error)
         handleFailure(restore = true, temporary = false)
+    }
+
+    override fun onFinishWebPaymentNavigation(
+        product: AdaptyPaywallProduct?,
+        error: AdaptyError?,
+        context: Context
+    ) {
     }
 
 

@@ -6,7 +6,7 @@ import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-const maxSheetWidth = 600.0;
+const maxSheetWidth = 500.0;
 
 // Simply displays one of our predefined bottom sheets based on the Value that
 // can be modified by other parts of the app. Ensures widget context is provided.
@@ -115,7 +115,7 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
 Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) async {
   final screenWidth = MediaQuery.of(context).size.width;
 
-  if (screenWidth > maxSheetWidth) {
+  if (screenWidth >= maxSheetWidth) {
     return showCustomModalBottomSheet(
       context: context,
       duration: const Duration(milliseconds: 300),
