@@ -83,8 +83,13 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
   Future<void> _show(WidgetBuilder widget) async {
     _isShowing = true;
     _activeSheetNavigator = Navigator.of(context, rootNavigator: true);
+    final modal = _modal.present;
     try {
-      await _showSheet(context, builder: widget);
+      await _showSheet(
+        context,
+        builder: widget,
+        enableDrag: modal != Modal.adaptyPaywall,
+      );
     } catch (e, s) {
       log(Markers.ui).e(msg: "Failed showing modal widget", err: e, stack: s);
     } finally {
@@ -112,7 +117,11 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
   Widget build(BuildContext context) => Container();
 }
 
-Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) async {
+Future<void> _showSheet(
+  BuildContext context, {
+  required WidgetBuilder builder,
+  required bool enableDrag,
+}) async {
   final screenWidth = MediaQuery.of(context).size.width;
 
   if (screenWidth >= maxSheetWidth) {
@@ -122,6 +131,7 @@ Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) 
       backgroundColor: context.theme.bgColorCard,
       builder: builder,
       containerWidget: (_, animation, child) => FloatingModal(child: child),
+      enableDrag: enableDrag,
       expand: false,
     );
   }
@@ -131,6 +141,7 @@ Future<void> _showSheet(BuildContext context, {required WidgetBuilder builder}) 
     duration: const Duration(milliseconds: 300),
     backgroundColor:
         Platform.isAndroid ? Colors.transparent : context.theme.bgColorCard,
+    enableDrag: enableDrag,
     builder: (c) => Padding(
         padding: EdgeInsets.only(top: Platform.isAndroid ? 24 : 0),
         child: builder(c)),
