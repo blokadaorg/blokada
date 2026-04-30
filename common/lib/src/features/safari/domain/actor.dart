@@ -33,6 +33,10 @@ class SafariActor with Actor, Logging {
   bool _freemium = false;
   DateTime? _freemiumYoutubeUntil;
 
+  // Keeps the paywall from appearing behind Settings while the user is trying
+  // to enable Safari from the before-paywall Essentials flow.
+  bool _openedSettingsFromBeforePaywallOnboard = false;
+
   @override
   onCreate(Marker m) async {
     // Provide the widget factory for the modal this module handles
@@ -62,6 +66,7 @@ class SafariActor with Actor, Logging {
     _stage.addOnValue(routeChanged, (route, m) async {
       if (!route.isBecameForeground()) return;
       _scheduleSyncFreemiumState(m);
+      await _maybeResumeBeforePaywallOnboardAfterSettings(m);
     });
 
     await _scheduleSyncFreemiumState(m);
@@ -69,7 +74,26 @@ class SafariActor with Actor, Logging {
 
   // Opens the browser url that leads to extension installation
   openSafariSetup() async {
+    if (_isBeforePaywallMandatoryOnboard()) {
+      _openedSettingsFromBeforePaywallOnboard = true;
+    }
     await _channel.doOpenSafariSetup();
+  }
+
+  /// Shows the explicit skip option only when Essentials is intentionally shown
+  /// before the subscription offer.
+  bool shouldShowSetupLaterOnSafariOnboard() {
+    return _isBeforePaywallMandatoryOnboard();
+  }
+
+  /// Closes the Essentials sheet and continues to the paywall from the explicit
+  /// secondary action, instead of relying on generic sheet dismissal handling.
+  continueToPaywallFromBeforePaywallOnboard(Marker m) async {
+    if (!_isBeforePaywallMandatoryOnboard()) return;
+
+    await _modal.change(m, null);
+    await sleepAsync(const Duration(milliseconds: 750));
+    await _payment.openPaymentScreen(m);
   }
 
   // Optional flow will show only once
@@ -207,5 +231,26 @@ class SafariActor with Actor, Logging {
   EssentialsOnboardingOrder _mandatoryOnboardOrder() {
     final account = _accountStore.account?.jsonAccount;
     return account?.getEssentialsOnboardingOrder() ?? EssentialsOnboardingOrder.afterPaywall;
+  }
+
+  bool _isBeforePaywallMandatoryOnboard() {
+    return Core.act.isIos &&
+        _accountStore.isFreemium &&
+        _mandatoryOnboardOrder() == EssentialsOnboardingOrder.beforePaywall;
+  }
+
+  /// Completes the Settings detour from the before-paywall Safari flow.
+  ///
+  /// If the user returns without an active extension ping, show the Essentials
+  /// sheet again so they can retry setup or explicitly continue to the paywall.
+  Future<void> _maybeResumeBeforePaywallOnboardAfterSettings(Marker m) async {
+    if (!_openedSettingsFromBeforePaywallOnboard) return;
+    _openedSettingsFromBeforePaywallOnboard = false;
+
+    final ping = await _ping.fetch(m, force: true);
+    final isActive = _isPingValidAndActive(m, ping);
+    if (!isActive) {
+      await _modal.change(m, Modal.onboardSafari);
+    }
   }
 }

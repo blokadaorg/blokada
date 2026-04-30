@@ -20,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.fragment.app.DialogFragment
 import binding.PaymentBinding
 import com.adapty.ui.AdaptyPaywallView
@@ -34,8 +35,12 @@ class AdaptyPaymentTabletDialogFragment : DialogFragment() {
     private val payment by lazy { PaymentBinding }
 
     var adaptyView: AdaptyPaywallView? = null
+    private var didAttachAdaptyView = false
 
     companion object {
+        private const val PAYWALL_MOUNT_DELAY_MS = 320L
+        private const val PAYWALL_FADE_DURATION_MS = 450L
+
         fun newInstance(view: AdaptyPaywallView): AdaptyPaymentTabletDialogFragment {
             val fragment = AdaptyPaymentTabletDialogFragment()
             fragment.adaptyView = view
@@ -88,13 +93,37 @@ class AdaptyPaymentTabletDialogFragment : DialogFragment() {
             background = context.getDrawable(R.drawable.adapty_payment_dialog_background)
             clipToOutline = true
             outlineProvider = ViewOutlineProvider.BACKGROUND
+            val loader = ProgressBar(context).apply {
+                isIndeterminate = true
+            }
             addView(
-                view,
+                loader,
                 FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER
                 )
             )
+            postDelayed({
+                if (!isAdded || didAttachAdaptyView) return@postDelayed
+                didAttachAdaptyView = true
+                (view.parent as? ViewGroup)?.removeView(view)
+                view.alpha = 0f
+                addView(
+                    view,
+                    0,
+                    FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                )
+                view.animate().alpha(1f).setDuration(PAYWALL_FADE_DURATION_MS).start()
+                loader.animate()
+                    .alpha(0f)
+                    .setDuration(PAYWALL_FADE_DURATION_MS)
+                    .withEndAction { removeView(loader) }
+                    .start()
+            }, PAYWALL_MOUNT_DELAY_MS)
         }
     }
 }

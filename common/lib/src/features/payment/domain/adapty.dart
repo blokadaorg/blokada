@@ -68,10 +68,12 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywa
 
     _isClosingEmbeddedPaywall = false;
     _isEmbeddedPaywallVisible = true;
-    await _modalWidget.change(m, (context) => AdaptyEmbeddedPaywallSheet(
-          channel: this,
-          paywall: _paymentPaywall!,
-        ));
+    await _modalWidget.change(
+        m,
+        (context) => AdaptyEmbeddedPaywallSheet(
+              channel: this,
+              paywall: _paymentPaywall!,
+            ));
     await _modal.change(m, Modal.adaptyPaywall);
   }
 

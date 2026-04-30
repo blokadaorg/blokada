@@ -13,9 +13,12 @@
 package ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import binding.PaymentBinding
 import com.adapty.ui.AdaptyPaywallView
 
@@ -24,8 +27,12 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
     private val payment by lazy { PaymentBinding }
 
     var adaptyView: AdaptyPaywallView? = null
+    private var didAttachAdaptyView = false
 
     companion object {
+        private const val PAYWALL_MOUNT_DELAY_MS = 320L
+        private const val PAYWALL_FADE_DURATION_MS = 450L
+
         fun newInstance(view: AdaptyPaywallView): AdaptyPaymentFragment {
             val fragment = AdaptyPaymentFragment()
             fragment.adaptyView = view
@@ -51,7 +58,48 @@ class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return adaptyView!!
+        val view = adaptyView ?: return FrameLayout(requireContext())
+        return FrameLayout(requireContext()).apply {
+            layoutParams =
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+            minimumHeight = resources.displayMetrics.heightPixels
+
+            val loader = ProgressBar(context).apply {
+                isIndeterminate = true
+            }
+            addView(
+                loader,
+                FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER
+                )
+            )
+
+            postDelayed({
+                if (!isAdded || didAttachAdaptyView) return@postDelayed
+                didAttachAdaptyView = true
+                (view.parent as? ViewGroup)?.removeView(view)
+                view.alpha = 0f
+                addView(
+                    view,
+                    0,
+                    FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                )
+                view.animate().alpha(1f).setDuration(PAYWALL_FADE_DURATION_MS).start()
+                loader.animate()
+                    .alpha(0f)
+                    .setDuration(PAYWALL_FADE_DURATION_MS)
+                    .withEndAction { removeView(loader) }
+                    .start()
+            }, PAYWALL_MOUNT_DELAY_MS)
+        }
     }
 
     override fun onDestroy() {
