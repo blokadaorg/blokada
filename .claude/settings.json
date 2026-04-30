@@ -1,4 +1,12 @@
 {
+  "extraKnownMarketplaces": {
+    "blokada-workflows": {
+      "source": { "source": "github", "repo": "blokadaorg/workflows" }
+    }
+  },
+  "enabledPlugins": {
+    "blokada@blokada-workflows": true
+  },
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "900000"
   },
