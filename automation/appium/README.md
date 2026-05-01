@@ -22,6 +22,50 @@ against the Blokada 6 iOS app on physical devices.
    
 After this, Appium can build WDA on demand using the same signing profile.
 
+## Host Mac: Full Disk Access for `/var/db/lockdown/`
+
+Appium's XCUITest driver reads the iPhone pair record from
+`/var/db/lockdown/<UDID>.plist`. On macOS Ventura and newer that path is a
+TCC-protected data vault, so the process running Appium must be granted **Full
+Disk Access** or it will fail at session start with:
+
+```
+WebDriverError: Could not find a pair record for device '<UDID>'.
+Please first pair with the device …
+```
+
+Even if `idevicepair pair` reports `SUCCESS` and Xcode shows the device as
+paired, Appium still cannot read the file without FDA.
+
+Setup on every host that runs the suite (especially CI Macs):
+
+1. *System Settings ▸ Privacy & Security ▸ Full Disk Access* → add and enable
+   the terminal app the suite is launched from (Terminal.app, iTerm2, Ghostty,
+   VS Code, …). Each terminal is a separate entry — only the one you actually
+   use matters.
+2. If the suite is launched by a launchd-managed CI agent (GitHub Actions
+   self-hosted runner, Jenkins, Buildkite, …), grant FDA to the agent binary
+   itself instead — child processes inherit FDA from the parent, not from your
+   interactive Terminal. Restart the agent after granting (`launchctl
+   kickstart -k …` or logout/login).
+3. If the host is reached over SSH, grant FDA to
+   `/usr/libexec/sshd-keygen-wrapper` (use **Cmd-Shift-G** in the file picker
+   to type the path) and reconnect. Screen Sharing sessions inherit FDA from
+   the logged-in user's Terminal as expected and need no extra step.
+
+Verification — from the same shell that will run `make appium-test`:
+
+```sh
+ls -la /var/db/lockdown/<UDID>.plist
+```
+
+Must succeed **without** `sudo`. (`sudo` swaps the responsible binary and
+breaks TCC, so a working setup can still show "Operation not permitted" under
+sudo — ignore that, it doesn't matter for Appium.) Note that `ls` on the
+directory itself may still be denied even when FDA is correctly applied;
+Appium looks the file up by UDID path, not by directory enumeration, so
+reading the specific `.plist` is the only check that matters.
+
 ## Static Smoke Tests
 
 ```bash
