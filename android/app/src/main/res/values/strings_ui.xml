@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Start blocking ads in Safari</string>
     <string name="freemium_sheet_safari_desc">Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.</string>
     <string name="freemium_sheet_safari_cta">Open Safari</string>
+    <string name="freemium_sheet_safari_setup_later">Set up later</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Continue to other options</string>
     <string name="dialog_title_activity_rule">How Should Blokada Handle Traffic to %1$s?</string>
     <string name="dialog_exception_add_title">Add an Exception</string>
     <string name="dialog_exception_add_text">Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.</string>

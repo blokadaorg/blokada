@@ -568,6 +568,8 @@
     "freemium sheet safari header": "Start blocking ads in Safari",
     "freemium sheet safari desc": "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.",
     "freemium sheet safari cta": "Open Safari",
+    "freemium sheet safari setup later": "Set up later",
+    "freemium sheet safari setup later desc": "Continue to other options",
     "dialog title activity rule": "How Should Blokada Handle Traffic to %s?",
     "dialog exception add title": "Add an Exception",
     "dialog exception add text": "Enter a hostname to add to your exceptions. You can use * as a wildcard, for example *.example.com.",
