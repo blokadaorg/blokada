@@ -1,49 +1,38 @@
-🌐 Blokada: Leistungsstarker Ad Blocker, Sicheres DNS & WireGuard VPN
+🛡️ Blokada – Open-Source-Werbeblocker, verschlüsseltes DNS & WireGuard® VPN
 
-Blokada ist der vertrauenswürdige Ad Blocker, der Werbung und Tracker in all Ihren Android-Apps, Browsern und Spielen stoppt. Unsere fortschrittliche Ad Blocking-Technologie, verschlüsseltes DNS und das integrierte, protokollfreie WireGuard® VPN sorgen für ein schnelles, privates und sicheres Online-Erlebnis. Genießen Sie systemweite Ad-Blockierung und Tracking-Schutz, ohne Akku oder Daten zu belasten. Schützen Sie Android, iOS, Windows, macOS & Linux – alles mit einem einfachen Abonnement.
+Blockieren Sie Werbung, Tracker und Schadsoftware in Apps, Browsern und Spielen – nicht nur in einer Browser-Erweiterung. Blokada ist ein Open-Source-Werbeblocker mit Privacy-VPN, öffentlich entwickelt, um das Internet schnell, privat und frei von Ablenkung zu halten – ohne Ihren Akku zu belasten.
 
-🔥 Warum Blokada Ad Blocker?
+✨ Was Blokada anders macht
 
-• Systemweiter Ad Blocker – Blockieren Sie Werbung und Tracker überall: in Apps, Browsern und Spielen
-• Von der Community verifiziert – Open-Source-Adblocker-Technologie, weltweit bewährt
-• Sicheres DNS-Filtering – Verschlüsseln Sie DNS-Anfragen über TLS/HTTPS zum Schutz Ihrer Privatsphäre
-• Integriertes WireGuard VPN – Das protokollfreie VPN hält Ihre Internetnutzung privat und sicher
-• Cloud-basierte Ad Blocking Filter – Automatische Updates ohne Akkubelastung
-• Optimierte Performance – Schnellere Ladezeiten, weniger Datenverbrauch, minimale Auswirkung auf den Akku
+• Cloud-basiertes Filtern – Werbung wird blockiert, bevor sie Ihr Gerät erreicht. Kein Akku- oder Datenoverhead.
+• Integriertes WireGuard®-VPN – modern, schnell, ohne Logs. Verschlüsseln Sie Ihren Datenverkehr per Antippen.
+• Verschlüsseltes DNS – DNS-over-TLS hält Ihre Anfragen vor Ihrem Netzwerk geheim.
+• Ein Abo, alle Geräte – Android, iOS, Windows, macOS, Linux. Wechseln Sie frei zwischen ihnen.
+• Systemweiter Schutz – Blockieren auf DNS-Ebene in Apps, Browsern und Spielen.
 
-🌟 Hauptfunktionen des Blokada Ad Blockers
+🚀 Was Sie davon haben
 
-• Fortschrittliches Ad Blocking – Blockieren Sie störende Werbung, aufdringliche Tracker und Malware systemweit
-• Tracker-Control-Dashboard – Sehen Sie blockierte Tracker und entscheiden Sie, was erlaubt wird
-• Sicheres, verschlüsseltes DNS – Blockieren Sie schädliche Domains und Tracker, bevor sie laden
-• Integriertes VPN mit WireGuard – Schnelles, sicheres, privates Surfen auch im öffentlichen WLAN
-• Anpassbares Ad Blocking – Aktivieren Sie leistungsstarke Filterlisten für präzisen Schutz
-• Detaillierte Einblicke – Optional detaillierte Logs zu blockierten Anfragen und Datenschutzleistung
+• Schnellere Ladezeiten und weniger Datenverbrauch
+• Längere Akkulaufzeit
+• Starker Schutz vor schädlichen Seiten und Phishing
+• Aktivität in der App – sehen Sie, was blockiert wird, und erlauben Sie, was Sie wollen
+• Anpassbare Filterlisten, einschließlich von der Community gepflegter Listen
+• Schutz im öffentlichen WLAN durch das integrierte VPN
 
-🛡️ Datenschutz & Transparenz
+⚙️ So funktioniert es
 
-Blokadas protokollfreies VPN und verschlüsseltes DNS gewährleisten maximalen Datenschutz. Ad Blocking und DNS-Filtering erfolgen sicher in der Cloud und reduzieren Akku- sowie Datenverbrauch. Als Open-Source-Ad Blocker ist Blokada von der Community geprüft und weltweit für Datenschutz und Datensicherheit anerkannt. Weitere Informationen finden Sie in unseren Nutzungsbedingungen und unserer Datenschutzrichtlinie auf der Website.
+Blokada Cloud blockiert Werbung und Tracker auf DNS-Ebene – schnell, leichtgewichtig, zuverlässig. Mit Blokada Plus erhalten Sie zusätzlich das WireGuard®-VPN ohne Logs, das Ihren gesamten Datenverkehr in unserem globalen Netzwerk verschlüsselt.
 
-⚡ Performance-optimierter Ad Blocker & VPN
+🎯 Für wen
 
-Blokada sorgt für ein schnelleres, sichereres und werbefreies Internet. Unsere optimierte Ad Blocking-Technologie reduziert Datenverbrauch, erhöht die Surfgeschwindigkeit und minimiert den Akkuverbrauch – für reibungsloses Arbeiten und mehr Privatsphäre.
+• Alle, die ein schnelleres, ruhigeres Internet wollen
+• Datenschutzbewusste Nutzer, die sehen wollen, wer sie verfolgt
+• Reisende und Remote-Worker im öffentlichen WLAN
+• Open-Source-Fans, die undurchsichtigen Adblockern misstrauen
 
-🚀 Einfach eingerichtet – Sofort starten!
+Übernehmen Sie die Kontrolle über Ihr Internet. Blockieren Sie Werbung, verschlüsseln Sie Ihren Datenverkehr und schützen Sie Ihre Privatsphäre – mit einer einzigen App.
 
-1. Laden Sie den Blokada Ad Blocker aus dem Google Play Store herunter
-2. Aktivieren Sie Ad Blocking, verschlüsseltes DNS und VPN-Schutz
-3. Surfen, nutzen Sie Apps und spielen Sie werbefrei und privat!
+----
 
-🎯 Wer profitiert besonders vom Blokada Ad Blocker?
-
-• Datenschutzbewusste Nutzer – blockieren Tracker und schützen persönliche Daten
-• Power-User – entfernen Werbung und beschleunigen das Surfen
-• Gamer – weniger Ablenkung und bessere Performance durch Ad Blocker
-• Vielreisende – bleiben Sie sicher im öffentlichen WLAN mit VPN und verschlüsseltem DNS
-
-🌈 Übernehmen Sie heute die Kontrolle über Ihre Online-Privatsphäre und Sicherheit – mit dem branchenführenden Ad Blocker, verschlüsseltem DNS und sicherem VPN von Blokada. Laden Sie Blokada jetzt herunter und erleben Sie das Internet ohne Werbung und Tracker!
-
----
-
-**Nutzungsbedingungen:** https://go.blokada.org/terms
-**Datenschutzrichtlinie:** https://go.blokada.org/privacy
+Nutzungsbedingungen: https://go.blokada.org/terms
+Datenschutzrichtlinie: https://go.blokada.org/privacy

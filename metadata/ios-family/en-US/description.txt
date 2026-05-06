@@ -1,30 +1,38 @@
-This app provides a safe and controlled browsing environment for the whole family. While delivering the ad-blocking that Blokada is famous for, it also empowers parents to create a digital space where children can explore the internet safely and securely.
+🛡️ Blokada Family — Cross-Device Parental Controls, Built on Blokada's Trusted Privacy Stack
 
----
+Keep your kids safe online without forcing your whole family onto the same platform. Blokada Family gives you cross-device parental controls, built on the same open-source ad-blocking and privacy stack that powers Blokada.
 
-Key Features:
+✨ Why Blokada Family
 
-- Parental Control: Customize your children’s online access, effectively blocking inappropriate and harmful websites and apps.
-- Safe Browsing: While still providing an ad-blocking feature, the primary focus is on safe browsing, ensuring children are exposed to only appropriate content.
-- Malware Protection: Actively blocks sites known for malicious content, viruses, and fraudulent activities.
-- DNS-based Interception: Offers comprehensive protection across all modern browsers and apps.
-- Enhanced Efficiency: Reduces data usage and improves battery life by loading less data.
+• One parent app, many child devices — manage your kids' phones and tablets from one place, regardless of platform.
+• App and content blocker — block apps, websites, and entire categories with a tap.
+• Live activity stats — see what is being blocked on each device and adjust as you go.
+• SafeSearch enforcement — search engines return only age-appropriate, filtered results.
+• Customizable per-device rules — fine-tune what is allowed for every child.
+• Built-in ad and tracker blocking — every protected device gets the full Blokada experience as a bonus.
 
-Beyond Just Ad-Blocking:
+🛡️ What it protects against
 
-- Comprehensive Content Filtering: Filters out adult content, gambling websites, and aggressive advertising networks to maintain a child-friendly browsing experience.
-- SafeSearch Enforcement: Ensures that search engines filter out explicit content, providing a safer search experience for children.
-- Activity Monitoring: Enables parents to monitor accessed websites, offering insight into online behavior and ensuring a secure browsing experience.
-- Customizable Controls: Gives parents the flexibility to customize what is blocked or allowed, tailoring the internet experience to suit your family's needs.
-- Social Media and Tracker Blocking: Shields against trackers from various networks, protecting your family’s digital footprint.
-- Robust Website Filtering: Advanced protection against digital threats by blocking access to malicious websites.
+• Inappropriate or harmful websites and apps
+• Adult, gambling, and violent content categories
+• Trackers and ads from social-media networks
+• Malicious and phishing sites
+• Unfiltered, distracting search results
 
----
+🚀 Easy to set up
 
-Creating a Safer Internet for Your Family
+1. Install Blokada Family on the parent's device.
+2. Add each child's device.
+3. Choose the rules — categories, apps, and search filters per child.
+4. Watch the live stats and adjust as your family grows.
 
-With Blokada Family, ensure a safe and secure online experience for your children, making the internet a conducive space for learning and fun.
+🌍 Designed for modern families
+
+Built for families with mixed devices and changing needs. One app, every child, full control — whether your kids are on iPhone or Android.
+
+Give your family a calmer, safer internet — without giving up flexibility.
+
+----
 
 Terms of Use: https://go.blokada.org/terms_family
 Privacy Policy: https://go.blokada.org/privacy_family
-

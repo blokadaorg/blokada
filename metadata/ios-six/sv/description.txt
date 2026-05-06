@@ -1,0 +1,38 @@
+🛡️ Blokada — Annonsblockerare med öppen källkod, krypterad DNS och WireGuard® VPN
+
+Blockera annonser, trackers och skadlig kod i appar, på webben och i spel — inte bara inuti din webbläsare. Blokada är en integritetsapp med öppen källkod, byggd öppet för att hålla nätet snabbt, privat och rent — utan att tömma batteriet.
+
+✨ Det här skiljer Blokada från andra
+
+• Molnbaserad filtrering — annonserna stoppas innan de når din enhet, så varken batteri eller surf belastas.
+• Inbyggt WireGuard® VPN — modernt, snabbt, utan loggar. Kryptera all din trafik med en knapptryckning.
+• Krypterad DNS — DNS-over-HTTPS gör att dina DNS-uppslag inte syns för nätverket du är uppkopplad mot.
+• Ett abonnemang, alla enheter — Android, iOS, Windows, macOS, Linux. Hoppa fritt mellan dem.
+• Systemövergripande skydd — DNS-baserad blockering i appar, på webben och i spel.
+
+🚀 Det här får du
+
+• Snabbare sidladdningar och lägre datatrafik
+• Längre batteritid på mobilen
+• Starkt skydd mot skadliga sajter och nätfiske
+• Aktivitet i appen — se vad som blockeras, släpp igenom det du vill
+• Anpassningsbara filterlistor, inklusive community-underhållna
+• Skydd på publika Wi-Fi via den inbyggda VPN-tjänsten
+
+⚙️ Så fungerar det
+
+Blokada Cloud blockerar annonser och trackers på DNS-nivå — snabbt, lätt och stabilt. Uppgradera till Blokada Plus för WireGuard®-VPN utan loggar, som krypterar all din trafik via vårt globala nätverk.
+
+🎯 Byggd för
+
+• Dig som vill ha ett snabbare och lugnare nät
+• Integritetsmedvetna som vill se vem som spårar dem
+• Resenärer och distansjobbare på publika Wi-Fi
+• Open source-entusiaster som inte litar på stängda annonsblockerare
+
+Ta tillbaka kontrollen över ditt internet. Blockera annonser, kryptera din trafik och skydda din integritet — allt i en app.
+
+----
+
+Användarvillkor: https://go.blokada.org/terms
+Integritetspolicy: https://go.blokada.org/privacy

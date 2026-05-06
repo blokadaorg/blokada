@@ -1,30 +1,38 @@
-Diese App bietet eine sichere und kontrollierte Browserumgebung für die ganze Familie. Während sie die für Blokada bekannte Werbeblockierung liefert, ermöglicht sie es Eltern, einen digitalen Raum zu schaffen, in dem Kinder das Internet sicher und geschützt erkunden können.
+🛡️ Blokada Family — Geräteübergreifende Kindersicherung, aufgebaut auf Blokadas bewährter Plattform
 
----
+Schützen Sie Ihre Kinder online, ohne dass alle in Ihrer Familie auf derselben Plattform sein müssen. Blokada Family bietet Ihnen geräteübergreifende Kindersicherung – aufgebaut auf demselben Open-Source-Fundament für Werbeblocker und Privatsphäre, das auch Blokada antreibt.
 
-Hauptfunktionen:
+✨ Warum Blokada Family
 
-- Kindersicherung: Passen Sie den Internetzugang Ihrer Kinder an, indem Sie unangemessene und schädliche Websites und Apps effektiv blockieren.
-- Sicheres Surfen: Neben der Bereitstellung einer Werbeblocker-Funktion liegt der Hauptfokus auf sicherem Surfen, um sicherzustellen, dass Kinder nur geeigneten Inhalten ausgesetzt werden.
-- Malware-Schutz: Blockiert aktiv Websites, die für schädliche Inhalte, Viren und betrügerische Aktivitäten bekannt sind.
-- DNS-basierte Abfangung: Bietet umfassenden Schutz in allen modernen Browsern und Apps.
-- Verbesserte Effizienz: Reduziert den Datenverbrauch und verbessert die Akkulaufzeit, indem weniger Daten geladen werden.
+• Eine Eltern-App, viele Kindergeräte – verwalten Sie die Smartphones und Tablets Ihrer Kinder von einem Ort aus, plattformunabhängig.
+• App- und Inhalts-Blocker – blockieren Sie Apps, Webseiten und ganze Kategorien per Antippen.
+• Live-Aktivitätsstatistiken – sehen Sie, was auf jedem Gerät blockiert wird, und passen Sie die Regeln laufend an.
+• SafeSearch immer aktiv – Suchmaschinen liefern nur altersgerechte, gefilterte Ergebnisse.
+• Anpassbare Regeln pro Gerät – feinjustieren Sie für jedes Kind, was erlaubt ist.
+• Eingebauter Werbe- und Tracker-Schutz – jedes geschützte Gerät bekommt zusätzlich das volle Blokada-Erlebnis.
 
-Mehr als nur Werbeblocker:
+🛡️ Wovor es schützt
 
-- Umfassende Inhaltsfilterung: Filtert Erwachseneninhalte, Glücksspielseiten und aggressive Werbenetzwerke heraus, um ein kinderfreundliches Browsererlebnis zu gewährleisten.
-- SafeSearch-Durchsetzung: Stellt sicher, dass Suchmaschinen explizite Inhalte herausfiltern und bietet eine sicherere Sucherfahrung für Kinder.
-- Aktivitätsüberwachung: Ermöglicht es Eltern, besuchte Websites zu überwachen, bietet Einblicke in das Online-Verhalten und gewährleistet ein sicheres Browsererlebnis.
-- Anpassbare Kontrollen: Gibt Eltern die Flexibilität, anzupassen, was blockiert oder erlaubt wird, und das Interneterlebnis an die Bedürfnisse Ihrer Familie anzupassen.
-- Blockierung von sozialen Medien und Trackern: Schützt vor Trackern aus verschiedenen Netzwerken und schützt den digitalen Fußabdruck Ihrer Familie.
-- Robuste Website-Filterung: Bietet fortschrittlichen Schutz vor digitalen Bedrohungen, indem der Zugriff auf schädliche Websites blockiert wird.
+• Unangemessene oder schädliche Webseiten und Apps
+• Inhaltskategorien wie Erwachsene, Glücksspiel und Gewalt
+• Tracker und Werbung aus sozialen Netzwerken
+• Schädliche und Phishing-Seiten
+• Ungefilterte, ablenkende Suchergebnisse
 
----
+🚀 Einfach einzurichten
 
-Ein sicheres Internet für Ihre Familie schaffen
+1. Installieren Sie Blokada Family auf dem Gerät der Eltern.
+2. Fügen Sie das Gerät jedes Kindes hinzu.
+3. Wählen Sie die Regeln – Kategorien, Apps und Suchfilter pro Kind.
+4. Verfolgen Sie die Live-Statistiken und passen Sie an, wenn Ihre Familie wächst.
 
-Mit Blokada Family können Sie eine sichere und geschützte Online-Erfahrung für Ihre Kinder gewährleisten und das Internet zu einem förderlichen Raum für Lernen und Spaß machen.
+🌍 Für moderne Familien gemacht
+
+Entwickelt für Familien mit gemischten Geräten und sich verändernden Bedürfnissen. Eine App, jedes Kind, volle Kontrolle – egal ob iPhone oder Android.
+
+Schenken Sie Ihrer Familie ein ruhigeres, sichereres Internet – ohne auf Flexibilität zu verzichten.
+
+----
 
 Nutzungsbedingungen: https://go.blokada.org/terms_family
 Datenschutzrichtlinie: https://go.blokada.org/privacy_family
-

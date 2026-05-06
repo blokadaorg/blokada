@@ -1,35 +1,38 @@
-Dies ist die offizielle App im App Store vom Blokada Open-Source-Projekt.
+🛡️ Blokada – Open-Source-Werbeblocker, verschlüsseltes DNS & WireGuard® VPN
 
-Blokada für iOS verwendet DNS (Domain Name System), um Ihnen eine werbefreie Erfahrung zu ermöglichen, sodass Sie nur die Inhalte sehen, die Sie möchten.
+Blockieren Sie Werbung, Tracker und Schadsoftware in Apps, Browsern und Spielen – nicht nur in Ihrem Browser. Blokada ist eine Open-Source-Privacy-App, öffentlich entwickelt, um das Internet schnell, privat und frei von Ablenkung zu halten – ohne Ihren Akku zu belasten.
 
-Nutzen Sie Blokada Cloud, um Werbung und Tracker zu blockieren, während Ihr DNS-Verkehr vertraulich bleibt.
+✨ Was Blokada anders macht
 
-Upgraden Sie zu Blokada Plus, um den gesamten Datenverkehr mit unserem globalen VPN-Netzwerk zu verschlüsseln. Verbessern Sie Ihre Privatsphäre und sichern Sie Ihr Internet gegen Cyberangriffe und Hacker.
+• Cloud-basiertes Filtern – Werbung wird blockiert, bevor sie Ihr Gerät erreicht. Kein Akku- oder Datenoverhead.
+• Integriertes WireGuard®-VPN – modern, schnell, ohne Logs. Verschlüsseln Sie Ihren Datenverkehr per Antippen.
+• Verschlüsseltes DNS – DNS-over-HTTPS hält Ihre Anfragen vor Ihrem Netzwerk geheim.
+• Ein Abo, alle Geräte – Android, iOS, Windows, macOS, Linux. Wechseln Sie frei zwischen ihnen.
+• Systemweiter Schutz – Blockieren auf DNS-Ebene in Apps, Browsern und Spielen.
+
+🚀 Was Sie davon haben
+
+• Schnellere Ladezeiten und weniger Datenverbrauch
+• Längere Akkulaufzeit
+• Starker Schutz vor schädlichen Seiten und Phishing
+• Aktivität in der App – sehen Sie, was blockiert wird, und erlauben Sie, was Sie wollen
+• Anpassbare Filterlisten, einschließlich von der Community gepflegter Listen
+• Schutz im öffentlichen WLAN durch das integrierte VPN
+
+⚙️ So funktioniert es
+
+Blokada Cloud blockiert Werbung und Tracker auf DNS-Ebene – schnell, leichtgewichtig, zuverlässig. Mit Blokada Plus erhalten Sie zusätzlich das WireGuard®-VPN ohne Logs, das Ihren gesamten Datenverkehr in unserem globalen Netzwerk verschlüsselt.
+
+🎯 Für wen
+
+• Alle, die ein schnelleres, ruhigeres Internet wollen
+• Datenschutzbewusste Nutzer, die sehen wollen, wer sie verfolgt
+• Reisende und Remote-Worker im öffentlichen WLAN
+• Open-Source-Fans, die undurchsichtigen Adblockern misstrauen
+
+Übernehmen Sie die Kontrolle über Ihr Internet. Blockieren Sie Werbung, verschlüsseln Sie Ihren Datenverkehr und schützen Sie Ihre Privatsphäre – mit einer einzigen App.
 
 ----
 
-Top-Funktionen:
-
-- Unterstützt Werbeblocker für jeden Webbrowser und jede installierte App.
-- Blockiert Websites, die schädliche Inhalte, Viren und betrügerische Seiten verbreiten.
-- DNS-basierte Abfangmethode für alle modernen Browser und Apps.
-- Schnelles und zuverlässiges VPN, das Ihre Privatsphäre schützt und Ihre Daten verschlüsselt.
-
-Der kompatibelste Werbeblocker auf dem Markt!
-
-• Blockiert Werbung
-• Spart Ihr Datenvolumen
-• Surfen Sie SCHNELLER, indem weniger Daten geladen werden
-• Verlängern Sie Ihre Akkulaufzeit
-
-Was kann blockiert werden?
-• Nervige Werbung blockieren: Google AdWords, Google Invite Media, DoubleClick Bid Manager, Liftoff, Bing Ads, Amazon usw.
-• Websites für Erwachsene blockieren
-• Glücksspielseiten blockieren
-• Social-Media-Tracker blockieren: Google Analytics, Facebook Connect, DoubleClick, Google Publisher Tags, Google AdSense, Twitter Button, Yandex.Metrix, Comscore
-• Schädliche Websites blockieren: Viren-Downloads, schädliche Inhalte, betrügerische Websites und manipulierte Apps
-
-----
-
-Nutzungsbedingungen: https://go.blokada.org/terms  
-Datenschutzerklärung: https://go.blokada.org/privacy
+Nutzungsbedingungen: https://go.blokada.org/terms
+Datenschutzrichtlinie: https://go.blokada.org/privacy

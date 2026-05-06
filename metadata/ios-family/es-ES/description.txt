@@ -1,30 +1,38 @@
-Esta app proporciona un entorno de navegación seguro y controlado para toda la familia. Además de ofrecer el bloqueo de anuncios por el que Blokada es famoso, también permite a los padres crear un espacio digital donde los niños pueden explorar internet de manera segura.
+🛡️ Blokada Family — Control parental multidispositivo, sobre la plataforma de confianza de Blokada
 
----
+Protege a tus hijos en línea sin obligar a toda tu familia a estar en la misma plataforma. Blokada Family te ofrece control parental multidispositivo, construido sobre la misma base open source de bloqueo de anuncios y privacidad que da vida a Blokada.
 
-Funciones principales:
+✨ Por qué Blokada Family
 
-- Control parental: Personaliza el acceso a Internet de tus hijos bloqueando de manera efectiva sitios web y aplicaciones inapropiados y dañinos.
-- Navegación segura: Además de ofrecer una función de bloqueo de anuncios, el enfoque principal está en la navegación segura, asegurando que los niños solo se expongan a contenido apropiado.
-- Protección contra malware: Bloquea activamente sitios conocidos por contenido malicioso, virus y actividades fraudulentas.
-- Intercepción basada en DNS: Ofrece protección integral en todos los navegadores y aplicaciones modernos.
-- Mayor eficiencia: Reduce el uso de datos y mejora la duración de la batería al cargar menos datos.
+• Una app para padres, muchos dispositivos infantiles — gestiona los móviles y tablets de tus hijos desde un único lugar, sea cual sea la plataforma.
+• Bloqueador de apps y contenidos — bloquea apps, webs y categorías enteras con un toque.
+• Estadísticas de actividad en vivo — descubre qué se está bloqueando en cada dispositivo y ajusta sobre la marcha.
+• SafeSearch siempre activo — los buscadores devuelven solo resultados filtrados y adecuados a la edad.
+• Reglas personalizables por dispositivo — ajusta con precisión qué se permite para cada hijo.
+• Bloqueo de anuncios y rastreadores incluido — cada dispositivo protegido recibe además la experiencia completa de Blokada.
 
-Más que un simple bloqueador de anuncios:
+🛡️ De qué protege
 
-- Filtrado de contenido integral: Filtra contenido para adultos, sitios de apuestas y redes publicitarias agresivas para mantener una experiencia de navegación adecuada para niños.
-- Ejecución de SafeSearch: Asegura que los motores de búsqueda filtren contenido explícito, proporcionando una experiencia de búsqueda más segura para los niños.
-- Monitoreo de actividad: Permite a los padres monitorear los sitios web visitados, ofreciendo una visión del comportamiento en línea y asegurando una experiencia de navegación segura.
-- Controles personalizables: Da a los padres la flexibilidad de personalizar lo que se bloquea o permite, adaptando la experiencia en Internet a las necesidades de su familia.
-- Bloqueo de redes sociales y rastreadores: Protege contra rastreadores de diversas redes, protegiendo la huella digital de tu familia.
-- Filtrado robusto de sitios web: Protección avanzada contra amenazas digitales bloqueando el acceso a sitios web maliciosos.
+• Webs y apps inapropiadas o dañinas
+• Categorías de contenido adulto, juego o violencia
+• Rastreadores y anuncios de redes sociales
+• Sitios maliciosos y de phishing
+• Resultados de búsqueda sin filtrar y que distraen
 
----
+🚀 Fácil de configurar
 
-Creando un Internet más seguro para tu familia
+1. Instala Blokada Family en el dispositivo del padre o la madre.
+2. Añade el dispositivo de cada hijo.
+3. Elige las reglas — categorías, apps y filtros de búsqueda para cada hijo.
+4. Mira las estadísticas en vivo y ajusta a medida que crezca tu familia.
 
-Con Blokada Family, asegúrate de que tus hijos tengan una experiencia en línea segura y protegida, haciendo de Internet un espacio propicio para el aprendizaje y la diversión.
+🌍 Diseñado para familias modernas
+
+Pensado para familias con dispositivos variados y necesidades cambiantes. Una app, cada hijo, control total — sin importar si tienen iPhone o Android.
+
+Dale a tu familia un Internet más tranquilo y seguro — sin renunciar a la flexibilidad.
+
+----
 
 Términos de uso: https://go.blokada.org/terms_family
 Política de privacidad: https://go.blokada.org/privacy_family
-
